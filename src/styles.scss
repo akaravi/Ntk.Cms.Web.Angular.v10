@@ -1,1 +1,510 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --font-size: 16px;
+  /* اندازه پیشفرض فونت */
+}
+
+.theme-font-changer,
+.ntk-cms-html-card-body {
+  /* کلاس‌هایی که می‌خواهید اندازه فونت آن‌ها تغییر کند */
+  font-size: var(--font-size);
+}
+
+.theme-font-changer {
+  transition: font-size 0.3s;
+  /* انیمیشن تغییر اندازه فونت */
+}
+
+.loader-container {
+  position: relative;
+
+}
+
+.progressOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /*opacity:0.3;*/
+  text-align: center;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.53);
+
+  /* this seems to work for me but may need to be higher*/
+  label {
+    text-shadow: 1px 1px 2px black;
+  }
+}
+
+.preloader .progressOverlay {
+  label {
+    text-shadow: 1px 1px 2px black;
+  }
+}
+
+.tree-parent .tree-child-hidden {
+  /*display: none;*/
+  display: block;
+}
+
+.tree-parent:hover .tree-child-hidden,
+.tree-parent:focus .tree-child-hidden,
+.tree-parent:focus-within .tree-child-hidden {
+  display: block;
+}
+
+.cell-ltr {
+  direction: ltr !important;
+}
+
+.input-ltr {
+  direction: ltr !important;
+}
+
+.input-ltr-center {
+  direction: ltr !important;
+  text-align: center !important;
+}
+
+.input-ltr-left {
+  direction: ltr !important;
+  text-align: left !important;
+  //float: left;
+}
+
+.input-ltr-right {
+  direction: ltr !important;
+  text-align: right !important;
+  //float: right;
+}
+/*for mat-paginator*/
+.mat-mdc-paginator-range-label {
+    direction: ltr;
+}
+/*for moadl scrol*/
+.mat-mdc-dialog-component-host {
+  display: block !important;
+}
+
+.mat-option {
+  word-wrap: break-word !important;
+  white-space: normal !important;
+  font-family: "IRANSans", "IRANYekan", Times, serif;
+}
+
+.mat-option-text {
+  line-height: initial !important;
+}
+
+.mat-mdc-dialog-container {
+  --mdc-dialog-container-color: none !important;
+}
+
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  box-shadow: none !important;
+}
+
+@keyframes jump {
+  0% {
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+  }
+
+  //40%  {transform: translate3d(0,30%,0) scale3d(.7,1.5,1);}
+  40% {
+    transform: translate3d(1%, 1%, 0) scale3d(1.01, 1.01, 1.01);
+  }
+
+  //100% {transform: translate3d(0,100%,0) scale3d(1.5,.7,1);}
+  100% {
+    transform: translate3d(2%, 2%, 0) scale3d(1.02, 1.02, 1.02);
+  }
+}
+
+.jump {
+  transform-origin: 50% 50%;
+  animation: jump .5s linear alternate infinite;
+}
+
+
+/*
+ NTK optimaze
+*/
+.timepicker{
+  direction: ltr;
+}
+.mdc-text-field {
+  padding: 0px !important;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: transparent !important;
+}
+
+.ali {
+
+  font-size: large;
+}
+*:not(input,.ntk-allow-select-text) {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.ntk-allow-select-text{
+  -webkit-touch-callout: text !important;
+  -webkit-user-select: text !important;
+  -khtml-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
+  cursor: text !important;
+}
+// .ntk-row-odd {
+//   //background-color: white !important;
+//   background: rgba(0, 0, 0, 0.020) !important;
+// }
+
+// .ntk-row-even {
+//   //background-color: #eee !important;
+//   background: rgba(0, 0, 0, 0.050) !important;
+// }
+.theme-rtl {
+  direction: rtl;
+}
+
+.theme-ltr {
+  direction: ltr;
+}
+
+/*mat-table Color Settings*/
+.theme-light mat-table {
+  color: #0f1117 !important;
+}
+
+.theme-light mat-header-row {
+  color: #0f1117 !important;
+}
+
+.theme-light mat-row {
+  color: #0f1117 !important;
+}
+
+.theme-light mat-row {
+  background: rgba(0, 0, 0, 0.020) !important;
+}
+
+.theme-light mat-row.ntk-row-odd {
+  background: rgba(0, 0, 0, 0.020) !important;
+}
+
+.theme-light mat-row.ntk-row-even {
+  background: rgba(0, 0, 0, 0.050) !important;
+}
+
+.theme-light mat-row.ntk-row-selected {
+  background: #d3d3da !important;
+}
+
+
+.theme-light mat-paginator {
+  color: #0f1117 !important;
+}
+
+.theme-dark mat-table {
+  color: #fff;
+  background-color: #0f1117 !important;
+}
+
+.theme-dark mat-header-row {
+  color: #fff;
+  background-color: #0f1117 !important;
+}
+
+.theme-dark mat-row {
+  color: #fff;
+  background-color: #1b1e29 !important;
+}
+
+.theme-dark mat-row.ntk-row-odd {
+  color: #fff;
+  background-color: #1b1e29 !important;
+}
+
+.theme-dark mat-row.ntk-row-even {
+  color: #fff;
+  background-color: #272b37 !important;
+}
+
+.theme-dark mat-row.ntk-row-selected {
+  color: #fff;
+  background: #5f6a8b !important;
+}
+
+.theme-dark mat-paginator {
+  color: #fff;
+  background-color: #0f1117 !important;
+}
+
+.theme-dark mat-paginator button {
+  background-color: #fff !important;
+}
+
+/*mat-table Color Settings*/
+
+/*mat-tree Color Settings*/
+.theme-light mat-tree {
+  color: #0f1117 !important;
+}
+
+.theme-light mat-tree-node {
+  color: #0f1117 !important;
+}
+
+.theme-light mat-tree-node {
+  background: rgba(0, 0, 0, 0.020) !important;
+}
+
+.theme-light mat-tree-node.ntk-tree-odd {
+  background: rgba(0, 0, 0, 0.020) !important;
+}
+
+.theme-light mat-tree-node.ntk-tree-even {
+  background: rgba(0, 0, 0, 0.050) !important;
+}
+
+.theme-light mat-tree-node.ntk-tree-selected {
+  background: #d3d3da !important;
+}
+
+
+.theme-dark mat-tree {
+  color: #fff;
+  background-color: #0f1117 !important;
+}
+
+.theme-dark mat-tree-node {
+  color: #fff;
+  background-color: #1b1e29 !important;
+}
+
+.theme-dark mat-tree-node.ntk-tree-odd {
+  color: #fff;
+  background-color: #1b1e29 !important;
+}
+
+.theme-dark mat-tree-node.ntk-tree-even {
+  color: #fff;
+  background-color: #272b37 !important;
+}
+
+.theme-dark mat-tree-node.ntk-tree-selected {
+  color: #fff;
+  background: #5f6a8b !important;
+}
+
+
+/*mat-tree Color Settings*/
+
+//  .ntk-col-b{
+// @extend .ali;
+//  @extend .col-xl-1;
+//   @extend .col-lg-2;
+//   @extend .col-md-3;
+//   @extend .col-sm-4;
+
+//  }
+//col-xl-1 col-lg-2 col-md-3 col-sm-4
+
+/*
+ NTK optimaze
+*/
+.cms-range-score-0::-webkit-slider-thumb {
+  background-color: rgb(255, 15, 15) !important;
+}
+
+.cms-range-score-1::-webkit-slider-thumb {
+  background-color: rgb(241, 39, 14) !important;
+}
+
+.cms-range-score-2::-webkit-slider-thumb {
+  background-color: rgb(226, 63, 12) !important;
+}
+
+.cms-range-score-3::-webkit-slider-thumb {
+  background-color: rgb(212, 87, 11) !important;
+}
+
+.cms-range-score-4::-webkit-slider-thumb {
+  background-color: rgb(197, 111, 9) !important;
+}
+
+.cms-range-score-5::-webkit-slider-thumb {
+  background-color: rgb(183, 135, 8) !important;
+}
+
+.cms-range-score-6::-webkit-slider-thumb {
+  background-color: rgb(169, 159, 6) !important;
+}
+
+.cms-range-score-7::-webkit-slider-thumb {
+  background-color: rgb(154, 183, 5) !important;
+}
+
+.cms-range-score-8::-webkit-slider-thumb {
+  background-color: rgb(140, 207, 3) !important;
+}
+
+.cms-range-score-9::-webkit-slider-thumb {
+  background-color: rgb(125, 231, 2) !important;
+}
+
+.cms-range-score-10::-webkit-slider-thumb {
+  background-color: rgb(111, 255, 0) !important;
+}
+
+.cms-cell-score-0 {
+  background-color: rgb(255, 15, 15) !important;
+}
+
+.cms-cell-score-1 {
+  background-color: rgb(241, 39, 14) !important;
+}
+
+.cms-cell-score-2 {
+  background-color: rgb(226, 63, 12) !important;
+}
+
+.cms-cell-score-3 {
+  background-color: rgb(212, 87, 11) !important;
+}
+
+.cms-cell-score-4 {
+  background-color: rgb(197, 111, 9) !important;
+}
+
+.cms-cell-score-5 {
+  background-color: rgb(183, 135, 8) !important;
+}
+
+.cms-cell-score-6 {
+  background-color: rgb(169, 159, 6) !important;
+}
+
+.cms-cell-score-7 {
+  background-color: rgb(154, 183, 5) !important;
+}
+
+.cms-cell-score-8 {
+  background-color: rgb(140, 207, 3) !important;
+}
+
+.cms-cell-score-9 {
+  background-color: rgb(125, 231, 2) !important;
+}
+
+.cms-cell-score-10 {
+  background-color: rgb(111, 255, 0) !important;
+}
+
+.cms-RecordStatusEnum-cell-1 {
+
+  font-weight: bold !important;
+  color: green !important;
+}
+
+.cms-RecordStatusEnum-cell-2 {
+  background-color: rgb(161, 161, 161) !important;
+  font-weight: bold !important;
+  color: black !important;
+}
+
+.cms-RecordStatusEnum-cell-3 {
+  background-color: rgb(124, 0, 21) !important;
+  font-weight: bold !important;
+  color: white !important;
+}
+
+.cms-RecordStatusEnum-cell-4 {
+  background-color: rgb(241, 255, 47) !important;
+  font-weight: bold !important;
+  color: #000 !important;
+}
+
+.cms-RecordStatusEnum-cell-5 {
+  background-color: rgb(255, 74, 2) !important;
+  font-weight: bold !important;
+  color: #000 !important;
+}
+
+.cms-RecordStatusEnum-cell-6 {
+  background-color: rgb(172, 194, 255) !important;
+  font-weight: bold !important;
+  color: #000 !important;
+}
+
+.cms-RecordStatusEnum-selector-1 {
+  font-weight: bold !important;
+  color: #000 !important;
+}
+
+.cms-RecordStatusEnum-selector-2 {
+  background-color: rgb(161, 161, 161) !important;
+  font-weight: bold !important;
+  color: black !important;
+}
+
+.cms-RecordStatusEnum-selector-3 {
+  background-color: rgb(124, 0, 21) !important;
+  font-weight: bold !important;
+  color: white !important;
+}
+
+.cms-RecordStatusEnum-selector-4 {
+  background-color: rgb(241, 255, 47) !important;
+  font-weight: bold !important;
+  color: #000 !important;
+}
+
+.cms-RecordStatusEnum-selector-5 {
+  background-color: rgb(255, 74, 2) !important;
+  font-weight: bold !important;
+  color: #000 !important;
+}
+
+.cms-RecordStatusEnum-selector-6 {
+  background-color: rgb(172, 194, 255) !important;
+  font-weight: bold !important;
+  color: #000 !important;
+}
+
+.dialog-fullscreen {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: 100%;
+  height: 100%;
+}
+
+.dialog-wide {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: 90%;
+}
+
+.dialog-min {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: 50%;
+}
+
+.blockquote {
+  padding: 20px;
+  box-shadow:
+    inset 0 -3em 3em rgb(0 200 0 / 30%),
+    0 0 0 2px white,
+    0.3em 0.3em 1em rgb(200 0 0 / 60%);
+}
