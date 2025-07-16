@@ -177,9 +177,8 @@ import { PrettyLinePipe } from '../core/pipe/prettyLine.pipe';
 import { LocaleDate } from '../core/pipe/local-date.pipe';
 import { LocaleDateTime } from '../core/pipe/local-date-Time.pipe';
 import { CmsTranslateModule } from '../core/i18n';
-import { PublicHelper } from '../core/helpers/publicHelper';
-import { CmsToastrService } from '../core/services/cmsToastr.service';
 import { TokenHelper } from '../core/helpers/tokenHelper';
+import { CmsHtmlWidgetComponent } from './cms-html-widget/cms-html-widget.component';
 
 
 @NgModule({
@@ -264,6 +263,7 @@ import { TokenHelper } from '../core/helpers/tokenHelper';
     CmsSmsMainApiPathSelectorComponent,
     CmsSmsMainApiNumberSelectorComponent,
     NgxQueryBuilderComponent,
+    CmsHtmlWidgetComponent,
     /** input */
     StringComponent,
     IntComponent,
@@ -499,6 +499,7 @@ import { TokenHelper } from '../core/helpers/tokenHelper';
     CmsSmsMainApiPathSelectorComponent,
     CmsSmsMainApiNumberSelectorComponent,
     NgxQueryBuilderComponent,
+    CmsHtmlWidgetComponent,
     /** input */
     StringComponent,
     IntComponent,
