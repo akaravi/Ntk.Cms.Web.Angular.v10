@@ -113,4 +113,4 @@ import { RouterModule } from '@angular/router';
     EstatePropertyHistoryService,
   ]
 })
-export class WidgetModule { }
+export class CmsModulesWidgetModule { }

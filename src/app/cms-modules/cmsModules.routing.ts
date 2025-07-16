@@ -6,14 +6,14 @@ const CmsModulesRoutes: Routes = [
   {
     path: 'core',
     loadChildren: () =>
-      import('../cms-modules/core-main/core.module').then((m) => m.CoreModule),
+      import('./core-main/core.module').then((m) => m.CoreModule),
     data: { title: 'ROUTE.CORE' },
   },
   {
     path: 'coremodule',
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('../cms-modules/core-module/coreModule.module').then(
+      import('./core-module/coreModule.module').then(
         (m) => m.CoreModuleModule
       ),
     data: { title: 'ROUTE.COREMODULELOG' },
@@ -22,7 +22,7 @@ const CmsModulesRoutes: Routes = [
     path: 'coremodulelog',
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('../cms-modules/core-module-log/core-module-log.module').then(
+      import('./core-module-log/core-module-log.module').then(
         (m) => m.CoreModuleLogModule
       ),
   },
@@ -30,7 +30,7 @@ const CmsModulesRoutes: Routes = [
     path: 'coremoduledata',
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('../cms-modules/core-module-data/core-module-data.module').then(
+      import('./core-module-data/core-module-data.module').then(
         (m) => m.CoreModuleDataModule
       ),
   },
@@ -38,7 +38,7 @@ const CmsModulesRoutes: Routes = [
     path: 'coretoken',
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('../cms-modules/core-token/core-token.module').then(
+      import('./core-token/core-token.module').then(
         (m) => m.CoreTokenModule
       ),
   },
@@ -46,7 +46,7 @@ const CmsModulesRoutes: Routes = [
     path: 'corelog',
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('../cms-modules/core-log/coreLog.module').then(
+      import('./core-log/coreLog.module').then(
         (m) => m.CoreLogModule
       ),
   },
@@ -54,7 +54,7 @@ const CmsModulesRoutes: Routes = [
     path: 'estate',
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('../cms-modules/estate/estate.module').then((m) => m.EstateModule),
+      import('./estate/estate.module').then((m) => m.EstateModule),
     data: { title: 'ROUTE.ESTATE' },
   },
 
@@ -62,7 +62,7 @@ const CmsModulesRoutes: Routes = [
     path: 'member',
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('../cms-modules/member/member.module').then((m) => m.MemberModule),
+      import('./member/member.module').then((m) => m.MemberModule),
     data: { title: 'ROUTE.MEMBER' },
   },
 
@@ -70,7 +70,7 @@ const CmsModulesRoutes: Routes = [
     path: 'application',
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('../cms-modules/application/application.module').then(
+      import('./application/application.module').then(
         (m) => m.ApplicationModule
       ),
     data: { title: 'ROUTE.APPLICATION' },
@@ -79,7 +79,7 @@ const CmsModulesRoutes: Routes = [
     path: 'apitelegram',
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('../cms-modules/api-telegram/api-telegram.module').then(
+      import('./api-telegram/api-telegram.module').then(
         (m) => m.ApiTelegramModule
       ),
   },
@@ -88,7 +88,7 @@ const CmsModulesRoutes: Routes = [
     path: 'article',
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('../cms-modules/article/article.module').then(
+      import('./article/article.module').then(
         (m) => m.ArticleModule
       ),
     data: { title: 'ROUTE.ARTICLE' },
@@ -97,7 +97,7 @@ const CmsModulesRoutes: Routes = [
     path: 'bankpayment',
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('../cms-modules/bank-payment/bank-payment.module').then(
+      import('./bank-payment/bank-payment.module').then(
         (m) => m.BankPaymentModule
       ),
   },
@@ -105,7 +105,7 @@ const CmsModulesRoutes: Routes = [
     path: 'biography',
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('../cms-modules/biography/biography.module').then(
+      import('./biography/biography.module').then(
         (m) => m.BiographyModule
       ),
   },
@@ -113,13 +113,13 @@ const CmsModulesRoutes: Routes = [
     path: 'blog',
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('../cms-modules/blog/blog.module').then((m) => m.BlogModule),
+      import('./blog/blog.module').then((m) => m.BlogModule),
   },
   {
     path: 'catalog',
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('../cms-modules/catalog/catalog.module').then(
+      import('./catalog/catalog.module').then(
         (m) => m.CatalogModule
       ),
   },
@@ -127,14 +127,14 @@ const CmsModulesRoutes: Routes = [
     path: 'hypershop',
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('../cms-modules/hyper-shop/hyper-shop.module').then(
+      import('./hyper-shop/hyper-shop.module').then(
         (m) => m.HyperShopModule
       ),
   },
   {
     path: 'linkmanagement',
     loadChildren: () =>
-      import('../cms-modules/link-management/link-management.module').then(
+      import('./link-management/link-management.module').then(
         (m) => m.LinkManagementModule
       ),
   },
@@ -143,20 +143,20 @@ const CmsModulesRoutes: Routes = [
     path: 'news',
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('../cms-modules/news/news.module').then((m) => m.NewsModule),
+      import('./news/news.module').then((m) => m.NewsModule),
   },
 
   {
     path: 'chart',
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('../cms-modules/chart/chart.module').then((m) => m.ChartModule),
+      import('./chart/chart.module').then((m) => m.ChartModule),
   },
   {
     path: 'filemanager',
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('../cms-modules/file-manager/file-manager.module').then(
+      import('./file-manager/file-manager.module').then(
         (m) => m.FileManagerModule
       ),
     data: { title: 'ROUTE.FILEMANAGER' },
@@ -165,7 +165,7 @@ const CmsModulesRoutes: Routes = [
     path: 'polling',
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('../cms-modules/polling/polling.module').then(
+      import('./polling/polling.module').then(
         (m) => m.PollingModule
       ),
   },
@@ -173,7 +173,7 @@ const CmsModulesRoutes: Routes = [
     path: 'contact',
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('../cms-modules/contact/contact.module').then(
+      import('./contact/contact.module').then(
         (m) => m.ContactModule
       ),
   },
@@ -181,13 +181,13 @@ const CmsModulesRoutes: Routes = [
     path: 'sms',
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('../cms-modules/sms/sms.module').then((m) => m.SmsModule),
+      import('./sms/sms.module').then((m) => m.SmsModule),
   },
   {
     path: 'ticketing',
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('../cms-modules/ticketing/ticketing.module').then(
+      import('./ticketing/ticketing.module').then(
         (m) => m.TicketingModule
       ),
     data: { title: 'ROUTE.TICKETING' },
@@ -196,7 +196,7 @@ const CmsModulesRoutes: Routes = [
     path: 'universalmenu',
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('../cms-modules/universal-menu/universal-menu.module').then(
+      import('./universal-menu/universal-menu.module').then(
         (m) => m.UniversalMenuModule
       ),
   },
@@ -204,7 +204,7 @@ const CmsModulesRoutes: Routes = [
     path: 'webdesigner',
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('../cms-modules/web-designer/web-designer.module').then(
+      import('./web-designer/web-designer.module').then(
         (m) => m.WebDesignerModule
       ),
   },
@@ -213,20 +213,20 @@ const CmsModulesRoutes: Routes = [
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
       import(
-        '../cms-modules/web-designer-builder/web-designer-builder.module'
+        './web-designer-builder/web-designer-builder.module'
       ).then((m) => m.WebDesignerBuilderModule),
   },
 
   {
     path: 'donate',
     loadChildren: () =>
-      import('../cms-modules/donate/donate.module').then((m) => m.DonateModule),
+      import('./donate/donate.module').then((m) => m.DonateModule),
   },
   {
     path: 'data-provider',
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('../cms-modules/data-provider/data-provider.module').then(
+      import('./data-provider/data-provider.module').then(
         (m) => m.DataProviderModule
       ),
   },
@@ -234,7 +234,7 @@ const CmsModulesRoutes: Routes = [
     path: 'api-telegram',
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('../cms-modules/api-telegram/api-telegram.module').then(
+      import('./api-telegram/api-telegram.module').then(
         (m) => m.ApiTelegramModule
       ),
   },
