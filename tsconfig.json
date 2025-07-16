@@ -1,0 +1,57 @@
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "strict": false, //default is true karavi change
+    "noImplicitOverride": false, //default is true karavi change
+    "noPropertyAccessFromIndexSignature": false, //default is true //if true  settings.username This would need to be settings["username"];
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "preserve",
+    /*karavi add*/
+    "baseUrl": "./",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "declaration": false,
+
+    "allowJs": true,
+    "checkJs": false,
+    "strictFunctionTypes": true,
+    "forceConsistentCasingInFileNames": true,
+    "strictPropertyInitialization": false,
+    "useDefineForClassFields": false
+    /*karavi add*/
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "typeCheckHostBindings": true,
+    "strictTemplates": true,
+    /*karavi add*/
+    "fullTemplateTypeCheck": true,
+    "strictAttributeTypes": false,
+    "strictSafeNavigationTypes": false,
+    "strictDomLocalRefTypes": false,
+    "strictOutputEventTypes": false,
+    "strictDomEventTypes": false,
+    "strictLiteralTypes": false,
+    "strictNullChecks": false
+    /*karavi add*/
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
+}
