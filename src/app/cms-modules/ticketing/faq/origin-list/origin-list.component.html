@@ -1,0 +1,33 @@
+<app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId"> </app-progress-spinner>
+<ng-container *ngFor="let departemenItem of dataDepartemenModelResult.listItems">
+
+  <div class="card card-style">
+    <div class="content">
+      <h4>{{departemenItem.title}}</h4>
+      <!-- <p>
+        آز آنها استفاده کنید، فوق العاده ساده است.
+      </p> -->
+    </div>
+
+    <div class="accordion" id="accordion-{{departemenItem.id}}">
+      <ng-container *ngFor="let faqItem of dataModelResult.listItems">
+        <div *ngIf="faqItem.linkTicketingDepartemenId===departemenItem.id" class="mb-0">
+          <button type="button" class="btn accordion-btn no-effect color-theme" data-bs-toggle="collapse"
+            [attr.data-bs-target]="'#collapse'+faqItem.id">
+            <i class="fa fa-cloud color-yellow-dark me-2"></i>
+            {{faqItem.question}}
+            <i class="fa fa-chevron-down font-10 accordion-icon"></i>
+          </button>
+          <div id="collapse{{faqItem.id}}" class="collapse" [attr.data-bs-parent]="'#accordion-'+departemenItem.id">
+            <div class="pt-1 pb-2 ps-3 pe-3">
+              <p [innerHTML]="faqItem.answer"></p>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+
+    </div>
+
+  </div>
+</ng-container>

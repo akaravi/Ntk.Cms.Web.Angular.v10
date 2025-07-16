@@ -1,0 +1,44 @@
+import { Component, OnInit } from '@angular/core';
+import { TokenInfoModelV3 } from 'ntk-cms-api';
+import { Subscription } from 'rxjs';
+import { PublicHelper } from 'src/app/core/helpers/publicHelper';
+import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
+import { ThemeStoreModel } from 'src/app/core/models/themeStoreModel';
+import { ThemeService } from 'src/app/core/services/theme.service';
+
+@Component({
+    selector: 'app-footer-bar',
+    templateUrl: './footer-bar.component.html',
+    styleUrls: ['./footer-bar.component.scss'],
+    standalone: false
+})
+export class FooterBarComponent implements OnInit {
+
+  constructor(
+    public tokenHelper: TokenHelper,
+    public publicHelper: PublicHelper,
+    private themeService: ThemeService
+  ) {
+    this.tokenHelper.getTokenInfoState().then((value) => {
+      this.tokenInfo = value;
+    });
+    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((value) => {
+      this.tokenInfo = value;
+
+    });
+  }
+  themeStore = new ThemeStoreModel();
+  cmsApiStoreSubscribe: Subscription;
+  tokenInfo = new TokenInfoModelV3();
+  ngOnInit(): void {
+    this.publicHelper.getStateOnChange().subscribe((value) => {
+      this.themeStore = value.themeStore;
+    });
+  }
+  ngOnDestroy() {
+    this.cmsApiStoreSubscribe.unsubscribe();
+  }
+  onActionCleanDataMenu(): void {
+    this.themeService.cleanDataMenu();
+  }
+}

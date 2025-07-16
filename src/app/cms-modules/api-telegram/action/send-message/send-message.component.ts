@@ -1,0 +1,134 @@
+
+import {
+  ChangeDetectorRef, Component, Inject, OnInit,
+  ViewChild
+} from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
+import {
+  ApiTelegramBotConfigModel, ApiTelegramBotConfigService, ApiTelegramSendMessageTodoModel, CoreEnumService, DataFieldInfoModel,
+  ErrorExceptionResultBase, FormInfoModel
+} from 'ntk-cms-api';
+import { TreeModel } from 'ntk-cms-filemanager';
+import { PublicHelper } from 'src/app/core/helpers/publicHelper';
+import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
+export class CompModel {
+  ChatIds: string;
+}
+@Component({
+    selector: 'app-apitelegram-action-send-message',
+    templateUrl: './send-message.component.html',
+    styleUrls: ['./send-message.component.scss'],
+    standalone: false
+})
+export class ApiTelegramActionSendMessageComponent implements OnInit {
+  requestLinkBotConfigId = 0;
+  constructorInfoAreaId = this.constructor.name;
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private dialogRef: MatDialogRef<ApiTelegramActionSendMessageComponent>,
+    public coreEnumService: CoreEnumService,
+    public apiTelegramBotConfigService: ApiTelegramBotConfigService,
+    private cmsToastrService: CmsToastrService,
+    public publicHelper: PublicHelper,
+    private cdr: ChangeDetectorRef,
+    public translate: TranslateService,
+  ) {
+    this.publicHelper.processService.cdr = this.cdr;
+
+
+    this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
+  }
+  @ViewChild('vform', { static: false }) formGroup: FormGroup;
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
+  compModel: CompModel = new CompModel();
+  selectFileTypeMainImage = ['jpg', 'jpeg', 'png'];
+  fileManagerTree: TreeModel;
+  appLanguage = 'fa';
+
+
+  dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
+  dataModel: ApiTelegramSendMessageTodoModel = new ApiTelegramSendMessageTodoModel();
+  formInfo: FormInfoModel = new FormInfoModel();
+
+  fileManagerOpenForm = false;
+
+
+  ngOnInit(): void {
+    if (this.data) {
+      this.requestLinkBotConfigId = +this.data.linkBotConfigId || 0;
+      this.compModel.ChatIds = this.data.ChatId + '';
+    }
+    if (this.requestLinkBotConfigId > 0) {
+      this.dataModel.botId = this.requestLinkBotConfigId;
+    }
+    this.formInfo.formTitle = this.translate.instant('TITLE.Send_Message');
+
+  }
+
+  ActionSendMessage(): void {
+    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => { this.formInfo.formAlert = str; });
+    this.formInfo.formError = '';
+    const pName = this.constructor.name + 'main';
+    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
+      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
+    });
+
+    this.apiTelegramBotConfigService.ServiceSendMessage(this.dataModel).subscribe({
+      next: (ret) => {
+        this.formInfo.formSubmitAllow = true;
+        this.dataModelResult = ret;
+        if (ret.isSuccess) {
+          this.translate.get('MESSAGE.registration_completed_successfully').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.cmsToastrService.typeSuccessAdd();
+          this.dialogRef.close({ dialogChangedDate: true });
+        } else {
+          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.formInfo.formError = ret.errorMessage;
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+        }
+        this.publicHelper.processService.processStop(pName);
+      },
+      error: (er) => {
+        this.formInfo.formSubmitAllow = true;
+        this.cmsToastrService.typeError(er);
+        this.publicHelper.processService.processStop(pName, false);
+      }
+    }
+    );
+  }
+  onFormSubmit(): void {
+    if (!this.formGroup.valid) {
+      return;
+    }
+    this.dataModel.chatId = [];
+    if (this.compModel.ChatIds && this.compModel.ChatIds.length > 0) {
+      let listChatId = this.publicHelper.SplitAllChar(this.compModel.ChatIds);
+      listChatId.forEach(element => {
+        let id = +element || 0;
+        if (id > 0) {
+          this.dataModel.chatId.push(id);
+        }
+      });
+    }
+    if (this.dataModel.chatId.length == 0) {
+      this.cmsToastrService.typeWarning(this.translate.instant('MESSAGE.Recipient_list_is_not_valid'));
+      return;
+    }
+    this.formInfo.formSubmitAllow = false;
+    this.ActionSendMessage();
+  }
+
+  onFormCancel(): void {
+    this.dialogRef.close({ dialogChangedDate: false });
+  }
+  onActionSelectorSelect(model: ApiTelegramBotConfigModel | null): void {
+    if (!model || model.id <= 0) {
+      const message = this.translate.instant('MESSAGE.Select_the_Telegram_bot');
+      this.cmsToastrService.typeErrorSelected(message);
+      return;
+    }
+    this.dataModel.botId = model.id;
+  }
+}
