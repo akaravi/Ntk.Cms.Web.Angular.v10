@@ -6,16 +6,14 @@ import { Subscription, filter, firstValueFrom } from 'rxjs';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
 import { CmsTranslationService } from 'src/app/core/i18n';
+import { LanguageFlagModel } from 'src/app/core/models/languageFlagModel';
 
 import { ThemeStoreModel } from 'src/app/core/models/themeStoreModel';
 import { CmsAuthService } from 'src/app/core/services/cmsAuth.service';
 import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-interface LanguageFlag {
-  lang: string;
-  name: string;
-  flag: string;
-  active?: boolean;
-}
+import { ThemeService } from 'src/app/core/services/theme.service';
+import { environment } from 'src/environments/environment';
+
 @Component({
   selector: 'app-menu-language',
   templateUrl: './menu-language.component.html',
@@ -32,6 +30,7 @@ export class MenuLanguageComponent implements OnInit {
     private tokenHelper: TokenHelper,
     private router: Router,
     public publicHelper: PublicHelper,
+    private themeService: ThemeService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {
@@ -45,52 +44,12 @@ export class MenuLanguageComponent implements OnInit {
       if (value?.access?.language?.length > 0)
         this.setLanguage(value.access.language);
     });
+    this.languages = environment.languages;
   }
   themeStore = new ThemeStoreModel();
+  languages: LanguageFlagModel[];
+  language: LanguageFlagModel;
 
-  language: LanguageFlag;
-  languages: LanguageFlag[] = [
-    {
-      lang: 'fa',
-      name: 'فارسی',
-      flag: './assets/media/flags/iran.svg',
-    },
-    {
-      lang: 'ar',
-      name: 'عربی',
-      flag: './assets/media/flags/united-arab-emirates.svg',
-    },
-    {
-      lang: 'en',
-      name: 'English',
-      flag: './assets/media/flags/united-states.svg',
-    },
-    {
-      lang: 'zh',
-      name: 'China',// 'Mandarin',
-      flag: './assets/media/flags/china.svg',
-    },
-    {
-      lang: 'es',
-      name: 'Spanish',
-      flag: './assets/media/flags/spain.svg',
-    },
-    {
-      lang: 'ja',
-      name: 'Japanese',
-      flag: './assets/media/flags/japan.svg',
-    },
-    {
-      lang: 'de',
-      name: 'German',
-      flag: './assets/media/flags/germany.svg',
-    },
-    {
-      lang: 'fr',
-      name: 'French',
-      flag: './assets/media/flags/france.svg',
-    }
-  ];
   cmsApiStoreSubscribe: Subscription;
   tokenInfo: TokenInfoModelV3 = new TokenInfoModelV3();
   ngOnInit(): void {
@@ -142,7 +101,7 @@ export class MenuLanguageComponent implements OnInit {
               if (ret.item.access.language === lang) {
                 this.cmsToastrService.toastr.success(this.translate.instant('MESSAGE.New_language_acess_confirmed'), title);
                 firstValueFrom(this.translate.use(ret.item.access.language));
-                this.themeStore.dataMenu='';
+                this.themeService.cleanDataMenu();
               } else {
                 this.cmsToastrService.toastr.warning(this.translate.instant('ERRORMESSAGE.MESSAGE.New_language_acess_denied'), title);
               }
@@ -164,7 +123,7 @@ export class MenuLanguageComponent implements OnInit {
   }
 
   setLanguage(lang: string): void {
-    this.languages.forEach((language: LanguageFlag) => {
+    this.languages.forEach((language: LanguageFlagModel) => {
       if (language.lang === lang) {
         language.active = true;
         this.language = language;

@@ -4,11 +4,12 @@
 //test karavi indonarimani
 import { DeviceTypeEnum, OperatingSystemTypeEnum } from "ntk-cms-api";
 import { EnvironmentModel } from '../app/core/models/environmentModel';
+import { LanguageFlagModel } from "src/app/core/models/languageFlagModel";
 
 
 declare var require: any;
 
-export const environment :EnvironmentModel= {
+export const environment: EnvironmentModel = {
   production: true,
   checkAccess: false,
   consoleLog: false,
@@ -42,7 +43,48 @@ export const environment :EnvironmentModel= {
     exitAnimationDuration: '1000ms'
   },
   USERDATA_KEY: 'authf649fc9a5f55',
-
+  languages: [
+    {
+      lang: 'fa',
+      name: 'فارسی',
+      flag: './assets/media/flags/iran.svg',
+    },
+    {
+      lang: 'ar',
+      name: 'عربی',
+      flag: './assets/media/flags/united-arab-emirates.svg',
+    },
+    {
+      lang: 'en',
+      name: 'English',
+      flag: './assets/media/flags/united-states.svg',
+    },
+    {
+      lang: 'zh',
+      name: 'China',// 'Mandarin',
+      flag: './assets/media/flags/china.svg',
+    },
+    {
+      lang: 'es',
+      name: 'Spanish',
+      flag: './assets/media/flags/spain.svg',
+    },
+    {
+      lang: 'ja',
+      name: 'Japanese',
+      flag: './assets/media/flags/japan.svg',
+    },
+    {
+      lang: 'de',
+      name: 'German',
+      flag: './assets/media/flags/germany.svg',
+    },
+    {
+      lang: 'fr',
+      name: 'French',
+      flag: './assets/media/flags/france.svg',
+    }
+  ]
 
 };
 

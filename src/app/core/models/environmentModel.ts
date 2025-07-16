@@ -1,4 +1,5 @@
 import { DeviceTypeEnum, OperatingSystemTypeEnum } from "ntk-cms-api"
+import { LanguageFlagModel } from "./languageFlagModel"
 
 export interface EnvironmentModel{
    production: boolean,
@@ -14,6 +15,7 @@ export interface EnvironmentModel{
     cmsServerConfig:EnvironmentCmsServerConfig, 
     cmsTokenConfig: EnvironmentCmsTokenConfig,
     cmsViewConfig: EnvironmentCmsViewConfig,
+    languages: LanguageFlagModel[],
     USERDATA_KEY: string,
 }
 export interface EnvironmentCmsServerConfig{
