@@ -4,19 +4,21 @@ import { Subscription } from 'rxjs';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
 import { ThemeStoreModel } from 'src/app/core/models/themeStoreModel';
+import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 import { ThemeService } from 'src/app/core/services/theme.service';
 
 @Component({
-    selector: 'app-footer-bar',
-    templateUrl: './footer-bar.component.html',
-    styleUrls: ['./footer-bar.component.scss'],
-    standalone: false
+  selector: 'app-footer-bar',
+  templateUrl: './footer-bar.component.html',
+  styleUrls: ['./footer-bar.component.scss'],
+  standalone: false
 })
 export class FooterBarComponent implements OnInit {
 
   constructor(
     public tokenHelper: TokenHelper,
     public publicHelper: PublicHelper,
+    private cmsStoreService: CmsStoreService,
     private themeService: ThemeService
   ) {
     this.tokenHelper.getTokenInfoState().then((value) => {
@@ -24,19 +26,23 @@ export class FooterBarComponent implements OnInit {
     });
     this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((value) => {
       this.tokenInfo = value;
-
     });
+    this.unsubscribe.push(this.cmsStoreService.getState((state) => state.themeStore).subscribe(async (value) => {
+      this.themeStore = value;
+    }));
   }
   themeStore = new ThemeStoreModel();
   cmsApiStoreSubscribe: Subscription;
   tokenInfo = new TokenInfoModelV3();
+  private unsubscribe: Subscription[] = [];
+
   ngOnInit(): void {
-    this.publicHelper.getStateOnChange().subscribe((value) => {
-      this.themeStore = value.themeStore;
-    });
+
   }
   ngOnDestroy() {
     this.cmsApiStoreSubscribe.unsubscribe();
+    if (this.unsubscribe)
+      this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   onActionCleanDataMenu(): void {
     this.themeService.cleanDataMenu();

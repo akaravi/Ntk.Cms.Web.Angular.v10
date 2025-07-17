@@ -37,9 +37,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-estate-property-edit',
-    templateUrl: './edit.component.html',
-    standalone: false
+  selector: 'app-estate-property-edit',
+  templateUrl: './edit.component.html',
+  standalone: false
 })
 export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropertyService, EstatePropertyModel, string>
   implements OnInit, OnDestroy {
@@ -52,7 +52,7 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
     public estatePropertyService: EstatePropertyService,
     public estatePropertyDetailGroupService: EstatePropertyDetailGroupService,
     private cmsToastrService: CmsToastrService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private router: Router,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -67,9 +67,9 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
-    this.publicHelper.getStateOnChange().subscribe((value) => {
-      this.connectionStatus = value.connectionStatusStore;
-    });
+    this.unsubscribe.push(this.cmsStoreService.getState((state) => state.connectionStatusStore).subscribe(async (value) => {
+      this.connectionStatus = value;
+    }));
   }
   connectionStatus = new ConnectionStatusModel();
   @ViewChild('vform', { static: false }) formGroup: FormGroup;
@@ -117,6 +117,7 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
   step = 0;
   hidden = true;
   cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
     if (this.requestId.length <= 0) {
@@ -141,6 +142,8 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
     if (this.cmsApiStoreSubscribe) {
       this.cmsApiStoreSubscribe.unsubscribe();
     }
+    if (this.unsubscribe)
+      this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 
   getEstateContractType(): void {
@@ -298,7 +301,7 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
         if (ret.isSuccess) {
           this.translate.get('MESSAGE.registration_completed_successfully').subscribe((str: string) => { this.formInfo.formAlert = str; });
           this.cmsToastrService.typeSuccessEdit();
-          if ((this.tokenHelper.CheckIsAdmin() || this.tokenHelper.CheckIsSupport() || this.tokenHelper.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerCpSite || this.tokenHelper.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerEmployeeCpSite)
+          if ((this.tokenHelper.isAdminSite || this.tokenHelper.isSupportSite || this.tokenHelper.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerCpSite || this.tokenHelper.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerEmployeeCpSite)
             && (forcePopupMessageAction || (this.dataModel.recordStatus == RecordStatusEnum.Available && this.dataModel.recordStatus != this.lastRecordStatus))) {
             var panelClass = '';
             if (this.tokenHelper.isMobile)
@@ -665,7 +668,7 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
     this.dataModelCorCurrencySelector = model;
     this.contractDataModel.linkCoreCurrencyId = model.id;
     //
-    if (this.tokenHelper.CheckIsAdmin() && this.contractTypeSelected.allowPriceInquiryCalculate) {
+    if (this.tokenHelper.isAdminSite && this.contractTypeSelected.allowPriceInquiryCalculate) {
       this.onActionPriceInquiryList()
     }
   }

@@ -107,7 +107,6 @@ export class EstateCustomerOrderResponsibleUserListComponent extends ListBaseCom
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
-      this.tokenHelper.CheckIsAdmin();
     }
 
     this.cmsApiStoreSubscribe = this.tokenHelper
@@ -115,9 +114,7 @@ export class EstateCustomerOrderResponsibleUserListComponent extends ListBaseCom
       .subscribe({
         next: (ret) => {
           this.tokenInfo = ret;
-
           this.DataGetAll();
-          this.tokenHelper.CheckIsAdmin();
         }
       });
   }

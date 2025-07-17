@@ -54,7 +54,6 @@ export class NewsContentListComponent extends ListBaseComponent<NewsContentServi
     });
     if (this.tokenInfo) {
       this.DataGetAll();
-      this.tokenHelper.CheckIsAdmin();
     }
     this.optionsSearch.parentMethods = {
       onSubmit: (model) => this.onSubmitOptionsSearch(model),

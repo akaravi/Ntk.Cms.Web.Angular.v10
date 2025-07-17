@@ -32,6 +32,7 @@ import { ComponentsModule } from './components/components.module';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from './shared/shared.module';
 import { CmsAuthService } from './core/services/cmsAuth.service';
+import { KeyboardEventF9 } from './core/models/constModel';
 
 @Component({
   selector: 'app-root',
@@ -72,6 +73,10 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     ) {
       this.coreAuthService.setConfig(environment.cmsServerConfig.configApiServerPath, environment.appVersion);
     };
+    this.tokenHelper.ctorAppMain();
+    this.themeService.ctorAppMain();
+
+
     /**MAIN cmsStoreService.getState MAIN*/
     this.unsubscribe.push(this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       if (this.tokenInfo?.access)
@@ -88,16 +93,13 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
       this.tokenInfo = value;
     }));
 
-    //k:by karavi for test//     
     this.themeService.updateInnerSize();
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
         //do something on start activity
         if (environment.consoleLog)
           console.log('NavigationStart')
-        //k:by karavi for test//
         this.themeService.onNavigationStartAppComponent();
-
       }
       if (event instanceof NavigationError) {
         // Handle error
@@ -147,34 +149,14 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
   title = 'ntk-cms-web';
   constructorInfoAreaId = this.constructor.name;
   process$: Observable<ProcessModel>;
-  cmsApiStoreSubscribe: Subscription;
   dataSupportModelResult: ErrorExceptionResult<CoreSiteSupportModel>;
   tokenInfo: TokenInfoModelV3 = new TokenInfoModelV3();
   ngOnInit() {
-    this.tokenHelper.init();
-
-    this.publicHelper.getStateOnChange().subscribe((value) => {
-
-      var aaa = value.themeStore;
-    });
-    //k:by karavi for test//this.themeService.onInitAppComponentStateOnChange();
-
-    this.cmsApiStoreSubscribe = this.tokenHelper.onInitAppComponentStateOnChange().subscribe({
-      next: (state) => {
-        //if (state.tokenInfoStore.siteId > 0 && state.tokenInfoStore.userId > 0 && environment.production)
-        //  this.getSupport();
-        //if (state.tokenInfoStore.userId > 0) {
-        //  this.signalrService.login(state.tokenInfoStore.token);
-        //} else {
-        //  this.signalrService.logout();
-        //}
-      }
-    });
-
+    this.tokenHelper.ngOnInitAppMain();
+    this.themeService.ngOnInitApp();
     this.tokenHelper.getTokenInfoStateOnChange().subscribe((state) => {
       if (state?.access?.siteId > 0 && state?.access?.userId > 0 && environment.production)
         this.getSupport();
-      //debugger;
       //todo:karavi
       // if (state.access.userId > 0) {
       //   this.signalrService.login(state.access.token);
@@ -231,18 +213,14 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     }
     this.getServiceVer();
     setTimeout(() => {
-      //k:by karavi for test//
       this.themeService.updateMainPagePreloaderShow(false)
     }, 10000)
   }
   ngAfterViewInit(): void {
-    //k:by karavi for test//
-    this.themeService.afterViewInitAppComponent();
-
+    this.themeService.ngAfterViewInitApp();
   }
   @HostListener('window:resize', ['$event'])
   onWindowResize(event: Event) {
-    //k:by karavi for test//
     this.themeService.updateInnerSize();
   }
   getServiceVer(): void {
@@ -299,9 +277,9 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
     if (event?.key === 'F9') {
-      if (localStorage.getItem('KeyboardEventF9'))
-        localStorage.removeItem('KeyboardEventF9');
-      else localStorage.setItem('KeyboardEventF9', 'F9');
+      if (localStorage.getItem(KeyboardEventF9))
+        localStorage.removeItem(KeyboardEventF9);
+      else localStorage.setItem(KeyboardEventF9, 'F9');
     }
   }
   firstOnonline: boolean = true;
@@ -347,9 +325,8 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.unsubscribe.forEach((sb) => sb.unsubscribe());
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe)
+      this.unsubscribe.forEach((sb) => sb.unsubscribe());
+
   }
 }

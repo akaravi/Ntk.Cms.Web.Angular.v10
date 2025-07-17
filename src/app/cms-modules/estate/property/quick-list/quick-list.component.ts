@@ -255,7 +255,6 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
-      this.tokenHelper.CheckIsAdmin();
     }
 
     this.cmsApiStoreSubscribe = this.tokenHelper
@@ -264,7 +263,6 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
         next: (ret) => {
           this.tokenInfo = ret;
           this.DataGetAll();
-          this.tokenHelper.CheckIsAdmin();
         }
       });
   }

@@ -73,9 +73,9 @@ export class EstatePropertyAddMobileComponent implements OnInit, OnDestroy {
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
-    this.publicHelper.getStateOnChange().subscribe((value) => {
-      this.connectionStatus = value.connectionStatusStore;
-    });
+this.unsubscribe.push(this.cmsStoreService.getState((state) => state.connectionStatusStore).subscribe(async (value) => {
+      this.connectionStatus = value;
+    }));
   }
   connectionStatus = new ConnectionStatusModel();
 
@@ -122,6 +122,7 @@ export class EstatePropertyAddMobileComponent implements OnInit, OnDestroy {
   dataProfessional = false;
   hidden = true;
   cmsApiStoreSubscribe: Subscription;
+    private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
 
@@ -150,6 +151,8 @@ export class EstatePropertyAddMobileComponent implements OnInit, OnDestroy {
     if (this.cmsApiStoreSubscribe) {
       this.cmsApiStoreSubscribe.unsubscribe();
     }
+        if (this.unsubscribe)
+      this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   getEstateContractType(): void {
     const pName = this.constructor.name + 'getEstateContractType';
@@ -275,7 +278,7 @@ export class EstatePropertyAddMobileComponent implements OnInit, OnDestroy {
           this.translate.get('MESSAGE.registration_completed_successfully').subscribe((str: string) => { this.formInfo.formAlert = str; });
           this.cmsToastrService.typeSuccessAdd();
 
-          if ((this.tokenHelper.CheckIsAdmin() || this.tokenHelper.CheckIsSupport() || this.tokenHelper.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerCpSite || this.tokenHelper.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerEmployeeCpSite) && this.dataModel.recordStatus == RecordStatusEnum.Available) {
+          if ((this.tokenHelper.isAdminSite || this.tokenHelper.isSupportSite || this.tokenHelper.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerCpSite || this.tokenHelper.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerEmployeeCpSite) && this.dataModel.recordStatus == RecordStatusEnum.Available) {
             var panelClass = '';
             if (this.tokenHelper.isMobile)
               panelClass = 'dialog-fullscreen';
@@ -666,7 +669,7 @@ export class EstatePropertyAddMobileComponent implements OnInit, OnDestroy {
     this.contractDataModel.linkCoreCurrencyId = model.id;
 
     //
-    if (this.tokenHelper.CheckIsAdmin() && this.contractTypeSelected.allowPriceInquiryCalculate) {
+    if (this.tokenHelper.isAdminSite && this.contractTypeSelected.allowPriceInquiryCalculate) {
       this.onActionPriceInquiryList()
     }
   }

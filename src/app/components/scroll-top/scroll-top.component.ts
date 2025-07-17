@@ -1,25 +1,31 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
+import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 import { ThemeService } from 'src/app/core/services/theme.service';
 
 @Component({
-    selector: 'app-scroll-top',
-    templateUrl: './scroll-top.component.html',
-    styleUrls: ['./scroll-top.component.scss'],
-    standalone: false
+  selector: 'app-scroll-top',
+  templateUrl: './scroll-top.component.html',
+  styleUrls: ['./scroll-top.component.scss'],
+  standalone: false
 })
-export class ScrollTopComponent implements OnInit {
+export class ScrollTopComponent implements OnInit, OnDestroy {
   constructor(
     public publicHelper: PublicHelper,
-    public themeService : ThemeService
+    private cmsStoreService: CmsStoreService,
+    public themeService: ThemeService
   ) {
-    this.publicHelper.getStateOnChange().subscribe((value) => {
-      if (value.themeStore.actionScrollTopPage)
+    this.unsubscribe.push(this.cmsStoreService.getState((state) => state.themeStore).subscribe(async (value) => {
+      if (value.actionScrollTopPage)
         this.onScroll(null);
-    });
+    }));
+
   }
   viewScrollTop = false;
   verticalOffset = 0;
+  private unsubscribe: Subscription[] = [];
+
   ngOnInit(): void {
 
   }
@@ -39,5 +45,9 @@ export class ScrollTopComponent implements OnInit {
   scrollToTop() {
     window.scrollTo({ top: 0, behavior: `smooth` });
   }
+  ngOnDestroy() {
+    if (this.unsubscribe)
+      this.unsubscribe.forEach((sb) => sb.unsubscribe());
 
+  }
 }

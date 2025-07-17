@@ -142,14 +142,12 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
-      this.tokenHelper.CheckIsAdmin();
     }
 
     this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
       next: (ret) => {
         this.tokenInfo = ret;
         this.DataGetAll();
-        this.tokenHelper.CheckIsAdmin();
       }
     });
   }

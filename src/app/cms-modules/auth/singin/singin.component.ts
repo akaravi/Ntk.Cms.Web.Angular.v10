@@ -1,8 +1,9 @@
 
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthUserSignInModel, CaptchaModel, CoreAuthV3Service, FormInfoModel } from 'ntk-cms-api';
+import { Subscription } from 'rxjs';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
 import { CmsTranslationService } from 'src/app/core/i18n/cmsTranslation.service';
@@ -17,7 +18,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './singin.component.html',
   standalone: false
 })
-export class AuthSingInComponent implements OnInit {
+export class AuthSingInComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private cmsToastrService: CmsToastrService,
@@ -35,9 +36,9 @@ export class AuthSingInComponent implements OnInit {
   ) {
     this.publicHelper.processService.cdr = this.cdr;
     this.firstRun = true;
-    this.publicHelper.getStateOnChange().subscribe((value) => {
-      this.connectionStatus = value.connectionStatusStore;
-    });
+    this.unsubscribe.push(this.cmsStoreService.getState((state) => state.connectionStatusStore).subscribe(async (value) => {
+      this.connectionStatus = value;
+    }));
   }
 
   loadDemoTheme = environment.loadDemoTheme;
@@ -56,6 +57,8 @@ export class AuthSingInComponent implements OnInit {
   loginType = 'email';
   onCaptchaOrderInProcess = false;
   onNavigate = false;
+  private unsubscribe: Subscription[] = [];
+
   ngOnInit(): void {
     this.onCaptchaOrder();
     // get return url from route parameters or default to '/'
@@ -66,11 +69,16 @@ export class AuthSingInComponent implements OnInit {
     }
     this.pageInfo.updateTitle(this.translate.instant('AUTH.SINGINBYSMS.TITLE'));
   }
+  ngOnDestroy() {
+    if (this.unsubscribe)
+      this.unsubscribe.forEach((sb) => sb.unsubscribe());
+
+  }
   onActionSubmit(): void {
     this.formInfo.buttonSubmittedEnabled = false;
     this.hasError = false;
     this.dataModel.captchaKey = this.captchaModel.key;
-    this.dataModel.lang = this.cmsTranslationService.getSelectedLanguage();
+    this.dataModel.lang = this.cmsTranslationService.getSelectedLanguage;
     const pName = this.constructor.name + '.ServiceSigninUser';
     this.translate.get('MESSAGE.login_to_user_account').subscribe((str: string) => {
       this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);

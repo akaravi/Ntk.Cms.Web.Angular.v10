@@ -114,9 +114,7 @@ export class EstatePropertyResponsibleUserListComponent extends ListBaseComponen
       .subscribe({
         next: (ret) => {
           this.tokenInfo = ret;
-
           this.DataGetAll();
-          this.tokenHelper.CheckIsAdmin();
         }
       });
   }

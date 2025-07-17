@@ -1,18 +1,19 @@
-import { Component, OnInit ,ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthRefreshTokenModel, AuthRenewTokenModel,  CoreAuthV3Service, CoreSiteModel, TokenInfoModelV3 } from 'ntk-cms-api';
+import { AuthRefreshTokenModel, AuthRenewTokenModel, CoreAuthV3Service, CoreSiteModel, TokenInfoModelV3 } from 'ntk-cms-api';
 import { Subscription } from 'rxjs';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
 import { ThemeStoreModel } from 'src/app/core/models/themeStoreModel';
+import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 import { CmsAuthService } from 'src/app/core/services/cmsAuth.service';
 import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 
 @Component({
-    selector: 'app-menu-profile',
-    templateUrl: './menu-profile.component.html',
-    standalone: false
+  selector: 'app-menu-profile',
+  templateUrl: './menu-profile.component.html',
+  standalone: false
 })
 export class MenuProfileComponent implements OnInit {
   static nextId = 0;
@@ -26,9 +27,13 @@ export class MenuProfileComponent implements OnInit {
     public translate: TranslateService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
+    private cmsStoreService: CmsStoreService,
+
     private router: Router
   ) {
-
+    this.unsubscribe.push(this.cmsStoreService.getState((state) => state.themeStore).subscribe(async (value) => {
+      this.themeStore = value;
+    }));
   }
 
 
@@ -39,6 +44,8 @@ export class MenuProfileComponent implements OnInit {
   loadingStatus = false;
   disabledAllow = false;
   themeStore = new ThemeStoreModel();
+  private unsubscribe: Subscription[] = [];
+
   ngOnInit(): void {
     this.tokenHelper.getTokenInfoState().then((value) => {
       this.tokenInfo = value;
@@ -48,13 +55,13 @@ export class MenuProfileComponent implements OnInit {
       this.tokenInfo = value;
       this.cdr.detectChanges();
     });
-    this.publicHelper.getStateOnChange().subscribe((value) => {
-      this.themeStore = value.themeStore;
-    });
+
 
   }
   ngOnDestroy(): void {
     this.cmsApiStoreSubscribe.unsubscribe();
+    if (this.unsubscribe)
+      this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   onActionButtonUserAccessAdminAllowToAllData(): void {
     const authModel: AuthRefreshTokenModel = new AuthRefreshTokenModel();

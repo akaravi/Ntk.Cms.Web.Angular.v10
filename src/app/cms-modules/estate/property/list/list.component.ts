@@ -265,7 +265,6 @@ export class EstatePropertyListComponent extends ListBaseComponent<EstatePropert
       this.GetServiceSiteConfig(this.tokenHelper.tokenInfo.access.siteId);
 
       this.DataGetAll();
-      this.tokenHelper.CheckIsAdmin();
       if (!this.tokenHelper.isAdminSite && !this.tokenHelper.isSupportSite) {
         this.tabledisplayedColumnsSource = this.publicHelper.listRemoveIfExist(this.tabledisplayedColumnsSource, 'scoreEstateLocation');
         this.tabledisplayedColumnsSource = this.publicHelper.listRemoveIfExist(this.tabledisplayedColumnsSource, 'scoreEstateBuild');
@@ -280,7 +279,6 @@ export class EstatePropertyListComponent extends ListBaseComponent<EstatePropert
           this.tokenInfo = ret;
           this.GetServiceSiteConfig(this.tokenHelper.tokenInfo.access.siteId);
           this.DataGetAll();
-          this.tokenHelper.CheckIsAdmin();
           if (!this.tokenHelper.isAdminSite && !this.tokenHelper.isSupportSite) {
             this.tabledisplayedColumnsSource = this.publicHelper.listRemoveIfExist(this.tabledisplayedColumnsSource, 'scoreEstateLocation');
             this.tabledisplayedColumnsSource = this.publicHelper.listRemoveIfExist(this.tabledisplayedColumnsSource, 'scoreEstateBuild');

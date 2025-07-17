@@ -59,7 +59,6 @@ export class EstateAccountExpertEditComponent extends EditBaseComponent<EstateAc
       this.requestId = data.id;
     }
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
-    this.tokenHelper.CheckIsAdmin();
     this.DataGetAccess();
 
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;

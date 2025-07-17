@@ -8,6 +8,7 @@ import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
 import { ContentInfoModel } from 'src/app/core/models/contentInfoModel';
 import { PageLinkModel } from 'src/app/core/models/pageLinkModel';
 import { ThemeStoreModel } from 'src/app/core/models/themeStoreModel';
+import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 import { PageInfoService } from 'src/app/core/services/page-info.service';
 import { ThemeModeType, ThemeService } from 'src/app/core/services/theme.service';
 import { CmsDataCommentComponent } from 'src/app/shared/cms-data-comment/cms-data-comment.component';
@@ -18,10 +19,10 @@ import { CmsShowKeyComponent } from 'src/app/shared/cms-show-key/cms-show-key.co
 import { environment } from 'src/environments/environment';
 
 @Component({
-    selector: 'app-header-bar',
-    templateUrl: './header-bar.component.html',
-    styleUrls: ['./header-bar.component.scss'],
-    standalone: false
+  selector: 'app-header-bar',
+  templateUrl: './header-bar.component.html',
+  styleUrls: ['./header-bar.component.scss'],
+  standalone: false
 })
 export class HeaderBarComponent implements OnInit {
 
@@ -30,6 +31,7 @@ export class HeaderBarComponent implements OnInit {
     public publicHelper: PublicHelper,
     private themeService: ThemeService,
     private pageInfoService: PageInfoService,
+    private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     private router: Router,
     public dialog: MatDialog,
@@ -55,9 +57,9 @@ export class HeaderBarComponent implements OnInit {
       this.tokenInfo = value;
 
     });
-    this.publicHelper.getStateOnChange().subscribe((value) => {
-      this.themeStore = value.themeStore;
-    });
+    this.unsubscribe.push(this.cmsStoreService.getState((state) => state.themeStore).subscribe(async (value) => {
+      this.themeStore = value;
+    }));
   }
   cmsApiStoreSubscribe: Subscription;
   tokenInfo = new TokenInfoModelV3();
@@ -67,6 +69,7 @@ export class HeaderBarComponent implements OnInit {
   bc$: Observable<Array<PageLinkModel>>;
   contentService: IApiCmsServerBase;
   contentInfo: ContentInfoModel;
+  private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
     this.title$ = this.pageInfoService.title.asObservable();
@@ -92,7 +95,8 @@ export class HeaderBarComponent implements OnInit {
   }
   ngOnDestroy() {
     this.cmsApiStoreSubscribe.unsubscribe();
-
+    if (this.unsubscribe)
+      this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   onActionThemeSwitch(themeMode: ThemeModeType) {
     this.themeService.updateThemeModeType(themeMode);

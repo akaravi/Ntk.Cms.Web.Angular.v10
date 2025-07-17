@@ -1,14 +1,16 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
+import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 import { ThemeService } from 'src/app/core/services/theme.service';
 @Component({
-    selector: 'app-cms-html-list',
-    templateUrl: './cms-html-list.component.html',
-    standalone: false
+  selector: 'app-cms-html-list',
+  templateUrl: './cms-html-list.component.html',
+  standalone: false
 })
-export class CmsHtmlListComponent implements OnInit {
+export class CmsHtmlListComponent implements OnInit, OnDestroy {
   static nextId = 0;
   id = ++CmsHtmlListComponent.nextId;
   @Input() optionHeaderDisplay = true;
@@ -66,24 +68,30 @@ export class CmsHtmlListComponent implements OnInit {
   @Output() optionOnActionButtonMemoRow = new EventEmitter<any>();
   @Output() optionOnActionButtonPrintRow = new EventEmitter<any>();
 
-
-
   constructor(
     public publicHelper: PublicHelper,
     public tokenHelper: TokenHelper,
     public translate: TranslateService,
-  //k:by karavi for test//  private themeService:ThemeService,
-  ) {
+    private cmsStoreService: CmsStoreService,
 
-    this.publicHelper.getStateOnChange().subscribe((value) => {
-      if (value.themeStore.actionScrollTopList && this.topList && this.topList.nativeElement) {
+  ) {
+    this.unsubscribe.push(this.cmsStoreService.getState((state) => state.themeStore).subscribe(async (value) => {
+      if (value.actionScrollTopList && this.topList && this.topList.nativeElement) {
         this.topList.nativeElement.scrollIntoView({ behavior: 'smooth', block: "start" })
-    //k:by karavi for test//    this.themeService.onActionScrollTopList(false);
+        //k:by karavi for test//    this.themeService.onActionScrollTopList(false);
       };
-    });
+    }));
   }
   @ViewChild("topList") topList: ElementRef;
+  private unsubscribe: Subscription[] = [];
+
   ngOnInit(): void {
+
+  }
+
+  ngOnDestroy() {
+    if (this.unsubscribe)
+      this.unsubscribe.forEach((sb) => sb.unsubscribe());
 
   }
   actionScrollIntoViewRun = false;

@@ -1,4 +1,4 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection, isDevMode, importProvidersFrom, Type, APP_INITIALIZER } from '@angular/core';
+import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection, isDevMode, importProvidersFrom, Type, APP_INITIALIZER, provideAppInitializer, inject } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
@@ -17,6 +17,9 @@ import { CoreAuthV3Service, CoreConfigurationService, CoreEnumService, CoreModul
 import { ComponentsModule } from './components/components.module';
 import { ClipboardModule } from 'ngx-clipboard';
 import { CmsTranslateModule } from './core/i18n';
+import { CmsStoreService } from './core/reducers/cmsStore.service';
+import { ThemeService } from './core/services/theme.service';
+import { TranslateService } from '@ngx-translate/core';
 
 declare module "@angular/core" {
   interface ModuleWithProviders<T = any> {
@@ -36,7 +39,6 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
 function appInitializer(authService: CmsAuthService) {
   return () => {
     return new Promise((resolve) => {
-
       //@ts-ignore
       authService.getTokenInfoType().subscribe().add(resolve);
     });
@@ -53,12 +55,16 @@ export const appConfig: ApplicationConfig = {
     }),
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi(), withFetch()),
+    provideAppInitializer(() => {
+      const authService = inject(CmsAuthService);
+      appInitializer(authService);
+    }),
     CmsAuthService,
     CoreAuthV3Service,
-    CoreEnumService ,
-    CoreModuleService ,
+    CoreEnumService,
+    CoreModuleService,
     CoreConfigurationService,
-    
+    importProvidersFrom(CmsStoreService.forRoot()),
     importProvidersFrom(ClipboardModule),
     importProvidersFrom(CmsTranslateModule),
     importProvidersFrom(SharedModule.forRoot()),

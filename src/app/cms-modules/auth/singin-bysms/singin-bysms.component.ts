@@ -10,6 +10,7 @@ import { Observable, Subscription, interval } from 'rxjs';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { CmsTranslationService } from 'src/app/core/i18n/cmsTranslation.service';
 import { ConnectionStatusModel } from 'src/app/core/models/connectionStatusModel';
+import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 import { PageInfoService } from 'src/app/core/services/page-info.service';
 enum ErrorStates {
@@ -35,6 +36,7 @@ export class AuthSingInBySmsComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
     private router: Router,
     private cmsTranslationService: CmsTranslationService,
+    private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public pageInfo: PageInfoService,
@@ -42,9 +44,9 @@ export class AuthSingInBySmsComponent implements OnInit, OnDestroy {
     this.publicHelper.processService.cdr = this.cdr;
 
     this.RePasswordModel = '';
-    this.publicHelper.getStateOnChange().subscribe((value) => {
-      this.connectionStatus = value.connectionStatusStore;
-    });
+    this.unsubscribe.push(this.cmsStoreService.getState((state) => state.connectionStatusStore).subscribe(async (value) => {
+      this.connectionStatus = value;
+    }));
 
   }
   connectionStatus = new ConnectionStatusModel();
@@ -63,11 +65,11 @@ export class AuthSingInBySmsComponent implements OnInit, OnDestroy {
   onCaptchaOrderInProcess = false;
   diffSeconds: number;
   onNavigate = false;
+  private unsubscribe: Subscription[] = [];
   ngOnInit(): void {
     this.onCaptchaOrder();
     this.pageInfo.updateTitle(this.translate.instant('AUTH.SINGINBYSMS.TITLE'));
   }
-
   prorocess: processModel;
   buttonnResendSmsDisable = true;
   otpConfig = {
@@ -100,7 +102,7 @@ export class AuthSingInBySmsComponent implements OnInit, OnDestroy {
     this.formInfo.buttonSubmittedEnabled = false;
     this.errorState = ErrorStates.NotSubmitted;
     this.dataModelAuthUserSignInBySms.captchaKey = this.captchaModel.key;
-    this.dataModelAuthUserSignInBySms.lang = this.cmsTranslationService.getSelectedLanguage();
+    this.dataModelAuthUserSignInBySms.lang = this.cmsTranslationService.getSelectedLanguage;
     const pName = this.constructor.name + '.ServiceSigninUserBySMS';
 
     this.translate.get('MESSAGE.Send_login_request_with_one_time_password').subscribe((str: string) => {
@@ -157,12 +159,14 @@ export class AuthSingInBySmsComponent implements OnInit, OnDestroy {
     clearInterval(this.downloadTimer);
     if (this.diffSecondsSubscribe)
       this.diffSecondsSubscribe.unsubscribe();
+    if (this.unsubscribe)
+      this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   onActionSubmitEntryPinCode(): void {
     this.formInfo.buttonSubmittedEnabled = false;
     this.errorState = ErrorStates.NotSubmitted;
     this.dataModelAuthUserSignInBySms.captchaKey = this.captchaModel.key;
-    this.dataModelAuthUserSignInBySms.lang = this.cmsTranslationService.getSelectedLanguage();
+    this.dataModelAuthUserSignInBySms.lang = this.cmsTranslationService.getSelectedLanguage;
     const pName = this.constructor.name + '.ServiceSigninUserBySMS';
     this.translate.get('MESSAGE.Send_login_request_with_one_time_password').subscribe((str: string) => {
       this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);

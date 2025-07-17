@@ -5,7 +5,7 @@ import { BehaviorSubject, Observable, Subscription, catchError, finalize, firstV
 import { environment } from 'src/environments/environment';
 import { TokenHelper } from '../helpers/tokenHelper';
 import { CmsStoreService } from '../reducers/cmsStore.service';
-import { SET_TOKEN_INFO } from '../reducers/reducer.factory';
+import { SET_Theme_STATE, SET_TOKEN_INFO } from '../reducers/reducer.factory';
 import { TokenInfoType } from '../models/tokenInfoType';
 import { TokenJwtType } from '../models/tokenJwtType';
 
@@ -70,6 +70,15 @@ export class CmsAuthService implements OnDestroy {
         if (ret.isSuccess) {
           this.currentUserSubject.next(ret.item);
           this.cmsStoreService.setState({ type: SET_TOKEN_INFO, payload: ret.item })
+          if (ret.item.access) {
+            if (ret.item.access.direction == "ltr")
+              this.cmsStoreService.getStateAll.themeStore.themeDirection = 'ltr';
+            else
+              this.cmsStoreService.getStateAll.themeStore.themeDirection = 'rtl';
+            if (ret.item.access.language?.length > 0)
+              this.cmsStoreService.getStateAll.themeStore.themeLanguage = ret.item.access.language;
+            this.cmsStoreService.setState({ type: SET_Theme_STATE, payload: this.cmsStoreService.getStateAll.themeStore })
+          }
         } else {
           this.logout();
         }
@@ -163,7 +172,7 @@ export class CmsAuthService implements OnDestroy {
   refreshToken(model?: AuthRefreshTokenModel): Observable<ErrorExceptionResult<TokenInfoType>> {
     this.isLoadingSubject.next(true);
     return this.authService.ServiceRefreshToken(model).pipe(
-      map((auth:ErrorExceptionResult<  TokenJWTModel>) => {
+      map((auth: ErrorExceptionResult<TokenJWTModel>) => {
         const result = this.setAuthFromLocalStorage(auth.item);
         return result;
       }),
@@ -178,7 +187,7 @@ export class CmsAuthService implements OnDestroy {
 
   ngOnDestroy(): void {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
-        if (this.diffSecondsSubscribe)
+    if (this.diffSecondsSubscribe)
       this.diffSecondsSubscribe.unsubscribe();
   }
 }

@@ -24,10 +24,11 @@ import { ComponentLocalStorageModel } from '../models/componentLocalStorageModel
 import { ConnectionStatusModel } from '../models/connectionStatusModel';
 import { ThemeStoreModel } from '../models/themeStoreModel';
 import { CmsStoreService } from '../reducers/cmsStore.service';
-import { ProcessOrderModel, ReducerCmsStore, SET_Core_Currency, SET_Core_Module, SET_Core_Site, SET_Info_Enum, SET_Process_Order } from '../reducers/reducer.factory';
+import { ProcessOrderModel, ReducerCmsStoreModel, SET_Core_Currency, SET_Core_Module, SET_Core_Site, SET_Info_Enum, SET_Process_Order } from '../reducers/reducer.factory';
 import { CmsToastrService } from '../services/cmsToastr.service';
 import { PageInfoService } from '../services/page-info.service';
 import { ProcessService } from '../services/process.service';
+import { KeyboardEventF9 } from '../models/constModel';
 
 @Injectable({
   providedIn: 'root',
@@ -37,7 +38,7 @@ export class PublicHelper {
     private router: Router,
     public cmsToastrService: CmsToastrService,
     public translate: TranslateService,
-    private coreEnumService: CoreEnumService,
+    public coreEnumService: CoreEnumService,
     private coreCurrencyService: CoreCurrencyService,
     private coreSiteService: CoreSiteService,
     private coreModuleService: CoreModuleService,
@@ -48,14 +49,6 @@ export class PublicHelper {
   ) {
     this.fileManagerTreeConfig = new TreeModel(this.treefileConfig);
     this.appClientVersion = environment.appVersion;
-
-  }
-  getStateOnChange(): Observable<ReducerCmsStore> {
-    return this.cmsStoreService.getState((state) => {
-      if (environment.consoleLog)
-        console.log("getStateOnChange");
-      return state
-    });
   }
   get isMobile() {
     if (window.innerWidth < environment.cmsViewConfig.mobileWindowInnerWidth)
@@ -317,7 +310,7 @@ export class PublicHelper {
       return retOut;
     }
     dataAccessModel.fieldsInfo.forEach((el) => retOut[this.toLowerCaseFirstChar(el.fieldName)] = el);
-    if (environment.checkAccess || localStorage.getItem('KeyboardEventF9')) {
+    if (environment.checkAccess || localStorage.getItem(KeyboardEventF9)) {
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = false;
       dialogConfig.autoFocus = true;
@@ -475,7 +468,7 @@ export class PublicHelper {
       );
 
   }
-  
+
   async getConnectionStatus(): Promise<ConnectionStatusModel> {
     const storeSnapshot = this.cmsStoreService.getStateSnapshot();
     if (storeSnapshot?.connectionStatusStore)
@@ -611,7 +604,6 @@ export class PublicHelper {
       return null;
     return list[index + 1];
   }
-  //localStorage.getItem('KeyboardEventF9')
   setComponentLocalStorage(name: string, model: ComponentLocalStorageModel): void {
     localStorage.setItem(name, JSON.stringify(model));
   }

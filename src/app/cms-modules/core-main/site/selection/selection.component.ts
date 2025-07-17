@@ -114,7 +114,7 @@ export class CoreSiteSelectionComponent implements OnInit {
     let authModel: AuthRefreshTokenModel;
     authModel = new AuthRefreshTokenModel();
     authModel.siteId = id;
-    authModel.lang = this.cmsTranslationService.getSelectedLanguage();
+    authModel.lang = this.cmsTranslationService.getSelectedLanguage;
 
 
     const pName = this.constructor.name + '.ServiceRefreshToken';

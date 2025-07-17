@@ -48,7 +48,7 @@ export class EstatePropertyAddComponent extends AddBaseComponent<EstatePropertyS
     private estatePropertyTypeService: EstatePropertyTypeService,
     private estatePropertyTypeLanduseService: EstatePropertyTypeLanduseService,
     private cmsToastrService: CmsToastrService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private router: Router,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -72,11 +72,13 @@ export class EstatePropertyAddComponent extends AddBaseComponent<EstatePropertyS
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
-    this.publicHelper.getStateOnChange().subscribe((value) => {
-      this.connectionStatus = value.connectionStatusStore;
-    });
+
+    this.unsubscribe.push(this.cmsStoreService.getState((state) => state.connectionStatusStore).subscribe(async (value) => {
+      this.connectionStatus = value;
+    }));
   }
   connectionStatus = new ConnectionStatusModel();
+  private unsubscribe: Subscription[] = [];
 
   @ViewChild('vform', { static: false }) formGroup: FormGroup;
   @ViewChild(CmsMapComponent) childMap: CmsMapComponent;
@@ -148,6 +150,8 @@ export class EstatePropertyAddComponent extends AddBaseComponent<EstatePropertyS
     if (this.cmsApiStoreSubscribe) {
       this.cmsApiStoreSubscribe.unsubscribe();
     }
+    if (this.unsubscribe)
+      this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   getEstateContractType(): void {
     const pName = this.constructor.name + 'getEstateContractType';
@@ -250,7 +254,7 @@ export class EstatePropertyAddComponent extends AddBaseComponent<EstatePropertyS
           this.translate.get('MESSAGE.registration_completed_successfully').subscribe((str: string) => { this.formInfo.formAlert = str; });
           this.cmsToastrService.typeSuccessAdd();
 
-          if ((this.tokenHelper.CheckIsAdmin() || this.tokenHelper.CheckIsSupport() || this.tokenHelper.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerCpSite || this.tokenHelper.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerEmployeeCpSite) && this.dataModel.recordStatus == RecordStatusEnum.Available) {
+          if ((this.tokenHelper.isAdminSite || this.tokenHelper.isSupportSite || this.tokenHelper.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerCpSite || this.tokenHelper.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerEmployeeCpSite) && this.dataModel.recordStatus == RecordStatusEnum.Available) {
             var panelClass = '';
             if (this.tokenHelper.isMobile)
               panelClass = 'dialog-fullscreen';
@@ -642,7 +646,7 @@ export class EstatePropertyAddComponent extends AddBaseComponent<EstatePropertyS
     this.contractDataModel.linkCoreCurrencyId = model.id;
 
     //
-    if (this.tokenHelper.CheckIsAdmin() && this.contractTypeSelected.allowPriceInquiryCalculate) {
+    if (this.tokenHelper.isAdminSite && this.contractTypeSelected.allowPriceInquiryCalculate) {
       this.onActionPriceInquiryList()
     }
   }

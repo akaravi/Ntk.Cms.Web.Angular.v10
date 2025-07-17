@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import {  CoreAuthV3Service, CoreCpMainMenuModel, CoreCpMainMenuService, ErrorExceptionResult, TokenInfoModelV3 } from 'ntk-cms-api';
+import { CoreAuthV3Service, CoreCpMainMenuModel, CoreCpMainMenuService, ErrorExceptionResult, TokenInfoModelV3 } from 'ntk-cms-api';
 import { Subscription } from 'rxjs';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
@@ -13,9 +13,9 @@ import { ThemeModeType, ThemeService } from 'src/app/core/services/theme.service
 import { environment } from 'src/environments/environment';
 
 @Component({
-    selector: 'app-menu-main',
-    templateUrl: './menu-main.component.html',
-    standalone: false
+  selector: 'app-menu-main',
+  templateUrl: './menu-main.component.html',
+  standalone: false
 })
 export class MenuMainComponent implements OnInit {
   env = environment;
@@ -29,7 +29,7 @@ export class MenuMainComponent implements OnInit {
     private cmsStoreService: CmsStoreService,
     private router: Router,
     public translate: TranslateService,
-    public themeService:ThemeService,
+    public themeService: ThemeService,
     private cdr: ChangeDetectorRef,) {
     this.publicHelper.processService.cdr = this.cdr;
     this.tokenHelper.getTokenInfoState().then((value) => {
@@ -48,25 +48,34 @@ export class MenuMainComponent implements OnInit {
         // }, 1000);
       }
     });
-    this.publicHelper.getStateOnChange().subscribe((value) => {
-      this.themeStore = value.themeStore;
-    });
+    this.unsubscribe.push(this.cmsStoreService.getState((state) => state.themeStore).subscribe(async (value) => {
+      this.themeStore = value;
+    }));
   }
   appAngularVersion: string = environment.appVersion;
-  
+  get rootClass(): string {
+    var ret = '';
+    if (this.themeStore.dataMenu === 'menu-main')
+      ret = 'menu-active';
+    if (this.themeStore.themeDirection === 'ltr')
+      ret = ret + ' menu menu-box-left rounded-0';
+    else
+      ret = ret + ' menu menu-box-right rounded-0'
 
-
+    return ret;
+  }
   tokenInfo = new TokenInfoModelV3();
   cmsApiStoreSubscribe: Subscription;
-
   dataModelResult: ErrorExceptionResult<CoreCpMainMenuModel> = new ErrorExceptionResult<CoreCpMainMenuModel>();
   themeStore = new ThemeStoreModel();
-
+  private unsubscribe: Subscription[] = [];
   ngOnInit(): void { }
   ngOnDestroy() {
     this.cmsApiStoreSubscribe.unsubscribe();
-
+    if (this.unsubscribe)
+      this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
+
   DataGetCpMenu(): void {
     const pName = this.constructor.name + 'main';
     this.translate.get('MESSAGE.get_information_list').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });

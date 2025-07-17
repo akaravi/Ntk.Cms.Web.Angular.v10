@@ -114,7 +114,6 @@ export class CoreUserListComponent extends ListBaseComponent<CoreUserService, Co
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
-      this.tokenHelper.CheckIsAdmin();
     }
 
 
@@ -122,7 +121,6 @@ export class CoreUserListComponent extends ListBaseComponent<CoreUserService, Co
       next: (ret) => {
         this.tokenInfo = ret;
         this.DataGetAll();
-        this.tokenHelper.CheckIsAdmin();
       }
     });
   }
