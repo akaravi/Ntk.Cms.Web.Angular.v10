@@ -58,9 +58,10 @@ export class MenuMainComponent implements OnInit {
     if (this.themeStore.dataMenu === 'menu-main')
       ret = 'menu-active';
     if (this.themeStore.themeDirection === 'ltr')
-      ret = ret + ' menu menu-box-left rounded-0';
-    else
       ret = ret + ' menu menu-box-right rounded-0'
+    else
+      ret = ret + ' menu menu-box-left rounded-0';
+
 
     return ret;
   }

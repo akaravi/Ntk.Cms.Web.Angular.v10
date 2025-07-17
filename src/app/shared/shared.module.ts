@@ -547,27 +547,28 @@ export class SharedModule {
  * ====================================================================================
  * */
   constructor(public translationService: TranslateService) {
-    const currentLang = this.translationService.currentLang;
-    this.translationService.currentLang = '';
-    this.translationService.store.onLangChange.subscribe(
-      (lang: LangChangeEvent) => {
-        translationService.setDefaultLang(lang.lang);
-        if (environment.consoleLog)
-          console.log(' ==> LazyLoadedModule ', lang);
-        try {
-          firstValueFrom(translationService.use(lang.lang));
-        } catch (err) {
-          if (environment.consoleLog)
-            console.log(err);
-        }
-      }
-    );
+    // const currentLang = this.translationService.currentLang;
+    // this.translationService.currentLang = '';
+    // this.translationService.store.onLangChange.subscribe(
+    //   (lang: LangChangeEvent) => {
+    //     translationService.setDefaultLang(lang.lang);
+    //     if (environment.consoleLog)
+    //       console.log(' ==> LazyLoadedModule ', lang);
+    //     try {
+    //       firstValueFrom(translationService.use(lang.lang));
+    //     } catch (err) {
+    //       if (environment.consoleLog)
+    //         console.log(err);
+    //     }
+    //   }
+    // );
   }
   static forRoot(): ModuleWithProviders<SharedModule> {
     // Forcing the whole app to use the returned providers from the AppModule only.
     return {
       ngModule: SharedModule,
       providers: [
+        TranslateService
         /* All of your services here. It will hold the services needed by itself`. */
       ],
     };

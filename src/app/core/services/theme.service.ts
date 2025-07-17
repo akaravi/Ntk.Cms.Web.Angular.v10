@@ -221,6 +221,7 @@ export class ThemeService implements OnDestroy {
       /* HighLigh*/
     }, 10);
   }
+  setAttributeDir = false;
   public updateThemeDirection(model: ThemeDirectionType) {
     if (!model)
       model = 'ltr';
@@ -234,13 +235,15 @@ export class ThemeService implements OnDestroy {
           element.classList.remove('theme-rtl');
           element.classList.add('theme-ltr');
         });
-        document.getElementsByTagName('html')[0].setAttribute('dir', 'ltr');
+        if (this.setAttributeDir)
+          document.getElementsByTagName('html')[0].setAttribute('dir', 'ltr');
       } else {
         document.documentElement.querySelectorAll('.theme-ltr').forEach((element) => {
           element.classList.remove('theme-ltr');
           element.classList.add('theme-rtl');
         });
-        document.getElementsByTagName('html')[0].setAttribute('dir', 'rtl');
+        if (this.setAttributeDir)
+          document.getElementsByTagName('html')[0].setAttribute('dir', 'rtl');
       }
       /**theme-rtl */
     }, 100);
