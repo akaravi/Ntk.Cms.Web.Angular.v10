@@ -31,7 +31,8 @@ import {
   EstatePropertyProjectService,
   EstatePropertyService, EstatePropertySupplierFilterModel, EstatePropertySupplierModel, EstatePropertySupplierService, FilterDataModel,
   FilterDataModelSearchTypesEnum,
-  RecordStatusEnum
+  RecordStatusEnum,
+  TokenInfoModelV3
 } from 'ntk-cms-api';
 import { Subscription } from 'rxjs';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
@@ -45,11 +46,12 @@ import { EstatePropertyHistoryQuickViewComponent } from '../../property-history/
 import { EstatePropertyProjectQuickViewComponent } from '../../property-project/quick-view/quick-view.component';
 import { EstatePropertySupplierQuickViewComponent } from '../../property-supplier/quick-view/quick-view.component';
 import { EstatePropertyQuickViewComponent } from '../../property/quick-view/quick-view.component';
+import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 @Component({
-    selector: 'app-estate-overview-events',
-    templateUrl: './events.component.html',
-    styleUrls: ['./events.component.scss'],
-    standalone: false
+  selector: 'app-estate-overview-events',
+  templateUrl: './events.component.html',
+  styleUrls: ['./events.component.scss'],
+  standalone: false
 })
 export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -69,7 +71,7 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     public translate: TranslateService,
     public tokenHelper: TokenHelper,
-
+    private cmsStoreService: CmsStoreService
   ) {
     this.publicHelper.processService.cdr = this.cdr;
 
@@ -84,11 +86,17 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
     this.filterChildrecordStatusNotAvailable.propertyName = 'recordStatus';
     this.filterChildrecordStatusNotAvailable.value = RecordStatusEnum.Available;
     this.filterChildrecordStatusNotAvailable.searchType = FilterDataModelSearchTypesEnum.NotEqual;
+    this.tokenInfo = cmsStoreService.getStateAll.tokenInfoStore;
+    this.unsubscribe.push(this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+    }));
   }
+  private unsubscribe: Subscription[] = [];
+
   filterChildrecordStatusAvailable: FilterDataModel;
   filterChildrecordStatusNotAvailable: FilterDataModel;
   filterChildrecordStatus: FilterDataModel;
-
+  tokenInfo: TokenInfoModelV3 = new TokenInfoModelV3();
   /** All*/
   dataModelPropertyResult: ErrorExceptionResult<EstatePropertyModel> = new ErrorExceptionResult<EstatePropertyModel>();
   dataModelCustomerOrderResult: ErrorExceptionResult<EstateCustomerOrderModel> = new ErrorExceptionResult<EstateCustomerOrderModel>();
@@ -131,8 +139,8 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
         this.onActionButtonOnDateSearch();
       }
     });
-    if (this.tokenHelper?.tokenInfo?.access.userId > 0) {
-      this.linkCmsUserId = this.tokenHelper.tokenInfo.access.userId
+    if (this.tokenInfo?.access.userId > 0) {
+      this.linkCmsUserId = this.tokenInfo.access.userId
     }
     if (Number.isFinite(lStorlinkCmsUserId) && +lStorlinkCmsUserId >= 0)
       this.linkCmsUserId = +lStorlinkCmsUserId;
@@ -525,6 +533,8 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
     if (this.cmsApiStoreSubscribe) {
       this.cmsApiStoreSubscribe.unsubscribe();
     }
+    if (this.unsubscribe)
+      this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   viewOnlyTime = false;
   onActionButtonOnDateSearch() {

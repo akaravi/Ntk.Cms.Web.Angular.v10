@@ -118,7 +118,7 @@ export class TokenHelper {
       return true;
     return false;
   };
-  tokenInfo: TokenInfoModelV3 = new TokenInfoModelV3();
+  private tokenInfo: TokenInfoModelV3 = new TokenInfoModelV3();
   deviceTokenInfo: TokenDeviceModel = new TokenDeviceModel();
 
 

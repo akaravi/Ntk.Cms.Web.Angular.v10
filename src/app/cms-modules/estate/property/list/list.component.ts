@@ -30,6 +30,7 @@ import { EstatePropertyResponsibleUserListComponent } from "../responsible-user-
 import { ThemeService } from "src/app/core/services/theme.service";
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
+
 @Component({
   selector: "app-estate-property-list",
   templateUrl: "./list.component.html",
@@ -61,7 +62,7 @@ export class EstatePropertyListComponent extends ListBaseComponent<EstatePropert
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public estatePropertyDetailGroupService: EstatePropertyDetailGroupService,
     public tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private router: Router,
     private cdr: ChangeDetectorRef,
     public dialog: MatDialog,
@@ -262,7 +263,8 @@ export class EstatePropertyListComponent extends ListBaseComponent<EstatePropert
   ngOnInit(): void {
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
-      this.GetServiceSiteConfig(this.tokenHelper.tokenInfo.access.siteId);
+      if (this.tokenInfo?.access?.siteId > 0)
+        this.GetServiceSiteConfig(this.tokenInfo.access.siteId);
 
       this.DataGetAll();
       if (!this.tokenHelper.isAdminSite && !this.tokenHelper.isSupportSite) {
@@ -277,7 +279,8 @@ export class EstatePropertyListComponent extends ListBaseComponent<EstatePropert
       .subscribe({
         next: (ret) => {
           this.tokenInfo = ret;
-          this.GetServiceSiteConfig(this.tokenHelper.tokenInfo.access.siteId);
+          if (this.tokenInfo?.access?.siteId > 0)
+            this.GetServiceSiteConfig(this.tokenInfo.access.siteId);
           this.DataGetAll();
           if (!this.tokenHelper.isAdminSite && !this.tokenHelper.isSupportSite) {
             this.tabledisplayedColumnsSource = this.publicHelper.listRemoveIfExist(this.tabledisplayedColumnsSource, 'scoreEstateLocation');
@@ -296,8 +299,6 @@ export class EstatePropertyListComponent extends ListBaseComponent<EstatePropert
     }
   }
   GetServiceSiteConfig(SiteId: number): void {
-    if (!(SiteId && SiteId > 0))
-      return;
     const pName = this.constructor.name + 'ServiceSiteConfig';
     this.translate.get('MESSAGE.get_module_setting').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
     this.configService

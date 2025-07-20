@@ -6,14 +6,14 @@ import {
 import { debounceTime } from 'rxjs/operators';
 // https://stackblitz.com/edit/angular-dynamic-form-builder-9nybhu?file=app%2Fapp.component.html
 @Component({
-    // tslint:disable-next-line: component-selector
-    selector: 'dynamic-form-builder-cms',
-    template: `
+  // tslint:disable-next-line: component-selector
+  selector: 'dynamic-form-builder-cms',
+  template: `
       <div *ngFor="let field of fields">
           <field-builder [field]="field" [formGroup]="formGroup"></field-builder>
       </div>
   `,
-    standalone: false
+  standalone: false
 })
 export class DynamicFormBuilderCmsComponent implements OnInit, AfterViewInit {
 
@@ -27,7 +27,7 @@ export class DynamicFormBuilderCmsComponent implements OnInit, AfterViewInit {
     }
   }
   privatePropertiesInfos: GetPropertiesInfoModel[] = [];
-  theKeys:any;
+  theKeys: any;
   privateJsonValue: any;
   @Input() set propertiesInfos(model: GetPropertiesInfoModel[]) {
     this.privatePropertiesInfos = model;
@@ -128,13 +128,12 @@ export class DynamicFormBuilderCmsComponent implements OnInit, AfterViewInit {
   actionSetValue(): void {
     if (this.privateJsonValue && this.privatePropertiesInfos && this.privatePropertiesInfos.length > 0) {
 
-      
       this.privatePropertiesInfos.forEach(x => {
         if (!this.formValues) {
           this.formValues = {};
         }
         if (this.getPropValue(x.fieldName)) {
-          this.formValues[x.fieldName] =this.getPropValue(x.fieldName);// this.privateJsonValue[x.fieldName];
+          this.formValues[x.fieldName] = this.getPropValue(x.fieldName);// this.privateJsonValue[x.fieldName];
         } else {
           this.formValues[x.fieldName] = '';
         }
@@ -146,7 +145,7 @@ export class DynamicFormBuilderCmsComponent implements OnInit, AfterViewInit {
       });
     }
   }
-  getPropValue(prop:string):any {
+  getPropValue(prop: string): any {
     var match = new RegExp(prop, 'i').exec(this.theKeys);
     return match && match.length > 0 ? this.privateJsonValue[match[0]] : '';
   }

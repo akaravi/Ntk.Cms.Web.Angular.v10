@@ -254,7 +254,7 @@ export class EstatePropertyAddComponent extends AddBaseComponent<EstatePropertyS
           this.translate.get('MESSAGE.registration_completed_successfully').subscribe((str: string) => { this.formInfo.formAlert = str; });
           this.cmsToastrService.typeSuccessAdd();
 
-          if ((this.tokenHelper.isAdminSite || this.tokenHelper.isSupportSite || this.tokenHelper.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerCpSite || this.tokenHelper.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerEmployeeCpSite) && this.dataModel.recordStatus == RecordStatusEnum.Available) {
+          if ((this.tokenHelper.isAdminSite || this.tokenHelper.isSupportSite || this.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerCpSite || this.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerEmployeeCpSite) && this.dataModel.recordStatus == RecordStatusEnum.Available) {
             var panelClass = '';
             if (this.tokenHelper.isMobile)
               panelClass = 'dialog-fullscreen';

@@ -47,7 +47,7 @@ export class EstateCustomerOrderAddMobileComponent implements OnInit {
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public tokenHelper: TokenHelper,
     public http: HttpClient,
     public dialog: MatDialog,
@@ -60,13 +60,13 @@ export class EstateCustomerOrderAddMobileComponent implements OnInit {
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.allowActionSend = false;
-      if ((this.tokenHelper.isAdminSite || this.tokenHelper.isSupportSite || this.tokenHelper.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerCpSite || this.tokenHelper.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerEmployeeCpSite) && this.dataModel.recordStatus == RecordStatusEnum.Available)
+      if ((this.tokenHelper.isAdminSite || this.tokenHelper.isSupportSite || this.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerCpSite || this.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerEmployeeCpSite) && this.dataModel.recordStatus == RecordStatusEnum.Available)
         this.allowActionSend = true;
     }
     this.dataModel.partition = 3;
   }
 
-
+  tokenInfo: TokenInfoModelV3 = new TokenInfoModelV3();
   @ViewChild(EstatePropertyListComponent) estatePropertyList: EstatePropertyListComponent;
   allowActionSend = false;
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
@@ -75,7 +75,6 @@ export class EstateCustomerOrderAddMobileComponent implements OnInit {
   enumInputDataType = InputDataTypeEnum;
   fileManagerTree: TreeModel;
   appLanguage = 'fa';
-  tokenInfo = new TokenInfoModelV3();
   linkParentId = '';
 
   dataModelContractTypeResult: ErrorExceptionResult<EstateContractTypeModel> = new ErrorExceptionResult<EstateContractTypeModel>();
