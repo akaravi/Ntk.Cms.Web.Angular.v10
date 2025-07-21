@@ -187,7 +187,7 @@ export class CoreUserClaimContentCheckListComponent implements OnInit, OnDestroy
 
   onActionButtonNewRow(): void {
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -213,7 +213,7 @@ export class CoreUserClaimContentCheckListComponent implements OnInit, OnDestroy
     this.onActionTableRowSelect(model);
     if (model.linkContentId && model.linkContentId > 0) {
       var panelClass = '';
-      if (this.tokenHelper.isMobile)
+      if (this.publicHelper.isMobile)
         panelClass = 'dialog-fullscreen';
       else
         panelClass = 'dialog-min';
@@ -231,7 +231,7 @@ export class CoreUserClaimContentCheckListComponent implements OnInit, OnDestroy
       });
     } else {
       var panelClass = '';
-      if (this.tokenHelper.isMobile)
+      if (this.publicHelper.isMobile)
         panelClass = 'dialog-fullscreen';
       else
         panelClass = 'dialog-min';

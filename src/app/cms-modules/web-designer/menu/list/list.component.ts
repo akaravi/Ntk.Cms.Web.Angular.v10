@@ -21,6 +21,7 @@ import { environment } from 'src/environments/environment';
 import { WebDesignerMainMenuAddComponent } from '../add/add.component';
 import { WebDesignerMainMenuEditComponent } from '../edit/edit.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -38,6 +39,7 @@ export class WebDesignerMainMenuListComponent extends ListBaseComponent<WebDesig
     public coreEnumService: CoreEnumService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
+    public themeService: ThemeService,
     private cmsStoreService: CmsStoreService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
@@ -219,7 +221,7 @@ export class WebDesignerMainMenuListComponent extends ListBaseComponent<WebDesig
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -251,7 +253,7 @@ export class WebDesignerMainMenuListComponent extends ListBaseComponent<WebDesig
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

@@ -27,6 +27,7 @@ import { BankPaymentPrivateSiteConfigAddComponent } from '../add/add.component';
 import { BankPaymentPrivateSiteConfigEditComponent } from '../edit/edit.component';
 import { BankPaymentPrivateSiteConfigPaymentTestComponent } from '../paymentTest/paymentTest.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -46,6 +47,7 @@ export class BankPaymentPrivateSiteConfigListComponent extends ListBaseComponent
     private cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private router: Router,
+    public themeService: ThemeService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     public pageInfo: PageInfoService,
@@ -242,7 +244,7 @@ export class BankPaymentPrivateSiteConfigListComponent extends ListBaseComponent
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -287,7 +289,7 @@ export class BankPaymentPrivateSiteConfigListComponent extends ListBaseComponent
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -433,7 +435,7 @@ export class BankPaymentPrivateSiteConfigListComponent extends ListBaseComponent
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

@@ -244,7 +244,7 @@ export class EstatePropertyCompanyListComponent extends ListBaseComponent<Estate
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
 
     else
@@ -369,7 +369,7 @@ export class EstatePropertyCompanyListComponent extends ListBaseComponent<Estate
           if (ret.isSuccess) {
             //open popup
             var panelClass = '';
-            if (this.tokenHelper.isMobile)
+            if (this.publicHelper.isMobile)
               panelClass = 'dialog-fullscreen';
 
             else

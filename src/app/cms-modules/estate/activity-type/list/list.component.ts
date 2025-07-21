@@ -180,7 +180,7 @@ export class EstateActivityTypeListComponent extends ListBaseComponent<EstateAct
       return;
     }
     var panelClass = '';
-    if (this.themeService.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -214,7 +214,7 @@ export class EstateActivityTypeListComponent extends ListBaseComponent<EstateAct
       return;
     }
     var panelClass = '';
-    if (this.themeService.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

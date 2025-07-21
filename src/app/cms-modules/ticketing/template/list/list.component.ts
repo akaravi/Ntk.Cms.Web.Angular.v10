@@ -201,7 +201,7 @@ export class TicketingTemplateListComponent extends ListBaseComponent<TicketingT
       parentId = this.categoryModelSelected.id;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -247,7 +247,7 @@ export class TicketingTemplateListComponent extends ListBaseComponent<TicketingT
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

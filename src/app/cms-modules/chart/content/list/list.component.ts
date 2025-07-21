@@ -282,7 +282,7 @@ export class ChartContentListComponent extends ListBaseComponent<ChartContentSer
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -392,7 +392,7 @@ export class ChartContentListComponent extends ListBaseComponent<ChartContentSer
         next: (ret) => {
           if (ret.isSuccess) {
             var panelClass = '';
-            if (this.tokenHelper.isMobile)
+            if (this.publicHelper.isMobile)
               panelClass = 'dialog-fullscreen';
             else
               panelClass = 'dialog-min';

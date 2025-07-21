@@ -255,7 +255,7 @@ export class EstatePropertyAddComponent extends AddBaseComponent<EstatePropertyS
 
           if ((this.tokenHelper.isAdminSite || this.tokenHelper.isSupportSite || this.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerCpSite || this.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerEmployeeCpSite) && this.dataModel.recordStatus == RecordStatusEnum.Available) {
             var panelClass = '';
-            if (this.themeService.isMobile)
+            if (this.publicHelper.isMobile)
               panelClass = 'dialog-fullscreen';
             else
               panelClass = 'dialog-min';
@@ -664,7 +664,7 @@ export class EstatePropertyAddComponent extends AddBaseComponent<EstatePropertyS
     };
 
     var panelClass = '';
-    if (this.themeService.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -683,7 +683,7 @@ export class EstatePropertyAddComponent extends AddBaseComponent<EstatePropertyS
       return;
     }
     var panelClass = '';
-    if (this.themeService.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -705,7 +705,7 @@ export class EstatePropertyAddComponent extends AddBaseComponent<EstatePropertyS
       return;
     }
     var panelClass = '';
-    if (this.themeService.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -727,7 +727,7 @@ export class EstatePropertyAddComponent extends AddBaseComponent<EstatePropertyS
       return;
     }
     var panelClass = '';
-    if (this.themeService.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -749,7 +749,7 @@ export class EstatePropertyAddComponent extends AddBaseComponent<EstatePropertyS
       return;
     }
     var panelClass = '';
-    if (this.themeService.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

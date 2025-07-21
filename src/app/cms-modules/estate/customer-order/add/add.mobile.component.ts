@@ -690,7 +690,7 @@ export class EstateCustomerOrderAddMobileComponent implements OnInit {
     var nextItem = this.publicHelper.InfoNextRowInList(this.dataModelEstatePropertyResult.listItems, model);
     var perviousItem = this.publicHelper.InfoPerviousRowInList(this.dataModelEstatePropertyResult.listItems, model);
     var panelClass = '';
-    if (this.themeService.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

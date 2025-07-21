@@ -262,7 +262,7 @@ export class CatalogContentListComponent extends ListBaseComponent<CatalogConten
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -369,7 +369,7 @@ export class CatalogContentListComponent extends ListBaseComponent<CatalogConten
         next: (ret) => {
           if (ret.isSuccess) {
             var panelClass = '';
-            if (this.tokenHelper.isMobile)
+            if (this.publicHelper.isMobile)
               panelClass = 'dialog-fullscreen';
             else
               panelClass = 'dialog-min';

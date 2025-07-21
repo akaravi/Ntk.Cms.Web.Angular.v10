@@ -83,11 +83,7 @@ export class ThemeService implements OnDestroy {
   onNavigationEndAppComponent(): void {
     setTimeout(() => { this.htmlSelectorAddEvent(); }, 200);
   }
-  get isMobile() {
-    if (window.innerWidth < environment.cmsViewConfig.mobileWindowInnerWidth)
-      return true;
-    return false;
-  };
+
 
   htmlSelectorAddEvent(): void {
     //Activating Menus

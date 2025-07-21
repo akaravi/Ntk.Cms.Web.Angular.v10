@@ -207,7 +207,7 @@ export class CoreUserListComponent extends ListBaseComponent<CoreUserService, Co
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -241,7 +241,7 @@ export class CoreUserListComponent extends ListBaseComponent<CoreUserService, Co
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -320,7 +320,7 @@ export class CoreUserListComponent extends ListBaseComponent<CoreUserService, Co
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

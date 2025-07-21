@@ -21,6 +21,7 @@ import { CmsConfirmationDialogService } from 'src/app/shared/cms-confirmation-di
 import { environment } from 'src/environments/environment';
 import { WebDesignerLogMemberInfoViewComponent } from '../view/view.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -37,6 +38,7 @@ export class WebDesignerLogMemberInfoListComponent extends ListBaseComponent<Web
     private activatedRoute: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
+    public themeService: ThemeService,
     private cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     private router: Router,
@@ -196,7 +198,7 @@ export class WebDesignerLogMemberInfoListComponent extends ListBaseComponent<Web
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

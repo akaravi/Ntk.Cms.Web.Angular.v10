@@ -83,7 +83,7 @@ export class CoreUserClaimContentWidgetStatusComponent implements OnInit, OnDest
     }
     if (model.linkContentId && model.linkContentId > 0) {
       var panelClass = '';
-      if (this.tokenHelper.isMobile)
+      if (this.publicHelper.isMobile)
         panelClass = 'dialog-fullscreen';
       else
         panelClass = 'dialog-min';
@@ -101,7 +101,7 @@ export class CoreUserClaimContentWidgetStatusComponent implements OnInit, OnDest
       });
     } else {
       var panelClass = '';
-      if (this.tokenHelper.isMobile)
+      if (this.publicHelper.isMobile)
         panelClass = 'dialog-fullscreen';
       else
         panelClass = 'dialog-min';

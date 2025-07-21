@@ -235,7 +235,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent extends ListBaseComponent<Sm
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -326,7 +326,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent extends ListBaseComponent<Sm
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

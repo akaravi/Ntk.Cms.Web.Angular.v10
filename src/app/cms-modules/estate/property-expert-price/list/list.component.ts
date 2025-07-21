@@ -302,7 +302,7 @@ export class EstatePropertyExpertPriceListComponent extends ListBaseComponent<Es
     dialogConfig.height = '90%';
     dialogConfig.data = {};
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -337,7 +337,7 @@ export class EstatePropertyExpertPriceListComponent extends ListBaseComponent<Es
     dialogConfig.data = { id: this.tableRowSelected.id };
 
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -497,7 +497,7 @@ export class EstatePropertyExpertPriceListComponent extends ListBaseComponent<Es
     dialogConfig.data = { id: this.tableRowSelected.id };
 
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -526,7 +526,7 @@ export class EstatePropertyExpertPriceListComponent extends ListBaseComponent<Es
     dialogConfig.data = { id: this.tableRowSelected.id };
 
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

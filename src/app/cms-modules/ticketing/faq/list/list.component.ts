@@ -203,7 +203,7 @@ export class TicketingFaqListComponent extends ListBaseComponent<TicketingFaqSer
       parentId = this.categoryModelSelected.id;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -249,7 +249,7 @@ export class TicketingFaqListComponent extends ListBaseComponent<TicketingFaqSer
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

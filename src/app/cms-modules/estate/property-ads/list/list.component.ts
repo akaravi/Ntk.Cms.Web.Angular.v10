@@ -176,7 +176,7 @@ export class EstatePropertyAdsListComponent extends ListBaseComponent<EstateProp
       return;
     }
     var panelClass = '';
-    if (this.themeService.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -208,7 +208,7 @@ export class EstatePropertyAdsListComponent extends ListBaseComponent<EstateProp
       return;
     }
     var panelClass = '';
-    if (this.themeService.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

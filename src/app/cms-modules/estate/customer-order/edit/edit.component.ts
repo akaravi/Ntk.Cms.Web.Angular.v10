@@ -218,7 +218,7 @@ export class EstateCustomerOrderEditComponent extends EditBaseComponent<EstateCu
           this.optionReload();
           if ((this.tokenHelper.isAdminSite || this.tokenHelper.isSupportSite || this.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerCpSite || this.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerEmployeeCpSite) && this.dataModel.recordStatus == RecordStatusEnum.Available) {
             var panelClass = '';
-            if (this.themeService.isMobile)
+            if (this.publicHelper.isMobile)
               panelClass = 'dialog-fullscreen';
             else
               panelClass = 'dialog-min';
@@ -468,7 +468,7 @@ export class EstateCustomerOrderEditComponent extends EditBaseComponent<EstateCu
 
   onActionButtonQuickHistoryAddRow(): void {
     var panelClass = '';
-    if (this.themeService.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

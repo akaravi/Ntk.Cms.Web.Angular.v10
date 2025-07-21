@@ -31,7 +31,7 @@ export class DataProviderPlanClientHeaderComponent implements OnInit, OnDestroy 
     private cmsToastrService: CmsToastrService,
     public dialog: MatDialog,
     public translate: TranslateService,
-    	private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public tokenHelper: TokenHelper
   ) {
     this.publicHelper.processService.cdr = this.cdr;
@@ -94,7 +94,7 @@ export class DataProviderPlanClientHeaderComponent implements OnInit, OnDestroy 
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

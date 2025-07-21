@@ -341,7 +341,7 @@ export class CoreModuleSiteUserCreditListComponent extends ListBaseComponent<Cor
     }
     this.onActionTableRowSelect(model);
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

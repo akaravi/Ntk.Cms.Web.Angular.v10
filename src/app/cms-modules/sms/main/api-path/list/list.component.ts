@@ -265,7 +265,7 @@ export class SmsMainApiPathListComponent extends ListBaseComponent<SmsMainApiPat
     if (this.requestLinkCompanyId && this.requestLinkCompanyId.length > 0)
       linkCompanyId = this.requestLinkCompanyId;
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -556,7 +556,7 @@ export class SmsMainApiPathListComponent extends ListBaseComponent<SmsMainApiPat
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -604,7 +604,7 @@ export class SmsMainApiPathListComponent extends ListBaseComponent<SmsMainApiPat
     this.onActionTableRowSelect(model);
 
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

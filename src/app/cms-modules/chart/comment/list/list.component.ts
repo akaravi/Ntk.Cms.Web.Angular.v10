@@ -219,7 +219,7 @@ export class ChartCommentListComponent extends ListBaseComponent<ChartCommentSer
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -253,7 +253,7 @@ export class ChartCommentListComponent extends ListBaseComponent<ChartCommentSer
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -488,7 +488,7 @@ export class ChartCommentListComponent extends ListBaseComponent<ChartCommentSer
         next: (ret) => {
           if (ret.isSuccess) {
             var panelClass = '';
-            if (this.tokenHelper.isMobile)
+            if (this.publicHelper.isMobile)
               panelClass = 'dialog-fullscreen';
             else
               panelClass = 'dialog-min';

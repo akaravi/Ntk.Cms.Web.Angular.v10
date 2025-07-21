@@ -214,7 +214,7 @@ export class CoreModuleLogSiteCreditBlockedListComponent extends ListBaseCompone
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -247,7 +247,7 @@ export class CoreModuleLogSiteCreditBlockedListComponent extends ListBaseCompone
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

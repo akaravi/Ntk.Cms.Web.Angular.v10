@@ -217,7 +217,7 @@ export class ApplicationLogNotificationListComponent extends ListBaseComponent<A
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -295,7 +295,7 @@ export class ApplicationLogNotificationListComponent extends ListBaseComponent<A
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

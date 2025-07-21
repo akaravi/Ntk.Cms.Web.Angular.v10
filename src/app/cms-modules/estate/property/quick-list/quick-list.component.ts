@@ -522,7 +522,7 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
       return;
     }
     var panelClass = '';
-    if (this.themeService.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -781,7 +781,7 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
           if (ret.isSuccess) {
             //open popup
             var panelClass = '';
-            if (this.themeService.isMobile)
+            if (this.publicHelper.isMobile)
               panelClass = 'dialog-fullscreen';
             else
               panelClass = 'dialog-min';

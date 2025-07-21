@@ -27,7 +27,7 @@ export class ListBaseComponent<TService extends IApiCmsServerBase, TModel extend
   tableSource: MatTableDataSource<TModel> = new MatTableDataSource<TModel>();
   tokenInfo = new TokenInfoModelV3();
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
-  
+
   optionsSearch: ComponentOptionSearchModel = new ComponentOptionSearchModel();
   optionsStatist: ComponentOptionStatistModel = new ComponentOptionStatistModel();
   tableRowSelected: TModel;
@@ -175,7 +175,7 @@ export class ListBaseComponent<TService extends IApiCmsServerBase, TModel extend
   onActionButtonExport(): void {
     //open popup
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
 
     else
@@ -212,7 +212,7 @@ export class ListBaseComponent<TService extends IApiCmsServerBase, TModel extend
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

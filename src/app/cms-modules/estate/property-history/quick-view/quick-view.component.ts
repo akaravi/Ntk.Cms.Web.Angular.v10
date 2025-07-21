@@ -156,7 +156,7 @@ export class EstatePropertyHistoryQuickViewComponent implements OnInit, OnDestro
 
 
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -179,7 +179,7 @@ export class EstatePropertyHistoryQuickViewComponent implements OnInit, OnDestro
     }
 
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

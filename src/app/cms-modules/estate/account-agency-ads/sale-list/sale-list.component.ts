@@ -89,7 +89,7 @@ export class EstateAccountAgencyAdsSaleListComponent implements OnInit, OnDestro
     const transactionId = + localStorage.getItem('TransactionId') | 0;
     if (transactionId > 0) {
       var panelClass = '';
-      if (this.themeService.isMobile)
+      if (this.publicHelper.isMobile)
         panelClass = 'dialog-fullscreen';
       else
         panelClass = 'dialog-min';
@@ -173,7 +173,7 @@ export class EstateAccountAgencyAdsSaleListComponent implements OnInit, OnDestro
   onActionButtonBuy(model: EstateAdsTypeModel): void {
     this.tableRowSelected = model;
     var panelClass = '';
-    if (this.themeService.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

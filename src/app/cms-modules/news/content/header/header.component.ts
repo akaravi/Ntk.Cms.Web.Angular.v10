@@ -97,7 +97,7 @@ export class NewsContentHeaderComponent implements OnInit, OnDestroy {
     }
     //open popup
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

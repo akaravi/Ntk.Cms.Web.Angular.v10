@@ -217,7 +217,7 @@ export class HyperShopContentListComponent extends ListBaseComponent<HyperShopCo
       parentId = this.categoryModelSelected.id;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -262,7 +262,7 @@ export class HyperShopContentListComponent extends ListBaseComponent<HyperShopCo
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -299,7 +299,7 @@ export class HyperShopContentListComponent extends ListBaseComponent<HyperShopCo
       parentId = this.categoryModelSelected.id;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

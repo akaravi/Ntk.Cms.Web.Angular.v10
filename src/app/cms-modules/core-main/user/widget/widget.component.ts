@@ -121,7 +121,7 @@ export class CoreUserWidgetComponent implements OnInit, OnDestroy {
   onActionButtonEmailConfirm(): void {
 
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -141,7 +141,7 @@ export class CoreUserWidgetComponent implements OnInit, OnDestroy {
   onActionButtonMobileConfirm(): void {
 
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

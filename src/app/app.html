@@ -4,7 +4,7 @@
 <div id="page">
   <app-progress-spinner></app-progress-spinner>
   <app-header-bar class="theme-rtl"></app-header-bar>
-  <app-footer-bar *ngIf="this.themeService.isMobile"></app-footer-bar>
+  <app-footer-bar *ngIf="this.publicHelper.isMobile"></app-footer-bar>
   <div class="page-title-clear"></div>
   <router-outlet></router-outlet>
   <!-- All Menus, Action Sheets, Modals, Notifications, Toasts, Snackbars get Placed outside the <div class="page-content"> -->

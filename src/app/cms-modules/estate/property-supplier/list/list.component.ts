@@ -254,7 +254,7 @@ export class EstatePropertySupplierListComponent extends ListBaseComponent<Estat
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -379,7 +379,7 @@ export class EstatePropertySupplierListComponent extends ListBaseComponent<Estat
           if (ret.isSuccess) {
             //open popup
             var panelClass = '';
-            if (this.tokenHelper.isMobile)
+            if (this.publicHelper.isMobile)
               panelClass = 'dialog-fullscreen';
             else
               panelClass = 'dialog-min';

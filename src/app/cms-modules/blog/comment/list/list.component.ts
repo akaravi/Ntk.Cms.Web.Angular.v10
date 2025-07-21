@@ -226,7 +226,7 @@ export class BlogCommentListComponent extends ListBaseComponent<BlogCommentServi
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -259,7 +259,7 @@ export class BlogCommentListComponent extends ListBaseComponent<BlogCommentServi
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -490,7 +490,7 @@ export class BlogCommentListComponent extends ListBaseComponent<BlogCommentServi
         next: (ret) => {
           if (ret.isSuccess) {
             var panelClass = '';
-            if (this.tokenHelper.isMobile)
+            if (this.publicHelper.isMobile)
               panelClass = 'dialog-fullscreen';
             else
               panelClass = 'dialog-min';

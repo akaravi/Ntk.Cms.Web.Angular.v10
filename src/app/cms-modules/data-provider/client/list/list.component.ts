@@ -269,7 +269,7 @@ export class DataProviderClientListComponent extends ListBaseComponent<DataProvi
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

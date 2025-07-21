@@ -453,7 +453,7 @@ export class EstatePropertyHistoryListComponent extends ListBaseComponent<Estate
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -522,7 +522,7 @@ export class EstatePropertyHistoryListComponent extends ListBaseComponent<Estate
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -686,7 +686,7 @@ export class EstatePropertyHistoryListComponent extends ListBaseComponent<Estate
     }
 
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -730,7 +730,7 @@ export class EstatePropertyHistoryListComponent extends ListBaseComponent<Estate
       this.tableRowSelected
     );
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -767,7 +767,7 @@ export class EstatePropertyHistoryListComponent extends ListBaseComponent<Estate
     }
 
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -867,7 +867,7 @@ export class EstatePropertyHistoryListComponent extends ListBaseComponent<Estate
     }
     this.tableRowSelected = model;
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

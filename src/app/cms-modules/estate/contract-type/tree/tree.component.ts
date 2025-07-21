@@ -127,7 +127,7 @@ export class EstateContractTypeTreeComponent implements OnInit, OnDestroy {
 
   onActionAdd(): void {
     var panelClass = '';
-    if (this.themeService.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -155,7 +155,7 @@ export class EstateContractTypeTreeComponent implements OnInit, OnDestroy {
       return;
     }
     var panelClass = '';
-    if (this.themeService.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

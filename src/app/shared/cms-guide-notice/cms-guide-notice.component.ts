@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, O
 import { MatDialog } from '@angular/material/dialog';
 import { CoreGuideService, TokenInfoModelV3 } from 'ntk-cms-api';
 import { Subscription } from 'rxjs';
+import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
@@ -39,6 +40,7 @@ export class CmsGuideNoticeComponent implements OnInit, OnDestroy {
   constructor(
     private pageInfo: PageInfoService,
     public themeService: ThemeService,
+    public publicHelper: PublicHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     private coreGuideService: CoreGuideService,
@@ -216,7 +218,7 @@ export class CmsGuideNoticeComponent implements OnInit, OnDestroy {
   onActionCopyHeaderKey(keyTemplate: any, event?: MouseEvent): void {
 
     var panelClass = '';
-    if (this.themeService.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

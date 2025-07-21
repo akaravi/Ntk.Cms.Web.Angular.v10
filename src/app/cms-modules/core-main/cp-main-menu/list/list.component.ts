@@ -21,6 +21,7 @@ import { environment } from 'src/environments/environment';
 import { CoreCpMainMenuAddComponent } from '../add/add.component';
 import { CoreCpMainMenuEditComponent } from '../edit/edit.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -42,6 +43,7 @@ export class CoreCpMainMenuListComponent extends ListBaseComponent<CoreCpMainMen
     public translate: TranslateService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
+    public themeService: ThemeService,
     public dialog: MatDialog) {
     super(contentService, new CoreCpMainMenuModel(), publicHelper, tokenHelper, translate);
     this.publicHelper.processService.cdr = this.cdr;
@@ -245,7 +247,7 @@ export class CoreCpMainMenuListComponent extends ListBaseComponent<CoreCpMainMen
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -280,7 +282,7 @@ export class CoreCpMainMenuListComponent extends ListBaseComponent<CoreCpMainMen
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

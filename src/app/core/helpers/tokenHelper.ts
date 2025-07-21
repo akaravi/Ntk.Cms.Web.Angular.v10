@@ -109,11 +109,7 @@ export class TokenHelper {
       finalize(() => { })
     );
   }
-  get isMobile() {
-    if (window.innerWidth < environment.cmsViewConfig.mobileWindowInnerWidth)
-      return true;
-    return false;
-  };
+
   private tokenInfo: TokenInfoModelV3 = new TokenInfoModelV3();
   deviceTokenInfo: TokenDeviceModel = new TokenDeviceModel();
 

@@ -241,7 +241,7 @@ export class CoreTokenActivationListComponent extends ListBaseComponent<CoreToke
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -275,7 +275,7 @@ export class CoreTokenActivationListComponent extends ListBaseComponent<CoreToke
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

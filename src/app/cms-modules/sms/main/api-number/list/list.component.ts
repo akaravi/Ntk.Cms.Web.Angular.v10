@@ -217,7 +217,7 @@ export class SmsMainApiNumberListComponent extends ListBaseComponent<SmsMainApiN
     if (this.categoryModelSelected && this.categoryModelSelected.id && this.categoryModelSelected.id.length > 0)
       linkApiPathId = this.categoryModelSelected.id;
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -257,7 +257,7 @@ export class SmsMainApiNumberListComponent extends ListBaseComponent<SmsMainApiN
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

@@ -376,7 +376,7 @@ export class LinkManagementTargetListComponent extends ListBaseComponent<LinkMan
           if (ret.isSuccess) {
             //open popup
             var panelClass = '';
-            if (this.tokenHelper.isMobile)
+            if (this.publicHelper.isMobile)
               panelClass = 'dialog-fullscreen';
             else
               panelClass = 'dialog-min';

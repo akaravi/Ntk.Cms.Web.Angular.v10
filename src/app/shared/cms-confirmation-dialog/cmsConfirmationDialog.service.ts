@@ -5,6 +5,7 @@ import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
 import { environment } from 'src/environments/environment';
 import { ConfirmationDialogComponent } from './cmsConfirmationDialog.component';
 import { ThemeService } from 'src/app/core/services/theme.service';
+import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 
 export class ConfirmDialogModel {
   constructor(public title: string, public message: string) {
@@ -20,10 +21,11 @@ export class ConfirmDialogModel {
 export class CmsConfirmationDialogService {
   constructor(
     public dialog: MatDialog,
+    public publicHelper: PublicHelper,
     public tokenHelper: TokenHelper,
     public themeService: ThemeService,
     public translate: TranslateService,
-    
+
   ) { }
   public confirm(
     title: string,
@@ -42,7 +44,7 @@ export class CmsConfirmationDialogService {
       this.translate.get('ACTION.CANCEL').subscribe((str: string) => { dialogData.btnCancelText = str; });
     //open poup
     var panelClass = '';
-    if (this.themeService.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

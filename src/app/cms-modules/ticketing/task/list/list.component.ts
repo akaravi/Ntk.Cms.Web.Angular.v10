@@ -233,7 +233,7 @@ export class TicketingTaskListComponent extends ListBaseComponent<TicketingTaskS
       parentId = this.categoryModelSelected.id;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -261,7 +261,7 @@ export class TicketingTaskListComponent extends ListBaseComponent<TicketingTaskS
     this.tableRowSelected = mode;
 
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -307,7 +307,7 @@ export class TicketingTaskListComponent extends ListBaseComponent<TicketingTaskS
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.publicHelper.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
