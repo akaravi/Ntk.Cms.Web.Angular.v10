@@ -6,8 +6,6 @@ import { CmsStoreService } from '../reducers/cmsStore.service';
 import { SET_Theme_STATE } from '../reducers/reducer.factory';
 import { TranslateService } from '@ngx-translate/core';
 import {
-  LOCALIZATION_LOCAL_STORAGE_KEY,
-  KeyboardEventF9,
   themeModeLSKey,
   themeHighLightLSKey,
   themeFontSizeSKey,

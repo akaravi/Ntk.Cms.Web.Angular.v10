@@ -8,8 +8,6 @@ import {
   CoreCurrencyModel,
   CoreCurrencyService,
   CoreEnumService,
-  CoreModuleService,
-  CoreSiteService,
   DataFieldInfoModel, ErrorExceptionResult,
   ErrorExceptionResultBase, InfoEnumModel, TicketStatusEnum, TokenInfoModelV3
 } from 'ntk-cms-api';
@@ -35,8 +33,6 @@ export class PublicHelper {
     public translate: TranslateService,
     public coreEnumService: CoreEnumService,
     private coreCurrencyService: CoreCurrencyService,
-    private coreSiteService: CoreSiteService,
-    private coreModuleService: CoreModuleService,
     public processService: ProcessService,
     public dialog: MatDialog,
     public pageInfo: PageInfoService,
@@ -434,7 +430,7 @@ export class PublicHelper {
         this.getEnumRecordStatusActionIndo = false;
         this.cmsStoreService.setState({ type: SET_Info_Enum, payload: response });
         return response;
-      }).catch((error) => {
+      }).catch(() => {
         return new ErrorExceptionResult<InfoEnumModel>;
       }
       );

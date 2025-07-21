@@ -10,13 +10,13 @@ import {
 //start change title when route happened
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Event, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
-import { ObjectUnsubscribedError, Observable, Subscription, filter, firstValueFrom, map } from 'rxjs';
+import { Observable, Subscription, filter, map } from 'rxjs';
 //end change title when route happened
 import { HttpParams } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
 import { getAnalytics } from "firebase/analytics";
 import { initializeApp } from "firebase/app";
-import { CoreAuthV3Service, CoreConfigurationService, CoreEnumService, CoreModuleModel, CoreModuleService, CoreSiteService, CoreSiteSupportModel, DeviceTypeEnum, ErrorExceptionResult, OperatingSystemTypeEnum, TokenDeviceClientInfoDtoModel, TokenDeviceSetNotificationIdDtoModel, TokenInfoModelV3 } from 'ntk-cms-api';
+import { CoreAuthV3Service, CoreConfigurationService, CoreModuleService, CoreSiteService, CoreSiteSupportModel, ErrorExceptionResult, TokenInfoModelV3 } from 'ntk-cms-api';
 import { environment } from 'src/environments/environment';
 import { PublicHelper } from './core/helpers/publicHelper';
 import { TokenHelper } from './core/helpers/tokenHelper';
@@ -31,7 +31,6 @@ import { ThemeService } from './core/services/theme.service';
 import { ComponentsModule } from './components/components.module';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from './shared/shared.module';
-import { CmsAuthService } from './core/services/cmsAuth.service';
 import { KeyboardEventF9 } from './core/models/constModel';
 
 @Component({
