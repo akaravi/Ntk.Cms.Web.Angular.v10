@@ -20,6 +20,7 @@ import { environment } from 'src/environments/environment';
 import { EstateContractTypeAddComponent } from '../add/add.component';
 import { EstateContractTypeEditComponent } from '../edit/edit.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -40,6 +41,7 @@ export class EstateContractTypeListComponent extends ListBaseComponent<EstateCon
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     public pageInfo: PageInfoService,
+    public themeService: ThemeService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog) {
     super(contentService, new EstateContractTypeModel(), publicHelper, tokenHelper, translate);
@@ -181,7 +183,7 @@ export class EstateContractTypeListComponent extends ListBaseComponent<EstateCon
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -215,7 +217,7 @@ export class EstateContractTypeListComponent extends ListBaseComponent<EstateCon
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

@@ -28,6 +28,7 @@ import { EstatePropertyExpertPriceInquiryListComponent } from '../../property-ex
 import { EstatePropertyActionComponent } from '../action/action.component';
 import { EstatePropertyQuickListComponent } from '../quick-list/quick-list.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -49,6 +50,7 @@ export class EstatePropertyAddComponent extends AddBaseComponent<EstatePropertyS
     private estatePropertyTypeLanduseService: EstatePropertyTypeLanduseService,
     private cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
+    public themeService: ThemeService,
     private router: Router,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -253,7 +255,7 @@ export class EstatePropertyAddComponent extends AddBaseComponent<EstatePropertyS
 
           if ((this.tokenHelper.isAdminSite || this.tokenHelper.isSupportSite || this.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerCpSite || this.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerEmployeeCpSite) && this.dataModel.recordStatus == RecordStatusEnum.Available) {
             var panelClass = '';
-            if (this.tokenHelper.isMobile)
+            if (this.themeService.isMobile)
               panelClass = 'dialog-fullscreen';
             else
               panelClass = 'dialog-min';
@@ -662,7 +664,7 @@ export class EstatePropertyAddComponent extends AddBaseComponent<EstatePropertyS
     };
 
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -681,7 +683,7 @@ export class EstatePropertyAddComponent extends AddBaseComponent<EstatePropertyS
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -703,7 +705,7 @@ export class EstatePropertyAddComponent extends AddBaseComponent<EstatePropertyS
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -725,7 +727,7 @@ export class EstatePropertyAddComponent extends AddBaseComponent<EstatePropertyS
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -747,7 +749,7 @@ export class EstatePropertyAddComponent extends AddBaseComponent<EstatePropertyS
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

@@ -20,6 +20,7 @@ import { environment } from 'src/environments/environment';
 import { EstateAccountAgencyAddComponent } from '../add/add.component';
 import { EstateAccountAgencyEditComponent } from '../edit/edit.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -40,6 +41,7 @@ export class EstateAccountAgencyListComponent extends ListBaseComponent<EstateAc
     private cdr: ChangeDetectorRef,
     private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
+    public themeService: ThemeService,
     private activatedRoute: ActivatedRoute,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
@@ -222,7 +224,7 @@ export class EstateAccountAgencyListComponent extends ListBaseComponent<EstateAc
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -256,7 +258,7 @@ export class EstateAccountAgencyListComponent extends ListBaseComponent<EstateAc
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

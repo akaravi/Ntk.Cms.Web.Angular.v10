@@ -28,6 +28,7 @@ import { EstateCustomerOrderAddToEditComponent } from '../add/add-to-edit.compon
 import { EstateCustomerOrderQuickViewComponent } from '../quick-view/quick-view.component';
 import { EstateCustomerOrderResponsibleUserListComponent } from '../responsible-user-list/responsible-user-list.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 @Component({
   selector: 'app-estate-customer-order-list',
   templateUrl: './list.component.html',
@@ -49,6 +50,7 @@ export class EstateCustomerOrderListComponent extends ListBaseComponent<EstateCu
     public translate: TranslateService,
     private activatedRoute: ActivatedRoute,
     private cmsStoreService: CmsStoreService,
+    public themeService: ThemeService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog,
@@ -362,7 +364,7 @@ export class EstateCustomerOrderListComponent extends ListBaseComponent<EstateCu
 
     //open poup
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';// matdialogStyle
     else
       panelClass = 'dialog-min';
@@ -393,7 +395,7 @@ export class EstateCustomerOrderListComponent extends ListBaseComponent<EstateCu
 
     //open poup
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';// matdialogStyle
     else
       panelClass = 'dialog-min';
@@ -684,7 +686,7 @@ export class EstateCustomerOrderListComponent extends ListBaseComponent<EstateCu
           if (ret.isSuccess) {
             //open poup
             var panelClass = '';
-            if (this.tokenHelper.isMobile)
+            if (this.themeService.isMobile)
               panelClass = 'dialog-fullscreen';
             else
               panelClass = 'dialog-min';
@@ -819,7 +821,7 @@ export class EstateCustomerOrderListComponent extends ListBaseComponent<EstateCu
     }
     this.onActionTableRowSelect(model);
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -861,7 +863,7 @@ export class EstateCustomerOrderListComponent extends ListBaseComponent<EstateCu
     var nextItem = this.publicHelper.InfoNextRowInList(this.dataModelResult.listItems, this.tableRowSelected);
     var perviousItem = this.publicHelper.InfoPerviousRowInList(this.dataModelResult.listItems, this.tableRowSelected);
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -890,7 +892,7 @@ export class EstateCustomerOrderListComponent extends ListBaseComponent<EstateCu
     }
     this.tableRowSelected = model;
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

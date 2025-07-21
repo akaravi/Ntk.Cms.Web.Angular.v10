@@ -99,7 +99,7 @@ export class HeaderBarComponent implements OnInit {
   onActionButtonMemo(): void {
     //open popup
     var panelClass = '';
-    if (this.publicHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-wide';
@@ -125,7 +125,7 @@ export class HeaderBarComponent implements OnInit {
   onActionButtonPin(): void {
     //open popup
     var panelClass = '';
-    if (this.publicHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-wide';
@@ -152,7 +152,7 @@ export class HeaderBarComponent implements OnInit {
 
     //open popup
     var panelClass = '';
-    if (this.publicHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-wide';
@@ -177,7 +177,7 @@ export class HeaderBarComponent implements OnInit {
   onActionButtonComment(): void {
     //open popup
     var panelClass = '';
-    if (this.publicHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-wide';
@@ -205,7 +205,7 @@ export class HeaderBarComponent implements OnInit {
     //open popup
 
     var panelClass = '';
-    if (this.publicHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

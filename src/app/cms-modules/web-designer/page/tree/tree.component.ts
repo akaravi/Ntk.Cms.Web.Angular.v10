@@ -28,12 +28,13 @@ import { environment } from 'src/environments/environment';
 import { WebDesignerMainPageAddComponent } from '../add/add.component';
 import { WebDesignerMainPageEditComponent } from '../edit/edit.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
-    selector: 'app-webdesigner-page-tree',
-    templateUrl: './tree.component.html',
-    standalone: false
+  selector: 'app-webdesigner-page-tree',
+  templateUrl: './tree.component.html',
+  standalone: false
 })
 export class WebDesignerMainPageTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -45,7 +46,8 @@ export class WebDesignerMainPageTreeComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    public themeService: ThemeService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
@@ -64,17 +66,17 @@ export class WebDesignerMainPageTreeComponent implements OnInit, OnDestroy {
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
   hasChild = (_: number, node: WebDesignerMainPageModel) => false;
-  
+
   ngOnInit(): void {
     setTimeout(() => {
-      
-        this.DataGetAll();
+
+      this.DataGetAll();
     }, 500);
 
     this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.DataGetAll();
     })
-      
+
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -116,7 +118,7 @@ export class WebDesignerMainPageTreeComponent implements OnInit, OnDestroy {
   }
   onActionAdd(): void {
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -143,7 +145,7 @@ export class WebDesignerMainPageTreeComponent implements OnInit, OnDestroy {
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

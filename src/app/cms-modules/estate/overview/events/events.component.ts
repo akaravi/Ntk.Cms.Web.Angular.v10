@@ -47,6 +47,7 @@ import { EstatePropertyProjectQuickViewComponent } from '../../property-project/
 import { EstatePropertySupplierQuickViewComponent } from '../../property-supplier/quick-view/quick-view.component';
 import { EstatePropertyQuickViewComponent } from '../../property/quick-view/quick-view.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 @Component({
   selector: 'app-estate-overview-events',
   templateUrl: './events.component.html',
@@ -67,6 +68,7 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private cmsToastrService: CmsToastrService,
+    public themeService: ThemeService,
     private router: Router,
     public dialog: MatDialog,
     public translate: TranslateService,
@@ -603,7 +605,7 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
     var nextItem = this.publicHelper.InfoNextRowInList(listItems, model);
     var perviousItem = this.publicHelper.InfoPerviousRowInList(listItems, model);
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -633,7 +635,7 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
     var nextItem = this.publicHelper.InfoNextRowInList(listItems, model);
     var perviousItem = this.publicHelper.InfoPerviousRowInList(listItems, model);
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -664,7 +666,7 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
     var nextItem = this.publicHelper.InfoNextRowInList(this.dataModelHistoryResult.listItems, model);
     var perviousItem = this.publicHelper.InfoPerviousRowInList(this.dataModelHistoryResult.listItems, model);
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -721,7 +723,7 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
     var nextItem = this.publicHelper.InfoNextRowInList(this.dataModelPropertyProjectResult.listItems, model);
     var perviousItem = this.publicHelper.InfoPerviousRowInList(this.dataModelPropertyProjectResult.listItems, model);
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -751,7 +753,7 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
     var nextItem = this.publicHelper.InfoNextRowInList(this.dataModelPropertySupplierResult.listItems, model);
     var perviousItem = this.publicHelper.InfoPerviousRowInList(this.dataModelPropertySupplierResult.listItems, model);
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -781,7 +783,7 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
     var nextItem = this.publicHelper.InfoNextRowInList(this.dataModelPropertyCompanyResult.listItems, model);
     var perviousItem = this.publicHelper.InfoPerviousRowInList(this.dataModelPropertyCompanyResult.listItems, model);
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

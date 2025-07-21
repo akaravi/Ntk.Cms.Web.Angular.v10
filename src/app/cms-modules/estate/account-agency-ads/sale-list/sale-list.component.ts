@@ -14,6 +14,7 @@ import { CmsBankpaymentTransactionInfoComponent } from 'src/app/shared/cms-bankp
 import { environment } from 'src/environments/environment';
 import { EstateAccountAgencyAdsSalePaymentComponent } from '../sale-payment/sale-payment.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -31,6 +32,7 @@ export class EstateAccountAgencyAdsSaleListComponent implements OnInit, OnDestro
     private cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     private coreSiteService: CoreSiteService,
+    public themeService: ThemeService,
     public tokenHelper: TokenHelper,
     private router: Router,
     private cdr: ChangeDetectorRef,
@@ -87,7 +89,7 @@ export class EstateAccountAgencyAdsSaleListComponent implements OnInit, OnDestro
     const transactionId = + localStorage.getItem('TransactionId') | 0;
     if (transactionId > 0) {
       var panelClass = '';
-      if (this.tokenHelper.isMobile)
+      if (this.themeService.isMobile)
         panelClass = 'dialog-fullscreen';
       else
         panelClass = 'dialog-min';
@@ -171,7 +173,7 @@ export class EstateAccountAgencyAdsSaleListComponent implements OnInit, OnDestro
   onActionButtonBuy(model: EstateAdsTypeModel): void {
     this.tableRowSelected = model;
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

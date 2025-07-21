@@ -15,6 +15,7 @@ import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 import { CmsLinkToComponent } from 'src/app/shared/cms-link-to/cms-link-to.component';
 import { environment } from 'src/environments/environment';
 @Component({
@@ -30,9 +31,10 @@ export class EstateBillboardHeaderComponent implements OnInit, OnDestroy {
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private cmsToastrService: CmsToastrService,
+    public themeService: ThemeService,
     public dialog: MatDialog,
     public translate: TranslateService,
-    	private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public tokenHelper: TokenHelper
   ) {
     this.publicHelper.processService.cdr = this.cdr;
@@ -95,7 +97,7 @@ export class EstateBillboardHeaderComponent implements OnInit, OnDestroy {
     }
     //open popup
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

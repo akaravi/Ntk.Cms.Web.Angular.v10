@@ -20,6 +20,7 @@ import { environment } from 'src/environments/environment';
 import { EstateCategoryRackAddComponent } from '../add/add.component';
 import { EstateCategoryRackEditComponent } from '../edit/edit.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -40,6 +41,7 @@ export class EstateCategoryRackListMobileComponent extends ListBaseComponent<Est
     private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
     public pageInfo: PageInfoService,
+    public themeService: ThemeService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog) {
     super(contentService, new EstateCategoryRackModel(), publicHelper, tokenHelper, translate);
@@ -209,7 +211,7 @@ export class EstateCategoryRackListMobileComponent extends ListBaseComponent<Est
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -243,7 +245,7 @@ export class EstateCategoryRackListMobileComponent extends ListBaseComponent<Est
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -337,7 +339,7 @@ export class EstateCategoryRackListMobileComponent extends ListBaseComponent<Est
     console.log(model.rackFolderOrders[findRow]);
 
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -396,7 +398,7 @@ export class EstateCategoryRackListMobileComponent extends ListBaseComponent<Est
     }
     console.log(model.rackFolderProperties[findRow]);
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

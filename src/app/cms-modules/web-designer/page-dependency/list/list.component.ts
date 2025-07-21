@@ -24,6 +24,7 @@ import { WebDesignerMainPageDependencyAddComponent } from '../add/add.component'
 import { WebDesignerMainPageDependencyAutoAddPageComponent } from '../auto-add-page/auto-add-page.component';
 import { WebDesignerMainPageDependencyEditComponent } from '../edit/edit.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -46,6 +47,7 @@ export class WebDesignerMainPageDependencyListComponent extends ListBaseComponen
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     public pageInfo: PageInfoService,
+    public themeService: ThemeService,
     private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog) {
@@ -197,7 +199,7 @@ export class WebDesignerMainPageDependencyListComponent extends ListBaseComponen
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -224,7 +226,7 @@ export class WebDesignerMainPageDependencyListComponent extends ListBaseComponen
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -288,7 +290,7 @@ export class WebDesignerMainPageDependencyListComponent extends ListBaseComponen
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

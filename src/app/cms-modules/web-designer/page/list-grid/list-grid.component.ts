@@ -24,6 +24,7 @@ import { environment } from 'src/environments/environment';
 import { WebDesignerMainPageAddComponent } from '../add/add.component';
 import { WebDesignerMainPageEditComponent } from '../edit/edit.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -47,6 +48,7 @@ export class WebDesignerMainPageListGridComponent extends ListBaseComponent<WebD
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     private cmsStoreService: CmsStoreService,
+    public themeService: ThemeService,
     public tokenHelper: TokenHelper,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
@@ -218,7 +220,7 @@ export class WebDesignerMainPageListGridComponent extends ListBaseComponent<WebD
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -250,7 +252,7 @@ export class WebDesignerMainPageListGridComponent extends ListBaseComponent<WebD
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

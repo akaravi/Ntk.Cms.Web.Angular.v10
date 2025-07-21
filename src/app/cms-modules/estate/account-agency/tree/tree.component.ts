@@ -28,6 +28,7 @@ import { environment } from 'src/environments/environment';
 import { EstateAccountAgencyAddComponent } from '../add/add.component';
 import { EstateAccountAgencyEditComponent } from '../edit/edit.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -48,6 +49,7 @@ export class EstateAccountAgencyTreeComponent implements OnInit, OnDestroy {
     public publicHelper: PublicHelper,
     public translate: TranslateService,
     private tokenHelper: TokenHelper,
+    public themeService: ThemeService,
     private cmsStoreService: CmsStoreService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
@@ -117,7 +119,7 @@ export class EstateAccountAgencyTreeComponent implements OnInit, OnDestroy {
   }
   onActionAdd(): void {
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -145,7 +147,7 @@ export class EstateAccountAgencyTreeComponent implements OnInit, OnDestroy {
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

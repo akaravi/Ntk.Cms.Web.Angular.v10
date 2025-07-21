@@ -27,6 +27,7 @@ import { ApplicationAppDownloadComponent } from '../download/download.component'
 import { ApplicationAppUploadAppComponent } from '../uploadApp/uploadApp.component';
 import { ApplicationAppUploadUpdateComponent } from '../uploadUpdate/uploadUpdate.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -46,6 +47,7 @@ export class ApplicationAppListComponent extends ListBaseComponent<ApplicationAp
     public translate: TranslateService,
     private router: Router,
     private cmsStoreService: CmsStoreService,
+    public themeService: ThemeService,
     private cdr: ChangeDetectorRef,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public pageInfo: PageInfoService,
@@ -385,7 +387,7 @@ export class ApplicationAppListComponent extends ListBaseComponent<ApplicationAp
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -409,7 +411,7 @@ export class ApplicationAppListComponent extends ListBaseComponent<ApplicationAp
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -460,7 +462,7 @@ export class ApplicationAppListComponent extends ListBaseComponent<ApplicationAp
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -493,7 +495,7 @@ export class ApplicationAppListComponent extends ListBaseComponent<ApplicationAp
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

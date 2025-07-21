@@ -28,6 +28,7 @@ import { environment } from 'src/environments/environment';
 import { EstateContractTypeAddComponent } from '../add/add.component';
 import { EstateContractTypeEditComponent } from '../edit/edit.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -46,6 +47,7 @@ export class EstateContractTypeTreeComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
+    public themeService: ThemeService,
     public translate: TranslateService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
@@ -125,7 +127,7 @@ export class EstateContractTypeTreeComponent implements OnInit, OnDestroy {
 
   onActionAdd(): void {
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -153,7 +155,7 @@ export class EstateContractTypeTreeComponent implements OnInit, OnDestroy {
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

@@ -25,6 +25,7 @@ import { CmsLinkToComponent } from "src/app/shared/cms-link-to/cms-link-to.compo
 import { environment } from "src/environments/environment";
 import { EstatePropertyQuickViewComponent } from "../quick-view/quick-view.component";
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from "src/app/core/services/theme.service";
 
 
 
@@ -56,6 +57,7 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
+    public themeService: ThemeService,
     private router: Router,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -520,7 +522,7 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -779,7 +781,7 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
           if (ret.isSuccess) {
             //open popup
             var panelClass = '';
-            if (this.tokenHelper.isMobile)
+            if (this.themeService.isMobile)
               panelClass = 'dialog-fullscreen';
             else
               panelClass = 'dialog-min';

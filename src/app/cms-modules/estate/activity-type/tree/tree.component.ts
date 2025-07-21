@@ -28,6 +28,7 @@ import { environment } from 'src/environments/environment';
 import { EstateActivityTypeAddComponent } from '../add/add.component';
 import { EstateActivityTypeEditComponent } from '../edit/edit.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -43,6 +44,7 @@ export class EstateActivityTypeTreeComponent implements OnInit, OnDestroy {
     public coreEnumService: CoreEnumService,
     public categoryService: EstateActivityTypeService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
+    public themeService: ThemeService,
     public dialog: MatDialog,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
@@ -125,7 +127,7 @@ export class EstateActivityTypeTreeComponent implements OnInit, OnDestroy {
 
   onActionAdd(): void {
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -153,7 +155,7 @@ export class EstateActivityTypeTreeComponent implements OnInit, OnDestroy {
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

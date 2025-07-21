@@ -720,7 +720,7 @@ export class EstatePropertyListComponent extends ListBaseComponent<EstatePropert
     var nextItem = this.publicHelper.InfoNextRowInList(this.dataModelResult.listItems, this.tableRowSelected);
     var perviousItem = this.publicHelper.InfoPerviousRowInList(this.dataModelResult.listItems, this.tableRowSelected);
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -759,7 +759,7 @@ export class EstatePropertyListComponent extends ListBaseComponent<EstatePropert
 
 
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -790,7 +790,7 @@ export class EstatePropertyListComponent extends ListBaseComponent<EstatePropert
 
     this.onActionTableRowSelect(model);
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -1120,7 +1120,7 @@ export class EstatePropertyListComponent extends ListBaseComponent<EstatePropert
           if (ret.isSuccess) {
             //open popup
             var panelClass = '';
-            if (this.tokenHelper.isMobile)
+            if (this.themeService.isMobile)
               panelClass = 'dialog-fullscreen';
             else
               panelClass = 'dialog-min';
@@ -1211,7 +1211,7 @@ export class EstatePropertyListComponent extends ListBaseComponent<EstatePropert
     }
     this.tableRowSelected = model;
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

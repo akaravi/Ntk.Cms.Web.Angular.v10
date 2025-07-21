@@ -34,6 +34,7 @@ import { EstatePropertyHistoryListComponent } from '../../property-history/list/
 import { EstatePropertyActionComponent } from '../action/action.component';
 import { EstatePropertyQuickListComponent } from '../quick-list/quick-list.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -56,6 +57,7 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
     private router: Router,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
+    public themeService: ThemeService,
     public tokenHelper: TokenHelper,
     public translate: TranslateService,
     public dialog: MatDialog,
@@ -132,8 +134,8 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
 
 
     this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-        this.DataGetOne();
-        this.getEstateContractType();
+      this.DataGetOne();
+      this.getEstateContractType();
     });
   }
   ngOnDestroy(): void {
@@ -302,7 +304,7 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
           if ((this.tokenHelper.isAdminSite || this.tokenHelper.isSupportSite || this.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerCpSite || this.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerEmployeeCpSite)
             && (forcePopupMessageAction || (this.dataModel.recordStatus == RecordStatusEnum.Available && this.dataModel.recordStatus != this.lastRecordStatus))) {
             var panelClass = '';
-            if (this.tokenHelper.isMobile)
+            if (this.themeService.isMobile)
               panelClass = 'dialog-fullscreen';
             else
               panelClass = 'dialog-min';
@@ -685,7 +687,7 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
     };
 
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -700,7 +702,7 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -720,7 +722,7 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -740,7 +742,7 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -760,7 +762,7 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -812,7 +814,7 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
 
   onActionButtonQuickHistoryAddRow(): void {
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

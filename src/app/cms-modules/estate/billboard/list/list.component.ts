@@ -19,6 +19,7 @@ import { CmsConfirmationDialogService } from 'src/app/shared/cms-confirmation-di
 import { CmsLinkToComponent } from "src/app/shared/cms-link-to/cms-link-to.component";
 import { environment } from 'src/environments/environment';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -36,6 +37,7 @@ export class EstateBillboardListComponent extends ListBaseComponent<EstateBillbo
     private router: Router,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
+    public themeService: ThemeService,
     private cmsStoreService: CmsStoreService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
@@ -401,7 +403,7 @@ export class EstateBillboardListComponent extends ListBaseComponent<EstateBillbo
           if (ret.isSuccess) {
             //open popup
             var panelClass = '';
-            if (this.tokenHelper.isMobile)
+            if (this.themeService.isMobile)
               panelClass = 'dialog-fullscreen';
             else
               panelClass = 'dialog-min';

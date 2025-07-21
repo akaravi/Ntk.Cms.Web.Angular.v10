@@ -19,6 +19,7 @@ import { environment } from 'src/environments/environment';
 import { EstateAccountExpertAddComponent } from '../add/add.component';
 import { EstateAccountExpertEditComponent } from '../edit/edit.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -40,6 +41,7 @@ export class EstateAccountExpertListComponent extends ListBaseComponent<EstateAc
     public translate: TranslateService,
     private activatedRoute: ActivatedRoute,
     private cmsStoreService: CmsStoreService,
+    public themeService: ThemeService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog) {
@@ -218,7 +220,7 @@ export class EstateAccountExpertListComponent extends ListBaseComponent<EstateAc
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -252,7 +254,7 @@ export class EstateAccountExpertListComponent extends ListBaseComponent<EstateAc
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

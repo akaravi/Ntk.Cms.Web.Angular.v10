@@ -6,6 +6,7 @@ import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 import { PageInfoService } from 'src/app/core/services/page-info.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 import { environment } from 'src/environments/environment';
 @Component({
@@ -37,7 +38,7 @@ export class CmsGuideNoticeComponent implements OnInit, OnDestroy {
   privatOptionView = false;
   constructor(
     private pageInfo: PageInfoService,
-    private tokenHelper: TokenHelper,
+    public themeService: ThemeService,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     private coreGuideService: CoreGuideService,
@@ -215,7 +216,7 @@ export class CmsGuideNoticeComponent implements OnInit, OnDestroy {
   onActionCopyHeaderKey(keyTemplate: any, event?: MouseEvent): void {
 
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

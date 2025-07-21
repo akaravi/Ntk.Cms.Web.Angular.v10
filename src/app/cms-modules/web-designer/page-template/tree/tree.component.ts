@@ -28,6 +28,7 @@ import { environment } from 'src/environments/environment';
 import { WebDesignerMainPageTemplateAddComponent } from '../add/add.component';
 import { WebDesignerMainPageTemplateEditComponent } from '../edit/edit.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -45,6 +46,7 @@ export class WebDesignerMainPageTemplateTreeComponent implements OnInit, OnDestr
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     private tokenHelper: TokenHelper,
+    public themeService: ThemeService,
     private cmsStoreService: CmsStoreService,
     private translate: TranslateService,
   ) {
@@ -114,7 +116,7 @@ export class WebDesignerMainPageTemplateTreeComponent implements OnInit, OnDestr
   }
   onActionAdd(): void {
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -141,7 +143,7 @@ export class WebDesignerMainPageTemplateTreeComponent implements OnInit, OnDestr
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

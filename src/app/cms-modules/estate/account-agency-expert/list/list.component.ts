@@ -19,6 +19,7 @@ import { CmsConfirmationDialogService } from 'src/app/shared/cms-confirmation-di
 import { environment } from 'src/environments/environment';
 import { EstateAccountAgencyExpertAddComponent } from '../add/add.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -38,6 +39,7 @@ export class EstateAccountAgencyExpertListComponent extends ListBaseComponent<Es
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     private cmsStoreService: CmsStoreService,
+    public themeService: ThemeService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog) {
@@ -172,7 +174,7 @@ export class EstateAccountAgencyExpertListComponent extends ListBaseComponent<Es
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

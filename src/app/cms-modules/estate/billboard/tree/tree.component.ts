@@ -28,6 +28,7 @@ import { environment } from 'src/environments/environment';
 import { EstateBillboardAddComponent } from '../add/add.component';
 import { EstateBillboardEditComponent } from '../edit/edit.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -45,6 +46,7 @@ export class EstateBillboardTreeComponent implements OnInit, OnDestroy {
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public dialog: MatDialog,
     private cdr: ChangeDetectorRef,
+    public themeService: ThemeService,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
     private tokenHelper: TokenHelper,
@@ -125,7 +127,7 @@ export class EstateBillboardTreeComponent implements OnInit, OnDestroy {
 
   onActionAdd(): void {
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -154,7 +156,7 @@ export class EstateBillboardTreeComponent implements OnInit, OnDestroy {
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

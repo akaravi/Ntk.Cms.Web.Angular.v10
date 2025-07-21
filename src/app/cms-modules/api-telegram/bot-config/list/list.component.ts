@@ -25,10 +25,11 @@ import { ApiTelegramActionSendMessageComponent } from '../../action/send-message
 import { ApiTelegramBotConfigAddComponent } from '../add/add.component';
 import { ApiTelegramBotConfigEditComponent } from '../edit/edit.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 @Component({
-    selector: 'app-apitelegram-bot-config-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-apitelegram-bot-config-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class ApiTelegramBotConfigListComponent extends ListBaseComponent<ApiTelegramBotConfigService, ApiTelegramBotConfigModel, number> implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -37,10 +38,11 @@ export class ApiTelegramBotConfigListComponent extends ListBaseComponent<ApiTele
     private cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private router: Router,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
+    public themeService: ThemeService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog,
@@ -93,7 +95,7 @@ export class ApiTelegramBotConfigListComponent extends ListBaseComponent<ApiTele
   ];
   expandedElement: ApiTelegramBotConfigModel | null;
   cmsApiStoreSubscribe: Subscription;
-  
+
   ngOnInit(): void {
 
     this.filteModelContent.sortColumn = 'ShowInMenuOrder';
@@ -104,7 +106,7 @@ export class ApiTelegramBotConfigListComponent extends ListBaseComponent<ApiTele
 
     this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.tokenInfo = value;
-	    this.DataGetAll();	  
+      this.DataGetAll();
     });
   }
   ngOnDestroy(): void {
@@ -183,7 +185,7 @@ export class ApiTelegramBotConfigListComponent extends ListBaseComponent<ApiTele
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -215,7 +217,7 @@ export class ApiTelegramBotConfigListComponent extends ListBaseComponent<ApiTele
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

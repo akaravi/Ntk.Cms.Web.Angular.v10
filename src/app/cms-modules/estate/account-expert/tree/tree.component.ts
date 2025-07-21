@@ -28,6 +28,7 @@ import { environment } from 'src/environments/environment';
 import { EstateAccountExpertAddComponent } from '../add/add.component';
 import { EstateAccountExpertEditComponent } from '../edit/edit.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -47,6 +48,7 @@ export class EstateAccountExpertTreeComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
+    public themeService: ThemeService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
   ) {
@@ -125,7 +127,7 @@ export class EstateAccountExpertTreeComponent implements OnInit, OnDestroy {
 
   onActionAdd(): void {
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -153,7 +155,7 @@ export class EstateAccountExpertTreeComponent implements OnInit, OnDestroy {
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

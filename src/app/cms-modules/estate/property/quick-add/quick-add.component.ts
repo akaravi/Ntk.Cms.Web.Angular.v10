@@ -22,6 +22,7 @@ import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 import { environment } from 'src/environments/environment';
 import { EstatePropertyQuickListComponent } from '../quick-list/quick-list.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -42,6 +43,7 @@ export class EstatePropertyQuickAddComponent extends AddBaseComponent<EstateProp
     private estatePropertyTypeLanduseService: EstatePropertyTypeLanduseService,
     private cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
+    public themeService: ThemeService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public dialog: MatDialog,
@@ -522,7 +524,7 @@ export class EstatePropertyQuickAddComponent extends AddBaseComponent<EstateProp
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -544,7 +546,7 @@ export class EstatePropertyQuickAddComponent extends AddBaseComponent<EstateProp
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -566,7 +568,7 @@ export class EstatePropertyQuickAddComponent extends AddBaseComponent<EstateProp
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -588,7 +590,7 @@ export class EstatePropertyQuickAddComponent extends AddBaseComponent<EstateProp
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

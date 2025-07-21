@@ -19,6 +19,7 @@ import { environment } from 'src/environments/environment';
 import { WebDesignerMainPageTemplateAddComponent } from '../add/add.component';
 import { WebDesignerMainPageTemplateEditComponent } from '../edit/edit.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -38,6 +39,7 @@ export class WebDesignerMainPageTemplateListComponent extends ListBaseComponent<
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     public pageInfo: PageInfoService,
+    public themeService: ThemeService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog) {
     super(contentService, new WebDesignerMainPageTemplateModel(), publicHelper, tokenHelper, translate);
@@ -162,7 +164,7 @@ export class WebDesignerMainPageTemplateListComponent extends ListBaseComponent<
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -194,7 +196,7 @@ export class WebDesignerMainPageTemplateListComponent extends ListBaseComponent<
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

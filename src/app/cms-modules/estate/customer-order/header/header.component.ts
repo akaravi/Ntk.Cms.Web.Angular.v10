@@ -12,15 +12,16 @@ import {
 } from 'ntk-cms-api';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 import { CmsLinkToComponent } from 'src/app/shared/cms-link-to/cms-link-to.component';
 import { environment } from 'src/environments/environment';
 
 
 @Component({
-    selector: 'app-estate-customer-order-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss'],
-    standalone: false
+  selector: 'app-estate-customer-order-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
+  standalone: false
 })
 export class EstateCustomerOrderHeaderComponent implements OnInit {
   constructorInfoAreaId = this.constructor.name;
@@ -29,6 +30,7 @@ export class EstateCustomerOrderHeaderComponent implements OnInit {
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
+    public themeService: ThemeService,
     private cmsToastrService: CmsToastrService,
     public dialog: MatDialog
   ) {
@@ -84,7 +86,7 @@ export class EstateCustomerOrderHeaderComponent implements OnInit {
     }
     //open popup
     var panelClass = '';
-    if (this.publicHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

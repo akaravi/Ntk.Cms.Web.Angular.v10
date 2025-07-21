@@ -71,6 +71,7 @@ export class CmsHtmlListComponent implements OnInit, OnDestroy {
   constructor(
     public publicHelper: PublicHelper,
     public tokenHelper: TokenHelper,
+    public themeService: ThemeService,
     public translate: TranslateService,
     private cmsStoreService: CmsStoreService,
 

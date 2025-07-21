@@ -29,6 +29,7 @@ import { EstatePropertyHistoryListComponent } from '../../property-history/list/
 import { EstatePropertyListComponent } from '../../property/list/list.component';
 import { EstateCustomerOrderActionComponent } from '../action/action.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -49,10 +50,11 @@ export class EstateCustomerOrderEditComponent extends EditBaseComponent<EstateCu
     private estatePropertyService: EstatePropertyService,
     public estatePropertyDetailGroupService: EstatePropertyDetailGroupService,
     private cmsToastrService: CmsToastrService,
+    public themeService: ThemeService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public http: HttpClient,
     public tokenHelper: TokenHelper,
     public translate: TranslateService,
@@ -216,7 +218,7 @@ export class EstateCustomerOrderEditComponent extends EditBaseComponent<EstateCu
           this.optionReload();
           if ((this.tokenHelper.isAdminSite || this.tokenHelper.isSupportSite || this.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerCpSite || this.tokenInfo.access.userAccessUserType == ManageUserAccessUserTypesEnum.ResellerEmployeeCpSite) && this.dataModel.recordStatus == RecordStatusEnum.Available) {
             var panelClass = '';
-            if (this.tokenHelper.isMobile)
+            if (this.themeService.isMobile)
               panelClass = 'dialog-fullscreen';
             else
               panelClass = 'dialog-min';
@@ -466,7 +468,7 @@ export class EstateCustomerOrderEditComponent extends EditBaseComponent<EstateCu
 
   onActionButtonQuickHistoryAddRow(): void {
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

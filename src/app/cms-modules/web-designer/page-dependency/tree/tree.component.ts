@@ -28,6 +28,7 @@ import { environment } from 'src/environments/environment';
 import { WebDesignerMainPageDependencyAddComponent } from '../add/add.component';
 import { WebDesignerMainPageDependencyEditComponent } from '../edit/edit.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -45,6 +46,7 @@ export class WebDesignerMainPageDependencyTreeComponent implements OnInit, OnDes
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     private tokenHelper: TokenHelper,
+    public themeService: ThemeService,
     private cmsStoreService: CmsStoreService,
     private translate: TranslateService,
   ) {
@@ -115,7 +117,7 @@ export class WebDesignerMainPageDependencyTreeComponent implements OnInit, OnDes
   }
   onActionAdd(): void {
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
@@ -142,7 +144,7 @@ export class WebDesignerMainPageDependencyTreeComponent implements OnInit, OnDes
       return;
     }
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

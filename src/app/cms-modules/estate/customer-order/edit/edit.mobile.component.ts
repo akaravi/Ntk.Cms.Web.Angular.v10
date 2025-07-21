@@ -23,6 +23,7 @@ import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 import { EstatePropertyListComponent } from '../../property/list/list.component';
 import { EstatePropertyQuickViewComponent } from '../../property/quick-view/quick-view.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -44,11 +45,12 @@ export class EstateCustomerOrderEditMobileComponent extends EditBaseComponent<Es
     public estatePropertyTypeLanduseService: EstatePropertyTypeLanduseService,
     private estatePropertyService: EstatePropertyService,
     private cmsToastrService: CmsToastrService,
+    public themeService: ThemeService,
     public estatePropertyDetailGroupService: EstatePropertyDetailGroupService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public tokenHelper: TokenHelper,
     public http: HttpClient,
     public dialog: MatDialog,
@@ -630,7 +632,7 @@ export class EstateCustomerOrderEditMobileComponent extends EditBaseComponent<Es
     var nextItem = this.publicHelper.InfoNextRowInList(this.dataModelEstatePropertyResult.listItems, model);
     var perviousItem = this.publicHelper.InfoPerviousRowInList(this.dataModelEstatePropertyResult.listItems, model);
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';

@@ -22,6 +22,7 @@ import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 import { EstatePropertyListComponent } from '../../property/list/list.component';
 import { EstatePropertyQuickViewComponent } from '../../property/quick-view/quick-view.component';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
@@ -41,7 +42,7 @@ export class EstateCustomerOrderAddMobileComponent implements OnInit {
     public estatePropertyTypeUsageService: EstatePropertyTypeUsageService,
     public estatePropertyTypeLanduseService: EstatePropertyTypeLanduseService,
     private estatePropertyService: EstatePropertyService,
-
+    public themeService: ThemeService,
     private cmsToastrService: CmsToastrService,
     public estatePropertyDetailGroupService: EstatePropertyDetailGroupService,
     public publicHelper: PublicHelper,
@@ -689,7 +690,7 @@ export class EstateCustomerOrderAddMobileComponent implements OnInit {
     var nextItem = this.publicHelper.InfoNextRowInList(this.dataModelEstatePropertyResult.listItems, model);
     var perviousItem = this.publicHelper.InfoPerviousRowInList(this.dataModelEstatePropertyResult.listItems, model);
     var panelClass = '';
-    if (this.tokenHelper.isMobile)
+    if (this.themeService.isMobile)
       panelClass = 'dialog-fullscreen';
     else
       panelClass = 'dialog-min';
