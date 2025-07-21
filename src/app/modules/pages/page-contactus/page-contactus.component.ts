@@ -38,12 +38,13 @@ export class PageContactusComponent extends AddBaseComponent<TicketingTaskServic
     super(ticketingTaskService, new TicketingTaskModel(), publicHelper, translate);
     this.publicHelper.processService.cdr = this.cdr;
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
-    this.tokenHelper.getTokenInfoState().then((value) => {
-      this.tokenInfo = value;
+
+    this.tokenInfo = this.cmsStoreService.getStateSnapshot().tokenInfoStore;
+    if (this.tokenInfo?.user?.id) {
       this.dataModel.fullName = this.tokenInfo?.user?.lastName;
       this.dataModel.email = this.tokenInfo?.user?.email;
       this.dataModel.phoneNo = this.tokenInfo?.user?.mobile;
-    });
+    }
     this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.tokenInfo = value;
       this.dataModel.fullName = this.tokenInfo?.user?.lastName;

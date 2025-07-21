@@ -5,26 +5,21 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { TranslateService } from '@ngx-translate/core';
 import {
   AccessModel, AnswerStatusEnum, BaseEntity,
-  CoreCpMainMenuModel,
   CoreCurrencyModel,
   CoreCurrencyService,
   CoreEnumService,
-  CoreModuleModel,
   CoreModuleService,
-  CoreSiteModel,
   CoreSiteService,
   DataFieldInfoModel, ErrorExceptionResult,
   ErrorExceptionResultBase, InfoEnumModel, TicketStatusEnum, TokenInfoModelV3
 } from 'ntk-cms-api';
 import { ConfigInterface, DownloadModeEnum, TreeModel } from 'ntk-cms-filemanager';
-import { firstValueFrom, Observable } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { CmsAccessInfoComponent } from 'src/app/shared/cms-access-info/cms-access-info.component';
 import { environment } from 'src/environments/environment';
 import { ComponentLocalStorageModel } from '../models/componentLocalStorageModel';
-import { ConnectionStatusModel } from '../models/connectionStatusModel';
-import { ThemeStoreModel } from '../models/themeStoreModel';
 import { CmsStoreService } from '../reducers/cmsStore.service';
-import { ProcessOrderModel, ReducerCmsStoreModel, SET_Core_Currency, SET_Core_Module, SET_Core_Site, SET_Info_Enum, SET_Process_Order } from '../reducers/reducer.factory';
+import { ProcessOrderModel, SET_Core_Currency, SET_Info_Enum, SET_Process_Order } from '../reducers/reducer.factory';
 import { CmsToastrService } from '../services/cmsToastr.service';
 import { PageInfoService } from '../services/page-info.service';
 import { ProcessService } from '../services/process.service';
@@ -443,42 +438,6 @@ export class PublicHelper {
         return new ErrorExceptionResult<InfoEnumModel>;
       }
       );
-
-  }
-  async getCurrentSite(): Promise<ErrorExceptionResult<CoreSiteModel>> {
-    const storeSnapshot = this.cmsStoreService.getStateSnapshot();
-    if (storeSnapshot?.coreSiteResultStore && storeSnapshot?.coreSiteResultStore.item && storeSnapshot?.coreSiteResultStore?.item?.id > 0) {
-      return storeSnapshot.coreSiteResultStore;
-    }
-    return await firstValueFrom(this.coreSiteService.ServiceCurrectSite())
-      .then((response) => {
-        this.cmsStoreService.setState({ type: SET_Core_Site, payload: response });
-        return response;
-      }).catch((error) => {
-        return new ErrorExceptionResult<CoreSiteModel>;
-      }
-      );
-
-  }
-
-  async getConnectionStatus(): Promise<ConnectionStatusModel> {
-    const storeSnapshot = this.cmsStoreService.getStateSnapshot();
-    if (storeSnapshot?.connectionStatusStore)
-      return storeSnapshot.connectionStatusStore;
-    return new ConnectionStatusModel();
-  }
-  async getThemeStore(): Promise<ThemeStoreModel> {
-    const storeSnapshot = this.cmsStoreService.getStateSnapshot();
-    if (storeSnapshot?.themeStore)
-      return storeSnapshot.themeStore;
-    return new ThemeStoreModel();
-  }
-  async getProcessOrderState(): Promise<ProcessOrderModel[]> {
-    const storeSnapshot = this.cmsStoreService.getStateSnapshot();
-    if (storeSnapshot?.processOrderStore?.length > 0) {
-      return storeSnapshot.processOrderStore.filter(x => !x.isRun);
-    }
-    return [];
   }
   setProcessOrder(model: ProcessOrderModel): void {
     const storeSnapshot = this.cmsStoreService.getStateSnapshot();
@@ -488,13 +447,6 @@ export class PublicHelper {
     items = items.filter(x => !x.isComplate);
     items.push(model);
     this.cmsStoreService.setState({ type: SET_Process_Order, payload: items });
-  }
-  getProcessOrderOnChange(): Observable<ProcessOrderModel[]> {
-    return this.cmsStoreService.getState((state) => {
-      if (environment.consoleLog)
-        console.log("getProcessOrderOnChange");
-      return state.processOrderStore;
-    });
   }
 
   StringRandomGenerator(passwordLength = 10, onlynumber = false): string {

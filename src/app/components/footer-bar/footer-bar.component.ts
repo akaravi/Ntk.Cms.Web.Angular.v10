@@ -21,12 +21,11 @@ export class FooterBarComponent implements OnInit {
     private cmsStoreService: CmsStoreService,
     private themeService: ThemeService
   ) {
-    this.tokenHelper.getTokenInfoState().then((value) => {
+    this.tokenInfo = this.cmsStoreService.getStateSnapshot().tokenInfoStore;
+
+    this.unsubscribe.push(this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.tokenInfo = value;
-    });
-    this.cmsApiStoreSubscribe =this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-    });
+    }));
     this.unsubscribe.push(this.cmsStoreService.getState((state) => state.themeStore).subscribe(async (value) => {
       this.themeStore = value;
     }));

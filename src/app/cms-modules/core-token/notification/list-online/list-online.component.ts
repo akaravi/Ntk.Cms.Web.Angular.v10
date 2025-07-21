@@ -136,18 +136,16 @@ export class CoreTokenConnectionListOnlineComponent extends ListBaseComponent<Co
       this.DataGetAll();
     });
 
-    this.cmsApiStoreSubscribe = this.publicHelper.getProcessOrderOnChange().subscribe({
-      next: (ret) => {
-        var rowProcessOrder = ret.find(x => x.contentAction == "core_token_online_update_list" && !x.isRun);
-        if (rowProcessOrder && rowProcessOrder?.id?.length > 0) {
-          rowProcessOrder.isRun = true;
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.processOrderStore).subscribe(async (value) => {
+      var rowProcessOrder = value.find(x => x.contentAction == "core_token_online_update_list" && !x.isRun);
+      if (rowProcessOrder && rowProcessOrder?.id?.length > 0) {
+        rowProcessOrder.isRun = true;
+        this.publicHelper.setProcessOrder(rowProcessOrder);
+        this.DataGetAll((isSuccess) => {
+          rowProcessOrder.isComplate = true;
+          rowProcessOrder.isSuccess = isSuccess;
           this.publicHelper.setProcessOrder(rowProcessOrder);
-          this.DataGetAll((isSuccess) => {
-            rowProcessOrder.isComplate = true;
-            rowProcessOrder.isSuccess = isSuccess;
-            this.publicHelper.setProcessOrder(rowProcessOrder);
-          });
-        }
+        });
       }
     });
 

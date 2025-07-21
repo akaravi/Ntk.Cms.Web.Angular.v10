@@ -33,10 +33,7 @@ export class MenuLanguageComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {
-    this.tokenHelper.getTokenInfoState().then((value) => {
-      this.tokenInfo = value;
-    });
-
+    this.tokenInfo = this.cmsStoreService.getStateSnapshot().tokenInfoStore;
     this.languages = environment.languages;
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     this.unsubscribe.push(this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {

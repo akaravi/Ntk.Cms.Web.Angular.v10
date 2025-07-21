@@ -10,7 +10,7 @@ import {
 import { Observable, catchError, finalize, firstValueFrom, map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CmsStoreService } from '../reducers/cmsStore.service';
-import { ReducerCmsStoreModel, SET_TOKEN_DEVICE, SET_TOKEN_INFO } from '../reducers/reducer.factory';
+import { SET_TOKEN_DEVICE, SET_TOKEN_INFO } from '../reducers/reducer.factory';
 import { DeviceTypeEnum, ErrorExceptionResult, OperatingSystemTypeEnum } from 'ntk-cms-api';
 import { CmsTranslationService } from '../i18n';
 
@@ -34,8 +34,7 @@ export class TokenHelper {
   }
 
   public ngOnInitAppMain() {
-    // this.userTokenCtor();
-    // this.deviceTokenCtor();
+
   }
   private userTokenCtor(): Observable<void> {
     const tokenStr = this.coreAuthService.getUserToken();
@@ -124,21 +123,6 @@ export class TokenHelper {
     return JSON.stringify(model1) !== JSON.stringify(model2);
   }
 
-
-  async getTokenInfoState(): Promise<TokenInfoModelV3> {
-    const token = this.coreAuthService.getUserToken();
-    if (!token || token.length === 0)
-      return new TokenInfoModelV3();
-    //step 1
-    if (this.tokenInfo && this.tokenInfo.access)
-      return this.tokenInfo;
-    //step 2
-    this.tokenInfo = this.cmsStoreService.getStateSnapshot().tokenInfoStore
-
-    if (this.tokenInfo && this.tokenInfo.access)
-      return this.tokenInfo;
-    return new TokenInfoModelV3();
-  }
 
   async getTokenDeviceState(): Promise<TokenDeviceModel> {
     const token = this.coreAuthService.getDeviceToken();

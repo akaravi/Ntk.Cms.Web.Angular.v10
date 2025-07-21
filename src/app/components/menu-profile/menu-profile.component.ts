@@ -47,10 +47,7 @@ export class MenuProfileComponent implements OnInit {
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
-    this.tokenHelper.getTokenInfoState().then((value) => {
-      this.tokenInfo = value;
-      this.cdr.detectChanges();
-    });
+    this.tokenInfo = this.cmsStoreService.getStateSnapshot().tokenInfoStore;
     this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.tokenInfo = value;
       this.cdr.detectChanges();

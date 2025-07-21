@@ -157,7 +157,7 @@ export class CoreUserEditComponent extends EditBaseComponent<CoreUserService, Co
           this.translate.get('MESSAGE.registration_completed_successfully').subscribe((str: string) => { this.formInfo.formAlert = str; });
           this.cmsToastrService.typeSuccessEdit();
           if (this.dataModel.id === this.tokenInfo.access.userId) {
-            this.tokenHelper.getTokenInfoState();
+            this.tokenInfo = this.cmsStoreService.getStateSnapshot().tokenInfoStore
           }
         } else {
           this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });

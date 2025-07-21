@@ -22,17 +22,16 @@ export class PageAboutusComponent implements OnInit {
     private tokenHelper: TokenHelper,
     private coreSiteService: CoreSiteService,
     private cmsToastrService: CmsToastrService,
-    	private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
   ) {
 
-    this.tokenHelper.getTokenInfoState().then((value) => {
-      this.tokenInfo = value;
-      if (this.tokenInfo.access?.siteId > 0)
-        this.SiteInfo(this.tokenInfo.access?.siteId);
-      else
-        this.SiteInfo(0);
-    });
+    this.tokenInfo = this.cmsStoreService.getStateSnapshot().tokenInfoStore;
+    if (this.tokenInfo.access?.siteId > 0)
+      this.SiteInfo(this.tokenInfo.access?.siteId);
+    else
+      this.SiteInfo(0);
+
     this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.tokenInfo = value;
       if (this.tokenInfo.access?.siteId > 0)

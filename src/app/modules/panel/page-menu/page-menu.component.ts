@@ -33,11 +33,10 @@ export class PageMenuComponent implements OnInit {
       this.requestLinkParentId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkParentId'));
       this.loadData();
     });
-    this.tokenHelper.getTokenInfoState().then((value) => {
-      this.tokenInfo = value;
-      if (!this.dataModelResult || !this.dataModelResult.listItems || this.dataModelResult.listItems.length === 0)
-        this.loadData();
-    });
+    this.tokenInfo = this.cmsStoreService.getStateSnapshot().tokenInfoStore;
+    if (!this.dataModelResult || !this.dataModelResult.listItems || this.dataModelResult.listItems.length === 0)
+      this.loadData();
+
     this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.tokenInfo = value;
       this.loadData();

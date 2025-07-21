@@ -42,12 +42,14 @@ export class PageDashboardComponent implements OnInit {
   dataPinListResult: CoreCpMainMenuModel[] = [];
   checkModuleExist: Map<string, CoreModuleModel> = new Map<string, CoreModuleModel>();
   ngOnInit(): void {
-    this.tokenHelper.getTokenInfoState().then((value) => {
-      this.tokenInfo = value;
+
+    this.tokenInfo = this.cmsStoreService.getStateSnapshot().tokenInfoStore;
+    if (this.tokenInfo?.access?.userId > 0) {
       this.getCurrentSiteModule();
       this.loadData();
       this.cdr.detectChanges();
-    });
+    }
+
 
     this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.tokenInfo = value;

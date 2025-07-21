@@ -32,22 +32,17 @@ export class MenuMainComponent implements OnInit {
     public themeService: ThemeService,
     private cdr: ChangeDetectorRef,) {
     this.publicHelper.processService.cdr = this.cdr;
-    this.tokenHelper.getTokenInfoState().then((value) => {
+
+    this.tokenInfo = this.cmsStoreService.getStateSnapshot().tokenInfoStore;
+    if (this.tokenInfo && this.tokenInfo?.access?.userId > 0 && this.tokenInfo?.access?.siteId > 0)
+      this.DataGetCpMenu();
+
+    this.unsubscribe.push(this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.tokenInfo = value;
       if (this.tokenInfo && this.tokenInfo?.access?.userId > 0 && this.tokenInfo?.access?.siteId > 0) {
-        //setTimeout(() => { 
         this.DataGetCpMenu();
-        //}, 1000);
       }
-    });
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-      if (this.tokenInfo && this.tokenInfo?.access?.userId > 0 && this.tokenInfo?.access?.siteId > 0) {
-        //setTimeout(() => {
-        this.DataGetCpMenu();
-        // }, 1000);
-      }
-    });
+    }));
     this.unsubscribe.push(this.cmsStoreService.getState((state) => state.themeStore).subscribe(async (value) => {
       this.themeStore = value;
     }));
