@@ -21,10 +21,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-coretoken-notificationlog-edit',
-    templateUrl: './edit.component.html',
-    styleUrls: ['./edit.component.scss'],
-    standalone: false
+  selector: 'app-coretoken-notificationlog-edit',
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.scss'],
+  standalone: false
 })
 export class CoreLogTokenConnectionEditComponent extends EditBaseComponent<CoreLogTokenConnectionService, CoreLogTokenConnectionModel, string>
   implements OnInit, OnDestroy {
@@ -39,7 +39,7 @@ export class CoreLogTokenConnectionEditComponent extends EditBaseComponent<CoreL
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
   ) {
     super(coreLogTokenConnectionService, new CoreLogTokenConnectionModel(), publicHelper, translate);
@@ -81,10 +81,8 @@ export class CoreLogTokenConnectionEditComponent extends EditBaseComponent<CoreL
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
     });
 
     this.getEnumManageUserAccessAreaTypes();

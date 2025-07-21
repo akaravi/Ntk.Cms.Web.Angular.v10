@@ -9,9 +9,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-report-abuse-widget',
-    templateUrl: './widget.component.html',
-    standalone: false
+  selector: 'app-report-abuse-widget',
+  templateUrl: './widget.component.html',
+  standalone: false
 })
 export class CoreModuleLogReportAbuseWidgetComponent implements OnInit, OnDestroy {
 
@@ -22,7 +22,7 @@ export class CoreModuleLogReportAbuseWidgetComponent implements OnInit, OnDestro
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
@@ -39,19 +39,16 @@ export class CoreModuleLogReportAbuseWidgetComponent implements OnInit, OnDestro
     this.widgetInfoModel.description = '';
     this.widgetInfoModel.link = '/coremodulelog/report-abuse';
     setTimeout(() => {
-      
-        this.onActionStatist();
+
+      this.onActionStatist();
     }, 1000);
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        
-        this.onActionStatist();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.onActionStatist();
     });
 
   }
-  
+
   onActionButtonReload(): void {
     this.onActionStatist();
   }

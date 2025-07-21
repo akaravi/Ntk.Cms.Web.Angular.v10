@@ -55,7 +55,7 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
     private cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private router: Router,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -257,14 +257,10 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper
-      .getTokenInfoStateOnChange()
-      .subscribe({
-        next: (ret) => {
-          this.tokenInfo = ret;
-          this.DataGetAll();
-        }
-      });
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
+    });
   }
 
 

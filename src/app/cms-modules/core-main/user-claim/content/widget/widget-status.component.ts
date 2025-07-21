@@ -19,9 +19,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-core-userclaimcontent-widget-status',
-    templateUrl: './widget-status.component.html',
-    standalone: false
+  selector: 'app-core-userclaimcontent-widget-status',
+  templateUrl: './widget-status.component.html',
+  standalone: false
 })
 export class CoreUserClaimContentWidgetStatusComponent implements OnInit, OnDestroy {
 
@@ -33,7 +33,7 @@ export class CoreUserClaimContentWidgetStatusComponent implements OnInit, OnDest
     private cdr: ChangeDetectorRef,
     public dialog: MatDialog,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
 
@@ -54,20 +54,17 @@ export class CoreUserClaimContentWidgetStatusComponent implements OnInit, OnDest
     this.widgetInfoModel.link = '/core/userclaim/checklist';
 
     setTimeout(() => {
-      
-        this.onActionStatist();
+
+      this.onActionStatist();
     }, 1000);
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        
-        this.onActionStatist();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.onActionStatist();
     });
 
 
   }
-  
+
   onActionButtonReload(): void {
     this.onActionStatist();
   }

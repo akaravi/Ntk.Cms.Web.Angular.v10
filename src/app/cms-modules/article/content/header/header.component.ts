@@ -21,10 +21,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-article-content-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss'],
-    standalone: false
+  selector: 'app-article-content-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
+  standalone: false
 })
 export class ArticletHeaderComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -33,7 +33,7 @@ export class ArticletHeaderComponent implements OnInit, OnDestroy {
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private cmsToastrService: CmsToastrService,
     public dialog: MatDialog,
     public translate: TranslateService,
@@ -47,21 +47,18 @@ export class ArticletHeaderComponent implements OnInit, OnDestroy {
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
 
 
-  
+
 
   cmsApiStoreSubscribe: Subscription;
   ngOnInit(): void {
     if (this.optionId > 0) {
 
-      this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-        next: (ret) => {
-          
-          this.DataGetOneContent();
-        }
+      this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+        this.DataGetOneContent();
       });
       setTimeout(() => {
-        
-          this.DataGetOneContent();
+
+        this.DataGetOneContent();
       }, 500);
     }
   }

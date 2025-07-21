@@ -15,9 +15,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-donate-config-checksite',
-    templateUrl: './check-site.component.html',
-    standalone: false
+  selector: 'app-donate-config-checksite',
+  templateUrl: './check-site.component.html',
+  standalone: false
 })
 export class DonateConfigCheckSiteComponent implements OnInit, OnDestroy {
   requestLinkSiteId = 0;
@@ -27,7 +27,7 @@ export class DonateConfigCheckSiteComponent implements OnInit, OnDestroy {
     private configService: DonateConfigurationService,
     private activatedRoute: ActivatedRoute,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
     private cmsToastrService: CmsToastrService,
@@ -42,11 +42,9 @@ export class DonateConfigCheckSiteComponent implements OnInit, OnDestroy {
       this.onLoadDate();
     }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        this.onLoadDate();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.onLoadDate();
     });
 
   }

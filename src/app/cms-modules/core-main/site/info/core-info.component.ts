@@ -38,11 +38,9 @@ export class CoreInfoComponent implements OnInit, OnDestroy {
     if (this.tokenInfo) {
       this.DataGetInfo();
     }
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        this.DataGetInfo();
-      }
+    this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetInfo();
     });
 
   }

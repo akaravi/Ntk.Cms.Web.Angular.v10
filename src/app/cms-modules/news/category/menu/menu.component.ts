@@ -24,7 +24,7 @@ export class NewsCategoryMenuComponent implements OnInit, OnDestroy {
     public categoryService: NewsCategoryService,
     private cmsToastrService: CmsToastrService,
     private activatedRoute: ActivatedRoute,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private router: Router,
     public translate: TranslateService,
     private cdr: ChangeDetectorRef,
@@ -42,12 +42,10 @@ export class NewsCategoryMenuComponent implements OnInit, OnDestroy {
         this.loadData();
       }
     }
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((value) => {
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.tokenInfo = value;
       if (this.tokenInfo && this.tokenInfo.access.userId > 0 && this.tokenInfo.access.siteId > 0) {
-        //setTimeout(() => {
         this.loadData();
-        //}, 100);
       }
     });
   }

@@ -66,10 +66,8 @@ export class SmsLogOutBoxDetailViewComponent implements OnInit, OnDestroy {
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
     });
     this.getEnumSendSmsStatusType();
   }

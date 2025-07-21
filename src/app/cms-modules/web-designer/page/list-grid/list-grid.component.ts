@@ -46,7 +46,7 @@ export class WebDesignerMainPageListGridComponent extends ListBaseComponent<WebD
     private router: Router,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public tokenHelper: TokenHelper,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
@@ -118,12 +118,9 @@ export class WebDesignerMainPageListGridComponent extends ListBaseComponent<WebD
     if (this.tokenInfo) {
       this.DataGetAll();
     }
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
     this.getModuleList();
     this.getSiteCategory();

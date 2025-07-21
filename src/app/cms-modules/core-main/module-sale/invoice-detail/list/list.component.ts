@@ -22,9 +22,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-core-modulesaleinvoicedetail-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-core-modulesaleinvoicedetail-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class CoreModuleSaleInvoiceDetailListComponent extends ListBaseComponent<CoreModuleSaleInvoiceDetailService, CoreModuleSaleInvoiceDetailModel, number>
   implements OnInit, OnDestroy {
@@ -38,7 +38,7 @@ export class CoreModuleSaleInvoiceDetailListComponent extends ListBaseComponent<
     private coreModuleService: CoreModuleService,
     private coreEnumService: CoreEnumService,
     public tokenHelper: TokenHelper,
-    private router: Router,private cmsStoreService:CmsStoreService,
+    private router: Router, private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     public pageInfo: PageInfoService,
@@ -98,16 +98,13 @@ export class CoreModuleSaleInvoiceDetailListComponent extends ListBaseComponent<
   ngOnInit(): void {
     this.filteModelContent.sortColumn = 'Title';
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
     this.getEnumCmsModuleSaleItemType();
     this.getModuleList();

@@ -31,9 +31,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-webdesigner-pagedependency-tree',
-    templateUrl: './tree.component.html',
-    standalone: false
+  selector: 'app-webdesigner-pagedependency-tree',
+  templateUrl: './tree.component.html',
+  standalone: false
 })
 export class WebDesignerMainPageDependencyTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -45,7 +45,7 @@ export class WebDesignerMainPageDependencyTreeComponent implements OnInit, OnDes
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
@@ -65,15 +65,15 @@ export class WebDesignerMainPageDependencyTreeComponent implements OnInit, OnDes
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
   hasChild = (_: number, node: WebDesignerMainPageDependencyModel) => false;
-  
+
   ngOnInit(): void {
     setTimeout(() => {
-      
-        this.DataGetAll();
-    }, 500);
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((value) => {
+
       this.DataGetAll();
-    });
+    }, 500);
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.DataGetAll();
+    })
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {

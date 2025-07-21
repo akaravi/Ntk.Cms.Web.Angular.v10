@@ -131,13 +131,11 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
       this.checkingOnDayRange.controls.end.setValue(this.todayEnd);
 
     var lStorlinkCmsUserId = this.publicHelper.getComponentLocalStorageMap(this.constructor.name, 'linkCmsUserId');
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.linkCmsUserId = ret.access.userId;
-        if (Number.isFinite(lStorlinkCmsUserId) && +lStorlinkCmsUserId >= 0)
-          this.linkCmsUserId = +lStorlinkCmsUserId;
-        this.onActionButtonOnDateSearch();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.linkCmsUserId = value.access.userId;
+      if (Number.isFinite(lStorlinkCmsUserId) && +lStorlinkCmsUserId >= 0)
+        this.linkCmsUserId = +lStorlinkCmsUserId;
+      this.onActionButtonOnDateSearch();
     });
     if (this.tokenInfo?.access.userId > 0) {
       this.linkCmsUserId = this.tokenInfo.access.userId

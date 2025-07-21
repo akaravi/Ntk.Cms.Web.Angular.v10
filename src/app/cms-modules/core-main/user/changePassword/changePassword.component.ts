@@ -22,10 +22,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-core-user-changepassword',
-    templateUrl: './changePassword.component.html',
-    styleUrls: ['./changePassword.component.scss'],
-    standalone: false
+  selector: 'app-core-user-changepassword',
+  templateUrl: './changePassword.component.html',
+  styleUrls: ['./changePassword.component.scss'],
+  standalone: false
 })
 export class CoreUserChangePasswordComponent implements OnInit, OnDestroy {
   requestLinkUserId = 0;
@@ -38,7 +38,7 @@ export class CoreUserChangePasswordComponent implements OnInit, OnDestroy {
     private cmsToastrService: CmsToastrService,
     public translate: TranslateService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
   ) {
@@ -75,10 +75,8 @@ export class CoreUserChangePasswordComponent implements OnInit, OnDestroy {
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
     });
   }
   ngOnDestroy(): void {

@@ -23,9 +23,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-coretoken-user-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-coretoken-user-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class CoreLogTokenUserListComponent extends ListBaseComponent<CoreLogTokenUserService, CoreLogTokenUserModel, string>
   implements OnInit, OnDestroy {
@@ -40,7 +40,7 @@ export class CoreLogTokenUserListComponent extends ListBaseComponent<CoreLogToke
     private activatedRoute: ActivatedRoute,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
     private router: Router,
     public pageInfo: PageInfoService,
@@ -128,16 +128,13 @@ export class CoreLogTokenUserListComponent extends ListBaseComponent<CoreLogToke
     this.filteModelContent.sortColumn = 'CreatedDate';
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
 
   }

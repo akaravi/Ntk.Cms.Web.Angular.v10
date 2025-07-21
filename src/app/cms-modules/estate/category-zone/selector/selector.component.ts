@@ -16,9 +16,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-estate-category-zone-selector',
-    templateUrl: './selector.component.html',
-    standalone: false
+  selector: 'app-estate-category-zone-selector',
+  templateUrl: './selector.component.html',
+  standalone: false
 })
 export class EstateCategoryZoneSelectorComponent implements OnInit, OnDestroy {
 
@@ -30,7 +30,7 @@ export class EstateCategoryZoneSelectorComponent implements OnInit, OnDestroy {
     public publicHelper: PublicHelper,
     public translate: TranslateService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public categoryService: EstateCategoryZoneService) {
     this.publicHelper.processService.cdr = this.cdr;
   }
@@ -59,10 +59,8 @@ export class EstateCategoryZoneSelectorComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadOptions();
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.loadOptions();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.loadOptions();
     });
   }
   ngOnDestroy(): void {

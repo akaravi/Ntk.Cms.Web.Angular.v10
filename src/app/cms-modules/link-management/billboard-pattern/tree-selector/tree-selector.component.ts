@@ -31,9 +31,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-linkmanagement-billboard-pattern-treeselector',
-    templateUrl: './tree-selector.component.html',
-    standalone: false
+  selector: 'app-linkmanagement-billboard-pattern-treeselector',
+  templateUrl: './tree-selector.component.html',
+  standalone: false
 })
 export class LinkManagementBillboardPatternTreeSelectorComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -44,7 +44,7 @@ export class LinkManagementBillboardPatternTreeSelectorComponent implements OnIn
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public dialog: MatDialog,
     public translate: TranslateService,
   ) {
@@ -95,15 +95,15 @@ export class LinkManagementBillboardPatternTreeSelectorComponent implements OnIn
   hasNoContent = (_: number, nodeData: LinkManagementBillboardPatternModel) => false;
 
 
-  
+
   ngOnInit(): void {
     setTimeout(() => {
-      
-        this.DataGetAll();
-    }, 500);
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((value) => {
+
       this.DataGetAll();
-    });
+    }, 500);
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.DataGetAll();
+    })
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {

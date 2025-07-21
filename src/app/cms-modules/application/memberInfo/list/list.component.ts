@@ -46,7 +46,7 @@ export class ApplicationMemberInfoListComponent extends ListBaseComponent<Applic
     private router: Router,
     public tokenHelper: TokenHelper,
     public pageInfo: PageInfoService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog) {
     super(contentService, new ApplicationMemberInfoModel(), publicHelper, tokenHelper, translate);
@@ -120,12 +120,9 @@ export class ApplicationMemberInfoListComponent extends ListBaseComponent<Applic
     if (this.tokenInfo) {
       this.DataGetAll();
     }
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
   }
   ngOnDestroy(): void {

@@ -13,14 +13,15 @@ import {
 import { Subscription } from 'rxjs';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
+import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 import { CmsLinkToComponent } from 'src/app/shared/cms-link-to/cms-link-to.component';
 import { environment } from 'src/environments/environment';
 @Component({
-    selector: 'app-estate-property-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss'],
-    standalone: false
+  selector: 'app-estate-property-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
+  standalone: false
 })
 export class EstatePropertyHeaderComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -30,6 +31,7 @@ export class EstatePropertyHeaderComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     private cmsToastrService: CmsToastrService,
     public translate: TranslateService,
+    private cmsStoreService: CmsStoreService,
     public dialog: MatDialog,
     public tokenHelper: TokenHelper
   ) {
@@ -48,10 +50,8 @@ export class EstatePropertyHeaderComponent implements OnInit, OnDestroy {
       this.DataGetOneContent();
     }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.DataGetOneContent();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.DataGetOneContent();
     });
   }
   ngOnDestroy(): void {

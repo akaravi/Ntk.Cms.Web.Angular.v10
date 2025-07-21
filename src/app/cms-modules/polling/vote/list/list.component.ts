@@ -23,16 +23,16 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-polling-vote-list',
-    templateUrl: './list.component.html',
-    animations: [
-        trigger('detailExpand', [
-            state('collapsed', style({ height: '0px', minHeight: '0' })),
-            state('expanded', style({ height: '*' })),
-            transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-        ]),
-    ],
-    standalone: false
+  selector: 'app-polling-vote-list',
+  templateUrl: './list.component.html',
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
+  standalone: false
 })
 export class PollingVoteListComponent extends ListBaseComponent<PollingVoteService, PollingVoteModel, string> implements OnInit, OnDestroy {
   requestContentId = 0;
@@ -49,7 +49,7 @@ export class PollingVoteListComponent extends ListBaseComponent<PollingVoteServi
     public translate: TranslateService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public dialog: MatDialog) {
     super(contentService, new PollingVoteModel(), publicHelper, tokenHelper, translate);
     this.publicHelper.processService.cdr = this.cdr;
@@ -93,17 +93,14 @@ export class PollingVoteListComponent extends ListBaseComponent<PollingVoteServi
     this.requestOptionId = + Number(this.activatedRoute.snapshot.paramMap.get('OptionId'));
 
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
   }
   ngOnDestroy(): void {

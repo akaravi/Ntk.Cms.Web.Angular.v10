@@ -23,10 +23,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-estate-category-rack-list-mobile',
-    templateUrl: './list.mobile.component.html',
-    styleUrls: ['list.mobile.component.scss'],
-    standalone: false
+  selector: 'app-estate-category-rack-list-mobile',
+  templateUrl: './list.mobile.component.html',
+  styleUrls: ['list.mobile.component.scss'],
+  standalone: false
 })
 export class EstateCategoryRackListMobileComponent extends ListBaseComponent<EstateCategoryRackService, EstateCategoryRackModel, string> implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -37,7 +37,7 @@ export class EstateCategoryRackListMobileComponent extends ListBaseComponent<Est
     private router: Router,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
@@ -88,16 +88,13 @@ export class EstateCategoryRackListMobileComponent extends ListBaseComponent<Est
 
   ngOnInit(): void {
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
   }
   ngOnDestroy(): void {

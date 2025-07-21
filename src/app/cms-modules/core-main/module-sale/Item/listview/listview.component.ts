@@ -22,9 +22,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-core-modulesaleitem-listview',
-    templateUrl: './listview.component.html',
-    standalone: false
+  selector: 'app-core-modulesaleitem-listview',
+  templateUrl: './listview.component.html',
+  standalone: false
 })
 export class CoreModuleSaleItemListViewComponent implements OnInit, OnDestroy {
   @Input() set optionHeaderId(x: number) {
@@ -41,7 +41,7 @@ export class CoreModuleSaleItemListViewComponent implements OnInit, OnDestroy {
     private coreEnumService: CoreEnumService,
     private cdr: ChangeDetectorRef,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
@@ -69,21 +69,18 @@ export class CoreModuleSaleItemListViewComponent implements OnInit, OnDestroy {
 
 
   cmsApiStoreSubscribe: Subscription;
-  
+
   ngOnInit(): void {
     this.filteModelContent.sortColumn = 'Title';
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.getEnumCmsModuleSaleItemType();
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.getEnumCmsModuleSaleItemType();
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
     this.getModuleList();
     this.getEnumCmsModuleSaleItemType();

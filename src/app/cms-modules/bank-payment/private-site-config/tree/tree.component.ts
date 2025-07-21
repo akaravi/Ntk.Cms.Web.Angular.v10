@@ -31,9 +31,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-bankpayment-privatesiteconfig-tree',
-    templateUrl: './tree.component.html',
-    standalone: false
+  selector: 'app-bankpayment-privatesiteconfig-tree',
+  templateUrl: './tree.component.html',
+  standalone: false
 })
 export class BankPaymentPrivateSiteConfigTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -44,7 +44,7 @@ export class BankPaymentPrivateSiteConfigTreeComponent implements OnInit, OnDest
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
     public dialog: MatDialog
   ) {
@@ -65,14 +65,13 @@ export class BankPaymentPrivateSiteConfigTreeComponent implements OnInit, OnDest
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
   hasChild = (_: number, node: BankPaymentPrivateSiteConfigModel) => false;
-  
+
   ngOnInit(): void {
     setTimeout(() => {
-      
-        this.DataGetAll();
+
+      this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((value) => {
-      
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.DataGetAll();
     });
   }

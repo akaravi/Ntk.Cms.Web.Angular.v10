@@ -10,10 +10,10 @@ import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 import { ThemeService } from 'src/app/core/services/theme.service';
 
 @Component({
-    selector: 'app-page-menu',
-    templateUrl: './page-menu.component.html',
-    styleUrls: ['./page-menu.component.scss'],
-    standalone: false
+  selector: 'app-page-menu',
+  templateUrl: './page-menu.component.html',
+  styleUrls: ['./page-menu.component.scss'],
+  standalone: false
 })
 export class PageMenuComponent implements OnInit {
   requestLinkParentId = 0;
@@ -23,7 +23,7 @@ export class PageMenuComponent implements OnInit {
     private coreCpMainMenuService: CoreCpMainMenuService,
     private cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
-    public themeService:ThemeService,
+    public themeService: ThemeService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     public translate: TranslateService,
@@ -38,7 +38,7 @@ export class PageMenuComponent implements OnInit {
       if (!this.dataModelResult || !this.dataModelResult.listItems || this.dataModelResult.listItems.length === 0)
         this.loadData();
     });
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((value) => {
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.tokenInfo = value;
       this.loadData();
     });
@@ -124,23 +124,22 @@ export class PageMenuComponent implements OnInit {
     //     this.dataListResult = findRow[0].children;
     //   }
 
+  }
+  findListInChild(items: CoreCpMainMenuModel[]): boolean {
+    var findRow = items.filter(x => x.id === this.requestLinkParentId);
+    if (findRow && findRow.length > 0 && findRow[0].children && findRow[0].children.length > 0) {
+      this.dataListResult = findRow[0].children;
+      return true;
     }
-    findListInChild(items: CoreCpMainMenuModel[] ):boolean{
-      var findRow = items.filter(x => x.id === this.requestLinkParentId);
-      if (findRow && findRow.length > 0 && findRow[0].children && findRow[0].children.length > 0)
-        {
-          this.dataListResult = findRow[0].children;
+    else {
+      for (let index = 0; index < items.length; index++) {
+        if (this.findListInChild(items[index].children))
           return true;
-        }
-        else{
-          for (let index = 0; index < items.length; index++) {
-            if(this. findListInChild(items[index].children)            )
-            return true;
-          }
+      }
 
-        }
-        return false;
     }
+    return false;
+  }
   onActionClickMenu(item: CoreCpMainMenuModel, event?: MouseEvent) {
     if (!item)
       return;

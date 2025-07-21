@@ -23,17 +23,17 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-blog-config-site',
-    templateUrl: './config-site.component.html',
-    standalone: false
+  selector: 'app-blog-config-site',
+  templateUrl: './config-site.component.html',
+  standalone: false
 })
-export class BlogConfigSiteComponent implements OnInit,OnDestroy {
+export class BlogConfigSiteComponent implements OnInit, OnDestroy {
   requestLinkSiteId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private configService: BlogConfigurationService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
     private cmsToastrService: CmsToastrService,
@@ -67,7 +67,7 @@ export class BlogConfigSiteComponent implements OnInit,OnDestroy {
   mapOptonCenter = new PoinModel();
 
   cmsApiStoreSubscribe: Subscription;
-  
+
 
   ngOnInit(): void {
     this.requestLinkSiteId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkSiteId'));
@@ -76,12 +76,9 @@ export class BlogConfigSiteComponent implements OnInit,OnDestroy {
       this.onLoadDate();
     }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.onLoadDate();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.onLoadDate();
     });
 
 

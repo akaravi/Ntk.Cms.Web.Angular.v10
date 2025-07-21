@@ -56,11 +56,10 @@ export class CmsGuideNoticeComponent implements OnInit, OnDestroy {
       this.lang = this.tokenInfo.access.language;
       this.onGetOne();
     }
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.lang = ret.access.language;
-        this.onGetOne();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      if (value && value.access)
+        this.lang = value.access.language;
+      this.onGetOne();
     });
 
   }

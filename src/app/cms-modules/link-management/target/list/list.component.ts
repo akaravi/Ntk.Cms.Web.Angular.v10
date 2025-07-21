@@ -25,10 +25,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-linkmanagement-target-list',
-    templateUrl: './list.component.html',
-    styleUrls: ["./list.component.scss"],
-    standalone: false
+  selector: 'app-linkmanagement-target-list',
+  templateUrl: './list.component.html',
+  styleUrls: ["./list.component.scss"],
+  standalone: false
 })
 export class LinkManagementTargetListComponent extends ListBaseComponent<LinkManagementTargetService, LinkManagementTargetModel, number> implements OnInit, OnDestroy {
   requestLinkBillboardPatternId = 0;
@@ -40,7 +40,7 @@ export class LinkManagementTargetListComponent extends ListBaseComponent<LinkMan
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     public pageInfo: PageInfoService,
@@ -97,16 +97,13 @@ export class LinkManagementTargetListComponent extends ListBaseComponent<LinkMan
   ngOnInit(): void {
 
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
   }
   ngOnDestroy(): void {

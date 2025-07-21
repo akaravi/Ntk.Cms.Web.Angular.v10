@@ -4,7 +4,8 @@ import { FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import {
   ErrorExceptionResult, InfoEnumModel,
-  SmsEnumService} from 'ntk-cms-api';
+  SmsEnumService
+} from 'ntk-cms-api';
 import { Observable, Subscription, firstValueFrom } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
@@ -15,9 +16,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-sms-message-type-enum-selector',
-    templateUrl: './selector.component.html',
-    standalone: false
+  selector: 'app-sms-message-type-enum-selector',
+  templateUrl: './selector.component.html',
+  standalone: false
 })
 export class SmsMessageTypeEnumSelectorComponent implements OnInit, OnDestroy {
 
@@ -28,7 +29,7 @@ export class SmsMessageTypeEnumSelectorComponent implements OnInit, OnDestroy {
     public publicHelper: PublicHelper,
     public translate: TranslateService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public enumService: SmsEnumService) {
     this.publicHelper.processService.cdr = this.cdr;
   }
@@ -59,10 +60,8 @@ export class SmsMessageTypeEnumSelectorComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadOptions();
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.loadOptions();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.loadOptions();
     });
   }
   ngOnDestroy(): void {

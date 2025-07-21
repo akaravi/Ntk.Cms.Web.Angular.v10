@@ -6,13 +6,14 @@ import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
 import { ChartOptionsModel } from 'src/app/core/models/chartOptionsModel';
 import { WidgetContentInfoModel, WidgetInfoModel } from 'src/app/core/models/widget-info-model';
+import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 
 
 @Component({
-    selector: 'app-estate-property-widget',
-    templateUrl: './widget.component.html',
-    standalone: false
+  selector: 'app-estate-property-widget',
+  templateUrl: './widget.component.html',
+  standalone: false
 })
 
 export class EstatePropertyWidgetComponent implements OnInit, OnDestroy {
@@ -23,7 +24,7 @@ export class EstatePropertyWidgetComponent implements OnInit, OnDestroy {
     private service: EstatePropertyService,
     private cdr: ChangeDetectorRef,
     private cmsToastrService: CmsToastrService,
-    private tokenHelper: TokenHelper,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
   ) {
@@ -71,19 +72,16 @@ export class EstatePropertyWidgetComponent implements OnInit, OnDestroy {
     this.widgetInfoModel.link = '/estate/property';
 
     setTimeout(() => {
-      
-        this.onActionStatist();
+
+      this.onActionStatist();
     }, 1000);
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        
-        this.onActionStatist();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.onActionStatist();
     });
 
   }
-  
+
   onActionButtonReload(): void {
     this.onActionStatist();
   }

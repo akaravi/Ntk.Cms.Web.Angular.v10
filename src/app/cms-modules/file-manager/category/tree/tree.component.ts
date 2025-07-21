@@ -31,10 +31,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-file-category-tree',
-    templateUrl: './tree.component.html',
-    styleUrls: ['./tree.component.scss'],
-    standalone: false
+  selector: 'app-file-category-tree',
+  templateUrl: './tree.component.html',
+  styleUrls: ['./tree.component.scss'],
+  standalone: false
 })
 export class FileCategoryTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -46,7 +46,7 @@ export class FileCategoryTreeComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
@@ -68,15 +68,15 @@ export class FileCategoryTreeComponent implements OnInit, OnDestroy {
   hasChild = (_: number, node: FileCategoryModel) => !!node.children && node.children.length > 0;
 
 
-  
+
   ngOnInit(): void {
     setTimeout(() => {
-      
-        this.DataGetAll();
-    }, 500);
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((value) => {
+
       this.DataGetAll();
-    });
+    }, 500);
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.DataGetAll();
+    })
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {

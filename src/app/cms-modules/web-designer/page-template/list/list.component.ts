@@ -22,9 +22,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-webdesigner-pagetemplate-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-webdesigner-pagetemplate-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class WebDesignerMainPageTemplateListComponent extends ListBaseComponent<WebDesignerMainPageTemplateService, WebDesignerMainPageTemplateModel, string> implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -33,7 +33,7 @@ export class WebDesignerMainPageTemplateListComponent extends ListBaseComponent<
     private cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private router: Router,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -81,15 +81,12 @@ export class WebDesignerMainPageTemplateListComponent extends ListBaseComponent<
   ngOnInit(): void {
     this.filteModelContent.sortColumn = 'Title';
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
   }
   ngOnDestroy(): void {

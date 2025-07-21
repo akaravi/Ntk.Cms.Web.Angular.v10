@@ -13,9 +13,9 @@ import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
 import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 @Component({
-    selector: 'app-estate-overview-summary',
-    templateUrl: './summary.component.html',
-    standalone: false
+  selector: 'app-estate-overview-summary',
+  templateUrl: './summary.component.html',
+  standalone: false
 })
 export class EstateOverviewSummaryComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -36,10 +36,7 @@ export class EstateOverviewSummaryComponent implements OnInit, OnDestroy {
 
   cmsApiStoreSubscribe: Subscription;
   ngOnInit(): void {
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-      }
-    });
+
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {

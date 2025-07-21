@@ -26,17 +26,17 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-sms-config-site',
-    templateUrl: './config-site.component.html',
-    standalone: false
+  selector: 'app-sms-config-site',
+  templateUrl: './config-site.component.html',
+  standalone: false
 })
-export class SmsConfigSiteComponent implements OnInit,OnDestroy {
+export class SmsConfigSiteComponent implements OnInit, OnDestroy {
   requestLinkSiteId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private configService: SmsConfigurationService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
     private cmsToastrService: CmsToastrService,
@@ -76,11 +76,9 @@ export class SmsConfigSiteComponent implements OnInit,OnDestroy {
       this.onLoadDate();
     }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        this.onLoadDate();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.onLoadDate();
     });
   }
   ngOnDestroy(): void {

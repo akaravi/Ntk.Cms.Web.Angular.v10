@@ -10,13 +10,14 @@ import {
 import { Subscription } from 'rxjs';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
+import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 
 
 @Component({
-    selector: 'app-estate-property-type-usage-selectionlist',
-    templateUrl: './selectionlist.component.html',
-    standalone: false
+  selector: 'app-estate-property-type-usage-selectionlist',
+  templateUrl: './selectionlist.component.html',
+  standalone: false
 })
 export class EstatePropertyTypeUsageSelectionlistComponent implements OnInit, OnDestroy {
 
@@ -28,6 +29,7 @@ export class EstatePropertyTypeUsageSelectionlistComponent implements OnInit, On
     public publicHelper: PublicHelper,
     public translate: TranslateService,
     public tokenHelper: TokenHelper,
+    private cmsStoreService: CmsStoreService,
     private cmsToastrService: CmsToastrService) {
     this.publicHelper.processService.cdr = this.cdr;
   }
@@ -49,16 +51,14 @@ export class EstatePropertyTypeUsageSelectionlistComponent implements OnInit, On
     this.onActionSelectForce(x);
   }
   cmsApiStoreSubscribe: Subscription;
-  
+
   ngOnInit(): void {
     setTimeout(() => {
-      
-        this.DataGetAll();
+
+      this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.DataGetAll();
     });
   }
   ngOnDestroy(): void {

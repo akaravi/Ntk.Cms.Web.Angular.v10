@@ -16,9 +16,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-estate-property-type-landuse-selector',
-    templateUrl: './selector.component.html',
-    standalone: false
+  selector: 'app-estate-property-type-landuse-selector',
+  templateUrl: './selector.component.html',
+  standalone: false
 })
 export class EstatePropertyTypeLanduseSelectorComponent implements OnInit, OnDestroy {
 
@@ -30,7 +30,7 @@ export class EstatePropertyTypeLanduseSelectorComponent implements OnInit, OnDes
     public publicHelper: PublicHelper,
     public translate: TranslateService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public categoryService: EstatePropertyTypeLanduseService) {
     this.publicHelper.processService.cdr = this.cdr;
   }
@@ -61,10 +61,8 @@ export class EstatePropertyTypeLanduseSelectorComponent implements OnInit, OnDes
 
   ngOnInit(): void {
     this.loadOptions();
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.loadOptions();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.loadOptions();
     });
   }
   ngOnDestroy(): void {

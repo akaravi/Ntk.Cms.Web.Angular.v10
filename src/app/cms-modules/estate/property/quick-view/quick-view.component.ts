@@ -20,9 +20,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-estate-property-quick-view',
-    templateUrl: './quick-view.component.html',
-    standalone: false
+  selector: 'app-estate-property-quick-view',
+  templateUrl: './quick-view.component.html',
+  standalone: false
 })
 export class EstatePropertyQuickViewComponent implements OnInit, OnDestroy {
   requestId = '';
@@ -37,7 +37,7 @@ export class EstatePropertyQuickViewComponent implements OnInit, OnDestroy {
     public estateContractTypeService: EstateContractTypeService,
     private cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
@@ -84,11 +84,9 @@ export class EstatePropertyQuickViewComponent implements OnInit, OnDestroy {
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        this.getEstateContractType();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.getEstateContractType();
     });
   }
 

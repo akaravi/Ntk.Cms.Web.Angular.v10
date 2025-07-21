@@ -23,7 +23,7 @@ export class WebDesignerBuilderComponent implements OnInit, OnDestroy {
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     public webDesignerMainPageService: WebDesignerMainPageService,
@@ -46,12 +46,9 @@ export class WebDesignerBuilderComponent implements OnInit, OnDestroy {
     }
 
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        this.DataGetOneContent();
-
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetOneContent();
     });
   }
 

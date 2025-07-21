@@ -22,17 +22,17 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-bankpayment-config-site',
-    templateUrl: './config-site.component.html',
-    standalone: false
+  selector: 'app-bankpayment-config-site',
+  templateUrl: './config-site.component.html',
+  standalone: false
 })
-export class BankPaymentConfigSiteComponent implements OnInit,OnDestroy {
+export class BankPaymentConfigSiteComponent implements OnInit, OnDestroy {
   requestLinkSiteId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private configService: BankPaymentConfigurationService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
     private cmsToastrService: CmsToastrService,
@@ -68,16 +68,13 @@ export class BankPaymentConfigSiteComponent implements OnInit,OnDestroy {
     if (this.tokenInfo) {
       this.onLoadDate();
     }
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.onLoadDate();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.onLoadDate();
     });
 
   }
-  
+
 
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {

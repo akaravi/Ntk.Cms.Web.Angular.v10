@@ -18,9 +18,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-blog-config-checksite',
-    templateUrl: './check-site.component.html',
-    standalone: false
+  selector: 'app-blog-config-checksite',
+  templateUrl: './check-site.component.html',
+  standalone: false
 })
 export class BlogConfigCheckSiteComponent implements OnInit, OnDestroy {
   requestLinkSiteId = 0;
@@ -30,7 +30,7 @@ export class BlogConfigCheckSiteComponent implements OnInit, OnDestroy {
     private configService: BlogConfigurationService,
     private activatedRoute: ActivatedRoute,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
     private cmsToastrService: CmsToastrService,
@@ -45,15 +45,12 @@ export class BlogConfigCheckSiteComponent implements OnInit, OnDestroy {
       this.onLoadDate();
     }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.onLoadDate();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.onLoadDate();
     });
   }
-  
+
 
   cmsApiStoreSubscribe: Subscription;
   tokenInfo = new TokenInfoModelV3();

@@ -26,9 +26,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-article-content-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-article-content-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class ArticleContentListComponent extends ListBaseComponent<ArticleContentService, ArticleContentModel, number>
   implements OnInit, OnDestroy {
@@ -39,7 +39,7 @@ export class ArticleContentListComponent extends ListBaseComponent<ArticleConten
     private cmsToastrService: CmsToastrService,
     private router: Router,
     public translate: TranslateService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     public pageInfo: PageInfoService,
     public tokenHelper: TokenHelper,
@@ -92,15 +92,12 @@ export class ArticleContentListComponent extends ListBaseComponent<ArticleConten
   GetAllWithHierarchyCategoryId = false;
   ngOnInit(): void {
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
   }
   ngOnDestroy(): void {

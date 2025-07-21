@@ -65,10 +65,8 @@ export class ApplicationMemberInfoViewComponent implements OnInit, OnDestroy {
     if (this.tokenInfo) {
       this.DataGetOneContent();
     }
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
     });
     this.getEnumSendSmsStatusType();
   }

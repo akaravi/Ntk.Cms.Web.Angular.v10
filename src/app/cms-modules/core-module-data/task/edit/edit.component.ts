@@ -21,10 +21,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-coremodule-data-task-edit',
-    templateUrl: './edit.component.html',
-    styleUrls: ['./edit.component.scss'],
-    standalone: false
+  selector: 'app-coremodule-data-task-edit',
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.scss'],
+  standalone: false
 })
 export class CoreModuleDataTaskEditComponent extends EditBaseComponent<CoreModuleDataTaskService, CoreModuleDataTaskModel, string>
   implements OnInit, OnDestroy {
@@ -37,7 +37,7 @@ export class CoreModuleDataTaskEditComponent extends EditBaseComponent<CoreModul
     public coreModuleDataTaskService: CoreModuleDataTaskService,
     private cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
@@ -78,10 +78,8 @@ export class CoreModuleDataTaskEditComponent extends EditBaseComponent<CoreModul
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
     });
   }
 

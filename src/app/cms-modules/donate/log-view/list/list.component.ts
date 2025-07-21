@@ -23,9 +23,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-donate-log-view-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-donate-log-view-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class DonateLogViewListComponent extends ListBaseComponent<DonateLogViewService, DonateLogViewModel, string> implements OnInit, OnDestroy {
   requestId = 0;
@@ -33,7 +33,7 @@ export class DonateLogViewListComponent extends ListBaseComponent<DonateLogViewS
   constructor(
     private activatedRoute: ActivatedRoute,
     public contentService: DonateLogViewService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
@@ -88,16 +88,13 @@ export class DonateLogViewListComponent extends ListBaseComponent<DonateLogViewS
     }
 
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
   }
   ngOnDestroy(): void {

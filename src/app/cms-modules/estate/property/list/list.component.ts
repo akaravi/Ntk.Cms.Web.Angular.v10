@@ -274,21 +274,17 @@ export class EstatePropertyListComponent extends ListBaseComponent<EstatePropert
       }
     }
     this.tokenInfo.access.direction
-    this.cmsApiStoreSubscribe = this.tokenHelper
-      .getTokenInfoStateOnChange()
-      .subscribe({
-        next: (ret) => {
-          this.tokenInfo = ret;
-          if (this.tokenInfo?.access?.siteId > 0)
-            this.GetServiceSiteConfig(this.tokenInfo.access.siteId);
-          this.DataGetAll();
-          if (!this.tokenHelper.isAdminSite && !this.tokenHelper.isSupportSite) {
-            this.tabledisplayedColumnsSource = this.publicHelper.listRemoveIfExist(this.tabledisplayedColumnsSource, 'scoreEstateLocation');
-            this.tabledisplayedColumnsSource = this.publicHelper.listRemoveIfExist(this.tabledisplayedColumnsSource, 'scoreEstateBuild');
-            this.tabledisplayedColumnsSource = this.publicHelper.listRemoveIfExist(this.tabledisplayedColumnsSource, 'scoreEstatePrice');
-          }
-        }
-      });
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      if (this.tokenInfo?.access?.siteId > 0)
+        this.GetServiceSiteConfig(this.tokenInfo.access.siteId);
+      this.DataGetAll();
+      if (!this.tokenHelper.isAdminSite && !this.tokenHelper.isSupportSite) {
+        this.tabledisplayedColumnsSource = this.publicHelper.listRemoveIfExist(this.tabledisplayedColumnsSource, 'scoreEstateLocation');
+        this.tabledisplayedColumnsSource = this.publicHelper.listRemoveIfExist(this.tabledisplayedColumnsSource, 'scoreEstateBuild');
+        this.tabledisplayedColumnsSource = this.publicHelper.listRemoveIfExist(this.tabledisplayedColumnsSource, 'scoreEstatePrice');
+      }
+    });
 
   }
 

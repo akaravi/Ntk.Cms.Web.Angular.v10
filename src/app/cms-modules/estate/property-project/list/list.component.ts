@@ -23,9 +23,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-estate-property-project-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-estate-property-project-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class EstatePropertyProjectListComponent extends ListBaseComponent<EstatePropertyProjectService, EstatePropertyProjectModel, string> implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -36,7 +36,7 @@ export class EstatePropertyProjectListComponent extends ListBaseComponent<Estate
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog,
@@ -82,15 +82,12 @@ export class EstatePropertyProjectListComponent extends ListBaseComponent<Estate
   GetAllWithHierarchyCategoryId = false;
   ngOnInit(): void {
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
   }
   ngOnDestroy(): void {

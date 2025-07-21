@@ -36,7 +36,7 @@ export class ApiTelegramLogOutputListComponent extends ListBaseComponent<ApiTele
     public tokenHelper: TokenHelper,
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
@@ -105,12 +105,9 @@ export class ApiTelegramLogOutputListComponent extends ListBaseComponent<ApiTele
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
   }
   ngOnDestroy(): void {

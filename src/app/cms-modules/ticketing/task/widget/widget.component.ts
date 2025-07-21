@@ -41,11 +41,8 @@ export class TicketingTaskWidgetComponent implements OnInit, OnDestroy {
         this.onActionStatist();
     }, 1000);
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        
-        this.onActionStatist();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.onActionStatist();
     });
 
   }

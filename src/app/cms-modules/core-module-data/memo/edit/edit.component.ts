@@ -21,10 +21,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-coremodule-data-memo-edit',
-    templateUrl: './edit.component.html',
-    styleUrls: ['./edit.component.scss'],
-    standalone: false
+  selector: 'app-coremodule-data-memo-edit',
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.scss'],
+  standalone: false
 })
 export class CoreModuleDataMemoEditComponent extends EditBaseComponent<CoreModuleDataMemoService, CoreModuleDataMemoModel, string>
   implements OnInit, OnDestroy {
@@ -37,7 +37,7 @@ export class CoreModuleDataMemoEditComponent extends EditBaseComponent<CoreModul
     public coreModuleDataMemoService: CoreModuleDataMemoService,
     private cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
@@ -78,10 +78,8 @@ export class CoreModuleDataMemoEditComponent extends EditBaseComponent<CoreModul
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
     });
   }
 

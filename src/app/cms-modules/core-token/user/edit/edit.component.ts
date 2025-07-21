@@ -22,10 +22,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-core-site-domainalias-edit',
-    templateUrl: './edit.component.html',
-    styleUrls: ['./edit.component.scss'],
-    standalone: false
+  selector: 'app-core-site-domainalias-edit',
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.scss'],
+  standalone: false
 })
 export class CoreTokenUserEditComponent extends EditBaseComponent<CoreTokenUserService, CoreTokenUserModel, string>
   implements OnInit, OnDestroy {
@@ -38,7 +38,7 @@ export class CoreTokenUserEditComponent extends EditBaseComponent<CoreTokenUserS
     public coreTokenUserService: CoreTokenUserService,
     private cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -82,10 +82,8 @@ export class CoreTokenUserEditComponent extends EditBaseComponent<CoreTokenUserS
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
     });
 
     this.getEnumManageUserAccessAreaTypes();

@@ -26,11 +26,11 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-linkmanagement-config-site',
-    templateUrl: './config-site.component.html',
-    standalone: false
+  selector: 'app-linkmanagement-config-site',
+  templateUrl: './config-site.component.html',
+  standalone: false
 })
-export class LinkManagementConfigSiteComponent implements OnInit,OnDestroy {
+export class LinkManagementConfigSiteComponent implements OnInit, OnDestroy {
   requestLinkSiteId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
@@ -41,7 +41,7 @@ export class LinkManagementConfigSiteComponent implements OnInit,OnDestroy {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {
@@ -76,11 +76,9 @@ export class LinkManagementConfigSiteComponent implements OnInit,OnDestroy {
       this.onLoadDate();
     }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        this.onLoadDate();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.onLoadDate();
     });
 
   }

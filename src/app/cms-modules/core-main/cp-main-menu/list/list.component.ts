@@ -24,9 +24,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-core-user-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-core-user-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class CoreCpMainMenuListComponent extends ListBaseComponent<CoreCpMainMenuService, CoreCpMainMenuModel, number>
   implements OnInit, OnDestroy {
@@ -38,7 +38,7 @@ export class CoreCpMainMenuListComponent extends ListBaseComponent<CoreCpMainMen
     public tokenHelper: TokenHelper,
     public coreEnumService: CoreEnumService,
     private cdr: ChangeDetectorRef,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
@@ -100,16 +100,13 @@ export class CoreCpMainMenuListComponent extends ListBaseComponent<CoreCpMainMen
   ngOnInit(): void {
 
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
     this.getEnumMenuPlaceType();
   }

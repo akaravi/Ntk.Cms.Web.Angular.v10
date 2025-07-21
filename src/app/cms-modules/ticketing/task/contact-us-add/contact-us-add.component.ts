@@ -47,13 +47,11 @@ export class TicketingTaskContactUsAddComponent extends AddBaseComponent<Ticketi
       this.dataModel.email = this.tokenInfo.user.email;
       this.dataModel.phoneNo = this.tokenInfo.user.mobile;
     }
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        this.dataModel.fullName = this.tokenInfo.user.lastName;
-        this.dataModel.email = this.tokenInfo.user.email;
-        this.dataModel.phoneNo = this.tokenInfo.user.mobile;
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.dataModel.fullName = this.tokenInfo.user.lastName;
+      this.dataModel.email = this.tokenInfo.user.email;
+      this.dataModel.phoneNo = this.tokenInfo.user.mobile;
     });
   }
   cmsApiStoreSubscribe: Subscription;

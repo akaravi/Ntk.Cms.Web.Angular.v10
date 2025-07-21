@@ -37,13 +37,14 @@ export class MenuLanguageComponent implements OnInit {
       this.tokenInfo = value;
     });
 
-
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((value) => {
-      this.tokenInfo = value;
-      if (value?.access?.language?.length > 0)
-        this.actionSetLanguage(value.access.language);
-    });
     this.languages = environment.languages;
+    this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
+    this.unsubscribe.push(this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      if (value?.access?.language?.length > 0 && this.languages?.length > 0)
+        this.actionSetLanguage(value.access.language);
+    }));
+
     this.unsubscribe.push(this.cmsStoreService.getState((state) => state.themeStore).subscribe(async (value) => {
       this.themeStore = value;
     }));

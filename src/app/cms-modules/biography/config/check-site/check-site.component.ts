@@ -18,9 +18,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-biography-config-checksite',
-    templateUrl: './check-site.component.html',
-    standalone: false
+  selector: 'app-biography-config-checksite',
+  templateUrl: './check-site.component.html',
+  standalone: false
 })
 export class BiographyConfigCheckSiteComponent implements OnInit, OnDestroy {
   requestLinkSiteId = 0;
@@ -29,7 +29,7 @@ export class BiographyConfigCheckSiteComponent implements OnInit, OnDestroy {
     private configService: BiographyConfigurationService,
     private activatedRoute: ActivatedRoute,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
     private cmsToastrService: CmsToastrService,
@@ -43,17 +43,14 @@ export class BiographyConfigCheckSiteComponent implements OnInit, OnDestroy {
     if (this.tokenInfo) {
       this.onLoadDate();
     }
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.onLoadDate();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.onLoadDate();
     });
   }
   cmsApiStoreSubscribe: Subscription;
   tokenInfo = new TokenInfoModelV3();
-  
+
 
   dataModelResult: ErrorExceptionResult<BaseModuleSiteCheckSiteModel> = new ErrorExceptionResult<BaseModuleSiteCheckSiteModel>();
   tableRowsSelected: Array<BaseModuleSiteCheckSiteModel> = [];

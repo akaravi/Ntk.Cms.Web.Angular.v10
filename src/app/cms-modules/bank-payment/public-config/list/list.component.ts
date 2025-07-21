@@ -25,9 +25,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-bankpayment-publicconfig-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-bankpayment-publicconfig-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class BankPaymentPublicConfigListComponent extends ListBaseComponent<BankPaymentPublicConfigService, BankPaymentPublicConfigModel, number>
   implements OnInit, OnDestroy {
@@ -38,7 +38,7 @@ export class BankPaymentPublicConfigListComponent extends ListBaseComponent<Bank
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private coreCurrencyService: CoreCurrencyService,
     private router: Router,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -91,15 +91,12 @@ export class BankPaymentPublicConfigListComponent extends ListBaseComponent<Bank
   ngOnInit(): void {
     this.filteModelContent.sortColumn = 'Title';
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
     this.getCurrency();
   }

@@ -62,15 +62,13 @@ export class CoreSiteEditComponent extends EditBaseComponent<CoreSiteService, Co
         this.DataGetOne(this.tokenInfo.access.siteId);
       }
     }
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
+    this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+        this.tokenInfo = value;
         if (this.requestId > 0) {
           this.DataGetOne(this.requestId);
         } else {
           this.DataGetOne(this.tokenInfo.access.siteId);
         }
-      }
     });
   }
   @ViewChild('vform', { static: false }) formGroup: FormGroup;

@@ -91,8 +91,8 @@ export class NewsContentListComponent extends ListBaseComponent<NewsContentServi
   GetAllWithHierarchyCategoryId = false;
   ngOnInit(): void {
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((ret) => {
-      this.tokenInfo = ret;
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
       this.DataGetAll();
     });
   }

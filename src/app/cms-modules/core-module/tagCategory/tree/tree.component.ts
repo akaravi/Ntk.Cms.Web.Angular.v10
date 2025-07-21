@@ -31,9 +31,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-coremodule-tag-category-tree',
-    templateUrl: './tree.component.html',
-    standalone: false
+  selector: 'app-coremodule-tag-category-tree',
+  templateUrl: './tree.component.html',
+  standalone: false
 })
 export class CoreModuleTagCategoryTreeComponent implements OnInit, OnDestroy {
 
@@ -46,7 +46,7 @@ export class CoreModuleTagCategoryTreeComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
@@ -69,15 +69,15 @@ export class CoreModuleTagCategoryTreeComponent implements OnInit, OnDestroy {
   hasChild = (_: number, node: CoreModuleTagCategoryModel) => !!node.children && node.children.length > 0;
 
 
-  
+
   ngOnInit(): void {
     setTimeout(() => {
-      
-        this.DataGetAll();
-    }, 500);
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((value) => {
+
       this.DataGetAll();
-    });
+    }, 500);
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.DataGetAll();
+    })
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {

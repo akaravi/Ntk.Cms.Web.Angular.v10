@@ -25,9 +25,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-core-modulesaleheader-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-core-modulesaleheader-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class CoreModuleSaleHeaderListComponent extends ListBaseComponent<CoreModuleSaleHeaderService, CoreModuleSaleHeaderModel, number>
   implements OnInit, OnDestroy {
@@ -42,7 +42,7 @@ export class CoreModuleSaleHeaderListComponent extends ListBaseComponent<CoreMod
     private activatedRoute: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog) {
@@ -109,16 +109,13 @@ export class CoreModuleSaleHeaderListComponent extends ListBaseComponent<CoreMod
   ngOnInit(): void {
     this.filteModelContent.sortColumn = 'Title';
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
   }
   ngOnDestroy(): void {

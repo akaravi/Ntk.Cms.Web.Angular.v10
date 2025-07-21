@@ -40,7 +40,7 @@ export class MenuMainComponent implements OnInit {
         //}, 1000);
       }
     });
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((value) => {
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.tokenInfo = value;
       if (this.tokenInfo && this.tokenInfo?.access?.userId > 0 && this.tokenInfo?.access?.siteId > 0) {
         //setTimeout(() => {

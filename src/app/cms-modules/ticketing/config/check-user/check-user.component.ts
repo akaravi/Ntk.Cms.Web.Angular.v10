@@ -14,10 +14,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-ticketing-config-checkuser',
-    templateUrl: './check-user.component.html',
-    styleUrls: ['./check-user.component.scss'],
-    standalone: false
+  selector: 'app-ticketing-config-checkuser',
+  templateUrl: './check-user.component.html',
+  styleUrls: ['./check-user.component.scss'],
+  standalone: false
 })
 export class TicketingConfigCheckUserComponent implements OnInit, OnDestroy {
   requestLinkUserId = 0;
@@ -27,7 +27,7 @@ export class TicketingConfigCheckUserComponent implements OnInit, OnDestroy {
     private configService: TicketingConfigurationService,
     private activatedRoute: ActivatedRoute,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
     private cmsToastrService: CmsToastrService,
@@ -41,11 +41,9 @@ export class TicketingConfigCheckUserComponent implements OnInit, OnDestroy {
       this.onLoadDate();
     }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        this.onLoadDate();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.onLoadDate();
     });
 
   }

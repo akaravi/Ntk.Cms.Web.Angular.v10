@@ -35,10 +35,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-contact-category-tree',
-    templateUrl: './tree.component.html',
-    styleUrls: ['./tree.component.scss'],
-    standalone: false
+  selector: 'app-contact-category-tree',
+  templateUrl: './tree.component.html',
+  styleUrls: ['./tree.component.scss'],
+  standalone: false
 })
 export class ContactCategoryTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -50,7 +50,7 @@ export class ContactCategoryTreeComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
@@ -70,19 +70,18 @@ export class ContactCategoryTreeComponent implements OnInit, OnDestroy {
   @Input() optionReload = () => this.onActionButtonReload();
 
   hasChild = (_: string, node: ContactCategoryModel) => !!node.children && node.children.length > 0;
-  
+
 
 
   ngOnInit(): void {
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((value) => {
-      
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.DataGetAll();
     });
 
     setTimeout(() => {
-      
-        this.DataGetAll();
+
+      this.DataGetAll();
     }, 500);
 
 

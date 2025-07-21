@@ -15,9 +15,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-core-config-checkuser',
-    templateUrl: './check-user.component.html',
-    standalone: false
+  selector: 'app-core-config-checkuser',
+  templateUrl: './check-user.component.html',
+  standalone: false
 })
 export class BankPaymentConfigCheckUserComponent implements OnInit, OnDestroy {
   requestLinkUserId = 0;
@@ -26,7 +26,7 @@ export class BankPaymentConfigCheckUserComponent implements OnInit, OnDestroy {
     private configService: BankPaymentConfigurationService,
     private activatedRoute: ActivatedRoute,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
     private cmsToastrService: CmsToastrService,
@@ -40,15 +40,12 @@ export class BankPaymentConfigCheckUserComponent implements OnInit, OnDestroy {
     if (this.tokenInfo) {
       this.onLoadDate();
     }
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.onLoadDate();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.onLoadDate();
     });
   }
-  
+
 
   cmsApiStoreSubscribe: Subscription;
   tokenInfo = new TokenInfoModelV3();

@@ -15,9 +15,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-estate-property-selector',
-    templateUrl: './selector.component.html',
-    standalone: false
+  selector: 'app-estate-property-selector',
+  templateUrl: './selector.component.html',
+  standalone: false
 })
 export class EstatePropertySelectorComponent implements OnInit, OnDestroy {
   static nextId = 0;
@@ -29,7 +29,7 @@ export class EstatePropertySelectorComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
     public categoryService: EstatePropertyService) {
     this.publicHelper.processService.cdr = this.cdr;
@@ -55,10 +55,8 @@ export class EstatePropertySelectorComponent implements OnInit, OnDestroy {
   cmsApiStoreSubscribe: Subscription;
   ngOnInit(): void {
     this.loadOptions();
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.loadOptions();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.loadOptions();
     });
     if (!this.optionLabel || this.optionLabel.length == 0 && this.optionPlaceholder?.length > 0)
       this.optionLabel = this.optionPlaceholder;

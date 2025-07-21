@@ -25,9 +25,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-donate-target-period-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-donate-target-period-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class DonateTargetPeriodListComponent extends ListBaseComponent<DonateTargetPeriodService, DonateTargetPeriodModel, number> implements OnInit, OnDestroy {
   requestLinkTargeId = 0;
@@ -39,7 +39,7 @@ export class DonateTargetPeriodListComponent extends ListBaseComponent<DonateTar
     private router: Router,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
@@ -103,16 +103,13 @@ export class DonateTargetPeriodListComponent extends ListBaseComponent<DonateTar
       this.filteModelContent.filters.push(filter);
     }
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
   }
   ngOnDestroy(): void {

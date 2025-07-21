@@ -77,10 +77,14 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     this.themeService.ctorAppMain();
 
 
+
     /**MAIN cmsStoreService.getState MAIN*/
     this.unsubscribe.push(this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       if (this.tokenInfo?.access)
         if (this.tokenInfo.access != value.access && this.tokenInfo?.access?.siteId != value?.access?.siteId) {
+          if (environment.production) {
+            this.getSupport();
+          }
           /**CoreModuleModel */
           this.coreModuleService.ServiceGetAllModuleName(null).subscribe({
             next: (ret) => {
@@ -154,16 +158,7 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.tokenHelper.ngOnInitAppMain();
     this.themeService.ngOnInitApp();
-    this.tokenHelper.getTokenInfoStateOnChange().subscribe((state) => {
-      if (state?.access?.siteId > 0 && state?.access?.userId > 0 && environment.production)
-        this.getSupport();
-      //todo:karavi
-      // if (state.access.userId > 0) {
-      //   this.signalrService.login(state.access.token);
-      // } else {
-      //   this.signalrService.logout();
-      // }
-    });
+
     const url = window.location.href;
     if (url.includes('?')) {
       const httpParams = new HttpParams({ fromString: url.split('?')[1] });

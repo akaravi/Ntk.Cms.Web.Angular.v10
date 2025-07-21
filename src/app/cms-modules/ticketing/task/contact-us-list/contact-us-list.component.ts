@@ -24,9 +24,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-ticketing-task-contact-us-list',
-    templateUrl: './contact-us-list.component.html',
-    standalone: false
+  selector: 'app-ticketing-task-contact-us-list',
+  templateUrl: './contact-us-list.component.html',
+  standalone: false
 })
 export class TicketingTaskContactUsListComponent extends ListBaseComponent<TicketingTaskService, TicketingTaskModel, number> implements OnInit, OnDestroy {
   requestDepartemenId = 0;
@@ -41,7 +41,7 @@ export class TicketingTaskContactUsListComponent extends ListBaseComponent<Ticke
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     public pageInfo: PageInfoService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog) {
     super(contentService, new TicketingTaskModel(), publicHelper, tokenHelper, translate)
@@ -97,16 +97,13 @@ export class TicketingTaskContactUsListComponent extends ListBaseComponent<Ticke
     this.requestDepartemenId = + Number(this.activatedRoute.snapshot.paramMap.get('DepartemenId'));
     this.requestLinkCmsUserId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkCmsUserId'));
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
   }
   ngOnDestroy(): void {

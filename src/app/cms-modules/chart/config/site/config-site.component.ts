@@ -23,18 +23,18 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-chart-config-site',
-    templateUrl: './config-site.component.html',
-    standalone: false
+  selector: 'app-chart-config-site',
+  templateUrl: './config-site.component.html',
+  standalone: false
 })
-export class ChartConfigSiteComponent implements OnInit,OnDestroy {
+export class ChartConfigSiteComponent implements OnInit, OnDestroy {
 
   requestLinkSiteId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private configService: ChartConfigurationService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
     private cmsToastrService: CmsToastrService,
@@ -68,7 +68,7 @@ export class ChartConfigSiteComponent implements OnInit,OnDestroy {
   mapOptonCenter = new PoinModel();
 
   cmsApiStoreSubscribe: Subscription;
-  
+
 
   ngOnInit(): void {
     this.requestLinkSiteId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkSiteId'));
@@ -77,12 +77,9 @@ export class ChartConfigSiteComponent implements OnInit,OnDestroy {
       this.onLoadDate();
     }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.onLoadDate();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.onLoadDate();
     });
 
 

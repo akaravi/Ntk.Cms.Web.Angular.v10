@@ -41,7 +41,7 @@ export class EstatePropertyResponsibleUserListComponent extends ListBaseComponen
     private dialogRef: MatDialogRef<EstatePropertyResponsibleUserListComponent>,
     public contentService: EstatePropertyService,
     private cmsToastrService: CmsToastrService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public tokenHelper: TokenHelper,
     private router: Router,
     private cdr: ChangeDetectorRef,
@@ -109,14 +109,10 @@ export class EstatePropertyResponsibleUserListComponent extends ListBaseComponen
     if (this.tokenInfo) {
       this.DataGetAll();
     }
-    this.cmsApiStoreSubscribe = this.tokenHelper
-      .getTokenInfoStateOnChange()
-      .subscribe({
-        next: (ret) => {
-          this.tokenInfo = ret;
-          this.DataGetAll();
-        }
-      });
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
+    });
   }
 
   ngOnDestroy(): void {

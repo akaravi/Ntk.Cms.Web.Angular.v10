@@ -29,9 +29,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-article-category-treeselector',
-    templateUrl: './tree-selector.component.html',
-    standalone: false
+  selector: 'app-article-category-treeselector',
+  templateUrl: './tree-selector.component.html',
+  standalone: false
 })
 export class ArticleCategoryTreeSelectorComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -42,7 +42,7 @@ export class ArticleCategoryTreeSelectorComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public dialog: MatDialog,
     public translate: TranslateService,
   ) {
@@ -88,14 +88,13 @@ export class ArticleCategoryTreeSelectorComponent implements OnInit, OnDestroy {
   checklistSelection = new SelectionModel<ArticleCategoryModel>(true /* multiple */);
   hasChild = (_: number, node: ArticleCategoryModel) => !!node.children && node.children.length > 0;
   hasNoContent = (_: number, nodeData: ArticleCategoryModel) => nodeData.children;
-  
+
   ngOnInit(): void {
     setTimeout(() => {
-      
-        this.DataGetAll();
+
+      this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((value) => {
-      
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.DataGetAll();
     });
   }

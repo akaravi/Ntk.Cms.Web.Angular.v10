@@ -13,12 +13,12 @@ import { environment } from 'src/environments/environment';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 @Component({
-    selector: 'app-cms-link-to',
-    templateUrl: './cms-link-to.component.html',
-    styleUrls: ['./cms-link-to.component.scss'],
-    standalone: false
+  selector: 'app-cms-link-to',
+  templateUrl: './cms-link-to.component.html',
+  styleUrls: ['./cms-link-to.component.scss'],
+  standalone: false
 })
-export class CmsLinkToComponent implements OnInit ,OnDestroy{
+export class CmsLinkToComponent implements OnInit, OnDestroy {
   static nextId = 0;
   id = ++CmsLinkToComponent.nextId;
   constructorInfoAreaId = this.constructor.name;
@@ -30,7 +30,7 @@ export class CmsLinkToComponent implements OnInit ,OnDestroy{
     private router: Router,
     public translate: TranslateService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
   ) {
     if (data) {
@@ -61,10 +61,8 @@ export class CmsLinkToComponent implements OnInit ,OnDestroy{
 
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
     });
   }
   ngOnDestroy(): void {

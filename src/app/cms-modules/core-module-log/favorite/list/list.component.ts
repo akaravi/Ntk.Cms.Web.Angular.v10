@@ -23,9 +23,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-coremodulelog-favorite-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-coremodulelog-favorite-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class CoreModuleLogFavoriteListComponent extends ListBaseComponent<CoreModuleLogFavoriteService, CoreModuleLogFavoriteModel, string>
   implements OnInit, OnDestroy {
@@ -43,7 +43,7 @@ export class CoreModuleLogFavoriteListComponent extends ListBaseComponent<CoreMo
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     private router: Router,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog,
@@ -125,16 +125,13 @@ export class CoreModuleLogFavoriteListComponent extends ListBaseComponent<CoreMo
     this.filteModelContent.sortColumn = 'CreatedDate';
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
   }
 

@@ -26,9 +26,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-core-site-module-list',
-    templateUrl: './moduleList.component.html',
-    standalone: false
+  selector: 'app-core-site-module-list',
+  templateUrl: './moduleList.component.html',
+  standalone: false
 })
 export class CoreSiteModuleListComponent extends ListBaseComponent<CoreModuleSiteService, CoreModuleSiteModel, number>
   implements OnInit, OnDestroy {
@@ -45,7 +45,7 @@ export class CoreSiteModuleListComponent extends ListBaseComponent<CoreModuleSit
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     private router: Router,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog,
@@ -130,16 +130,13 @@ export class CoreSiteModuleListComponent extends ListBaseComponent<CoreModuleSit
   ngOnInit(): void {
     this.filteModelContent.sortColumn = 'LinkModuleId';
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
 
     this.getModuleList();
@@ -435,7 +432,7 @@ if (this.tokenInfo) {
     }
     );
   }
-  onActionButtonConfigSiteRow(event?: MouseEvent,model: CoreModuleSiteModel = this.tableRowSelected): void {
+  onActionButtonConfigSiteRow(event?: MouseEvent, model: CoreModuleSiteModel = this.tableRowSelected): void {
     if (!model || !model.linkModuleId || model.linkModuleId === 0 || !model.linkSiteId || model.linkSiteId === 0) {
       this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorSelectedRow').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
       return;
@@ -443,15 +440,15 @@ if (this.tokenInfo) {
     this.onActionTableRowSelect(model);
 
     if (event?.ctrlKey) {
-      window.open(model.virtual_CmsModule.className.toLowerCase() + '/config/site/'+ model.linkSiteId, "_blank");
+      window.open(model.virtual_CmsModule.className.toLowerCase() + '/config/site/' + model.linkSiteId, "_blank");
     } else {
       this.router.navigate([model.virtual_CmsModule.className.toLowerCase() + '/config/site/', model.linkSiteId]);
-      }
+    }
 
 
-    
+
   }
-  onActionButtonConfigMainAdminRow(event?: MouseEvent,model: CoreModuleSiteModel = this.tableRowSelected): void {
+  onActionButtonConfigMainAdminRow(event?: MouseEvent, model: CoreModuleSiteModel = this.tableRowSelected): void {
     if (!model || !model.linkModuleId || model.linkModuleId === 0 || !model.linkSiteId || model.linkSiteId === 0) {
       this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorSelectedRow').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
       return;
@@ -461,10 +458,10 @@ if (this.tokenInfo) {
       window.open(model.virtual_CmsModule.className.toLowerCase() + '/config/mainadmin/', "_blank");
     } else {
       this.router.navigate([model.virtual_CmsModule.className.toLowerCase() + '/config/mainadmin/']);
-      }
+    }
 
 
-    
+
   }
   onActionButtonSiteCreditAccountRow(model: CoreModuleSiteModel = this.tableRowSelected): void {
     if (!model || !model.linkModuleId || model.linkModuleId === 0 || !model.linkSiteId || model.linkSiteId === 0) {

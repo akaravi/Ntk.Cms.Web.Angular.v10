@@ -28,13 +28,13 @@ import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 import { CmsConfirmationDialogService } from 'src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service';
 import { environment } from 'src/environments/environment';
 import { MemberGroupAddComponent } from '../add/add.component';
-import { MemberGroupEditComponent } from '../edit/edit.component';import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { MemberGroupEditComponent } from '../edit/edit.component'; import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-member-group-tree',
-    templateUrl: './tree.component.html',
-    standalone: false
+  selector: 'app-member-group-tree',
+  templateUrl: './tree.component.html',
+  standalone: false
 })
 export class MemberGroupTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -48,7 +48,7 @@ export class MemberGroupTreeComponent implements OnInit, OnDestroy {
     public publicHelper: PublicHelper,
     public translate: TranslateService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }
@@ -69,15 +69,15 @@ export class MemberGroupTreeComponent implements OnInit, OnDestroy {
   hasChild = (_: number, node: MemberGroupModel) => false;
 
 
-  
+
   ngOnInit(): void {
     setTimeout(() => {
-      
-        this.DataGetAll();
-    }, 500);
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((value) => {
+
       this.DataGetAll();
-    });
+    }, 500);
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.DataGetAll();
+    })
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {

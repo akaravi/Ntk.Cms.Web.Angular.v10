@@ -46,11 +46,11 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-estate-property-history-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-estate-property-history-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
-export class EstatePropertyHistoryListComponent extends ListBaseComponent<EstatePropertyHistoryService, EstatePropertyHistoryModel, string> implements OnInit, OnDestroy,AfterViewInit {
+export class EstatePropertyHistoryListComponent extends ListBaseComponent<EstatePropertyHistoryService, EstatePropertyHistoryModel, string> implements OnInit, OnDestroy, AfterViewInit {
   requestLinkPropertyId = '';
   requestLinkEstateExpertId = '';
   requestLinkCustomerOrderId = '';
@@ -66,7 +66,7 @@ export class EstatePropertyHistoryListComponent extends ListBaseComponent<Estate
     public estateEnumService: EstateEnumService,
     public tokenHelper: TokenHelper,
     private activatedRoute: ActivatedRoute,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     public pageInfo: PageInfoService,
@@ -192,18 +192,14 @@ export class EstatePropertyHistoryListComponent extends ListBaseComponent<Estate
   ngOnInit(): void {
     this.filteModelContent.sortColumn = 'CreatedDate';
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper
-      .getTokenInfoStateOnChange()
-      .subscribe({
-        next: (ret) => {
-          this.tokenInfo = ret;
-          this.DataGetAll();
-        }
-      });
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
+    });
     this.getEstateActivityStatusEnum();
     this.getActivityTypeList();
   }

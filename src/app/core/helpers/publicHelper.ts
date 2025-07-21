@@ -271,14 +271,6 @@ export class PublicHelper {
     return value.length > limit ? value.substring(0, limit) + trail : value;
   }
 
-
-  getCpMenuStateOnChange(): Observable<ErrorExceptionResult<CoreCpMainMenuModel>> {
-    return this.cmsStoreService.getState((state) => { return state.coreCpMainResultStore; });
-  }
-  getTokenInfoStateOnChange(): Observable<TokenInfoModelV3> {
-    return this.cmsStoreService.getState((state) => { return state.tokenInfoStore; });
-  }
-
   listAddIfNotExist(listStr: string[], item: string, index: number): string[] {
     if (listStr.indexOf(item) < 0) {
       listStr.splice(index, 0, item);

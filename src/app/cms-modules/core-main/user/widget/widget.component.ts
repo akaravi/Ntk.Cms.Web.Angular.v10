@@ -52,11 +52,9 @@ export class CoreUserWidgetComponent implements OnInit, OnDestroy {
     if (this.tokenInfo) {
       this.onActionStatist();
     }
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        this.onActionStatist();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.onActionStatist();
     });
 
 

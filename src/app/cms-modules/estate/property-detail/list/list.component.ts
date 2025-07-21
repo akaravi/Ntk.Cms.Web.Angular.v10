@@ -26,9 +26,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-estate-property-detail-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-estate-property-detail-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class EstatePropertyDetailListComponent extends ListBaseComponent<EstatePropertyDetailService, EstatePropertyDetailModel, string> implements OnInit, OnDestroy {
   requestLinkPropertyTypeLanduseId = '';
@@ -41,7 +41,7 @@ export class EstatePropertyDetailListComponent extends ListBaseComponent<EstateP
     private activatedRoute: ActivatedRoute,
     private cmsToastrService: CmsToastrService,
     public tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private router: Router,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -108,16 +108,13 @@ export class EstatePropertyDetailListComponent extends ListBaseComponent<EstateP
   ngOnInit(): void {
     this.filteModelContent.sortColumn = 'ShowInFormOrder';
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
     this.getPropertyType();
     this.getPropertyDetailGroup();

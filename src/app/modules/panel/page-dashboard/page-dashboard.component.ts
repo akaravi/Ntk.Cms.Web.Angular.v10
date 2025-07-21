@@ -49,13 +49,11 @@ export class PageDashboardComponent implements OnInit {
       this.cdr.detectChanges();
     });
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        this.getCurrentSiteModule();
-        this.loadData();
-        this.cdr.detectChanges();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.getCurrentSiteModule();
+      this.loadData();
+      this.cdr.detectChanges();
     });
     localStorage.removeItem('siteId');
     this.pageInfo.updateTitle(this.translate.instant('ROUTE.DASHBOARD'));

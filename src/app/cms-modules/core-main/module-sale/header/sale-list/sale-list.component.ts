@@ -19,10 +19,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-core-modulesaleheader-sale-list',
-    templateUrl: './sale-list.component.html',
-    styleUrls: ['./sale-list.component.scss'],
-    standalone: false
+  selector: 'app-core-modulesaleheader-sale-list',
+  templateUrl: './sale-list.component.html',
+  styleUrls: ['./sale-list.component.scss'],
+  standalone: false
 })
 export class CoreModuleSaleHeaderSaleListComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -33,7 +33,7 @@ export class CoreModuleSaleHeaderSaleListComponent implements OnInit, OnDestroy 
     private cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     private coreModuleService: CoreModuleService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public tokenHelper: TokenHelper,
     private router: Router,
     private cdr: ChangeDetectorRef,
@@ -80,10 +80,8 @@ export class CoreModuleSaleHeaderSaleListComponent implements OnInit, OnDestroy 
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
     });
     // this.getEnumCmsModuleSaleItemType();
 

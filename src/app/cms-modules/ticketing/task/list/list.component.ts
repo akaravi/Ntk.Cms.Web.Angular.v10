@@ -25,9 +25,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-ticketing-task-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-ticketing-task-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class TicketingTaskListComponent extends ListBaseComponent<TicketingTaskService, TicketingTaskModel, number> implements OnInit, OnDestroy {
   requestDepartemenId = 0;
@@ -41,7 +41,7 @@ export class TicketingTaskListComponent extends ListBaseComponent<TicketingTaskS
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private router: Router,
     public tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     private ticketingEnumService: TicketingEnumService,
@@ -100,16 +100,14 @@ export class TicketingTaskListComponent extends ListBaseComponent<TicketingTaskS
     if (this.activatedRoute.snapshot.paramMap.get('TicketStatus'))
       this.requestTicketStatus = + Number(this.activatedRoute.snapshot.paramMap.get('TicketStatus'));
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.getEnumTicketStatus();
-        this.tokenInfo = ret;
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.getEnumTicketStatus();
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
     this.getEnumTicketStatus();
   }

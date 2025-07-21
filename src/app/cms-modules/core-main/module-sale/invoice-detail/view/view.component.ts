@@ -19,9 +19,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-bankpayment-transactionlog-view',
-    templateUrl: './view.component.html',
-    standalone: false
+  selector: 'app-bankpayment-transactionlog-view',
+  templateUrl: './view.component.html',
+  standalone: false
 })
 export class CoreModuleSaleInvoiceDetailViewComponent implements OnInit, OnDestroy {
   requestId = 0;
@@ -33,7 +33,7 @@ export class CoreModuleSaleInvoiceDetailViewComponent implements OnInit, OnDestr
     public coreModuleSaleInvoiceDetailService: CoreModuleSaleInvoiceDetailService,
     private cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
@@ -66,10 +66,8 @@ export class CoreModuleSaleInvoiceDetailViewComponent implements OnInit, OnDestr
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
     });
     this.getEnumSendSmsStatusType();
   }

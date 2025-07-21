@@ -24,9 +24,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-webdesigner-logmemberinfo-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-webdesigner-logmemberinfo-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class WebDesignerLogMemberInfoListComponent extends ListBaseComponent<WebDesignerLogMemberInfoService, WebDesignerLogMemberInfoModel, string> implements OnInit, OnDestroy {
   requestLinkMemberId = 0;
@@ -38,7 +38,7 @@ export class WebDesignerLogMemberInfoListComponent extends ListBaseComponent<Web
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     private cmsToastrService: CmsToastrService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private router: Router,
     public tokenHelper: TokenHelper,
     public pageInfo: PageInfoService,
@@ -105,15 +105,12 @@ export class WebDesignerLogMemberInfoListComponent extends ListBaseComponent<Web
       this.filteModelContent.filters.push(filter);
     }
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
   }
   ngOnDestroy(): void {

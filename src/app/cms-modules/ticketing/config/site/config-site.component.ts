@@ -24,18 +24,18 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-ticketing-config-site',
-    templateUrl: './config-site.component.html',
-    styleUrls: ['./config-site.component.scss'],
-    standalone: false
+  selector: 'app-ticketing-config-site',
+  templateUrl: './config-site.component.html',
+  styleUrls: ['./config-site.component.scss'],
+  standalone: false
 })
-export class TicketingConfigSiteComponent implements OnInit,OnDestroy {
+export class TicketingConfigSiteComponent implements OnInit, OnDestroy {
   requestLinkSiteId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private configService: TicketingConfigurationService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
     private cmsToastrService: CmsToastrService,
@@ -76,11 +76,9 @@ export class TicketingConfigSiteComponent implements OnInit,OnDestroy {
       this.onLoadDate();
     }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        this.onLoadDate();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.onLoadDate();
     });
   }
   ngOnDestroy(): void {

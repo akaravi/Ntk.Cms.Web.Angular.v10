@@ -23,9 +23,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-catalog-config-mainadmin',
-    templateUrl: './config-main-admin.component.html',
-    standalone: false
+  selector: 'app-catalog-config-mainadmin',
+  templateUrl: './config-main-admin.component.html',
+  standalone: false
 })
 export class CatalogConfigMainAdminComponent implements OnInit, OnDestroy {
   requestLinkSiteId = 0;
@@ -34,7 +34,7 @@ export class CatalogConfigMainAdminComponent implements OnInit, OnDestroy {
     private configService: CatalogConfigurationService,
     private activatedRoute: ActivatedRoute,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
     private cmsToastrService: CmsToastrService,
@@ -67,7 +67,7 @@ export class CatalogConfigMainAdminComponent implements OnInit, OnDestroy {
   mapOptonCenter = new PoinModel();
 
   cmsApiStoreSubscribe: Subscription;
-  
+
 
   ngOnInit(): void {
     this.requestLinkSiteId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkSiteId'));
@@ -77,12 +77,9 @@ export class CatalogConfigMainAdminComponent implements OnInit, OnDestroy {
       this.onLoadDate();
     }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.onLoadDate();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.onLoadDate();
     });
 
   }

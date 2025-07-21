@@ -31,10 +31,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-linkmanagement-category-treeselector',
-    templateUrl: './tree-selector.component.html',
-    styleUrls: ['./tree-selector.component.scss'],
-    standalone: false
+  selector: 'app-linkmanagement-category-treeselector',
+  templateUrl: './tree-selector.component.html',
+  styleUrls: ['./tree-selector.component.scss'],
+  standalone: false
 })
 export class LinkManagementCategoryTreeSelectorComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -45,7 +45,7 @@ export class LinkManagementCategoryTreeSelectorComponent implements OnInit, OnDe
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
     public dialog: MatDialog,
   ) {
@@ -96,15 +96,15 @@ export class LinkManagementCategoryTreeSelectorComponent implements OnInit, OnDe
   hasNoContent = (_: number, nodeData: LinkManagementCategoryModel) => nodeData.children;
 
 
-  
+
   ngOnInit(): void {
     setTimeout(() => {
-      
-        this.DataGetAll();
-    }, 500);
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((value) => {
+
       this.DataGetAll();
-    });
+    }, 500);
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.DataGetAll();
+    })
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {

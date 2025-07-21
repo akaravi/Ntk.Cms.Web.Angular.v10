@@ -25,9 +25,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-donate-target-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-donate-target-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class DonateTargetListComponent extends ListBaseComponent<DonateTargetService, DonateTargetModel, number> implements OnInit, OnDestroy {
 
@@ -38,7 +38,7 @@ export class DonateTargetListComponent extends ListBaseComponent<DonateTargetSer
     private router: Router,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
@@ -84,16 +84,13 @@ export class DonateTargetListComponent extends ListBaseComponent<DonateTargetSer
   ngOnInit(): void {
 
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
   }
   ngOnDestroy(): void {

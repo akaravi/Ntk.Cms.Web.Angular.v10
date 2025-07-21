@@ -25,12 +25,12 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-estate-property-quick-add',
-    templateUrl: './quick-add.component.html',
-    styleUrls: ["./quick-add.component.scss"],
-    standalone: false
+  selector: 'app-estate-property-quick-add',
+  templateUrl: './quick-add.component.html',
+  styleUrls: ["./quick-add.component.scss"],
+  standalone: false
 })
-export class EstatePropertyQuickAddComponent extends AddBaseComponent<EstatePropertyTypeService, EstatePropertyTypeModel, string> implements OnInit,OnDestroy {
+export class EstatePropertyQuickAddComponent extends AddBaseComponent<EstatePropertyTypeService, EstatePropertyTypeModel, string> implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private dialogRef: MatDialogRef<EstatePropertyQuickAddComponent>,
@@ -41,7 +41,7 @@ export class EstatePropertyQuickAddComponent extends AddBaseComponent<EstateProp
     private estatePropertyTypeService: EstatePropertyTypeService,
     private estatePropertyTypeLanduseService: EstatePropertyTypeLanduseService,
     private cmsToastrService: CmsToastrService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public dialog: MatDialog,
@@ -98,16 +98,13 @@ export class EstatePropertyQuickAddComponent extends AddBaseComponent<EstateProp
     this.getEstatePropertyType();
     this.getEstatePropertyTypeLanduse();
     this.dataModel.caseCode = this.publicHelper.StringRandomGenerator(5, true);
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-
-        this.DataGetAccess();
-        this.getEstateContractType();
-        this.getEstatePropertyType();
-        this.getEstatePropertyTypeLanduse();
-        this.optionActionTitle = this.translate.instant('ACTION.Add_To_List');
-        this.tokenInfo = ret;
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.DataGetAccess();
+      this.getEstateContractType();
+      this.getEstatePropertyType();
+      this.getEstatePropertyTypeLanduse();
+      this.optionActionTitle = this.translate.instant('ACTION.Add_To_List');
+      this.tokenInfo = value;
     });
   }
   ngOnDestroy(): void {

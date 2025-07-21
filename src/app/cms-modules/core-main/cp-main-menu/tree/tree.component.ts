@@ -31,9 +31,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-core-cpmainmenu-tree',
-    templateUrl: './tree.component.html',
-    standalone: false
+  selector: 'app-core-cpmainmenu-tree',
+  templateUrl: './tree.component.html',
+  standalone: false
 })
 export class CoreCpMainMenuTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -43,7 +43,7 @@ export class CoreCpMainMenuTreeComponent implements OnInit, OnDestroy {
     public categoryService: CoreCpMainMenuService,
     public dialog: MatDialog,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
@@ -70,15 +70,15 @@ export class CoreCpMainMenuTreeComponent implements OnInit, OnDestroy {
   hasChild = (_: number, node: CoreCpMainMenuModel) => !!node.children && node.children.length > 0;
 
 
-  
+
   ngOnInit(): void {
     setTimeout(() => {
-      
-        this.DataGetAll();
-    }, 500);
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((value) => {
+
       this.DataGetAll();
-    });
+    }, 500);
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.DataGetAll();
+    })
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {

@@ -27,9 +27,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-chart-content-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-chart-content-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class ChartContentListComponent extends ListBaseComponent<ChartContentService, ChartContentModel, number>
   implements OnInit, OnDestroy {
@@ -41,7 +41,7 @@ export class ChartContentListComponent extends ListBaseComponent<ChartContentSer
     private router: Router,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
@@ -87,16 +87,13 @@ export class ChartContentListComponent extends ListBaseComponent<ChartContentSer
   ngOnInit(): void {
 
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
   }
   ngOnDestroy(): void {

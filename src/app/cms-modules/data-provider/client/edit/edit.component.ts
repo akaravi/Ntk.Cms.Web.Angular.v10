@@ -25,13 +25,13 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-data-provider-client-edit',
-    templateUrl: './edit.component.html',
-    styleUrls: ['./edit.component.scss'],
-    standalone: false
+  selector: 'app-data-provider-client-edit',
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.scss'],
+  standalone: false
 })
 export class DataProviderClientEditComponent extends EditBaseComponent<DataProviderClientService, DataProviderClientModel, number>
-  implements OnInit ,OnDestroy{
+  implements OnInit, OnDestroy {
   requestId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
@@ -42,7 +42,7 @@ export class DataProviderClientEditComponent extends EditBaseComponent<DataProvi
     private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private router: Router,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private dataProviderPlanClientService: DataProviderPlanClientService,
@@ -61,10 +61,8 @@ export class DataProviderClientEditComponent extends EditBaseComponent<DataProvi
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
     });
   }
   cmsApiStoreSubscribe: Subscription;

@@ -10,12 +10,13 @@ import {
 import { Subscription } from 'rxjs';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
+import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 @Component({
-    selector: 'app-donate-target-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss'],
-    standalone: false
+  selector: 'app-donate-target-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
+  standalone: false
 })
 export class DonateTargetHeaderComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -26,6 +27,7 @@ export class DonateTargetHeaderComponent implements OnInit, OnDestroy {
     private cmsToastrService: CmsToastrService,
     public dialog: MatDialog,
     public translate: TranslateService,
+    	private cmsStoreService:CmsStoreService,
     public tokenHelper: TokenHelper
   ) {
     this.publicHelper.processService.cdr = this.cdr;
@@ -43,10 +45,8 @@ export class DonateTargetHeaderComponent implements OnInit, OnDestroy {
       this.DataGetOneContent();
     }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.DataGetOneContent();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.DataGetOneContent();
     });
   }
   ngOnDestroy(): void {

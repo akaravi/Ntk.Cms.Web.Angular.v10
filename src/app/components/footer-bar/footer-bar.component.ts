@@ -24,7 +24,7 @@ export class FooterBarComponent implements OnInit {
     this.tokenHelper.getTokenInfoState().then((value) => {
       this.tokenInfo = value;
     });
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((value) => {
+    this.cmsApiStoreSubscribe =this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.tokenInfo = value;
     });
     this.unsubscribe.push(this.cmsStoreService.getState((state) => state.themeStore).subscribe(async (value) => {

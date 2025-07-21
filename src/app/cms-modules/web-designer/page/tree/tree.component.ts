@@ -70,9 +70,11 @@ export class WebDesignerMainPageTreeComponent implements OnInit, OnDestroy {
       
         this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((value) => {
+
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.DataGetAll();
-    });
+    })
+      
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {

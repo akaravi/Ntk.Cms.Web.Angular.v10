@@ -29,9 +29,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-contact-category-treeselector',
-    templateUrl: './tree-selector.component.html',
-    standalone: false
+  selector: 'app-contact-category-treeselector',
+  templateUrl: './tree-selector.component.html',
+  standalone: false
 })
 export class ContactCategoryTreeSelectorComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -44,7 +44,7 @@ export class ContactCategoryTreeSelectorComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     public translate: TranslateService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
     this.checklistSelection.changed.subscribe(x => {
@@ -88,17 +88,16 @@ export class ContactCategoryTreeSelectorComponent implements OnInit, OnDestroy {
   hasChild = (_: string, node: ContactCategoryModel) => !!node.children && node.children.length > 0;
   hasNoContent = (_: string, nodeData: ContactCategoryModel) => nodeData.children;
   ngOnInit(): void {
-    
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((value) => {
-      
+
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.DataGetAll();
     });
     setTimeout(() => {
-      
-        this.DataGetAll();
+
+      this.DataGetAll();
     }, 500);
   }
-  
+
 
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {

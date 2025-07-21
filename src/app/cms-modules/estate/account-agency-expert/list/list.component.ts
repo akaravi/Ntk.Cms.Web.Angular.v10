@@ -22,10 +22,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-estate-account-agency-expert-list',
-    templateUrl: './list.component.html',
-    styleUrls: ['./list.component.scss'],
-    standalone: false
+  selector: 'app-estate-account-agency-expert-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
+  standalone: false
 })
 export class EstateAccountAgencyExpertListComponent extends ListBaseComponent<EstateAccountAgencyExpertService, EstateAccountAgencyExpertModel, string> implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -37,7 +37,7 @@ export class EstateAccountAgencyExpertListComponent extends ListBaseComponent<Es
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog) {
@@ -81,16 +81,13 @@ export class EstateAccountAgencyExpertListComponent extends ListBaseComponent<Es
 
   ngOnInit(): void {
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
   }
   ngOnDestroy(): void {

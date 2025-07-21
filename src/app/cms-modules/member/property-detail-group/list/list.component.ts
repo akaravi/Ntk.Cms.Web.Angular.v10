@@ -24,9 +24,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-member-propertydetailgroup-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-member-propertydetailgroup-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class MemberPropertyDetailGroupListComponent extends ListBaseComponent<MemberPropertyDetailGroupService, MemberPropertyDetailGroupModel, number> implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -39,7 +39,7 @@ export class MemberPropertyDetailGroupListComponent extends ListBaseComponent<Me
     private router: Router,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog) {
@@ -93,16 +93,13 @@ export class MemberPropertyDetailGroupListComponent extends ListBaseComponent<Me
   ngOnInit(): void {
     this.filteModelContent.sortColumn = 'Title';
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
     this.getPropertyType();
   }

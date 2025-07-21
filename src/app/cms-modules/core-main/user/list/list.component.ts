@@ -46,7 +46,7 @@ export class CoreUserListComponent extends ListBaseComponent<CoreUserService, Co
     public translate: TranslateService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private cmsAuthService: CmsAuthService,
     public dialog: MatDialog) {
     super(coreUserService, new CoreUserModel(), publicHelper, tokenHelper, translate);
@@ -117,11 +117,9 @@ export class CoreUserListComponent extends ListBaseComponent<CoreUserService, Co
     }
 
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
   }
   ngOnDestroy(): void {

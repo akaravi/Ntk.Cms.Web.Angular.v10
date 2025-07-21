@@ -51,16 +51,15 @@ export class HeaderBarComponent implements OnInit {
         this.contentService = null;
       }
     });
-
-
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((value) => {
-      this.tokenInfo = value;
-
-    });
+    this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     this.unsubscribe.push(this.cmsStoreService.getState((state) => state.themeStore).subscribe(async (value) => {
       this.themeStore = value;
     }));
+    this.unsubscribe.push(this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+    }));
   }
+
   cmsApiStoreSubscribe: Subscription;
   tokenInfo = new TokenInfoModelV3();
   themeStore = new ThemeStoreModel();
@@ -76,10 +75,6 @@ export class HeaderBarComponent implements OnInit {
     this.description$ = this.pageInfoService.description.asObservable();
     this.bc$ = this.pageInfoService.breadcrumbs.asObservable();
 
-
-    this.tokenHelper.getTokenInfoState().then((value) => {
-      this.tokenInfo = value;
-    });
     this.pageInfoService.contentService.asObservable().subscribe({
       next: (ret) => {
         this.contentService = ret;

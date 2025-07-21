@@ -10,9 +10,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-chart-content-widget',
-    templateUrl: './widget.component.html',
-    standalone: false
+  selector: 'app-chart-content-widget',
+  templateUrl: './widget.component.html',
+  standalone: false
 })
 export class ChartContentWidgetComponent implements OnInit, OnDestroy {
 
@@ -24,7 +24,7 @@ export class ChartContentWidgetComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
@@ -41,20 +41,17 @@ export class ChartContentWidgetComponent implements OnInit, OnDestroy {
     this.widgetInfoModel.description = '';
     this.widgetInfoModel.link = '/chart/content';
     setTimeout(() => {
-      
-        this.onActionStatist();
+
+      this.onActionStatist();
     }, 1000);
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.widgetInfoModel.title = this.translate.instant('TITLE.Registered_Chart');
-        
-        this.onActionStatist();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.widgetInfoModel.title = this.translate.instant('TITLE.Registered_Chart');
+      this.onActionStatist();
     });
 
   }
-  
+
   onActionButtonReload(): void {
     this.onActionStatist();
   }

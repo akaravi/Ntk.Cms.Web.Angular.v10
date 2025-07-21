@@ -22,10 +22,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-core-log-report-data-edit',
-    templateUrl: './edit.component.html',
-    styleUrls: ['./edit.component.scss'],
-    standalone: false
+  selector: 'app-core-log-report-data-edit',
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.scss'],
+  standalone: false
 })
 export class CoreLogReportDataEditComponent extends EditBaseComponent<CoreLogReportDataService, CoreLogReportDataModel, string>
   implements OnInit, OnDestroy {
@@ -38,7 +38,7 @@ export class CoreLogReportDataEditComponent extends EditBaseComponent<CoreLogRep
     public coreLogReportDataService: CoreLogReportDataService,
     private cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
@@ -80,10 +80,8 @@ export class CoreLogReportDataEditComponent extends EditBaseComponent<CoreLogRep
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
     });
     // this.getEnumSendReportDataStatusType();
   }

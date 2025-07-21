@@ -13,9 +13,9 @@ import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 @Component({
-    selector: 'app-web-designer-config-checkuser',
-    templateUrl: './check-user.component.html',
-    standalone: false
+  selector: 'app-web-designer-config-checkuser',
+  templateUrl: './check-user.component.html',
+  standalone: false
 })
 export class WebDesignerConfigCheckUserComponent implements OnInit, OnDestroy {
   requestLinkUserId = 0;
@@ -24,7 +24,7 @@ export class WebDesignerConfigCheckUserComponent implements OnInit, OnDestroy {
     private configService: WebDesignerConfigurationService,
     private activatedRoute: ActivatedRoute,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
     private cmsToastrService: CmsToastrService,
@@ -37,11 +37,9 @@ export class WebDesignerConfigCheckUserComponent implements OnInit, OnDestroy {
     if (this.tokenInfo) {
       this.onLoadDate();
     }
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        this.onLoadDate();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.onLoadDate();
     });
 
   }

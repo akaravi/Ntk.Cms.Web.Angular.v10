@@ -28,10 +28,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-core-site-reseller-chart',
-    templateUrl: './reseller-chart.component.html',
-    styleUrls: ['./reseller-chart.component.scss'],
-    standalone: false
+  selector: 'app-core-site-reseller-chart',
+  templateUrl: './reseller-chart.component.html',
+  styleUrls: ['./reseller-chart.component.scss'],
+  standalone: false
 })
 export class CoreSiteResellerChartComponent implements OnInit, OnDestroy {
   requestLinkSiteId = 0;
@@ -45,7 +45,7 @@ export class CoreSiteResellerChartComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
@@ -76,15 +76,15 @@ export class CoreSiteResellerChartComponent implements OnInit, OnDestroy {
     return false;
   }
 
-  
+
   ngOnInit(): void {
     setTimeout(() => {
-      
-        this.DataGetAll();
-    }, 500);
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((value) => {
+
       this.DataGetAll();
-    });
+    }, 500);
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.DataGetAll();
+    })
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {

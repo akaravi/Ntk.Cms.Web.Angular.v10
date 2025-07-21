@@ -32,9 +32,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-member-propertydetailgroup-tree',
-    templateUrl: './tree.component.html',
-    standalone: false
+  selector: 'app-member-propertydetailgroup-tree',
+  templateUrl: './tree.component.html',
+  standalone: false
 })
 export class MemberPropertyDetailGroupTreeComponent implements OnInit, OnDestroy {
   requestLinkPropertyTypeId = 0;
@@ -49,7 +49,7 @@ export class MemberPropertyDetailGroupTreeComponent implements OnInit, OnDestroy
     public publicHelper: PublicHelper,
     public translate: TranslateService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }
@@ -80,15 +80,15 @@ export class MemberPropertyDetailGroupTreeComponent implements OnInit, OnDestroy
   hasChild = (_: number, node: MemberPropertyDetailGroupModel) => false;
 
 
-  
+
   ngOnInit(): void {
     setTimeout(() => {
-      
-        this.DataGetAll();
-    }, 500);
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((value) => {
+
       this.DataGetAll();
-    });
+    }, 500);
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.DataGetAll();
+    })
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {

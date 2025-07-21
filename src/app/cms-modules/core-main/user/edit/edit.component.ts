@@ -26,10 +26,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-core-user-edit',
-    templateUrl: './edit.component.html',
-    styleUrls: ['./edit.component.scss'],
-    standalone: false
+  selector: 'app-core-user-edit',
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.scss'],
+  standalone: false
 })
 export class CoreUserEditComponent extends EditBaseComponent<CoreUserService, CoreUserModel, number>
   implements OnInit, OnDestroy {
@@ -41,7 +41,7 @@ export class CoreUserEditComponent extends EditBaseComponent<CoreUserService, Co
     private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private router: Router,
     private cdr: ChangeDetectorRef,
     public dialog: MatDialog,
@@ -55,7 +55,7 @@ export class CoreUserEditComponent extends EditBaseComponent<CoreUserService, Co
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((value) => {
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.tokenInfo = value;
       this.DataGetOneContent();
     });

@@ -49,7 +49,7 @@ export class EstatePropertyAddMobileComponent implements OnInit, OnDestroy {
     private estatePropertyTypeService: EstatePropertyTypeService,
     private estatePropertyTypeLanduseService: EstatePropertyTypeLanduseService,
     private cmsToastrService: CmsToastrService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private router: Router,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -73,7 +73,7 @@ export class EstatePropertyAddMobileComponent implements OnInit, OnDestroy {
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
-this.unsubscribe.push(this.cmsStoreService.getState((state) => state.connectionStatusStore).subscribe(async (value) => {
+    this.unsubscribe.push(this.cmsStoreService.getState((state) => state.connectionStatusStore).subscribe(async (value) => {
       this.connectionStatus = value;
     }));
   }
@@ -122,7 +122,7 @@ this.unsubscribe.push(this.cmsStoreService.getState((state) => state.connectionS
   dataProfessional = false;
   hidden = true;
   cmsApiStoreSubscribe: Subscription;
-    private unsubscribe: Subscription[] = [];
+  private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
 
@@ -135,23 +135,20 @@ this.unsubscribe.push(this.cmsStoreService.getState((state) => state.connectionS
     this.getEstatePropertyType();
     this.getEstatePropertyTypeLanduse();
     this.dataModel.caseCode = this.publicHelper.StringRandomGenerator(5, true);
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-
-        this.DataGetAccess();
-        this.getEstateContractType();
-        this.getEstatePropertyType();
-        this.getEstatePropertyTypeLanduse();
-        this.optionActionTitle = this.translate.instant('ACTION.Add_To_List');
-        this.tokenInfo = ret;
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.DataGetAccess();
+      this.getEstateContractType();
+      this.getEstatePropertyType();
+      this.getEstatePropertyTypeLanduse();
+      this.optionActionTitle = this.translate.instant('ACTION.Add_To_List');
+      this.tokenInfo = value;
     });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
       this.cmsApiStoreSubscribe.unsubscribe();
     }
-        if (this.unsubscribe)
+    if (this.unsubscribe)
       this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   getEstateContractType(): void {

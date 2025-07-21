@@ -37,10 +37,9 @@ export class CmsGuideinfoComponent implements OnInit, OnDestroy {
     if (this.tokenInfo) {
       this.lang = this.tokenInfo.access.language;
     }
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.lang = ret.access.language;
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      if (value && value.access)
+        this.lang = value.access.language;
     });
   }
   ngOnDestroy(): void {

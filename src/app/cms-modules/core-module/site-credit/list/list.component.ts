@@ -24,9 +24,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-coremodule-site-credit-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-coremodule-site-credit-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class CoreModuleSiteCreditListComponent extends ListBaseComponent<CoreModuleSiteCreditService, CoreModuleSiteCreditModel, number>
   implements OnInit, OnDestroy {
@@ -38,7 +38,7 @@ export class CoreModuleSiteCreditListComponent extends ListBaseComponent<CoreMod
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
     private coreModuleService: CoreModuleService,
     private router: Router,
@@ -86,16 +86,13 @@ export class CoreModuleSiteCreditListComponent extends ListBaseComponent<CoreMod
   cmsApiStoreSubscribe: Subscription;
   ngOnInit(): void {
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
     this.getModuleList();
   }

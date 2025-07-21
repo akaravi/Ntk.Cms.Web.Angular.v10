@@ -23,9 +23,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-application-app-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-application-app-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class TicketingFaqListComponent extends ListBaseComponent<TicketingFaqService, TicketingFaqModel, number> implements OnInit, OnDestroy {
   requestDepartemenId = 0;
@@ -40,7 +40,7 @@ export class TicketingFaqListComponent extends ListBaseComponent<TicketingFaqSer
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     public pageInfo: PageInfoService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog) {
     super(contentService, new TicketingFaqModel, publicHelper, tokenHelper, translate);
@@ -88,16 +88,13 @@ export class TicketingFaqListComponent extends ListBaseComponent<TicketingFaqSer
     }
 
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
 
   }

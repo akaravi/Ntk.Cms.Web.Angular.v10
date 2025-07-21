@@ -25,9 +25,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-ticketing-answer-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-ticketing-answer-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class TicketingAnswerListComponent extends ListBaseComponent<TicketingAnswerService, TicketingAnswerModel, number> implements OnInit, OnDestroy {
   requestLinkTaskId = 0;
@@ -40,7 +40,7 @@ export class TicketingAnswerListComponent extends ListBaseComponent<TicketingAns
     private router: Router,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
     private ticketingEnumService: TicketingEnumService,
     public pageInfo: PageInfoService,
@@ -95,16 +95,14 @@ export class TicketingAnswerListComponent extends ListBaseComponent<TicketingAns
   ngOnInit(): void {
     this.requestLinkTaskId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkTaskId'));
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.getEnumAnswerStatus();
-        this.tokenInfo = ret;
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.getEnumAnswerStatus();
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
     this.getEnumAnswerStatus();
   }

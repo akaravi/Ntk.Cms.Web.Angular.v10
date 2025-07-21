@@ -11,9 +11,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-article-content-widget',
-    templateUrl: './widget.component.html',
-    standalone: false
+  selector: 'app-article-content-widget',
+  templateUrl: './widget.component.html',
+  standalone: false
 })
 export class ArticleContentWidgetComponent implements OnInit, OnDestroy {
 
@@ -25,7 +25,7 @@ export class ArticleContentWidgetComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
@@ -43,20 +43,17 @@ export class ArticleContentWidgetComponent implements OnInit, OnDestroy {
     this.widgetInfoModel.link = '/article/content';
 
     setTimeout(() => {
-      
-        this.onActionStatist();
+
+      this.onActionStatist();
     }, 1000);
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.widgetInfoModel.title = this.translate.instant('TITLE.Registered_Atricle');
-        
-        this.onActionStatist();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.widgetInfoModel.title = this.translate.instant('TITLE.Registered_Atricle');
+      this.onActionStatist();
     });
 
   }
-  
+
   onActionButtonReload(): void {
     this.onActionStatist();
   }

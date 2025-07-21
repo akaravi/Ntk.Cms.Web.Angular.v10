@@ -18,10 +18,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-estate-property-company-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss'],
-    standalone: false
+  selector: 'app-estate-property-company-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.scss'],
+  standalone: false
 })
 export class EstatePropertyCompanyHeaderComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -30,7 +30,7 @@ export class EstatePropertyCompanyHeaderComponent implements OnInit, OnDestroy {
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private cmsToastrService: CmsToastrService,
     public dialog: MatDialog,
     public translate: TranslateService,
@@ -49,10 +49,8 @@ export class EstatePropertyCompanyHeaderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.optionId.length > 0) {
       this.DataGetOneContent();
-      this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-        next: (ret) => {
-          this.DataGetOneContent();
-        }
+      this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+        this.DataGetOneContent();
       });
     }
 

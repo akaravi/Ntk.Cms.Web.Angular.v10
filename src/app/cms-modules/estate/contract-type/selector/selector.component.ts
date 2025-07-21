@@ -16,9 +16,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-estate-contract-type-selector',
-    templateUrl: './selector.component.html',
-    standalone: false
+  selector: 'app-estate-contract-type-selector',
+  templateUrl: './selector.component.html',
+  standalone: false
 })
 export class EstateContractTypeSelectorComponent implements OnInit, OnDestroy {
 
@@ -27,7 +27,7 @@ export class EstateContractTypeSelectorComponent implements OnInit, OnDestroy {
     public coreEnumService: CoreEnumService,
     private cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
@@ -61,10 +61,8 @@ export class EstateContractTypeSelectorComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadOptions();
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.loadOptions();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.loadOptions();
     });
   }
   ngOnDestroy(): void {

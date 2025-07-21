@@ -22,17 +22,17 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-biography-config-site',
-    templateUrl: './config-site.component.html',
-    standalone: false
+  selector: 'app-biography-config-site',
+  templateUrl: './config-site.component.html',
+  standalone: false
 })
-export class BiographyConfigSiteComponent implements OnInit ,OnDestroy{
+export class BiographyConfigSiteComponent implements OnInit, OnDestroy {
   requestLinkSiteId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private configService: BiographyConfigurationService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
     private cmsToastrService: CmsToastrService,
@@ -62,7 +62,7 @@ export class BiographyConfigSiteComponent implements OnInit ,OnDestroy{
   mapMarker: any;
   mapOptonCenter = new PoinModel();
   cmsApiStoreSubscribe: Subscription;
-  
+
 
   ngOnInit(): void {
     this.requestLinkSiteId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkSiteId'));
@@ -70,12 +70,9 @@ export class BiographyConfigSiteComponent implements OnInit ,OnDestroy{
     if (this.tokenInfo) {
       this.onLoadDate();
     }
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.onLoadDate();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.onLoadDate();
     });
 
   }

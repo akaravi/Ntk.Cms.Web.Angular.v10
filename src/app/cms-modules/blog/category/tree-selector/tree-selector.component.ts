@@ -30,9 +30,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-blog-category-treeselector',
-    templateUrl: './tree-selector.component.html',
-    standalone: false
+  selector: 'app-blog-category-treeselector',
+  templateUrl: './tree-selector.component.html',
+  standalone: false
 })
 export class BlogCategoryTreeSelectorComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -44,7 +44,7 @@ export class BlogCategoryTreeSelectorComponent implements OnInit, OnDestroy {
     public publicHelper: PublicHelper,
     public translate: TranslateService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public dialog: MatDialog,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
@@ -95,14 +95,13 @@ export class BlogCategoryTreeSelectorComponent implements OnInit, OnDestroy {
   hasNoContent = (_: number, nodeData: BlogCategoryModel) => nodeData.children;
 
 
-  
+
   ngOnInit(): void {
     setTimeout(() => {
-      
-        this.DataGetAll();
+
+      this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((value) => {
-      
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.DataGetAll();
     });
   }

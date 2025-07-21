@@ -11,9 +11,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-application-memberinfo-widget',
-    templateUrl: './widget.component.html',
-    standalone: false
+  selector: 'app-application-memberinfo-widget',
+  templateUrl: './widget.component.html',
+  standalone: false
 })
 export class ApplicationMemberInfoWidgetComponent implements OnInit, OnDestroy {
 
@@ -24,7 +24,7 @@ export class ApplicationMemberInfoWidgetComponent implements OnInit, OnDestroy {
     public publicHelper: PublicHelper,
     private cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
@@ -41,20 +41,17 @@ export class ApplicationMemberInfoWidgetComponent implements OnInit, OnDestroy {
     this.widgetInfoModel.description = '';
     this.widgetInfoModel.link = '/application/memberinfo';
     setTimeout(() => {
-      
-        this.onActionStatist();
+
+      this.onActionStatist();
     }, 1000);
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.widgetInfoModel.title = this.translate.instant('TITLE.Registered_Member');
-        
-        this.onActionStatist();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.widgetInfoModel.title = this.translate.instant('TITLE.Registered_Member');
+      this.onActionStatist();
     });
 
   }
-  
+
   onActionButtonReload(): void {
     this.onActionStatist();
   }

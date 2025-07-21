@@ -20,9 +20,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-application-app-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-application-app-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class TicketingDepartemenLogListComponent extends ListBaseComponent<TicketingDepartemenLogService, TicketingDepartemenLogModel, number> implements OnInit, OnDestroy {
   requestDepartemenId = 0;
@@ -34,7 +34,7 @@ export class TicketingDepartemenLogListComponent extends ListBaseComponent<Ticke
     private cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     public pageInfo: PageInfoService,
@@ -92,16 +92,13 @@ export class TicketingDepartemenLogListComponent extends ListBaseComponent<Ticke
   ngOnInit(): void {
 
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
     let filter = new FilterDataModel();
     if (this.requestOperatorId > 0) {

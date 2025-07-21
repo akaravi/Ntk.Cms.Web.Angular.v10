@@ -23,9 +23,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-hypershop-config-mainadmin',
-    templateUrl: './config-main-admin.component.html',
-    standalone: false
+  selector: 'app-hypershop-config-mainadmin',
+  templateUrl: './config-main-admin.component.html',
+  standalone: false
 })
 export class DonateConfigMainAdminComponent implements OnInit, OnDestroy {
   requestLinkSiteId = 0;
@@ -38,7 +38,7 @@ export class DonateConfigMainAdminComponent implements OnInit, OnDestroy {
     private cmsToastrService: CmsToastrService,
     private router: Router,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {
@@ -75,11 +75,9 @@ export class DonateConfigMainAdminComponent implements OnInit, OnDestroy {
       this.onLoadDate();
     }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        this.onLoadDate();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.onLoadDate();
     });
 
   }

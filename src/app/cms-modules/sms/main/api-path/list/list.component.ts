@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import {
   CoreCurrencyModel,
-  ErrorExceptionResult, FilterDataModel, FilterModel, RecordStatusEnum,  SmsMainApiPathCompanyModel,
+  ErrorExceptionResult, FilterDataModel, FilterModel, RecordStatusEnum, SmsMainApiPathCompanyModel,
   SmsMainApiPathCompanyService, SmsMainApiPathModel, SmsMainApiPathPublicConfigModel, SmsMainApiPathPublicConfigService, SmsMainApiPathService, SortTypeEnum
 } from 'ntk-cms-api';
 import { Subscription } from 'rxjs';
@@ -24,9 +24,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-sms-apipath-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-sms-apipath-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class SmsMainApiPathListComponent extends ListBaseComponent<SmsMainApiPathService, SmsMainApiPathModel, string> implements OnInit, OnDestroy {
   requestLinkSiteId = 0;
@@ -44,7 +44,7 @@ export class SmsMainApiPathListComponent extends ListBaseComponent<SmsMainApiPat
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog) {
@@ -132,16 +132,13 @@ export class SmsMainApiPathListComponent extends ListBaseComponent<SmsMainApiPat
     }
     this.filteModelContent.sortColumn = 'priority';
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
     this.getApiCopmanyList();
     this.getPublicConfig();
@@ -440,10 +437,10 @@ if (this.tokenInfo) {
     this.contentService.ServiceGetBalance(model.id).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.cmsToastrService.typeSuccessMessage(ret.item.info + " " + ret.item.status + " "+ ret.item.credit);
+          this.cmsToastrService.typeSuccessMessage(ret.item.info + " " + ret.item.status + " " + ret.item.credit);
         }
         else {
-          this.cmsToastrService.typeErrorMessage(ret.errorMessage+ret.item.info + " " + ret.item.status);
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage + ret.item.info + " " + ret.item.status);
         }
         this.publicHelper.processService.processStop(pName);
       },

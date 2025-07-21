@@ -41,7 +41,7 @@ export class CoreUserClaimContentCheckListComponent implements OnInit, OnDestroy
     private cmsToastrService: CmsToastrService,
     private coreUserClaimTypeService: CoreUserClaimTypeService,
     private router: Router,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private activatedRoute: ActivatedRoute,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
@@ -92,12 +92,9 @@ export class CoreUserClaimContentCheckListComponent implements OnInit, OnDestroy
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
     this.getUserClaimType();
   }

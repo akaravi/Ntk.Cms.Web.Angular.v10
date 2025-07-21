@@ -24,11 +24,11 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-hypershop-config-site',
-    templateUrl: './config-site.component.html',
-    standalone: false
+  selector: 'app-hypershop-config-site',
+  templateUrl: './config-site.component.html',
+  standalone: false
 })
-export class DonateConfigSiteComponent implements OnInit,OnDestroy {
+export class DonateConfigSiteComponent implements OnInit, OnDestroy {
   requestLinkSiteId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
@@ -39,7 +39,7 @@ export class DonateConfigSiteComponent implements OnInit,OnDestroy {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {
@@ -75,11 +75,9 @@ export class DonateConfigSiteComponent implements OnInit,OnDestroy {
       this.onLoadDate();
     }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        this.onLoadDate();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.onLoadDate();
     });
 
   }

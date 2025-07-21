@@ -51,7 +51,7 @@ export class MenuProfileComponent implements OnInit {
       this.tokenInfo = value;
       this.cdr.detectChanges();
     });
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((value) => {
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.tokenInfo = value;
       this.cdr.detectChanges();
     });

@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { AccessModel, ApplicationSourceModel, CaptchaModel,  CoreAuthV3Service, CoreEnumService, FormInfoModel, FormSubmitedStatusEnum, TicketingTaskDtoModel, TicketingTaskModel, TicketingTaskService, TicketingTemplateModel } from 'ntk-cms-api';
+import { AccessModel, ApplicationSourceModel, CaptchaModel, CoreAuthV3Service, CoreEnumService, FormInfoModel, FormSubmitedStatusEnum, TicketingTaskDtoModel, TicketingTaskModel, TicketingTaskService, TicketingTemplateModel } from 'ntk-cms-api';
 import { TreeModel } from 'ntk-cms-filemanager';
 import { Subscription } from 'rxjs';
 import { AddBaseComponent } from 'src/app/core/cmsComponent/addBaseComponent';
@@ -13,9 +13,9 @@ import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 import { PageInfoService } from 'src/app/core/services/page-info.service';
 
 @Component({
-    selector: 'app-page-contactus',
-    templateUrl: './page-contactus.component.html',
-    standalone: false
+  selector: 'app-page-contactus',
+  templateUrl: './page-contactus.component.html',
+  standalone: false
 })
 
 export class PageContactusComponent extends AddBaseComponent<TicketingTaskService, TicketingTaskModel, number> implements OnInit {
@@ -42,13 +42,11 @@ export class PageContactusComponent extends AddBaseComponent<TicketingTaskServic
       this.dataModel.email = this.tokenInfo?.user?.email;
       this.dataModel.phoneNo = this.tokenInfo?.user?.mobile;
     });
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        this.dataModel.fullName = this.tokenInfo?.user?.lastName;
-        this.dataModel.email = this.tokenInfo?.user?.email;
-        this.dataModel.phoneNo = this.tokenInfo?.user?.mobile;
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.dataModel.fullName = this.tokenInfo?.user?.lastName;
+      this.dataModel.email = this.tokenInfo?.user?.email;
+      this.dataModel.phoneNo = this.tokenInfo?.user?.mobile;
     });
   }
   cmsApiStoreSubscribe: Subscription;

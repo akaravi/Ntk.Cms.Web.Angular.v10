@@ -21,9 +21,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-sms-log-apipath-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-sms-log-apipath-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class SmsLogApiPathListComponent extends ListBaseComponent<SmsLogApiPathService, SmsLogApiPathModel, string> implements OnInit, OnDestroy {
   requestLinkApiPathId = '';
@@ -38,7 +38,7 @@ export class SmsLogApiPathListComponent extends ListBaseComponent<SmsLogApiPathS
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog) {
@@ -109,15 +109,12 @@ export class SmsLogApiPathListComponent extends ListBaseComponent<SmsLogApiPathS
   ngOnInit(): void {
 
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
 
     this.getPrivateConfig();

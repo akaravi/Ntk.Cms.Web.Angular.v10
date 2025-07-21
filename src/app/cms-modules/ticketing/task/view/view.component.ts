@@ -20,10 +20,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-ticketing-task-view',
-    templateUrl: './view.component.html',
-    styleUrls: ['./view.component.scss'],
-    standalone: false
+  selector: 'app-ticketing-task-view',
+  templateUrl: './view.component.html',
+  styleUrls: ['./view.component.scss'],
+  standalone: false
 })
 export class TicketingTaskViewComponent implements OnInit, OnDestroy {
   requestId = 0;
@@ -35,7 +35,7 @@ export class TicketingTaskViewComponent implements OnInit, OnDestroy {
     public ticketingTaskService: TicketingTaskService,
     private cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     private ticketingEnumService: TicketingEnumService,
     public publicHelper: PublicHelper,
@@ -71,10 +71,8 @@ export class TicketingTaskViewComponent implements OnInit, OnDestroy {
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
     });
     this.getEnumTicketStatus();
   }

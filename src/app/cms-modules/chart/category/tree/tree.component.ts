@@ -33,9 +33,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-chart-category-tree',
-    templateUrl: './tree.component.html',
-    standalone: false
+  selector: 'app-chart-category-tree',
+  templateUrl: './tree.component.html',
+  standalone: false
 })
 export class ChartCategoryTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -44,7 +44,7 @@ export class ChartCategoryTreeComponent implements OnInit, OnDestroy {
     public coreEnumService: CoreEnumService,
     public categoryService: ChartCategoryService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
     public dialog: MatDialog,
     private cdr: ChangeDetectorRef,
@@ -69,14 +69,13 @@ export class ChartCategoryTreeComponent implements OnInit, OnDestroy {
 
   hasChild = (_: number, node: ChartCategoryModel) => !!node.children && node.children.length > 0;
 
-  
+
   ngOnInit(): void {
     setTimeout(() => {
-      
-        this.DataGetAll();
+
+      this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe((value) => {
-      
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.DataGetAll();
     });
   }

@@ -24,9 +24,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-application-app-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-application-app-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class ApplicationThemeConfigListComponent extends ListBaseComponent<ApplicationThemeConfigService, ApplicationThemeConfigModel, number>
   implements OnInit, OnDestroy {
@@ -40,7 +40,7 @@ export class ApplicationThemeConfigListComponent extends ListBaseComponent<Appli
     private router: Router,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public pageInfo: PageInfoService,
     public tokenHelper: TokenHelper,
     public dialog: MatDialog) {
@@ -98,16 +98,13 @@ export class ApplicationThemeConfigListComponent extends ListBaseComponent<Appli
       this.filteModelContent.filters.push(filter);
     }
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
   }
   ngOnDestroy(): void {

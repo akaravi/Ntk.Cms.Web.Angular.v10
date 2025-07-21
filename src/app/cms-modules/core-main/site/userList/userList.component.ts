@@ -45,7 +45,7 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
     private cmsAuthService: CmsAuthService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -144,11 +144,9 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
   }
   ngOnDestroy(): void {

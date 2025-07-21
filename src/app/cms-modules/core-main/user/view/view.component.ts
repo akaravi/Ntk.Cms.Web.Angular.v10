@@ -19,10 +19,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-application-memberinfo-view',
-    templateUrl: './view.component.html',
-    styleUrls: ['./view.component.scss'],
-    standalone: false
+  selector: 'app-application-memberinfo-view',
+  templateUrl: './view.component.html',
+  styleUrls: ['./view.component.scss'],
+  standalone: false
 })
 export class CoreUserViewComponent implements OnInit, OnDestroy {
   requestId = 0;
@@ -36,7 +36,7 @@ export class CoreUserViewComponent implements OnInit, OnDestroy {
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
@@ -73,10 +73,8 @@ export class CoreUserViewComponent implements OnInit, OnDestroy {
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
     });
     this.getEnumSendSmsStatusType();
   }

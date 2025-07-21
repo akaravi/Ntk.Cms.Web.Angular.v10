@@ -134,16 +134,13 @@ export class EstatePropertyAddComponent extends AddBaseComponent<EstatePropertyS
     this.getEstatePropertyType();
     this.getEstatePropertyTypeLanduse();
     this.dataModel.caseCode = this.publicHelper.StringRandomGenerator(5, true);
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-
-        this.DataGetAccess();
-        this.getEstateContractType();
-        this.getEstatePropertyType();
-        this.getEstatePropertyTypeLanduse();
-        this.optionActionTitle = this.translate.instant('ACTION.Add_To_List');
-        this.tokenInfo = ret;
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.DataGetAccess();
+      this.getEstateContractType();
+      this.getEstatePropertyType();
+      this.getEstatePropertyTypeLanduse();
+      this.optionActionTitle = this.translate.instant('ACTION.Add_To_List');
+      this.tokenInfo = value;
     });
   }
   ngOnDestroy(): void {

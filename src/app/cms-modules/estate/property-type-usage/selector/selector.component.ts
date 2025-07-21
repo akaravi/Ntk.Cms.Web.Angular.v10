@@ -16,9 +16,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-estate-property-type-usage-selector',
-    templateUrl: './selector.component.html',
-    standalone: false
+  selector: 'app-estate-property-type-usage-selector',
+  templateUrl: './selector.component.html',
+  standalone: false
 })
 export class EstatePropertyTypeUsageSelectorComponent implements OnInit, OnDestroy {
 
@@ -30,7 +30,7 @@ export class EstatePropertyTypeUsageSelectorComponent implements OnInit, OnDestr
     public publicHelper: PublicHelper,
     public translate: TranslateService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public categoryService: EstatePropertyTypeUsageService) {
     this.publicHelper.processService.cdr = this.cdr;
 
@@ -57,10 +57,8 @@ export class EstatePropertyTypeUsageSelectorComponent implements OnInit, OnDestr
 
   ngOnInit(): void {
     this.loadOptions();
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.loadOptions();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.loadOptions();
     });
   }
   ngOnDestroy(): void {

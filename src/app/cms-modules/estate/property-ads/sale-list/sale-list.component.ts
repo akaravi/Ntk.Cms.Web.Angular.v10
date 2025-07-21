@@ -17,10 +17,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-estate-property-ads-salelist',
-    templateUrl: './sale-list.component.html',
-    styleUrls: ['./sale-list.component.scss'],
-    standalone: false
+  selector: 'app-estate-property-ads-salelist',
+  templateUrl: './sale-list.component.html',
+  styleUrls: ['./sale-list.component.scss'],
+  standalone: false
 })
 export class EstatePropertyAdsSaleListComponent implements OnInit, OnDestroy {
   requestLinkPropertyId = '';
@@ -31,7 +31,7 @@ export class EstatePropertyAdsSaleListComponent implements OnInit, OnDestroy {
     private cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     private coreSiteService: CoreSiteService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public tokenHelper: TokenHelper,
     private router: Router,
     public translate: TranslateService,
@@ -66,7 +66,7 @@ export class EstatePropertyAdsSaleListComponent implements OnInit, OnDestroy {
   // expandedElement: CoreModuleSaleItemModel | null;
   cmsApiStoreSubscribe: Subscription;
   currency = '';
-  
+
   ngOnInit(): void {
     if (!this.requestLinkPropertyId || this.requestLinkPropertyId.length === 0) {
       this.cmsToastrService.typeErrorComponentAction();
@@ -74,22 +74,19 @@ export class EstatePropertyAdsSaleListComponent implements OnInit, OnDestroy {
       return;
     }
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
 
 
     setTimeout(() => {
-      
-        this.DataGetAll();
+
+      this.DataGetAll();
     }, 500);
     this.DataGetCurrency();
     const transactionId = + localStorage.getItem('TransactionId');

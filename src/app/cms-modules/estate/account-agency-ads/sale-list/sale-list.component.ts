@@ -17,10 +17,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-estate-account-agency-ads-salelist',
-    templateUrl: './sale-list.component.html',
-    styleUrls: ['./sale-list.component.scss'],
-    standalone: false
+  selector: 'app-estate-account-agency-ads-salelist',
+  templateUrl: './sale-list.component.html',
+  styleUrls: ['./sale-list.component.scss'],
+  standalone: false
 })
 export class EstateAccountAgencyAdsSaleListComponent implements OnInit, OnDestroy {
   requestLinkAccountAgencyId = '';
@@ -35,7 +35,7 @@ export class EstateAccountAgencyAdsSaleListComponent implements OnInit, OnDestro
     private router: Router,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog) {
     this.publicHelper.processService.cdr = this.cdr;
@@ -76,10 +76,8 @@ export class EstateAccountAgencyAdsSaleListComponent implements OnInit, OnDestro
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
     });
     // this.getEnumCmsModuleSaleItemType();
 

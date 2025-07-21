@@ -21,9 +21,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-core-log-email-edit',
-    templateUrl: './edit.component.html',
-    standalone: false
+  selector: 'app-core-log-email-edit',
+  templateUrl: './edit.component.html',
+  standalone: false
 })
 export class CoreLogEmailEditComponent extends EditBaseComponent<CoreLogEmailService, CoreLogEmailModel, string>
   implements OnInit, OnDestroy {
@@ -36,7 +36,7 @@ export class CoreLogEmailEditComponent extends EditBaseComponent<CoreLogEmailSer
     public coreLogEmailService: CoreLogEmailService,
     private cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
@@ -78,10 +78,8 @@ export class CoreLogEmailEditComponent extends EditBaseComponent<CoreLogEmailSer
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
     });
     this.getEnumSendEmailStatusType();
   }

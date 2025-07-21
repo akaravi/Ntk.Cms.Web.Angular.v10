@@ -4,14 +4,15 @@ import { CoreSiteModel, CoreSiteService, ErrorExceptionResult, TokenInfoModelV3 
 import { Subscription } from 'rxjs';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
+import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 import { PageInfoService } from 'src/app/core/services/page-info.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-    selector: 'app-page-aboutus',
-    templateUrl: './page-aboutus.component.html',
-    standalone: false
+  selector: 'app-page-aboutus',
+  templateUrl: './page-aboutus.component.html',
+  standalone: false
 })
 export class PageAboutusComponent implements OnInit {
 
@@ -21,6 +22,7 @@ export class PageAboutusComponent implements OnInit {
     private tokenHelper: TokenHelper,
     private coreSiteService: CoreSiteService,
     private cmsToastrService: CmsToastrService,
+    	private cmsStoreService:CmsStoreService,
     public publicHelper: PublicHelper,
   ) {
 
@@ -31,14 +33,12 @@ export class PageAboutusComponent implements OnInit {
       else
         this.SiteInfo(0);
     });
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        if (this.tokenInfo.access?.siteId > 0)
-          this.SiteInfo(this.tokenInfo.access?.siteId);
-        else
-          this.SiteInfo(0);
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      if (this.tokenInfo.access?.siteId > 0)
+        this.SiteInfo(this.tokenInfo.access?.siteId);
+      else
+        this.SiteInfo(0);
     });
 
   }

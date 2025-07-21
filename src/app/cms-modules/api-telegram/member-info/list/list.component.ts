@@ -38,7 +38,7 @@ export class ApiTelegramMemberInfoListComponent extends ListBaseComponent<ApiTel
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     public pageInfo: PageInfoService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog) {
     super(contentService, new ApiTelegramMemberInfoModel(), publicHelper, tokenHelper, translate);
@@ -99,12 +99,9 @@ export class ApiTelegramMemberInfoListComponent extends ListBaseComponent<ApiTel
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
   }
   ngOnDestroy(): void {

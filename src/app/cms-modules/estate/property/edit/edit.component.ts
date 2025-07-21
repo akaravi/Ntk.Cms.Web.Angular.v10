@@ -131,11 +131,9 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
     this.getEstateContractType();
 
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
         this.DataGetOne();
         this.getEstateContractType();
-      }
     });
   }
   ngOnDestroy(): void {

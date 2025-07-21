@@ -18,9 +18,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-core-modulesaleserial-check-list',
-    templateUrl: './check-list.component.html',
-    standalone: false
+  selector: 'app-core-modulesaleserial-check-list',
+  templateUrl: './check-list.component.html',
+  standalone: false
 })
 export class CoreModuleSaleSerialCheckListComponent implements OnInit, OnDestroy {
   requestSerial = '';
@@ -33,7 +33,7 @@ export class CoreModuleSaleSerialCheckListComponent implements OnInit, OnDestroy
     public coreEnumService: CoreEnumService,
     private activatedRoute: ActivatedRoute,
     private coreModuleService: CoreModuleService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public tokenHelper: TokenHelper,
     private router: Router,
     private cdr: ChangeDetectorRef,
@@ -80,13 +80,11 @@ export class CoreModuleSaleSerialCheckListComponent implements OnInit, OnDestroy
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        if (this.requestSerial && this.requestSerial.length > 0) {
-          this.DataCheckUseSerialForSite(this.requestSerial);
-        }
-        this.tokenInfo = ret;
+    this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      if (this.requestSerial && this.requestSerial.length > 0) {
+        this.DataCheckUseSerialForSite(this.requestSerial);
       }
+      this.tokenInfo = value;
     });
     this.getEnumCmsModuleSaleItemType();
 

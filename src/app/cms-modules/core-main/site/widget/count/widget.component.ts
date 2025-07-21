@@ -11,9 +11,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-core-site-widget-count',
-    templateUrl: './widget.component.html',
-    standalone: false
+  selector: 'app-core-site-widget-count',
+  templateUrl: './widget.component.html',
+  standalone: false
 })
 
 export class CoreSiteWidgetCountComponent implements OnInit, OnDestroy {
@@ -26,7 +26,7 @@ export class CoreSiteWidgetCountComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
@@ -44,20 +44,17 @@ export class CoreSiteWidgetCountComponent implements OnInit, OnDestroy {
     this.widgetInfoModel.link = '/core/site';
 
     setTimeout(() => {
-      
-        this.onActionStatist();
+
+      this.onActionStatist();
     }, 1000);
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        
-        this.onActionStatist();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.onActionStatist();
     });
 
 
   }
-  
+
   onActionButtonReload(): void {
     this.onActionStatist();
   }

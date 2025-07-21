@@ -24,9 +24,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-sms-log-outbox-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-sms-log-outbox-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class SmsLogOutBoxListComponent extends ListBaseComponent<SmsLogOutBoxService, SmsLogOutBoxModel, string> implements OnInit, OnDestroy {
   requestLinkSiteId = 0;
@@ -45,7 +45,7 @@ export class SmsLogOutBoxListComponent extends ListBaseComponent<SmsLogOutBoxSer
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog) {
@@ -67,7 +67,7 @@ export class SmsLogOutBoxListComponent extends ListBaseComponent<SmsLogOutBoxSer
 
   filteModelContent = new FilterModel();
   dataModelCoreCurrencyResult: ErrorExceptionResult<CoreCurrencyModel> = new ErrorExceptionResult<CoreCurrencyModel>();
-  
+
   dataModelPrivateResult: ErrorExceptionResult<SmsMainApiPathModel> = new ErrorExceptionResult<SmsMainApiPathModel>();
   categoryModelSelected: SmsMainApiPathModel;
 
@@ -133,16 +133,13 @@ export class SmsLogOutBoxListComponent extends ListBaseComponent<SmsLogOutBoxSer
     }
     //this.filteModelContent.sortColumn = 'Title';
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
 
     this.getPrivateConfig();

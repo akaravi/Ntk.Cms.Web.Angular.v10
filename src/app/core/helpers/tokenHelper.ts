@@ -110,9 +110,6 @@ export class TokenHelper {
       finalize(() => { })
     );
   }
-  getTokenInfoStateOnChange(): Observable<TokenInfoModelV3> {
-    return this.cmsStoreService.getState((state) => { return state.tokenInfoStore; });
-  }
   get isMobile() {
     if (window.innerWidth < environment.cmsViewConfig.mobileWindowInnerWidth)
       return true;

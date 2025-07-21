@@ -23,9 +23,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-sms-main-message-content-list',
-    templateUrl: './list.component.html',
-    standalone: false
+  selector: 'app-sms-main-message-content-list',
+  templateUrl: './list.component.html',
+  standalone: false
 })
 export class SmsMainMessageContentListComponent extends ListBaseComponent<SmsMainMessageContentService, SmsMainMessageContentModel, string> implements OnInit, OnDestroy {
   requestLinkCategoryId = '';
@@ -37,7 +37,7 @@ export class SmsMainMessageContentListComponent extends ListBaseComponent<SmsMai
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
     private cdr: ChangeDetectorRef,
     public pageInfo: PageInfoService,
@@ -88,16 +88,13 @@ export class SmsMainMessageContentListComponent extends ListBaseComponent<SmsMai
   ngOnInit(): void {
 
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-if (this.tokenInfo) {
-   this.DataGetAll();
-}
+    if (this.tokenInfo) {
+      this.DataGetAll();
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
   }
   ngOnDestroy(): void {

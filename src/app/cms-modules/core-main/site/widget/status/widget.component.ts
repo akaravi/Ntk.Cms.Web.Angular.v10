@@ -19,9 +19,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-core-site-widget-status',
-    templateUrl: './widget.component.html',
-    standalone: false
+  selector: 'app-core-site-widget-status',
+  templateUrl: './widget.component.html',
+  standalone: false
 })
 export class CoreSiteWidgetStatusComponent implements OnInit, OnDestroy {
   tokenInfoModel = new TokenInfoModelV3();
@@ -40,7 +40,7 @@ export class CoreSiteWidgetStatusComponent implements OnInit, OnDestroy {
     private cmsToastrService: CmsToastrService,
     private cmsAuthService: CmsAuthService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
   ) { }
   ngOnInit(): void {
     this.widgetInfoModel.title = 'TITLE.ACTIVE.SYSTEM :';
@@ -50,20 +50,18 @@ export class CoreSiteWidgetStatusComponent implements OnInit, OnDestroy {
     this.tokenInfoModel = this.cmsStoreService.getStateAll.tokenInfoStore;
 
     setTimeout(() => {
-      
-        this.onActionStatist();
+
+      this.onActionStatist();
     }, 1000);
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfoModel = ret;
-        this.onActionStatist();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfoModel = value;
+      this.onActionStatist();
     });
 
 
   }
-  
+
   onActionButtonReload(): void {
     this.onActionStatist();
   }

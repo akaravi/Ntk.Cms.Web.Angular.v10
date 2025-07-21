@@ -52,12 +52,9 @@ export class EstatePropertyHistoryWidgetComponent implements OnInit, OnDestroy {
         this.onActionStatist();
     }, 1000);
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+        this.tokenInfo = value;
         this.onActionStatist();
-      }
     });
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 

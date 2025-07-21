@@ -11,9 +11,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 
 @Component({
-    selector: 'app-estate-customer-order-widget',
-    templateUrl: './widget.component.html',
-    standalone: false
+  selector: 'app-estate-customer-order-widget',
+  templateUrl: './widget.component.html',
+  standalone: false
 })
 
 export class EstateCustomerOrderWidgetComponent implements OnInit, OnDestroy {
@@ -26,7 +26,7 @@ export class EstateCustomerOrderWidgetComponent implements OnInit, OnDestroy {
     public publicHelper: PublicHelper,
     private cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
@@ -70,19 +70,16 @@ export class EstateCustomerOrderWidgetComponent implements OnInit, OnDestroy {
     this.widgetInfoModel.link = '/estate/customer-order';
 
     setTimeout(() => {
-      
-        this.onActionStatist();
+
+      this.onActionStatist();
     }, 1000);
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        
-        this.onActionStatist();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.onActionStatist();
     });
 
   }
-  
+
   onActionButtonReload(): void {
     this.onActionStatist();
   }

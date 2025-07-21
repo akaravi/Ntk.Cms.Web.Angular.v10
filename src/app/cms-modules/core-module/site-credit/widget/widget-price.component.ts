@@ -21,9 +21,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-coremodule-site-credit-widget-price',
-    templateUrl: './widget-price.component.html',
-    standalone: false
+  selector: 'app-coremodule-site-credit-widget-price',
+  templateUrl: './widget-price.component.html',
+  standalone: false
 })
 export class CoreModuleSiteCreditWidgetPriceComponent implements OnInit, OnDestroy {
 
@@ -35,7 +35,7 @@ export class CoreModuleSiteCreditWidgetPriceComponent implements OnInit, OnDestr
     private cdr: ChangeDetectorRef,
     public dialog: MatDialog,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
     private coreModuleService: CoreModuleService,
@@ -61,10 +61,8 @@ export class CoreModuleSiteCreditWidgetPriceComponent implements OnInit, OnDestr
 
 
     this.DataGetAll();
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.DataGetAll();
     });
 
 

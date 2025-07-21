@@ -22,9 +22,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-webdesigner-config-mainadmin',
-    templateUrl: './config-main-admin.component.html',
-    standalone: false
+  selector: 'app-webdesigner-config-mainadmin',
+  templateUrl: './config-main-admin.component.html',
+  standalone: false
 })
 export class WebDesignerConfigMainAdminComponent implements OnInit, OnDestroy {
   requestLinkSiteId = 0;
@@ -33,7 +33,7 @@ export class WebDesignerConfigMainAdminComponent implements OnInit, OnDestroy {
     private configService: WebDesignerConfigurationService,
     private activatedRoute: ActivatedRoute,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
     private cmsToastrService: CmsToastrService,
@@ -66,11 +66,9 @@ export class WebDesignerConfigMainAdminComponent implements OnInit, OnDestroy {
     if (this.tokenInfo) {
       this.onLoadDate();
     }
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-        this.onLoadDate();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.onLoadDate();
     });
   }
   ngOnDestroy(): void {

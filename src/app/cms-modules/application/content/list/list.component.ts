@@ -45,7 +45,7 @@ export class ApplicationAppListComponent extends ListBaseComponent<ApplicationAp
     private cmsToastrService: CmsToastrService,
     public translate: TranslateService,
     private router: Router,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public pageInfo: PageInfoService,
@@ -116,12 +116,9 @@ export class ApplicationAppListComponent extends ListBaseComponent<ApplicationAp
     if (this.tokenInfo) {
       this.DataGetAll();
     }
-    this.cmsApiStoreSubscribe = this.tokenHelper.getTokenInfoStateOnChange().subscribe({
-      next: (ret) => {
-        this.tokenInfo = ret;
-
-        this.DataGetAll();
-      }
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      this.DataGetAll();
     });
   }
   ngOnDestroy(): void {
