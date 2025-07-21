@@ -9,6 +9,7 @@ import { AddBaseComponent } from 'src/app/core/cmsComponent/addBaseComponent';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
 import { PoinModel } from 'src/app/core/models/pointModel';
+import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 import { PageInfoService } from 'src/app/core/services/page-info.service';
 
@@ -31,6 +32,7 @@ export class PageContactusComponent extends AddBaseComponent<TicketingTaskServic
     private cmsToastrService: CmsToastrService,
     private router: Router,
     public translate: TranslateService,
+    private cmsStoreService: CmsStoreService,
     public pageInfo: PageInfoService,
     private cdr: ChangeDetectorRef) {
     super(ticketingTaskService, new TicketingTaskModel(), publicHelper, translate);
