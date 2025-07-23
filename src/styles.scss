@@ -180,6 +180,29 @@
 .theme-ltr {
   direction: ltr;
 }
+/*for menu side*/
+.theme-ltr.list-custom-small a i:first-child {
+  margin-left: unset;
+  float: left;
+  margin-right: 10px;
+}
+.theme-ltr.list-menu span{
+  padding-left: unset; 
+  padding-right: 7px;
+  float: left;
+}
+.theme-ltr.list-custom-small a i:last-child {
+  float: right;
+}
+.theme-ltr.list-custom-small .custom-control{
+  left: unset; 
+  right: 40px;
+}
+.theme-ltr.list-custom-small .custom-control {
+  margin-top: 0px !important;
+}
+/*for menu side*/
+
 
 /*mat-table Color Settings*/
 .theme-light mat-table {

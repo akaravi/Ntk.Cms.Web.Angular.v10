@@ -51,14 +51,21 @@ export class MenuMainComponent implements OnInit {
   get rootClass(): string {
     var ret = '';
     if (this.themeStore.dataMenu === 'menu-main')
-      ret = 'menu-active';
+      ret = 'menu-active ';
     if (this.themeStore.themeDirection === 'ltr')
-      ret = ret + ' menu menu-box-right rounded-0'
-    else
       ret = ret + ' menu menu-box-left rounded-0';
-
+    else
+      ret = ret + ' menu menu-box-right rounded-0'
 
     return ret;
+  }
+  get faAngleleftClass() {
+    if (this.themeStore.themeDirection === 'ltr')
+      return 'fa fa-angle-right';
+    else
+      return 'fa fa-angle-left'
+
+
   }
   tokenInfo = new TokenInfoModelV3();
   cmsApiStoreSubscribe: Subscription;
