@@ -64,9 +64,8 @@ export class MenuMainComponent implements OnInit {
       return 'fa fa-angle-right';
     else
       return 'fa fa-angle-left'
-
-
   }
+  
   tokenInfo = new TokenInfoModelV3();
   cmsApiStoreSubscribe: Subscription;
   dataModelResult: ErrorExceptionResult<CoreCpMainMenuModel> = new ErrorExceptionResult<CoreCpMainMenuModel>();

@@ -180,6 +180,13 @@
 .theme-ltr {
   direction: ltr;
 }
+.theme-direction-rtl {
+  direction: rtl;
+}
+
+.theme-direction-ltr {
+  direction: ltr;
+}
 /*for menu side*/
 .theme-ltr.list-custom-small a i:first-child {
   margin-left: unset;
@@ -202,7 +209,32 @@
   margin-top: 0px !important;
 }
 /*for menu side*/
-
+/**for header*/
+.theme-ltr.header-logo-center .header-icon-right-1 {
+  left: 0px;
+}
+.theme-ltr.header-logo-center .header-icon-right-2 {
+  left: 45px;
+}
+.theme-ltr.header-logo-center .header-icon-right-3 {
+  left: 90px;
+}
+.theme-ltr.header-logo-center .header-icon-right-4 {
+  left: 135px;
+}
+.theme-ltr.header-logo-left .header-icon-left-1 {
+  right: 0px;
+}
+.theme-ltr.header-logo-left .header-icon-left-2 {
+  right: 45px;
+}
+.theme-ltr.header-logo-left .header-icon-left-3 {
+  right: 90px;
+}
+.theme-ltr.header-logo-left .header-icon-left-4 {
+  right: 135px;
+}
+/**for header*/
 
 /*mat-table Color Settings*/
 .theme-light mat-table {

@@ -93,6 +93,12 @@ export class HeaderBarComponent implements OnInit {
     if (this.unsubscribe)
       this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
+  get rootClass() {
+    if (this.themeStore.themeDirection === 'ltr')
+      return 'theme-direction-rtl';
+    else
+      return 'theme-direction-ltr'
+  }
   onActionThemeSwitch(themeMode: ThemeModeType) {
     this.themeService.updateThemeModeType(themeMode);
   }
