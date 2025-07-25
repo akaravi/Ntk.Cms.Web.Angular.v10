@@ -65,7 +65,7 @@ export class MenuMainComponent implements OnInit {
     else
       return 'fa fa-angle-left'
   }
-  
+
   tokenInfo = new TokenInfoModelV3();
   cmsApiStoreSubscribe: Subscription;
   dataModelResult: ErrorExceptionResult<CoreCpMainMenuModel> = new ErrorExceptionResult<CoreCpMainMenuModel>();
@@ -73,7 +73,9 @@ export class MenuMainComponent implements OnInit {
   private unsubscribe: Subscription[] = [];
   ngOnInit(): void { }
   ngOnDestroy() {
-    this.cmsApiStoreSubscribe.unsubscribe();
+    if (this.cmsApiStoreSubscribe) {
+      this.cmsApiStoreSubscribe.unsubscribe();
+    }
     if (this.unsubscribe)
       this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }

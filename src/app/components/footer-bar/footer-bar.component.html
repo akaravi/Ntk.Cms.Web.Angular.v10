@@ -2,7 +2,7 @@
   <a [routerLink]="['/ticketing/faq']"><i class="fa fa-file"></i><span>{{"ACTION.QUESTIONS"|translate}}</span></a>
   <a [routerLink]="['/core/site/info']"><i class="fa fa-image"></i><span>{{"ROUTE.CORE.ADDRESS"|translate}}</span></a>
   <a [routerLink]="['/']" class="circle-nav active-nav"><i
-      class="fa fa-home"></i><span>{{"TITLE.Houses"|translate}}</span></a>
+      class="fa fa-home"></i><span>{{"TITLE.House"|translate}}</span></a>
   <a *ngIf="tokenInfo?.access?.userId>0" [routerLink]="['/menu']" (click)="onActionCleanDataMenu()"><i
       class="fa fa-layer-group"></i><span>{{"TITLE.Possibilitiesatures"|translate}}</span></a>
   <a *ngIf="!this.tokenInfo||!this.tokenInfo?.access?.userId||this.tokenInfo?.access?.userId<=0" [routerLink]="['/auth/singinbysms']"

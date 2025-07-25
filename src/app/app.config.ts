@@ -1,22 +1,22 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection, isDevMode, importProvidersFrom, Type, APP_INITIALIZER, provideAppInitializer, inject } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { provideAnimations } from '@angular/platform-browser/animations';
-import { routes } from './app.routes';
-import { provideServiceWorker } from '@angular/service-worker';
-import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig } from 'ng2-currency-mask';
-import { CmsAuthService } from './core/services/cmsAuth.service';
-import { SharedModule } from './shared/shared.module';
-import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
-import { CmsStoreModule } from './core/reducers/cmsStore.module';
-import { InlineSVGModule } from 'ng-inline-svg-2';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
+import { APP_INITIALIZER, ApplicationConfig, importProvidersFrom, inject, isDevMode, provideAppInitializer, provideBrowserGlobalErrorListeners, provideZoneChangeDetection, Type } from '@angular/core';
 import { MAT_CHIPS_DEFAULT_OPTIONS } from '@angular/material/chips';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideRouter } from '@angular/router';
+import { provideServiceWorker } from '@angular/service-worker';
 import { MAT_COLOR_FORMATS, NGX_MAT_COLOR_FORMATS } from '@ngxmc/color-picker';
+import { InlineSVGModule } from 'ng-inline-svg-2';
+import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig } from 'ng2-currency-mask';
+import { ClipboardModule } from 'ngx-clipboard';
 import { ToastrModule } from 'ngx-toastr';
 import { CoreAuthV3Service, CoreConfigurationService, CoreEnumService, CoreModuleService } from 'ntk-cms-api';
-import { ClipboardModule } from 'ngx-clipboard';
+import { routes } from './app.routes';
 import { CmsTranslateModule } from './core/i18n';
+import { CmsStoreModule } from './core/reducers/cmsStore.module';
 import { CmsStoreService } from './core/reducers/cmsStore.service';
+import { CmsAuthService } from './core/services/cmsAuth.service';
+import { SharedModule } from './shared/shared.module';
 
 declare module "@angular/core" {
   interface ModuleWithProviders<T = any> {
@@ -63,7 +63,18 @@ export const appConfig: ApplicationConfig = {
     CoreConfigurationService,
     importProvidersFrom(CmsStoreService.forRoot()),
     importProvidersFrom(ClipboardModule),
-    importProvidersFrom(CmsTranslateModule),
+    // importProvidersFrom(TranslateModule.forRoot({
+    //   loader: {
+    //     provide: TranslateLoader,
+    //     useFactory: TranslateHttpLoaderFactory,
+    //     deps: [HttpClient]
+    //   },
+    //   missingTranslationHandler: {
+    //     provide: MissingTranslationHandler,
+    //     useClass: CmsMissingTranslationHandler,
+    //   },
+    // })),
+    importProvidersFrom(CmsTranslateModule.forRoot()),
     importProvidersFrom(SharedModule.forRoot()),
     importProvidersFrom(CmsStoreModule.forRoot()),
     importProvidersFrom(InlineSVGModule.forRoot()),

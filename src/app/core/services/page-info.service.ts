@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { IApiCmsServerBase } from 'ntk-cms-api';
 import { BehaviorSubject } from 'rxjs';
 //import { ContentInfoModel } from 'src/app/core/models/contentInfoModel';
-import { PageLinkModel } from '../models/pageLinkModel';
 import { ContentInfoModel } from '../models/contentInfoModel';
+import { PageLinkModel } from '../models/pageLinkModel';
 
 
 
@@ -28,9 +28,7 @@ export class PageInfoService {
     this.title.next(_title);
   }
   public updateTitle(_title: string) {
-    setTimeout(() => {
-      this.setTitle(_title);
-    }, 1);
+    this.setTitle(_title);
   }
 
 

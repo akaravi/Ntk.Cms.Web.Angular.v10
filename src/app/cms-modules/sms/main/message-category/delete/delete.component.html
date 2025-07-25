@@ -29,20 +29,6 @@
               </textarea>
       </div>
     </ng-container>
-    <div class="form-actions" *ngIf="formInfo.formSubmitAllow  ">
-      <button type="button" (click)="onFormMove()" [disabled]=" !formInfo.buttonSubmittedEnabled"
-        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight">
-        <i class="ft-x"></i> {{'TITLE.MOVE_DATA' | translate}}
-      </button>
-      <button type="button" (click)="onFormDelete()" [disabled]=" !formInfo.buttonSubmittedEnabled"
-        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-red">
-        <i class="fa fa-check-square-o"></i> {{'ACTION.DELETE' | translate}}
-      </button>
-      <button type="button" (click)="onFormCancel()"
-        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray">
-        <i class="ft-x"></i> {{'ACTION.CANCEL' | translate}}
-      </button>
-    </div>
     <!-- Description Field -->
     <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
       <label for="dataModelResultCategory.item.description"

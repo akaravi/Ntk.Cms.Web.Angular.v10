@@ -89,7 +89,9 @@ export class HeaderBarComponent implements OnInit {
     });
   }
   ngOnDestroy() {
-    this.cmsApiStoreSubscribe.unsubscribe();
+    if (this.cmsApiStoreSubscribe) {
+      this.cmsApiStoreSubscribe.unsubscribe();
+    }
     if (this.unsubscribe)
       this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }

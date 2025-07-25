@@ -46,7 +46,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { LeafletModule } from '@bluehalo/ngx-leaflet';
 import { NgbDropdownModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import { LangChangeEvent, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import {
@@ -73,8 +73,6 @@ import {
   SmsMainApiPathService
 } from 'ntk-cms-api';
 import { CmsFileManagerModule } from 'ntk-cms-filemanager';
-import { firstValueFrom } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { NgOtpInputModule } from '../core/cmsComponent/ng-otp-input/ng-otp-input.module';
 import { CmsHtmlTreeActionDirective, CmsHtmlTreeBodyDirective, CmsHtmlTreeFooterDirective, CmsHtmlTreeHeaderDirective } from '../core/directive/cms-html-tree.directive';
 import { CmsRecordStatusSelfSaveDirective } from '../core/directive/cms-record-status-self-save.directive';
@@ -97,6 +95,8 @@ import { IntComponent } from '../core/dynamic-input-builder/int/int.component';
 import { StringComponent } from '../core/dynamic-input-builder/string/string.component';
 import { TextAreaComponent } from '../core/dynamic-input-builder/text-area/text-area.component';
 
+import { TokenHelper } from '../core/helpers/tokenHelper';
+import { CmsTranslateModule } from '../core/i18n';
 import { HttpConfigInterceptor } from '../core/interceptor/httpConfigInterceptor';
 import { BoolStatusClassPipe } from '../core/pipe/boolStatusClass.pipe';
 import { CmsImageThumbnailPipe } from '../core/pipe/cms-image-thumbnail.pipe';
@@ -107,9 +107,12 @@ import { CmsUserInfoPipe } from '../core/pipe/core/cms-user-info.pipe';
 import { EnumsPipe } from '../core/pipe/enums.pipe';
 import { FirstLetterPipe } from '../core/pipe/first-letter.pipe';
 import { ListKeysPipe } from '../core/pipe/list-keys.pipe';
+import { LocaleDateTime } from '../core/pipe/local-date-Time.pipe';
+import { LocaleDate } from '../core/pipe/local-date.pipe';
 import { PersianDateFull } from '../core/pipe/persian-date/persian-date-full.pipe';
 import { PersianDate } from '../core/pipe/persian-date/persian-date.pipe';
 import { PrettyjsonPipe } from '../core/pipe/prettyjson.pipe';
+import { PrettyLinePipe } from '../core/pipe/prettyLine.pipe';
 import { RecordStatusCellClassPipe } from '../core/pipe/recordStatusCellClass.pipe';
 import { RecordStatusIconClassPipe } from '../core/pipe/recordStatusIconClass.pipe';
 import { ReplaceTextPipe } from '../core/pipe/repalaceTest.pip';
@@ -119,6 +122,7 @@ import { SortTypeIconClassPipe } from '../core/pipe/sortTypeIconClass.pipe';
 import { TruncatePipe } from '../core/pipe/truncate.pipe';
 import { ValueArrayPipe } from '../core/pipe/valueArray.pipe';
 import { NgxQueryBuilderComponent } from '../core/query-builder/ngx-ntk-query-builder.component';
+import { ThemeService } from '../core/services/theme.service';
 import { Cms360ImageListComponent } from './cms-360-image-list/cms-360-image-list.component';
 import { Cms360TourListComponent } from './cms-360-tour-list/cms-360-tour-list.component';
 import { CmsAccessInfoComponent } from './cms-access-info/cms-access-info.component';
@@ -133,6 +137,7 @@ import { CmsDataMemoComponent } from './cms-data-memo/cms-data-memo.component';
 import { CmsDataPinComponent } from './cms-data-pin/cms-data-pin.component';
 import { CmsDataTaskComponent } from './cms-data-task/cms-data-task.component';
 import { CmsEnumRecordStatusSelectorComponent } from './cms-enum-record-status-selector/cms-enum-record-status-selector.component';
+import { CmsEnumXSelectionListComponent } from './cms-enum-x-selectionlist/cms-enum-x-selectionlist.component';
 import { CmsEnumXSelectorComponent } from './cms-enum-x-selector/cms-enum-x-selector.component';
 import { CmsExportEntityComponent } from './cms-export-entity/cms-export-entity.component';
 import { CmsExportListComponent } from './cms-export-list/cmsExportList.component';
@@ -145,6 +150,7 @@ import { CmsHtmlListComponent } from './cms-html-list/cms-html-list.component';
 import { CmsHtmlModalComponent } from './cms-html-modal/cms-html-modal.component';
 import { CmsHtmlNoticeComponent } from './cms-html-notice/cms-html-notice.component';
 import { CmsHtmlTreeComponent } from './cms-html-tree/cms-html-tree.component';
+import { CmsHtmlWidgetComponent } from './cms-html-widget/cms-html-widget.component';
 import { CmsJsonListComponent } from './cms-json-list/cmsJsonList.component';
 import { CmsLinkToComponent } from './cms-link-to/cms-link-to.component';
 import { CmsLocationCompleteComponent } from './cms-location-autocomplete/cms-location-autocomplete.component';
@@ -172,13 +178,6 @@ import { MaterialPersianDateAdapter, PERSIAN_DATE_FORMATS } from './material/mat
 import { OverlayService } from './overlay/overlay.service';
 import { PasswordStrengthComponent } from './password-strength/password-strength.component';
 import { ProgressSpinnerComponent } from './progress-spinner/progress-spinner.component';
-import { CmsEnumXSelectionListComponent } from './cms-enum-x-selectionlist/cms-enum-x-selectionlist.component';
-import { PrettyLinePipe } from '../core/pipe/prettyLine.pipe';
-import { LocaleDate } from '../core/pipe/local-date.pipe';
-import { LocaleDateTime } from '../core/pipe/local-date-Time.pipe';
-import { CmsTranslateModule } from '../core/i18n';
-import { TokenHelper } from '../core/helpers/tokenHelper';
-import { CmsHtmlWidgetComponent } from './cms-html-widget/cms-html-widget.component';
 
 
 @NgModule({
@@ -297,7 +296,8 @@ import { CmsHtmlWidgetComponent } from './cms-html-widget/cms-html-widget.compon
     { provide: DateAdapter, useClass: MaterialPersianDateAdapter, deps: [MAT_DATE_LOCALE] },
     { provide: MAT_DATE_FORMATS, useValue: PERSIAN_DATE_FORMATS },
     TokenHelper,
-    TranslateService,
+    ThemeService,
+    //TranslateService,
     MemberUserService,
     CoreLogMemberService,
     CoreUserService,
@@ -324,6 +324,7 @@ import { CmsHtmlWidgetComponent } from './cms-html-widget/cms-html-widget.compon
   imports: [
     CommonModule,
     HttpClientModule,
+    //TranslateModule.forChild({}),
     CmsTranslateModule,
     FormsModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
@@ -378,7 +379,8 @@ import { CmsHtmlWidgetComponent } from './cms-html-widget/cms-html-widget.compon
   exports: [
     // common and shared components/directives/pipes between more than one module and components will be listed here.
     CommonModule,
-    TranslateModule,
+    //TranslateModule,
+    CmsTranslateModule,
     FormsModule,
     NgApexchartsModule,
     //Material

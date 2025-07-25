@@ -52,7 +52,9 @@ export class PageMenuComponent implements OnInit {
 
   }
   ngOnDestroy() {
-    this.cmsApiStoreSubscribe.unsubscribe();
+    if (this.cmsApiStoreSubscribe) {
+      this.cmsApiStoreSubscribe.unsubscribe();
+    }
   }
   loadData() {
     if (this.tokenInfo && this.tokenInfo?.access?.userId > 0 && this.tokenInfo?.access?.siteId > 0) {

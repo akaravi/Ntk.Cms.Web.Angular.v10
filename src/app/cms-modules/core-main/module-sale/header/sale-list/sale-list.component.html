@@ -3,33 +3,34 @@
 
 <div class="row">
   <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId"> </app-progress-spinner>
-  <div *ngFor="let item of dataModelResult.listItems" class="col-sm-2 col-md-2 col-lg-2 col-xl-2"
-    style="padding: 10px;">
-    <mat-card class="example-card">
-      <mat-card-header>
-        <mat-card-title>{{item.title}}</mat-card-title>
-      </mat-card-header>
-      <!-- <button> -->
-      <a class="pointer" (click)="onActionButtonDetail(item)">
-        <img mat-card-image src="{{item.linkMainImageIdSrc | cmsthumbnail}}" style="width: 95%;padding: 10px;">
-      </a>
-      <!-- </button> -->
-      <mat-card-content>
-        <p>
-          {{item.description }}
-        </p>
-        <p>
-          <mat-card-subtitle>{{item.salePrice | currency:' '+currency+' '}}</mat-card-subtitle>
-        </p>
-      </mat-card-content>
-      <mat-card-actions>
-        <button type="button" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-          (click)="onActionButtonDetail(item)">{{'ACTION.DETAIL' | translate}}</button>
-        <button type="button" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-          (click)="onActionButtonBuy(item)">{{'ACTION.BUY' | translate}}</button>
-      </mat-card-actions>
-    </mat-card>
-  </div>
+  <ng-container *ngFor="let item of dataModelResult.listItems">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3">
+      <mat-card class="card card-style">
+        <mat-card-header>
+          <mat-card-title>{{item.title}}</mat-card-title>
+        </mat-card-header>
+        <!-- <button> -->
+        <a class="pointer" (click)="onActionButtonDetail(item)">
+          <img mat-card-image src="{{item.linkMainImageIdSrc | cmsthumbnail}}" style="width: 95%;padding: 10px;">
+        </a>
+        <!-- </button> -->
+        <mat-card-content>
+          <p>
+            {{item.description }}
+          </p>
+          <p>
+            <mat-card-subtitle>{{item.salePrice | currency:' '+currency+' '}}</mat-card-subtitle>
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button type="button" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
+            (click)="onActionButtonDetail(item)">{{'ACTION.DETAIL' | translate}}</button>
+          <button type="button" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+            (click)="onActionButtonBuy(item)">{{'ACTION.BUY' | translate}}</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </ng-container>
 </div>
 <div class="row">
   <div class="col-12" *ngIf="tableRowSelected && this.tableRowSelected?.id>0">
