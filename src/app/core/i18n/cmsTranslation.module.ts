@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateModuleConfig, TranslateService } from '@ngx-translate/core';
+import { LangChangeEvent, MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateModuleConfig, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { firstValueFrom } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { CmsMissingTranslationHandler } from './cmsMissingTranslationHandler';
 import { CmsTranslationService } from './cmsTranslation.service';
 // Required for AOT compilation
@@ -45,21 +47,28 @@ export class CmsTranslateModule {
 * ====================================================================================
 * */
   constructor(public translationService: TranslateService) {
-    // const currentLang = this.translationService.currentLang;
-    // this.translationService.currentLang = '';
-    // this.translationService.store.onLangChange.subscribe(
-    //   (lang: LangChangeEvent) => {
-    //     translationService.setDefaultLang(lang.lang);
-    //     if (environment.consoleLog)
-    //       console.log(' ==> LazyLoadedModule ', lang);
-    //     try {
-    //       firstValueFrom(translationService.use(lang.lang));
-    //     } catch (err) {
-    //       if (environment.consoleLog)
-    //         console.log(err);
-    //     }
-    //   }
-    // );
+    const currentLang = this.translationService.currentLang;
+    try {
+      firstValueFrom(translationService.use(currentLang));
+    } catch (err) {
+      //      if (environment.consoleLog)
+      console.log(err);
+    }
+    this.translationService.currentLang = '';
+    this.translationService.store.onLangChange.subscribe(
+      (lang: LangChangeEvent) => {
+        translationService.setDefaultLang(lang.lang);
+        if (environment.consoleLog)
+          console.log(' ==> LazyLoadedModule ', lang);
+        try {
+          firstValueFrom(translationService.use(lang.lang));
+        } catch (err) {
+          if (environment.consoleLog)
+            console.log(err);
+        }
+      }
+    );
+
   }
   static forRoot(): ModuleWithProviders<CmsTranslateModule> {
     // Forcing the whole app to use the returned providers from the AppModule only.

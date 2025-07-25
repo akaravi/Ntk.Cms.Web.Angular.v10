@@ -1,7 +1,7 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthRefreshTokenModel, AuthRenewTokenModel, CoreAuthV3Service, CoreSiteModel, TokenInfoModelV3 } from 'ntk-cms-api';
+import { AuthRefreshTokenModel, CoreAuthV3Service, CoreSiteModel, TokenInfoModelV3 } from 'ntk-cms-api';
 import { Subscription } from 'rxjs';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
@@ -220,9 +220,11 @@ export class MenuProfileComponent implements OnInit {
 
   onActionButtonSelectSite(): void {
     if (this.inputSiteId === this.tokenInfo.access.siteId) {
-      const etitle = this.translate.instant('TITLE.Warrning');
-      const emessage = this.translate.instant('MESSAGE.The_ID_of_this_website_is_the_same_as_the_website_you_are_on');
-      if (this.cmsToastrService) this.cmsToastrService.toastr.warning(emessage, etitle);
+      if (this.cmsToastrService) {
+        this.translate.get(['TITLE.MESSAGE.The_ID_of_this_website_is_the_same_as_the_website_you_are_on', 'TITLE.Warrning']).subscribe((str: string[]) => {
+          this.cmsToastrService.toastr.warning(str[0], str[1]);
+        });
+      }
       return;
     }
     const authModel: AuthRefreshTokenModel = new AuthRefreshTokenModel();
@@ -251,11 +253,19 @@ export class MenuProfileComponent implements OnInit {
         this.loadingStatus = false;
         if (ret.isSuccess) {
           if (ret.item.access.siteId === +this.inputSiteId) {
-            if (this.cmsToastrService) this.cmsToastrService.toastr.success(this.translate.instant('MESSAGE.New_site_acess_confirmed'), title);
+            if (this.cmsToastrService) {
+              this.translate.get('TITLE.MESSAGE.New_site_acess_confirmed').subscribe((str: string) => {
+                this.cmsToastrService.toastr.success(str, title);
+              });
+            }
             this.inputSiteId = null;
             this.inputUserId = null;
           } else {
-            if (this.cmsToastrService) this.cmsToastrService.toastr.warning(this.translate.instant('ERRORMESSAGE.MESSAGE.New_site_acess_denied'), title);
+            if (this.cmsToastrService) {
+              this.translate.get('TITLE.MESSAGE.New_site_acess_denied').subscribe((str: string) => {
+                this.cmsToastrService.toastr.warning(str, title);
+              });
+            }
           }
         } else {
           this.inputSiteId = this.tokenInfo.access.siteId;

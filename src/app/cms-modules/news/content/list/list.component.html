@@ -8,8 +8,7 @@
   [optionSelectRowItemTitle]="tableRowSelected?.title?.length>0 ? tableRowSelected?.title : tableRowSelected?.id">
   <ng-container cms-tree>
     <!--begin:::::::::::::::::::::::::::::::::::::::::cms-tree-->
-    <app-news-category-tree (optionChange)="onActionSelectorSelect($event)"
-      [optionSelectForce]="requestLinkCategoryId">
+    <app-news-category-tree (optionChange)="onActionSelectorSelect($event)" [optionSelectForce]="requestLinkCategoryId">
     </app-news-category-tree>
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-tree-->
   </ng-container>

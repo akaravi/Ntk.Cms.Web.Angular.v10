@@ -4,6 +4,7 @@ import { MissingTranslationHandler, MissingTranslationHandlerParams } from '@ngx
 @Injectable()
 export class CmsMissingTranslationHandler implements MissingTranslationHandler {
     handle(params: MissingTranslationHandlerParams) {
+        console.log('|?' + params.key + '?|')
         return '|?' + params.key + '?|';
     }
 }

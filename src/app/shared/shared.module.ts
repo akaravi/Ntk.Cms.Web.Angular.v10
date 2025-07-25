@@ -297,7 +297,6 @@ import { ProgressSpinnerComponent } from './progress-spinner/progress-spinner.co
     { provide: MAT_DATE_FORMATS, useValue: PERSIAN_DATE_FORMATS },
     TokenHelper,
     ThemeService,
-    //TranslateService,
     MemberUserService,
     CoreLogMemberService,
     CoreUserService,
@@ -324,7 +323,6 @@ import { ProgressSpinnerComponent } from './progress-spinner/progress-spinner.co
   imports: [
     CommonModule,
     HttpClientModule,
-    //TranslateModule.forChild({}),
     CmsTranslateModule.forChild({}),
     FormsModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
@@ -379,7 +377,6 @@ import { ProgressSpinnerComponent } from './progress-spinner/progress-spinner.co
   exports: [
     // common and shared components/directives/pipes between more than one module and components will be listed here.
     CommonModule,
-    //TranslateModule,
     CmsTranslateModule,
     FormsModule,
     NgApexchartsModule,

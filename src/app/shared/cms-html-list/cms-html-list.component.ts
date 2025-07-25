@@ -55,8 +55,8 @@ export class CmsHtmlListComponent implements OnInit, OnDestroy {
     if (this.optionActionRowDisplay)
       this.viewMenuItemRow = true;
   }
-  @Input() optionTitle = this.translate.instant('TITLE.OperationMenu');
-  @Input() optionCategoryTitle = this.translate.instant('TITLE.Category');
+  @Input() optionTitle = '';
+  @Input() optionCategoryTitle = '';
   @Input() optionSelectRowItemTitle = '';
   @Input() optionClassBody = 'ntk-cms-html-tree-body';
   @Input() optionTreeDisplay = true;
@@ -82,6 +82,9 @@ export class CmsHtmlListComponent implements OnInit, OnDestroy {
         //k:by karavi for test//    this.themeService.onActionScrollTopList(false);
       };
     }));
+
+    this.translate.get('TITLE.OperationMenu').subscribe((str: string) => { this.optionTitle = str });
+    this.translate.get('TITLE.Category').subscribe((str: string) => { this.optionCategoryTitle = str });
   }
   @ViewChild("topList") topList: ElementRef;
   private unsubscribe: Subscription[] = [];

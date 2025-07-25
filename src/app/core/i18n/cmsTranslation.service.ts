@@ -4,8 +4,8 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, firstValueFrom } from 'rxjs';
-import { LOCALIZATION_LOCAL_STORAGE_KEY } from '../models/constModel';
 import { environment } from 'src/environments/environment';
+import { LOCALIZATION_LOCAL_STORAGE_KEY } from '../models/constModel';
 
 export interface Locale {
   lang: string;
@@ -37,7 +37,7 @@ export class CmsTranslationService {
 
     // add new languages to the list
     this.translate.addLangs(this.langIds);
-    this.translate.use(this.getSelectedLanguage);//در قالب جدید از روی قالب جدید اضافه کردم
+    firstValueFrom(this.translate.use(this.getSelectedLanguage));//در قالب جدید از روی قالب جدید اضافه کردم
   }
 
   setLanguage(lang: string): string {

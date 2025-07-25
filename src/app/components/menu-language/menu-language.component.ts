@@ -2,14 +2,14 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthRefreshTokenModel, TokenInfoModelV3 } from 'ntk-cms-api';
-import { Subscription, filter, firstValueFrom } from 'rxjs';
+import { filter, firstValueFrom, Subscription } from 'rxjs';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
 import { CmsTranslationService } from 'src/app/core/i18n';
 import { LanguageFlagModel } from 'src/app/core/models/languageFlagModel';
 import { ThemeStoreModel } from 'src/app/core/models/themeStoreModel';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-import { SET_Theme_STATE, SET_TOKEN_INFO } from 'src/app/core/reducers/reducer.factory';
+import { SET_Theme_STATE } from 'src/app/core/reducers/reducer.factory';
 import { CmsAuthService } from 'src/app/core/services/cmsAuth.service';
 import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 import { environment } from 'src/environments/environment';
@@ -103,10 +103,14 @@ export class MenuLanguageComponent implements OnInit {
           if (ret.isSuccess) {
             this.tokenInfo = ret.item;
             if (ret.item.access.language === lang) {
-              this.cmsToastrService.toastr.success(this.translate.instant('MESSAGE.New_language_acess_confirmed'), title);
+              this.translate.get('TITLE.MESSAGE.New_language_acess_confirmed').subscribe((str: string) => {
+                this.cmsToastrService.toastr.success(str, title);
+              });
               firstValueFrom(this.translate.use(ret.item.access.language));
             } else {
-              this.cmsToastrService.toastr.warning(this.translate.instant('ERRORMESSAGE.MESSAGE.New_language_acess_denied'), title);
+              this.translate.get('TITLE.MESSAGE.New_language_acess_denied').subscribe((str: string) => {
+                this.cmsToastrService.toastr.warning(str, title);
+              });
             }
           } else {
             this.cmsToastrService.typeErrorAccessChange(ret.errorMessage);

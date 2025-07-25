@@ -63,17 +63,6 @@ export const appConfig: ApplicationConfig = {
     CoreConfigurationService,
     importProvidersFrom(CmsStoreService.forRoot()),
     importProvidersFrom(ClipboardModule),
-    // importProvidersFrom(TranslateModule.forRoot({
-    //   loader: {
-    //     provide: TranslateLoader,
-    //     useFactory: TranslateHttpLoaderFactory,
-    //     deps: [HttpClient]
-    //   },
-    //   missingTranslationHandler: {
-    //     provide: MissingTranslationHandler,
-    //     useClass: CmsMissingTranslationHandler,
-    //   },
-    // })),
     importProvidersFrom(CmsTranslateModule.forRoot()),
     importProvidersFrom(SharedModule.forRoot()),
     importProvidersFrom(CmsStoreModule.forRoot()),

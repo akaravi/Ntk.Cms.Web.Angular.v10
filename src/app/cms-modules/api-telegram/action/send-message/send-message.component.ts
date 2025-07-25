@@ -17,10 +17,10 @@ export class CompModel {
   ChatIds: string;
 }
 @Component({
-    selector: 'app-apitelegram-action-send-message',
-    templateUrl: './send-message.component.html',
-    styleUrls: ['./send-message.component.scss'],
-    standalone: false
+  selector: 'app-apitelegram-action-send-message',
+  templateUrl: './send-message.component.html',
+  styleUrls: ['./send-message.component.scss'],
+  standalone: false
 })
 export class ApiTelegramActionSendMessageComponent implements OnInit {
   requestLinkBotConfigId = 0;
@@ -63,8 +63,7 @@ export class ApiTelegramActionSendMessageComponent implements OnInit {
     if (this.requestLinkBotConfigId > 0) {
       this.dataModel.botId = this.requestLinkBotConfigId;
     }
-    this.formInfo.formTitle = this.translate.instant('TITLE.Send_Message');
-
+    this.translate.get('TITLE.Send_Message').subscribe((str: string) => { this.formInfo.formTitle = str });
   }
 
   ActionSendMessage(): void {
