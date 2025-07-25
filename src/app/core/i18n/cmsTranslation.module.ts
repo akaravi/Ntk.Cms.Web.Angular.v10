@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { MissingTranslationHandler, TranslateLoader, TranslateModule, TranslateModuleConfig, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CmsMissingTranslationHandler } from './cmsMissingTranslationHandler';
 import { CmsTranslationService } from './cmsTranslation.service';
@@ -69,6 +69,39 @@ export class CmsTranslateModule {
         TranslateService
         /* All of your services here. It will hold the services needed by itself`. */
       ],
+    };
+  }
+
+  /**
+    * Use this method in your root module to provide the TranslateService
+    */
+  // static forRoot(config: TranslateModuleConfig = {}): ModuleWithProviders<TranslateModule> {
+  //   return {
+  //     ngModule: TranslateModule,
+  //     providers: [
+  //       ...defaultProviders(
+  //         {
+  //           compiler: provideTranslateCompiler(TranslateNoOpCompiler),
+  //           parser: provideTranslateParser(TranslateDefaultParser),
+  //           loader: provideTranslateLoader(TranslateNoOpLoader),
+  //           missingTranslationHandler: provideMissingTranslationHandler(
+  //             DefaultMissingTranslationHandler,
+  //           ),
+  //           ...config,
+  //         },
+  //         true,
+  //       ),
+  //     ],
+  //   };
+  // }
+
+  /**
+   * Use this method in your other (non-root) modules to import the directive/pipe
+   */
+  static forChild(config: TranslateModuleConfig = {}): ModuleWithProviders<CmsTranslateModule> {
+    return {
+      ngModule: CmsTranslateModule,
+      providers: [TranslateService],
     };
   }
 }

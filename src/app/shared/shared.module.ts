@@ -325,7 +325,7 @@ import { ProgressSpinnerComponent } from './progress-spinner/progress-spinner.co
     CommonModule,
     HttpClientModule,
     //TranslateModule.forChild({}),
-    CmsTranslateModule,
+    CmsTranslateModule.forChild({}),
     FormsModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
     CurrencyMaskModule,
