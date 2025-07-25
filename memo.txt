@@ -3,6 +3,26 @@
 this.translate.instant(key);
 
 
+
+this.translate.instant
+translate.get('KEY').subscribe(translation => { ... });
+
+
+this.translate.get('TITLE.Send_Message').subscribe((str: string) => { this.formInfo.formTitle = str });
+
+
+
+this.translate.get(['TITLE.Warrning', 'TITLE.MESSAGE.The_ID_of_this_website_is_the_same_as_the_website_you_are_on']).subscribe((str: string[]) => {
+          this.cmsToastrService.toastr.warning(str[0], str[1]);
+        });
+		
+		
+ this.translate.get([emessage, etitle]).subscribe((str: string[]) => {
+                this.cmsToastrService.toastr.warning(str[0], str[1]);
+              });
+
+
+
 npm uninstal  ngx-ntk-cron-editor
 npm uninstal  ngx-ntk-file-picker
 npm uninstal  ngx-ntk-icon-picker
