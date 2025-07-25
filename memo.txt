@@ -1,4 +1,7 @@
 *INDO*************************************************
+باید حذف شود
+this.translate.instant(key);
+
 
 npm uninstal  ngx-ntk-cron-editor
 npm uninstal  ngx-ntk-file-picker
