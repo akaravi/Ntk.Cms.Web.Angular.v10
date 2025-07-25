@@ -69,14 +69,19 @@ export class MenuProfileComponent implements OnInit {
     authModel.userId = this.tokenInfo.access.userId;
     authModel.lang = this.tokenInfo.access.language;
 
-    const title = this.translate.instant('TITLE.Information');
-    let message = '';
-    if (authModel.userAccessAdminAllowToAllData) {
-      message = this.translate.instant('MESSAGE.Request_to_access_all_information_has_been_sent_to_the_server');
-    } else {
-      message = this.translate.instant('MESSAGE.Request_to_terminate_access_to_all_information_has been_sent_to_the_server');
+
+    if (this.cmsToastrService) {
+      const title = 'TITLE.Information';
+      let message = '';
+      if (authModel.userAccessAdminAllowToAllData) {
+        message = 'MESSAGE.Request_to_access_all_information_has_been_sent_to_the_server';
+      } else {
+        message = 'MESSAGE.Request_to_terminate_access_to_all_information_has been_sent_to_the_server';
+      }
+      this.translate.get([title, message]).subscribe((str: string[]) => {
+        this.cmsToastrService.toastr.warning(str[0], str[1]);
+      });
     }
-    if (this.cmsToastrService) this.cmsToastrService.toastr.info(message, title);
     const pName = this.constructor.name + 'main';
     this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
       this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
@@ -88,15 +93,25 @@ export class MenuProfileComponent implements OnInit {
         this.loadingStatus = false;
         this.disabledAllow = false;
         if (ret.isSuccess) {
-          const etitle = this.translate.instant('TITLE.Information');
+          const etitle = 'TITLE.Information';
           let emessage = '';
           if (ret.item.access.userAccessAdminAllowToAllData === NewToall) {
-            emessage = this.translate.instant('MESSAGE.Access_is_approved');
-            if (this.cmsToastrService) this.cmsToastrService.toastr.success(emessage, etitle);
+            emessage = 'MESSAGE.Access_is_approved';
+            if (this.cmsToastrService) {
+              this.translate.get([emessage, etitle]).subscribe((str: string[]) => {
+                this.cmsToastrService.toastr.success(str[0], str[1]);
+              });
+            }
           } else {
-            emessage = this.translate.instant('MESSAGE.New_access_not_approved');
-            if (this.cmsToastrService) this.cmsToastrService.toastr.warning(emessage, etitle);
+            emessage = 'MESSAGE.New_access_not_approved';
+            if (this.cmsToastrService) {
+              this.translate.get([emessage, etitle]).subscribe((str: string[]) => {
+                this.cmsToastrService.toastr.warning(str[0], str[1]);
+              });
+            }
           }
+
+
         } else {
           if (this.cmsToastrService) this.cmsToastrService.typeErrorAccessChange(ret.errorMessage);
         }
@@ -121,14 +136,18 @@ export class MenuProfileComponent implements OnInit {
     authModel.userId = this.tokenInfo.access.userId;
     authModel.lang = this.tokenInfo.access.language;
 
-    const title = this.translate.instant('TITLE.Information');
+    const title = 'TITLE.Information';
     let message = '';
     if (authModel.userAccessAdminAllowToProfessionalData) {
-      message = this.translate.instant('MESSAGE.Request_for_professional_access_to_the_server_has_been_sent');
+      message = 'MESSAGE.Request_for_professional_access_to_the_server_has_been_sent';
     } else {
-      message = this.translate.instant('MESSAGE.Request_to_terminate_professional_access_has_been_sent_to_the_server');
+      message = 'MESSAGE.Request_to_terminate_professional_access_has_been_sent_to_the_server';
     }
-    if (this.cmsToastrService) this.cmsToastrService.toastr.info(message, title);
+    if (this.cmsToastrService) {
+      this.translate.get([message, title]).subscribe((str: string[]) => {
+        this.cmsToastrService.toastr.warning(str[0], str[1]);
+      });
+    }
     const pName = this.constructor.name + 'main';
     this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
       this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
@@ -140,13 +159,21 @@ export class MenuProfileComponent implements OnInit {
         this.loadingStatus = false;
         this.disabledAllow = false;
         if (ret.isSuccess) {
-          const etitle = this.translate.instant('TITLE.Information');
+          const etitle = 'TITLE.Information';
           if (ret.item.access.userAccessAdminAllowToProfessionalData === NewToPerf) {
-            const emessage = this.translate.instant('MESSAGE.Access_is_approved');
-            if (this.cmsToastrService) this.cmsToastrService.toastr.success(emessage, etitle);
+            const emessage = 'MESSAGE.Access_is_approved';
+            if (this.cmsToastrService) {
+              this.translate.get([emessage, etitle]).subscribe((str: string[]) => {
+                this.cmsToastrService.toastr.success(str[0], str[1]);
+              });
+            }
           } else {
-            const emessage = this.translate.instant('MESSAGE.New_access_not_approved');
-            if (this.cmsToastrService) this.cmsToastrService.toastr.warning(emessage, etitle);
+            const emessage = 'MESSAGE.New_access_not_approved';
+            if (this.cmsToastrService) {
+              this.translate.get([emessage, etitle]).subscribe((str: string[]) => {
+                this.cmsToastrService.toastr.warning(str[0], str[1]);
+              });
+            }
           }
         } else {
           if (this.cmsToastrService) this.cmsToastrService.typeErrorAccessChange(ret.errorMessage);
@@ -165,9 +192,11 @@ export class MenuProfileComponent implements OnInit {
 
   onActionButtonSelectUser(): void {
     if (this.inputUserId === this.tokenInfo.access.userId) {
-      const etitle = this.translate.instant('TITLE.Warrning');
-      const emessage = this.translate.instant('MESSAGE.The_ID_of_this_website_is_the_same_as_the_website_you_are_on');
-      if (this.cmsToastrService) this.cmsToastrService.toastr.warning(emessage, etitle);
+      if (this.cmsToastrService) {
+        this.translate.get(['TITLE.Warrning', 'TITLE.MESSAGE.The_ID_of_this_website_is_the_same_as_the_website_you_are_on']).subscribe((str: string[]) => {
+          this.cmsToastrService.toastr.warning(str[0], str[1]);
+        });
+      }
       return;
     }
     const authModel: AuthRefreshTokenModel = new AuthRefreshTokenModel();
@@ -197,12 +226,19 @@ export class MenuProfileComponent implements OnInit {
           this.loadingStatus = false;
           if (ret.isSuccess) {
             if (ret.item.access.userId === +this.inputUserId) {
-
-              if (this.cmsToastrService) this.cmsToastrService.toastr.success(this.translate.instant('MESSAGE.Access_to_the_new_user_has_been_approved'), title);
+              if (this.cmsToastrService) {
+                this.translate.get(['MESSAGE.Access_to_the_new_user_has_been_approved', title]).subscribe((str: string[]) => {
+                  this.cmsToastrService.toastr.success(str[0], str[1]);
+                });
+              }
               this.inputSiteId = null;
               this.inputUserId = null;
             } else {
-              if (this.cmsToastrService) this.cmsToastrService.toastr.warning(this.translate.instant('MESSAGE.Access_to_the_new_user_was_not_approved'), title);
+              if (this.cmsToastrService) {
+                this.translate.get(['MESSAGE.Access_to_the_new_user_was_not_approved', title]).subscribe((str: string[]) => {
+                  this.cmsToastrService.toastr.success(str[0], str[1]);
+                });
+              }
             }
           } else {
             if (this.cmsToastrService) this.cmsToastrService.typeErrorAccessChange(ret.errorMessage);
@@ -221,7 +257,7 @@ export class MenuProfileComponent implements OnInit {
   onActionButtonSelectSite(): void {
     if (this.inputSiteId === this.tokenInfo.access.siteId) {
       if (this.cmsToastrService) {
-        this.translate.get(['TITLE.MESSAGE.The_ID_of_this_website_is_the_same_as_the_website_you_are_on', 'TITLE.Warrning']).subscribe((str: string[]) => {
+        this.translate.get(['TITLE.Warrning', 'TITLE.MESSAGE.The_ID_of_this_website_is_the_same_as_the_website_you_are_on']).subscribe((str: string[]) => {
           this.cmsToastrService.toastr.warning(str[0], str[1]);
         });
       }
