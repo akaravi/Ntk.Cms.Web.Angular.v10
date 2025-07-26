@@ -293,7 +293,10 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     if (this.toastId > 0) {
       this.cmsToastrService.toastr.clear(this.toastId);
     }
-    this.cmsToastrService.toastr.success(this.translate.instant('ERRORMESSAGE.TITLE.Youhavesuccessfullyconnectedtotheserver'), this.translate.instant('ERRORMESSAGE.TITLE.Internetaccesswasconnected'));
+    this.translate.get(['ERRORMESSAGE.TITLE.Youhavesuccessfullyconnectedtotheserver', 'ERRORMESSAGE.TITLE.Internetaccesswasconnected']).subscribe((str: string[]) => {
+      this.cmsToastrService.toastr.success(str[0], str[1]);
+    });
+
   }
   @HostListener('window:offline', ['$event'])
   onoffline(event: Event) {
@@ -302,10 +305,9 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     model.serverConnection = false;
     this.cmsStoreService.setState({ type: SET_Connection_STATE, payload: model });
     this.firstOnonline = false;
-    this.toastId = this.cmsToastrService.toastr.error(this.translate.instant('ERRORMESSAGE.TITLE.Pleasecheckyourinternetconnection'), this.translate.instant('ERRORMESSAGE.TITLE.Internetaccesswasinterrupted'), {
-      disableTimeOut: true
-    }).toastId;
-
+    this.translate.get(['ERRORMESSAGE.TITLE.Pleasecheckyourinternetconnection', 'ERRORMESSAGE.TITLE.Internetaccesswasinterrupted']).subscribe((str: string[]) => {
+      this.toastId = this.cmsToastrService.toastr.error(str[0], str[1], { disableTimeOut: true }).toastId;
+    });
   }
 
   @HostListener('document:dblclick', ['$event'])
