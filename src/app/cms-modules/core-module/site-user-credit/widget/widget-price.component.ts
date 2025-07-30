@@ -16,8 +16,8 @@ import { Subscription } from 'rxjs';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
 import { WidgetInfoModel } from 'src/app/core/models/widget-info-model';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 
 
 @Component({
@@ -57,7 +57,7 @@ export class CoreModuleSiteUserCreditWidgetPriceComponent implements OnInit, OnD
 
 
   ngOnInit() {
-    this.widgetInfoModel.title = this.translate.instant('TITLE.Evidence_Identity');
+    this.translate.get('TITLE.Evidence_Identity').subscribe((str: string) => { this.widgetInfoModel.title =  str });
     this.widgetInfoModel.description = '';
     this.widgetInfoModel.link = '/core-module/site-credit/';
 

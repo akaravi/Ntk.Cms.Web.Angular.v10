@@ -6,8 +6,8 @@ import { Subscription } from 'rxjs';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
 import { WidgetContentInfoModel, WidgetInfoModel } from 'src/app/core/models/widget-info-model';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 
 
 @Component({
@@ -39,7 +39,7 @@ export class CoreSiteWidgetCountComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.widgetInfoModel.title = this.translate.instant('TITLE.Registered_MemberSite');
+    this.translate.get('TITLE.Registered_MemberSite').subscribe((str: string) => { this.widgetInfoModel.title = str });
     this.widgetInfoModel.description = '';
     this.widgetInfoModel.link = '/core/site';
 
@@ -67,8 +67,9 @@ export class CoreSiteWidgetCountComponent implements OnInit, OnDestroy {
   }
 
   onActionStatist(): void {
-    this.publicHelper.processService.processStart(this.constructor.name + 'Active', this.translate.instant('MESSAGE.Get_active_member_sites'), this.constructorInfoAreaId);
-    this.publicHelper.processService.processStart(this.constructor.name + 'All', this.translate.instant('MESSAGE.Get_all_member_sites'), this.constructorInfoAreaId);
+
+    this.translate.get('MESSAGE.Get_active_member_sites').subscribe((str: string) => { this.publicHelper.processService.processStart(this.constructor.name + 'Active', str, this.constructorInfoAreaId); });
+    this.translate.get('MESSAGE.Get_all_member_sites').subscribe((str: string) => { this.publicHelper.processService.processStart(this.constructor.name + 'All', str, this.constructorInfoAreaId); });
     this.widgetInfoModel.setItem(new WidgetContentInfoModel('Active', 0, 0, ''));
     this.widgetInfoModel.setItem(new WidgetContentInfoModel('All', 1, 0, ''));
     this.service.ServiceGetCount(this.filteModelContent).subscribe({

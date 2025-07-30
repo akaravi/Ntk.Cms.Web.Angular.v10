@@ -11,11 +11,11 @@ import { Subscription } from 'rxjs';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
 import { WidgetInfoModel } from 'src/app/core/models/widget-info-model';
+import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 import { environment } from 'src/environments/environment';
 import { CoreUserClaimContentAddComponent } from '../add/add.component';
 import { CoreUserClaimContentEditComponent } from '../edit/edit.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
@@ -49,7 +49,7 @@ export class CoreUserClaimContentWidgetStatusComponent implements OnInit, OnDest
 
 
   ngOnInit() {
-    this.widgetInfoModel.title = this.translate.instant('TITLE.Evidence_Identity');
+    this.translate.get('TITLE.Evidence_Identity').subscribe((str: string) => { this.widgetInfoModel.title =  str });
     this.widgetInfoModel.description = '';
     this.widgetInfoModel.link = '/core/userclaim/checklist';
 

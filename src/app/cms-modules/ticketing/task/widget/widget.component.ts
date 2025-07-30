@@ -8,9 +8,9 @@ import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
 import { WidgetContentInfoModel, WidgetInfoModel } from 'src/app/core/models/widget-info-model';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 @Component({
-    selector: 'app-ticketing-task-widget',
-    templateUrl: './widget.component.html',
-    standalone: false
+  selector: 'app-ticketing-task-widget',
+  templateUrl: './widget.component.html',
+  standalone: false
 })
 export class TicketingTaskWidgetComponent implements OnInit, OnDestroy {
 
@@ -21,7 +21,7 @@ export class TicketingTaskWidgetComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
@@ -33,12 +33,12 @@ export class TicketingTaskWidgetComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.widgetInfoModel.title = this.translate.instant('TITLE.Registered_tickets');
+    this.translate.get('TITLE.Registered_tickets').subscribe((str: string) => { this.widgetInfoModel.title = str });
     this.widgetInfoModel.description = '';
     this.widgetInfoModel.link = '/ticketing/task';
     setTimeout(() => {
-      
-        this.onActionStatist();
+
+      this.onActionStatist();
     }, 1000);
 
     this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
@@ -46,7 +46,7 @@ export class TicketingTaskWidgetComponent implements OnInit, OnDestroy {
     });
 
   }
-  
+
   onActionButtonReload(): void {
     this.onActionStatist();
   }
@@ -57,10 +57,10 @@ export class TicketingTaskWidgetComponent implements OnInit, OnDestroy {
     }
   }
   onActionStatist(): void {
-    this.publicHelper.processService.processStart(this.constructor.name + 'Unread', this.translate.instant('MESSAGE.Get_unread_tickets_statistics'), this.constructorInfoAreaId);
-    this.publicHelper.processService.processStart(this.constructor.name + 'Read', this.translate.instant('MESSAGE.Get_read_tickets_statistics'), this.constructorInfoAreaId);
-    this.publicHelper.processService.processStart(this.constructor.name + 'Answered', this.translate.instant('MESSAGE.Get_answered_tickets_statistics'), this.constructorInfoAreaId);
-    this.publicHelper.processService.processStart(this.constructor.name + 'All', this.translate.instant('MESSAGE.Get_statistics_on_all_tickets'), this.constructorInfoAreaId);
+    this.translate.get('MESSAGE.Get_unread_tickets_statistics').subscribe((str: string) => { this.publicHelper.processService.processStart(this.constructor.name + 'Unread', str, this.constructorInfoAreaId) });
+    this.translate.get('MESSAGE.Get_read_tickets_statistics').subscribe((str: string) => { this.publicHelper.processService.processStart(this.constructor.name + 'Read', str, this.constructorInfoAreaId); });
+    this.translate.get('MESSAGE.Get_answered_tickets_statistics').subscribe((str: string) => { this.publicHelper.processService.processStart(this.constructor.name + 'Answered', str, this.constructorInfoAreaId); });
+    this.translate.get('MESSAGE.Get_statistics_on_all_tickets').subscribe((str: string) => { this.publicHelper.processService.processStart(this.constructor.name + 'All', str, this.constructorInfoAreaId); });
 
     this.widgetInfoModel.setItem(new WidgetContentInfoModel('Unread', 0, 0, ''));
     this.widgetInfoModel.setItem(new WidgetContentInfoModel('Read', 1, 0, ''));
