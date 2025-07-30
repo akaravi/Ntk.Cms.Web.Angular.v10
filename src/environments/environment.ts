@@ -4,7 +4,6 @@
 
 import { DeviceTypeEnum, OperatingSystemTypeEnum } from 'ntk-cms-api';
 import { EnvironmentModel } from '../app/core/models/environmentModel';
-import { LanguageFlagModel } from 'src/app/core/models/languageFlagModel';
 declare var require: any;
 
 export const environment: EnvironmentModel = {
@@ -20,8 +19,8 @@ export const environment: EnvironmentModel = {
   mainTitle: 'سامانه مدیریتی محتوا',
   cmsServerConfig: {
     configApiRetry: 1,
-    configApiServerPath: 'https://apicms.ir/api/v3/',
-    //configApiServerPath: 'https://localhost:2390/api/v3/', // Test Api
+    //configApiServerPath: 'https://apicms.ir/api/v3/',
+    configApiServerPath: 'https://localhost:2390/api/v3/', // Test Api
     //configApiServerPath: 'https://6f4pj689-7130.euw.devtunnels.ms/api/v2/', // Test Api
     //configApiServerPath: 'https://localhost:44342/api/v2/', // Test Api Docer
     configHubServerPath: 'https://apicms.ir/hub/',
