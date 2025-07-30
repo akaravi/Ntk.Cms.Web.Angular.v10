@@ -1605,6 +1605,7 @@
   "TITLE.Entering": "در حال ورود ...",
   "TITLE.FULLNAME": "نام و نام خانوادگی",
   "TITLE.Memo": "یادداشت",
+  "TABLE.undefined": "...",
   "TABLE.NewsCategory": "دسته بندی اخبار",
   "TABLE.ArticleCategory": "دسته بندی مقالات",
   "TABLE.BlogCategory": "دسته بندی بلاک",
