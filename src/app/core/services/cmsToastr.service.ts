@@ -20,439 +20,519 @@ export class CmsToastrService {
   }
   // typeOrderAction
   typeOrderActionLogout(): void {
-    this.toastr.success(this.translate.instant('ERRORMESSAGE.MESSAGE.typeOrderActionLogout'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeOrderActionLogout'));
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeOrderActionLogout', 'ERRORMESSAGE.TITLE.typeOrderActionLogout']).subscribe((str: string[]) => {
+      this.toastr.success(str[0], this.now() + str[1]);
+    });
   }
   // Success Type
   typeSuccessAccessChange(): void {
-    this.toastr.success(this.translate.instant('ERRORMESSAGE.MESSAGE.typeSuccessAccessChange'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeSuccessAccessChange'));
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeSuccessAccessChange', 'ERRORMESSAGE.TITLE.typeSuccessAccessChange']).subscribe((str: string[]) => {
+      this.toastr.success(str[0], this.now() + str[1]);
+    });
   }
   typeSuccessAddFirstSite(): void {
-    this.toastr.success(this.translate.instant('ERRORMESSAGE.MESSAGE.typeSuccessAddFirstSite'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeSuccessAddFirstSite'));
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeSuccessAddFirstSite', 'ERRORMESSAGE.TITLE.typeSuccessAddFirstSite']).subscribe((str: string[]) => {
+      this.toastr.success(str[0], this.now() + str[1]);
+    });
   }
   typeSuccessMessage(message: string): void {
     this.toastr.success(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + 'Success!');
   }
   typeSuccessCopedToClipboard(): void {
-    this.toastr.success(this.translate.instant('ERRORMESSAGE.MESSAGE.typeSuccessCopedToClipboard'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeSuccessAdd'));
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeSuccessCopedToClipboard', 'ERRORMESSAGE.TITLE.typeSuccessAdd']).subscribe((str: string[]) => {
+      this.toastr.success(str[0], this.now() + str[1]);
+    });
   }
   typeSuccessAdd(): void {
-    this.toastr.success(this.translate.instant('ERRORMESSAGE.MESSAGE.typeSuccessAdd'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeSuccessAdd'));
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeSuccessAdd', 'ERRORMESSAGE.TITLE.typeSuccessAdd']).subscribe((str: string[]) => {
+      this.toastr.success(str[0], this.now() + str[1]);
+    });
   }
   typeSuccessSend(): void {
-    this.toastr.success(this.translate.instant('ERRORMESSAGE.MESSAGE.typeSuccessSend'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeSuccessSend'));
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeSuccessSend', 'ERRORMESSAGE.TITLE.typeSuccessSend']).subscribe((str: string[]) => {
+      this.toastr.success(str[0], str[1]);
+    });
   }
   typeSuccessAddSimilar(): void {
-    this.toastr.success(this.translate.instant('ERRORMESSAGE.MESSAGE.typeSuccessAddSimilar'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeSuccessAddSimilar'));
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeSuccessAddSimilar', 'ERRORMESSAGE.TITLE.typeSuccessAddSimilar']).subscribe((str: string[]) => {
+      this.toastr.success(str[0], str[1]);
+    });
   }
   typeSuccessAddOtherInfo(): void {
-    this.toastr.success(this.translate.instant('ERRORMESSAGE.MESSAGE.typeSuccessAddOtherInfo'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeSuccessAddOtherInfo'));
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeSuccessAddOtherInfo', 'ERRORMESSAGE.TITLE.typeSuccessAddOtherInfo']).subscribe((str: string[]) => {
+      this.toastr.success(str[0], str[1]);
+    });
   }
   typeSuccessAddTag(): void {
-    this.toastr.success(this.translate.instant('ERRORMESSAGE.MESSAGE.typeSuccessAddTag'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeSuccessAddTag'));
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeSuccessAddTag', 'ERRORMESSAGE.TITLE.typeSuccessAddTag']).subscribe((str: string[]) => {
+      this.toastr.success(str[0], str[1]);
+    });
   }
   typeSuccessRemoveTag(): void {
-    this.toastr.success(this.translate.instant('ERRORMESSAGE.MESSAGE.typeSuccessRemoveTag'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeSuccessRemoveTag'));
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeSuccessRemoveTag', 'ERRORMESSAGE.TITLE.typeSuccessRemoveTag']).subscribe((str: string[]) => {
+      this.toastr.success(str[0], str[1]);
+    });
   }
-  typeSuccessSetStatus(str: string): void {
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeSuccessSetStatus');
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Success') + ': ' + str;
-    }
-    this.toastr.success(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeSuccessSetStatus'));
+  typeSuccessSetStatus(strMessage: string): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeSuccessSetStatus', 'ERRORMESSAGE.TITLE.Success', 'ERRORMESSAGE.TITLE.typeSuccessSetStatus']).subscribe((str: string[]) => {
+      let message = str[0];
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.success(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
   typeSuccessRemoveOtherInfo(): void {
-    this.toastr.success(this.translate.instant('ERRORMESSAGE.MESSAGE.typeSuccessRemoveOtherInfo'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeSuccessRemoveOtherInfo'));
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeSuccessRemoveOtherInfo', 'ERRORMESSAGE.TITLE.typeSuccessRemoveOtherInfo']).subscribe((str: string[]) => {
+      this.toastr.success(str[0], str[1]);
+    });
   }
   typeSuccessRemoveSimilar(): void {
-    this.toastr.success(this.translate.instant('ERRORMESSAGE.MESSAGE.typeSuccessRemoveSimilar'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeSuccessRemoveSimilar'));
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeSuccessRemoveSimilar', 'ERRORMESSAGE.TITLE.typeSuccessRemoveSimilar']).subscribe((str: string[]) => {
+      this.toastr.success(str[0], str[1]);
+    });
   }
   typeSuccessRemove(): void {
-    this.toastr.success(this.translate.instant('ERRORMESSAGE.MESSAGE.typeSuccessRemove'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeSuccessRemove'));
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeSuccessRemove', 'ERRORMESSAGE.TITLE.typeSuccessRemove']).subscribe((str: string[]) => {
+      this.toastr.success(str[0], str[1]);
+    });
   }
 
   typeSuccessEdit(): void {
-    // this.toastr.success('با موفقیت ویرایش شد', this.now() + 'Success!');
-    this.toastr.success(this.translate.instant('ERRORMESSAGE.MESSAGE.typeSuccessEdit'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeSuccessEdit'));
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeSuccessEdit', 'ERRORMESSAGE.TITLE.typeSuccessEdit']).subscribe((str: string[]) => {
+      this.toastr.success(str[0], str[1]);
+    });
   }
   typeSuccessChangePassword(): void {
-    // this.toastr.success('کلمه عبور شما با موفقیت ویرایش شد', this.now() + 'Success!');
-    this.toastr.success(this.translate.instant('ERRORMESSAGE.MESSAGE.typeSuccessChangePassword'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeSuccessChangePassword'));
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeSuccessChangePassword', 'ERRORMESSAGE.TITLE.typeSuccessChangePassword']).subscribe((str: string[]) => {
+      this.toastr.success(str[0], str[1]);
+    });
   }
   typeSuccessMove(): void {
-    // this.toastr.success('با موفقیت منتقل شد', this.now() + 'Success!');
-    this.toastr.success(this.translate.instant('ERRORMESSAGE.MESSAGE.typeSuccessMove'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeSuccessMove'));
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeSuccessMove', 'ERRORMESSAGE.TITLE.typeSuccessMove']).subscribe((str: string[]) => {
+      this.toastr.success(str[0], str[1]);
+    });
   }
   typeSuccessLogin(): void {
-    // this.toastr.success('با موفقیت به حساب کاربری خود وارد شدید', this.now() + 'Success!');
-    this.toastr.success(this.translate.instant('ERRORMESSAGE.MESSAGE.typeSuccessLogin'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeSuccessLogin'));
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeSuccessLogin', 'ERRORMESSAGE.TITLE.typeSuccessLogin']).subscribe((str: string[]) => {
+      this.toastr.success(str[0], str[1]);
+    });
   }
   typeSuccessLogout(): void {
-    // this.toastr.success('با موفقیت از حساب کاربری خود خارج شدید', this.now() + 'Success!');
-    this.toastr.success(this.translate.instant('ERRORMESSAGE.MESSAGE.typeSuccessLogout'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeSuccessLogout'));
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeSuccessLogout', 'ERRORMESSAGE.TITLE.typeSuccessLogout']).subscribe((str: string[]) => {
+      this.toastr.success(str[0], str[1]);
+    });
   }
   typeSuccessEmailConfirm(): void {
-    // this.toastr.success('ایمیل شما با موفقیت تایید شد', this.now() + 'Success!');
-    this.toastr.success(this.translate.instant('ERRORMESSAGE.MESSAGE.typeSuccessEmailConfirm'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeSuccessEmailConfirm'));
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeSuccessEmailConfirm', 'ERRORMESSAGE.TITLE.typeSuccessEmailConfirm']).subscribe((str: string[]) => {
+      this.toastr.success(str[0], str[1]);
+    });
   }
   typeSuccessMobileConfirm(): void {
-    // this.toastr.success('ایمیل شما با موفقیت تایید شد', this.now() + 'Success!');
-    this.toastr.success(this.translate.instant('ERRORMESSAGE.MESSAGE.typeSuccessMobileConfirm'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeSuccessMobileConfirm'));
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeSuccessMobileConfirm', 'ERRORMESSAGE.TITLE.typeSuccessMobileConfirm']).subscribe((str: string[]) => {
+      this.toastr.success(str[0], str[1]);
+    });
   }
   typeSuccessRegistery(): void {
-    // this.toastr.success('با موفقیت حساب کاربری شما ساخته شد', this.now() + 'Success!');
-    this.toastr.success(this.translate.instant('ERRORMESSAGE.MESSAGE.typeSuccessRegistery'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeSuccessRegistery'));
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeSuccessRegistery', 'ERRORMESSAGE.TITLE.typeSuccessRegistery']).subscribe((str: string[]) => {
+      this.toastr.success(str[0], str[1]);
+    });
   }
   typeSuccessSelected(): void {
-    // this.toastr.success('با موفقیت انتخاب شد', this.now() + 'Success!');
-    this.toastr.success(this.translate.instant('ERRORMESSAGE.MESSAGE.typeSuccessSelected'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeSuccessSelected'));
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeSuccessSelected', 'ERRORMESSAGE.TITLE.typeSuccessSelected']).subscribe((str: string[]) => {
+      this.toastr.success(str[0], str[1]);
+    });
   }
-  typeSuccessAppBuild(str: string): void {
-    // let message = 'دستور ساخت اپ ثب شد';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeSuccessAppBuild');
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Message') + ': ' + str;
-    }
-    this.toastr.success(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeSuccessAppBuild'));
+  typeSuccessAppBuild(strMessage: string): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeSuccessAppBuild', 'ERRORMESSAGE.TITLE.Message', 'ERRORMESSAGE.TITLE.typeSuccessAppBuild']).subscribe((str: string[]) => {
+      let message = str[0];
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.success(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
   typeSuccessAppUpload(): void {
-    // this.toastr.success('با موفقیت آپلود شد', this.now() + 'Success!');
-    this.toastr.success(this.translate.instant('ERRORMESSAGE.MESSAGE.typeSuccessAppUpload'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeSuccessAppUpload'));
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeSuccessAppUpload', 'ERRORMESSAGE.TITLE.typeSuccessAppUpload']).subscribe((str: string[]) => {
+      this.toastr.success(str[0], str[1]);
+    });
   }
   // error Type
-  typeErrorInternetConnection(str: string = ''): void {
-    // let message = 'خطا در اتصال به اینترنت.لطفا اتصال به اینترنت را بررسی کنید';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorInternetConnection');
+  typeErrorInternetConnection(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorInternetConnection', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorInternetConnection']).subscribe((str: string[]) => {
+      let message = str[0];
 
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorInternetConnection'));
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
-  typeErrorUserToken(str: string = ''): void {
-    // let message = 'حساب کاربری شما مورد تایید نمی باشد.لطفا مجدد وارد حساب کاربری شوید';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorUserToken');
+  typeErrorUserToken(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorUserToken', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorUserToken']).subscribe((str: string[]) => {
+      let message = str[0];
 
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorUserToken'));
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
-  typeErrorAccessChange(str: string = ''): void {
-    // let message = 'دسترسی جدید تایید نشد';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorAccessChange');
+  typeErrorAccessChange(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorAccessChange', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorAccessChange']).subscribe((str: string[]) => {
+      let message = str[0];
 
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorAccessChange'));
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
-  typeErrorDeviceToken(str: string = ''): void {
-    // let message = 'شناسه دستگاه شما مورد تایید نمی باشد.اطفا با پستبانی تماس بگیرید';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorDeviceToken');
+  typeErrorDeviceToken(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorDeviceToken', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorDeviceToken']).subscribe((str: string[]) => {
+      let message = str[0];
 
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorDeviceToken'));
-  }
-
-  typeErrorComponentAction(str: string = ''): void {
-    // let message = 'نوع فعالیت در این صفحه مشخص نمی باشد';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorComponentAction');
-
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorComponentAction'));
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
 
-  typeErrorFormInvalid(str: string = ''): void {
-    // let message = 'مقادیر فرم مورد تایید نمی باشد';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorFormInvalid');
+  typeErrorComponentAction(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorComponentAction', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorComponentAction']).subscribe((str: string[]) => {
+      let message = str[0];
 
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorFormInvalid'));
-  }
-  typeErrorGetAccess(str: string = ''): void {
-    // let message = 'خطا در دریافت دسترسی های ';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorGetAccess');
-
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorGetAccess'));
-  }
-  typeErrorAccessAdd(str: string = ''): void {
-    // let message = 'دسترسی اضافه کردن  ندارید';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorAccessAdd');
-
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorAccessAdd'));
-  }
-  typeErrorAccessWatch(str: string = ''): void {
-    // let message = 'دسترسی مشاهده کردن ندارید';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorAccessWatch');
-
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorAccessWatch'));
-  }
-  typeErrorAccessEdit(str: string = ''): void {
-    // let message = 'دسترسی ویرایش کردن ندارید';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorAccessEdit');
-
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorAccessEdit'));
-  }
-  typeErrorAccessDelete(str: string = ''): void {
-    // let message = 'دسترسی حذف کردن ندارید';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorAccessDelete');
-
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorAccessDelete'));
-  }
-  typeErrorGetOne(str: string = ''): void {
-    // let message = 'خطا در دریافت ردیف ';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorGetOne');
-
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorGetOne'));
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
 
-  typeErrorSetStatus(str: string = ''): void {
-    // let message = 'خطا در تغییر وضعیت ';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorSetStatus');
+  typeErrorFormInvalid(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorFormInvalid', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorFormInvalid']).subscribe((str: string[]) => {
+      let message = str[0];
 
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorSetStatus'));
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
-  typeErrorGetAll(str: string = ''): void {
-    // let message = 'خطا در دریافت لیست ';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorGetAll');
+  typeErrorGetAccess(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorGetAccess', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorGetAccess']).subscribe((str: string[]) => {
+      let message = str[0];
 
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorGetAll'));
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
+  typeErrorAccessAdd(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorAccessAdd', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorAccessAdd']).subscribe((str: string[]) => {
+      let message = str[0];
 
-  typeErrorAdd(str: string = ''): void {
-    // let message = 'خطا در اضافه کردن';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorAdd');
-
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorAdd'));
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
-  typeErrorAddSimilar(str: string = ''): void {
-    // let message = 'خطا در اضافه کردن مطالب مشابه';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorAddSimilar');
+  typeErrorAccessWatch(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorAccessWatch', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorAccessWatch']).subscribe((str: string[]) => {
+      let message = str[0];
 
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorAddSimilar'));
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
-  typeErrorAddOtherInfo(str: string = ''): void {
-    // let message = 'خطا در اضافه کردن سایر اطلاعات';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorAddOtherInfo');
+  typeErrorAccessEdit(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorAccessEdit', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorAccessEdit']).subscribe((str: string[]) => {
+      let message = str[0];
 
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorAddOtherInfo'));
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
-  typeErrorAddTag(str: string = ''): void {
-    // let message = 'خطا در اضافه کردن تگها';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorAddTag');
+  typeErrorAccessDelete(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorAccessDelete', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorAccessDelete']).subscribe((str: string[]) => {
+      let message = str[0];
 
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorAddTag'));
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
-  typeErrorRemoveTag(str: string = ''): void {
-    // let message = 'خطا در حذف کردن تگها';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorRemoveTag');
+  typeErrorGetOne(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorGetOne', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorGetOne']).subscribe((str: string[]) => {
+      let message = str[0];
 
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorRemoveTag'));
-  }
-  typeErrorRemoveOtherInfo(str: string = ''): void {
-    // let message = 'خطا در حذف کردن سایر اطلاعات';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorRemoveOtherInfo');
-
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorRemoveOtherInfo'));
-  }
-  typeErrorRemoveSimilar(str: string = ''): void {
-    // let message = 'خطا در حذف کردن اطلاعات مشابه';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorRemoveSimilar');
-
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorRemoveSimilar'));
-  }
-  typeErrorGetCpatcha(str: string = ''): void {
-    // let message = 'خطا در ساخت عکس کپچا';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorGetCpatcha');
-
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorGetCpatcha'));
-  }
-  typeErrorAddDuplicate(str: string = ''): void {
-    // let message = 'اطلاعات وارد شده تکراری است';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorAddDuplicate');
-
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorAddDuplicate'));
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
 
-  typeErrorRemove(str: string = ''): void {
-    // let message = 'خطا در حذف کردن';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorRemove');
+  typeErrorSetStatus(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorSetStatus', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorSetStatus']).subscribe((str: string[]) => {
+      let message = str[0];
 
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorRemove'));
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
+  }
+  typeErrorGetAll(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorGetAll', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorGetAll']).subscribe((str: string[]) => {
+      let message = str[0];
+
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
 
-  typeErrorEdit(str: string = ''): void {
-    // let message = 'خطا در ویرایش کردن';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorEdit');
+  typeErrorAdd(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorAdd', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorAdd']).subscribe((str: string[]) => {
+      let message = str[0];
 
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorEdit'));
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
+  }
+  typeErrorAddSimilar(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorAddSimilar', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorAddSimilar']).subscribe((str: string[]) => {
+      let message = str[0];
+
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
+  }
+  typeErrorAddOtherInfo(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorAddOtherInfo', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorAddOtherInfo']).subscribe((str: string[]) => {
+      let message = str[0];
+
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
+  }
+  typeErrorAddTag(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorAddTag', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorAddTag']).subscribe((str: string[]) => {
+      let message = str[0];
+
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
+  }
+  typeErrorRemoveTag(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorRemoveTag', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorRemoveTag']).subscribe((str: string[]) => {
+      let message = str[0];
+
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
+  }
+  typeErrorRemoveOtherInfo(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorRemoveOtherInfo', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorRemoveOtherInfo']).subscribe((str: string[]) => {
+      let message = str[0];
+
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
+  }
+  typeErrorRemoveSimilar(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorRemoveSimilar', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorRemoveSimilar']).subscribe((str: string[]) => {
+      let message = str[0];
+
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
+  }
+  typeErrorGetCpatcha(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorGetCpatcha', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorGetCpatcha']).subscribe((str: string[]) => {
+      let message = str[0];
+
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
+  }
+  typeErrorAddDuplicate(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorAddDuplicate', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorAddDuplicate']).subscribe((str: string[]) => {
+      let message = str[0];
+
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
 
-  typeErrorMove(str: string = ''): void {
-    // let message = 'خطا در جابجا کردن';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorMove');
+  typeErrorRemove(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorRemove', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorRemove']).subscribe((str: string[]) => {
+      let message = str[0];
 
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorMove'));
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
 
-  typeErrorLogin(str: string = ''): void {
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorLogin');
+  typeErrorEdit(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorEdit', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorEdit']).subscribe((str: string[]) => {
+      let message = str[0];
 
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorLogin'));
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
 
-  typeErrorEditRowIsNull(str: string = ''): void {
-    // let message = 'ردیف اطلاعات جهت ویرایش مشخص نیست';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorEditRowIsNull');
+  typeErrorMove(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorMove', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorMove']).subscribe((str: string[]) => {
+      let message = str[0];
 
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorEditRowIsNull'));
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
 
-  typeErrorDeleteRowIsNull(str: string = ''): void {
-    // let message = 'ردیف اطلاعات جهت حذف مشخص نیست';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorDeleteRowIsNull');
+  typeErrorLogin(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorLogin', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorLogin']).subscribe((str: string[]) => {
+      let message = str[0];
 
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorDeleteRowIsNull'));
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
 
-  typeErrorAddRowParentIsNull(str: string = ''): void {
-    // let message = 'ردیف والد اطلاعات جهت ثبت مشخص نیست';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorAddRowParentIsNull');
+  typeErrorEditRowIsNull(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorEditRowIsNull', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorEditRowIsNull']).subscribe((str: string[]) => {
+      let message = str[0];
 
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorAddRowParentIsNull'));
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
-  typeErrorGetPosition(str: string = ''): void {
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorGetPosition');
 
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorGetPosition'));
+  typeErrorDeleteRowIsNull(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorDeleteRowIsNull', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorDeleteRowIsNull']).subscribe((str: string[]) => {
+      let message = str[0];
+
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
-  typeErrorLogout(str: string = ''): void {
-    // let message = 'برروز خطا در خارج شدن از حساب کاربری';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorLogout');
 
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorLogout'));
+  typeErrorAddRowParentIsNull(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorAddRowParentIsNull', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorAddRowParentIsNull']).subscribe((str: string[]) => {
+      let message = str[0];
+
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
-  typeErrorRegistery(str: string = ''): void {
-    // let message = 'برروز خطا در ایجاد حساب کاربری';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorRegistery');
+  typeErrorGetPosition(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorGetPosition', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorGetPosition']).subscribe((str: string[]) => {
+      let message = str[0];
 
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorRegistery'));
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
-  typeErrorSelected(str: string = ''): void {
-    // let message = 'برروز خطا در انتخاب';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorSelected');
+  typeErrorLogout(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorLogout', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorLogout']).subscribe((str: string[]) => {
+      let message = str[0];
 
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorSelected'));
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
-  typeErrorSelectedRow(str: string = ''): void {
-    // let message = 'برروز خطا در انتخاب';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorSelectedRow');
+  typeErrorRegistery(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorRegistery', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorRegistery']).subscribe((str: string[]) => {
+      let message = str[0];
 
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorSelectedRow'));
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
+  }
+  typeErrorSelected(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorSelected', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorSelected']).subscribe((str: string[]) => {
+      let message = str[0];
+
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
+  }
+  typeErrorSelectedRow(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorSelectedRow', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorSelectedRow']).subscribe((str: string[]) => {
+      let message = str[0];
+
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
   typeErrorMessage(message: string, title: string = 'Error!'): void {
-if( message?.length>0)
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + title);
+    if (message?.length > 0)
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + title);
   }
 
-  typeError(model: any, str: string = ''): void {
+  typeError(model: any, strMessage: string = ''): void {
     console.log("Error", model);
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeError') + ' ' + str + "\n" + model.errorTypeTitle;
-    if (!model) {
-      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeError'));
+    var strTitle = 'ERRORMESSAGE.TITLE.typeError';
+
+    if (!model || model == undefined || model == null) {
+      this.translate.get(['ERRORMESSAGE.MESSAGE.typeError', strTitle]).subscribe((str: string[]) => {
+        let message = str[0] + ' ' + strMessage + "\n" + model.errorTypeTitle;
+        this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[1]);
+      });
       return;
     }
     let errorExceptionResult: ErrorExceptionResultBase;
@@ -460,69 +540,77 @@ if( message?.length>0)
       errorExceptionResult = model.error;
       if (errorExceptionResult) {
         if (errorExceptionResult.status === 401) {
-          message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeError_login') + ' ' + str;
-
-          this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeError'));
+          this.translate.get(['ERRORMESSAGE.MESSAGE.typeError_login', strTitle]).subscribe((str: string[]) => {
+            let message = str[0] + ' ' + strMessage;
+            this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[1]);
+          });
           return;
         }
       }
     }
     if (model.errors) {
       console.log(model.errors);
-      message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeError_viewConsoleLog') + ' ' + str;
-      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeError'));
+      this.translate.get(['ERRORMESSAGE.MESSAGE.typeError_viewConsoleLog', strTitle]).subscribe((str: string[]) => {
+        let message = str[0] + ' ' + strMessage;
+        this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[1]);
+      });
       return;
     } else if (model && model.errorMessage) {
-
-      message = model.errorMessage + ' ' + str;
-      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeError'));
+      this.translate.get(['ERRORMESSAGE.MESSAGE.typeError', strTitle]).subscribe((str: string[]) => {
+        let message = str[0] + ' ' + strMessage;
+        this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[1]);
+      });
     }
-
-    message = (model.message) ? model.message : model.status ? `${model.status} - ${model.statusText}` : 'Server error';
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeError'));
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeError', strTitle]).subscribe((str: string[]) => {
+      let message = str[0] + ' ' + (model.message) ? model.message : model.status ? `${model.status} - ${model.statusText}` : 'Server error';
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[1]);
+    });
 
     return;
 
   }
-  typeErrorForNotComplete(str: string = ''): void {
-    // let message = 'فرم کامل نیست';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorForNotComplete');
+  typeErrorForNotComplete(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorForNotComplete', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorForNotComplete']).subscribe((str: string[]) => {
+      let message = str[0];
 
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorForNotComplete'));
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.error(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
 
-  typeWarningRecordStatusNoAvailable(str: string = ''): void {
+  typeWarningRecordStatusNoAvailable(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeWarningRecordStatusNoAvailable', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorSelected']).subscribe((str: string[]) => {
+      let message = str[0];
 
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeWarningRecordStatusNoAvailable');
-
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.warning(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorSelected'));
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.warning(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
   typeWarningMessage(message: string, title: string = 'Warning!'): void {
-
     this.toastr.warning(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + title);
   }
-  typeWarningSelected(str: string = ''): void {
-    // let message = 'برروز خطا در انتخاب';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorSelected');
+  typeWarningSelected(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorSelected', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorSelected']).subscribe((str: string[]) => {
+      let message = str[0];
 
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.warning(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorSelected'));
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.warning(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
-  typeWarning(str: string = ''): void {
-    // let message = 'برروز خطا در انتخاب';
-    let message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorSelected');
+  typeWarning(strMessage: string = ''): void {
+    this.translate.get(['ERRORMESSAGE.MESSAGE.typeErrorSelected', 'ERRORMESSAGE.TITLE.Error', 'ERRORMESSAGE.TITLE.typeErrorSelected']).subscribe((str: string[]) => {
+      let message = str[0];
 
-    if (str?.length > 0) {
-      message = message + ' ' + this.translate.instant('ERRORMESSAGE.TITLE.Error') + ': ' + str;
-    }
-    this.toastr.warning(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + this.translate.instant('ERRORMESSAGE.TITLE.typeErrorSelected'));
+      if (strMessage?.length > 0) {
+        message = message + ' ' + str[1] + ': ' + strMessage;
+      }
+      this.toastr.warning(message.replace(/(?:\r\n|\r|\n)/g, '<br>'), this.now() + str[2]);
+    });
   }
 }

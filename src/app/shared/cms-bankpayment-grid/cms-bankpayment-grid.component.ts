@@ -10,9 +10,9 @@ import { NodeInterface } from 'ntk-cms-filemanager';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 
 @Component({
-    selector: 'app-cms-bankpayment-grid',
-    templateUrl: './cms-bankpayment-grid.component.html',
-    standalone: false
+  selector: 'app-cms-bankpayment-grid',
+  templateUrl: './cms-bankpayment-grid.component.html',
+  standalone: false
 })
 export class CmsBankpaymentGridComponent implements OnInit {
   static nextId = 0;
@@ -58,7 +58,7 @@ export class CmsBankpaymentGridComponent implements OnInit {
           if (ret.isSuccess) {
             this.dataModelResult = ret;
             if (!this.dataModelResult.listItems || this.dataModelResult.listItems.length == 0) {
-              this.errorMessage = this.translate.instant('MESSAGE.Payment_portal_is_not_active');
+              this.translate.get('TITLE.Payment_portal_is_not_active').subscribe((str: string) => { this.errorMessage = str });
             } else if (this.dataModelResult.listItems && this.dataModelResult.listItems.length == 1) {
               this.onActionSelectBank(this.dataModelResult.listItems[0]);
             }
@@ -86,7 +86,7 @@ export class CmsBankpaymentGridComponent implements OnInit {
           if (ret.isSuccess) {
             this.dataModelResult = ret;
             if (!this.dataModelResult.listItems || this.dataModelResult.listItems.length == 0) {
-              this.errorMessage = this.translate.instant('MESSAGE.Payment_portal_is_not_active');
+              this.translate.get('Payment_portal_is_not_active').subscribe((str: string) => { this.errorMessage = str });
             } else if (this.dataModelResult.listItems && this.dataModelResult.listItems.length == 1) {
               this.onActionSelectBank(this.dataModelResult.listItems[0]);
             }

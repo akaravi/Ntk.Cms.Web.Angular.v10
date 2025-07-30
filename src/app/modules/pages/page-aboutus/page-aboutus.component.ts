@@ -47,7 +47,7 @@ export class PageAboutusComponent implements OnInit {
   dataModelResult: ErrorExceptionResult<CoreSiteModel> = new ErrorExceptionResult<CoreSiteModel>();
   loadDemoTheme = environment.loadDemoTheme;
   ngOnInit(): void {
-    this.pageInfo.updateTitle(this.translate.instant('ACTION.ABOUT'));
+    this.translate.get('ACTION.ABOUT').subscribe((str: string) => { this.pageInfo.updateTitle(str); });
   }
   ngOnDestroy(): void {
     this.cmsApiStoreSubscribe.unsubscribe();

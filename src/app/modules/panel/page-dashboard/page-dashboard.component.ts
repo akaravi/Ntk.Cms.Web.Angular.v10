@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { CoreCpMainMenuModel, CoreCpMainMenuService, CoreModuleModel, ErrorExceptionResult, TokenInfoModelV3 } from 'ntk-cms-api';
 import { Subscription } from 'rxjs';
@@ -58,7 +58,7 @@ export class PageDashboardComponent implements OnInit {
       this.cdr.detectChanges();
     });
     localStorage.removeItem('siteId');
-    this.pageInfo.updateTitle(this.translate.instant('ROUTE.DASHBOARD'));
+    this.translate.get('ROUTE.DASHBOARD').subscribe((str: string) => { this.pageInfo.updateTitle(str); });
   }
   async getCurrentSiteModule(): Promise<void> {
     this.dataCoreModuleModelResult = this.cmsStoreService.getStateSnapshot().coreModuleResultStore;

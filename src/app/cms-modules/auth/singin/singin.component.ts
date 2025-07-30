@@ -67,7 +67,8 @@ export class AuthSingInComponent implements OnInit, OnDestroy {
     if (this.firstRun) {
       this.dataModel.captchaText = '0000';
     }
-    this.pageInfo.updateTitle(this.translate.instant('AUTH.SINGINBYSMS.TITLE'));
+    this.translate.get('AUTH.SINGINBYSMS.TITLE').subscribe((str: string) => { this.pageInfo.updateTitle(str); });
+
   }
   ngOnDestroy() {
     if (this.unsubscribe)
@@ -97,11 +98,13 @@ export class AuthSingInComponent implements OnInit, OnDestroy {
                 this.cmsStoreService.setState({ type: SET_TOKEN_INFO, payload: ret.item });
                 if (ret.item.access.siteId > 0) {
                   this.onNavigate = true;
-                  setTimeout(() => this.router.navigate(['/dashboard']), 500);
+                  //setTimeout(() => this.router.navigate(['/dashboard']), 500);
+                  this.router.navigate(['/dashboard'])
                 }
                 else {
                   this.onNavigate = true;
-                  setTimeout(() => this.router.navigate(['/core/site/selection']), 500);
+                  //setTimeout(() => this.router.navigate(['/core/site/selection']), 500);
+                  this.router.navigate(['/core/site/selection'])
                 }
               }
             }

@@ -112,7 +112,9 @@ export class ApiTelegramActionSendMessageComponent implements OnInit {
       });
     }
     if (this.dataModel.chatId.length == 0) {
-      this.cmsToastrService.typeWarning(this.translate.instant('MESSAGE.Recipient_list_is_not_valid'));
+      this.translate.get('MESSAGE.Recipient_list_is_not_valid').subscribe((str: string) => {
+        this.cmsToastrService.typeWarning(str);
+      });
       return;
     }
     this.formInfo.formSubmitAllow = false;
@@ -124,8 +126,9 @@ export class ApiTelegramActionSendMessageComponent implements OnInit {
   }
   onActionSelectorSelect(model: ApiTelegramBotConfigModel | null): void {
     if (!model || model.id <= 0) {
-      const message = this.translate.instant('MESSAGE.Select_the_Telegram_bot');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Select_the_Telegram_bot').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.dataModel.botId = model.id;

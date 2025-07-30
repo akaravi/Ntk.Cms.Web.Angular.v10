@@ -501,7 +501,7 @@ export class PublicHelper {
       if (cloumn.indexOf('LinkSiteId') >= 0)
         cloumnAdminAccessDispaly.push('LinkSiteId');
     }
-    if (token.access.userAccessAdminAllowToAllData || token.access.userAccessAdminAllowToProfessionalData) {
+    if (token.access && (token.access.userAccessAdminAllowToAllData || token.access.userAccessAdminAllowToProfessionalData)) {
       var i = 0;
       cloumnAdminAccessDispaly.forEach(element => {
         cloumn = this.listAddIfNotExist(cloumn, element, ++i);

@@ -57,8 +57,11 @@ export class ApplicationAppWidgetComponent implements OnInit, OnDestroy {
     }
   }
   onActionStatist(): void {
-    this.publicHelper.processService.processStart(this.constructor.name + 'Active', this.translate.instant('MESSAGE.Get_active_application_statistics'));
-    this.publicHelper.processService.processStart(this.constructor.name + 'All', this.translate.instant('MESSAGE.Get_statistics_on_all_applications'));
+    this.translate.get(['MESSAGE.Get_active_application_statistics', 'MESSAGE.Get_statistics_on_all_applications']).subscribe((str: string[]) => {
+      this.publicHelper.processService.processStart(this.constructor.name + 'Active', str[0]);
+      this.publicHelper.processService.processStart(this.constructor.name + 'All', str[1]);
+    });
+
     this.widgetInfoModel.setItem(new WidgetContentInfoModel('Active', 0, 0, ''));
     this.widgetInfoModel.setItem(new WidgetContentInfoModel('All', 1, 0, ''));
     this.service.ServiceGetCount(this.filteModelContent).subscribe({

@@ -16,10 +16,10 @@ enum ErrorStates {
   NoError,
 }
 @Component({
-    selector: 'app-auth-forgot-password',
-    templateUrl: './forgot-password.component.html',
-    styleUrls: ['./forgot-password.component.scss'],
-    standalone: false
+  selector: 'app-auth-forgot-password',
+  templateUrl: './forgot-password.component.html',
+  styleUrls: ['./forgot-password.component.scss'],
+  standalone: false
 })
 export class AuthForgotPasswordComponent implements OnInit {
   constructorInfoAreaId = this.constructor.name;
@@ -53,7 +53,7 @@ export class AuthForgotPasswordComponent implements OnInit {
   onCaptchaOrderInProcess = false;
   ngOnInit(): void {
     this.onCaptchaOrder();
-    this.pageInfo.updateTitle(this.translate.instant('AUTH.FORGOT.TITLE'));
+    this.translate.get('AUTH.FORGOT.TITLE').subscribe((str: string) => { this.pageInfo.updateTitle(str); });
   }
   onActionSubmitOrderCodeBySms(): void {
     this.formInfo.buttonSubmittedEnabled = false;

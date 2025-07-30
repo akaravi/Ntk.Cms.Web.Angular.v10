@@ -11,6 +11,8 @@ import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 import { PageInfoService } from 'src/app/core/services/page-info.service';
 import { environment } from 'src/environments/environment';
 import { SingupRuleComponent } from '../singupRule/singupRule.Component';
+import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { SET_TOKEN_INFO } from 'src/app/core/reducers/reducer.factory';
 @Component({
   selector: 'app-auth-singup',
   templateUrl: './singup.component.html',
@@ -27,6 +29,7 @@ export class AuthSingUpComponent implements OnInit, OnDestroy {
     public publicHelper: PublicHelper,
     public translate: TranslateService,
     public pageInfo: PageInfoService,
+    private cmsStoreService:CmsStoreService,
 
   ) {
     this.publicHelper.processService.cdr = this.cdr;
@@ -45,14 +48,14 @@ export class AuthSingUpComponent implements OnInit, OnDestroy {
   onCaptchaOrderInProcess = false;
   RePasswordModel = '';
   PasswordView = false;
-  loginAuto = false;
+  loginAuto = true;
   hidePassword = true;
   loadDemoTheme = environment.loadDemoTheme;
   onNavigate = false;
 
   ngOnInit(): void {
     this.onCaptchaOrder();
-    this.pageInfo.updateTitle(this.translate.instant('AUTH.REGISTER.SIGNUP'));
+    this.translate.get('AUTH.REGISTER.SIGNUP').subscribe((str: string) => { this.pageInfo.updateTitle(str); });
   }
   ngOnDestroy(): void {
   }
@@ -146,14 +149,17 @@ export class AuthSingUpComponent implements OnInit, OnDestroy {
               next: (res) => {
                 if (res.isSuccess) {
                   this.cmsToastrService.typeSuccessLogin();
-                  //if (res.item.siteId > 0) {
-                  this.onNavigate = true;
-                  setTimeout(() => this.router.navigate(['/dashboard']), 500);
-                  // }
-                  // else {
-                  //   this.onNavigate = true;
-                  //   setTimeout(() => this.router.navigate(['/core/site/selection']), 500);
-                  // }
+                  this.cmsStoreService.setState({ type: SET_TOKEN_INFO, payload: ret.item });
+                  if (ret.item.access.siteId > 0) {
+                    this.onNavigate = true;
+                    //setTimeout(() => this.router.navigate(['/dashboard']), 500);
+                    this.router.navigate(['/dashboard'])
+                  }
+                  else {
+                    this.onNavigate = true;
+                    //setTimeout(() => this.router.navigate(['/core/site/selection']), 500);
+                    this.router.navigate(['/core/site/selection'])
+                  }
                 } else {
                   this.formInfo.buttonSubmittedEnabled = true;
                   this.cmsToastrService.typeErrorLogin(res.errorMessage);

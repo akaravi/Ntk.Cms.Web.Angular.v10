@@ -68,7 +68,7 @@ export class AuthSingInBySmsComponent implements OnInit, OnDestroy {
   private unsubscribe: Subscription[] = [];
   ngOnInit(): void {
     this.onCaptchaOrder();
-    this.pageInfo.updateTitle(this.translate.instant('AUTH.SINGINBYSMS.TITLE'));
+    this.translate.get('AUTH.SINGINBYSMS.TITLE').subscribe((str: string) => { this.pageInfo.updateTitle(str); });
   }
   prorocess: processModel;
   buttonnResendSmsDisable = true;

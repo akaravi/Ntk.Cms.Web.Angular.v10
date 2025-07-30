@@ -77,7 +77,7 @@ export class PageContactusComponent extends AddBaseComponent<TicketingTaskServic
   enumFormSubmitedStatus = FormSubmitedStatusEnum;
   onCaptchaOrderInProcess = false;
   ngOnInit(): void {
-    this.pageInfo.updateTitle(this.translate.instant('ACTION.CONTACT'));
+    this.translate.get('ACTION.CONTACT').subscribe((str: string) => { this.pageInfo.updateTitle(str); });
     this.requestLinkDepartemenId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkDepartemenId'));
     this.onCaptchaOrder();
 
@@ -140,8 +140,7 @@ export class PageContactusComponent extends AddBaseComponent<TicketingTaskServic
 
   onActionSelectorSelect(model: TicketingTemplateModel | null): void {
     if (!model || model.id <= 0) {
-      const message = this.translate.instant('MESSAGE.Information_template_is_not_clear');
-      this.cmsToastrService.typeWarningSelected(message);
+      this.translate.get('MESSAGE.Information_template_is_not_clear').subscribe((str: string) => { this.cmsToastrService.typeWarningSelected(str); });
       return;
     }
     this.dataModel.htmlBody = model.htmlBody;
@@ -154,10 +153,9 @@ export class PageContactusComponent extends AddBaseComponent<TicketingTaskServic
 
   onActionSelectSource(model: ApplicationSourceModel | null): void {
     if (!model || model.id <= 0) {
-      this.cmsToastrService.typeErrorMessage(
-        this.translate.instant('MESSAGE.Specify_the_source'),
-        this.translate.instant('MESSAGE.The_source_of_the_information_application_is_not_known')
-      );
+      this.translate.get(['MESSAGE.Specify_the_source', 'MESSAGE.The_source_of_the_information_application_is_not_known']).subscribe((str: string[]) => {
+        this.cmsToastrService.typeErrorMessage(str[0], str[1]);
+      });
       return;
     }
     this.dataModel.linkTicketingDepartemenId = model.id;

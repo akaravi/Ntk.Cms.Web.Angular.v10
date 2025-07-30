@@ -3,7 +3,7 @@
 
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, firstValueFrom } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LOCALIZATION_LOCAL_STORAGE_KEY } from '../models/constModel';
 
@@ -49,17 +49,17 @@ export class CmsTranslationService {
     return this.getSelectedLanguage
   }
 
-  instantDefault(key: string | Array<string>, interpolateParams?: Object): string | any {
-    return this.translate.instant(key);
-  }
+  // instantDefault(key: string | Array<string>, interpolateParams?: Object): string | any {
+  //   return this.translate.instant(key);
+  // }
 
-  instant(key: string | Array<string>, interpolateParams?: Object): string | any {
-    return this.translate.instant(key);
-  }
+  // instant(key: string | Array<string>, interpolateParams?: Object): string | any {
+  //   return this.translate.instant(key);
+  // }
 
-  get(key: string | Array<string>, interpolateParams?: Object): Observable<string | any> {
-    return this.translate.get(key);
-  }
+  // get(key: string | Array<string>, interpolateParams?: Object): Observable<string | any> {
+  //   return this.translate.get(key);
+  // }
 
 
 

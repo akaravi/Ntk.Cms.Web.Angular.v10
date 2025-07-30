@@ -2,17 +2,18 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import {
   CoreAuthV3Service,
+  DeviceTypeEnum, ErrorExceptionResult,
   ManageUserAccessUserTypesEnum,
+  OperatingSystemTypeEnum,
   TokenDeviceClientInfoDtoModel,
   TokenDeviceModel,
   TokenInfoModelV3
 } from 'ntk-cms-api';
 import { Observable, catchError, finalize, firstValueFrom, map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { CmsTranslationService } from '../i18n';
 import { CmsStoreService } from '../reducers/cmsStore.service';
 import { SET_TOKEN_DEVICE, SET_TOKEN_INFO } from '../reducers/reducer.factory';
-import { DeviceTypeEnum, ErrorExceptionResult, OperatingSystemTypeEnum } from 'ntk-cms-api';
-import { CmsTranslationService } from '../i18n';
 
 
 @Injectable({
@@ -36,7 +37,7 @@ export class TokenHelper {
   public ngOnInitAppMain() {
 
   }
-  private userTokenCtor(): Observable<void> {
+  private async userTokenCtor(): Promise<Observable<void>> {
     const tokenStr = this.coreAuthService.getUserToken();
     if (!tokenStr || tokenStr.length === 0)
       this.tokenInfo = new TokenInfoModelV3();
@@ -48,7 +49,7 @@ export class TokenHelper {
     if (this.tokenInfo && this.tokenInfo?.access)
       return new Observable<void>;
     //step 3
-    return this.coreAuthService.ServiceCurrentToken().pipe(
+    const value = await firstValueFrom(this.coreAuthService.ServiceCurrentToken().pipe(
       map((ret: ErrorExceptionResult<TokenInfoModelV3>) => {
         this.tokenInfo = ret.item;
         this.cmsStoreService.setState({ type: SET_TOKEN_INFO, payload: ret.item });
@@ -60,11 +61,11 @@ export class TokenHelper {
         return of(undefined);
       }),
       finalize(() => { })
-    );
-
+    ));
+    return new Observable<void>;
   }
 
-  private deviceTokenCtor(): Observable<void> {
+  private async deviceTokenCtor(): Promise<Observable<void>> {
     const tokenStr = this.coreAuthService.getDeviceToken();
     if (!tokenStr || tokenStr.length === 0)
       this.deviceTokenInfo = new TokenDeviceModel();
@@ -95,19 +96,22 @@ export class TokenHelper {
     if (this.deviceTokenInfo && this.deviceTokenInfo.deviceToken)
       return new Observable<void>;
     //step 3
-    return this.coreAuthService.ServiceGetTokenDevice(model).pipe(
-      map((ret: ErrorExceptionResult<TokenDeviceModel>) => {
-        this.deviceTokenInfo = ret.item;
-        this.cmsStoreService.setState({ type: SET_TOKEN_DEVICE, payload: ret.item });
-        return;
-      }),
-      catchError((err) => {
-        if (environment.consoleLog)
-          console.log("Error_TOKEN_INFO");
-        return of(undefined);
-      }),
-      finalize(() => { })
+    const value = await firstValueFrom(
+      this.coreAuthService.ServiceGetTokenDevice(model).pipe(
+        map((ret: ErrorExceptionResult<TokenDeviceModel>) => {
+          this.deviceTokenInfo = ret.item;
+          this.cmsStoreService.setState({ type: SET_TOKEN_DEVICE, payload: ret.item });
+          return;
+        }),
+        catchError((err) => {
+          if (environment.consoleLog)
+            console.log("Error_TOKEN_INFO");
+          return of(undefined);
+        }),
+        finalize(() => { })
+      )
     );
+    return new Observable<void>;
   }
 
   private tokenInfo: TokenInfoModelV3 = new TokenInfoModelV3();
