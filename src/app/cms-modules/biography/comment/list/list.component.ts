@@ -397,7 +397,12 @@ export class BiographyCommentListComponent extends ListBaseComponent<BiographyCo
       return;
     }
     const pName = this.constructor.name + "ServiceGetOneById";
-    this.publicHelper.processService.processStart(pName, this.translate.instant('MESSAGE.Get_biographical_information'), this.constructorInfoAreaId);
+
+
+
+    this.translate.get('MESSAGE.Get_biographical_information').subscribe((str: string) => {
+      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
+     });
     this.biographyContentService
       .ServiceGetOneById(this.tableRowSelected.linkContentId)
       .subscribe({
@@ -461,7 +466,10 @@ export class BiographyCommentListComponent extends ListBaseComponent<BiographyCo
     this.onActionTableRowSelect(model);
 
     const pName = this.constructor.name + "ServiceGetOneById";
-    this.publicHelper.processService.processStart(pName, this.translate.instant('MESSAGE.Get_biographical_information'), this.constructorInfoAreaId);
+    this.translate.get('MESSAGE.Get_biographical_information').subscribe((str: string) => {
+      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
+     });
+
     this.biographyContentService
       .ServiceGetOneById(this.tableRowSelected.linkContentId)
       .subscribe({

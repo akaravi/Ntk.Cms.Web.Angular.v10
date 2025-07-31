@@ -155,7 +155,9 @@ export class CoreSiteDomainAliasEditComponent extends EditBaseComponent<CoreSite
       return;
     }
     if (!this.dataModel.linkCmsSiteId || this.dataModel.linkCmsSiteId <= 0) {
-      this.cmsToastrService.typeErrorEdit(this.translate.instant('MESSAGE.Website_ID_is_not_specified'));
+      this.translate.get('MESSAGE.Website_ID_is_not_specified').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorEdit(str);
+      });
       return;
     }
     this.formInfo.formSubmitAllow = false;

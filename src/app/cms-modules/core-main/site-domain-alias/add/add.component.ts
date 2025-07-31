@@ -102,7 +102,9 @@ export class CoreSiteDomainAliasAddComponent extends AddBaseComponent<CoreSiteDo
       return;
     }
     if (!this.dataModel.linkCmsSiteId || this.dataModel.linkCmsSiteId <= 0) {
-      this.cmsToastrService.typeErrorAdd(this.translate.instant('MESSAGE.Website_ID_is_not_specified'));
+      this.translate.get('MESSAGE.Website_ID_is_not_specified').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorAdd(str);
+      });
       return;
     }
     this.formInfo.formSubmitAllow = false;

@@ -154,10 +154,9 @@ export class CoreModuleSaleHeaderEditComponent extends EditBaseComponent<CoreMod
   }
   onActionSelectHeaderGroup(model: CoreModuleSaleHeaderGroupModel | null): void {
     if (!model || model.id <= 0) {
-      this.cmsToastrService.typeErrorMessage(
-        this.translate.instant('MESSAGE.Specify_the_category'),
-        this.translate.instant('MESSAGE.category_of_information_is_not_clear')
-      );
+      this.translate.get(['MESSAGE.Specify_the_category', 'MESSAGE.category_of_information_is_not_clear']).subscribe((str: any) => {
+        this.cmsToastrService.typeErrorMessage(str['MESSAGE.Specify_the_category'], str['MESSAGE.category_of_information_is_not_clear']);
+      });
       return;
     }
     this.dataModel.linkModuleSaleHeaderGroupId = model.id;

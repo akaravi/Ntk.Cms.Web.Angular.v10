@@ -380,7 +380,9 @@ export class ArticleContentListComponent extends ListBaseComponent<ArticleConten
 
   onActionButtonComment(model: ArticleContentModel = this.tableRowSelected, event?: MouseEvent): void {
     if (!model || !model.id || model.id === 0) {
-      this.cmsToastrService.typeErrorSelected(this.translate.instant('MESSAGE.No_row_selected_for_editing'));
+      this.translate.get('MESSAGE.No_row_selected_for_editing').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
 

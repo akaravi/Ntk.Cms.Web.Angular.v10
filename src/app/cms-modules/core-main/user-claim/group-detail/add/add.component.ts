@@ -117,10 +117,9 @@ export class CoreUserClaimGroupDetailAddComponent extends AddBaseComponent<CoreU
   }
   onActionSelectClaimGroup(model: CoreUserClaimGroupModel | null): void {
     if (!model || model.id <= 0) {
-      this.cmsToastrService.typeErrorMessage(
-        this.translate.instant('MESSAGE.Specify_the_category'),
-        ('MESSAGE.group_of_information_documents_is_not_clear')
-      );
+      this.translate.get(['MESSAGE.Specify_the_category', 'MESSAGE.group_of_information_documents_is_not_clear']).subscribe((str: any) => {
+        this.cmsToastrService.typeErrorMessage(str['MESSAGE.Specify_the_category'], str['MESSAGE.group_of_information_documents_is_not_clear']);
+      });
       return;
     }
     this.dataModel.linkUserClaimGroupId = model.id;

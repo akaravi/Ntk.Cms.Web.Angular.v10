@@ -125,8 +125,7 @@ export class ContactContentAddComponent extends AddBaseComponent<ContactContentS
 
   onActionSelectCategory(model: ContactCategoryModel | null): void {
     if (!model || model.id?.length == 0) {
-      const message = this.translate.instant('MESSAGE.Category_is_not_clear');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Category_is_not_clear').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str);});
       return;
     }
     this.dataModel.linkCategoryId = model.id;

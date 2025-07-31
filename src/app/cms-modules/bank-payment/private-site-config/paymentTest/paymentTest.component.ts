@@ -64,7 +64,9 @@ export class BankPaymentPrivateSiteConfigPaymentTestComponent implements OnInit 
   }
   onGotoBank(): void {
     if (this.dataModelResultGotoBank && this.dataModelResult.isSuccess && this.dataModelResult.item.urlToPay.length > 0) {
-      this.cmsToastrService.typeSuccessMessage(this.translate.instant('MESSAGE.Transferring_to_the_payment_gateway'));
+      this.translate.get('MESSAGE.Transferring_to_the_payment_gateway').subscribe((str: string) => {
+        this.cmsToastrService.typeSuccessMessage(str);
+      });
 
       this.document.location.href = this.dataModelResult.item.urlToPay;
     }
@@ -92,8 +94,10 @@ export class BankPaymentPrivateSiteConfigPaymentTestComponent implements OnInit 
           this.dataModelResult = ret;
           if (ret.isSuccess) {
             localStorage.setItem('TransactionId', ret.item.transactionId.toString());
-            this.formInfo.formAlert = this.translate.instant('MESSAGE.Payment_request_was_successfully_registered');
-            this.cmsToastrService.typeSuccessMessage(this.translate.instant('MESSAGE.Payment_request_was_successfully_registered'));
+            this.translate.get('MESSAGE.Payment_request_was_successfully_registered').subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+              this.cmsToastrService.typeSuccessMessage(str);
+            });
             this.dataModelResultGotoBank = true;
           } else {
             this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });

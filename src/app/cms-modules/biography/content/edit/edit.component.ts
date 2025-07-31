@@ -189,10 +189,14 @@ export class BiographyContentEditComponent extends EditBaseComponent<BiographyCo
   }
   DataTagGetAll(): void {
     this.formInfo.formSubmitAllow = false;
-    this.formInfo.formAlert = this.translate.instant('MESSAGE.Receiving_tag_information_from_the_server');
+    this.translate.get('MESSAGE.Receiving_tag_information_from_the_server').subscribe((str: string) => {
+      this.formInfo.formAlert = str;
+    });
     this.formInfo.formError = '';
     const pName = this.constructor.name + 'main';
-    this.publicHelper.processService.processStart(pName, this.translate.instant('MESSAGE.Receiving_tag_information_from_the_server'), this.constructorInfoAreaId);
+    this.translate.get('MESSAGE.Receiving_tag_information_from_the_server').subscribe((str: string) => {
+      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
+    });
     const filterModel = new FilterModel();
     const aaa3 = {
       PropertyName: 'LinkContentId',
@@ -492,7 +496,9 @@ export class BiographyContentEditComponent extends EditBaseComponent<BiographyCo
   }
   DataCategoryGetAll(): void {
     this.formInfo.formSubmitAllow = false;
-    this.formInfo.formAlert = this.translate.instant('MESSAGE.get_category_information_from_the_server');
+    this.translate.get('MESSAGE.get_category_information_from_the_server').subscribe((str: string) => {
+      this.formInfo.formAlert = str;
+    });
     this.formInfo.formError = '';
     const pName = this.constructor.name + 'main';
     this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {

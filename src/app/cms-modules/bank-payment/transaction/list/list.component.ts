@@ -345,7 +345,9 @@ export class BankPaymentTransactionListComponent extends ListBaseComponent<BankP
     if (!model.paymentTransactionUrl || model.paymentTransactionUrl.length === 0) {
       return;
     }
-    this.cmsToastrService.typeSuccessMessage(this.translate.instant('MESSAGE.Transferring_to_the_payment_gateway'));
+    this.translate.get('MESSAGE.Transferring_to_the_payment_gateway').subscribe((str: string) => {
+      this.cmsToastrService.typeSuccessMessage(str);
+    });
     this.document.location.href = model.paymentTransactionUrl;
   }
   onActionButtonNotifictionActionSend(model: BankPaymentTransactionModel = this.tableRowSelected): void {

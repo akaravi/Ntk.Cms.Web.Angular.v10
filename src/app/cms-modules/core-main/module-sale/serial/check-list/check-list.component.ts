@@ -160,7 +160,9 @@ export class CoreModuleSaleSerialCheckListComponent implements OnInit, OnDestroy
       next: (ret) => {
         if (ret.isSuccess) {
           this.dataModelRegResult = ret;
-          this.cmsToastrService.typeSuccessMessage(this.translate.instant('MESSAGE.The_series_was_successfully_registered_for_you'));
+          this.translate.get('MESSAGE.The_series_was_successfully_registered_for_you').subscribe((str: string) => {
+            this.cmsToastrService.typeSuccessMessage(str);
+          });
         }
         else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -180,21 +182,24 @@ export class CoreModuleSaleSerialCheckListComponent implements OnInit, OnDestroy
 
   onActionButtonReload(): void {
     if (!this.dataModel || !this.dataModel.serialNumber || this.dataModel.serialNumber.length === 0) {
-      const message = this.translate.instant('MESSAGE.Serial_value_is_not_entered_correctly');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Serial_value_is_not_entered_correctly').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.DataCheckUseSerialForSite(this.dataModel.serialNumber);
   }
   onActionButtonBuy(): void {
     if (!this.dataModel || !this.dataModel.serialNumber || this.dataModel.serialNumber.length === 0) {
-      const message = this.translate.instant('MESSAGE.Serial_value_is_not_entered_correctly');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Serial_value_is_not_entered_correctly').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     if (!this.dataModel || !this.dataModel.pwdForUse || this.dataModel.pwdForUse.length === 0) {
-      const message = this.translate.instant('MESSAGE.Password_value_is_not_entered_correctly');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Password_value_is_not_entered_correctly').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.RegisterUseSerialForSite(this.dataModel);

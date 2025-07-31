@@ -102,7 +102,9 @@ export class CoreSiteAddComponent extends AddBaseComponent<CoreSiteService, Core
       return;
     }
     if (this.dataModel.linkCreatedBySiteId <= 0) {
-      this.cmsToastrService.typeErrorAdd(this.translate.instant('MESSAGE.Specify_the_source_code_of_the_program'));
+      this.translate.get('MESSAGE.Specify_the_source_code_of_the_program').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorAdd(str);
+      });
       return;
     }
     this.dataModel.seoKeyword = '';
@@ -223,12 +225,13 @@ export class CoreSiteAddComponent extends AddBaseComponent<CoreSiteService, Core
     this.dataModel.linkImageLogoId = model.id;
     this.dataModel.linkImageLogoIdSrc = model.downloadLinksrc;
   }
-  onActionSelectCategory(model: CoreSiteCategoryModel | null): void {
-    if (!model || model.id <= 0) {
-      const message = this.translate.instant('MESSAGE.category_of_site_is_not_clear');
-      this.cmsToastrService.typeErrorSelected(message);
-      return;
-    }
+      onActionSelectCategory(model: CoreSiteCategoryModel | null): void {
+      if (!model || model.id <= 0) {
+        this.translate.get('MESSAGE.category_of_site_is_not_clear').subscribe((str: string) => {
+          this.cmsToastrService.typeWarningSelected(str);
+        });
+        return;
+      }
     this.dataModel.linkSiteCategoryId = model.id;
   }
   /**

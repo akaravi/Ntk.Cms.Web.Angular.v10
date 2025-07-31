@@ -147,20 +147,18 @@ export class CoreUserClaimContentAddComponent extends AddBaseComponent<CoreUserC
   }
   onActionSelectUser(model: CoreUserModel | null): void {
     if (!model || model.id <= 0) {
-      this.cmsToastrService.typeErrorMessage(
-        this.translate.instant('MESSAGE.Specify_the_user'),
-        this.translate.instant('MESSAGE.Information_user_is_not_clear')
-      );
+      this.translate.get(['MESSAGE.Specify_the_user', 'MESSAGE.Information_user_is_not_clear']).subscribe((str: any) => {
+        this.cmsToastrService.typeErrorMessage(str['MESSAGE.Specify_the_user'], str['MESSAGE.Information_user_is_not_clear']);
+      });
       return;
     }
     this.dataModel.linkUserId = model.id;
   }
   onActionSelectSite(model: CoreSiteModel | null): void {
     if (!model || model.id <= 0) {
-      this.cmsToastrService.typeErrorMessage(
-        this.translate.instant('MESSAGE.Specify_the_site'),
-        this.translate.instant('MESSAGE.Information_site_is_not_clear')
-      );
+      this.translate.get(['MESSAGE.Specify_the_site', 'MESSAGE.Information_site_is_not_clear']).subscribe((str: any) => {
+        this.cmsToastrService.typeErrorMessage(str['MESSAGE.Specify_the_site'], str['MESSAGE.Information_site_is_not_clear']);
+      });
       return;
     }
     this.dataModel.linkSiteId = model.id;
@@ -168,10 +166,9 @@ export class CoreUserClaimContentAddComponent extends AddBaseComponent<CoreUserC
 
   onActionSelectClaimType(model: CoreUserClaimTypeModel | null): void {
     if (!model || model.id <= 0) {
-      this.cmsToastrService.typeErrorMessage(
-        this.translate.instant('MESSAGE.Specify_the_category'),
-        this.translate.instant('MESSAGE.type_of_information_documents_is_not_clear')
-      );
+      this.translate.get(['MESSAGE.Specify_the_category', 'MESSAGE.type_of_information_documents_is_not_clear']).subscribe((str: any) => {
+        this.cmsToastrService.typeErrorMessage(str['MESSAGE.Specify_the_category'], str['MESSAGE.type_of_information_documents_is_not_clear']);
+      });
       return;
     }
     this.dataModel.linkUserClaimTypeId = model.id;

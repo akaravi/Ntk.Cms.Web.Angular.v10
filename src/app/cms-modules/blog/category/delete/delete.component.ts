@@ -140,8 +140,7 @@ export class BlogCategoryDeleteComponent implements OnInit {
     this.formInfo.formSubmitAllow = true;
     if (this.dataModel.newCatId === this.requestId) {
       this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
-      this.formInfo.formError =
-        this.translate.instant('ERRORMESSAGE.MESSAGE.The_delete_category_ID_is_the_same_as_the_alternate_category');
+      this.translate.get('ERRORMESSAGE.MESSAGE.The_delete_category_ID_is_the_same_as_the_alternate_category').subscribe((str: string) => { this.formInfo.formError = str });
       this.formInfo.buttonSubmittedEnabled = true;
     }
 
@@ -229,8 +228,7 @@ export class BlogCategoryDeleteComponent implements OnInit {
     this.dataModel.newCatId = model.id;
     if (this.dataModel.newCatId === this.requestId) {
       this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
-      this.formInfo.formError =
-        this.translate.instant('ERRORMESSAGE.MESSAGE.The_delete_category_ID_is_the_same_as_the_alternate_category');
+      this.translate.get('ERRORMESSAGE.MESSAGE.The_delete_category_ID_is_the_same_as_the_alternate_category').subscribe((str: string) => { this.formInfo.formError = str });
       this.formInfo.buttonSubmittedEnabled = false;
     } else {
       this.formInfo.buttonSubmittedEnabled = true;

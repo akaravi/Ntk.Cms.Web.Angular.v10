@@ -75,11 +75,11 @@ export class BlogCommentEditComponent extends EditBaseComponent<BlogCommentServi
   ngOnInit(): void {
     if (this.requestId > 0) {
       this.ComponentAction = ComponentActionEnum.edit;
-      this.formInfo.formTitle = this.translate.instant('TITLE.Edit_Comment');
+      this.translate.get('TITLE.Edit_Comment').subscribe((str: string) => { this.formInfo.formTitle = str });
       this.DataGetOneContent();
     } else if (this.requestContentId > 0) {
       this.ComponentAction = ComponentActionEnum.add;
-      this.formInfo.formTitle = this.translate.instant('TITLE.Submit_A_New_Comment');
+      this.translate.get('TITLE.Submit_A_New_Comment').subscribe((str: string) => { this.formInfo.formTitle = str });
     }
     if (this.ComponentAction === ComponentActionEnum.none) {
       this.cmsToastrService.typeErrorComponentAction();

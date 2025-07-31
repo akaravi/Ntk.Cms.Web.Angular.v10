@@ -134,10 +134,14 @@ export class CoreSiteWidgetStatusComponent implements OnInit, OnDestroy {
           next: (ret) => {
             if (ret.isSuccess) {
               if (ret.item.access.siteId === +model.id) {
-                this.cmsToastrService.toastr.success(this.translate.instant('MESSAGE.New_site_acess_confirmed'), title);
+                this.translate.get('MESSAGE.New_site_acess_confirmed').subscribe((str: string) => {
+          this.cmsToastrService.toastr.success(str, title);
+        });
 
               } else {
-                this.cmsToastrService.toastr.warning(this.translate.instant('ERRORMESSAGE.MESSAGE.New_site_acess_denied'), title);
+                this.translate.get('ERRORMESSAGE.MESSAGE.New_site_acess_denied').subscribe((str: string) => {
+          this.cmsToastrService.toastr.warning(str, title);
+        });
               }
             } else {
               this.cmsToastrService.typeErrorAccessChange(ret.errorMessage);

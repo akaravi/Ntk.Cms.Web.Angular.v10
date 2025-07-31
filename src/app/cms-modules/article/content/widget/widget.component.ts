@@ -64,8 +64,12 @@ export class ArticleContentWidgetComponent implements OnInit, OnDestroy {
     }
   }
   onActionStatist(): void {
-    this.publicHelper.processService.processStart(this.constructor.name + 'Active', this.translate.instant('MESSAGE.Get_active_article_statistics'), this.constructorInfoAreaId);
-    this.publicHelper.processService.processStart(this.constructor.name + 'All', this.translate.instant('MESSAGE.Get_statistics_on_all_articles'), this.constructorInfoAreaId);
+    this.translate.get('MESSAGE.Get_active_article_statistics').subscribe((str: string) => {
+      this.publicHelper.processService.processStart(this.constructor.name + 'Active', str, this.constructorInfoAreaId);
+    });
+    this.translate.get('MESSAGE.Get_statistics_on_all_articles').subscribe((str: string) => {
+      this.publicHelper.processService.processStart(this.constructor.name + 'All', str, this.constructorInfoAreaId);
+    });
     this.widgetInfoModel.setItem(new WidgetContentInfoModel('Active', 0, 0, ''));
     this.widgetInfoModel.setItem(new WidgetContentInfoModel('All', 1, 0, ''));
     this.service.ServiceGetCount(this.filteModelContent).subscribe({

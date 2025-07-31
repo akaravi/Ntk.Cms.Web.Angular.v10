@@ -40,7 +40,9 @@ export class CoreSiteAddFirstComponent implements OnInit {
   ) {
     this.publicHelper.processService.cdr = this.cdr;
 
-    this.formInfo.formTitle = this.translate.instant('TITLE.Create_your_first_system');
+    this.translate.get('TITLE.Create_your_first_system').subscribe((str: string) => {
+      this.formInfo.formTitle = str;
+    });
 
 
     /** read storage */
@@ -136,22 +138,30 @@ export class CoreSiteAddFirstComponent implements OnInit {
 
   onFormSubmit(): void {
     if (this.dataModel.linkSiteCategoryId <= 0) {
-      this.cmsToastrService.typeErrorMessage(this.translate.instant('MESSAGE.System_type_not_selected'));
+      this.translate.get('MESSAGE.System_type_not_selected').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorMessage(str);
+      });
       return;
     }
     if (!this.dataModel.title || this.dataModel.title.length === 0) {
-      this.cmsToastrService.typeErrorMessage(this.translate.instant('MESSAGE.As_the_system_is_not_selected'));
+      this.translate.get('MESSAGE.As_the_system_is_not_selected').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorMessage(str);
+      });
 
       return;
     }
     if (!this.dataModel.domain || this.dataModel.domain.length === 0) {
 
-      this.cmsToastrService.typeErrorMessage(this.translate.instant('MESSAGE.System_domain_not_selected'));
+      this.translate.get('MESSAGE.System_domain_not_selected').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorMessage(str);
+      });
 
       return;
     }
     if (!this.dataModel.subDomain || this.dataModel.subDomain.length === 0) {
-      this.cmsToastrService.typeErrorMessage(this.translate.instant('MESSAGE.System_parent_domain_not_selected'));
+      this.translate.get('MESSAGE.System_parent_domain_not_selected').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorMessage(str);
+      });
 
 
       return;
@@ -206,10 +216,9 @@ export class CoreSiteAddFirstComponent implements OnInit {
   }
   onActionSelectorSelect(model: CoreSiteCategoryModel | null): void {
     if (!model || model.id <= 0) {
-      this.cmsToastrService.typeErrorMessage(
-        this.translate.instant('MESSAGE.Specify_the_system_type'),
-        this.translate.instant('MESSAGE.Information_system_type_is_not_clear')
-      );
+      this.translate.get(['MESSAGE.Specify_the_system_type', 'MESSAGE.Information_system_type_is_not_clear']).subscribe((str: any) => {
+        this.cmsToastrService.typeErrorMessage(str['MESSAGE.Specify_the_system_type'], str['MESSAGE.Information_system_type_is_not_clear']);
+      });
       return;
     }
     this.modelDateSiteCategory = model;
@@ -227,7 +236,9 @@ export class CoreSiteAddFirstComponent implements OnInit {
       }
       if (!this.dataModel.linkSiteCategoryId || this.dataModel.linkSiteCategoryId <= 0) {
 
-        this.cmsToastrService.typeErrorMessage(this.translate.instant('MESSAGE.System_type_not_selected'));
+        this.translate.get('MESSAGE.System_type_not_selected').subscribe((str: string) => {
+          this.cmsToastrService.typeErrorMessage(str);
+        });
         setTimeout(() => {
           stepper.selectedIndex = event.previouslySelectedIndex;
           // stepper.previous();

@@ -116,10 +116,9 @@ export class CoreDeviceAddComponent extends AddBaseComponent<CoreDeviceService, 
   }
   onActionSelectSite(model: CoreSiteModel | null): void {
     if (!model || model.id <= 0) {
-      this.cmsToastrService.typeErrorMessage(
-        this.translate.instant('MESSAGE.Specify_the_site'),
-        this.translate.instant('MESSAGE.Information_site_is_not_clear')
-      );
+      this.translate.get(['MESSAGE.Specify_the_site', 'MESSAGE.Information_site_is_not_clear']).subscribe((str: any) => {
+        this.cmsToastrService.typeErrorMessage(str['MESSAGE.Specify_the_site'], str['MESSAGE.Information_site_is_not_clear']);
+      });
       return;
     }
     this.dataModel.linkSiteId = model.id;
