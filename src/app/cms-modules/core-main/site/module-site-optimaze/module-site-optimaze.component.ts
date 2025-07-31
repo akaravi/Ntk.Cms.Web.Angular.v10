@@ -53,7 +53,9 @@ export class CoreSiteModuleSiteOptimazeComponent implements OnInit {
       this.dialogRef.close({ dialogChangedDate: false });
       return;
     }
-    this.formInfo.formTitle = this.translate.instant('TITLE.VIEW_RESULT');
+    this.translate.get('TITLE.VIEW_RESULT').subscribe((str: string) => {
+      this.formInfo.formTitle = str;
+    });
     this.DataGetAll();
   }
   DataGetAll(): void {

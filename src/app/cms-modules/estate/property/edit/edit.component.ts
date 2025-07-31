@@ -404,8 +404,6 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
   }
   onActionSelectorProject(model: EstatePropertyProjectModel | null): void {
     if (!model || !model.id || model.id.length <= 0) {
-      //const message = this.translate.instant('MESSAGE.information_area_is_not_clear');
-      //this.cmsToastrService.typeWarningSelected(message);
       this.dataModel.linkPropertyProjectId = null;
       return;
     }
@@ -413,8 +411,6 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
   }
   onActionSelectorCompany(model: EstatePropertyCompanyModel | null): void {
     if (!model || !model.id || model.id.length <= 0) {
-      //const message = this.translate.instant('MESSAGE.information_area_is_not_clear');
-      //this.cmsToastrService.typeWarningSelected(message);
       this.dataModel.linkPropertyCompanyId = null;
       return;
     }
@@ -439,8 +435,9 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
   onActionSelectorContractType(model: EstateContractTypeModel | null): void {
     this.contractTypeSelected = null;
     if (!model || !model.id || model.id.length <= 0) {
-      const message = this.translate.instant('MESSAGE.Type_of_property_transaction_is_not_known');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Type_of_property_transaction_is_not_known').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.currencyOptionSelectFirstItem = true;
@@ -474,8 +471,9 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
       this.onActionOptionAddToList();
     }
     if (!this.dataModel.contracts || this.dataModel.contracts.length === 0) {
-      const message = this.translate.instant('MESSAGE.Type_of_property_transaction_is_not_known');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Type_of_property_transaction_is_not_known').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       this.formInfo.formSubmitAllow = true;
       return;
     }
@@ -490,10 +488,11 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
 
   onActionOptionAddToList(viewAlert: boolean = true): void {
     if (!this.contractTypeSelected || this.contractTypeSelected.id.length === 0) {
-      const message = this.translate.instant('MESSAGE.Type_of_property_transaction_is_not_known');
-      if (viewAlert) {
-        this.cmsToastrService.typeErrorSelected(message);
-      }
+      this.translate.get('MESSAGE.Type_of_property_transaction_is_not_known').subscribe((str: string) => {
+        if (viewAlert) {
+          this.cmsToastrService.typeErrorSelected(str);
+        }
+      });
       return;
     }
     if (!this.dataModel.contracts) {
@@ -508,8 +507,9 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
         accepted = true;
 
       if (!accepted) {
-        const message = this.translate.instant('MESSAGE.Sales_amount_is_not_entered_correctly');
-        this.cmsToastrService.typeErrorSelected(message);
+        this.translate.get('MESSAGE.Sales_amount_is_not_entered_correctly').subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
         return;
       }
     }
@@ -521,8 +521,9 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
         accepted = true;
 
       if (!accepted) {
-        const message = this.translate.instant('MESSAGE.Rent_amount_is_not_entered_correctly');
-        this.cmsToastrService.typeErrorSelected(message);
+        this.translate.get('MESSAGE.Rent_amount_is_not_entered_correctly').subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
         return;
       }
     }
@@ -534,8 +535,9 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
         accepted = true;
 
       if (!accepted) {
-        const message = this.translate.instant('MESSAGE.Period_amount_is_not_entered_correctly');
-        this.cmsToastrService.typeErrorSelected(message);
+        this.translate.get('MESSAGE.Period_amount_is_not_entered_correctly').subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
         return;
       }
     }
@@ -547,8 +549,9 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
         accepted = true;
 
       if (!accepted) {
-        const message = this.translate.instant('MESSAGE.Deposit_amount_is_not_entered_correctly');
-        this.cmsToastrService.typeErrorSelected(message);
+        this.translate.get('MESSAGE.Deposit_amount_is_not_entered_correctly').subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
         return;
       }
     }
@@ -581,7 +584,9 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
     if (event.previouslySelectedIndex < event.selectedIndex) {
 
       if (!this.dataModel.linkPropertyTypeUsageId || this.dataModel.linkPropertyTypeUsageId.length === 0) {
-        this.cmsToastrService.typeErrorFormInvalid(this.translate.instant('TITLE.Select_the_Property_Type_Usage'));
+        this.translate.get('TITLE.Select_the_Property_Type_Usage').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorFormInvalid(str);
+      });
 
         setTimeout(() => {
           stepper.selectedIndex = event.previouslySelectedIndex;
@@ -590,7 +595,9 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
       }
 
       if (!this.dataModel.linkPropertyTypeLanduseId || this.dataModel.linkPropertyTypeLanduseId.length === 0) {
-        this.cmsToastrService.typeErrorFormInvalid(this.translate.instant('TITLE.Select_the_Property_Type_Landuse'));
+        this.translate.get('TITLE.Select_the_Property_Type_Landuse').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorFormInvalid(str);
+      });
 
         setTimeout(() => {
           stepper.selectedIndex = event.previouslySelectedIndex;

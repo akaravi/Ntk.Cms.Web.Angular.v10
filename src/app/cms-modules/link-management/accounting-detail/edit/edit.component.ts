@@ -67,7 +67,9 @@ export class LinkManagementAccountingDetailEditComponent extends EditBaseCompone
 
   ngOnInit(): void {
     if (this.requestId > 0) {
-      this.formInfo.formTitle = this.translate.instant('TITLE.Edit_Categories');
+      this.translate.get('TITLE.Edit_Categories').subscribe((str: string) => {
+        this.formInfo.formTitle = str;
+      });
       this.DataGetOneContent();
     } else {
       this.cmsToastrService.typeErrorComponentAction();
@@ -154,8 +156,9 @@ export class LinkManagementAccountingDetailEditComponent extends EditBaseCompone
   }
   onActionSelectorAccount(model: LinkManagementAccountingModel | null): void {
     if (!model || !model.id || model.id <= 0) {
-      const message = this.translate.instant('MESSAGE.Account_information_is_not_clear');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Account_information_is_not_clear').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.dataModel.linkManagementAccountingId = model.id;

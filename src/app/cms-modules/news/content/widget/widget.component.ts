@@ -58,15 +58,15 @@ export class NewsContentWidgetComponent implements OnInit, OnDestroy {
     }
   }
   onActionStatist(): void {
-    this.publicHelper.processService.processStart(this.constructor.name + 'Active', this.translate.instant('MESSAGE.Get_active_news_statistics'), this.constructorInfoAreaId);
-    this.publicHelper.processService.processStart(this.constructor.name + 'All', this.translate.instant('MESSAGE.Get_statistics_on_all_news'), this.constructorInfoAreaId);
-
+    this.translate.get(['MESSAGE.Get_active_news_statistics', 'MESSAGE.Get_statistics_on_all_news']).subscribe((str: any) => {
+      this.publicHelper.processService.processStart(this.constructor.name + 'Active', str['MESSAGE.Get_active_news_statistics'], this.constructorInfoAreaId);
+      this.publicHelper.processService.processStart(this.constructor.name + 'All', str['MESSAGE.Get_statistics_on_all_news'], this.constructorInfoAreaId);
+    });
     this.widgetInfoModel.setItem(new WidgetContentInfoModel('Active', 0, 0, ''));
     this.widgetInfoModel.setItem(new WidgetContentInfoModel('All', 1, 0, ''));
     this.service.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-
           this.widgetInfoModel.setItem(new WidgetContentInfoModel('All', 1, ret.totalRowCount, this.widgetInfoModel.link));
         }
         this.publicHelper.processService.processStop(this.constructor.name + 'All');
@@ -87,8 +87,7 @@ export class NewsContentWidgetComponent implements OnInit, OnDestroy {
           this.widgetInfoModel.setItem(new WidgetContentInfoModel('Active', 0, ret.totalRowCount, this.widgetInfoModel.link));
         }
         this.publicHelper.processService.processStop(this.constructor.name + 'Active');
-      }
-      ,
+      },
       error: (er) => {
         this.publicHelper.processService.processStop(this.constructor.name + 'Active');
       }

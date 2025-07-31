@@ -137,8 +137,9 @@ export class EstatePropertyAdsEditComponent extends EditBaseComponent<EstateProp
   }
   onActionSelectorSelectLinkPropertyId(model: EstatePropertyModel | null): void {
     if (!model || !model.id || model.id.length <= 0) {
-      const message = this.translate.instant('MESSAGE.Property_ID_is_unknown');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Property_ID_is_unknown').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.dataModel.linkPropertyId = model.id;
@@ -147,8 +148,9 @@ export class EstatePropertyAdsEditComponent extends EditBaseComponent<EstateProp
   }
   onActionSelectorSelectLinkAdsTypeId(model: EstatePropertyModel | null): void {
     if (!model || !model.id || model.id.length <= 0) {
-      const message = this.translate.instant('MESSAGE.Advertisement_ID_is_unknown');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Advertisement_ID_is_unknown').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.dataModel.linkAdsTypeId = model.id;

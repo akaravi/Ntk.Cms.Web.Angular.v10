@@ -132,7 +132,9 @@ export class CoreSiteEditComponent extends EditBaseComponent<CoreSiteService, Co
       return;
     }
     if (this.dataModel.linkSiteCategoryId <= 0) {
-      this.cmsToastrService.typeErrorEdit(this.translate.instant('MESSAGE.Specify_the_source_code_of_the_program'));
+      this.translate.get('MESSAGE.Specify_the_source_code_of_the_program').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorEdit(str);
+      });
 
       return;
     }
@@ -307,16 +309,18 @@ export class CoreSiteEditComponent extends EditBaseComponent<CoreSiteService, Co
   }
   onActionSelectCategory(model: CoreSiteCategoryModel | null): void {
     if (!model || model.id <= 0) {
-      const message = this.translate.instant('MESSAGE.category_of_site_is_not_clear');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.category_of_site_is_not_clear').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.dataModel.linkSiteCategoryId = model.id;
   }
   onActionSelectCreatedBy(model: CoreSiteModel | null): void {
     if (!model || model.id <= 0) {
-      const message = this.translate.instant('MESSAGE.category_of_site_is_not_clear');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.category_of_site_is_not_clear').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.dataModel.linkCreatedBySiteId = model.id;

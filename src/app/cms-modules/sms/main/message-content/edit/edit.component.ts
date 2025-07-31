@@ -71,7 +71,9 @@ export class SmsMainMessageContentEditComponent extends EditBaseComponent<SmsMai
 
   ngOnInit(): void {
     if (this.requestId.length > 0) {
-      this.formInfo.formTitle = this.translate.instant('TITLE.Edit_Categories');
+      this.translate.get('TITLE.Edit_Categories').subscribe((str: string) => {
+        this.formInfo.formTitle = str;
+      });
       this.DataGetOneContent();
     } else {
       this.cmsToastrService.typeErrorComponentAction();
@@ -157,8 +159,9 @@ export class SmsMainMessageContentEditComponent extends EditBaseComponent<SmsMai
       return;
     }
     if (!this.dataModel.linkCategoryId || this.dataModel.linkCategoryId.length == 0) {
-      const message = this.translate.instant('MESSAGE.Category_is_not_clear');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Category_is_not_clear').subscribe((message: string) => {
+        this.cmsToastrService.typeErrorSelected(message);
+      });
       return;
     }
     this.formInfo.formSubmitAllow = false;
@@ -172,8 +175,9 @@ export class SmsMainMessageContentEditComponent extends EditBaseComponent<SmsMai
 
   onActionSelectCategory(model: SmsMainMessageCategoryModel | null): void {
     if (!model || model.id.length == 0) {
-      const message = this.translate.instant('MESSAGE.Category_is_not_clear');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Category_is_not_clear').subscribe((message: string) => {
+        this.cmsToastrService.typeErrorSelected(message);
+      });
       return;
     }
     this.dataModel.linkCategoryId = model.id;

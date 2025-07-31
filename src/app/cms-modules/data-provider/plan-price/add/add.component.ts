@@ -72,7 +72,7 @@ export class DataProviderPlanPriceAddComponent extends AddBaseComponent<DataProv
   }
 
   ngOnInit(): void {
-    this.formInfo.formTitle = this.translate.instant('TITLE.Register_New_Categories');
+    this.translate.get('TITLE.Register_New_Categories').subscribe((str: string) => {this.formInfo.formTitle = str });
 
     this.DataGetAccess();
     this.DataGetCurrency();
@@ -132,8 +132,9 @@ export class DataProviderPlanPriceAddComponent extends AddBaseComponent<DataProv
   }
   onActionSelectorSelect(model: DataProviderPlanModel | null): void {
     if (!model || model.id <= 0) {
-      const message = this.translate.instant('MESSAGE.Information_plan_is_not_clear');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Information_plan_is_not_clear').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.dataModel.linkPlanId = model.id;

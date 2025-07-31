@@ -96,7 +96,9 @@ export class CmsExportListComponent implements OnInit {
 
   ngOnInit(): void {
     this.DataGetAll();
-    this.formInfo.formTitle = this.translate.instant('TITLE.EXPORTFILE') + ' : ' + this.requestTitle;
+    this.translate.get('TITLE.EXPORTFILE').subscribe((str: string) => {
+      this.formInfo.formTitle = str + ' : ' + this.requestTitle;
+    });
     this.filterModel.exportFile.fileType = this.EnumExportFileTypeReport;
     this.filterModel.exportFile.recieveMethod = this.EnumExportReceiveMethodNow;
   }

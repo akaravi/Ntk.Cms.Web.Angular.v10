@@ -66,7 +66,9 @@ export class LinkManagementAccountingEditComponent extends EditBaseComponent<Lin
 
   ngOnInit(): void {
     if (this.requestId > 0) {
-      this.formInfo.formTitle = this.translate.instant('TITLE.Edit_Categories');
+      this.translate.get('TITLE.Edit_Categories').subscribe((str: string) => {
+        this.formInfo.formTitle = str;
+      });
       this.DataGetOneContent();
     } else {
       this.cmsToastrService.typeErrorComponentAction();
@@ -148,8 +150,9 @@ export class LinkManagementAccountingEditComponent extends EditBaseComponent<Lin
   }
   onActionSelectorSelectLinkManagementMemberId(model: LinkManagementMemberModel | null): void {
     if (!model || model.id <= 0) {
-      const message = this.translate.instant('MESSAGE.Type_of_User_account_is_not_known');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Type_of_User_account_is_not_known').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.dataModel.linkManagementMemberId = model.id;

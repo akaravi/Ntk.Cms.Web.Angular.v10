@@ -398,7 +398,9 @@ export class CoreTokenUserBadLoginListComponent extends ListBaseComponent<CoreTo
     }
     this.onActionTableRowSelect(model);
     if (!this.tableRowSelected.linkUserId || this.tableRowSelected.linkUserId === 0) {
-      this.cmsToastrService.typeErrorSelected(this.translate.instant('MESSAGE.content_does_not_contain_user_information'));
+      this.translate.get('MESSAGE.content_does_not_contain_user_information').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.router.navigate(['/core/user/edit', this.tableRowSelected.linkUserId]);
@@ -412,7 +414,9 @@ export class CoreTokenUserBadLoginListComponent extends ListBaseComponent<CoreTo
     }
     this.onActionTableRowSelect(model);
     if (!this.tableRowSelected.linkDeviceId || this.tableRowSelected.linkDeviceId === 0) {
-      this.cmsToastrService.typeErrorSelected(this.translate.instant('MESSAGE.Content_does_not_include_device_information'));
+      this.translate.get('MESSAGE.Content_does_not_include_device_information').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.router.navigate(['/member/user/edit', this.tableRowSelected.linkMemberId]);
@@ -426,7 +430,9 @@ export class CoreTokenUserBadLoginListComponent extends ListBaseComponent<CoreTo
     }
     this.onActionTableRowSelect(model);
     if (!this.tableRowSelected.linkSiteId || this.tableRowSelected.linkSiteId === 0) {
-      this.cmsToastrService.typeErrorSelected(this.translate.instant('MESSAGE.content_does_not_include_site_information'));
+      this.translate.get('MESSAGE.content_does_not_include_site_information').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.router.navigate(['/core/site/edit', this.tableRowSelected.linkSiteId]);
@@ -439,7 +445,9 @@ export class CoreTokenUserBadLoginListComponent extends ListBaseComponent<CoreTo
     }
     this.onActionTableRowSelect(model);
     if (!this.tableRowSelected.linkDeviceId || this.tableRowSelected.linkDeviceId === 0) {
-      this.cmsToastrService.typeErrorSelected(this.translate.instant('MESSAGE.Content_does_not_include_device_information'));
+      this.translate.get('MESSAGE.Content_does_not_include_device_information').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.router.navigate(['/core/site/edit', this.tableRowSelected.linkDeviceId]);

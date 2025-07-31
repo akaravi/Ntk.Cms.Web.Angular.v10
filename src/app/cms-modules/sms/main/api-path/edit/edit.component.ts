@@ -209,8 +209,9 @@ export class SmsMainApiPathEditComponent extends EditBaseComponent<SmsMainApiPat
   }
   onActionSelectorSelectLinkApiPathCompanyId(model: SmsMainApiPathCompanyModel | null): void {
     if (!model || model.id.length <= 0) {
-      const message = this.translate.instant('MESSAGE.Information_application_is_not_clear');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Information_application_is_not_clear').subscribe((message: string) => {
+        this.cmsToastrService.typeErrorSelected(message);
+      });
       return;
     }
     this.dataModel.linkApiPathCompanyId = model.id;
@@ -241,13 +242,15 @@ export class SmsMainApiPathEditComponent extends EditBaseComponent<SmsMainApiPat
       return;
     }
     if (!this.dataModel.linkApiPathCompanyId || this.dataModel.linkApiPathCompanyId.length == 0) {
-      const message = this.translate.instant('MESSAGE.Service_company_is_not_clear');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Service_company_is_not_clear').subscribe((message: string) => {
+        this.cmsToastrService.typeErrorSelected(message);
+      });
       return;
     }
     if (!this.dataModel.linkPublicConfigId || this.dataModel.linkPublicConfigId.length == 0) {
-      const message = this.translate.instant('MESSAGE.Service_type_is_not_clear');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Service_type_is_not_clear').subscribe((message: string) => {
+        this.cmsToastrService.typeErrorSelected(message);
+      });
       return;
     }
     this.formInfo.formSubmitAllow = false;

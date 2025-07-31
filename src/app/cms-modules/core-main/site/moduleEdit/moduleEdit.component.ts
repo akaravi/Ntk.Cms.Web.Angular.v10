@@ -70,7 +70,9 @@ export class CoreSiteModuleEditComponent extends EditBaseComponent<CoreModuleSit
       this.dialogRef.close({ dialogChangedDate: false });
       return;
     }
-    this.formInfo.formTitle = this.translate.instant('TITLE.Edit_Modules');
+    this.translate.get('TITLE.Edit_Modules').subscribe((str: string) => {
+      this.formInfo.formTitle = str;
+    });
 
     this.DataGetOneContent();
   }
@@ -114,7 +116,9 @@ export class CoreSiteModuleEditComponent extends EditBaseComponent<CoreModuleSit
             this.formInfo.formAlert = '';
           }
           else {
-            this.cmsToastrService.typeError(this.translate.instant('MESSAGE.Module_not_found_for_editing'));
+            this.translate.get('MESSAGE.Module_not_found_for_editing').subscribe((str: string) => {
+        this.cmsToastrService.typeError(str);
+      });
           }
         } else {
           this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
@@ -172,8 +176,9 @@ export class CoreSiteModuleEditComponent extends EditBaseComponent<CoreModuleSit
   }
   onActionSelectorModuleSelect(model: CoreModuleModel): void {
     if (!model || model.id <= 0) {
-      const message = this.translate.instant('MESSAGE.Module_is_not_specified');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Module_is_not_specified').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
     }
     this.dataModel.linkModuleId = model.id;
   }

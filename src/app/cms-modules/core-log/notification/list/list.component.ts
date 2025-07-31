@@ -409,7 +409,9 @@ export class CoreLogNotificationListComponent extends ListBaseComponent<CoreLogN
     }
     this.onActionTableRowSelect(model);
     if (!this.tableRowSelected.linkMemberId || this.tableRowSelected.linkMemberId === '') {
-      this.cmsToastrService.typeErrorSelected(this.translate.instant('MESSAGE.content_does_not_include_member_informations'));
+      this.translate.get('MESSAGE.content_does_not_include_member_informations').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.router.navigate(['/member/user/edit', this.tableRowSelected.linkMemberId]);

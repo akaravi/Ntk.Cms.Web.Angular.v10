@@ -144,8 +144,9 @@ export class TicketingTaskContactUsAddComponent extends AddBaseComponent<Ticketi
 
   onActionSelectorSelect(model: TicketingTemplateModel | null): void {
     if (!model || model.id <= 0) {
-      const message = this.translate.instant('MESSAGE.Information_template_is_not_clear');
-      this.cmsToastrService.typeWarningSelected(message);
+      this.translate.get('MESSAGE.Information_template_is_not_clear').subscribe((message: string) => {
+        this.cmsToastrService.typeWarningSelected(message);
+      });
       return;
     }
     this.dataModel.htmlBody = model.htmlBody;
@@ -158,10 +159,12 @@ export class TicketingTaskContactUsAddComponent extends AddBaseComponent<Ticketi
 
   onActionSelectSource(model: ApplicationSourceModel | null): void {
     if (!model || model.id <= 0) {
-      this.cmsToastrService.typeErrorMessage(
-        this.translate.instant('MESSAGE.Specify_the_source'),
-        this.translate.instant('MESSAGE.The_source_of_the_information_application_is_not_known')
-      );
+      this.translate.get(['MESSAGE.Specify_the_source', 'MESSAGE.The_source_of_the_information_application_is_not_known']).subscribe((str: any) => {
+        this.cmsToastrService.typeErrorMessage(
+          str['MESSAGE.Specify_the_source'],
+          str['MESSAGE.The_source_of_the_information_application_is_not_known']
+        );
+      });
       return;
     }
     this.dataModel.linkTicketingDepartemenId = model.id;

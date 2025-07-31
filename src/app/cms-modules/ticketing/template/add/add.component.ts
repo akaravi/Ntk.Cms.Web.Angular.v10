@@ -55,7 +55,9 @@ export class TicketingTemplateAddComponent extends AddBaseComponent<TicketingTem
 
   ngOnInit(): void {
 
-    this.formInfo.formTitle = this.translate.instant('TITLE.Submit_New_Content');
+    this.translate.get('TITLE.Submit_New_Content').subscribe((str: string) => {
+      this.formInfo.formTitle = str;
+    });
 
 
     this.DataGetAccess();
@@ -129,8 +131,9 @@ export class TicketingTemplateAddComponent extends AddBaseComponent<TicketingTem
   // }
   onActionSelectorSelect(model: TicketingDepartemenModel | null): void {
     if (!model || model.id <= 0) {
-      const message = this.translate.instant('MESSAGE.Information_department_is_not_clear');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Information_department_is_not_clear').subscribe((message: string) => {
+        this.cmsToastrService.typeErrorSelected(message);
+      });
       return;
     }
     this.dataModel.linkTicketingDepartemenId = model.id;

@@ -52,7 +52,9 @@ export class NewsContentDeleteComponent implements OnInit {
       this.cmsToastrService.typeErrorDeleteRowIsNull();
       return;
     }
-    this.formInfo.formAlert = this.translate.instant('MESSAGE.get_information_list');
+    this.translate.get('MESSAGE.get_information_list').subscribe((str: string) => {
+      this.formInfo.formAlert = str;
+    });
     const pName = this.constructor.name + 'main';
     this.translate.get('MESSAGE.get_information_list').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
     this.contentService.setAccessLoad();

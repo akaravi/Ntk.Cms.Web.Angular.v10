@@ -61,7 +61,9 @@ export class NewsCategoryEditComponent extends EditBaseComponent<NewsCategorySer
   }
   ngOnInit(): void {
     if (this.requestId > 0) {
-      this.formInfo.formTitle = this.translate.instant('TITLE.Register_New_Categories');
+      this.translate.get('TITLE.Register_New_Categories').subscribe((str: string) => {
+        this.formInfo.formTitle = str;
+      });
       this.DataGetOneContent();
     } else {
       this.cmsToastrService.typeErrorComponentAction();

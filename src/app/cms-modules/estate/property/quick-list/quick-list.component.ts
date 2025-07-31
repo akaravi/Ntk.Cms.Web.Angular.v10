@@ -252,7 +252,9 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
   >();
   cmsApiStoreSubscribe: Subscription;
   ngOnInit(): void {
-    this.formInfo.formTitle = this.translate.instant('TITLE.QUICK_VIEW');
+    this.translate.get('TITLE.QUICK_VIEW').subscribe((str: string) => {
+      this.formInfo.formTitle = str;
+    });
 
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {

@@ -147,20 +147,24 @@ export class WebDesignerMainPageEditComponent extends EditBaseComponent<WebDesig
   }
   onActionSelectDependency(model: WebDesignerMainPageDependencyModel | null): void {
     if (!model || model.id?.length <= 0) {
-      this.cmsToastrService.typeErrorMessage(
-        this.translate.instant('MESSAGE.Specify_the_display_location'),
-        this.translate.instant('MESSAGE.information_screen_is_not_clear')
-      );
+      this.translate.get(['MESSAGE.Specify_the_display_location', 'MESSAGE.information_screen_is_not_clear']).subscribe((str: any) => {
+        this.cmsToastrService.typeErrorMessage(
+          str['MESSAGE.Specify_the_display_location'],
+          str['MESSAGE.information_screen_is_not_clear']
+        );
+      });
       return;
     }
     this.dataModel.linkPageDependencyGuId = model.id;
   }
   onActionSelectTemplate(model: WebDesignerMainPageTemplateModel | null): void {
     if (!model || model.id?.length <= 0) {
-      this.cmsToastrService.typeErrorMessage(
-        this.translate.instant('MESSAGE.Specify_the_template'),
-        this.translate.instant('MESSAGE.Screen_template_is_not_clear')
-      );
+      this.translate.get(['MESSAGE.Specify_the_template', 'MESSAGE.Screen_template_is_not_clear']).subscribe((str: any) => {
+        this.cmsToastrService.typeErrorMessage(
+          str['MESSAGE.Specify_the_template'],
+          str['MESSAGE.Screen_template_is_not_clear']
+        );
+      });
       return;
     }
     this.dataModel.linkPageTemplateGuId = model.id;
@@ -191,8 +195,9 @@ export class WebDesignerMainPageEditComponent extends EditBaseComponent<WebDesig
   }
   onActionSelectCategory(model: CoreSiteCategoryModel | null): void {
     if (!model || model.id <= 0) {
-      const message = this.translate.instant('MESSAGE.category_of_site_is_not_clear');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.category_of_site_is_not_clear').subscribe((message: string) => {
+        this.cmsToastrService.typeErrorSelected(message);
+      });
       return;
     }
     this.dataModel.pageDependencyIsDefaultPageLinkSiteCategoryId = model.id;

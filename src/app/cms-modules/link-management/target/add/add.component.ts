@@ -46,7 +46,9 @@ export class LinkManagementTargetAddComponent extends AddBaseComponent<LinkManag
 
 
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
-    this.optionActionTitle = this.translate.instant('ACTION.Add_To_List');
+    this.translate.get('ACTION.Add_To_List').subscribe((str: string) => {
+      this.optionActionTitle = str;
+    });
   }
   @ViewChild('vform', { static: false }) formGroup: FormGroup;
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
@@ -263,8 +265,9 @@ export class LinkManagementTargetAddComponent extends AddBaseComponent<LinkManag
 
   onActionSelectorSelectLinkBillboardPatternId(model: LinkManagementBillboardPatternModel | null): void {
     if (!model || model.id <= 0) {
-      const message = this.translate.instant('MESSAGE.Category_of_billboard_information_is_not_clear');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Category_of_billboard_information_is_not_clear').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.dataModel.linkBillboardPatternId = model.id;

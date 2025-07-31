@@ -53,7 +53,9 @@ export class LinkManagementTargetEditComponent extends EditBaseComponent<LinkMan
 
 
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
-    this.optionActionTitle = this.translate.instant('ACTION.Add_To_List');
+    this.translate.get('ACTION.Add_To_List').subscribe((str: string) => {
+      this.optionActionTitle = str;
+    });
   }
   @ViewChild('vform', { static: false }) formGroup: FormGroup;
   dataModel = new LinkManagementTargetModel();
@@ -101,7 +103,7 @@ export class LinkManagementTargetEditComponent extends EditBaseComponent<LinkMan
     if (this.tokenInfo) {
       this.DataGetOne();
     }
-    
+
     this.getEnumSharingPriceType();
     this.getEnumManagementContentSettingType();
   }
@@ -217,8 +219,9 @@ export class LinkManagementTargetEditComponent extends EditBaseComponent<LinkMan
 
   onActionSelectorSelectLinkBillboardPatternId(model: LinkManagementBillboardPatternModel | null): void {
     if (!model || model.id <= 0) {
-      const message = this.translate.instant('MESSAGE.Category_of_billboard_information_is_not_clear');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Category_of_billboard_information_is_not_clear').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.dataModel.linkBillboardPatternId = model.id;
@@ -295,10 +298,9 @@ export class LinkManagementTargetEditComponent extends EditBaseComponent<LinkMan
   }
   onActionSelectSite(model: CoreSiteModel | null): void {
     if (!model || model.id <= 0) {
-      this.cmsToastrService.typeErrorMessage(
-        this.translate.instant('MESSAGE.Specify_the_site'),
-        this.translate.instant('MESSAGE.Information_site_is_not_clear')
-      );
+      this.translate.get(['MESSAGE.Specify_the_site', 'MESSAGE.Information_site_is_not_clear']).subscribe((str: string[]) => {
+        this.cmsToastrService.typeErrorMessage(str[0] , str[1]);
+      });
       return;
     }
     this.dataModel.linkSiteId = model.id;

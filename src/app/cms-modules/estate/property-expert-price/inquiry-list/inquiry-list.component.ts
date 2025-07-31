@@ -59,7 +59,9 @@ export class EstatePropertyExpertPriceInquiryListComponent implements OnInit {
   fileManagerOpenForm = false;
 
   ngOnInit(): void {
-    this.formInfo.formTitle = this.translate.instant('TITLE.Expert_Price_Inquiry');
+    this.translate.get('TITLE.Expert_Price_Inquiry').subscribe((str: string) => {
+      this.formInfo.formTitle = str;
+    });
 
     this.getEstatePropertyExpertPriceTypeEnum();
     if (this.dataModel.linkLocationId > 0 &&
@@ -99,7 +101,9 @@ export class EstatePropertyExpertPriceInquiryListComponent implements OnInit {
           if (ret.listItems && ret.listItems.length > 0) {
             this.dataModelResult = ret;
           } else {
-            this.cmsToastrService.typeWarningMessage(this.translate.instant('MESSAGE.PriceInquiryCalculateNotFind'));
+            this.translate.get('MESSAGE.PriceInquiryCalculateNotFind').subscribe((str: string) => {
+        this.cmsToastrService.typeWarningMessage(str);
+      });
             this.dialogRef.close({ dialogChangedDate: true });
           }
         } else {
@@ -138,12 +142,13 @@ export class EstatePropertyExpertPriceInquiryListComponent implements OnInit {
   }
 
   onActionSelectorContarctType(model: EstatePropertyTypeLanduseModel | null): void {
-    this.dataModel.linkContractTypeId = null;
-    if (!model || !model.id || model.id.length <= 0) {
-      const message = this.translate.instant('MESSAGE.Type_of_property_transaction_is_not_known');
-      this.cmsToastrService.typeWarningSelected(message);
-      return;
-    }
+          this.dataModel.linkContractTypeId = null;
+      if (!model || !model.id || model.id.length <= 0) {
+        this.translate.get('MESSAGE.Type_of_property_transaction_is_not_known').subscribe((str: string) => {
+          this.cmsToastrService.typeWarningSelected(str);
+        });
+        return;
+      }
     this.dataModel.linkContractTypeId = model.id;
 
   }

@@ -438,11 +438,6 @@ export class EstatePropertyHistoryListComponent extends ListBaseComponent<Estate
   }
 
   onActionButtonNewRow(): void {
-    // if (!this.popupAdd && (this.categoryModelSelected == null || this.categoryModelSelected.id.length === 0)) {
-    //   const message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected');
-    //   this.cmsToastrService.typeErrorSelected(message);
-    //   return;
-    // }
     this.popupAdd = false;
     if (
       this.dataModelResult == null ||
@@ -565,10 +560,7 @@ export class EstatePropertyHistoryListComponent extends ListBaseComponent<Estate
     model: EstatePropertyHistoryModel = this.tableRowSelected
   ): void {
     if (!model || !model.id || model.id.length === 0) {
-      const emessage = this.translate.instant(
-        'MESSAGE.no_row_selected_to_delete'
-      );
-      this.cmsToastrService.typeErrorSelected(emessage);
+      this.translate.get('MESSAGE.no_row_selected_to_delete').subscribe((str: string) => {this.cmsToastrService.typeErrorSelected( str) });
       return;
     }
     this.onActionTableRowSelect(model);
@@ -660,10 +652,9 @@ export class EstatePropertyHistoryListComponent extends ListBaseComponent<Estate
     this.contentService.ServiceGetCount(filterStatist1).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          statist.set(
-            this.translate.instant('MESSAGE.Active'),
-            ret.totalRowCount
-          );
+          this.translate.get('MESSAGE.Active').subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
           this.optionsStatist.childMethods.setStatistValue(statist);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);

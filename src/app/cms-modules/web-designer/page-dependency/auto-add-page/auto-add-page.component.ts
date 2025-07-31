@@ -48,7 +48,9 @@ export class WebDesignerMainPageDependencyAutoAddPageComponent implements OnInit
 
   fileManagerOpenForm = false;
   ngOnInit(): void {
-    this.formInfo.formTitle = this.translate.instant('TITLE.Automatically_add_all_pages');
+    this.translate.get('TITLE.Automatically_add_all_pages').subscribe((str: string) => {
+      this.formInfo.formTitle = str;
+    });
 
   }
 
@@ -84,10 +86,12 @@ export class WebDesignerMainPageDependencyAutoAddPageComponent implements OnInit
   }
   onActionSelectModule(model: WebDesignerMainPageTemplateModel | null): void {
     if (!model || model.id.length <= 0) {
-      this.cmsToastrService.typeErrorMessage(
-        this.translate.instant('MESSAGE.Specify_the_template'),
-        this.translate.instant('MESSAGE.Information_of_template_is_not_clear')
-      );
+      this.translate.get(['MESSAGE.Specify_the_template', 'MESSAGE.Information_of_template_is_not_clear']).subscribe((str: any) => {
+        this.cmsToastrService.typeErrorMessage(
+          str['MESSAGE.Specify_the_template'],
+          str['MESSAGE.Information_of_template_is_not_clear']
+        );
+      });
       return;
     }
     this.dataModel.linkPageTemplateGuId = model.id;
@@ -104,10 +108,12 @@ export class WebDesignerMainPageDependencyAutoAddPageComponent implements OnInit
     }
     this.formInfo.formSubmitAllow = false;
     if (!this.dataModel.linkPageTemplateGuId || this.dataModel.linkPageTemplateGuId.length <= 0) {
-      this.cmsToastrService.typeErrorMessage(
-        this.translate.instant('MESSAGE.Specify_the_template'),
-        this.translate.instant('MESSAGE.Information_of_template_is_not_clear')
-      );
+      this.translate.get(['MESSAGE.Specify_the_template', 'MESSAGE.Information_of_template_is_not_clear']).subscribe((str: any) => {
+        this.cmsToastrService.typeErrorMessage(
+          str['MESSAGE.Specify_the_template'],
+          str['MESSAGE.Information_of_template_is_not_clear']
+        );
+      });
       return;
     }
     this.DataAddContent();

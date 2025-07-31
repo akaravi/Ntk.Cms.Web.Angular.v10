@@ -123,7 +123,9 @@ export class SmsMainApiNumberEditComponent extends EditBaseComponent<SmsMainApiN
       return;
     }
 
-    this.formInfo.formAlert = this.translate.instant('MESSAGE.Getting_access_category_from_the_server');
+    this.translate.get('MESSAGE.Getting_access_category_from_the_server').subscribe((str: string) => {
+      this.formInfo.formAlert = str;
+    });
     this.formInfo.formError = '';
     const pName = this.constructor.name + 'main';
     this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {

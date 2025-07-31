@@ -385,7 +385,9 @@ export class CoreModuleLogSiteCreditListComponent extends ListBaseComponent<Core
     }
     this.onActionTableRowSelect(model);
     if (!this.tableRowSelected.linkSiteId || this.tableRowSelected.linkSiteId === 0) {
-      this.cmsToastrService.typeErrorSelected(this.translate.instant('MESSAGE.content_does_not_include_site_information'));
+      this.translate.get('MESSAGE.content_does_not_include_site_information').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.router.navigate(['/core/site/edit', this.tableRowSelected.linkSiteId]);

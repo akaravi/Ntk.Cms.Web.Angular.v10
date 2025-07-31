@@ -65,7 +65,9 @@ export class SmsMainMessageContentAddComponent extends AddBaseComponent<SmsMainM
   }
 
   ngOnInit(): void {
-    this.formInfo.formTitle = this.translate.instant('TITLE.Register_New_Categories');
+    this.translate.get('TITLE.Register_New_Categories').subscribe((str: string) => {
+      this.formInfo.formTitle = str;
+    });
 
     this.DataGetAccess();
   }
@@ -125,8 +127,9 @@ export class SmsMainMessageContentAddComponent extends AddBaseComponent<SmsMainM
 
   onActionSelectCategory(model: SmsMainMessageCategoryModel | null): void {
     if (!model || model.id?.length == 0) {
-      const message = this.translate.instant('MESSAGE.Category_is_not_clear');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Category_is_not_clear').subscribe((message: string) => {
+        this.cmsToastrService.typeErrorSelected(message);
+      });
       return;
     }
     this.dataModel.linkCategoryId = model.id;

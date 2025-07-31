@@ -61,33 +61,43 @@ export class AuthSingUpComponent implements OnInit, OnDestroy {
   }
   onActionSubmit(): void {
     if (!this.dataModel.email || this.dataModel.email.length === 0) {
-      this.formInfo.formError = this.translate.instant('ERRORMESSAGE.MESSAGE.enter_your_email_address');
-      this.formInfo.formErrorStatus = true;
-      this.cmsToastrService.typeErrorRegistery(this.formInfo.formError);
+      this.translate.get('ERRORMESSAGE.MESSAGE.enter_your_email_address').subscribe((str: string) => {
+        this.formInfo.formError = str;
+        this.formInfo.formErrorStatus = true;
+        this.cmsToastrService.typeErrorRegistery(this.formInfo.formError);
+      });
       return;
     }
     if (!this.dataModel.name || this.dataModel.name.length === 0) {
-      this.formInfo.formError = this.translate.instant('ERRORMESSAGE.MESSAGE.enter_your_name');
-      this.formInfo.formErrorStatus = true;
-      this.cmsToastrService.typeErrorRegistery(this.formInfo.formError);
+      this.translate.get('ERRORMESSAGE.MESSAGE.enter_your_name').subscribe((str: string) => {
+        this.formInfo.formError = str;
+        this.formInfo.formErrorStatus = true;
+        this.cmsToastrService.typeErrorRegistery(this.formInfo.formError);
+      });
       return;
     }
     if (!this.dataModel.family || this.dataModel.family.length === 0) {
-      this.formInfo.formError = this.translate.instant('ERRORMESSAGE.MESSAGE.enter_your_last_name');
-      this.formInfo.formErrorStatus = true;
-      this.cmsToastrService.typeErrorRegistery(this.formInfo.formError);
+      this.translate.get('ERRORMESSAGE.MESSAGE.enter_your_last_name').subscribe((str: string) => {
+        this.formInfo.formError = str;
+        this.formInfo.formErrorStatus = true;
+        this.cmsToastrService.typeErrorRegistery(this.formInfo.formError);
+      });
       return;
     }
     if (!this.dataModel.password || this.dataModel.password.length === 0) {
-      this.formInfo.formError = this.translate.instant('ERRORMESSAGE.MESSAGE.enter_the_password');
-      this.formInfo.formErrorStatus = true;
-      this.cmsToastrService.typeErrorRegistery(this.formInfo.formError);
+      this.translate.get('ERRORMESSAGE.MESSAGE.enter_the_password').subscribe((str: string) => {
+        this.formInfo.formError = str;
+        this.formInfo.formErrorStatus = true;
+        this.cmsToastrService.typeErrorRegistery(this.formInfo.formError);
+      });
       return;
     }
     if (!this.RePasswordModel || this.RePasswordModel.length === 0) {
-      this.formInfo.formError = this.translate.instant('ERRORMESSAGE.MESSAGE.re_enter_the_password');
-      this.formInfo.formErrorStatus = true;
-      this.cmsToastrService.typeErrorRegistery(this.formInfo.formError);
+      this.translate.get('ERRORMESSAGE.MESSAGE.re_enter_the_password').subscribe((str: string) => {
+        this.formInfo.formError = str;
+        this.formInfo.formErrorStatus = true;
+        this.cmsToastrService.typeErrorRegistery(this.formInfo.formError);
+      });
       return;
     }
     if (!this.dataModel.captchaText || this.dataModel.captchaText.length === 0) {
@@ -97,11 +107,13 @@ export class AuthSingUpComponent implements OnInit, OnDestroy {
       return;
     }
     if (this.dataModel.password !== this.RePasswordModel) {
-      this.formInfo.formError = this.translate.instant('ERRORMESSAGE.MESSAGE.password_and_re_password_are_different');
-      this.dataModel.password = '';
-      this.RePasswordModel = '';
-      this.formInfo.formErrorStatus = true;
-      this.cmsToastrService.typeErrorRegistery(this.formInfo.formError);
+      this.translate.get('ERRORMESSAGE.MESSAGE.password_and_re_password_are_different').subscribe((str: string) => {
+        this.formInfo.formError = str;
+        this.dataModel.password = '';
+        this.RePasswordModel = '';
+        this.formInfo.formErrorStatus = true;
+        this.cmsToastrService.typeErrorRegistery(this.formInfo.formError);
+      });
       return;
     }
     this.formInfo.formErrorStatus = false;

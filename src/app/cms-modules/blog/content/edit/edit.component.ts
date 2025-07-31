@@ -201,7 +201,9 @@ export class BlogContentEditComponent extends EditBaseComponent<BlogContentServi
   }
   DataTagGetAll(): void {
     this.formInfo.formSubmitAllow = false;
-    this.formInfo.formAlert = this.translate.instant('MESSAGE.Receiving_tag_information_from_the_server');
+    this.translate.get('MESSAGE.Receiving_tag_information_from_the_server').subscribe((str: string) => {
+      this.formInfo.formAlert = str;
+    });
     this.formInfo.formError = '';
     const pName = this.constructor.name + 'main';
     this.translate.get('MESSAGE.Receiving_tag_information_from_the_server').subscribe((str: string) => {
@@ -534,7 +536,9 @@ export class BlogContentEditComponent extends EditBaseComponent<BlogContentServi
   }
   DataCategoryGetAll(): void {
     this.formInfo.formSubmitAllow = false;
-    this.formInfo.formAlert = this.translate.instant('MESSAGE.get_category_information_from_the_server');
+    this.translate.get('MESSAGE.get_category_information_from_the_server').subscribe((str: string) => {
+      this.formInfo.formAlert = str;
+    });
     this.formInfo.formError = '';
     const pName = this.constructor.name + 'main';
     this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {

@@ -59,7 +59,9 @@ export class NewsCategoryAddComponent extends AddBaseComponent<NewsCategoryServi
     this.dataModel.linkMainImageIdSrc = model.downloadLinksrc;
   }
   ngOnInit(): void {
-    this.formInfo.formTitle = this.translate.instant('TITLE.Register_New_Categories');
+    this.translate.get('TITLE.Register_New_Categories').subscribe((str: string) => {
+      this.formInfo.formTitle = str;
+    });
 
     this.DataGetAccess();
   }
@@ -80,7 +82,9 @@ export class NewsCategoryAddComponent extends AddBaseComponent<NewsCategoryServi
           this.cmsToastrService.typeSuccessAdd();
           this.dialogRef.close({ dialogChangedDate: true });
         } else {
-          this.formInfo.formAlert = this.translate.instant('TITLE.typeErrorRegistration');
+          this.translate.get('TITLE.typeErrorRegistration').subscribe((str: string) => {
+            this.formInfo.formAlert = str;
+          });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }

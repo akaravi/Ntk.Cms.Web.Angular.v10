@@ -105,7 +105,9 @@ export class CmsExportEntityComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.DataGetAll();
-    this.formInfo.formTitle = this.translate.instant('TITLE.EXPORTFILE') + ' : ' + this.requestTitle;
+    this.translate.get('TITLE.EXPORTFILE').subscribe((str: string) => {
+      this.formInfo.formTitle = str + ' : ' + this.requestTitle;
+    });
     this.dataModel.fileType = this.EnumExportFileTypeReport;
     this.dataModel.recieveMethod = this.EnumExportReceiveMethodNow;
   }

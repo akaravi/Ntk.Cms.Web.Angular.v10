@@ -45,7 +45,9 @@ export class LinkManagementBillboardEditComponent extends EditBaseComponent<Link
 
 
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
-    this.optionActionTitle = this.translate.instant('ACTION.Add_To_List');
+    this.translate.get('ACTION.Add_To_List').subscribe((str: string) => {
+      this.optionActionTitle = str;
+    });
   }
   @ViewChild('vform', { static: false }) formGroup: FormGroup;
   dataModel = new LinkManagementBillboardModel();
@@ -197,23 +199,27 @@ export class LinkManagementBillboardEditComponent extends EditBaseComponent<Link
 
   onActionSelectorSelectLinkManagementMemberId(model: LinkManagementMemberModel | null): void {
     if (!model || model.id <= 0) {
-      const message = this.translate.instant('MESSAGE.Type_of_User_account_is_not_known');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Type_of_User_account_is_not_known').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.dataModel.linkBillboardPatternId = model.id;
   }
   onActionSelectorSelectLinkBillboardPatternId(model: LinkManagementBillboardPatternModel | null): void {
     if (!model || model.id <= 0) {
-      const message = this.translate.instant('MESSAGE.Category_of_billboard_information_is_not_clear');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Category_of_billboard_information_is_not_clear').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.dataModel.linkBillboardPatternId = model.id;
   }
   DataCategoryGetAll(): void {
     this.formInfo.formSubmitAllow = false;
-    this.formInfo.formAlert = this.translate.instant('MESSAGE.get_category_information_from_the_server');
+          this.translate.get('MESSAGE.get_category_information_from_the_server').subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
     this.formInfo.formError = '';
     const pName = this.constructor.name + 'main';
     this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {

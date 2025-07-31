@@ -61,7 +61,9 @@ export class TicketingTaskViewComponent implements OnInit, OnDestroy {
 
   cmsApiStoreSubscribe: Subscription;
   ngOnInit(): void {
-    this.formInfo.formTitle = this.translate.instant('TITLE.VIEW');
+    this.translate.get('TITLE.VIEW').subscribe((str: string) => {
+      this.formInfo.formTitle = str;
+    });
     if (this.requestId === 0) {
       this.cmsToastrService.typeErrorComponentAction();
       this.dialogRef.close({ dialogChangedDate: false });

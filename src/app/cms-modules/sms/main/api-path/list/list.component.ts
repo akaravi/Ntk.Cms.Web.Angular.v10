@@ -245,8 +245,9 @@ export class SmsMainApiPathListComponent extends ListBaseComponent<SmsMainApiPat
     if (
       (!this.requestLinkCompanyId) || (this.requestLinkCompanyId && this.requestLinkCompanyId.length == 0)) {
       if (this.categoryModelSelected == null || this.categoryModelSelected.id.length === 0) {
-        const message = this.translate.instant('MESSAGE.Company_not_selected');
-        this.cmsToastrService.typeErrorSelected(message);
+        this.translate.get('MESSAGE.Company_not_selected').subscribe((message: string) => {
+          this.cmsToastrService.typeErrorSelected(message);
+        });
         return;
       }
     }

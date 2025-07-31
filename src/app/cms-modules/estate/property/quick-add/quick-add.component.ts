@@ -92,7 +92,9 @@ export class EstatePropertyQuickAddComponent extends AddBaseComponent<EstateProp
   ngOnInit(): void {
 
 
-    this.formInfo.formTitle = this.translate.instant('TITLE.Submit_New_Content');
+    this.translate.get('TITLE.Submit_New_Content').subscribe((str: string) => {
+      this.formInfo.formTitle = str;
+    });
 
 
     this.DataGetAccess();
@@ -105,7 +107,9 @@ export class EstatePropertyQuickAddComponent extends AddBaseComponent<EstateProp
       this.getEstateContractType();
       this.getEstatePropertyType();
       this.getEstatePropertyTypeLanduse();
-      this.optionActionTitle = this.translate.instant('ACTION.Add_To_List');
+      this.translate.get('ACTION.Add_To_List').subscribe((str: string) => {
+      this.optionActionTitle = str;
+    });
       this.tokenInfo = value;
     });
   }
@@ -250,8 +254,7 @@ export class EstatePropertyQuickAddComponent extends AddBaseComponent<EstateProp
   }
   onActionSelectorCmsUser(model: CoreUserModel | null): void {
     if (!model || !model.id || model.id <= 0) {
-      //  const message = this.translate.instant('MESSAGE.Information_user_is_not_clear');
-      //  this.cmsToastrService.typeErrorSelected(message);
+
       this.dataModel.linkCmsUserId = null;
       return;
     }
@@ -259,8 +262,9 @@ export class EstatePropertyQuickAddComponent extends AddBaseComponent<EstateProp
   }
   onActionSelectorLocation(model: CoreLocationModel | null): void {
     if (!model || !model.id || model.id <= 0) {
-      const message = this.translate.instant('MESSAGE.information_area_is_not_clear');
-      this.cmsToastrService.typeWarningSelected(message);
+      this.translate.get('MESSAGE.information_area_is_not_clear').subscribe((str: string) => {
+        this.cmsToastrService.typeWarningSelected(str);
+      });
       this.dataModel.linkLocationId = null;
       return;
     }
@@ -268,8 +272,6 @@ export class EstatePropertyQuickAddComponent extends AddBaseComponent<EstateProp
   }
   onActionSelectorProject(model: EstatePropertyProjectModel | null): void {
     if (!model || !model.id || model.id.length <= 0) {
-      //const message = this.translate.instant('MESSAGE.information_area_is_not_clear');
-      //this.cmsToastrService.typeWarningSelected(message);
       this.dataModel.linkPropertyProjectId = null;
       return;
     }
@@ -277,8 +279,6 @@ export class EstatePropertyQuickAddComponent extends AddBaseComponent<EstateProp
   }
   onActionSelectorCompany(model: EstatePropertyCompanyModel | null): void {
     if (!model || !model.id || model.id.length <= 0) {
-      //const message = this.translate.instant('MESSAGE.information_area_is_not_clear');
-      //this.cmsToastrService.typeWarningSelected(message);
       this.dataModel.linkPropertyCompanyId = null;
       return;
     }
@@ -303,8 +303,9 @@ export class EstatePropertyQuickAddComponent extends AddBaseComponent<EstateProp
   onActionSelectorContractType(model: EstateContractTypeModel | null): void {
     this.contractTypeSelected = null;
     if (!model || !model.id || model.id.length <= 0) {
-      const message = this.translate.instant('MESSAGE.Type_of_property_transaction_is_not_known');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Type_of_property_transaction_is_not_known').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.currencyOptionSelectFirstItem = true;
@@ -335,8 +336,9 @@ export class EstatePropertyQuickAddComponent extends AddBaseComponent<EstateProp
       this.onActionOptionAddToList(false);
     }
     if (!this.dataModel.contracts || this.dataModel.contracts.length === 0) {
-      const message = this.translate.instant('MESSAGE.Type_of_property_transaction_is_not_known');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Type_of_property_transaction_is_not_known').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       this.formInfo.formSubmitAllow = true;
       return;
     }
@@ -348,10 +350,11 @@ export class EstatePropertyQuickAddComponent extends AddBaseComponent<EstateProp
 
   onActionOptionAddToList(viewAlert: boolean = true): void {
     if (!this.contractTypeSelected || this.contractTypeSelected.id.length === 0) {
-      const message = this.translate.instant('MESSAGE.Type_of_property_transaction_is_not_known');
-      if (viewAlert) {
-        this.cmsToastrService.typeErrorSelected(message);
-      }
+      this.translate.get('MESSAGE.Type_of_property_transaction_is_not_known').subscribe((str: string) => {
+        if (viewAlert) {
+          this.cmsToastrService.typeErrorSelected(str);
+        }
+      });
       return;
     }
     if (!this.dataModel.contracts) {
@@ -365,8 +368,9 @@ export class EstatePropertyQuickAddComponent extends AddBaseComponent<EstateProp
         accepted = true;
 
       if (!accepted) {
-        const message = this.translate.instant('MESSAGE.Sales_amount_is_not_entered_correctly');
-        this.cmsToastrService.typeErrorSelected(message);
+        this.translate.get('MESSAGE.Sales_amount_is_not_entered_correctly').subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
         return;
       }
     }
@@ -378,8 +382,9 @@ export class EstatePropertyQuickAddComponent extends AddBaseComponent<EstateProp
         accepted = true;
 
       if (!accepted) {
-        const message = this.translate.instant('MESSAGE.Rent_amount_is_not_entered_correctly');
-        this.cmsToastrService.typeErrorSelected(message);
+        this.translate.get('MESSAGE.Rent_amount_is_not_entered_correctly').subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
         return;
       }
     }
@@ -391,8 +396,9 @@ export class EstatePropertyQuickAddComponent extends AddBaseComponent<EstateProp
         accepted = true;
 
       if (!accepted) {
-        const message = this.translate.instant('MESSAGE.Period_amount_is_not_entered_correctly');
-        this.cmsToastrService.typeErrorSelected(message);
+        this.translate.get('MESSAGE.Period_amount_is_not_entered_correctly').subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
         return;
       }
     }
@@ -404,8 +410,9 @@ export class EstatePropertyQuickAddComponent extends AddBaseComponent<EstateProp
         accepted = true;
 
       if (!accepted) {
-        const message = this.translate.instant('MESSAGE.Deposit_amount_is_not_entered_correctly');
-        this.cmsToastrService.typeErrorSelected(message);
+        this.translate.get('MESSAGE.Deposit_amount_is_not_entered_correctly').subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
         return;
       }
     }
@@ -433,7 +440,9 @@ export class EstatePropertyQuickAddComponent extends AddBaseComponent<EstateProp
 
     if (event.previouslySelectedIndex < event.selectedIndex) {
       if (!this.dataModel.linkPropertyTypeUsageId || this.dataModel.linkPropertyTypeUsageId.length === 0) {
-        this.cmsToastrService.typeErrorFormInvalid(this.translate.instant('TITLE.Select_the_Property_Type_Usage'));
+        this.translate.get('TITLE.Select_the_Property_Type_Usage').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorFormInvalid(str);
+      });
 
         setTimeout(() => {
           stepper.selectedIndex = event.previouslySelectedIndex;
@@ -442,7 +451,9 @@ export class EstatePropertyQuickAddComponent extends AddBaseComponent<EstateProp
       }
 
       if (!this.dataModel.linkPropertyTypeLanduseId || this.dataModel.linkPropertyTypeLanduseId.length === 0) {
-        this.cmsToastrService.typeErrorFormInvalid(this.translate.instant('TITLE.Select_the_Property_Type_Landuse'));
+        this.translate.get('TITLE.Select_the_Property_Type_Landuse').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorFormInvalid(str);
+      });
 
         setTimeout(() => {
           stepper.selectedIndex = event.previouslySelectedIndex;
@@ -459,7 +470,9 @@ export class EstatePropertyQuickAddComponent extends AddBaseComponent<EstateProp
       }
     }
     if ((!this.dataModel.contracts || this.dataModel.contracts.length == 0) && event.previouslySelectedStep.state == "contract" && event.previouslySelectedIndex < event.selectedIndex) {
-      this.cmsToastrService.typeErrorFormInvalid(this.translate.instant('TITLE.Select_the_transaction_type'));
+      this.translate.get('TITLE.Select_the_transaction_type').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorFormInvalid(str);
+      });
 
       setTimeout(() => {
         stepper.selectedIndex = event.previouslySelectedIndex;

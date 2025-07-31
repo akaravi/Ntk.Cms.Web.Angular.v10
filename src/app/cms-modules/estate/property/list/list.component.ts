@@ -926,7 +926,9 @@ export class EstatePropertyListComponent extends ListBaseComponent<EstatePropert
       return;
     }
     const statist = new Map<string, number>();
-    this.publicHelper.processService.processStart(this.constructor.name + 'All', this.translate.instant('MESSAGE.property_list'), this.constructorInfoAreaId);
+          this.translate.get('MESSAGE.property_list').subscribe((str: string) => {
+        this.publicHelper.processService.processStart(this.constructor.name + 'All', str, this.constructorInfoAreaId);
+      });
     this.contentService.setAccessDataType(ManageUserAccessDataTypesEnum.Editor);
     //*filter */
     const filterStatist0 = JSON.parse(JSON.stringify(this.filteModelContent));
@@ -958,7 +960,9 @@ export class EstatePropertyListComponent extends ListBaseComponent<EstatePropert
       //*results */
       var ret = results[0];
       if (ret.isSuccess) {
-        statist.set(this.translate.instant('TITLE.All'), ret.totalRowCount);
+        this.translate.get('TITLE.All').subscribe((str: string) => {
+          statist.set(str, ret.totalRowCount);
+        });
       } else {
         this.cmsToastrService.typeErrorMessage(ret.errorMessage);
       }
@@ -966,7 +970,9 @@ export class EstatePropertyListComponent extends ListBaseComponent<EstatePropert
       //*results */
       var ret = results[1];
       if (ret.isSuccess) {
-        statist.set(this.translate.instant('TITLE.Number_of_rows_in_the_recordstatus_available'), ret.totalRowCount);
+        this.translate.get('TITLE.Number_of_rows_in_the_recordstatus_available').subscribe((str: string) => {
+          statist.set(str, ret.totalRowCount);
+        });
       } else {
         this.cmsToastrService.typeErrorMessage(ret.errorMessage);
       }
@@ -974,7 +980,9 @@ export class EstatePropertyListComponent extends ListBaseComponent<EstatePropert
       ret = results[2];
 
       if (ret.isSuccess) {
-        statist.set(this.translate.instant('TITLE.Number_of_rows_in_the_recordstatus_disable'), ret.totalRowCount);
+        this.translate.get('TITLE.Number_of_rows_in_the_recordstatus_disable').subscribe((str: string) => {
+          statist.set(str, ret.totalRowCount);
+        });
       } else {
         this.cmsToastrService.typeErrorMessage(ret.errorMessage);
       }
@@ -982,7 +990,9 @@ export class EstatePropertyListComponent extends ListBaseComponent<EstatePropert
       ret = results[3];
 
       if (ret.isSuccess) {
-        statist.set(this.translate.instant('TITLE.Number_of_rows_in_the_recordstatus_pending'), ret.totalRowCount);
+        this.translate.get('TITLE.Number_of_rows_in_the_recordstatus_pending').subscribe((str: string) => {
+          statist.set(str, ret.totalRowCount);
+        });
       } else {
         this.cmsToastrService.typeErrorMessage(ret.errorMessage);
       }
@@ -1182,12 +1192,13 @@ export class EstatePropertyListComponent extends ListBaseComponent<EstatePropert
   }
   onActionSelectorContarctType(model: EstateContractTypeModel | null): void {
     this.contractTypeSelected = null;
-    this.filteModelContent.linkContractTypeId = null;
-    if (!model || !model.id || model.id.length <= 0) {
-      const message = this.translate.instant('MESSAGE.Type_of_property_transaction_is_not_known');
-      this.cmsToastrService.typeWarningSelected(message);
-      return;
-    }
+          this.filteModelContent.linkContractTypeId = null;
+      if (!model || !model.id || model.id.length <= 0) {
+        this.translate.get('MESSAGE.Type_of_property_transaction_is_not_known').subscribe((str: string) => {
+          this.cmsToastrService.typeWarningSelected(str);
+        });
+        return;
+      }
     this.contractTypeSelected = model;
     this.filteModelContent.linkContractTypeId = model.id;
 

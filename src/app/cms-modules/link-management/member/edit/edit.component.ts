@@ -66,7 +66,9 @@ export class LinkManagementMemberEditComponent extends EditBaseComponent<LinkMan
 
   ngOnInit(): void {
     if (this.requestId > 0) {
-      this.formInfo.formTitle = this.translate.instant('TITLE.Edit_Categories');
+      this.translate.get('TITLE.Edit_Categories').subscribe((str: string) => {
+        this.formInfo.formTitle = str;
+      });
       this.DataGetOneContent();
     } else {
       this.cmsToastrService.typeErrorComponentAction();
@@ -148,8 +150,9 @@ export class LinkManagementMemberEditComponent extends EditBaseComponent<LinkMan
   }
   onActionSelectorCmsUser(model: CoreUserModel | null): void {
     if (!model || !model.id || model.id <= 0) {
-      const message = this.translate.instant('MESSAGE.Information_user_is_not_clear');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Information_user_is_not_clear').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.dataModel.linkExternalCmsUserId = model.id;

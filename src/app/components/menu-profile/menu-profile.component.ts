@@ -212,9 +212,10 @@ export class MenuProfileComponent implements OnInit {
     this.translate.get(['TITLE.Information', 'MESSAGE.Request_to_change_site_was_sent_to_the_server']).subscribe((str: string) => {
       title = str['TITLE.Information'];
       message = str['MESSAGE.Request_to_change_site_was_sent_to_the_server'] + '?';
+      if (this.cmsToastrService) this.cmsToastrService.toastr.info(message, title);
     });
 
-    if (this.cmsToastrService) this.cmsToastrService.toastr.info(message, title);
+
     const pName = this.constructor.name + 'main';
     this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
       this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
@@ -276,9 +277,10 @@ export class MenuProfileComponent implements OnInit {
     this.translate.get(['TITLE.Information', 'MESSAGE.Request_to_change_site_was_sent_to_the_server']).subscribe((str: string) => {
       title = str['TITLE.Information'];
       message = str['MESSAGE.Request_to_change_site_was_sent_to_the_server'] + '?';
+      if (this.cmsToastrService) this.cmsToastrService.toastr.info(message, title);
     });
 
-    if (this.cmsToastrService) this.cmsToastrService.toastr.info(message, title);
+
     const pName = this.constructor.name + 'main';
     this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
       this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);

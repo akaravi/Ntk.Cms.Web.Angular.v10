@@ -93,7 +93,7 @@ export class AuthSingInBySmsComponent implements OnInit, OnDestroy {
 
     if (this.forgetState == 'entrycode') {
       if (!this.dataModelAuthUserSignInBySms.captchaText || this.dataModelAuthUserSignInBySms.captchaText.length == 0) {
-        this.cmsToastrService.typeWarningMessage(this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorSetCpatcha'));
+        this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorSetCpatcha').subscribe((str: string) => { this.cmsToastrService.typeWarningMessage(str); });
         return;
       }
       this.dataModelAuthUserSignInBySms.code = '';
@@ -113,7 +113,7 @@ export class AuthSingInBySmsComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (res) => {
           if (res.isSuccess) {
-            this.cmsToastrService.typeSuccessMessage(this.translate.instant('MESSAGE.The_login_code_was_texted_with_you'));
+            this.translate.get('MESSAGE.The_login_code_was_texted_with_you').subscribe((str: string) => { this.cmsToastrService.typeSuccessMessage(str); });
             this.forgetState = 'entrycode';
             //TimeDown
             this.prorocess = new processModel();
@@ -122,9 +122,10 @@ export class AuthSingInBySmsComponent implements OnInit, OnDestroy {
             this.prorocess.message = '';
             this.buttonnResendSmsDisable = true;
             var timeleft = this.prorocess.progressBarMaxValue;
+            this.translate.get('MESSAGE.SECONDS').subscribe((str: string) => {
             this.downloadTimer = setInterval(() => {
               this.prorocess.progressBarValue = this.prorocess.progressBarMaxValue - timeleft;
-              this.prorocess.message = '(' + timeleft + ' ' + this.translate.instant('MESSAGE.SECONDS') + ')';
+              this.prorocess.message = '(' + timeleft + ' ' + str + ')';
               timeleft -= 1;
               if (timeleft <= 0) {
                 this.buttonnResendSmsDisable = false;
@@ -133,7 +134,8 @@ export class AuthSingInBySmsComponent implements OnInit, OnDestroy {
               }
               this.cdr.detectChanges();
 
-            }, 500)
+            }, 500);
+          });
             //TimeDown
           }
           else {

@@ -181,8 +181,10 @@ export class EstateBillboardTreeComponent implements OnInit, OnDestroy {
       id = this.dataModelSelect.id;
     }
     if (id === '') {
-      const message1 = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected');
-      this.cmsToastrService.typeErrorSelected(message1);
+      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
+
       return;
     }
 
@@ -191,7 +193,7 @@ export class EstateBillboardTreeComponent implements OnInit, OnDestroy {
     this.translate.get(['MESSAGE.Please_Confirm', 'MESSAGE.Do_you_want_to_delete_this_content']).subscribe((str: string) => {
       title = str['MESSAGE.Please_Confirm'];
       message = str['MESSAGE.Do_you_want_to_delete_this_content'] + '?' + '<br> ( ' + this.dataModelSelect.title + ' ) ';
-    });
+
 
     this.cmsConfirmationDialogService.confirm(title, message)
       .then((confirmed) => {
@@ -224,5 +226,6 @@ export class EstateBillboardTreeComponent implements OnInit, OnDestroy {
         // console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)')
       }
       );
+    });
   }
 }

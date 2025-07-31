@@ -71,7 +71,9 @@ export class LinkManagementCategoryAddComponent extends AddBaseComponent<LinkMan
 
   ngOnInit(): void {
 
-    this.formInfo.formTitle = this.translate.instant('TITLE.Register_New_Categories');
+          this.translate.get('TITLE.Register_New_Categories').subscribe((str: string) => {
+        this.formInfo.formTitle = str;
+      });
 
 
     this.DataGetAccess();

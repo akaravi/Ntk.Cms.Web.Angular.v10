@@ -311,8 +311,9 @@ export class DataProviderSourceListComponent extends ListBaseComponent<DataProvi
   }
   onActionButtonDataRow(model: DataProviderSourceModel = this.tableRowSelected, event?: MouseEvent): void {
     if (!model || !model.id || model.id === 0) {
-      const emessage = this.translate.instant('MESSAGE.No_row_selected_for_viewing');
-      this.cmsToastrService.typeErrorSelected(emessage); return;
+      this.translate.get('MESSAGE.No_row_selected_for_viewing').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      }); return;
     }
     this.onActionTableRowSelect(model);
 

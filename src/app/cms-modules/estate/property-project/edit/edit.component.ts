@@ -215,7 +215,9 @@ export class EstatePropertyProjectEditComponent extends EditBaseComponent<Estate
     this.translate.get('MESSAGE.get_other_information_from_the_server').subscribe((str: string) => { this.formInfo.formAlert = str; });
     this.formInfo.formError = '';
     const pName = this.constructor.name + 'main';
-    this.publicHelper.processService.processStart(pName, this.translate.instant('MESSAGE.get_other_information_from_the_server'), this.constructorInfoAreaId);
+          this.translate.get('MESSAGE.get_other_information_from_the_server').subscribe((str: string) => {
+        this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
+      });
     const filterModel = new EstatePropertyProjectFilterModel();
     ids.forEach(item => {
       if (item > 0) {
@@ -380,8 +382,9 @@ export class EstatePropertyProjectEditComponent extends EditBaseComponent<Estate
 
   onActionSelectorCompany(model: EstatePropertyCompanyModel | null): void {
     if (!model || !model.id || model.id.length <= 0) {
-      const message = this.translate.instant('MESSAGE.information_area_is_not_clear');
-      this.cmsToastrService.typeWarningSelected(message);
+      this.translate.get('MESSAGE.information_area_is_not_clear').subscribe((str: string) => {
+        this.cmsToastrService.typeWarningSelected(str);
+      });
       this.dataModel.linkPropertyCompanyId = null;
       return;
     }

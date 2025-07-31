@@ -69,7 +69,9 @@ export class CmsSiteUserCreditViewComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.formInfo.formTitle = this.translate.instant('TITLE.VALIDITY');
+    this.translate.get('TITLE.VALIDITY').subscribe((str: string) => {
+      this.formInfo.formTitle = str;
+    });
 
 
     if (this.requestLinkModuleId <= 0) {

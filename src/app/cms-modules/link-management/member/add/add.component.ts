@@ -60,7 +60,9 @@ export class LinkManagementMemberAddComponent extends AddBaseComponent<LinkManag
 
   ngOnInit(): void {
 
-    this.formInfo.formTitle = this.translate.instant('TITLE.Register_New_Categories');
+          this.translate.get('TITLE.Register_New_Categories').subscribe((str: string) => {
+        this.formInfo.formTitle = str;
+      });
 
 
     this.DataGetAccess();
@@ -102,8 +104,9 @@ export class LinkManagementMemberAddComponent extends AddBaseComponent<LinkManag
   }
   onActionSelectorCmsUser(model: CoreUserModel | null): void {
     if (!model || !model.id || model.id <= 0) {
-      const message = this.translate.instant('MESSAGE.Information_user_is_not_clear');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Information_user_is_not_clear').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.dataModel.linkExternalCmsUserId = model.id;

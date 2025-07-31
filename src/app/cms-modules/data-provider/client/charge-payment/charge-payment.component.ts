@@ -79,7 +79,9 @@ export class DataProviderClientChargePaymentComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.formInfo.formTitle = this.translate.instant('TITLE.Select_Payment_Gateway');
+    this.translate.get('TITLE.Select_Payment_Gateway').subscribe((str: string) => {
+      this.formInfo.formTitle = str;
+    });
 
   }
 
@@ -119,7 +121,9 @@ export class DataProviderClientChargePaymentComponent implements OnInit {
       next: (ret) => {
         if (ret.isSuccess) {
           this.dataModelPaymentResult = ret;
-          this.cmsToastrService.typeSuccessMessage(this.translate.instant('MESSAGE.Transferring_to_the_payment_gateway'));
+          this.translate.get('MESSAGE.Transferring_to_the_payment_gateway').subscribe((str: string) => {
+          this.cmsToastrService.typeSuccessMessage(str);
+        });
           localStorage.setItem('TransactionId', ret.item.transactionId.toString());
           this.document.location.href = this.dataModelPaymentResult.item.urlToPay;
         }

@@ -53,7 +53,9 @@ export class CoreSiteModuleSiteInfoComponent implements OnInit {
       this.dialogRef.close({ dialogChangedDate: false });
       return;
     }
-    this.formInfo.formTitle = this.translate.instant('TITLE.VIEW_STATISTICS');
+    this.translate.get('TITLE.VIEW_STATISTICS').subscribe((str: string) => {
+      this.formInfo.formTitle = str;
+    });
     this.DataGetAll();
   }
   DataGetAll(): void {

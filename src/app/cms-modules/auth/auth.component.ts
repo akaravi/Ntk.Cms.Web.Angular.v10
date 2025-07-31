@@ -40,13 +40,6 @@ export class AuthComponent implements OnInit {
   //tesettt = 'gfjhgjh';
   showSplashModel = true;
   ngOnInit(): void {
-    // this.translate.get('ACTION.ABOUT').subscribe((translation: string) => {
-    //   console.log('Translated subscribe:', translation);
-    // });
-
-    // this.tesettt = this.translate.instant('ACTION.ABOUT');
-    // console.log('Translated instant:', this.tesettt);
-
 
     if (window.innerWidth < environment.cmsViewConfig.mobileWindowInnerWidth) {
       setTimeout(() => {

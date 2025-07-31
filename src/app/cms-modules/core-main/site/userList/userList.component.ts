@@ -356,7 +356,9 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
   onActionButtonEditSiteRow(model: CoreSiteUserModel = this.tableRowSelected, event?: MouseEvent): void {
 
     if (!model || !model.linkUserId || model.linkUserId === 0 || !model.linkSiteId || model.linkSiteId === 0) {
-      this.cmsToastrService.typeErrorSelected(this.translate.instant('MESSAGE.No_row_selected_for_editing'));
+      this.translate.get('MESSAGE.No_row_selected_for_editing').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.onActionTableRowSelect(model);
@@ -399,7 +401,9 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
   onActionButtonEditUserRow(model: CoreSiteUserModel = this.tableRowSelected, event?: MouseEvent): void {
 
     if (!model || !model.linkUserId || model.linkUserId === 0 || !model.linkSiteId || model.linkSiteId === 0) {
-      this.cmsToastrService.typeErrorSelected(this.translate.instant('MESSAGE.No_row_selected_for_editing'));
+      this.translate.get('MESSAGE.No_row_selected_for_editing').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.onActionTableRowSelect(model);
@@ -415,7 +419,9 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
   onActionButtonResllerUser(model: CoreSiteUserModel = this.tableRowSelected, event?: MouseEvent): void {
 
     if (!model || !model.linkUserId || model.linkUserId === 0 || !model.linkSiteId || model.linkSiteId === 0) {
-      this.cmsToastrService.typeErrorSelected(this.translate.instant('MESSAGE.No_row_selected_for_editing'));
+      this.translate.get('MESSAGE.No_row_selected_for_editing').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.onActionTableRowSelect(model);
@@ -431,7 +437,9 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
   onActionButtonResllerSite(model: CoreSiteUserModel = this.tableRowSelected, event?: MouseEvent): void {
 
     if (!model || !model.linkUserId || model.linkUserId === 0 || !model.linkSiteId || model.linkSiteId === 0) {
-      this.cmsToastrService.typeErrorSelected(this.translate.instant('MESSAGE.No_row_selected_for_editing'));
+      this.translate.get('MESSAGE.No_row_selected_for_editing').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.onActionTableRowSelect(model);

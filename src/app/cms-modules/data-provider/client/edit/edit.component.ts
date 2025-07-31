@@ -87,7 +87,7 @@ export class DataProviderClientEditComponent extends EditBaseComponent<DataProvi
 
   ngOnInit(): void {
     if (this.requestId > 0) {
-      this.formInfo.formTitle = this.translate.instant('TITLE.Edit_Categories');
+      this.translate.get('TITLE.Edit_Categories').subscribe((str: string) => { this.formInfo.formTitle = str });
       this.DataGetOneContent();
     } else {
       this.cmsToastrService.typeErrorComponentAction();
@@ -190,7 +190,9 @@ export class DataProviderClientEditComponent extends EditBaseComponent<DataProvi
       return;
     }
 
-    this.formInfo.formAlert = this.translate.instant('MESSAGE.Getting_access_category_from_the_server');
+    this.translate.get('MESSAGE.Getting_access_category_from_the_server').subscribe((str: string) => {
+      this.formInfo.formAlert = str;
+    });
     this.formInfo.formError = '';
     const pName = this.constructor.name + 'main';
     this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {

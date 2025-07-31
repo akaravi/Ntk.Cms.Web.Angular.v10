@@ -200,19 +200,12 @@ export class EstatePropertyProjectAddComponent extends AddBaseComponent<EstatePr
       });
   }
 
-  // onActionSelectorSelect(model: ArticleCategoryModel | null): void {
-  //   if (!model || model.id <= 0) {
-  //     const message = this.translate.instant('MESSAGE.category_of_information_is_not_clear');
-  //     this.cmsToastrService.typeErrorSelected(message);
-  //     return;
-  //   }
-  //   this.dataModel.linkCategoryId = model.id;
-  // }
 
   onActionSelectorCompany(model: EstatePropertyCompanyModel | null): void {
     if (!model || !model.id || model.id.length <= 0) {
-      const message = this.translate.instant('MESSAGE.information_area_is_not_clear');
-      this.cmsToastrService.typeWarningSelected(message);
+      this.translate.get('MESSAGE.information_area_is_not_clear').subscribe((str: string) => {
+        this.cmsToastrService.typeWarningSelected(str);
+      });
       this.dataModel.linkPropertyCompanyId = null;
       return;
     }

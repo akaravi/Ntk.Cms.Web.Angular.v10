@@ -208,14 +208,7 @@ export class CatalogContentListComponent extends ListBaseComponent<CatalogConten
   }
 
   onActionButtonNewRow(): void {
-    // if (
-    //   this.categoryModelSelected == null ||
-    //   this.categoryModelSelected.id?.length === 0
-    // ) {
-    //   const message = this.translate.instant('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected');
-    //   this.cmsToastrService.typeErrorSelected(message);
-    //   return;
-    // }
+
     if (
       this.dataModelResult == null ||
       this.dataModelResult.access == null ||

@@ -112,7 +112,9 @@ export class CoreSiteUserEditComponent extends EditBaseComponent<CoreSiteUserSer
             this.formInfo.formAlert = '';
           }
           else {
-            this.cmsToastrService.typeError(this.translate.instant('MESSAGE.Module_not_found_for_editing'));
+            this.translate.get('MESSAGE.Module_not_found_for_editing').subscribe((str: string) => {
+        this.cmsToastrService.typeError(str);
+      });
 
           }
         } else {

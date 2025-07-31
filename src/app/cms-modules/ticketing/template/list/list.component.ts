@@ -269,8 +269,9 @@ export class TicketingTemplateListComponent extends ListBaseComponent<TicketingT
   }
   onActionButtonDeleteRow(mode: TicketingTemplateModel = this.tableRowSelected): void {
     if (mode == null || !mode.id || mode.id === 0) {
-      const emessage = this.translate.instant('MESSAGE.No_row_selected_for_editing');
-      this.cmsToastrService.typeErrorSelected(emessage);
+      this.translate.get('MESSAGE.No_row_selected_for_editing').subscribe((emessage: string) => {
+        this.cmsToastrService.typeErrorSelected(emessage);
+      });
       return;
     }
     this.tableRowSelected = mode;

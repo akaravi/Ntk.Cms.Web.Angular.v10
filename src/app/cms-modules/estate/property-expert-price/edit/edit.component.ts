@@ -75,7 +75,7 @@ export class EstatePropertyExpertPriceEditComponent extends EditBaseComponent<Es
 
   ngOnInit(): void {
     if (this.requestId.length > 0) {
-      this.formInfo.formTitle = this.translate.instant('TITLE.Edit_Categories');
+      this.translate.get('TITLE.Edit_Categories').subscribe((str: string) => { this.formInfo.formTitle = str });
       this.DataGetOneContent();
     } else {
       this.cmsToastrService.typeErrorComponentAction();
@@ -184,12 +184,13 @@ export class EstatePropertyExpertPriceEditComponent extends EditBaseComponent<Es
   }
 
   onActionSelectorContarctType(model: EstatePropertyTypeLanduseModel | null): void {
-    this.dataModel.linkContractTypeId = null;
-    if (!model || !model.id || model.id.length <= 0) {
-      const message = this.translate.instant('MESSAGE.Type_of_property_transaction_is_not_known');
-      this.cmsToastrService.typeWarningSelected(message);
-      return;
-    }
+          this.dataModel.linkContractTypeId = null;
+      if (!model || !model.id || model.id.length <= 0) {
+        this.translate.get('MESSAGE.Type_of_property_transaction_is_not_known').subscribe((str: string) => {
+          this.cmsToastrService.typeWarningSelected(str);
+        });
+        return;
+      }
     this.dataModel.linkContractTypeId = model.id;
   }
 

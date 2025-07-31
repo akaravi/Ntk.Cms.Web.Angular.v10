@@ -134,7 +134,9 @@ export class CoreUserSupportAccessEditComponent extends EditBaseComponent<CoreUs
             this.formInfo.formAlert = '';
           }
           else {
-            this.cmsToastrService.typeError(this.translate.instant('MESSAGE.Module_not_found_for_editing'));
+            this.translate.get('MESSAGE.Module_not_found_for_editing').subscribe((str: string) => {
+        this.cmsToastrService.typeError(str);
+      });
           }
         } else {
           this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });

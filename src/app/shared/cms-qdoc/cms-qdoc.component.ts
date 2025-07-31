@@ -45,7 +45,9 @@ export class CmsQDocComponent implements OnInit {
     })
       .subscribe({
         next: (ret: any) => {
-          this.cmsToastrService.typeSuccessMessage(this.translate.instant('MESSAGE.The_order_was_sent_to_the_website'));
+          this.translate.get('MESSAGE.The_order_was_sent_to_the_website').subscribe((str: string) => {
+            this.cmsToastrService.typeSuccessMessage(str);
+          });
         },
         error: (err) => {
           //

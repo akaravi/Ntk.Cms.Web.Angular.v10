@@ -59,8 +59,12 @@ export class CoreModuleLogReportAbuseWidgetComponent implements OnInit, OnDestro
     }
   }
   onActionStatist(): void {
-    this.publicHelper.processService.processStart(this.constructor.name + 'Pending', this.translate.instant('MESSAGE.Get_pending_report_abuse'), this.constructorInfoAreaId);
-    this.publicHelper.processService.processStart(this.constructor.name + 'All', this.translate.instant('MESSAGE.Get_all_report_abuse'), this.constructorInfoAreaId);
+    this.translate.get('MESSAGE.Get_pending_report_abuse').subscribe((str: string) => {
+      this.publicHelper.processService.processStart(this.constructor.name + 'Pending', str, this.constructorInfoAreaId);
+    });
+    this.translate.get('MESSAGE.Get_all_report_abuse').subscribe((str: string) => {
+      this.publicHelper.processService.processStart(this.constructor.name + 'All', str, this.constructorInfoAreaId);
+    });
 
     this.widgetInfoModel.setItem(new WidgetContentInfoModel('Pending', 0, 0, ''));
     this.widgetInfoModel.setItem(new WidgetContentInfoModel('All', 1, 0, ''));

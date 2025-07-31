@@ -133,10 +133,12 @@ export class TicketingTaskAddComponent extends AddBaseComponent<TicketingTaskSer
 
   onActionSelectSource(model: ApplicationSourceModel | null): void {
     if (!model || model.id <= 0) {
-      this.cmsToastrService.typeErrorMessage(
-        this.translate.instant('MESSAGE.Specify_the_source'),
-        this.translate.instant('MESSAGE.The_source_of_the_information_application_is_not_known')
-      );
+      this.translate.get(['MESSAGE.Specify_the_source', 'MESSAGE.The_source_of_the_information_application_is_not_known']).subscribe((str: any) => {
+        this.cmsToastrService.typeErrorMessage(
+          str['MESSAGE.Specify_the_source'],
+          str['MESSAGE.The_source_of_the_information_application_is_not_known']
+        );
+      });
       return;
     }
     this.dataModel.linkTicketingDepartemenId = model.id;

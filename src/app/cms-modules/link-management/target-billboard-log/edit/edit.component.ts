@@ -67,7 +67,9 @@ export class LinkManagementTargetBillboardLogEditComponent extends EditBaseCompo
 
   ngOnInit(): void {
     if (this.requestId.length > 0) {
-      this.formInfo.formTitle = this.translate.instant('TITLE.Edit_Categories');
+      this.translate.get('TITLE.Edit_Categories').subscribe((str: string) => {
+        this.formInfo.formTitle = str;
+      });
       this.DataGetOneContent();
     } else {
       this.cmsToastrService.typeErrorComponentAction();
@@ -150,16 +152,18 @@ export class LinkManagementTargetBillboardLogEditComponent extends EditBaseCompo
   }
   onActionSelectorLinkManagementBillboardId(model: LinkManagementBillboardModel | null): void {
     if (!model || !model.id || model.id <= 0) {
-      const message = this.translate.instant('MESSAGE.Information_billboard_is_not_clear');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Information_billboard_is_not_clear').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.dataModel.linkManagementBillboardId = model.id;
   }
   onActionSelectorLinkManagementTargetId(model: LinkManagementTargetModel | null): void {
     if (!model || !model.id || model.id <= 0) {
-      const message = this.translate.instant('MESSAGE.Information_target_is_not_clear');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Information_target_is_not_clear').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.dataModel.linkManagementTargetId = model.id;

@@ -60,7 +60,9 @@ export class LinkManagementAccountingDetailAddComponent extends AddBaseComponent
 
   ngOnInit(): void {
 
-    this.formInfo.formTitle = this.translate.instant('TITLE.Register_New_Categories');
+    this.translate.get('TITLE.Register_New_Categories').subscribe((str: string) => {
+      this.formInfo.formTitle = str;
+    });
 
     this.DataGetAccess();
 
@@ -106,8 +108,9 @@ export class LinkManagementAccountingDetailAddComponent extends AddBaseComponent
   }
   onActionSelectorAccount(model: LinkManagementAccountingModel | null): void {
     if (!model || !model.id || model.id <= 0) {
-      const message = this.translate.instant('MESSAGE.Account_information_is_not_clear');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Account_information_is_not_clear').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.dataModel.linkManagementAccountingId = model.id;

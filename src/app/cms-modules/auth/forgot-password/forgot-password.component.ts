@@ -70,7 +70,9 @@ export class AuthForgotPasswordComponent implements OnInit {
       .subscribe({
         next: (res) => {
           if (res.isSuccess) {
-            this.cmsToastrService.typeSuccessMessage(this.translate.instant('MESSAGE.The_activation_code_was_texted_with_you'));
+            this.translate.get('MESSAGE.The_activation_code_was_texted_with_you').subscribe((str: string) => {
+          this.cmsToastrService.typeSuccessMessage(str);
+        });
             this.forgetState = 'entrycode';
           }
           else {
@@ -103,7 +105,9 @@ export class AuthForgotPasswordComponent implements OnInit {
       .subscribe({
         next: (res) => {
           if (res.isSuccess) {
-            this.cmsToastrService.typeSuccessMessage(this.translate.instant('MESSAGE.The_activation_code_was_emailed_to_you'));
+            this.translate.get('MESSAGE.The_activation_code_was_emailed_to_you').subscribe((str: string) => {
+          this.cmsToastrService.typeSuccessMessage(str);
+        });
             this.forgetState = 'entrycode';
           }
           else {
@@ -135,7 +139,9 @@ export class AuthForgotPasswordComponent implements OnInit {
       .subscribe({
         next: (res) => {
           if (res.isSuccess) {
-            this.cmsToastrService.typeSuccessMessage(this.translate.instant('MESSAGE.Your_password_was_changed_successfully'));
+            this.translate.get('MESSAGE.Your_password_was_changed_successfully').subscribe((str: string) => {
+          this.cmsToastrService.typeSuccessMessage(str);
+        });
             setTimeout(() => this.router.navigate(['/']), 1000);
           }
           else {

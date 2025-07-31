@@ -112,9 +112,9 @@ export class EstatePropertyHistoryEditMobileComponent extends EditBaseComponent<
       });
   }
   DataGetOneContent(): void {
-    this.formInfo.formAlert = this.translate.instant(
-      'MESSAGE.Receiving_Information_From_The_Server'
-    );
+    this.translate.get('MESSAGE.Receiving_Information_From_The_Server').subscribe((str: string) => {
+      this.formInfo.formAlert = str;
+    });
     this.formInfo.formError = '';
     const pName = this.constructor.name + 'main';
     this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
@@ -158,9 +158,9 @@ export class EstatePropertyHistoryEditMobileComponent extends EditBaseComponent<
                 });
             }
           } else {
-            this.formInfo.formAlert = this.translate.instant(
-              'ERRORMESSAGE.MESSAGE.typeError'
-            );
+            this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
             this.formInfo.formError = ret.errorMessage;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
@@ -173,9 +173,9 @@ export class EstatePropertyHistoryEditMobileComponent extends EditBaseComponent<
       });
   }
   DataEditContent(): void {
-    this.formInfo.formAlert = this.translate.instant(
-      'MESSAGE.sending_information_to_the_server'
-    );
+    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => {
+      this.formInfo.formAlert = str;
+    });
     this.formInfo.formError = '';
 
     if (this.dataFileModelFiles) {
@@ -194,15 +194,15 @@ export class EstatePropertyHistoryEditMobileComponent extends EditBaseComponent<
       next: (ret) => {
         this.dataModelResult = ret;
         if (ret.isSuccess) {
-          this.formInfo.formAlert = this.translate.instant(
-            'MESSAGE.registration_completed_successfully'
-          );
+          this.translate.get('MESSAGE.registration_completed_successfully').subscribe((str: string) => {
+            this.formInfo.formAlert = str;
+          });
           this.cmsToastrService.typeSuccessEdit();
           this.dialogRef.close({ dialogChangedDate: true });
         } else {
-          this.formInfo.formAlert = this.translate.instant(
-            'ERRORMESSAGE.MESSAGE.typeError'
-          );
+          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => {
+            this.formInfo.formAlert = str;
+          });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -267,10 +267,11 @@ export class EstatePropertyHistoryEditMobileComponent extends EditBaseComponent<
   }
   onActionSelectorSelect(model: EstateActivityTypeModel | null): void {
     if (!model || model.id.length <= 0) {
-      const message = this.translate.instant(
+      this.translate.get(
         'MESSAGE.category_of_information_is_not_clear'
-      );
-      this.cmsToastrService.typeErrorSelected(message);
+      ).subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.dataModel.linkActivityTypeId = model.id;

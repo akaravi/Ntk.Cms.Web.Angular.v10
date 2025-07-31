@@ -203,8 +203,9 @@ export class ApplicationThemeConfigListComponent extends ListBaseComponent<Appli
       sourceId = this.categoryModelSelected.id;
     }
     if (sourceId <= 0) {
-      const message = this.translate.instant('MESSAGE.Source_is_not_selected');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Source_is_not_selected').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     if (

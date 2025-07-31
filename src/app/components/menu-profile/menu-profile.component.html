@@ -25,8 +25,10 @@
       </div>
     </div>
     <div class="divider"></div>
+    tokenInfo.access.userAccessUserType:  {{tokenInfo.access.userAccessUserType}}
+
     <ng-container
-      *ngIf="tokenInfo &&( tokenInfo.access.userAccessUserType === 1 || tokenInfo.access.userAccessUserType === 2 || tokenInfo.access.userAccessUserType === 3)">
+      *ngIf="tokenInfo && tokenInfo.access &&( tokenInfo.access.userAccessUserType === 1 || tokenInfo.access.userAccessUserType === 2 || tokenInfo.access.userAccessUserType === 3)">
       <!-- userAccessAdminAllowToAllData Field -->
       <div class="d-flex mb-0  ps-2 pe-2">
         <div class="pt-1">

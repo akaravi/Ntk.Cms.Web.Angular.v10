@@ -109,9 +109,9 @@ export class CoreSiteWidgetStatusComponent implements OnInit, OnDestroy {
       // this.inputSiteId = model.id;
       if (model.id !== this.tokenInfoModel.access.siteId) {
         if (model.id === this.tokenInfoModel.access.siteId) {
-          const etitle = this.translate.instant('TITLE.Warrning');
-          const emessage = this.translate.instant('MESSAGE.The_ID_of_this_website_is_the_same_as_the_website_you_are_on');
-          this.cmsToastrService.toastr.warning(emessage, etitle);
+          this.translate.get([ 'MESSAGE.The_ID_of_this_website_is_the_same_as_the_website_you_are_on','TITLE.Warrning']).subscribe((str: string[]) => {
+            this.cmsToastrService.toastr.warning(str[0], str[1]);
+          });
           return;
         }
         const authModel: AuthRefreshTokenModel = new AuthRefreshTokenModel();
@@ -126,9 +126,10 @@ export class CoreSiteWidgetStatusComponent implements OnInit, OnDestroy {
         this.translate.get(['TITLE.Information', 'MESSAGE.Request_to_change_site_was_sent_to_the_server']).subscribe((str: string) => {
           title = str['TITLE.Information'];
           message = str['MESSAGE.Request_to_change_site_was_sent_to_the_server'] + '?';
+          this.cmsToastrService.toastr.info(message, title);
         });
 
-        this.cmsToastrService.toastr.info(message, title);
+
         this.cmsAuthService.refreshToken(authModel).subscribe({
           next: (ret) => {
             if (ret.isSuccess) {

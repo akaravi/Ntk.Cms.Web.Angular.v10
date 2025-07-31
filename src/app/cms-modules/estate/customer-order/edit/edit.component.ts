@@ -323,8 +323,9 @@ export class EstateCustomerOrderEditComponent extends EditBaseComponent<EstateCu
     this.contractTypeSelected = null;
     this.dataModel.linkContractTypeId = null;
     if (!model || !model.id || model.id.length <= 0) {
-      const message = this.translate.instant('MESSAGE.Type_of_property_transaction_is_not_known');
-      this.cmsToastrService.typeWarningSelected(message);
+      this.translate.get('MESSAGE.Type_of_property_transaction_is_not_known').subscribe((str: string) => {
+        this.cmsToastrService.typeWarningSelected(str);
+      });
       return;
     }
     this.contractTypeSelected = model;
@@ -458,8 +459,6 @@ export class EstateCustomerOrderEditComponent extends EditBaseComponent<EstateCu
   }
   onActionSelectorCmsUser(model: CoreUserModel | null): void {
     if (!model || !model.id || model.id <= 0) {
-      //  const message = this.translate.instant('MESSAGE.Information_user_is_not_clear');
-      //  this.cmsToastrService.typeErrorSelected(message);
       this.dataModel.linkCmsUserId = null;
       return;
     }

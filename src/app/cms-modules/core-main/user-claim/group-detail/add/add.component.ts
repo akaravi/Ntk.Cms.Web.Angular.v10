@@ -126,13 +126,12 @@ export class CoreUserClaimGroupDetailAddComponent extends AddBaseComponent<CoreU
     this.dataModel.linkUserClaimGroupId = model.id;
   }
   onActionSelectClaimType(model: CoreUserClaimTypeModel | null): void {
-    if (!model || model.id <= 0) {
-      this.cmsToastrService.typeErrorMessage(
-        this.translate.instant('MESSAGE.Specify_the_category'),
-        this.translate.instant('MESSAGE.type_of_information_documents_is_not_clear')
-      );
-      return;
-    }
+          if (!model || model.id <= 0) {
+        this.translate.get(['MESSAGE.Specify_the_category', 'MESSAGE.type_of_information_documents_is_not_clear']).subscribe((str: any) => {
+          this.cmsToastrService.typeErrorMessage(str['MESSAGE.Specify_the_category'], str['MESSAGE.type_of_information_documents_is_not_clear']);
+        });
+        return;
+      }
     this.dataModel.linkUserClaimTypeId = model.id;
   }
 

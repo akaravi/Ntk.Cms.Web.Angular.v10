@@ -173,7 +173,9 @@ export class PollingContentAddComponent extends AddBaseComponent<PollingContentS
   }
   DataOptionGetAll(): void {
     this.formInfo.formSubmitAllow = false;
-    this.formInfo.formAlert = this.translate.instant('MESSAGE.Receiving_Options_From_The_Server');
+    this.translate.get('MESSAGE.Receiving_Options_From_The_Server').subscribe((str: string) => {
+      this.formInfo.formAlert = str;
+    });
     this.formInfo.formError = '';
 
 
@@ -324,7 +326,9 @@ export class PollingContentAddComponent extends AddBaseComponent<PollingContentS
         next: (ret) => {
           if (ret.isSuccess) {
             this.optionSelected = new PollingOptionModel();
-            this.optionActionTitle = this.translate.instant('ACTION.Add_To_List');
+            this.translate.get('ACTION.Add_To_List').subscribe((str: string) => {
+              this.optionActionTitle = str;
+            });
             this.optionSelected = new PollingOptionModel();
             this.DataOptionGetAll();
           }
@@ -346,7 +350,9 @@ export class PollingContentAddComponent extends AddBaseComponent<PollingContentS
         next: (ret) => {
           if (ret.isSuccess) {
             this.optionSelected = new PollingOptionModel();
-            this.optionActionTitle = this.translate.instant('ACTION.Add_To_List');
+            this.translate.get('ACTION.Add_To_List').subscribe((str: string) => {
+              this.optionActionTitle = str;
+            });
             this.optionSelected = new PollingOptionModel();
             this.DataOptionGetAll();
           } else {
@@ -400,7 +406,9 @@ export class PollingContentAddComponent extends AddBaseComponent<PollingContentS
     this.optionSelected = this.optionDataModel[index];
     this.optionDataModel.splice(index, 1);
     this.optionTabledataSource.data = this.optionDataModel;
-    this.optionActionTitle = this.translate.instant('ACTION.EDIT');
+    this.translate.get('ACTION.EDIT').subscribe((str: string) => {
+      this.optionActionTitle = str;
+    });
   }
 
 

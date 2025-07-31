@@ -52,7 +52,7 @@
                   [disabled]="disabled">
                   <option *ngFor="let operator of operatorsService.getOperators(convertToRule(child), fieldMap)"
                     [value]="operator">
-                    {{this.translate.instant(operatorsService.getOperatorDisplayName(operator)) }}
+                     {{ (translate.get(operatorsService.getOperatorDisplayName(operator)) | async) }}
                   </option>
                 </select>
               </div>

@@ -396,7 +396,9 @@ export class CoreLogMemberListComponent extends ListBaseComponent<CoreLogMemberS
     }
     this.onActionTableRowSelect(model);
     if (!this.tableRowSelected.linkCoreUserId || this.tableRowSelected.linkCoreUserId === 0) {
-      this.cmsToastrService.typeErrorSelected(this.translate.instant('MESSAGE.content_does_not_contain_user_information'));
+      this.translate.get('MESSAGE.content_does_not_contain_user_information').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.router.navigate(['/core/user/edit', this.tableRowSelected.linkCoreUserId]);

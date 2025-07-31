@@ -73,7 +73,9 @@ export class CoreUserEmailConfirmComponent implements OnInit {
 tokenInfo
   ngOnInit(): void {
     this.onCaptchaOrder();
-    this.formInfo.formTitle = this.translate.instant('ACTION.CONFIRMEMAIL');
+    this.translate.get('ACTION.CONFIRMEMAIL').subscribe((str: string) => {
+      this.formInfo.formTitle = str;
+    });
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.dataModel.email = this.tokenInfo.user.email;

@@ -121,7 +121,9 @@ export class CmsLinkToComponent implements OnInit, OnDestroy {
     })
       .subscribe({
         next: (ret: any) => {
-          this.cmsToastrService.typeSuccessMessage(this.translate.instant('MESSAGE.The_order_was_sent_to_the_website'));
+          this.translate.get('MESSAGE.The_order_was_sent_to_the_website').subscribe((str: string) => {
+            this.cmsToastrService.typeSuccessMessage(str);
+          });
         }, error: (err) => {
 
           this.cmsToastrService.typeErrorMessage('برروز خطا در ارسال دستور', err);
@@ -151,8 +153,12 @@ export class CmsLinkToComponent implements OnInit, OnDestroy {
         this.formInfo.formSubmitAllow = true;
         // this.dataModelResult = ret;
         if (ret.isSuccess) {
-          this.formInfo.formAlert = this.translate.instant('MESSAGE.Submit_request_was_successfully_registered');
-          this.cmsToastrService.typeSuccessMessage(this.translate.instant('MESSAGE.Send_request_was_successfully_registered'));
+          this.translate.get('MESSAGE.Submit_request_was_successfully_registered').subscribe((str: string) => {
+            this.formInfo.formAlert = str;
+          });
+          this.translate.get('MESSAGE.Send_request_was_successfully_registered').subscribe((str: string) => {
+            this.cmsToastrService.typeSuccessMessage(str);
+          });
         } else {
           this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
           this.formInfo.formError = ret.errorMessage;

@@ -62,7 +62,7 @@ export class EstatePropertyExpertPriceInquiryCalculateComponent implements OnIni
   fileManagerOpenForm = false;
 
   ngOnInit(): void {
-    this.formInfo.formTitle = this.translate.instant('TITLE.Register_New_Categories');
+    this.translate.get('TITLE.Register_New_Categories').subscribe((str: string) => {this.formInfo.formTitle = str });
 
 
     this.getEstatePropertyExpertPriceTypeEnum();
@@ -129,12 +129,13 @@ export class EstatePropertyExpertPriceInquiryCalculateComponent implements OnIni
   }
 
   onActionSelectorContarctType(model: EstatePropertyTypeLanduseModel | null): void {
-    this.dataModel.linkContractTypeId = null;
-    if (!model || !model.id || model.id.length <= 0) {
-      const message = this.translate.instant('MESSAGE.Type_of_property_transaction_is_not_known');
-      this.cmsToastrService.typeWarningSelected(message);
-      return;
-    }
+          this.dataModel.linkContractTypeId = null;
+      if (!model || !model.id || model.id.length <= 0) {
+        this.translate.get('MESSAGE.Type_of_property_transaction_is_not_known').subscribe((str: string) => {
+          this.cmsToastrService.typeWarningSelected(str);
+        });
+        return;
+      }
     this.dataModel.linkContractTypeId = model.id;
 
   }

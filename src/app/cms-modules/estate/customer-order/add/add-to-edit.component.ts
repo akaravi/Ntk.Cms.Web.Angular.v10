@@ -166,8 +166,6 @@ export class EstateCustomerOrderAddToEditComponent extends AddBaseComponent<Esta
   }
   onActionSelectorCmsUser(model: CoreUserModel | null): void {
     if (!model || !model.id || model.id <= 0) {
-      //  const message = this.translate.instant('MESSAGE.Information_user_is_not_clear');
-      //  this.cmsToastrService.typeErrorSelected(message);
       this.dataModel.linkCmsUserId = null;
       return;
     }

@@ -51,7 +51,9 @@ export class EstateCustomerOrderActionComponent implements OnInit {
   fileManagerOpenForm = false;
 
   ngOnInit(): void {
-    this.formInfo.formTitle = this.translate.instant('TITLE.Activities');
+    this.translate.get('TITLE.Activities').subscribe((str: string) => {
+      this.formInfo.formTitle = str;
+    });
     if (!this.dataModel || !this.dataModel.id || this.dataModel.id.length == 0) {
       this.cmsToastrService.typeErrorMessage('شناسه مشخص نمی باشد');
       this.dialogRef.close({

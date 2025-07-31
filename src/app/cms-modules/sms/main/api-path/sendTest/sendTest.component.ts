@@ -98,8 +98,12 @@ export class SmsMainApiPathSendTestComponent implements OnInit {
         this.formInfo.formSubmitAllow = true;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
-          this.formInfo.formAlert = this.translate.instant('MESSAGE.Submit_request_was_successfully_registered');
-          this.cmsToastrService.typeSuccessMessage(this.translate.instant('MESSAGE.Send_request_was_successfully_registered'));
+          this.translate.get('MESSAGE.Submit_request_was_successfully_registered').subscribe((str: string) => {
+            this.formInfo.formAlert = str;
+          });
+          this.translate.get('MESSAGE.Send_request_was_successfully_registered').subscribe((str: string) => {
+            this.cmsToastrService.typeSuccessMessage(str);
+          });
         } else {
           this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
           this.formInfo.formError = ret.errorMessage;

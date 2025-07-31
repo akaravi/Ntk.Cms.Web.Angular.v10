@@ -120,8 +120,9 @@ export class CoreSiteModuleAddComponent extends AddBaseComponent<CoreModuleSiteS
   }
   onActionSelectorModuleSelect(model: CoreModuleModel): void {
     if (!model || model.id <= 0) {
-      const message = this.translate.instant('MESSAGE.Module_is_not_specified');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Module_is_not_specified').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
     }
     this.dataModel.linkModuleId = model.id;
 

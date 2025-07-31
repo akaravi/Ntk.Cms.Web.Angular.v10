@@ -49,20 +49,6 @@ export class CmsTranslationService {
     return this.getSelectedLanguage
   }
 
-  // instantDefault(key: string | Array<string>, interpolateParams?: Object): string | any {
-  //   return this.translate.instant(key);
-  // }
-
-  // instant(key: string | Array<string>, interpolateParams?: Object): string | any {
-  //   return this.translate.instant(key);
-  // }
-
-  // get(key: string | Array<string>, interpolateParams?: Object): Observable<string | any> {
-  //   return this.translate.get(key);
-  // }
-
-
-
   /**
    * Returns selected language
    */

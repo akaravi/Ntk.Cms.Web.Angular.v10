@@ -206,8 +206,9 @@ export class WebDesignerMainIntroListComponent extends ListBaseComponent<WebDesi
   }
   onActionButtonDeleteRow(model: WebDesignerMainIntroModel = this.tableRowSelected): void {
     if (!model || !model.id || model.id.length === 0) {
-      const emessage = this.translate.instant('MESSAGE.No_row_selected_for_editing');
-      this.cmsToastrService.typeErrorSelected(emessage);
+      this.translate.get('MESSAGE.No_row_selected_for_editing').subscribe((emessage: string) => {
+        this.cmsToastrService.typeErrorSelected(emessage);
+      });
       return;
     }
     this.onActionTableRowSelect(model);

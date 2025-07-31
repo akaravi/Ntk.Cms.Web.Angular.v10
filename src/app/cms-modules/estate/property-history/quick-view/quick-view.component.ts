@@ -72,7 +72,9 @@ export class EstatePropertyHistoryQuickViewComponent implements OnInit, OnDestro
 
   cmsApiStoreSubscribe: Subscription;
   ngOnInit(): void {
-    this.formInfo.formTitle = this.translate.instant('TITLE.QUICK_VIEW');
+    this.translate.get('TITLE.QUICK_VIEW').subscribe((str: string) => {
+      this.formInfo.formTitle = str;
+    });
     if (this.requestId.length === 0) {
       this.cmsToastrService.typeErrorComponentAction();
       this.dialogRef.close({ dialogChangedDate: false });

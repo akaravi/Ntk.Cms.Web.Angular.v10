@@ -63,7 +63,9 @@ export class HyperShopContentAddComponent extends AddBaseComponent<HyperShopCont
   ngOnInit(): void {
 
 
-    this.formInfo.formTitle = this.translate.instant('TITLE.Submit_New_Content');
+    this.translate.get('TITLE.Submit_New_Content').subscribe((str: string) => {
+      this.formInfo.formTitle = str;
+    });
 
 
     this.DataGetAccess();

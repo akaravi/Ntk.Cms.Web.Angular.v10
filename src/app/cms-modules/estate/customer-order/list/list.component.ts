@@ -547,7 +547,9 @@ export class EstateCustomerOrderListComponent extends ListBaseComponent<EstateCu
 
 
 
-    this.publicHelper.processService.processStart(this.constructor.name + 'All', this.translate.instant('MESSAGE.property_list'), this.constructorInfoAreaId);
+          this.translate.get('MESSAGE.property_list').subscribe((str: string) => {
+        this.publicHelper.processService.processStart(this.constructor.name + 'All', str, this.constructorInfoAreaId);
+      });
     this.contentService.setAccessDataType(ManageUserAccessDataTypesEnum.Editor);
     //*filter */
     const filterStatist0 = JSON.parse(JSON.stringify(this.filteModelContent));
@@ -587,18 +589,24 @@ export class EstateCustomerOrderListComponent extends ListBaseComponent<EstateCu
       //*results */
       var ret = results[0];
       if (ret.isSuccess) {
-        statist.set(this.translate.instant('MESSAGE.customer_order_list'), ret.totalRowCount);
+        this.translate.get('MESSAGE.customer_order_list').subscribe((str: string) => {
+          statist.set(str, ret.totalRowCount);
+        });
       }
       //*results */
       var ret = results[1];
       if (ret.isSuccess) {
-        statist.set(this.translate.instant('MESSAGE.customer_order_list_active'), ret.totalRowCount);
+        this.translate.get('MESSAGE.customer_order_list_active').subscribe((str: string) => {
+          statist.set(str, ret.totalRowCount);
+        });
       }
 
       //*results */
       ret = results[2];
       if (ret.isSuccess) {
-        statist.set(this.translate.instant('MESSAGE.customer_order_list_close'), ret.totalRowCount);
+        this.translate.get('MESSAGE.customer_order_list_close').subscribe((str: string) => {
+          statist.set(str, ret.totalRowCount);
+        });
       } else {
         this.cmsToastrService.typeErrorMessage(ret.errorMessage);
       }
@@ -606,7 +614,9 @@ export class EstateCustomerOrderListComponent extends ListBaseComponent<EstateCu
       ret = results[3];
 
       if (ret.isSuccess) {
-        statist.set(this.translate.instant('MESSAGE.customer_order_needs_approval'), ret.totalRowCount);
+        this.translate.get('MESSAGE.customer_order_needs_approval').subscribe((str: string) => {
+          statist.set(str, ret.totalRowCount);
+        });
 
       } else {
         this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -614,7 +624,9 @@ export class EstateCustomerOrderListComponent extends ListBaseComponent<EstateCu
       //*results */
       ret = results[4];
       if (ret.isSuccess) {
-        statist.set(this.translate.instant('MESSAGE.customer_order_list_disable'), ret.totalRowCount);
+        this.translate.get('MESSAGE.customer_order_list_disable').subscribe((str: string) => {
+          statist.set(str, ret.totalRowCount);
+        });
       } else {
         this.cmsToastrService.typeErrorMessage(ret.errorMessage);
       }
@@ -794,8 +806,7 @@ export class EstateCustomerOrderListComponent extends ListBaseComponent<EstateCu
     this.contractTypeSelected = null;
     this.filteModelContent.linkContractTypeId = null;
     if (!model || !model.id || model.id.length <= 0) {
-      const message = this.translate.instant('MESSAGE.Type_of_property_transaction_is_not_known');
-      this.cmsToastrService.typeWarningSelected(message);
+      this.translate.get('MESSAGE.Type_of_property_transaction_is_not_known').subscribe((str: string) => { this.cmsToastrService.typeWarningSelected(str); });
       return;
     }
     this.contractTypeSelected = model;

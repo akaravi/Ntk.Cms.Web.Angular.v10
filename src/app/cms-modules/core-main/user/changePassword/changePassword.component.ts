@@ -131,20 +131,26 @@ export class CoreUserChangePasswordComponent implements OnInit, OnDestroy {
       }
     } else {
       if (!this.dataModel.oldPassword || this.dataModel.oldPassword.length === 0) {
-        this.cmsToastrService.typeErrorMessage(this.translate.instant('MESSAGE.Enter_the_previous_password'));
+        this.translate.get('MESSAGE.Enter_the_previous_password').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorMessage(str);
+      });
 
         return;
       }
     }
     if (!this.dataModel.newPassword || this.dataModel.newPassword.length === 0) {
-      this.cmsToastrService.typeErrorMessage(this.translate.instant('MESSAGE.Enter_the_new_password'));
+      this.translate.get('MESSAGE.Enter_the_new_password').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorMessage(str);
+      });
 
 
 
       return;
     }
     if (this.dataModel.newPassword !== this.NewPasswordRepeat) {
-      this.cmsToastrService.typeErrorMessage(this.translate.instant('MESSAGE.The_new_password_is_equivalent_to_a_duplicate'));
+      this.translate.get('MESSAGE.The_new_password_is_equivalent_to_a_duplicate').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorMessage(str);
+      });
 
 
       return;

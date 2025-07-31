@@ -143,16 +143,18 @@ export class EstateAccountAgencyAdsEditComponent extends EditBaseComponent<Estat
   }
   onActionSelectorSelectLinkAccountAgencyId(model: EstateAccountAgencyModel | null): void {
     if (!model || !model.id || model.id.length <= 0) {
-      const message = this.translate.instant('MESSAGE.Property_ID_is_unknown');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Property_ID_is_unknown').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.dataModel.linkAccountAgencyId = model.id;
   }
   onActionSelectorSelectLinkAdsTypeId(model: EstateAccountAgencyModel | null): void {
     if (!model || !model.id || model.id.length <= 0) {
-      const message = this.translate.instant('MESSAGE.Advertisement_ID_is_unknown');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Advertisement_ID_is_unknown').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.dataModel.linkAdsTypeId = model.id;

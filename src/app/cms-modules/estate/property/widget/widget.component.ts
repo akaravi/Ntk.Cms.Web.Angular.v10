@@ -68,7 +68,9 @@ export class EstatePropertyWidgetComponent implements OnInit, OnDestroy {
   rowExist = false;
   ngOnInit() {
     this.translate.get('TITLE.Registered_property').subscribe((str: string) => { this.widgetInfoModel.title = str });
-    this.widgetInfoModel.description = this.translate.instant('TITLE.Introduction_of_your_property');
+    this.translate.get('TITLE.Introduction_of_your_property').subscribe((str: string) => {
+      this.widgetInfoModel.description = str;
+    });
     this.widgetInfoModel.link = '/estate/property';
 
     setTimeout(() => {
@@ -92,7 +94,9 @@ export class EstatePropertyWidgetComponent implements OnInit, OnDestroy {
     }
   }
   async onActionStatist() {
-    this.publicHelper.processService.processStart(this.constructor.name + 'All', this.translate.instant('MESSAGE.property_list'), this.constructorInfoAreaId);
+          this.translate.get('MESSAGE.property_list').subscribe((str: string) => {
+        this.publicHelper.processService.processStart(this.constructor.name + 'All', str, this.constructorInfoAreaId);
+      });
     this.service.setAccessDataType(ManageUserAccessDataTypesEnum.Editor);
     //*filter */
     const filterStatist0 = JSON.parse(JSON.stringify(this.filteModelContent));
@@ -121,10 +125,14 @@ export class EstatePropertyWidgetComponent implements OnInit, OnDestroy {
       //*results */
       var ret = results[0];
       series[0] = ret.totalRowCount;
-      labels[0] = this.translate.instant('TITLE.Active');
+              this.translate.get('TITLE.Active').subscribe((str: string) => {
+          labels[0] = str;
+        });
       if (ret.isSuccess) {
         this.rowExist = true;
-        this.widgetInfoModel.description = this.translate.instant('TITLE.Number_Registered_Property') + ' : ' + ret.totalRowCount;
+        this.translate.get('TITLE.Number_Registered_Property').subscribe((str: string) => {
+          this.widgetInfoModel.description = str + ' : ' + ret.totalRowCount;
+        });
       }
 
       if (ret.isSuccess) {
@@ -135,7 +143,9 @@ export class EstatePropertyWidgetComponent implements OnInit, OnDestroy {
       //*results */
       ret = results[1];
       series[1] = ret.totalRowCount;
-      labels[1] = this.translate.instant('TITLE.InActive');
+              this.translate.get('TITLE.InActive').subscribe((str: string) => {
+          labels[1] = str;
+        });
       if (ret.isSuccess) {
         this.widgetInfoModel.setItem(new WidgetContentInfoModel('Disable', 1, ret.totalRowCount, '/estate/property/recordstatus/Disable'));
 
@@ -145,7 +155,9 @@ export class EstatePropertyWidgetComponent implements OnInit, OnDestroy {
       //*results */
       ret = results[2];
       series[2] = ret.totalRowCount;
-      labels[2] = this.translate.instant('TITLE.NeedConfirmation');
+              this.translate.get('TITLE.NeedConfirmation').subscribe((str: string) => {
+          labels[2] = str;
+        });
       if (ret.isSuccess) {
         this.widgetInfoModel.setItem(new WidgetContentInfoModel('Pending', 2, ret.totalRowCount, '/estate/property/recordstatus/Pending'));
       } else {

@@ -126,10 +126,12 @@ export class WebDesignerMainPageDependencyEditComponent extends EditBaseComponen
   }
   onActionSelectModule(model: CoreModuleModel | null): void {
     if (!model || model.id <= 0) {
-      this.cmsToastrService.typeErrorMessage(
-        this.translate.instant('MESSAGE.Specify_the_module'),
-        this.translate.instant('MESSAGE.Information_module_is_not_clear')
-      );
+      this.translate.get(['MESSAGE.Specify_the_module', 'MESSAGE.Information_module_is_not_clear']).subscribe((str: any) => {
+        this.cmsToastrService.typeErrorMessage(
+          str['MESSAGE.Specify_the_module'],
+          str['MESSAGE.Information_module_is_not_clear']
+        );
+      });
       return;
     }
     this.dataModel.linkModuleId = model.id;
