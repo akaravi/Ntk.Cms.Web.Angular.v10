@@ -71,7 +71,9 @@ export class ApplicationIntroAddComponent extends AddBaseComponent<ApplicationIn
       return;
     }
     if (this.dataModel.linkApplicationId <= 0) {
-      this.cmsToastrService.typeErrorEdit(this.translate.instant('MESSAGE.Specify_the_application'));
+      this.translate.get('MESSAGE.Specify_the_application').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorEdit(str);
+      });
       return;
     }
     this.DataAddContent();
@@ -124,10 +126,9 @@ export class ApplicationIntroAddComponent extends AddBaseComponent<ApplicationIn
   }
   onActionSelectApplication(model: ApplicationAppModel | null): void {
     if (!model || model.id <= 0) {
-      this.cmsToastrService.typeErrorMessage(
-        this.translate.instant('MESSAGE.Specify_the_application'),
-        this.translate.instant('MESSAGE.Application_information_is_not_clear')
-      );
+      this.translate.get(['MESSAGE.Specify_the_application', 'MESSAGE.Application_information_is_not_clear']).subscribe((str: any) => {
+        this.cmsToastrService.typeErrorMessage(str['MESSAGE.Specify_the_application'], str['MESSAGE.Application_information_is_not_clear']);
+      });
       return;
     }
     this.dataModel.linkApplicationId = model.id;

@@ -71,11 +71,15 @@ export class ApplicationAppUploadAppComponent implements OnInit {
       return;
     }
     if (!this.dataModel.uploadFileGUID || this.dataModel.uploadFileGUID.length === 0) {
-      this.cmsToastrService.typeErrorEdit(this.translate.instant('MESSAGE.File_has_not_been_uploaded'));
+      this.translate.get('MESSAGE.File_has_not_been_uploaded').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorEdit(str);
+      });
       return;
     }
     if (!this.dataModel.linkApplicationId || this.dataModel.linkApplicationId > 0) {
-      this.cmsToastrService.typeErrorEdit(this.translate.instant('MESSAGE.Application_is_not_clear'));
+      this.translate.get('MESSAGE.Application_is_not_clear').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorEdit(str);
+      });
       return;
     }
     const pName = this.constructor.name + 'main';

@@ -218,8 +218,9 @@ export class ApplicationAppListComponent extends ListBaseComponent<ApplicationAp
       sourceId = this.categoryModelSelected.id;
     }
     if (sourceId === 0) {
-      const message = this.translate.instant('MESSAGE.Application_source_type_is_not_selected');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.Application_source_type_is_not_selected').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     if (
@@ -245,7 +246,9 @@ export class ApplicationAppListComponent extends ListBaseComponent<ApplicationAp
   }
   onActionButtonEditRow(mode: ApplicationAppModel = this.tableRowSelected): void {
     if (!mode || !mode.id || mode.id === 0) {
-      this.cmsToastrService.typeErrorSelected(this.translate.instant('MESSAGE.No_row_selected_for_editing'));
+      this.translate.get('MESSAGE.No_row_selected_for_editing').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.onActionTableRowSelect(mode);
@@ -261,8 +264,9 @@ export class ApplicationAppListComponent extends ListBaseComponent<ApplicationAp
   }
   onActionButtonDeleteRow(mode: ApplicationAppModel = this.tableRowSelected): void {
     if (mode == null || !mode.id || mode.id === 0) {
-      const emessage = this.translate.instant('MESSAGE.No_row_selected_for_editing');
-      this.cmsToastrService.typeErrorSelected(emessage);
+      this.translate.get('MESSAGE.No_row_selected_for_editing').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.onActionTableRowSelect(mode);

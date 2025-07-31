@@ -112,20 +112,18 @@ export class ApplicationLogNotificationActionSendComponent implements OnInit {
   }
   onActionSelectApp(model: ApplicationAppModel | null): void {
     if (!model || model.id <= 0) {
-      this.cmsToastrService.typeErrorMessage(
-        this.translate.instant('MESSAGE.Specify_the_application'),
-        this.translate.instant('MESSAGE.Application_information_is_not_clear')
-      );
+      this.translate.get(['MESSAGE.Specify_the_application', 'MESSAGE.Application_information_is_not_clear']).subscribe((str: any) => {
+        this.cmsToastrService.typeErrorMessage(str['MESSAGE.Specify_the_application'], str['MESSAGE.Application_information_is_not_clear']);
+      });
       return;
     }
     this.dataModel.appId = model.id;
   }
   onActionSelectMemberInfo(model: ApplicationMemberInfoModel | null): void {
     if (!model || !model.id || model.id.length === 0) {
-      this.cmsToastrService.typeErrorMessage(
-        this.translate.instant('MESSAGE.Specify_the_member_of_application'),
-        this.translate.instant('MESSAGE.Information_application_member_is_not_clear')
-      );
+      this.translate.get(['MESSAGE.Specify_the_member_of_application', 'MESSAGE.Information_application_member_is_not_clear']).subscribe((str: any) => {
+        this.cmsToastrService.typeErrorMessage(str['MESSAGE.Specify_the_member_of_application'], str['MESSAGE.Information_application_member_is_not_clear']);
+      });
       return;
     }
     this.applicationMemberInfoModel = model;
@@ -141,10 +139,9 @@ export class ApplicationLogNotificationActionSendComponent implements OnInit {
       this.dataModel.appId = this.applicationMemberInfoModel.linkApplicationId;
     }
     if ((this.LinkMemberId || this.LinkMemberId.length === 0) && this.dataModel.appId <= 0) {
-      this.cmsToastrService.typeErrorMessage(
-        this.translate.instant('MESSAGE.Specify_the_recipient'),
-        this.translate.instant('MESSAGE.Application_or_user_to_receive_has_not_been_specified')
-      );
+      this.translate.get(['MESSAGE.Specify_the_recipient', 'MESSAGE.Application_or_user_to_receive_has_not_been_specified']).subscribe((str: any) => {
+        this.cmsToastrService.typeErrorMessage(str['MESSAGE.Specify_the_recipient'], str['MESSAGE.Application_or_user_to_receive_has_not_been_specified']);
+      });
     }
     this.formInfo.formSubmitAllow = false;
     this.DataAddContent();

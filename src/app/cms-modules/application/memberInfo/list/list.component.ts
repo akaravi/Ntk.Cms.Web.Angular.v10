@@ -325,7 +325,9 @@ export class ApplicationMemberInfoListComponent extends ListBaseComponent<Applic
       return;
     }
     if (!model.notificationId || model.notificationId.length === 0) {
-      this.cmsToastrService.typeErrorSelected(this.translate.instant('MESSAGE.Selected_row_does_not_have_ID_notification'));
+      this.translate.get('MESSAGE.Selected_row_does_not_have_ID_notification').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.onActionTableRowSelect(model);

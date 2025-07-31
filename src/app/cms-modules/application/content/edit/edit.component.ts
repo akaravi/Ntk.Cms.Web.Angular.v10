@@ -88,11 +88,15 @@ export class ApplicationAppEditComponent extends EditBaseComponent<ApplicationAp
       return;
     }
     if (this.dataModel.linkSourceId <= 0) {
-      this.cmsToastrService.typeErrorAdd(this.translate.instant('MESSAGE.Specify_the_source_code_of_the_program'));
+      this.translate.get('MESSAGE.Specify_the_source_code_of_the_program').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorAdd(str);
+      });
       return;
     }
     if (this.dataModel.linkThemeConfigId <= 0) {
-      this.cmsToastrService.typeErrorAdd(this.translate.instant('MESSAGE.Specify_the_application_format'));
+      this.translate.get('MESSAGE.Specify_the_application_format').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorAdd(str);
+      });
       return;
     }
     this.DataEditContent();
@@ -239,25 +243,22 @@ export class ApplicationAppEditComponent extends EditBaseComponent<ApplicationAp
   }
   onActionSelectSource(model: ApplicationSourceModel | null): void {
     if (!model || model.id <= 0) {
-      this.cmsToastrService.typeErrorMessage(
-        this.translate.instant('MESSAGE.Specify_the_source'),
-        this.translate.instant('MESSAGE.The_source_of_the_information_application_is_not_known')
-      );
+      this.translate.get(['MESSAGE.Specify_the_source', 'MESSAGE.The_source_of_the_information_application_is_not_known']).subscribe((str: any) => {
+        this.cmsToastrService.typeErrorMessage(str['MESSAGE.Specify_the_source'], str['MESSAGE.The_source_of_the_information_application_is_not_known']);
+      });
       return;
     }
     if (this.dataModel.linkSourceId !== model.id) {
-      this.cmsToastrService.typeErrorMessage(
-        this.translate.instant('MESSAGE.The_source_can_not_changed'),
-        this.translate.instant('MESSAGE.Application_source_cannot_be_changed_in_editing_mode')
-      );
+      this.translate.get(['MESSAGE.The_source_can_not_changed', 'MESSAGE.Application_source_cannot_be_changed_in_editing_mode']).subscribe((str: any) => {
+        this.cmsToastrService.typeErrorMessage(str['MESSAGE.The_source_can_not_changed'], str['MESSAGE.Application_source_cannot_be_changed_in_editing_mode']);
+      });
     }
   }
   onActionSelectTheme(model: ApplicationThemeConfigModel | null): void {
     if (!model || model.id <= 0) {
-      this.cmsToastrService.typeErrorMessage(
-        this.translate.instant('MESSAGE.Specify_the_template'),
-        this.translate.instant('MESSAGE.Information_application_format_is_not_clear')
-      );
+      this.translate.get(['MESSAGE.Specify_the_template', 'MESSAGE.Information_application_format_is_not_clear']).subscribe((str: any) => {
+        this.cmsToastrService.typeErrorMessage(str['MESSAGE.Specify_the_template'], str['MESSAGE.Information_application_format_is_not_clear']);
+      });
       return;
     }
     this.dataModel.linkThemeConfigId = model.id;

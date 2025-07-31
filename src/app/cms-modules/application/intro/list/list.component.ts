@@ -196,8 +196,9 @@ export class ApplicationIntroListComponent extends ListBaseComponent<Application
       ApplicationId = this.categoryModelSelected.id;
     }
     if (ApplicationId <= 0) {
-      const message = this.translate.instant('MESSAGE.No_application_selected');
-      this.cmsToastrService.typeErrorSelected(message);
+      this.translate.get('MESSAGE.No_application_selected').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     if (
@@ -229,8 +230,9 @@ export class ApplicationIntroListComponent extends ListBaseComponent<Application
   }
   onActionButtonDeleteRow(model: ApplicationIntroModel = this.tableRowSelected): void {
     if (!model || !model.id || model.id === 0) {
-      const emessage = this.translate.instant('MESSAGE.No_row_selected_for_editing');
-      this.cmsToastrService.typeErrorSelected(emessage);
+      this.translate.get('MESSAGE.No_row_selected_for_editing').subscribe((str: string) => {
+        this.cmsToastrService.typeErrorSelected(str);
+      });
       return;
     }
     this.onActionTableRowSelect(model);
