@@ -35,7 +35,7 @@ export class CoreModuleLogReportAbuseWidgetComponent implements OnInit, OnDestro
 
 
   ngOnInit() {
-    this.widgetInfoModel.title = this.translate.instant('TITLE.Report_Abuse');
+    this.translate.get('TITLE.Report_Abuse').subscribe((str: string) => { this.widgetInfoModel.title = str });
     this.widgetInfoModel.description = '';
     this.widgetInfoModel.link = '/coremodulelog/report-abuse';
     setTimeout(() => {

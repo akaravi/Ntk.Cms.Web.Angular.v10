@@ -35,7 +35,7 @@ export class NewsContentWidgetComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.widgetInfoModel.title = this.translate.instant('TITLE.Registered_news');
+    this.translate.get('TITLE.Registered_news').subscribe((str: string) => { this.widgetInfoModel.title = str });
     this.widgetInfoModel.description = '';
     this.widgetInfoModel.link = '/news/content';
     setTimeout(() => {

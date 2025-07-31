@@ -65,7 +65,7 @@ export class EstateCustomerOrderWidgetComponent implements OnInit, OnDestroy {
 
   rowExist = false;
   ngOnInit() {
-    this.widgetInfoModel.title = this.translate.instant('TITLE.ESTATE.CUSTOMER_ORDER');
+    this.translate.get('TITLE.ESTATE.CUSTOMER_ORDER').subscribe((str: string) => { this.widgetInfoModel.title = str });
     this.widgetInfoModel.description = this.translate.instant('TITLE.Introduction_of_your_customer_order');
     this.widgetInfoModel.link = '/estate/customer-order';
 

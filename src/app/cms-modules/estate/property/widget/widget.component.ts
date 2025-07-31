@@ -67,7 +67,7 @@ export class EstatePropertyWidgetComponent implements OnInit, OnDestroy {
 
   rowExist = false;
   ngOnInit() {
-    this.widgetInfoModel.title = this.translate.instant('TITLE.Registered_property');
+    this.translate.get('TITLE.Registered_property').subscribe((str: string) => { this.widgetInfoModel.title = str });
     this.widgetInfoModel.description = this.translate.instant('TITLE.Introduction_of_your_property');
     this.widgetInfoModel.link = '/estate/property';
 

@@ -41,14 +41,14 @@ export class EstatePropertyHistoryWidgetComponent implements OnInit, OnDestroy {
   widgetInfoModel = new WidgetInfoModel();
   cmsApiStoreSubscribe: Subscription;
   tokenInfo = new TokenInfoModelV3();
-  
+
   ngOnInit() {
-    this.widgetInfoModel.title = this.translate.instant('ROUTE.ESTATE.HISTORY');
+    this.translate.get('ROUTE.ESTATE.HISTORY').subscribe((str: string) => { this.widgetInfoModel.title = str });
     this.widgetInfoModel.description = '';
     this.widgetInfoModel.link = '/estate/property-history';
 
     setTimeout(() => {
-      
+
         this.onActionStatist();
     }, 1000);
 

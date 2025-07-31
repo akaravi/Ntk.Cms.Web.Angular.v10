@@ -36,7 +36,7 @@ export class WebDesignerLogMemberInfoWidgetComponent implements OnInit, OnDestro
 
 
   ngOnInit() {
-    this.widgetInfoModel.title = this.translate.instant('TITLE.Registered_Member');
+    this.translate.get('TITLE.Registered_Member').subscribe((str: string) => { this.widgetInfoModel.title = str });
     this.widgetInfoModel.description = '';
     this.widgetInfoModel.link = '/application/content';
     setTimeout(() => {

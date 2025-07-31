@@ -37,7 +37,7 @@ export class ChartContentWidgetComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.widgetInfoModel.title = this.translate.instant('TITLE.Registered_Chart');
+    this.translate.get('TITLE.Registered_Chart').subscribe((str: string) => { this.widgetInfoModel.title = str });
     this.widgetInfoModel.description = '';
     this.widgetInfoModel.link = '/chart/content';
     setTimeout(() => {
@@ -46,7 +46,7 @@ export class ChartContentWidgetComponent implements OnInit, OnDestroy {
     }, 1000);
 
     this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.widgetInfoModel.title = this.translate.instant('TITLE.Registered_Chart');
+      this.translate.get('TITLE.Registered_Chart').subscribe((str: string) => { this.widgetInfoModel.title = str });
       this.onActionStatist();
     });
 

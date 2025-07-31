@@ -39,7 +39,7 @@ export class CatalogContentWidgetComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.widgetInfoModel.title = this.translate.instant('TITLE.Registered_Catalog');
+    this.translate.get('TITLE.Registered_Catalog').subscribe((str: string) => { this.widgetInfoModel.title = str });
     this.widgetInfoModel.description = '';
     this.widgetInfoModel.link = '/catalog/content';
 
@@ -49,7 +49,7 @@ export class CatalogContentWidgetComponent implements OnInit, OnDestroy {
     }, 1000);
 
     this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.widgetInfoModel.title = this.translate.instant('TITLE.Registered_Catalog');
+      this.translate.get('TITLE.Registered_Catalog').subscribe((str: string) => { this.widgetInfoModel.title = str });
       this.onActionStatist();
     });
 

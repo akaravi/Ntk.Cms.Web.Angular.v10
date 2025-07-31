@@ -40,7 +40,7 @@ export class CoreSiteWidgetModuleComponent implements OnInit, OnDestroy {
 
   }
   ngOnInit(): void {
-    this.widgetInfoModel.title = this.translate.instant('TITLE.Registered_modules');
+    this.translate.get('TITLE.Registered_modules').subscribe((str: string) => { this.widgetInfoModel.title = str });
     this.widgetInfoModel.description = '';
     this.widgetInfoModel.link = '/core/site/modulelist';
 

@@ -37,7 +37,7 @@ export class ApplicationMemberInfoWidgetComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    this.widgetInfoModel.title = this.translate.instant('TITLE.Registered_Member');
+    this.translate.get('TITLE.Registered_Member').subscribe((str: string) => { this.widgetInfoModel.title = str });
     this.widgetInfoModel.description = '';
     this.widgetInfoModel.link = '/application/memberinfo';
     setTimeout(() => {
@@ -46,7 +46,7 @@ export class ApplicationMemberInfoWidgetComponent implements OnInit, OnDestroy {
     }, 1000);
 
     this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.widgetInfoModel.title = this.translate.instant('TITLE.Registered_Member');
+      this.translate.get('TITLE.Registered_Member').subscribe((str: string) => { this.widgetInfoModel.title = str });
       this.onActionStatist();
     });
 
