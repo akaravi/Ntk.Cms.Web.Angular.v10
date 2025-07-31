@@ -101,6 +101,18 @@ export class HeaderBarComponent implements OnInit {
     else
       return 'theme-direction-ltr'
   }
+  get leftToRightClass(){
+    if (this.themeStore.themeDirection === 'ltr')
+      return 'left';
+    else
+      return 'right';
+  }
+  get rightToleftClass(){
+    if (this.themeStore.themeDirection === 'ltr')
+      return 'right';
+    else
+    return 'left';
+  }
   onActionThemeSwitch(themeMode: ThemeModeType) {
     this.themeService.updateThemeModeType(themeMode);
   }
