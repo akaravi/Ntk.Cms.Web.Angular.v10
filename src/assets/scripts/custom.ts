@@ -1,46 +1,182 @@
-//Removing Preloader
-setTimeout(function () {
-  var preloader = document.getElementById('preloader')
-  if (preloader) { preloader.classList.add('preloader-hide'); }
+// TypeScript interfaces and types
+interface PluginConfig {
+  id: string;
+  plug?: string;
+  call?: string;
+  style?: string;
+  trigger: string;
+}
+
+interface iOSVersion {
+  status: boolean;
+  version: number | false;
+  info: string;
+}
+
+interface WeekDay {
+  [index: number]: [string, number?, number?];
+}
+
+// Type imports
+type DateTimeFormatOptions = Intl.DateTimeFormatOptions;
+
+// Global type declarations
+declare const bootstrap: any;
+declare const Splide: any;
+
+// Global variables
+const pwaName: string = "Appkit"; // Local Storage Names for PWA
+
+// Removing Preloader
+setTimeout((): void => {
+  const preloader: HTMLElement | null = document.getElementById('preloader');
+  if (preloader) {
+    preloader.classList.add('preloader-hide');
+  }
 }, 2000);
 
-document.addEventListener('DOMContentLoaded', () => {
-  'use strict'
-
-  //Global Variables
-
-  var pwaName = "Appkit"; //Local Storage Names for PWA
+document.addEventListener('DOMContentLoaded', (): void => {
+  'use strict';
 
 
 
-  //Place all your custom Javascript functions and plugin calls below this line
-  function init_template() {
-    var i, e, el; //https://www.w3schools.com/js/js_performance.asp
+  // Place all your custom TypeScript functions and plugin calls below this line
+  function init_template(): void {
+    // Caching Global Variables
+    let i: number, e: Element, el: Element; // https://www.w3schools.com/js/js_performance.asp
 
-    //Image Sliders
-    var splide = document.getElementsByClassName('splide');
+    //Attaching Menu Hider
+    var menuHider = document.getElementsByClassName('menu-hider');
+    if(!menuHider.length){var hider = document.createElement('div'); hider.setAttribute("class", "menu-hider");document.body.insertAdjacentElement('beforebegin', hider);}
+    if(menuHider[0].classList.contains('menu-active')){menuHider[0].classList.remove('menu-active');}
+
+    //Demo function for programtic creation of Menu
+    //menu('menu-settings', 'show', 250);
+
+    //Activating Menus
+    //document.querySelectorAll('.menu').forEach(el=>{el.style.display='block'})
+
+    //Validator
+    // var inputField = document.querySelectorAll('input');
+    // if(inputField.length){
+    //     var mailValidator = /^[a-zA-Z0-9._%+-]+@gmail\.com$/i;
+    //     var phoneValidator = /^\d{11}$/;
+    //     var nameValidator = /^[\u0600-\u06FF\s]{4,}$/;
+    //     var passwordValidator = /[A-Za-z]{4}[A-Za-z]*[ ]?[A-Za-z]*/;
+    //     var numberValidator = /^(0|[1-9]\d*)$/;
+    //     var linkValidator = /^(http|https)?:\/\/[a-zA-Z0-9-\.]+\.[a-z]{2,4}/;
+    //     var textValidator = /[A-Za-z]{2}[A-Za-z]*[ ]?[A-Za-z]*/;
+
+    //     function valid(el){
+    //         el.parentElement.querySelectorAll('.valid')[0].classList.remove('disabled');
+    //         el.parentElement.querySelectorAll('.invalid')[0].classList.add('disabled');
+    //     }
+    //     function invalid(el){
+    //         el.parentElement.querySelectorAll('.valid')[0].classList.add('disabled');
+    //         el.parentElement.querySelectorAll('.invalid')[0].classList.remove('disabled');
+    //     }
+    //     function unfilled(el){
+    //         el.parentElement.querySelectorAll('em')[0].classList.remove('disabled');
+    //         el.parentElement.querySelectorAll('.valid')[0].classList.add('disabled');
+    //         el.parentElement.querySelectorAll('.invalid')[0].classList.add('disabled');
+    //     }
+
+    //     var regularField = document.querySelectorAll('.input-style input:not([type="date"])')
+    //     regularField.forEach(el => el.addEventListener('keyup', e => {
+    //         if(!el.value == ""){
+    //             el.parentElement.classList.add('input-style-active');
+    //             el.parentElement.querySelector('em').classList.add('disabled');
+    //         } else {
+    //             el.parentElement.querySelectorAll('.valid')[0].classList.add('disabled');
+    //             el.parentElement.querySelectorAll('.invalid')[0].classList.add('disabled');
+    //             el.parentElement.classList.remove('input-style-active');
+    //             el.parentElement.querySelector('em').classList.remove('disabled');
+    //         }
+    //     }));
+
+    //     var regularTextarea = document.querySelectorAll('.input-style textarea')
+    //     regularTextarea.forEach(el => el.addEventListener('keyup', e => {
+    //         if(!el.value == ""){
+    //             el.parentElement.classList.add('input-style-active');
+    //             el.parentElement.querySelector('em').classList.add('disabled');
+    //         } else {
+    //             el.parentElement.classList.remove('input-style-active');
+    //             el.parentElement.querySelector('em').classList.remove('disabled');
+    //         }
+    //     }));
+
+    //     var selectField = document.querySelectorAll('.input-style select')
+    //     selectField.forEach(el => el.addEventListener('change', e => {
+    //         if(el.value !== "default"){
+    //             el.parentElement.classList.add('input-style-active');
+    //             el.parentElement.querySelectorAll('.valid')[0].classList.remove('disabled');
+    //             el.parentElement.querySelectorAll('.invalid, em, span')[0].classList.add('disabled');
+    //         }
+    //         if(el.value == "default"){
+    //             el.parentElement.querySelectorAll('span, .valid, em')[0].classList.add('disabled');
+    //             el.parentElement.querySelectorAll('.invalid')[0].classList.remove('disabled');
+    //             el.parentElement.classList.add('input-style-active');
+    //         }
+    //     }));
+
+    //     var dateField = document.querySelectorAll('.input-style input[type="date"]')
+    //     dateField.forEach(el => el.addEventListener('change', e => {
+    //         el.parentElement.classList.add('input-style-active');
+    //         el.parentElement.querySelectorAll('.valid')[0].classList.remove('disabled');
+    //         el.parentElement.querySelectorAll('.invalid')[0].classList.add('disabled');
+    //     }));
+
+    //     var validateField = document.querySelectorAll('.validate-field input, .validator-field textarea');
+    //     if(validateField.length){
+    //         validateField.forEach(el => el.addEventListener('keyup', e => {
+    //             var getAttribute = el.getAttribute('type');
+    //             switch(getAttribute){
+    //                 case 'name': nameValidator.test(el.value) ? valid(el) : invalid(el); break;
+    //                 case 'number': numberValidator.test(el.value) ? valid(el) : invalid(el); break;
+    //                 case 'email': mailValidator.test(el.value) ? valid(el) : invalid(el); break;
+    //                 case 'text': textValidator.test(el.value) ? valid(el) : invalid(el); break;
+    //                 case 'url': linkValidator.test(el.value) ? valid(el) : invalid(el); break;
+    //                 case 'tel': phoneValidator.test(el.value) ? valid(el) : invalid(el); break;
+    //                 case 'password': passwordValidator.test(el.value) ? valid(el) : invalid(el); break;
+    //             }
+    //             if(el.value === ""){unfilled(el);}
+    //         }));
+    //     }
+    // }
+
+    //OTP Boxes - Appkit 3.0
+    // var otp = document.querySelectorAll('.otp');
+    // if(otp[0]){
+    // 	otp.forEach(el => {
+    // 		el.addEventListener('focus', (e) => {el.value = "";})
+    // 		el.addEventListener('input', (e) => {el.nextElementSibling ? el.nextElementSibling.focus() : el.blur();});
+    // 	});
+    // }
+
+    // Image Sliders
+    const splide: HTMLCollectionOf<Element> = document.getElementsByClassName('splide');
     if (splide.length) {
-      var singleSlider = document.querySelectorAll('.single-slider');
+      const singleSlider: NodeListOf<Element> = document.querySelectorAll('.single-slider');
       if (singleSlider.length) {
-        singleSlider.forEach(function (e) {
-          var single = new Splide('#' + e.id, {
+        singleSlider.forEach((e: Element): void => {
+          const single = new (window as any).Splide('#' + e.id, {
             type: 'loop',
             autoplay: true,
             direction: 'rtl',
             interval: 4000,
             perPage: 1,
           }).mount();
-          var sliderNext = document.querySelectorAll('.slider-next');
-          var sliderPrev = document.querySelectorAll('.slider-prev');
-          sliderNext.forEach(el => el.addEventListener('click', el => { single.go('>'); }));
-          sliderPrev.forEach(el => el.addEventListener('click', el => { single.go('<'); }));
+          const sliderNext: NodeListOf<Element> = document.querySelectorAll('.slider-next');
+          const sliderPrev: NodeListOf<Element> = document.querySelectorAll('.slider-prev');
+          sliderNext.forEach((el: Element): void => { single.go('>'); });
+          sliderPrev.forEach((el: Element): void => { single.go('<'); });
         });
       }
 
-      var doubleSlider = document.querySelectorAll('.double-slider');
+      const doubleSlider: NodeListOf<Element> = document.querySelectorAll('.double-slider');
       if (doubleSlider.length) {
-        doubleSlider.forEach(function (e) {
-          var double = new Splide('#' + e.id, {
+        doubleSlider.forEach((e: Element): void => {
+          const double = new (window as any).Splide('#' + e.id, {
             type: 'loop',
             autoplay: true,
             direction: 'rtl',
@@ -51,10 +187,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
 
-      var trippleSlider = document.querySelectorAll('.tripple-slider');
+      const trippleSlider: NodeListOf<Element> = document.querySelectorAll('.tripple-slider');
       if (trippleSlider.length) {
-        trippleSlider.forEach(function (e) {
-          var tripple = new Splide('#' + e.id, {
+        trippleSlider.forEach((e: Element): void => {
+          const tripple = new (window as any).Splide('#' + e.id, {
             type: 'loop',
             autoplay: true,
             direction: 'rtl',
@@ -71,9 +207,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    var topicSlider = document.querySelectorAll('.topic-slider');
+    const topicSlider: NodeListOf<Element> = document.querySelectorAll('.topic-slider');
     if (topicSlider.length) {
-      var topic = new Splide('.topic-slider', {
+      const topic = new (window as any).Splide('.topic-slider', {
         type: 'loop',
         autoplay: false,
         direction: 'rtl',
@@ -86,9 +222,9 @@ document.addEventListener('DOMContentLoaded', () => {
         perMove: 1,
       }).mount();
     }
-    var storySlider = document.querySelectorAll('.story-slider');
+    const storySlider: NodeListOf<Element> = document.querySelectorAll('.story-slider');
     if (storySlider.length) {
-      var topic = new Splide('.story-slider', {
+      const story = new (window as any).Splide('.story-slider', {
         type: 'loop',
         autoplay: false,
         direction: 'rtl',
@@ -110,24 +246,153 @@ document.addEventListener('DOMContentLoaded', () => {
     //     return false;
     // }));
 
-    //Map Page
-    var fullMap = document.querySelectorAll('.hide-map');
+    // Map Page
+    const fullMap: NodeListOf<Element> = document.querySelectorAll('.hide-map');
     if (fullMap.length) {
-      var mapActivator = document.querySelectorAll('.show-map');
-      var mapDisabler = document.querySelectorAll('.hide-map');
-      mapActivator[0].addEventListener('click', function (e) {
-        document.getElementsByClassName('card-overlay')[0].classList.add('disabled');
-        document.getElementsByClassName('card-center')[0].classList.add('disabled');
-        document.getElementsByClassName('hide-map')[0].classList.remove('disabled');
-      })
-      mapDisabler[0].addEventListener('click', function (e) {
-        document.getElementsByClassName('card-overlay')[0].classList.remove('disabled');
-        document.getElementsByClassName('card-center')[0].classList.remove('disabled');
-        document.getElementsByClassName('hide-map')[0].classList.add('disabled');
-      })
+      const mapActivator: NodeListOf<Element> = document.querySelectorAll('.show-map');
+      const mapDisabler: NodeListOf<Element> = document.querySelectorAll('.hide-map');
+      (mapActivator[0] as HTMLElement).addEventListener('click', function (e: Event): void {
+        (document.getElementsByClassName('card-overlay')[0] as HTMLElement).classList.add('disabled');
+        (document.getElementsByClassName('card-center')[0] as HTMLElement).classList.add('disabled');
+        (document.getElementsByClassName('hide-map')[0] as HTMLElement).classList.remove('disabled');
+      });
+      (mapDisabler[0] as HTMLElement).addEventListener('click', function (e: Event): void {
+        (document.getElementsByClassName('card-overlay')[0] as HTMLElement).classList.remove('disabled');
+        (document.getElementsByClassName('card-center')[0] as HTMLElement).classList.remove('disabled');
+        (document.getElementsByClassName('hide-map')[0] as HTMLElement).classList.add('disabled');
+      });
     }
 
+    // var checkedCard = document.querySelectorAll('.check-card');
+    // checkedCard.forEach(el => el.addEventListener('click', e => {
+    //     if(el.querySelector('input').getAttribute('checked') =="checked"){
+    //         el.querySelector('input').removeAttribute('checked');
+    //     } else {
+    //         el.querySelector('input').setAttribute('checked', 'checked');
+    //     }
+    // }));
 
+
+
+    //To Do List
+    // var toDoList = document.querySelectorAll('.todo-list a');
+    // toDoList.forEach(el => el.addEventListener('click', e => {
+    //     el.classList.toggle('opacity-80');
+    //     if(el.querySelector('input').getAttribute('checked') == "checked"){
+    //         el.querySelector('input').removeAttribute('checked');
+    //     } else {
+    //         el.querySelector('input').setAttribute('checked', 'checked');
+    //     }
+    // }));
+
+    //Setting Sidebar Widths
+    // var menus = document.querySelectorAll('.menu');
+    // function menuFunction(){
+    //     if(menus.length){
+    //         var menuSidebar = document.querySelectorAll('.menu-box-left, .menu-box-right');
+    //         menuSidebar.forEach(function(e){
+    //             if(e.getAttribute('data-menu-width') === "cover"){
+    //                 e.style.width = '100%'
+    //             } else {
+    //                 e.style.width = (e.getAttribute('data-menu-width')) +'px'
+    //             }
+    //         })
+    //         var menuSheets = document.querySelectorAll('.menu-box-bottom, .menu-box-top, .menu-box-modal');
+    //         menuSheets.forEach(function(e){
+    //             if(e.getAttribute('data-menu-width') === "cover"){
+    //                 e.style.width = '100%'
+    //                 e.style.height = '100%'
+    //             } else {
+    //                 e.style.width = (e.getAttribute('data-menu-width')) +'px'
+    //                 e.style.height = (e.getAttribute('data-menu-height')) +'px'
+    //             }
+    //         })
+
+    //Opening Menus
+    // var menuOpen = document.querySelectorAll('[data-menu]');
+    // var wrappers = document.querySelectorAll('.header, #footer-bar, .page-content');
+
+    // menuOpen.forEach(el => el.addEventListener('click',e =>{
+    //     //Close Existing Opened Menus
+    //     const activeMenu = document.querySelectorAll('.menu-active');
+    //     for(let i=0; i < activeMenu.length; i++){activeMenu[i].classList.remove('menu-active');}
+    //     //Open Clicked Menu
+    //     var menuData = el.getAttribute('data-menu');
+    //     document.getElementById(menuData).classList.add('menu-active');
+    //     document.getElementsByClassName('menu-hider')[0].classList.add('menu-active');
+    //     //Check and Apply Effects
+    //     var menu = document.getElementById(menuData);
+    //     var menuEffect = menu.getAttribute('data-menu-effect');
+    //     var menuLeft = menu.classList.contains('menu-box-left');
+    //     var menuRight = menu.classList.contains('menu-box-right');
+    //     var menuTop = menu.classList.contains('menu-box-top');
+    //     var menuBottom = menu.classList.contains('menu-box-bottom');
+    //     var menuWidth = menu.offsetWidth;
+    //     var menuHeight = menu.offsetHeight;
+    //     var menuTimeout = menu.getAttribute('data-menu-hide');
+
+    //     if(menuTimeout){
+    //         setTimeout(function(){
+    //             document.getElementById(menuData).classList.remove('menu-active');
+    //             document.getElementsByClassName('menu-hider')[0].classList.remove('menu-active');
+    //         },menuTimeout)
+    //     }
+
+    //     if(menuEffect === "menu-push"){
+    //         var menuWidth = document.getElementById(menuData).getAttribute('data-menu-width');
+    //         if(menuLeft){for(let i=0; i < wrappers.length; i++){wrappers[i].style.transform = "translateX("+menuWidth+"px)"}}
+    //         if(menuRight){for(let i=0; i < wrappers.length; i++){wrappers[i].style.transform = "translateX(-"+menuWidth+"px)"}}
+    //         if(menuBottom){for(let i=0; i < wrappers.length; i++){wrappers[i].style.transform = "translateY(-"+menuHeight+"px)"}}
+    //         if(menuTop){for(let i=0; i < wrappers.length; i++){wrappers[i].style.transform = "translateY("+menuHeight+"px)"}}
+    //     }
+    //     if(menuEffect === "menu-parallax"){
+    //         var menuWidth = document.getElementById(menuData).getAttribute('data-menu-width');
+    //         if(menuLeft){for(let i=0; i < wrappers.length; i++){wrappers[i].style.transform = "translateX("+menuWidth/10+"px)"}}
+    //         if(menuRight){for(let i=0; i < wrappers.length; i++){wrappers[i].style.transform = "translateX(-"+menuWidth/10+"px)"}}
+    //         if(menuBottom){for(let i=0; i < wrappers.length; i++){wrappers[i].style.transform = "translateY(-"+menuHeight/5+"px)"}}
+    //         if(menuTop){for(let i=0; i < wrappers.length; i++){wrappers[i].style.transform = "translateY("+menuHeight/5+"px)"}}
+    //     }
+    // }));
+
+    //Closing Menus
+    // const menuClose = document.querySelectorAll('.close-menu, .menu-hider');
+    // menuClose.forEach(el => el.addEventListener('click',e =>{
+    //     const activeMenu = document.querySelectorAll('.menu-active');
+    //     for(let i=0; i < activeMenu.length; i++){activeMenu[i].classList.remove('menu-active');}
+    //     for(let i=0; i < wrappers.length; i++){wrappers[i].style.transform = "translateX(-"+0+"px)"}
+    // }));
+    //     }
+    // }
+    //menuFunction();
+
+    // function activateMenus(){
+    //     const menuActive = document.querySelectorAll('[data-menu-active]')[0];
+    //     if(menuActive){
+    //         var selectedMenu = menuActive.getAttribute('data-menu-active');
+    //         document.querySelectorAll('#'+selectedMenu)[0].classList.add('active-nav');
+    //     }
+    // }
+
+    //Back Button
+    // const backButton = document.querySelectorAll('[data-back-button]');
+    // if(backButton.length){
+    //     backButton.forEach(el => el.addEventListener('click',e =>{
+    //         e.stopPropagation;
+    //         e.preventDefault;
+    //         window.history.go(-1);
+    //     }));
+    // }
+
+
+    //Back to Top
+    // function backUp() {
+    //   const backToTop = document.querySelectorAll('.back-to-top-icon, .back-to-top-badge, .back-to-top');
+    //   if (backToTop) {
+    //     backToTop.forEach(el => el.addEventListener('click', e => {
+    //       window.scrollTo({ top: 0, behavior: `smooth` })
+    //     }));
+    //   }
+    // }
 
     //Check iOS Version and add min-ios15 class if higher or equal to iOS15
     function iOSversion() {
@@ -142,41 +407,48 @@ document.addEventListener('DOMContentLoaded', () => {
     if (iosVer.version > 14) { document.querySelectorAll('#page')[0].classList.add('min-ios15'); }
 
 
-    //Card Extender
-    const cards = document.getElementsByClassName('card');
-    function card_extender() {
-      var headerHeight, footerHeight, headerOnPage;
-      var headerOnPage = document.querySelectorAll('.header:not(.header-transparent)')[0];
-      var footerOnPage = document.querySelectorAll('#footer-bar')[0];
+    // Card Extender
+    const cards: HTMLCollectionOf<Element> = document.getElementsByClassName('card');
+    function card_extender(): void {
+      let headerHeight: number, footerHeight: number;
+      const headerOnPage: Element | undefined = document.querySelectorAll('.header:not(.header-transparent)')[0];
+      const footerOnPage: Element | undefined = document.querySelectorAll('#footer-bar')[0];
 
-      headerOnPage ? headerHeight = document.querySelectorAll('.header')[0].offsetHeight : headerHeight = 0
-      footerOnPage ? footerHeight = document.querySelectorAll('#footer-bar')[0].offsetHeight : footerHeight = 0
+      headerOnPage ? headerHeight = (document.querySelectorAll('.header')[0] as HTMLElement).offsetHeight : headerHeight = 0;
+      footerOnPage ? footerHeight = (document.querySelectorAll('#footer-bar')[0] as HTMLElement).offsetHeight : footerHeight = 0;
 
       for (let i = 0; i < cards.length; i++) {
-        if (cards[i].getAttribute('data-card-height') === "cover") {
-          if (window.matchMedia('(display-mode: fullscreen)').matches) { var windowHeight = window.outerHeight; }
-          if (!window.matchMedia('(display-mode: fullscreen)').matches) { var windowHeight = window.innerHeight; }
-          //Fix for iOS 15 pages with data-height="cover"
-          var coverHeight = windowHeight + 'px';
+        const card = cards[i] as HTMLElement;
+        let coverHeight: string = '';
+
+        if (card.getAttribute('data-card-height') === "cover") {
+          let windowHeight: number;
+          if (window.matchMedia('(display-mode: fullscreen)').matches) { windowHeight = window.outerHeight; }
+          if (!window.matchMedia('(display-mode: fullscreen)').matches) { windowHeight = window.innerHeight; }
+          // Fix for iOS 15 pages with data-height="cover"
+          coverHeight = windowHeight + 'px';
           // - Remove this for iOS 14 issues - var coverHeight = windowHeight - headerHeight - footerHeight + 'px';
         }
-        if (cards[i].getAttribute('data-card-height') === "cover-card") {
-          var windowHeight = window.innerHeight;
-          var coverHeight = windowHeight - 200 + 'px';
-          cards[i].style.height = coverHeight
+        if (card.getAttribute('data-card-height') === "cover-card") {
+          const windowHeight: number = window.innerHeight;
+          const coverHeight: string = (windowHeight - 200) + 'px';
+          card.style.height = coverHeight;
         }
-        if (cards[i].getAttribute('data-card-height') === "cover-full") {
-          if (window.matchMedia('(display-mode: fullscreen)').matches) { var windowHeight = window.outerHeight; }
-          if (!window.matchMedia('(display-mode: fullscreen)').matches) { var windowHeight = window.innerHeight; }
-          var coverHeight = windowHeight + 'px';
-          cards[i].style.height = coverHeight
+        if (card.getAttribute('data-card-height') === "cover-full") {
+          let windowHeight: number;
+          if (window.matchMedia('(display-mode: fullscreen)').matches) { windowHeight = window.outerHeight; }
+          if (!window.matchMedia('(display-mode: fullscreen)').matches) { windowHeight = window.innerHeight; }
+          const coverHeight: string = windowHeight + 'px';
+          card.style.height = coverHeight;
         }
-        if (cards[i].hasAttribute('data-card-height')) {
-          var getHeight = cards[i].getAttribute('data-card-height');
-          cards[i].style.height = getHeight + 'px';
-          if (getHeight === "cover") {
-            var totalHeight = getHeight
-            cards[i].style.height = coverHeight
+        if (card.hasAttribute('data-card-height')) {
+          const getHeight: string | null = card.getAttribute('data-card-height');
+          if (getHeight) {
+            card.style.height = getHeight + 'px';
+            if (getHeight === "cover") {
+              const totalHeight: string = getHeight;
+              card.style.height = coverHeight;
+            }
           }
         }
       }
@@ -233,7 +505,7 @@ document.addEventListener('DOMContentLoaded', () => {
               localStorage.setItem(pwaName + '_Visited_Links', JSON.stringify(visited_links));
             }
           })
-          if (visited_links.indexOf(that.href) !== -1) {
+          if (visited_links.indexOf((that as HTMLAnchorElement).href) !== -1) {
             that.className += ' visited-link';
           }
         }
@@ -262,6 +534,26 @@ document.addEventListener('DOMContentLoaded', () => {
       if (adElementStyle.display === 'none') { document.getElementById('adblock-message').classList.remove('disabled'); }
     }
 
+    //Ads
+    // let fixedAds = document.querySelectorAll('.fixed-ad')[0];
+    // let scrollAds = document.querySelectorAll('.scroll-ad')[0];
+
+    // if (fixedAds || scrollAds) {
+    //   //Activate scroll Ad
+    //   var activateScrollAd = document.getElementById('activate-scroll-ad');
+    //   activateScrollAd.addEventListener('click', function () {
+    //     scrollAds.classList.add('scroll-ad-visible');
+    //     scrollAds.classList.remove('disabled');
+    //     fixedAds.classList.add('disabled');
+    //   })
+
+    //   //Activate Fixed Ad
+    //   var activateFixedAd = document.getElementById('activate-fixed-ad');
+    //   activateFixedAd.addEventListener('click', function () {
+    //     scrollAds.classList.add('disabled');
+    //     fixedAds.classList.remove('disabled');
+    //   })
+    // }
 
     //Scroll Ads
     var scrollItems = document.querySelectorAll('.scroll-ad, .header-auto-show')
@@ -275,8 +567,8 @@ document.addEventListener('DOMContentLoaded', () => {
           function hideScrollAd() { scrollAd[0].classList.remove('scroll-ad-visible'); }
           function showHeader() { scrollHeader[0].classList.add('header-active'); }
           function hideHeader() { scrollHeader[0].classList.remove('header-active'); }
-          function hideTitle() { pageTitle[0].style.opacity = "0" }
-          function showTitle() { pageTitle[0].style.opacity = "1" }
+          function hideTitle() { (pageTitle[0] as HTMLElement).style.opacity = "0" }
+          function showTitle() { (pageTitle[0] as HTMLElement).style.opacity = "1" }
           var window_height = window.outerWidth;
           var total_scroll_height = document.documentElement.scrollTop
           let inside_header = total_scroll_height <= 80;
@@ -306,13 +598,13 @@ document.addEventListener('DOMContentLoaded', () => {
     var stepperSub = document.querySelectorAll('.stepper-sub');
     if (stepperAdd.length) {
       stepperAdd.forEach(el => el.addEventListener('click', event => {
-        var currentValue = el.parentElement.querySelector('input').value
-        el.parentElement.querySelector('input').value = +currentValue + 1
+        var currentValue = (el.parentElement.querySelector('input') as HTMLInputElement).value;
+        (el.parentElement.querySelector('input') as HTMLInputElement).value = (+currentValue + 1).toString()
       }))
 
       stepperSub.forEach(el => el.addEventListener('click', event => {
-        var currentValue = el.parentElement.querySelector('input').value
-        el.parentElement.querySelector('input').value = +currentValue - 1
+        var currentValue = (el.parentElement.querySelector('input') as HTMLInputElement).value;
+        (el.parentElement.querySelector('input') as HTMLInputElement).value = (+currentValue - 1).toString()
       }))
     }
 
@@ -322,7 +614,7 @@ document.addEventListener('DOMContentLoaded', () => {
       linkListToggle.forEach(el => el.addEventListener('click', event => {
         var switchData = el.getAttribute('data-trigger-switch');
         var getCheck = document.getElementById(switchData);
-        getCheck.checked ? getCheck.checked = false : getCheck.checked = true;
+        (getCheck as HTMLInputElement).checked ? (getCheck as HTMLInputElement).checked = false : (getCheck as HTMLInputElement).checked = true;
       }))
     }
 
@@ -330,8 +622,8 @@ document.addEventListener('DOMContentLoaded', () => {
     var classicToggle = document.querySelectorAll('.classic-toggle');
     if (classicToggle.length) {
       classicToggle.forEach(el => el.addEventListener('click', event => {
-        el.querySelector('i:last-child').classList.toggle('fa-rotate-180');
-        el.querySelector('i:last-child').style.transition = "all 250ms ease"
+        (el.querySelector('i:last-child') as HTMLElement).classList.toggle('fa-rotate-180');
+        (el.querySelector('i:last-child') as HTMLElement).style.transition = "all 250ms ease";
       }))
     }
 
@@ -340,14 +632,23 @@ document.addEventListener('DOMContentLoaded', () => {
     if (toastTrigger.length) {
       toastTrigger.forEach(el => el.addEventListener('click', event => {
         var toastData = el.getAttribute('data-toast')
-        var notificationToast = document.getElementById(toastData);
-        var notificationToast = new bootstrap.Toast(notificationToast);
+        var notificationToastElement = document.getElementById(toastData) as HTMLElement;
+        var notificationToast = new bootstrap.Toast(notificationToastElement);
         notificationToast.show();
       }));
     }
 
 
-
+    //Tooltips
+    /*Deprecated feature for Mobiles. Requires popper.min.js v2 to work
+    var tooltips = document.querySelectorAll('[data-bs-tooltip]');
+    if(tooltips.length){
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+          return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    }
+    */
 
 
     //Dropdown
@@ -413,15 +714,15 @@ document.addEventListener('DOMContentLoaded', () => {
       var stopVibrating = document.getElementsByClassName('stop-vibrating')[0];
 
       startVibrating.addEventListener('click', function () {
-        var vibrateTime = document.getElementsByClassName('vibrate-demo')[0].value;
-        window.navigator.vibrate(vibrateTime);
+        var vibrateTime = (document.getElementsByClassName('vibrate-demo')[0] as HTMLInputElement).value;
+        window.navigator.vibrate(vibrateTime as unknown as VibratePattern);
       })
       stopVibrating.addEventListener('click', function () {
         window.navigator.vibrate(0);
       })
       vibrateButton.forEach(el => el.addEventListener('click', e => {
         var vibrateTime = el.getAttribute('data-vibrate');
-        window.navigator.vibrate(vibrateTime);
+        window.navigator.vibrate(vibrateTime as unknown as VibratePattern);
       }));
     }
 
@@ -431,9 +732,9 @@ document.addEventListener('DOMContentLoaded', () => {
       timedAd.forEach(el => el.addEventListener('click', e => {
         var timedAdTime = el.getAttribute('data-timed-ad');
         var timedAdData = el.getAttribute('data-menu');
-        var timedAdTimer = timedAdTime;
+        var timedAdTimer: number = Number(timedAdTime);
         var timerAdFunction = setInterval(function () {
-          if (timedAdTimer <= 1) {
+          if (Number(timedAdTimer) <= 1) {
             clearInterval(timerAdFunction);
             document.getElementById(timedAdData).querySelectorAll('.fa-times')[0].classList.remove('disabled');
             document.getElementById(timedAdData).querySelectorAll('.close-menu')[0].classList.remove('no-click');
@@ -441,7 +742,8 @@ document.addEventListener('DOMContentLoaded', () => {
           } else {
             //console.log(timedAdTimer);
           }
-          document.getElementById(timedAdData).querySelectorAll('span')[0].innerHTML = timedAdTimer -= 1;
+          timedAdTimer = Number(timedAdTimer) - 1;
+          document.getElementById(timedAdData).querySelectorAll('span')[0].innerHTML = timedAdTimer.toString();
         }, 1000);
       }));
     }
@@ -451,22 +753,23 @@ document.addEventListener('DOMContentLoaded', () => {
     if (autoAd.length) {
       var autoAdTime = autoAd[0].getAttribute('data-auto-show-ad');
       var timerAdFunction = setInterval(function () {
-        if (autoAdTime <= 1) {
+        if (Number(autoAdTime) <= 1) {
           clearInterval(timerAdFunction);
           var autoAdId = autoAd[0].getAttribute('data-menu');
           document.getElementById(autoAdId).classList.add('menu-active');
           var autoAdCloseTime = autoAd[0].getAttribute('data-timed-ad');
           var downloadTimer = setInterval(function () {
-            if (autoAdCloseTime <= 0) {
+            if (Number(autoAdCloseTime) <= 0) {
               clearInterval(downloadTimer);
               document.getElementById(autoAdId).querySelectorAll('.fa-times')[0].classList.remove('disabled');
               document.getElementById(autoAdId).querySelectorAll('.close-menu')[0].classList.remove('no-click');
               document.getElementById(autoAdId).querySelectorAll('span')[0].style.display = "none";
             }
-            document.getElementById(autoAdId).querySelectorAll('span')[0].innerHTML = autoAdCloseTime -= 1;
+            autoAdCloseTime = (Number(autoAdCloseTime) - 1).toString();
+            document.getElementById(autoAdId).querySelectorAll('span')[0].innerHTML = autoAdCloseTime;
           }, 1000);
         }
-        autoAdTime -= 1;
+        autoAdTime = (Number(autoAdTime) - 1).toString();
       }, 1000);
     }
 
@@ -477,18 +780,18 @@ document.addEventListener('DOMContentLoaded', () => {
       const beforeVisited = document.querySelectorAll('.before-visited')[0];
       const visitBeforeTime = document.querySelectorAll('.visit-before-time')[0];
       const lastVisitValue = localStorage.getItem(pwaName + '-Last-Visited');
-      const options = { year: "numeric", day: "numeric", month: "long", };
+      const options: DateTimeFormatOptions = { year: "numeric", day: "numeric", month: "long" };
       const d = new Date();
       const strDate = d.toLocaleDateString('fa-IR', options);
       const strTime = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
       if (!lastVisitValue) {
-        neverVisited.style.display = "block";
-        beforeVisited.style.display = "none";
+        (neverVisited as HTMLElement).style.display = "block";
+        (beforeVisited as HTMLElement).style.display = "none";
         localStorage.setItem(pwaName + '-Last-Visited', 'آخرین بازدید شما ' + strDate + ' در ' + strTime)
       } else {
-        neverVisited.style.display = "none"
-        beforeVisited.style.display = "block"
-        visitBeforeTime.append(lastVisitValue)
+        (neverVisited as HTMLElement).style.display = "none";
+        (beforeVisited as HTMLElement).style.display = "block";
+        (visitBeforeTime as HTMLElement).textContent = lastVisitValue;
         localStorage.setItem(pwaName + '-Last-Visited', 'آخرین بازدید شما ' + strDate + ' در ' + strTime)
       }
     }
@@ -500,7 +803,7 @@ document.addEventListener('DOMContentLoaded', () => {
       var readingWords = readingTextDiv[0].innerHTML.split(' ').length;
       var readingMinutes = Math.floor(readingWords / 250);
       var readingSeconds = readingWords % 60
-      document.getElementsByClassName('reading-progress-words')[0].innerHTML = readingWords
+      document.getElementsByClassName('reading-progress-words')[0].innerHTML = readingWords.toString();
       document.getElementsByClassName('reading-progress-time')[0].innerHTML = readingMinutes + ':' + readingSeconds
     }
 
@@ -511,21 +814,22 @@ document.addEventListener('DOMContentLoaded', () => {
       var textSizeDecrease = document.querySelectorAll('.text-size-decrease');
       var textSizeDefault = document.querySelectorAll('.text-size-default');
       textSizeIncrease[0].addEventListener('click', function () {
-        textSizeChanger[0].querySelectorAll('*').forEach(function (element) {
-          const getFontSize = window.getComputedStyle(element).fontSize.split("px", 2)[0]
-          element.style.fontSize = (+getFontSize + 1) + 'px';
+        textSizeChanger[0].querySelectorAll('*').forEach(function (element: Element) {
+          const fontSize = window.getComputedStyle(element).fontSize;
+          const fontSizeValue = fontSize.split("px")[0];
+          (element as HTMLElement).style.fontSize = (+fontSizeValue + 1) + 'px';
         });
       })
       textSizeDecrease[0].addEventListener('click', function () {
-        textSizeChanger[0].querySelectorAll('*').forEach(function (element) {
-          const getFontSize = window.getComputedStyle(element).fontSize.split("px", 2)[0]
-          element.style.fontSize = (+getFontSize - 1) + 'px';
+        textSizeChanger[0].querySelectorAll('*').forEach(function (element: Element) {
+          const fontSize = window.getComputedStyle(element).fontSize;
+          const fontSizeValue = fontSize.split("px")[0];
+          (element as HTMLElement).style.fontSize = (+fontSizeValue - 1) + 'px';
         });
       })
       textSizeDefault[0].addEventListener('click', function () {
-        textSizeChanger[0].querySelectorAll('*').forEach(function (element) {
-          const getFontSize = window.getComputedStyle(element).fontSize.split("px", 2)[0]
-          element.style.fontSize = "";
+        textSizeChanger[0].querySelectorAll('*').forEach(function (element: Element) {
+          (element as HTMLElement).style.fontSize = "";
         });
       })
     }
@@ -540,7 +844,7 @@ document.addEventListener('DOMContentLoaded', () => {
       var qr_btn = document.getElementsByClassName('generate-qr-button')[0];
       if (qr_btn) {
         qr_btn.addEventListener('click', function () {
-          var get_qr_url = document.getElementsByClassName('qr-url')[0].value;
+          var get_qr_url = (document.getElementsByClassName('qr-url')[0] as HTMLInputElement).value;
           var qr_api_address = 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=';
           var qr_img = '<img class="mx-auto polaroid-effect shadow-l mt-4 delete-qr" width="200" src="' + qr_api_address + get_qr_url + '" alt="img"><p class="font-11 text-center mb-0">' + get_qr_url + '</p>'
           document.getElementsByClassName('generate-qr-result')[0].innerHTML = qr_img
@@ -564,7 +868,7 @@ document.addEventListener('DOMContentLoaded', () => {
       var searchTotal = document.querySelectorAll(".search-results div")[0].childElementCount;
       var searchTrending = document.querySelectorAll('.search-trending');
       function searchFunction() {
-        var searchStr = searchField[0].value;
+        var searchStr = (searchField[0] as HTMLInputElement).value;
         var searchVal = searchStr;
         if (searchVal != '') {
           searchResults[0].classList.remove('disabled-search-list');
@@ -600,9 +904,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       var searchClick = document.querySelectorAll('.search-trending a');
       searchClick.forEach(el => el.addEventListener('click', event => {
-        var trendingResult = el.querySelectorAll('span')[0].textContent.toLowerCase();
-        searchField[0].value = trendingResult;
-        searchField[0].click();
+        var trendingResultSpan = el.querySelectorAll('span')[0];
+        var trendingResult = trendingResultSpan && trendingResultSpan.textContent ? trendingResultSpan.textContent.toLowerCase() : '';
+        (searchField[0] as HTMLInputElement).value = trendingResult;
+        (searchField[0] as HTMLElement).click();
       }));
 
     }
@@ -632,15 +937,15 @@ document.addEventListener('DOMContentLoaded', () => {
     //Contact Form
     var contactForm = document.querySelectorAll('.contact-form');
     if (contactForm.length) {
-      var form = document.getElementById('contactForm');
+              var form = document.getElementById('contactForm') as HTMLFormElement;
       form.onsubmit = function (e) {
         // Stop the regular form submission
         e.preventDefault();
 
         //Validate Fields
-        var nameField = document.getElementById('contactNameField');
-        var mailField = document.getElementById('contactEmailField');
-        var textField = document.getElementById('contactMessageTextarea');
+        var nameField = document.getElementById('contactNameField') as HTMLInputElement;
+        var mailField = document.getElementById('contactEmailField') as HTMLInputElement;
+        var textField = document.getElementById('contactMessageTextarea') as HTMLTextAreaElement;
         var validateMail = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
         if (nameField.value === '') {
           form.setAttribute('data-form', 'invalid');
@@ -681,9 +986,9 @@ document.addEventListener('DOMContentLoaded', () => {
           document.querySelectorAll('.form-sent')[0].classList.remove('disabled');
           document.querySelectorAll('.contact-form')[0].classList.add('disabled');
           // Collect the form data while iterating over the inputs
-          var data = {};
+          var data: { [key: string]: string } = {};
           for (let i = 0, ii = form.length; i < ii; ++i) {
-            let input = form[i];
+            let input = form[i] as HTMLInputElement | HTMLTextAreaElement;
             if (input.name) {
               data[input.name] = input.value;
             }
@@ -696,7 +1001,10 @@ document.addEventListener('DOMContentLoaded', () => {
           // Send the collected data as JSON
           xhr.send(JSON.stringify(data));
           // Callback function
-          xhr.onloadend = function (response) { if (response.target.status === 200) { console.log('Form Submitted') } };
+          xhr.onloadend = function (response) {
+            const target = response.target as XMLHttpRequest;
+            if (target.status === 200) { console.log('Form Submitted') }
+          };
         }
       };
     }
@@ -716,14 +1024,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (tabTrigger.length) {
       tabTrigger.forEach(function (e) {
         if (e.hasAttribute('data-active')) {
-          var highlightColor = e.parentNode.getAttribute('data-highlight');
+          var highlightColor = (e.parentNode as Element).getAttribute('data-highlight');
           e.classList.add(highlightColor);
           e.classList.add('no-click');
         }
       });
       tabTrigger.forEach(el => el.addEventListener('click', e => {
-        var highlightColor = el.parentNode.getAttribute('data-highlight');
-        var tabParentGroup = el.parentNode.querySelectorAll('a');
+        var highlightColor = (el.parentNode as Element).getAttribute('data-highlight');
+        var tabParentGroup = (el.parentNode as Element).querySelectorAll('a');
         tabParentGroup.forEach(function (e) {
           e.classList.remove(highlightColor);
           e.classList.remove('no-click');
@@ -750,7 +1058,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var autoActivate = document.querySelectorAll('[data-auto-activate]');
     if (autoActivate.length) {
       var autoActivateData = autoActivate[0].getAttribute('data-auto-activate');
-      var autoActivateTime = autoActivateData * 1000
+      var autoActivateTime = Number(autoActivateData) * 1000;
       setTimeout(function () {
         autoActivate[0].classList.add('menu-active');
         menuHider[0].classList.add('menu-active');
@@ -761,8 +1069,8 @@ document.addEventListener('DOMContentLoaded', () => {
     var copyrightYear = document.getElementById('copyright-year');
     var copyrightMonth = document.getElementById('copyright-month');
     if (copyrightYear || copyrightMonth) {
-      const yroptions = { year: "numeric", };
-      const mntoptions = { month: "long", };
+      const yroptions: DateTimeFormatOptions = { year: "numeric" };
+      const mntoptions: DateTimeFormatOptions = { month: "long" };
       const yrNow = new Date().toLocaleString("fa-IR", yroptions);
       const mntNow = new Date().toLocaleString("fa-IR", mntoptions);
       copyrightYear.textContent = yrNow;
@@ -773,16 +1081,16 @@ document.addEventListener('DOMContentLoaded', () => {
     var checkAge = document.querySelectorAll('.check-age');
     if (checkAge.length) {
       checkAge[0].addEventListener('click', function () {
-        var dateBirthday = document.querySelectorAll("#date-birth-day")[0].value;
-        var dateBirthMonth = document.querySelectorAll("#date-birth-month")[0].value;
-        var dateBirthYear = document.querySelectorAll("#date-birth-year")[0].value;
+        var dateBirthday = (document.querySelectorAll("#date-birth-day")[0] as HTMLInputElement).value;
+        var dateBirthMonth = (document.querySelectorAll("#date-birth-month")[0] as HTMLInputElement).value;
+        var dateBirthYear = (document.querySelectorAll("#date-birth-year")[0] as HTMLInputElement).value;
         var age = 18;
         var mydate = new Date();
-        mydate.setFullYear(dateBirthYear, dateBirthMonth - 1, dateBirthday);
+        mydate.setFullYear(Number(dateBirthYear), Number(dateBirthMonth) - 1, Number(dateBirthday));
 
         var currdate = new Date();
         var setDate = new Date();
-        setDate.setFullYear(mydate.getFullYear() + age, dateBirthMonth - 1, dateBirthday);
+        setDate.setFullYear(mydate.getFullYear() + age, Number(dateBirthMonth) - 1, Number(dateBirthday));
 
         var menuAge = document.querySelectorAll('#menu-age');
         var menuAgeFail = document.querySelectorAll('#menu-age-fail');
@@ -791,7 +1099,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(currdate);
         console.log(setDate);
         console.log(dateBirthMonth);
-        if ((currdate - setDate) > 0) {
+        if ((currdate.getTime() - setDate.getTime()) > 0) {
           console.log("بالای 18");
           menuAge[0].classList.remove('menu-active')
           menuAgeOkay[0].classList.add('menu-active');
@@ -811,18 +1119,18 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => data.text())
         .then(html => e.innerHTML = html)
         .then(data => {
-          setTimeout(function () {
-            if (dataMenuLoad[dataMenuLoad.length - 1] === e) {
-              menuFunction();
-              //checkDarkMode();
-              // activateMenus();
-              // shareLinks();
-              highlightColors();
-              selectHighlight();
-              card_extender();
-              backUp();
-            }
-          }, 500);
+          // setTimeout(function () {
+          //   if (dataMenuLoad[dataMenuLoad.length - 1] === e) {
+          //     menuFunction();
+          //     //checkDarkMode();
+          //     // activateMenus();
+          //     // shareLinks();
+          //     highlightColors();
+          //     selectHighlight();
+          //     card_extender();
+          //     backUp();
+          //   }
+          // }, 500);
         })
     })
 
@@ -872,7 +1180,7 @@ document.addEventListener('DOMContentLoaded', () => {
       var anchorsEnabled = document.querySelectorAll('[data-link]');
       anchorsEnabled.forEach(function (e) {
         var hrefs = e.getAttribute('data-link');
-        if (hrefs.match(/.html/)) { e.setAttribute('href', hrefs); e.removeAttribute('data-link', ''); }
+        if (hrefs.match(/.html/)) { e.setAttribute('href', hrefs); e.removeAttribute('data-link'); }
       });
     }
 

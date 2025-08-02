@@ -14,8 +14,8 @@
         <div class="me-auto ps-4">
           <h4>{{'TITLE.website_address' | translate}}</h4>
           <h4 class="pt-2" style="direction: ltr;">
-            <a href="{{dataModelResult.item.urlSiteHome}}">
-              {{dataModelResult.item.urlSiteHome}}
+            <a href="{{dataModelResult.item?.urlSiteHome}}">
+              {{dataModelResult.item?.urlSiteHome}}
             </a>
             <a class="icon icon-xs rounded-sm shadow-l mr-1" [cdkCopyToClipboard]="dataModelResult.item.urlSiteHome"
               (click)="onActionCopied()"><i class="fa fa-clipboard"></i></a>

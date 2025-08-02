@@ -154,8 +154,8 @@ export class CoreInfoComponent implements OnInit, OnDestroy {
       // height: "90%",
       data: {
         title: 'TITLE.website_address',
-        urlViewContentQRCodeBase64: this.dataModelResult.item.urlSiteHomeShortLinkQRCodeBase64,
-        urlViewContent: this.dataModelResult.item.urlSiteHome,
+        urlViewContentQRCodeBase64: this.dataModelResult.item?.urlSiteHomeShortLinkQRCodeBase64,
+        urlViewContent: this.dataModelResult.item?.urlSiteHome,
       },
     });
     dialogRef.afterClosed().subscribe((result) => {
