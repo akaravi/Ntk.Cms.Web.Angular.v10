@@ -47,7 +47,14 @@ export class AuthSingInBySmsComponent implements OnInit, OnDestroy {
     this.unsubscribe.push(this.cmsStoreService.getState((state) => state.connectionStatusStore).subscribe(async (value) => {
       this.connectionStatus = value;
     }));
-
+    this.unsubscribe.push(this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      if (this.cmsStoreService?.getStateAll?.tokenInfoStore && this.cmsStoreService?.getStateAll?.tokenInfoStore?.access?.userId > 0 && this.cmsStoreService?.getStateAll?.tokenInfoStore?.access?.siteId > 0) {
+        this.router.navigate(['/dashboard'], { });
+      }
+      if (this.cmsStoreService?.getStateAll?.tokenInfoStore && this.cmsStoreService?.getStateAll?.tokenInfoStore?.access?.userId > 0) {
+        this.router.navigate(['/core/site/selection'], {  });
+      }
+    }));
   }
   connectionStatus = new ConnectionStatusModel();
   errorState: ErrorStates = ErrorStates.NotSubmitted;

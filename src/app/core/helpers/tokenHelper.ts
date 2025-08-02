@@ -7,7 +7,8 @@ import {
   OperatingSystemTypeEnum,
   TokenDeviceClientInfoDtoModel,
   TokenDeviceModel,
-  TokenInfoModelV3
+  TokenInfoModelV3,
+  TokenJWTModel
 } from 'ntk-cms-api';
 import { Observable, catchError, finalize, firstValueFrom, map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -49,6 +50,21 @@ export class TokenHelper {
     if (this.tokenInfo && this.tokenInfo?.access)
       return new Observable<void>;
     //step 3
+    if(this.coreAuthService.getJWT()?.tokenExpireDate&& new Date(this.coreAuthService.getJWT()?.tokenExpireDate)&& this.coreAuthService.getJWT()?.refreshToken?.length>0){
+        const value = await firstValueFrom(this.coreAuthService.ServiceRefreshToken().pipe(
+          map((ret: ErrorExceptionResult<TokenJWTModel>) => {
+            if (environment.consoleLog)
+              console.log("ServiceRefreshToken_getJWT_TOKEN_INFO");
+            return;
+          }),
+          catchError((err) => {
+            if (environment.consoleLog)
+              console.log("Error_TOKEN_INFO");
+            return of(undefined);
+          }),
+          finalize(() => { })
+        ));
+    }
     const value = await firstValueFrom(this.coreAuthService.ServiceCurrentToken().pipe(
       map((ret: ErrorExceptionResult<TokenInfoModelV3>) => {
         this.tokenInfo = ret.item;

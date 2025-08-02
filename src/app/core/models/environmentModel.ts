@@ -12,11 +12,12 @@ export interface EnvironmentModel{
     ProgressConsoleLog: boolean,
     leafletUrl: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     mainTitle: string,
-    cmsServerConfig:EnvironmentCmsServerConfig, 
+    cmsServerConfig:EnvironmentCmsServerConfig,
     cmsTokenConfig: EnvironmentCmsTokenConfig,
     cmsViewConfig: EnvironmentCmsViewConfig,
     languages: LanguageFlagModel[],
     USERDATA_KEY: string,
+    languagesDefault: string,
 }
 export interface EnvironmentCmsServerConfig{
     configApiRetry: number,

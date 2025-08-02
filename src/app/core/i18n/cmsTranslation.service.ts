@@ -54,7 +54,7 @@ export class CmsTranslationService {
    */
   get getSelectedLanguage(): string {
     const browserLang = this.translate.getBrowserLang();
-    return localStorage.getItem(LOCALIZATION_LOCAL_STORAGE_KEY) || this.translate.getDefaultLang() || browserLang || "en";
+    return localStorage.getItem(LOCALIZATION_LOCAL_STORAGE_KEY) || this.translate.getDefaultLang() || environment.languagesDefault||browserLang|| "en";
   }
 
 }

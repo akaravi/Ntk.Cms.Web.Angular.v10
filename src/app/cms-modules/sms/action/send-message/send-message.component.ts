@@ -20,6 +20,7 @@ export class DateByClock {
   clock: string;
 }
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -70,7 +71,7 @@ export class SmsActionSendMessageComponent implements OnInit {
   }
   timezoneOffset = 0;
   tokenInfo = new TokenInfoModelV3();
-  language = 'en';
+  language = environment.languagesDefault ;
   @ViewChild('vform', { static: false }) formGroup: FormGroup;
   @ViewChild('Message') message: ElementRef;
 

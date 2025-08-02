@@ -1,11 +1,6 @@
 <div [ngClass]="rootClass" data-menu-width="280" data-menu-active="nav-pages">
   <app-progress-spinner [optionsInfoAreaId]="constructor.name"> </app-progress-spinner>
-  <div class="menu-title" style="padding-top: 13px;">
-    <h6 class="menu-divider">{{"TITLE.MENU"|translate}}</h6>
-    <a (click)="themeStore.dataMenu=''"
-      style="position: absolute;text-align: center;width: 55px;left: 0px;top: 50%;margin-top: -1px;"><i
-        class="fa fa-times-circle"></i></a>
-  </div>
+
   <div class="card rounded-0" data-card-height="150" style="background-repeat: no-repeat;background-size: contain;"
     [ngStyle]="{'background-image': this.tokenInfo?.access?.linkMainImageIdSrc?.length>0?'url('+this.tokenInfo?.access?.linkMainImageIdSrc+')':'url(/assets/images/pictures/17.jpg)'}">
 

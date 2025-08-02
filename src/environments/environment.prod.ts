@@ -43,6 +43,7 @@ export const environment: EnvironmentModel = {
     exitAnimationDuration: '1000ms'
   },
   USERDATA_KEY: 'authf649fc9a5f55',
+  languagesDefault: 'fa',
   languages: [
     {
       lang: 'fa',

@@ -4,6 +4,7 @@ import { TreeModel } from 'ntk-cms-filemanager';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
 import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class FileContentExplorerComponent implements OnInit {
     }
   }
   tokenInfo = new TokenInfoModelV3();
-  language = 'en';
+  language = environment.languagesDefault;
   fileManagerOpenForm = true;
   fileManagerTree: TreeModel;
   selectFileType = [];

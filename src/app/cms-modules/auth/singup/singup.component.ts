@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthUserSignInModel, AuthUserSignUpModel, CaptchaModel, CoreAuthV3Service, FormInfoModel } from 'ntk-cms-api';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 import { PageInfoService } from 'src/app/core/services/page-info.service';
@@ -33,9 +33,17 @@ export class AuthSingUpComponent implements OnInit, OnDestroy {
 
   ) {
     this.publicHelper.processService.cdr = this.cdr;
-
+    this.unsubscribe.push(this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      if (this.cmsStoreService?.getStateAll?.tokenInfoStore && this.cmsStoreService?.getStateAll?.tokenInfoStore?.access?.userId > 0 && this.cmsStoreService?.getStateAll?.tokenInfoStore?.access?.siteId > 0) {
+        this.router.navigate(['/dashboard'], { });
+      }
+      if (this.cmsStoreService?.getStateAll?.tokenInfoStore && this.cmsStoreService?.getStateAll?.tokenInfoStore?.access?.userId > 0) {
+        this.router.navigate(['/core/site/selection'], {  });
+      }
+    }));
   }
   @ViewChild('vform', { static: false }) formGroup: FormGroup;
+  private unsubscribe: Subscription[] = [];
 
   formInfo: FormInfoModel = new FormInfoModel();
   roulaccespt = '';
@@ -57,7 +65,10 @@ export class AuthSingUpComponent implements OnInit, OnDestroy {
     this.onCaptchaOrder();
     this.translate.get('AUTH.REGISTER.SIGNUP').subscribe((str: string) => { this.pageInfo.updateTitle(str); });
   }
+
   ngOnDestroy(): void {
+    if (this.unsubscribe)
+      this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   onActionSubmit(): void {
     if (!this.dataModel.email || this.dataModel.email.length === 0) {

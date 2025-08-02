@@ -37,10 +37,10 @@ export class CmsAuthService implements OnDestroy {
     this.currentUser$ = this.currentUserSubject.asObservable();
     this.isLoading$ = this.isLoadingSubject.asObservable();
   }
-  private authLocalStorageToken = `${environment.appVersion}-${environment.authKey}`;
+
 
   getTokenInfoType(): Observable<TokenInfoType> {
-    const auth = this.getAuthFromLocalStorage();
+    const auth = this.authService.getJWT();
     if (!auth || !auth.accessToken) {
       return of(undefined);
     }
@@ -60,7 +60,7 @@ export class CmsAuthService implements OnDestroy {
     );
   }
   getTokenInfo(): Observable<ErrorExceptionResult<TokenInfoModelV3>> {
-    const auth = this.getAuthFromLocalStorage();
+    const auth = this.authService.getJWT();
     if (!auth || !auth.accessToken) {
       return of(undefined);
     }
@@ -87,17 +87,7 @@ export class CmsAuthService implements OnDestroy {
       finalize(() => this.isLoadingSubject.next(false))
     );
   }
-  private getAuthFromLocalStorage(): TokenJwtType {
-    try {
-      const authData = JSON.parse(
-        localStorage.getItem(this.authLocalStorageToken)
-      );
-      return authData;
-    } catch (error) {
-      console.error(error);
-      return undefined;
-    }
-  }
+
   login(model: AuthUserSignInModel): Observable<ErrorExceptionResult<TokenInfoType>> {
     this.isLoadingSubject.next(true);
 
@@ -117,7 +107,6 @@ export class CmsAuthService implements OnDestroy {
   }
 
   logout() {
-    localStorage.removeItem(this.authLocalStorageToken);
     this.authService.ServiceLogout();
     this.router.navigate(['/auth/login'], {
       queryParams: {},
@@ -127,7 +116,7 @@ export class CmsAuthService implements OnDestroy {
   private setAuthFromLocalStorage(auth: TokenJWTModel): boolean {
     // store auth authToken/refreshToken/epiresIn in local storage to keep user logged in between page refreshes
     if (auth && auth.accessToken) {
-      localStorage.setItem(this.authLocalStorageToken, JSON.stringify(auth));
+      //localStorage.setItem(this.authLocalStorageToken, JSON.stringify(auth));
       return true;
     }
     return false;
