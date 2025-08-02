@@ -1,10 +1,7 @@
 <div [ngClass]="rootClass" data-menu-width="280" data-menu-active="nav-pages">
   <app-progress-spinner [optionsInfoAreaId]="constructor.name"> </app-progress-spinner>
-
-  <div class="card rounded-0" data-card-height="150" style="background-repeat: no-repeat;background-size: contain;"
+  <div class="card rounded-0" data-card-height="150" style="height:150px;background-repeat: no-repeat;background-size: contain;"
     [ngStyle]="{'background-image': this.tokenInfo?.access?.linkMainImageIdSrc?.length>0?'url('+this.tokenInfo?.access?.linkMainImageIdSrc+')':'url(/assets/images/pictures/17.jpg)'}">
-
-
     <div class="card-top">
       <a (click)="themeStore.dataMenu=''" class="close-menu float-end me-2 text-center mt-3 icon-40 notch-clear"><i
           class="fa fa-times color-white"></i></a>

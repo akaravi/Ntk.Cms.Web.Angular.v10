@@ -61,6 +61,9 @@ export class ThemeService implements OnDestroy {
         this.themeStoreLast = new ThemeStoreModel();
       }
     });
+
+
+    this.updateInnerSize();
   }
   public ngOnInitApp(): void {
 

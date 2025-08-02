@@ -92,8 +92,6 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
         }
       this.tokenInfo = value;
     }));
-
-    this.themeService.updateInnerSize();
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
         //do something on start activity
