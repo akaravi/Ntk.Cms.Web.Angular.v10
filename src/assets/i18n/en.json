@@ -1561,7 +1561,7 @@
   "TITLE.SUMMARY_SYSTEM_DESCRIPTION": "Summary of account details of this system",
   "TITLE.SummaryOfSpecifications": "Summary Of Specifications",
   "TITLE.SUMMARY_ACCOUNT_DESCRIPTION": "Summary of your account details",
-  "TABLE.undefined":"...",
+  "TABLE.undefined": "...",
   "TABLE.EstateActivityType": "Estate Activity Type",
   "TABLE.PollingCategory": "Polling Category",
   "TABLE.SmsMainMessageCategory": "Main Message Category",
