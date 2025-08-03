@@ -89,7 +89,7 @@ export class EstateCustomerOrderAddToEditComponent extends AddBaseComponent<Esta
         this.dataModel = ret.item;
         this.dataModel.title = "Copy of " + this.dataModel.title
         if (ret.isSuccess) {
-          this.cdr.detectChanges();
+          Promise.resolve().then(() => this.cdr.detectChanges());
           /** */
         } else {
           this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });

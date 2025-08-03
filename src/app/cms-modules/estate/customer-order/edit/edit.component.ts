@@ -128,7 +128,7 @@ export class EstateCustomerOrderEditComponent extends EditBaseComponent<EstateCu
           } else {
             this.cmsToastrService.typeErrorGetAccess(ret.errorMessage);
           }
-          this.cdr.detectChanges();
+          Promise.resolve().then(() => this.cdr.detectChanges());
         },
         error: (er) => {
           this.cmsToastrService.typeErrorGetAccess(er);
@@ -186,7 +186,7 @@ export class EstateCustomerOrderEditComponent extends EditBaseComponent<EstateCu
               }
             });
           }
-          this.cdr.detectChanges();
+          Promise.resolve().then(() => this.cdr.detectChanges());
           /** */
         } else {
           this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
@@ -233,7 +233,7 @@ export class EstateCustomerOrderEditComponent extends EditBaseComponent<EstateCu
               this.publicHelper.processService.processStop(pName);
             });
           }
-          this.cdr.detectChanges();
+          Promise.resolve().then(() => this.cdr.detectChanges());
         } else {
           this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
           this.formInfo.formError = ret.errorMessage;
@@ -286,7 +286,7 @@ export class EstateCustomerOrderEditComponent extends EditBaseComponent<EstateCu
           } else {
             this.cmsToastrService.typeErrorGetAccess(ret.errorMessage);
           }
-          this.cdr.detectChanges();
+          Promise.resolve().then(() => this.cdr.detectChanges());
           this.publicHelper.processService.processStop(pName);
         },
         error: (er) => {
@@ -305,7 +305,7 @@ export class EstateCustomerOrderEditComponent extends EditBaseComponent<EstateCu
       return;
     }
     this.dataModel.linkPropertyTypeUsageId = model.id;
-    this.cdr.detectChanges();
+    Promise.resolve().then(() => this.cdr.detectChanges());
   }
   onActionSelectorSelectLanduse(model: EstatePropertyTypeLanduseModel | null): void {
     this.PropertyTypeSelected = null;
@@ -317,7 +317,7 @@ export class EstateCustomerOrderEditComponent extends EditBaseComponent<EstateCu
     this.PropertyTypeSelected = model;
     this.dataModel.linkPropertyTypeLanduseId = model.id;
     this.DataGetPropertyDetailGroup(model.id);
-    this.cdr.detectChanges();
+    Promise.resolve().then(() => this.cdr.detectChanges());
   }
   onActionSelectorContarctType(model: EstateContractTypeModel | null): void {
     this.contractTypeSelected = null;
@@ -331,7 +331,7 @@ export class EstateCustomerOrderEditComponent extends EditBaseComponent<EstateCu
     this.contractTypeSelected = model;
     this.dataModel.linkContractTypeId = model.id;
 
-    this.cdr.detectChanges();
+    Promise.resolve().then(() => this.cdr.detectChanges());
   }
   onActionSelectorEstateUser(model: EstateAccountExpertModel | null): void {
     this.dataModel.linkEstateExpertId = null;
@@ -418,13 +418,13 @@ export class EstateCustomerOrderEditComponent extends EditBaseComponent<EstateCu
   loadResult = '';
   onFormLoadEstateResult(): void {
     this.loadResult = 'estatePropertyList';
-    this.cdr.detectChanges();
+    Promise.resolve().then(() => this.cdr.detectChanges());
     this.estatePropertyListComponent.optionloadComponent = true;
     this.estatePropertyListComponent.DataGetAll();
   }
   onFormLoadEstateHaveHistoryResult(): void {
     this.loadResult = 'estatePropertyHaveHistoryList';
-    this.cdr.detectChanges();
+    Promise.resolve().then(() => this.cdr.detectChanges());
     this.estatePropertyHaveHistoryListComponent.optionloadComponent = true;
     this.estatePropertyHaveHistoryListComponent.DataGetAll();
   }
@@ -440,20 +440,20 @@ export class EstateCustomerOrderEditComponent extends EditBaseComponent<EstateCu
   }
   onFormLoadEstateAgencyResult(): void {
     this.loadResult = 'estateAccountAgencyList';
-    this.cdr.detectChanges();
+    Promise.resolve().then(() => this.cdr.detectChanges());
     this.estateAccountAgencyListComponent.optionloadComponent = true;
     this.estateAccountAgencyListComponent.DataGetAll();
   }
   onFormLoadEstateUserResult(): void {
     this.loadResult = 'estateAccountExpertList';
-    this.cdr.detectChanges();
+    Promise.resolve().then(() => this.cdr.detectChanges());
     this.estateAccountExpertListComponent.optionloadComponent = true;
     this.estateAccountExpertListComponent.DataGetAll();
   }
 
   onFormLoadEstateHistoryResult(): void {
     this.loadResult = 'estateHistoryList';
-    this.cdr.detectChanges();
+    Promise.resolve().then(() => this.cdr.detectChanges());
     this.estatePropertyHistoryListComponent.optionloadComponent = true;
     this.estatePropertyHistoryListComponent.DataGetAll();
   }

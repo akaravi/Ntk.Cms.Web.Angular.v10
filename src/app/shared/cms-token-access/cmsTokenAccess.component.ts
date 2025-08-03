@@ -32,11 +32,11 @@ export class CmsTokenAccessComponent implements OnInit, OnDestroy {
   ) {
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
-      this.cdr.detectChanges();
+      Promise.resolve().then(() => this.cdr.detectChanges());
     }
     this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.tokenInfo = value;
-      this.cdr.detectChanges();
+      Promise.resolve().then(() => this.cdr.detectChanges());
     });
   }
 

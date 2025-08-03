@@ -238,7 +238,7 @@ export class EstateCustomerOrderAddMobileComponent implements OnInit {
                     this.DataGetAllPropertyTypeLanduse();
 
                   this.DataGetAllProperty();
-                  this.cdr.detectChanges();
+                  Promise.resolve().then(() => this.cdr.detectChanges());
                 } else {
                   this.cmsToastrService.typeErrorMessage(ret.errorMessage);
                 }

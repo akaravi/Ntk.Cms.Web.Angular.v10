@@ -189,7 +189,7 @@ export class EstateCustomerOrderWidgetComponent implements OnInit, OnDestroy {
       this.chartOptions.series = series;
       this.chartOptions.labels = labels;
       this.publicHelper.processService.processStop(this.constructor.name + 'All');
-      this.cdr.detectChanges();
+      Promise.resolve().then(() => this.cdr.detectChanges());
     });
 
   }

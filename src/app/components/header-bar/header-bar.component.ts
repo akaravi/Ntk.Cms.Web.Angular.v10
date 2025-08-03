@@ -78,13 +78,13 @@ export class HeaderBarComponent implements OnInit {
     this.pageInfoService.contentService.asObservable().subscribe({
       next: (ret) => {
         this.contentService = ret;
-        this.cdr.detectChanges();
+        Promise.resolve().then(() => this.cdr.detectChanges());
       }
     });
     this.pageInfoService.contentInfo.asObservable().subscribe({
       next: (ret) => {
         this.contentInfo = ret;
-        this.cdr.detectChanges();
+        Promise.resolve().then(() => this.cdr.detectChanges());
       }
     });
   }

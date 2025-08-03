@@ -104,19 +104,19 @@ export class MenuLanguageComponent implements OnInit {
           if (ret.isSuccess) {
             this.tokenInfo = ret.item;
             if (ret.item.access.language === lang) {
-              this.translate.get('TITLE.MESSAGE.New_language_acess_confirmed').subscribe((str: string) => {
+              this.translate.get('MESSAGE.New_language_acess_confirmed').subscribe((str: string) => {
                 this.cmsToastrService.toastr.success(str, title);
               });
               firstValueFrom(this.translate.use(ret.item.access.language));
             } else {
-              this.translate.get('TITLE.MESSAGE.New_language_acess_denied').subscribe((str: string) => {
+              this.translate.get('MESSAGE.New_language_acess_denied').subscribe((str: string) => {
                 this.cmsToastrService.toastr.warning(str, title);
               });
             }
           } else {
             this.cmsToastrService.typeErrorAccessChange(ret.errorMessage);
           }
-          this.cdr.detectChanges();
+          Promise.resolve().then(() => this.cdr.detectChanges());
         },
         error: (err) => {
           this.cmsToastrService.typeErrorAccessChange(err);

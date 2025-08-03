@@ -19,6 +19,7 @@
 <app-menu-colors></app-menu-colors>
 <app-menu-language></app-menu-language>
 <app-scroll-top></app-scroll-top>
+<app-menu-profile *ngIf="this.tokenInfo?.access?.userId>0"></app-menu-profile>
 <div
   *ngIf="dataSupportModelResult && dataSupportModelResult.isSuccess && dataSupportModelResult.item.supportHtmlBody?.length>0 "
   [innerHtml]="dataSupportModelResult.item.supportHtmlBody | safeHtml" runScripts></div>

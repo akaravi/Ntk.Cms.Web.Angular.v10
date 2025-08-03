@@ -27,7 +27,7 @@ export class ProcessService {
     this.processSubject.subscribe(() => {
       try {
         if (this.cdr)
-          this.cdr.detectChanges();
+          Promise.resolve().then(() => this.cdr.detectChanges());
       } catch (error) {
         console.log('cdr error', error);
       }

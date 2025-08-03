@@ -12,11 +12,11 @@ this.translate.get('TITLE.Send_Message').subscribe((str: string) => { this.formI
 
 
 
-this.translate.get(['TITLE.Warrning', 'TITLE.MESSAGE.The_ID_of_this_website_is_the_same_as_the_website_you_are_on']).subscribe((str: string[]) => {
+this.translate.get(['TITLE.Warrning', 'MESSAGE.The_ID_of_this_website_is_the_same_as_the_website_you_are_on']).subscribe((str: string[]) => {
           this.cmsToastrService.toastr.warning(str[0], str[1]);
         });
-		
-		
+
+
  this.translate.get([emessage, etitle]).subscribe((str: string[]) => {
                 this.cmsToastrService.toastr.warning(str[0], str[1]);
               });
@@ -31,8 +31,8 @@ npm uninstal  ngx-ntk-pannellum
 npm uninstal  ngx-ntk-smart-module
 npm uninstal  ntk-cms-api
 npm uninstal  ntk-cms-filemanager
-  
-  
+
+
 npm instal   ngx-ntk-cron-editor
 npm instal   ngx-ntk-file-picker
 npm instal   ngx-ntk-icon-picker
@@ -98,7 +98,7 @@ ng serve --prod --aot --vendor-chunk --common-chunk --source-map
 #
 #
 *MEMO*************************************************
-.webpack-bundle-analyzer 
+.webpack-bundle-analyzer
 *MEMO*************************************************
 npm install --save-dev webpack-bundle-analyzer
 
@@ -289,7 +289,7 @@ https://www.codeandweb.com/babeledit/start-download?os=win&bits=64
 *MEMO*************************************************
 https://blog.angular-university.io/angular-push-notifications/
  web-push generate-vapid-keys --json
- 
+
 {
   "publicKey":"BOr78Ceadeel4AyuayJxgsPXC5Eo3yIpSq__q6uPF6losigIi9HTSFHnp-Itqhq4UGfujxeTf0PxScyyJO3lfng",
   "privateKey":"VKfr1tI3yvJaO1B1B8J15XaZnLVQcwCyT_szcXOrQtU"
@@ -437,7 +437,7 @@ code --install-extension zobo.php-intellisense
 #END#################################################
 #END#################################################
 #END#################################################
- 
+
 
 
 

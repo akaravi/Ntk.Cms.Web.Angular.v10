@@ -47,7 +47,7 @@ export class PageDashboardComponent implements OnInit {
     if (this.tokenInfo?.access?.userId > 0) {
       this.getCurrentSiteModule();
       this.loadData();
-      this.cdr.detectChanges();
+      Promise.resolve().then(() => this.cdr.detectChanges());
     }
 
 
@@ -55,7 +55,7 @@ export class PageDashboardComponent implements OnInit {
       this.tokenInfo = value;
       this.getCurrentSiteModule();
       this.loadData();
-      this.cdr.detectChanges();
+      Promise.resolve().then(() => this.cdr.detectChanges());
     });
     localStorage.removeItem('siteId');
     this.translate.get('ROUTE.DASHBOARD').subscribe((str: string) => { this.pageInfo.updateTitle(str); });

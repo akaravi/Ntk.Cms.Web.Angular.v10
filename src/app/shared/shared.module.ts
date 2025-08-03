@@ -178,6 +178,7 @@ import { MaterialPersianDateAdapter, PERSIAN_DATE_FORMATS } from './material/mat
 import { OverlayService } from './overlay/overlay.service';
 import { PasswordStrengthComponent } from './password-strength/password-strength.component';
 import { ProgressSpinnerComponent } from './progress-spinner/progress-spinner.component';
+import { DomChangeDirective } from '../core/directive/domChange.directive';
 
 
 @NgModule({
@@ -274,6 +275,8 @@ import { ProgressSpinnerComponent } from './progress-spinner/progress-spinner.co
     TooltipGuideDirective,
     TooltipDirective,
     DirDirective,
+    DomChangeDirective,
+    //DomClassCardDirective,
     PhoneDirective,
     RunScriptsDirective,
     CmsHtmlTreeHeaderDirective,
@@ -510,6 +513,8 @@ import { ProgressSpinnerComponent } from './progress-spinner/progress-spinner.co
     TooltipGuideDirective,
     TooltipDirective,
     DirDirective,
+    DomChangeDirective,
+    //DomClassCardDirective,
     PhoneDirective,
     RunScriptsDirective,
     CmsHtmlTreeHeaderDirective,

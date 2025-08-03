@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import {
   CoreAuthV3Service,
@@ -10,7 +10,7 @@ import {
   TokenInfoModelV3,
   TokenJWTModel
 } from 'ntk-cms-api';
-import { Observable, catchError, finalize, firstValueFrom, map, of } from 'rxjs';
+import { Observable, Subscription, catchError, finalize, firstValueFrom, map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CmsTranslationService } from '../i18n';
 import { CmsStoreService } from '../reducers/cmsStore.service';
@@ -20,7 +20,7 @@ import { SET_TOKEN_DEVICE, SET_TOKEN_INFO } from '../reducers/reducer.factory';
 @Injectable({
   providedIn: 'root',
 })
-export class TokenHelper {
+export class TokenHelper implements OnDestroy {
   constructor(
     public coreAuthService: CoreAuthV3Service,
     public translate: TranslateService,
@@ -34,20 +34,26 @@ export class TokenHelper {
     this.userTokenCtor();
     this.deviceTokenCtor();
   }
-
+  cmsApiStoreSubscribe: Subscription;
+  ngOnDestroy(): void {
+    if (this.cmsApiStoreSubscribe) {
+      this.cmsApiStoreSubscribe.unsubscribe();
+    }
+  }
   public ngOnInitAppMain() {
 
   }
   private async userTokenCtor(): Promise<Observable<void>> {
     const tokenStr = this.coreAuthService.getUserToken();
+    var tokenInfo = this.cmsStoreService.getStateSnapshot().tokenInfoStore;
     if (!tokenStr || tokenStr.length === 0)
-      this.tokenInfo = new TokenInfoModelV3();
+      tokenInfo = new TokenInfoModelV3();
     //step 1
-    if (this.tokenInfo && this.tokenInfo?.access)
+    if (tokenInfo && tokenInfo?.access)
       return new Observable<void>;
     //step 2
-    this.tokenInfo = this.cmsStoreService.getStateSnapshot().tokenInfoStore;
-    if (this.tokenInfo && this.tokenInfo?.access)
+    tokenInfo = this.cmsStoreService.getStateSnapshot().tokenInfoStore;
+    if (tokenInfo && tokenInfo?.access)
       return new Observable<void>;
     //step 3
     if(this.coreAuthService.getJWT()?.tokenExpireDate&& new Date(this.coreAuthService.getJWT()?.tokenExpireDate)&& this.coreAuthService.getJWT()?.refreshToken?.length>0){
@@ -67,7 +73,7 @@ export class TokenHelper {
     }
     const value = await firstValueFrom(this.coreAuthService.ServiceCurrentToken().pipe(
       map((ret: ErrorExceptionResult<TokenInfoModelV3>) => {
-        this.tokenInfo = ret.item;
+        tokenInfo = ret.item;
         this.cmsStoreService.setState({ type: SET_TOKEN_INFO, payload: ret.item });
         return;
       }),
@@ -83,10 +89,11 @@ export class TokenHelper {
 
   private async deviceTokenCtor(): Promise<Observable<void>> {
     const tokenStr = this.coreAuthService.getDeviceToken();
+    var deviceTokenInfo = this.cmsStoreService.getStateSnapshot().deviceTokenInfoStore;
     if (!tokenStr || tokenStr.length === 0)
-      this.deviceTokenInfo = new TokenDeviceModel();
+      deviceTokenInfo = new TokenDeviceModel();
     //step 1
-    if (this.deviceTokenInfo && this.deviceTokenInfo.deviceToken)
+    if (deviceTokenInfo && deviceTokenInfo.deviceToken)
       return new Observable<void>;
 
 
@@ -108,14 +115,14 @@ export class TokenHelper {
     };
 
     //step 2
-    this.deviceTokenInfo = this.cmsStoreService.getStateSnapshot().deviceTokenInfoStore;
-    if (this.deviceTokenInfo && this.deviceTokenInfo.deviceToken)
+    deviceTokenInfo = this.cmsStoreService.getStateSnapshot().deviceTokenInfoStore;
+    if (deviceTokenInfo && deviceTokenInfo.deviceToken)
       return new Observable<void>;
     //step 3
     const value = await firstValueFrom(
       this.coreAuthService.ServiceGetTokenDevice(model).pipe(
         map((ret: ErrorExceptionResult<TokenDeviceModel>) => {
-          this.deviceTokenInfo = ret.item;
+          deviceTokenInfo = ret.item;
           this.cmsStoreService.setState({ type: SET_TOKEN_DEVICE, payload: ret.item });
           return;
         }),
@@ -130,8 +137,8 @@ export class TokenHelper {
     return new Observable<void>;
   }
 
-  private tokenInfo: TokenInfoModelV3 = new TokenInfoModelV3();
-  deviceTokenInfo: TokenDeviceModel = new TokenDeviceModel();
+  //private tokenInfo: TokenInfoModelV3 = new TokenInfoModelV3();
+  //deviceTokenInfo: TokenDeviceModel = new TokenDeviceModel();
 
 
 
@@ -144,10 +151,10 @@ export class TokenHelper {
     const token = this.coreAuthService.getDeviceToken();
     if (!token || token.length === 0)
       return new TokenDeviceModel();
-
+    var deviceTokenInfo = this.cmsStoreService.getStateSnapshot().deviceTokenInfoStore;
     return await firstValueFrom(this.coreAuthService.ServiceCurrentDeviceToken())
       .then((ret) => {
-        this.deviceTokenInfo = ret.item;
+        deviceTokenInfo = ret.item;
         return ret.item;
       });
   }
@@ -158,19 +165,21 @@ export class TokenHelper {
     //todo:karavi this.coreAuthService.CurrentTokenInfoRenew();
   }
   get isAdminSite(): boolean {
-    if (this.tokenInfo?.access?.userAccessUserType === ManageUserAccessUserTypesEnum.AdminCpSite
-      || this.tokenInfo?.access?.userAccessUserType === ManageUserAccessUserTypesEnum.AdminMainCms
+    var tokenInfo = this.cmsStoreService.getStateSnapshot().tokenInfoStore;
+    if (tokenInfo?.access?.userAccessUserType === ManageUserAccessUserTypesEnum.AdminCpSite
+      || tokenInfo?.access?.userAccessUserType === ManageUserAccessUserTypesEnum.AdminMainCms
 
-      || this.tokenInfo?.access?.userAccessUserType === ManageUserAccessUserTypesEnum.SupportCpSite
-      || this.tokenInfo?.access?.userAccessUserType === ManageUserAccessUserTypesEnum.SupportMainCms
+      || tokenInfo?.access?.userAccessUserType === ManageUserAccessUserTypesEnum.SupportCpSite
+      || tokenInfo?.access?.userAccessUserType === ManageUserAccessUserTypesEnum.SupportMainCms
     ) {
       return true;
     }
     return false;
   }
   get isSupportSite(): boolean {
-    if (this.tokenInfo?.access?.userAccessUserType === ManageUserAccessUserTypesEnum.SupportCpSite
-      || this.tokenInfo?.access?.userAccessUserType === ManageUserAccessUserTypesEnum.SupportMainCms
+    var tokenInfo = this.cmsStoreService.getStateSnapshot().tokenInfoStore;
+    if (tokenInfo?.access?.userAccessUserType === ManageUserAccessUserTypesEnum.SupportCpSite
+      || tokenInfo?.access?.userAccessUserType === ManageUserAccessUserTypesEnum.SupportMainCms
     ) {
       return true;
     }

@@ -182,7 +182,7 @@ export class EstateCustomerOrderEditMobileComponent extends EditBaseComponent<Es
                     this.DataGetAllPropertyTypeLanduse();
 
                   this.DataGetAllProperty();
-                  this.cdr.detectChanges();
+                  Promise.resolve().then(() => this.cdr.detectChanges());
                 } else {
                   this.cmsToastrService.typeErrorMessage(ret.errorMessage);
                 }

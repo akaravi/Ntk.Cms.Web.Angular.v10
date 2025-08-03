@@ -37,15 +37,15 @@ export class CmsAccessInfoComponent implements OnInit {
   bodyShow = false;
   onActionMoreBottunClick() {
     this.bodyShow = true;
-    this.cdr.detectChanges();
+    Promise.resolve().then(() => this.cdr.detectChanges());
   }
   onActionLessBottunClick() {
     this.bodyShow = false;
-    this.cdr.detectChanges();
+    Promise.resolve().then(() => this.cdr.detectChanges());
   }
   onActionCloseBottunClick() {
     this.dialogRef.close({ dialogChangedDate: false });
-    this.cdr.detectChanges();
+    Promise.resolve().then(() => this.cdr.detectChanges());
   }
   detectColor(value: boolean) {
     if (value === true)

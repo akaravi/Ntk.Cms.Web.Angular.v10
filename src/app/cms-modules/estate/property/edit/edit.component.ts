@@ -790,31 +790,31 @@ export class EstatePropertyEditComponent extends EditBaseComponent<EstatePropert
 
   onFormLoadEstateAgencyResult(): void {
     this.loadResult = 'estateAccountAgencyList';
-    this.cdr.detectChanges();
+    Promise.resolve().then(() => this.cdr.detectChanges());
     this.estateAccountAgencyListComponent.optionloadComponent = true;
     this.estateAccountAgencyListComponent.DataGetAll();
   }
   onFormLoadEstateUserResult(): void {
     this.loadResult = 'estateAccountExpertList';
-    this.cdr.detectChanges();
+    Promise.resolve().then(() => this.cdr.detectChanges());
     this.estateAccountExpertListComponent.optionloadComponent = true;
     this.estateAccountExpertListComponent.DataGetAll();
   }
   onFormLoadEstateCustomerOrderResult(): void {
     this.loadResult = 'estateCustomerOrderList';
-    this.cdr.detectChanges();
+    Promise.resolve().then(() => this.cdr.detectChanges());
     this.estateCustomerOrderListComponent.optionloadComponent = true;
     this.estateCustomerOrderListComponent.DataGetAll();
   }
   onFormLoadEstateHaveHistoryResult(): void {
     this.loadResult = 'estateCustomerOrderHaveHistoryList';
-    this.cdr.detectChanges();
+    Promise.resolve().then(() => this.cdr.detectChanges());
     this.estateCustomerOrderHaveHistoryListComponent.optionloadComponent = true;
     this.estateCustomerOrderHaveHistoryListComponent.DataGetAll();
   }
   onFormLoadEstateHistoryResult(): void {
     this.loadResult = 'estateHistoryList';
-    this.cdr.detectChanges();
+    Promise.resolve().then(() => this.cdr.detectChanges());
     this.estatePropertyHistoryListComponent.optionloadComponent = true;
     this.estatePropertyHistoryListComponent.DataGetAll();
   }

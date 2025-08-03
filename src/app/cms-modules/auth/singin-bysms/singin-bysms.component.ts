@@ -139,7 +139,7 @@ export class AuthSingInBySmsComponent implements OnInit, OnDestroy {
                 this.prorocess.message = '';
                 clearInterval(this.downloadTimer);
               }
-              this.cdr.detectChanges();
+              Promise.resolve().then(() => this.cdr.detectChanges());
 
             }, 500);
           });

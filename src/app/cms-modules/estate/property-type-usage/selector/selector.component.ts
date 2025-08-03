@@ -147,7 +147,7 @@ export class EstatePropertyTypeUsageSelectorComponent implements OnInit, OnDestr
     this.dataModelSelect = null;
     this.formControl.patchValue('');
     this.optionChange.emit(null);
-    this.cdr.detectChanges();
+    Promise.resolve().then(() => this.cdr.detectChanges());
   }
 
   push(newvalue: EstatePropertyTypeUsageModel): Observable<EstatePropertyTypeUsageModel[]> {

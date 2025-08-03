@@ -241,11 +241,11 @@ export class CmsGuideNoticeComponent implements OnInit, OnDestroy {
   }
   onActionBottunClick() {
     this.bodyShow = true;
-    this.cdr.detectChanges();
+    Promise.resolve().then(() => this.cdr.detectChanges());
   }
   onActionCloseBottunClick() {
     this.bodyShow = false;
-    this.cdr.detectChanges();
+    Promise.resolve().then(() => this.cdr.detectChanges());
     this.privatOptionView = false;
     this.optionViewChange.emit(this.privatOptionView);
   }

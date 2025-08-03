@@ -23,7 +23,6 @@ export class MenuProfileComponent implements OnInit {
     public coreAuthService: CoreAuthV3Service,
     public cmsAuthervice: CmsAuthService,
     private cmsToastrService: CmsToastrService,
-    private tokenHelper: TokenHelper,
     public translate: TranslateService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -31,9 +30,16 @@ export class MenuProfileComponent implements OnInit {
 
     private router: Router
   ) {
+    this.tokenInfo = this.cmsStoreService.getStateSnapshot().tokenInfoStore;
+    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+      this.tokenInfo = value;
+      Promise.resolve().then(() => this.cdr.detectChanges());
+    });
     this.unsubscribe.push(this.cmsStoreService.getState((state) => state.themeStore).subscribe(async (value) => {
       this.themeStore = value;
     }));
+
+
   }
 
 
@@ -47,11 +53,6 @@ export class MenuProfileComponent implements OnInit {
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
-    this.tokenInfo = this.cmsStoreService.getStateSnapshot().tokenInfoStore;
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-      this.cdr.detectChanges();
-    });
 
 
   }
@@ -193,7 +194,7 @@ export class MenuProfileComponent implements OnInit {
   onActionButtonSelectUser(): void {
     if (this.inputUserId === this.tokenInfo.access.userId) {
       if (this.cmsToastrService) {
-        this.translate.get(['TITLE.Warrning', 'TITLE.MESSAGE.The_ID_of_this_website_is_the_same_as_the_website_you_are_on']).subscribe((str: string[]) => {
+        this.translate.get(['TITLE.Warrning', 'MESSAGE.The_ID_of_this_website_is_the_same_as_the_website_you_are_on']).subscribe((str: string[]) => {
           this.cmsToastrService.toastr.warning(str[0], str[1]);
         });
       }
@@ -258,7 +259,7 @@ export class MenuProfileComponent implements OnInit {
   onActionButtonSelectSite(): void {
     if (this.inputSiteId === this.tokenInfo.access.siteId) {
       if (this.cmsToastrService) {
-        this.translate.get(['TITLE.Warrning', 'TITLE.MESSAGE.The_ID_of_this_website_is_the_same_as_the_website_you_are_on']).subscribe((str: string[]) => {
+        this.translate.get(['TITLE.Warrning', 'MESSAGE.The_ID_of_this_website_is_the_same_as_the_website_you_are_on']).subscribe((str: string[]) => {
           this.cmsToastrService.toastr.warning(str[0], str[1]);
         });
       }
@@ -292,7 +293,7 @@ export class MenuProfileComponent implements OnInit {
         if (ret.isSuccess) {
           if (ret.item.access.siteId === +this.inputSiteId) {
             if (this.cmsToastrService) {
-              this.translate.get('TITLE.MESSAGE.New_site_acess_confirmed').subscribe((str: string) => {
+              this.translate.get('MESSAGE.New_site_acess_confirmed').subscribe((str: string) => {
                 this.cmsToastrService.toastr.success(str, title);
               });
             }
@@ -300,7 +301,7 @@ export class MenuProfileComponent implements OnInit {
             this.inputUserId = null;
           } else {
             if (this.cmsToastrService) {
-              this.translate.get('TITLE.MESSAGE.New_site_acess_denied').subscribe((str: string) => {
+              this.translate.get('MESSAGE.New_site_acess_denied').subscribe((str: string) => {
                 this.cmsToastrService.toastr.warning(str, title);
               });
             }

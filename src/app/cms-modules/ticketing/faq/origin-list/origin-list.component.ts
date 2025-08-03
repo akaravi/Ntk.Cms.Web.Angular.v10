@@ -144,7 +144,7 @@ export class TicketingFaqOriginListComponent implements OnInit, OnDestroy {
 
         }
 
-        this.cdr.detectChanges();
+        Promise.resolve().then(() => this.cdr.detectChanges());
       },
       error: (err) => {
         this.cmsToastrService.typeError(err);

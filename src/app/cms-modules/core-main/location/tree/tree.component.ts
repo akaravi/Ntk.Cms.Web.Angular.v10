@@ -96,7 +96,7 @@ export class CoreLocationTreeComponent implements OnInit, OnDestroy {
         if (ret.isSuccess) {
           this.dataModelResult = ret;
           this.dataSource.data = this.dataModelResult.listItems;
-          this.cdr.detectChanges();
+          Promise.resolve().then(() => this.cdr.detectChanges());
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -129,7 +129,7 @@ export class CoreLocationTreeComponent implements OnInit, OnDestroy {
           parentModel.children = ret.listItems;
           this.dataSource.data = null;
           this.dataSource.data = this.dataModelResult.listItems;
-          this.cdr.detectChanges();
+          Promise.resolve().then(() => this.cdr.detectChanges());
           this.publicHelper.processService.processStop(pName);
           return;
 
