@@ -159,11 +159,6 @@ export class TokenHelper implements OnDestroy {
       });
   }
 
-
-  CurrentTokenInfoRenew(): void {
-    //برای تست ورژن ۳  مارک کردیم
-    //todo:karavi this.coreAuthService.CurrentTokenInfoRenew();
-  }
   get isAdminSite(): boolean {
     var tokenInfo = this.cmsStoreService.getStateSnapshot().tokenInfoStore;
     if (tokenInfo?.access?.userAccessUserType === ManageUserAccessUserTypesEnum.AdminCpSite

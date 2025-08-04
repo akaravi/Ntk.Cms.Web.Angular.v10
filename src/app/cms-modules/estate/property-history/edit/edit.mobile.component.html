@@ -40,7 +40,7 @@
               stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
-            <span>بعدی</span>
+            <span>{{'TITLE.NEXT' | translate}}</span>
           </button>
         </div>
       </div>
@@ -51,7 +51,7 @@
     <div class="cms-m-container">
       <div class="cms-m-filter">
         <div class="cms-m-container-header">
-          <label class="cms-m-form-label">لطفا یکی از موارد زیر را انتخاب کنید</label>
+          <label class="cms-m-form-label">{{'TITLE.PLEASE_SELECT_ONE_OF_THE_FOLLOWING' | translate}}</label>
         </div>
         <div class="cms-m-container-body">
           <button *ngFor="let item of dataModelEstateActivityStatusEnumResult.listItems" class="cms-m-form-option"

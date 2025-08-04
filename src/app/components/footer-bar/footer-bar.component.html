@@ -1,13 +1,13 @@
-<div id="footer-bar" class="footer-bar-6 gradient-highlight">
-  <a [routerLink]="['/ticketing/faq']"><i class="fa fa-file"></i><span>{{"ACTION.QUESTIONS"|translate}}</span></a>
-  <a [routerLink]="['/core/site/info']"><i class="fa fa-image"></i><span>{{"ROUTE.CORE.ADDRESS"|translate}}</span></a>
+<div id="footer-bar" class="footer-bar-6">
+  <a [routerLink]="['/ticketing/faq']"><i class="fa fa-file gradient-highlight"></i><span>{{"ACTION.QUESTIONS"|translate}}</span></a>
+  <a [routerLink]="['/core/site/info']"><i class="fa fa-image gradient-highlight"></i><span>{{"ROUTE.CORE.ADDRESS"|translate}}</span></a>
   <a [routerLink]="['/']" class="circle-nav active-nav"><i
-      class="fa fa-home"></i><span>{{"TITLE.House"|translate}}</span></a>
+      class="fa fa-home gradient-highlight"></i><span>{{"TITLE.House"|translate}}</span></a>
   <a *ngIf="tokenInfo?.access?.userId>0" [routerLink]="['/menu']" (click)="onActionCleanDataMenu()"><i
-      class="fa fa-layer-group"></i><span>{{"TITLE.Possibilitiesatures"|translate}}</span></a>
+      class="fa fa-layer-group gradient-highlight"></i><span>{{"TITLE.Possibilitiesatures"|translate}}</span></a>
   <a *ngIf="!this.tokenInfo|| !this.tokenInfo?.access ||!this.tokenInfo?.access?.userId||this.tokenInfo?.access?.userId<=0"
     [routerLink]="['/auth/singinbysms']" (click)="onActionCleanDataMenu()"><i
-      class="fa fa-layer-group"></i><span>{{"ACTION.LOGIN"|translate}}</span></a>
+      class="fa fa-layer-group gradient-highlight"></i><span>{{"ACTION.LOGIN"|translate}}</span></a>
   <a (click)="themeStore?.dataMenu!=='menu-main' ? themeStore.dataMenu='menu-main':themeStore.dataMenu=''"><i
-      class="fa fa-bars"></i><span>{{"MENU.MENU"|translate}}</span></a>
+      class="fa fa-bars gradient-highlight"></i><span>{{"MENU.MENU"|translate}}</span></a>
 </div>

@@ -137,7 +137,7 @@
                   {{'TITLE.SalePrice' | translate}}:
                   {{row.salePrice | number}} <br>( {{row.currencyTitle}} {{row.currencySymbol}} )
                   <ng-container *ngIf="dataModel.area>0">
-                    (مترمربع :{{row.salePrice/dataModel.area | number: '1.0-0'}})
+                    ({{'TITLE.SQUARE_METERS' | translate}} :{{row.salePrice/dataModel.area | number: '1.0-0'}})
                   </ng-container>
 
                 </ng-container>

@@ -33,6 +33,11 @@ export class LocaleDate {
       if (!d) {
         return '';
       }
+      const hundredYearsAgo = new Date();
+      hundredYearsAgo.setFullYear(hundredYearsAgo.getFullYear() - 100);
+      if (d < hundredYearsAgo) {
+        return '';
+      }
       return d.toLocaleDateString('fa-Ir');
       //return this.persianCalendarService.PersianCalendar(d);
     }
@@ -40,11 +45,16 @@ export class LocaleDate {
       if (!value) {
         return '';
       }
+      const hundredYearsAgo = new Date();
+      hundredYearsAgo.setFullYear(hundredYearsAgo.getFullYear() - 100);
+      if (value < hundredYearsAgo) {
+        return '';
+      }
       return value.toLocaleDateString('fa-Ir');
       //return this.persianCalendarService.PersianCalendar(value);
     }
     return "";
 
-    
+
   }
 }

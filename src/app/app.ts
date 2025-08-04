@@ -15,7 +15,7 @@ import { HttpParams } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
 import { getAnalytics } from "firebase/analytics";
 import { initializeApp } from "firebase/app";
-import { CoreAuthV3Service, CoreConfigurationService, CoreModuleService, CoreSiteService, CoreSiteSupportModel, ErrorExceptionResult, TokenInfoModelV3 } from 'ntk-cms-api';
+import { CoreAuthV3Service, CoreConfigurationService, CoreModuleService, CoreSiteService, CoreSiteSupportModel, ErrorExceptionResult, TokenDeviceSetNotificationIdDtoModel, TokenInfoModelV3 } from 'ntk-cms-api';
 import { environment } from 'src/environments/environment';
 import { ComponentsModule } from './components/components.module';
 import { PublicHelper } from './core/helpers/publicHelper';
@@ -30,6 +30,7 @@ import { PageInfoService } from './core/services/page-info.service';
 import { ProcessService } from './core/services/process.service';
 import { ThemeService } from './core/services/theme.service';
 import { SharedModule } from './shared/shared.module';
+import { SwPush } from '@angular/service-worker';
 
 @Component({
   selector: 'app-root',
@@ -55,7 +56,7 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     public themeService: ThemeService,
     public publicHelper: PublicHelper,
     public tokenHelper: TokenHelper,
-    //todo:karavi //private swPush: SwPush,
+    private swPush: SwPush,
     private cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
@@ -236,23 +237,23 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
 
   subscribeToNotifications(notificationFCMPublicKey) {
 
-    //todo:karavi //
-    // this.swPush.requestSubscription({ serverPublicKey: notificationFCMPublicKey })
-    //   .then(sub => {
-    //     var model = new TokenDeviceSetNotificationIdDtoModel();
-    //     this.pushSubscription = sub;
-    //     model.notificationId = sub.getKey + "",
-    //       model.ClientMACAddress = ''
-    //     this.coreAuthService.ServiceSetTokenDeviceNotificationId(model).subscribe({
-    //       next: (ret) => {
 
-    //       },
-    //       error: (er) => {
+    this.swPush.requestSubscription({ serverPublicKey: notificationFCMPublicKey })
+      .then(sub => {
+        var model = new TokenDeviceSetNotificationIdDtoModel();
+        this.pushSubscription = sub;
+        model.notificationId = sub.getKey + "",
+          model.ClientMACAddress = ''
+        this.coreAuthService.ServiceSetTokenDeviceNotificationId(model).subscribe({
+          next: (ret) => {
 
-    //       }
-    //     });
-    //   })
-    //   .catch(err => console.error("Could not subscribe to notifications", err));
+          },
+          error: (er) => {
+
+          }
+        });
+      })
+      .catch(err => console.error("Could not subscribe to notifications", err));
 
   }
   pushSubscription: PushSubscription;

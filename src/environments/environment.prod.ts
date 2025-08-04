@@ -1,7 +1,3 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-//test karavi indonarimani
 import { DeviceTypeEnum, OperatingSystemTypeEnum } from "ntk-cms-api";
 import { EnvironmentModel } from '../app/core/models/environmentModel';
 import { LanguageFlagModel } from "src/app/core/models/languageFlagModel";

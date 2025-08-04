@@ -8,7 +8,7 @@
       <p>
         {{'TITLE.INTRODUCE_SYSTEM_IN_DIFFERENT_MODES' | translate}}
       </p>
-      <!-- آدرس وب سایت -->
+      <!-- {{'COMMENT.WEBSITE_ADDRESS' | translate}} -->
       <div class="d-flex mb-4">
         <div class="align-self-center"><i class="fad fa-code color-highlight fa-4x icon-70 text-center"></i></div>
         <div class="me-auto ps-4">
@@ -31,7 +31,7 @@
         </div>
       </div>
 
-      <!-- آدرس سامانه مدیریت محتوا -->
+      <!-- {{'COMMENT.CMS_ADDRESS' | translate}} -->
       <div class="d-flex mb-4" *ngIf="dataModelResult.item?.urlSiteCPanel?.length>0">
         <div class="align-self-center"><i class="fad fa-life-ring color-orange-dark fa-4x icon-70 text-center"></i>
         </div>
@@ -58,7 +58,7 @@
         </div>
       </div>
 
-      <!-- آدرس اشتراک گزاری وب سایت -->
+      <!-- {{'COMMENT.WEBSITE_SHARING_ADDRESS' | translate}} -->
       <div class="d-flex" *ngIf="dataModelResult.item?.urlResellerSiteShortLinkUrl?.length>0">
         <div class="align-self-center"><i class="fad fa-trophy color-yellow-dark fa-4x icon-70 text-center"></i></div>
         <div class="me-auto ps-4">
@@ -90,7 +90,7 @@
 
 
 
-      <!-- آدرس اشتراک گزاری با حساب کاربری شما -->
+      <!-- {{'COMMENT.SHARING_ADDRESS_WITH_USER_ACCOUNT' | translate}} -->
       <div class="d-flex" *ngIf="dataModelResult.item?.urlResellerUserShortLinkUrl?.length>0">
         <div class="align-self-center"><i class="fad fa-trophy color-yellow-dark fa-4x icon-70 text-center"></i></div>
         <div class="me-auto ps-4">
@@ -124,7 +124,7 @@
 
 
 
-      <!-- آدرس اشتراک گزاری با دسته بندی سامانه موجود -->
+      <!-- {{'COMMENT.SHARING_ADDRESS_WITH_SYSTEM_CATEGORY' | translate}} -->
       <div class="d-flex" *ngIf="dataModelResult.item?.urlResellerSiteCategoryShortLinkUrl?.length>0">
         <div class="align-self-center"><i class="fad fa-trophy color-yellow-dark fa-4x icon-70 text-center"></i></div>
         <div class="me-auto ps-4">
