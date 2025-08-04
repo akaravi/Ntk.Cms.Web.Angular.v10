@@ -5,10 +5,10 @@
       {{ formInfo.formTitle }}
     </p>
     <p *ngIf="!dataModel.email || dataModel?.email?.length===0">
-      برای تایید آدرس ایمیل خود را وارد کنید
+      {{'AUTH.ENTER_EMAIL_FOR_CONFIRMATION' | translate}}
     </p>
     <p *ngIf="dataModel?.email?.length>0">
-      برای تایید، آدرس ایمیل خود را بررسی کنید که صحیح باشد
+      {{'AUTH.CHECK_EMAIL_FOR_CONFIRMATION' | translate}}
     </p>
     <!--Content-->
     <form (ngSubmit)="onEmailConfirm()" #vform="ngForm">
@@ -28,7 +28,7 @@
       </ng-container>
       <ng-container *ngIf="stepTwo">
         <p>
-          عدد دریافتی را وارد فرمایید
+          {{'AUTH.ENTER_RECEIVED_NUMBER' | translate}}
         </p>
         <!--code Field-->
         <div style="text-align: center;">

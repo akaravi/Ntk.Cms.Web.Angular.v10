@@ -77,9 +77,9 @@
           class="form-control validate-name" id="dataModel.endUserPricePerPage" />
       </div>
       <!-- regulatorNumberList Field -->
-      <b>پیش شماره های قابل قبول</b>
+      <b>{{'TITLE.ACCEPTABLE_PREFIXES' | translate}}</b>
       <mat-form-field style="width:100%" appearance="fill">
-        <mat-label>پیش شماره های قابل قبول</mat-label>
+        <mat-label>{{'TITLE.ACCEPTABLE_PREFIXES' | translate}}</mat-label>
         <mat-chip-grid #chipListRegulatorNumberList aria-label="'TITLE.Number'|translate">
           <mat-chip *ngFor="let item of  dataModel.regulatorNumberList" (removed)="removeTagRegulatorNumberList(item)">
             <div class="input-ltr">{{item}}</div>
@@ -95,7 +95,7 @@
       </mat-form-field>
       مثال :00983 009715 0098930
       <div>
-        پیش شماره ها
+        {{'TITLE.ACCEPTABLE_PREFIXES' | translate}}
         <br>
         <div *ngFor="let itemPage of dataModel.regulatorNumberList ; index as i">
           {{itemPage}}
@@ -103,9 +103,9 @@
       </div>
       <br>
       <!-- serviceMessageLengthPaginationList Field -->
-      <b>صفحه بندی سرویس دهنده</b>
+      <b>{{'TITLE.PROVIDER_PAGINATION' | translate}}</b>
       <mat-form-field style="width:100%" appearance="fill">
-        <mat-label>صفحه بندی سرویس دهنده</mat-label>
+        <mat-label>{{'TITLE.PROVIDER_PAGINATION' | translate}}</mat-label>
         <mat-chip-grid #chipListServicePagination aria-label="'TITLE.Number'|translate">
           <mat-chip *ngFor="let item of  dataModel.serviceMessageLengthPaginationList"
             (removed)="removeTagServicePagination(item)">
@@ -121,7 +121,7 @@
         </mat-chip-grid>
       </mat-form-field>
       <div>
-        صفحه بندی سرویس دهنده
+        {{'TITLE.PROVIDER_PAGINATION' | translate}}
         <br>
         <div *ngFor="let itemPage of dataModel.serviceMessageLengthPaginationList ; index as i">
           {{i+1}} - {{itemPage}}
@@ -130,9 +130,9 @@
       </div>
       <br>
       <!-- endUserMessageLengthPaginationList Field -->
-      <b>صفحه بندی سرویس گیرنده</b>
+      <b>{{'TITLE.RECIPIENT_PAGINATION' | translate}}</b>
       <mat-form-field style="width:100%" appearance="fill">
-        <mat-label>صفحه بندی سرویس گیرنده</mat-label>
+        <mat-label>{{'TITLE.RECIPIENT_PAGINATION' | translate}}</mat-label>
         <mat-chip-grid #chipListEndUserPagination aria-label="'TITLE.Number'|translate">
           <mat-chip *ngFor="let item of  dataModel.endUserMessageLengthPaginationList"
             (removed)="removeTagEndUserPagination(item)">
@@ -148,7 +148,7 @@
         </mat-chip-grid>
       </mat-form-field>
       <div>
-        صفحه بندی سرویس گیرنده
+        {{'TITLE.RECIPIENT_PAGINATION' | translate}}
         <br>
         <div *ngFor="let itemPage of dataModel.endUserMessageLengthPaginationList ; index as i">
           {{i+1}} - {{itemPage}}
