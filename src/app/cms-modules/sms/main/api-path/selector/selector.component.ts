@@ -17,9 +17,9 @@ import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 
 
 @Component({
-    selector: 'app-sms-apipath-selector',
-    templateUrl: './selector.component.html',
-    standalone: false
+  selector: 'app-sms-apipath-selector',
+  templateUrl: './selector.component.html',
+  standalone: false
 })
 export class SmsMainApiPathSelectorComponent implements OnInit {
   static nextId = 0;
@@ -41,6 +41,7 @@ export class SmsMainApiPathSelectorComponent implements OnInit {
   formControl = new FormControl();
   filteredOptions: Observable<SmsMainApiPathModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionSelectForSendMessage = false;
   @Input() optionPlaceholder = '';

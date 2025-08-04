@@ -16,9 +16,9 @@ import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 
 
 @Component({
-    selector: 'app-sms-api-number-selector',
-    templateUrl: './selector.component.html',
-    standalone: false
+  selector: 'app-sms-api-number-selector',
+  templateUrl: './selector.component.html',
+  standalone: false
 })
 export class SmsMainApiNumberSelectorComponent implements OnInit {
   static nextId = 0;
@@ -40,6 +40,7 @@ export class SmsMainApiNumberSelectorComponent implements OnInit {
   formControl = new FormControl();
   filteredOptions: Observable<SmsMainApiNumberModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionSelectFirstItemOnChangeApi = false;
   @Input() optionPlaceholder = '';

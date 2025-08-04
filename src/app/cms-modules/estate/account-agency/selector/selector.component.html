@@ -6,8 +6,7 @@
 
 
   <input type="text" placeholder="{{optionPlaceholder}}" [attr.disabled]="optionDisabled? true : null"
-    aria-label="Assignee" matInput [formControl]="formControl" [matAutocomplete]="matauto" id="forminput"
-    [required]="optionRequired">
+    aria-label="Assignee" matInput [formControl]="formControl" [matAutocomplete]="matauto" [required]="optionRequired">
   <label for="forminput" class="color-highlight">{{optionLabel}}</label>
   <mat-autocomplete #matauto="matAutocomplete" [displayWith]="displayFn"
     (optionSelected)="onActionSelect($event.option.value)">

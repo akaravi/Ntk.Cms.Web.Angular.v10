@@ -27,7 +27,7 @@
                 </mat-expansion-panel-header>
 
                 <!-- LinkPrivateSiteConfigId Field -->
-                <app-sms-apipath-selector (optionChange)="onActionSelectPrivateSiteConfig($event)"
+                <app-sms-apipath-selector (optionChange)="onActionSelectApiPath($event)"
                   [optionSelectForce]="dataModel.linkApiPathId" [optionPlaceholder]="'TITLE.Direction' | translate"
                   [optionSelectFirstItem]="true" [optionSelectForSendMessage]="true">
                 </app-sms-apipath-selector>
@@ -147,7 +147,8 @@
                         class="form-control validate-name" id="dataModelDateByClockStart.clock" />
                       <ngx-material-timepicker-toggle matSuffix [for]="scheduleSendStartClock">
                       </ngx-material-timepicker-toggle>
-                      <ngx-material-timepicker touchUi #scheduleSendStartClock (closed)="onActionScheduleSendCheck()" class ='timepicker'>
+                      <ngx-material-timepicker touchUi #scheduleSendStartClock (closed)="onActionScheduleSendCheck()"
+                        class='timepicker'>
                       </ngx-material-timepicker>
                     </div>
                   </div>
@@ -170,11 +171,12 @@
                       <label for="dataModelDateByClockExpire.clock" class="color-highlight">{{'TITLE.Send_end_time' |
                         translate}}</label>
                       <input matInput [ngxTimepicker]="scheduleSendExpireClock"
-                        [(ngModel)]="dataModelDateByClockExpire.clock"  [format]="24" name="scheduleSendExpireClock"
+                        [(ngModel)]="dataModelDateByClockExpire.clock" [format]="24" name="scheduleSendExpireClock"
                         class="form-control validate-name" id="dataModelDateByClockExpire.clock" />
                       <ngx-material-timepicker-toggle matSuffix [for]="scheduleSendExpireClock">
                       </ngx-material-timepicker-toggle>
-                      <ngx-material-timepicker touchUi #scheduleSendExpireClock (closed)="onActionScheduleSendCheck()" class ='timepicker'>
+                      <ngx-material-timepicker touchUi #scheduleSendExpireClock (closed)="onActionScheduleSendCheck()"
+                        class='timepicker'>
                       </ngx-material-timepicker>
                     </div>
                   </div>
@@ -256,8 +258,9 @@
                   </div>
                   <div class="ms-auto me-3 pe-2">
                     <div class="custom-control ios-switch small-switch">
-                      <input type="checkbox" class="ios-input" id="dataModel.sendByQueue" [disabled]="dataModel['sendByQueueDisabled']"
-                        [(ngModel)]="dataModel.sendByQueue" name="dataModel.sendByQueue">
+                      <input type="checkbox" class="ios-input" id="dataModel.sendByQueue"
+                        [disabled]="dataModel['sendByQueueDisabled']" [(ngModel)]="dataModel.sendByQueue"
+                        name="dataModel.sendByQueue">
                       <label class="custom-control-label" for="dataModel.sendByQueue"></label>
                     </div>
                   </div>
@@ -316,7 +319,8 @@
               </div>
               <div class="row" *ngIf="formInfo.formSubmitAllow  "
                 style="margin-bottom: 0px !important;height:40px;bottom: 4vh;justify-content: center;">
-                <button type="submit" class="message-box-button" [disabled]="!vform.valid"
+                <button type="submit"
+                  [disabled]="!vform.valid || !(this.dataModel.linkApiPathId?.length>0) || !(this.dataModel.linkFromNumber?.length>0)"
                   *ngIf="!this.publicHelper.processService.process.inRunAll">
                   <i class="fa fa-check-square-o"></i>
                   {{'ACTION.Send_Message' | translate}}

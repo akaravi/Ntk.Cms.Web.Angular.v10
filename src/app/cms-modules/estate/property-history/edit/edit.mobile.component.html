@@ -66,13 +66,13 @@
               stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
-            <span>بعدی</span>
+            <span>{{'TITLE.NEXT' | translate}}</span>
           </button>
           <button type="button" class="cms-m-button" (click)="onFormSubmit()">
-            <span>ثبت</span>
+            <span>{{'TITLE.REGISTER' | translate}}</span>
           </button>
           <button type="button" class="cms-m-button" (click)="onActoinSelectStepBefor('title')">
-            <span>قبلی</span>
+            <span>{{'TITLE.PREVIOUS' | translate}}</span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
               stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
@@ -87,12 +87,11 @@
     <div class="cms-m-container">
       <div class="cms-m-filter">
         <div class="cms-m-container-header">
-          <label class="cms-m-form-label">لطفا تاریخ را مشخص نمایید</label>
+          <label class="cms-m-form-label">{{'TITLE.PLEASE_SPECIFY_DATE' | translate}}</label>
         </div>
         <!-- AppointmentDateFrom Field -->
         <div class="cms-m-container-body">
-          <label *ngIf="fieldsInfo['appointmentDateFrom']?.accessWatchField" for="dataModel.appointmentDateFrom"
-            class="cms-m-form-label">تاریخ قرار از</label>
+          <label *ngIf="fieldsInfo['appointmentDateFrom']?.accessWatchField" for="dataModel.appointmentDateFrom" class="cms-m-form-label">{{'TITLE.APPOINTMENT_DATE_FROM' | translate}}</label>
           <input *ngIf="fieldsInfo['appointmentDateFrom']?.accessWatchField" [matDatepicker]="AppointmentDateFrom"
             [(ngModel)]="dataModel.appointmentDateFrom" [formControl]="date" name="dataModel.appointmentDateFrom"
             id="dataModel.appointmentDateFrom" class="cms-m-form-input" />
@@ -106,8 +105,7 @@
             <mat-datepicker touchUi #AppointmentDateFrom></mat-datepicker>
           </div>
           <br />
-          <label *ngIf="fieldsInfo['appointmentDateTo']?.accessWatchField" for="dataModel.appointmentDateTo"
-            class="cms-m-form-label">تاریخ قرار تا</label>
+          <label *ngIf="fieldsInfo['appointmentDateTo']?.accessWatchField" for="dataModel.appointmentDateTo" class="cms-m-form-label">{{'TITLE.APPOINTMENT_DATE_TO' | translate}}</label>
           <!-- AppointmentDateTo Field -->
           <input *ngIf="fieldsInfo['appointmentDateTo']?.accessWatchField" [matDatepicker]="AppointmentDateTo"
             [(ngModel)]="dataModel.appointmentDateTo" [value]="date.value" name="dataModel.appointmentDateTo"
@@ -128,13 +126,13 @@
               stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
-            <span>بعدی</span>
+            <span>{{'TITLE.NEXT' | translate}}</span>
           </button>
           <button type="button" class="cms-m-button" (click)="onFormSubmit()">
-            <span>ثبت</span>
+            <span>{{'TITLE.REGISTER' | translate}}</span>
           </button>
           <button type="button" class="cms-m-button" (click)="onActoinSelectStepBefor('activityStatus')">
-            <span>قبلی</span>
+            <span>{{'TITLE.PREVIOUS' | translate}}</span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
               stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
@@ -149,7 +147,7 @@
     <div class="cms-m-container">
       <div class="cms-m-filter">
         <div class="cms-m-container-header">
-          <label class="cms-m-form-label">لطفا یکی از موارد زیر را انتخاب کنید</label>
+          <label class="cms-m-form-label">{{'TITLE.PLEASE_SELECT_ONE_OF_THE_FOLLOWING' | translate}}</label>
         </div>
         <div class="cms-m-container-body">
           <div *ngIf="dataModelActivityTypeResult?.listItems?.length > 0">
@@ -168,13 +166,13 @@
               stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
-            <span>بعدی</span>
+            <span>{{'TITLE.NEXT' | translate}}</span>
           </button>
           <button type="button" class="cms-m-button" (click)="onFormSubmit()">
-            <span>ثبت</span>
+            <span>{{'TITLE.REGISTER' | translate}}</span>
           </button>
           <button type="button" class="cms-m-button" (click)="onActoinSelectStepBefor('selectDate')">
-            <span>قبلی</span>
+            <span>{{'TITLE.PREVIOUS' | translate}}</span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
               stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
@@ -221,13 +219,13 @@
               stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
             </svg>
-            <span>بعدی</span>
+            <span>{{'TITLE.NEXT' | translate}}</span>
           </button>
           <button type="button" class="cms-m-button" (click)="onFormSubmit()">
-            <span>ثبت</span>
+            <span>{{'TITLE.REGISTER' | translate}}</span>
           </button>
           <button type="button" class="cms-m-button" (click)="onActoinSelectStepBefor('grouping')">
-            <span>قبلی</span>
+            <span>{{'TITLE.PREVIOUS' | translate}}</span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
               stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
@@ -253,10 +251,10 @@
         </div>
         <div class="cms-m-container-footer">
           <button type="button" class="cms-m-button" (click)="onFormSubmit()">
-            <span>ثبت</span>
+            <span>{{'TITLE.REGISTER' | translate}}</span>
           </button>
           <button type="button" class="cms-m-button" (click)="onActoinSelectStepBefor('estate')">
-            <span>قبلی</span>
+            <span>{{'TITLE.PREVIOUS' | translate}}</span>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
               stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />

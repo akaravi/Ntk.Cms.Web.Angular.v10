@@ -152,7 +152,7 @@
               stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>
-            <span>قبلی</span>
+            <span>{{'TITLE.PREVIOUS' | translate}}</span>
           </button>
           <button type="button" *ngIf="dataModel?.linkPropertyTypeLanduseId?.length>0"
             (click)="onActoinSelectStepNext('selectYear')" class="cms-m-button">
@@ -212,7 +212,7 @@
               stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>
-            <span>قبلی</span>
+            <span>{{'TITLE.PREVIOUS' | translate}}</span>
           </button>
           <button (click)="onActoinSelectStepNext('selectLocation')" class="cms-m-button">
             <span>{{'TITLE.NEXT' | translate}}</span>
@@ -251,7 +251,7 @@
               stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>
-            <span>قبلی</span>
+            <span>{{'TITLE.PREVIOUS' | translate}}</span>
           </button>
           <button (click)="onActoinSelectStepNext('result1')" class="cms-m-button">
             <span>{{'TITLE.NEXT' | translate}}</span>
@@ -294,10 +294,10 @@
               stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>
-            <span>قبلی</span>
+            <span>{{'TITLE.PREVIOUS' | translate}}</span>
           </button>
           <button (click)="onActoinSubmit(true)" class="cms-m-button">
-            ثبت
+            {{'TITLE.REGISTER' | translate}}
           </button>
           <button (click)="onActoinSelectStepNext('selectPrice')" class="cms-m-button">
             <span>{{'TITLE.NEXT' | translate}}</span>
@@ -399,7 +399,7 @@
               stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>
-            <span>قبلی</span>
+            <span>{{'TITLE.PREVIOUS' | translate}}</span>
           </button>
           <button (click)="onActoinSelectStepNext('result2')" class="cms-m-button">
             <span>{{'TITLE.NEXT' | translate}}</span>
@@ -419,10 +419,10 @@
     <div class="cms-m-container">
       <div class="cms-m-filter">
         <div class="cms-m-container-header">
-          <div class="cms-m-form-label">نتیجه</div>
+          <div class="cms-m-form-label">{{'TITLE.RESULT' | translate}}</div>
         </div>
         <div class="cms-m-container-body" style="height: 60%;">
-          <div class="cms-m-form-label">تعداد ملک انتخابی شما : {{this.dataModelEstatePropertyResult
+          <div class="cms-m-form-label">{{'TITLE.SELECTED_PROPERTY_COUNT' | translate}} : {{this.dataModelEstatePropertyResult
             .totalRowCount}}
           </div>
           <div *ngIf="dataModelEstatePropertyResult?.listItems?.length>0" class="cms-form-result">
@@ -441,10 +441,10 @@
               stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>
-            <span>قبلی</span>
+            <span>{{'TITLE.PREVIOUS' | translate}}</span>
           </button>
           <button (click)="onActoinSubmit(true)" class="cms-m-button">
-            ثبت
+            {{'TITLE.REGISTER' | translate}}
           </button>
           <button (click)="onActoinSelectStepNext('detail')" class="cms-m-button">
             <span>{{'TITLE.NEXT' | translate}}</span>
@@ -579,7 +579,7 @@
               stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>
-            <span>قبلی</span>
+            <span>{{'TITLE.PREVIOUS' | translate}}</span>
           </button>
           <button (click)="onActoinSelectStepNext('result3')" class="cms-m-button">
             <span>{{'TITLE.NEXT' | translate}}</span>
@@ -599,10 +599,10 @@
     <div class="cms-m-container">
       <div class="cms-m-filter">
         <div class="cms-m-container-header">
-          <div class="cms-m-form-label">نتیجه</div>
+          <div class="cms-m-form-label">{{'TITLE.RESULT' | translate}}</div>
         </div>
         <div class="cms-m-container-body" style="height: 60%;">
-          <div class="cms-m-form-label">تعداد ملک انتخابی شما : {{this.dataModelEstatePropertyResult
+          <div class="cms-m-form-label">{{'TITLE.SELECTED_PROPERTY_COUNT' | translate}} : {{this.dataModelEstatePropertyResult
             .totalRowCount}}
           </div>
           <div *ngIf="dataModelEstatePropertyResult?.listItems?.length>0" class="cms-form-result">
@@ -621,10 +621,10 @@
               stroke="currentColor" class="w-6 h-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
             </svg>
-            <span>قبلی</span>
+            <span>{{'TITLE.PREVIOUS' | translate}}</span>
           </button>
           <button (click)="onActoinSubmit(true)" class="cms-m-button">
-            ثبت
+            {{'TITLE.REGISTER' | translate}}
           </button>
         </div>
       </div>

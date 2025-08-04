@@ -71,7 +71,7 @@ export class SmsActionSendMessageComponent implements OnInit {
   }
   timezoneOffset = 0;
   tokenInfo = new TokenInfoModelV3();
-  language = environment.languagesDefault ;
+  language = environment.languagesDefault;
   @ViewChild('vform', { static: false }) formGroup: FormGroup;
   @ViewChild('Message') message: ElementRef;
 
@@ -209,9 +209,10 @@ export class SmsActionSendMessageComponent implements OnInit {
     this.message.nativeElement.style.direction = "rtl";
     this.message.nativeElement.style.textAlign = "right";
   }
-  onActionSelectPrivateSiteConfig(model: SmsMainApiPathModel): void {
-    this.dataModel.linkApiPathId = this.requestLinkApiPathId;
+  onActionSelectApiPath(model: SmsMainApiPathModel): void {
     this.dataModelParentSelected = model;
+    if (!model || !model.id || model.id.length === 0 || model.id != this.dataModel.linkFromNumber)
+      this.dataModel.linkFromNumber = null;
     if (model && model.id.length > 0) {
       this.dataModel.linkApiPathId = model.id;
       this.dataModel.linkFromNumber = null;
@@ -226,6 +227,20 @@ export class SmsActionSendMessageComponent implements OnInit {
         this.dataModel.sendByQueue = false;
         this.dataModel['sendByQueueDisabled'] = true;
       }
+    } else {
+      if (this.requestLinkApiPathId && this.requestLinkApiPathId.length > 0) {
+        this.dataModel.linkApiPathId = this.requestLinkApiPathId;
+      } else {
+        this.dataModel.linkApiPathId = null;
+      }
+    }
+  }
+
+  onActionSelectApiNumber(model: SmsMainApiNumberModel): void {
+    if (model && model.id.length > 0) {
+      this.dataModel.linkFromNumber = model.id;
+    } else {
+      this.dataModel.linkFromNumber = null;
     }
   }
   dataMessageCategoryModel: SmsMainMessageCategoryModel = new SmsMainMessageCategoryModel();
@@ -248,11 +263,6 @@ export class SmsActionSendMessageComponent implements OnInit {
   }
 
 
-  onActionSelectApiNumber(model: SmsMainApiNumberModel): void {
-    if (model && model.id.length > 0) {
-      this.dataModel.linkFromNumber = model.id;
-    }
-  }
   onActionMessageContentAdd() {
     if (this.dataMessageContentModel?.messageBody?.length > 0) {
       if (this.dataModel.message.length > 0)

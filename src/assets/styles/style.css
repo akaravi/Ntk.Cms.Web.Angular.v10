@@ -4874,7 +4874,7 @@ textarea {
 .input-style .action {
   position: absolute;
   /* top: 50%; */
-  margin-top: -5px;
+  margin-top: 20px;
   left: 15px;
   pointer-events: visible;
   cursor: pointer;

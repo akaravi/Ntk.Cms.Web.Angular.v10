@@ -6,8 +6,8 @@
       style="vertical-align:middle;" class="ntk-hover-zoom" aria-hidden
       src="{{dataModelSelect?.linkModuleFileLogoIdSrc | cmsthumbnail}}" height="25" width="25" /> &nbsp;</span>
   <input type="text" placeholder="{{optionPlaceholder}}" [attr.disabled]="optionDisabled? true : null"
-    aria-label="Assignee" matInput [formControl]="formControl" [matAutocomplete]="matauto" id="forminput"
-    [required]="optionRequired" id="app-cms-site-selector-{{id}}">
+    aria-label="Assignee" matInput [formControl]="formControl" [matAutocomplete]="matauto" [required]="optionRequired"
+    id="app-cms-site-selector-{{id}}">
   <mat-autocomplete #matauto="matAutocomplete" [displayWith]="displayFn"
     (optionSelected)="onActionSelect($event.option.value)">
     <mat-option *ngFor="let state of filteredOptions | async" [value]="state" [disabled]="optionDisabled">
