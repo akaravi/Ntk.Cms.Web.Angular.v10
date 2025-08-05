@@ -43,6 +43,7 @@ export class EstatePropertyTypeUsageSelectorComponent implements OnInit, OnDestr
   @Input() optionTypeView = 1;
   @Input() optionAllowUnSelect = false;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
   @Output() optionChange = new EventEmitter<EstatePropertyTypeUsageModel>();

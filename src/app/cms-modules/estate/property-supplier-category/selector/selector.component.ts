@@ -46,6 +46,7 @@ export class EstatePropertySupplierCategorySelectorComponent implements OnInit, 
   formControl = new FormControl();
   filteredOptions: Observable<EstatePropertySupplierCategoryModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
   @Output() optionChange = new EventEmitter<EstatePropertySupplierCategoryModel>();

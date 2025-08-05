@@ -39,6 +39,8 @@ export class DonateSponserSelectorComponent implements OnInit {
   @Input() optionPlaceholder = '';
   @Input() optionSelectFirstItem = false;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
+
   @Input() optionLabel = '';
   @Output() optionChange = new EventEmitter<DonateSponsorModel>();
   @Input() optionReload = () => this.onActionButtonReload();

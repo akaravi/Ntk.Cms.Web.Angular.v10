@@ -15,9 +15,9 @@ import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 
 
 @Component({
-    selector: 'app-linkmanagement-accounting-selector',
-    templateUrl: './selector.component.html',
-    standalone: false
+  selector: 'app-linkmanagement-accounting-selector',
+  templateUrl: './selector.component.html',
+  standalone: false
 })
 export class LinkManagementAccountingSelectorComponent implements OnInit {
   static nextId = 0;
@@ -38,6 +38,8 @@ export class LinkManagementAccountingSelectorComponent implements OnInit {
   formControl = new FormControl();
   filteredOptions: Observable<LinkManagementAccountingModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
+
   @Input() optionPlaceholder = '';
   @Input() optionLabel = '';
   @Input() optionSelectFirstItem = false;

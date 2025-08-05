@@ -46,6 +46,7 @@ export class EstateCategoryRackSelectorComponent implements OnInit, OnDestroy {
   formControl = new FormControl();
   filteredOptions: Observable<EstateCategoryRackModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
   @Output() optionChange = new EventEmitter<EstateCategoryRackModel>();

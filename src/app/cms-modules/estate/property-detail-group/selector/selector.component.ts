@@ -36,6 +36,7 @@ export class EstatePropertyDetailGroupSelectorComponent implements OnInit {
   filteredOptions: Observable<EstatePropertyDetailGroupModel[]>;
   @Input() optionTypeView = 1;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
   @Output() optionChange = new EventEmitter<EstatePropertyDetailGroupModel>();

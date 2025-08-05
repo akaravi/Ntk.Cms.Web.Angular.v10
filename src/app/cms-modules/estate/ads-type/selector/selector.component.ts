@@ -15,7 +15,6 @@ import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 @Component({
     selector: 'app-estate-ads-type-selector',
     templateUrl: './selector.component.html',
-    styleUrls: ['./selector.component.scss'],
     standalone: false
 })
 export class EstateAdsTypeSelectorComponent implements OnInit {
@@ -36,6 +35,7 @@ export class EstateAdsTypeSelectorComponent implements OnInit {
   formControl = new FormControl();
   filteredOptions: Observable<EstateAdsTypeModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
   @Input() optionLabel = '';

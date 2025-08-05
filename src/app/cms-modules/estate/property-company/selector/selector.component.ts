@@ -37,6 +37,7 @@ export class EstatePropertyCompanySelectorComponent implements OnInit {
   @Input() optionLabel = '';
   @Input() optionSelectFirstItem = false;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Output() optionChange = new EventEmitter<EstatePropertyCompanyModel>();
   @Input() optionReload = () => this.onActionButtonReload();
   @Input() set optionSelectForce(x: string | EstatePropertyCompanyModel) {

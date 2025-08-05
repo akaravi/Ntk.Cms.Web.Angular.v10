@@ -17,9 +17,9 @@ import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 
 
 @Component({
-    selector: 'app-tag-selector',
-    templateUrl: './selector.component.html',
-    standalone: false
+  selector: 'app-tag-selector',
+  templateUrl: './selector.component.html',
+  standalone: false
 })
 export class CoreModuleTagSelectorComponent implements OnInit {
   static nextId = 0;
@@ -43,6 +43,7 @@ export class CoreModuleTagSelectorComponent implements OnInit {
   @Input() optionPlaceholder = '';
   @Input() optionSelectFirstItem = false;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionLabel = '';
   @Output() optionChange = new EventEmitter<CoreModuleTagModel>();
   @Input() optionReload = () => this.onActionButtonReload();

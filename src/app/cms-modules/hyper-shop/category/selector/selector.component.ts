@@ -15,9 +15,9 @@ import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 
 
 @Component({
-    selector: 'app-hypershop-category-selector',
-    templateUrl: './selector.component.html',
-    standalone: false
+  selector: 'app-hypershop-category-selector',
+  templateUrl: './selector.component.html',
+  standalone: false
 })
 export class HyperShopCategorySelectorComponent implements OnInit {
   static nextId = 0;
@@ -37,6 +37,8 @@ export class HyperShopCategorySelectorComponent implements OnInit {
   formControl = new FormControl();
   filteredOptions: Observable<HyperShopCategoryModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
+
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
   @Input() optionLabel = '';

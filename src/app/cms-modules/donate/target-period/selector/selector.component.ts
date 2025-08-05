@@ -41,6 +41,8 @@ export class DonateTargetPeriodSelectorComponent implements OnInit {
   @Input() optionLabel = '';
   @Input() optionSelectFirstItem = false;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
+
   @Output() optionChange = new EventEmitter<DonateTargetPeriodModel>();
   @Input() optionReload = () => this.onActionButtonReload();
   @Input() set optionSelectForce(x: number | DonateTargetPeriodModel) {

@@ -15,7 +15,6 @@ import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 @Component({
     selector: 'app-estate-billboard-selector',
     templateUrl: './selector.component.html',
-    styleUrls: ['./selector.component.scss'],
     standalone: false
 })
 export class EstateBillboardSelectorComponent implements OnInit {
@@ -36,6 +35,7 @@ export class EstateBillboardSelectorComponent implements OnInit {
   formControl = new FormControl();
   filteredOptions: Observable<EstateBillboardModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
   @Input() optionLabel = '';

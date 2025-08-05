@@ -46,6 +46,7 @@ export class EstateCategoryZoneSelectorComponent implements OnInit, OnDestroy {
   formControl = new FormControl();
   filteredOptions: Observable<EstateCategoryZoneModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
   @Output() optionChange = new EventEmitter<EstateCategoryZoneModel>();

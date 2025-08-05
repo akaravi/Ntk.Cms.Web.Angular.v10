@@ -47,6 +47,7 @@ export class EstateContractTypeSelectorComponent implements OnInit, OnDestroy {
   formControl = new FormControl();
   filteredOptions: Observable<EstateContractTypeModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
   @Output() optionChange = new EventEmitter<EstateContractTypeModel>();

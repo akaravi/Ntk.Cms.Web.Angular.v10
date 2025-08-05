@@ -37,6 +37,7 @@ export class EstatePropertySupplierSelectorComponent implements OnInit {
   @Input() optionLabel = '';
   @Input() optionSelectFirstItem = false;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Output() optionChange = new EventEmitter<EstatePropertySupplierModel>();
   @Input() optionReload = () => this.onActionButtonReload();
   @Input() set optionSelectForce(x: string | EstatePropertySupplierModel) {

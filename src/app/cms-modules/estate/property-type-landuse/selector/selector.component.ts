@@ -47,6 +47,7 @@ export class EstatePropertyTypeLanduseSelectorComponent implements OnInit, OnDes
   formControl = new FormControl();
   filteredOptions: Observable<EstatePropertyTypeLanduseModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
   @Output() optionChange = new EventEmitter<EstatePropertyTypeLanduseModel>();
