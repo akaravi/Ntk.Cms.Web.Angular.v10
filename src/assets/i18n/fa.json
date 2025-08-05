@@ -1364,6 +1364,7 @@
   "TITLE.Send_settings": "تنظیمات ارسال",
   "TITLE.Send_as_flash": " ارسال به صورت فلش",
   "TITLE.Send_in_queue": "ارسال در صف",
+  "TITLE.Send_as_checkProcesses": "ارسال به صورت تست فعالیت",
   "TITLE.Receiver_number": "شماره گیرنده",
   "TITLE.You_can_separate_the_number_of_the_recipient_of_the_message_with_an_inter": "شماره گیرنده پیام را می توانید با اینتر از هم جدا کنید",
   "TITLE.sending_route": "مسیرارسال",

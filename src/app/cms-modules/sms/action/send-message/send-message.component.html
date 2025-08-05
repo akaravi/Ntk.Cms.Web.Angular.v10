@@ -236,20 +236,34 @@
                   </mat-panel-description>
                 </mat-expansion-panel-header>
 
-                <!-- IsFlash Field -->
+                <!-- checkProcesses Field -->
                 <div class="d-flex mb-3">
                   <div class="pt-1">
-                    <h5 data-trigger-switch="dataModel.isFlash" class="font-600 font-14">
-                      {{'TITLE.Send_as_flash' | translate}}</h5>
+                    <h5 data-trigger-switch="dataModel.checkProcesses" class="font-600 font-14">
+                      {{'TITLE.Send_as_checkProcesses' | translate}}</h5>
                   </div>
                   <div class="ms-auto me-3 pe-2">
                     <div class="custom-control ios-switch small-switch">
-                      <input type="checkbox" class="ios-input" id="dataModel.isFlash" [(ngModel)]="dataModel.isFlash"
-                        name="dataModel.isFlash">
-                      <label class="custom-control-label" for="dataModel.isFlash"></label>
+                      <input type="checkbox" class="ios-input" id="dataModel.checkProcesses" [(ngModel)]="dataModel.checkProcesses"
+                        name="dataModel.checkProcesses">
+                      <label class="custom-control-label" for="dataModel.checkProcesses"></label>
                     </div>
                   </div>
                 </div>
+                  <!-- IsFlash Field -->
+                  <div class="d-flex mb-3">
+                    <div class="pt-1">
+                      <h5 data-trigger-switch="dataModel.isFlash" class="font-600 font-14">
+                        {{'TITLE.Send_as_flash' | translate}}</h5>
+                    </div>
+                    <div class="ms-auto me-3 pe-2">
+                      <div class="custom-control ios-switch small-switch">
+                        <input type="checkbox" class="ios-input" id="dataModel.isFlash" [(ngModel)]="dataModel.isFlash"
+                          name="dataModel.isFlash">
+                        <label class="custom-control-label" for="dataModel.isFlash"></label>
+                      </div>
+                    </div>
+                  </div>
                 <!-- SendByQueue Field -->
                 <div class="d-flex mb-3">
                   <div class="pt-1">

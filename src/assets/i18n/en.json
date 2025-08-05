@@ -1344,6 +1344,7 @@
   "TITLE.Send_settings": "Send settings",
   "TITLE.Send_as_flash": "Send as flash",
   "TITLE.Send_in_queue": "Send in queue",
+  "TITLE.Send_as_checkProcesses": "Send as check Processes",
   "TITLE.Receiver_number": "Receiver number",
   "TITLE.You_can_separate_the_number_of_the_recipient_of_the_message_with_an_inter": "You can separate the number of the recipient of the message with an inter",
   "TITLE.sending_route": "sending route",
