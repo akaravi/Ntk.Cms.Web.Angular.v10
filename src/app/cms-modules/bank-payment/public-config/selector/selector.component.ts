@@ -12,9 +12,9 @@ import { debounceTime, distinctUntilChanged, map, startWith, switchMap } from 'r
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 @Component({
-    selector: 'app-bankpayment-publicconfig-selector',
-    templateUrl: './selector.component.html',
-    standalone: false
+  selector: 'app-bankpayment-publicconfig-selector',
+  templateUrl: './selector.component.html',
+  standalone: false
 })
 export class BankPaymentPublicConfigSelectorComponent implements OnInit {
   static nextId = 0;
@@ -35,6 +35,7 @@ export class BankPaymentPublicConfigSelectorComponent implements OnInit {
   formControl = new FormControl();
   filteredOptions: Observable<BankPaymentPublicConfigModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
   @Input() optionLabel = '';
