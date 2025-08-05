@@ -14,12 +14,13 @@ import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 
 
 @Component({
-    selector: 'app-core-modulesaleheader-selector',
-    templateUrl: './selector.component.html',
-    standalone: false
+  selector: 'app-core-modulesaleheader-selector',
+  templateUrl: './selector.component.html',
+  standalone: false
 })
 export class CoreModuleSaleHeaderSelectorComponent implements OnInit {
-
+  static nextId = 0;
+  id = ++CoreModuleSaleHeaderSelectorComponent.nextId;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public coreEnumService: CoreEnumService,
@@ -36,8 +37,10 @@ export class CoreModuleSaleHeaderSelectorComponent implements OnInit {
   formControl = new FormControl();
   filteredOptions: Observable<CoreModuleSaleHeaderModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
+  @Input() optionLabel = '';
   @Output() optionChange = new EventEmitter<CoreModuleSaleHeaderModel>();
   @Input() optionReload = () => this.onActionButtonReload();
   @Input() set optionSelectForce(x: number | CoreModuleSaleHeaderModel) {
@@ -49,6 +52,8 @@ export class CoreModuleSaleHeaderSelectorComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadOptions();
+    if (!this.optionLabel || this.optionLabel.length == 0 && this.optionPlaceholder?.length > 0)
+      this.optionLabel = this.optionPlaceholder;
   }
   loadOptions(): void {
     this.filteredOptions = this.formControl.valueChanges

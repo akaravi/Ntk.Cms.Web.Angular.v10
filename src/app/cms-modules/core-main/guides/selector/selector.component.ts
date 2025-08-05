@@ -37,6 +37,7 @@ export class CoreGuideSelectorComponent implements OnInit {
   formControl = new FormControl();
   filteredOptions: Observable<CoreGuideModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
   @Input() optionLabel = '';

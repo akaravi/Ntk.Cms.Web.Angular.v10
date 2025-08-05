@@ -14,9 +14,9 @@ import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 
 
 @Component({
-    selector: 'app-core-sitecategorycmsmodule-selector',
-    templateUrl: './selector.component.html',
-    standalone: false
+  selector: 'app-core-sitecategorycmsmodule-selector',
+  templateUrl: './selector.component.html',
+  standalone: false
 })
 export class CoreSiteCategoryCmsModuleSelectorComponent implements OnInit {
   static nextId = 0;
@@ -37,6 +37,7 @@ export class CoreSiteCategoryCmsModuleSelectorComponent implements OnInit {
   formControl = new FormControl();
   filteredOptions: Observable<CoreSiteCategoryCmsModuleModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
   @Input() optionLabel = '';
