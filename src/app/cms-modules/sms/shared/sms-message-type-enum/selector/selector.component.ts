@@ -46,6 +46,7 @@ export class SmsMessageTypeEnumSelectorComponent implements OnInit, OnDestroy {
   formControl = new FormControl();
   filteredOptions: Observable<InfoEnumModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
   @Output() optionChange = new EventEmitter<InfoEnumModel>();

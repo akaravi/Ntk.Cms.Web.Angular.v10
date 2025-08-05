@@ -40,6 +40,7 @@ export class SmsMainApiPathCompanySelectorComponent implements OnInit {
   formControl = new FormControl();
   filteredOptions: Observable<SmsMainApiPathCompanyModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
   @Input() optionLabel = '';
