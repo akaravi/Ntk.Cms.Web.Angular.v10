@@ -21,7 +21,8 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
   standalone: false
 })
 export class EstateActivityTypeSelectorComponent implements OnInit, OnDestroy {
-
+  static nextId = 0;
+  id = ++EstateActivityTypeSelectorComponent.nextId;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public coreEnumService: CoreEnumService,
@@ -46,8 +47,10 @@ export class EstateActivityTypeSelectorComponent implements OnInit, OnDestroy {
   formControl = new FormControl();
   filteredOptions: Observable<EstateActivityTypeModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
+  @Input() optionLabel = '';
   @Output() optionChange = new EventEmitter<EstateActivityTypeModel>();
   @Input() optionTypeView = 1;
 

@@ -21,7 +21,8 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
   standalone: false
 })
 export class EstatePropertyTypeLanduseSelectorComponent implements OnInit, OnDestroy {
-
+  static nextId = 0;
+  id = ++EstatePropertyTypeLanduseSelectorComponent.nextId;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public coreEnumService: CoreEnumService,
@@ -50,6 +51,7 @@ export class EstatePropertyTypeLanduseSelectorComponent implements OnInit, OnDes
   @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
+  @Input() optionLabel = '';
   @Output() optionChange = new EventEmitter<EstatePropertyTypeLanduseModel>();
   @Input() optionTypeView = 1;
   @Input() optionAllowUnSelect = false;
@@ -62,6 +64,8 @@ export class EstatePropertyTypeLanduseSelectorComponent implements OnInit, OnDes
 
   ngOnInit(): void {
     this.loadOptions();
+    if (!this.optionLabel || this.optionLabel.length == 0 && this.optionPlaceholder?.length > 0)
+      this.optionLabel = this.optionPlaceholder;
     this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.loadOptions();
     });

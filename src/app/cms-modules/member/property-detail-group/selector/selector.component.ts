@@ -15,12 +15,13 @@ import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 
 
 @Component({
-    selector: 'app-member-propertydetailgroup-selector',
-    templateUrl: './selector.component.html',
-    standalone: false
+  selector: 'app-member-propertydetailgroup-selector',
+  templateUrl: './selector.component.html',
+  standalone: false
 })
 export class MemberPropertyDetailGroupSelectorComponent implements OnInit {
-
+  static nextId = 0;
+  id = ++MemberPropertyDetailGroupSelectorComponent.nextId;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public coreEnumService: CoreEnumService,
@@ -38,8 +39,10 @@ export class MemberPropertyDetailGroupSelectorComponent implements OnInit {
   filteredOptions: Observable<MemberPropertyDetailGroupModel[]>;
   @Input() optionTypeView = 1;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
+  @Input() optionLabel = '';
   @Output() optionChange = new EventEmitter<MemberPropertyDetailGroupModel>();
   @Input() optionReload = () => this.onActionButtonReload();
   @Input() set optionSelectForce(x: number | MemberPropertyDetailGroupModel) {
@@ -51,6 +54,8 @@ export class MemberPropertyDetailGroupSelectorComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadOptions();
+    if (!this.optionLabel || this.optionLabel.length == 0 && this.optionPlaceholder?.length > 0)
+      this.optionLabel = this.optionPlaceholder;
   }
   loadOptions(): void {
     this.filteredOptions = this.formControl.valueChanges

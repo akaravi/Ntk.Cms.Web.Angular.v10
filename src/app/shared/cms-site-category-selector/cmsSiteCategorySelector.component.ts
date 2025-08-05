@@ -12,9 +12,9 @@ import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 
 
 @Component({
-    selector: 'app-cms-sitecategory-selector',
-    templateUrl: './cmsSiteCategorySelector.component.html',
-    standalone: false
+  selector: 'app-cms-sitecategory-selector',
+  templateUrl: './cmsSiteCategorySelector.component.html',
+  standalone: false
 })
 export class CmsSiteCategorySelectorComponent implements OnInit {
   static nextId = 0;
@@ -36,6 +36,7 @@ export class CmsSiteCategorySelectorComponent implements OnInit {
   formControl = new FormControl();
   filteredOptions: Observable<CoreSiteCategoryModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
   @Input() optionLabel = '';

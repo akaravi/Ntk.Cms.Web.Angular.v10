@@ -18,7 +18,8 @@ import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
     standalone: false
 })
 export class EstatePropertyDetailGroupSelectorComponent implements OnInit {
-
+  static nextId = 0;
+  id = ++EstatePropertyDetailGroupSelectorComponent.nextId;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public coreEnumService: CoreEnumService,
@@ -39,6 +40,7 @@ export class EstatePropertyDetailGroupSelectorComponent implements OnInit {
   @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
+  @Input() optionLabel = '';
   @Output() optionChange = new EventEmitter<EstatePropertyDetailGroupModel>();
   @Input() optionReload = () => this.onActionButtonReload();
   @Input() set optionSelectForce(x: string | EstatePropertyDetailGroupModel) {
@@ -56,6 +58,8 @@ export class EstatePropertyDetailGroupSelectorComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadOptions();
+    if (!this.optionLabel || this.optionLabel.length == 0 && this.optionPlaceholder?.length > 0)
+      this.optionLabel = this.optionPlaceholder;
   }
   loadOptions(): void {
     this.filteredOptions = this.formControl.valueChanges

@@ -1,18 +1,27 @@
-<div class="input-style has-borders no-icon input-style-always-active validate-field mb-4 loader-container">
+<div class="input-style has-borders has-icon  input-style-always-active validate-field mb-4 loader-container">
   <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId"> </app-progress-spinner>
   <label *ngIf="optionLabel?.length>0" for="app-cms-site-selector-{{id}}"
     class="color-highlight">{{optionLabel}}</label>
-  <input type="text" placeholder="{{optionPlaceholder}}" [attr.disabled]="optionDisabled? true : null" matInput
-    [formControl]="formControl" [matAutocomplete]="matauto" class="form-control validate-name"
+  <span matPrefix><img class="ntk-hover-zoom" *ngIf="dataModelSelect && dataModelSelect?.linkMainImageIdSrc"
+      style="vertical-align:middle;" class="ntk-hover-zoom" aria-hidden
+      src="{{dataModelSelect?.linkMainImageIdSrc | cmsthumbnail}}" height="25" width="25" /> &nbsp;</span>
+  <input type="text" placeholder="{{optionPlaceholder}}" [attr.disabled]="optionDisabled? true : null"
+    aria-label="Assignee" matInput [formControl]="formControl" [matAutocomplete]="matauto" [required]="optionRequired"
     id="app-cms-site-selector-{{id}}">
-
   <mat-autocomplete #matauto="matAutocomplete" [displayWith]="displayFn"
     (optionSelected)="onActionSelect($event.option.value)">
     <mat-option *ngFor="let state of filteredOptions | async" [value]="state" [disabled]="optionDisabled">
+      <img *ngIf="state.linkMainImageIdSrc" style="vertical-align:middle;" class="ntk-hover-zoom" aria-hidden
+        src="{{state.linkMainImageIdSrc | cmsthumbnail}}" height="25" width="25" />
       <span>{{ displayOption(state) }}</span>
     </mat-option>
   </mat-autocomplete>
-  <mat-icon matSuffix *ngIf="dataModelSelect?.id" matSuffix mat-icon-button aria-label="Clear"
-    (click)="onActionSelectClear()">close</mat-icon>
+  <i *ngIf="!formControl.valid" class="fa fa-info  invalid color-red-dark"></i>
+  <i *ngIf="optionRequired && formControl.valid" class="fa fa-check  valid color-green-dark"></i>
+  <i *ngIf="dataModelSelect?.id?.length>0" class="fa fa-times  action color-red-dark"
+    (click)="onActionSelectClear()"></i>
+  <em
+    *ngIf="optionRequired  && (!dataModelSelect || !dataModelSelect.id || dataModelSelect.id?.length<=0)">({{'TITLE.Necessary'|
+    translate}})</em>
   <ng-content></ng-content>
 </div>

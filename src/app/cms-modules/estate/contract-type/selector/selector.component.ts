@@ -21,7 +21,8 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
   standalone: false
 })
 export class EstateContractTypeSelectorComponent implements OnInit, OnDestroy {
-
+  static nextId = 0;
+  id = ++EstateContractTypeSelectorComponent.nextId;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public coreEnumService: CoreEnumService,
@@ -50,6 +51,7 @@ export class EstateContractTypeSelectorComponent implements OnInit, OnDestroy {
   @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
+  @Input() optionLabel = '';
   @Output() optionChange = new EventEmitter<EstateContractTypeModel>();
   @Input() optionAllowUnSelect = false;
   @Input() optionTypeView = 1;
@@ -62,6 +64,8 @@ export class EstateContractTypeSelectorComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadOptions();
+    if (!this.optionLabel || this.optionLabel.length == 0 && this.optionPlaceholder?.length > 0)
+      this.optionLabel = this.optionPlaceholder;
     this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.loadOptions();
     });

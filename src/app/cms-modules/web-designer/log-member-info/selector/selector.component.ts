@@ -12,9 +12,9 @@ import { Observable, firstValueFrom } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 @Component({
-    selector: 'app-webdesigner-logmemberinfo-selector',
-    templateUrl: './selector.component.html',
-    standalone: false
+  selector: 'app-webdesigner-logmemberinfo-selector',
+  templateUrl: './selector.component.html',
+  standalone: false
 })
 export class WebDesignerLogMemberInfoSelectorComponent implements OnInit {
   static nextId = 0;
@@ -34,6 +34,7 @@ export class WebDesignerLogMemberInfoSelectorComponent implements OnInit {
   formControl = new FormControl();
   filteredOptions: Observable<WebDesignerLogMemberInfoModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
   @Input() optionLabel = '';

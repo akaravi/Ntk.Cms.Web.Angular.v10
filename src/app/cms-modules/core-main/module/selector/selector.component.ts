@@ -37,6 +37,7 @@ export class CoreModuleSelectorComponent implements OnInit {
   formControl = new FormControl();
   filteredOptions: Observable<CoreModuleModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
   @Input() optionLabel = '';

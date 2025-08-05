@@ -32,6 +32,7 @@ export class WebDesignerMainMenuSelectorComponent implements OnInit {
   formControl = new FormControl();
   filteredOptions: Observable<WebDesignerMainMenuModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
   @Input() optionLabel = '';

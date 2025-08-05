@@ -15,13 +15,14 @@ import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 
 
 @Component({
-    selector: 'app-cms-sms-api-number-selector',
-    templateUrl: './cms-sms-api-number-selector.component.html',
-    standalone: false
+  selector: 'app-cms-sms-api-number-selector',
+  templateUrl: './cms-sms-api-number-selector.component.html',
+  standalone: false
 })
 export class CmsSmsMainApiNumberSelectorComponent implements OnInit {
   static nextId = 0;
   id = ++CmsSmsMainApiNumberSelectorComponent.nextId;
+  constructorInfoAreaId = this.constructor.name;
   constructor(
     public coreEnumService: CoreEnumService,
     private cmsToastrService: CmsToastrService,
@@ -38,6 +39,7 @@ export class CmsSmsMainApiNumberSelectorComponent implements OnInit {
   formControl = new FormControl();
   filteredOptions: Observable<SmsMainApiNumberModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionSelectFirstItemOnChangeApi = false;
   @Input() optionLabel = '';
@@ -108,7 +110,10 @@ export class CmsSmsMainApiNumberSelectorComponent implements OnInit {
       filter.searchType = FilterDataModelSearchTypesEnum.Equal;
       filterModel.filters.push(filter);
     }
-    this.publicHelper.processService.processStart('DataGetAll');
+    const pName = this.constructor.name + 'main';
+    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
+      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
+    });
     return await firstValueFrom(this.categoryService.ServiceGetAll(filterModel))
       .then(
         (response) => {
@@ -122,7 +127,7 @@ export class CmsSmsMainApiNumberSelectorComponent implements OnInit {
             }, 1000);
           }
           /*select First Item */
-          this.publicHelper.processService.processStop('DataGetAll');
+          this.publicHelper.processService.processStop(pName);
           return response.listItems;
         });
   }

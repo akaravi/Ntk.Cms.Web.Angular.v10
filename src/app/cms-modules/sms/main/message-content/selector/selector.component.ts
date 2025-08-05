@@ -15,9 +15,9 @@ import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 
 
 @Component({
-    selector: 'app-sms-main-message-content-selector',
-    templateUrl: './selector.component.html',
-    standalone: false
+  selector: 'app-sms-main-message-content-selector',
+  templateUrl: './selector.component.html',
+  standalone: false
 })
 export class SmsMainMessageContentSelectorComponent implements OnInit {
   static nextId = 0;
@@ -38,6 +38,8 @@ export class SmsMainMessageContentSelectorComponent implements OnInit {
   formControl = new FormControl();
   filteredOptions: Observable<SmsMainMessageContentModel[]>;
   @Input() optionPlaceholder = '';
+  @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionLabel = '';
   @Output() optionChange = new EventEmitter<SmsMainMessageContentModel>();
@@ -45,10 +47,6 @@ export class SmsMainMessageContentSelectorComponent implements OnInit {
   @Input() set optionSelectForce(x: string | SmsMainMessageContentModel) {
     this.onActionSelectForce(x);
   }
-
-
-
-
   @Input() set optionLinkCategryId(x: string) {
     if (x == this.privateLinkCategryId)
       return;
@@ -57,7 +55,6 @@ export class SmsMainMessageContentSelectorComponent implements OnInit {
     this.privateLinkCategryId = x;
     this.loadOptions();
   }
-  @Input() optionDisabled = false;
   privateLinkCategryId = '';
   ngOnInit(): void {
     this.loadOptions();

@@ -21,7 +21,8 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
   standalone: false
 })
 export class EstatePropertyTypeUsageSelectorComponent implements OnInit, OnDestroy {
-
+  static nextId = 0;
+  id = ++EstatePropertyTypeUsageSelectorComponent.nextId;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public coreEnumService: CoreEnumService,
@@ -46,6 +47,7 @@ export class EstatePropertyTypeUsageSelectorComponent implements OnInit, OnDestr
   @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
+  @Input() optionLabel = '';
   @Output() optionChange = new EventEmitter<EstatePropertyTypeUsageModel>();
   @Input() optionReload = () => this.onActionButtonReload();
   @Input() set optionSelectForce(x: string | EstatePropertyTypeUsageModel) {
@@ -58,6 +60,8 @@ export class EstatePropertyTypeUsageSelectorComponent implements OnInit, OnDestr
 
   ngOnInit(): void {
     this.loadOptions();
+    if (!this.optionLabel || this.optionLabel.length == 0 && this.optionPlaceholder?.length > 0)
+      this.optionLabel = this.optionPlaceholder;
     this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.loadOptions();
     });

@@ -11,9 +11,9 @@ import { Observable, firstValueFrom } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 @Component({
-    selector: 'app-webdesigner-pagedependency-selector',
-    templateUrl: './selector.component.html',
-    standalone: false
+  selector: 'app-webdesigner-pagedependency-selector',
+  templateUrl: './selector.component.html',
+  standalone: false
 })
 export class WebDesignerMainPageDependencySelectorComponent implements OnInit {
   static nextId = 0;
@@ -35,6 +35,7 @@ export class WebDesignerMainPageDependencySelectorComponent implements OnInit {
   formControl = new FormControl();
   filteredOptions: Observable<WebDesignerMainPageDependencyModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
   @Input() optionLabel = '';

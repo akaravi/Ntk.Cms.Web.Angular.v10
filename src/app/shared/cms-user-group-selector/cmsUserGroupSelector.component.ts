@@ -35,6 +35,7 @@ export class CmsUserGroupSelectorComponent implements OnInit {
   formControl = new FormControl();
   filteredOptions: Observable<CoreUserGroupModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
   @Input() optionLabel = '';

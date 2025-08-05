@@ -15,13 +15,14 @@ import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 
 
 @Component({
-    selector: 'app-cms-sms-apipath-selector',
-    templateUrl: './cms-sms-apipath-selector.component.html',
-    standalone: false
+  selector: 'app-cms-sms-apipath-selector',
+  templateUrl: './cms-sms-apipath-selector.component.html',
+  standalone: false
 })
 export class CmsSmsMainApiPathSelectorComponent implements OnInit {
   static nextId = 0;
   id = ++CmsSmsMainApiPathSelectorComponent.nextId;
+  constructorInfoAreaId = this.constructor.name;
   constructor(
     public coreEnumService: CoreEnumService,
     private cmsToastrService: CmsToastrService,
@@ -37,6 +38,7 @@ export class CmsSmsMainApiPathSelectorComponent implements OnInit {
   formControl = new FormControl();
   filteredOptions: Observable<SmsMainApiPathModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
   @Input() optionLabel = '';
@@ -92,7 +94,10 @@ export class CmsSmsMainApiPathSelectorComponent implements OnInit {
       filter.clauseType = ClauseTypeEnum.Or;
       filterModel.filters.push(filter);
     }
-    this.publicHelper.processService.processStart('DataGetAll');
+    const pName = this.constructor.name + 'main';
+    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
+      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
+    });
     return await firstValueFrom(this.categoryService.ServiceGetAll(filterModel))
       .then(
         (response) => {
@@ -106,7 +111,7 @@ export class CmsSmsMainApiPathSelectorComponent implements OnInit {
             this.onActionSelect(this.dataModelResult.listItems[0]);
           }
           /*select First Item */
-          this.publicHelper.processService.processStop('DataGetAll');
+          this.publicHelper.processService.processStop(pName);
           return response.listItems;
         });
   }

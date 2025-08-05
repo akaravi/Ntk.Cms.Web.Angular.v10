@@ -35,6 +35,7 @@ export class CmsMemberSelectorComponent implements OnInit {
   formControl = new FormControl();
   filteredOptions: Observable<CoreLogMemberModel[]>;
   @Input() optionDisabled = false;
+  @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
   @Input() optionLabel = '';

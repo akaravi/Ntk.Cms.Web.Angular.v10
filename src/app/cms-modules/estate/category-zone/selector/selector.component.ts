@@ -21,7 +21,8 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
   standalone: false
 })
 export class EstateCategoryZoneSelectorComponent implements OnInit, OnDestroy {
-
+  static nextId = 0;
+  id = ++EstateCategoryZoneSelectorComponent.nextId;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public coreEnumService: CoreEnumService,
@@ -49,6 +50,7 @@ export class EstateCategoryZoneSelectorComponent implements OnInit, OnDestroy {
   @Input() optionRequired = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = '';
+  @Input() optionLabel = '';
   @Output() optionChange = new EventEmitter<EstateCategoryZoneModel>();
   @Input() optionTypeView = 1;
 
@@ -60,6 +62,8 @@ export class EstateCategoryZoneSelectorComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.loadOptions();
+    if (!this.optionLabel || this.optionLabel.length == 0 && this.optionPlaceholder?.length > 0)
+      this.optionLabel = this.optionPlaceholder;
     this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.loadOptions();
     });
