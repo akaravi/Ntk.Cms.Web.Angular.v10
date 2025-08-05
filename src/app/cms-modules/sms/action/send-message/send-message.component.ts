@@ -81,7 +81,7 @@ export class SmsActionSendMessageComponent implements OnInit {
   linkNumberId: string = '';
 
 
-  dataModelParentSelected: SmsMainApiPathModel = new SmsMainApiPathModel();
+
   dataModel: SmsApiSendMessageDtoModel = new SmsApiSendMessageDtoModel();
   dataModelResult: ErrorExceptionResult<SmsApiSendResultModel> = new ErrorExceptionResult<SmsApiSendResultModel>();
   dataModelDateByClockStart: DateByClock = new DateByClock();
@@ -210,9 +210,9 @@ export class SmsActionSendMessageComponent implements OnInit {
     this.message.nativeElement.style.textAlign = "right";
   }
   onActionSelectApiPath(model: SmsMainApiPathModel): void {
-    this.dataModelParentSelected = model;
-    if (!model || !model.id || model.id.length === 0 || model.id != this.dataModel.linkFromNumber)
-      this.dataModel.linkFromNumber = null;
+    //if (!model || !model.id || model.id.length === 0 || model.id != this.dataModel.linkFromNumber)
+    this.dataModel.linkApiPathId = null;
+    this.dataModel.linkFromNumber = null;
     if (model && model.id.length > 0) {
       this.dataModel.linkApiPathId = model.id;
       this.dataModel.linkFromNumber = null;

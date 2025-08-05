@@ -63,7 +63,9 @@ export class SmsMainApiNumberSelectorComponent implements OnInit {
     this.privateLinkApiPathId = x;
     if (this.privateLinkApiPathId != this.privateLinkApiPathIdLast)
       this.optionSelectFirstItem = this.optionSelectFirstItemOnChangeApi;
+
     this.privateLinkApiPathIdLast = x;
+    this.optionChange.emit(this.dataModelSelect);
     this.loadOptions();
   }
   public privateLinkApiPathId = '';
