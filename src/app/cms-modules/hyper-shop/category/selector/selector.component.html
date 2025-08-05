@@ -1,11 +1,10 @@
-
 <div class="input-style has-borders has-icon  input-style-always-active validate-field mb-4 loader-container">
   <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId"> </app-progress-spinner>
   <label *ngIf="optionLabel?.length>0" for="app-cms-site-selector-{{id}}"
     class="color-highlight">{{optionLabel}}</label>
   <span matPrefix><img class="ntk-hover-zoom" *ngIf="dataModelSelect && dataModelSelect?.image"
-      style="vertical-align:middle;" class="ntk-hover-zoom" aria-hidden
-      src="{{dataModelSelect?.image | cmsthumbnail}}" height="25" width="25" /> &nbsp;</span>
+      style="vertical-align:middle;" class="ntk-hover-zoom" aria-hidden src="{{dataModelSelect?.image | cmsthumbnail}}"
+      height="25" width="25" /> &nbsp;</span>
   <input type="text" placeholder="{{optionPlaceholder}}" [attr.disabled]="optionDisabled? true : null"
     aria-label="Assignee" matInput [formControl]="formControl" [matAutocomplete]="matauto" [required]="optionRequired"
     id="app-cms-site-selector-{{id}}">
@@ -22,7 +21,7 @@
   <i *ngIf="dataModelSelect?.id?.length>0" class="fa fa-times  action color-red-dark"
     (click)="onActionSelectClear()"></i>
   <em
-    *ngIf="optionRequired  && (!dataModelSelect || !dataModelSelect.id || dataModelSelect.id?.length<=0)">({{'TITLE.Necessary'|
+    *ngIf="optionRequired  && (!dataModelSelect || !dataModelSelect.id || dataModelSelect.id?.length===0)">({{'TITLE.Necessary'|
     translate}})</em>
   <ng-content></ng-content>
 </div>

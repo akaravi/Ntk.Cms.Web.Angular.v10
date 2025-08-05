@@ -1,4 +1,3 @@
-
 <div class="input-style has-borders has-icon  input-style-always-active validate-field mb-4 loader-container">
   <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId"> </app-progress-spinner>
   <label *ngIf="optionLabel?.length>0" for="app-cms-site-selector-{{id}}"
@@ -22,7 +21,7 @@
   <i *ngIf="dataModelSelect?.id?.length>0" class="fa fa-times  action color-red-dark"
     (click)="onActionSelectClear()"></i>
   <em
-    *ngIf="optionRequired  && (!dataModelSelect || !dataModelSelect.id || dataModelSelect.id?.length<=0)">({{'TITLE.Necessary'|
+    *ngIf="optionRequired  && (!dataModelSelect || !dataModelSelect.id || dataModelSelect.id?.length===0)">({{'TITLE.Necessary'|
     translate}})</em>
   <ng-content></ng-content>
 </div>
