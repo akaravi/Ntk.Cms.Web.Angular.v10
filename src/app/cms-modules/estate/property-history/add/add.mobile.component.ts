@@ -28,10 +28,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-estate-property-history-add-mobile',
-    templateUrl: './add.mobile.component.html',
-    styleUrls: ['./add.mobile.component.scss'],
-    standalone: false
+  selector: 'app-estate-property-history-add-mobile',
+  templateUrl: './add.mobile.component.html',
+  styleUrls: ['./add.mobile.component.scss'],
+  standalone: false
 })
 export class EstatePropertyHistoryAddMobileComponent implements OnInit {
   constructorInfoAreaId = this.constructor.name;
@@ -42,7 +42,7 @@ export class EstatePropertyHistoryAddMobileComponent implements OnInit {
     public estatePropertyHistoryService: EstatePropertyHistoryService,
     public estateActivityTypeService: EstateActivityTypeService,
     private cmsToastrService: CmsToastrService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public estateEnumService: EstateEnumService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -123,9 +123,9 @@ export class EstatePropertyHistoryAddMobileComponent implements OnInit {
     });
   }
   DataAddContent(): void {
-          this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => {
-        this.formInfo.formAlert = str;
-      });
+    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => {
+      this.formInfo.formAlert = str;
+    });
     this.formInfo.formError = '';
 
     if (this.dataFileModelFiles) {
@@ -150,7 +150,7 @@ export class EstatePropertyHistoryAddMobileComponent implements OnInit {
           this.cmsToastrService.typeSuccessAdd();
           this.dialogRef.close({ dialogChangedDate: true });
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => {this.formInfo.formAlert = str });
+          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -200,7 +200,7 @@ export class EstatePropertyHistoryAddMobileComponent implements OnInit {
 
   onActionSelectorEstateUser(model: EstateAccountExpertModel | null): void {
     this.dataModel.linkEstateExpertId = null;
-    if (model && model.id.length > 0) {
+    if (model && model.id?.length > 0) {
       this.dataModel.linkEstateExpertId = model.id;
     }
   }
@@ -213,7 +213,7 @@ export class EstatePropertyHistoryAddMobileComponent implements OnInit {
   }
   onActionSelectorProperty(model: EstatePropertyModel | null): void {
     this.dataModel.linkPropertyId = null;
-    if (model && model.id.length > 0) {
+    if (model && model.id?.length > 0) {
       this.dataModel.linkPropertyId = model.id;
     }
   }
@@ -221,7 +221,7 @@ export class EstatePropertyHistoryAddMobileComponent implements OnInit {
     model: EstateCustomerOrderModel | null
   ): void {
     this.dataModel.linkCustomerOrderId = null;
-    if (model && model.id.length > 0) {
+    if (model && model.id?.length > 0) {
       this.dataModel.linkCustomerOrderId = model.id;
     }
   }

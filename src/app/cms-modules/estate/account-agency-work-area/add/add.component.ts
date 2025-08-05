@@ -18,10 +18,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-estate-account-agency-work-area-add',
-    templateUrl: './add.component.html',
-    styleUrls: ['./add.component.scss'],
-    standalone: false
+  selector: 'app-estate-account-agency-work-area-add',
+  templateUrl: './add.component.html',
+  styleUrls: ['./add.component.scss'],
+  standalone: false
 })
 export class EstateAccountAgencyWorkAreaAddComponent extends AddBaseComponent<EstateAccountAgencyWorkAreaService, EstateAccountAgencyWorkAreaModel, string> implements OnInit {
   constructorInfoAreaId = this.constructor.name;
@@ -33,7 +33,7 @@ export class EstateAccountAgencyWorkAreaAddComponent extends AddBaseComponent<Es
     public estateAccountAgencyWorkAreaService: EstateAccountAgencyWorkAreaService,
     private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     public tokenHelper: TokenHelper,
     public translate: TranslateService,
@@ -117,7 +117,7 @@ export class EstateAccountAgencyWorkAreaAddComponent extends AddBaseComponent<Es
   }
   onActionSelectorAccountAgency(model: EstateAccountAgencyModel | null): void {
     this.dataModel.linkEstateAccountAgencyId = null;
-    if (model && model.id.length > 0) {
+    if (model && model.id?.length > 0) {
       this.dataModel.linkEstateAccountAgencyId = model.id;
     }
   }

@@ -18,10 +18,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-estate-account-expert-work-area-add',
-    templateUrl: './add.component.html',
-    styleUrls: ['./add.component.scss'],
-    standalone: false
+  selector: 'app-estate-account-expert-work-area-add',
+  templateUrl: './add.component.html',
+  styleUrls: ['./add.component.scss'],
+  standalone: false
 })
 export class EstateAccountExpertWorkAreaAddComponent extends AddBaseComponent<EstateAccountExpertWorkAreaService, EstateAccountExpertWorkAreaModel, string> implements OnInit {
   constructorInfoAreaId = this.constructor.name;
@@ -32,7 +32,7 @@ export class EstateAccountExpertWorkAreaAddComponent extends AddBaseComponent<Es
     public estateEnumService: EstateEnumService,
     public estateAccountExpertWorkAreaService: EstateAccountExpertWorkAreaService,
     private cmsToastrService: CmsToastrService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public tokenHelper: TokenHelper,
@@ -112,7 +112,7 @@ export class EstateAccountExpertWorkAreaAddComponent extends AddBaseComponent<Es
 
   onActionSelectorAccountUser(model: EstateAccountExpertModel | null): void {
     this.dataModel.linkEstateExpertId = null;
-    if (model && model.id.length > 0) {
+    if (model && model.id?.length > 0) {
       this.dataModel.linkEstateExpertId = model.id;
     }
   }

@@ -21,10 +21,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-estate-property-history-edit',
-    templateUrl: './edit.component.html',
-    styleUrls: ['./edit.component.scss'],
-    standalone: false
+  selector: 'app-estate-property-history-edit',
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.scss'],
+  standalone: false
 })
 export class EstatePropertyHistoryEditComponent extends EditBaseComponent<EstatePropertyHistoryService, EstatePropertyHistoryModel, string> implements OnInit {
   requestId = '';
@@ -39,7 +39,7 @@ export class EstatePropertyHistoryEditComponent extends EditBaseComponent<Estate
     private cdr: ChangeDetectorRef,
     public tokenHelper: TokenHelper,
     public translate: TranslateService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog,
@@ -174,19 +174,19 @@ export class EstatePropertyHistoryEditComponent extends EditBaseComponent<Estate
   }
   onActionSelectorEstateUser(model: EstateAccountExpertModel | null): void {
     this.dataModel.linkEstateExpertId = null;
-    if (model && model.id.length > 0) {
+    if (model && model.id?.length > 0) {
       this.dataModel.linkEstateExpertId = model.id;
     }
   }
   onActionSelectorProperty(model: EstatePropertyModel | null): void {
     this.dataModel.linkPropertyId = null;
-    if (model && model.id.length > 0) {
+    if (model && model.id?.length > 0) {
       this.dataModel.linkPropertyId = model.id;
     }
   }
   onActionSelectorCustomerOrderId(model: EstateCustomerOrderModel | null): void {
     this.dataModel.linkCustomerOrderId = null;
-    if (model && model.id.length > 0) {
+    if (model && model.id?.length > 0) {
       this.dataModel.linkCustomerOrderId = model.id;
     }
   }

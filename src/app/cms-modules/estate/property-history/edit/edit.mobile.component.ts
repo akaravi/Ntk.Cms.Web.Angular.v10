@@ -31,10 +31,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-estate-property-history-edit-mobile',
-    templateUrl: './edit.mobile.component.html',
-    styleUrls: ['./edit.mobile.component.scss'],
-    standalone: false
+  selector: 'app-estate-property-history-edit-mobile',
+  templateUrl: './edit.mobile.component.html',
+  styleUrls: ['./edit.mobile.component.scss'],
+  standalone: false
 })
 export class EstatePropertyHistoryEditMobileComponent extends EditBaseComponent<EstatePropertyHistoryService, EstatePropertyHistoryModel, string>
   implements OnInit {
@@ -47,7 +47,7 @@ export class EstatePropertyHistoryEditMobileComponent extends EditBaseComponent<
     public estatePropertyHistoryService: EstatePropertyHistoryService,
     public estateActivityTypeService: EstateActivityTypeService,
     private cmsToastrService: CmsToastrService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public estateEnumService: EstateEnumService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -240,13 +240,13 @@ export class EstatePropertyHistoryEditMobileComponent extends EditBaseComponent<
   }
   onActionSelectorEstateUser(model: EstateAccountExpertModel | null): void {
     this.dataModel.linkEstateExpertId = null;
-    if (model && model.id.length > 0) {
+    if (model && model.id?.length > 0) {
       this.dataModel.linkEstateExpertId = model.id;
     }
   }
   onActionSelectorProperty(model: EstatePropertyModel | null): void {
     this.dataModel.linkPropertyId = null;
-    if (model && model.id.length > 0) {
+    if (model && model.id?.length > 0) {
       this.dataModel.linkPropertyId = model.id;
     }
   }
@@ -254,7 +254,7 @@ export class EstatePropertyHistoryEditMobileComponent extends EditBaseComponent<
     model: EstateCustomerOrderModel | null
   ): void {
     this.dataModel.linkCustomerOrderId = null;
-    if (model && model.id.length > 0) {
+    if (model && model.id?.length > 0) {
       this.dataModel.linkCustomerOrderId = model.id;
     }
   }

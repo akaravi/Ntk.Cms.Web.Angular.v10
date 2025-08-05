@@ -21,10 +21,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-estate-account-agency-expert-add',
-    templateUrl: './add.component.html',
-    styleUrls: ['./add.component.scss'],
-    standalone: false
+  selector: 'app-estate-account-agency-expert-add',
+  templateUrl: './add.component.html',
+  styleUrls: ['./add.component.scss'],
+  standalone: false
 })
 export class EstateAccountAgencyExpertAddComponent extends AddBaseComponent<EstateAccountAgencyExpertService, EstateAccountAgencyExpertModel, string> implements OnInit {
   constructorInfoAreaId = this.constructor.name;
@@ -35,7 +35,7 @@ export class EstateAccountAgencyExpertAddComponent extends AddBaseComponent<Esta
     public estateEnumService: EstateEnumService,
     public estateAccountAgencyExpertService: EstateAccountAgencyExpertService,
     private cmsToastrService: CmsToastrService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public tokenHelper: TokenHelper,
@@ -115,13 +115,13 @@ export class EstateAccountAgencyExpertAddComponent extends AddBaseComponent<Esta
 
   onActionSelectorAccountUser(model: EstateAccountExpertModel | null): void {
     this.dataModel.linkEstateExpertId = null;
-    if (model && model.id.length > 0) {
+    if (model && model.id?.length > 0) {
       this.dataModel.linkEstateExpertId = model.id;
     }
   }
   onActionSelectorAccountAgency(model: EstateAccountAgencyModel | null): void {
     this.dataModel.linkEstateAccountAgencyId = null;
-    if (model && model.id.length > 0) {
+    if (model && model.id?.length > 0) {
       this.dataModel.linkEstateAccountAgencyId = model.id;
     }
   }

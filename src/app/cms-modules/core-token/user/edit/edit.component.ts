@@ -196,7 +196,7 @@ export class CoreTokenUserEditComponent extends EditBaseComponent<CoreTokenUserS
     }
   }
   onActionMemberSelect(model: CoreLogMemberModel): void {
-    if (model && model.id.length > 0) {
+    if (model && model.id?.length > 0) {
       this.dataModel.linkMemberId = model.id;
     }
   }

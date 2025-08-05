@@ -21,7 +21,8 @@
   <i *ngIf="dataModelSelect?.id?.length>0" class="fa fa-times  action color-red-dark"
     (click)="onActionSelectClear()"></i>
   <em
-    *ngIf="optionRequired  && (!dataModelSelect || !dataModelSelect.id || dataModelSelect.id.length<=0)">({{'TITLE.Necessary'|
+    *ngIf="optionRequired  && (!dataModelSelect || !dataModelSelect.id || dataModelSelect.id?.length===0)">({{'TITLE.Necessary'|
     translate}})</em>
   <ng-content></ng-content>
 </div>
+aaaaaaa id:{{dataModelSelect?.id}}aaaaaaaaaa

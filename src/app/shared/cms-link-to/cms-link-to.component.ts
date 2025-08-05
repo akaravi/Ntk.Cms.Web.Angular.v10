@@ -93,11 +93,11 @@ export class CmsLinkToComponent implements OnInit, OnDestroy {
 
   onActionSelectPrivateSiteConfig(model: SmsMainApiPathModel): void {
     this.dataModelParentSelected = model;
-    // if (model && model.id.length > 0) {
+    // if (model && model.id?.length > 0) {
     //   this.dataModel.linkApiPathId = model.id;
     //   this.dataModel.linkFromNumber = null;
     // }
-    if (model && model.id.length > 0) {
+    if (model && model.id?.length > 0) {
       this.dataModel.linkApiPathId = model.id;
       this.sendByShow = false;
       if (model.apiAbilitySendByDirect)

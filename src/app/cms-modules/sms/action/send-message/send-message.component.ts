@@ -213,7 +213,7 @@ export class SmsActionSendMessageComponent implements OnInit {
     //if (!model || !model.id || model.id.length === 0 || model.id != this.dataModel.linkFromNumber)
     this.dataModel.linkApiPathId = null;
     this.dataModel.linkFromNumber = null;
-    if (model && model.id.length > 0) {
+    if (model && model.id?.length > 0) {
       this.dataModel.linkApiPathId = model.id;
       this.dataModel.linkFromNumber = null;
       this.dataModel['sendByQueueDisabled'] = false;
@@ -237,7 +237,7 @@ export class SmsActionSendMessageComponent implements OnInit {
   }
 
   onActionSelectApiNumber(model: SmsMainApiNumberModel): void {
-    if (model && model.id.length > 0) {
+    if (model && model.id?.length > 0) {
       this.dataModel.linkFromNumber = model.id;
     } else {
       this.dataModel.linkFromNumber = null;
@@ -245,7 +245,7 @@ export class SmsActionSendMessageComponent implements OnInit {
   }
   dataMessageCategoryModel: SmsMainMessageCategoryModel = new SmsMainMessageCategoryModel();
   onActionSelectMessageCategory(model: SmsMainMessageCategoryModel): void {
-    if (model && model.id.length > 0) {
+    if (model && model.id?.length > 0) {
       this.dataMessageCategoryModel = model;
     }
     else {
@@ -254,7 +254,7 @@ export class SmsActionSendMessageComponent implements OnInit {
   }
   dataMessageContentModel: SmsMainMessageContentModel = new SmsMainMessageContentModel();
   onActionSelectMessageContent(model: SmsMainMessageContentModel): void {
-    if (model && model.id.length > 0) {
+    if (model && model.id?.length > 0) {
       this.dataMessageContentModel = model;
     }
     else {

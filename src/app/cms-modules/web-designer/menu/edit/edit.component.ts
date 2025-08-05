@@ -17,10 +17,10 @@ import { EditBaseComponent } from 'src/app/core/cmsComponent/editBaseComponent';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 @Component({
-    selector: 'app-webdesigner-menu-edit',
-    templateUrl: './edit.component.html',
-    styleUrls: ['./edit.component.scss'],
-    standalone: false
+  selector: 'app-webdesigner-menu-edit',
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.scss'],
+  standalone: false
 })
 export class WebDesignerMainMenuEditComponent extends EditBaseComponent<WebDesignerMainMenuService, WebDesignerMainMenuModel, string>
   implements OnInit {
@@ -162,7 +162,7 @@ export class WebDesignerMainMenuEditComponent extends EditBaseComponent<WebDesig
   }
   onActionSelectorSelect(model: WebDesignerMainMenuModel): void {
     this.dataModel.linkParentId = null;
-    if (model && model.id.length > 0) {
+    if (model && model.id?.length > 0) {
       this.dataModel.linkParentId = model.id;
     }
   }

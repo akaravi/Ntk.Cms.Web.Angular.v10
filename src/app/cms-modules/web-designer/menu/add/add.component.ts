@@ -15,10 +15,10 @@ import { AddBaseComponent } from 'src/app/core/cmsComponent/addBaseComponent';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 @Component({
-    selector: 'app-webdesigner-menu-add',
-    templateUrl: './add.component.html',
-    styleUrls: ['./add.component.scss'],
-    standalone: false
+  selector: 'app-webdesigner-menu-add',
+  templateUrl: './add.component.html',
+  styleUrls: ['./add.component.scss'],
+  standalone: false
 })
 export class WebDesignerMainMenuAddComponent extends AddBaseComponent<WebDesignerMainMenuService, WebDesignerMainMenuModel, string> implements OnInit {
   requestParentId = '';
@@ -100,7 +100,7 @@ export class WebDesignerMainMenuAddComponent extends AddBaseComponent<WebDesigne
   }
   onActionSelectorSelect(model: WebDesignerMainMenuModel): void {
     this.dataModel.linkParentId = null;
-    if (model && model.id.length > 0) {
+    if (model && model.id?.length > 0) {
       this.dataModel.linkParentId = model.id;
     }
   }

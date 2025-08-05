@@ -17,10 +17,10 @@ import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 
 
 @Component({
-    selector: 'app-sms-privateconfig-sendtest',
-    templateUrl: './sendTest.component.html',
-    styleUrls: ['./sendTest.component.scss'],
-    standalone: false
+  selector: 'app-sms-privateconfig-sendtest',
+  templateUrl: './sendTest.component.html',
+  styleUrls: ['./sendTest.component.scss'],
+  standalone: false
 })
 export class SmsMainApiPathSendTestComponent implements OnInit {
   requestLinkApiPathId = '';
@@ -67,7 +67,7 @@ export class SmsMainApiPathSendTestComponent implements OnInit {
   onActionSelectPrivateSiteConfig(model: SmsMainApiPathModel): void {
     this.dataModel.linkApiPathId = this.requestLinkApiPathId;
     this.dataModelParentSelected = model;
-    if (model && model.id.length > 0) {
+    if (model && model.id?.length > 0) {
       this.dataModel.linkApiPathId = model.id;
 
       this.sendByShow = false;

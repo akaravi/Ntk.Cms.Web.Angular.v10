@@ -89,14 +89,14 @@ export class SmsMainMessageContentSelectorComponent implements OnInit {
     filterModel.accessLoad = true;
 
     let filter = new FilterDataModel();
-    if (text && typeof +text === 'string') {
+    if (text && text.length > 0) {
       filter.propertyName = 'Title';
       filter.value = text;
       filter.searchType = FilterDataModelSearchTypesEnum.Contains;
       filter.clauseType = ClauseTypeEnum.Or;
       filterModel.filters.push(filter);
     }
-    if (text && typeof +text === 'string' && +text > 0) {
+    if (text && typeof text === 'string' && text.length > 10) {
       filter = new FilterDataModel();
       filter.propertyName = 'Id';
       filter.value = text;

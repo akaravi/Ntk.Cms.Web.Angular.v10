@@ -24,10 +24,10 @@ export class DateByClock {
 }
 
 @Component({
-    selector: 'app-core-main-action-send-notification',
-    templateUrl: './send-notification.component.html',
-    styleUrls: ['./send-notification.component.scss'],
-    standalone: false
+  selector: 'app-core-main-action-send-notification',
+  templateUrl: './send-notification.component.html',
+  styleUrls: ['./send-notification.component.scss'],
+  standalone: false
 })
 export class CoreMainActionSendNotificationComponent implements OnInit {
 
@@ -35,7 +35,7 @@ export class CoreMainActionSendNotificationComponent implements OnInit {
   constructor(
     public coreEnumService: CoreEnumService,
     public coreTokenConnectionService: CoreTokenConnectionService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
@@ -100,7 +100,7 @@ export class CoreMainActionSendNotificationComponent implements OnInit {
 
   dataMessageCategoryModel: SmsMainMessageCategoryModel = new SmsMainMessageCategoryModel();
   onActionSelectMessageCategory(model: SmsMainMessageCategoryModel): void {
-    if (model && model.id.length > 0) {
+    if (model && model.id?.length > 0) {
       this.dataMessageCategoryModel = model;
     }
     else {
@@ -109,7 +109,7 @@ export class CoreMainActionSendNotificationComponent implements OnInit {
   }
   dataMessageContentModel: SmsMainMessageContentModel = new SmsMainMessageContentModel();
   onActionSelectMessageContent(model: SmsMainMessageContentModel): void {
-    if (model && model.id.length > 0) {
+    if (model && model.id?.length > 0) {
       this.dataMessageContentModel = model;
     }
     else {
@@ -152,12 +152,12 @@ export class CoreMainActionSendNotificationComponent implements OnInit {
         this.formInfo.formSubmitAllow = true;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
-                  this.translate.get('MESSAGE.Submit_request_was_successfully_registered').subscribe((str: string) => {
-          this.formInfo.formAlert = str;
-        });
-        this.translate.get('MESSAGE.Send_request_was_successfully_registered').subscribe((str: string) => {
-          this.cmsToastrService.typeSuccessMessage(str);
-        });
+          this.translate.get('MESSAGE.Submit_request_was_successfully_registered').subscribe((str: string) => {
+            this.formInfo.formAlert = str;
+          });
+          this.translate.get('MESSAGE.Send_request_was_successfully_registered').subscribe((str: string) => {
+            this.cmsToastrService.typeSuccessMessage(str);
+          });
         } else {
           this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
           this.formInfo.formError = ret.errorMessage;

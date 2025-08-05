@@ -21,10 +21,10 @@ import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 
 @Component({
-    selector: 'app-sms-apipath-edit',
-    templateUrl: './edit.component.html',
-    styleUrls: ['./edit.component.scss'],
-    standalone: false
+  selector: 'app-sms-apipath-edit',
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.scss'],
+  standalone: false
 })
 export class SmsMainApiPathEditComponent extends EditBaseComponent<SmsMainApiPathService, SmsMainApiPathModel, string>
   implements OnInit {
@@ -193,10 +193,10 @@ export class SmsMainApiPathEditComponent extends EditBaseComponent<SmsMainApiPat
     this.smsMainApiPathService.ServiceGetBalance(this.requestId).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.cmsToastrService.typeSuccessMessage(ret.item.info + " " + ret.item.status + " "+ ret.item.credit);
+          this.cmsToastrService.typeSuccessMessage(ret.item.info + " " + ret.item.status + " " + ret.item.credit);
         }
         else {
-          this.cmsToastrService.typeErrorMessage(ret.errorMessage+ret.item.info + " " + ret.item.status);
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage + ret.item.info + " " + ret.item.status);
         }
         this.publicHelper.processService.processStop(pName);
       },
@@ -233,7 +233,7 @@ export class SmsMainApiPathEditComponent extends EditBaseComponent<SmsMainApiPat
   }
   onActionSelectSource(model: SmsMainApiPathPublicConfigModel): void {
     this.dataModel.linkPublicConfigId = null;
-    if (model && model.id.length > 0) {
+    if (model && model.id?.length > 0) {
       this.dataModel.linkPublicConfigId = model.id;
     }
   }

@@ -30,10 +30,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-    selector: 'app-estate-account-agency-edit',
-    templateUrl: './edit.component.html',
-    styleUrls: ['./edit.component.scss'],
-    standalone: false
+  selector: 'app-estate-account-agency-edit',
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.scss'],
+  standalone: false
 })
 export class EstateAccountAgencyEditComponent extends EditBaseComponent<EstateAccountAgencyService, EstateAccountAgencyModel, string>
   implements OnInit {
@@ -46,7 +46,7 @@ export class EstateAccountAgencyEditComponent extends EditBaseComponent<EstateAc
     public estateAccountAgencyService: EstateAccountAgencyService,
     private estateAccountExpertService: EstateAccountExpertService,
     private cmsToastrService: CmsToastrService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private estateAccountAgencyExpertService: EstateAccountAgencyExpertService,
     public publicHelper: PublicHelper,
     public tokenHelper: TokenHelper,
@@ -333,7 +333,7 @@ export class EstateAccountAgencyEditComponent extends EditBaseComponent<EstateAc
   onActionSelectorAccountUser(model: EstateAccountExpertModel | null): void {
     this.dataEstateAccountAgencyExpertModel.linkEstateExpertId = null;
     this.dataEstateAccountAgencyExpertModel.linkEstateAccountAgencyId = this.requestId;
-    if (model && model.id.length > 0) {
+    if (model && model.id?.length > 0) {
       this.dataEstateAccountAgencyExpertModel.linkEstateExpertId = model.id;
     }
   }
