@@ -17,15 +17,85 @@
         </div>
       </div>
       <div class="tr">
-        <div class="td small-width"><b>{{fieldsInfo['id']?.fieldTitle}} </b>: </div>
+        <div class="td large-width"><b>{{fieldsInfo['id']?.fieldTitle}} </b>: </div>
         <div class="td large-width">{{dataModelResult?.item?.id}}</div>
         <div class="td"></div>
-
         <div style="clear: both;"></div>
       </div>
       <div class="tr">
-        <div class="td small-width"><b>{{fieldsInfo['message']?.fieldTitle}} </b>: </div>
-        <div class="td large-width">{{dataModelResult?.item?.message}}</div>
+        <div class="td large-width"><b>{{fieldsInfo['message']?.fieldTitle}} </b>: </div>
+        <div class="td large-width">{{dataModelResult?.item?.message |prettyLine}}</div>
+        <div style="clear: both;"></div>
+      </div>
+      <div class="tr">
+        <div class="td large-width"><b>{{fieldsInfo['linkApiPathId']?.fieldTitle}} </b>: </div>
+        <div class="td large-width">{{dataModelResult?.item?.linkApiPathId}}</div>
+        <div class="td"></div>
+        <div style="clear: both;"></div>
+      </div>
+
+
+
+
+      <div class="tr">
+        <div class="td large-width"><b>{{fieldsInfo['linkApiNumberId']?.fieldTitle}} </b>: </div>
+        <div class="td large-width">{{dataModelResult?.item?.linkApiNumberId}}</div>
+        <div class="td"></div>
+        <div style="clear: both;"></div>
+      </div>
+
+
+      <div class="tr">
+        <div class="td large-width"><b>{{fieldsInfo['sendDate']?.fieldTitle}} </b>: </div>
+        <div class="td large-width">{{dataModelResult?.item?.sendDate |localeDateTime}}</div>
+        <div class="td"></div>
+        <div style="clear: both;"></div>
+      </div>
+
+
+      <div class="tr">
+        <div class="td large-width"><b>{{fieldsInfo['countRow']?.fieldTitle}} </b>: </div>
+        <div class="td large-width">{{dataModelResult?.item?.countRow}}</div>
+        <div class="td"></div>
+        <div style="clear: both;"></div>
+      </div>
+
+
+      <div class="tr">
+        <div class="td large-width"><b>{{fieldsInfo['countSent']?.fieldTitle}} </b>: </div>
+        <div class="td large-width">{{dataModelResult?.item?.countSent}}</div>
+        <div class="td"></div>
+        <div style="clear: both;"></div>
+      </div>
+
+
+      <div class="tr">
+        <div class="td large-width"><b>{{fieldsInfo['countDelivery']?.fieldTitle}} </b>: </div>
+        <div class="td large-width">{{dataModelResult?.item?.countDelivery}}</div>
+        <div class="td"></div>
+        <div style="clear: both;"></div>
+      </div>
+
+
+      <div class="tr">
+        <div class="td large-width"><b>{{fieldsInfo['countCreditBacked']?.fieldTitle}} </b>: </div>
+        <div class="td large-width">{{dataModelResult?.item?.countCreditBacked}}</div>
+        <div class="td"></div>
+        <div style="clear: both;"></div>
+      </div>
+
+
+      <div class="tr">
+        <div class="td large-width"><b>{{fieldsInfo['sumCredit']?.fieldTitle}} </b>: </div>
+        <div class="td large-width">{{dataModelResult?.item?.sumCredit}}</div>
+        <div class="td"></div>
+        <div style="clear: both;"></div>
+      </div>
+
+      <div class="tr">
+        <div class="td large-width"><b>{{fieldsInfo['sumCreditBacked']?.fieldTitle}} </b>: </div>
+        <div class="td large-width">{{dataModelResult?.item?.sumCreditBacked}}</div>
+        <div class="td"></div>
         <div style="clear: both;"></div>
       </div>
     </div>

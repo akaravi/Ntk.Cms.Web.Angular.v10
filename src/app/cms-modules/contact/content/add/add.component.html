@@ -14,8 +14,7 @@
       <!-- RecordStatus Field -->
       <app-cms-enum-record-status-selector *ngIf="fieldsInfo['recordStatus']?.accessWatchField"
         [(model)]="dataModel.recordStatus" [optionDisabled]="false"
-        [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle" [optionRequired]="true"
-        [optionSelectFirstItem]="true">
+        [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle" [optionRequired]="true" [optionSelectFirstItem]="true">
       </app-cms-enum-record-status-selector>
       <!-- LinkCategoryId Field -->
       <app-contact-category-selector (optionChange)="onActionSelectCategory($event)"
@@ -31,6 +30,20 @@
         <mat-error *ngIf="Title.errors?.required">
           {{ fieldsInfo['title']?.fieldTitle }} is <strong>{{'MESSAGE.required' | translate}}</strong>
         </mat-error>
+      </div>
+      <!-- numberHidden Field -->
+      <div *ngIf="fieldsInfo['numberHidden']?.accessWatchField" class="d-flex mb-3">
+        <div class="pt-1">
+          <h5 data-trigger-switch="dataModel.numberHidden" class="font-600 font-14">
+            {{fieldsInfo['numberHidden']?.fieldTitle}}</h5>
+        </div>
+        <div class="ms-auto me-3 pe-2">
+          <div class="custom-control ios-switch small-switch">
+            <input type="checkbox" class="ios-input" id="dataModel.numberHidden" [(ngModel)]="dataModel.numberHidden"
+              name="dataModel.numberHidden">
+            <label class="custom-control-label" for="dataModel.numberHidden"></label>
+          </div>
+        </div>
       </div>
       <!-- Numbers Field -->
       <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">

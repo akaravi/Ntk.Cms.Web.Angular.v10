@@ -18,10 +18,10 @@ import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 
 @Component({
-    selector: 'app-contact-category-edit',
-    templateUrl: './edit.component.html',
-    styleUrls: ['./edit.component.scss'],
-    standalone: false
+  selector: 'app-contact-category-edit',
+  templateUrl: './edit.component.html',
+  styleUrls: ['./edit.component.scss'],
+  standalone: false
 })
 export class ContactCategoryEditComponent extends EditBaseComponent<ContactCategoryService, ContactCategoryModel, string>
   implements OnInit {
@@ -162,5 +162,14 @@ export class ContactCategoryEditComponent extends EditBaseComponent<ContactCateg
   }
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });
+  }
+  onActionParentSelect(model: ContactCategoryModel): void {
+    const befor = this.dataModel.linkParentId + "";
+    this.dataModel.linkParentId = null;
+    if (model && model.id?.length > 0) {
+      this.dataModel.linkParentId = model.id;
+    }
+    if (this.dataModel.linkParentId = this.dataModel.id)
+      this.dataModel.linkParentId = befor;
   }
 }
