@@ -3,12 +3,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { Actions, initialState, ReducerCmsStoreModel, stateReducer } from './reducer.factory';
 
-/**
- * در صورت مشکل این دو تا کامپننت درست کار می کنند
- * بررسی کن
- * HeaderMenuComponent وSidebarMenuComponent
- * 
- */
 @Injectable({
   providedIn: 'root',
 })

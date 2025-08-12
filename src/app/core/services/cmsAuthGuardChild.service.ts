@@ -14,14 +14,16 @@ import { CmsStoreService } from '../reducers/cmsStore.service';
 export class CmsAuthGuardChild implements CanActivateChild {
   constructor(
     private cmsStoreService: CmsStoreService,
-    private authService: CmsAuthService) { }
+    private authService: CoreAuthV3Service,
+    private cmsAuthService: CmsAuthService) { }
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (this.cmsStoreService.getStateAll.tokenInfoStore && this.cmsStoreService.getStateAll.tokenInfoStore.access?.userId > 0) {
+      if (this.authService.getJWT()?.accessToken?.length > 0)
       return true;
     }
 
     // not logged in so redirect to login page with the return url
-    this.authService.logout();
+    this.cmsAuthService.logout();
     return false;
   }
 }

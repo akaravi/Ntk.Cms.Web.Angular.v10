@@ -1,11 +1,11 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthRefreshTokenModel, AuthUserSignInModel, CoreAuthV3Service, ErrorExceptionResult, TokenInfoModelV3, TokenJWTModel } from 'ntk-cms-api';
+import { AuthRefreshTokenModel, AuthUserSignInModel, CoreAuthV3Service, CoreCpMainMenuModel, CoreSiteModel, ErrorExceptionResult, TokenInfoModelV3, TokenJWTModel } from 'ntk-cms-api';
 import { BehaviorSubject, Observable, Subscription, catchError, finalize, firstValueFrom, interval, map, of, switchMap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { TokenHelper } from '../helpers/tokenHelper';
 import { CmsStoreService } from '../reducers/cmsStore.service';
-import { SET_Theme_STATE, SET_TOKEN_INFO } from '../reducers/reducer.factory';
+import { SET_Core_Site, SET_CpMain_Menu, SET_Theme_STATE, SET_TOKEN_INFO } from '../reducers/reducer.factory';
 import { TokenInfoType } from '../models/tokenInfoType';
 import { TokenJwtType } from '../models/tokenJwtType';
 
@@ -107,6 +107,11 @@ export class CmsAuthService implements OnDestroy {
   }
 
   logout() {
+    this.cmsStoreService.setState({ type: SET_TOKEN_INFO, payload: new TokenInfoModelV3() });
+    this.cmsStoreService.setState({ type: SET_Core_Site, payload: new ErrorExceptionResult<CoreSiteModel>() });
+    this.cmsStoreService.setState({ type: SET_CpMain_Menu, payload: new ErrorExceptionResult<CoreCpMainMenuModel>() });
+
+    this.authService.setJWT(null);
     this.authService.ServiceLogout();
     this.router.navigate(['/auth/login'], {
       queryParams: {},

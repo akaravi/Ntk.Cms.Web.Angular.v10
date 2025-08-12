@@ -2,7 +2,7 @@
   [style.height]="themeStore.innerHeight>480?'480px':this.themeStore.innerHeight-50+'px'">
   <div class="menu-title">
     <p class="color-highlight">{{'TITLE.User_Profile'| translate}} </p>
-    <h1 class="font-800">{{ tokenInfo.user.name}} {{ tokenInfo.user.lastName }}</h1>
+    <h1 class="font-800">{{ tokenInfo?.user.name}} {{ tokenInfo?.user.lastName }}</h1>
     <a (click)="themeStore.dataMenu=''" class="close-menu"><i class="fa fa-times-circle"></i></a>
   </div>
   <div class="content">
@@ -10,7 +10,7 @@
     <div class="d-flex mb-0 ps-2 pe-2">
       <div>
         <img
-          [src]="((tokenInfo&&tokenInfo.user?.linkMainImageIdSrc && tokenInfo.user.linkMainImageIdSrc?.length>0) ? tokenInfo.user.linkMainImageIdSrc : './assets/media/avatars/300-1.jpg')"
+          [src]="((tokenInfo&&tokenInfo?.user?.linkMainImageIdSrc && tokenInfo?.user?.linkMainImageIdSrc?.length>0) ? tokenInfo?.user?.linkMainImageIdSrc : './assets/media/avatars/300-1.jpg')"
           class="rounded-sm" width="80">
       </div>
       <div class="w-100 ms-3 pt-1">

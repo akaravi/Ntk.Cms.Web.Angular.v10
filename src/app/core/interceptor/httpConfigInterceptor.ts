@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { CmsToastrService } from '../services/cmsToastr.service';
+import { CmsAuthService } from '../services/cmsAuth.service';
 
 @Injectable()
 export class HttpConfigInterceptor implements HttpInterceptor {
@@ -11,6 +12,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
   constructor(
     private router: Router,
     public cmsToastrService: CmsToastrService,
+    private authService: CmsAuthService,
     // public errorDialogService: ErrorDialogService
   ) {
   }
@@ -36,17 +38,26 @@ export class HttpConfigInterceptor implements HttpInterceptor {
           this.cmsToastrService.typeError(error.status, error.message);
           return null;
         }
-        if (error.status === 401) {
-          //this.cmsToastrService.typeErrorUserToken();
-          localStorage.removeItem('userToken');
-          this.router.navigate(['auth/singin']);
-          return null;
-        }
-        if (error && error.error && error.error.reason) {
+        else if (error.status === 500) {
+          console.log("خطای برنامه نویسی در سرور");
           this.cmsToastrService.typeError(error.status, error.error.reason);
           return null;
         }
-        this.cmsToastrService.typeError(error.status);
+        else if (error.status === 401) {
+          this.authService.logout();
+          return null;
+        }
+        else if (error.status === 403) {
+          this.authService.logout();
+          return null;
+        }
+        else if (error && error.error && error.error.reason) {
+          this.cmsToastrService.typeError(error.status, error.error.reason);
+          return null;
+        }
+        else {
+          this.cmsToastrService.typeError(error.status);
+        }
         // let data = {};
         // data = {
         //   reason: error && error.error && error.error.reason ? error.error.reason : '',

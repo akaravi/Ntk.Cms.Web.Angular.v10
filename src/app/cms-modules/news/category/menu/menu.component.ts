@@ -38,13 +38,13 @@ export class NewsCategoryMenuComponent implements OnInit, OnDestroy {
     });
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
-      if (this.tokenInfo && this.tokenInfo.access.userId > 0 && this.tokenInfo.access.siteId > 0) {
+      if (this.tokenInfo && this.tokenInfo?.access?.userId > 0 && this.tokenInfo?.access?.siteId > 0) {
         this.loadData();
       }
     }
     this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
       this.tokenInfo = value;
-      if (this.tokenInfo && this.tokenInfo.access.userId > 0 && this.tokenInfo.access.siteId > 0) {
+      if (this.tokenInfo && this.tokenInfo?.access?.userId > 0 && this.tokenInfo?.access?.siteId > 0) {
         this.loadData();
       }
     });
