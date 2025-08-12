@@ -1,11 +1,12 @@
 import { HttpClient, HttpEventType, HttpRequest } from '@angular/common/http';
+import { Inject } from '@angular/core';
 import { FilePickerAdapter, FilePreviewModel, UploadResponse, UploadStatus } from 'ngx-ntk-file-picker';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
 export class FileUploaderPickerAdapter extends FilePickerAdapter {
-  constructor(public http: HttpClient) {
+  constructor(@Inject(HttpClient) public http: HttpClient) {
     super();
   }
   public uploadFile(fileItem: FilePreviewModel): Observable<UploadResponse> {

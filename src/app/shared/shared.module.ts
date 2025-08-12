@@ -3,7 +3,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { PlatformModule } from '@angular/cdk/platform';
 import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -293,7 +293,7 @@ import { DomChangeDirective } from '../core/directive/domChange.directive';
   ],
 
   providers: [
-    provideHttpClient(withInterceptorsFromDi()),
+    provideHttpClient(withInterceptorsFromDi(), withFetch()),
     OverlayService,
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
     { provide: DateAdapter, useClass: MaterialPersianDateAdapter, deps: [MAT_DATE_LOCALE] },
@@ -325,7 +325,7 @@ import { DomChangeDirective } from '../core/directive/domChange.directive';
 
   imports: [
     CommonModule,
-    HttpClientModule,
+
     CmsTranslateModule.forChild({}),
     FormsModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
