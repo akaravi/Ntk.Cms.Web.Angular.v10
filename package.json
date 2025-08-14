@@ -1,6 +1,6 @@
 {
   "name": "ntk-cms-web",
-  "version": "20.25.0805.1",
+  "version": "20.25.805.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -15,7 +15,12 @@
     "serve4": "node --max_old_space_size=32768 ./node_modules/@angular/cli/bin/ng serve",
     "build-prod": "ng build --configuration production",
     "build-prod2": "node --max_old_space_size=16384 ./node_modules/@angular/cli/bin/ng build --configuration production",
-    "build-prod3": "node --max_old_space_size=32768 ./node_modules/@angular/cli/bin/ng build --configuration production --build-optimizer"
+    "build-prod3": "node --max_old_space_size=32768 ./node_modules/@angular/cli/bin/ng build --configuration production --build-optimizer",
+    "format": "prettier --write \"src/**/*.{ts,js,html,css,scss,json}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,js,html,css,scss,json}\"",
+    "lint": "eslint \"src/**/*.{ts,js}\"",
+    "lint:fix": "eslint \"src/**/*.{ts,js}\" --fix",
+    "lint:check": "eslint \"src/**/*.{ts,js}\" --max-warnings 0"
   },
   "prettier": {
     "overrides": [
@@ -72,16 +77,17 @@
     "ngx-clipboard": "^16.0.0",
     "ngx-color-picker": "^20.0.0",
     "ngx-material-timepicker": "^13.1.1",
-    "ngx-ntk-cron-editor": "^18.26.4",
-    "ngx-ntk-file-picker": "^18.26.4",
-    "ngx-ntk-icon-picker": "^18.26.4",
+    "ngx-ntk-cron-editor": "^20.25.3",
+    "ngx-ntk-file-picker": "^20.25.3",
+    "ngx-ntk-icon-picker": "^20.25.3",
+    "ngx-ntk-mat-color-picker": "^20.25.3",
     "ngx-ntk-pannellum": "^2.5.7",
-    "ngx-ntk-smart-module": "^18.26.4",
+    "ngx-ntk-smart-module": "^20.25.3",
     "ngx-toastr": "^19.0.0",
     "ngx-window-token": "^7.0.0",
     "nouislider": "^15.8.0",
-    "ntk-cms-api": "^18.26.17",
-    "ntk-cms-filemanager": "^18.26.5",
+    "ntk-cms-api": "^20.25.3",
+    "ntk-cms-filemanager": "^20.25.4",
     "object-path": "0.11.8",
     "prism-themes": "1.9.0",
     "prismjs": "^1.29.0",
@@ -91,16 +97,23 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
+    "@angular-eslint/builder": "^20.1.1",
+    "@angular-eslint/eslint-plugin": "^20.1.1",
+    "@angular-eslint/eslint-plugin-template": "^20.1.1",
+    "@angular-eslint/schematics": "^20.1.1",
+    "@angular-eslint/template-parser": "^20.1.1",
     "@angular/build": "^20.1.0",
     "@angular/cli": "^20.1.0",
     "@angular/compiler-cli": "^20.1.0",
     "@types/jasmine": "~5.1.0",
+    "eslint": "^9.33.0",
     "jasmine-core": "~5.8.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "prettier": "^3.6.2",
     "typescript": "~5.8.2"
   }
 }
