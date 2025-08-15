@@ -57,7 +57,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
             /** */
             this.cmsAuthService.refreshToken().subscribe({
               next: (res) => {
-                if (!res.isSuccess) {
+                if (!res || !res.isSuccess) {
                   this.cmsAuthService.logout();
                 }
               },
@@ -77,7 +77,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
             /** */
             this.cmsAuthService.refreshToken().subscribe({
               next: (res) => {
-                if (!res.isSuccess) {
+                if (!res || !res.isSuccess) {
                   this.cmsAuthService.logout();
                 }
               },
