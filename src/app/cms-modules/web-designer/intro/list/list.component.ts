@@ -1,31 +1,39 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { PageEvent } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { ActivatedRoute, Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import {
   FilterDataModel,
-  FilterModel, RecordStatusEnum, SortTypeEnum,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
   WebDesignerMainIntroModel,
-  WebDesignerMainIntroService
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { ListBaseComponent } from 'src/app/core/cmsComponent/listBaseComponent';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { PageInfoService } from 'src/app/core/services/page-info.service';
-import { CmsConfirmationDialogService } from 'src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  WebDesignerMainIntroService,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { PageInfoService } from "src/app/core/services/page-info.service";
+import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 
 @Component({
-  selector: 'app-webdesigner-intro-list',
-  templateUrl: './list.component.html',
-  standalone: false
+  selector: "app-webdesigner-intro-list",
+  templateUrl: "./list.component.html",
+  standalone: false,
 })
-export class WebDesignerMainIntroListComponent extends ListBaseComponent<WebDesignerMainIntroService, WebDesignerMainIntroModel, string> implements OnInit, OnDestroy {
+export class WebDesignerMainIntroListComponent
+  extends ListBaseComponent<
+    WebDesignerMainIntroService,
+    WebDesignerMainIntroModel,
+    string
+  >
+  implements OnInit, OnDestroy
+{
   requestLinkPageId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
@@ -40,15 +48,22 @@ export class WebDesignerMainIntroListComponent extends ListBaseComponent<WebDesi
     private cmsStoreService: CmsStoreService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
-    public dialog: MatDialog) {
-    super(contentService, new WebDesignerMainIntroModel(), publicHelper, tokenHelper, translate);
+    public dialog: MatDialog,
+  ) {
+    super(
+      contentService,
+      new WebDesignerMainIntroModel(),
+      publicHelper,
+      tokenHelper,
+      translate,
+    );
     this.publicHelper.processService.cdr = this.cdr;
     this.optionsSearch.parentMethods = {
       onSubmit: (model) => this.onSubmitOptionsSearch(model),
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = 'Id';
+    this.filteModelContent.sortColumn = "Id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
 
@@ -61,32 +76,34 @@ export class WebDesignerMainIntroListComponent extends ListBaseComponent<WebDesi
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    'LinkMainImageIdSrc',
-    'Id',
-    'RecordStatus',
+    "LinkMainImageIdSrc",
+    "Id",
+    "RecordStatus",
     // 'Title',
-    'LinkPageId',
-    'CreatedDate',
-    'UpdatedDate',
+    "LinkPageId",
+    "CreatedDate",
+    "UpdatedDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    'LinkMainImageIdSrc',
-    'Id',
-    'RecordStatus',
+    "LinkMainImageIdSrc",
+    "Id",
+    "RecordStatus",
     // 'Title',
-    'LinkPageId',
-    'CreatedDate',
-    'UpdatedDate',
+    "LinkPageId",
+    "CreatedDate",
+    "UpdatedDate",
     // 'Action'
   ];
   expandedElement: WebDesignerMainIntroModel | null;
   cmsApiStoreSubscribe: Subscription;
   ngOnInit(): void {
-    this.requestLinkPageId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkPageId'));
+    this.requestLinkPageId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkPageId"),
+    );
     const filter = new FilterDataModel();
     if (this.requestLinkPageId > 0) {
-      filter.propertyName = 'LinkPageId';
+      filter.propertyName = "LinkPageId";
       filter.value = this.requestLinkPageId;
       this.filteModelContent.filters.push(filter);
     }
@@ -95,10 +112,12 @@ export class WebDesignerMainIntroListComponent extends ListBaseComponent<WebDesi
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -106,18 +125,31 @@ export class WebDesignerMainIntroListComponent extends ListBaseComponent<WebDesi
     }
   }
   DataGetAll(): void {
-    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(this.tabledisplayedColumnsSource, this.tabledisplayedColumnsMobileSource, [], this.tokenInfo);
+    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
+      this.tabledisplayedColumnsSource,
+      this.tabledisplayedColumnsMobileSource,
+      [],
+      this.tokenInfo,
+    );
 
     if (this.requestLinkPageId === 0) {
       this.tabledisplayedColumns = this.publicHelper.listRemoveIfExist(
         this.tabledisplayedColumns,
-        'LinkPageId'
+        "LinkPageId",
       );
     }
     this.tableRowsSelected = [];
     this.onActionTableRowSelect(new WebDesignerMainIntroModel());
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.get_information_list').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.get_information_list")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.filteModelContent.accessLoad = true;
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
@@ -129,8 +161,7 @@ export class WebDesignerMainIntroListComponent extends ListBaseComponent<WebDesi
           this.dataModelResult = ret;
           this.tableSource.data = ret.listItems;
 
-          if (this.optionsStatist?.data?.show)
-            this.onActionButtonStatist(true);
+          if (this.optionsStatist?.data?.show) this.onActionButtonStatist(true);
           setTimeout(() => {
             if (this.optionsSearch.childMethods)
               this.optionsSearch.childMethods.setAccess(ret.access);
@@ -142,22 +173,25 @@ export class WebDesignerMainIntroListComponent extends ListBaseComponent<WebDesi
         this.cmsToastrService.typeError(err);
 
         this.publicHelper.processService.processStop(pName);
-      }
-    }
-    );
+      },
+    });
   }
   onTableSortData(sort: MatSort): void {
-    if (this.tableSource && this.tableSource.sort && this.tableSource.sort.active === sort.active) {
-      if (this.tableSource.sort.start === 'asc') {
-        sort.start = 'desc';
+    if (
+      this.tableSource &&
+      this.tableSource.sort &&
+      this.tableSource.sort.active === sort.active
+    ) {
+      if (this.tableSource.sort.start === "asc") {
+        sort.start = "desc";
         this.filteModelContent.sortColumn = sort.active;
         this.filteModelContent.sortType = SortTypeEnum.Descending;
-      } else if (this.tableSource.sort.start === 'desc') {
-        sort.start = 'asc';
-        this.filteModelContent.sortColumn = '';
+      } else if (this.tableSource.sort.start === "desc") {
+        sort.start = "asc";
+        this.filteModelContent.sortColumn = "";
         this.filteModelContent.sortType = SortTypeEnum.Ascending;
       } else {
-        sort.start = 'desc';
+        sort.start = "desc";
       }
     } else {
       this.filteModelContent.sortColumn = sort.active;
@@ -182,13 +216,14 @@ export class WebDesignerMainIntroListComponent extends ListBaseComponent<WebDesi
       return;
     }
     if (this.requestLinkPageId > 0) {
-      this.router.navigate(['/webdesigner/intro/add/', this.requestLinkPageId]);
-    }
-    else {
-      this.router.navigate(['/webdesigner/intro/add/']);
+      this.router.navigate(["/webdesigner/intro/add/", this.requestLinkPageId]);
+    } else {
+      this.router.navigate(["/webdesigner/intro/add/"]);
     }
   }
-  onActionButtonEditRow(model: WebDesignerMainIntroModel = this.tableRowSelected): void {
+  onActionButtonEditRow(
+    model: WebDesignerMainIntroModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
@@ -202,13 +237,20 @@ export class WebDesignerMainIntroListComponent extends ListBaseComponent<WebDesi
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
-    this.router.navigate(['/webdesigner/intro/edit/', this.tableRowSelected.id]);
+    this.router.navigate([
+      "/webdesigner/intro/edit/",
+      this.tableRowSelected.id,
+    ]);
   }
-  onActionButtonDeleteRow(model: WebDesignerMainIntroModel = this.tableRowSelected): void {
+  onActionButtonDeleteRow(
+    model: WebDesignerMainIntroModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id.length === 0) {
-      this.translate.get('MESSAGE.No_row_selected_for_editing').subscribe((emessage: string) => {
-        this.cmsToastrService.typeErrorSelected(emessage);
-      });
+      this.translate
+        .get("MESSAGE.No_row_selected_for_editing")
+        .subscribe((emessage: string) => {
+          this.cmsToastrService.typeErrorSelected(emessage);
+        });
       return;
     }
     this.onActionTableRowSelect(model);
@@ -222,42 +264,57 @@ export class WebDesignerMainIntroListComponent extends ListBaseComponent<WebDesi
     }
     var title = "";
     var message = "";
-    this.translate.get(['MESSAGE.Please_Confirm', 'MESSAGE.Do_you_want_to_delete_this_content']).subscribe((str: string) => {
-      title = str['MESSAGE.Please_Confirm'];
-      message = str['MESSAGE.Do_you_want_to_delete_this_content'] + '?' + '<br> ( ' + this.tableRowSelected.title + ' ) ';
-    });
-    this.cmsConfirmationDialogService.confirm(title, message)
+    this.translate
+      .get([
+        "MESSAGE.Please_Confirm",
+        "MESSAGE.Do_you_want_to_delete_this_content",
+      ])
+      .subscribe((str: string) => {
+        title = str["MESSAGE.Please_Confirm"];
+        message =
+          str["MESSAGE.Do_you_want_to_delete_this_content"] +
+          "?" +
+          "<br> ( " +
+          this.tableRowSelected.title +
+          " ) ";
+      });
+    this.cmsConfirmationDialogService
+      .confirm(title, message)
       .then((confirmed) => {
         if (confirmed) {
-          const pName = this.constructor.name + 'main';
-          this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-            this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-          });
+          const pName = this.constructor.name + "main";
+          this.translate
+            .get("MESSAGE.Receiving_information")
+            .subscribe((str: string) => {
+              this.publicHelper.processService.processStart(
+                pName,
+                str,
+                this.constructorInfoAreaId,
+              );
+            });
 
-          this.contentService.ServiceDelete(this.tableRowSelected.id).subscribe({
-            next: (ret) => {
-              if (ret.isSuccess) {
-                this.cmsToastrService.typeSuccessRemove();
-                this.DataGetAll();
-              } else {
-                this.cmsToastrService.typeErrorRemove();
-              }
-              this.publicHelper.processService.processStop(pName);
-
-            },
-            error: (err) => {
-              this.cmsToastrService.typeError(err);
-              this.publicHelper.processService.processStop(pName);
-            }
-          }
-          );
+          this.contentService
+            .ServiceDelete(this.tableRowSelected.id)
+            .subscribe({
+              next: (ret) => {
+                if (ret.isSuccess) {
+                  this.cmsToastrService.typeSuccessRemove();
+                  this.DataGetAll();
+                } else {
+                  this.cmsToastrService.typeErrorRemove();
+                }
+                this.publicHelper.processService.processStop(pName);
+              },
+              error: (err) => {
+                this.cmsToastrService.typeError(err);
+                this.publicHelper.processService.processStop(pName);
+              },
+            });
         }
-      }
-      )
+      })
       .catch(() => {
         // console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)')
-      }
-      );
+      });
   }
   onActionButtonStatist(view = !this.optionsStatist.data.show): void {
     this.optionsStatist.data.show = view;
@@ -265,14 +322,24 @@ export class WebDesignerMainIntroListComponent extends ListBaseComponent<WebDesi
       return;
     }
     const statist = new Map<string, number>();
-    this.translate.get('MESSAGE.Active').subscribe((str: string) => { statist.set(str, 0); });
-    this.translate.get('MESSAGE.All').subscribe((str: string) => { statist.set(str, 0); });
-    const pName = this.constructor.name + '.ServiceStatist';
-    this.translate.get('MESSAGE.Get_the_statist').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    this.translate.get("MESSAGE.All").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    const pName = this.constructor.name + ".ServiceStatist";
+    this.translate.get("MESSAGE.Get_the_statist").subscribe((str: string) => {
+      this.publicHelper.processService.processStart(
+        pName,
+        str,
+        this.constructorInfoAreaId,
+      );
+    });
     this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          statist.set('All', ret.totalRowCount);
+          statist.set("All", ret.totalRowCount);
           this.optionsStatist.childMethods.setStatistValue(statist);
         }
         this.publicHelper.processService.processStop(pName);
@@ -280,42 +347,42 @@ export class WebDesignerMainIntroListComponent extends ListBaseComponent<WebDesi
       error: (err) => {
         this.cmsToastrService.typeError(err);
         this.publicHelper.processService.processStop(pName);
-      }
-    }
-    );
+      },
+    });
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = 'RecordStatus';
+    fastfilter.propertyName = "RecordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          statist.set('Active', ret.totalRowCount);
+          statist.set("Active", ret.totalRowCount);
           this.optionsStatist.childMethods.setStatistValue(statist);
         }
         this.publicHelper.processService.processStop(pName);
-      }
-      ,
+      },
       error: (err) => {
         this.cmsToastrService.typeError(err);
         this.publicHelper.processService.processStop(pName);
-      }
-    }
-    );
+      },
+    });
   }
-
-
 
   onActionButtonReload(): void {
     this.DataGetAll();
   }
-  onSubmitOptionsSearch(model: any): void {
-    this.filteModelContent.filters = model;
+  onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
+    if (model && model.length > 0) {
+      this.filteModelContent.filters = [
+        ...this.filteModelContent.filters,
+        ...model,
+      ];
+    }
     this.DataGetAll();
   }
 
   onActionBackToParent(): void {
-    this.router.navigate(['/core/site/']);
+    this.router.navigate(["/core/site/"]);
   }
 }

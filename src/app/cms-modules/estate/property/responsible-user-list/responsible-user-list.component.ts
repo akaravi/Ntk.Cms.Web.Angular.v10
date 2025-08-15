@@ -1,18 +1,28 @@
 import {
-  AfterViewInit, ChangeDetectorRef, Component, Inject,
-  OnDestroy, OnInit
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
 } from "@angular/core";
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService } from "@ngx-translate/core";
 import {
   CoreUserModel,
   DataFieldInfoModel,
   EstatePropertyService,
-  FilterModel, FormInfoModel,
-  SortTypeEnum, TokenInfoModelV3
+  FilterModel,
+  FormInfoModel,
+  FilterDataModel,
+  SortTypeEnum,
+  TokenInfoModelV3,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ComponentOptionSearchModel } from "src/app/core/cmsComponent/base/componentOptionSearchModel";
@@ -20,19 +30,19 @@ import { ComponentOptionStatistModel } from "src/app/core/cmsComponent/base/comp
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
-
 
 @Component({
-  selector: 'app-estate-property-responsible-user-list',
-  templateUrl: './responsible-user-list.component.html',
-  standalone: false
+  selector: "app-estate-property-responsible-user-list",
+  templateUrl: "./responsible-user-list.component.html",
+  standalone: false,
 })
-export class EstatePropertyResponsibleUserListComponent extends ListBaseComponent<EstatePropertyService, CoreUserModel, number>
-  implements OnInit, OnDestroy {
+export class EstatePropertyResponsibleUserListComponent
+  extends ListBaseComponent<EstatePropertyService, CoreUserModel, number>
+  implements OnInit, OnDestroy
+{
   requestTitle = "";
   requestPropertyId = "";
   constructorInfoAreaId = this.constructor.name;
@@ -50,19 +60,21 @@ export class EstatePropertyResponsibleUserListComponent extends ListBaseComponen
     public publicHelper: PublicHelper,
     public dialog: MatDialog,
   ) {
-    super(contentService, new CoreUserModel(), publicHelper, tokenHelper, translate);
+    super(
+      contentService,
+      new CoreUserModel(),
+      publicHelper,
+      tokenHelper,
+      translate,
+    );
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {
-      if (data.title)
-        this.requestTitle = data.title + '';
-      if (data.id)
-        this.requestPropertyId = data.id + '';
+      if (data.title) this.requestTitle = data.title + "";
+      if (data.id) this.requestPropertyId = data.id + "";
     }
     this.optionsSearch.parentMethods = {
       onSubmit: (model) => this.onSubmitOptionsSearch(model),
     };
-
-
   }
 
   dataSource: any;
@@ -70,33 +82,30 @@ export class EstatePropertyResponsibleUserListComponent extends ListBaseComponen
   filteModelContent = new FilterModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
-
   optionsSearch: ComponentOptionSearchModel = new ComponentOptionSearchModel();
   optionsStatist: ComponentOptionStatistModel =
     new ComponentOptionStatistModel();
 
   tokenInfo = new TokenInfoModelV3();
 
-
-
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    'LinkMainImageIdSrc',
-    'Id',
-    'RecordStatus',
-    'Name',
-    'LastName',
-    'CompanyName',
-    'email',
-    'mobile',
-    'action_menu',
+    "LinkMainImageIdSrc",
+    "Id",
+    "RecordStatus",
+    "Name",
+    "LastName",
+    "CompanyName",
+    "email",
+    "mobile",
+    "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    'Id',
-    'RecordStatus',
-    'Name',
-    'LastName',
-    'action_menu',
+    "Id",
+    "RecordStatus",
+    "Name",
+    "LastName",
+    "action_menu",
   ];
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
     string,
@@ -104,17 +113,19 @@ export class EstatePropertyResponsibleUserListComponent extends ListBaseComponen
   >();
   cmsApiStoreSubscribe: Subscription;
   ngOnInit(): void {
-    this.translate.get('TITLE.QUICK_VIEW').subscribe((str: string) => {
+    this.translate.get("TITLE.QUICK_VIEW").subscribe((str: string) => {
       this.formInfo.formTitle = str;
     });
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
     }
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+        this.DataGetAll();
+      });
   }
 
   ngOnDestroy(): void {
@@ -124,19 +135,29 @@ export class EstatePropertyResponsibleUserListComponent extends ListBaseComponen
   }
 
   DataGetAll(): void {
-
-    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(this.tabledisplayedColumnsSource, this.tabledisplayedColumnsMobileSource, [], this.tokenInfo);
+    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
+      this.tabledisplayedColumnsSource,
+      this.tabledisplayedColumnsMobileSource,
+      [],
+      this.tokenInfo,
+    );
 
     this.tableRowsSelected = [];
     this.onActionTableRowSelect(new CoreUserModel());
     const pName = this.constructor.name + "main";
-    this.translate.get('MESSAGE.get_information_list').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    this.translate
+      .get("MESSAGE.get_information_list")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.filteModelContent.accessLoad = true;
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
     /*filter CLone*/
-
-
 
     // ** */
     this.contentService
@@ -155,11 +176,9 @@ export class EstatePropertyResponsibleUserListComponent extends ListBaseComponen
         error: (er) => {
           this.cmsToastrService.typeError(er);
           this.publicHelper.processService.processStop(pName);
-        }
-      }
-      );
+        },
+      });
     // ** */
-
   }
 
   onTableSortData(sort: MatSort): void {
@@ -173,7 +192,7 @@ export class EstatePropertyResponsibleUserListComponent extends ListBaseComponen
         this.filteModelContent.sortColumn = sort.active;
         this.filteModelContent.sortType = SortTypeEnum.Descending;
       } else if (this.tableSource.sort.start === "desc") {
-        sort.start = 'asc';
+        sort.start = "asc";
         this.filteModelContent.sortColumn = "";
         this.filteModelContent.sortType = SortTypeEnum.Ascending;
       } else {
@@ -193,19 +212,19 @@ export class EstatePropertyResponsibleUserListComponent extends ListBaseComponen
     this.DataGetAll();
   }
 
-
-
-
-
-
   onActionButtonReload(): void {
     this.DataGetAll();
   }
   onActionCopied(): void {
     this.cmsToastrService.typeSuccessCopedToClipboard();
   }
-  onSubmitOptionsSearch(model: any): void {
-    this.filteModelContent.filters = model;
+  onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
+    if (model && model.length > 0) {
+      this.filteModelContent.filters = [
+        ...this.filteModelContent.filters,
+        ...model,
+      ];
+    }
     this.DataGetAll();
   }
 
@@ -214,9 +233,6 @@ export class EstatePropertyResponsibleUserListComponent extends ListBaseComponen
   }
 
   expandedElement: any;
-
-
-
 
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });

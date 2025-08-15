@@ -1,33 +1,46 @@
-
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { PageEvent } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { ActivatedRoute, Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreCurrencyModel, ErrorExceptionResult, FilterDataModel, FilterModel, RecordStatusEnum, SmsLogOutBoxDetailModel,
-  SmsLogOutBoxDetailService, SmsMainApiPathModel, SmsMainApiPathService, SortTypeEnum
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { ListBaseComponent } from 'src/app/core/cmsComponent/listBaseComponent';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { PageInfoService } from 'src/app/core/services/page-info.service';
-import { CmsConfirmationDialogService } from 'src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service';
-import { environment } from 'src/environments/environment';
-import { SmsLogOutBoxDetailViewComponent } from '../view/view.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  CoreCurrencyModel,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SmsLogOutBoxDetailModel,
+  SmsLogOutBoxDetailService,
+  SmsMainApiPathModel,
+  SmsMainApiPathService,
+  SortTypeEnum,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { PageInfoService } from "src/app/core/services/page-info.service";
+import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { environment } from "src/environments/environment";
+import { SmsLogOutBoxDetailViewComponent } from "../view/view.component";
 
 @Component({
-  selector: 'app-sms-log-outboxdetail-list',
-  templateUrl: './list.component.html',
-  standalone: false
+  selector: "app-sms-log-outboxdetail-list",
+  templateUrl: "./list.component.html",
+  standalone: false,
 })
-export class SmsLogOutBoxDetailListComponent extends ListBaseComponent<SmsLogOutBoxDetailService, SmsLogOutBoxDetailModel, string> implements OnInit, OnDestroy {
-  requestLinkOutBoxId = '';
+export class SmsLogOutBoxDetailListComponent
+  extends ListBaseComponent<
+    SmsLogOutBoxDetailService,
+    SmsLogOutBoxDetailModel,
+    string
+  >
+  implements OnInit, OnDestroy
+{
+  requestLinkOutBoxId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private contentService: SmsLogOutBoxDetailService,
@@ -42,21 +55,30 @@ export class SmsLogOutBoxDetailListComponent extends ListBaseComponent<SmsLogOut
     public translate: TranslateService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
-    public dialog: MatDialog) {
-    super(contentService, new SmsLogOutBoxDetailModel(), publicHelper, tokenHelper, translate);
+    public dialog: MatDialog,
+  ) {
+    super(
+      contentService,
+      new SmsLogOutBoxDetailModel(),
+      publicHelper,
+      tokenHelper,
+      translate,
+    );
     this.publicHelper.processService.cdr = this.cdr;
 
-    this.requestLinkOutBoxId = this.activatedRoute.snapshot.paramMap.get('LinkOutBoxId');
+    this.requestLinkOutBoxId =
+      this.activatedRoute.snapshot.paramMap.get("LinkOutBoxId");
     this.optionsSearch.parentMethods = {
-      onSubmit: (model) => this.onSubmitOptionsSearch(model),
+      onSubmit: (model: Array<FilterDataModel>) =>
+        this.onSubmitOptionsSearch(model),
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = 'CreatedDate';
+    this.filteModelContent.sortColumn = "CreatedDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     const filter = new FilterDataModel();
     if (this.requestLinkOutBoxId && this.requestLinkOutBoxId.length > 0) {
-      filter.propertyName = 'LinkOutBoxId';
+      filter.propertyName = "LinkOutBoxId";
       filter.value = this.requestLinkOutBoxId;
       this.filteModelContent.filters.push(filter);
     }
@@ -68,54 +90,47 @@ export class SmsLogOutBoxDetailListComponent extends ListBaseComponent<SmsLogOut
   tableContentSelected = [];
 
   filteModelContent = new FilterModel();
-  dataModelCoreCurrencyResult: ErrorExceptionResult<CoreCurrencyModel> = new ErrorExceptionResult<CoreCurrencyModel>();
-  dataModelPrivateResult: ErrorExceptionResult<SmsMainApiPathModel> = new ErrorExceptionResult<SmsMainApiPathModel>();
+  dataModelCoreCurrencyResult: ErrorExceptionResult<CoreCurrencyModel> =
+    new ErrorExceptionResult<CoreCurrencyModel>();
+  dataModelPrivateResult: ErrorExceptionResult<SmsMainApiPathModel> =
+    new ErrorExceptionResult<SmsMainApiPathModel>();
   categoryModelSelected: SmsMainApiPathModel;
-
-
-
-
-
-
-
-
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    'Id',
-    'CreatedDate',
-    'SenderNumber',
-    'ReceiverNumber',
-    'IsSended',
-    'recordDetailStatus',
-    'getApiDeliveryStatus',
-    'action_menu'
-
+    "Id",
+    "CreatedDate",
+    "SenderNumber",
+    "ReceiverNumber",
+    "IsSended",
+    "recordDetailStatus",
+    "getApiDeliveryStatus",
+    "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    'Id',
-    'CreatedDate',
-    'SenderNumber',
-    'ReceiverNumber',
-    'IsSended',
-    'recordDetailStatus',
-    'getApiDeliveryStatus',
-    'action_menu'
-
+    "Id",
+    "CreatedDate",
+    "SenderNumber",
+    "ReceiverNumber",
+    "IsSended",
+    "recordDetailStatus",
+    "getApiDeliveryStatus",
+    "action_menu",
   ];
   expandedElement: SmsLogOutBoxDetailModel | null;
   cmsApiStoreSubscribe: Subscription;
 
   ngOnInit(): void {
-
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
     }
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+        this.DataGetAll();
+      });
 
     this.getPrivateConfig();
   }
@@ -125,7 +140,7 @@ export class SmsLogOutBoxDetailListComponent extends ListBaseComponent<SmsLogOut
     this.smsMainApiPathService.ServiceGetAll(filter).subscribe({
       next: (ret) => {
         this.dataModelPrivateResult = ret;
-      }
+      },
     });
   }
 
@@ -135,12 +150,25 @@ export class SmsLogOutBoxDetailListComponent extends ListBaseComponent<SmsLogOut
     }
   }
   DataGetAll(): void {
-    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(this.tabledisplayedColumnsSource, this.tabledisplayedColumnsMobileSource, [], this.tokenInfo);
+    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
+      this.tabledisplayedColumnsSource,
+      this.tabledisplayedColumnsMobileSource,
+      [],
+      this.tokenInfo,
+    );
 
     this.tableRowsSelected = [];
     this.onActionTableRowSelect(new SmsLogOutBoxDetailModel());
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.get_information_list').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.get_information_list")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.filteModelContent.accessLoad = true;
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
@@ -154,14 +182,12 @@ export class SmsLogOutBoxDetailListComponent extends ListBaseComponent<SmsLogOut
           this.dataModelResult = ret;
           this.tableSource.data = ret.listItems;
 
-          if (this.optionsStatist?.data?.show)
-            this.onActionButtonStatist(true);
+          if (this.optionsStatist?.data?.show) this.onActionButtonStatist(true);
           setTimeout(() => {
             if (this.optionsSearch.childMethods)
               this.optionsSearch.childMethods.setAccess(ret.access);
           }, 1000);
-        }
-        else {
+        } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
@@ -169,24 +195,26 @@ export class SmsLogOutBoxDetailListComponent extends ListBaseComponent<SmsLogOut
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
 
-
   onTableSortData(sort: MatSort): void {
-    if (this.tableSource && this.tableSource.sort && this.tableSource.sort.active === sort.active) {
-      if (this.tableSource.sort.start === 'asc') {
-        sort.start = 'desc';
+    if (
+      this.tableSource &&
+      this.tableSource.sort &&
+      this.tableSource.sort.active === sort.active
+    ) {
+      if (this.tableSource.sort.start === "asc") {
+        sort.start = "desc";
         this.filteModelContent.sortColumn = sort.active;
         this.filteModelContent.sortType = SortTypeEnum.Descending;
-      } else if (this.tableSource.sort.start === 'desc') {
-        sort.start = 'asc';
-        this.filteModelContent.sortColumn = '';
+      } else if (this.tableSource.sort.start === "desc") {
+        sort.start = "asc";
+        this.filteModelContent.sortColumn = "";
         this.filteModelContent.sortType = SortTypeEnum.Ascending;
       } else {
-        sort.start = 'desc';
+        sort.start = "desc";
       }
     } else {
       this.filteModelContent.sortColumn = sort.active;
@@ -200,12 +228,15 @@ export class SmsLogOutBoxDetailListComponent extends ListBaseComponent<SmsLogOut
     this.filteModelContent.rowPerPage = event.pageSize;
   }
 
-
-
-
-  onActionButtonDeleteRow(model: SmsLogOutBoxDetailModel = this.tableRowSelected): void {
+  onActionButtonDeleteRow(
+    model: SmsLogOutBoxDetailModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id.length === 0) {
-      this.translate.get('MESSAGE.no_row_selected_to_delete').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("MESSAGE.no_row_selected_to_delete")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.onActionTableRowSelect(model);
@@ -219,45 +250,59 @@ export class SmsLogOutBoxDetailListComponent extends ListBaseComponent<SmsLogOut
       return;
     }
 
-
     var title = "";
     var message = "";
-    this.translate.get(['MESSAGE.Please_Confirm', 'MESSAGE.Do_you_want_to_delete_this_content']).subscribe((str: string) => {
-      title = str['MESSAGE.Please_Confirm'];
-      message = str['MESSAGE.Do_you_want_to_delete_this_content'] + '?' + '<br> ( ' + this.tableRowSelected.id + ' ) ';
-    });
-    this.cmsConfirmationDialogService.confirm(title, message)
+    this.translate
+      .get([
+        "MESSAGE.Please_Confirm",
+        "MESSAGE.Do_you_want_to_delete_this_content",
+      ])
+      .subscribe((str: string) => {
+        title = str["MESSAGE.Please_Confirm"];
+        message =
+          str["MESSAGE.Do_you_want_to_delete_this_content"] +
+          "?" +
+          "<br> ( " +
+          this.tableRowSelected.id +
+          " ) ";
+      });
+    this.cmsConfirmationDialogService
+      .confirm(title, message)
       .then((confirmed) => {
         if (confirmed) {
-          const pName = this.constructor.name + 'main';
-          this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-            this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-          });
+          const pName = this.constructor.name + "main";
+          this.translate
+            .get("MESSAGE.Receiving_information")
+            .subscribe((str: string) => {
+              this.publicHelper.processService.processStart(
+                pName,
+                str,
+                this.constructorInfoAreaId,
+              );
+            });
 
-          this.contentService.ServiceDelete(this.tableRowSelected.id).subscribe({
-            next: (ret) => {
-              if (ret.isSuccess) {
-                this.cmsToastrService.typeSuccessRemove();
-                this.DataGetAll();
-              } else {
-                this.cmsToastrService.typeErrorRemove();
-              }
-              this.publicHelper.processService.processStop(pName);
-            },
-            error: (er) => {
-              this.cmsToastrService.typeError(er);
-              this.publicHelper.processService.processStop(pName, false);
-            }
-          }
-          );
+          this.contentService
+            .ServiceDelete(this.tableRowSelected.id)
+            .subscribe({
+              next: (ret) => {
+                if (ret.isSuccess) {
+                  this.cmsToastrService.typeSuccessRemove();
+                  this.DataGetAll();
+                } else {
+                  this.cmsToastrService.typeErrorRemove();
+                }
+                this.publicHelper.processService.processStop(pName);
+              },
+              error: (er) => {
+                this.cmsToastrService.typeError(er);
+                this.publicHelper.processService.processStop(pName, false);
+              },
+            });
         }
-      }
-      )
+      })
       .catch(() => {
         // console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)')
-      }
-      );
-
+      });
   }
 
   onActionSelectorSelect(model: SmsMainApiPathModel | null): void {
@@ -279,14 +324,26 @@ export class SmsLogOutBoxDetailListComponent extends ListBaseComponent<SmsLogOut
       return;
     }
     const statist = new Map<string, number>();
-    this.translate.get('MESSAGE.Active').subscribe((str: string) => { statist.set(str, 0); });
-    this.translate.get('MESSAGE.All').subscribe((str: string) => { statist.set(str, 0); });
-    const pName = this.constructor.name + '.ServiceStatist';
-    this.translate.get('MESSAGE.Get_the_statist').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    this.translate.get("MESSAGE.All").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    const pName = this.constructor.name + ".ServiceStatist";
+    this.translate.get("MESSAGE.Get_the_statist").subscribe((str: string) => {
+      this.publicHelper.processService.processStart(
+        pName,
+        str,
+        this.constructorInfoAreaId,
+      );
+    });
     this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.All').subscribe((str: string) => { statist.set(str, ret.totalRowCount) });
+          this.translate.get("MESSAGE.All").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
           this.optionsStatist.childMethods.setStatistValue(statist);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -296,19 +353,20 @@ export class SmsLogOutBoxDetailListComponent extends ListBaseComponent<SmsLogOut
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = 'RecordStatus';
+    fastfilter.propertyName = "RecordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.Active').subscribe((str: string) => { statist.set(str, ret.totalRowCount) });
+          this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
           this.optionsStatist.childMethods.setStatistValue(statist);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -318,16 +376,13 @@ export class SmsLogOutBoxDetailListComponent extends ListBaseComponent<SmsLogOut
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
-
+      },
+    });
   }
 
-
-
-
-  onActionButtonViewRow(model: SmsLogOutBoxDetailModel = this.tableRowSelected): void {
+  onActionButtonViewRow(
+    model: SmsLogOutBoxDetailModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
@@ -341,19 +396,17 @@ export class SmsLogOutBoxDetailListComponent extends ListBaseComponent<SmsLogOut
       this.cmsToastrService.typeErrorAccessWatch();
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(SmsLogOutBoxDetailViewComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id: this.tableRowSelected.id }
+      data: { id: this.tableRowSelected.id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
       }
     });
@@ -361,12 +414,17 @@ export class SmsLogOutBoxDetailListComponent extends ListBaseComponent<SmsLogOut
   onActionButtonReload(): void {
     this.DataGetAll();
   }
-  onSubmitOptionsSearch(model: any): void {
-    this.filteModelContent.filters = model;
+  onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
+    if (model && model.length > 0) {
+      this.filteModelContent.filters = [
+        ...this.filteModelContent.filters,
+        ...model,
+      ];
+    }
     this.DataGetAll();
   }
 
   onActionBackToParent(): void {
-    this.router.navigate(['/sms/log/outbox']);
+    this.router.navigate(["/sms/log/outbox"]);
   }
 }

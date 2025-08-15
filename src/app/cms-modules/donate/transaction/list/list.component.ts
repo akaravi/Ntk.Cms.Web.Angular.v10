@@ -1,33 +1,40 @@
-
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { PageEvent } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { ActivatedRoute, Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import {
   DonateTransactionModel,
   DonateTransactionService,
   FilterDataModel,
-  FilterModel, RecordStatusEnum, SortTypeEnum
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { ListBaseComponent } from 'src/app/core/cmsComponent/listBaseComponent';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { PageInfoService } from 'src/app/core/services/page-info.service';
-import { environment } from 'src/environments/environment';
-import { PublicHelper } from '../../../../core/helpers/publicHelper';
-import { CmsToastrService } from '../../../../core/services/cmsToastr.service';
-import { DonateTransactionViewComponent } from '../view/view.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { PageInfoService } from "src/app/core/services/page-info.service";
+import { environment } from "src/environments/environment";
+import { PublicHelper } from "../../../../core/helpers/publicHelper";
+import { CmsToastrService } from "../../../../core/services/cmsToastr.service";
+import { DonateTransactionViewComponent } from "../view/view.component";
 
 @Component({
-  selector: 'app-donate-transaction-list',
-  templateUrl: './list.component.html',
-  standalone: false
+  selector: "app-donate-transaction-list",
+  templateUrl: "./list.component.html",
+  standalone: false,
 })
-export class DonateTransactionListComponent extends ListBaseComponent<DonateTransactionService, DonateTransactionModel, number> implements OnInit, OnDestroy {
+export class DonateTransactionListComponent
+  extends ListBaseComponent<
+    DonateTransactionService,
+    DonateTransactionModel,
+    number
+  >
+  implements OnInit, OnDestroy
+{
   LinkCmsUserId = 0;
   LinkSponsorId = 0;
   LinkTargetPeriodId = 0;
@@ -45,7 +52,13 @@ export class DonateTransactionListComponent extends ListBaseComponent<DonateTran
     public publicHelper: PublicHelper,
     public dialog: MatDialog,
   ) {
-    super(contentService, new DonateTransactionModel(), publicHelper, tokenHelper, translate);
+    super(
+      contentService,
+      new DonateTransactionModel(),
+      publicHelper,
+      tokenHelper,
+      translate,
+    );
 
     this.publicHelper.processService.cdr = this.cdr;
 
@@ -54,56 +67,61 @@ export class DonateTransactionListComponent extends ListBaseComponent<DonateTran
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = 'Id';
+    this.filteModelContent.sortColumn = "Id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
-
   }
   filteModelContent = new FilterModel();
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    'LinkMainImageIdSrc',
-    'Id',
-    'RecordStatus',
+    "LinkMainImageIdSrc",
+    "Id",
+    "RecordStatus",
     // 'Title',
-    'Sponsor',
-    'TargetPeriod',
-    'Amount',
-    'AmountPure',
+    "Sponsor",
+    "TargetPeriod",
+    "Amount",
+    "AmountPure",
     // 'Action'
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
-    'LinkMainImageIdSrc',
-    'Id',
-    'RecordStatus',
+    "LinkMainImageIdSrc",
+    "Id",
+    "RecordStatus",
     // 'Title',
-    'Sponsor',
-    'TargetPeriod',
-    'Amount',
-    'AmountPure',
+    "Sponsor",
+    "TargetPeriod",
+    "Amount",
+    "AmountPure",
     // 'Action'
   ];
   cmsApiStoreSubscribe: Subscription;
   ngOnInit(): void {
-    this.LinkCmsUserId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkCmsUserId'));
+    this.LinkCmsUserId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkCmsUserId"),
+    );
     if (this.LinkCmsUserId && this.LinkCmsUserId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = 'LinkCmsUserId';
+      filter.propertyName = "LinkCmsUserId";
       filter.value = this.LinkCmsUserId;
       this.filteModelContent.filters.push(filter);
     }
-    this.LinkSponsorId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkSponsorId'));
+    this.LinkSponsorId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkSponsorId"),
+    );
     if (this.LinkSponsorId && this.LinkSponsorId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = 'LinkSponsorId';
+      filter.propertyName = "LinkSponsorId";
       filter.value = this.LinkSponsorId;
       this.filteModelContent.filters.push(filter);
     }
-    this.LinkTargetPeriodId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkTargetPeriodId'));
+    this.LinkTargetPeriodId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkTargetPeriodId"),
+    );
     if (this.LinkTargetPeriodId && this.LinkTargetPeriodId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = 'DonateTargetId';
+      filter.propertyName = "DonateTargetId";
       filter.value = this.LinkTargetPeriodId;
       this.filteModelContent.filters.push(filter);
     }
@@ -112,10 +130,12 @@ export class DonateTransactionListComponent extends ListBaseComponent<DonateTran
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -123,11 +143,24 @@ export class DonateTransactionListComponent extends ListBaseComponent<DonateTran
     }
   }
   DataGetAll(): void {
-    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(this.tabledisplayedColumnsSource, this.tabledisplayedColumnsMobileSource, [], this.tokenInfo);
+    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
+      this.tabledisplayedColumnsSource,
+      this.tabledisplayedColumnsMobileSource,
+      [],
+      this.tokenInfo,
+    );
     this.tableRowsSelected = [];
     this.onActionTableRowSelect(new DonateTransactionModel());
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.get_information_list').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.get_information_list")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.filteModelContent.accessLoad = true;
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
@@ -141,8 +174,7 @@ export class DonateTransactionListComponent extends ListBaseComponent<DonateTran
           this.dataModelResult = ret;
           this.tableSource.data = ret.listItems;
 
-          if (this.optionsStatist?.data?.show)
-            this.onActionButtonStatist(true);
+          if (this.optionsStatist?.data?.show) this.onActionButtonStatist(true);
           setTimeout(() => {
             if (this.optionsSearch.childMethods)
               this.optionsSearch.childMethods.setAccess(ret.access);
@@ -151,28 +183,30 @@ export class DonateTransactionListComponent extends ListBaseComponent<DonateTran
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
 
   onTableSortData(sort: MatSort): void {
-    if (this.tableSource && this.tableSource.sort && this.tableSource.sort.active === sort.active) {
-      if (this.tableSource.sort.start === 'asc') {
-        sort.start = 'desc';
+    if (
+      this.tableSource &&
+      this.tableSource.sort &&
+      this.tableSource.sort.active === sort.active
+    ) {
+      if (this.tableSource.sort.start === "asc") {
+        sort.start = "desc";
         this.filteModelContent.sortColumn = sort.active;
         this.filteModelContent.sortType = SortTypeEnum.Descending;
-      } else if (this.tableSource.sort.start === 'desc') {
-        sort.start = 'asc';
-        this.filteModelContent.sortColumn = '';
+      } else if (this.tableSource.sort.start === "desc") {
+        sort.start = "asc";
+        this.filteModelContent.sortColumn = "";
         this.filteModelContent.sortType = SortTypeEnum.Ascending;
       } else {
-        sort.start = 'desc';
+        sort.start = "desc";
       }
     } else {
       this.filteModelContent.sortColumn = sort.active;
@@ -188,7 +222,9 @@ export class DonateTransactionListComponent extends ListBaseComponent<DonateTran
     this.DataGetAll();
   }
 
-  onActionButtonViewRow(model: DonateTransactionModel = this.tableRowSelected): void {
+  onActionButtonViewRow(
+    model: DonateTransactionModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id > 0) {
       this.cmsToastrService.typeErrorSelected();
       return;
@@ -201,19 +237,17 @@ export class DonateTransactionListComponent extends ListBaseComponent<DonateTran
       this.cmsToastrService.typeErrorAccessWatch();
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(DonateTransactionViewComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id: this.tableRowSelected.id }
+      data: { id: this.tableRowSelected.id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
       }
     });
@@ -225,14 +259,26 @@ export class DonateTransactionListComponent extends ListBaseComponent<DonateTran
       return;
     }
     const statist = new Map<string, number>();
-    this.translate.get('MESSAGE.Active').subscribe((str: string) => { statist.set(str, 0); });
-    this.translate.get('MESSAGE.All').subscribe((str: string) => { statist.set(str, 0); });
-    const pName = this.constructor.name + '.ServiceStatist';
-    this.translate.get('MESSAGE.Get_the_statist').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    this.translate.get("MESSAGE.All").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    const pName = this.constructor.name + ".ServiceStatist";
+    this.translate.get("MESSAGE.Get_the_statist").subscribe((str: string) => {
+      this.publicHelper.processService.processStart(
+        pName,
+        str,
+        this.constructorInfoAreaId,
+      );
+    });
     this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.All').subscribe((str: string) => { statist.set(str, ret.totalRowCount) });
+          this.translate.get("MESSAGE.All").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
           this.optionsStatist.childMethods.setStatistValue(statist);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -242,19 +288,20 @@ export class DonateTransactionListComponent extends ListBaseComponent<DonateTran
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = 'RecordStatus';
+    fastfilter.propertyName = "RecordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.Active').subscribe((str: string) => { statist.set(str, ret.totalRowCount) });
+          this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
           this.optionsStatist.childMethods.setStatistValue(statist);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -264,21 +311,20 @@ export class DonateTransactionListComponent extends ListBaseComponent<DonateTran
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
-
+      },
+    });
   }
-
-
-
 
   onActionButtonReload(): void {
     this.DataGetAll();
   }
-  onSubmitOptionsSearch(model: any): void {
-    this.filteModelContent.filters = model;
+  onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
+    if (model && model.length > 0) {
+      this.filteModelContent.filters = [
+        ...this.filteModelContent.filters,
+        ...model,
+      ];
+    }
     this.DataGetAll();
   }
-
 }

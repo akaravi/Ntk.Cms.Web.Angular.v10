@@ -1,36 +1,42 @@
-
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { PageEvent } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import {
   FilterDataModel,
   FilterModel,
   LinkManagementMemberModel,
-  LinkManagementMemberService, RecordStatusEnum, SortTypeEnum
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { ListBaseComponent } from 'src/app/core/cmsComponent/listBaseComponent';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { PageInfoService } from 'src/app/core/services/page-info.service';
-import { environment } from 'src/environments/environment';
-import { PublicHelper } from '../../../../core/helpers/publicHelper';
-import { CmsToastrService } from '../../../../core/services/cmsToastr.service';
-import { LinkManagementMemberAddComponent } from '../add/add.component';
-import { LinkManagementMemberDeleteComponent } from '../delete/delete.component';
-import { LinkManagementMemberEditComponent } from '../edit/edit.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  LinkManagementMemberService,
+  RecordStatusEnum,
+  SortTypeEnum,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { PageInfoService } from "src/app/core/services/page-info.service";
+import { environment } from "src/environments/environment";
+import { PublicHelper } from "../../../../core/helpers/publicHelper";
+import { CmsToastrService } from "../../../../core/services/cmsToastr.service";
+import { LinkManagementMemberAddComponent } from "../add/add.component";
+import { LinkManagementMemberDeleteComponent } from "../delete/delete.component";
+import { LinkManagementMemberEditComponent } from "../edit/edit.component";
 
 @Component({
-  selector: 'app-linkmanagement-member-list',
-  templateUrl: './list.component.html',
-  standalone: false
+  selector: "app-linkmanagement-member-list",
+  templateUrl: "./list.component.html",
+  standalone: false,
 })
-export class LinkManagementMemberListComponent extends ListBaseComponent<LinkManagementMemberService, LinkManagementMemberModel, number> implements OnInit, OnDestroy {
-
+export class LinkManagementMemberListComponent
+  extends ListBaseComponent<
+    LinkManagementMemberService,
+    LinkManagementMemberModel,
+    number
+  >
+  implements OnInit, OnDestroy
+{
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: LinkManagementMemberService,
@@ -44,7 +50,13 @@ export class LinkManagementMemberListComponent extends ListBaseComponent<LinkMan
     public publicHelper: PublicHelper,
     public dialog: MatDialog,
   ) {
-    super(contentService, new LinkManagementMemberModel(), publicHelper, tokenHelper, translate);
+    super(
+      contentService,
+      new LinkManagementMemberModel(),
+      publicHelper,
+      tokenHelper,
+      translate,
+    );
     this.publicHelper.processService.cdr = this.cdr;
 
     this.optionsSearch.parentMethods = {
@@ -52,46 +64,44 @@ export class LinkManagementMemberListComponent extends ListBaseComponent<LinkMan
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = 'Id';
+    this.filteModelContent.sortColumn = "Id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
-
   }
   filteModelContent = new FilterModel();
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-
-    'Id',
-    'RecordStatus',
+    "Id",
+    "RecordStatus",
     // 'CreatedDate',
     // 'UpdatedDate',
-    'CurrentDebtor',
-    'CurrentCreditor',
-    'action_menu',
+    "CurrentDebtor",
+    "CurrentCreditor",
+    "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-
-    'Id',
-    'RecordStatus',
+    "Id",
+    "RecordStatus",
     // 'CreatedDate',
     // 'UpdatedDate',
-    'CurrentDebtor',
-    'CurrentCreditor',
-    'action_menu',
+    "CurrentDebtor",
+    "CurrentCreditor",
+    "action_menu",
   ];
 
   cmsApiStoreSubscribe: Subscription;
   ngOnInit(): void {
-
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -99,11 +109,24 @@ export class LinkManagementMemberListComponent extends ListBaseComponent<LinkMan
     }
   }
   DataGetAll(): void {
-    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(this.tabledisplayedColumnsSource, this.tabledisplayedColumnsMobileSource, [], this.tokenInfo);
+    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
+      this.tabledisplayedColumnsSource,
+      this.tabledisplayedColumnsMobileSource,
+      [],
+      this.tokenInfo,
+    );
     this.tableRowsSelected = [];
     this.onActionTableRowSelect(new LinkManagementMemberModel());
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.get_information_list').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.get_information_list")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.filteModelContent.accessLoad = true;
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
@@ -118,8 +141,7 @@ export class LinkManagementMemberListComponent extends ListBaseComponent<LinkMan
           this.dataModelResult = ret;
           this.tableSource.data = ret.listItems;
 
-          if (this.optionsStatist?.data?.show)
-            this.onActionButtonStatist(true);
+          if (this.optionsStatist?.data?.show) this.onActionButtonStatist(true);
           setTimeout(() => {
             if (this.optionsSearch.childMethods)
               this.optionsSearch.childMethods.setAccess(ret.access);
@@ -128,28 +150,30 @@ export class LinkManagementMemberListComponent extends ListBaseComponent<LinkMan
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
 
   onTableSortData(sort: MatSort): void {
-    if (this.tableSource && this.tableSource.sort && this.tableSource.sort.active === sort.active) {
-      if (this.tableSource.sort.start === 'asc') {
-        sort.start = 'desc';
+    if (
+      this.tableSource &&
+      this.tableSource.sort &&
+      this.tableSource.sort.active === sort.active
+    ) {
+      if (this.tableSource.sort.start === "asc") {
+        sort.start = "desc";
         this.filteModelContent.sortColumn = sort.active;
         this.filteModelContent.sortType = SortTypeEnum.Descending;
-      } else if (this.tableSource.sort.start === 'desc') {
-        sort.start = 'asc';
-        this.filteModelContent.sortColumn = '';
+      } else if (this.tableSource.sort.start === "desc") {
+        sort.start = "asc";
+        this.filteModelContent.sortColumn = "";
         this.filteModelContent.sortType = SortTypeEnum.Ascending;
       } else {
-        sort.start = 'desc';
+        sort.start = "desc";
       }
     } else {
       this.filteModelContent.sortColumn = sort.active;
@@ -165,16 +189,17 @@ export class LinkManagementMemberListComponent extends ListBaseComponent<LinkMan
     this.DataGetAll();
   }
 
-
-
   onActionButtonNewRow(): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.data = {};
 
-    const dialogRef = this.dialog.open(LinkManagementMemberAddComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogRef = this.dialog.open(
+      LinkManagementMemberAddComponent,
+      dialogConfig,
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -182,7 +207,9 @@ export class LinkManagementMemberListComponent extends ListBaseComponent<LinkMan
     });
   }
 
-  onActionButtonEditRow(model: LinkManagementMemberModel = this.tableRowSelected): void {
+  onActionButtonEditRow(
+    model: LinkManagementMemberModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
@@ -196,28 +223,33 @@ export class LinkManagementMemberListComponent extends ListBaseComponent<LinkMan
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(LinkManagementMemberEditComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id: this.tableRowSelected.id }
+      data: { id: this.tableRowSelected.id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
     });
   }
-  onActionButtonDeleteRow(model: LinkManagementMemberModel = this.tableRowSelected): void {
+  onActionButtonDeleteRow(
+    model: LinkManagementMemberModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id === 0) {
-      this.translate.get('MESSAGE.no_row_selected_to_delete').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); }); return;
+      this.translate
+        .get("MESSAGE.no_row_selected_to_delete")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
     }
     this.onActionTableRowSelect(model);
 
@@ -229,19 +261,17 @@ export class LinkManagementMemberListComponent extends ListBaseComponent<LinkMan
       this.cmsToastrService.typeErrorAccessDelete();
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(LinkManagementMemberDeleteComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id: this.tableRowSelected.id }
+      data: { id: this.tableRowSelected.id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -254,14 +284,26 @@ export class LinkManagementMemberListComponent extends ListBaseComponent<LinkMan
       return;
     }
     const statist = new Map<string, number>();
-    this.translate.get('MESSAGE.Active').subscribe((str: string) => { statist.set(str, 0); });
-    this.translate.get('MESSAGE.All').subscribe((str: string) => { statist.set(str, 0); });
-    const pName = this.constructor.name + '.ServiceStatist';
-    this.translate.get('MESSAGE.Get_the_statist').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    this.translate.get("MESSAGE.All").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    const pName = this.constructor.name + ".ServiceStatist";
+    this.translate.get("MESSAGE.Get_the_statist").subscribe((str: string) => {
+      this.publicHelper.processService.processStart(
+        pName,
+        str,
+        this.constructorInfoAreaId,
+      );
+    });
     this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.All').subscribe((str: string) => { statist.set(str, ret.totalRowCount) });
+          this.translate.get("MESSAGE.All").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
           this.optionsStatist.childMethods.setStatistValue(statist);
         }
         this.publicHelper.processService.processStop(pName);
@@ -269,19 +311,20 @@ export class LinkManagementMemberListComponent extends ListBaseComponent<LinkMan
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = 'RecordStatus';
+    fastfilter.propertyName = "RecordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.Active').subscribe((str: string) => { statist.set(str, ret.totalRowCount) });
+          this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
           this.optionsStatist.childMethods.setStatistValue(statist);
         }
         this.publicHelper.processService.processStop(pName);
@@ -289,14 +332,9 @@ export class LinkManagementMemberListComponent extends ListBaseComponent<LinkMan
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
-
+      },
+    });
   }
-
-
-
 
   onActionButtonReload(): void {
     this.DataGetAll();
@@ -304,8 +342,13 @@ export class LinkManagementMemberListComponent extends ListBaseComponent<LinkMan
   onActionCopied(): void {
     this.cmsToastrService.typeSuccessCopedToClipboard();
   }
-  onSubmitOptionsSearch(model: any): void {
-    this.filteModelContent.filters = model;
+  onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
+    if (model && model.length > 0) {
+      this.filteModelContent.filters = [
+        ...this.filteModelContent.filters,
+        ...model,
+      ];
+    }
     this.DataGetAll();
   }
 

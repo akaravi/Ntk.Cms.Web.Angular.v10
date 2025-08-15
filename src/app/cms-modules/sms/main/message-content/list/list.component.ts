@@ -1,34 +1,43 @@
-
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { PageEvent } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { ActivatedRoute, Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import {
   FilterDataModel,
-  FilterModel, RecordStatusEnum, SmsMainMessageCategoryModel, SmsMainMessageContentModel,
-  SmsMainMessageContentService, SortTypeEnum
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { ListBaseComponent } from 'src/app/core/cmsComponent/listBaseComponent';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { PageInfoService } from 'src/app/core/services/page-info.service';
-import { CmsConfirmationDialogService } from 'src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service';
-import { SmsMainMessageContentAddComponent } from '../add/add.component';
-import { SmsMainMessageContentEditComponent } from '../edit/edit.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  FilterModel,
+  RecordStatusEnum,
+  SmsMainMessageCategoryModel,
+  SmsMainMessageContentModel,
+  SmsMainMessageContentService,
+  SortTypeEnum,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { PageInfoService } from "src/app/core/services/page-info.service";
+import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { SmsMainMessageContentAddComponent } from "../add/add.component";
+import { SmsMainMessageContentEditComponent } from "../edit/edit.component";
 
 @Component({
-  selector: 'app-sms-main-message-content-list',
-  templateUrl: './list.component.html',
-  standalone: false
+  selector: "app-sms-main-message-content-list",
+  templateUrl: "./list.component.html",
+  standalone: false,
 })
-export class SmsMainMessageContentListComponent extends ListBaseComponent<SmsMainMessageContentService, SmsMainMessageContentModel, string> implements OnInit, OnDestroy {
-  requestLinkCategoryId = '';
+export class SmsMainMessageContentListComponent
+  extends ListBaseComponent<
+    SmsMainMessageContentService,
+    SmsMainMessageContentModel,
+    string
+  >
+  implements OnInit, OnDestroy
+{
+  requestLinkCategoryId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: SmsMainMessageContentService,
@@ -44,58 +53,67 @@ export class SmsMainMessageContentListComponent extends ListBaseComponent<SmsMai
     public publicHelper: PublicHelper,
     public dialog: MatDialog,
   ) {
-    super(contentService, new SmsMainMessageContentModel(), publicHelper, tokenHelper, translate);
+    super(
+      contentService,
+      new SmsMainMessageContentModel(),
+      publicHelper,
+      tokenHelper,
+      translate,
+    );
     this.publicHelper.processService.cdr = this.cdr;
-    this.requestLinkCategoryId = this.activatedRoute.snapshot.paramMap.get('LinkCategoryId');
+    this.requestLinkCategoryId =
+      this.activatedRoute.snapshot.paramMap.get("LinkCategoryId");
 
     this.optionsSearch.parentMethods = {
       onSubmit: (model) => this.onSubmitOptionsSearch(model),
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = 'Id';
+    this.filteModelContent.sortColumn = "Id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     if (this.requestLinkCategoryId && this.requestLinkCategoryId.length > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = 'LinkCategoryId';
+      filter.propertyName = "LinkCategoryId";
       filter.value = this.requestLinkCategoryId;
       this.filteModelContent.filters.push(filter);
     }
   }
   filteModelContent = new FilterModel();
 
-  categoryModelSelected: SmsMainMessageCategoryModel = new SmsMainMessageCategoryModel();
+  categoryModelSelected: SmsMainMessageCategoryModel =
+    new SmsMainMessageCategoryModel();
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     // 'Id',
-    'RecordStatus',
-    'Title',
-    'CreatedDate',
-    'UpdatedDate',
+    "RecordStatus",
+    "Title",
+    "CreatedDate",
+    "UpdatedDate",
     // 'Action'
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
     // 'Id',
-    'RecordStatus',
-    'Title',
-    'CreatedDate',
-    'UpdatedDate',
+    "RecordStatus",
+    "Title",
+    "CreatedDate",
+    "UpdatedDate",
     // 'Action'
   ];
   cmsApiStoreSubscribe: Subscription;
   ngOnInit(): void {
-
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -103,18 +121,34 @@ export class SmsMainMessageContentListComponent extends ListBaseComponent<SmsMai
     }
   }
   DataGetAll(): void {
-    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(this.tabledisplayedColumnsSource, this.tabledisplayedColumnsMobileSource, [], this.tokenInfo);
+    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
+      this.tabledisplayedColumnsSource,
+      this.tabledisplayedColumnsMobileSource,
+      [],
+      this.tokenInfo,
+    );
     this.tableRowsSelected = [];
     this.onActionTableRowSelect(new SmsMainMessageContentModel());
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.get_information_list').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.get_information_list")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.filteModelContent.accessLoad = true;
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
     /*filter CLone*/
-    if (this.categoryModelSelected && this.categoryModelSelected.id?.length > 0) {
+    if (
+      this.categoryModelSelected &&
+      this.categoryModelSelected.id?.length > 0
+    ) {
       const filter = new FilterDataModel();
-      filter.propertyName = 'LinkCategoryId';
+      filter.propertyName = "LinkCategoryId";
       filter.value = this.categoryModelSelected.id;
       filterModel.filters.push(filter);
     }
@@ -127,8 +161,7 @@ export class SmsMainMessageContentListComponent extends ListBaseComponent<SmsMai
           this.dataModelResult = ret;
           this.tableSource.data = ret.listItems;
 
-          if (this.optionsStatist?.data?.show)
-            this.onActionButtonStatist(true);
+          if (this.optionsStatist?.data?.show) this.onActionButtonStatist(true);
           setTimeout(() => {
             if (this.optionsSearch.childMethods)
               this.optionsSearch.childMethods.setAccess(ret.access);
@@ -137,29 +170,31 @@ export class SmsMainMessageContentListComponent extends ListBaseComponent<SmsMai
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
 
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
 
   onTableSortData(sort: MatSort): void {
-    if (this.tableSource && this.tableSource.sort && this.tableSource.sort.active === sort.active) {
-      if (this.tableSource.sort.start === 'asc') {
-        sort.start = 'desc';
+    if (
+      this.tableSource &&
+      this.tableSource.sort &&
+      this.tableSource.sort.active === sort.active
+    ) {
+      if (this.tableSource.sort.start === "asc") {
+        sort.start = "desc";
         this.filteModelContent.sortColumn = sort.active;
         this.filteModelContent.sortType = SortTypeEnum.Descending;
-      } else if (this.tableSource.sort.start === 'desc') {
-        sort.start = 'asc';
-        this.filteModelContent.sortColumn = '';
+      } else if (this.tableSource.sort.start === "desc") {
+        sort.start = "asc";
+        this.filteModelContent.sortColumn = "";
         this.filteModelContent.sortType = SortTypeEnum.Ascending;
       } else {
-        sort.start = 'desc';
+        sort.start = "desc";
       }
     } else {
       this.filteModelContent.sortColumn = sort.active;
@@ -175,18 +210,18 @@ export class SmsMainMessageContentListComponent extends ListBaseComponent<SmsMai
     this.DataGetAll();
   }
 
-
-
   onActionButtonNewRow(): void {
-
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.height = '90%';
+    dialogConfig.height = "90%";
     dialogConfig.data = { linkCategoryId: this.categoryModelSelected?.id };
 
-    const dialogRef = this.dialog.open(SmsMainMessageContentAddComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogRef = this.dialog.open(
+      SmsMainMessageContentAddComponent,
+      dialogConfig,
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -194,7 +229,9 @@ export class SmsMainMessageContentListComponent extends ListBaseComponent<SmsMai
     });
   }
 
-  onActionButtonEditRow(model: SmsMainMessageContentModel = this.tableRowSelected): void {
+  onActionButtonEditRow(
+    model: SmsMainMessageContentModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
@@ -212,12 +249,14 @@ export class SmsMainMessageContentListComponent extends ListBaseComponent<SmsMai
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.height = '90%';
+    dialogConfig.height = "90%";
     dialogConfig.data = { id: this.tableRowSelected.id };
 
-
-    const dialogRef = this.dialog.open(SmsMainMessageContentEditComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogRef = this.dialog.open(
+      SmsMainMessageContentEditComponent,
+      dialogConfig,
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -225,9 +264,16 @@ export class SmsMainMessageContentListComponent extends ListBaseComponent<SmsMai
     });
   }
 
-  onActionButtonDeleteRow(model: SmsMainMessageContentModel = this.tableRowSelected): void {
+  onActionButtonDeleteRow(
+    model: SmsMainMessageContentModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id.length === 0) {
-      this.translate.get('MESSAGE.no_row_selected_to_delete').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); }); return;
+      this.translate
+        .get("MESSAGE.no_row_selected_to_delete")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
     }
     this.onActionTableRowSelect(model);
 
@@ -241,40 +287,56 @@ export class SmsMainMessageContentListComponent extends ListBaseComponent<SmsMai
     }
     var title = "";
     var message = "";
-    this.translate.get(['MESSAGE.Please_Confirm', 'MESSAGE.Do_you_want_to_delete_this_content']).subscribe((str: string) => {
-      title = str['MESSAGE.Please_Confirm'];
-      message = str['MESSAGE.Do_you_want_to_delete_this_content'] + '?' + '<br> ( ' + this.tableRowSelected.title + ' ) ';
-    });
-    this.cmsConfirmationDialogService.confirm(title, message)
+    this.translate
+      .get([
+        "MESSAGE.Please_Confirm",
+        "MESSAGE.Do_you_want_to_delete_this_content",
+      ])
+      .subscribe((str: string) => {
+        title = str["MESSAGE.Please_Confirm"];
+        message =
+          str["MESSAGE.Do_you_want_to_delete_this_content"] +
+          "?" +
+          "<br> ( " +
+          this.tableRowSelected.title +
+          " ) ";
+      });
+    this.cmsConfirmationDialogService
+      .confirm(title, message)
       .then((confirmed) => {
         if (confirmed) {
-          const pName = this.constructor.name + 'main';
-          this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-            this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-          });
-          this.contentService.ServiceDelete(this.tableRowSelected.id).subscribe({
-            next: (ret) => {
-              if (ret.isSuccess) {
-                this.cmsToastrService.typeSuccessRemove();
-                this.DataGetAll();
-              } else {
-                this.cmsToastrService.typeErrorRemove();
-              }
-              this.publicHelper.processService.processStop(pName);
-            },
-            error: (er) => {
-              this.cmsToastrService.typeError(er);
-              this.publicHelper.processService.processStop(pName, false);
-            }
-          }
-          );
+          const pName = this.constructor.name + "main";
+          this.translate
+            .get("MESSAGE.Receiving_information")
+            .subscribe((str: string) => {
+              this.publicHelper.processService.processStart(
+                pName,
+                str,
+                this.constructorInfoAreaId,
+              );
+            });
+          this.contentService
+            .ServiceDelete(this.tableRowSelected.id)
+            .subscribe({
+              next: (ret) => {
+                if (ret.isSuccess) {
+                  this.cmsToastrService.typeSuccessRemove();
+                  this.DataGetAll();
+                } else {
+                  this.cmsToastrService.typeErrorRemove();
+                }
+                this.publicHelper.processService.processStop(pName);
+              },
+              error: (er) => {
+                this.cmsToastrService.typeError(er);
+                this.publicHelper.processService.processStop(pName, false);
+              },
+            });
         }
-      }
-      )
+      })
       .catch(() => {
         // console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)')
-      }
-      );
+      });
   }
 
   onActionButtonStatist(view = !this.optionsStatist.data.show): void {
@@ -283,14 +345,26 @@ export class SmsMainMessageContentListComponent extends ListBaseComponent<SmsMai
       return;
     }
     const statist = new Map<string, number>();
-    this.translate.get('MESSAGE.Active').subscribe((str: string) => { statist.set(str, 0); });
-    this.translate.get('MESSAGE.All').subscribe((str: string) => { statist.set(str, 0); });
-    const pName = this.constructor.name + '.ServiceStatist';
-    this.translate.get('MESSAGE.Get_the_statist').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    this.translate.get("MESSAGE.All").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    const pName = this.constructor.name + ".ServiceStatist";
+    this.translate.get("MESSAGE.Get_the_statist").subscribe((str: string) => {
+      this.publicHelper.processService.processStart(
+        pName,
+        str,
+        this.constructorInfoAreaId,
+      );
+    });
     this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.All').subscribe((str: string) => { statist.set(str, ret.totalRowCount) });
+          this.translate.get("MESSAGE.All").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
           this.optionsStatist.childMethods.setStatistValue(statist);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -300,19 +374,20 @@ export class SmsMainMessageContentListComponent extends ListBaseComponent<SmsMai
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = 'RecordStatus';
+    fastfilter.propertyName = "RecordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.Active').subscribe((str: string) => { statist.set(str, ret.totalRowCount) });
+          this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
           this.optionsStatist.childMethods.setStatistValue(statist);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -322,20 +397,20 @@ export class SmsMainMessageContentListComponent extends ListBaseComponent<SmsMai
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
-
+      },
+    });
   }
-
-
-
 
   onActionButtonReload(): void {
     this.DataGetAll();
   }
-  onSubmitOptionsSearch(model: any): void {
-    this.filteModelContent.filters = model;
+  onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
+    if (model && model.length > 0) {
+      this.filteModelContent.filters = [
+        ...this.filteModelContent.filters,
+        ...model,
+      ];
+    }
     this.DataGetAll();
   }
 

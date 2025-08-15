@@ -1,35 +1,43 @@
-
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { TranslateService } from '@ngx-translate/core';
+import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { PageEvent } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  ActionGoStepEnum, CoreEnumService, CoreGuideModel,
+  ActionGoStepEnum,
+  CoreEnumService,
+  CoreGuideModel,
   CoreGuideService,
-  EditStepDtoModel, ErrorExceptionResult, FilterDataModel, FilterModel, InfoEnumModel, RecordStatusEnum, SortTypeEnum
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { ListBaseComponent } from 'src/app/core/cmsComponent/listBaseComponent';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { PageInfoService } from 'src/app/core/services/page-info.service';
-import { CmsConfirmationDialogService } from 'src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service';
-import { environment } from 'src/environments/environment';
-import { CoreGuideAddComponent } from '../add/add.component';
-import { CoreGuideEditComponent } from '../edit/edit.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  EditStepDtoModel,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterModel,
+  InfoEnumModel,
+  RecordStatusEnum,
+  SortTypeEnum,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { PageInfoService } from "src/app/core/services/page-info.service";
+import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { environment } from "src/environments/environment";
+import { CoreGuideAddComponent } from "../add/add.component";
+import { CoreGuideEditComponent } from "../edit/edit.component";
 
 @Component({
-  selector: 'app-core-guide-list',
-  templateUrl: './list.component.html',
-  standalone: false
+  selector: "app-core-guide-list",
+  templateUrl: "./list.component.html",
+  standalone: false,
 })
-export class CoreGuideListComponent extends ListBaseComponent<CoreGuideService, CoreGuideModel, number>
-  implements OnInit, OnDestroy {
+export class CoreGuideListComponent
+  extends ListBaseComponent<CoreGuideService, CoreGuideModel, number>
+  implements OnInit, OnDestroy
+{
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: CoreGuideService,
@@ -42,8 +50,15 @@ export class CoreGuideListComponent extends ListBaseComponent<CoreGuideService, 
     public translate: TranslateService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
-    public dialog: MatDialog) {
-    super(contentService, new CoreGuideModel(), publicHelper, tokenHelper, translate);
+    public dialog: MatDialog,
+  ) {
+    super(
+      contentService,
+      new CoreGuideModel(),
+      publicHelper,
+      tokenHelper,
+      translate,
+    );
     this.publicHelper.processService.cdr = this.cdr;
 
     this.optionsSearch.parentMethods = {
@@ -51,7 +66,7 @@ export class CoreGuideListComponent extends ListBaseComponent<CoreGuideService, 
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = 'ShowInMenuOrder';
+    this.filteModelContent.sortColumn = "ShowInMenuOrder";
     this.filteModelContent.sortType = SortTypeEnum.Ascending;
   }
   comment: string;
@@ -61,51 +76,51 @@ export class CoreGuideListComponent extends ListBaseComponent<CoreGuideService, 
 
   filteModelContent = new FilterModel();
 
-
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    'Id',
-    'RecordStatus',
-    'Key',
-    'TitleFa',
-    'ShowInMenuOrder',
+    "Id",
+    "RecordStatus",
+    "Key",
+    "TitleFa",
+    "ShowInMenuOrder",
     // 'Action',
-    'position'
+    "position",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    'Id',
-    'RecordStatus',
-    'Key',
-    'TitleFa',
-    'ShowInMenuOrder',
+    "Id",
+    "RecordStatus",
+    "Key",
+    "TitleFa",
+    "ShowInMenuOrder",
     // 'Action',
-    'position'
+    "position",
   ];
 
-  dataModelEnumMenuPlaceTypeResult: ErrorExceptionResult<InfoEnumModel> = new ErrorExceptionResult<InfoEnumModel>();
-
+  dataModelEnumMenuPlaceTypeResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
 
   expandedElement: CoreGuideModel | null;
   cmsApiStoreSubscribe: Subscription;
   categoryModelSelected: CoreGuideModel;
   ngOnInit(): void {
-
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+        this.DataGetAll();
+      });
     this.getEnumMenuPlaceType();
   }
   getEnumMenuPlaceType(): void {
     this.coreEnumService.ServiceMenuPlaceTypeEnum().subscribe({
       next: (ret) => {
         this.dataModelEnumMenuPlaceTypeResult = ret;
-      }
+      },
     });
   }
   ngOnDestroy(): void {
@@ -114,20 +129,32 @@ export class CoreGuideListComponent extends ListBaseComponent<CoreGuideService, 
     }
   }
 
-
   DataGetAll(): void {
-    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(this.tabledisplayedColumnsSource, this.tabledisplayedColumnsMobileSource, [], this.tokenInfo);
+    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
+      this.tabledisplayedColumnsSource,
+      this.tabledisplayedColumnsMobileSource,
+      [],
+      this.tokenInfo,
+    );
     this.tableRowsSelected = [];
     this.onActionTableRowSelect(new CoreGuideModel());
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.get_information_list').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.get_information_list")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.filteModelContent.accessLoad = true;
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
     /*filter CLone*/
     if (this.categoryModelSelected && this.categoryModelSelected.id > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = 'LinkParentId';
+      filter.propertyName = "LinkParentId";
       filter.value = this.categoryModelSelected.id;
       filterModel.filters.push(filter);
     }
@@ -139,9 +166,7 @@ export class CoreGuideListComponent extends ListBaseComponent<CoreGuideService, 
           this.dataModelResult = ret;
           this.tableSource.data = ret.listItems;
 
-
-          if (this.optionsStatist?.data?.show)
-            this.onActionButtonStatist(true);
+          if (this.optionsStatist?.data?.show) this.onActionButtonStatist(true);
           setTimeout(() => {
             if (this.optionsSearch.childMethods)
               this.optionsSearch.childMethods.setAccess(ret.access);
@@ -154,24 +179,26 @@ export class CoreGuideListComponent extends ListBaseComponent<CoreGuideService, 
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
 
-
   onTableSortData(sort: MatSort): void {
-    if (this.tableSource && this.tableSource.sort && this.tableSource.sort.active === sort.active) {
-      if (this.tableSource.sort.start === 'asc') {
-        sort.start = 'desc';
+    if (
+      this.tableSource &&
+      this.tableSource.sort &&
+      this.tableSource.sort.active === sort.active
+    ) {
+      if (this.tableSource.sort.start === "asc") {
+        sort.start = "desc";
         this.filteModelContent.sortColumn = sort.active;
         this.filteModelContent.sortType = SortTypeEnum.Descending;
-      } else if (this.tableSource.sort.start === 'desc') {
-        sort.start = 'asc';
-        this.filteModelContent.sortColumn = '';
+      } else if (this.tableSource.sort.start === "desc") {
+        sort.start = "asc";
+        this.filteModelContent.sortColumn = "";
         this.filteModelContent.sortType = SortTypeEnum.Ascending;
       } else {
-        sort.start = 'desc';
+        sort.start = "desc";
       }
     } else {
       this.filteModelContent.sortColumn = sort.active;
@@ -188,20 +215,25 @@ export class CoreGuideListComponent extends ListBaseComponent<CoreGuideService, 
   }
 
   onTableDropRow(event: CdkDragDrop<CoreGuideModel[]>): void {
-    const previousIndex = this.tableSource.data.findIndex(row => row === event.item.data);
+    const previousIndex = this.tableSource.data.findIndex(
+      (row) => row === event.item.data,
+    );
     const model = new EditStepDtoModel<number>();
     model.id = this.tableSource.data[previousIndex].id;
     model.centerId = this.tableSource.data[event.currentIndex].id;
     if (previousIndex > event.currentIndex) {
       model.actionGo = ActionGoStepEnum.GoUp;
-    }
-    else {
+    } else {
       model.actionGo = ActionGoStepEnum.GoDown;
     }
     this.contentService.ServiceEditStep(model).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          moveItemInArray(this.tableSource.data, previousIndex, event.currentIndex);
+          moveItemInArray(
+            this.tableSource.data,
+            previousIndex,
+            event.currentIndex,
+          );
           this.tableSource.data = this.tableSource.data.slice();
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -209,9 +241,8 @@ export class CoreGuideListComponent extends ListBaseComponent<CoreGuideService, 
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelectorSelect(model: CoreGuideModel | null): void {
     /*filter */
@@ -229,7 +260,11 @@ export class CoreGuideListComponent extends ListBaseComponent<CoreGuideService, 
       this.categoryModelSelected == null ||
       this.categoryModelSelected.id === 0
     ) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     if (
@@ -240,20 +275,18 @@ export class CoreGuideListComponent extends ListBaseComponent<CoreGuideService, 
       this.cmsToastrService.typeErrorAccessAdd();
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(CoreGuideAddComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
 
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { parentId: this.categoryModelSelected.id }
+      data: { parentId: this.categoryModelSelected.id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -261,7 +294,6 @@ export class CoreGuideListComponent extends ListBaseComponent<CoreGuideService, 
   }
 
   onActionButtonEditRow(model: CoreGuideModel = this.tableRowSelected): void {
-
     if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
@@ -275,19 +307,17 @@ export class CoreGuideListComponent extends ListBaseComponent<CoreGuideService, 
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(CoreGuideEditComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id: this.tableRowSelected.id }
+      data: { id: this.tableRowSelected.id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -309,47 +339,60 @@ export class CoreGuideListComponent extends ListBaseComponent<CoreGuideService, 
       return;
     }
 
-
     var title = "";
     var message = "";
-    this.translate.get(['MESSAGE.Please_Confirm', 'MESSAGE.Do_you_want_to_delete_this_content']).subscribe((str: string) => {
-      title = str['MESSAGE.Please_Confirm'];
-      message = str['MESSAGE.Do_you_want_to_delete_this_content'] + '?' + '<br> ( ' + this.tableRowSelected.titleFa + ' ) ';
-    });
-    this.cmsConfirmationDialogService.confirm(title, message)
+    this.translate
+      .get([
+        "MESSAGE.Please_Confirm",
+        "MESSAGE.Do_you_want_to_delete_this_content",
+      ])
+      .subscribe((str: string) => {
+        title = str["MESSAGE.Please_Confirm"];
+        message =
+          str["MESSAGE.Do_you_want_to_delete_this_content"] +
+          "?" +
+          "<br> ( " +
+          this.tableRowSelected.titleFa +
+          " ) ";
+      });
+    this.cmsConfirmationDialogService
+      .confirm(title, message)
       .then((confirmed) => {
         if (confirmed) {
-          const pName = this.constructor.name + 'main';
-          this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-            this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-          });
+          const pName = this.constructor.name + "main";
+          this.translate
+            .get("MESSAGE.Receiving_information")
+            .subscribe((str: string) => {
+              this.publicHelper.processService.processStart(
+                pName,
+                str,
+                this.constructorInfoAreaId,
+              );
+            });
 
-          this.contentService.ServiceDelete(this.tableRowSelected.id).subscribe({
-            next: (ret) => {
-              if (ret.isSuccess) {
-                this.cmsToastrService.typeSuccessRemove();
-                this.DataGetAll();
-              } else {
-                this.cmsToastrService.typeErrorRemove();
-              }
-              this.publicHelper.processService.processStop(pName);
-
-            },
-            error: (er) => {
-              this.cmsToastrService.typeError(er);
-              this.publicHelper.processService.processStop(pName, false);
-            }
-          }
-          );
+          this.contentService
+            .ServiceDelete(this.tableRowSelected.id)
+            .subscribe({
+              next: (ret) => {
+                if (ret.isSuccess) {
+                  this.cmsToastrService.typeSuccessRemove();
+                  this.DataGetAll();
+                } else {
+                  this.cmsToastrService.typeErrorRemove();
+                }
+                this.publicHelper.processService.processStop(pName);
+              },
+              error: (er) => {
+                this.cmsToastrService.typeError(er);
+                this.publicHelper.processService.processStop(pName, false);
+              },
+            });
         }
-      }
-      )
+      })
       .catch(() => {
         // console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)')
-      }
-      );
+      });
   }
-
 
   onActionButtonStatist(view = !this.optionsStatist.data.show): void {
     this.optionsStatist.data.show = view;
@@ -357,14 +400,26 @@ export class CoreGuideListComponent extends ListBaseComponent<CoreGuideService, 
       return;
     }
     const statist = new Map<string, number>();
-    this.translate.get('MESSAGE.Active').subscribe((str: string) => { statist.set(str, 0); });
-    this.translate.get('MESSAGE.All').subscribe((str: string) => { statist.set(str, 0); });
-    const pName = this.constructor.name + '.ServiceStatist';
-    this.translate.get('MESSAGE.Get_the_statist').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    this.translate.get("MESSAGE.All").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    const pName = this.constructor.name + ".ServiceStatist";
+    this.translate.get("MESSAGE.Get_the_statist").subscribe((str: string) => {
+      this.publicHelper.processService.processStart(
+        pName,
+        str,
+        this.constructorInfoAreaId,
+      );
+    });
     this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.All').subscribe((str: string) => { statist.set(str, ret.totalRowCount) });
+          this.translate.get("MESSAGE.All").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
           this.optionsStatist.childMethods.setStatistValue(statist);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -374,19 +429,20 @@ export class CoreGuideListComponent extends ListBaseComponent<CoreGuideService, 
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = 'RecordStatus';
+    fastfilter.propertyName = "RecordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.Active').subscribe((str: string) => { statist.set(str, ret.totalRowCount) });
+          this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
           this.optionsStatist.childMethods.setStatistValue(statist);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -396,24 +452,22 @@ export class CoreGuideListComponent extends ListBaseComponent<CoreGuideService, 
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
-
+      },
+    });
   }
-
-
-
 
   onActionButtonReload(): void {
-    this.filteModelContent.sortColumn = 'ShowInMenuOrder';
+    this.filteModelContent.sortColumn = "ShowInMenuOrder";
 
     this.DataGetAll();
   }
-  onSubmitOptionsSearch(model: any): void {
-    this.filteModelContent.filters = model;
+  onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
+    if (model && model.length > 0) {
+      this.filteModelContent.filters = [
+        ...this.filteModelContent.filters,
+        ...model,
+      ];
+    }
     this.DataGetAll();
   }
-
-
 }

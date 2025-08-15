@@ -1,35 +1,43 @@
-
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { PageEvent } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { ActivatedRoute, Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  DonateTargetCategoryModel, DonateTargetPeriodModel,
+  DonateTargetCategoryModel,
+  DonateTargetPeriodModel,
   DonateTargetPeriodService,
   FilterDataModel,
-  FilterModel, RecordStatusEnum, SortTypeEnum
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { ListBaseComponent } from 'src/app/core/cmsComponent/listBaseComponent';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { PageInfoService } from 'src/app/core/services/page-info.service';
-import { environment } from 'src/environments/environment';
-import { PublicHelper } from '../../../../core/helpers/publicHelper';
-import { CmsToastrService } from '../../../../core/services/cmsToastr.service';
-import { DonateTargetPeriodAddComponent } from '../add/add.component';
-import { DonateTargetPeriodDeleteComponent } from '../delete/delete.component';
-import { DonateTargetPeriodEditComponent } from '../edit/edit.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { PageInfoService } from "src/app/core/services/page-info.service";
+import { environment } from "src/environments/environment";
+import { PublicHelper } from "../../../../core/helpers/publicHelper";
+import { CmsToastrService } from "../../../../core/services/cmsToastr.service";
+import { DonateTargetPeriodAddComponent } from "../add/add.component";
+import { DonateTargetPeriodDeleteComponent } from "../delete/delete.component";
+import { DonateTargetPeriodEditComponent } from "../edit/edit.component";
 
 @Component({
-  selector: 'app-donate-target-period-list',
-  templateUrl: './list.component.html',
-  standalone: false
+  selector: "app-donate-target-period-list",
+  templateUrl: "./list.component.html",
+  standalone: false,
 })
-export class DonateTargetPeriodListComponent extends ListBaseComponent<DonateTargetPeriodService, DonateTargetPeriodModel, number> implements OnInit, OnDestroy {
+export class DonateTargetPeriodListComponent
+  extends ListBaseComponent<
+    DonateTargetPeriodService,
+    DonateTargetPeriodModel,
+    number
+  >
+  implements OnInit, OnDestroy
+{
   requestLinkTargeId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
@@ -45,7 +53,13 @@ export class DonateTargetPeriodListComponent extends ListBaseComponent<DonateTar
     public publicHelper: PublicHelper,
     public dialog: MatDialog,
   ) {
-    super(contentService, new DonateTargetPeriodModel(), publicHelper, tokenHelper, translate);
+    super(
+      contentService,
+      new DonateTargetPeriodModel(),
+      publicHelper,
+      tokenHelper,
+      translate,
+    );
     this.publicHelper.processService.cdr = this.cdr;
     // this.optionsCategoryTree.parentMethods = {
     //   onActionSelect: (x) => this.onActionSelectorSelect(x),
@@ -56,49 +70,50 @@ export class DonateTargetPeriodListComponent extends ListBaseComponent<DonateTar
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = 'Id';
+    this.filteModelContent.sortColumn = "Id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
-
   }
   filteModelContent = new FilterModel();
   categoryModelSelected: DonateTargetCategoryModel;
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    'Id',
-    'RecordStatus',
+    "Id",
+    "RecordStatus",
     // 'Title',
-    'Description',
-    'LinkTargeId',
-    'ShareBeginDate',
-    'ShareExpireDate',
-    'CurrentClickCount',
-    'CurrentViewCount',
-    'CurrentPaymentCount',
-    'CurrentPaymentSum',
+    "Description",
+    "LinkTargeId",
+    "ShareBeginDate",
+    "ShareExpireDate",
+    "CurrentClickCount",
+    "CurrentViewCount",
+    "CurrentPaymentCount",
+    "CurrentPaymentSum",
     // 'Action'
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
-    'Id',
-    'RecordStatus',
+    "Id",
+    "RecordStatus",
     // 'Title',
-    'Description',
-    'LinkTargeId',
-    'ShareBeginDate',
-    'ShareExpireDate',
-    'CurrentClickCount',
-    'CurrentViewCount',
-    'CurrentPaymentCount',
-    'CurrentPaymentSum',
+    "Description",
+    "LinkTargeId",
+    "ShareBeginDate",
+    "ShareExpireDate",
+    "CurrentClickCount",
+    "CurrentViewCount",
+    "CurrentPaymentCount",
+    "CurrentPaymentSum",
     // 'Action'
   ];
   cmsApiStoreSubscribe: Subscription;
   ngOnInit(): void {
-    this.requestLinkTargeId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkTargeId'));
+    this.requestLinkTargeId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkTargeId"),
+    );
     if (this.requestLinkTargeId && this.requestLinkTargeId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = 'LinkTargeId';
+      filter.propertyName = "LinkTargeId";
       filter.value = this.requestLinkTargeId;
       this.filteModelContent.filters.push(filter);
     }
@@ -107,10 +122,12 @@ export class DonateTargetPeriodListComponent extends ListBaseComponent<DonateTar
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -118,24 +135,37 @@ export class DonateTargetPeriodListComponent extends ListBaseComponent<DonateTar
     }
   }
   DataGetAll(): void {
-    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(this.tabledisplayedColumnsSource, this.tabledisplayedColumnsMobileSource, [], this.tokenInfo);
+    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
+      this.tabledisplayedColumnsSource,
+      this.tabledisplayedColumnsMobileSource,
+      [],
+      this.tokenInfo,
+    );
     if (this.requestLinkTargeId === 0) {
       this.tabledisplayedColumns = this.publicHelper.listRemoveIfExist(
         this.tabledisplayedColumns,
-        'LinkTargeId'
+        "LinkTargeId",
       );
     }
     this.tableRowsSelected = [];
     this.onActionTableRowSelect(new DonateTargetPeriodModel());
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.get_information_list').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.get_information_list")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.filteModelContent.accessLoad = true;
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
     /*filter CLone*/
     if (this.categoryModelSelected && this.categoryModelSelected.id > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = 'LinkTargeId';
+      filter.propertyName = "LinkTargeId";
       filter.value = this.categoryModelSelected.id;
       filterModel.filters.push(filter);
     }
@@ -148,9 +178,7 @@ export class DonateTargetPeriodListComponent extends ListBaseComponent<DonateTar
           this.dataModelResult = ret;
           this.tableSource.data = ret.listItems;
 
-
-          if (this.optionsStatist?.data?.show)
-            this.onActionButtonStatist(true);
+          if (this.optionsStatist?.data?.show) this.onActionButtonStatist(true);
           setTimeout(() => {
             if (this.optionsSearch.childMethods)
               this.optionsSearch.childMethods.setAccess(ret.access);
@@ -163,23 +191,26 @@ export class DonateTargetPeriodListComponent extends ListBaseComponent<DonateTar
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
 
   onTableSortData(sort: MatSort): void {
-    if (this.tableSource && this.tableSource.sort && this.tableSource.sort.active === sort.active) {
-      if (this.tableSource.sort.start === 'asc') {
-        sort.start = 'desc';
+    if (
+      this.tableSource &&
+      this.tableSource.sort &&
+      this.tableSource.sort.active === sort.active
+    ) {
+      if (this.tableSource.sort.start === "asc") {
+        sort.start = "desc";
         this.filteModelContent.sortColumn = sort.active;
         this.filteModelContent.sortType = SortTypeEnum.Descending;
-      } else if (this.tableSource.sort.start === 'desc') {
-        sort.start = 'asc';
-        this.filteModelContent.sortColumn = '';
+      } else if (this.tableSource.sort.start === "desc") {
+        sort.start = "asc";
+        this.filteModelContent.sortColumn = "";
         this.filteModelContent.sortType = SortTypeEnum.Ascending;
       } else {
-        sort.start = 'desc';
+        sort.start = "desc";
       }
     } else {
       this.filteModelContent.sortColumn = sort.active;
@@ -209,11 +240,12 @@ export class DonateTargetPeriodListComponent extends ListBaseComponent<DonateTar
   }
 
   onActionButtonNewRow(): void {
-    if (
-      this.requestLinkTargeId == null ||
-      this.requestLinkTargeId === 0
-    ) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+    if (this.requestLinkTargeId == null || this.requestLinkTargeId === 0) {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     if (
@@ -228,19 +260,25 @@ export class DonateTargetPeriodListComponent extends ListBaseComponent<DonateTar
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.data = { LinkTargeId: this.requestLinkTargeId, categoryModelSelected: this.categoryModelSelected };
+    dialogConfig.data = {
+      LinkTargeId: this.requestLinkTargeId,
+      categoryModelSelected: this.categoryModelSelected,
+    };
 
-
-
-    const dialogRef = this.dialog.open(DonateTargetPeriodAddComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogRef = this.dialog.open(
+      DonateTargetPeriodAddComponent,
+      dialogConfig,
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
     });
   }
 
-  onActionButtonEditRow(model: DonateTargetPeriodModel = this.tableRowSelected): void {
+  onActionButtonEditRow(
+    model: DonateTargetPeriodModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
@@ -259,17 +297,26 @@ export class DonateTargetPeriodListComponent extends ListBaseComponent<DonateTar
     dialogConfig.autoFocus = true;
     dialogConfig.data = { id: this.tableRowSelected.id };
 
-
-    const dialogRef = this.dialog.open(DonateTargetPeriodEditComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogRef = this.dialog.open(
+      DonateTargetPeriodEditComponent,
+      dialogConfig,
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
     });
   }
-  onActionButtonDeleteRow(model: DonateTargetPeriodModel = this.tableRowSelected): void {
+  onActionButtonDeleteRow(
+    model: DonateTargetPeriodModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id === 0) {
-      this.translate.get('MESSAGE.no_row_selected_to_delete').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); }); return;
+      this.translate
+        .get("MESSAGE.no_row_selected_to_delete")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
     }
     this.onActionTableRowSelect(model);
 
@@ -281,19 +328,17 @@ export class DonateTargetPeriodListComponent extends ListBaseComponent<DonateTar
       this.cmsToastrService.typeErrorAccessDelete();
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(DonateTargetPeriodDeleteComponent, {
-      height: '40%',
+      height: "40%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id: this.tableRowSelected.id }
+      data: { id: this.tableRowSelected.id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -306,14 +351,26 @@ export class DonateTargetPeriodListComponent extends ListBaseComponent<DonateTar
       return;
     }
     const statist = new Map<string, number>();
-    this.translate.get('MESSAGE.Active').subscribe((str: string) => { statist.set(str, 0); });
-    this.translate.get('MESSAGE.All').subscribe((str: string) => { statist.set(str, 0); });
-    const pName = this.constructor.name + '.ServiceStatist';
-    this.translate.get('MESSAGE.Get_the_statist').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    this.translate.get("MESSAGE.All").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    const pName = this.constructor.name + ".ServiceStatist";
+    this.translate.get("MESSAGE.Get_the_statist").subscribe((str: string) => {
+      this.publicHelper.processService.processStart(
+        pName,
+        str,
+        this.constructorInfoAreaId,
+      );
+    });
     this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.All').subscribe((str: string) => { statist.set(str, ret.totalRowCount) });
+          this.translate.get("MESSAGE.All").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
           this.optionsStatist.childMethods.setStatistValue(statist);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -323,19 +380,20 @@ export class DonateTargetPeriodListComponent extends ListBaseComponent<DonateTar
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = 'RecordStatus';
+    fastfilter.propertyName = "RecordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.Active').subscribe((str: string) => { statist.set(str, ret.totalRowCount) });
+          this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
           this.optionsStatist.childMethods.setStatistValue(statist);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -345,50 +403,74 @@ export class DonateTargetPeriodListComponent extends ListBaseComponent<DonateTar
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
-
+      },
+    });
   }
 
-
-
-
-  onActionButtonDonateTargetPeriodAccountRow(model: DonateTargetPeriodModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id === 0 || !model.linkSiteId || model.linkSiteId === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorSelectedRow').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+  onActionButtonDonateTargetPeriodAccountRow(
+    model: DonateTargetPeriodModel = this.tableRowSelected,
+  ): void {
+    if (
+      !model ||
+      !model.id ||
+      model.id === 0 ||
+      !model.linkSiteId ||
+      model.linkSiteId === 0
+    ) {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.onActionTableRowSelect(model);
 
-    this.router.navigate(['/donate/target-period-charge/', model.id]);
+    this.router.navigate(["/donate/target-period-charge/", model.id]);
   }
 
-  onActionButtonTargetPeriodSponserList(model: DonateTargetPeriodModel = this.tableRowSelected): void {
+  onActionButtonTargetPeriodSponserList(
+    model: DonateTargetPeriodModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorSelectedRow').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.onActionTableRowSelect(model);
 
-    this.router.navigate(['/donate/target-period-sponser/LinkTargetPeriodId/' + model.id]);
+    this.router.navigate([
+      "/donate/target-period-sponser/LinkTargetPeriodId/" + model.id,
+    ]);
   }
 
-  onActionButtonTransactionsRow(model: DonateTargetPeriodModel = this.tableRowSelected): void {
+  onActionButtonTransactionsRow(
+    model: DonateTargetPeriodModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorSelectedRow').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    this.router.navigate(['/donate/transaction/LinkTargetPeriodId/', model.id]);
+    this.router.navigate(["/donate/transaction/LinkTargetPeriodId/", model.id]);
   }
 
   onActionButtonReload(): void {
     this.DataGetAll();
   }
-  onSubmitOptionsSearch(model: any): void {
-    this.filteModelContent.filters = model;
+  onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
+    if (model && model.length > 0) {
+      this.filteModelContent.filters = [
+        ...this.filteModelContent.filters,
+        ...model,
+      ];
+    }
     this.DataGetAll();
   }
-
-
 }

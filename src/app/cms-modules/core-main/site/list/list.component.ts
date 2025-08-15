@@ -1,35 +1,40 @@
-
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { PageEvent } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { ActivatedRoute, Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  AuthRefreshTokenModel, CoreAuthV3Service, CoreSiteModel,
+  AuthRefreshTokenModel,
+  CoreAuthV3Service,
+  CoreSiteModel,
   CoreSiteService,
-  FilterDataModel, FilterModel, RecordStatusEnum, SortTypeEnum
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { ListBaseComponent } from 'src/app/core/cmsComponent/listBaseComponent';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { PageInfoService } from 'src/app/core/services/page-info.service';
-import { environment } from 'src/environments/environment';
-import { CoreSiteDeleteComponent } from '../delete/delete.component';
-import { CoreSiteModuleSiteInfoComponent } from '../module-site-info/module-site-info.component';
-import { CoreSiteModuleSiteOptimazeComponent } from '../module-site-optimaze/module-site-optimaze.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { PageInfoService } from "src/app/core/services/page-info.service";
+import { environment } from "src/environments/environment";
+import { CoreSiteDeleteComponent } from "../delete/delete.component";
+import { CoreSiteModuleSiteInfoComponent } from "../module-site-info/module-site-info.component";
+import { CoreSiteModuleSiteOptimazeComponent } from "../module-site-optimaze/module-site-optimaze.component";
 
 @Component({
-  selector: 'app-core-site-list',
-  templateUrl: './list.component.html',
-  standalone: false
+  selector: "app-core-site-list",
+  templateUrl: "./list.component.html",
+  standalone: false,
 })
-export class CoreSiteListComponent extends ListBaseComponent<CoreSiteService, CoreSiteModel, number>
-  implements OnInit, OnDestroy {
+export class CoreSiteListComponent
+  extends ListBaseComponent<CoreSiteService, CoreSiteModel, number>
+  implements OnInit, OnDestroy
+{
   requestLinkUserId = 0;
   requestLinkSiteCategoryId = 0;
   constructorInfoAreaId = this.constructor.name;
@@ -45,8 +50,15 @@ export class CoreSiteListComponent extends ListBaseComponent<CoreSiteService, Co
     public translate: TranslateService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
-    public dialog: MatDialog) {
-    super(contentService, new CoreSiteModel(), publicHelper, tokenHelper, translate);
+    public dialog: MatDialog,
+  ) {
+    super(
+      contentService,
+      new CoreSiteModel(),
+      publicHelper,
+      tokenHelper,
+      translate,
+    );
     this.publicHelper.processService.cdr = this.cdr;
 
     this.optionsSearch.parentMethods = {
@@ -54,20 +66,24 @@ export class CoreSiteListComponent extends ListBaseComponent<CoreSiteService, Co
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = 'Id';
+    this.filteModelContent.sortColumn = "Id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
-    this.requestLinkUserId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkUserId'));
-    this.requestLinkSiteCategoryId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkSiteCategoryId'));
+    this.requestLinkUserId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
+    );
+    this.requestLinkSiteCategoryId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkSiteCategoryId"),
+    );
     if (this.requestLinkUserId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyAnyName = 'LinkUserId';
-      filter.propertyName = 'SiteUsers';
+      filter.propertyAnyName = "LinkUserId";
+      filter.propertyName = "SiteUsers";
       filter.value = this.requestLinkUserId;
       this.filteModelContent.filters.push(filter);
     }
     if (this.requestLinkSiteCategoryId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = 'LinkSiteCategoryId';
+      filter.propertyName = "LinkSiteCategoryId";
       filter.value = this.requestLinkSiteCategoryId;
       this.filteModelContent.filters.push(filter);
     }
@@ -80,16 +96,13 @@ export class CoreSiteListComponent extends ListBaseComponent<CoreSiteService, Co
 
   filteModelContent = new FilterModel();
 
-
-
-
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    'MainImageSrc',
-    'Title',
-    'Id',
-    'linkCreatedBySiteId',
-    'RecordStatus',
+    "MainImageSrc",
+    "Title",
+    "Id",
+    "linkCreatedBySiteId",
+    "RecordStatus",
     // 'SubDomain',
     // 'Domain',
     // 'CreatedDate',
@@ -98,11 +111,11 @@ export class CoreSiteListComponent extends ListBaseComponent<CoreSiteService, Co
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    'MainImageSrc',
-    'Title',
-    'Id',
-    'linkCreatedBySiteId',
-    'RecordStatus',
+    "MainImageSrc",
+    "Title",
+    "Id",
+    "linkCreatedBySiteId",
+    "RecordStatus",
     // 'SubDomain',
     // 'Domain',
     // 'CreatedDate',
@@ -110,7 +123,6 @@ export class CoreSiteListComponent extends ListBaseComponent<CoreSiteService, Co
     // 'ExpireDate',
     // 'Action'
   ];
-
 
   expandedElement: CoreSiteModel | null;
   cmsApiStoreSubscribe: Subscription;
@@ -121,10 +133,12 @@ export class CoreSiteListComponent extends ListBaseComponent<CoreSiteService, Co
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -132,11 +146,24 @@ export class CoreSiteListComponent extends ListBaseComponent<CoreSiteService, Co
     }
   }
   DataGetAll(): void {
-    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(this.tabledisplayedColumnsSource, this.tabledisplayedColumnsMobileSource, [], this.tokenInfo);
+    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
+      this.tabledisplayedColumnsSource,
+      this.tabledisplayedColumnsMobileSource,
+      [],
+      this.tokenInfo,
+    );
     this.tableRowsSelected = [];
     this.onActionTableRowSelect(new CoreSiteModel());
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.get_information_list').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.get_information_list")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.filteModelContent.accessLoad = true;
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
@@ -149,9 +176,7 @@ export class CoreSiteListComponent extends ListBaseComponent<CoreSiteService, Co
           this.dataModelResult = ret;
           this.tableSource.data = ret.listItems;
 
-
-          if (this.optionsStatist?.data?.show)
-            this.onActionButtonStatist(true);
+          if (this.optionsStatist?.data?.show) this.onActionButtonStatist(true);
           setTimeout(() => {
             if (this.optionsSearch.childMethods)
               this.optionsSearch.childMethods.setAccess(ret.access);
@@ -160,29 +185,30 @@ export class CoreSiteListComponent extends ListBaseComponent<CoreSiteService, Co
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
 
-
   onTableSortData(sort: MatSort): void {
-    if (this.tableSource && this.tableSource.sort && this.tableSource.sort.active === sort.active) {
-      if (this.tableSource.sort.start === 'asc') {
-        sort.start = 'desc';
+    if (
+      this.tableSource &&
+      this.tableSource.sort &&
+      this.tableSource.sort.active === sort.active
+    ) {
+      if (this.tableSource.sort.start === "asc") {
+        sort.start = "desc";
         this.filteModelContent.sortColumn = sort.active;
         this.filteModelContent.sortType = SortTypeEnum.Descending;
-      } else if (this.tableSource.sort.start === 'desc') {
-        sort.start = 'asc';
-        this.filteModelContent.sortColumn = '';
+      } else if (this.tableSource.sort.start === "desc") {
+        sort.start = "asc";
+        this.filteModelContent.sortColumn = "";
         this.filteModelContent.sortType = SortTypeEnum.Ascending;
       } else {
-        sort.start = 'desc';
+        sort.start = "desc";
       }
     } else {
       this.filteModelContent.sortColumn = sort.active;
@@ -198,7 +224,6 @@ export class CoreSiteListComponent extends ListBaseComponent<CoreSiteService, Co
     this.DataGetAll();
   }
 
-
   onActionButtonNewRow(): void {
     if (
       this.dataModelResult == null ||
@@ -208,11 +233,10 @@ export class CoreSiteListComponent extends ListBaseComponent<CoreSiteService, Co
       this.cmsToastrService.typeErrorAccessAdd();
       return;
     }
-    this.router.navigate(['/core/site/add']);
+    this.router.navigate(["/core/site/add"]);
   }
 
   onActionButtonEditRow(model: CoreSiteModel = this.tableRowSelected): void {
-
     if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
@@ -226,11 +250,15 @@ export class CoreSiteListComponent extends ListBaseComponent<CoreSiteService, Co
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
-    this.router.navigate(['/core/site/edit', model.id]);
+    this.router.navigate(["/core/site/edit", model.id]);
   }
   onActionButtonDeleteRow(model: CoreSiteModel = this.tableRowSelected): void {
     if (!model || !model.id || model.id === 0) {
-      this.translate.get('MESSAGE.no_row_selected_to_delete').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("MESSAGE.no_row_selected_to_delete")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.onActionTableRowSelect(model);
@@ -243,42 +271,49 @@ export class CoreSiteListComponent extends ListBaseComponent<CoreSiteService, Co
       this.cmsToastrService.typeErrorAccessDelete();
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(CoreSiteDeleteComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id: this.tableRowSelected.id }
+      data: { id: this.tableRowSelected.id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
     });
-
   }
-  onActionButtonModuleListRow(model: CoreSiteModel = this.tableRowSelected): void {
+  onActionButtonModuleListRow(
+    model: CoreSiteModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id === 0) {
-
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorSelectedRow').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.onActionTableRowSelect(model);
-    this.router.navigate(['/core/site/modulelist/LinkSiteId/', this.tableRowSelected.id]);
+    this.router.navigate([
+      "/core/site/modulelist/LinkSiteId/",
+      this.tableRowSelected.id,
+    ]);
   }
   onActionButtonLoginToRow(model: CoreSiteModel = this.tableRowSelected): void {
     if (!model || !model.id || model.id === 0) {
-
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorSelectedRow').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.onActionTableRowSelect(model);
-
 
     let authModel: AuthRefreshTokenModel;
     authModel = new AuthRefreshTokenModel();
@@ -287,56 +322,87 @@ export class CoreSiteListComponent extends ListBaseComponent<CoreSiteService, Co
       next: (res) => {
         if (res) {
           this.cmsToastrService.typeSuccessSelected();
-          this.router.navigate(['/']);
-        }
-        else {
+          this.router.navigate(["/"]);
+        } else {
           this.cmsToastrService.typeErrorSelected();
         }
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
-      }
-    }
-    );
+      },
+    });
   }
-  onActionButtonDomainAliasListRow(model: CoreSiteModel = this.tableRowSelected): void {
+  onActionButtonDomainAliasListRow(
+    model: CoreSiteModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorSelectedRow').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.onActionTableRowSelect(model);
-    this.router.navigate(['/core/sitedomainalias/', this.tableRowSelected.id]);
+    this.router.navigate(["/core/sitedomainalias/", this.tableRowSelected.id]);
   }
-  onActionButtonUserListRow(model: CoreSiteModel = this.tableRowSelected): void {
+  onActionButtonUserListRow(
+    model: CoreSiteModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorSelectedRow').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.onActionTableRowSelect(model);
-    this.router.navigate(['/core/site/userlist/LinkSiteId', this.tableRowSelected.id]);
+    this.router.navigate([
+      "/core/site/userlist/LinkSiteId",
+      this.tableRowSelected.id,
+    ]);
   }
-  onActionButtonDeviceListRow(model: CoreSiteModel = this.tableRowSelected): void {
+  onActionButtonDeviceListRow(
+    model: CoreSiteModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorSelectedRow').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.onActionTableRowSelect(model);
 
-    this.router.navigate(['/core/device', this.tableRowSelected.id]);
+    this.router.navigate(["/core/device", this.tableRowSelected.id]);
   }
   onActionButtonResller(model: CoreSiteModel = this.tableRowSelected): void {
     if (!model || !model.id || model.id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorSelectedRow').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.onActionTableRowSelect(model);
 
-    this.router.navigate(['/core/site/reseller-chart/LinkSiteId', this.tableRowSelected.id]);
+    this.router.navigate([
+      "/core/site/reseller-chart/LinkSiteId",
+      this.tableRowSelected.id,
+    ]);
   }
-  onActionButtonModuleSiteInfo(model: CoreSiteModel = this.tableRowSelected): void {
-
+  onActionButtonModuleSiteInfo(
+    model: CoreSiteModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorSelectedRow').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.onActionTableRowSelect(model);
@@ -349,30 +415,33 @@ export class CoreSiteListComponent extends ListBaseComponent<CoreSiteService, Co
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(CoreSiteModuleSiteInfoComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
       data: {
         LinkSiteId: model.id,
-      }
+      },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
     });
   }
-  onActionButtonModuleSiteOptimaze(model: CoreSiteModel = this.tableRowSelected): void {
-
+  onActionButtonModuleSiteOptimaze(
+    model: CoreSiteModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorSelectedRow').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.onActionTableRowSelect(model);
@@ -385,21 +454,19 @@ export class CoreSiteListComponent extends ListBaseComponent<CoreSiteService, Co
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(CoreSiteModuleSiteOptimazeComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
       data: {
         LinkSiteId: model.id,
-      }
+      },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -413,14 +480,26 @@ export class CoreSiteListComponent extends ListBaseComponent<CoreSiteService, Co
     }
 
     const statist = new Map<string, number>();
-    this.translate.get('MESSAGE.Active').subscribe((str: string) => { statist.set(str, 0); });
-    this.translate.get('MESSAGE.All').subscribe((str: string) => { statist.set(str, 0); });
-    const pName = this.constructor.name + '.ServiceStatist';
-    this.translate.get('MESSAGE.Get_the_statist').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    this.translate.get("MESSAGE.All").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    const pName = this.constructor.name + ".ServiceStatist";
+    this.translate.get("MESSAGE.Get_the_statist").subscribe((str: string) => {
+      this.publicHelper.processService.processStart(
+        pName,
+        str,
+        this.constructorInfoAreaId,
+      );
+    });
     this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.All').subscribe((str: string) => { statist.set(str, ret.totalRowCount) });
+          this.translate.get("MESSAGE.All").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
           this.optionsStatist.childMethods.setStatistValue(statist);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -430,19 +509,20 @@ export class CoreSiteListComponent extends ListBaseComponent<CoreSiteService, Co
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = 'RecordStatus';
+    fastfilter.propertyName = "RecordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.Active').subscribe((str: string) => { statist.set(str, ret.totalRowCount) });
+          this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
           this.optionsStatist.childMethods.setStatistValue(statist);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -452,27 +532,27 @@ export class CoreSiteListComponent extends ListBaseComponent<CoreSiteService, Co
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
-
+      },
+    });
   }
-
-
-
 
   onActionButtonReload(): void {
     this.DataGetAll();
   }
-  onSubmitOptionsSearch(model: any): void {
-    this.filteModelContent.filters = model;
+  onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
+    if (model && model.length > 0) {
+      this.filteModelContent.filters = [
+        ...this.filteModelContent.filters,
+        ...model,
+      ];
+    }
     this.DataGetAll();
   }
 
   onActionBackToParentUserList(): void {
-    this.router.navigate(['/core/user/']);
+    this.router.navigate(["/core/user/"]);
   }
   onActionBackToParentSiteCategoryList(): void {
-    this.router.navigate(['/core/sitecategory/']);
+    this.router.navigate(["/core/sitecategory/"]);
   }
 }

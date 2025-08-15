@@ -1,37 +1,43 @@
-
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { PageEvent } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { ActivatedRoute, Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  AuthRefreshTokenModel, CoreAuthV3Service, CoreUserModel,
-  CoreUserService, FilterDataModel, FilterModel, RecordStatusEnum, SortTypeEnum
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { ListBaseComponent } from 'src/app/core/cmsComponent/listBaseComponent';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { PageInfoService } from 'src/app/core/services/page-info.service';
-import { CmsConfirmationDialogService } from 'src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service';
-import { environment } from 'src/environments/environment';
-import { CoreUserAddComponent } from '../add/add.component';
-import { CoreUserChangePasswordComponent } from '../changePassword/changePassword.component';
-import { CoreUserEmailConfirmComponent } from '../emailConfirm/emailConfirm.component';
-import { CoreUserViewComponent } from '../view/view.component';
-import { CmsAuthService } from 'src/app/core/services/cmsAuth.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  AuthRefreshTokenModel,
+  CoreAuthV3Service,
+  CoreUserModel,
+  CoreUserService,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsAuthService } from "src/app/core/services/cmsAuth.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { PageInfoService } from "src/app/core/services/page-info.service";
+import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { environment } from "src/environments/environment";
+import { CoreUserAddComponent } from "../add/add.component";
+import { CoreUserChangePasswordComponent } from "../changePassword/changePassword.component";
+import { CoreUserEmailConfirmComponent } from "../emailConfirm/emailConfirm.component";
+import { CoreUserViewComponent } from "../view/view.component";
 
 @Component({
-  selector: 'app-core-user-list',
-  templateUrl: './list.component.html',
-  standalone: false
+  selector: "app-core-user-list",
+  templateUrl: "./list.component.html",
+  standalone: false,
 })
-export class CoreUserListComponent extends ListBaseComponent<CoreUserService, CoreUserModel, number>
-  implements OnInit, OnDestroy {
+export class CoreUserListComponent
+  extends ListBaseComponent<CoreUserService, CoreUserModel, number>
+  implements OnInit, OnDestroy
+{
   requestLinkSiteId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
@@ -48,23 +54,32 @@ export class CoreUserListComponent extends ListBaseComponent<CoreUserService, Co
     public publicHelper: PublicHelper,
     private cmsStoreService: CmsStoreService,
     private cmsAuthService: CmsAuthService,
-    public dialog: MatDialog) {
-    super(coreUserService, new CoreUserModel(), publicHelper, tokenHelper, translate);
+    public dialog: MatDialog,
+  ) {
+    super(
+      coreUserService,
+      new CoreUserModel(),
+      publicHelper,
+      tokenHelper,
+      translate,
+    );
     this.publicHelper.processService.cdr = this.cdr;
 
-    this.requestLinkSiteId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkSiteId'));
+    this.requestLinkSiteId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
+    );
 
     this.optionsSearch.parentMethods = {
       onSubmit: (model) => this.onSubmitOptionsSearch(model),
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = 'Id';
+    this.filteModelContent.sortColumn = "Id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     if (this.requestLinkSiteId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyAnyName = 'LinkSiteId';
-      filter.propertyName = 'SiteUsers';
+      filter.propertyAnyName = "LinkSiteId";
+      filter.propertyName = "SiteUsers";
       filter.value = this.requestLinkSiteId;
       this.filteModelContent.filters.push(filter);
     }
@@ -78,49 +93,47 @@ export class CoreUserListComponent extends ListBaseComponent<CoreUserService, Co
 
   filteModelContent = new FilterModel();
 
-
-
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    'LinkMainImageIdSrc',
-    'Id',
-    'RecordStatus',
-    'Name',
-    'LastName',
-    'CompanyName',
-    'email',
-    'mobile',
+    "LinkMainImageIdSrc",
+    "Id",
+    "RecordStatus",
+    "Name",
+    "LastName",
+    "CompanyName",
+    "email",
+    "mobile",
     // 'CreatedDate',
-    'action_menu',
+    "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     // 'LinkMainImageIdSrc',
-    'Id',
-    'RecordStatus',
-    'Name',
-    'LastName',
+    "Id",
+    "RecordStatus",
+    "Name",
+    "LastName",
     // 'CompanyName',
     // 'email',
     // 'mobile',
     // 'CreatedDate',
-    'action_menu',
+    "action_menu",
   ];
 
   expandedElement: CoreUserModel | null;
   cmsApiStoreSubscribe: Subscription;
 
   ngOnInit(): void {
-
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
     }
 
-
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -128,12 +141,24 @@ export class CoreUserListComponent extends ListBaseComponent<CoreUserService, Co
     }
   }
   DataGetAll(): void {
-
-    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(this.tabledisplayedColumnsSource, this.tabledisplayedColumnsMobileSource, [], this.tokenInfo);
+    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
+      this.tabledisplayedColumnsSource,
+      this.tabledisplayedColumnsMobileSource,
+      [],
+      this.tokenInfo,
+    );
     this.tableRowsSelected = [];
     this.onActionTableRowSelect(new CoreUserModel());
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.get_information_list').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.get_information_list")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.filteModelContent.accessLoad = true;
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
@@ -145,41 +170,39 @@ export class CoreUserListComponent extends ListBaseComponent<CoreUserService, Co
           this.dataModelResult = ret;
           this.tableSource.data = ret.listItems;
 
-
-          if (this.optionsStatist?.data?.show)
-            this.onActionButtonStatist(true);
+          if (this.optionsStatist?.data?.show) this.onActionButtonStatist(true);
           setTimeout(() => {
             if (this.optionsSearch.childMethods)
               this.optionsSearch.childMethods.setAccess(ret.access);
           }, 1000);
-
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
 
-
   onTableSortData(sort: MatSort): void {
-    if (this.tableSource && this.tableSource.sort && this.tableSource.sort.active === sort.active) {
-      if (this.tableSource.sort.start === 'asc') {
-        sort.start = 'desc';
+    if (
+      this.tableSource &&
+      this.tableSource.sort &&
+      this.tableSource.sort.active === sort.active
+    ) {
+      if (this.tableSource.sort.start === "asc") {
+        sort.start = "desc";
         this.filteModelContent.sortColumn = sort.active;
         this.filteModelContent.sortType = SortTypeEnum.Descending;
-      } else if (this.tableSource.sort.start === 'desc') {
-        sort.start = 'asc';
-        this.filteModelContent.sortColumn = '';
+      } else if (this.tableSource.sort.start === "desc") {
+        sort.start = "asc";
+        this.filteModelContent.sortColumn = "";
         this.filteModelContent.sortType = SortTypeEnum.Ascending;
       } else {
-        sort.start = 'desc';
+        sort.start = "desc";
       }
     } else {
       this.filteModelContent.sortColumn = sort.active;
@@ -195,9 +218,7 @@ export class CoreUserListComponent extends ListBaseComponent<CoreUserService, Co
     this.DataGetAll();
   }
 
-
   onActionButtonNewRow(): void {
-
     if (
       this.dataModelResult == null ||
       this.dataModelResult.access == null ||
@@ -206,19 +227,17 @@ export class CoreUserListComponent extends ListBaseComponent<CoreUserService, Co
       this.cmsToastrService.typeErrorAccessAdd();
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(CoreUserAddComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: {}
+      data: {},
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -226,7 +245,6 @@ export class CoreUserListComponent extends ListBaseComponent<CoreUserService, Co
   }
 
   onActionButtonViewRow(model: CoreUserModel = this.tableRowSelected): void {
-
     if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
@@ -240,26 +258,26 @@ export class CoreUserListComponent extends ListBaseComponent<CoreUserService, Co
       this.cmsToastrService.typeErrorAccessWatch();
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(CoreUserViewComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id: this.tableRowSelected.id }
+      data: { id: this.tableRowSelected.id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         // this.DataGetAll();
       }
     });
   }
-  onActionButtonEditRow(model: CoreUserModel = this.tableRowSelected, event?: MouseEvent): void {
-
+  onActionButtonEditRow(
+    model: CoreUserModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
     if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
@@ -278,31 +296,32 @@ export class CoreUserListComponent extends ListBaseComponent<CoreUserService, Co
       this.link = "/#/core/user/edit/" + model.id;
       window.open(this.link, "_blank");
     } else {
-      this.router.navigate(['/core/user/edit/', this.tableRowSelected.id]);
+      this.router.navigate(["/core/user/edit/", this.tableRowSelected.id]);
     }
-
   }
-  onActionButtonChangePassword(model: CoreUserModel = this.tableRowSelected): void {
+  onActionButtonChangePassword(
+    model: CoreUserModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
     this.onActionTableRowSelect(model);
     //console.log(this.tableRowSelected.id);
-    if (this.tokenInfo.access.userId != model.id &&
-      (
-        this.dataModelResult == null ||
+    if (
+      this.tokenInfo.access.userId != model.id &&
+      (this.dataModelResult == null ||
         this.dataModelResult.access == null ||
-        !this.dataModelResult.access.accessEditRow
-      )) {
+        !this.dataModelResult.access.accessEditRow)
+    ) {
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
     const dialogRef = this.dialog.open(CoreUserChangePasswordComponent, {
       //height: '90%',
-      data: { linkUserId: this.tableRowSelected.id }
+      data: { linkUserId: this.tableRowSelected.id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -310,7 +329,6 @@ export class CoreUserListComponent extends ListBaseComponent<CoreUserService, Co
   }
 
   onActionButtonEmailConfirm(): void {
-
     if (
       this.dataModelResult == null ||
       this.dataModelResult.access == null ||
@@ -319,19 +337,17 @@ export class CoreUserListComponent extends ListBaseComponent<CoreUserService, Co
       this.cmsToastrService.typeErrorAccessAdd();
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(CoreUserEmailConfirmComponent, {
-      height: '70%',
+      height: "70%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: {}
+      data: {},
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -355,48 +371,68 @@ export class CoreUserListComponent extends ListBaseComponent<CoreUserService, Co
 
     var title = "";
     var message = "";
-    this.translate.get(['MESSAGE.Please_Confirm', 'MESSAGE.Do_you_want_to_delete_this_content']).subscribe((str: string) => {
-      title = str['MESSAGE.Please_Confirm'];
-      message = str['MESSAGE.Do_you_want_to_delete_this_content'] + '?' + '<br> ( ' + this.tableRowSelected.name + '-' + this.tableRowSelected.lastName + ' ) ';
-    });
+    this.translate
+      .get([
+        "MESSAGE.Please_Confirm",
+        "MESSAGE.Do_you_want_to_delete_this_content",
+      ])
+      .subscribe((str: string) => {
+        title = str["MESSAGE.Please_Confirm"];
+        message =
+          str["MESSAGE.Do_you_want_to_delete_this_content"] +
+          "?" +
+          "<br> ( " +
+          this.tableRowSelected.name +
+          "-" +
+          this.tableRowSelected.lastName +
+          " ) ";
+      });
 
-    this.contentService.confirm(title, message)
+    this.contentService
+      .confirm(title, message)
       .then((confirmed) => {
         if (confirmed) {
-          const pName = this.constructor.name + 'main';
-          this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-            this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-          });
+          const pName = this.constructor.name + "main";
+          this.translate
+            .get("MESSAGE.Receiving_information")
+            .subscribe((str: string) => {
+              this.publicHelper.processService.processStart(
+                pName,
+                str,
+                this.constructorInfoAreaId,
+              );
+            });
 
-          this.coreUserService.ServiceDelete(this.tableRowSelected.id).subscribe({
-            next: (ret) => {
-              if (ret.isSuccess) {
-                this.cmsToastrService.typeSuccessRemove();
-                this.DataGetAll();
-              } else {
-                this.cmsToastrService.typeErrorRemove();
-              }
-              this.publicHelper.processService.processStop(pName);
-
-            },
-            error: (er) => {
-              this.cmsToastrService.typeError(er);
-              this.publicHelper.processService.processStop(pName, false);
-            }
-          }
-          );
+          this.coreUserService
+            .ServiceDelete(this.tableRowSelected.id)
+            .subscribe({
+              next: (ret) => {
+                if (ret.isSuccess) {
+                  this.cmsToastrService.typeSuccessRemove();
+                  this.DataGetAll();
+                } else {
+                  this.cmsToastrService.typeErrorRemove();
+                }
+                this.publicHelper.processService.processStop(pName);
+              },
+              error: (er) => {
+                this.cmsToastrService.typeError(er);
+                this.publicHelper.processService.processStop(pName, false);
+              },
+            });
         }
-      }
-      )
+      })
       .catch(() => {
         // console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)')
-      }
-      );
+      });
   }
   onActionButtonLoginToRow(model: CoreUserModel = this.tableRowSelected): void {
     if (!model || !model.id || model.id === 0) {
-
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorSelectedRow').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.onActionTableRowSelect(model);
@@ -408,17 +444,15 @@ export class CoreUserListComponent extends ListBaseComponent<CoreUserService, Co
       next: (res) => {
         if (res.isSuccess) {
           this.cmsToastrService.typeSuccessSelected();
-          this.router.navigate(['/']);
-        }
-        else {
+          this.router.navigate(["/"]);
+        } else {
           this.cmsToastrService.typeErrorSelected();
         }
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
-      }
-    }
-    );
+      },
+    });
   }
 
   onActionButtonStatist(view = !this.optionsStatist.data.show): void {
@@ -427,14 +461,26 @@ export class CoreUserListComponent extends ListBaseComponent<CoreUserService, Co
       return;
     }
     const statist = new Map<string, number>();
-    this.translate.get('MESSAGE.Active').subscribe((str: string) => { statist.set(str, 0); });
-    this.translate.get('MESSAGE.All').subscribe((str: string) => { statist.set(str, 0); });
-    const pName = this.constructor.name + '.ServiceStatist';
-    this.translate.get('MESSAGE.Get_the_statist').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    this.translate.get("MESSAGE.All").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    const pName = this.constructor.name + ".ServiceStatist";
+    this.translate.get("MESSAGE.Get_the_statist").subscribe((str: string) => {
+      this.publicHelper.processService.processStart(
+        pName,
+        str,
+        this.constructorInfoAreaId,
+      );
+    });
     this.coreUserService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.All').subscribe((str: string) => { statist.set(str, ret.totalRowCount) });
+          this.translate.get("MESSAGE.All").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
           this.optionsStatist.childMethods.setStatistValue(statist);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -444,19 +490,20 @@ export class CoreUserListComponent extends ListBaseComponent<CoreUserService, Co
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = 'RecordStatus';
+    fastfilter.propertyName = "RecordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.coreUserService.ServiceGetCount(filterStatist1).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.Active').subscribe((str: string) => { statist.set(str, ret.totalRowCount) });
+          this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
           this.optionsStatist.childMethods.setStatistValue(statist);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -466,13 +513,9 @@ export class CoreUserListComponent extends ListBaseComponent<CoreUserService, Co
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
-
+      },
+    });
   }
-
-
 
   onActionButtonReload(): void {
     this.DataGetAll();
@@ -480,13 +523,20 @@ export class CoreUserListComponent extends ListBaseComponent<CoreUserService, Co
   onActionCopied(): void {
     this.cmsToastrService.typeSuccessCopedToClipboard();
   }
-  onSubmitOptionsSearch(model: any): void {
-    this.filteModelContent.filters = model;
+  onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
+    if (model && model.length > 0) {
+      this.filteModelContent.filters = [
+        ...this.filteModelContent.filters,
+        ...model,
+      ];
+    }
     this.DataGetAll();
   }
 
-
-  onActionButtonSiteList(model: CoreUserModel = this.tableRowSelected, event?: MouseEvent): void {
+  onActionButtonSiteList(
+    model: CoreUserModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
     if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
@@ -497,27 +547,42 @@ export class CoreUserListComponent extends ListBaseComponent<CoreUserService, Co
       this.link = "/#/core/site/list/LinkUserId/" + model.id;
       window.open(this.link, "_blank");
     } else {
-      this.router.navigate(['/core/site/list/LinkUserId/', this.tableRowSelected.id]);
+      this.router.navigate([
+        "/core/site/list/LinkUserId/",
+        this.tableRowSelected.id,
+      ]);
     }
   }
-  onActionButtonSiteByGroupList(model: CoreUserModel = this.tableRowSelected, event?: MouseEvent): void {
+  onActionButtonSiteByGroupList(
+    model: CoreUserModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
     if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
     this.onActionTableRowSelect(model);
 
-
     if (event?.ctrlKey) {
       this.link = "/#/core/site/userlist/LinkUserId/" + model.id;
       window.open(this.link, "_blank");
     } else {
-      this.router.navigate(['/core/site/userlist/LinkUserId/', this.tableRowSelected.id]);
+      this.router.navigate([
+        "/core/site/userlist/LinkUserId/",
+        this.tableRowSelected.id,
+      ]);
     }
   }
-  onActionButtonResller(model: CoreUserModel = this.tableRowSelected, event?: MouseEvent): void {
+  onActionButtonResller(
+    model: CoreUserModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
     if (!model || !model.id || model.id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorSelectedRow').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.onActionTableRowSelect(model);
@@ -526,15 +591,22 @@ export class CoreUserListComponent extends ListBaseComponent<CoreUserService, Co
       this.link = "/#/core/user/reseller-chart/LinkUserId/" + model.id;
       window.open(this.link, "_blank");
     } else {
-      this.router.navigate(['/core/user/reseller-chart/LinkUserId/', this.tableRowSelected.id]);
+      this.router.navigate([
+        "/core/user/reseller-chart/LinkUserId/",
+        this.tableRowSelected.id,
+      ]);
     }
   }
   onActionBackToParentSiteList(): void {
-    this.router.navigate(['/core/site/']);
+    this.router.navigate(["/core/site/"]);
   }
 
   onActionButtonUserSupportList(row: CoreUserModel): void {
-    this.router.navigate(['/core/user-support-access/list/LinkSiteId/', 0, 'LinkUserId', row.id]);
+    this.router.navigate([
+      "/core/user-support-access/list/LinkSiteId/",
+      0,
+      "LinkUserId",
+      row.id,
+    ]);
   }
-
 }

@@ -1,34 +1,44 @@
-
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { PageEvent } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { ActivatedRoute, Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService, CoreModuleLogSiteUserCreditBlockedModel, CoreModuleLogSiteUserCreditBlockedService, CoreSiteModel,
-  FilterDataModel, FilterModel, RecordStatusEnum, SortTypeEnum
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { ListBaseComponent } from 'src/app/core/cmsComponent/listBaseComponent';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { PageInfoService } from 'src/app/core/services/page-info.service';
-import { CmsConfirmationDialogService } from 'src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service';
-import { environment } from 'src/environments/environment';
-import { CoreModuleLogSiteUserCreditBlockedEditComponent } from '../edit/edit.component';
-import { CoreModuleLogSiteUserCreditBlockedViewComponent } from '../view/view.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  CoreEnumService,
+  CoreModuleLogSiteUserCreditBlockedModel,
+  CoreModuleLogSiteUserCreditBlockedService,
+  CoreSiteModel,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { PageInfoService } from "src/app/core/services/page-info.service";
+import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { environment } from "src/environments/environment";
+import { CoreModuleLogSiteUserCreditBlockedEditComponent } from "../edit/edit.component";
+import { CoreModuleLogSiteUserCreditBlockedViewComponent } from "../view/view.component";
 
 @Component({
-  selector: 'app-coremodulelog-site-user-credit-blocked-list',
-  templateUrl: './list.component.html',
-  standalone: false
+  selector: "app-coremodulelog-site-user-credit-blocked-list",
+  templateUrl: "./list.component.html",
+  standalone: false,
 })
-export class CoreModuleLogSiteUserCreditBlockedListComponent extends ListBaseComponent<CoreModuleLogSiteUserCreditBlockedService, CoreModuleLogSiteUserCreditBlockedModel, string>
-  implements OnInit, OnDestroy {
+export class CoreModuleLogSiteUserCreditBlockedListComponent
+  extends ListBaseComponent<
+    CoreModuleLogSiteUserCreditBlockedService,
+    CoreModuleLogSiteUserCreditBlockedModel,
+    string
+  >
+  implements OnInit, OnDestroy
+{
   requestLinkSiteId = 0;
   requestLinkUserId = 0;
   requestlinkMemberUserId = 0;
@@ -48,28 +58,40 @@ export class CoreModuleLogSiteUserCreditBlockedListComponent extends ListBaseCom
     public publicHelper: PublicHelper,
     public dialog: MatDialog,
   ) {
-    super(contentService, new CoreModuleLogSiteUserCreditBlockedModel(), publicHelper, tokenHelper, translate);
+    super(
+      contentService,
+      new CoreModuleLogSiteUserCreditBlockedModel(),
+      publicHelper,
+      tokenHelper,
+      translate,
+    );
     this.publicHelper.processService.cdr = this.cdr;
 
-    this.requestLinkSiteId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkSiteId'));
-    this.requestLinkUserId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkUserId'));
-    this.requestlinkMemberUserId = + Number(this.activatedRoute.snapshot.paramMap.get('linkMemberUserId'));
+    this.requestLinkSiteId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
+    );
+    this.requestLinkUserId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
+    );
+    this.requestlinkMemberUserId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("linkMemberUserId"),
+    );
 
     if (this.requestLinkSiteId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = 'LinkCmsSiteId';
+      filter.propertyName = "LinkCmsSiteId";
       filter.value = this.requestLinkSiteId;
       this.filteModelContent.filters.push(filter);
     }
     if (this.requestLinkUserId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = 'LinkUserId';
+      filter.propertyName = "LinkUserId";
       filter.value = this.requestLinkUserId;
       this.filteModelContent.filters.push(filter);
     }
     if (this.requestlinkMemberUserId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = 'linkMemberUserId';
+      filter.propertyName = "linkMemberUserId";
       filter.value = this.requestlinkMemberUserId;
       this.filteModelContent.filters.push(filter);
     }
@@ -78,7 +100,7 @@ export class CoreModuleLogSiteUserCreditBlockedListComponent extends ListBaseCom
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = 'CreatedDate';
+    this.filteModelContent.sortColumn = "CreatedDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   comment: string;
@@ -89,41 +111,39 @@ export class CoreModuleLogSiteUserCreditBlockedListComponent extends ListBaseCom
 
   filteModelContent = new FilterModel();
 
-
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    'Id',
-    'LinkUserId',
-    'LinkSiteId',
-    'CreatedDate',
+    "Id",
+    "LinkUserId",
+    "LinkSiteId",
+    "CreatedDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    'Id',
-    'LinkUserId',
-    'LinkSiteId',
-    'CreatedDate',
+    "Id",
+    "LinkUserId",
+    "LinkSiteId",
+    "CreatedDate",
     // 'Action'
   ];
-
-
-
 
   expandedElement: CoreSiteModel | null;
   cmsApiStoreSubscribe: Subscription;
 
   ngOnInit(): void {
-    this.filteModelContent.sortColumn = 'CreatedDate';
+    this.filteModelContent.sortColumn = "CreatedDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+        this.DataGetAll();
+      });
   }
 
   ngOnDestroy(): void {
@@ -132,11 +152,24 @@ export class CoreModuleLogSiteUserCreditBlockedListComponent extends ListBaseCom
     }
   }
   DataGetAll(): void {
-    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(this.tabledisplayedColumnsSource, this.tabledisplayedColumnsMobileSource, [], this.tokenInfo);
+    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
+      this.tabledisplayedColumnsSource,
+      this.tabledisplayedColumnsMobileSource,
+      [],
+      this.tokenInfo,
+    );
     this.tableRowsSelected = [];
     this.onActionTableRowSelect(new CoreModuleLogSiteUserCreditBlockedModel());
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.get_information_list').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.get_information_list")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.filteModelContent.accessLoad = true;
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
@@ -149,9 +182,7 @@ export class CoreModuleLogSiteUserCreditBlockedListComponent extends ListBaseCom
           this.dataModelResult = ret;
           this.tableSource.data = ret.listItems;
 
-
-          if (this.optionsStatist?.data?.show)
-            this.onActionButtonStatist(true);
+          if (this.optionsStatist?.data?.show) this.onActionButtonStatist(true);
           setTimeout(() => {
             if (this.optionsSearch.childMethods)
               this.optionsSearch.childMethods.setAccess(ret.access);
@@ -160,30 +191,31 @@ export class CoreModuleLogSiteUserCreditBlockedListComponent extends ListBaseCom
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
 
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
 
-
   onTableSortData(sort: MatSort): void {
-    if (this.tableSource && this.tableSource.sort && this.tableSource.sort.active === sort.active) {
-      if (this.tableSource.sort.start === 'asc') {
-        sort.start = 'desc';
+    if (
+      this.tableSource &&
+      this.tableSource.sort &&
+      this.tableSource.sort.active === sort.active
+    ) {
+      if (this.tableSource.sort.start === "asc") {
+        sort.start = "desc";
         this.filteModelContent.sortColumn = sort.active;
         this.filteModelContent.sortType = SortTypeEnum.Descending;
-      } else if (this.tableSource.sort.start === 'desc') {
-        sort.start = 'asc';
-        this.filteModelContent.sortColumn = '';
+      } else if (this.tableSource.sort.start === "desc") {
+        sort.start = "asc";
+        this.filteModelContent.sortColumn = "";
         this.filteModelContent.sortType = SortTypeEnum.Ascending;
       } else {
-        sort.start = 'desc';
+        sort.start = "desc";
       }
     } else {
       this.filteModelContent.sortColumn = sort.active;
@@ -199,10 +231,9 @@ export class CoreModuleLogSiteUserCreditBlockedListComponent extends ListBaseCom
     this.DataGetAll();
   }
 
-
-
-  onActionButtonViewRow(model: CoreModuleLogSiteUserCreditBlockedModel = this.tableRowSelected): void {
-
+  onActionButtonViewRow(
+    model: CoreModuleLogSiteUserCreditBlockedModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
@@ -216,26 +247,29 @@ export class CoreModuleLogSiteUserCreditBlockedListComponent extends ListBaseCom
       this.cmsToastrService.typeErrorAccessWatch();
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
-    const dialogRef = this.dialog.open(CoreModuleLogSiteUserCreditBlockedViewComponent, {
-      height: '90%',
-      panelClass: panelClass,
-      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
-      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id: this.tableRowSelected.id }
-    });
-    dialogRef.afterClosed().subscribe(result => {
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
+    const dialogRef = this.dialog.open(
+      CoreModuleLogSiteUserCreditBlockedViewComponent,
+      {
+        height: "90%",
+        panelClass: panelClass,
+        enterAnimationDuration:
+          environment.cmsViewConfig.enterAnimationDuration,
+        exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+        data: { id: this.tableRowSelected.id },
+      },
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         // this.DataGetAll();
       }
     });
   }
-  onActionButtonEditRow(model: CoreModuleLogSiteUserCreditBlockedModel = this.tableRowSelected): void {
-
+  onActionButtonEditRow(
+    model: CoreModuleLogSiteUserCreditBlockedModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
@@ -249,27 +283,35 @@ export class CoreModuleLogSiteUserCreditBlockedListComponent extends ListBaseCom
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
-    const dialogRef = this.dialog.open(CoreModuleLogSiteUserCreditBlockedEditComponent, {
-      height: '90%',
-      panelClass: panelClass,
-      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
-      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id: this.tableRowSelected.id }
-    });
-    dialogRef.afterClosed().subscribe(result => {
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
+    const dialogRef = this.dialog.open(
+      CoreModuleLogSiteUserCreditBlockedEditComponent,
+      {
+        height: "90%",
+        panelClass: panelClass,
+        enterAnimationDuration:
+          environment.cmsViewConfig.enterAnimationDuration,
+        exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+        data: { id: this.tableRowSelected.id },
+      },
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
     });
   }
-  onActionButtonDeleteRow(model: CoreModuleLogSiteUserCreditBlockedModel = this.tableRowSelected): void {
+  onActionButtonDeleteRow(
+    model: CoreModuleLogSiteUserCreditBlockedModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id.length === 0) {
-      this.translate.get('MESSAGE.no_row_selected_to_delete').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("MESSAGE.no_row_selected_to_delete")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.onActionTableRowSelect(model);
@@ -283,50 +325,60 @@ export class CoreModuleLogSiteUserCreditBlockedListComponent extends ListBaseCom
       return;
     }
 
-
     var title = "";
     var message = "";
-    this.translate.get(['MESSAGE.Please_Confirm', 'MESSAGE.Do_you_want_to_delete_this_content']).subscribe((str: string) => {
-      title = str['MESSAGE.Please_Confirm'];
-      message = str['MESSAGE.Do_you_want_to_delete_this_content'] + '?' + '<br> ( ' + this.tableRowSelected.id + ' ) ';
-    });
-    this.cmsConfirmationDialogService.confirm(title, message)
+    this.translate
+      .get([
+        "MESSAGE.Please_Confirm",
+        "MESSAGE.Do_you_want_to_delete_this_content",
+      ])
+      .subscribe((str: string) => {
+        title = str["MESSAGE.Please_Confirm"];
+        message =
+          str["MESSAGE.Do_you_want_to_delete_this_content"] +
+          "?" +
+          "<br> ( " +
+          this.tableRowSelected.id +
+          " ) ";
+      });
+    this.cmsConfirmationDialogService
+      .confirm(title, message)
       .then((confirmed) => {
         if (confirmed) {
-          const pName = this.constructor.name + 'main';
-          this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-            this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-          });
+          const pName = this.constructor.name + "main";
+          this.translate
+            .get("MESSAGE.Receiving_information")
+            .subscribe((str: string) => {
+              this.publicHelper.processService.processStart(
+                pName,
+                str,
+                this.constructorInfoAreaId,
+              );
+            });
 
-          this.contentService.ServiceDelete(this.tableRowSelected.id).subscribe({
-            next: (ret) => {
-              if (ret.isSuccess) {
-                this.cmsToastrService.typeSuccessRemove();
-                this.DataGetAll();
-              } else {
-                this.cmsToastrService.typeErrorRemove();
-              }
-              this.publicHelper.processService.processStop(pName);
-
-            },
-            error: (er) => {
-              this.cmsToastrService.typeError(er);
-              this.publicHelper.processService.processStop(pName, false);
-            }
-          }
-          );
+          this.contentService
+            .ServiceDelete(this.tableRowSelected.id)
+            .subscribe({
+              next: (ret) => {
+                if (ret.isSuccess) {
+                  this.cmsToastrService.typeSuccessRemove();
+                  this.DataGetAll();
+                } else {
+                  this.cmsToastrService.typeErrorRemove();
+                }
+                this.publicHelper.processService.processStop(pName);
+              },
+              error: (er) => {
+                this.cmsToastrService.typeError(er);
+                this.publicHelper.processService.processStop(pName, false);
+              },
+            });
         }
-      }
-      )
+      })
       .catch(() => {
         // console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)')
-      }
-      );
-
+      });
   }
-
-
-
 
   onActionButtonStatist(view = !this.optionsStatist.data.show): void {
     this.optionsStatist.data.show = view;
@@ -334,14 +386,26 @@ export class CoreModuleLogSiteUserCreditBlockedListComponent extends ListBaseCom
       return;
     }
     const statist = new Map<string, number>();
-    this.translate.get('MESSAGE.Active').subscribe((str: string) => { statist.set(str, 0); });
-    this.translate.get('MESSAGE.All').subscribe((str: string) => { statist.set(str, 0); });
-    const pName = this.constructor.name + '.ServiceStatist';
-    this.translate.get('MESSAGE.Get_the_statist').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    this.translate.get("MESSAGE.All").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    const pName = this.constructor.name + ".ServiceStatist";
+    this.translate.get("MESSAGE.Get_the_statist").subscribe((str: string) => {
+      this.publicHelper.processService.processStart(
+        pName,
+        str,
+        this.constructorInfoAreaId,
+      );
+    });
     this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.All').subscribe((str: string) => { statist.set(str, ret.totalRowCount) });
+          this.translate.get("MESSAGE.All").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
           this.optionsStatist.childMethods.setStatistValue(statist);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -351,19 +415,20 @@ export class CoreModuleLogSiteUserCreditBlockedListComponent extends ListBaseCom
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = 'RecordStatus';
+    fastfilter.propertyName = "RecordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.Active').subscribe((str: string) => { statist.set(str, ret.totalRowCount) });
+          this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
           this.optionsStatist.childMethods.setStatistValue(statist);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -373,59 +438,68 @@ export class CoreModuleLogSiteUserCreditBlockedListComponent extends ListBaseCom
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
-
+      },
+    });
   }
 
-  onActionButtonViewUserRow(model: CoreModuleLogSiteUserCreditBlockedModel = this.tableRowSelected): void {
-
+  onActionButtonViewUserRow(
+    model: CoreModuleLogSiteUserCreditBlockedModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
     this.onActionTableRowSelect(model);
-    if (!this.tableRowSelected.linkUserId || this.tableRowSelected.linkUserId === 0) {
-      this.translate.get('MESSAGE.content_does_not_contain_user_information').subscribe((str: string) => {
-        this.cmsToastrService.typeErrorSelected(str);
-      });
+    if (
+      !this.tableRowSelected.linkUserId ||
+      this.tableRowSelected.linkUserId === 0
+    ) {
+      this.translate
+        .get("MESSAGE.content_does_not_contain_user_information")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    this.router.navigate(['/core/user/edit', this.tableRowSelected.linkUserId]);
+    this.router.navigate(["/core/user/edit", this.tableRowSelected.linkUserId]);
   }
 
-
-
-  onActionButtonViewSiteRow(model: CoreModuleLogSiteUserCreditBlockedModel = this.tableRowSelected): void {
-
+  onActionButtonViewSiteRow(
+    model: CoreModuleLogSiteUserCreditBlockedModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
     this.onActionTableRowSelect(model);
-    if (!this.tableRowSelected.linkSiteId || this.tableRowSelected.linkSiteId === 0) {
-      this.translate.get('MESSAGE.content_does_not_include_site_information').subscribe((str: string) => {
-        this.cmsToastrService.typeErrorSelected(str);
-      });
+    if (
+      !this.tableRowSelected.linkSiteId ||
+      this.tableRowSelected.linkSiteId === 0
+    ) {
+      this.translate
+        .get("MESSAGE.content_does_not_include_site_information")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    this.router.navigate(['/core/site/edit', this.tableRowSelected.linkSiteId]);
+    this.router.navigate(["/core/site/edit", this.tableRowSelected.linkSiteId]);
   }
-
-
-
-
 
   onActionButtonReload(): void {
     this.DataGetAll();
   }
-  onSubmitOptionsSearch(model: any): void {
-    this.filteModelContent.filters = model;
+  onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
+    if (model && model.length > 0) {
+      this.filteModelContent.filters = [
+        ...this.filteModelContent.filters,
+        ...model,
+      ];
+    }
     this.DataGetAll();
   }
 
   onActionBackToParent(): void {
-    this.router.navigate(['/core/site/']);
+    this.router.navigate(["/core/site/"]);
   }
 }

@@ -1,30 +1,40 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { PageEvent } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { ActivatedRoute, Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  ApplicationSourceModel, ClauseTypeEnum,
+  ApplicationSourceModel,
+  ClauseTypeEnum,
   FilterDataModel,
-  FilterModel, RecordStatusEnum, SortTypeEnum, TicketingDepartemenLogModel,
-  TicketingDepartemenLogService
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { ListBaseComponent } from 'src/app/core/cmsComponent/listBaseComponent';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { PageInfoService } from 'src/app/core/services/page-info.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
+  TicketingDepartemenLogModel,
+  TicketingDepartemenLogService,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { PageInfoService } from "src/app/core/services/page-info.service";
 
 @Component({
-  selector: 'app-application-app-list',
-  templateUrl: './list.component.html',
-  standalone: false
+  selector: "app-application-app-list",
+  templateUrl: "./list.component.html",
+  standalone: false,
 })
-export class TicketingDepartemenLogListComponent extends ListBaseComponent<TicketingDepartemenLogService, TicketingDepartemenLogModel, number> implements OnInit, OnDestroy {
+export class TicketingDepartemenLogListComponent
+  extends ListBaseComponent<
+    TicketingDepartemenLogService,
+    TicketingDepartemenLogModel,
+    number
+  >
+  implements OnInit, OnDestroy
+{
   requestDepartemenId = 0;
   requestOperatorId = 0;
   constructorInfoAreaId = this.constructor.name;
@@ -39,17 +49,28 @@ export class TicketingDepartemenLogListComponent extends ListBaseComponent<Ticke
     public translate: TranslateService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
-    public dialog: MatDialog) {
-    super(contentService, new TicketingDepartemenLogModel, publicHelper, tokenHelper, translate);
+    public dialog: MatDialog,
+  ) {
+    super(
+      contentService,
+      new TicketingDepartemenLogModel(),
+      publicHelper,
+      tokenHelper,
+      translate,
+    );
     this.publicHelper.processService.cdr = this.cdr;
-    this.requestDepartemenId = + Number(this.activatedRoute.snapshot.paramMap.get('DepartemenId'));
-    this.requestOperatorId = + Number(this.activatedRoute.snapshot.paramMap.get('OperatorId'));
+    this.requestDepartemenId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("DepartemenId"),
+    );
+    this.requestOperatorId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("OperatorId"),
+    );
     this.optionsSearch.parentMethods = {
       onSubmit: (model) => this.onSubmitOptionsSearch(model),
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = 'CreatedDate';
+    this.filteModelContent.sortColumn = "CreatedDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
 
@@ -61,66 +82,62 @@ export class TicketingDepartemenLogListComponent extends ListBaseComponent<Ticke
 
   filteModelContent = new FilterModel();
 
-
-
-
-
   categoryModelSelected: ApplicationSourceModel;
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    'Id',
-    'RecordStatus',
+    "Id",
+    "RecordStatus",
     // 'Title',
-    'LinkSourceId',
-    'CreatedDate',
-    'UpdatedDate',
+    "LinkSourceId",
+    "CreatedDate",
+    "UpdatedDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    'Id',
-    'RecordStatus',
+    "Id",
+    "RecordStatus",
     // 'Title',
-    'LinkSourceId',
-    'CreatedDate',
-    'UpdatedDate',
+    "LinkSourceId",
+    "CreatedDate",
+    "UpdatedDate",
     // 'Action'
   ];
   expandedElement: TicketingDepartemenLogModel | null;
   cmsApiStoreSubscribe: Subscription;
 
   ngOnInit(): void {
-
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+        this.DataGetAll();
+      });
     let filter = new FilterDataModel();
     if (this.requestOperatorId > 0) {
-      filter.propertyName = 'LinkFromOperatorId';
+      filter.propertyName = "LinkFromOperatorId";
       filter.value = this.requestOperatorId;
       this.filteModelContent.filters.push(filter);
     }
 
     if (this.requestDepartemenId > 0) {
       filter = new FilterDataModel();
-      filter.propertyName = 'LinkFromTicketingDepartemenId';
+      filter.propertyName = "LinkFromTicketingDepartemenId";
       filter.value = this.requestDepartemenId;
       filter.clauseType = ClauseTypeEnum.Or;
       this.filteModelContent.filters.push(filter);
       /*filter*/
       filter = new FilterDataModel();
-      filter.propertyName = 'LinkToTicketingDepartemenId';
+      filter.propertyName = "LinkToTicketingDepartemenId";
       filter.value = this.requestDepartemenId;
       filter.clauseType = ClauseTypeEnum.Or;
       this.filteModelContent.filters.push(filter);
     }
-
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -129,18 +146,31 @@ export class TicketingDepartemenLogListComponent extends ListBaseComponent<Ticke
   }
 
   DataGetAll(): void {
-    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(this.tabledisplayedColumnsSource, this.tabledisplayedColumnsMobileSource, [], this.tokenInfo);
+    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
+      this.tabledisplayedColumnsSource,
+      this.tabledisplayedColumnsMobileSource,
+      [],
+      this.tokenInfo,
+    );
     this.tableRowsSelected = [];
     this.onActionTableRowSelect(new TicketingDepartemenLogModel());
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.get_information_list').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.get_information_list")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.filteModelContent.accessLoad = true;
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
     /*filter CLone*/
     if (this.categoryModelSelected && this.categoryModelSelected.id > 0) {
       const fastfilter = new FilterDataModel();
-      fastfilter.propertyName = 'LinkFromTicketingDepartemenId';
+      fastfilter.propertyName = "LinkFromTicketingDepartemenId";
       fastfilter.value = this.categoryModelSelected.id;
       filterModel.filters.push(fastfilter);
     }
@@ -149,48 +179,44 @@ export class TicketingDepartemenLogListComponent extends ListBaseComponent<Ticke
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
 
-
         if (ret.isSuccess) {
           this.dataModelResult = ret;
           this.tableSource.data = ret.listItems;
 
-
-          if (this.optionsStatist?.data?.show)
-            this.onActionButtonStatist(true);
+          if (this.optionsStatist?.data?.show) this.onActionButtonStatist(true);
           setTimeout(() => {
             if (this.optionsSearch.childMethods)
               this.optionsSearch.childMethods.setAccess(ret.access);
           }, 1000);
-        }
-        else {
+        } else {
           this.cmsToastrService.typeErrorGetAll(ret.errorMessage);
-
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (err) => {
         this.cmsToastrService.typeError(err);
 
         this.publicHelper.processService.processStop(pName);
-      }
-    }
-    );
+      },
+    });
   }
 
-
   onTableSortData(sort: MatSort): void {
-    if (this.tableSource && this.tableSource.sort && this.tableSource.sort.active === sort.active) {
-      if (this.tableSource.sort.start === 'asc') {
-        sort.start = 'desc';
+    if (
+      this.tableSource &&
+      this.tableSource.sort &&
+      this.tableSource.sort.active === sort.active
+    ) {
+      if (this.tableSource.sort.start === "asc") {
+        sort.start = "desc";
         this.filteModelContent.sortColumn = sort.active;
         this.filteModelContent.sortType = SortTypeEnum.Descending;
-      } else if (this.tableSource.sort.start === 'desc') {
-        sort.start = 'asc';
-        this.filteModelContent.sortColumn = '';
+      } else if (this.tableSource.sort.start === "desc") {
+        sort.start = "asc";
+        this.filteModelContent.sortColumn = "";
         this.filteModelContent.sortType = SortTypeEnum.Ascending;
       } else {
-        sort.start = 'desc';
+        sort.start = "desc";
       }
     } else {
       this.filteModelContent.sortColumn = sort.active;
@@ -206,8 +232,6 @@ export class TicketingDepartemenLogListComponent extends ListBaseComponent<Ticke
     this.DataGetAll();
   }
 
-
-
   onActionSelectorSelect(model: ApplicationSourceModel | null): void {
     /*filter */
     var sortColumn = this.filteModelContent.sortColumn;
@@ -220,7 +244,9 @@ export class TicketingDepartemenLogListComponent extends ListBaseComponent<Ticke
 
     this.DataGetAll();
   }
-  onActionButtonEditRow(mode: TicketingDepartemenLogModel = this.tableRowSelected): void {
+  onActionButtonEditRow(
+    mode: TicketingDepartemenLogModel = this.tableRowSelected,
+  ): void {
     if (!mode || !mode.id || mode.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
@@ -235,10 +261,11 @@ export class TicketingDepartemenLogListComponent extends ListBaseComponent<Ticke
       return;
     }
 
-    this.router.navigate(['/application/app/edit/', this.tableRowSelected.id]);
-
+    this.router.navigate(["/application/app/edit/", this.tableRowSelected.id]);
   }
-  onActionButtonDeleteRow(mode: TicketingDepartemenLogModel = this.tableRowSelected): void {
+  onActionButtonDeleteRow(
+    mode: TicketingDepartemenLogModel = this.tableRowSelected,
+  ): void {
     if (mode == null || !mode.id || mode.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
@@ -253,8 +280,10 @@ export class TicketingDepartemenLogListComponent extends ListBaseComponent<Ticke
       return;
     }
 
-    this.router.navigate(['/application/app/delete/', this.tableRowSelected.id]);
-
+    this.router.navigate([
+      "/application/app/delete/",
+      this.tableRowSelected.id,
+    ]);
   }
   onActionButtonStatist(view = !this.optionsStatist.data.show): void {
     this.optionsStatist.data.show = view;
@@ -262,14 +291,24 @@ export class TicketingDepartemenLogListComponent extends ListBaseComponent<Ticke
       return;
     }
     const statist = new Map<string, number>();
-    this.translate.get('MESSAGE.Active').subscribe((str: string) => { statist.set(str, 0); });
-    this.translate.get('MESSAGE.All').subscribe((str: string) => { statist.set(str, 0); });
-    const pName = this.constructor.name + '.ServiceStatist';
-    this.translate.get('MESSAGE.Get_the_statist').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    this.translate.get("MESSAGE.All").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    const pName = this.constructor.name + ".ServiceStatist";
+    this.translate.get("MESSAGE.Get_the_statist").subscribe((str: string) => {
+      this.publicHelper.processService.processStart(
+        pName,
+        str,
+        this.constructorInfoAreaId,
+      );
+    });
     this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          statist.set('All', ret.totalRowCount);
+          statist.set("All", ret.totalRowCount);
           this.optionsStatist.childMethods.setStatistValue(statist);
         }
         this.publicHelper.processService.processStop(pName);
@@ -277,49 +316,45 @@ export class TicketingDepartemenLogListComponent extends ListBaseComponent<Ticke
       error: (err) => {
         this.cmsToastrService.typeError(err);
         this.publicHelper.processService.processStop(pName);
-      }
-    }
-    );
+      },
+    });
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = 'RecordStatus';
+    fastfilter.propertyName = "RecordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          statist.set('Active', ret.totalRowCount);
+          statist.set("Active", ret.totalRowCount);
           this.optionsStatist.childMethods.setStatistValue(statist);
         }
         this.publicHelper.processService.processStop(pName);
-      }
-      ,
+      },
       error: (err) => {
         this.cmsToastrService.typeError(err);
         this.publicHelper.processService.processStop(pName);
-      }
-    }
-    );
-
+      },
+    });
   }
-
-
-
 
   onActionButtonReload(): void {
     this.DataGetAll();
   }
-  onSubmitOptionsSearch(model: any): void {
-    this.filteModelContent.filters = model;
+  onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
+    if (model && model.length > 0) {
+      this.filteModelContent.filters = [
+        ...this.filteModelContent.filters,
+        ...model,
+      ];
+    }
     this.DataGetAll();
   }
 
   onActionBackToParent(): void {
-    if (this.requestOperatorId > 0)
-      this.router.navigate(['/application/app/']);
+    if (this.requestOperatorId > 0) this.router.navigate(["/application/app/"]);
     if (this.requestDepartemenId > 0)
-      this.router.navigate(['/ticketing/departemen/']);
+      this.router.navigate(["/ticketing/departemen/"]);
   }
-
 }

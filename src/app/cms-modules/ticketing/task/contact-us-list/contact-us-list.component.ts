@@ -1,34 +1,41 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { PageEvent } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { ActivatedRoute, Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import {
   DataFieldInfoModel,
   FilterDataModel,
-  FilterModel, RecordStatusEnum, SortTypeEnum, TicketingDepartemenModel, TicketingTaskModel,
-  TicketingTaskService, TokenInfoModelV3
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { ComponentOptionSearchModel } from 'src/app/core/cmsComponent/base/componentOptionSearchModel';
-import { ComponentOptionStatistModel } from 'src/app/core/cmsComponent/base/componentOptionStatistModel';
-import { ListBaseComponent } from 'src/app/core/cmsComponent/listBaseComponent';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { PageInfoService } from 'src/app/core/services/page-info.service';
-import { environment } from 'src/environments/environment';
-import { TicketingTaskViewComponent } from '../view/view.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
+  TicketingDepartemenModel,
+  TicketingTaskModel,
+  TicketingTaskService,
+  TokenInfoModelV3,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { ComponentOptionSearchModel } from "src/app/core/cmsComponent/base/componentOptionSearchModel";
+import { ComponentOptionStatistModel } from "src/app/core/cmsComponent/base/componentOptionStatistModel";
+import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { PageInfoService } from "src/app/core/services/page-info.service";
+import { environment } from "src/environments/environment";
+import { TicketingTaskViewComponent } from "../view/view.component";
 
 @Component({
-  selector: 'app-ticketing-task-contact-us-list',
-  templateUrl: './contact-us-list.component.html',
-  standalone: false
+  selector: "app-ticketing-task-contact-us-list",
+  templateUrl: "./contact-us-list.component.html",
+  standalone: false,
 })
-export class TicketingTaskContactUsListComponent extends ListBaseComponent<TicketingTaskService, TicketingTaskModel, number> implements OnInit, OnDestroy {
+export class TicketingTaskContactUsListComponent
+  extends ListBaseComponent<TicketingTaskService, TicketingTaskModel, number>
+  implements OnInit, OnDestroy
+{
   requestDepartemenId = 0;
   requestLinkCmsUserId = 0;
   constructorInfoAreaId = this.constructor.name;
@@ -43,18 +50,28 @@ export class TicketingTaskContactUsListComponent extends ListBaseComponent<Ticke
     public pageInfo: PageInfoService,
     private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
-    public dialog: MatDialog) {
-    super(contentService, new TicketingTaskModel(), publicHelper, tokenHelper, translate)
+    public dialog: MatDialog,
+  ) {
+    super(
+      contentService,
+      new TicketingTaskModel(),
+      publicHelper,
+      tokenHelper,
+      translate,
+    );
     this.publicHelper.processService.cdr = this.cdr;
     this.optionsSearch.parentMethods = {
       onSubmit: (model) => this.onSubmitOptionsSearch(model),
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = 'Id';
+    this.filteModelContent.sortColumn = "Id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
 
   comment: string;
   author: string;
@@ -64,47 +81,51 @@ export class TicketingTaskContactUsListComponent extends ListBaseComponent<Ticke
 
   filteModelContent = new FilterModel();
   optionsSearch: ComponentOptionSearchModel = new ComponentOptionSearchModel();
-  optionsStatist: ComponentOptionStatistModel = new ComponentOptionStatistModel();
+  optionsStatist: ComponentOptionStatistModel =
+    new ComponentOptionStatistModel();
 
   tokenInfo = new TokenInfoModelV3();
-
 
   categoryModelSelected: TicketingDepartemenModel;
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    'Id',
-    'RecordStatus',
+    "Id",
+    "RecordStatus",
     // 'Title',
-    'CreatedDate',
-    'UpdatedDate',
+    "CreatedDate",
+    "UpdatedDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    'Id',
-    'RecordStatus',
+    "Id",
+    "RecordStatus",
     // 'Title',
-    'CreatedDate',
-    'UpdatedDate',
+    "CreatedDate",
+    "UpdatedDate",
     // 'Action'
   ];
 
   cmsApiStoreSubscribe: Subscription;
 
-
-
   ngOnInit(): void {
-    this.requestDepartemenId = + Number(this.activatedRoute.snapshot.paramMap.get('DepartemenId'));
-    this.requestLinkCmsUserId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkCmsUserId'));
+    this.requestDepartemenId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("DepartemenId"),
+    );
+    this.requestLinkCmsUserId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkCmsUserId"),
+    );
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -113,15 +134,25 @@ export class TicketingTaskContactUsListComponent extends ListBaseComponent<Ticke
   }
 
   DataGetAll(): void {
-    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(this.tabledisplayedColumnsSource, this.tabledisplayedColumnsMobileSource, [], this.tokenInfo);
+    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
+      this.tabledisplayedColumnsSource,
+      this.tabledisplayedColumnsMobileSource,
+      [],
+      this.tokenInfo,
+    );
     this.tableRowsSelected = [];
     this.onActionTableRowSelect(new TicketingTaskModel());
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
-
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.filteModelContent.accessLoad = true;
     /*filter CLone*/
@@ -129,20 +160,18 @@ export class TicketingTaskContactUsListComponent extends ListBaseComponent<Ticke
     /*filter CLone*/
     const filter = new FilterDataModel();
     if (this.requestDepartemenId > 0) {
-
-      filter.propertyName = 'LinkTicketingDepartemenId';
+      filter.propertyName = "LinkTicketingDepartemenId";
       filter.value = this.requestDepartemenId;
       filterModel.filters.push(filter);
     }
 
     if (this.categoryModelSelected && this.categoryModelSelected.id > 0) {
-
-      filter.propertyName = 'LinkTicketingDepartemenId';
+      filter.propertyName = "LinkTicketingDepartemenId";
       filter.value = this.categoryModelSelected.id;
       filterModel.filters.push(filter);
     }
     if (this.requestLinkCmsUserId > 0) {
-      filter.propertyName = 'LinkCmsUserId';
+      filter.propertyName = "LinkCmsUserId";
       filter.value = this.requestLinkCmsUserId;
       filterModel.filters.push(filter);
     }
@@ -150,45 +179,43 @@ export class TicketingTaskContactUsListComponent extends ListBaseComponent<Ticke
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
 
-
         if (ret.isSuccess) {
           this.dataModelResult = ret;
           this.tableSource.data = ret.listItems;
 
-          if (this.optionsStatist?.data?.show)
-            this.onActionButtonStatist(true);
+          if (this.optionsStatist?.data?.show) this.onActionButtonStatist(true);
           setTimeout(() => {
             if (this.optionsSearch.childMethods)
               this.optionsSearch.childMethods.setAccess(ret.access);
           }, 1000);
-        }
-        else {
+        } else {
           this.cmsToastrService.typeErrorGetAll(ret.errorMessage);
-
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (err) => {
         this.cmsToastrService.typeError(err);
         this.publicHelper.processService.processStop(pName);
-      }
+      },
     });
   }
 
-
   onTableSortData(sort: MatSort): void {
-    if (this.tableSource && this.tableSource.sort && this.tableSource.sort.active === sort.active) {
-      if (this.tableSource.sort.start === 'asc') {
-        sort.start = 'desc';
+    if (
+      this.tableSource &&
+      this.tableSource.sort &&
+      this.tableSource.sort.active === sort.active
+    ) {
+      if (this.tableSource.sort.start === "asc") {
+        sort.start = "desc";
         this.filteModelContent.sortColumn = sort.active;
         this.filteModelContent.sortType = SortTypeEnum.Descending;
-      } else if (this.tableSource.sort.start === 'desc') {
-        sort.start = 'asc';
-        this.filteModelContent.sortColumn = '';
+      } else if (this.tableSource.sort.start === "desc") {
+        sort.start = "asc";
+        this.filteModelContent.sortColumn = "";
         this.filteModelContent.sortType = SortTypeEnum.Ascending;
       } else {
-        sort.start = 'desc';
+        sort.start = "desc";
       }
     } else {
       this.filteModelContent.sortColumn = sort.active;
@@ -204,10 +231,8 @@ export class TicketingTaskContactUsListComponent extends ListBaseComponent<Ticke
     this.DataGetAll();
   }
 
-
   onActionButtonNewRow(): void {
-    this.router.navigate(['/ticketing/contactus/']);
-
+    this.router.navigate(["/ticketing/contactus/"]);
   }
 
   onActionSelectorSelect(model: TicketingDepartemenModel | null): void {
@@ -222,31 +247,33 @@ export class TicketingTaskContactUsListComponent extends ListBaseComponent<Ticke
 
     this.DataGetAll();
   }
-  onActionButtonViewRow(mode: TicketingTaskModel = this.tableRowSelected): void {
+  onActionButtonViewRow(
+    mode: TicketingTaskModel = this.tableRowSelected,
+  ): void {
     if (!mode || !mode.id || mode.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
     this.tableRowSelected = mode;
 
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(TicketingTaskViewComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id: this.tableRowSelected.id }
+      data: { id: this.tableRowSelected.id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
       }
     });
   }
-  onActionButtonAnswerList(mode: TicketingTaskModel = this.tableRowSelected): void {
+  onActionButtonAnswerList(
+    mode: TicketingTaskModel = this.tableRowSelected,
+  ): void {
     if (!mode || !mode.id || mode.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
@@ -261,9 +288,10 @@ export class TicketingTaskContactUsListComponent extends ListBaseComponent<Ticke
       return;
     }
 
-    this.router.navigate(['/ticketing/answer/LinkTaskId/', this.tableRowSelected.id]);
-
-
+    this.router.navigate([
+      "/ticketing/answer/LinkTaskId/",
+      this.tableRowSelected.id,
+    ]);
   }
   onActionButtonStatist(view = !this.optionsStatist.data.show): void {
     this.optionsStatist.data.show = view;
@@ -271,14 +299,24 @@ export class TicketingTaskContactUsListComponent extends ListBaseComponent<Ticke
       return;
     }
     const statist = new Map<string, number>();
-    this.translate.get('MESSAGE.Active').subscribe((str: string) => { statist.set(str, 0); });
-    this.translate.get('MESSAGE.All').subscribe((str: string) => { statist.set(str, 0); });
-    const pName = this.constructor.name + '.ServiceStatist';
-    this.translate.get('MESSAGE.Get_the_statist').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    this.translate.get("MESSAGE.All").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    const pName = this.constructor.name + ".ServiceStatist";
+    this.translate.get("MESSAGE.Get_the_statist").subscribe((str: string) => {
+      this.publicHelper.processService.processStart(
+        pName,
+        str,
+        this.constructorInfoAreaId,
+      );
+    });
     this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          statist.set('All', ret.totalRowCount);
+          statist.set("All", ret.totalRowCount);
           this.optionsStatist.childMethods.setStatistValue(statist);
         }
         this.publicHelper.processService.processStop(pName);
@@ -286,46 +324,43 @@ export class TicketingTaskContactUsListComponent extends ListBaseComponent<Ticke
       error: (err) => {
         this.cmsToastrService.typeError(err);
         this.publicHelper.processService.processStop(pName);
-      }
-    }
-    );
+      },
+    });
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = 'RecordStatus';
+    fastfilter.propertyName = "RecordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          statist.set('Active', ret.totalRowCount);
+          statist.set("Active", ret.totalRowCount);
           this.optionsStatist.childMethods.setStatistValue(statist);
         }
         this.publicHelper.processService.processStop(pName);
-      }
-      ,
+      },
       error: (err) => {
         this.cmsToastrService.typeError(err);
         this.publicHelper.processService.processStop(pName);
-      }
-    }
-    );
-
+      },
+    });
   }
-
-
-
 
   onActionButtonReload(): void {
     this.DataGetAll();
   }
-  onSubmitOptionsSearch(model: any): void {
-    this.filteModelContent.filters = model;
+  onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
+    if (model && model.length > 0) {
+      this.filteModelContent.filters = [
+        ...this.filteModelContent.filters,
+        ...model,
+      ];
+    }
     this.DataGetAll();
   }
 
   onActionBackToParent(): void {
-    this.router.navigate(['/ticketing/departemen/']);
+    this.router.navigate(["/ticketing/departemen/"]);
   }
-
 }

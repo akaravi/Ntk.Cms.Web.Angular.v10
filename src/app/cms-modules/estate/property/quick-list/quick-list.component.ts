@@ -1,16 +1,34 @@
-
 import {
-  AfterViewInit, ChangeDetectorRef, Component, Inject, Input, OnDestroy, OnInit
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
 } from "@angular/core";
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService } from "@ngx-translate/core";
 import {
-  ClauseTypeEnum, DataFieldInfoModel,
+  ClauseTypeEnum,
+  DataFieldInfoModel,
   EstatePropertyModel,
-  EstatePropertyService, EstatePropertyTypeLanduseModel, FilterDataModel, FilterDataModelSearchTypesEnum, FilterModel, FormInfoModel, ManageUserAccessDataTypesEnum, RecordStatusEnum, SortTypeEnum, TokenInfoModelV3
+  EstatePropertyService,
+  EstatePropertyTypeLanduseModel,
+  FilterDataModel,
+  FilterDataModelSearchTypesEnum,
+  FilterModel,
+  FormInfoModel,
+  ManageUserAccessDataTypesEnum,
+  RecordStatusEnum,
+  SortTypeEnum,
+  TokenInfoModelV3,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ComponentOptionSearchModel } from "src/app/core/cmsComponent/base/componentOptionSearchModel";
@@ -18,24 +36,24 @@ import { ComponentOptionStatistModel } from "src/app/core/cmsComponent/base/comp
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
+import { ThemeService } from "src/app/core/services/theme.service";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { CmsLinkToComponent } from "src/app/shared/cms-link-to/cms-link-to.component";
 import { environment } from "src/environments/environment";
 import { EstatePropertyQuickViewComponent } from "../quick-view/quick-view.component";
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-import { ThemeService } from "src/app/core/services/theme.service";
-
-
 
 @Component({
   selector: "app-estate-property-quick-list",
   templateUrl: "./quick-list.component.html",
-  standalone: false
+  standalone: false,
 })
-export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePropertyService, EstatePropertyModel, string>
-  implements OnInit, OnDestroy {
+export class EstatePropertyQuickListComponent
+  extends ListBaseComponent<EstatePropertyService, EstatePropertyModel, string>
+  implements OnInit, OnDestroy
+{
   requestSearchTitle = "";
   requestSearchCustomerTel = "";
   requestSearchCaseCode = "";
@@ -65,17 +83,21 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
     public publicHelper: PublicHelper,
     public dialog: MatDialog,
   ) {
-    super(contentService, new EstatePropertyModel(), publicHelper, tokenHelper, translate);
+    super(
+      contentService,
+      new EstatePropertyModel(),
+      publicHelper,
+      tokenHelper,
+      translate,
+    );
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {
-      if (data.searchTitle)
-        this.requestSearchTitle = data.searchTitle + '';
+      if (data.searchTitle) this.requestSearchTitle = data.searchTitle + "";
       if (data.searchCustomerTel)
-        this.requestSearchCustomerTel = data.searchCustomerTel + '';
+        this.requestSearchCustomerTel = data.searchCustomerTel + "";
       if (data.searchCaseCode)
-        this.requestSearchCaseCode = data.searchCaseCode + '';
+        this.requestSearchCaseCode = data.searchCaseCode + "";
     }
-
 
     this.requestLinkPropertyTypeLanduseId =
       this.activatedRoute.snapshot.paramMap.get("LinkPropertyTypeLanduseId");
@@ -86,14 +108,12 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
     this.requestLinkBillboardId =
       this.activatedRoute.snapshot.paramMap.get("LinkBillboardId");
     this.requestLinkCustomerOrderId = this.activatedRoute.snapshot.paramMap.get(
-      "LinkCustomerOrderId"
+      "LinkCustomerOrderId",
     );
-    this.requestLinkProjectId = this.activatedRoute.snapshot.paramMap.get(
-      "LinkProjectId"
-    );
-    this.requestLinkUserId = +this.activatedRoute.snapshot.paramMap.get(
-      "LinkUserId"
-    ) | 0;
+    this.requestLinkProjectId =
+      this.activatedRoute.snapshot.paramMap.get("LinkProjectId");
+    this.requestLinkUserId =
+      +this.activatedRoute.snapshot.paramMap.get("LinkUserId") | 0;
     if (this.activatedRoute.snapshot.paramMap.get("InChecking")) {
       this.searchInCheckingChecked =
         this.activatedRoute.snapshot.paramMap.get("InChecking") === "true";
@@ -149,7 +169,7 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
       const filter = new FilterDataModel();
       filter.propertyName = "Title";
       filter.value = this.requestSearchTitle;
-      filter.searchType = FilterDataModelSearchTypesEnum.Contains
+      filter.searchType = FilterDataModelSearchTypesEnum.Contains;
       this.filteModelContent.filters.push(filter);
     }
     if (this.requestSearchCaseCode && this.requestSearchCaseCode.length > 0) {
@@ -158,8 +178,10 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
       filter.value = this.requestSearchCaseCode;
       this.filteModelContent.filters.push(filter);
     }
-    if (this.requestSearchCustomerTel && this.requestSearchCustomerTel.length > 0) {
-
+    if (
+      this.requestSearchCustomerTel &&
+      this.requestSearchCustomerTel.length > 0
+    ) {
       const filter = new FilterDataModel();
       const filterClild1 = new FilterDataModel();
       filterClild1.propertyName = "aboutCustomerTel";
@@ -171,7 +193,7 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
       const filterClild2 = new FilterDataModel();
       filterClild2.propertyName = "aboutCustomerMobile";
       filterClild2.value = this.requestSearchCustomerTel;
-      filterClild2.searchType = FilterDataModelSearchTypesEnum.Contains
+      filterClild2.searchType = FilterDataModelSearchTypesEnum.Contains;
       filterClild2.clauseType = ClauseTypeEnum.Or;
       filter.filters.push(filterClild2);
 
@@ -202,13 +224,11 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
   filteModelContent = new FilterModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
-
   optionsSearch: ComponentOptionSearchModel = new ComponentOptionSearchModel();
   optionsStatist: ComponentOptionStatistModel =
     new ComponentOptionStatistModel();
 
   tokenInfo = new TokenInfoModelV3();
-
 
   categoryModelSelected: EstatePropertyTypeLanduseModel;
   tabledisplayedColumns: string[] = [];
@@ -227,7 +247,7 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
     "UpdatedDate",
     "LinkTo",
     "QuickView",
-    'action_menu',
+    "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "LinkMainImageIdSrc",
@@ -244,7 +264,7 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
     // "UpdatedDate",
     "LinkTo",
     "QuickView",
-    'action_menu',
+    "action_menu",
   ];
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
     string,
@@ -252,7 +272,7 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
   >();
   cmsApiStoreSubscribe: Subscription;
   ngOnInit(): void {
-    this.translate.get('TITLE.QUICK_VIEW').subscribe((str: string) => {
+    this.translate.get("TITLE.QUICK_VIEW").subscribe((str: string) => {
       this.formInfo.formTitle = str;
     });
 
@@ -261,12 +281,13 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+        this.DataGetAll();
+      });
   }
-
 
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -275,14 +296,27 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
   }
 
   DataGetAll(): void {
-    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(this.tabledisplayedColumnsSource, this.tabledisplayedColumnsMobileSource, [], this.tokenInfo);
+    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
+      this.tabledisplayedColumnsSource,
+      this.tabledisplayedColumnsMobileSource,
+      [],
+      this.tokenInfo,
+    );
     if (!this.optionloadComponent) {
       return;
     }
     this.tableRowsSelected = [];
     this.onActionTableRowSelect(new EstatePropertyModel());
     const pName = this.constructor.name + "main";
-    this.translate.get('MESSAGE.get_information_list').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    this.translate
+      .get("MESSAGE.get_information_list")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.filteModelContent.accessLoad = true;
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
@@ -313,7 +347,10 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
     if (this.requestLinkBillboardId && this.requestLinkBillboardId.length > 0) {
       // ** */
       this.contentService
-        .ServiceGetAllWithCoverBillboardId(this.requestLinkBillboardId, filterModel)
+        .ServiceGetAllWithCoverBillboardId(
+          this.requestLinkBillboardId,
+          filterModel,
+        )
         .subscribe({
           next: (ret) => {
             this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
@@ -334,9 +371,8 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
           error: (er) => {
             this.cmsToastrService.typeError(er);
             this.publicHelper.processService.processStop(pName);
-          }
-        }
-        );
+          },
+        });
       // ** */
     } else if (
       this.requestLinkCustomerOrderId &&
@@ -346,7 +382,7 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
       this.contentService
         .ServiceGetAllWithCoverCustomerOrderId(
           this.requestLinkCustomerOrderId,
-          filterModel
+          filterModel,
         )
         .subscribe({
           next: (ret) => {
@@ -366,11 +402,10 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
             this.publicHelper.processService.processStop(pName);
           },
           error: (er) => {
-            this.cmsToastrService.typeError(er)
+            this.cmsToastrService.typeError(er);
             this.publicHelper.processService.processStop(pName);
-          }
-        }
-        );
+          },
+        });
       // ** */
     } else {
       // ** */
@@ -396,9 +431,8 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
         error: (er) => {
           this.cmsToastrService.typeError(er);
           this.publicHelper.processService.processStop(pName, false);
-        }
-      }
-      );
+        },
+      });
       //** */
     }
   }
@@ -414,7 +448,7 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
         this.filteModelContent.sortColumn = sort.active;
         this.filteModelContent.sortType = SortTypeEnum.Descending;
       } else if (this.tableSource.sort.start === "desc") {
-        sort.start = 'asc';
+        sort.start = "asc";
         this.filteModelContent.sortColumn = "";
         this.filteModelContent.sortType = SortTypeEnum.Ascending;
       } else {
@@ -443,7 +477,11 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
       (this.requestLinkPropertyTypeLanduseId == null ||
         this.requestLinkPropertyTypeLanduseId.length === 0)
     ) {
-      this.translate.get('MESSAGE.Content_not_selected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("MESSAGE.Content_not_selected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
 
       return;
     }
@@ -486,7 +524,8 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
   }
 
   onActionButtonEditRow(
-    mode: EstatePropertyModel = this.tableRowSelected, event?: MouseEvent
+    mode: EstatePropertyModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!mode || !mode.id || mode.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -509,7 +548,9 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
     }
   }
 
-  onActionButtonQuickViewRow(model: EstatePropertyModel = this.tableRowSelected): void {
+  onActionButtonQuickViewRow(
+    model: EstatePropertyModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
@@ -523,26 +564,25 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
       this.cmsToastrService.typeErrorAccessWatch();
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(EstatePropertyQuickViewComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id: this.tableRowSelected.id }
+      data: { id: this.tableRowSelected.id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
       }
     });
   }
 
   onActionButtonAdsRow(
-    mode: EstatePropertyModel = this.tableRowSelected, event?: MouseEvent
+    mode: EstatePropertyModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!mode || !mode.id || mode.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -559,14 +599,19 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
     }
 
     if (event?.ctrlKey) {
-      this.link = "/#/estate/property-ads/LinkPropertyId/" + this.tableRowSelected.id;
+      this.link =
+        "/#/estate/property-ads/LinkPropertyId/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
-      this.router.navigate(["/estate/property-ads/LinkPropertyId", this.tableRowSelected.id]);
+      this.router.navigate([
+        "/estate/property-ads/LinkPropertyId",
+        this.tableRowSelected.id,
+      ]);
     }
   }
   onActionButtonHistoryRow(
-    mode: EstatePropertyModel = this.tableRowSelected, event?: MouseEvent
+    mode: EstatePropertyModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!mode || !mode.id || mode.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -583,17 +628,20 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
     }
 
     if (event?.ctrlKey) {
-      this.link = "/#/estate/property-history/LinkPropertyId/" + this.tableRowSelected.id;
+      this.link =
+        "/#/estate/property-history/LinkPropertyId/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
-      this.router.navigate(["/estate/property-history/LinkPropertyId", this.tableRowSelected.id]);
+      this.router.navigate([
+        "/estate/property-history/LinkPropertyId",
+        this.tableRowSelected.id,
+      ]);
     }
   }
 
   onActionButtonDeleteRow(
-    mode: EstatePropertyModel = this.tableRowSelected
+    mode: EstatePropertyModel = this.tableRowSelected,
   ): void {
-
     if (mode == null || !mode.id || mode.id.length === 0) {
       this.cmsToastrService.typeErrorDeleteRowIsNull();
       return;
@@ -610,18 +658,34 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
 
     var title = "";
     var message = "";
-    this.translate.get(['MESSAGE.Please_Confirm', 'MESSAGE.Do_you_want_to_delete_this_content']).subscribe((str: string) => {
-      title = str['MESSAGE.Please_Confirm'];
-      message = str['MESSAGE.Do_you_want_to_delete_this_content'] + '?' + '<br> ( ' + this.tableRowSelected.title + ' ) ';
-    });
+    this.translate
+      .get([
+        "MESSAGE.Please_Confirm",
+        "MESSAGE.Do_you_want_to_delete_this_content",
+      ])
+      .subscribe((str: string) => {
+        title = str["MESSAGE.Please_Confirm"];
+        message =
+          str["MESSAGE.Do_you_want_to_delete_this_content"] +
+          "?" +
+          "<br> ( " +
+          this.tableRowSelected.title +
+          " ) ";
+      });
     this.cmsConfirmationDialogService
       .confirm(title, message)
       .then((confirmed) => {
         if (confirmed) {
           const pName = this.constructor.name + "main";
-          this.translate.get('MESSAGE.Deleting_information').subscribe((str: string) => {
-            this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-          });
+          this.translate
+            .get("MESSAGE.Deleting_information")
+            .subscribe((str: string) => {
+              this.publicHelper.processService.processStart(
+                pName,
+                str,
+                this.constructorInfoAreaId,
+              );
+            });
           this.contentService
             .ServiceDelete(this.tableRowSelected.id)
             .subscribe({
@@ -637,7 +701,7 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
               error: (er) => {
                 this.cmsToastrService.typeError(er);
                 this.publicHelper.processService.processStop(pName);
-              }
+              },
             });
         }
       })
@@ -653,22 +717,19 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
     const statist = new Map<string, number>();
     statist.set("Active", 0);
     statist.set("All", 0);
-    this.contentService
-      .ServiceGetCount(this.filteModelContent)
-      .subscribe({
-        next: (ret) => {
-          if (ret.isSuccess) {
-            statist.set("All", ret.totalRowCount);
-            this.optionsStatist.childMethods.setStatistValue(statist);
-          } else {
-            this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-          }
-        },
-        error: (er) => {
-          this.cmsToastrService.typeError(er);
+    this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
+      next: (ret) => {
+        if (ret.isSuccess) {
+          statist.set("All", ret.totalRowCount);
+          this.optionsStatist.childMethods.setStatistValue(statist);
+        } else {
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
-      }
-      );
+      },
+      error: (er) => {
+        this.cmsToastrService.typeError(er);
+      },
+    });
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
@@ -686,19 +747,26 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
-      }
-    }
-    );
+      },
+    });
   }
-  onActionButtonActionSendSmsToCustomerOrder(model: EstatePropertyModel = this.tableRowSelected): void {
+  onActionButtonActionSendSmsToCustomerOrder(
+    model: EstatePropertyModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
     const pName = this.constructor.name + "main";
-    this.translate.get('ACTION.ActionSendSmsToCustomerOrder').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    this.translate
+      .get("ACTION.ActionSendSmsToCustomerOrder")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     // ** */
     this.contentService
       .ServiceActionSendSmsToCustomerOrder(model.id)
@@ -714,12 +782,13 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
         error: (er) => {
           this.cmsToastrService.typeError(er);
           this.publicHelper.processService.processStop(pName, false);
-        }
-      }
-      );
+        },
+      });
     // ** */
   }
-  onActionButtonViewOtherUserAdvertise(model: EstatePropertyModel = this.tableRowSelected): void {
+  onActionButtonViewOtherUserAdvertise(
+    model: EstatePropertyModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
@@ -734,15 +803,10 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
     this.DataGetAll();
   }
 
-
-
-
-
   onActionButtonInChecking(model: boolean): void {
     this.searchInCheckingChecked = model;
     this.DataGetAll();
   }
-
 
   onActionButtonReload(): void {
     this.optionloadComponent = true;
@@ -751,8 +815,13 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
   onActionCopied(): void {
     this.cmsToastrService.typeSuccessCopedToClipboard();
   }
-  onSubmitOptionsSearch(model: any): void {
-    this.filteModelContent.filters = model;
+  onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
+    if (model && model.length > 0) {
+      this.filteModelContent.filters = [
+        ...this.filteModelContent.filters,
+        ...model,
+      ];
+    }
     this.DataGetAll();
   }
 
@@ -760,7 +829,7 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
     this.router.navigate(["/ticketing/departemen/"]);
   }
   onActionButtonLinkTo(
-    model: EstatePropertyModel = this.tableRowSelected
+    model: EstatePropertyModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -772,54 +841,55 @@ export class EstatePropertyQuickListComponent extends ListBaseComponent<EstatePr
     }
     this.onActionTableRowSelect(model);
 
-
     const pName = this.constructor.name + "ServiceGetOneById";
-    this.translate.get('MESSAGE.get_state_information').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    this.translate
+      .get("MESSAGE.get_state_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.contentService.setAccessDataType(ManageUserAccessDataTypesEnum.Editor);
-    this.contentService
-      .ServiceGetOneById(model.id)
-      .subscribe({
-        next: (ret) => {
-          if (ret.isSuccess) {
-            //open popup
-            var panelClass = '';
-            if (this.publicHelper.isMobile)
-              panelClass = 'dialog-fullscreen';
-            else
-              panelClass = 'dialog-min';
-            const dialogRef = this.dialog.open(CmsLinkToComponent, {
-              height: "90%",
-              panelClass: panelClass,
-              enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
-              exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-              data: {
-                title: ret.item.title,
-                urlViewContentQRCodeBase64: ret.item.urlViewContentQRCodeBase64,
-                urlViewContent: ret.item.urlViewContent,
-              },
-            });
-            dialogRef.afterClosed().subscribe((result) => {
-              if (result && result.dialogChangedDate) {
-                this.DataGetAll();
-              }
-            });
-            //open popup
-          } else {
-            this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-          }
-          this.publicHelper.processService.processStop(pName);
-        },
-        error: (er) => {
-          this.cmsToastrService.typeError(er);
-          this.publicHelper.processService.processStop(pName, false);
+    this.contentService.ServiceGetOneById(model.id).subscribe({
+      next: (ret) => {
+        if (ret.isSuccess) {
+          //open popup
+          var panelClass = "";
+          if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+          else panelClass = "dialog-min";
+          const dialogRef = this.dialog.open(CmsLinkToComponent, {
+            height: "90%",
+            panelClass: panelClass,
+            enterAnimationDuration:
+              environment.cmsViewConfig.enterAnimationDuration,
+            exitAnimationDuration:
+              environment.cmsViewConfig.exitAnimationDuration,
+            data: {
+              title: ret.item.title,
+              urlViewContentQRCodeBase64: ret.item.urlViewContentQRCodeBase64,
+              urlViewContent: ret.item.urlViewContent,
+            },
+          });
+          dialogRef.afterClosed().subscribe((result) => {
+            if (result && result.dialogChangedDate) {
+              this.DataGetAll();
+            }
+          });
+          //open popup
+        } else {
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
-      }
-      );
+        this.publicHelper.processService.processStop(pName);
+      },
+      error: (er) => {
+        this.cmsToastrService.typeError(er);
+        this.publicHelper.processService.processStop(pName, false);
+      },
+    });
   }
   expandedElement: any;
-
-
-
 
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });

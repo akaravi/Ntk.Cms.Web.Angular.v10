@@ -1,37 +1,46 @@
-
-
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { PageEvent } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import {
   DataFieldInfoModel,
   EstatePropertyCompanyModel,
-  EstatePropertyCompanyService, FilterDataModel,
-  FilterModel, ManageUserAccessDataTypesEnum, RecordStatusEnum, SortTypeEnum, TokenInfoModelV3
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { ComponentOptionSearchModel } from 'src/app/core/cmsComponent/base/componentOptionSearchModel';
-import { ComponentOptionStatistModel } from 'src/app/core/cmsComponent/base/componentOptionStatistModel';
-import { ListBaseComponent } from 'src/app/core/cmsComponent/listBaseComponent';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { PageInfoService } from 'src/app/core/services/page-info.service';
-import { CmsLinkToComponent } from 'src/app/shared/cms-link-to/cms-link-to.component';
-import { environment } from 'src/environments/environment';
-import { PublicHelper } from '../../../../core/helpers/publicHelper';
-import { CmsToastrService } from '../../../../core/services/cmsToastr.service';
-import { EstatePropertyCompanyDeleteComponent } from '../delete/delete.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  EstatePropertyCompanyService,
+  FilterDataModel,
+  FilterModel,
+  ManageUserAccessDataTypesEnum,
+  RecordStatusEnum,
+  SortTypeEnum,
+  TokenInfoModelV3,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { ComponentOptionSearchModel } from "src/app/core/cmsComponent/base/componentOptionSearchModel";
+import { ComponentOptionStatistModel } from "src/app/core/cmsComponent/base/componentOptionStatistModel";
+import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { PageInfoService } from "src/app/core/services/page-info.service";
+import { CmsLinkToComponent } from "src/app/shared/cms-link-to/cms-link-to.component";
+import { environment } from "src/environments/environment";
+import { PublicHelper } from "../../../../core/helpers/publicHelper";
+import { CmsToastrService } from "../../../../core/services/cmsToastr.service";
+import { EstatePropertyCompanyDeleteComponent } from "../delete/delete.component";
 
 @Component({
-  selector: 'app-estate-property-company-list',
-  templateUrl: './list.component.html',
-  standalone: false
+  selector: "app-estate-property-company-list",
+  templateUrl: "./list.component.html",
+  standalone: false,
 })
-export class EstatePropertyCompanyListComponent extends ListBaseComponent<EstatePropertyCompanyService, EstatePropertyCompanyModel, string> implements OnInit, OnDestroy {
+export class EstatePropertyCompanyListComponent
+  extends ListBaseComponent<
+    EstatePropertyCompanyService,
+    EstatePropertyCompanyModel,
+    string
+  >
+  implements OnInit, OnDestroy
+{
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: EstatePropertyCompanyService,
@@ -45,7 +54,13 @@ export class EstatePropertyCompanyListComponent extends ListBaseComponent<Estate
     public publicHelper: PublicHelper,
     public dialog: MatDialog,
   ) {
-    super(contentService, new EstatePropertyCompanyModel(), publicHelper, tokenHelper, translate);
+    super(
+      contentService,
+      new EstatePropertyCompanyModel(),
+      publicHelper,
+      tokenHelper,
+      translate,
+    );
     this.publicHelper.processService.cdr = this.cdr;
 
     this.optionsSearch.parentMethods = {
@@ -53,40 +68,43 @@ export class EstatePropertyCompanyListComponent extends ListBaseComponent<Estate
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = 'Id';
+    this.filteModelContent.sortColumn = "Id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   link: string;
   filteModelContent = new FilterModel();
   optionsSearch: ComponentOptionSearchModel = new ComponentOptionSearchModel();
-  optionsStatist: ComponentOptionStatistModel = new ComponentOptionStatistModel();
+  optionsStatist: ComponentOptionStatistModel =
+    new ComponentOptionStatistModel();
 
   tokenInfo = new TokenInfoModelV3();
-
 
   categoryModelSelected: EstatePropertyCompanyModel;
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    'LinkMainImageIdSrc',
-    'Id',
-    'RecordStatus',
-    'mainAdminRecordStatus',
+    "LinkMainImageIdSrc",
+    "Id",
+    "RecordStatus",
+    "mainAdminRecordStatus",
     // 'Title',
     // 'CreatedDate',
-    'LinkTo',
-    'action_menu',
+    "LinkTo",
+    "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    'LinkMainImageIdSrc',
-    'Id',
-    'RecordStatus',
-    'mainAdminRecordStatus',
+    "LinkMainImageIdSrc",
+    "Id",
+    "RecordStatus",
+    "mainAdminRecordStatus",
     // 'Title',
     // 'CreatedDate',
-    'LinkTo',
-    'action_menu',
+    "LinkTo",
+    "action_menu",
   ];
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
   cmsApiStoreSubscribe: Subscription;
   GetAllWithHierarchyCategoryId = false;
   ngOnInit(): void {
@@ -94,10 +112,12 @@ export class EstatePropertyCompanyListComponent extends ListBaseComponent<Estate
     if (this.tokenInfo) {
       this.DataGetAll();
     }
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -105,19 +125,35 @@ export class EstatePropertyCompanyListComponent extends ListBaseComponent<Estate
     }
   }
   DataGetAll(): void {
-    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(this.tabledisplayedColumnsSource, this.tabledisplayedColumnsMobileSource, [], this.tokenInfo);
+    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
+      this.tabledisplayedColumnsSource,
+      this.tabledisplayedColumnsMobileSource,
+      [],
+      this.tokenInfo,
+    );
     this.tableRowsSelected = [];
     this.onActionTableRowSelect(new EstatePropertyCompanyModel());
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.get_information_list').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.get_information_list")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.filteModelContent.accessLoad = true;
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
     /*filter CLone*/
     /** filter Category */
-    if (this.categoryModelSelected && this.categoryModelSelected.id.length > 0) {
+    if (
+      this.categoryModelSelected &&
+      this.categoryModelSelected.id.length > 0
+    ) {
       const filterChild = new FilterDataModel();
-      filterChild.propertyName = 'linkEstateCompanyCategoryId';
+      filterChild.propertyName = "linkEstateCompanyCategoryId";
       filterChild.value = this.categoryModelSelected.id;
       filterModel.filters.push(filterChild);
     }
@@ -128,7 +164,6 @@ export class EstatePropertyCompanyListComponent extends ListBaseComponent<Estate
         if (ret.isSuccess) {
           this.dataModelResult = ret;
           this.tableSource.data = ret.listItems;
-
 
           setTimeout(() => {
             if (this.optionsSearch.childMethods)
@@ -143,22 +178,25 @@ export class EstatePropertyCompanyListComponent extends ListBaseComponent<Estate
         this.cmsToastrService.typeError(er);
 
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onTableSortData(sort: MatSort): void {
-    if (this.tableSource && this.tableSource.sort && this.tableSource.sort.active === sort.active) {
-      if (this.tableSource.sort.start === 'asc') {
-        sort.start = 'desc';
+    if (
+      this.tableSource &&
+      this.tableSource.sort &&
+      this.tableSource.sort.active === sort.active
+    ) {
+      if (this.tableSource.sort.start === "asc") {
+        sort.start = "desc";
         this.filteModelContent.sortColumn = sort.active;
         this.filteModelContent.sortType = SortTypeEnum.Descending;
-      } else if (this.tableSource.sort.start === 'desc') {
-        sort.start = 'asc';
-        this.filteModelContent.sortColumn = '';
+      } else if (this.tableSource.sort.start === "desc") {
+        sort.start = "asc";
+        this.filteModelContent.sortColumn = "";
         this.filteModelContent.sortType = SortTypeEnum.Ascending;
       } else {
-        sort.start = 'desc';
+        sort.start = "desc";
       }
     } else {
       this.filteModelContent.sortColumn = sort.active;
@@ -174,10 +212,11 @@ export class EstatePropertyCompanyListComponent extends ListBaseComponent<Estate
     this.DataGetAll();
   }
   onActionButtonNewRow(event?: MouseEvent): void {
-
-    if (this.dataModelResult == null ||
+    if (
+      this.dataModelResult == null ||
       this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessAddRow) {
+      !this.dataModelResult.access.accessAddRow
+    ) {
       this.cmsToastrService.typeErrorAccessAdd();
       return;
     }
@@ -186,18 +225,23 @@ export class EstatePropertyCompanyListComponent extends ListBaseComponent<Estate
       this.link = "/#/estate/property-company/add/";
       window.open(this.link, "_blank");
     } else {
-      this.router.navigate(['/estate/property-company/add']);
+      this.router.navigate(["/estate/property-company/add"]);
     }
   }
-  onActionButtonEditRow(model: EstatePropertyCompanyModel = this.tableRowSelected, event?: MouseEvent): void {
+  onActionButtonEditRow(
+    model: EstatePropertyCompanyModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
     this.onActionTableRowSelect(model);
-    if (this.dataModelResult == null ||
+    if (
+      this.dataModelResult == null ||
       this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessEditRow) {
+      !this.dataModelResult.access.accessEditRow
+    ) {
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
@@ -206,57 +250,72 @@ export class EstatePropertyCompanyListComponent extends ListBaseComponent<Estate
       this.link = "/#/estate/property-company/edit/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
-      this.router.navigate(['/estate/property-company/edit', this.tableRowSelected.id]);
+      this.router.navigate([
+        "/estate/property-company/edit",
+        this.tableRowSelected.id,
+      ]);
     }
   }
-  onActionButtonProperty(model: EstatePropertyCompanyModel = this.tableRowSelected, event?: MouseEvent): void {
+  onActionButtonProperty(
+    model: EstatePropertyCompanyModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
     this.onActionTableRowSelect(model);
-    if (this.dataModelResult == null ||
+    if (
+      this.dataModelResult == null ||
       this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessEditRow) {
+      !this.dataModelResult.access.accessEditRow
+    ) {
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
 
     if (event?.ctrlKey) {
-      this.link = "/#/estate/property/LinkCompanyId/" + this.tableRowSelected.id;
+      this.link =
+        "/#/estate/property/LinkCompanyId/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
-      this.router.navigate(['/estate/property/LinkCompanyId', this.tableRowSelected.id]);
+      this.router.navigate([
+        "/estate/property/LinkCompanyId",
+        this.tableRowSelected.id,
+      ]);
     }
   }
-  onActionButtonDeleteRow(model: EstatePropertyCompanyModel = this.tableRowSelected): void {
+  onActionButtonDeleteRow(
+    model: EstatePropertyCompanyModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.id || model.id.length === 0) {
-      this.translate.get('MESSAGE.no_row_selected_to_delete').subscribe((str: string) => {
-        this.cmsToastrService.typeErrorSelected(str);
-      });
+      this.translate
+        .get("MESSAGE.no_row_selected_to_delete")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.onActionTableRowSelect(model);
 
-    if (this.dataModelResult == null ||
+    if (
+      this.dataModelResult == null ||
       this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessDeleteRow) {
+      !this.dataModelResult.access.accessDeleteRow
+    ) {
       this.cmsToastrService.typeErrorAccessDelete();
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(EstatePropertyCompanyDeleteComponent, {
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id: this.tableRowSelected.id }
+      data: { id: this.tableRowSelected.id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -268,14 +327,26 @@ export class EstatePropertyCompanyListComponent extends ListBaseComponent<Estate
       return;
     }
     const statist = new Map<string, number>();
-    this.translate.get('MESSAGE.Active').subscribe((str: string) => { statist.set(str, 0); });
-    this.translate.get('MESSAGE.All').subscribe((str: string) => { statist.set(str, 0); });
-    const pName = this.constructor.name + '.ServiceStatist';
-    this.translate.get('MESSAGE.Get_the_statist').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    this.translate.get("MESSAGE.All").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    const pName = this.constructor.name + ".ServiceStatist";
+    this.translate.get("MESSAGE.Get_the_statist").subscribe((str: string) => {
+      this.publicHelper.processService.processStart(
+        pName,
+        str,
+        this.constructorInfoAreaId,
+      );
+    });
     this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.All').subscribe((str: string) => { statist.set(str, ret.totalRowCount) });
+          this.translate.get("MESSAGE.All").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
           this.optionsStatist.childMethods.setStatistValue(statist);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -285,18 +356,19 @@ export class EstatePropertyCompanyListComponent extends ListBaseComponent<Estate
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = 'RecordStatus';
+    fastfilter.propertyName = "RecordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.Active').subscribe((str: string) => { statist.set(str, ret.totalRowCount) });
+          this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
           this.optionsStatist.childMethods.setStatistValue(statist);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -307,12 +379,9 @@ export class EstatePropertyCompanyListComponent extends ListBaseComponent<Estate
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
-
+      },
+    });
   }
-
 
   onActionButtonWithHierarchy(): void {
     this.GetAllWithHierarchyCategoryId = !this.GetAllWithHierarchyCategoryId;
@@ -336,18 +405,20 @@ export class EstatePropertyCompanyListComponent extends ListBaseComponent<Estate
   onActionCopied(): void {
     this.cmsToastrService.typeSuccessCopedToClipboard();
   }
-  onSubmitOptionsSearch(model: any): void {
-    this.filteModelContent.filters = model;
+  onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
+    if (model && model.length > 0) {
+      this.filteModelContent.filters = [
+        ...this.filteModelContent.filters,
+        ...model,
+      ];
+    }
     this.DataGetAll();
   }
 
   expandedElement: any;
 
-
-
-
   onActionButtonLinkTo(
-    model: EstatePropertyCompanyModel = this.tableRowSelected
+    model: EstatePropertyCompanyModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -359,49 +430,52 @@ export class EstatePropertyCompanyListComponent extends ListBaseComponent<Estate
     }
     this.onActionTableRowSelect(model);
 
-
     const pName = this.constructor.name + "ServiceGetOneById";
-    this.translate.get('MESSAGE.get_state_information').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    this.translate
+      .get("MESSAGE.get_state_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.contentService.setAccessDataType(ManageUserAccessDataTypesEnum.Editor);
-    this.contentService
-      .ServiceGetOneById(model.id)
-      .subscribe({
-        next: (ret) => {
-          if (ret.isSuccess) {
-            //open popup
-            var panelClass = '';
-            if (this.publicHelper.isMobile)
-              panelClass = 'dialog-fullscreen';
-
-            else
-              panelClass = 'dialog-min';
-            const dialogRef = this.dialog.open(CmsLinkToComponent, {
-              height: "90%",
-              enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
-              exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-              panelClass: panelClass,
-              data: {
-                title: ret.item.title,
-                urlViewContentQRCodeBase64: ret.item.urlViewContentQRCodeBase64,
-                urlViewContent: ret.item.urlViewContent,
-              },
-            });
-            dialogRef.afterClosed().subscribe((result) => {
-              if (result && result.dialogChangedDate) {
-                this.DataGetAll();
-              }
-            });
-            //open popup
-          } else {
-            this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-          }
-          this.publicHelper.processService.processStop(pName);
-        },
-        error: (er) => {
-          this.cmsToastrService.typeError(er);
-          this.publicHelper.processService.processStop(pName, false);
+    this.contentService.ServiceGetOneById(model.id).subscribe({
+      next: (ret) => {
+        if (ret.isSuccess) {
+          //open popup
+          var panelClass = "";
+          if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+          else panelClass = "dialog-min";
+          const dialogRef = this.dialog.open(CmsLinkToComponent, {
+            height: "90%",
+            enterAnimationDuration:
+              environment.cmsViewConfig.enterAnimationDuration,
+            exitAnimationDuration:
+              environment.cmsViewConfig.exitAnimationDuration,
+            panelClass: panelClass,
+            data: {
+              title: ret.item.title,
+              urlViewContentQRCodeBase64: ret.item.urlViewContentQRCodeBase64,
+              urlViewContent: ret.item.urlViewContent,
+            },
+          });
+          dialogRef.afterClosed().subscribe((result) => {
+            if (result && result.dialogChangedDate) {
+              this.DataGetAll();
+            }
+          });
+          //open popup
+        } else {
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
-      }
-      );
+        this.publicHelper.processService.processStop(pName);
+      },
+      error: (er) => {
+        this.cmsToastrService.typeError(er);
+        this.publicHelper.processService.processStop(pName, false);
+      },
+    });
   }
 }

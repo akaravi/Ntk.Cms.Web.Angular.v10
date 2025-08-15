@@ -1,39 +1,46 @@
-
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { PageEvent } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { ActivatedRoute, Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import {
   AuthRefreshTokenModel,
-  CoreAuthV3Service, CoreSiteUserModel, CoreSiteUserService, CoreUserModel, DataFieldInfoModel,
-  FilterDataModel, FilterModel, RecordStatusEnum, SortTypeEnum, TokenInfoModelV3
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { ComponentOptionSearchModel } from 'src/app/core/cmsComponent/base/componentOptionSearchModel';
-import { ComponentOptionStatistModel } from 'src/app/core/cmsComponent/base/componentOptionStatistModel';
-import { ListBaseComponent } from 'src/app/core/cmsComponent/listBaseComponent';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { PageInfoService } from 'src/app/core/services/page-info.service';
-import { CmsConfirmationDialogService } from 'src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service';
-import { environment } from 'src/environments/environment';
-import { CoreUserChangePasswordComponent } from '../../user/changePassword/changePassword.component';
-import { CoreSiteUserAddComponent } from '../userAdd/userAdd.component';
-import { CoreSiteUserEditComponent } from '../userEdit/userEdit.component';
-import { CmsAuthService } from 'src/app/core/services/cmsAuth.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  CoreSiteUserModel,
+  CoreSiteUserService,
+  CoreUserModel,
+  DataFieldInfoModel,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
+  TokenInfoModelV3,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { ComponentOptionSearchModel } from "src/app/core/cmsComponent/base/componentOptionSearchModel";
+import { ComponentOptionStatistModel } from "src/app/core/cmsComponent/base/componentOptionStatistModel";
+import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsAuthService } from "src/app/core/services/cmsAuth.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { PageInfoService } from "src/app/core/services/page-info.service";
+import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { environment } from "src/environments/environment";
+import { CoreUserChangePasswordComponent } from "../../user/changePassword/changePassword.component";
+import { CoreSiteUserAddComponent } from "../userAdd/userAdd.component";
+import { CoreSiteUserEditComponent } from "../userEdit/userEdit.component";
 
 @Component({
-  selector: 'app-core-site-user-list',
-  templateUrl: './userList.component.html',
-  standalone: false
+  selector: "app-core-site-user-list",
+  templateUrl: "./userList.component.html",
+  standalone: false,
 })
-export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserService, CoreSiteUserModel, number>
-  implements OnInit, OnDestroy {
+export class CoreSiteUserListComponent
+  extends ListBaseComponent<CoreSiteUserService, CoreSiteUserModel, number>
+  implements OnInit, OnDestroy
+{
   requestLinkSiteId = 0;
   requestLinkUserId = 0;
   requestLinkUserGroupId = 0;
@@ -51,37 +58,50 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
     public translate: TranslateService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
-    public dialog: MatDialog) {
-    super(contentService, new CoreSiteUserModel(), publicHelper, tokenHelper, translate);
+    public dialog: MatDialog,
+  ) {
+    super(
+      contentService,
+      new CoreSiteUserModel(),
+      publicHelper,
+      tokenHelper,
+      translate,
+    );
     this.publicHelper.processService.cdr = this.cdr;
 
-    this.requestLinkSiteId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkSiteId'));
-    this.requestLinkUserId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkUserId'));
-    this.requestLinkUserGroupId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkUserGroupId'));
+    this.requestLinkSiteId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
+    );
+    this.requestLinkUserId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
+    );
+    this.requestLinkUserGroupId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkUserGroupId"),
+    );
 
     this.optionsSearch.parentMethods = {
       onSubmit: (model) => this.onSubmitOptionsSearch(model),
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = 'Id';
+    this.filteModelContent.sortColumn = "Id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
 
     if (this.requestLinkSiteId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = 'LinkSiteId';
+      filter.propertyName = "LinkSiteId";
       filter.value = this.requestLinkSiteId;
       this.filteModelContent.filters.push(filter);
     }
     if (this.requestLinkUserId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = 'LinkUserId';
+      filter.propertyName = "LinkUserId";
       filter.value = this.requestLinkUserId;
       this.filteModelContent.filters.push(filter);
     }
     if (this.requestLinkUserGroupId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = 'LinkUserGroupId';
+      filter.propertyName = "LinkUserGroupId";
       filter.value = this.requestLinkUserGroupId;
       this.filteModelContent.filters.push(filter);
     }
@@ -95,59 +115,62 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
 
   filteModelContent = new FilterModel();
   optionsSearch: ComponentOptionSearchModel = new ComponentOptionSearchModel();
-  optionsStatist: ComponentOptionStatistModel = new ComponentOptionStatistModel();
+  optionsStatist: ComponentOptionStatistModel =
+    new ComponentOptionStatistModel();
 
   tokenInfo = new TokenInfoModelV3();
 
-
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
-
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    'LinkSiteId',
-    'LinkUserId',
-    'LinkUserGroupId',
-    'RecordStatus',
-    'CreatedDate',
+    "LinkSiteId",
+    "LinkUserId",
+    "LinkUserGroupId",
+    "RecordStatus",
+    "CreatedDate",
     // 'virtual_CmsUser.name',
     // 'virtual_CmsUser.lastName',
-    'virtual_CmsUserGroup.title',
-    'virtual_CmsSite.title',
-    'virtual_CmsSite.domain',
-    'virtual_CmsSite.subDomain',
-    'action_menu',
+    "virtual_CmsUserGroup.title",
+    "virtual_CmsSite.title",
+    "virtual_CmsSite.domain",
+    "virtual_CmsSite.subDomain",
+    "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     // 'LinkSiteId',
     // 'LinkUserId',
     // 'LinkUserGroupId',
-    'RecordStatus',
-    'CreatedDate',
+    "RecordStatus",
+    "CreatedDate",
     // 'virtual_CmsUser.name',
     // 'virtual_CmsUser.lastName',
-    'virtual_CmsUserGroup.title',
-    'virtual_CmsSite.title',
+    "virtual_CmsUserGroup.title",
+    "virtual_CmsSite.title",
     // 'virtual_CmsSite.domain',
     // 'virtual_CmsSite.subDomain',
-    'action_menu',
+    "action_menu",
   ];
-
 
   expandedElement: CoreUserModel | null;
   cmsApiStoreSubscribe: Subscription;
 
   ngOnInit(): void {
-    this.filteModelContent.sortColumn = 'Title';
+    this.filteModelContent.sortColumn = "Title";
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -155,15 +178,25 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
     }
   }
   DataGetAll(): void {
-    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(this.tabledisplayedColumnsSource, this.tabledisplayedColumnsMobileSource, [], this.tokenInfo);
+    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
+      this.tabledisplayedColumnsSource,
+      this.tabledisplayedColumnsMobileSource,
+      [],
+      this.tokenInfo,
+    );
     this.tableRowsSelected = [];
     this.onActionTableRowSelect(new CoreSiteUserModel());
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
-
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.filteModelContent.accessLoad = true;
     /*filter CLone*/
@@ -176,8 +209,7 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
           this.dataModelResult = ret;
           this.tableSource.data = ret.listItems;
 
-          if (this.optionsStatist?.data?.show)
-            this.onActionButtonStatist(true);
+          if (this.optionsStatist?.data?.show) this.onActionButtonStatist(true);
           setTimeout(() => {
             if (this.optionsSearch.childMethods)
               this.optionsSearch.childMethods.setAccess(ret.access);
@@ -186,30 +218,31 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
 
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
 
-
   onTableSortData(sort: MatSort): void {
-    if (this.tableSource && this.tableSource.sort && this.tableSource.sort.active === sort.active) {
-      if (this.tableSource.sort.start === 'asc') {
-        sort.start = 'desc';
+    if (
+      this.tableSource &&
+      this.tableSource.sort &&
+      this.tableSource.sort.active === sort.active
+    ) {
+      if (this.tableSource.sort.start === "asc") {
+        sort.start = "desc";
         this.filteModelContent.sortColumn = sort.active;
         this.filteModelContent.sortType = SortTypeEnum.Descending;
-      } else if (this.tableSource.sort.start === 'desc') {
-        sort.start = 'asc';
-        this.filteModelContent.sortColumn = '';
+      } else if (this.tableSource.sort.start === "desc") {
+        sort.start = "asc";
+        this.filteModelContent.sortColumn = "";
         this.filteModelContent.sortType = SortTypeEnum.Ascending;
       } else {
-        sort.start = 'desc';
+        sort.start = "desc";
       }
     } else {
       this.filteModelContent.sortColumn = sort.active;
@@ -225,9 +258,7 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
     this.DataGetAll();
   }
 
-
   onActionButtonNewRow(): void {
-
     if (
       this.dataModelResult == null ||
       this.dataModelResult.access == null ||
@@ -236,13 +267,11 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
       this.cmsToastrService.typeErrorAccessAdd();
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(CoreSiteUserAddComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
@@ -250,18 +279,25 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
         linkSiteId: this.requestLinkSiteId,
         linkUserId: this.requestLinkUserId,
         linkUserGroupId: this.requestLinkUserGroupId,
-      }
+      },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
     });
   }
 
-  onActionButtonEditRow(model: CoreSiteUserModel = this.tableRowSelected): void {
-
-    if (!model || !model.linkUserId || model.linkUserId === 0 || !model.linkSiteId || model.linkSiteId === 0) {
+  onActionButtonEditRow(
+    model: CoreSiteUserModel = this.tableRowSelected,
+  ): void {
+    if (
+      !model ||
+      !model.linkUserId ||
+      model.linkUserId === 0 ||
+      !model.linkSiteId ||
+      model.linkSiteId === 0
+    ) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -274,13 +310,11 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(CoreSiteUserEditComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
@@ -288,17 +322,25 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
         linkSiteId: model.linkSiteId,
         linkUserId: model.linkUserId,
         linkUserGroupId: model.linkUserGroupId,
-      }
+      },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
     });
   }
 
-  onActionButtonDeleteRow(model: CoreSiteUserModel = this.tableRowSelected): void {
-    if (!model || !model.linkUserId || model.linkUserId === 0 || !model.linkSiteId || model.linkSiteId === 0) {
+  onActionButtonDeleteRow(
+    model: CoreSiteUserModel = this.tableRowSelected,
+  ): void {
+    if (
+      !model ||
+      !model.linkUserId ||
+      model.linkUserId === 0 ||
+      !model.linkSiteId ||
+      model.linkSiteId === 0
+    ) {
       this.cmsToastrService.typeErrorDeleteRowIsNull();
       return;
     }
@@ -314,51 +356,77 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
 
     var title = "";
     var message = "";
-    this.translate.get(['MESSAGE.Please_Confirm', 'MESSAGE.Do_you_want_to_delete_this_content']).subscribe((str: string) => {
-      title = str['MESSAGE.Please_Confirm'];
-      message = str['MESSAGE.Do_you_want_to_delete_this_content'] + '?' + '<br> ( '
-        + this.tableRowSelected.virtual_CmsSite.title + '<-->' + this.tableRowSelected.virtual_CmsUser.username + ' ) ';
-    });
-    this.cmsConfirmationDialogService.confirm(title, message)
+    this.translate
+      .get([
+        "MESSAGE.Please_Confirm",
+        "MESSAGE.Do_you_want_to_delete_this_content",
+      ])
+      .subscribe((str: string) => {
+        title = str["MESSAGE.Please_Confirm"];
+        message =
+          str["MESSAGE.Do_you_want_to_delete_this_content"] +
+          "?" +
+          "<br> ( " +
+          this.tableRowSelected.virtual_CmsSite.title +
+          "<-->" +
+          this.tableRowSelected.virtual_CmsUser.username +
+          " ) ";
+      });
+    this.cmsConfirmationDialogService
+      .confirm(title, message)
       .then((confirmed) => {
         if (confirmed) {
-          const pName = this.constructor.name + 'main';
-          this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-            this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-          });
+          const pName = this.constructor.name + "main";
+          this.translate
+            .get("MESSAGE.Receiving_information")
+            .subscribe((str: string) => {
+              this.publicHelper.processService.processStart(
+                pName,
+                str,
+                this.constructorInfoAreaId,
+              );
+            });
 
-          this.contentService.ServiceDeleteEntity(this.tableRowSelected).subscribe({
-            next: (ret) => {
-              if (ret.isSuccess) {
-                this.cmsToastrService.typeSuccessRemove();
-                this.DataGetAll();
-              } else {
-                this.cmsToastrService.typeErrorRemove();
-              }
-              this.publicHelper.processService.processStop(pName);
-
-            },
-            error: (er) => {
-              this.cmsToastrService.typeError(er);
-              this.publicHelper.processService.processStop(pName, false);
-            }
-          }
-          );
+          this.contentService
+            .ServiceDeleteEntity(this.tableRowSelected)
+            .subscribe({
+              next: (ret) => {
+                if (ret.isSuccess) {
+                  this.cmsToastrService.typeSuccessRemove();
+                  this.DataGetAll();
+                } else {
+                  this.cmsToastrService.typeErrorRemove();
+                }
+                this.publicHelper.processService.processStop(pName);
+              },
+              error: (er) => {
+                this.cmsToastrService.typeError(er);
+                this.publicHelper.processService.processStop(pName, false);
+              },
+            });
         }
-      }
-      )
+      })
       .catch(() => {
         // console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)')
-      }
-      );
+      });
   }
 
-  onActionButtonEditSiteRow(model: CoreSiteUserModel = this.tableRowSelected, event?: MouseEvent): void {
-
-    if (!model || !model.linkUserId || model.linkUserId === 0 || !model.linkSiteId || model.linkSiteId === 0) {
-      this.translate.get('MESSAGE.No_row_selected_for_editing').subscribe((str: string) => {
-        this.cmsToastrService.typeErrorSelected(str);
-      });
+  onActionButtonEditSiteRow(
+    model: CoreSiteUserModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
+    if (
+      !model ||
+      !model.linkUserId ||
+      model.linkUserId === 0 ||
+      !model.linkSiteId ||
+      model.linkSiteId === 0
+    ) {
+      this.translate
+        .get("MESSAGE.No_row_selected_for_editing")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.onActionTableRowSelect(model);
@@ -367,43 +435,55 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
       this.link = "/#/core/site/edit/" + model.id;
       window.open(this.link, "_blank");
     } else {
-      this.router.navigate(['/core/site/edit/', model.linkSiteId]);
+      this.router.navigate(["/core/site/edit/", model.linkSiteId]);
     }
   }
 
-  onActionButtonChangePassword(model: CoreSiteUserModel = this.tableRowSelected): void {
+  onActionButtonChangePassword(
+    model: CoreSiteUserModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.linkUserId || model.linkUserId === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
     this.onActionTableRowSelect(model);
-    if (this.tokenInfo.access.userId != model.linkUserId &&
-      (
-        this.dataModelResult == null ||
+    if (
+      this.tokenInfo.access.userId != model.linkUserId &&
+      (this.dataModelResult == null ||
         this.dataModelResult.access == null ||
-        !this.dataModelResult.access.accessEditRow
-      )) {
+        !this.dataModelResult.access.accessEditRow)
+    ) {
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
 
     const dialogRef = this.dialog.open(CoreUserChangePasswordComponent, {
       //height: '90%',
-      data: { linkUserId: this.tableRowSelected.linkUserId }
+      data: { linkUserId: this.tableRowSelected.linkUserId },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
     });
   }
 
-  onActionButtonEditUserRow(model: CoreSiteUserModel = this.tableRowSelected, event?: MouseEvent): void {
-
-    if (!model || !model.linkUserId || model.linkUserId === 0 || !model.linkSiteId || model.linkSiteId === 0) {
-      this.translate.get('MESSAGE.No_row_selected_for_editing').subscribe((str: string) => {
-        this.cmsToastrService.typeErrorSelected(str);
-      });
+  onActionButtonEditUserRow(
+    model: CoreSiteUserModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
+    if (
+      !model ||
+      !model.linkUserId ||
+      model.linkUserId === 0 ||
+      !model.linkSiteId ||
+      model.linkSiteId === 0
+    ) {
+      this.translate
+        .get("MESSAGE.No_row_selected_for_editing")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.onActionTableRowSelect(model);
@@ -412,16 +492,25 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
       this.link = "/#/core/user/edit/" + model.id;
       window.open(this.link, "_blank");
     } else {
-      this.router.navigate(['/core/user/edit', model.linkUserId]);
+      this.router.navigate(["/core/user/edit", model.linkUserId]);
     }
-
   }
-  onActionButtonResllerUser(model: CoreSiteUserModel = this.tableRowSelected, event?: MouseEvent): void {
-
-    if (!model || !model.linkUserId || model.linkUserId === 0 || !model.linkSiteId || model.linkSiteId === 0) {
-      this.translate.get('MESSAGE.No_row_selected_for_editing').subscribe((str: string) => {
-        this.cmsToastrService.typeErrorSelected(str);
-      });
+  onActionButtonResllerUser(
+    model: CoreSiteUserModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
+    if (
+      !model ||
+      !model.linkUserId ||
+      model.linkUserId === 0 ||
+      !model.linkSiteId ||
+      model.linkSiteId === 0
+    ) {
+      this.translate
+        .get("MESSAGE.No_row_selected_for_editing")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.onActionTableRowSelect(model);
@@ -430,16 +519,28 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
       this.link = "/#/core/user/reseller-chart/LinkUserId/" + model.id;
       window.open(this.link, "_blank");
     } else {
-      this.router.navigate(['/core/user/reseller-chart/LinkUserId/', model.linkUserId]);
+      this.router.navigate([
+        "/core/user/reseller-chart/LinkUserId/",
+        model.linkUserId,
+      ]);
     }
-
   }
-  onActionButtonResllerSite(model: CoreSiteUserModel = this.tableRowSelected, event?: MouseEvent): void {
-
-    if (!model || !model.linkUserId || model.linkUserId === 0 || !model.linkSiteId || model.linkSiteId === 0) {
-      this.translate.get('MESSAGE.No_row_selected_for_editing').subscribe((str: string) => {
-        this.cmsToastrService.typeErrorSelected(str);
-      });
+  onActionButtonResllerSite(
+    model: CoreSiteUserModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
+    if (
+      !model ||
+      !model.linkUserId ||
+      model.linkUserId === 0 ||
+      !model.linkSiteId ||
+      model.linkSiteId === 0
+    ) {
+      this.translate
+        .get("MESSAGE.No_row_selected_for_editing")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.onActionTableRowSelect(model);
@@ -448,13 +549,21 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
       this.link = "/#/core/site/reseller-chart/LinkSiteId/" + model.id;
       window.open(this.link, "_blank");
     } else {
-      this.router.navigate(['/core/site/reseller-chart/LinkSiteId/', model.linkSiteId]);
+      this.router.navigate([
+        "/core/site/reseller-chart/LinkSiteId/",
+        model.linkSiteId,
+      ]);
     }
   }
-  onActionButtonLoginToRow(model: CoreSiteUserModel = this.tableRowSelected): void {
+  onActionButtonLoginToRow(
+    model: CoreSiteUserModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.linkUserId || model.linkUserId === 0) {
-
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorSelectedRow').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.onActionTableRowSelect(model);
@@ -468,24 +577,34 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
       next: (res) => {
         if (res.isSuccess) {
           this.cmsToastrService.typeSuccessSelected();
-          this.router.navigate(['/']);
-        }
-        else {
+          this.router.navigate(["/"]);
+        } else {
           this.cmsToastrService.typeErrorSelected();
         }
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
-      }
-    }
-    );
+      },
+    });
   }
-  onActionButtonUserSupportList(row: CoreSiteUserModel, event?: MouseEvent): void {
+  onActionButtonUserSupportList(
+    row: CoreSiteUserModel,
+    event?: MouseEvent,
+  ): void {
     if (event?.ctrlKey) {
-      this.link = "/#/core/user-support-access/list/LinkSiteId/" + row.linkSiteId + "/LinkUserId/" + row.linkUserId;
+      this.link =
+        "/#/core/user-support-access/list/LinkSiteId/" +
+        row.linkSiteId +
+        "/LinkUserId/" +
+        row.linkUserId;
       window.open(this.link, "_blank");
     } else {
-      this.router.navigate(['/core/user-support-access/list/LinkSiteId/', row.linkSiteId, 'LinkUserId', row.linkUserId]);
+      this.router.navigate([
+        "/core/user-support-access/list/LinkSiteId/",
+        row.linkSiteId,
+        "LinkUserId",
+        row.linkUserId,
+      ]);
     }
   }
   onActionButtonStatist(view = !this.optionsStatist.data.show): void {
@@ -494,14 +613,26 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
       return;
     }
     const statist = new Map<string, number>();
-    this.translate.get('MESSAGE.Active').subscribe((str: string) => { statist.set(str, 0); });
-    this.translate.get('MESSAGE.All').subscribe((str: string) => { statist.set(str, 0); });
-    const pName = this.constructor.name + '.ServiceStatist';
-    this.translate.get('MESSAGE.Get_the_statist').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    this.translate.get("MESSAGE.All").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    const pName = this.constructor.name + ".ServiceStatist";
+    this.translate.get("MESSAGE.Get_the_statist").subscribe((str: string) => {
+      this.publicHelper.processService.processStart(
+        pName,
+        str,
+        this.constructorInfoAreaId,
+      );
+    });
     this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.All').subscribe((str: string) => { statist.set(str, ret.totalRowCount) });
+          this.translate.get("MESSAGE.All").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
           this.optionsStatist.childMethods.setStatistValue(statist);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -511,19 +642,20 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = 'RecordStatus';
+    fastfilter.propertyName = "RecordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.Active').subscribe((str: string) => { statist.set(str, ret.totalRowCount) });
+          this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
           this.optionsStatist.childMethods.setStatistValue(statist);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -533,25 +665,34 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
-
+      },
+    });
   }
-
-
-
 
   onActionButtonReload(): void {
     this.DataGetAll();
   }
-  onSubmitOptionsSearch(model: any): void {
-    this.filteModelContent.filters = model;
+  onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
+    if (model && model.length > 0) {
+      this.filteModelContent.filters = [
+        ...this.filteModelContent.filters,
+        ...model,
+      ];
+    }
     this.DataGetAll();
   }
 
-  onActionButtonSiteList(model: CoreSiteUserModel = this.tableRowSelected, event?: MouseEvent): void {
-    if (!model || !model.linkUserId || model.linkUserId === 0 || !model.linkSiteId || model.linkSiteId === 0) {
+  onActionButtonSiteList(
+    model: CoreSiteUserModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
+    if (
+      !model ||
+      !model.linkUserId ||
+      model.linkUserId === 0 ||
+      !model.linkSiteId ||
+      model.linkSiteId === 0
+    ) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -561,19 +702,16 @@ export class CoreSiteUserListComponent extends ListBaseComponent<CoreSiteUserSer
       this.link = "/#/core/site/list/LinkUserId/" + model.id;
       window.open(this.link, "_blank");
     } else {
-      this.router.navigate(['/core/site/list/LinkUserId/', model.id]);
+      this.router.navigate(["/core/site/list/LinkUserId/", model.id]);
     }
   }
   onActionBackToParentSiteList(): void {
-    this.router.navigate(['/core/site/']);
+    this.router.navigate(["/core/site/"]);
   }
   onActionBackToParentUserList(): void {
-    this.router.navigate(['/core/user/']);
+    this.router.navigate(["/core/user/"]);
   }
   onActionBackToParentUserGroupList(): void {
-    this.router.navigate(['/core/usergroup/']);
+    this.router.navigate(["/core/usergroup/"]);
   }
-
-
-
 }

@@ -1,28 +1,33 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { PageEvent } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { MatTableDataSource } from "@angular/material/table";
+import { Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  DataFieldInfoModel, ErrorExceptionResult,
+  DataFieldInfoModel,
+  ErrorExceptionResult,
   FilterDataModel,
-  FilterModel, SortTypeEnum, TicketingDepartemenModel, TicketingDepartemenService, TicketingFaqModel,
-  TicketingFaqService, TokenInfoModelV3
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { ComponentOptionSearchModel } from 'src/app/core/cmsComponent/base/componentOptionSearchModel';
-import { ComponentOptionStatistModel } from 'src/app/core/cmsComponent/base/componentOptionStatistModel';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  FilterModel,
+  SortTypeEnum,
+  TicketingDepartemenModel,
+  TicketingDepartemenService,
+  TicketingFaqModel,
+  TicketingFaqService,
+  TokenInfoModelV3,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { ComponentOptionSearchModel } from "src/app/core/cmsComponent/base/componentOptionSearchModel";
+import { ComponentOptionStatistModel } from "src/app/core/cmsComponent/base/componentOptionStatistModel";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-  selector: 'app-ticketing-faq-originlist',
-  templateUrl: './origin-list.component.html',
-  standalone: false
+  selector: "app-ticketing-faq-originlist",
+  templateUrl: "./origin-list.component.html",
+  standalone: false,
 })
 export class TicketingFaqOriginListComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -39,10 +44,13 @@ export class TicketingFaqOriginListComponent implements OnInit, OnDestroy {
   ) {
     this.publicHelper.processService.cdr = this.cdr;
     /*filter Sort*/
-    this.filteModelContent.sortColumn = 'Id';
+    this.filteModelContent.sortColumn = "Id";
     this.filteModelContent.sortType = SortTypeEnum.Ascending;
   }
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
 
   comment: string;
   author: string;
@@ -51,17 +59,20 @@ export class TicketingFaqOriginListComponent implements OnInit, OnDestroy {
   tableContentSelected = [];
 
   filteModelContent = new FilterModel();
-  dataModelResult: ErrorExceptionResult<TicketingFaqModel> = new ErrorExceptionResult<TicketingFaqModel>();
-  dataDepartemenModelResult: ErrorExceptionResult<TicketingDepartemenModel> = new ErrorExceptionResult<TicketingDepartemenModel>();
+  dataModelResult: ErrorExceptionResult<TicketingFaqModel> =
+    new ErrorExceptionResult<TicketingFaqModel>();
+  dataDepartemenModelResult: ErrorExceptionResult<TicketingDepartemenModel> =
+    new ErrorExceptionResult<TicketingDepartemenModel>();
   optionsSearch: ComponentOptionSearchModel = new ComponentOptionSearchModel();
-  optionsStatist: ComponentOptionStatistModel = new ComponentOptionStatistModel();
+  optionsStatist: ComponentOptionStatistModel =
+    new ComponentOptionStatistModel();
 
   tokenInfo = new TokenInfoModelV3();
 
-
   tableRowsSelected: Array<TicketingFaqModel> = [];
   tableRowSelected: TicketingFaqModel = new TicketingFaqModel();
-  tableSource: MatTableDataSource<TicketingFaqModel> = new MatTableDataSource<TicketingFaqModel>();
+  tableSource: MatTableDataSource<TicketingFaqModel> =
+    new MatTableDataSource<TicketingFaqModel>();
   categoryModelSelected: TicketingDepartemenModel;
 
   cmsApiStoreSubscribe: Subscription;
@@ -75,12 +86,13 @@ export class TicketingFaqOriginListComponent implements OnInit, OnDestroy {
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataDepartemenGetAll();
-      this.tokenInfo = value;
-      this.DataGetAll();
-    });
-
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataDepartemenGetAll();
+        this.tokenInfo = value;
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -92,11 +104,16 @@ export class TicketingFaqOriginListComponent implements OnInit, OnDestroy {
     this.tableRowsSelected = [];
     this.onActionTableRowSelect(new TicketingFaqModel());
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
-
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.filteModelContent.accessLoad = true;
     /*filter CLone*/
@@ -104,7 +121,7 @@ export class TicketingFaqOriginListComponent implements OnInit, OnDestroy {
     /*filter CLone*/
     if (this.categoryModelSelected && this.categoryModelSelected.id > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = 'LinkTicketingDepartemenId';
+      filter.propertyName = "LinkTicketingDepartemenId";
       filter.value = this.categoryModelSelected.id;
       filterModel.filters.push(filter);
     }
@@ -115,8 +132,7 @@ export class TicketingFaqOriginListComponent implements OnInit, OnDestroy {
         if (ret.isSuccess) {
           this.dataModelResult = ret;
           this.tableSource.data = ret.listItems;
-        }
-        else {
+        } else {
           this.cmsToastrService.typeErrorGetAll(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
@@ -124,49 +140,44 @@ export class TicketingFaqOriginListComponent implements OnInit, OnDestroy {
       error: (err) => {
         this.cmsToastrService.typeError(err);
         this.publicHelper.processService.processStop(pName);
-      }
-    }
-    );
+      },
+    });
   }
   DataDepartemenGetAll(): void {
-
-
     this.ticketingDepartemenService.ServiceGetAllOrigin(null).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
 
-
         if (ret.isSuccess) {
           this.dataDepartemenModelResult = ret;
-        }
-        else {
+        } else {
           this.cmsToastrService.typeErrorGetAll(ret.errorMessage);
-
         }
 
         Promise.resolve().then(() => this.cdr.detectChanges());
       },
       error: (err) => {
         this.cmsToastrService.typeError(err);
-
-
-      }
-    }
-    );
+      },
+    });
   }
 
   onTableSortData(sort: MatSort): void {
-    if (this.tableSource && this.tableSource.sort && this.tableSource.sort.active === sort.active) {
-      if (this.tableSource.sort.start === 'asc') {
-        sort.start = 'desc';
+    if (
+      this.tableSource &&
+      this.tableSource.sort &&
+      this.tableSource.sort.active === sort.active
+    ) {
+      if (this.tableSource.sort.start === "asc") {
+        sort.start = "desc";
         this.filteModelContent.sortColumn = sort.active;
         this.filteModelContent.sortType = SortTypeEnum.Descending;
-      } else if (this.tableSource.sort.start === 'desc') {
-        sort.start = 'asc';
-        this.filteModelContent.sortColumn = '';
+      } else if (this.tableSource.sort.start === "desc") {
+        sort.start = "asc";
+        this.filteModelContent.sortColumn = "";
         this.filteModelContent.sortType = SortTypeEnum.Ascending;
       } else {
-        sort.start = 'desc';
+        sort.start = "desc";
       }
     } else {
       this.filteModelContent.sortColumn = sort.active;
@@ -182,7 +193,6 @@ export class TicketingFaqOriginListComponent implements OnInit, OnDestroy {
     this.DataGetAll();
   }
 
-
   onActionSelectorSelect(model: TicketingDepartemenModel | null): void {
     /*filter */
     var sortColumn = this.filteModelContent.sortColumn;
@@ -196,22 +206,25 @@ export class TicketingFaqOriginListComponent implements OnInit, OnDestroy {
     this.DataGetAll();
   }
 
-
   onActionButtonReload(): void {
     this.DataGetAll();
   }
-  onSubmitOptionsSearch(model: any): void {
-    this.filteModelContent.filters = model;
+  onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
+    if (model && model.length > 0) {
+      this.filteModelContent.filters = [
+        ...this.filteModelContent.filters,
+        ...model,
+      ];
+    }
     this.DataGetAll();
   }
   onActionTableRowSelect(row: TicketingFaqModel): void {
     this.tableRowSelected = row;
-    if (!row["expanded"])
-      row["expanded"] = false;
+    if (!row["expanded"]) row["expanded"] = false;
     row["expanded"] = !row["expanded"];
   }
   onActionBackToParent(): void {
-    this.router.navigate(['/ticketing/departemen/']);
+    this.router.navigate(["/ticketing/departemen/"]);
   }
 
   onActionButtonDeparteman(id: number): void {
@@ -223,5 +236,4 @@ export class TicketingFaqOriginListComponent implements OnInit, OnDestroy {
     this.DataFaqLinkSelect = id;
     //console.log('ID:' + id);
   }
-
 }
