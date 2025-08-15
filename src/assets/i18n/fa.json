@@ -1793,99 +1793,7 @@
   "ROUTE.APPLICATION.THEMECONFIG": "برنامه",
   "ROUTE.LINKMANAGMENT.MEMBER": "اعضا",
   "lang": "fa",
-  "ngx-ntk-cron-editor": {
-    "TABS": {
-      "MINUTES": "دقایق",
-      "HOURLY": "ساعتی",
-      "DAILY": "روزانه",
-      "WEEKLY": "هفتگی",
-      "MONTHLY": "ماهانه",
-      "YEARLY": "سالانه",
-      "ADVANCED": "پیشرفته"
-    },
-    "MINUTES": {
-      "EVERY": "روز آخر",
-      "MINUTES": "دقیقه(s)",
-      "ON_SECOND": "در ثانیه"
-    },
-    "HOURLY": {
-      "EVERY": "هر",
-      "HOURS": "ساعت(s)",
-      "ON_MINUTE": "در دقیقه",
-      "ON_SECOND": "و دوم"
-    },
-    "DAILY": {
-      "EVERY": "هر",
-      "DAYS": "روز(s)در ",
-      "WORKING_DAY": "هر روز کاری در"
-    },
-    "WEEKLY": {
-      "AT": "در"
-    },
-    "MONTHLY": {
-      "ON": "در",
-      "OF_EVERY": "از هر",
-      "MONTHS": "ماه(s)",
-      "NEAREST_WEEKDAY": "در نزدیکترین روز هفته",
-      "AT": "در",
-      "STARTING_IN": "شروع در"
-    },
-    "YEARLY": {
-      "EVERY": "هر",
-      "ON": "بر روی",
-      "AT": "در",
-      "OF": "از",
-      "NEAREST_WEEKDAY": "در نزدیکترین روز هفته"
-    },
-    "ADVANCED": {
-      "CRON": "بیان کرون"
-    },
-    "MONTH_DAY": {
-      "LAST_DAY": "روز گذشته",
-      "LAST_WEEKDAY": " هفته گذشته",
-      "FIRST_WEEKDAY": "روز اول هفته",
-      "DAY_N": "روز {{n}}"
-    },
-    "MONTH_WEEK": {
-      "FIRST": "اولین",
-      "SECOND": "دومین",
-      "THIRD": "سومین",
-      "FOURTH": "چهارمین",
-      "FIFTH": "پنجمین",
-      "LAST": "آخرین"
-    },
-    "MONTH": {
-      "JANUARY": "ژانویه",
-      "FEBRUARY": "فوریه",
-      "MARCH": "مارس",
-      "APRIL": "آوریل",
-      "MAY": "می",
-      "JUNE": "ژوئن",
-      "JULY": "جولای",
-      "AUGUST": "اوت",
-      "SEPTEMBER": "سپتامبر",
-      "OCTOBER": "اکتبر",
-      "NOVEMBER": "نوامبر",
-      "DECEMBER": "دسامبر"
-    },
-    "WEEK": {
-      "MON": "دوشنبه",
-      "TUE": "سه شنبه",
-      "WED": "چهار شنبه",
-      "THU": "پنج شنبه",
-      "FRI": "جمعه",
-      "SAT": "شنبه",
-      "SUN": "یکشنبه"
-    },
-    "HOUR_TYPES": {
-      "AM": "قبل از ظهر",
-      "PM": "بعد از ظهر"
-    },
-    "VALIDATION_MESSAGE": {
-      "NULL": "عبارت کورن نمی تواند باشد",
-      "SEGMENTS": "عبارت کورن نامعتبر است، باید {{n}} وجود داشته باشد"
-    }
-  },
+
   "TITLE.ROUTE_SETTINGS": "تنظیمات مسیر",
   "TITLE.ROUTE_SETTINGS_DESCRIPTION": "تنظیمات و مقادیر را نسب به راهنمایی دریافتی از سرویس دهنده وارد کنید",
   "ACTION.CHECK_ROUTE_TOKEN": "بررسی توکن مسیر",
@@ -1927,7 +1835,7 @@
   "TITLE.RESULT": "نتیجه",
   "TITLE.NUMBER_OF_SELECTED_PROPERTIES": "تعداد ملک انتخابی شما",
   "TITLE.PLEASE_ENTER_PROPERTY_PRICE": "لطفا قیمت ملک خود را وارد نمایید.",
-  "TITLE.PLEASE_ENTER_PROPERTY_DETAILS": "لطفا جزئیات ملک خود را وارد نمایید.",
+  "TITLE.PLEASE_ENTER_PROPERTY_DETAILS": "لطفا مشخصات ملک خود را وارد نمایید.",
   "TITLE.PREVIOUS": "قبلی",
   "TITLE.REGISTER": "ثبت",
   "TITLE.PROPERTY_AREA": "مساحت",
@@ -1973,19 +1881,28 @@
   "TITLE.APPOINTMENT_DATE_FROM": "تاریخ قرار از",
   "TITLE.APPOINTMENT_DATE_TO": "تاریخ قرار تا",
   "TITLE.PLEASE_SPECIFY_PROPERTY_USAGE_TYPE": "لطفا نوع کاربری ملک خود را مشخص نمایید.",
-  "TITLE.PLEASE_SPECIFY_PROPERTY_TYPE": "لطفا نوع ملک خود را مشخص نمایید.",
-  "TITLE.PLEASE_ENTER_PROPERTY_DETAILS": "لطفا مشخصات ملک خود را وارد نمایید.",
   "TITLE.PLEASE_SPECIFY_DESIRED_REGION": "لطفا منطقه مورد نظر خود را مشخص کنید.",
-  "TITLE.RESULT": "نتیجه",
   "TITLE.SELECTED_PROPERTY_COUNT": "تعداد ملک انتخابی شما",
-  "TITLE.PLEASE_ENTER_PROPERTY_PRICE": "لطفا قیمت ملک خود را وارد نمایید.",
   "TITLE.PLEASE_ENTER_PROPERTY_DETAILS_FULL": "لطفا جزئیات ملک خود را وارد نمایید.",
-  "TITLE.AREA": "متراژ",
-  "TITLE.CONSTRUCTION_YEAR": "سال ساخت",
-  "TITLE.ROOM": "اتاق",
-  "TITLE.REGISTER": "ثبت",
-  "TITLE.PROPERTY_TYPE": "نوع ملک",
   "TITLE.AREA_UNIT": "مساحت",
   "TITLE.HTML_CODE": "کد html:",
-  "TITLE.ALL_INFORMATION": "همه اطلاعات"
+  "TITLE.ALL_INFORMATION": "همه اطلاعات",
+  "ACTION.CATEGORY_VIEW": "Category view ",
+  "MENU.BUILDER": "Builder",
+  "MESSAGE.get billboards information": "Get billboards information",
+  "MESSAGE.Click_on_map_to_specify_the_location": "Click on_map to specify the location",
+  "TITLE.Click_On_The_Map_To_Specify_The_Location": "Click on the map to specify the location",
+  "TITLE.Select_a_domain_from_the_list_of_available_domains_and_select_a_Latin_title_to_match_your_system_name_for_addressing.": "Select a domain from the list of available domains and select a Latin title to match your system name for addressing.",
+  "TITLE.Finally_by_clicking_on_the_view_option_you_can_view_the_ads_you_want_and_create_your_own_billboard_by_clicking_on_the_save_option": "Finally by clicking on the view option you can view the ads you want and create your own billboard by clicking on the save option",
+  "TITLE.Property_ID": "Property ID",
+  "TITLE.Deliveryend_date": "Delivery end date",
+  "TITLE.Bank_variables_noy": "Bank variables no",
+  "TITLE.number_of_rows": "number of rows",
+  "TITLE.New_order_placed": "New order placed",
+  "TITLE.Access_Add_Row ": "Access Add Row",
+  "TITLW.Memo": "Memo",
+  "Route.FILEMANAGER": "File Manager",
+  "LINKMANAGMENT.MEMBER": "Member",
+  "MESSAGE.Specify_the_template": "لطفا قالب را مشخص کنید",
+  "TITLE.Registered_News": "اخبار ثبت شده"
 }
