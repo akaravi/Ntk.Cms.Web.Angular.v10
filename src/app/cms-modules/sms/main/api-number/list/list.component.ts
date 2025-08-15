@@ -459,7 +459,7 @@ export class SmsMainApiNumberListComponent
     if (
       this.dataModelResult == null ||
       this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessDeleteRow
+      !this.dataModelResult.access.accessWatchRow
     ) {
       this.cmsToastrService.typeErrorSelected();
       return;
@@ -511,7 +511,7 @@ export class SmsMainApiNumberListComponent
     if (
       this.dataModelResult == null ||
       this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessDeleteRow
+      !this.dataModelResult.access.accessWatchRow
     ) {
       this.cmsToastrService.typeErrorSelected();
       return;

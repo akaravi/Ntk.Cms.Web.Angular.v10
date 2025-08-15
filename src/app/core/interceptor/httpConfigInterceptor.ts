@@ -1,22 +1,33 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { CmsToastrService } from '../services/cmsToastr.service';
-import { CmsAuthService } from '../services/cmsAuth.service';
+import {
+  HttpErrorResponse,
+  HttpEvent,
+  HttpHandler,
+  HttpInterceptor,
+  HttpRequest,
+  HttpResponse,
+} from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
+import { CoreAuthV3Service } from "ntk-cms-api";
+import { Observable, throwError } from "rxjs";
+import { catchError, map } from "rxjs/operators";
+import { CmsAuthService } from "../services/cmsAuth.service";
+import { CmsToastrService } from "../services/cmsToastr.service";
 
 @Injectable()
 export class HttpConfigInterceptor implements HttpInterceptor {
-
   constructor(
     private router: Router,
     public cmsToastrService: CmsToastrService,
-    private authService: CmsAuthService,
+    private cmsAuthService: CmsAuthService,
+    private coreAuthService: CoreAuthV3Service,
+
     // public errorDialogService: ErrorDialogService
-  ) {
-  }
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  ) {}
+  intercept(
+    request: HttpRequest<any>,
+    next: HttpHandler,
+  ): Observable<HttpEvent<any>> {
     // check to see if there's internet
     if (!window.navigator.onLine) {
       // if there is no internet, throw a HttpErrorResponse error
@@ -37,25 +48,54 @@ export class HttpConfigInterceptor implements HttpInterceptor {
         if (error.status === 0) {
           this.cmsToastrService.typeError(error.status, error.message);
           return null;
-        }
-        else if (error.status === 500) {
+        } else if (error.status === 500) {
           console.log("خطای برنامه نویسی در سرور");
           this.cmsToastrService.typeError(error.status, error.error.reason);
           return null;
-        }
-        else if (error.status === 401) {
-          this.authService.logout();
+        } else if (error.status === 401) {
+          if (this.coreAuthService.getJWT()?.refreshToken?.length > 0) {
+            /** */
+            this.cmsAuthService.refreshToken().subscribe({
+              next: (res) => {
+                if (!res.isSuccess) {
+                  this.cmsAuthService.logout();
+                }
+              },
+              error: (er) => {
+                this.cmsToastrService.typeError(er);
+                this.cmsAuthService.logout();
+              },
+            });
+
+            /** */
+          } else {
+            this.cmsAuthService.logout();
+          }
           return null;
-        }
-        else if (error.status === 403) {
-          this.authService.logout();
+        } else if (error.status === 403) {
+          if (this.coreAuthService.getJWT()?.refreshToken?.length > 0) {
+            /** */
+            this.cmsAuthService.refreshToken().subscribe({
+              next: (res) => {
+                if (!res.isSuccess) {
+                  this.cmsAuthService.logout();
+                }
+              },
+              error: (er) => {
+                this.cmsToastrService.typeError(er);
+                this.cmsAuthService.logout();
+              },
+            });
+
+            /** */
+          } else {
+            this.cmsAuthService.logout();
+          }
           return null;
-        }
-        else if (error && error.error && error.error.reason) {
+        } else if (error && error.error && error.error.reason) {
           this.cmsToastrService.typeError(error.status, error.error.reason);
           return null;
-        }
-        else {
+        } else {
           this.cmsToastrService.typeError(error.status);
         }
         // let data = {};
@@ -65,7 +105,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
         // };
         // this.errorDialogService.openDialog(data);
         return throwError(error);
-      }));
-
+      }),
+    );
   }
 }
