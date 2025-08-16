@@ -18,9 +18,7 @@
           "builder": "@angular/build:application",
           "options": {
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -50,6 +48,11 @@
                 "glob": "**/*",
                 "input": "node_modules/font-awesome/fonts/",
                 "output": "assets/fonts/"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@kolkov/angular-editor/assets/icons",
+                "output": "assets/ae-icons/"
               }
             ],
             "styles": [
@@ -61,6 +64,7 @@
               "node_modules/ngx-ntk-smart-module/src/assets/ngx-ntk-smart-loader.scss",
               "node_modules/ngx-ntk-smart-module/src/assets/ngx-ntk-smart-modal.scss",
               "node_modules/ntk-cms-filemanager/src/assets/ntk-cms-filemanager.scss",
+              "node_modules/@kolkov/angular-editor/themes/default.scss",
               "src/assets/styles/bootstrap.rtl.min.css",
               "src/assets/styles/style.css",
               "src/assets/fonts/css/all.min.css",
@@ -124,10 +128,7 @@
         "test": {
           "builder": "@angular/build:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -136,9 +137,7 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.scss"
-            ]
+            "styles": ["src/styles.scss"]
           }
         }
       }
