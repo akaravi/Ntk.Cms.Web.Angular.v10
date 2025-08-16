@@ -188,11 +188,7 @@
         <!-- LinkPropertyTypeUsageId Field -->
         <app-estate-property-type-usage-selector (optionChange)="onActionSelectorSelectUsage($event)"
           [optionTypeView]="2" [optionPlaceholder]="'TITLE.Type_Usage' | translate">
-          <mat-icon matSuffix
-            *ngIf="filteModelContent.linkPropertyTypeUsageId && filteModelContent.linkPropertyTypeUsageId?.length>0"
-            matSuffix mat-icon-button aria-label="Clear" (click)="filteModelContent.linkPropertyTypeUsageId = null;">
-            close
-          </mat-icon>
+
         </app-estate-property-type-usage-selector>
         <br>
         <br>
@@ -200,11 +196,7 @@
         <!-- LinkPropertyTypeLanduseId Field -->
         <app-estate-property-type-landuse-selector (optionChange)="onActionSelectorSelectLanduse($event)"
           [optionTypeView]="2" [optionPlaceholder]="'TITLE.Property_Type'  | translate">
-          <mat-icon matSuffix
-            *ngIf="filteModelContent.linkPropertyTypeLanduseId && filteModelContent.linkPropertyTypeLanduseId?.length>0"
-            matSuffix mat-icon-button aria-label="Clear" (click)="onActionSelectorSelectLanduse(null)">
-            close
-          </mat-icon>
+
         </app-estate-property-type-landuse-selector>
         <br>
         <br>
@@ -212,10 +204,7 @@
         <!-- LinkContractTypeIds Field -->
         <app-estate-contract-type-selector (optionChange)="onActionSelectorContarctType($event)" [optionTypeView]="2"
           [optionPlaceholder]="'TITLE.Transaction_type'  | translate">
-          <mat-icon matSuffix
-            *ngIf="filteModelContent.linkContractTypeId && filteModelContent.linkContractTypeId?.length>0" matSuffix
-            mat-icon-button aria-label="Clear" (click)="filteModelContent.linkContractTypeId = null;"> close
-          </mat-icon>
+
         </app-estate-contract-type-selector>
         <br>
         <br>

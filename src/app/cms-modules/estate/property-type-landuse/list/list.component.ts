@@ -79,7 +79,7 @@ export class EstatePropertyTypeLanduseListComponent
   tabledisplayedColumnsSource: string[] = [
     "LinkMainImageIdSrc",
     "IconFont",
-    // 'Title',
+    "Title",
     "Description",
     // 'Action'
   ];
@@ -87,7 +87,7 @@ export class EstatePropertyTypeLanduseListComponent
   tabledisplayedColumnsMobileSource: string[] = [
     "LinkMainImageIdSrc",
     "IconFont",
-    // 'Title',
+    "Title",
     "Description",
     // 'Action'
   ];

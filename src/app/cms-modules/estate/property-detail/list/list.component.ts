@@ -107,7 +107,7 @@ export class EstatePropertyDetailListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "IconFont",
-    // 'Title',
+    "Title",
     "Unit",
     "ShowInFormOrder",
     "LinkPropertyTypeLanduseId",
@@ -117,7 +117,7 @@ export class EstatePropertyDetailListComponent
 
   tabledisplayedColumnsMobileSource: string[] = [
     "IconFont",
-    // 'Title',
+    "Title",
     "Unit",
     "ShowInFormOrder",
     "LinkPropertyTypeLanduseId",
