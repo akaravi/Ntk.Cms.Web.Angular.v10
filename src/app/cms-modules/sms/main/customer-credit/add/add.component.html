@@ -51,7 +51,7 @@
           id="dataModel.creditor" />
       </div>
       <!-- AcceptDate Field -->
-      <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+      <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group">
         <label for="dataModel.acceptDate" class="color-highlight">{{ fieldsInfo["acceptDate"]?.fieldTitle }}</label>
         <input matInput type="number" [matDatepicker]="AcceptDate" [(ngModel)]="dataModel.acceptDate"
           name="dataModel.acceptDate" class="form-control validate-name" id="dataModel.acceptDate" />
@@ -96,7 +96,7 @@
         </div>
       </div>
       <!-- BankAcceptDate Field -->
-      <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+      <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group">
         <label for="dataModel.bankAcceptDate" class="color-highlight">{{ fieldsInfo["bankAcceptDate"]?.fieldTitle
           }}</label>
         <input matInput type="number" [matDatepicker]="BankAcceptDate" [(ngModel)]="dataModel.bankAcceptDate"

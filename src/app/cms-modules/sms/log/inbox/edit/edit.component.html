@@ -25,7 +25,7 @@
             </app-sms-api-number-selector> -->
       <!-- ReceiverDate Field -->
       <div *ngIf="fieldsInfo['receiverDate']?.accessWatchField"
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group">
         <label for="dataModel.receiverDate" class="color-highlight">{{ fieldsInfo["receiverDate"]?.fieldTitle
           }}</label>
         <input matInput [matDatepicker]="ReceiverDate" type="text" [(ngModel)]="dataModel.receiverDate"

@@ -86,7 +86,7 @@
           </div>
           <!-- ExpireDate Field -->
           <div *ngIf="fieldsInfo['expireDate']?.accessWatchField"
-            class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group">
             <label for="dataModel.expireDate" class="color-highlight">{{ fieldsInfo["expireDate"]?.fieldTitle
               }}</label>
             <input matInput type="text" [matDatepicker]="ExpireDate" [(ngModel)]="dataModel.expireDate"
@@ -142,7 +142,7 @@
           </div>
           <!-- BirthDay Field -->
           <div *ngIf="fieldsInfo['birthDay']?.accessWatchField"
-            class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group">
             <label for="dataModel.birthDay" class="color-highlight">{{ fieldsInfo["birthDay"]?.fieldTitle }}</label>
             <input matInput [matDatepicker]="BirthDay" type="text" [(ngModel)]="dataModel.birthDay"
               name="dataModel.birthDay" [disabled]="!fieldsInfo['birthDay']?.accessEditField"
@@ -229,7 +229,7 @@
           </app-cms-site-selector>
           <!-- ExpireLockAccount Field -->
           <div *ngIf="fieldsInfo['expireLockAccount']?.accessWatchField"
-            class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group">
             <label for="dataModel.expireLockAccount" class="color-highlight">{{
               fieldsInfo["expireLockAccount"]?.fieldTitle }}</label>
             <input matInput [matDatepicker]="ExpireLockAccount" type="text" [(ngModel)]="dataModel.expireLockAccount"

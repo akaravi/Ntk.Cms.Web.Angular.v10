@@ -23,7 +23,7 @@
                 [optionSelectForce]="dataModel.linkTargetPeriodId" [optionPlaceholder]="'TITLE.Category' | translate">
             </app-donate-target-category-selector>
             <!-- LinkSponsorId Field -->
-            <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+            <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group">
                 <label for="dataModel.linkSponsorId" class="color-highlight">{{
                     fieldsInfo["linkSponsorId"]?.fieldTitle
                     }}</label>
@@ -33,7 +33,7 @@
                 <mat-datepicker touchUi #LinkSponsorId></mat-datepicker>
             </div>
             <!-- payment Field -->
-            <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+            <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group">
                 <label for="dataModel.payment" class="color-highlight">{{ fieldsInfo["payment"]?.fieldTitle
                     }}</label>
                 <input matInput [matDatepicker]="payment" type="number" [(ngModel)]="dataModel.payment"

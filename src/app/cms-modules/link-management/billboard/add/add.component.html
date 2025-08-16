@@ -55,7 +55,7 @@
             <ngx-mat-color-picker #bgColorPicker [touchUi]="true" [color]="'primary'"></ngx-mat-color-picker>
           </div>
           <!-- FromDate Field -->
-          <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+          <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group">
             <label for="dataModel.fromDate" class="color-highlight">{{ fieldsInfo["fromDate"]?.fieldTitle }}</label>
             <input matInput type="text" [(ngModel)]="dataModel.fromDate" [matDatepicker]="FromDate"
               name="dataModel.bgColor" class="form-control validate-name" id="dataModel.fromDate" />

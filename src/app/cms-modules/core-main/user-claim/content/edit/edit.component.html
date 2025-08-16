@@ -124,7 +124,7 @@
 
       <!-- approveCheckDate Field -->
       <div *ngIf="fieldsInfo['approveCheckDate']?.accessWatchField"
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group">
         <label for="dataModel.approveCheckDate" class="color-highlight">{{ fieldsInfo["approveCheckDate"]?.fieldTitle
           }}</label>
         <input matInput [matDatepicker]="approveCheckDate" type="text" [(ngModel)]="dataModel.approveCheckDate"
@@ -137,7 +137,7 @@
 
       <!-- ExpireDate Field -->
       <div *ngIf="fieldsInfo['expireDate']?.accessWatchField"
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group">
         <label for="dataModel.expireDate" class="color-highlight">{{ fieldsInfo["expireDate"]?.fieldTitle }}</label>
         <input matInput [matDatepicker]="ExpireDate" type="text" [(ngModel)]="dataModel.expireDate"
           name="dataModel.expireDate" placeholder="{{fieldsInfo['expireDate']?.fieldTitle }}" minlength="3"

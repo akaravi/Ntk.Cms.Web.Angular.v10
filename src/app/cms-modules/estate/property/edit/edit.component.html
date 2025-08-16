@@ -604,7 +604,7 @@
           </div>
           <!-- ReviewDataAfterSoldIt Field -->
           <div *ngIf="fieldsInfo['reviewDataAfterSoldIt']?.accessWatchField && dataModel.isSoldIt"
-            class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group">
             <label for="dataModel.reviewDataAfterSoldIt" class="color-highlight">{{
               fieldsInfo["reviewDataAfterSoldIt"]?.fieldTitle }}</label>
             <input matInput [matDatepicker]="ReviewDataAfterSoldIt" type="text"

@@ -27,7 +27,7 @@
                 [optionSelectForce]="dataModel.linkSponsorId" [optionPlaceholder]="'TITLE.Category' | translate">
             </app-donate-sponser-selector>
             <!-- payment Field -->
-            <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+            <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group">
                 <label for="dataModel.payment" class="color-highlight">{{ fieldsInfo["payment"]?.fieldTitle
                     }}</label>
                 <input matInput [matDatepicker]="payment" type="number" [(ngModel)]="dataModel.payment"

@@ -85,7 +85,7 @@
       </app-estate-customer-order-selector>
       <!-- AppointmentDateFrom Field -->
       <div *ngIf="fieldsInfo['appointmentDateFrom']?.accessWatchField"
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group">
         <label for="dataModel.appointmentDateFrom"
           class="color-highlight">{{fieldsInfo['appointmentDateFrom']?.fieldTitle}}</label>
         <input matInput [matDatepicker]="AppointmentDateFrom" [(ngModel)]="dataModel.appointmentDateFrom"
@@ -96,7 +96,7 @@
       </div>
       <!-- AppointmentDateTo Field -->
       <div *ngIf="fieldsInfo['appointmentDateTo']?.accessWatchField"
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group">
         <label for="dataModel.appointmentDateTo"
           class="color-highlight">{{fieldsInfo['appointmentDateTo']?.fieldTitle}}</label>
         <input matInput [matDatepicker]="AppointmentDateTo" [(ngModel)]="dataModel.appointmentDateTo"

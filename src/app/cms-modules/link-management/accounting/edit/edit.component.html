@@ -76,7 +76,7 @@
                 </mat-error>
             </div>
             <!-- BeginDate Field -->
-            <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+            <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group">
                 <label for="dataModel.beginDate" class="color-highlight">{{ fieldsInfo["beginDate"]?.fieldTitle
                     }}</label>
                 <input matInput [matDatepicker]="BeginDate" [(ngModel)]="dataModel.beginDate" name="dataModel.beginDate"
@@ -86,7 +86,7 @@
             </div>
             <!-- EndDate Field -->
             <div *ngIf="fieldsInfo['endDate']?.accessWatchField"
-                class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+                class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group">
                 <label for="dataModel.endDate" class="color-highlight">{{ fieldsInfo["endDate"]?.fieldTitle
                     }}</label>
                 <input matInput [matDatepicker]="EndDate" [(ngModel)]="dataModel.endDate" name="dataModel.endDate"

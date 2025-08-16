@@ -52,7 +52,7 @@
           id="dataModel.viewLevel" class="form-control validate-name">
       </div>
       <!-- FromDate Field -->
-      <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+      <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group">
         <label for="dataModel.fromDate" class="color-highlight">{{fieldsInfo['fromDate']?.fieldTitle}}</label>
         <input matInput [matDatepicker]="FromDate" [(ngModel)]="dataModel.fromDate" name="dataModel.fromDate"
           id="dataModel.fromDate" class="form-control validate-name">
@@ -61,7 +61,7 @@
       </div>
       <!-- ExpireDate Field -->
       <div *ngIf="fieldsInfo['expireDate']?.accessWatchField"
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group">
         <label for="dataModel.expireDate" class="color-highlight">{{fieldsInfo['expireDate']?.fieldTitle}}</label>
         <input matInput [matDatepicker]="ExpireDate" [(ngModel)]="dataModel.expireDate" name="dataModel.expireDate"
           id="dataModel.expireDate" class="form-control validate-name">

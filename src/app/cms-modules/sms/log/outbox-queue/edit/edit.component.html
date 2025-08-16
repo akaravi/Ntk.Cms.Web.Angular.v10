@@ -21,7 +21,7 @@
 
       <!-- ScheduleSendStart Field -->
       <div *ngIf="fieldsInfo['scheduleSendStart']?.accessWatchField"
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group">
         <label for="dataModel.scheduleSendStart" class="color-highlight">{{ fieldsInfo["receiverDate"]?.fieldTitle
           }}</label>
         <input matInput [matDatepicker]="ScheduleSendStart" type="text" [(ngModel)]="dataModel.scheduleSendStart"

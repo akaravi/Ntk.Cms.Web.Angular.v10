@@ -104,7 +104,7 @@
           </div>
           <!-- ExpireDate Field -->
           <div *ngIf="fieldsInfo['expireDate']?.accessWatchField"
-            class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group">
             <label for="dataModel.expireDate" class="color-highlight">{{ fieldsInfo["expireDate"]?.fieldTitle
               }}</label>
             <input matInput [matDatepicker]="ExpireDate" type="text" [(ngModel)]="dataModel.expireDate"
@@ -998,7 +998,7 @@
             <em>{{ AccountingFormNo.value.length }} / 100</em>
           </div>
           <!-- AccountingFormCreatedDate Field -->
-          <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+          <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
             *ngIf="fieldsInfo['accountingFormCreatedDate']?.accessWatchField">
             <label for="dataModel.accountingFormCreatedDate"
               class="color-highlight">{{fieldsInfo['accountingFormCreatedDate']?.fieldTitle}}</label>
@@ -1009,7 +1009,7 @@
             <mat-datepicker touchUi #AccountingFormCreatedDate></mat-datepicker>
           </div>
           <!-- AccountingFormUpdatedDate Field -->
-          <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+          <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
             *ngIf="fieldsInfo['accountingFormUpdatedDate']?.accessWatchField">
             <label for="dataModel.accountingFormUpdatedDate"
               class="color-highlight">{{fieldsInfo['accountingFormUpdatedDate']?.fieldTitle}}</label>

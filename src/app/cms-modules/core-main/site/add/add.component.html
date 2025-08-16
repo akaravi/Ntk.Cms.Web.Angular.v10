@@ -104,7 +104,7 @@
           </div>
           <!-- ExpireDate Field -->
           <div *ngIf="fieldsInfo['expireDate']?.accessWatchField"
-            class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group">
             <label for="dataModel.expireDate" class="color-highlight">{{ fieldsInfo["expireDate"]?.fieldTitle
               }}</label>
             <input matInput type="text" [matDatepicker]="ExpireDate" [(ngModel)]="dataModel.expireDate"
@@ -793,7 +793,7 @@
           </div>
           <!-- AccountingFormCreatedDate Field -->
           <div *ngIf="fieldsInfo['accountingFormCreatedDate']?.accessWatchField"
-            class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group">
             <label for="dataModel.accountingFormCreatedDate" class="color-highlight">{{
               fieldsInfo["accountingFormCreatedDate"]?.fieldTitle }}</label>
             <input matInput [matDatepicker]="AccountingFormCreatedDate"
@@ -804,7 +804,7 @@
           </div>
           <!-- AccountingFormUpdatedDate Field -->
           <div *ngIf="fieldsInfo['accountingFormUpdatedDate']?.accessWatchField"
-            class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group">
             <label for="dataModel.accountingFormUpdatedDate" class="color-highlight">{{
               fieldsInfo["accountingFormUpdatedDate"]?.fieldTitle }}</label>
             <input matInput [matDatepicker]="AccountingFormUpdatedDate"
