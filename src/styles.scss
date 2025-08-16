@@ -17,7 +17,6 @@
 
 .loader-container {
   position: relative;
-
 }
 
 .progressOverlay {
@@ -80,7 +79,7 @@
 }
 /*for mat-paginator*/
 .mat-mdc-paginator-range-label {
-    direction: ltr;
+  direction: ltr;
 }
 /*for moadl scrol*/
 .mat-mdc-dialog-component-host {
@@ -123,14 +122,13 @@
 
 .jump {
   transform-origin: 50% 50%;
-  animation: jump .5s linear alternate infinite;
+  animation: jump 0.5s linear alternate infinite;
 }
-
 
 /*
  NTK optimaze
 */
-.timepicker{
+.timepicker {
   direction: ltr;
 }
 .mdc-text-field {
@@ -142,20 +140,19 @@
 }
 
 .ali {
-
   font-size: large;
 }
-*:not(input,.ntk-allow-select-text) {
+*:not(input, .ntk-allow-select-text) {
   -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-     -khtml-user-select: none; /* Konqueror HTML */
-       -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
 }
 
-.ntk-allow-select-text{
+.ntk-allow-select-text {
   -webkit-touch-callout: text !important;
   -webkit-user-select: text !important;
   -khtml-user-select: text !important;
@@ -193,16 +190,16 @@
   float: left;
   margin-right: 10px;
 }
-.theme-ltr.list-menu span{
-  padding-left: unset; 
+.theme-ltr.list-menu span {
+  padding-left: unset;
   padding-right: 7px;
   float: left;
 }
 .theme-ltr.list-custom-small a i:last-child {
   float: right;
 }
-.theme-ltr.list-custom-small .custom-control{
-  left: unset; 
+.theme-ltr.list-custom-small .custom-control {
+  left: unset;
   right: 40px;
 }
 .theme-ltr.list-custom-small .custom-control {
@@ -250,21 +247,20 @@
 }
 
 .theme-light mat-row {
-  background: rgba(0, 0, 0, 0.020) !important;
+  background: rgba(0, 0, 0, 0.02) !important;
 }
 
 .theme-light mat-row.ntk-row-odd {
-  background: rgba(0, 0, 0, 0.020) !important;
+  background: rgba(0, 0, 0, 0.02) !important;
 }
 
 .theme-light mat-row.ntk-row-even {
-  background: rgba(0, 0, 0, 0.050) !important;
+  background: rgba(0, 0, 0, 0.05) !important;
 }
 
 .theme-light mat-row.ntk-row-selected {
   background: #d3d3da !important;
 }
-
 
 .theme-light mat-paginator {
   color: #0f1117 !important;
@@ -321,21 +317,20 @@
 }
 
 .theme-light mat-tree-node {
-  background: rgba(0, 0, 0, 0.020) !important;
+  background: rgba(0, 0, 0, 0.02) !important;
 }
 
 .theme-light mat-tree-node.ntk-tree-odd {
-  background: rgba(0, 0, 0, 0.020) !important;
+  background: rgba(0, 0, 0, 0.02) !important;
 }
 
 .theme-light mat-tree-node.ntk-tree-even {
-  background: rgba(0, 0, 0, 0.050) !important;
+  background: rgba(0, 0, 0, 0.05) !important;
 }
 
 .theme-light mat-tree-node.ntk-tree-selected {
   background: #d3d3da !important;
 }
-
 
 .theme-dark mat-tree {
   color: #fff;
@@ -361,7 +356,6 @@
   color: #fff;
   background: #5f6a8b !important;
 }
-
 
 /*mat-tree Color Settings*/
 
@@ -467,7 +461,6 @@
 }
 
 .cms-RecordStatusEnum-cell-1 {
-
   font-weight: bold !important;
   color: green !important;
 }
@@ -563,3 +556,56 @@
     0 0 0 2px white,
     0.3em 0.3em 1em rgb(200 0 0 / 60%);
 }
+/* cms-input-group */
+/* Move date picker toggle to left side */
+.cms-input-group .mat-datepicker-toggle {
+  position: absolute !important;
+  left: 10px !important;
+  right: auto !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  z-index: 10 !important;
+}
+/* Move date picker toggle to left side */
+.cms-input-group .ngx-material-timepicker-toggle {
+  position: absolute !important;
+  left: 10px !important;
+  right: auto !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  z-index: 10 !important;
+}
+
+/* Add padding to input to make space for left icon */
+.cms-input-group input {
+  padding-left: 40px !important;
+  padding-right: 10px !important;
+}
+
+/* Ensure the toggle button is clickable */
+.cms-input-group .mat-datepicker-toggle button {
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+}
+/* Ensure the toggle button is clickable */
+.cms-input-group .ngx-material-timepicker-toggle button {
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+}
+
+/* Override the existing CSS for this specific component */
+.cms-input-group label {
+  opacity: 1 !important;
+  right: 0px !important;
+  transform: translateX(-14px) !important;
+  margin-right: 0px !important;
+  position: absolute !important;
+  padding: 0px 5px !important;
+  height: 23px !important;
+  font-size: 12px !important;
+  background-color: #fff !important;
+  top: -12px !important;
+}
+/* cms-input-group */
