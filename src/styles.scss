@@ -558,15 +558,7 @@
 }
 /* cms-input-group */
 /* Move date picker toggle to left side */
-.cms-input-group .mat-datepicker-toggle {
-  position: absolute !important;
-  left: 10px !important;
-  right: auto !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  z-index: 10 !important;
-}
-/* Move date picker toggle to left side */
+.cms-input-group .mat-datepicker-toggle,
 .cms-input-group .ngx-material-timepicker-toggle {
   position: absolute !important;
   left: 10px !important;
@@ -583,12 +575,7 @@
 }
 
 /* Ensure the toggle button is clickable */
-.cms-input-group .mat-datepicker-toggle button {
-  background: transparent !important;
-  border: none !important;
-  cursor: pointer !important;
-}
-/* Ensure the toggle button is clickable */
+.cms-input-group .mat-datepicker-toggle button,
 .cms-input-group .ngx-material-timepicker-toggle button {
   background: transparent !important;
   border: none !important;
