@@ -85,7 +85,9 @@
 .mat-mdc-dialog-component-host {
   display: block !important;
 }
-
+.mat-mdc-dialog-surface {
+  background-color: transparent !important;
+}
 .mat-option {
   word-wrap: break-word !important;
   white-space: normal !important;
