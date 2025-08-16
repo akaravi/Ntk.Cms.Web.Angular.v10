@@ -179,6 +179,7 @@ import { OverlayService } from './overlay/overlay.service';
 import { PasswordStrengthComponent } from './password-strength/password-strength.component';
 import { ProgressSpinnerComponent } from './progress-spinner/progress-spinner.component';
 import { DomChangeDirective } from '../core/directive/domChange.directive';
+import { LocaleTime } from '../core/pipe/local-Time.pipe';
 
 
 @NgModule({
@@ -199,6 +200,7 @@ import { DomChangeDirective } from '../core/directive/domChange.directive';
     PrettyjsonPipe,
     LocaleDate,
     LocaleDateTime,
+    LocaleTime,
     PrettyLinePipe,
     RecordStatusIconClassPipe,
     RecordStatusCellClassPipe,
@@ -289,14 +291,23 @@ import { DomChangeDirective } from '../core/directive/domChange.directive';
     CmsRecordStatusSelfSaveDirective,
     ClipboardIfSupportedDirective,
     ClipboardDirective,
-    InlineSVGDirective, InlineSVGComponent
+    InlineSVGDirective,
+    InlineSVGComponent,
   ],
 
   providers: [
     provideHttpClient(withInterceptorsFromDi(), withFetch()),
     OverlayService,
-    { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
-    { provide: DateAdapter, useClass: MaterialPersianDateAdapter, deps: [MAT_DATE_LOCALE] },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpConfigInterceptor,
+      multi: true,
+    },
+    {
+      provide: DateAdapter,
+      useClass: MaterialPersianDateAdapter,
+      deps: [MAT_DATE_LOCALE],
+    },
     { provide: MAT_DATE_FORMATS, useValue: PERSIAN_DATE_FORMATS },
     TokenHelper,
     ThemeService,
@@ -328,7 +339,7 @@ import { DomChangeDirective } from '../core/directive/domChange.directive';
 
     CmsTranslateModule.forChild({}),
     FormsModule,
-    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     CurrencyMaskModule,
     NgApexchartsModule,
     //Material
@@ -375,7 +386,6 @@ import { DomChangeDirective } from '../core/directive/domChange.directive';
     NgbNavModule,
     NgOtpInputModule,
     CmsFileManagerModule.forRoot(),
-
   ],
   exports: [
     // common and shared components/directives/pipes between more than one module and components will be listed here.
@@ -439,6 +449,7 @@ import { DomChangeDirective } from '../core/directive/domChange.directive';
     PrettyjsonPipe,
     LocaleDate,
     LocaleDateTime,
+    LocaleTime,
     PrettyLinePipe,
     RecordStatusIconClassPipe,
     RecordStatusCellClassPipe,
@@ -528,28 +539,27 @@ import { DomChangeDirective } from '../core/directive/domChange.directive';
     ClipboardIfSupportedDirective,
     ClipboardDirective,
     InlineSVGDirective,
-
   ],
 })
 export class SharedModule {
   /**
- * === README ========================================================================
- * This block is not needed if you use `isolate: false`. But with `isolate: false` you
- * cannot read the lazy-specific translations, even if you set `extend: true`.
- *
- * PROBLEM: I can't have a configuration that allows reading translations from parent
- * non-lazy modules at the same time I read the lazy loaded module files.
- *
- *   To make a child module extend translations from parent modules use `extend: true`.
- *   This will cause the service to also use translations from its parent module.
- *
- *   You can also isolate the service by using `isolate: true`. In which case the service
- *   is a completely isolated instance (for translations, current lang, events, ...).
- *   Otherwise, by default, it will share its data with other instances of the service
- *   (but you can still use a different loader/compiler/parser/handler even if you don't
- *   isolate the service).
- * ====================================================================================
- * */
+   * === README ========================================================================
+   * This block is not needed if you use `isolate: false`. But with `isolate: false` you
+   * cannot read the lazy-specific translations, even if you set `extend: true`.
+   *
+   * PROBLEM: I can't have a configuration that allows reading translations from parent
+   * non-lazy modules at the same time I read the lazy loaded module files.
+   *
+   *   To make a child module extend translations from parent modules use `extend: true`.
+   *   This will cause the service to also use translations from its parent module.
+   *
+   *   You can also isolate the service by using `isolate: true`. In which case the service
+   *   is a completely isolated instance (for translations, current lang, events, ...).
+   *   Otherwise, by default, it will share its data with other instances of the service
+   *   (but you can still use a different loader/compiler/parser/handler even if you don't
+   *   isolate the service).
+   * ====================================================================================
+   * */
   constructor(public translationService: TranslateService) {
     // const currentLang = this.translationService.currentLang;
     // this.translationService.currentLang = '';
@@ -572,7 +582,7 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [
-        TranslateService
+        TranslateService,
         /* All of your services here. It will hold the services needed by itself`. */
       ],
     };
