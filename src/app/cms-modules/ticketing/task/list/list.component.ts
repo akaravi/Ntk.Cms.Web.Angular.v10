@@ -88,7 +88,7 @@ export class TicketingTaskListComponent
     new ErrorExceptionResult<InfoEnumModel>();
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    // 'Title',
+    "Title",
     "LinkMemberId",
     "CreatedDate",
     "UpdatedDate",
@@ -96,7 +96,7 @@ export class TicketingTaskListComponent
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    // 'Title',
+    "Title",
     "LinkMemberId",
     "CreatedDate",
     "UpdatedDate",
