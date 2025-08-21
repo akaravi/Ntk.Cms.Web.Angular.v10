@@ -1,23 +1,20 @@
 // Localization is based on '@ngx-translate/core';
 // Please be familiar with official documentations first => https://github.com/ngx-translate/core
 
-import { Injectable } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { firstValueFrom } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { LOCALIZATION_LOCAL_STORAGE_KEY } from '../models/constModel';
+import { Injectable } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
+import { firstValueFrom } from "rxjs";
+import { environment } from "src/environments/environment";
+import { LOCALIZATION_LOCAL_STORAGE_KEY } from "../models/constModel";
 
 export interface Locale {
   lang: string;
   data: any;
 }
 
-
-
-// @Injectable({
-//   providedIn: 'root',
-// })
-@Injectable()
+@Injectable({
+  providedIn: "root",
+})
 export class CmsTranslationService {
   // Private properties
   private langIds: any = [];
@@ -37,7 +34,7 @@ export class CmsTranslationService {
 
     // add new languages to the list
     this.translate.addLangs(this.langIds);
-    firstValueFrom(this.translate.use(this.getSelectedLanguage));//در قالب جدید از روی قالب جدید اضافه کردم
+    firstValueFrom(this.translate.use(this.getSelectedLanguage)); //در قالب جدید از روی قالب جدید اضافه کردم
   }
 
   setLanguage(lang: string): string {
@@ -46,7 +43,7 @@ export class CmsTranslationService {
       localStorage.setItem(LOCALIZATION_LOCAL_STORAGE_KEY, lang);
       return lang;
     }
-    return this.getSelectedLanguage
+    return this.getSelectedLanguage;
   }
 
   /**
@@ -54,8 +51,12 @@ export class CmsTranslationService {
    */
   get getSelectedLanguage(): string {
     const browserLang = this.translate.getBrowserLang();
-    return localStorage.getItem(LOCALIZATION_LOCAL_STORAGE_KEY) || this.translate.getDefaultLang() || environment.languagesDefault||browserLang|| "en";
+    return (
+      localStorage.getItem(LOCALIZATION_LOCAL_STORAGE_KEY) ||
+      this.translate.getDefaultLang() ||
+      environment.languagesDefault ||
+      browserLang ||
+      "en"
+    );
   }
-
 }
-

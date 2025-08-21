@@ -180,6 +180,7 @@ import { PasswordStrengthComponent } from './password-strength/password-strength
 import { ProgressSpinnerComponent } from './progress-spinner/progress-spinner.component';
 import { DomChangeDirective } from '../core/directive/domChange.directive';
 import { LocaleTime } from '../core/pipe/local-Time.pipe';
+import { CmsToastrService } from '../core/services/cmsToastr.service';
 
 
 @NgModule({
@@ -298,6 +299,7 @@ import { LocaleTime } from '../core/pipe/local-Time.pipe';
   providers: [
     provideHttpClient(withInterceptorsFromDi(), withFetch()),
     OverlayService,
+    CmsToastrService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpConfigInterceptor,
