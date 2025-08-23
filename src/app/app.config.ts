@@ -32,6 +32,7 @@ import {
 } from "ntk-cms-api";
 import { routes } from "./app.routes";
 import { CmsTranslateModule } from "./core/i18n";
+import { DYNAMIC_ENVIRONMENT_PROVIDER } from "./core/providers/dynamic-environment.provider";
 import { CmsStoreModule } from "./core/reducers/cmsStore.module";
 import { CmsStoreService } from "./core/reducers/cmsStore.service";
 import { CmsAuthService } from "./core/services/cmsAuth.service";
@@ -113,5 +114,6 @@ export const appConfig: ApplicationConfig = {
     },
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
     { provide: MAT_COLOR_FORMATS, useValue: NGX_MAT_COLOR_FORMATS },
+    DYNAMIC_ENVIRONMENT_PROVIDER,
   ],
 };

@@ -1,0 +1,9 @@
+{
+  "configApiRetry": 1,
+  "configApiServerPath": "https://apicms.ir/api/v3/",
+  "configHubServerPath": "https://apicms.ir/hub/",
+  "configFileServerPath": "https://apifile.ir/api/v2/",
+  "configQDocServerPath": "https://qdoc.ir/api/chat",
+  "configCompanyWebSite": "https://ntk.ir",
+  "modules": [""]
+}

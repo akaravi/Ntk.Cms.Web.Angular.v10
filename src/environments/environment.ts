@@ -1,17 +1,17 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
+// This file now uses dynamic server configuration loaded from external JSON file
+// The server configuration can be changed on the server after compilation by modifying
+// the file at ./assets/config/server-config.json
 
 import { DeviceTypeEnum, OperatingSystemTypeEnum } from "ntk-cms-api";
 import { EnvironmentModel } from "../app/core/models/environmentModel";
-declare var require: any;
 
+// Default environment configuration (will be enhanced with dynamic server config)
 export const environment: EnvironmentModel = {
   production: false,
   checkAccess: false,
   consoleLog: false,
-  appVersion: require("../../package.json").version,
-  appName: require("../../package.json").name,
+  appVersion: "1.0.0",
+  appName: "CMS",
   authKey: "authf649fc9a5f55",
   loadDemoTheme: false,
   ProgressConsoleLog: false,

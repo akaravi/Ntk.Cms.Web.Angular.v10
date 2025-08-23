@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
+import {
+  ChangeDetectorRef,
+  Component,
+  DestroyRef,
+  inject,
+  OnInit,
+} from "@angular/core";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
@@ -24,6 +30,7 @@ import { CmsToastrService } from "../../../../core/services/cmsToastr.service";
 })
 export class CoreSiteSelectionComponent implements OnInit {
   constructorInfoAreaId = this.constructor.name;
+  private destroyRef = inject(DestroyRef);
   constructor(
     private cmsAuthService: CmsAuthService,
     private cmsTranslationService: CmsTranslationService,
@@ -140,10 +147,8 @@ export class CoreSiteSelectionComponent implements OnInit {
           this.cmsToastrService.typeSuccessSelected();
           this.publicHelper.processService.processStop(pName);
           setTimeout(() => {
-            if (this.router) {
-              this.router.navigate(["/"]);
-            }
-          }, 5000);
+            if (!this.destroyRef.destroyed) this.router.navigate(["/"]);
+          }, 0);
           /**Select Site */
           if (!this.lastSelectSiteId) this.lastSelectSiteId = [];
           const indexId = this.lastSelectSiteId.findIndex(
@@ -190,8 +195,9 @@ export class CoreSiteSelectionComponent implements OnInit {
         next: (ret) => {
           if (ret.isSuccess) {
             setTimeout(() => {
-              if (this.router) this.router.navigate(["/dashboard/"]);
-            }, 5000);
+              if (!this.destroyRef.destroyed)
+                this.router.navigate(["/dashboard/"]);
+            }, 0);
           }
           this.publicHelper.processService.processStop(pName);
         },

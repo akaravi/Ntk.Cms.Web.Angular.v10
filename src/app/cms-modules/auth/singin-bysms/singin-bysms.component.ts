@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, DestroyRef, inject, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
@@ -32,6 +32,7 @@ export class processModel {
 })
 export class AuthSingInBySmsComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
+  private destroyRef = inject(DestroyRef);
   constructor(
     private coreAuthService: CoreAuthV3Service,
     private cmsToastrService: CmsToastrService,
@@ -254,13 +255,16 @@ export class AuthSingInBySmsComponent implements OnInit, OnDestroy {
                   });
                   if (ret.item.access.siteId > 0) {
                     this.onNavigate = true;
-                    setTimeout(() => this.router.navigate(["/dashboard"]), 10);
+                    setTimeout(() => {
+                      if (!this.destroyRef.destroyed)
+                        this.router.navigate(["/dashboard"]);
+                    }, 10);
                   } else {
                     this.onNavigate = true;
-                    setTimeout(
-                      () => this.router.navigate(["/core/site/selection"]),
-                      10,
-                    );
+                    setTimeout(() => {
+                      if (!this.destroyRef.destroyed)
+                        this.router.navigate(["/core/site/selection"]);
+                    }, 10);
                   }
                 }
               },
