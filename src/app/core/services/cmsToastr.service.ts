@@ -85,7 +85,7 @@ export class CmsToastrService {
       messageKeys,
       titleKeys,
       type,
-      includeTimestamp = true,
+      includeTimestamp = false,
       customMessage,
       customTitle,
     } = config;
