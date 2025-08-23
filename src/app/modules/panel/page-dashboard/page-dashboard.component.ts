@@ -55,6 +55,8 @@ export class PageDashboardComponent implements OnInit {
   >();
   ngOnInit(): void {
     this.tokenInfo = this.cmsStoreService.getStateSnapshot().tokenInfoStore;
+    this.dataCoreModuleModelResult =
+      this.cmsStoreService.getStateSnapshot().coreModuleResultStore;
     if (this.tokenInfo?.access?.userId > 0) {
       this.getCurrentSiteModule();
       this.loadData();
@@ -76,6 +78,18 @@ export class PageDashboardComponent implements OnInit {
           Promise.resolve().then(() => this.cdr.detectChanges());
         }),
     );
+
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.coreModuleResultStore)
+        .subscribe(async (value) => {
+          this.dataCoreModuleModelResult = value;
+          this.getCurrentSiteModule();
+          this.loadData();
+          Promise.resolve().then(() => this.cdr.detectChanges());
+        }),
+    );
+
     localStorage.removeItem("siteId");
     this.translate.get("ROUTE.DASHBOARD").subscribe((str: string) => {
       this.pageInfo.updateTitle(str);
@@ -93,8 +107,6 @@ export class PageDashboardComponent implements OnInit {
     );
   }
   async getCurrentSiteModule(): Promise<void> {
-    this.dataCoreModuleModelResult =
-      this.cmsStoreService.getStateSnapshot().coreModuleResultStore;
     this.checkModuleExist = new Map<string, CoreModuleModel>();
     if (
       this.dataCoreModuleModelResult &&
