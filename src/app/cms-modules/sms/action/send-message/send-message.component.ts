@@ -594,4 +594,11 @@ export class SmsActionSendMessageComponent implements OnInit {
   prevStep() {
     this.step--;
   }
+
+  hasValidationStatusError(): boolean {
+    return (
+      this.validationList.find((x) => x.status === ValidationStatus.Error) !==
+      undefined
+    );
+  }
 }

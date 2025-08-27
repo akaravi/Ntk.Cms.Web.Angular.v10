@@ -56,13 +56,13 @@
               >
                 <mat-expansion-panel-header>
                   <mat-panel-title>
+                    <mat-icon>account_circle</mat-icon>
                     {{ "TITLE.Direction" | translate }}
                   </mat-panel-title>
                   <mat-panel-description>
                     {{
                       "TITLE.Select_the_path_to_send_the_message" | translate
                     }}
-                    <mat-icon>account_circle</mat-icon>
                   </mat-panel-description>
                 </mat-expansion-panel-header>
 
@@ -104,6 +104,7 @@
               >
                 <mat-expansion-panel-header>
                   <mat-panel-title>
+                    <mat-icon>message</mat-icon>
                     {{ "TITLE.Message_Text" | translate }}
                   </mat-panel-title>
                   <mat-panel-description>
@@ -111,7 +112,6 @@
                       "TITLE.Select_the_text_of_the_default_messages"
                         | translate
                     }}
-                    <mat-icon>map</mat-icon>
                   </mat-panel-description>
                 </mat-expansion-panel-header>
 
@@ -177,11 +177,11 @@
               >
                 <mat-expansion-panel-header>
                   <mat-panel-title>
+                    <mat-icon>phonebook</mat-icon>
                     {{ "TITLE.Phonebook" | translate }}
                   </mat-panel-title>
                   <mat-panel-description>
                     {{ "TITLE.Audience_selection" | translate }}
-                    <mat-icon>date_range</mat-icon>
                   </mat-panel-description>
                 </mat-expansion-panel-header>
 
@@ -219,11 +219,11 @@
               >
                 <mat-expansion-panel-header>
                   <mat-panel-title>
+                    <mat-icon>access_time</mat-icon>
                     {{ "TITLE.Shipping_time" | translate }}
                   </mat-panel-title>
                   <mat-panel-description>
                     {{ "TITLE.Time_to_start_sending_and_finish" | translate }}
-                    <mat-icon>date_range</mat-icon>
                   </mat-panel-description>
                 </mat-expansion-panel-header>
                 <div class="row">
@@ -382,11 +382,11 @@
               >
                 <mat-expansion-panel-header>
                   <mat-panel-title>
+                    <mat-icon>date_range</mat-icon>
                     {{ "TITLE.Timing" | translate }}
                   </mat-panel-title>
                   <mat-panel-description>
                     {{ "TITLE.Retry_schedule" | translate }}
-                    <mat-icon>date_range</mat-icon>
                   </mat-panel-description>
                 </mat-expansion-panel-header>
 
@@ -438,11 +438,11 @@
               >
                 <mat-expansion-panel-header>
                   <mat-panel-title>
+                    <mat-icon>date_range</mat-icon>
                     {{ "TITLE.Settings" | translate }}
                   </mat-panel-title>
                   <mat-panel-description>
                     {{ "TITLE.Send_settings" | translate }}
-                    <mat-icon>date_range</mat-icon>
                   </mat-panel-description>
                 </mat-expansion-panel-header>
 
@@ -641,12 +641,7 @@
               >
                 <button
                   type="submit"
-                  [disabled]="
-                    !vform.valid ||
-                    this.validationList.find((x) => x.status === ValidationStatus.Error) ||
-                    !(this.dataModel.linkApiPathId?.length > 0) ||
-                    !(this.dataModel.linkFromNumber?.length > 0)
-                  "
+                  [disabled]="!vform.valid || hasValidationStatusError()"
                   *ngIf="!this.publicHelper.processService.process.inRunAll"
                 >
                   <i class="fa fa-check-square-o"></i>
