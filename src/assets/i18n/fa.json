@@ -9,6 +9,7 @@
   "ACTION.BANNER": "بنر",
   "ACTION.LOAD": "بارگیری",
   "ACTION.REMOVE": "حذف",
+  "ACTION.REMOVE_CRON": "حذف زمانبندی",
   "ACTION.BEFOR": "قبلی",
   "ACTION.BILLBOARD": "بیلبورد",
   "ACTION.PROPERTY": "املاک",

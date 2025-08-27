@@ -66,7 +66,7 @@ h5 {
   line-height: 22px;
 }
 
-input { 
+input {
   direction: rtl!important;
   -moz-font-feature-settings: "ss02";
   -webkit-font-feature-settings: "ss02";
@@ -4520,7 +4520,7 @@ button:focus,
 button:active {
   outline: none;
   box-shadow: none !important;
-  -webkit-appearance: none !important;
+  /*-webkit-appearance: none !important;*/
 }
 
 .theme-light input, select, textarea {
