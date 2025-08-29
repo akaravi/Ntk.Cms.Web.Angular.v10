@@ -79,6 +79,7 @@
   "ACTION.RESET": "Zurücksetzen",
   "ACTION.SAVE": "Save",
   "ACTION.SEARCH": "Search",
+  "ACTION.CHECK_MY_ACCOUNT": "Mein Konto überprüfen",
   "ACTION.SELECT": "wählen",
   "ACTION.SELECT_FOOTER_LAYOUT": "Select footer layout",
   "ACTION.SELECT_HEADER_WIDTH_TYPE": "Select header width type",

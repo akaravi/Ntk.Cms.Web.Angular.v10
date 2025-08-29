@@ -79,6 +79,7 @@
   "ACTION.RESET": "重啟",
   "ACTION.SAVE": "保存",
   "ACTION.SEARCH": "搜索",
+  "ACTION.CHECK_MY_ACCOUNT": "检查我的账户",
   "ACTION.SELECT": "選擇",
   "ACTION.SELECT_FOOTER_LAYOUT": "Select footer layout",
   "ACTION.SELECT_HEADER_WIDTH_TYPE": "Select header width type",

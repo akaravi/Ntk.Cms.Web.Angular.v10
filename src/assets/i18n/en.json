@@ -113,6 +113,7 @@
   "ACTION.RESET": "Reset",
   "ACTION.SAVE": "Save",
   "ACTION.SEARCH": "Search",
+  "ACTION.CHECK_MY_ACCOUNT": "Check My Account",
   "ACTION.SELECT": "Select",
   "ACTION.STATIST": "Statist",
   "ACTION.SUBHEADER": "Subheader",

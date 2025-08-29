@@ -96,9 +96,10 @@ export class CoreModuleSiteUserCreditListComponent
     "SumCreditBlocked",
     // 'Action'
   ];
-
+  searchonCheckMyAccount = true;
   cmsApiStoreSubscribe: Subscription;
   ngOnInit(): void {
+
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
@@ -149,7 +150,12 @@ export class CoreModuleSiteUserCreditListComponent
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
     /*filter CLone*/
-
+    if (this.searchonCheckMyAccount) {
+      filterModel.filters.push({
+        propertyName: "LinkUserId",
+        value: this.tokenInfo.user.id,
+      });
+    }
     this.contentService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
@@ -378,6 +384,13 @@ export class CoreModuleSiteUserCreditListComponent
   }
 
   onActionButtonReload(): void {
+    this.DataGetAll();
+  }
+  onActionButtonCheckMyAccount(view = !this.searchonCheckMyAccount): void {
+    this.searchonCheckMyAccount = view;
+    if (!this.searchonCheckMyAccount) {
+      return;
+    }
     this.DataGetAll();
   }
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {

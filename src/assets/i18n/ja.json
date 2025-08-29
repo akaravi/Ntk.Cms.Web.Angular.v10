@@ -79,6 +79,7 @@
   "ACTION.RESET": "リセット",
   "ACTION.SAVE": "保存する",
   "ACTION.SEARCH": "サーチ",
+  "ACTION.CHECK_MY_ACCOUNT": "私のアカウントを確認",
   "ACTION.SELECT": "選択",
   "ACTION.SELECT_FOOTER_LAYOUT": "Select footer layout",
   "ACTION.SELECT_HEADER_WIDTH_TYPE": "Select header width type",

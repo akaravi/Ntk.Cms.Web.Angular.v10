@@ -79,6 +79,7 @@
   "ACTION.RESET": "إعادة تعيين",
   "ACTION.SAVE": "حفظ",
   "ACTION.SEARCH": "بحث",
+  "ACTION.CHECK_MY_ACCOUNT": "تحقق من حسابي",
   "ACTION.SELECT": "تحديد",
   "ACTION.SELECT_FOOTER_LAYOUT": "Select footer layout",
   "ACTION.SELECT_HEADER_WIDTH_TYPE": "Select header width type",

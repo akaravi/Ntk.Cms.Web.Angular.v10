@@ -79,6 +79,7 @@
   "ACTION.RESET": "Reset",
   "ACTION.SAVE": "Save",
   "ACTION.SEARCH": "Search",
+  "ACTION.CHECK_MY_ACCOUNT": "Hesabımı kontrol et",
   "ACTION.SELECT": "Select",
   "ACTION.SELECT_FOOTER_LAYOUT": "Select footer layout",
   "ACTION.SELECT_HEADER_WIDTH_TYPE": "Select header width type",
