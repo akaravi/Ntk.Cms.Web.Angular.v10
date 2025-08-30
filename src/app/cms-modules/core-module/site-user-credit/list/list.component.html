@@ -7,8 +7,13 @@
   (optionOnActionButtonExport)="onActionButtonExport()"
   (optionOnActionButtonPrintRow)="onActionButtonPrintRow()"
   [optionTreeDisplay]="false"
-  [optionActionRowDisplay]="tableRowSelected?.linkUserId > 0 && tableRowSelected?.linkModuleId > 0"
-  [optionSelectRowItemTitle]="tableRowSelected?.linkModuleId  | cmstitle: dataModelCoreModuleResult.listItems"
+  [optionActionRowDisplay]="
+    tableRowSelected?.linkUserId > 0 && tableRowSelected?.linkModuleId > 0
+  "
+  [optionSelectRowItemTitle]="
+    tableRowSelected?.linkModuleId
+      | cmstitle: dataModelCoreModuleResult.listItems
+  "
 >
   <ng-container cms-tree>
     <!--begin:::::::::::::::::::::::::::::::::::::::::cms-tree-->
@@ -121,7 +126,7 @@
         ><br />
       </a>
       <p class="font-11 text-center opacity-70">
-        {{ "ACTION.CREDIT_CHARGE" | translate }}
+        {{ "ACTION.Direct_CREDIT_CHARGE" | translate }}
       </p>
     </div>
 

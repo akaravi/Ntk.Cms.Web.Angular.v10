@@ -244,6 +244,7 @@
   "ACTION.SITE_MARKETING_SUBCATEGORY": "زیرمجموعه بازاریابی سایت",
   "ACTION.LIST_COURSES": "لیست دوره ها",
   "ACTION.CREDIT_CHARGE": "شارژ اعتبار",
+  "ACTION.Direct_CREDIT_CHARGE": "شارژ اعتبار مستقیم",
   "ACTION.CREDIT_SITE": "اعتبار سایت",
   "ACTION.CREDIT_USER": "اعتبار کاربر",
   "ACTION.BACKUP_ROUTES": "مسیرهای پشتیبان",
