@@ -34,14 +34,6 @@
     </ul>
     <div class="divider mt-3 mb-3"></div>
 
-    <div
-      *ngIf="formInfo.formAlert?.length > 0"
-      class="alert alert-success"
-      role="alert"
-    >
-      {{ formInfo.formAlert }}
-    </div>
-
     <!--Content-->
     <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
       <div class="ntk-cms-html-card-body ntk-allow-text-selection">
@@ -631,7 +623,10 @@
               </div>
               <div
                 class="row"
-                *ngIf="formInfo.formSubmitAllow"
+                *ngIf="
+                  formInfo.formSubmitAllow &&
+                  !this.publicHelper.processService.process.inRunAll
+                "
                 style="
                   margin-bottom: 0px !important;
                   height: 40px;
@@ -642,7 +637,6 @@
                 <button
                   type="submit"
                   [disabled]="!vform.valid || hasValidationStatusError()"
-                  *ngIf="!this.publicHelper.processService.process.inRunAll"
                 >
                   <i class="fa fa-check-square-o"></i>
                   {{ "ACTION.Send_Message" | translate }}
