@@ -11,6 +11,8 @@ import { TranslateService } from "@ngx-translate/core";
 import { CronOptionModel, TranslateUiService } from "ngx-ntk-cron-editor";
 import {
   CoreEnumService,
+  CoreModuleSiteUserCreditModel,
+  CoreModuleSiteUserCreditService,
   ErrorExceptionResult,
   FormInfoModel,
   SmsApiSendMessageDtoModel,
@@ -57,6 +59,7 @@ export class SmsActionSendMessageComponent implements OnInit {
   constructor(
     public coreEnumService: CoreEnumService,
     public smsMainApiPathService: SmsMainApiPathService,
+    private service: CoreModuleSiteUserCreditService,
     private activatedRoute: ActivatedRoute,
     private cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
@@ -98,6 +101,12 @@ export class SmsActionSendMessageComponent implements OnInit {
     let dateTime = new Date();
     this.timezoneOffset = dateTime.getTimezoneOffset();
     this.validationList.push({
+      key: "checkCredit",
+      title: "اعتبار بررسی شود",
+      status: ValidationStatus.Warning,
+      description: "اعتبار بررسی شود",
+    });
+    this.validationList.push({
       key: "message",
       title: "متن پیام وارد شود",
       status: ValidationStatus.Warning,
@@ -138,6 +147,8 @@ export class SmsActionSendMessageComponent implements OnInit {
   dataModel: SmsApiSendMessageDtoModel = new SmsApiSendMessageDtoModel();
   dataModelResult: ErrorExceptionResult<SmsApiSendResultModel> =
     new ErrorExceptionResult<SmsApiSendResultModel>();
+  dataModelCreditResult: ErrorExceptionResult<CoreModuleSiteUserCreditModel> =
+    new ErrorExceptionResult<CoreModuleSiteUserCreditModel>();
   dataModelDateByClockStart: DateByClock = new DateByClock();
   dataModelDateByClockExpire: DateByClock = new DateByClock();
   formInfo: FormInfoModel = new FormInfoModel();
@@ -179,6 +190,7 @@ export class SmsActionSendMessageComponent implements OnInit {
       this.dataModel.toNumbers = this.receiverNumber;
     if (this.senderNumber && this.senderNumber?.length > 0)
       this.dataModel.linkFromNumber = this.senderNumber;
+    this.DataCheckCredit();
   }
 
   onActionScheduleSendNow() {
@@ -387,6 +399,24 @@ export class SmsActionSendMessageComponent implements OnInit {
     }
     this.cdr.detectChanges();
   }
+  onActionValidationStatusCheckCredit() {
+    if (
+      this.dataModelCreditResult.isSuccess &&
+      this.dataModelCreditResult.item.credit > 0
+    ) {
+      this.validationList.find((x) => x.key === "checkCredit").title =
+        "حداقل اعتبار برای ارسال پیام بررسی شد : " +
+        this.dataModelCreditResult.item.credit;
+      this.validationList.find((x) => x.key === "checkCredit").status =
+        ValidationStatus.info;
+    } else {
+      this.validationList.find((x) => x.key === "checkCredit").title =
+        "اعتبار بررسی شود";
+      this.validationList.find((x) => x.key === "checkCredit").status =
+        ValidationStatus.Error;
+    }
+    this.cdr.detectChanges();
+  }
   onActionValidationStatusCronChange(event: any) {
     this.dataModel.scheduleCron = event;
     var model = this.validationList.find((x) => x.key === "scheduleCron");
@@ -528,6 +558,35 @@ export class SmsActionSendMessageComponent implements OnInit {
     });
   }
 
+  DataCheckCredit(): void {
+    const pName = this.constructor.name + "CheckCredit";
+    this.translate
+      .get("MESSAGE.get_information_list")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
+
+    this.service.ServiceGetCredit("sms").subscribe({
+      next: (ret) => {
+        if (ret.isSuccess) {
+          this.dataModelCreditResult = ret;
+        } else {
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+        }
+        this.onActionValidationStatusCheckCredit();
+        this.publicHelper.processService.processStop(pName);
+      },
+      error: (er) => {
+        this.cmsToastrService.typeError(er);
+
+        this.publicHelper.processService.processStop(pName, false);
+      },
+    });
+  }
   onActionContactCategorySelectChecked(model: string): void {
     if (!model || model.length <= 0) {
       this.translate
