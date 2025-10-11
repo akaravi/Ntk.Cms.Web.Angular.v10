@@ -4,14 +4,14 @@
 
 import { DeviceTypeEnum, OperatingSystemTypeEnum } from "ntk-cms-api";
 import { EnvironmentModel } from "../app/core/models/environmentModel";
-
+declare var require: any;
 // Default environment configuration (will be enhanced with dynamic server config)
 export const environment: EnvironmentModel = {
   production: false,
   checkAccess: false,
   consoleLog: false,
-  appVersion: "1.0.0",
-  appName: "CMS",
+  appVersion: require("../../package.json").version,
+  appName: require("../../package.json").name,
   authKey: "authf649fc9a5f55",
   loadDemoTheme: false,
   ProgressConsoleLog: false,
@@ -20,7 +20,8 @@ export const environment: EnvironmentModel = {
   cmsServerConfig: {
     configApiRetry: 1,
     //configApiServerPath: "https://apicms.ir/api/v3/",
-    configApiServerPath: "https://localhost:2390/api/v3/", // Test Api
+    //configApiServerPath: "https://localhost:2390/api/v3/", // Test Api
+    configApiServerPath: "https://localhost:7130/api/v3/", // Test Api
     //configApiServerPath: 'https://6f4pj689-7130.euw.devtunnels.ms/api/v2/', // Test Api
     //configApiServerPath: 'https://localhost:44342/api/v2/', // Test Api Docer
     configHubServerPath: "https://apicms.ir/hub/",
@@ -35,7 +36,7 @@ export const environment: EnvironmentModel = {
     ClientMACAddress: "",
     osType: OperatingSystemTypeEnum.Windows,
     DeviceType: DeviceTypeEnum.WebSite,
-    PackageName: "",
+    PackageName: "ntk-cms-web",
   },
   cmsViewConfig: {
     mobileWindowInnerWidth: 1000,
