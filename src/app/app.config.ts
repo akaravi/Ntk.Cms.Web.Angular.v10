@@ -11,13 +11,12 @@ import {
   inject,
   isDevMode,
   provideAppInitializer,
-  provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
   Type,
 } from "@angular/core";
 import { MAT_CHIPS_DEFAULT_OPTIONS } from "@angular/material/chips";
 import { provideAnimations } from "@angular/platform-browser/animations";
-import { provideRouter } from "@angular/router";
+import { NoPreloading, provideRouter, withPreloading } from "@angular/router";
 import { provideServiceWorker } from "@angular/service-worker";
 import { MAT_COLOR_FORMATS, NGX_MAT_COLOR_FORMATS } from "@ngxmc/color-picker";
 import { InlineSVGModule } from "ng-inline-svg-2";
@@ -56,16 +55,18 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
 function appInitializer(authService: CmsAuthService) {
   return () => {
     return new Promise((resolve) => {
-      //@ts-ignore
-      authService.getTokenInfoType().subscribe().add(resolve);
+      authService.getTokenInfoType().subscribe({
+        next: () => resolve(true),
+        error: () => resolve(false),
+        complete: () => resolve(true),
+      });
     });
   };
 }
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
+    provideRouter(routes, withPreloading(NoPreloading)),
     provideServiceWorker("ngsw-worker.js", {
       enabled: !isDevMode(),
       registrationStrategy: "registerWhenStable:30000",

@@ -1,22 +1,29 @@
 import {
-  ChangeDetectorRef, Component, ElementRef, OnInit,
-  ViewChild
-} from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { TranslateService } from "@ngx-translate/core";
 
 import {
   CmsNotificationSendDtoModel,
-  CoreEnumService, CoreTokenConnectionModel, CoreTokenConnectionService, ErrorExceptionResult, FormInfoModel, SmsMainApiPathModel, SmsMainMessageCategoryModel,
+  CoreEnumService,
+  CoreTokenConnectionModel,
+  CoreTokenConnectionService,
+  ErrorExceptionResult,
+  FormInfoModel,
+  SmsMainApiPathModel,
+  SmsMainMessageCategoryModel,
   SmsMainMessageContentModel,
-  TokenInfoModelV3
-} from 'ntk-cms-api';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  TokenInfoModelV3,
+} from "ntk-cms-api";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 export class DateByClock {
   date: Date;
@@ -24,13 +31,12 @@ export class DateByClock {
 }
 
 @Component({
-  selector: 'app-core-main-action-send-notification',
-  templateUrl: './send-notification.component.html',
-  styleUrls: ['./send-notification.component.scss'],
-  standalone: false
+  selector: "app-core-main-action-send-notification",
+  templateUrl: "./send-notification.component.html",
+  styleUrls: ["./send-notification.component.scss"],
+  standalone: false,
 })
 export class CoreMainActionSendNotificationComponent implements OnInit {
-
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public coreEnumService: CoreEnumService,
@@ -40,39 +46,29 @@ export class CoreMainActionSendNotificationComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
-    private tokenHelper: TokenHelper
+    private tokenHelper: TokenHelper,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
 
-
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-
   }
   tokenInfo = new TokenInfoModelV3();
 
-  @ViewChild('vform', { static: false }) formGroup: FormGroup;
-  @ViewChild('Message') message: ElementRef;
-
-
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
+  @ViewChild("Message") message: ElementRef;
 
   dataModelParentSelected: SmsMainApiPathModel = new SmsMainApiPathModel();
   dataModel: CmsNotificationSendDtoModel = new CmsNotificationSendDtoModel();
-  dataModelResult: ErrorExceptionResult<CoreTokenConnectionModel> = new ErrorExceptionResult<CoreTokenConnectionModel>();
+  dataModelResult: ErrorExceptionResult<CoreTokenConnectionModel> =
+    new ErrorExceptionResult<CoreTokenConnectionModel>();
   formInfo: FormInfoModel = new FormInfoModel();
-  clipboardText = '';
+  clipboardText = "";
 
-
-
-
-
-  ngOnInit(): void {
-
-  }
-
+  ngOnInit(): void {}
 
   readClipboardFromDevTools() {
     return new Promise((resolve, reject) => {
-      const _asyncCopyFn = (async () => {
+      const _asyncCopyFn = async () => {
         try {
           const value = await navigator.clipboard.readText();
           //console.log(`${value} is read!`);
@@ -81,10 +77,12 @@ export class CoreMainActionSendNotificationComponent implements OnInit {
           reject(e);
         }
         window.removeEventListener("focus", _asyncCopyFn);
-      });
+      };
 
       window.addEventListener("focus", _asyncCopyFn);
-      console.log("Hit <Tab> to give focus back to document (or we will face a DOMException);");
+      console.log(
+        "Hit <Tab> to give focus back to document (or we will face a DOMException);",
+      );
     });
   }
 
@@ -98,39 +96,39 @@ export class CoreMainActionSendNotificationComponent implements OnInit {
     this.message.nativeElement.style.textAlign = "right";
   }
 
-  dataMessageCategoryModel: SmsMainMessageCategoryModel = new SmsMainMessageCategoryModel();
+  dataMessageCategoryModel: SmsMainMessageCategoryModel =
+    new SmsMainMessageCategoryModel();
   onActionSelectMessageCategory(model: SmsMainMessageCategoryModel): void {
     if (model && model.id?.length > 0) {
       this.dataMessageCategoryModel = model;
-    }
-    else {
+    } else {
       this.dataMessageCategoryModel = new SmsMainMessageCategoryModel();
     }
   }
-  dataMessageContentModel: SmsMainMessageContentModel = new SmsMainMessageContentModel();
+  dataMessageContentModel: SmsMainMessageContentModel =
+    new SmsMainMessageContentModel();
   onActionSelectMessageContent(model: SmsMainMessageContentModel): void {
     if (model && model.id?.length > 0) {
       this.dataMessageContentModel = model;
-    }
-    else {
+    } else {
       this.dataMessageContentModel = new SmsMainMessageContentModel();
     }
   }
 
-
-
   onActionMessageContentAdd() {
     if (this.dataMessageContentModel?.messageBody?.length > 0) {
       if (this.dataModel.content.length > 0)
-        this.dataModel.content = this.dataModel.content + ' ' + this.dataMessageContentModel.messageBody
-    }
-    else {
-      this.dataModel.content = this.dataMessageContentModel.messageBody
+        this.dataModel.content =
+          this.dataModel.content +
+          " " +
+          this.dataMessageContentModel.messageBody;
+    } else {
+      this.dataModel.content = this.dataMessageContentModel.messageBody;
     }
   }
   onActionMessageContentNew() {
     if (this.dataMessageContentModel?.messageBody?.length > 0) {
-      this.dataModel.content = this.dataMessageContentModel.messageBody
+      this.dataModel.content = this.dataMessageContentModel.messageBody;
     }
   }
 
@@ -140,43 +138,53 @@ export class CoreMainActionSendNotificationComponent implements OnInit {
     }
 
     this.formInfo.formSubmitAllow = false;
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
-    this.formInfo.formAlert = '';
-    this.formInfo.formError = '';
-    this.coreTokenConnectionService.ServiceSendNotification(this.dataModel).subscribe({
-      next: (ret) => {
-        this.formInfo.formSubmitAllow = true;
-        this.dataModelResult = ret;
-        if (ret.isSuccess) {
-          this.translate.get('MESSAGE.Submit_request_was_successfully_registered').subscribe((str: string) => {
-            this.formInfo.formAlert = str;
-          });
-          this.translate.get('MESSAGE.Send_request_was_successfully_registered').subscribe((str: string) => {
-            this.cmsToastrService.typeSuccessMessage(str);
-          });
-        } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
-          this.formInfo.formError = ret.errorMessage;
-          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-        }
-        this.publicHelper.processService.processStop(pName);
-      },
-      error: (e) => {
-        this.formInfo.formSubmitAllow = true;
-        this.cmsToastrService.typeError(e);
-        this.publicHelper.processService.processStop(pName, false);
-
-      },
-      complete: () => {
-        console.info;
-      }
-    }
-
-    );
+    this.formInfo.formAlert = "";
+    this.formInfo.formError = "";
+    this.coreTokenConnectionService
+      .ServiceSendNotification(this.dataModel)
+      .subscribe({
+        next: (ret) => {
+          this.formInfo.formSubmitAllow = true;
+          this.dataModelResult = ret;
+          if (ret.isSuccess) {
+            this.translate
+              .get("MESSAGE.Submit_request_was_successfully_registered")
+              .subscribe((str: string) => {
+                this.formInfo.formAlert = str;
+              });
+            this.translate
+              .get("MESSAGE.Send_request_was_successfully_registered")
+              .subscribe((str: string) => {
+                this.cmsToastrService.typeSuccessMessage(str);
+              });
+          } else {
+            this.translate
+              .get("ERRORMESSAGE.MESSAGE.typeError")
+              .subscribe((str: string) => {
+                this.formInfo.formAlert = str;
+              });
+            this.formInfo.formError = ret.errorMessage;
+            this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+          }
+          this.publicHelper.processService.processStop(pName);
+        },
+        error: (e) => {
+          this.formInfo.formSubmitAllow = true;
+          this.cmsToastrService.typeError(e);
+          this.publicHelper.processService.processStop(pName, false);
+        },
+      });
   }
 
   step = 0;

@@ -94,22 +94,6 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
 
     /**MAIN cmsStoreService.getState MAIN*/
     this.tokenInfo = this.cmsStoreService.getStateSnapshot().tokenInfoStore;
-    if (this.tokenInfo?.access) {
-      if (environment.production) {
-        this.getSupport();
-      }
-      /**CoreModuleModel */
-      this.coreModuleService.ServiceGetAllModuleName(null).subscribe({
-        next: (ret) => {
-          if (ret.isSuccess)
-            this.cmsStoreService.setState({
-              type: SET_Core_Module,
-              payload: ret,
-            });
-        },
-      });
-      /**CoreModuleModel */
-    }
 
     /**MAIN cmsStoreService.getState MAIN*/
     this.unsubscribe.push(
@@ -200,6 +184,26 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     this.tokenHelper.ngOnInitAppMain();
     this.themeService.ngOnInitApp();
 
+    // Load module data after initial render
+    if (this.tokenInfo?.access) {
+      setTimeout(() => {
+        if (environment.production) {
+          this.getSupport();
+        }
+        /**CoreModuleModel */
+        this.coreModuleService.ServiceGetAllModuleName(null).subscribe({
+          next: (ret) => {
+            if (ret.isSuccess)
+              this.cmsStoreService.setState({
+                type: SET_Core_Module,
+                payload: ret,
+              });
+          },
+        });
+        /**CoreModuleModel */
+      }, 500);
+    }
+
     const url = window.location.href;
     if (url.includes("?")) {
       const httpParams = new HttpParams({ fromString: url.split("?")[1] });
@@ -227,28 +231,22 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
 
     this.publicHelper.getEnumRecordStatus();
 
-    // Your web app's Firebase configuration
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    const firebaseConfig = {
-      apiKey: "AIzaSyA3lqa_xiaWGm5rh-IHNQaTt8FN67Y828g",
-      authDomain: "ntk-cms.firebaseapp.com",
-      databaseURL: "https://ntk-cms.firebaseio.com",
-      projectId: "ntk-cms",
-      storageBucket: "ntk-cms.appspot.com",
-      messagingSenderId: "893852902485",
-      appId: "1:893852902485:web:b58b55c1510532e9d2e0dc",
-      measurementId: "G-45G43ESXQJ",
-    };
-    // Initialize Firebase
+    // Initialize Firebase lazily after page load
     if (environment.production) {
-      const app = initializeApp(firebaseConfig);
-      //todo: karavi
-      const analytics = getAnalytics(app);
+      setTimeout(() => {
+        this.initializeFirebase();
+      }, 2000);
     }
-    this.getServiceVer();
+
+    // Load service version after initial render
+    setTimeout(() => {
+      this.getServiceVer();
+    }, 1000);
+
+    // Hide preloader after 5 seconds (reduced from 10)
     setTimeout(() => {
       this.themeService.updateMainPagePreloaderShow(false);
-    }, 10000);
+    }, 5000);
   }
   ngAfterViewInit(): void {
     this.themeService.ngAfterViewInitApp();
@@ -375,6 +373,28 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
       setTimeout(() => {
         element.classList.remove("ntk-allow-select-text");
       }, 5000);
+    }
+  }
+
+  initializeFirebase(): void {
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyA3lqa_xiaWGm5rh-IHNQaTt8FN67Y828g",
+      authDomain: "ntk-cms.firebaseapp.com",
+      databaseURL: "https://ntk-cms.firebaseio.com",
+      projectId: "ntk-cms",
+      storageBucket: "ntk-cms.appspot.com",
+      messagingSenderId: "893852902485",
+      appId: "1:893852902485:web:b58b55c1510532e9d2e0dc",
+      measurementId: "G-45G43ESXQJ",
+    };
+    try {
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+    } catch (error) {
+      if (environment.consoleLog)
+        console.error("Firebase initialization error:", error);
     }
   }
 

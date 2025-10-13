@@ -1,28 +1,44 @@
-import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, ElementRef, Inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { FormInfoModel, SmsApiSendMessageDtoModel, SmsMainApiNumberModel, SmsMainApiPathModel, SmsMainApiPathService, TokenInfoModelV3 } from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { environment } from 'src/environments/environment';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import { HttpClient } from "@angular/common/http";
+import {
+  Component,
+  ElementRef,
+  Inject,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  FormInfoModel,
+  SmsApiSendMessageDtoModel,
+  SmsMainApiNumberModel,
+  SmsMainApiPathModel,
+  SmsMainApiPathService,
+  TokenInfoModelV3,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { environment } from "src/environments/environment";
 
 @Component({
-  selector: 'app-cms-link-to',
-  templateUrl: './cms-link-to.component.html',
-  styleUrls: ['./cms-link-to.component.scss'],
-  standalone: false
+  selector: "app-cms-link-to",
+  templateUrl: "./cms-link-to.component.html",
+  styleUrls: ["./cms-link-to.component.scss"],
+  standalone: false,
 })
 export class CmsLinkToComponent implements OnInit, OnDestroy {
   static nextId = 0;
   id = ++CmsLinkToComponent.nextId;
   constructorInfoAreaId = this.constructor.name;
-  constructor(private cmsToastrService: CmsToastrService,
+  constructor(
+    private cmsToastrService: CmsToastrService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<CmsLinkToComponent>,
     public smsMainApiPathService: SmsMainApiPathService,
@@ -47,12 +63,11 @@ export class CmsLinkToComponent implements OnInit, OnDestroy {
 
   tokenInfo = new TokenInfoModelV3();
 
-
-  @ViewChild('Message') message: ElementRef;
-  @ViewChild('vform', { static: false }) formGroup: FormGroup;
-  @Input() optionLabel = '';
-  @Input() optionurlViewContentQRCodeBase64 = '';
-  @Input() optionurlViewContent = '';
+  @ViewChild("Message") message: ElementRef;
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
+  @Input() optionLabel = "";
+  @Input() optionurlViewContentQRCodeBase64 = "";
+  @Input() optionurlViewContent = "";
   QDocModel: any = {};
   cmsApiStoreSubscribe: Subscription;
   ngOnInit(): void {
@@ -61,9 +76,11 @@ export class CmsLinkToComponent implements OnInit, OnDestroy {
 
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -73,11 +90,9 @@ export class CmsLinkToComponent implements OnInit, OnDestroy {
   onActionSelectApiNumber(model: SmsMainApiNumberModel): void {
     if (model && model.id?.length > 0) {
       this.dataModel.linkFromNumber = model.id;
-    }
-    else if (model && model.numberChar?.length > 0) {
+    } else if (model && model.numberChar?.length > 0) {
       this.dataModel.linkFromNumber = model.numberChar;
     }
-
   }
   onActionMessageLTR() {
     this.message.nativeElement.style.direction = "ltr";
@@ -100,10 +115,8 @@ export class CmsLinkToComponent implements OnInit, OnDestroy {
     if (model && model.id?.length > 0) {
       this.dataModel.linkApiPathId = model.id;
       this.sendByShow = false;
-      if (model.apiAbilitySendByDirect)
-        this.dataModel.sendByQueue = false;
-      if (model.apiAbilitySendByQueue)
-        this.dataModel.sendByQueue = true;
+      if (model.apiAbilitySendByDirect) this.dataModel.sendByQueue = false;
+      if (model.apiAbilitySendByQueue) this.dataModel.sendByQueue = true;
       if (model.apiAbilitySendByQueue && model.apiAbilitySendByDirect)
         this.sendByShow = true;
     }
@@ -112,23 +125,28 @@ export class CmsLinkToComponent implements OnInit, OnDestroy {
   onActionSendUrlToQDoc(): void {
     this.QDocModel.message = this.optionurlViewContent;
     if (!this.QDocModel.username && this.QDocModel.username.length <= 0) {
-      const message = 'کد شناسه را از وبسایت https://Qdoc.ir دریافت نمایید';
+      const message = "کد شناسه را از وبسایت https://Qdoc.ir دریافت نمایید";
       this.cmsToastrService.typeWarningSelected(message);
       return;
     }
-    this.http.post(environment.cmsServerConfig.configQDocServerPath, this.QDocModel, {
-      headers: {},
-    })
+    this.http
+      .post(environment.cmsServerConfig.configQDocServerPath, this.QDocModel, {
+        headers: {},
+      })
       .subscribe({
         next: (ret: any) => {
-          this.translate.get('MESSAGE.The_order_was_sent_to_the_website').subscribe((str: string) => {
-            this.cmsToastrService.typeSuccessMessage(str);
-          });
-        }, error: (err) => {
-
-          this.cmsToastrService.typeErrorMessage('برروز خطا در ارسال دستور', err);
-
-        }
+          this.translate
+            .get("MESSAGE.The_order_was_sent_to_the_website")
+            .subscribe((str: string) => {
+              this.cmsToastrService.typeSuccessMessage(str);
+            });
+        },
+        error: (err) => {
+          this.cmsToastrService.typeErrorMessage(
+            "برروز خطا در ارسال دستور",
+            err,
+          );
+        },
       });
   }
 
@@ -136,31 +154,48 @@ export class CmsLinkToComponent implements OnInit, OnDestroy {
     if (!this.formGroup.valid) {
       return;
     }
-    if (!this.dataModel.linkApiPathId || this.dataModel.linkApiPathId.length <= 0) {
+    if (
+      !this.dataModel.linkApiPathId ||
+      this.dataModel.linkApiPathId.length <= 0
+    ) {
       this.cmsToastrService.typeErrorFormInvalid();
     }
 
     this.formInfo.formSubmitAllow = false;
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
-    this.formInfo.formAlert = '';
-    this.formInfo.formError = '';
+    this.formInfo.formAlert = "";
+    this.formInfo.formError = "";
     this.smsMainApiPathService.ServiceSendMessage(this.dataModel).subscribe({
       next: (ret) => {
         this.formInfo.formSubmitAllow = true;
         // this.dataModelResult = ret;
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.Submit_request_was_successfully_registered').subscribe((str: string) => {
-            this.formInfo.formAlert = str;
-          });
-          this.translate.get('MESSAGE.Send_request_was_successfully_registered').subscribe((str: string) => {
-            this.cmsToastrService.typeSuccessMessage(str);
-          });
+          this.translate
+            .get("MESSAGE.Submit_request_was_successfully_registered")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
+          this.translate
+            .get("MESSAGE.Send_request_was_successfully_registered")
+            .subscribe((str: string) => {
+              this.cmsToastrService.typeSuccessMessage(str);
+            });
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -170,14 +205,8 @@ export class CmsLinkToComponent implements OnInit, OnDestroy {
         this.formInfo.formSubmitAllow = true;
         this.cmsToastrService.typeError(e);
         this.publicHelper.processService.processStop(pName, false);
-
       },
-      complete: () => {
-        console.info;
-      }
-    }
-
-    );
+    });
   }
 
   onActionCopied(): void {
@@ -185,12 +214,11 @@ export class CmsLinkToComponent implements OnInit, OnDestroy {
   }
   onActionOpenLink(): void {
     const url = this.router.serializeUrl(
-      this.router.createUrlTree([this.optionurlViewContent])
+      this.router.createUrlTree([this.optionurlViewContent]),
     );
-    window.open(this.optionurlViewContent, '_blank');
+    window.open(this.optionurlViewContent, "_blank");
   }
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });
-
   }
 }

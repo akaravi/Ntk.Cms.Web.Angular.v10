@@ -565,7 +565,8 @@
             <label for="dataModel.aboutUsLinkYoutube" class="color-highlight">{{
               fieldsInfo["aboutUsLinkYoutube"]?.fieldTitle
             }}</label>
-            <inputmatInput
+            <input
+              matInput
               [(ngModel)]="dataModel.aboutUsLinkYoutube"
               [disabled]="!fieldsInfo['aboutUsLinkYoutube']?.accessAddField"
               name="dataModel.aboutUsLinkYoutube"
@@ -1420,7 +1421,8 @@
                     class="color-highlight"
                     >{{ fieldsInfo["buildKey4String"]?.fieldTitle }}</label
                   >
-                  <inputmatInput
+                  <input
+                    matInput
                     [(ngModel)]="dataModel.buildKey4String"
                     [disabled]="!fieldsInfo['buildKey4String']?.accessAddField"
                     name="dataModel.buildKey4String"
