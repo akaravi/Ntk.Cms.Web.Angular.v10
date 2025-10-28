@@ -32,9 +32,9 @@ export class ProgressSpinnerComponent implements OnInit, OnDestroy {
           this.infoArea = [];
         }
         if (value?.inRunArea && value.inRunArea[this.infoAreaId]) {
-          this.inRunArea = value.inRunArea[this.infoAreaId];
+          this.inRunAreaStatus = value.inRunArea[this.infoAreaId];
         } else {
-          this.inRunArea = [];
+          this.inRunAreaStatus = false;
         }
         if (environment.ProgressConsoleLog)
           console.log("ProgressSpinnerComponent infoArea", this.infoArea);
@@ -48,7 +48,7 @@ export class ProgressSpinnerComponent implements OnInit, OnDestroy {
     this.cdr.detectChanges();
   }
   infoAreaId = "global";
-  inRunArea: boolean[] = [];
+  inRunAreaStatus: boolean = false;
   infoArea: Map<string, ProcessInfoModel>[] = [];
   private unsubscribe: Subscription[] = [];
   ngOnInit(): void {}
