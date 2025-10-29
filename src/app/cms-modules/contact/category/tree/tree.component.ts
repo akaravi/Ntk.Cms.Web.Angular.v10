@@ -1,5 +1,4 @@
-
-import { NestedTreeControl } from '@angular/cdk/tree';
+import { NestedTreeControl } from "@angular/cdk/tree";
 import {
   ChangeDetectorRef,
   Component,
@@ -7,38 +6,35 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
+  Output,
+} from "@angular/core";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
 import {
   ContactCategoryModel,
-  ContactCategoryService, CoreEnumService,
+  ContactCategoryService,
+  CoreEnumService,
   ErrorExceptionResult,
-  FilterModel
-} from 'ntk-cms-api';
+  FilterModel,
+} from "ntk-cms-api";
 
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ContactCategoryDeleteComponent } from '../delete/delete.component';
-import { ContactCategoryEditComponent } from '../edit/edit.component';
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { ContactCategoryDeleteComponent } from "../delete/delete.component";
+import { ContactCategoryEditComponent } from "../edit/edit.component";
 
-import { TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { environment } from 'src/environments/environment';
-import { ContactCategoryAddComponent } from '../add/add.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
-
+import { TranslateService } from "@ngx-translate/core";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { environment } from "src/environments/environment";
+import { ContactCategoryAddComponent } from "../add/add.component";
 
 @Component({
-  selector: 'app-contact-category-tree',
-  templateUrl: './tree.component.html',
-  styleUrls: ['./tree.component.scss'],
-  standalone: false
+  selector: "app-contact-category-tree",
+  templateUrl: "./tree.component.html",
+  styleUrls: ["./tree.component.scss"],
+  standalone: false,
 })
 export class ContactCategoryTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -59,32 +55,33 @@ export class ContactCategoryTreeComponent implements OnInit, OnDestroy {
     this.onActionSelectForce(x);
   }
   dataModelSelect: ContactCategoryModel = new ContactCategoryModel();
-  dataModelResult: ErrorExceptionResult<ContactCategoryModel> = new ErrorExceptionResult<ContactCategoryModel>();
+  dataModelResult: ErrorExceptionResult<ContactCategoryModel> =
+    new ErrorExceptionResult<ContactCategoryModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<ContactCategoryModel>(node => node.children);
+  treeControl = new NestedTreeControl<ContactCategoryModel>(
+    (node) => node.children,
+  );
   dataSource = new MatTreeNestedDataSource<ContactCategoryModel>();
   @Output() optionChange = new EventEmitter<ContactCategoryModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
 
-  hasChild = (_: string, node: ContactCategoryModel) => !!node.children && node.children.length > 0;
-
+  hasChild = (_: string, node: ContactCategoryModel) =>
+    !!node.children && node.children.length > 0;
+  childrenAccessor = (node: ContactCategoryModel) => node.children ?? [];
 
 
   ngOnInit(): void {
-
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
 
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-
-
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -95,10 +92,16 @@ export class ContactCategoryTreeComponent implements OnInit, OnDestroy {
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAll(this.filterModel).subscribe({
       next: (ret) => {
@@ -113,9 +116,8 @@ export class ContactCategoryTreeComponent implements OnInit, OnDestroy {
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: ContactCategoryModel): void {
     this.dataModelSelect = model;
@@ -126,12 +128,10 @@ export class ContactCategoryTreeComponent implements OnInit, OnDestroy {
     this.dataModelSelect = new ContactCategoryModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: string | ContactCategoryModel): void {
-
-  }
+  onActionSelectForce(id: string | ContactCategoryModel): void {}
 
   onActionAdd(): void {
-    let parentId = '';
+    let parentId = "";
     if (this.dataModelSelect && this.dataModelSelect.id?.length > 0) {
       parentId = this.dataModelSelect.id;
     }
@@ -141,9 +141,11 @@ export class ContactCategoryTreeComponent implements OnInit, OnDestroy {
     dialogConfig.autoFocus = true;
     dialogConfig.data = { parentId };
 
-
-    const dialogRef = this.dialog.open(ContactCategoryAddComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogRef = this.dialog.open(
+      ContactCategoryAddComponent,
+      dialogConfig,
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -152,27 +154,29 @@ export class ContactCategoryTreeComponent implements OnInit, OnDestroy {
   }
 
   onActionEdit(): void {
-    let id = '';
+    let id = "";
     if (this.dataModelSelect && this.dataModelSelect.id?.length > 0) {
       id = this.dataModelSelect.id;
     }
     if (id.length === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(ContactCategoryEditComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -185,32 +189,33 @@ export class ContactCategoryTreeComponent implements OnInit, OnDestroy {
     //   if (res.isSuccess) {
     //   }
     // });
-    let id = '';
+    let id = "";
     if (this.dataModelSelect && this.dataModelSelect.id?.length > 0) {
       id = this.dataModelSelect.id;
     }
     if (id.length === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(ContactCategoryDeleteComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
     });
   }
-
 }
