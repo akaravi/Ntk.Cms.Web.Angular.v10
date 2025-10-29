@@ -61,7 +61,7 @@
     <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
 
     <mat-tree
-      #tree
+      #treeTagControl
       [dataSource]="dataSource"
       [childrenAccessor]="childrenAccessor"
     >
@@ -90,7 +90,7 @@
           [attr.aria-label]="'Toggle ' + node.title"
         >
           <mat-icon class="mat-icon-rtl-mirror">
-            {{ tree.isExpanded(node) ? "expand_more" : "chevron_right" }}
+            {{ treeTagControl.isExpanded(node) ? "expand_more" : "chevron_right" }}
           </mat-icon>
         </button>
         <span (click)="onActionSelect(node)">{{ node.title }}</span>
