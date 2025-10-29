@@ -60,21 +60,27 @@ export class CmsToastrService {
    * Get translations with error handling and fallback
    */
   private getTranslations(keys: string[]): Observable<TranslationResult> {
-    return this.translate.get(keys).pipe(
-      take(1),
-      map((translations: any) => {
-        const message = translations[keys[0]] || "Message not found";
-        const title = translations[keys[1]] || "System Message";
-        return { message, title };
-      }),
-      catchError((error) => {
-        console.error("Translation error:", error);
-        return of({
-          message: "Translation error occurred",
-          title: "Error",
-        });
-      }),
-    );
+    if (!keys || keys.length === 0) {
+      return of({
+        message: "Message not found",
+        title: "System Message",
+      });
+    }
+      return this.translate.get(keys).pipe(
+        take(1),
+        map((translations: any) => {
+          const message = translations[keys[0]] || "Message not found";
+          const title = translations[keys[1]] || "System Message";
+          return { message, title };
+        }),
+        catchError((error) => {
+          console.error("Translation error:", error);
+          return of({
+            message: "Translation error occurred",
+            title: "Error",
+          });
+        }),
+      );
   }
 
   /**
