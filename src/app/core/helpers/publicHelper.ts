@@ -202,35 +202,7 @@ export class PublicHelper {
     return Math.floor(Math.random() * new Date().getTime()).toString();
     //return Math.floor(Math.random() * 1000) + "";
   }
-  CheckError(model: any): any {
-    if (!model) {
-      return "Error";
-    }
-    let errorExceptionResult: ErrorExceptionResultBase;
-    if (model.error) {
-      errorExceptionResult = model.error;
-      if (errorExceptionResult) {
-        if (errorExceptionResult.status === 401) {
-          this.translate
-            .get([
-              "ERRORMESSAGE.MESSAGE.typePleaseLogInAgaint",
-              "ERRORMESSAGE.TITLE.typePleaseLogInAgaint",
-            ])
-            .subscribe((str: string[]) => {
-              this.cmsToastrService.typeErrorMessage(str[0], str[1]);
-            });
-          this.router.navigate(["/auth/singin"]);
-          return;
-        }
-      }
-    }
-    if (model.errors) {
-      return "";
-    } else if (model && model.errorMessage) {
-      return model.errorMessage;
-    }
-    return "Error";
-  }
+ 
   SplitAllChar(str: string): string[] {
     if (str && str.length > 0) {
       const ret = str.replace(/\n/g, ",").split(",");

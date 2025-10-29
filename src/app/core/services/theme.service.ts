@@ -5,7 +5,7 @@ import { environment } from "src/environments/environment";
 import { CmsTranslationService } from "../i18n";
 import {
   THEME_MENU_PIN_LOCAL_STORAGE_KEY,
-  themeFontSizeSKey,
+  themeFontSizeLSKey,
   themeHighLightLSKey,
   themeModeLSKey,
 } from "../models/constModel";
@@ -144,7 +144,7 @@ export class ThemeService implements OnDestroy {
     if (!localStorage) {
       return 0;
     }
-    const data = localStorage.getItem(themeFontSizeSKey);
+    const data = localStorage.getItem(themeFontSizeLSKey);
     if (!data) {
       return 0;
     }
@@ -292,7 +292,7 @@ export class ThemeService implements OnDestroy {
     });
     if (localStorage)
       localStorage.setItem(
-        themeFontSizeSKey,
+        themeFontSizeLSKey,
         this.themeStore.themeFontSize + "",
       );
     setTimeout(() => {

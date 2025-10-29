@@ -903,30 +903,6 @@ export class CmsToastrService {
       return;
     }
 
-    let errorExceptionResult: ErrorExceptionResultBase;
-    if (model.error) {
-      errorExceptionResult = model.error;
-      if (errorExceptionResult && errorExceptionResult.status === 401) {
-        this.showToast({
-          messageKeys: ["ERRORMESSAGE.MESSAGE.typeError_login"],
-          titleKeys: ["ERRORMESSAGE.TITLE.typeError"],
-          type: ToastType.ERROR,
-          customMessage: `ERRORMESSAGE.MESSAGE.typeError_login ${strMessage}`,
-        });
-        return;
-      }
-    }
-
-    if (model.errors) {
-      console.log(model.errors);
-      this.showToast({
-        messageKeys: ["ERRORMESSAGE.MESSAGE.typeError_viewConsoleLog"],
-        titleKeys: ["ERRORMESSAGE.TITLE.typeError"],
-        type: ToastType.ERROR,
-        customMessage: `ERRORMESSAGE.MESSAGE.typeError_viewConsoleLog ${strMessage}`,
-      });
-      return;
-    }
 
     if (model && model.errorMessage) {
       this.showToast({

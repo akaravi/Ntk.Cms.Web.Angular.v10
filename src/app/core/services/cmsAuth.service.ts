@@ -231,7 +231,7 @@ export class CmsAuthService implements OnDestroy {
       }),
       switchMap(() => this.getTokenInfo()),
       catchError((err) => {
-        console.error("err", err);
+        //console.error("err", err);
         return of(undefined);
       }),
       finalize(() => this.isLoadingSubject.next(false)),

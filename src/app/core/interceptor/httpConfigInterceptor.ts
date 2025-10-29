@@ -8,6 +8,7 @@ import {
 } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import { CoreAuthV3Service } from "ntk-cms-api";
 import { Observable, throwError } from "rxjs";
 import { catchError, map } from "rxjs/operators";
@@ -21,7 +22,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
     public cmsToastrService: CmsToastrService,
     private cmsAuthService: CmsAuthService,
     private coreAuthService: CoreAuthV3Service,
-
+    private translate: TranslateService,
     // public errorDialogService: ErrorDialogService
   ) {}
   intercept(
@@ -46,11 +47,19 @@ export class HttpConfigInterceptor implements HttpInterceptor {
       }),
       catchError((error: HttpErrorResponse) => {
         if (error.status === 0) {
-          this.cmsToastrService.typeError(error.status, error.message);
+          console.log("خطای برنامه در سرور", error.status, error.error.reason);
+
           return null;
         } else if (error.status === 500) {
-          console.log("خطای برنامه نویسی در سرور");
-          this.cmsToastrService.typeError(error.status, error.error.reason);
+          console.log("خطای برنامه در سرور", error.status, error.error.reason);
+          this.translate
+            .get([
+              "ERRORMESSAGE.MESSAGE.typeError500",
+              "ERRORMESSAGE.TITLE.typeError500",
+            ])
+            .subscribe((str: string[]) => {
+              this.cmsToastrService.typeErrorMessage(str[0], str[1]);
+            });
           return null;
         } else if (error.status === 401) {
           if (this.coreAuthService.getJWT()?.refreshToken?.length > 0) {

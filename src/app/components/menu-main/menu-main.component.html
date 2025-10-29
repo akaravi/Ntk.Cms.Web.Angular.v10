@@ -14,7 +14,7 @@
     </div>
     <div *ngIf="!this.tokenInfo|| !this.tokenInfo?.access?.userId||this.tokenInfo?.access?.userId<=0"
       class="card-bottom">
-      <a (click)="onActionCleanDataMenu('/auth/singinbysms')">
+      <a (click)="onActionCleanDataMenu('/auth/')">
         <h1 class="color-white ps-3 mb-0 font-28">{{"ACTION.LOGIN"|translate}}</h1>
         <p class="mb-2 ps-3 font-12 color-white opacity-50">{{"TITLE.WelcomeToTheFuture"|translate}}</p>
       </a>
@@ -44,7 +44,7 @@
 
     </a>
     <a *ngIf="!this.tokenInfo|| !this.tokenInfo?.access?.userId|| this.tokenInfo?.access?.userId<=0" id="nav-components"
-      (click)="onActionCleanDataMenu('/auth/singinbysms')" style="cursor: pointer;">
+      (click)="onActionCleanDataMenu('/auth/')" style="cursor: pointer;">
       <i class="fa fa-cog gradient-blue color-white"></i>
       <span>{{"ACTION.LOGIN"|translate}}</span>
 

@@ -1,4 +1,11 @@
-import { ChangeDetectorRef, Component, DestroyRef, inject, OnDestroy, OnInit } from "@angular/core";
+import {
+  ChangeDetectorRef,
+  Component,
+  DestroyRef,
+  inject,
+  OnDestroy,
+  OnInit,
+} from "@angular/core";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
@@ -7,10 +14,11 @@ import {
   CoreAuthV3Service,
   FormInfoModel,
 } from "ntk-cms-api";
-import { Observable, Subscription, interval } from "rxjs";
+import { interval, Observable, Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsTranslationService } from "src/app/core/i18n/cmsTranslation.service";
 import { ConnectionStatusModel } from "src/app/core/models/connectionStatusModel";
+import { themeAuthPageLSKey } from "src/app/core/models/constModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { SET_TOKEN_INFO } from "src/app/core/reducers/reducer.factory";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
@@ -45,7 +53,8 @@ export class AuthSingInBySmsComponent implements OnInit, OnDestroy {
     public pageInfo: PageInfoService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
-
+    if (localStorage)
+      localStorage.setItem(themeAuthPageLSKey, "singinbysms");
     this.RePasswordModel = "";
     this.unsubscribe.push(
       this.cmsStoreService

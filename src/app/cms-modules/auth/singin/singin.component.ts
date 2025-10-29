@@ -19,6 +19,7 @@ import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsTranslationService } from "src/app/core/i18n/cmsTranslation.service";
 import { ConnectionStatusModel } from "src/app/core/models/connectionStatusModel";
+import { themeAuthPageLSKey } from "src/app/core/models/constModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { SET_TOKEN_INFO } from "src/app/core/reducers/reducer.factory";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
@@ -46,6 +47,8 @@ export class AuthSingInComponent implements OnInit, OnDestroy {
     public tokenHelper: TokenHelper,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
+    if (localStorage)
+      localStorage.setItem(themeAuthPageLSKey, "singinbyusername");
     this.firstRun = true;
     this.unsubscribe.push(
       this.cmsStoreService
