@@ -31,9 +31,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-  selector: 'app-core-cpmainmenu-tree',
-  templateUrl: './tree.component.html',
-  standalone: false
+  selector: "app-core-cpmainmenu-tree",
+  templateUrl: "./tree.component.html",
+  standalone: false,
 })
 export class CoreCpMainMenuTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -50,35 +50,38 @@ export class CoreCpMainMenuTreeComponent implements OnInit, OnDestroy {
   ) {
     this.publicHelper.processService.cdr = this.cdr;
 
-    this.filterModel.sortColumn = 'ShowInMenuOrder';
+    this.filterModel.sortColumn = "ShowInMenuOrder";
     this.filterModel.sortType = SortTypeEnum.Ascending;
   }
   @Input() set optionSelectForce(x: number | CoreCpMainMenuModel) {
     this.onActionSelectForce(x);
   }
   dataModelSelect: CoreCpMainMenuModel = new CoreCpMainMenuModel();
-  dataModelResult: ErrorExceptionResult<CoreCpMainMenuModel> = new ErrorExceptionResult<CoreCpMainMenuModel>();
+  dataModelResult: ErrorExceptionResult<CoreCpMainMenuModel> =
+    new ErrorExceptionResult<CoreCpMainMenuModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<CoreCpMainMenuModel>(node => node.children);
+  treeControl = new NestedTreeControl<CoreCpMainMenuModel>(
+    (node) => node.children,
+  );
   dataSource = new MatTreeNestedDataSource<CoreCpMainMenuModel>();
   @Output() optionChange = new EventEmitter<CoreCpMainMenuModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
 
-  hasChild = (_: number, node: CoreCpMainMenuModel) => !!node.children && node.children.length > 0;
-
-
+  hasChild = (_: number, node: CoreCpMainMenuModel) =>
+    !!node.children && node.children.length > 0;
+  childrenAccessor = (node: CoreCpMainMenuModel) => node.children ?? [];
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    })
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -89,10 +92,16 @@ export class CoreCpMainMenuTreeComponent implements OnInit, OnDestroy {
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAllTree(this.filterModel).subscribe({
       next: (ret) => {
@@ -107,12 +116,10 @@ export class CoreCpMainMenuTreeComponent implements OnInit, OnDestroy {
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: CoreCpMainMenuModel): void {
-
     this.dataModelSelect = model;
     this.optionChange.emit(this.dataModelSelect);
   }
@@ -123,9 +130,7 @@ export class CoreCpMainMenuTreeComponent implements OnInit, OnDestroy {
     // this.optionsData.data.Select = new CoreCpMainMenuModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | CoreCpMainMenuModel): void {
-
-  }
+  onActionSelectForce(id: number | CoreCpMainMenuModel): void {}
 
   onActionAdd(): void {
     let parentId = 0;
@@ -138,9 +143,11 @@ export class CoreCpMainMenuTreeComponent implements OnInit, OnDestroy {
     dialogConfig.autoFocus = true;
     dialogConfig.data = { parentId };
 
-
-    const dialogRef = this.dialog.open(CoreCpMainMenuAddComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogRef = this.dialog.open(
+      CoreCpMainMenuAddComponent,
+      dialogConfig,
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.dataModelSelect = result.model;
@@ -156,22 +163,24 @@ export class CoreCpMainMenuTreeComponent implements OnInit, OnDestroy {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(CoreCpMainMenuEditComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -189,10 +198,12 @@ export class CoreCpMainMenuTreeComponent implements OnInit, OnDestroy {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-
   }
-
 }

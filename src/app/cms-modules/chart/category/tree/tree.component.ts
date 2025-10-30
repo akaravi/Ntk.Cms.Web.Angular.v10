@@ -33,9 +33,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-  selector: 'app-chart-category-tree',
-  templateUrl: './tree.component.html',
-  standalone: false
+  selector: "app-chart-category-tree",
+  templateUrl: "./tree.component.html",
+  standalone: false,
 })
 export class ChartCategoryTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -51,33 +51,36 @@ export class ChartCategoryTreeComponent implements OnInit, OnDestroy {
     public publicHelper: PublicHelper,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
-
   }
   @Input() set optionSelectForce(x: number | ChartCategoryModel) {
     this.onActionSelectForce(x);
   }
   dataModelSelect: ChartCategoryModel = new ChartCategoryModel();
-  dataModelResult: ErrorExceptionResult<ChartCategoryModel> = new ErrorExceptionResult<ChartCategoryModel>();
+  dataModelResult: ErrorExceptionResult<ChartCategoryModel> =
+    new ErrorExceptionResult<ChartCategoryModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<ChartCategoryModel>(node => node.children);
+  treeControl = new NestedTreeControl<ChartCategoryModel>(
+    (node) => node.children,
+  );
   dataSource = new MatTreeNestedDataSource<ChartCategoryModel>();
   @Output() optionChange = new EventEmitter<ChartCategoryModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
 
-  hasChild = (_: number, node: ChartCategoryModel) => !!node.children && node.children.length > 0;
-
+  hasChild = (_: number, node: ChartCategoryModel) =>
+    !!node.children && node.children.length > 0;
+  childrenAccessor = (node: ChartCategoryModel) => node.children ?? [];
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -88,10 +91,16 @@ export class ChartCategoryTreeComponent implements OnInit, OnDestroy {
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAll(this.filterModel).subscribe({
       next: (ret) => {
@@ -102,14 +111,12 @@ export class ChartCategoryTreeComponent implements OnInit, OnDestroy {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: ChartCategoryModel): void {
     this.dataModelSelect = model;
@@ -121,9 +128,7 @@ export class ChartCategoryTreeComponent implements OnInit, OnDestroy {
     this.dataModelSelect = new ChartCategoryModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | ChartCategoryModel): void {
-
-  }
+  onActionSelectForce(id: number | ChartCategoryModel): void {}
 
   onActionAdd(): void {
     let parentId = 0;
@@ -136,9 +141,8 @@ export class ChartCategoryTreeComponent implements OnInit, OnDestroy {
     dialogConfig.autoFocus = true;
     dialogConfig.data = { parentId };
 
-
     const dialogRef = this.dialog.open(ChartCategoryAddComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -151,22 +155,24 @@ export class ChartCategoryTreeComponent implements OnInit, OnDestroy {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(ChartCategoryEditComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -179,26 +185,27 @@ export class ChartCategoryTreeComponent implements OnInit, OnDestroy {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(ChartCategoryDeleteComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
     });
   }
-
 }

@@ -34,10 +34,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-  selector: 'app-linkmanagement-category-tree',
-  templateUrl: './tree.component.html',
-  styleUrls: ['./tree.component.scss'],
-  standalone: false
+  selector: "app-linkmanagement-category-tree",
+  templateUrl: "./tree.component.html",
+
+  standalone: false,
 })
 export class LinkManagementCategoryTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -57,29 +57,33 @@ export class LinkManagementCategoryTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | LinkManagementCategoryModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: LinkManagementCategoryModel = new LinkManagementCategoryModel();
-  dataModelResult: ErrorExceptionResult<LinkManagementCategoryModel> = new ErrorExceptionResult<LinkManagementCategoryModel>();
+  dataModelSelect: LinkManagementCategoryModel =
+    new LinkManagementCategoryModel();
+  dataModelResult: ErrorExceptionResult<LinkManagementCategoryModel> =
+    new ErrorExceptionResult<LinkManagementCategoryModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<LinkManagementCategoryModel>(node => node.children);
+  treeControl = new NestedTreeControl<LinkManagementCategoryModel>(
+    (node) => node.children,
+  );
   dataSource = new MatTreeNestedDataSource<LinkManagementCategoryModel>();
   @Output() optionChange = new EventEmitter<LinkManagementCategoryModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
 
-  hasChild = (_: number, node: LinkManagementCategoryModel) => !!node.children && node.children.length > 0;
-
-
+  hasChild = (_: number, node: LinkManagementCategoryModel) =>
+    !!node.children && node.children.length > 0;
+  childrenAccessor = (node: LinkManagementCategoryModel) => node.children ?? [];
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    })
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -90,10 +94,16 @@ export class LinkManagementCategoryTreeComponent implements OnInit, OnDestroy {
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAll(this.filterModel).subscribe({
       next: (ret) => {
@@ -104,14 +114,12 @@ export class LinkManagementCategoryTreeComponent implements OnInit, OnDestroy {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: LinkManagementCategoryModel): void {
     this.dataModelSelect = model;
@@ -122,9 +130,7 @@ export class LinkManagementCategoryTreeComponent implements OnInit, OnDestroy {
     this.dataModelSelect = new LinkManagementCategoryModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | LinkManagementCategoryModel): void {
-
-  }
+  onActionSelectForce(id: number | LinkManagementCategoryModel): void {}
 
   onActionAdd(): void {
     let parentId = 0;
@@ -137,9 +143,11 @@ export class LinkManagementCategoryTreeComponent implements OnInit, OnDestroy {
     dialogConfig.autoFocus = true;
     dialogConfig.data = { parentId };
 
-
-    const dialogRef = this.dialog.open(LinkManagementCategoryAddComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogRef = this.dialog.open(
+      LinkManagementCategoryAddComponent,
+      dialogConfig,
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -153,22 +161,24 @@ export class LinkManagementCategoryTreeComponent implements OnInit, OnDestroy {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(LinkManagementCategoryEditComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -186,27 +196,28 @@ export class LinkManagementCategoryTreeComponent implements OnInit, OnDestroy {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(LinkManagementCategoryDeleteComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
     });
   }
-
 }

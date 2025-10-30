@@ -36,10 +36,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-  selector: 'app-polling-category-tree',
-  templateUrl: './tree.component.html',
-  styleUrls: ['./tree.component.scss'],
-  standalone: false
+  selector: "app-polling-category-tree",
+  templateUrl: "./tree.component.html",
+
+  standalone: false,
 })
 export class PollingCategoryTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -60,28 +60,31 @@ export class PollingCategoryTreeComponent implements OnInit, OnDestroy {
     this.onActionSelectForce(x);
   }
   dataModelSelect: PollingCategoryModel = new PollingCategoryModel();
-  dataModelResult: ErrorExceptionResult<PollingCategoryModel> = new ErrorExceptionResult<PollingCategoryModel>();
+  dataModelResult: ErrorExceptionResult<PollingCategoryModel> =
+    new ErrorExceptionResult<PollingCategoryModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<PollingCategoryModel>(node => node.children);
+  treeControl = new NestedTreeControl<PollingCategoryModel>(
+    (node) => node.children,
+  );
   dataSource = new MatTreeNestedDataSource<PollingCategoryModel>();
   @Output() optionChange = new EventEmitter<PollingCategoryModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
 
-  hasChild = (_: number, node: PollingCategoryModel) => !!node.children && node.children.length > 0;
-
-
+  hasChild = (_: number, node: PollingCategoryModel) =>
+    !!node.children && node.children.length > 0;
+  childrenAccessor = (node: PollingCategoryModel) => node.children ?? [];
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    })
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -92,10 +95,16 @@ export class PollingCategoryTreeComponent implements OnInit, OnDestroy {
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAll(this.filterModel).subscribe({
       next: (ret) => {
@@ -110,9 +119,8 @@ export class PollingCategoryTreeComponent implements OnInit, OnDestroy {
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: PollingCategoryModel): void {
     this.dataModelSelect = model;
@@ -124,9 +132,7 @@ export class PollingCategoryTreeComponent implements OnInit, OnDestroy {
     this.dataModelSelect = new PollingCategoryModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | PollingCategoryModel): void {
-
-  }
+  onActionSelectForce(id: number | PollingCategoryModel): void {}
 
   onActionAdd(): void {
     let parentId = 0;
@@ -139,9 +145,11 @@ export class PollingCategoryTreeComponent implements OnInit, OnDestroy {
     dialogConfig.autoFocus = true;
     dialogConfig.data = { parentId };
 
-
-    const dialogRef = this.dialog.open(PollingCategoryAddComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogRef = this.dialog.open(
+      PollingCategoryAddComponent,
+      dialogConfig,
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -155,22 +163,24 @@ export class PollingCategoryTreeComponent implements OnInit, OnDestroy {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(PollingCategoryEditComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -188,27 +198,28 @@ export class PollingCategoryTreeComponent implements OnInit, OnDestroy {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(PollingCategoryDeleteComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
     });
   }
-
 }

@@ -35,10 +35,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-  selector: 'app-sms-main-message-category-tree',
-  templateUrl: './tree.component.html',
-  styleUrls: ['./tree.component.scss'],
-  standalone: false
+  selector: "app-sms-main-message-category-tree",
+  templateUrl: "./tree.component.html",
+  standalone: false,
 })
 export class SmsMainMessageCategoryTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -58,29 +57,33 @@ export class SmsMainMessageCategoryTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: string | SmsMainMessageCategoryModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: SmsMainMessageCategoryModel = new SmsMainMessageCategoryModel();
-  dataModelResult: ErrorExceptionResult<SmsMainMessageCategoryModel> = new ErrorExceptionResult<SmsMainMessageCategoryModel>();
+  dataModelSelect: SmsMainMessageCategoryModel =
+    new SmsMainMessageCategoryModel();
+  dataModelResult: ErrorExceptionResult<SmsMainMessageCategoryModel> =
+    new ErrorExceptionResult<SmsMainMessageCategoryModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<SmsMainMessageCategoryModel>(node => node.children);
+  treeControl = new NestedTreeControl<SmsMainMessageCategoryModel>(
+    (node) => node.children,
+  );
   dataSource = new MatTreeNestedDataSource<SmsMainMessageCategoryModel>();
   @Output() optionChange = new EventEmitter<SmsMainMessageCategoryModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
 
-  hasChild = (_: string, node: SmsMainMessageCategoryModel) => !!node.children && node.children.length > 0;
-
-
+  hasChild = (_: string, node: SmsMainMessageCategoryModel) =>
+    !!node.children && node.children.length > 0;
+  childrenAccessor = (node: SmsMainMessageCategoryModel) => node.children ?? [];
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    })
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -91,10 +94,16 @@ export class SmsMainMessageCategoryTreeComponent implements OnInit, OnDestroy {
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAll(this.filterModel).subscribe({
       next: (ret) => {
@@ -109,9 +118,8 @@ export class SmsMainMessageCategoryTreeComponent implements OnInit, OnDestroy {
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: SmsMainMessageCategoryModel): void {
     this.dataModelSelect = model;
@@ -122,12 +130,10 @@ export class SmsMainMessageCategoryTreeComponent implements OnInit, OnDestroy {
     this.dataModelSelect = new SmsMainMessageCategoryModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: string | SmsMainMessageCategoryModel): void {
-
-  }
+  onActionSelectForce(id: string | SmsMainMessageCategoryModel): void {}
 
   onActionAdd(): void {
-    let parentId = '';
+    let parentId = "";
     if (this.dataModelSelect && this.dataModelSelect.id?.length > 0) {
       parentId = this.dataModelSelect.id;
     }
@@ -137,9 +143,11 @@ export class SmsMainMessageCategoryTreeComponent implements OnInit, OnDestroy {
     dialogConfig.autoFocus = true;
     dialogConfig.data = { parentId };
 
-
-    const dialogRef = this.dialog.open(SmsMainMessageCategoryAddComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogRef = this.dialog.open(
+      SmsMainMessageCategoryAddComponent,
+      dialogConfig,
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -148,27 +156,29 @@ export class SmsMainMessageCategoryTreeComponent implements OnInit, OnDestroy {
   }
 
   onActionEdit(): void {
-    let id = '';
+    let id = "";
     if (this.dataModelSelect && this.dataModelSelect.id.length > 0) {
       id = this.dataModelSelect.id;
     }
     if (id.length === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(SmsMainMessageCategoryEditComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -181,32 +191,33 @@ export class SmsMainMessageCategoryTreeComponent implements OnInit, OnDestroy {
     //   if (res.isSuccess) {
     //   }
     // });
-    let id = '';
+    let id = "";
     if (this.dataModelSelect && this.dataModelSelect.id.length > 0) {
       id = this.dataModelSelect.id;
     }
     if (id.length === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(SmsMainMessageCategoryDeleteComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
     });
   }
-
 }

@@ -30,9 +30,9 @@ import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
-  selector: 'app-webdesigner-menu-tree',
-  templateUrl: './tree.component.html',
-  standalone: false
+  selector: "app-webdesigner-menu-tree",
+  templateUrl: "./tree.component.html",
+  standalone: false,
 })
 export class WebDesignerMainMenuTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -49,32 +49,37 @@ export class WebDesignerMainMenuTreeComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
-    this.filterModel.sortColumn = 'ShowInMenuOrder';
+    this.filterModel.sortColumn = "ShowInMenuOrder";
     this.filterModel.sortType = SortTypeEnum.Ascending;
   }
   @Input() set optionSelectForce(x: number | WebDesignerMainMenuModel) {
     this.onActionSelectForce(x);
   }
   dataModelSelect: WebDesignerMainMenuModel = new WebDesignerMainMenuModel();
-  dataModelResult: ErrorExceptionResult<WebDesignerMainMenuModel> = new ErrorExceptionResult<WebDesignerMainMenuModel>();
+  dataModelResult: ErrorExceptionResult<WebDesignerMainMenuModel> =
+    new ErrorExceptionResult<WebDesignerMainMenuModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<WebDesignerMainMenuModel>(node => node.children);
+  treeControl = new NestedTreeControl<WebDesignerMainMenuModel>(
+    (node) => node.children,
+  );
   dataSource = new MatTreeNestedDataSource<WebDesignerMainMenuModel>();
   @Output() optionChange = new EventEmitter<WebDesignerMainMenuModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
-  hasChild = (_: number, node: WebDesignerMainMenuModel) => !!node.children && node.children.length > 0;
+  hasChild = (_: number, node: WebDesignerMainMenuModel) =>
+    !!node.children && node.children.length > 0;
+  childrenAccessor = (node: WebDesignerMainMenuModel) => node.children ?? [];
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    })
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -84,10 +89,16 @@ export class WebDesignerMainMenuTreeComponent implements OnInit, OnDestroy {
   DataGetAll(): void {
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.categoryService.ServiceGetAllTree(this.filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
@@ -99,9 +110,8 @@ export class WebDesignerMainMenuTreeComponent implements OnInit, OnDestroy {
       error: (err) => {
         this.cmsToastrService.typeError(err);
         this.publicHelper.processService.processStop(pName);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: WebDesignerMainMenuModel): void {
     this.dataModelSelect = model;
@@ -113,10 +123,9 @@ export class WebDesignerMainMenuTreeComponent implements OnInit, OnDestroy {
     // this.optionsData.data.Select = new WebDesignerMainMenuModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | WebDesignerMainMenuModel): void {
-  }
+  onActionSelectForce(id: number | WebDesignerMainMenuModel): void {}
   onActionAdd(): void {
-    let parentId = '';
+    let parentId = "";
     if (this.dataModelSelect && this.dataModelSelect?.id?.length > 0) {
       parentId = this.dataModelSelect.id;
     }
@@ -124,8 +133,11 @@ export class WebDesignerMainMenuTreeComponent implements OnInit, OnDestroy {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.data = { parentId };
-    const dialogRef = this.dialog.open(WebDesignerMainMenuAddComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogRef = this.dialog.open(
+      WebDesignerMainMenuAddComponent,
+      dialogConfig,
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -133,27 +145,29 @@ export class WebDesignerMainMenuTreeComponent implements OnInit, OnDestroy {
     });
   }
   onActionEdit(): void {
-    let id = '';
+    let id = "";
     if (this.dataModelSelect && this.dataModelSelect?.id?.length > 0) {
       id = this.dataModelSelect.id;
     }
     if (id.length === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(WebDesignerMainMenuEditComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -161,12 +175,16 @@ export class WebDesignerMainMenuTreeComponent implements OnInit, OnDestroy {
     });
   }
   onActionDelete(): void {
-    let id = '';
+    let id = "";
     if (this.dataModelSelect && this.dataModelSelect?.id?.length > 0) {
       id = this.dataModelSelect.id;
     }
     if (id.length === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
   }

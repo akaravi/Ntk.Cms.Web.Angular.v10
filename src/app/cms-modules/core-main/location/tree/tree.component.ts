@@ -30,9 +30,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-  selector: 'app-core-location-tree',
-  templateUrl: './tree.component.html',
-  standalone: false
+  selector: "app-core-location-tree",
+  templateUrl: "./tree.component.html",
+  standalone: false,
 })
 export class CoreLocationTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -48,34 +48,36 @@ export class CoreLocationTreeComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
-
   }
   @Input() set optionSelectForce(x: number | CoreLocationModel) {
     this.onActionSelectForce(x);
   }
   dataModelSelect: CoreLocationModel = new CoreLocationModel();
-  dataModelResult: ErrorExceptionResult<CoreLocationModel> = new ErrorExceptionResult<CoreLocationModel>();
+  dataModelResult: ErrorExceptionResult<CoreLocationModel> =
+    new ErrorExceptionResult<CoreLocationModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<CoreLocationModel>(node => node.children);
+  treeControl = new NestedTreeControl<CoreLocationModel>(
+    (node) => node.children,
+  );
   dataSource = new MatTreeNestedDataSource<CoreLocationModel>();
   @Output() optionChange = new EventEmitter<CoreLocationModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
 
-  hasChild = (_: number, node: CoreLocationModel) => !!node.children && node.children.length > 0;
-
-
+  hasChild = (_: number, node: CoreLocationModel) =>
+    !!node.children && node.children.length > 0;
+  childrenAccessor = (node: CoreLocationModel) => node.children ?? [];
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    })
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -86,10 +88,16 @@ export class CoreLocationTreeComponent implements OnInit, OnDestroy {
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAllTree(this.filterModel).subscribe({
       next: (ret) => {
@@ -105,23 +113,28 @@ export class CoreLocationTreeComponent implements OnInit, OnDestroy {
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   DataGetAllChild(parentModel: CoreLocationModel): void {
     const filterModel = new FilterModel();
     filterModel.rowPerPage = 200;
     filterModel.accessLoad = true;
     const filter = new FilterDataModel();
-    filter.propertyName = 'LinkParentId';
+    filter.propertyName = "LinkParentId";
     filter.value = parentModel.id;
     filterModel.filters.push(filter);
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAllTree(filterModel).subscribe({
       next: (ret) => {
@@ -132,7 +145,6 @@ export class CoreLocationTreeComponent implements OnInit, OnDestroy {
           Promise.resolve().then(() => this.cdr.detectChanges());
           this.publicHelper.processService.processStop(pName);
           return;
-
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -142,15 +154,19 @@ export class CoreLocationTreeComponent implements OnInit, OnDestroy {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
         return;
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: CoreLocationModel): void {
     this.dataModelSelect = model;
     this.optionChange.emit(this.dataModelSelect);
-    if (this.dataModelSelect && this.dataModelSelect.id > 0 && (this.dataModelSelect.children == null || this.dataModelSelect.children?.length == 0)) {
-      this.DataGetAllChild(this.dataModelSelect)
+    if (
+      this.dataModelSelect &&
+      this.dataModelSelect.id > 0 &&
+      (this.dataModelSelect.children == null ||
+        this.dataModelSelect.children?.length == 0)
+    ) {
+      this.DataGetAllChild(this.dataModelSelect);
     }
   }
   onActionButtonReload(): void {
@@ -159,9 +175,7 @@ export class CoreLocationTreeComponent implements OnInit, OnDestroy {
     this.dataModelSelect = new CoreLocationModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | CoreLocationModel): void {
-
-  }
+  onActionSelectForce(id: number | CoreLocationModel): void {}
 
   onActionAdd(): void {
     let parentId = 0;
@@ -174,9 +188,8 @@ export class CoreLocationTreeComponent implements OnInit, OnDestroy {
     dialogConfig.autoFocus = true;
     dialogConfig.data = { id: parentId };
 
-
     const dialogRef = this.dialog.open(CoreLocationAddComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -190,22 +203,24 @@ export class CoreLocationTreeComponent implements OnInit, OnDestroy {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(CoreLocationEditComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -214,16 +229,17 @@ export class CoreLocationTreeComponent implements OnInit, OnDestroy {
   }
 
   onActionDelete(): void {
-
     let id = 0;
     if (this.dataModelSelect && this.dataModelSelect.id > 0) {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-
   }
-
 }

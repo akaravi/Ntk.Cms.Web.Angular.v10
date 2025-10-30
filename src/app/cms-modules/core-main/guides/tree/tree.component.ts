@@ -31,9 +31,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-  selector: 'app-core-guide-tree',
-  templateUrl: './tree.component.html',
-  standalone: false
+  selector: "app-core-guide-tree",
+  templateUrl: "./tree.component.html",
+  standalone: false,
 })
 export class CoreGuideTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -50,36 +50,35 @@ export class CoreGuideTreeComponent implements OnInit, OnDestroy {
   ) {
     this.publicHelper.processService.cdr = this.cdr;
 
-    this.filterModel.sortColumn = 'ShowInMenuOrder';
+    this.filterModel.sortColumn = "ShowInMenuOrder";
     this.filterModel.sortType = SortTypeEnum.Ascending;
   }
   @Input() set optionSelectForce(x: number | CoreGuideModel) {
     this.onActionSelectForce(x);
   }
   dataModelSelect: CoreGuideModel = new CoreGuideModel();
-  dataModelResult: ErrorExceptionResult<CoreGuideModel> = new ErrorExceptionResult<CoreGuideModel>();
+  dataModelResult: ErrorExceptionResult<CoreGuideModel> =
+    new ErrorExceptionResult<CoreGuideModel>();
   filterModel = new FilterModel();
-  treeControl = new NestedTreeControl<CoreGuideModel>(node => node.children);
+  treeControl = new NestedTreeControl<CoreGuideModel>((node) => node.children);
   dataSource = new MatTreeNestedDataSource<CoreGuideModel>();
   @Output() optionChange = new EventEmitter<CoreGuideModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
 
-  hasChild = (_: number, node: CoreGuideModel) => !!node.children && node.children.length > 0;
-
-
-
-
-
+  hasChild = (_: number, node: CoreGuideModel) =>
+    !!node.children && node.children.length > 0;
+  childrenAccessor = (node: CoreGuideModel) => node.children ?? [];
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    })
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -90,10 +89,16 @@ export class CoreGuideTreeComponent implements OnInit, OnDestroy {
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAllTree(this.filterModel).subscribe({
       next: (ret) => {
@@ -108,9 +113,8 @@ export class CoreGuideTreeComponent implements OnInit, OnDestroy {
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: CoreGuideModel): void {
     this.dataModelSelect = model;
@@ -122,9 +126,7 @@ export class CoreGuideTreeComponent implements OnInit, OnDestroy {
     this.dataModelSelect = new CoreGuideModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | CoreGuideModel): void {
-
-  }
+  onActionSelectForce(id: number | CoreGuideModel): void {}
 
   onActionAdd(): void {
     let parentId = 0;
@@ -136,10 +138,10 @@ export class CoreGuideTreeComponent implements OnInit, OnDestroy {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.data = { parentId };
-    dialogConfig.height = '90%';
+    dialogConfig.height = "90%";
 
     const dialogRef = this.dialog.open(CoreGuideAddComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -152,22 +154,24 @@ export class CoreGuideTreeComponent implements OnInit, OnDestroy {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(CoreGuideEditComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -180,10 +184,12 @@ export class CoreGuideTreeComponent implements OnInit, OnDestroy {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-
   }
-
 }

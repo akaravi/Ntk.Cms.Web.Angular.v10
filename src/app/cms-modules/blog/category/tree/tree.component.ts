@@ -33,9 +33,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-  selector: 'app-blog-category-tree',
-  templateUrl: './tree.component.html',
-  standalone: false
+  selector: "app-blog-category-tree",
+  templateUrl: "./tree.component.html",
+  standalone: false,
 })
 export class BlogCategoryTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -51,34 +51,36 @@ export class BlogCategoryTreeComponent implements OnInit, OnDestroy {
     public publicHelper: PublicHelper,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
-
   }
   @Input() set optionSelectForce(x: number | BlogCategoryModel) {
     this.onActionSelectForce(x);
   }
   dataModelSelect: BlogCategoryModel = new BlogCategoryModel();
-  dataModelResult: ErrorExceptionResult<BlogCategoryModel> = new ErrorExceptionResult<BlogCategoryModel>();
+  dataModelResult: ErrorExceptionResult<BlogCategoryModel> =
+    new ErrorExceptionResult<BlogCategoryModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<BlogCategoryModel>(node => node.children);
+  treeControl = new NestedTreeControl<BlogCategoryModel>(
+    (node) => node.children,
+  );
   dataSource = new MatTreeNestedDataSource<BlogCategoryModel>();
   @Output() optionChange = new EventEmitter<BlogCategoryModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
 
-  hasChild = (_: number, node: BlogCategoryModel) => !!node.children && node.children.length > 0;
-
-
+  hasChild = (_: number, node: BlogCategoryModel) =>
+    !!node.children && node.children.length > 0;
+  childrenAccessor = (node: BlogCategoryModel) => node.children ?? [];
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -89,10 +91,16 @@ export class BlogCategoryTreeComponent implements OnInit, OnDestroy {
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAll(this.filterModel).subscribe({
       next: (ret) => {
@@ -107,9 +115,8 @@ export class BlogCategoryTreeComponent implements OnInit, OnDestroy {
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: BlogCategoryModel): void {
     this.dataModelSelect = model;
@@ -121,9 +128,7 @@ export class BlogCategoryTreeComponent implements OnInit, OnDestroy {
     this.dataModelSelect = new BlogCategoryModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | BlogCategoryModel): void {
-
-  }
+  onActionSelectForce(id: number | BlogCategoryModel): void {}
 
   onActionAdd(): void {
     let parentId = 0;
@@ -136,9 +141,8 @@ export class BlogCategoryTreeComponent implements OnInit, OnDestroy {
     dialogConfig.autoFocus = true;
     dialogConfig.data = { parentId };
 
-
     const dialogRef = this.dialog.open(BlogCategoryAddComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -151,22 +155,24 @@ export class BlogCategoryTreeComponent implements OnInit, OnDestroy {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(BlogCategoryEditComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -174,32 +180,32 @@ export class BlogCategoryTreeComponent implements OnInit, OnDestroy {
   }
 
   onActionDelete(): void {
-
     let id = 0;
     if (this.dataModelSelect && this.dataModelSelect.id > 0) {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(BlogCategoryDeleteComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
     });
   }
-
 }

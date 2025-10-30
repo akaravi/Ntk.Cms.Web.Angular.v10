@@ -33,9 +33,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-  selector: 'app-catalog-category-tree',
-  templateUrl: './tree.component.html',
-  standalone: false
+  selector: "app-catalog-category-tree",
+  templateUrl: "./tree.component.html",
+  standalone: false,
 })
 export class CatalogCategoryTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -51,34 +51,36 @@ export class CatalogCategoryTreeComponent implements OnInit, OnDestroy {
     public publicHelper: PublicHelper,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
-
   }
   @Input() set optionSelectForce(x: number | CatalogCategoryModel) {
     this.onActionSelectForce(x);
   }
   dataModelSelect: CatalogCategoryModel = new CatalogCategoryModel();
-  dataModelResult: ErrorExceptionResult<CatalogCategoryModel> = new ErrorExceptionResult<CatalogCategoryModel>();
+  dataModelResult: ErrorExceptionResult<CatalogCategoryModel> =
+    new ErrorExceptionResult<CatalogCategoryModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<CatalogCategoryModel>(node => node.children);
+  treeControl = new NestedTreeControl<CatalogCategoryModel>(
+    (node) => node.children,
+  );
   dataSource = new MatTreeNestedDataSource<CatalogCategoryModel>();
   @Output() optionChange = new EventEmitter<CatalogCategoryModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
 
-  hasChild = (_: number, node: CatalogCategoryModel) => !!node.children && node.children.length > 0;
-
-
+  hasChild = (_: number, node: CatalogCategoryModel) =>
+    !!node.children && node.children.length > 0;
+  childrenAccessor = (node: CatalogCategoryModel) => node.children ?? [];
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -89,10 +91,16 @@ export class CatalogCategoryTreeComponent implements OnInit, OnDestroy {
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAll(this.filterModel).subscribe({
       next: (ret) => {
@@ -107,9 +115,8 @@ export class CatalogCategoryTreeComponent implements OnInit, OnDestroy {
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: CatalogCategoryModel): void {
     this.dataModelSelect = model;
@@ -120,14 +127,15 @@ export class CatalogCategoryTreeComponent implements OnInit, OnDestroy {
     this.dataModelSelect = new CatalogCategoryModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | CatalogCategoryModel): void {
-
-
-  }
+  onActionSelectForce(id: number | CatalogCategoryModel): void {}
 
   onActionAdd(): void {
-    let parentId = '';
-    if (this.dataModelSelect && this.dataModelSelect.id && this.dataModelSelect.id.length > 0) {
+    let parentId = "";
+    if (
+      this.dataModelSelect &&
+      this.dataModelSelect.id &&
+      this.dataModelSelect.id.length > 0
+    ) {
       parentId = this.dataModelSelect.id;
     }
 
@@ -136,9 +144,11 @@ export class CatalogCategoryTreeComponent implements OnInit, OnDestroy {
     dialogConfig.autoFocus = true;
     dialogConfig.data = { parentId };
 
-
-    const dialogRef = this.dialog.open(CatalogCategoryAddComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogRef = this.dialog.open(
+      CatalogCategoryAddComponent,
+      dialogConfig,
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -146,27 +156,33 @@ export class CatalogCategoryTreeComponent implements OnInit, OnDestroy {
   }
 
   onActionEdit(): void {
-    let id = '';
-    if (this.dataModelSelect && this.dataModelSelect.id && this.dataModelSelect.id.length > 0) {
+    let id = "";
+    if (
+      this.dataModelSelect &&
+      this.dataModelSelect.id &&
+      this.dataModelSelect.id.length > 0
+    ) {
       id = this.dataModelSelect.id;
     }
     if (id.length === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(CatalogCategoryEditComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -174,32 +190,36 @@ export class CatalogCategoryTreeComponent implements OnInit, OnDestroy {
   }
 
   onActionDelete(): void {
-
-    let id = '';
-    if (this.dataModelSelect && this.dataModelSelect.id && this.dataModelSelect.id.length > 0) {
+    let id = "";
+    if (
+      this.dataModelSelect &&
+      this.dataModelSelect.id &&
+      this.dataModelSelect.id.length > 0
+    ) {
       id = this.dataModelSelect.id;
     }
     if (id.length === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(CatalogCategoryDeleteComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
     });
   }
-
 }

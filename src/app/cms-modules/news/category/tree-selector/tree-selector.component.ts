@@ -30,9 +30,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-  selector: 'app-news-category-treeselector',
-  templateUrl: './tree-selector.component.html',
-  standalone: false
+  selector: "app-news-category-treeselector",
+  templateUrl: "./tree-selector.component.html",
+  standalone: false,
 })
 export class NewsCategoryTreeSelectorComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -48,22 +48,22 @@ export class NewsCategoryTreeSelectorComponent implements OnInit, OnDestroy {
     private cmsStoreService: CmsStoreService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
-    this.checklistSelection.changed.subscribe(x => {
+    this.checklistSelection.changed.subscribe((x) => {
       if (!this.runComplate) {
         return;
       }
       const listId = [];
-      this.checklistSelection.selected.forEach(element => {
+      this.checklistSelection.selected.forEach((element) => {
         listId.push(element.id);
       });
       this.optionModelChange.emit(listId);
       if (x.added && x.added.length > 0) {
-        x.added.forEach(element => {
+        x.added.forEach((element) => {
           this.optionSelectChecked.emit(element.id);
         });
       }
       if (x.removed && x.removed.length > 0) {
-        x.removed.forEach(element => {
+        x.removed.forEach((element) => {
           this.optionSelectDisChecked.emit(element.id);
         });
       }
@@ -75,28 +75,36 @@ export class NewsCategoryTreeSelectorComponent implements OnInit, OnDestroy {
     this.loadCheked();
   }
   dataModelSelect: number[] = [];
-  dataModelResult: ErrorExceptionResult<NewsCategoryModel> = new ErrorExceptionResult<NewsCategoryModel>();
+  dataModelResult: ErrorExceptionResult<NewsCategoryModel> =
+    new ErrorExceptionResult<NewsCategoryModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<NewsCategoryModel>(node => node.children);
+  treeControl = new NestedTreeControl<NewsCategoryModel>(
+    (node) => node.children,
+  );
   dataSource = new MatTreeNestedDataSource<NewsCategoryModel>();
   runComplate = false;
   @Output() optionSelectChecked = new EventEmitter<number>();
   @Output() optionSelectDisChecked = new EventEmitter<number>();
   @Output() optionModelChange = new EventEmitter<number[]>();
   cmsApiStoreSubscribe: Subscription;
-  checklistSelection = new SelectionModel<NewsCategoryModel>(true /* multiple */);
-  hasChild = (_: number, node: NewsCategoryModel) => !!node.children && node.children.length > 0;
+  checklistSelection = new SelectionModel<NewsCategoryModel>(
+    true /* multiple */,
+  );
+  hasChild = (_: number, node: NewsCategoryModel) =>
+    !!node.children && node.children.length > 0;
+  childrenAccessor = (node: NewsCategoryModel) => node.children ?? [];
   hasNoContent = (_: number, nodeData: NewsCategoryModel) => nodeData.children;
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    })
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -105,9 +113,13 @@ export class NewsCategoryTreeSelectorComponent implements OnInit, OnDestroy {
   }
   loadCheked(model: NewsCategoryModel[] = this.treeControl.dataNodes): void {
     this.runComplate = false;
-    if (this.treeControl.dataNodes && this.dataModelSelect && this.dataModelSelect.length > 0) {
-      model.forEach(element => {
-        const fItem = this.dataModelSelect.find(z => z === element.id);
+    if (
+      this.treeControl.dataNodes &&
+      this.dataModelSelect &&
+      this.dataModelSelect.length > 0
+    ) {
+      model.forEach((element) => {
+        const fItem = this.dataModelSelect.find((z) => z === element.id);
         if (fItem) {
           this.checklistSelection.select(element);
         }
@@ -121,10 +133,16 @@ export class NewsCategoryTreeSelectorComponent implements OnInit, OnDestroy {
   DataGetAll(): void {
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.categoryService.ServiceGetAll(this.filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
@@ -132,8 +150,7 @@ export class NewsCategoryTreeSelectorComponent implements OnInit, OnDestroy {
           this.dataSource.data = this.dataModelResult.listItems;
           this.treeControl.dataNodes = this.dataModelResult.listItems;
           this.loadCheked();
-        }
-        else {
+        } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
@@ -141,19 +158,22 @@ export class NewsCategoryTreeSelectorComponent implements OnInit, OnDestroy {
       error: (er) => {
         this.publicHelper.processService.processStop(pName);
         this.cmsToastrService.typeError(er);
-      }
-    }
-    );
+      },
+    });
   }
   /** Whether all the descendants of the node are selected */
   descendantsAllSelected(node: NewsCategoryModel): boolean {
     const descendants = this.treeControl.getDescendants(node);
-    return descendants.every(child => this.checklistSelection.isSelected(child));
+    return descendants.every((child) =>
+      this.checklistSelection.isSelected(child),
+    );
   }
   /** Whether part of the descendants are selected */
   descendantsPartiallySelected(node: NewsCategoryModel): boolean {
     const descendants = this.treeControl.getDescendants(node);
-    const result = descendants.some(child => this.checklistSelection.isSelected(child));
+    const result = descendants.some((child) =>
+      this.checklistSelection.isSelected(child),
+    );
     return result && !this.descendantsAllSelected(node);
   }
   /** Toggle the to-do item selection. Select/deselect all the descendants node */

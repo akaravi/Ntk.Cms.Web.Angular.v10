@@ -31,9 +31,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-  selector: 'app-article-category-tree',
-  templateUrl: './tree.component.html',
-  standalone: false
+  selector: "app-article-category-tree",
+  templateUrl: "./tree.component.html",
+  standalone: false,
 })
 export class ArticleCategoryTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -49,31 +49,34 @@ export class ArticleCategoryTreeComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
-
   }
   @Input() set optionSelectForce(x: number | ArticleCategoryModel) {
     this.onActionSelectForce(x);
   }
   dataModelSelect: ArticleCategoryModel = new ArticleCategoryModel();
-  dataModelResult: ErrorExceptionResult<ArticleCategoryModel> = new ErrorExceptionResult<ArticleCategoryModel>();
+  dataModelResult: ErrorExceptionResult<ArticleCategoryModel> =
+    new ErrorExceptionResult<ArticleCategoryModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<ArticleCategoryModel>(node => node.children);
+  treeControl = new NestedTreeControl<ArticleCategoryModel>(
+    (node) => node.children,
+  );
   dataSource = new MatTreeNestedDataSource<ArticleCategoryModel>();
   @Output() optionChange = new EventEmitter<ArticleCategoryModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
-  hasChild = (_: number, node: ArticleCategoryModel) => !!node.children && node.children.length > 0;
-
+  hasChild = (_: number, node: ArticleCategoryModel) =>
+    !!node.children && node.children.length > 0;
+  childrenAccessor = (node: ArticleCategoryModel) => node.children ?? [];
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -83,10 +86,16 @@ export class ArticleCategoryTreeComponent implements OnInit, OnDestroy {
   DataGetAll(): void {
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.categoryService.ServiceGetAll(this.filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
@@ -100,9 +109,8 @@ export class ArticleCategoryTreeComponent implements OnInit, OnDestroy {
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: ArticleCategoryModel): void {
     this.dataModelSelect = model;
@@ -113,8 +121,7 @@ export class ArticleCategoryTreeComponent implements OnInit, OnDestroy {
     this.dataModelSelect = new ArticleCategoryModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | ArticleCategoryModel): void {
-  }
+  onActionSelectForce(id: number | ArticleCategoryModel): void {}
   onActionAdd(): void {
     let parentId = 0;
     if (this.dataModelSelect && this.dataModelSelect.id > 0) {
@@ -124,8 +131,11 @@ export class ArticleCategoryTreeComponent implements OnInit, OnDestroy {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.data = { parentId };
-    const dialogRef = this.dialog.open(ArticleCategoryAddComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogRef = this.dialog.open(
+      ArticleCategoryAddComponent,
+      dialogConfig,
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -137,13 +147,17 @@ export class ArticleCategoryTreeComponent implements OnInit, OnDestroy {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     const dialogRef = this.dialog.open(ArticleCategoryEditComponent, {
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -155,17 +169,20 @@ export class ArticleCategoryTreeComponent implements OnInit, OnDestroy {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     const dialogRef = this.dialog.open(ArticleCategoryDeleteComponent, {
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
     });
   }
-
 }

@@ -34,9 +34,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-  selector: 'app-news-category-tree',
-  templateUrl: './tree.component.html',
-  standalone: false
+  selector: "app-news-category-tree",
+  templateUrl: "./tree.component.html",
+  standalone: false,
 })
 export class NewsCategoryTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -52,31 +52,33 @@ export class NewsCategoryTreeComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
-
   }
   @Input() set optionSelectForce(x: number | NewsCategoryModel) {
     this.onActionSelectForce(x);
   }
   dataModelSelect: NewsCategoryModel = new NewsCategoryModel();
-  dataModelResult: ErrorExceptionResult<NewsCategoryModel> = new ErrorExceptionResult<NewsCategoryModel>();
+  dataModelResult: ErrorExceptionResult<NewsCategoryModel> =
+    new ErrorExceptionResult<NewsCategoryModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<NewsCategoryModel>(node => node.children);
+  treeControl = new NestedTreeControl<NewsCategoryModel>(
+    (node) => node.children,
+  );
   dataSource = new MatTreeNestedDataSource<NewsCategoryModel>();
   @Output() optionChange = new EventEmitter<NewsCategoryModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
-  hasChild = (_: number, node: NewsCategoryModel) => !!node.children && node.children.length > 0;
-
+  hasChild = (_: number, node: NewsCategoryModel) =>    !!node.children && node.children.length > 0;
+  childrenAccessor = (node: NewsCategoryModel) => node.children ?? [];
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    })
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -86,15 +88,20 @@ export class NewsCategoryTreeComponent implements OnInit, OnDestroy {
   DataGetAll(): void {
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
-    const pName = this.constructor.name + '.ServiceGetAll';
-    this.translate.get('MESSAGE.get_categories').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    const pName = this.constructor.name + ".ServiceGetAll";
+    this.translate.get("MESSAGE.get_categories").subscribe((str: string) => {
+      this.publicHelper.processService.processStart(
+        pName,
+        str,
+        this.constructorInfoAreaId,
+      );
+    });
     this.categoryService.ServiceGetAll(this.filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.dataModelResult = ret;
           this.dataSource.data = this.dataModelResult.listItems;
-        }
-        else {
+        } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
@@ -102,9 +109,8 @@ export class NewsCategoryTreeComponent implements OnInit, OnDestroy {
       error: (er) => {
         this.publicHelper.processService.processStop(pName);
         this.cmsToastrService.typeError(er);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: NewsCategoryModel): void {
     this.dataModelSelect = model;
@@ -116,8 +122,7 @@ export class NewsCategoryTreeComponent implements OnInit, OnDestroy {
     this.dataModelSelect = new NewsCategoryModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | NewsCategoryModel): void {
-  }
+  onActionSelectForce(id: number | NewsCategoryModel): void {}
   onActionAdd(): void {
     let parentId = 0;
     if (this.dataModelSelect && this.dataModelSelect.id > 0) {
@@ -128,7 +133,7 @@ export class NewsCategoryTreeComponent implements OnInit, OnDestroy {
     dialogConfig.autoFocus = true;
     dialogConfig.data = { parentId };
     const dialogRef = this.dialog.open(NewsCategoryAddComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -140,22 +145,24 @@ export class NewsCategoryTreeComponent implements OnInit, OnDestroy {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(NewsCategoryEditComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -167,22 +174,24 @@ export class NewsCategoryTreeComponent implements OnInit, OnDestroy {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(NewsCategoryDeleteComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id: id }
+      data: { id: id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
