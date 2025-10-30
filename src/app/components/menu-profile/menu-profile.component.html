@@ -39,18 +39,18 @@
         <a routerLink="{{ '/core/user/edit/' + this.tokenInfo.access.userId }}">
           <h5>
             {{ "TITLE.User_Id" | translate }} :
-            {{ this.tokenInfo.access.userId }}
+            {{ this.tokenInfo?.access?.userId }}
           </h5>
         </a>
         <a routerLink="{{ '/core/site/edit/' + this.tokenInfo.access.siteId }}">
           <h5>
             {{ "TITLE.Site_Id" | translate }} :
-            {{ this.tokenInfo.access.siteId }}
+            {{ this.tokenInfo?.access?.siteId }}
           </h5>
         </a>
         <h5>
           {{ "TITLE.Access" | translate }} :
-          {{ this.tokenInfo.access.userAccessUserTypeTitle }}
+          {{ this.tokenInfo?.access?.userAccessUserTypeTitle }}
         </h5>
       </div>
     </div>
@@ -156,7 +156,7 @@
               [(ngModel)]="inputUserId"
               class="form-control"
               id="inputUserId"
-              placeholder="{{ this.tokenInfo.access.userId }}"
+              placeholder="{{ this.tokenInfo?.access?.userId }}"
             />
             <label for="inputUserId" class="color-highlight">{{
               "TITLE.User_Id" | translate
@@ -181,7 +181,7 @@
             [(ngModel)]="inputSiteId"
             class="form-control"
             id="inputSiteId"
-            placeholder="{{ this.tokenInfo.access.siteId }}"
+            placeholder="{{ this.tokenInfo?.access?.siteId }}"
           />
           <label for="inputSiteId" class="color-highlight">{{
             "TITLE.Site_Id" | translate
