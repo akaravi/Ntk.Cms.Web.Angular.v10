@@ -16,23 +16,23 @@ const routes: Routes = [
       {
         path: 'config',
         loadChildren: () =>
-          import('./config/contact-config.module').then((m) => m.ContactConfigModule), data: { title: 'Route.CONTACT' },
+          import('./config/contact-config.module').then((m) => m.ContactConfigModule), data: { title: 'ROUTE.CONTACT' },
 
       },
       /* Config */
       {
         path: 'content',
-        component: ContactContentListComponent, data: { title: 'Route.CONTACT' },
+        component: ContactContentListComponent, data: { title: 'ROUTE.CONTACT' },
 
       },
       {
         path: 'content/add/:CategoryId',
-        component: ContactContentAddComponent, data: { title: 'Route.CONTACT' },
+        component: ContactContentAddComponent, data: { title: 'ROUTE.CONTACT' },
 
       },
       {
         path: 'content/edit/:Id',
-        component: ContactContentEditComponent, data: { title: 'Route.CONTACT' },
+        component: ContactContentEditComponent, data: { title: 'ROUTE.CONTACT' },
 
       },
     ]
