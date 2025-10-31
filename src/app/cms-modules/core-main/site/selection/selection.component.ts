@@ -143,7 +143,7 @@ export class CoreSiteSelectionComponent implements OnInit {
 
     this.cmsAuthService.refreshToken(authModel).subscribe({
       next: (res) => {
-        if (res.isSuccess && res.item.access.siteId > 0) {
+        if (res?.isSuccess && res.item.access.siteId > 0) {
           this.cmsToastrService.typeSuccessSelected();
           this.publicHelper.processService.processStop(pName);
           setTimeout(() => {
@@ -193,7 +193,7 @@ export class CoreSiteSelectionComponent implements OnInit {
 
       this.cmsAuthService.refreshToken(authModel).subscribe({
         next: (ret) => {
-          if (ret.isSuccess) {
+          if (ret?.isSuccess) {
             setTimeout(() => {
               if (!this.destroyRef.destroyed)
                 this.router.navigate(["/dashboard/"]);

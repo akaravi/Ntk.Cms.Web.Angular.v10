@@ -101,7 +101,7 @@ export class MenuLanguageComponent implements OnInit {
       {
         next: (ret) => {
           // this.loadingStatus = false;
-          if (ret.isSuccess) {
+          if (ret?.isSuccess) {
             this.tokenInfo = ret.item;
             if (ret.item.access.language === lang) {
               this.translate.get('MESSAGE.New_language_acess_confirmed').subscribe((str: string) => {

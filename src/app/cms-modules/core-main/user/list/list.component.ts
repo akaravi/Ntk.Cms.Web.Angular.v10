@@ -442,7 +442,7 @@ export class CoreUserListComponent
     authModel.userId = this.tableRowSelected.id;
     this.cmsAuthService.refreshToken(authModel).subscribe({
       next: (res) => {
-        if (res.isSuccess) {
+        if (res?.isSuccess) {
           this.cmsToastrService.typeSuccessSelected();
           this.router.navigate(["/"]);
         } else {
