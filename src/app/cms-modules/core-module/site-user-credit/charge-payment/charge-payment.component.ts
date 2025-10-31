@@ -14,6 +14,7 @@ import {
 } from 'ntk-cms-api';
 
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
+import { TRANSACTION_ID_LOCAL_STORAGE_KEY } from 'src/app/core/models/constModel';
 import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 
 @Component({
@@ -124,7 +125,10 @@ export class CoreModuleSiteUserCreditChargePaymentComponent implements OnInit {
           this.translate.get('MESSAGE.Transferring_to_the_payment_gateway').subscribe((str: string) => {
             this.cmsToastrService.typeSuccessMessage(str);
           });
-          localStorage.setItem('TransactionId', ret.item.transactionId.toString());
+          localStorage.setItem(
+            TRANSACTION_ID_LOCAL_STORAGE_KEY,
+            ret.item.transactionId.toString(),
+          );
           this.document.location.href = this.dataModelPaymentResult.item.urlToPay;
         }
         else {

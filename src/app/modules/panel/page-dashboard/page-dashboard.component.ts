@@ -124,8 +124,8 @@ export class PageDashboardComponent implements OnInit {
   loadData() {
     if (
       this.tokenInfo &&
-      this.tokenInfo?.access.userId > 0 &&
-      this.tokenInfo.access.siteId > 0
+      this.tokenInfo?.access?.userId > 0 &&
+      this.tokenInfo?.access?.siteId > 0
     ) {
       setTimeout(() => {
         const storeSnapshot = this.cmsStoreService.getStateSnapshot();
@@ -208,9 +208,10 @@ export class PageDashboardComponent implements OnInit {
   }
   convertListPinToBoolean(listPin: ThemeStoreMenuModel[]): boolean[] {
     var ret = [];
-    listPin.forEach((el) => {
-      if (el.siteId == this.tokenInfo.site.id) ret[el.menuId] = true;
-    });
+    if (listPin && listPin.length > 0)
+      listPin.forEach((el) => {
+        if (el.siteId == this.tokenInfo.site.id) ret[el.menuId] = true;
+      });
     return ret;
   }
   updateThemeMenuPinToggel(id: number): void {

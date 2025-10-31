@@ -151,31 +151,30 @@ export class CmsAuthService implements OnDestroy {
     );
   }
 
-  logout() {
-    this.cmsStoreService.setState({
-      type: SET_TOKEN_INFO,
-      payload: new TokenInfoModelV3(),
-    });
-    this.cmsStoreService.setState({
-      type: SET_Core_Site,
-      payload: new ErrorExceptionResult<CoreSiteModel>(),
-    });
-    this.cmsStoreService.setState({
-      type: SET_CpMain_Menu,
-      payload: new ErrorExceptionResult<CoreCpMainMenuModel>(),
-    });
+  logout(): any {
+    this.authService.ServiceCurrentToken().subscribe({
+      next: (ret) => {
+        this.cmsStoreService.setState({
+          type: SET_TOKEN_INFO,
+          payload: new TokenInfoModelV3(),
+        });
+        this.cmsStoreService.setState({
+          type: SET_Core_Site,
+          payload: new ErrorExceptionResult<CoreSiteModel>(),
+        });
+        this.cmsStoreService.setState({
+          type: SET_CpMain_Menu,
+          payload: new ErrorExceptionResult<CoreCpMainMenuModel>(),
+        });
 
-    this.authService.setJWT(null);
-    this.authService.ServiceLogout();
-    this.router.navigate(["/auth/login"], {
-      queryParams: {},
+        this.authService.setJWT(null);
+      },
     });
   }
   // private methods
   private setAuthFromLocalStorage(auth: TokenJWTModel): boolean {
     // store auth authToken/refreshToken/epiresIn in local storage to keep user logged in between page refreshes
     if (auth && auth.accessToken) {
-      //localStorage.setItem(this.authLocalStorageToken, JSON.stringify(auth));
       return true;
     }
     return false;

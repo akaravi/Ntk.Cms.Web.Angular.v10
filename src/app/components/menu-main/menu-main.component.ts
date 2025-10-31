@@ -37,7 +37,7 @@ export class MenuMainComponent implements OnInit {
     public coreAuthService: CoreAuthV3Service,
     private coreCpMainMenuService: CoreCpMainMenuService,
     private cmsStoreService: CmsStoreService,
-    private cmsAuthService:CmsAuthService,
+    private cmsAuthService: CmsAuthService,
     private router: Router,
     public translate: TranslateService,
     public themeService: ThemeService,
@@ -193,6 +193,8 @@ export class MenuMainComponent implements OnInit {
         );
       });
     this.cmsToastrService.typeOrderActionLogout();
-              this.cmsAuthService.logout();
+    this.router.navigate(["/auth/signout"], {
+      queryParams: {},
+    });
   }
 }

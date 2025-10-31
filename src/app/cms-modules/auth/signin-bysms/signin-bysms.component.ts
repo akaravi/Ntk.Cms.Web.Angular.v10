@@ -18,7 +18,12 @@ import { interval, Observable, Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsTranslationService } from "src/app/core/i18n/cmsTranslation.service";
 import { ConnectionStatusModel } from "src/app/core/models/connectionStatusModel";
-import { themeAuthPageLSKey } from "src/app/core/models/constModel";
+import {
+  RESSELLER_SITE_ID_LOCAL_STORAGE_KEY,
+  RESSELLER_USER_ID_LOCAL_STORAGE_KEY,
+  SELECT_SITE_LOCAL_STORAGE_KEY,
+  themeAuthPageLSKey,
+} from "src/app/core/models/constModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { SET_TOKEN_INFO } from "src/app/core/reducers/reducer.factory";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
@@ -234,15 +239,23 @@ export class AuthSignInBySmsComponent implements OnInit, OnDestroy {
         );
       });
     /** read storage */
-    const siteId = +localStorage.getItem("siteId");
-    if (siteId > 0) {
-      this.dataModelAuthUserSignInBySms.siteId = siteId;
+
+    if (localStorage.getItem(SELECT_SITE_LOCAL_STORAGE_KEY)) {
+      const sitelist = localStorage
+        .getItem(SELECT_SITE_LOCAL_STORAGE_KEY)
+        .split(",");
+      if (sitelist && sitelist.length > 0)
+        this.dataModelAuthUserSignInBySms.siteId = +sitelist[sitelist.length-1];
     }
-    const ResellerSiteId = +localStorage.getItem("ResellerSiteId");
+    const ResellerSiteId = +localStorage.getItem(
+      RESSELLER_SITE_ID_LOCAL_STORAGE_KEY,
+    );
     if (ResellerSiteId > 0) {
       this.dataModelAuthUserSignInBySms.resellerSiteId = ResellerSiteId;
     }
-    const ResellerUserId = +localStorage.getItem("ResellerUserId");
+    const ResellerUserId = +localStorage.getItem(
+      RESSELLER_USER_ID_LOCAL_STORAGE_KEY,
+    );
     if (ResellerUserId > 0) {
       this.dataModelAuthUserSignInBySms.resellerUserId = ResellerUserId;
     }

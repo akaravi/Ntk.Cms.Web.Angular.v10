@@ -420,6 +420,8 @@ export class MenuProfileComponent implements OnInit {
       });
     this.cmsToastrService.typeOrderActionLogout();
 
-    this.cmsAuthervice.logout();
+    this.router.navigate(["/auth/signout"], {
+      queryParams: {},
+    });
   }
 }

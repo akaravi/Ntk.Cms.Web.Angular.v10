@@ -1,8 +1,11 @@
 import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from "@angular/router";
+import {
+  ActivatedRouteSnapshot,
+  Router,
+  RouterStateSnapshot,
+} from "@angular/router";
 import { CoreAuthV3Service } from "ntk-cms-api";
 import { CmsStoreService } from "../reducers/cmsStore.service";
-import { CmsAuthService } from "./cmsAuth.service";
 
 @Injectable({
   providedIn: "root",
@@ -11,7 +14,7 @@ export class CmsAuthGuard {
   constructor(
     private cmsStoreService: CmsStoreService,
     private authService: CoreAuthV3Service,
-    private cmsAuthService: CmsAuthService,
+    private router: Router,
   ) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
@@ -23,7 +26,9 @@ export class CmsAuthGuard {
     }
 
     // not logged in so redirect to login page with the return url
-    this.cmsAuthService.logout();
+    this.router.navigate(["/auth/signout"], {
+      queryParams: {},
+    });
     return false;
   }
 }

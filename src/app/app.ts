@@ -40,7 +40,13 @@ import { ComponentsModule } from "./components/components.module";
 import { PublicHelper } from "./core/helpers/publicHelper";
 import { TokenHelper } from "./core/helpers/tokenHelper";
 import { ConnectionStatusModel } from "./core/models/connectionStatusModel";
-import { KeyboardEventF9 } from "./core/models/constModel";
+import {
+  KeyboardEventF9,
+  RESSELLER_SITE_ID_LOCAL_STORAGE_KEY,
+  RESSELLER_USER_ID_LOCAL_STORAGE_KEY,
+  SITE_ID_LOCAL_STORAGE_KEY,
+  SITE_TYPE_ID_LOCAL_STORAGE_KEY,
+} from "./core/models/constModel";
 import { ProcessModel } from "./core/models/processModel";
 import { CmsStoreService } from "./core/reducers/cmsStore.service";
 import {
@@ -210,22 +216,22 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
       const site = httpParams.get("site");
       const siteId = +site;
       if (siteId > 0) {
-        localStorage.setItem("siteId", site);
+        localStorage.setItem(SITE_ID_LOCAL_STORAGE_KEY, site);
       }
       const siteType = httpParams.get("sitetype");
       const siteTypeId = +siteType;
       if (siteTypeId > 0) {
-        localStorage.setItem("siteTypeId", siteType);
+        localStorage.setItem(SITE_TYPE_ID_LOCAL_STORAGE_KEY, siteType);
       }
       const ResellerSite = httpParams.get("rsite");
       const ResellerSiteId = +ResellerSite;
       if (ResellerSiteId > 0) {
-        localStorage.setItem("ResellerSiteId", ResellerSite);
+        localStorage.setItem(RESSELLER_SITE_ID_LOCAL_STORAGE_KEY, ResellerSite);
       }
       const ResellerUser = httpParams.get("ruser");
       const ResellerUserId = +ResellerUser;
       if (ResellerUserId > 0) {
-        localStorage.setItem("ResellerUserId", ResellerUser);
+        localStorage.setItem(RESSELLER_USER_ID_LOCAL_STORAGE_KEY, ResellerUser);
       }
     }
 

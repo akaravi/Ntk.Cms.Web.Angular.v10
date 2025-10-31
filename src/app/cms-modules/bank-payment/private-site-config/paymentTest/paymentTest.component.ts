@@ -11,6 +11,7 @@ import {
   BankPaymentInjectOnlineTransactionDtoModel, BankPaymentInjectPaymentGotoBankStep2LandingSitePageModel, BankPaymentPrivateSiteConfigModel, BankPaymentPrivateSiteConfigService, CoreEnumService, ErrorExceptionResult, FormInfoModel
 } from 'ntk-cms-api';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
+import { TRANSACTION_ID_LOCAL_STORAGE_KEY } from 'src/app/core/models/constModel';
 import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 @Component({
     selector: 'app-bankpayment-privateconfig-paymenttest',
@@ -93,7 +94,10 @@ export class BankPaymentPrivateSiteConfigPaymentTestComponent implements OnInit 
           this.formInfo.formSubmitAllow = true;
           this.dataModelResult = ret;
           if (ret.isSuccess) {
-            localStorage.setItem('TransactionId', ret.item.transactionId.toString());
+            localStorage.setItem(
+              TRANSACTION_ID_LOCAL_STORAGE_KEY,
+              ret.item.transactionId.toString(),
+            );
             this.translate.get('MESSAGE.Payment_request_was_successfully_registered').subscribe((str: string) => {
               this.formInfo.formAlert = str;
               this.cmsToastrService.typeSuccessMessage(str);

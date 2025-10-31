@@ -2,11 +2,11 @@ import { Injectable } from "@angular/core";
 import {
   ActivatedRouteSnapshot,
   CanActivateChild,
+  Router,
   RouterStateSnapshot,
 } from "@angular/router";
 import { CoreAuthV3Service } from "ntk-cms-api";
 import { CmsStoreService } from "../reducers/cmsStore.service";
-import { CmsAuthService } from "./cmsAuth.service";
 
 @Injectable({
   providedIn: "root",
@@ -15,7 +15,7 @@ export class CmsAuthGuardChild implements CanActivateChild {
   constructor(
     private cmsStoreService: CmsStoreService,
     private authService: CoreAuthV3Service,
-    private cmsAuthService: CmsAuthService,
+    private router: Router,
   ) {}
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     if (
@@ -26,7 +26,10 @@ export class CmsAuthGuardChild implements CanActivateChild {
     }
 
     // not logged in so redirect to login page with the return url
-    this.cmsAuthService.logout();
+
+    this.router.navigate(["/auth/signout"], {
+      queryParams: {},
+    });
     return false;
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { CoreAuthV3Service } from "ntk-cms-api";
+import { CmsAuthService } from "src/app/core/services/cmsAuth.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 @Component({
   selector: "app-auth-signout",
@@ -11,6 +12,7 @@ export class AuthSignOutComponent implements OnInit {
   constructor(
     private authService: CoreAuthV3Service,
     private cmsToastrService: CmsToastrService,
+    private cmsAuthService: CmsAuthService,
   ) {
     this.authService.ServiceLogout().subscribe({
       next: (ret) => {
@@ -22,5 +24,7 @@ export class AuthSignOutComponent implements OnInit {
       },
     });
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.cmsAuthService.logout();
+  }
 }

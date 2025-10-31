@@ -19,7 +19,10 @@ import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsTranslationService } from "src/app/core/i18n/cmsTranslation.service";
 import { ConnectionStatusModel } from "src/app/core/models/connectionStatusModel";
-import { themeAuthPageLSKey } from "src/app/core/models/constModel";
+import {
+  SELECT_SITE_LOCAL_STORAGE_KEY,
+  themeAuthPageLSKey,
+} from "src/app/core/models/constModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { SET_TOKEN_INFO } from "src/app/core/reducers/reducer.factory";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
@@ -129,10 +132,14 @@ export class AuthSignInByUsernameComponent implements OnInit, OnDestroy {
           this.constructorInfoAreaId,
         );
       });
-    const siteId = +localStorage.getItem("siteId");
-    if (siteId > 0) {
-      this.dataModel.siteId = siteId;
+    
+    if (localStorage.getItem(SELECT_SITE_LOCAL_STORAGE_KEY)) {
+      const sitelist = localStorage
+        .getItem(SELECT_SITE_LOCAL_STORAGE_KEY)
+        .split(",");
+      if (sitelist && sitelist.length > 0) this.dataModel.siteId = +sitelist[sitelist.length-1];
     }
+
     this.coreAuthService.ServiceSigninUser(this.dataModel).subscribe({
       next: (res) => {
         if (res.isSuccess) {

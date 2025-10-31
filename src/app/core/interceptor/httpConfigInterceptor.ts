@@ -87,7 +87,9 @@ export class HttpConfigInterceptor implements HttpInterceptor {
             });
             /** */
           } else {
-            this.cmsAuthService.logout();
+            this.router.navigate(["/auth/signout"], {
+              queryParams: {},
+            });
           }
           return null;
           //Error 401
@@ -113,7 +115,9 @@ export class HttpConfigInterceptor implements HttpInterceptor {
             });
             /** */
           } else {
-            this.cmsAuthService.logout();
+            this.router.navigate(["/auth/signout"], {
+              queryParams: {},
+            });
           }
           return null;
           //Error 403

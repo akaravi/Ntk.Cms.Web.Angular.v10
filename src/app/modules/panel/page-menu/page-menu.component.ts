@@ -88,9 +88,10 @@ export class PageMenuComponent implements OnInit {
   }
   convertListPinToBoolean(listPin: ThemeStoreMenuModel[]): boolean[] {
     var ret = [];
-    listPin.forEach((el) => {
-      if (el.siteId == this.tokenInfo.site.id) ret[el.menuId] = true;
-    });
+    if (listPin && listPin.length > 0)
+      listPin.forEach((el) => {
+        if (el.siteId == this.tokenInfo.site.id) ret[el.menuId] = true;
+      });
     return ret;
   }
   loadData() {

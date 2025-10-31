@@ -18,6 +18,11 @@ import {
 } from "ntk-cms-api";
 import { Observable, Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import {
+  RESSELLER_SITE_ID_LOCAL_STORAGE_KEY,
+  RESSELLER_USER_ID_LOCAL_STORAGE_KEY,
+  SELECT_SITE_LOCAL_STORAGE_KEY,
+} from "src/app/core/models/constModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { SET_TOKEN_INFO } from "src/app/core/reducers/reducer.factory";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
@@ -179,15 +184,22 @@ export class AuthSignUpComponent implements OnInit, OnDestroy {
         );
       });
     /** read storage */
-    const siteId = +localStorage.getItem("siteId");
-    if (siteId > 0) {
-      this.dataModel.siteId = siteId;
+
+    if (localStorage.getItem(SELECT_SITE_LOCAL_STORAGE_KEY)) {
+      const sitelist = localStorage
+        .getItem(SELECT_SITE_LOCAL_STORAGE_KEY)
+        .split(",");
+      if (sitelist && sitelist.length > 0) this.dataModel.siteId = +sitelist[sitelist.length-1];
     }
-    const ResellerSiteId = +localStorage.getItem("ResellerSiteId");
+    const ResellerSiteId = +localStorage.getItem(
+      RESSELLER_SITE_ID_LOCAL_STORAGE_KEY,
+    );
     if (ResellerSiteId > 0) {
       this.dataModel.resellerSiteId = ResellerSiteId;
     }
-    const ResellerUserId = +localStorage.getItem("ResellerUserId");
+    const ResellerUserId = +localStorage.getItem(
+      RESSELLER_USER_ID_LOCAL_STORAGE_KEY,
+    );
     if (ResellerUserId > 0) {
       this.dataModel.resellerUserId = ResellerUserId;
     }

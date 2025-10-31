@@ -139,7 +139,7 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
         this.linkCmsUserId = +lStorlinkCmsUserId;
       this.onActionButtonOnDateSearch();
     });
-    if (this.tokenInfo?.access.userId > 0) {
+    if (this.tokenInfo?.access?.userId > 0) {
       this.linkCmsUserId = this.tokenInfo.access.userId
     }
     if (Number.isFinite(lStorlinkCmsUserId) && +lStorlinkCmsUserId >= 0)

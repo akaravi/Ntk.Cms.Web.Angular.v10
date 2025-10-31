@@ -29,6 +29,7 @@ import { environment } from "src/environments/environment";
 import { BankPaymentPrivateSiteConfigAddComponent } from "../add/add.component";
 import { BankPaymentPrivateSiteConfigEditComponent } from "../edit/edit.component";
 import { BankPaymentPrivateSiteConfigPaymentTestComponent } from "../paymentTest/paymentTest.component";
+import { TRANSACTION_ID_LOCAL_STORAGE_KEY } from "src/app/core/models/constModel";
 
 @Component({
   selector: "app-bankpayment-privateconfig-list",
@@ -132,7 +133,8 @@ export class BankPaymentPrivateSiteConfigListComponent
       });
     this.getPublicConfig();
     //**بررسی تراکنش از قبل */
-    const transactionId = +localStorage.getItem("TransactionId") | 0;
+    const transactionId =
+      +localStorage.getItem(TRANSACTION_ID_LOCAL_STORAGE_KEY) | 0;
     if (transactionId > 0) {
       const dialogRef = this.dialog.open(
         CmsBankpaymentTransactionInfoComponent,
@@ -145,7 +147,7 @@ export class BankPaymentPrivateSiteConfigListComponent
       );
       dialogRef.afterClosed().subscribe((result) => {
         if (result && result.dialogChangedDate) {
-          localStorage.removeItem("TransactionId");
+          localStorage.removeItem(TRANSACTION_ID_LOCAL_STORAGE_KEY);
         }
       });
     }

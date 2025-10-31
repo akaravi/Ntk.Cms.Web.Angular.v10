@@ -39,7 +39,9 @@ export class CmsAuthSiteGuard {
         });
     }
 
-    this.cmsAuthService.logout();
+    this.router.navigate(["/auth/signout"], {
+      queryParams: {},
+    });
     return false;
   }
 }
