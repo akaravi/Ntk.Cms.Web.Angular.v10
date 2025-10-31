@@ -115,7 +115,7 @@ export class LinkManagementBillboardPatternTreeSelectorComponent
       .listItems,
   ): void {
     this.runComplate = false;
-    if (this.dataModelSelect && this.dataModelSelect.length > 0) {
+    if (model && this.dataModelSelect && this.dataModelSelect.length > 0) {
       model.forEach((element) => {
         const fItem = this.dataModelSelect.find((z) => z === element.id);
         if (fItem) {

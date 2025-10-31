@@ -1,6 +1,5 @@
-
-import { SelectionModel } from '@angular/cdk/collections';
-import { NestedTreeControl } from '@angular/cdk/tree';
+import { SelectionModel } from "@angular/cdk/collections";
+import { NestedTreeControl } from "@angular/cdk/tree";
 import {
   ChangeDetectorRef,
   Component,
@@ -8,26 +7,23 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
-import { TranslateService } from '@ngx-translate/core';
+  Output,
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { TranslateService } from "@ngx-translate/core";
 import {
   ChartCategoryModel,
-  ChartCategoryService, CoreEnumService,
+  ChartCategoryService,
+  CoreEnumService,
   ErrorExceptionResult,
-  FilterModel
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
-
+  FilterModel,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-chart-category-treeselector",
@@ -116,7 +112,7 @@ export class ChartCategoryTreeSelectorComponent implements OnInit, OnDestroy {
     model: ChartCategoryModel[] = this.dataModelResult.listItems,
   ): void {
     this.runComplate = false;
-    if (this.dataModelSelect && this.dataModelSelect.length > 0) {
+    if (model && this.dataModelSelect && this.dataModelSelect.length > 0) {
       model.forEach((element) => {
         const fItem = this.dataModelSelect.find((z) => z === element.id);
         if (fItem) {
