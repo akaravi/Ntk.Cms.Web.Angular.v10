@@ -54,58 +54,46 @@
     <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
     </app-progress-spinner>
     <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
+
     <mat-tree
-      class="category-tree cursor-pointer"
+      #treeTagControl
       [dataSource]="dataSource"
-      [treeControl]="treeControl"
+      [childrenAccessor]="childrenAccessor"
     >
-      <mat-nested-tree-node
-        *matTreeNodeDef="let node; let i = dataIndex"
-        [class.ntk-tree-even]="!(i % 2)"
+      <mat-tree-node
+        *matTreeNodeDef="let node"
+        matTreeNodePadding
+        [class.ntk-tree-selected]="
+          dataModelSelect.id > 0 && dataModelSelect.id === node.id
+        "
       >
-        <li>
-          <div
-            class="mat-tree-node"
-            (click)="onActionSelect(node)"
-            [class.ntk-tree-selected]="
-              dataModelSelect.id > 0 && dataModelSelect.id === node.id
-            "
-          >
-            <button type="button" mat-icon-button disabled></button>
-            {{ node.title }}
-          </div>
-        </li>
-      </mat-nested-tree-node>
-      <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
-        <li>
-          <div
-            class="mat-tree-node"
-            (click)="onActionSelect(node)"
-            [class.ntk-tree-selected]="
-              dataModelSelect.id > 0 && dataModelSelect.id === node.id
-            "
-          >
-            <button
-              type="button"
-              mat-icon-button
-              matTreeNodeToggle
-              [attr.aria-label]="'Toggle ' + node.title"
-              (click)="onActionSelect(node)"
-            >
-              <mat-icon class="mat-icon-rtl-mirror">
-                {{
-                  treeControl.isExpanded(node) ? "expand_more" : "chevron_right"
-                }}
-              </mat-icon>
-            </button>
-            {{ node.title }}
-          </div>
-          <ul [class.category-tree-invisible]="!treeControl.isExpanded(node)">
-            <ng-container matTreeNodeOutlet></ng-container>
-          </ul>
-        </li>
-      </mat-nested-tree-node>
+        <button matIconButton disabled></button>
+        <span (click)="onActionSelect(node)">{{ node.title }}</span>
+      </mat-tree-node>
+      <mat-tree-node
+        *matTreeNodeDef="let node; when: hasChild"
+        matTreeNodePadding
+        matTreeNodeToggle
+        [cdkTreeNodeTypeaheadLabel]="node.title"
+        [class.ntk-tree-selected]="
+          dataModelSelect.id > 0 && dataModelSelect.id === node.id
+        "
+      >
+        <button
+          matIconButton
+          matTreeNodeToggle
+          [attr.aria-label]="'Toggle ' + node.title"
+        >
+          <mat-icon class="mat-icon-rtl-mirror">
+            {{
+              treeTagControl.isExpanded(node) ? "expand_more" : "chevron_right"
+            }}
+          </mat-icon>
+        </button>
+        <span (click)="onActionSelect(node)">{{ node.title }}</span>
+      </mat-tree-node>
     </mat-tree>
+
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
   </ng-container>
   <ng-container cms-tree-footer>

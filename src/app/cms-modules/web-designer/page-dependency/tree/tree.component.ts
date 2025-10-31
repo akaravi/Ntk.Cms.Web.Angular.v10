@@ -32,11 +32,13 @@ import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
-  selector: 'app-webdesigner-pagedependency-tree',
-  templateUrl: './tree.component.html',
-  standalone: false
+  selector: "app-webdesigner-pagedependency-tree",
+  templateUrl: "./tree.component.html",
+  standalone: false,
 })
-export class WebDesignerMainPageDependencyTreeComponent implements OnInit, OnDestroy {
+export class WebDesignerMainPageDependencyTreeComponent
+  implements OnInit, OnDestroy
+{
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private cmsToastrService: CmsToastrService,
@@ -52,30 +54,37 @@ export class WebDesignerMainPageDependencyTreeComponent implements OnInit, OnDes
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }
-  @Input() set optionSelectForce(x: number | WebDesignerMainPageDependencyModel) {
+  @Input() set optionSelectForce(
+    x: number | WebDesignerMainPageDependencyModel,
+  ) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: WebDesignerMainPageDependencyModel = new WebDesignerMainPageDependencyModel();
-  dataModelResult: ErrorExceptionResult<WebDesignerMainPageDependencyModel>
-    = new ErrorExceptionResult<WebDesignerMainPageDependencyModel>();
+  dataModelSelect: WebDesignerMainPageDependencyModel =
+    new WebDesignerMainPageDependencyModel();
+  dataModelResult: ErrorExceptionResult<WebDesignerMainPageDependencyModel> =
+    new ErrorExceptionResult<WebDesignerMainPageDependencyModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<WebDesignerMainPageDependencyModel>(node => null);
-  dataSource = new MatTreeNestedDataSource<WebDesignerMainPageDependencyModel>();
-  @Output() optionChange = new EventEmitter<WebDesignerMainPageDependencyModel>();
+  treeControl = new NestedTreeControl<WebDesignerMainPageDependencyModel>(
+    (node) => null,
+  );
+  dataSource =
+    new MatTreeNestedDataSource<WebDesignerMainPageDependencyModel>();
+  @Output() optionChange =
+    new EventEmitter<WebDesignerMainPageDependencyModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
   hasChild = (_: number, node: WebDesignerMainPageDependencyModel) => false;
-
+  childrenAccessor = (node: WebDesignerMainPageDependencyModel) => [];
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    })
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -85,10 +94,16 @@ export class WebDesignerMainPageDependencyTreeComponent implements OnInit, OnDes
   DataGetAll(): void {
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.categoryService.ServiceGetAll(this.filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
@@ -100,9 +115,8 @@ export class WebDesignerMainPageDependencyTreeComponent implements OnInit, OnDes
       error: (err) => {
         this.cmsToastrService.typeError(err);
         this.publicHelper.processService.processStop(pName);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: WebDesignerMainPageDependencyModel): void {
     this.dataModelSelect = model;
@@ -113,49 +127,56 @@ export class WebDesignerMainPageDependencyTreeComponent implements OnInit, OnDes
     this.dataModelSelect = new WebDesignerMainPageDependencyModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | WebDesignerMainPageDependencyModel): void {
-  }
+  onActionSelectForce(id: number | WebDesignerMainPageDependencyModel): void {}
   onActionAdd(): void {
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
-    const dialogRef = this.dialog.open(WebDesignerMainPageDependencyAddComponent, {
-      height: '90%',
-      panelClass: panelClass,
-      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
-      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: {}
-    });
-    dialogRef.afterClosed().subscribe(result => {
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
+    const dialogRef = this.dialog.open(
+      WebDesignerMainPageDependencyAddComponent,
+      {
+        height: "90%",
+        panelClass: panelClass,
+        enterAnimationDuration:
+          environment.cmsViewConfig.enterAnimationDuration,
+        exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+        data: {},
+      },
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
     });
   }
   onActionEdit(): void {
-    let id = '';
+    let id = "";
     if (this.dataModelSelect && this.dataModelSelect.id?.length > 0) {
       id = this.dataModelSelect.id;
     }
     if (id.length === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
-    const dialogRef = this.dialog.open(WebDesignerMainPageDependencyEditComponent, {
-      height: '90%',
-      panelClass: panelClass,
-      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
-      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
-    });
-    dialogRef.afterClosed().subscribe(result => {
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
+    const dialogRef = this.dialog.open(
+      WebDesignerMainPageDependencyEditComponent,
+      {
+        height: "90%",
+        panelClass: panelClass,
+        enterAnimationDuration:
+          environment.cmsViewConfig.enterAnimationDuration,
+        exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+        data: { id },
+      },
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }

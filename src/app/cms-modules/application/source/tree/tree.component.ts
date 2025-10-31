@@ -28,9 +28,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-  selector: 'app-application-source-tree',
-  templateUrl: './tree.component.html',
-  standalone: false
+  selector: "app-application-source-tree",
+  templateUrl: "./tree.component.html",
+  standalone: false,
 })
 export class ApplicationSourceTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -46,34 +46,33 @@ export class ApplicationSourceTreeComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
-
   }
   @Input() set optionSelectForce(x: number | ApplicationSourceModel) {
     this.onActionSelectForce(x);
   }
   dataModelSelect: ApplicationSourceModel = new ApplicationSourceModel();
-  dataModelResult: ErrorExceptionResult<ApplicationSourceModel> = new ErrorExceptionResult<ApplicationSourceModel>();
+  dataModelResult: ErrorExceptionResult<ApplicationSourceModel> =
+    new ErrorExceptionResult<ApplicationSourceModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<ApplicationSourceModel>(node => null);
+  treeControl = new NestedTreeControl<ApplicationSourceModel>((node) => null);
   dataSource = new MatTreeNestedDataSource<ApplicationSourceModel>();
   @Output() optionChange = new EventEmitter<ApplicationSourceModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
 
   hasChild = (_: number, node: ApplicationSourceModel) => false;
-
-
+  childrenAccessor = (node: ApplicationSourceModel) => [];
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -84,10 +83,16 @@ export class ApplicationSourceTreeComponent implements OnInit, OnDestroy {
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAll(this.filterModel).subscribe({
       next: (ret) => {
@@ -102,9 +107,8 @@ export class ApplicationSourceTreeComponent implements OnInit, OnDestroy {
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: ApplicationSourceModel): void {
     this.dataModelSelect = model;
@@ -115,13 +119,10 @@ export class ApplicationSourceTreeComponent implements OnInit, OnDestroy {
     this.dataModelSelect = new ApplicationSourceModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | ApplicationSourceModel): void {
-
-  }
+  onActionSelectForce(id: number | ApplicationSourceModel): void {}
 
   onActionAdd(): void {
-    this.router.navigate(['/application/source/add']);
-
+    this.router.navigate(["/application/source/add"]);
   }
 
   onActionEdit(): void {
@@ -130,23 +131,29 @@ export class ApplicationSourceTreeComponent implements OnInit, OnDestroy {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    this.router.navigate(['/application/source/edit/', id]);
+    this.router.navigate(["/application/source/edit/", id]);
   }
 
   onActionDelete(): void {
-
     let id = 0;
     if (this.dataModelSelect && this.dataModelSelect.id > 0) {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    this.router.navigate(['/application/source/delete/', id]);
-
+    this.router.navigate(["/application/source/delete/", id]);
   }
 }

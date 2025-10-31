@@ -25,9 +25,9 @@
       <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
         <button matIconButton disabled></button>
         <mat-checkbox
-          class="checklist-leaf-node"
           [checked]="checklistSelection.isSelected(node)"
-          (change)="checklistSelection.toggle(node)"
+          [indeterminate]="descendantsPartiallySelected(node)"
+          (change)="todoItemSelectionToggle(node)"
           >{{ node.title }}</mat-checkbox
         >
       </mat-tree-node>
@@ -56,7 +56,6 @@
         >
       </mat-tree-node>
     </mat-tree>
-
 
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
   </ng-container>

@@ -28,10 +28,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-  selector: 'app-core-site-reseller-chart',
-  templateUrl: './reseller-chart.component.html',
-  styleUrls: ['./reseller-chart.component.scss'],
-  standalone: false
+  selector: "app-core-site-reseller-chart",
+  templateUrl: "./reseller-chart.component.html",
+  styleUrls: ["./reseller-chart.component.scss"],
+  standalone: false,
 })
 export class CoreSiteResellerChartComponent implements OnInit, OnDestroy {
   requestLinkSiteId = 0;
@@ -50,22 +50,26 @@ export class CoreSiteResellerChartComponent implements OnInit, OnDestroy {
   ) {
     this.publicHelper.processService.cdr = this.cdr;
 
-    this.requestLinkSiteId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkSiteId'));
+    this.requestLinkSiteId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
+    );
   }
 
   dataModelSelect: RessellerChartModel = new RessellerChartModel();
-  dataModelResult: ErrorExceptionResult<RessellerChartModel> = new ErrorExceptionResult<RessellerChartModel>();
+  dataModelResult: ErrorExceptionResult<RessellerChartModel> =
+    new ErrorExceptionResult<RessellerChartModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<RessellerChartModel>(node => node.siteChilds);
+  treeControl = new NestedTreeControl<RessellerChartModel>(
+    (node) => node.siteChilds,
+  );
 
   dataSource = new MatTreeNestedDataSource<RessellerChartModel>();
   @Output() optionChange = new EventEmitter<RessellerChartModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
 
-  // hasChild = (_: number, node: RessellerChartModel) => false;
+
   hasChild(_: number, node: RessellerChartModel): boolean {
     if (node && node.siteChilds && node.siteChilds.length > 0) {
       return true;
@@ -75,16 +79,17 @@ export class CoreSiteResellerChartComponent implements OnInit, OnDestroy {
     // }
     return false;
   }
-
+  childrenAccessor = (node: RessellerChartModel) => node.siteChilds ?? [];
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    })
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -95,27 +100,34 @@ export class CoreSiteResellerChartComponent implements OnInit, OnDestroy {
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
-    this.categoryService.ServiceGetRessellerChart(this.requestLinkSiteId).subscribe({
-      next: (ret) => {
-        if (ret.isSuccess) {
-          this.dataModelResult = ret;
-          this.dataSource.data = [this.dataModelResult.item];
-        } else {
-          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-        }
-        this.publicHelper.processService.processStop(pName);
-      },
-      error: (er) => {
-        this.cmsToastrService.typeError(er);
-        this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+    this.categoryService
+      .ServiceGetRessellerChart(this.requestLinkSiteId)
+      .subscribe({
+        next: (ret) => {
+          if (ret.isSuccess) {
+            this.dataModelResult = ret;
+            this.dataSource.data = [this.dataModelResult.item];
+          } else {
+            this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+          }
+          this.publicHelper.processService.processStop(pName);
+        },
+        error: (er) => {
+          this.cmsToastrService.typeError(er);
+          this.publicHelper.processService.processStop(pName, false);
+        },
+      });
   }
   onActionSelect(model: RessellerChartModel): void {
     this.dataModelSelect = model;
@@ -124,13 +136,10 @@ export class CoreSiteResellerChartComponent implements OnInit, OnDestroy {
   onActionButtonReload(): void {
     if (this.dataModelSelect) {
       this.onActionSelect(this.dataModelSelect);
-    }
-    else {
+    } else {
       this.onActionSelect(null);
     }
     this.dataModelSelect = new RessellerChartModel();
     this.DataGetAll();
   }
-
-
 }

@@ -1,5 +1,4 @@
-
-import { NestedTreeControl } from '@angular/cdk/tree';
+import { NestedTreeControl } from "@angular/cdk/tree";
 import {
   ChangeDetectorRef,
   Component,
@@ -7,34 +6,32 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+  Output,
+} from "@angular/core";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
-import { TranslateService } from '@ngx-translate/core';
-import {
-  CoreEnumService, DonateTargetModel,
-  DonateTargetService, ErrorExceptionResult,
-  FilterModel
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { environment } from 'src/environments/environment';
-import { DonateTargetAddComponent } from '../add/add.component';
-import { DonateTargetDeleteComponent } from '../delete/delete.component';
-import { DonateTargetEditComponent } from '../edit/edit.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
-
+  CoreEnumService,
+  DonateTargetModel,
+  DonateTargetService,
+  ErrorExceptionResult,
+  FilterModel,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { environment } from "src/environments/environment";
+import { DonateTargetAddComponent } from "../add/add.component";
+import { DonateTargetDeleteComponent } from "../delete/delete.component";
+import { DonateTargetEditComponent } from "../edit/edit.component";
 
 @Component({
-  selector: 'app-donate-target-tree',
-  templateUrl: './tree.component.html',
-  standalone: false
+  selector: "app-donate-target-tree",
+  templateUrl: "./tree.component.html",
+  standalone: false,
 })
 export class DonateTargetTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -55,28 +52,28 @@ export class DonateTargetTreeComponent implements OnInit, OnDestroy {
     this.onActionSelectForce(x);
   }
   dataModelSelect: DonateTargetModel = new DonateTargetModel();
-  dataModelResult: ErrorExceptionResult<DonateTargetModel> = new ErrorExceptionResult<DonateTargetModel>();
+  dataModelResult: ErrorExceptionResult<DonateTargetModel> =
+    new ErrorExceptionResult<DonateTargetModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<DonateTargetModel>(node => null);
+  treeControl = new NestedTreeControl<DonateTargetModel>((node) => null);
   dataSource = new MatTreeNestedDataSource<DonateTargetModel>();
   @Output() optionChange = new EventEmitter<DonateTargetModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
 
   hasChild = (_: number, node: DonateTargetModel) => null;
-
-
+  childrenAccessor = (node: DonateTargetModel) => null;
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    })
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -87,10 +84,16 @@ export class DonateTargetTreeComponent implements OnInit, OnDestroy {
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAll(this.filterModel).subscribe({
       next: (ret) => {
@@ -101,14 +104,12 @@ export class DonateTargetTreeComponent implements OnInit, OnDestroy {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: DonateTargetModel): void {
     this.dataModelSelect = model;
@@ -120,9 +121,7 @@ export class DonateTargetTreeComponent implements OnInit, OnDestroy {
     this.dataModelSelect = new DonateTargetModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | DonateTargetModel): void {
-
-  }
+  onActionSelectForce(id: number | DonateTargetModel): void {}
 
   onActionAdd(): void {
     let parentId = 0;
@@ -135,9 +134,8 @@ export class DonateTargetTreeComponent implements OnInit, OnDestroy {
     dialogConfig.autoFocus = true;
     dialogConfig.data = { parentId };
 
-
     const dialogRef = this.dialog.open(DonateTargetAddComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -150,22 +148,24 @@ export class DonateTargetTreeComponent implements OnInit, OnDestroy {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(DonateTargetEditComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -178,26 +178,27 @@ export class DonateTargetTreeComponent implements OnInit, OnDestroy {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(DonateTargetDeleteComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
     });
   }
-
 }

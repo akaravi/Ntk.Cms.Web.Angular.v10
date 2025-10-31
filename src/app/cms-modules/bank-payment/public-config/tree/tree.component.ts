@@ -31,9 +31,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-  selector: 'app-bankpayment-publicconfig-tree',
-  templateUrl: './tree.component.html',
-  standalone: false
+  selector: "app-bankpayment-publicconfig-tree",
+  templateUrl: "./tree.component.html",
+  standalone: false,
 })
 export class BankPaymentPublicConfigTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -46,34 +46,37 @@ export class BankPaymentPublicConfigTreeComponent implements OnInit, OnDestroy {
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
-
   }
   @Input() set optionSelectForce(x: number | BankPaymentPublicConfigModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: BankPaymentPublicConfigModel = new BankPaymentPublicConfigModel();
-  dataModelResult: ErrorExceptionResult<BankPaymentPublicConfigModel> = new ErrorExceptionResult<BankPaymentPublicConfigModel>();
+  dataModelSelect: BankPaymentPublicConfigModel =
+    new BankPaymentPublicConfigModel();
+  dataModelResult: ErrorExceptionResult<BankPaymentPublicConfigModel> =
+    new ErrorExceptionResult<BankPaymentPublicConfigModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<BankPaymentPublicConfigModel>(node => null);
+  treeControl = new NestedTreeControl<BankPaymentPublicConfigModel>(
+    (node) => null,
+  );
   dataSource = new MatTreeNestedDataSource<BankPaymentPublicConfigModel>();
   @Output() optionChange = new EventEmitter<BankPaymentPublicConfigModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
   hasChild = (_: number, node: BankPaymentPublicConfigModel) => false;
-
+  childrenAccessor = (node: BankPaymentPublicConfigModel) => [];
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -83,10 +86,16 @@ export class BankPaymentPublicConfigTreeComponent implements OnInit, OnDestroy {
   DataGetAll(): void {
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.categoryService.ServiceGetAll(this.filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
@@ -100,9 +109,8 @@ export class BankPaymentPublicConfigTreeComponent implements OnInit, OnDestroy {
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: BankPaymentPublicConfigModel): void {
     this.dataModelSelect = model;
@@ -114,22 +122,19 @@ export class BankPaymentPublicConfigTreeComponent implements OnInit, OnDestroy {
     this.dataModelSelect = new BankPaymentPublicConfigModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | BankPaymentPublicConfigModel): void {
-  }
+  onActionSelectForce(id: number | BankPaymentPublicConfigModel): void {}
   onActionAdd(): void {
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(BankPaymentPublicConfigAddComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: {}
+      data: {},
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -141,22 +146,24 @@ export class BankPaymentPublicConfigTreeComponent implements OnInit, OnDestroy {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(BankPaymentPublicConfigEditComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }

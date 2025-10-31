@@ -34,11 +34,13 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-  selector: 'app-linkmanagement-billboard-pattern-tree',
-  templateUrl: './tree.component.html',
-  standalone: false
+  selector: "app-linkmanagement-billboard-pattern-tree",
+  templateUrl: "./tree.component.html",
+  standalone: false,
 })
-export class LinkManagementBillboardPatternTreeComponent implements OnInit, OnDestroy {
+export class LinkManagementBillboardPatternTreeComponent
+  implements OnInit, OnDestroy
+{
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private cmsToastrService: CmsToastrService,
@@ -53,32 +55,39 @@ export class LinkManagementBillboardPatternTreeComponent implements OnInit, OnDe
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }
-  @Input() set optionSelectForce(x: number | LinkManagementBillboardPatternModel) {
+  @Input() set optionSelectForce(
+    x: number | LinkManagementBillboardPatternModel,
+  ) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: LinkManagementBillboardPatternModel = new LinkManagementBillboardPatternModel();
-  dataModelResult: ErrorExceptionResult<LinkManagementBillboardPatternModel> = new ErrorExceptionResult<LinkManagementBillboardPatternModel>();
+  dataModelSelect: LinkManagementBillboardPatternModel =
+    new LinkManagementBillboardPatternModel();
+  dataModelResult: ErrorExceptionResult<LinkManagementBillboardPatternModel> =
+    new ErrorExceptionResult<LinkManagementBillboardPatternModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<LinkManagementBillboardPatternModel>(node => null);
-  dataSource = new MatTreeNestedDataSource<LinkManagementBillboardPatternModel>();
-  @Output() optionChange = new EventEmitter<LinkManagementBillboardPatternModel>();
+  treeControl = new NestedTreeControl<LinkManagementBillboardPatternModel>(
+    (node) => null,
+  );
+  dataSource =
+    new MatTreeNestedDataSource<LinkManagementBillboardPatternModel>();
+  @Output() optionChange =
+    new EventEmitter<LinkManagementBillboardPatternModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
 
   hasChild = (_: number, node: LinkManagementBillboardPatternModel) => false;
-
-
+  childrenAccessor = (node: LinkManagementBillboardPatternModel) => [];
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    })
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -89,10 +98,16 @@ export class LinkManagementBillboardPatternTreeComponent implements OnInit, OnDe
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAll(this.filterModel).subscribe({
       next: (ret) => {
@@ -107,9 +122,8 @@ export class LinkManagementBillboardPatternTreeComponent implements OnInit, OnDe
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: LinkManagementBillboardPatternModel): void {
     this.dataModelSelect = model;
@@ -121,9 +135,7 @@ export class LinkManagementBillboardPatternTreeComponent implements OnInit, OnDe
     this.dataModelSelect = new LinkManagementBillboardPatternModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | LinkManagementBillboardPatternModel): void {
-
-  }
+  onActionSelectForce(id: number | LinkManagementBillboardPatternModel): void {}
 
   onActionAdd(): void {
     let parentId = 0;
@@ -132,14 +144,16 @@ export class LinkManagementBillboardPatternTreeComponent implements OnInit, OnDe
     }
 
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.height = '90%';
+    dialogConfig.height = "90%";
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.data = { parentId };
 
-
-    const dialogRef = this.dialog.open(LinkManagementBillboardPatternAddComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogRef = this.dialog.open(
+      LinkManagementBillboardPatternAddComponent,
+      dialogConfig,
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -153,22 +167,28 @@ export class LinkManagementBillboardPatternTreeComponent implements OnInit, OnDe
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
-    const dialogRef = this.dialog.open(LinkManagementBillboardPatternEditComponent, {
-      height: '90%',
-      panelClass: panelClass,
-      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
-      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
-    });
-    dialogRef.afterClosed().subscribe(result => {
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
+    const dialogRef = this.dialog.open(
+      LinkManagementBillboardPatternEditComponent,
+      {
+        height: "90%",
+        panelClass: panelClass,
+        enterAnimationDuration:
+          environment.cmsViewConfig.enterAnimationDuration,
+        exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+        data: { id },
+      },
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -186,27 +206,32 @@ export class LinkManagementBillboardPatternTreeComponent implements OnInit, OnDe
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
-    const dialogRef = this.dialog.open(LinkManagementBillboardPatternDeleteComponent, {
-      height: '90%',
-      panelClass: panelClass,
-      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
-      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
-    });
-    dialogRef.afterClosed().subscribe(result => {
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
+    const dialogRef = this.dialog.open(
+      LinkManagementBillboardPatternDeleteComponent,
+      {
+        height: "90%",
+        panelClass: panelClass,
+        enterAnimationDuration:
+          environment.cmsViewConfig.enterAnimationDuration,
+        exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+        data: { id },
+      },
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
     });
   }
-
 }

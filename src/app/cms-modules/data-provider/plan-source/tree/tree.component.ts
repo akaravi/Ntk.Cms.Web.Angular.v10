@@ -32,9 +32,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-  selector: 'app-data-provider-plan-source-tree',
-  templateUrl: './tree.component.html',
-  standalone: false
+  selector: "app-data-provider-plan-source-tree",
+  templateUrl: "./tree.component.html",
+  standalone: false,
 })
 export class DataProviderPlanSourceTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -54,29 +54,32 @@ export class DataProviderPlanSourceTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | DataProviderPlanSourceModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: DataProviderPlanSourceModel = new DataProviderPlanSourceModel();
-  dataModelResult: ErrorExceptionResult<DataProviderPlanSourceModel> = new ErrorExceptionResult<DataProviderPlanSourceModel>();
+  dataModelSelect: DataProviderPlanSourceModel =
+    new DataProviderPlanSourceModel();
+  dataModelResult: ErrorExceptionResult<DataProviderPlanSourceModel> =
+    new ErrorExceptionResult<DataProviderPlanSourceModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<DataProviderPlanSourceModel>(node => null);
+  treeControl = new NestedTreeControl<DataProviderPlanSourceModel>(
+    (node) => null,
+  );
   dataSource = new MatTreeNestedDataSource<DataProviderPlanSourceModel>();
   @Output() optionChange = new EventEmitter<DataProviderPlanSourceModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
 
   hasChild = (_: number, node: DataProviderPlanSourceModel) => null;
-
-
+  childrenAccessor = (node: DataProviderPlanSourceModel) => null;
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    })
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -87,10 +90,16 @@ export class DataProviderPlanSourceTreeComponent implements OnInit, OnDestroy {
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAll(this.filterModel).subscribe({
       next: (ret) => {
@@ -101,14 +110,12 @@ export class DataProviderPlanSourceTreeComponent implements OnInit, OnDestroy {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: DataProviderPlanSourceModel): void {
     this.dataModelSelect = model;
@@ -120,9 +127,7 @@ export class DataProviderPlanSourceTreeComponent implements OnInit, OnDestroy {
     this.dataModelSelect = new DataProviderPlanSourceModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | DataProviderPlanSourceModel): void {
-
-  }
+  onActionSelectForce(id: number | DataProviderPlanSourceModel): void {}
 
   onActionAdd(): void {
     let parentId = 0;
@@ -133,12 +138,14 @@ export class DataProviderPlanSourceTreeComponent implements OnInit, OnDestroy {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.height = '90%';
+    dialogConfig.height = "90%";
     dialogConfig.data = { parentId };
 
-
-    const dialogRef = this.dialog.open(DataProviderPlanSourceAddComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogRef = this.dialog.open(
+      DataProviderPlanSourceAddComponent,
+      dialogConfig,
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -151,22 +158,24 @@ export class DataProviderPlanSourceTreeComponent implements OnInit, OnDestroy {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(DataProviderPlanSourceEditComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -180,26 +189,27 @@ export class DataProviderPlanSourceTreeComponent implements OnInit, OnDestroy {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(DataProviderPlanSourceDeleteComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
     });
   }
-
 }

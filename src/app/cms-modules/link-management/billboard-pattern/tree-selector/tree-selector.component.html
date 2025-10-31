@@ -19,55 +19,44 @@
     <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
     </app-progress-spinner>
     <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
-    <mat-tree
-      class="category-tree cursor-pointer"
+   <mat-tree
+      #treeTagControl
       [dataSource]="dataSource"
-      [treeControl]="treeControl"
+      [childrenAccessor]="childrenAccessor"
     >
-      <mat-nested-tree-node
-        *matTreeNodeDef="let node; let i = dataIndex"
-        [class.ntk-tree-even]="!(i % 2)"
+      <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+        <button matIconButton disabled></button>
+        <mat-checkbox
+          [checked]="checklistSelection.isSelected(node)"
+          [indeterminate]="descendantsPartiallySelected(node)"
+          (change)="todoItemSelectionToggle(node)"
+          >{{ node.title }}</mat-checkbox
+        >
+      </mat-tree-node>
+      <mat-tree-node
+        *matTreeNodeDef="let node; when: hasChild"
+        matTreeNodePadding
+        matTreeNodeToggle
+        [cdkTreeNodeTypeaheadLabel]="node.title"
       >
-        <li>
-          <div class="mat-tree-node">
-            <button type="button" mat-icon-button disabled></button>
-            <mat-checkbox
-              class="checklist-leaf-node"
-              [checked]="checklistSelection.isSelected(node)"
-              (change)="checklistSelection.toggle(node)"
-              >{{ node.title }}</mat-checkbox
-            >
-          </div>
-        </li>
-      </mat-nested-tree-node>
-      <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
-        <li>
-          <div class="mat-tree-node">
-            <button
-              type="button"
-              mat-icon-button
-              matTreeNodeToggle
-              [attr.aria-label]="'Toggle ' + node.title"
-            >
-              <mat-icon class="mat-icon-rtl-mirror">
-                {{
-                  treeControl.isExpanded(node) ? "expand_more" : "chevron_right"
-                }}
-              </mat-icon>
-            </button>
-            <mat-checkbox
-              [checked]="checklistSelection.isSelected(node)"
-              [indeterminate]="descendantsPartiallySelected(node)"
-              (change)="todoItemSelectionToggle(node)"
-            >
-              {{ node.title }}</mat-checkbox
-            >
-          </div>
-          <ul [class.category-tree-invisible]="!treeControl.isExpanded(node)">
-            <ng-container matTreeNodeOutlet></ng-container>
-          </ul>
-        </li>
-      </mat-nested-tree-node>
+        <button
+          matIconButton
+          matTreeNodeToggle
+          [attr.aria-label]="'Toggle ' + node.title"
+        >
+          <mat-icon class="mat-icon-rtl-mirror">
+            {{
+              treeTagControl.isExpanded(node) ? "expand_more" : "chevron_right"
+            }}
+          </mat-icon>
+        </button>
+        <mat-checkbox
+          class="checklist-leaf-node"
+          [checked]="checklistSelection.isSelected(node)"
+          (change)="checklistSelection.toggle(node)"
+          >{{ node.title }}</mat-checkbox
+        >
+      </mat-tree-node>
     </mat-tree>
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
   </ng-container>

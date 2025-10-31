@@ -31,11 +31,13 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-  selector: 'app-bankpayment-privatesiteconfig-tree',
-  templateUrl: './tree.component.html',
-  standalone: false
+  selector: "app-bankpayment-privatesiteconfig-tree",
+  templateUrl: "./tree.component.html",
+  standalone: false,
 })
-export class BankPaymentPrivateSiteConfigTreeComponent implements OnInit, OnDestroy {
+export class BankPaymentPrivateSiteConfigTreeComponent
+  implements OnInit, OnDestroy
+{
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private cmsToastrService: CmsToastrService,
@@ -46,34 +48,40 @@ export class BankPaymentPrivateSiteConfigTreeComponent implements OnInit, OnDest
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
-
   }
-  @Input() set optionSelectForce(x: number | BankPaymentPrivateSiteConfigModel) {
+  @Input() set optionSelectForce(
+    x: number | BankPaymentPrivateSiteConfigModel,
+  ) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: BankPaymentPrivateSiteConfigModel = new BankPaymentPrivateSiteConfigModel();
-  dataModelResult: ErrorExceptionResult<BankPaymentPrivateSiteConfigModel> = new ErrorExceptionResult<BankPaymentPrivateSiteConfigModel>();
+  dataModelSelect: BankPaymentPrivateSiteConfigModel =
+    new BankPaymentPrivateSiteConfigModel();
+  dataModelResult: ErrorExceptionResult<BankPaymentPrivateSiteConfigModel> =
+    new ErrorExceptionResult<BankPaymentPrivateSiteConfigModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<BankPaymentPrivateSiteConfigModel>(node => null);
+  treeControl = new NestedTreeControl<BankPaymentPrivateSiteConfigModel>(
+    (node) => null,
+  );
   dataSource = new MatTreeNestedDataSource<BankPaymentPrivateSiteConfigModel>();
-  @Output() optionChange = new EventEmitter<BankPaymentPrivateSiteConfigModel>();
+  @Output() optionChange =
+    new EventEmitter<BankPaymentPrivateSiteConfigModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
   hasChild = (_: number, node: BankPaymentPrivateSiteConfigModel) => false;
-
+  childrenAccessor = (node: BankPaymentPrivateSiteConfigModel) => [];
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -83,10 +91,16 @@ export class BankPaymentPrivateSiteConfigTreeComponent implements OnInit, OnDest
   DataGetAll(): void {
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.categoryService.ServiceGetAll(this.filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
@@ -98,9 +112,8 @@ export class BankPaymentPrivateSiteConfigTreeComponent implements OnInit, OnDest
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: BankPaymentPrivateSiteConfigModel): void {
     this.dataModelSelect = model;
@@ -112,22 +125,23 @@ export class BankPaymentPrivateSiteConfigTreeComponent implements OnInit, OnDest
     this.dataModelSelect = new BankPaymentPrivateSiteConfigModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | BankPaymentPrivateSiteConfigModel): void {
-  }
+  onActionSelectForce(id: number | BankPaymentPrivateSiteConfigModel): void {}
   onActionAdd(): void {
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
-    const dialogRef = this.dialog.open(BankPaymentPrivateSiteConfigAddComponent, {
-      height: '90%',
-      panelClass: panelClass,
-      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
-      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: {}
-    });
-    dialogRef.afterClosed().subscribe(result => {
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
+    const dialogRef = this.dialog.open(
+      BankPaymentPrivateSiteConfigAddComponent,
+      {
+        height: "90%",
+        panelClass: panelClass,
+        enterAnimationDuration:
+          environment.cmsViewConfig.enterAnimationDuration,
+        exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+        data: {},
+      },
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -139,22 +153,28 @@ export class BankPaymentPrivateSiteConfigTreeComponent implements OnInit, OnDest
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
-    const dialogRef = this.dialog.open(BankPaymentPrivateSiteConfigEditComponent, {
-      height: '90%',
-      panelClass: panelClass,
-      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
-      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
-    });
-    dialogRef.afterClosed().subscribe(result => {
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
+    const dialogRef = this.dialog.open(
+      BankPaymentPrivateSiteConfigEditComponent,
+      {
+        height: "90%",
+        panelClass: panelClass,
+        enterAnimationDuration:
+          environment.cmsViewConfig.enterAnimationDuration,
+        exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+        data: { id },
+      },
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }

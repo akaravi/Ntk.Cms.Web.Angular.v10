@@ -31,11 +31,13 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-  selector: 'app-donate-target-period-sponser-tree',
-  templateUrl: './tree.component.html',
-  standalone: false
+  selector: "app-donate-target-period-sponser-tree",
+  templateUrl: "./tree.component.html",
+  standalone: false,
 })
-export class DonateTargetPeriodSponserTreeComponent implements OnInit, OnDestroy {
+export class DonateTargetPeriodSponserTreeComponent
+  implements OnInit, OnDestroy
+{
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private cmsToastrService: CmsToastrService,
@@ -53,29 +55,32 @@ export class DonateTargetPeriodSponserTreeComponent implements OnInit, OnDestroy
   @Input() set optionSelectForce(x: number | DonateTargetPeriodSponsorModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: DonateTargetPeriodSponsorModel = new DonateTargetPeriodSponsorModel();
-  dataModelResult: ErrorExceptionResult<DonateTargetPeriodSponsorModel> = new ErrorExceptionResult<DonateTargetPeriodSponsorModel>();
+  dataModelSelect: DonateTargetPeriodSponsorModel =
+    new DonateTargetPeriodSponsorModel();
+  dataModelResult: ErrorExceptionResult<DonateTargetPeriodSponsorModel> =
+    new ErrorExceptionResult<DonateTargetPeriodSponsorModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<DonateTargetPeriodSponsorModel>(node => null);
+  treeControl = new NestedTreeControl<DonateTargetPeriodSponsorModel>(
+    (node) => null,
+  );
   dataSource = new MatTreeNestedDataSource<DonateTargetPeriodSponsorModel>();
   @Output() optionChange = new EventEmitter<DonateTargetPeriodSponsorModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
 
   hasChild = (_: number, node: DonateTargetPeriodSponsorModel) => null;
-
-
+  childrenAccessor = (node: DonateTargetPeriodSponsorModel) => null;
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    })
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -86,10 +91,16 @@ export class DonateTargetPeriodSponserTreeComponent implements OnInit, OnDestroy
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAll(this.filterModel).subscribe({
       next: (ret) => {
@@ -104,9 +115,8 @@ export class DonateTargetPeriodSponserTreeComponent implements OnInit, OnDestroy
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: DonateTargetPeriodSponsorModel): void {
     this.dataModelSelect = model;
@@ -118,9 +128,7 @@ export class DonateTargetPeriodSponserTreeComponent implements OnInit, OnDestroy
     this.dataModelSelect = new DonateTargetPeriodSponsorModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | DonateTargetPeriodSponsorModel): void {
-
-  }
+  onActionSelectForce(id: number | DonateTargetPeriodSponsorModel): void {}
 
   onActionAdd(): void {
     let parentId = 0;
@@ -133,9 +141,11 @@ export class DonateTargetPeriodSponserTreeComponent implements OnInit, OnDestroy
     dialogConfig.autoFocus = true;
     dialogConfig.data = { parentId };
 
-
-    const dialogRef = this.dialog.open(DonateTargetPeriodSponserAddComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogRef = this.dialog.open(
+      DonateTargetPeriodSponserAddComponent,
+      dialogConfig,
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -149,22 +159,24 @@ export class DonateTargetPeriodSponserTreeComponent implements OnInit, OnDestroy
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(DonateTargetPeriodSponserEditComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -182,27 +194,32 @@ export class DonateTargetPeriodSponserTreeComponent implements OnInit, OnDestroy
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
-    const dialogRef = this.dialog.open(DonateTargetPeriodSponserDeleteComponent, {
-      height: '90%',
-      panelClass: panelClass,
-      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
-      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
-    });
-    dialogRef.afterClosed().subscribe(result => {
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
+    const dialogRef = this.dialog.open(
+      DonateTargetPeriodSponserDeleteComponent,
+      {
+        height: "90%",
+        panelClass: panelClass,
+        enterAnimationDuration:
+          environment.cmsViewConfig.enterAnimationDuration,
+        exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+        data: { id },
+      },
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
     });
   }
-
 }

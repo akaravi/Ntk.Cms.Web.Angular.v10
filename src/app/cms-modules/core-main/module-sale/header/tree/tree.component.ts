@@ -31,9 +31,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-  selector: 'app-core-modulesaleheader-tree',
-  templateUrl: './tree.component.html',
-  standalone: false
+  selector: "app-core-modulesaleheader-tree",
+  templateUrl: "./tree.component.html",
+  standalone: false,
 })
 export class CoreModuleSaleHeaderTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -49,34 +49,35 @@ export class CoreModuleSaleHeaderTreeComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
-
   }
   @Input() set optionSelectForce(x: number | CoreModuleSaleHeaderModel) {
     this.onActionSelectForce(x);
   }
   dataModelSelect: CoreModuleSaleHeaderModel = new CoreModuleSaleHeaderModel();
-  dataModelResult: ErrorExceptionResult<CoreModuleSaleHeaderModel> = new ErrorExceptionResult<CoreModuleSaleHeaderModel>();
+  dataModelResult: ErrorExceptionResult<CoreModuleSaleHeaderModel> =
+    new ErrorExceptionResult<CoreModuleSaleHeaderModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<CoreModuleSaleHeaderModel>(node => null);
+  treeControl = new NestedTreeControl<CoreModuleSaleHeaderModel>(
+    (node) => null,
+  );
   dataSource = new MatTreeNestedDataSource<CoreModuleSaleHeaderModel>();
   @Output() optionChange = new EventEmitter<CoreModuleSaleHeaderModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
 
   hasChild = (_: number, node: CoreModuleSaleHeaderModel) => false;
-
-
+  childrenAccessor = (node: CoreModuleSaleHeaderModel) => [];
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    })
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -87,10 +88,16 @@ export class CoreModuleSaleHeaderTreeComponent implements OnInit, OnDestroy {
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAll(this.filterModel).subscribe({
       next: (ret) => {
@@ -105,9 +112,8 @@ export class CoreModuleSaleHeaderTreeComponent implements OnInit, OnDestroy {
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: CoreModuleSaleHeaderModel): void {
     this.dataModelSelect = model;
@@ -119,24 +125,20 @@ export class CoreModuleSaleHeaderTreeComponent implements OnInit, OnDestroy {
     this.dataModelSelect = new CoreModuleSaleHeaderModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | CoreModuleSaleHeaderModel): void {
-
-  }
+  onActionSelectForce(id: number | CoreModuleSaleHeaderModel): void {}
 
   onActionAdd(): void {
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(CoreModuleSaleHeaderAddComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: {}
+      data: {},
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -149,22 +151,24 @@ export class CoreModuleSaleHeaderTreeComponent implements OnInit, OnDestroy {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(CoreModuleSaleHeaderEditComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }

@@ -9,7 +9,7 @@ import {
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CoreSiteCategoryCmsModuleListComponent } from './list/list.component';
 import { CoreSiteCategoryCmsModuleSelectorComponent } from './selector/selector.component';
-import { CoreSiteCategoryCmsModuleTreeComponent } from './tree/tree.component';
+
 
 import { AngularEditorModule } from '@kolkov/angular-editor';
 
@@ -32,7 +32,7 @@ import { CoreSiteCategoryCmsModuleListViewComponent } from './listview/listview.
     CoreSiteCategoryCmsModuleEditComponent,
 
     CoreSiteCategoryCmsModuleSelectorComponent,
-    CoreSiteCategoryCmsModuleTreeComponent,
+
   ],
   exports: [
     CoreSiteCategoryCmsModuleComponent,
@@ -42,7 +42,7 @@ import { CoreSiteCategoryCmsModuleListViewComponent } from './listview/listview.
     CoreSiteCategoryCmsModuleEditComponent,
 
     CoreSiteCategoryCmsModuleSelectorComponent,
-    CoreSiteCategoryCmsModuleTreeComponent,
+
   ],
   imports: [
     CommonModule,

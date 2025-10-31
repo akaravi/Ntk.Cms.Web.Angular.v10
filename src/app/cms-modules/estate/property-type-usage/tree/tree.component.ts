@@ -31,9 +31,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-  selector: 'app-estate-property-type-usage-tree',
-  templateUrl: './tree.component.html',
-  standalone: false
+  selector: "app-estate-property-type-usage-tree",
+  templateUrl: "./tree.component.html",
+  standalone: false,
 })
 export class EstatePropertyTypeUsageTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -54,29 +54,32 @@ export class EstatePropertyTypeUsageTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | EstatePropertyTypeUsageModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: EstatePropertyTypeUsageModel = new EstatePropertyTypeUsageModel();
-  dataModelResult: ErrorExceptionResult<EstatePropertyTypeUsageModel> = new ErrorExceptionResult<EstatePropertyTypeUsageModel>();
+  dataModelSelect: EstatePropertyTypeUsageModel =
+    new EstatePropertyTypeUsageModel();
+  dataModelResult: ErrorExceptionResult<EstatePropertyTypeUsageModel> =
+    new ErrorExceptionResult<EstatePropertyTypeUsageModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<EstatePropertyTypeUsageModel>(node => null);
+  treeControl = new NestedTreeControl<EstatePropertyTypeUsageModel>(
+    (node) => null,
+  );
   dataSource = new MatTreeNestedDataSource<EstatePropertyTypeUsageModel>();
   @Output() optionChange = new EventEmitter<EstatePropertyTypeUsageModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
 
   hasChild = (_: number, node: EstatePropertyTypeUsageModel) => false;
-
-
+  childrenAccessor = (node: EstatePropertyTypeUsageModel) => [];
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    })
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -87,10 +90,16 @@ export class EstatePropertyTypeUsageTreeComponent implements OnInit, OnDestroy {
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAll(this.filterModel).subscribe({
       next: (ret) => {
@@ -101,14 +110,12 @@ export class EstatePropertyTypeUsageTreeComponent implements OnInit, OnDestroy {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: EstatePropertyTypeUsageModel): void {
     this.dataModelSelect = model;
@@ -120,24 +127,20 @@ export class EstatePropertyTypeUsageTreeComponent implements OnInit, OnDestroy {
     this.dataModelSelect = new EstatePropertyTypeUsageModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | EstatePropertyTypeUsageModel): void {
-
-  }
+  onActionSelectForce(id: number | EstatePropertyTypeUsageModel): void {}
 
   onActionAdd(): void {
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(EstatePropertyTypeUsageAddComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: {}
+      data: {},
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -145,27 +148,33 @@ export class EstatePropertyTypeUsageTreeComponent implements OnInit, OnDestroy {
   }
 
   onActionEdit(): void {
-    let id = '';
-    if (this.dataModelSelect && this.dataModelSelect.id && this.dataModelSelect.id.length > 0) {
+    let id = "";
+    if (
+      this.dataModelSelect &&
+      this.dataModelSelect.id &&
+      this.dataModelSelect.id.length > 0
+    ) {
       id = this.dataModelSelect.id;
     }
-    if (id === '') {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+    if (id === "") {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(EstatePropertyTypeUsageEditComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -173,55 +182,75 @@ export class EstatePropertyTypeUsageTreeComponent implements OnInit, OnDestroy {
   }
 
   onActionDelete(): void {
-
-    let id = '';
-    if (this.dataModelSelect && this.dataModelSelect.id && this.dataModelSelect.id.length > 0) {
+    let id = "";
+    if (
+      this.dataModelSelect &&
+      this.dataModelSelect.id &&
+      this.dataModelSelect.id.length > 0
+    ) {
       id = this.dataModelSelect.id;
     }
-    if (id === '') {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => {
-        this.cmsToastrService.typeErrorSelected(str);
-      });
+    if (id === "") {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
 
     var title = "";
     var message = "";
-    this.translate.get(['MESSAGE.Please_Confirm', 'MESSAGE.Do_you_want_to_delete_this_content']).subscribe((str: string) => {
-      title = str['MESSAGE.Please_Confirm'];
-      message = str['MESSAGE.Do_you_want_to_delete_this_content'] + '?' + '<br> ( ' + this.dataModelSelect.title + ' ) ';
-    this.cmsConfirmationDialogService.confirm(title, message)
-      .then((confirmed) => {
-        if (confirmed) {
-          const pName = this.constructor.name + 'main';
-          this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-            this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-          });
+    this.translate
+      .get([
+        "MESSAGE.Please_Confirm",
+        "MESSAGE.Do_you_want_to_delete_this_content",
+      ])
+      .subscribe((str: string) => {
+        title = str["MESSAGE.Please_Confirm"];
+        message =
+          str["MESSAGE.Do_you_want_to_delete_this_content"] +
+          "?" +
+          "<br> ( " +
+          this.dataModelSelect.title +
+          " ) ";
+        this.cmsConfirmationDialogService
+          .confirm(title, message)
+          .then((confirmed) => {
+            if (confirmed) {
+              const pName = this.constructor.name + "main";
+              this.translate
+                .get("MESSAGE.Receiving_information")
+                .subscribe((str: string) => {
+                  this.publicHelper.processService.processStart(
+                    pName,
+                    str,
+                    this.constructorInfoAreaId,
+                  );
+                });
 
-          this.categoryService.ServiceDelete(this.dataModelSelect.id).subscribe({
-            next: (ret) => {
-              if (ret.isSuccess) {
-                this.cmsToastrService.typeSuccessRemove();
-                this.DataGetAll();
-              } else {
-                this.cmsToastrService.typeErrorRemove();
-              }
-              this.publicHelper.processService.processStop(pName);
-
-            },
-            error: (er) => {
-              this.cmsToastrService.typeError(er);
-              this.publicHelper.processService.processStop(pName, false);
+              this.categoryService
+                .ServiceDelete(this.dataModelSelect.id)
+                .subscribe({
+                  next: (ret) => {
+                    if (ret.isSuccess) {
+                      this.cmsToastrService.typeSuccessRemove();
+                      this.DataGetAll();
+                    } else {
+                      this.cmsToastrService.typeErrorRemove();
+                    }
+                    this.publicHelper.processService.processStop(pName);
+                  },
+                  error: (er) => {
+                    this.cmsToastrService.typeError(er);
+                    this.publicHelper.processService.processStop(pName, false);
+                  },
+                });
             }
-          }
-          );
-        }
-      }
-      )
-      .catch(() => {
-        // console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)')
-      }
-      );
-    });
+          })
+          .catch(() => {
+            // console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)')
+          });
+      });
   }
 }

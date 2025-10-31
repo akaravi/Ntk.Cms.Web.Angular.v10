@@ -33,9 +33,9 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-  selector: 'app-member-propertyalias-tree',
-  templateUrl: './tree.component.html',
-  standalone: false
+  selector: "app-member-propertyalias-tree",
+  templateUrl: "./tree.component.html",
+  standalone: false,
 })
 export class MemberPropertyAliasTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -57,28 +57,28 @@ export class MemberPropertyAliasTreeComponent implements OnInit, OnDestroy {
     this.onActionSelectForce(x);
   }
   dataModelSelect: MemberPropertyAliasModel = new MemberPropertyAliasModel();
-  dataModelResult: ErrorExceptionResult<MemberPropertyAliasModel> = new ErrorExceptionResult<MemberPropertyAliasModel>();
+  dataModelResult: ErrorExceptionResult<MemberPropertyAliasModel> =
+    new ErrorExceptionResult<MemberPropertyAliasModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<MemberPropertyAliasModel>(node => null);
+  treeControl = new NestedTreeControl<MemberPropertyAliasModel>((node) => null);
   dataSource = new MatTreeNestedDataSource<MemberPropertyAliasModel>();
   @Output() optionChange = new EventEmitter<MemberPropertyAliasModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
 
   hasChild = (_: number, node: MemberPropertyAliasModel) => false;
-
-
+  childrenAccessor = (node: MemberPropertyAliasModel) => [];
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    })
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -89,10 +89,16 @@ export class MemberPropertyAliasTreeComponent implements OnInit, OnDestroy {
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAll(this.filterModel).subscribe({
       next: (ret) => {
@@ -107,9 +113,8 @@ export class MemberPropertyAliasTreeComponent implements OnInit, OnDestroy {
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: MemberPropertyAliasModel): void {
     this.dataModelSelect = model;
@@ -120,24 +125,20 @@ export class MemberPropertyAliasTreeComponent implements OnInit, OnDestroy {
     this.dataModelSelect = new MemberPropertyAliasModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | MemberPropertyAliasModel): void {
-
-  }
+  onActionSelectForce(id: number | MemberPropertyAliasModel): void {}
 
   onActionAdd(): void {
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(MemberPropertyAliasAddComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: {}
+      data: {},
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -146,26 +147,32 @@ export class MemberPropertyAliasTreeComponent implements OnInit, OnDestroy {
 
   onActionEdit(): void {
     let id = 0;
-    if (this.dataModelSelect && this.dataModelSelect.id && this.dataModelSelect.id > 0) {
+    if (
+      this.dataModelSelect &&
+      this.dataModelSelect.id &&
+      this.dataModelSelect.id > 0
+    ) {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(MemberPropertyAliasEditComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -173,54 +180,70 @@ export class MemberPropertyAliasTreeComponent implements OnInit, OnDestroy {
   }
 
   onActionDelete(): void {
-
     let id = 0;
-    if (this.dataModelSelect && this.dataModelSelect.id && this.dataModelSelect.id > 0) {
+    if (
+      this.dataModelSelect &&
+      this.dataModelSelect.id &&
+      this.dataModelSelect.id > 0
+    ) {
       id = this.dataModelSelect.id;
     }
     if (id === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => {
-        this.cmsToastrService.typeErrorSelected(str);
-      });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
 
     var title = "";
     var message = "";
-    this.translate.get(['MESSAGE.Please_Confirm', 'MESSAGE.Do_you_want_to_delete_this_content']).subscribe((str: string) => {
-      title = str['MESSAGE.Please_Confirm'];
-      message = str['MESSAGE.Do_you_want_to_delete_this_content'] + '?';
-    });
-    this.cmsConfirmationDialogService.confirm(title, message)
+    this.translate
+      .get([
+        "MESSAGE.Please_Confirm",
+        "MESSAGE.Do_you_want_to_delete_this_content",
+      ])
+      .subscribe((str: string) => {
+        title = str["MESSAGE.Please_Confirm"];
+        message = str["MESSAGE.Do_you_want_to_delete_this_content"] + "?";
+      });
+    this.cmsConfirmationDialogService
+      .confirm(title, message)
       .then((confirmed) => {
         if (confirmed) {
-          const pName = this.constructor.name + 'main';
-          this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-            this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-          });
+          const pName = this.constructor.name + "main";
+          this.translate
+            .get("MESSAGE.Receiving_information")
+            .subscribe((str: string) => {
+              this.publicHelper.processService.processStart(
+                pName,
+                str,
+                this.constructorInfoAreaId,
+              );
+            });
 
-          this.categoryService.ServiceDelete(this.dataModelSelect.id).subscribe({
-            next: (ret) => {
-              if (ret.isSuccess) {
-                this.cmsToastrService.typeSuccessRemove();
-                this.DataGetAll();
-              } else {
-                this.cmsToastrService.typeErrorRemove();
-              }
-              this.publicHelper.processService.processStop(pName);
-            },
-            error: (er) => {
-              this.cmsToastrService.typeError(er);
-              this.publicHelper.processService.processStop(pName, false);
-            }
-          }
-          );
+          this.categoryService
+            .ServiceDelete(this.dataModelSelect.id)
+            .subscribe({
+              next: (ret) => {
+                if (ret.isSuccess) {
+                  this.cmsToastrService.typeSuccessRemove();
+                  this.DataGetAll();
+                } else {
+                  this.cmsToastrService.typeErrorRemove();
+                }
+                this.publicHelper.processService.processStop(pName);
+              },
+              error: (er) => {
+                this.cmsToastrService.typeError(er);
+                this.publicHelper.processService.processStop(pName, false);
+              },
+            });
         }
-      }
-      )
+      })
       .catch(() => {
         // console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)')
-      }
-      );
+      });
   }
 }

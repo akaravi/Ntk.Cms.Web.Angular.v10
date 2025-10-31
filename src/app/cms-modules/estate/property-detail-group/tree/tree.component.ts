@@ -32,12 +32,14 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-  selector: 'app-estate-property-detail-group-tree',
-  templateUrl: './tree.component.html',
-  standalone: false
+  selector: "app-estate-property-detail-group-tree",
+  templateUrl: "./tree.component.html",
+  standalone: false,
 })
-export class EstatePropertyDetailGroupTreeComponent implements OnInit, OnDestroy {
-  requestLinkPropertyTypeLanduseId = '';
+export class EstatePropertyDetailGroupTreeComponent
+  implements OnInit, OnDestroy
+{
+  requestLinkPropertyTypeLanduseId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private cmsToastrService: CmsToastrService,
@@ -56,12 +58,15 @@ export class EstatePropertyDetailGroupTreeComponent implements OnInit, OnDestroy
   @Input() set optionSelectForce(x: number | EstatePropertyDetailGroupModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: EstatePropertyDetailGroupModel = new EstatePropertyDetailGroupModel();
-  dataModelResult: ErrorExceptionResult<EstatePropertyDetailGroupModel> = new ErrorExceptionResult<EstatePropertyDetailGroupModel>();
+  dataModelSelect: EstatePropertyDetailGroupModel =
+    new EstatePropertyDetailGroupModel();
+  dataModelResult: ErrorExceptionResult<EstatePropertyDetailGroupModel> =
+    new ErrorExceptionResult<EstatePropertyDetailGroupModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<EstatePropertyDetailGroupModel>(node => null);
+  treeControl = new NestedTreeControl<EstatePropertyDetailGroupModel>(
+    (node) => null,
+  );
   dataSource = new MatTreeNestedDataSource<EstatePropertyDetailGroupModel>();
   @Output() optionChange = new EventEmitter<EstatePropertyDetailGroupModel>();
   cmsApiStoreSubscribe: Subscription;
@@ -71,24 +76,24 @@ export class EstatePropertyDetailGroupTreeComponent implements OnInit, OnDestroy
     this.filterModel = new FilterModel();
     if (id && id.length > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = 'LinkPropertyTypeLanduseId';
+      filter.propertyName = "LinkPropertyTypeLanduseId";
       filter.value = id;
       this.filterModel.filters.push(filter);
     }
   }
   @Input() optionReload = () => this.onActionButtonReload();
   hasChild = (_: number, node: EstatePropertyDetailGroupModel) => false;
-
-
+  childrenAccessor = (node: EstatePropertyDetailGroupModel) => [];
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    })
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -99,10 +104,16 @@ export class EstatePropertyDetailGroupTreeComponent implements OnInit, OnDestroy
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAll(this.filterModel).subscribe({
       next: (ret) => {
@@ -117,9 +128,8 @@ export class EstatePropertyDetailGroupTreeComponent implements OnInit, OnDestroy
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: EstatePropertyDetailGroupModel): void {
     this.dataModelSelect = model;
@@ -131,24 +141,22 @@ export class EstatePropertyDetailGroupTreeComponent implements OnInit, OnDestroy
     this.dataModelSelect = new EstatePropertyDetailGroupModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | EstatePropertyDetailGroupModel): void {
-
-  }
+  onActionSelectForce(id: number | EstatePropertyDetailGroupModel): void {}
 
   onActionAdd(): void {
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(EstatePropertyDetailGroupAddComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { linkPropertyTypeLanduseId: this.requestLinkPropertyTypeLanduseId }
+      data: {
+        linkPropertyTypeLanduseId: this.requestLinkPropertyTypeLanduseId,
+      },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -156,28 +164,34 @@ export class EstatePropertyDetailGroupTreeComponent implements OnInit, OnDestroy
   }
 
   onActionEdit(): void {
-    let id = '';
-    if (this.dataModelSelect && this.dataModelSelect.id && this.dataModelSelect.id.length > 0) {
+    let id = "";
+    if (
+      this.dataModelSelect &&
+      this.dataModelSelect.id &&
+      this.dataModelSelect.id.length > 0
+    ) {
       id = this.dataModelSelect.id;
     }
-    if (id === '') {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+    if (id === "") {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
 
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(EstatePropertyDetailGroupEditComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -185,53 +199,76 @@ export class EstatePropertyDetailGroupTreeComponent implements OnInit, OnDestroy
   }
 
   onActionDelete(): void {
-
-    let id = '';
-    if (this.dataModelSelect && this.dataModelSelect.id && this.dataModelSelect.id.length > 0) {
+    let id = "";
+    if (
+      this.dataModelSelect &&
+      this.dataModelSelect.id &&
+      this.dataModelSelect.id.length > 0
+    ) {
       id = this.dataModelSelect.id;
     }
-    if (id === '') {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+    if (id === "") {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
 
     var title = "";
     var message = "";
-    this.translate.get(['MESSAGE.Please_Confirm', 'MESSAGE.Do_you_want_to_delete_this_content']).subscribe((str: string) => {
-      title = str['MESSAGE.Please_Confirm'];
-      message = str['MESSAGE.Do_you_want_to_delete_this_content'] + '?' + '<br> ( ' + this.dataModelSelect.title + ' ) ';
-    });
+    this.translate
+      .get([
+        "MESSAGE.Please_Confirm",
+        "MESSAGE.Do_you_want_to_delete_this_content",
+      ])
+      .subscribe((str: string) => {
+        title = str["MESSAGE.Please_Confirm"];
+        message =
+          str["MESSAGE.Do_you_want_to_delete_this_content"] +
+          "?" +
+          "<br> ( " +
+          this.dataModelSelect.title +
+          " ) ";
+      });
 
-    this.cmsConfirmationDialogService.confirm(title, message)
+    this.cmsConfirmationDialogService
+      .confirm(title, message)
       .then((confirmed) => {
         if (confirmed) {
-          const pName = this.constructor.name + 'main';
-          this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-            this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-          });
+          const pName = this.constructor.name + "main";
+          this.translate
+            .get("MESSAGE.Receiving_information")
+            .subscribe((str: string) => {
+              this.publicHelper.processService.processStart(
+                pName,
+                str,
+                this.constructorInfoAreaId,
+              );
+            });
 
-          this.categoryService.ServiceDelete(this.dataModelSelect.id).subscribe({
-            next: (ret) => {
-              if (ret.isSuccess) {
-                this.cmsToastrService.typeSuccessRemove();
-                this.DataGetAll();
-              } else {
-                this.cmsToastrService.typeErrorRemove();
-              }
-              this.publicHelper.processService.processStop(pName);
-            },
-            error: (er) => {
-              this.cmsToastrService.typeError(er);
-              this.publicHelper.processService.processStop(pName, false);
-            }
-          }
-          );
+          this.categoryService
+            .ServiceDelete(this.dataModelSelect.id)
+            .subscribe({
+              next: (ret) => {
+                if (ret.isSuccess) {
+                  this.cmsToastrService.typeSuccessRemove();
+                  this.DataGetAll();
+                } else {
+                  this.cmsToastrService.typeErrorRemove();
+                }
+                this.publicHelper.processService.processStop(pName);
+              },
+              error: (er) => {
+                this.cmsToastrService.typeError(er);
+                this.publicHelper.processService.processStop(pName, false);
+              },
+            });
         }
-      }
-      )
+      })
       .catch(() => {
         // console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)')
-      }
-      );
+      });
   }
 }

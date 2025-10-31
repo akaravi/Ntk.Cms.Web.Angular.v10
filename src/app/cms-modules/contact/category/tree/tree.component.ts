@@ -33,7 +33,7 @@ import { ContactCategoryAddComponent } from "../add/add.component";
 @Component({
   selector: "app-contact-category-tree",
   templateUrl: "./tree.component.html",
-  styleUrls: ["./tree.component.scss"],
+
   standalone: false,
 })
 export class ContactCategoryTreeComponent implements OnInit, OnDestroy {
@@ -70,7 +70,6 @@ export class ContactCategoryTreeComponent implements OnInit, OnDestroy {
   hasChild = (_: string, node: ContactCategoryModel) =>
     !!node.children && node.children.length > 0;
   childrenAccessor = (node: ContactCategoryModel) => node.children ?? [];
-
 
   ngOnInit(): void {
     this.cmsApiStoreSubscribe = this.cmsStoreService

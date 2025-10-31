@@ -32,10 +32,9 @@ import { ThemeService } from 'src/app/core/services/theme.service';
 
 
 @Component({
-  selector: 'app-estate-category-rack-tree',
-  templateUrl: './tree.component.html',
-  styleUrls: ['./tree.component.scss'],
-  standalone: false
+  selector: "app-estate-category-rack-tree",
+  templateUrl: "./tree.component.html",
+  standalone: false,
 })
 export class EstateCategoryRackTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -58,28 +57,28 @@ export class EstateCategoryRackTreeComponent implements OnInit, OnDestroy {
     this.onActionSelectForce(x);
   }
   dataModelSelect: EstateCategoryRackModel = new EstateCategoryRackModel();
-  dataModelResult: ErrorExceptionResult<EstateCategoryRackModel> = new ErrorExceptionResult<EstateCategoryRackModel>();
+  dataModelResult: ErrorExceptionResult<EstateCategoryRackModel> =
+    new ErrorExceptionResult<EstateCategoryRackModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<EstateCategoryRackModel>(node => null);
+  treeControl = new NestedTreeControl<EstateCategoryRackModel>((node) => null);
   dataSource = new MatTreeNestedDataSource<EstateCategoryRackModel>();
   @Output() optionChange = new EventEmitter<EstateCategoryRackModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
 
   hasChild = (_: number, node: EstateCategoryRackModel) => false;
-
-
+  childrenAccessor = (node: EstateCategoryRackModel) => [];
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    })
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -90,10 +89,16 @@ export class EstateCategoryRackTreeComponent implements OnInit, OnDestroy {
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAll(this.filterModel).subscribe({
       next: (ret) => {
@@ -108,9 +113,8 @@ export class EstateCategoryRackTreeComponent implements OnInit, OnDestroy {
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: EstateCategoryRackModel): void {
     this.dataModelSelect = model;
@@ -121,24 +125,20 @@ export class EstateCategoryRackTreeComponent implements OnInit, OnDestroy {
     this.dataModelSelect = new EstateCategoryRackModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | EstateCategoryRackModel): void {
-
-  }
+  onActionSelectForce(id: number | EstateCategoryRackModel): void {}
 
   onActionAdd(): void {
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(EstateCategoryRackAddComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: {}
+      data: {},
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -146,27 +146,33 @@ export class EstateCategoryRackTreeComponent implements OnInit, OnDestroy {
   }
 
   onActionEdit(): void {
-    let id = '';
-    if (this.dataModelSelect && this.dataModelSelect.id && this.dataModelSelect.id.length > 0) {
+    let id = "";
+    if (
+      this.dataModelSelect &&
+      this.dataModelSelect.id &&
+      this.dataModelSelect.id.length > 0
+    ) {
       id = this.dataModelSelect.id;
     }
-    if (id === '') {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+    if (id === "") {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(EstateCategoryRackEditComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -174,54 +180,76 @@ export class EstateCategoryRackTreeComponent implements OnInit, OnDestroy {
   }
 
   onActionDelete(): void {
-
-    let id = '';
-    if (this.dataModelSelect && this.dataModelSelect.id && this.dataModelSelect.id.length > 0) {
+    let id = "";
+    if (
+      this.dataModelSelect &&
+      this.dataModelSelect.id &&
+      this.dataModelSelect.id.length > 0
+    ) {
       id = this.dataModelSelect.id;
     }
-    if (id === '') {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+    if (id === "") {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
 
     var title = "";
     var message = "";
-    this.translate.get(['MESSAGE.Please_Confirm', 'MESSAGE.Do_you_want_to_delete_this_content']).subscribe((str: string) => {
-      title = str['MESSAGE.Please_Confirm'];
-      message = str['MESSAGE.Do_you_want_to_delete_this_content'] + '?' + '<br> ( ' + this.dataModelSelect.title + ' ) ';
-    });
+    this.translate
+      .get([
+        "MESSAGE.Please_Confirm",
+        "MESSAGE.Do_you_want_to_delete_this_content",
+      ])
+      .subscribe((str: string) => {
+        title = str["MESSAGE.Please_Confirm"];
+        message =
+          str["MESSAGE.Do_you_want_to_delete_this_content"] +
+          "?" +
+          "<br> ( " +
+          this.dataModelSelect.title +
+          " ) ";
+      });
 
-    this.cmsConfirmationDialogService.confirm(title, message)
+    this.cmsConfirmationDialogService
+      .confirm(title, message)
       .then((confirmed) => {
         if (confirmed) {
-          const pName = this.constructor.name + 'main';
-          this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-            this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-          });
+          const pName = this.constructor.name + "main";
+          this.translate
+            .get("MESSAGE.Receiving_information")
+            .subscribe((str: string) => {
+              this.publicHelper.processService.processStart(
+                pName,
+                str,
+                this.constructorInfoAreaId,
+              );
+            });
 
-          this.categoryService.ServiceDelete(this.dataModelSelect.id).subscribe({
-            next: (ret) => {
-              if (ret.isSuccess) {
-                this.cmsToastrService.typeSuccessRemove();
-                this.DataGetAll();
-              } else {
-                this.cmsToastrService.typeErrorRemove();
-              }
-              this.publicHelper.processService.processStop(pName);
-
-            },
-            error: (er) => {
-              this.cmsToastrService.typeError(er);
-              this.publicHelper.processService.processStop(pName, false);
-            }
-          }
-          );
+          this.categoryService
+            .ServiceDelete(this.dataModelSelect.id)
+            .subscribe({
+              next: (ret) => {
+                if (ret.isSuccess) {
+                  this.cmsToastrService.typeSuccessRemove();
+                  this.DataGetAll();
+                } else {
+                  this.cmsToastrService.typeErrorRemove();
+                }
+                this.publicHelper.processService.processStop(pName);
+              },
+              error: (er) => {
+                this.cmsToastrService.typeError(er);
+                this.publicHelper.processService.processStop(pName, false);
+              },
+            });
         }
-      }
-      )
+      })
       .catch(() => {
         // console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)')
-      }
-      );
+      });
   }
 }

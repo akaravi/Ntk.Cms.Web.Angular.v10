@@ -33,10 +33,10 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-  selector: 'app-sms-apipathcompany-tree',
-  templateUrl: './tree.component.html',
-  styleUrls: ['./tree.component.scss'],
-  standalone: false
+  selector: "app-sms-apipathcompany-tree",
+  templateUrl: "./tree.component.html",
+
+  standalone: false,
 })
 export class SmsMainApiPathCompanyTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -56,29 +56,32 @@ export class SmsMainApiPathCompanyTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | SmsMainApiPathCompanyModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: SmsMainApiPathCompanyModel = new SmsMainApiPathCompanyModel();
-  dataModelResult: ErrorExceptionResult<SmsMainApiPathCompanyModel> = new ErrorExceptionResult<SmsMainApiPathCompanyModel>();
+  dataModelSelect: SmsMainApiPathCompanyModel =
+    new SmsMainApiPathCompanyModel();
+  dataModelResult: ErrorExceptionResult<SmsMainApiPathCompanyModel> =
+    new ErrorExceptionResult<SmsMainApiPathCompanyModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<SmsMainApiPathCompanyModel>(node => null);
+  treeControl = new NestedTreeControl<SmsMainApiPathCompanyModel>(
+    (node) => null,
+  );
   dataSource = new MatTreeNestedDataSource<SmsMainApiPathCompanyModel>();
   @Output() optionChange = new EventEmitter<SmsMainApiPathCompanyModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
 
   hasChild = (_: number, node: SmsMainApiPathCompanyModel) => false;
-
-
+  childrenAccessor = (node: SmsMainApiPathCompanyModel) => [];
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    })
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -89,10 +92,16 @@ export class SmsMainApiPathCompanyTreeComponent implements OnInit, OnDestroy {
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAll(this.filterModel).subscribe({
       next: (ret) => {
@@ -107,9 +116,8 @@ export class SmsMainApiPathCompanyTreeComponent implements OnInit, OnDestroy {
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: SmsMainApiPathCompanyModel): void {
     this.dataModelSelect = model;
@@ -120,24 +128,20 @@ export class SmsMainApiPathCompanyTreeComponent implements OnInit, OnDestroy {
     this.dataModelSelect = new SmsMainApiPathCompanyModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | SmsMainApiPathCompanyModel): void {
-
-  }
+  onActionSelectForce(id: number | SmsMainApiPathCompanyModel): void {}
 
   onActionAdd(): void {
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(SmsMainApiPathCompanyAddComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: {}
+      data: {},
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -145,27 +149,29 @@ export class SmsMainApiPathCompanyTreeComponent implements OnInit, OnDestroy {
   }
 
   onActionEdit(): void {
-    let id = '';
+    let id = "";
     if (this.dataModelSelect && this.dataModelSelect?.id?.length > 0) {
       id = this.dataModelSelect.id;
     }
     if (id.length === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(SmsMainApiPathCompanyEditComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
+      data: { id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }

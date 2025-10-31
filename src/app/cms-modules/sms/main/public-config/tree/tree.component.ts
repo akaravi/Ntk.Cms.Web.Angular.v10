@@ -33,12 +33,14 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 @Component({
-  selector: 'app-sms-publicconfig-tree',
-  templateUrl: './tree.component.html',
-  styleUrls: ['./tree.component.scss'],
-  standalone: false
+  selector: "app-sms-publicconfig-tree",
+  templateUrl: "./tree.component.html",
+
+  standalone: false,
 })
-export class SmsMainApiPathPublicConfigTreeComponent implements OnInit, OnDestroy {
+export class SmsMainApiPathPublicConfigTreeComponent
+  implements OnInit, OnDestroy
+{
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private cmsToastrService: CmsToastrService,
@@ -49,36 +51,39 @@ export class SmsMainApiPathPublicConfigTreeComponent implements OnInit, OnDestro
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }
   @Input() set optionSelectForce(x: string | SmsMainApiPathPublicConfigModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: SmsMainApiPathPublicConfigModel = new SmsMainApiPathPublicConfigModel();
-  dataModelResult: ErrorExceptionResult<SmsMainApiPathPublicConfigModel> = new ErrorExceptionResult<SmsMainApiPathPublicConfigModel>();
+  dataModelSelect: SmsMainApiPathPublicConfigModel =
+    new SmsMainApiPathPublicConfigModel();
+  dataModelResult: ErrorExceptionResult<SmsMainApiPathPublicConfigModel> =
+    new ErrorExceptionResult<SmsMainApiPathPublicConfigModel>();
   filterModel = new FilterModel();
 
-
-  treeControl = new NestedTreeControl<SmsMainApiPathPublicConfigModel>(node => null);
+  treeControl = new NestedTreeControl<SmsMainApiPathPublicConfigModel>(
+    (node) => null,
+  );
   dataSource = new MatTreeNestedDataSource<SmsMainApiPathPublicConfigModel>();
   @Output() optionChange = new EventEmitter<SmsMainApiPathPublicConfigModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
 
   hasChild = (_: string, node: SmsMainApiPathPublicConfigModel) => false;
-
-
+  childrenAccessor = (node: SmsMainApiPathPublicConfigModel) => [];
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    })
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -89,10 +94,16 @@ export class SmsMainApiPathPublicConfigTreeComponent implements OnInit, OnDestro
     this.filterModel.rowPerPage = 200;
     this.filterModel.accessLoad = true;
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAll(this.filterModel).subscribe({
       next: (ret) => {
@@ -101,14 +112,12 @@ export class SmsMainApiPathPublicConfigTreeComponent implements OnInit, OnDestro
           this.dataSource.data = this.dataModelResult.listItems;
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(model: SmsMainApiPathPublicConfigModel): void {
     this.dataModelSelect = model;
@@ -119,24 +128,20 @@ export class SmsMainApiPathPublicConfigTreeComponent implements OnInit, OnDestro
     this.dataModelSelect = new SmsMainApiPathPublicConfigModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: string | SmsMainApiPathPublicConfigModel): void {
-
-  }
+  onActionSelectForce(id: string | SmsMainApiPathPublicConfigModel): void {}
 
   onActionAdd(): void {
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(SmsMainApiPathPublicConfigAddComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: {}
+      data: {},
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -144,27 +149,33 @@ export class SmsMainApiPathPublicConfigTreeComponent implements OnInit, OnDestro
   }
 
   onActionEdit(): void {
-    let id = '';
+    let id = "";
     if (this.dataModelSelect && this.dataModelSelect.id?.length > 0) {
       id = this.dataModelSelect.id;
     }
     if (id.length === 0) {
-      this.translate.get('ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
-    const dialogRef = this.dialog.open(SmsMainApiPathPublicConfigEditComponent, {
-      height: '90%',
-      panelClass: panelClass,
-      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
-      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id }
-    });
-    dialogRef.afterClosed().subscribe(result => {
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
+    const dialogRef = this.dialog.open(
+      SmsMainApiPathPublicConfigEditComponent,
+      {
+        height: "90%",
+        panelClass: panelClass,
+        enterAnimationDuration:
+          environment.cmsViewConfig.enterAnimationDuration,
+        exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+        data: { id },
+      },
+    );
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
