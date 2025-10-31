@@ -4,7 +4,7 @@ import { themeAuthPageLSKey } from "src/app/core/models/constModel";
 import { AuthComponent } from "./auth.component";
 import { AuthForgotPasswordComponent } from "./forgot-password/forgot-password.component";
 import { AuthSingInBySmsComponent } from "./singin-bysms/singin-bysms.component";
-import { AuthSingInComponent } from "./singin/singin.component";
+import { AuthSingInByUsernameComponent } from "./singin-byusername/singin-byusername.component";
 import { AuthSingoutComponent } from "./singout/singout.component";
 import { AuthSingUpComponent } from "./singup/singup.component";
 
@@ -23,10 +23,11 @@ const routes: Routes = [
   {
     path: "",
     component: AuthComponent,
+    data: { title: "ROUTE.REGISTER" },
     children: [
       {
         path: "singinbyusername",
-        component: AuthSingInComponent,
+        component: AuthSingInByUsernameComponent,
         data: { title: "ROUTE.REGISTER.SIGNINBYUSERNAME" },
       },
       {
@@ -51,8 +52,18 @@ const routes: Routes = [
         component: AuthForgotPasswordComponent,
         data: { title: "ROUTE.REGISTER.FORGETPASSWORD" },
       },
-      { path: "", redirectTo: lastAuthPage(), pathMatch: "full" },
-      { path: "**", redirectTo: lastAuthPage(), pathMatch: "full" },
+      {
+        path: "",
+        redirectTo: lastAuthPage(),
+        pathMatch: "full",
+        data: { title: "ROUTE.REGISTER" },
+      },
+      {
+        path: "**",
+        redirectTo: lastAuthPage(),
+        pathMatch: "full",
+        data: { title: "ROUTE.REGISTER" },
+      },
     ],
   },
 ];

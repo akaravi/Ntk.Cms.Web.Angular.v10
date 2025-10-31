@@ -1,35 +1,36 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { CoreModuleDataCommentListComponent } from './comment/list/list.component';
-import { CoreModuleDataComponent } from './core-module-data.component';
-import { CoreModuleDataMemoListComponent } from './memo/list/list.component';
-import { CoreModuleDataPinListComponent } from './pin/list/list.component';
-import { CoreModuleDataTaskListComponent } from './task/list/list.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { CoreModuleDataCommentListComponent } from "./comment/list/list.component";
+import { CoreModuleDataComponent } from "./core-module-data.component";
+import { CoreModuleDataMemoListComponent } from "./memo/list/list.component";
+import { CoreModuleDataPinListComponent } from "./pin/list/list.component";
+import { CoreModuleDataTaskListComponent } from "./task/list/list.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: CoreModuleDataComponent,
+    data: { title: "ROUTE.COREMODULELOG" },
     children: [
       {
-        path: 'memo',
+        path: "memo",
         component: CoreModuleDataMemoListComponent,
-        data: { title: 'ROUTE.COREMODULELOG.MEMO' },
+        data: { title: "ROUTE.COREMODULELOG.MEMO" },
       },
       {
-        path: 'pin',
+        path: "pin",
         component: CoreModuleDataPinListComponent,
-        data: { title: 'ROUTE.COREMODULELOG.PIN' },
+        data: { title: "ROUTE.COREMODULELOG.PIN" },
       },
       {
-        path: 'task',
+        path: "task",
         component: CoreModuleDataTaskListComponent,
-        data: { title: 'ROUTE.COREMODULELOG.TASK' },
+        data: { title: "ROUTE.COREMODULELOG.TASK" },
       },
       {
-        path: 'comment',
+        path: "comment",
         component: CoreModuleDataCommentListComponent,
-        data: { title: 'ROUTE.COREMODULELOG.COMMENT' },
+        data: { title: "ROUTE.COREMODULELOG.COMMENT" },
       },
     ],
   },
@@ -39,4 +40,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CoreModuleDataRoutes { }
+export class CoreModuleDataRoutes {}

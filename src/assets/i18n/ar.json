@@ -806,6 +806,7 @@
   "ROUTE.Article": "Article ",
   "ROUTE.BANKPAYMENT": "Internet Payment",
   "ROUTE.BIOGRAPHY": "Biography",
+  "ROUTE.BLOG": "مدونة",
   "ROUTE.BUILDER": "Builder",
   "ROUTE.CATALOG": "Catalog",
   "ROUTE.CHART": "Chart",
@@ -814,7 +815,8 @@
   "ROUTE.CORE.ACTION": "العمل",
   "ROUTE.CORE.ADDRESS": "Address",
   "ROUTE.CORE.CPMAINMENU": "Main menu ",
-  "ROUTE.CORE.DEVICE": "Device",
+  "ROUTE.CORE.CURRENCY": "Currency",
+  "ROUTE.CORE.DEVICE": "Web desinger",
   "ROUTE.CORE.ENTITYREPORTFILE": "Report entity",
   "ROUTE.CORE.GUIDE": "Guide",
   "ROUTE.CORE.LOCATION": "Location",
@@ -920,6 +922,7 @@
   "ROUTE.POLLING.CONTENT": "Polling content",
   "ROUTE.POLLING.VOTE": "Votes",
   "ROUTE.REGISTER.FORGETPASSWORD": " Forget Password",
+  "ROUTE.REGISTER": "تسجيل",
   "ROUTE.REGISTER.SIGNIN": "Sign in ",
   "ROUTE.REGISTER.SIGNINBYSMS": "Sign in by SMS",
   "ROUTE.REGISTER.SIGNINBYUSERNAME": "Sign in by Username",
@@ -939,6 +942,7 @@
   "ROUTE.TICKETING.LIST": "FAQ management",
   "ROUTE.TICKETING.TASK": "Ticket management",
   "ROUTE.TICKETING.TEMPLATE": "Template",
+  "ROUTE.UNIVERSALMENU": "Universal menu",
   "ROUTE.WEBDESIGNER": "Web desinger",
   "ROUTE.WEBDESIGNER.INTRO": "Intro",
   "ROUTE.WEBDESIGNER.LOGMEMBERINFO": "Status ",
@@ -966,6 +970,7 @@
   "TABLE.EstateActivityType": "Estate Activity Type",
   "TABLE.EstateCustomerCategory": "Estate Customer Category",
   "TABLE.EstatePropertySupplierCategory": "Estate Property Supplier Category",
+  "TABLE.EstatePropertyTypeLanduse": "نوع استخدام العقار",
   "TABLE.LinkManagementBillboardPattern": "Link Management Billboard Pattern",
   "TABLE.LinkManagementCategory": "Link Management Category",
   "TABLE.NewsCategory": "News Category",
@@ -1924,5 +1929,10 @@
     "is_not_empty": "Is not empty",
     "in": "In",
     "not_in": "Not in"
-  }
+  },
+  "ROUTE.ERROR": "خطأ",
+  "ROUTE.ERROR.404": "خطأ 404",
+  "ROUTE.ERROR.500": "خطأ 500",
+  "ROUTE.PAGES": "الصفحات",
+  "ROUTE.PAGES.ABOUTUS": "من نحن"
 }

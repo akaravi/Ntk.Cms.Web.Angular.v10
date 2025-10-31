@@ -5,14 +5,17 @@ import { CoreDeviceListComponent } from "./list/list.component";
 const routes: Routes = [
   {
     path: "",
+    data: { title: "ROUTE.CORE.DEVICE" },
     children: [
       {
         path: "",
         component: CoreDeviceListComponent,
+        data: { title: "ROUTE.CORE.DEVICE" },
       },
       {
         path: ":LinkSiteId",
         component: CoreDeviceListComponent,
+        data: { title: "ROUTE.CORE.DEVICE" },
       },
     ],
   },

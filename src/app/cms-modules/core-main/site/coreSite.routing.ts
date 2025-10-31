@@ -1,138 +1,156 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { CmsAuthSiteGuard } from 'src/app/core/services/cmsAuthSiteGuard.service';
-import { CoreSiteAddComponent } from './add/add.component';
-import { CoreSiteAddFirstComponent } from './addFirst/addFirst.component';
-import { CoreSiteEditComponent } from './edit/edit.component';
-import { CoreInfoComponent } from './info/core-info.component';
-import { CoreSiteListComponent } from './list/list.component';
-import { CoreSiteModuleAddComponent } from './moduleAdd/moduleAdd.component';
-import { CoreSiteModuleEditComponent } from './moduleEdit/moduleEdit.component';
-import { CoreSiteModuleListComponent } from './moduleList/moduleList.component';
-import { CoreSiteResellerChartComponent } from './reseller-chart/reseller-chart.component';
-import { CoreSiteSelectionComponent } from './selection/selection.component';
-import { CoreSiteUserListComponent } from './userList/userList.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { CmsAuthSiteGuard } from "src/app/core/services/cmsAuthSiteGuard.service";
+import { CoreSiteAddComponent } from "./add/add.component";
+import { CoreSiteAddFirstComponent } from "./addFirst/addFirst.component";
+import { CoreSiteEditComponent } from "./edit/edit.component";
+import { CoreInfoComponent } from "./info/core-info.component";
+import { CoreSiteListComponent } from "./list/list.component";
+import { CoreSiteModuleAddComponent } from "./moduleAdd/moduleAdd.component";
+import { CoreSiteModuleEditComponent } from "./moduleEdit/moduleEdit.component";
+import { CoreSiteModuleListComponent } from "./moduleList/moduleList.component";
+import { CoreSiteResellerChartComponent } from "./reseller-chart/reseller-chart.component";
+import { CoreSiteSelectionComponent } from "./selection/selection.component";
+import { CoreSiteUserListComponent } from "./userList/userList.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
+    data: { title: "ROUTE.CORE.SITE" },
     children: [
       {
-        path: '',
-        component: CoreSiteListComponent
+        path: "",
+        component: CoreSiteListComponent,
+        data: { title: "ROUTE.CORE.SITE" },
       },
       {
-        path: 'list/LinkUserId/:LinkUserId',
+        path: "list/LinkUserId/:LinkUserId",
         canActivate: [CmsAuthSiteGuard],
-        component: CoreSiteListComponent
+        component: CoreSiteListComponent,
+        data: { title: "ROUTE.CORE.SITE" },
       },
       {
-        path: 'list/LinkSiteCategoryId/:LinkSiteCategoryId',
+        path: "list/LinkSiteCategoryId/:LinkSiteCategoryId",
         canActivate: [CmsAuthSiteGuard],
-        component: CoreSiteListComponent
+        component: CoreSiteListComponent,
+        data: { title: "ROUTE.CORE.SITE" },
       },
       {
-        path: 'selection',
-        component: CoreSiteSelectionComponent
+        path: "selection",
+        component: CoreSiteSelectionComponent,
+        data: { title: "ROUTE.CORE.SITE" },
       },
       {
-        path: 'addFirst',
-        component: CoreSiteAddFirstComponent
+        path: "addFirst",
+        component: CoreSiteAddFirstComponent,
+        data: { title: "ROUTE.CORE.SITE" },
       },
       {
-        path: 'add',
+        path: "add",
         canActivate: [CmsAuthSiteGuard],
-        component: CoreSiteAddComponent
+        component: CoreSiteAddComponent,
+        data: { title: "ROUTE.CORE.SITE" },
       },
       {
-        path: 'edit',
+        path: "edit",
         canActivate: [CmsAuthSiteGuard],
-        component: CoreSiteEditComponent
+        component: CoreSiteEditComponent,
+        data: { title: "ROUTE.CORE.SITE" },
       },
       {
-        path: 'edit/:Id',
+        path: "edit/:Id",
         canActivate: [CmsAuthSiteGuard],
-        component: CoreSiteEditComponent
+        component: CoreSiteEditComponent,
+        data: { title: "ROUTE.CORE.SITE" },
       },
       /** modulelist */
       {
-        path: 'modulelist',
+        path: "modulelist",
         canActivate: [CmsAuthSiteGuard],
-        component: CoreSiteModuleListComponent
+        component: CoreSiteModuleListComponent,
+        data: { title: "ROUTE.CORE.MODULE" },
       },
       {
-        path: 'modulelist/LinkSiteId/:LinkSiteId',
+        path: "modulelist/LinkSiteId/:LinkSiteId",
         canActivate: [CmsAuthSiteGuard],
-        component: CoreSiteModuleListComponent
+        component: CoreSiteModuleListComponent,
+        data: { title: "ROUTE.CORE.MODULE" },
       },
       {
-        path: 'modulelist/LinkModuleId/:LinkModuleId',
+        path: "modulelist/LinkModuleId/:LinkModuleId",
         canActivate: [CmsAuthSiteGuard],
-        component: CoreSiteModuleListComponent
+        component: CoreSiteModuleListComponent,
+        data: { title: "ROUTE.CORE.MODULE" },
       },
       /** modulelist */
       {
-        path: 'moduleadd/:LinkSiteId',
+        path: "moduleadd/:LinkSiteId",
         canActivate: [CmsAuthSiteGuard],
-        component: CoreSiteModuleAddComponent
+        component: CoreSiteModuleAddComponent,
+        data: { title: "ROUTE.CORE.MODULE" },
       },
       {
-        path: 'moduleadd/:LinkSiteId/:LinkModuleId',
+        path: "moduleadd/:LinkSiteId/:LinkModuleId",
         canActivate: [CmsAuthSiteGuard],
-        component: CoreSiteModuleAddComponent
+        component: CoreSiteModuleAddComponent,
+        data: { title: "ROUTE.CORE.MODULE" },
       },
       {
-        path: 'moduleedit/:LinkSiteId/:LinkModuleId',
+        path: "moduleedit/:LinkSiteId/:LinkModuleId",
         canActivate: [CmsAuthSiteGuard],
-        component: CoreSiteModuleEditComponent
-      },
-      /** userlist */
-      {
-        path: 'userlist',
-        canActivate: [CmsAuthSiteGuard],
-        component: CoreSiteUserListComponent
-      },
-      {
-        path: 'userlist/LinkSiteId/:LinkSiteId',
-        canActivate: [CmsAuthSiteGuard],
-        component: CoreSiteUserListComponent
-      },
-      {
-        path: 'userlist/LinkUserGroupId/:LinkUserGroupId',
-        canActivate: [CmsAuthSiteGuard],
-        component: CoreSiteUserListComponent
-      },
-      {
-        path: 'userlist/LinkUserId/:LinkUserId',
-        canActivate: [CmsAuthSiteGuard],
-        component: CoreSiteUserListComponent
+        component: CoreSiteModuleEditComponent,
+        data: { title: "ROUTE.CORE.MODULE" },
       },
       /** userlist */
       {
-        path: 'info',
+        path: "userlist",
+        canActivate: [CmsAuthSiteGuard],
+        component: CoreSiteUserListComponent,
+        data: { title: "ROUTE.CORE.USER" },
+      },
+      {
+        path: "userlist/LinkSiteId/:LinkSiteId",
+        canActivate: [CmsAuthSiteGuard],
+        component: CoreSiteUserListComponent,
+        data: { title: "ROUTE.CORE.USER" },
+      },
+      {
+        path: "userlist/LinkUserGroupId/:LinkUserGroupId",
+        canActivate: [CmsAuthSiteGuard],
+        component: CoreSiteUserListComponent,
+        data: { title: "ROUTE.CORE.USER" },
+      },
+      {
+        path: "userlist/LinkUserId/:LinkUserId",
+        canActivate: [CmsAuthSiteGuard],
+        component: CoreSiteUserListComponent,
+        data: { title: "ROUTE.CORE.USER" },
+      },
+      /** userlist */
+      {
+        path: "info",
         canActivate: [CmsAuthSiteGuard],
         component: CoreInfoComponent,
-        data: { title: 'ROUTE.CORE.ADDRESS' },
+        data: { title: "ROUTE.CORE.ADDRESS" },
       },
       {
-        path: 'reseller-chart',
+        path: "reseller-chart",
         canActivate: [CmsAuthSiteGuard],
-        component: CoreSiteResellerChartComponent
-
+        component: CoreSiteResellerChartComponent,
+        data: { title: "ROUTE.CORE.SITE" },
       },
       {
-        path: 'reseller-chart/LinkSiteId/:LinkSiteId',
+        path: "reseller-chart/LinkSiteId/:LinkSiteId",
         canActivate: [CmsAuthSiteGuard],
-        component: CoreSiteResellerChartComponent
-
-      }
-    ]
+        component: CoreSiteResellerChartComponent,
+        data: { title: "ROUTE.CORE.SITE" },
+      },
+    ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class CoreSiteRouting {
-}
+export class CoreSiteRouting {}

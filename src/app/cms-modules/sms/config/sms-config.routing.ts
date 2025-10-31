@@ -1,51 +1,58 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { SmsConfigCheckSiteComponent } from './check-site/check-site.component';
-import { SmsConfigCheckUserComponent } from './check-user/check-user.component';
-import { SmsConfigMainAdminComponent } from './main-admin/config-main-admin.component';
-import { SmsConfigSiteComponent } from './site/config-site.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { SmsConfigCheckSiteComponent } from "./check-site/check-site.component";
+import { SmsConfigCheckUserComponent } from "./check-user/check-user.component";
+import { SmsConfigMainAdminComponent } from "./main-admin/config-main-admin.component";
+import { SmsConfigSiteComponent } from "./site/config-site.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
+    data: { title: "ROUTE.SMS" },
     children: [
       /*Config*/
       {
-        path: 'mainadmin',
-        component: SmsConfigMainAdminComponent
+        path: "mainadmin",
+        component: SmsConfigMainAdminComponent,
+        data: { title: "ROUTE.SMS" },
       },
       {
-        path: 'site',
-        component: SmsConfigSiteComponent
+        path: "site",
+        component: SmsConfigSiteComponent,
+        data: { title: "ROUTE.SMS" },
       },
       {
-        path: 'site/:LinkSiteId',
-        component: SmsConfigSiteComponent
+        path: "site/:LinkSiteId",
+        component: SmsConfigSiteComponent,
+        data: { title: "ROUTE.SMS" },
       },
       {
-        path: 'checkuser',
-        component: SmsConfigCheckUserComponent
+        path: "checkuser",
+        component: SmsConfigCheckUserComponent,
+        data: { title: "ROUTE.SMS" },
       },
       {
-        path: 'checkuser/:LinkUserId',
-        component: SmsConfigCheckUserComponent
+        path: "checkuser/:LinkUserId",
+        component: SmsConfigCheckUserComponent,
+        data: { title: "ROUTE.SMS" },
       },
       {
-        path: 'checksite',
-        component: SmsConfigCheckSiteComponent
+        path: "checksite",
+        component: SmsConfigCheckSiteComponent,
+        data: { title: "ROUTE.SMS" },
       },
       {
-        path: 'checksite/:LinkSiteId',
-        component: SmsConfigCheckSiteComponent
+        path: "checksite/:LinkSiteId",
+        component: SmsConfigCheckSiteComponent,
+        data: { title: "ROUTE.SMS" },
       },
       /*Config*/
-    ]
+    ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class SmsConfigRouting {
-}
+export class SmsConfigRouting {}

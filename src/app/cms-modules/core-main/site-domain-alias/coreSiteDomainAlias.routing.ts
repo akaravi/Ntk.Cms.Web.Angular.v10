@@ -1,26 +1,28 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { CoreSiteDomainAliasListComponent } from './list/list.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { CoreSiteDomainAliasListComponent } from "./list/list.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
+    data: { title: "ROUTE.CORE.SITEDOMAINALIAS" },
     children: [
       {
-        path: '',
-        component: CoreSiteDomainAliasListComponent
+        path: "",
+        component: CoreSiteDomainAliasListComponent,
+        data: { title: "ROUTE.CORE.SITEDOMAINALIAS" },
       },
       {
-        path: ':Id',
-        component: CoreSiteDomainAliasListComponent
+        path: ":Id",
+        component: CoreSiteDomainAliasListComponent,
+        data: { title: "ROUTE.CORE.SITEDOMAINALIAS" },
       },
-    ]
+    ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class CoreSiteDomainAliasRouting {
-}
+export class CoreSiteDomainAliasRouting {}

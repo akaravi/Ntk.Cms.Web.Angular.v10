@@ -1,51 +1,58 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { ContactConfigCheckSiteComponent } from './check-site/check-site.component';
-import { ContactConfigCheckUserComponent } from './check-user/check-user.component';
-import { ContactConfigMainAdminComponent } from './main-admin/config-main-admin.component';
-import { ContactConfigSiteComponent } from './site/config-site.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { ContactConfigCheckSiteComponent } from "./check-site/check-site.component";
+import { ContactConfigCheckUserComponent } from "./check-user/check-user.component";
+import { ContactConfigMainAdminComponent } from "./main-admin/config-main-admin.component";
+import { ContactConfigSiteComponent } from "./site/config-site.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
+    data: { title: "ROUTE.CONTACT" },
     children: [
       /*Config*/
       {
-        path: 'mainadmin',
-        component: ContactConfigMainAdminComponent
+        path: "mainadmin",
+        component: ContactConfigMainAdminComponent,
+        data: { title: "ROUTE.CONTACT" },
       },
       {
-        path: 'site',
-        component: ContactConfigSiteComponent
+        path: "site",
+        component: ContactConfigSiteComponent,
+        data: { title: "ROUTE.CONTACT" },
       },
       {
-        path: 'site/:LinkSiteId',
-        component: ContactConfigSiteComponent
+        path: "site/:LinkSiteId",
+        component: ContactConfigSiteComponent,
+        data: { title: "ROUTE.CONTACT" },
       },
       {
-        path: 'checkuser',
-        component: ContactConfigCheckUserComponent
+        path: "checkuser",
+        component: ContactConfigCheckUserComponent,
+        data: { title: "ROUTE.CONTACT" },
       },
       {
-        path: 'checkuser/:LinkUserId',
-        component: ContactConfigCheckUserComponent
+        path: "checkuser/:LinkUserId",
+        component: ContactConfigCheckUserComponent,
+        data: { title: "ROUTE.CONTACT" },
       },
       {
-        path: 'checksite',
-        component: ContactConfigCheckSiteComponent
+        path: "checksite",
+        component: ContactConfigCheckSiteComponent,
+        data: { title: "ROUTE.CONTACT" },
       },
       {
-        path: 'checksite/:LinkSiteId',
-        component: ContactConfigCheckSiteComponent
+        path: "checksite/:LinkSiteId",
+        component: ContactConfigCheckSiteComponent,
+        data: { title: "ROUTE.CONTACT" },
       },
       /*Config*/
-    ]
+    ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ContactConfigRouting {
-}
+export class ContactConfigRouting {}

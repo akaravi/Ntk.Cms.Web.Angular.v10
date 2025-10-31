@@ -1,11 +1,12 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { UniversalMenuComponent } from './universal-menu.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { UniversalMenuComponent } from "./universal-menu.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: UniversalMenuComponent,
+    data: { title: "ROUTE.UNIVERSALMENU" },
     // children: [
     //   {
     //     path: 'source',
@@ -66,7 +67,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class UniversalMenuRoutes {
-}
+export class UniversalMenuRoutes {}

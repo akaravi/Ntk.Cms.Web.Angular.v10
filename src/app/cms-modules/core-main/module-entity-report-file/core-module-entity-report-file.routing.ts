@@ -1,26 +1,28 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { CoreModuleEntityReportFileListComponent } from './list/list.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { CoreModuleEntityReportFileListComponent } from "./list/list.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
+    data: { title: "ROUTE.CORE.ENTITYREPORTFILE" },
     children: [
       {
-        path: '',
-        component: CoreModuleEntityReportFileListComponent
+        path: "",
+        component: CoreModuleEntityReportFileListComponent,
+        data: { title: "ROUTE.CORE.ENTITYREPORTFILE" },
       },
       {
-        path: 'LinkModuleEntityReportFileId/:LinkModuleEntityReportFileId',
-        component: CoreModuleEntityReportFileListComponent
+        path: "LinkModuleEntityReportFileId/:LinkModuleEntityReportFileId",
+        component: CoreModuleEntityReportFileListComponent,
+        data: { title: "ROUTE.CORE.ENTITYREPORTFILE" },
       },
-    ]
+    ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class CoreModuleEntityReportFileRouting {
-}
+export class CoreModuleEntityReportFileRouting {}

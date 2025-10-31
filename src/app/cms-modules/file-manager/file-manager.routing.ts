@@ -1,29 +1,30 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { FileContentExplorerComponent } from './content/explorer/explorer.component';
-import { FileContentListComponent } from './content/list/list.component';
-import { FileManagerComponent } from './file-manager.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { FileContentExplorerComponent } from "./content/explorer/explorer.component";
+import { FileContentListComponent } from "./content/list/list.component";
+import { FileManagerComponent } from "./file-manager.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: FileManagerComponent,
-    data: { title: 'ROUTE.FILEMANAGER' },
+    data: { title: "ROUTE.FILEMANAGER" },
     children: [
       {
-        path: 'content',
+        path: "content",
         component: FileContentListComponent,
-        data: { title: 'ROUTE.FILEMANAGER' },
+        data: { title: "ROUTE.FILEMANAGER" },
       },
       {
-        path: 'explorer',
+        path: "explorer",
         component: FileContentExplorerComponent,
-        data: { title: 'ROUTE.FILEMANAGER' },
+        data: { title: "ROUTE.FILEMANAGER" },
       },
       {
-        path: '',
-        redirectTo: 'explorer',
-        pathMatch: 'full',
+        path: "",
+        redirectTo: "explorer",
+        pathMatch: "full",
+        data: { title: "ROUTE.FILEMANAGER" },
       },
     ],
   },
@@ -33,4 +34,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class FileManagerRouting { }
+export class FileManagerRouting {}

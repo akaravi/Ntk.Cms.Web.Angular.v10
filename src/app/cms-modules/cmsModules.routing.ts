@@ -1,242 +1,241 @@
-import { Routes } from '@angular/router';
-import { CmsAuthSiteGuard } from '../core/services/cmsAuthSiteGuard.service';
+import { Routes } from "@angular/router";
+import { CmsAuthSiteGuard } from "../core/services/cmsAuthSiteGuard.service";
 
 const CmsModulesRoutes: Routes = [
   // ** cms */
   {
-    path: 'core',
+    path: "core",
     loadChildren: () =>
-      import('./core-main/core.module').then((m) => m.CoreModule),
-    data: { title: 'ROUTE.CORE' },
+      import("./core-main/core.module").then((m) => m.CoreModule),
+    data: { title: "ROUTE.CORE" },
   },
   {
-    path: 'coremodule',
+    path: "coremodule",
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('./core-module/coreModule.module').then(
-        (m) => m.CoreModuleModule
+      import("./core-module/coreModule.module").then((m) => m.CoreModuleModule),
+    data: { title: "ROUTE.COREMODULELOG" },
+  },
+  {
+    path: "coremodulelog",
+    canActivate: [CmsAuthSiteGuard],
+    loadChildren: () =>
+      import("./core-module-log/core-module-log.module").then(
+        (m) => m.CoreModuleLogModule,
       ),
-    data: { title: 'ROUTE.COREMODULELOG' },
+    data: { title: "ROUTE.COREMODULELOG" },
   },
   {
-    path: 'coremodulelog',
+    path: "coremoduledata",
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('./core-module-log/core-module-log.module').then(
-        (m) => m.CoreModuleLogModule
+      import("./core-module-data/core-module-data.module").then(
+        (m) => m.CoreModuleDataModule,
       ),
+    data: { title: "ROUTE.COREMODULELOG" },
   },
   {
-    path: 'coremoduledata',
+    path: "coretoken",
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('./core-module-data/core-module-data.module').then(
-        (m) => m.CoreModuleDataModule
-      ),
+      import("./core-token/core-token.module").then((m) => m.CoreTokenModule),
+    data: { title: "ROUTE.CORETOKEN" },
   },
   {
-    path: 'coretoken',
+    path: "corelog",
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('./core-token/core-token.module').then(
-        (m) => m.CoreTokenModule
-      ),
+      import("./core-log/coreLog.module").then((m) => m.CoreLogModule),
+    data: { title: "ROUTE.CORELOG" },
   },
   {
-    path: 'corelog',
+    path: "estate",
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('./core-log/coreLog.module').then(
-        (m) => m.CoreLogModule
-      ),
-  },
-  {
-    path: 'estate',
-    canActivate: [CmsAuthSiteGuard],
-    loadChildren: () =>
-      import('./estate/estate.module').then((m) => m.EstateModule),
-    data: { title: 'ROUTE.ESTATE' },
+      import("./estate/estate.module").then((m) => m.EstateModule),
+    data: { title: "ROUTE.ESTATE" },
   },
 
   {
-    path: 'member',
+    path: "member",
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('./member/member.module').then((m) => m.MemberModule),
-    data: { title: 'ROUTE.MEMBER' },
+      import("./member/member.module").then((m) => m.MemberModule),
+    data: { title: "ROUTE.MEMBER" },
   },
 
   {
-    path: 'application',
+    path: "application",
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('./application/application.module').then(
-        (m) => m.ApplicationModule
+      import("./application/application.module").then(
+        (m) => m.ApplicationModule,
       ),
-    data: { title: 'ROUTE.APPLICATION' },
+    data: { title: "ROUTE.APPLICATION" },
   },
   {
-    path: 'apitelegram',
+    path: "apitelegram",
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('./api-telegram/api-telegram.module').then(
-        (m) => m.ApiTelegramModule
+      import("./api-telegram/api-telegram.module").then(
+        (m) => m.ApiTelegramModule,
       ),
+    data: { title: "ROUTE.APITELEGRAM" },
   },
 
   {
-    path: 'article',
+    path: "article",
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('./article/article.module').then(
-        (m) => m.ArticleModule
-      ),
-    data: { title: 'ROUTE.ARTICLE' },
+      import("./article/article.module").then((m) => m.ArticleModule),
+    data: { title: "ROUTE.ARTICLE" },
   },
   {
-    path: 'bankpayment',
+    path: "bankpayment",
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('./bank-payment/bank-payment.module').then(
-        (m) => m.BankPaymentModule
+      import("./bank-payment/bank-payment.module").then(
+        (m) => m.BankPaymentModule,
       ),
+    data: { title: "ROUTE.BANKPAYMENT" },
   },
   {
-    path: 'biography',
+    path: "biography",
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('./biography/biography.module').then(
-        (m) => m.BiographyModule
-      ),
+      import("./biography/biography.module").then((m) => m.BiographyModule),
+    data: { title: "ROUTE.BIOGRAPHY" },
   },
   {
-    path: 'blog',
+    path: "blog",
+    canActivate: [CmsAuthSiteGuard],
+    loadChildren: () => import("./blog/blog.module").then((m) => m.BlogModule),
+    data: { title: "ROUTE.BLOG" },
+  },
+  {
+    path: "catalog",
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('./blog/blog.module').then((m) => m.BlogModule),
+      import("./catalog/catalog.module").then((m) => m.CatalogModule),
+    data: { title: "ROUTE.CATALOG" },
   },
   {
-    path: 'catalog',
+    path: "hypershop",
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('./catalog/catalog.module').then(
-        (m) => m.CatalogModule
-      ),
+      import("./hyper-shop/hyper-shop.module").then((m) => m.HyperShopModule),
+    data: { title: "ROUTE.HYPERSHOP" },
   },
   {
-    path: 'hypershop',
-    canActivate: [CmsAuthSiteGuard],
+    path: "linkmanagement",
     loadChildren: () =>
-      import('./hyper-shop/hyper-shop.module').then(
-        (m) => m.HyperShopModule
+      import("./link-management/link-management.module").then(
+        (m) => m.LinkManagementModule,
       ),
-  },
-  {
-    path: 'linkmanagement',
-    loadChildren: () =>
-      import('./link-management/link-management.module').then(
-        (m) => m.LinkManagementModule
-      ),
+    data: { title: "ROUTE.LINKMANAGMENT" },
   },
 
   {
-    path: 'news',
+    path: "news",
     canActivate: [CmsAuthSiteGuard],
-    loadChildren: () =>
-      import('./news/news.module').then((m) => m.NewsModule),
+    loadChildren: () => import("./news/news.module").then((m) => m.NewsModule),
+    data: { title: "ROUTE.NEWS" },
   },
 
   {
-    path: 'chart',
+    path: "chart",
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('./chart/chart.module').then((m) => m.ChartModule),
+      import("./chart/chart.module").then((m) => m.ChartModule),
+    data: { title: "ROUTE.CHART" },
   },
   {
-    path: 'filemanager',
+    path: "filemanager",
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('./file-manager/file-manager.module').then(
-        (m) => m.FileManagerModule
+      import("./file-manager/file-manager.module").then(
+        (m) => m.FileManagerModule,
       ),
-    data: { title: 'ROUTE.FILEMANAGER' },
+    data: { title: "ROUTE.FILEMANAGER" },
   },
   {
-    path: 'polling',
+    path: "polling",
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('./polling/polling.module').then(
-        (m) => m.PollingModule
+      import("./polling/polling.module").then((m) => m.PollingModule),
+    data: { title: "ROUTE.POLLING" },
+  },
+  {
+    path: "contact",
+    canActivate: [CmsAuthSiteGuard],
+    loadChildren: () =>
+      import("./contact/contact.module").then((m) => m.ContactModule),
+    data: { title: "ROUTE.CONTACT" },
+  },
+  {
+    path: "sms",
+    canActivate: [CmsAuthSiteGuard],
+    loadChildren: () => import("./sms/sms.module").then((m) => m.SmsModule),
+    data: { title: "ROUTE.SMS" },
+  },
+  {
+    path: "ticketing",
+    canActivate: [CmsAuthSiteGuard],
+    loadChildren: () =>
+      import("./ticketing/ticketing.module").then((m) => m.TicketingModule),
+    data: { title: "ROUTE.TICKETING" },
+  },
+  {
+    path: "universalmenu",
+    canActivate: [CmsAuthSiteGuard],
+    loadChildren: () =>
+      import("./universal-menu/universal-menu.module").then(
+        (m) => m.UniversalMenuModule,
       ),
+    data: { title: "ROUTE.UNIVERSALMENU" },
   },
   {
-    path: 'contact',
+    path: "webdesigner",
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('./contact/contact.module').then(
-        (m) => m.ContactModule
+      import("./web-designer/web-designer.module").then(
+        (m) => m.WebDesignerModule,
       ),
+    data: { title: "ROUTE.WEBDESIGNER" },
   },
   {
-    path: 'sms',
+    path: "web-designer-builder",
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('./sms/sms.module').then((m) => m.SmsModule),
-  },
-  {
-    path: 'ticketing',
-    canActivate: [CmsAuthSiteGuard],
-    loadChildren: () =>
-      import('./ticketing/ticketing.module').then(
-        (m) => m.TicketingModule
+      import("./web-designer-builder/web-designer-builder.module").then(
+        (m) => m.WebDesignerBuilderModule,
       ),
-    data: { title: 'ROUTE.TICKETING' },
-  },
-  {
-    path: 'universalmenu',
-    canActivate: [CmsAuthSiteGuard],
-    loadChildren: () =>
-      import('./universal-menu/universal-menu.module').then(
-        (m) => m.UniversalMenuModule
-      ),
-  },
-  {
-    path: 'webdesigner',
-    canActivate: [CmsAuthSiteGuard],
-    loadChildren: () =>
-      import('./web-designer/web-designer.module').then(
-        (m) => m.WebDesignerModule
-      ),
-  },
-  {
-    path: 'web-designer-builder',
-    canActivate: [CmsAuthSiteGuard],
-    loadChildren: () =>
-      import(
-        './web-designer-builder/web-designer-builder.module'
-      ).then((m) => m.WebDesignerBuilderModule),
+    data: { title: "ROUTE.WEBDESIGNERBUILDER" },
   },
 
   {
-    path: 'donate',
+    path: "donate",
     loadChildren: () =>
-      import('./donate/donate.module').then((m) => m.DonateModule),
+      import("./donate/donate.module").then((m) => m.DonateModule),
+    data: { title: "ROUTE.DONATE" },
   },
   {
-    path: 'data-provider',
+    path: "data-provider",
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('./data-provider/data-provider.module').then(
-        (m) => m.DataProviderModule
+      import("./data-provider/data-provider.module").then(
+        (m) => m.DataProviderModule,
       ),
+    data: { title: "ROUTE.DATAPROVIDER" },
   },
   {
-    path: 'api-telegram',
+    path: "api-telegram",
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () =>
-      import('./api-telegram/api-telegram.module').then(
-        (m) => m.ApiTelegramModule
+      import("./api-telegram/api-telegram.module").then(
+        (m) => m.ApiTelegramModule,
       ),
+    data: { title: "ROUTE.APITELEGRAM" },
   },
   // ** cms */
   // {
@@ -255,15 +254,16 @@ const CmsModulesRoutes: Routes = [
   //   component: PageMenuComponent,
   // },
   {
-    path: '',
-    redirectTo: '/dashboard',
-    pathMatch: 'full',
+    path: "",
+    redirectTo: "/dashboard",
+    pathMatch: "full",
+    data: { title: "ROUTE.DASHBOARD" },
   },
   {
-    path: '**',
-    redirectTo: 'error/404',
+    path: "**",
+    redirectTo: "error/404",
+    data: { title: "ROUTE.ERROR" },
   },
-
 ];
 
 export { CmsModulesRoutes };

@@ -1,38 +1,41 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { SmsActionSendMessageComponent } from './send-message/send-message.component';
-import { SmsActionComponent } from './sms-action.component';
-import { SmsActionSendMessageApiComponent } from './send-message-api/send-message-api.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { SmsActionSendMessageApiComponent } from "./send-message-api/send-message-api.component";
+import { SmsActionSendMessageComponent } from "./send-message/send-message.component";
+import { SmsActionComponent } from "./sms-action.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: SmsActionComponent,
+    data: { title: "ROUTE.SMS.ACTION" },
     children: [
       {
-        path: 'send-message',
-        component: SmsActionSendMessageComponent
+        path: "send-message",
+        component: SmsActionSendMessageComponent,
+        data: { title: "ROUTE.SMS.ACTION" },
       },
       {
-        path: 'send-message/inbox-extras',
-        component: SmsActionSendMessageComponent
+        path: "send-message/inbox-extras",
+        component: SmsActionSendMessageComponent,
+        data: { title: "ROUTE.SMS.ACTION" },
       },
       {
-        path: 'send-message/outbox-extras',
-        component: SmsActionSendMessageComponent
+        path: "send-message/outbox-extras",
+        component: SmsActionSendMessageComponent,
+        data: { title: "ROUTE.SMS.ACTION" },
       },
       {
-        path: 'send-api',
-        component: SmsActionSendMessageApiComponent
+        path: "send-api",
+        component: SmsActionSendMessageApiComponent,
+        data: { title: "ROUTE.SMS.ACTION" },
       },
-
-    ]
+    ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class SmsActionRoutes {
-}
+export class SmsActionRoutes {}

@@ -1,169 +1,172 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { CmsAuthSiteGuard } from 'src/app/core/services/cmsAuthSiteGuard.service';
-import { CoreComponent } from './core.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { CmsAuthSiteGuard } from "src/app/core/services/cmsAuthSiteGuard.service";
+import { CoreComponent } from "./core.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: CoreComponent,
-    data: { title: 'ROUTE.CORE' },
+    data: { title: "ROUTE.CORE" },
 
     children: [
       /* Config */
       {
-        path: 'config',
+        path: "config",
         canActivate: [CmsAuthSiteGuard],
         loadChildren: () =>
-          import('./config/core-config.module').then((m) => m.CoreConfigModule),
-        data: { title: 'ROUTE.CORE' },
+          import("./config/core-config.module").then((m) => m.CoreConfigModule),
+        data: { title: "ROUTE.CORE" },
       },
       /* Config */
       {
-        path: 'action',
+        path: "action",
         canActivate: [CmsAuthSiteGuard],
         loadChildren: () =>
-          import('./action/core-main-action.module').then((m) => m.CoreMainActionModule),
-        data: { title: 'ROUTE.CORE.ACTION' },
-      },
-      {
-        path: 'user',
-        loadChildren: () =>
-          import('./user/coreUser.module').then((m) => m.CoreUserModule),
-        data: { title: 'ROUTE.CORE.USER' },
-      },
-      {
-        path: 'usergroup',
-        canActivate: [CmsAuthSiteGuard],
-        loadChildren: () =>
-          import('./user-group/coreUserGroup.module').then(
-            (m) => m.CoreUserGroupCmsModule
+          import("./action/core-main-action.module").then(
+            (m) => m.CoreMainActionModule,
           ),
-        data: { title: 'ROUTE.CORE.USERGROUP' },
+        data: { title: "ROUTE.CORE.ACTION" },
       },
       {
-        path: 'user-support-access',
+        path: "user",
+        loadChildren: () =>
+          import("./user/coreUser.module").then((m) => m.CoreUserModule),
+        data: { title: "ROUTE.CORE.USER" },
+      },
+      {
+        path: "usergroup",
         canActivate: [CmsAuthSiteGuard],
         loadChildren: () =>
-          import('./user-support-access/core-user-support-access.module').then(
-            (m) => m.CoreUserSupportAccessCmsModule
+          import("./user-group/coreUserGroup.module").then(
+            (m) => m.CoreUserGroupCmsModule,
           ),
-        data: { title: 'ROUTE.CORE.USERSUPPORT' },
+        data: { title: "ROUTE.CORE.USERGROUP" },
       },
       {
-        path: 'currency',
+        path: "user-support-access",
         canActivate: [CmsAuthSiteGuard],
         loadChildren: () =>
-          import('./currency/coreCurrency.module').then(
-            (m) => m.CoreCurrencyCmsModule
+          import("./user-support-access/core-user-support-access.module").then(
+            (m) => m.CoreUserSupportAccessCmsModule,
           ),
+        data: { title: "ROUTE.CORE.USERSUPPORT" },
       },
       {
-        path: 'site',
-        loadChildren: () =>
-          import('./site/coreSite.module').then((m) => m.CoreSiteModule),
-        data: { title: 'ROUTE.CORE.SITE' },
-      },
-      {
-        path: 'sitecategory',
+        path: "currency",
         canActivate: [CmsAuthSiteGuard],
         loadChildren: () =>
-          import('./site-category/coreSiteCategory.module').then(
-            (m) => m.CoreSiteCategoryCmsModule
+          import("./currency/coreCurrency.module").then(
+            (m) => m.CoreCurrencyCmsModule,
           ),
-        data: { title: 'ROUTE.CORE.SITECATEGORY' },
+        data: { title: "ROUTE.CORE.CURRENCY" },
       },
       {
-        path: 'sitecategorymodule',
+        path: "site",
+        loadChildren: () =>
+          import("./site/coreSite.module").then((m) => m.CoreSiteModule),
+        data: { title: "ROUTE.CORE.SITE" },
+      },
+      {
+        path: "sitecategory",
+        canActivate: [CmsAuthSiteGuard],
+        loadChildren: () =>
+          import("./site-category/coreSiteCategory.module").then(
+            (m) => m.CoreSiteCategoryCmsModule,
+          ),
+        data: { title: "ROUTE.CORE.SITECATEGORY" },
+      },
+      {
+        path: "sitecategorymodule",
         canActivate: [CmsAuthSiteGuard],
         loadChildren: () =>
           import(
-            './site-category-module/coreSiteCategoryCmsModule.module'
+            "./site-category-module/coreSiteCategoryCmsModule.module"
           ).then((m) => m.CoreSiteCategoryCmsModuleModule),
-        data: { title: 'ROUTE.CORE.SITECATEGORYMODULE' },
+        data: { title: "ROUTE.CORE.SITECATEGORYMODULE" },
       },
       {
-        path: 'sitedomainalias',
+        path: "sitedomainalias",
         canActivate: [CmsAuthSiteGuard],
         loadChildren: () =>
-          import('./site-domain-alias/coreSiteDomainAlias.module').then(
-            (m) => m.CoreSiteDomainAliasModule
+          import("./site-domain-alias/coreSiteDomainAlias.module").then(
+            (m) => m.CoreSiteDomainAliasModule,
           ),
-        data: { title: 'ROUTE.CORE.SITEDOMAINALIAS' },
+        data: { title: "ROUTE.CORE.SITEDOMAINALIAS" },
       },
       {
-        path: 'cpmainmenu',
+        path: "cpmainmenu",
         canActivate: [CmsAuthSiteGuard],
         loadChildren: () =>
-          import('./cp-main-menu/coreCpMainMenu.module').then(
-            (m) => m.CoreCpMainMenu
+          import("./cp-main-menu/coreCpMainMenu.module").then(
+            (m) => m.CoreCpMainMenu,
           ),
-        data: { title: 'ROUTE.CORE.CPMAINMENU' },
+        data: { title: "ROUTE.CORE.CPMAINMENU" },
       },
       {
-        path: 'module',
+        path: "module",
         canActivate: [CmsAuthSiteGuard],
         loadChildren: () =>
-          import('./module/coreModule.module').then((m) => m.CoreModuleModule),
-        data: { title: 'ROUTE.CORE.MODULE' },
+          import("./module/coreModule.module").then((m) => m.CoreModuleModule),
+        data: { title: "ROUTE.CORE.MODULE" },
       },
       {
-        path: 'module-entity',
+        path: "module-entity",
         canActivate: [CmsAuthSiteGuard],
         loadChildren: () =>
-          import('./module-entity/core-module-entity.module').then(
-            (m) => m.CoreModuleEntityModule
+          import("./module-entity/core-module-entity.module").then(
+            (m) => m.CoreModuleEntityModule,
           ),
-        data: { title: 'ROUTE.CORE.MODULEENTITY' },
+        data: { title: "ROUTE.CORE.MODULEENTITY" },
       },
       {
-        path: 'module-entity-report-file',
+        path: "module-entity-report-file",
         canActivate: [CmsAuthSiteGuard],
         loadChildren: () =>
           import(
-            './module-entity-report-file/core-module-entity-report-file.module'
+            "./module-entity-report-file/core-module-entity-report-file.module"
           ).then((m) => m.CoreModuleEntityReportFileModule),
-        data: { title: 'ROUTE.CORE.ENTITYREPORTFILE' },
+        data: { title: "ROUTE.CORE.ENTITYREPORTFILE" },
       },
       {
-        path: 'modulesale',
+        path: "modulesale",
         canActivate: [CmsAuthSiteGuard],
         loadChildren: () =>
-          import('./module-sale/core-module-sale.module').then(
-            (m) => m.CoreModuleSaleModule
+          import("./module-sale/core-module-sale.module").then(
+            (m) => m.CoreModuleSaleModule,
           ),
-        data: { title: 'ROUTE.CORE.MODULESALE' },
+        data: { title: "ROUTE.CORE.MODULESALE" },
       },
       {
-        path: 'userclaim',
+        path: "userclaim",
         canActivate: [CmsAuthSiteGuard],
         loadChildren: () =>
-          import('./user-claim/core-user-claim.module').then(
-            (m) => m.CoreUserClaimModule
+          import("./user-claim/core-user-claim.module").then(
+            (m) => m.CoreUserClaimModule,
           ),
-        data: { title: 'ROUTE.CORE.USERCLAIM' },
+        data: { title: "ROUTE.CORE.USERCLAIM" },
       },
       {
-        path: 'location',
+        path: "location",
         canActivate: [CmsAuthSiteGuard],
         loadChildren: () =>
-          import('./location/coreLocation.module').then(
-            (m) => m.CoreLocationCmsModule
+          import("./location/coreLocation.module").then(
+            (m) => m.CoreLocationCmsModule,
           ),
-        data: { title: 'ROUTE.CORE.LOCATION' },
+        data: { title: "ROUTE.CORE.LOCATION" },
       },
       {
-        path: 'device',
+        path: "device",
         canActivate: [CmsAuthSiteGuard],
         loadChildren: () =>
-          import('./device/coreDevice.module').then((m) => m.CoreDeviceModule),
-        data: { title: 'ROUTE.CORE.DEVICE' },
+          import("./device/coreDevice.module").then((m) => m.CoreDeviceModule),
+        data: { title: "ROUTE.CORE.DEVICE" },
       },
       {
-        path: 'guide',
+        path: "guide",
         loadChildren: () =>
-          import('./guides/coreGuide.module').then((m) => m.CoreGuideCmsModule),
-        data: { title: 'ROUTE.CORE.GUIDE' },
+          import("./guides/coreGuide.module").then((m) => m.CoreGuideCmsModule),
+        data: { title: "ROUTE.CORE.GUIDE" },
       },
     ],
   },
@@ -173,4 +176,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CoreRoutes { }
+export class CoreRoutes {}

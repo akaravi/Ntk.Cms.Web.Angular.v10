@@ -1,61 +1,60 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { ArticleComponent } from './article.component';
-import { ArticleCommentListComponent } from './comment/list/list.component';
-import { ArticleContentAddComponent } from './content/add/add.component';
-import { ArticleContentEditComponent } from './content/edit/edit.component';
-import { ArticleContentListComponent } from './content/list/list.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { ArticleComponent } from "./article.component";
+import { ArticleCommentListComponent } from "./comment/list/list.component";
+import { ArticleContentAddComponent } from "./content/add/add.component";
+import { ArticleContentEditComponent } from "./content/edit/edit.component";
+import { ArticleContentListComponent } from "./content/list/list.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: ArticleComponent,
-    data: { title: 'ROUTE.ARTICLE' },
+    data: { title: "ROUTE.ARTICLE" },
     children: [
       /* Config */
       {
-        path: 'config',
+        path: "config",
         loadChildren: () =>
-          import('./config/article-config.module').then((m) => m.ArticleConfigModule),
+          import("./config/article-config.module").then(
+            (m) => m.ArticleConfigModule,
+          ),
+        data: { title: "ROUTE.ARTICLE" },
       },
       /* Config */
       {
-        path: 'content',
+        path: "content",
         // resolve: {categoryList: CategoryResolver},
         // loadChildren: () =>    import('./content/content.module').then(m => m.ContentModule)
         component: ArticleContentListComponent,
-        data: { title: 'ROUTE.ARTICLE' },
+        data: { title: "ROUTE.ARTICLE" },
       },
       {
-        path: 'content/add/:CategoryId',
+        path: "content/add/:CategoryId",
         component: ArticleContentAddComponent,
-        data: { title: 'ROUTE.ARTICLE' },
+        data: { title: "ROUTE.ARTICLE" },
       },
       {
-        path: 'content/edit/:Id',
+        path: "content/edit/:Id",
         component: ArticleContentEditComponent,
-        data: { title: 'ROUTE.ARTICLE' },
-
+        data: { title: "ROUTE.ARTICLE" },
       },
       {
-        path: 'comment',
+        path: "comment",
         component: ArticleCommentListComponent,
-        data: { title: 'ROUTE.ARTICLE' },
-
+        data: { title: "ROUTE.ARTICLE" },
       },
       {
-        path: 'comment/:ContentId',
+        path: "comment/:ContentId",
         component: ArticleCommentListComponent,
-        data: { title: 'ROUTE.ARTICLE' },
-
+        data: { title: "ROUTE.ARTICLE" },
       },
-    ]
+    ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class ArticleRouting {
-}
+export class ArticleRouting {}

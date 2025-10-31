@@ -1,75 +1,90 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { SmsLogApiPathListComponent } from './api-path/list/list.component';
-import { SmsLogInBoxListComponent } from './inbox/list/list.component';
-import { SmsLogOutBoxDetailListComponent } from './outbox-detail/list/list.component';
-import { SmsLogOutBoxQueueListComponent } from './outbox-queue/list/list.component';
-import { SmsLogOutBoxTaskSchedulerListComponent } from './outbox-task-scheduler/list/list.component';
-import { SmsLogOutBoxListComponent } from './outbox/list/list.component';
-import { SmsLogComponent } from './sms-log.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { SmsLogApiPathListComponent } from "./api-path/list/list.component";
+import { SmsLogInBoxListComponent } from "./inbox/list/list.component";
+import { SmsLogOutBoxDetailListComponent } from "./outbox-detail/list/list.component";
+import { SmsLogOutBoxQueueListComponent } from "./outbox-queue/list/list.component";
+import { SmsLogOutBoxTaskSchedulerListComponent } from "./outbox-task-scheduler/list/list.component";
+import { SmsLogOutBoxListComponent } from "./outbox/list/list.component";
+import { SmsLogComponent } from "./sms-log.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: SmsLogComponent,
+    data: { title: "ROUTE.SMS.LOG" },
     children: [
       /**inbox */
       {
-        path: 'inbox',
-        component: SmsLogInBoxListComponent
+        path: "inbox",
+        component: SmsLogInBoxListComponent,
+        data: { title: "ROUTE.SMS.LOG" },
       },
       {
-        path: 'inbox/list/LinkPrivateConfigId/:LinkPrivateConfigId',
-        component: SmsLogInBoxListComponent
+        path: "inbox/list/LinkPrivateConfigId/:LinkPrivateConfigId",
+        component: SmsLogInBoxListComponent,
+        data: { title: "ROUTE.SMS.LOG" },
       },
       {
-        path: 'inbox/list/LinkApiNumberId/:LinkApiNumberId',
-        component: SmsLogInBoxListComponent
+        path: "inbox/list/LinkApiNumberId/:LinkApiNumberId",
+        component: SmsLogInBoxListComponent,
+        data: { title: "ROUTE.SMS.LOG" },
       },
       {
-        path: 'inbox/list/LinkSiteId/:LinkSiteId',
-        component: SmsLogInBoxListComponent
+        path: "inbox/list/LinkSiteId/:LinkSiteId",
+        component: SmsLogInBoxListComponent,
+        data: { title: "ROUTE.SMS.LOG" },
       },
       /**outbox */
       {
-        path: 'outbox',
-        component: SmsLogOutBoxListComponent
+        path: "outbox",
+        component: SmsLogOutBoxListComponent,
+        data: { title: "ROUTE.SMS.LOG" },
       },
       {
-        path: 'outbox/list/LinkPrivateConfigId/:LinkPrivateConfigId',
-        component: SmsLogOutBoxListComponent
+        path: "outbox/list/LinkPrivateConfigId/:LinkPrivateConfigId",
+        component: SmsLogOutBoxListComponent,
+        data: { title: "ROUTE.SMS.LOG" },
       },
       {
-        path: 'outbox/list/LinkApiNumberId/:LinkApiNumberId',
-        component: SmsLogOutBoxListComponent
+        path: "outbox/list/LinkApiNumberId/:LinkApiNumberId",
+        component: SmsLogOutBoxListComponent,
+        data: { title: "ROUTE.SMS.LOG" },
       },
       {
-        path: 'outbox/list/LinkSiteId/:LinkSiteId',
-        component: SmsLogOutBoxListComponent
+        path: "outbox/list/LinkSiteId/:LinkSiteId",
+        component: SmsLogOutBoxListComponent,
+        data: { title: "ROUTE.SMS.LOG" },
       },
       {
-        path: 'outbox-detail/LinkOutBoxId/:LinkOutBoxId',
-        component: SmsLogOutBoxDetailListComponent
+        path: "outbox-detail/LinkOutBoxId/:LinkOutBoxId",
+        component: SmsLogOutBoxDetailListComponent,
+        data: { title: "ROUTE.SMS.LOG" },
       },
       {
-        path: 'api-path/LinkApiPathId/:LinkApiPathId',
-        component: SmsLogApiPathListComponent
+        path: "api-path/LinkApiPathId/:LinkApiPathId",
+        component: SmsLogApiPathListComponent,
+        data: { title: "ROUTE.SMS.LOG" },
       },
       {
-        path: 'outbox-queue',
-        component: SmsLogOutBoxQueueListComponent
+        path: "outbox-queue",
+        component: SmsLogOutBoxQueueListComponent,
+        data: { title: "ROUTE.SMS.LOG" },
       },
       {
-        path: 'outbox-queue/LinkApiPathId/:LinkApiPathId',
-        component: SmsLogOutBoxQueueListComponent
+        path: "outbox-queue/LinkApiPathId/:LinkApiPathId",
+        component: SmsLogOutBoxQueueListComponent,
+        data: { title: "ROUTE.SMS.LOG" },
       },
       {
-        path: 'outbox-task-scheduler',
-        component: SmsLogOutBoxTaskSchedulerListComponent
+        path: "outbox-task-scheduler",
+        component: SmsLogOutBoxTaskSchedulerListComponent,
+        data: { title: "ROUTE.SMS.LOG" },
       },
       {
-        path: 'outbox-task-scheduler/LinkApiPathId/:LinkApiPathId',
-        component: SmsLogOutBoxTaskSchedulerListComponent
+        path: "outbox-task-scheduler/LinkApiPathId/:LinkApiPathId",
+        component: SmsLogOutBoxTaskSchedulerListComponent,
+        data: { title: "ROUTE.SMS.LOG" },
       },
       //   {
       //     path: 'source/edit/:Id',
@@ -116,13 +131,12 @@ const routes: Routes = [
       //     path: 'themeconfig',
       //     component: ApplicationThemeConfigListComponent
       //   },
-    ]
+    ],
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class SmsLogRoutes {
-}
+export class SmsLogRoutes {}

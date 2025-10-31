@@ -1,429 +1,430 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { EstateAccountAgencyListComponent } from './account-agency/list/list.component';
-import { EstateAccountExpertListComponent } from './account-expert/list/list.component';
-import { EstateActivityTypeListComponent } from './activity-type/list/list.component';
-import { EstateAdsTypeListComponent } from './ads-type/list/list.component';
-import { EstateBillboardAddComponent } from './billboard/add/add.component';
-import { EstateBillboardEditComponent } from './billboard/edit/edit.component';
-import { EstateBillboardListComponent } from './billboard/list/list.component';
-import { EstateCategoryRackListComponent } from './category-rack/list/list.component';
-import { EstateCategoryZoneListComponent } from './category-zone/list/list.component';
-import { EstateContractTypeListComponent } from './contract-type/list/list.component';
-import { EstateCustomerOrderResultListComponent } from './customer-order-result/list/list.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { EstateAccountAgencyListComponent } from "./account-agency/list/list.component";
+import { EstateAccountExpertListComponent } from "./account-expert/list/list.component";
+import { EstateActivityTypeListComponent } from "./activity-type/list/list.component";
+import { EstateAdsTypeListComponent } from "./ads-type/list/list.component";
+import { EstateBillboardAddComponent } from "./billboard/add/add.component";
+import { EstateBillboardEditComponent } from "./billboard/edit/edit.component";
+import { EstateBillboardListComponent } from "./billboard/list/list.component";
+import { EstateCategoryRackListComponent } from "./category-rack/list/list.component";
+import { EstateCategoryZoneListComponent } from "./category-zone/list/list.component";
+import { EstateContractTypeListComponent } from "./contract-type/list/list.component";
+import { EstateCustomerOrderResultListComponent } from "./customer-order-result/list/list.component";
 
-import { EstateCustomerOrderEditComponent } from './customer-order/edit/edit.component';
-import { EstateCustomerOrderListComponent } from './customer-order/list/list.component';
-import { EstateComponent } from './estate.component';
-import { EstateOverviewEventsComponent } from './overview/events/events.component';
-import { EstateOverviewSummaryComponent } from './overview/summary/summary.component';
-import { EstatePropertyAdsListComponent } from './property-ads/list/list.component';
-import { EstatePropertyAdsSaleListComponent } from './property-ads/sale-list/sale-list.component';
-import { EstatePropertyCompanyAddComponent } from './property-company/add/add.component';
-import { EstatePropertyCompanyEditComponent } from './property-company/edit/edit.component';
+import { EstateCustomerOrderEditComponent } from "./customer-order/edit/edit.component";
+import { EstateCustomerOrderListComponent } from "./customer-order/list/list.component";
+import { EstateComponent } from "./estate.component";
+import { EstateOverviewEventsComponent } from "./overview/events/events.component";
+import { EstateOverviewSummaryComponent } from "./overview/summary/summary.component";
+import { EstatePropertyAdsListComponent } from "./property-ads/list/list.component";
+import { EstatePropertyAdsSaleListComponent } from "./property-ads/sale-list/sale-list.component";
+import { EstatePropertyCompanyAddComponent } from "./property-company/add/add.component";
+import { EstatePropertyCompanyEditComponent } from "./property-company/edit/edit.component";
 
-import { EstatePropertyCompanyListComponent } from './property-company/list/list.component';
-import { EstatePropertyDetailGroupListComponent } from './property-detail-group/list/list.component';
-import { EstatePropertyDetailListComponent } from './property-detail/list/list.component';
-import { EstatePropertyExpertPriceListComponent } from './property-expert-price/list/list.component';
-import { EstatePropertyHistoryListComponent } from './property-history/list/list.component';
-import { EstatePropertyProjectAddComponent } from './property-project/add/add.component';
-import { EstatePropertyProjectEditComponent } from './property-project/edit/edit.component';
-import { EstatePropertyProjectListComponent } from './property-project/list/list.component';
-import { EstatePropertySupplierAddComponent } from './property-supplier/add/add.component';
-import { EstatePropertySupplierEditComponent } from './property-supplier/edit/edit.component';
-import { EstatePropertySupplierListComponent } from './property-supplier/list/list.component';
-import { EstatePropertyTypeLanduseListComponent } from './property-type-landuse/list/list.component';
-import { EstatePropertyTypeUsageListComponent } from './property-type-usage/list/list.component';
-import { EstatePropertyAddComponent } from './property/add/add.component';
-import { EstatePropertyEditComponent } from './property/edit/edit.component';
-import { EstatePropertyListComponent } from './property/list/list.component';
+import { EstatePropertyCompanyListComponent } from "./property-company/list/list.component";
+import { EstatePropertyDetailGroupListComponent } from "./property-detail-group/list/list.component";
+import { EstatePropertyDetailListComponent } from "./property-detail/list/list.component";
+import { EstatePropertyExpertPriceListComponent } from "./property-expert-price/list/list.component";
+import { EstatePropertyHistoryListComponent } from "./property-history/list/list.component";
+import { EstatePropertyProjectAddComponent } from "./property-project/add/add.component";
+import { EstatePropertyProjectEditComponent } from "./property-project/edit/edit.component";
+import { EstatePropertyProjectListComponent } from "./property-project/list/list.component";
+import { EstatePropertySupplierAddComponent } from "./property-supplier/add/add.component";
+import { EstatePropertySupplierEditComponent } from "./property-supplier/edit/edit.component";
+import { EstatePropertySupplierListComponent } from "./property-supplier/list/list.component";
+import { EstatePropertyTypeLanduseListComponent } from "./property-type-landuse/list/list.component";
+import { EstatePropertyTypeUsageListComponent } from "./property-type-usage/list/list.component";
+import { EstatePropertyAddComponent } from "./property/add/add.component";
+import { EstatePropertyEditComponent } from "./property/edit/edit.component";
+import { EstatePropertyListComponent } from "./property/list/list.component";
 /**توجه این روت دو بخش داد باید در هر دو بخش روت ها اضفا شود */
 const routesNormal: Routes = [
   {
-    path: '',
+    path: "",
     component: EstateComponent,
-    data: { title: 'ROUTE.ESTATE' },
+    data: { title: "ROUTE.ESTATE" },
     children: [
       /* Config */
       {
-        path: 'config',
+        path: "config",
         loadChildren: () =>
-          import('./config/estate-config.module').then(
-            (m) => m.EstateConfigModule
+          import("./config/estate-config.module").then(
+            (m) => m.EstateConfigModule,
           ),
-        data: { title: 'ROUTE.ESTATE' },
+        data: { title: "ROUTE.ESTATE" },
       },
       /* Config */
       /* View */
       {
-        path: 'overview-events',
+        path: "overview-events",
         component: EstateOverviewEventsComponent,
-        data: { title: 'ROUTE.ESTATE.EVENTS' },
+        data: { title: "ROUTE.ESTATE.EVENTS" },
       },
       {
-        path: 'overview-summary',
+        path: "overview-summary",
         component: EstateOverviewSummaryComponent,
-        data: { title: 'ROUTE.ESTATE.SUMMARY' },
+        data: { title: "ROUTE.ESTATE.SUMMARY" },
       },
       /* View */
       {
-        path: 'property',
+        path: "property",
         component: EstatePropertyListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTY' },
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/Action/:Action',
+        path: "property/Action/:Action",
         component: EstatePropertyListComponent,
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/LinkPropertyTypeLanduseId/:LinkPropertyTypeLanduseId',
+        path: "property/LinkPropertyTypeLanduseId/:LinkPropertyTypeLanduseId",
         component: EstatePropertyListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTY' },
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/LinkPropertyTypeUsageId/:LinkPropertyTypeUsageId',
+        path: "property/LinkPropertyTypeUsageId/:LinkPropertyTypeUsageId",
         component: EstatePropertyListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTY' },
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/LinkContractTypeId/:LinkContractTypeId',
+        path: "property/LinkContractTypeId/:LinkContractTypeId",
         component: EstatePropertyListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTY' },
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/LinkBillboardId/:LinkBillboardId',
+        path: "property/LinkBillboardId/:LinkBillboardId",
         component: EstatePropertyListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTY' },
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/LinkCustomerOrderId/:LinkCustomerOrderId',
+        path: "property/LinkCustomerOrderId/:LinkCustomerOrderId",
         component: EstatePropertyListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTY' },
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/LinkUserId/:LinkUserId',
+        path: "property/LinkUserId/:LinkUserId",
         component: EstatePropertyListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTY' },
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/LinkProjectId/:LinkProjectId',
+        path: "property/LinkProjectId/:LinkProjectId",
         component: EstatePropertyListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTY' },
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/LinkCompanyId/:LinkCompanyId',
+        path: "property/LinkCompanyId/:LinkCompanyId",
         component: EstatePropertyListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTY' },
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/LinkEstateExpertId/:LinkEstateExpertId',
+        path: "property/LinkEstateExpertId/:LinkEstateExpertId",
         component: EstatePropertyListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTY' },
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/LinkEstateAgencyId/:LinkEstateAgencyId',
+        path: "property/LinkEstateAgencyId/:LinkEstateAgencyId",
         component: EstatePropertyListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTY' },
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/InChecking/:InChecking',
+        path: "property/InChecking/:InChecking",
         component: EstatePropertyListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTY' },
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/recordstatus/:RecordStatus',
+        path: "property/recordstatus/:RecordStatus",
         component: EstatePropertyListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTY' },
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/add',
+        path: "property/add",
         component: EstatePropertyAddComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTYADD' },
+        data: { title: "ROUTE.ESTATE.PROPERTYADD" },
       },
       {
-        path: 'property/add/LinkPropertyTypeLanduseId/:LinkPropertyTypeLanduseId',
+        path: "property/add/LinkPropertyTypeLanduseId/:LinkPropertyTypeLanduseId",
         component: EstatePropertyAddComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTYADD' },
+        data: { title: "ROUTE.ESTATE.PROPERTYADD" },
       },
       {
-        path: 'property/edit/:id',
+        path: "property/edit/:id",
         component: EstatePropertyEditComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTYEDIT' },
+        data: { title: "ROUTE.ESTATE.PROPERTYEDIT" },
       },
       /**/
       {
-        path: 'property-type-usage',
+        path: "property-type-usage",
         component: EstatePropertyTypeUsageListComponent,
-        data: { title: 'ROUTE.ESTATE.TYPEUSAGE' },
+        data: { title: "ROUTE.ESTATE.TYPEUSAGE" },
       },
       {
-        path: 'property-type-landuse',
+        path: "property-type-landuse",
         component: EstatePropertyTypeLanduseListComponent,
-        data: { title: 'ROUTE.ESTATE.LANDUSE' },
+        data: { title: "ROUTE.ESTATE.LANDUSE" },
       },
       /**/
       {
-        path: 'property-ads/LinkPropertyId/:LinkPropertyId',
+        path: "property-ads/LinkPropertyId/:LinkPropertyId",
         component: EstatePropertyAdsListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTYADS' },
+        data: { title: "ROUTE.ESTATE.PROPERTYADS" },
       },
       {
-        path: 'property-ads',
+        path: "property-ads",
         component: EstatePropertyAdsListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTYADS' },
+        data: { title: "ROUTE.ESTATE.PROPERTYADS" },
       },
       {
-        path: 'property-ads/sale/:LinkPropertyId',
+        path: "property-ads/sale/:LinkPropertyId",
         component: EstatePropertyAdsSaleListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTYADS' },
+        data: { title: "ROUTE.ESTATE.PROPERTYADS" },
       },
       /**/
       {
-        path: 'activity-type',
+        path: "activity-type",
         component: EstateActivityTypeListComponent,
-        data: { title: 'ROUTE.ESTATE.ACTIVITYTYPE' },
+        data: { title: "ROUTE.ESTATE.ACTIVITYTYPE" },
       },
       /**/
       /**/
       {
-        path: 'property-company',
+        path: "property-company",
         component: EstatePropertyCompanyListComponent,
-        data: { title: 'ROUTE.ESTATE.COMPANY' },
+        data: { title: "ROUTE.ESTATE.COMPANY" },
       },
       {
-        path: 'property-company/LinkProjectId/:LinkProjectId',
+        path: "property-company/LinkProjectId/:LinkProjectId",
         component: EstatePropertyCompanyListComponent,
-        data: { title: 'ROUTE.ESTATE.COMPANY' },
+        data: { title: "ROUTE.ESTATE.COMPANY" },
       },
       {
-        path: 'property-company/add',
+        path: "property-company/add",
         component: EstatePropertyCompanyAddComponent,
-        data: { title: 'ROUTE.ESTATE.COMPANY' },
+        data: { title: "ROUTE.ESTATE.COMPANY" },
       },
       {
-        path: 'property-company/edit/:id',
+        path: "property-company/edit/:id",
         component: EstatePropertyCompanyEditComponent,
-        data: { title: 'ROUTE.ESTATE.COMPANY' },
+        data: { title: "ROUTE.ESTATE.COMPANY" },
       },
       /**/
       /**/
       {
-        path: 'property-supplier',
+        path: "property-supplier",
         component: EstatePropertySupplierListComponent,
-        data: { title: 'ROUTE.ESTATE.SUPPLIER' },
+        data: { title: "ROUTE.ESTATE.SUPPLIER" },
       },
       {
-        path: 'property-supplier/LinkProjectId/:LinkProjectId',
+        path: "property-supplier/LinkProjectId/:LinkProjectId",
         component: EstatePropertySupplierListComponent,
-        data: { title: 'ROUTE.ESTATE.SUPPLIER' },
+        data: { title: "ROUTE.ESTATE.SUPPLIER" },
       },
       {
-        path: 'property-supplier/add',
+        path: "property-supplier/add",
         component: EstatePropertySupplierAddComponent,
-        data: { title: 'ROUTE.ESTATE.SUPPLIER' },
+        data: { title: "ROUTE.ESTATE.SUPPLIER" },
       },
       {
-        path: 'property-supplier/edit/:id',
+        path: "property-supplier/edit/:id",
         component: EstatePropertySupplierEditComponent,
-        data: { title: 'ROUTE.ESTATE.SUPPLIER' },
+        data: { title: "ROUTE.ESTATE.SUPPLIER" },
       },
       /**/
       {
-        path: 'property-history',
+        path: "property-history",
         component: EstatePropertyHistoryListComponent,
-        data: { title: 'ROUTE.ESTATE.HISTORY' },
+        data: { title: "ROUTE.ESTATE.HISTORY" },
       },
       {
-        path: 'property-history/InCheckingOnDay/:InCheckingOnDay',
+        path: "property-history/InCheckingOnDay/:InCheckingOnDay",
         component: EstatePropertyHistoryListComponent,
-        data: { title: 'ROUTE.ESTATE.HISTORY' },
+        data: { title: "ROUTE.ESTATE.HISTORY" },
       },
       {
-        path: 'property-history/InCheckingPlanedToDay/:InCheckingPlanedToDay',
+        path: "property-history/InCheckingPlanedToDay/:InCheckingPlanedToDay",
         component: EstatePropertyHistoryListComponent,
-        data: { title: 'ROUTE.ESTATE.HISTORY' },
+        data: { title: "ROUTE.ESTATE.HISTORY" },
       },
 
       {
-        path: 'property-history/LinkPropertyId/:LinkPropertyId',
+        path: "property-history/LinkPropertyId/:LinkPropertyId",
         component: EstatePropertyHistoryListComponent,
-        data: { title: 'ROUTE.ESTATE.HISTORY' },
+        data: { title: "ROUTE.ESTATE.HISTORY" },
       },
       {
-        path: 'property-history/LinkEstateExpertId/:LinkEstateExpertId',
+        path: "property-history/LinkEstateExpertId/:LinkEstateExpertId",
         component: EstatePropertyHistoryListComponent,
-        data: { title: 'ROUTE.ESTATE.HISTORY' },
+        data: { title: "ROUTE.ESTATE.HISTORY" },
       },
       {
-        path: 'property-history/LinkCustomerOrderId/:LinkCustomerOrderId',
+        path: "property-history/LinkCustomerOrderId/:LinkCustomerOrderId",
         component: EstatePropertyHistoryListComponent,
-        data: { title: 'ROUTE.ESTATE.HISTORY' },
+        data: { title: "ROUTE.ESTATE.HISTORY" },
       },
       {
-        path: 'property-history/LinkEstateAgencyId/:LinkEstateAgencyId',
+        path: "property-history/LinkEstateAgencyId/:LinkEstateAgencyId",
         component: EstatePropertyHistoryListComponent,
-        data: { title: 'ROUTE.ESTATE.HISTORY' },
+        data: { title: "ROUTE.ESTATE.HISTORY" },
       },
       {
-        path: 'property-history/recordstatus/:RecordStatus',
+        path: "property-history/recordstatus/:RecordStatus",
         component: EstatePropertyHistoryListComponent,
-        data: { title: 'ROUTE.ESTATE.HISTORY' },
+        data: { title: "ROUTE.ESTATE.HISTORY" },
       },
       {
-        path: 'property-history/responsibleUserId/:ResponsibleUserId',
+        path: "property-history/responsibleUserId/:ResponsibleUserId",
         component: EstatePropertyHistoryListComponent,
-        data: { title: 'ROUTE.ESTATE.HISTORY' },
+        data: { title: "ROUTE.ESTATE.HISTORY" },
       },
       {
-        path: 'property-history/activitystatus/:ActivityStatus',
+        path: "property-history/activitystatus/:ActivityStatus",
         component: EstatePropertyHistoryListComponent,
-        data: { title: 'ROUTE.ESTATE.HISTORY' },
+        data: { title: "ROUTE.ESTATE.HISTORY" },
       },
       {
-        path: 'property-history/action/:Action',
+        path: "property-history/action/:Action",
         component: EstatePropertyHistoryListComponent,
-        data: { title: 'ROUTE.ESTATE.HISTORY' },
+        data: { title: "ROUTE.ESTATE.HISTORY" },
       },
       /**/
       {
-        path: 'expert-price',
+        path: "expert-price",
         component: EstatePropertyExpertPriceListComponent,
-        data: { title: 'ROUTE.EXPERT.PRICE' },
+        data: { title: "ROUTE.EXPERT.PRICE" },
       },
       /**/
       {
-        path: 'ads-type',
+        path: "ads-type",
         component: EstateAdsTypeListComponent,
-        data: { title: 'ROUTE.ESTATE.ADSTYPE' },
+        data: { title: "ROUTE.ESTATE.ADSTYPE" },
       },
       /**/
       {
-        path: 'account-agency',
+        path: "account-agency",
         component: EstateAccountAgencyListComponent,
-        data: { title: 'ROUTE.ESTATE.ACCOUNTAGENCY' },
+        data: { title: "ROUTE.ESTATE.ACCOUNTAGENCY" },
       },
       {
-        path: 'account-agency/LinkAccountUserId/:LinkAccountUserId',
+        path: "account-agency/LinkAccountUserId/:LinkAccountUserId",
         component: EstateAccountAgencyListComponent,
-        data: { title: 'ROUTE.ESTATE.ACCOUNTAGENCY' },
+        data: { title: "ROUTE.ESTATE.ACCOUNTAGENCY" },
       },
       /**/ {
-        path: 'account-user',
+        path: "account-user",
         component: EstateAccountExpertListComponent,
-        data: { title: 'ROUTE.ESTATE.ACCOUNTUSER' },
+        data: { title: "ROUTE.ESTATE.ACCOUNTUSER" },
       },
       {
-        path: 'account-user/LinkAccountAgencyId/:LinkAccountAgencyId',
+        path: "account-user/LinkAccountAgencyId/:LinkAccountAgencyId",
         component: EstateAccountExpertListComponent,
-        data: { title: 'ROUTE.ESTATE.ACCOUNTUSER' },
+        data: { title: "ROUTE.ESTATE.ACCOUNTUSER" },
       },
       /**/
       {
-        path: 'contract-type',
+        path: "contract-type",
         component: EstateContractTypeListComponent,
-        data: { title: 'ROUTE.ESTATE.CONTRACTTYPE' },
+        data: { title: "ROUTE.ESTATE.CONTRACTTYPE" },
       },
       /**/
       {
-        path: 'billboard',
+        path: "billboard",
         component: EstateBillboardListComponent,
-        data: { title: 'ROUTE.ESTATE.BILLBOARD' },
+        data: { title: "ROUTE.ESTATE.BILLBOARD" },
       },
       {
-        path: 'billboard/add',
+        path: "billboard/add",
         component: EstateBillboardAddComponent,
-        data: { title: 'ROUTE.ESTATE.BILLBOARD' },
+        data: { title: "ROUTE.ESTATE.BILLBOARD" },
       },
       {
-        path: 'billboard/add-copy/:id',
+        path: "billboard/add-copy/:id",
         component: EstateBillboardAddComponent,
-        data: { title: 'ROUTE.ESTATE.BILLBOARD' },
+        data: { title: "ROUTE.ESTATE.BILLBOARD" },
       },
       {
-        path: 'billboard/edit/:id',
+        path: "billboard/edit/:id",
         component: EstateBillboardEditComponent,
-        data: { title: 'ROUTE.ESTATE.BILLBOARD' },
+        data: { title: "ROUTE.ESTATE.BILLBOARD" },
       },
       /**/
       {
-        path: 'property-project',
+        path: "property-project",
         component: EstatePropertyProjectListComponent,
-        data: { title: 'ROUTE.ESTATE.PROJECT' },
+        data: { title: "ROUTE.ESTATE.PROJECT" },
       },
       {
-        path: 'property-project/add',
+        path: "property-project/add",
         component: EstatePropertyProjectAddComponent,
-        data: { title: 'ROUTE.ESTATE.PROJECT' },
+        data: { title: "ROUTE.ESTATE.PROJECT" },
       },
       {
-        path: 'property-project/edit/:id',
+        path: "property-project/edit/:id",
         component: EstatePropertyProjectEditComponent,
-        data: { title: 'ROUTE.ESTATE.PROJECT' },
+        data: { title: "ROUTE.ESTATE.PROJECT" },
       },
       {
-        path: 'category-zone',
+        path: "category-zone",
         component: EstateCategoryZoneListComponent,
-        data: { title: 'ROUTE.ESTATE.CATEGORY.ZONE' },
+        data: { title: "ROUTE.ESTATE.CATEGORY.ZONE" },
       },
       {
-        path: 'category-rack',
+        path: "category-rack",
         component: EstateCategoryRackListComponent,
-        data: { title: 'ROUTE.ESTATE.CATEGORY.RACK' },
+        data: { title: "ROUTE.ESTATE.CATEGORY.RACK" },
       },
       {
-        path: 'customer-order',
+        path: "customer-order",
         component: EstateCustomerOrderListComponent,
-        data: { title: 'ROUTE.ESTATE.CUSTOMER.ORDER' },
+        data: { title: "ROUTE.ESTATE.CUSTOMER.ORDER" },
       },
       {
-        path: 'customer-order/recordstatus/:RecordStatus',
+        path: "customer-order/recordstatus/:RecordStatus",
         component: EstateCustomerOrderListComponent,
-        data: { title: 'ROUTE.ESTATE.CUSTOMER.ORDER' },
+        data: { title: "ROUTE.ESTATE.CUSTOMER.ORDER" },
       },
       {
-        path: 'customer-order/recordstatus/:RecordStatus/:ResponsibleUserId',
+        path: "customer-order/recordstatus/:RecordStatus/:ResponsibleUserId",
         component: EstateCustomerOrderListComponent,
-        data: { title: 'ROUTE.ESTATE.CUSTOMER.ORDER' },
+        data: { title: "ROUTE.ESTATE.CUSTOMER.ORDER" },
       },
       {
-        path: 'customer-order/responsibleUserId/:ResponsibleUserId',
+        path: "customer-order/responsibleUserId/:ResponsibleUserId",
         component: EstateCustomerOrderListComponent,
-        data: { title: 'ROUTE.ESTATE.CUSTOMER.ORDER' },
+        data: { title: "ROUTE.ESTATE.CUSTOMER.ORDER" },
       },
 
       {
-        path: 'customer-order/edit/:id',
+        path: "customer-order/edit/:id",
         component: EstateCustomerOrderEditComponent,
-        data: { title: 'ROUTE.ESTATE.CUSTOMER.ORDER' },
+        data: { title: "ROUTE.ESTATE.CUSTOMER.ORDER" },
       },
       /**/
       {
-        path: 'customer-order-result/LinkCustomerOrder/:LinkCustomerOrder',
+        path: "customer-order-result/LinkCustomerOrder/:LinkCustomerOrder",
         component: EstateCustomerOrderResultListComponent,
-        data: { title: 'ROUTE.ESTATE.CUSTOMER.ORDERRESULT' },
+        data: { title: "ROUTE.ESTATE.CUSTOMER.ORDERRESULT" },
       },
       {
-        path: 'customer-order-result/LinkProperty/:LinkProperty',
+        path: "customer-order-result/LinkProperty/:LinkProperty",
         component: EstateCustomerOrderResultListComponent,
-        data: { title: 'ROUTE.ESTATE.CUSTOMER.ORDERRESULT' },
+        data: { title: "ROUTE.ESTATE.CUSTOMER.ORDERRESULT" },
       },
       /**/
       {
-        path: 'property-detail-group',
+        path: "property-detail-group",
         component: EstatePropertyDetailGroupListComponent,
-        data: { title: 'ROUTE.ESTATE.DETAIL.GROUP' },
+        data: { title: "ROUTE.ESTATE.DETAIL.GROUP" },
       },
       /**/
       {
-        path: 'property-detail',
+        path: "property-detail",
         component: EstatePropertyDetailListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTYDETAIL' },
+        data: { title: "ROUTE.ESTATE.PROPERTYDETAIL" },
       },
       {
-        path: 'property-detail/LinkPropertyTypeLanduseId/:LinkPropertyTypeLanduseId',
+        path: "property-detail/LinkPropertyTypeLanduseId/:LinkPropertyTypeLanduseId",
         component: EstatePropertyDetailListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTYDETAIL' },
+        data: { title: "ROUTE.ESTATE.PROPERTYDETAIL" },
       },
       /** */
     ],
@@ -432,100 +433,101 @@ const routesNormal: Routes = [
 
 const routesMobile: Routes = [
   {
-    path: '',
+    path: "",
     component: EstateComponent,
-    data: { title: 'ROUTE.ESTATE' },
+    data: { title: "ROUTE.ESTATE" },
     children: [
       /* Config */
       {
-        path: 'config',
+        path: "config",
         loadChildren: () =>
-          import('./config/estate-config.module').then(
-            (m) => m.EstateConfigModule
+          import("./config/estate-config.module").then(
+            (m) => m.EstateConfigModule,
           ),
-        data: { title: 'ROUTE.ESTATE' },
+        data: { title: "ROUTE.ESTATE" },
       },
       /* Config */
       /* View */
       {
-        path: 'overview-events',
+        path: "overview-events",
         component: EstateOverviewEventsComponent,
-        data: { title: 'ROUTE.ESTATE.EVENTS' },
+        data: { title: "ROUTE.ESTATE.EVENTS" },
       },
       {
-        path: 'overview-summary',
+        path: "overview-summary",
         component: EstateOverviewSummaryComponent,
-        data: { title: 'ROUTE.ESTATE.SUMMARY' },
+        data: { title: "ROUTE.ESTATE.SUMMARY" },
       },
       /* View */
       {
-        path: 'property',
+        path: "property",
         component: EstatePropertyListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTY' },
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/Action/:Action',
+        path: "property/Action/:Action",
         component: EstatePropertyListComponent,
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/LinkPropertyTypeLanduseId/:LinkPropertyTypeLanduseId',
+        path: "property/LinkPropertyTypeLanduseId/:LinkPropertyTypeLanduseId",
         component: EstatePropertyListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTY' },
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/LinkPropertyTypeUsageId/:LinkPropertyTypeUsageId',
+        path: "property/LinkPropertyTypeUsageId/:LinkPropertyTypeUsageId",
         component: EstatePropertyListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTY' },
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/LinkContractTypeId/:LinkContractTypeId',
+        path: "property/LinkContractTypeId/:LinkContractTypeId",
         component: EstatePropertyListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTY' },
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/LinkBillboardId/:LinkBillboardId',
+        path: "property/LinkBillboardId/:LinkBillboardId",
         component: EstatePropertyListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTY' },
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/LinkCustomerOrderId/:LinkCustomerOrderId',
+        path: "property/LinkCustomerOrderId/:LinkCustomerOrderId",
         component: EstatePropertyListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTY' },
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/LinkUserId/:LinkUserId',
+        path: "property/LinkUserId/:LinkUserId",
         component: EstatePropertyListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTY' },
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/LinkProjectId/:LinkProjectId',
+        path: "property/LinkProjectId/:LinkProjectId",
         component: EstatePropertyListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTY' },
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/LinkCompanyId/:LinkCompanyId',
+        path: "property/LinkCompanyId/:LinkCompanyId",
         component: EstatePropertyListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTY' },
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/LinkEstateExpertId/:LinkEstateExpertId',
+        path: "property/LinkEstateExpertId/:LinkEstateExpertId",
         component: EstatePropertyListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTY' },
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/LinkEstateAgencyId/:LinkEstateAgencyId',
+        path: "property/LinkEstateAgencyId/:LinkEstateAgencyId",
         component: EstatePropertyListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTY' },
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/InChecking/:InChecking',
+        path: "property/InChecking/:InChecking",
         component: EstatePropertyListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTY' },
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
       {
-        path: 'property/recordstatus/:RecordStatus',
+        path: "property/recordstatus/:RecordStatus",
         component: EstatePropertyListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTY' },
+        data: { title: "ROUTE.ESTATE.PROPERTY" },
       },
 
       // {
@@ -534,213 +536,213 @@ const routesMobile: Routes = [
       //   data: { title: 'ROUTE.ESTATE.PROPERTYADD' },
       // },
       {
-        path: 'property/add/LinkPropertyTypeLanduseId/:LinkPropertyTypeLanduseId',
+        path: "property/add/LinkPropertyTypeLanduseId/:LinkPropertyTypeLanduseId",
         component: EstatePropertyAddComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTYADD' },
+        data: { title: "ROUTE.ESTATE.PROPERTYADD" },
       },
       {
-        path: 'property/edit/:id',
+        path: "property/edit/:id",
         component: EstatePropertyEditComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTYEDIT' },
+        data: { title: "ROUTE.ESTATE.PROPERTYEDIT" },
       },
       /**/
       {
-        path: 'property-type-usage',
+        path: "property-type-usage",
         component: EstatePropertyTypeUsageListComponent,
-        data: { title: 'ROUTE.ESTATE.TYPEUSAGE' },
+        data: { title: "ROUTE.ESTATE.TYPEUSAGE" },
       },
       {
-        path: 'property-type-landuse',
+        path: "property-type-landuse",
         component: EstatePropertyTypeLanduseListComponent,
-        data: { title: 'ROUTE.ESTATE.LANDUSE' },
+        data: { title: "ROUTE.ESTATE.LANDUSE" },
       },
       /**/
       {
-        path: 'property-ads/LinkPropertyId/:LinkPropertyId',
+        path: "property-ads/LinkPropertyId/:LinkPropertyId",
         component: EstatePropertyAdsListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTYADS' },
+        data: { title: "ROUTE.ESTATE.PROPERTYADS" },
       },
       {
-        path: 'property-ads',
+        path: "property-ads",
         component: EstatePropertyAdsListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTYADS' },
+        data: { title: "ROUTE.ESTATE.PROPERTYADS" },
       },
       {
-        path: 'property-ads/sale/:LinkPropertyId',
+        path: "property-ads/sale/:LinkPropertyId",
         component: EstatePropertyAdsSaleListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTYADS' },
+        data: { title: "ROUTE.ESTATE.PROPERTYADS" },
       },
       /**/
       {
-        path: 'activity-type',
+        path: "activity-type",
         component: EstateActivityTypeListComponent,
-        data: { title: 'ROUTE.ESTATE.ACTIVITYTYPE' },
+        data: { title: "ROUTE.ESTATE.ACTIVITYTYPE" },
       },
       /**/
       /**/
       {
-        path: 'property-company',
+        path: "property-company",
         component: EstatePropertyCompanyListComponent,
-        data: { title: 'ROUTE.ESTATE.COMPANY' },
+        data: { title: "ROUTE.ESTATE.COMPANY" },
       },
       {
-        path: 'property-company/LinkProjectId/:LinkProjectId',
+        path: "property-company/LinkProjectId/:LinkProjectId",
         component: EstatePropertyCompanyListComponent,
-        data: { title: 'ROUTE.ESTATE.COMPANY' },
+        data: { title: "ROUTE.ESTATE.COMPANY" },
       },
       {
-        path: 'property-company/add',
+        path: "property-company/add",
         component: EstatePropertyCompanyAddComponent,
-        data: { title: 'ROUTE.ESTATE.COMPANY' },
+        data: { title: "ROUTE.ESTATE.COMPANY" },
       },
       {
-        path: 'property-company/edit/:id',
+        path: "property-company/edit/:id",
         component: EstatePropertyCompanyEditComponent,
-        data: { title: 'ROUTE.ESTATE.COMPANY' },
+        data: { title: "ROUTE.ESTATE.COMPANY" },
       },
       /**/
       /**/
       {
-        path: 'property-supplier',
+        path: "property-supplier",
         component: EstatePropertySupplierListComponent,
-        data: { title: 'ROUTE.ESTATE.SUPPLIER' },
+        data: { title: "ROUTE.ESTATE.SUPPLIER" },
       },
       {
-        path: 'property-supplier/LinkProjectId/:LinkProjectId',
+        path: "property-supplier/LinkProjectId/:LinkProjectId",
         component: EstatePropertySupplierListComponent,
-        data: { title: 'ROUTE.ESTATE.SUPPLIER' },
+        data: { title: "ROUTE.ESTATE.SUPPLIER" },
       },
       {
-        path: 'property-supplier/add',
+        path: "property-supplier/add",
         component: EstatePropertySupplierAddComponent,
-        data: { title: 'ROUTE.ESTATE.SUPPLIER' },
+        data: { title: "ROUTE.ESTATE.SUPPLIER" },
       },
       {
-        path: 'property-supplier/edit/:id',
+        path: "property-supplier/edit/:id",
         component: EstatePropertySupplierEditComponent,
-        data: { title: 'ROUTE.ESTATE.SUPPLIER' },
+        data: { title: "ROUTE.ESTATE.SUPPLIER" },
       },
       /**/
       {
-        path: 'property-history',
+        path: "property-history",
         component: EstatePropertyHistoryListComponent,
-        data: { title: 'ROUTE.ESTATE.HISTORY' },
+        data: { title: "ROUTE.ESTATE.HISTORY" },
       },
       {
-        path: 'property-history/InCheckingOnDay/:InCheckingOnDay',
+        path: "property-history/InCheckingOnDay/:InCheckingOnDay",
         component: EstatePropertyHistoryListComponent,
-        data: { title: 'ROUTE.ESTATE.HISTORY' },
+        data: { title: "ROUTE.ESTATE.HISTORY" },
       },
       {
-        path: 'property-history/LinkPropertyId/:LinkPropertyId',
+        path: "property-history/LinkPropertyId/:LinkPropertyId",
         component: EstatePropertyHistoryListComponent,
-        data: { title: 'ROUTE.ESTATE.HISTORY' },
+        data: { title: "ROUTE.ESTATE.HISTORY" },
       },
       {
-        path: 'property-history/LinkEstateExpertId/:LinkEstateExpertId',
+        path: "property-history/LinkEstateExpertId/:LinkEstateExpertId",
         component: EstatePropertyHistoryListComponent,
-        data: { title: 'ROUTE.ESTATE.HISTORY' },
+        data: { title: "ROUTE.ESTATE.HISTORY" },
       },
       {
-        path: 'property-history/LinkCustomerOrderId/:LinkCustomerOrderId',
+        path: "property-history/LinkCustomerOrderId/:LinkCustomerOrderId",
         component: EstatePropertyHistoryListComponent,
-        data: { title: 'ROUTE.ESTATE.HISTORY' },
+        data: { title: "ROUTE.ESTATE.HISTORY" },
       },
       {
-        path: 'property-history/LinkEstateAgencyId/:LinkEstateAgencyId',
+        path: "property-history/LinkEstateAgencyId/:LinkEstateAgencyId",
         component: EstatePropertyHistoryListComponent,
-        data: { title: 'ROUTE.ESTATE.HISTORY' },
+        data: { title: "ROUTE.ESTATE.HISTORY" },
       },
       {
-        path: 'property-history/recordstatus/:RecordStatus',
+        path: "property-history/recordstatus/:RecordStatus",
         component: EstatePropertyHistoryListComponent,
-        data: { title: 'ROUTE.ESTATE.HISTORY' },
+        data: { title: "ROUTE.ESTATE.HISTORY" },
       },
       {
-        path: 'property-history/action/:Action',
+        path: "property-history/action/:Action",
         component: EstatePropertyHistoryListComponent,
-        data: { title: 'ROUTE.ESTATE.HISTORY' },
+        data: { title: "ROUTE.ESTATE.HISTORY" },
       },
       /**/
       {
-        path: 'expert-price',
+        path: "expert-price",
         component: EstatePropertyExpertPriceListComponent,
-        data: { title: 'ROUTE.EXPERT.PRICE' },
+        data: { title: "ROUTE.EXPERT.PRICE" },
       },
       /**/
       {
-        path: 'ads-type',
+        path: "ads-type",
         component: EstateAdsTypeListComponent,
-        data: { title: 'ROUTE.ESTATE.ADSTYPE' },
+        data: { title: "ROUTE.ESTATE.ADSTYPE" },
       },
       /**/
       {
-        path: 'account-agency',
+        path: "account-agency",
         component: EstateAccountAgencyListComponent,
-        data: { title: 'ROUTE.ESTATE.ACCOUNTAGENCY' },
+        data: { title: "ROUTE.ESTATE.ACCOUNTAGENCY" },
       },
       {
-        path: 'account-agency/LinkAccountUserId/:LinkAccountUserId',
+        path: "account-agency/LinkAccountUserId/:LinkAccountUserId",
         component: EstateAccountAgencyListComponent,
-        data: { title: 'ROUTE.ESTATE.ACCOUNTAGENCY' },
+        data: { title: "ROUTE.ESTATE.ACCOUNTAGENCY" },
       },
       /**/ {
-        path: 'account-user',
+        path: "account-user",
         component: EstateAccountExpertListComponent,
-        data: { title: 'ROUTE.ESTATE.ACCOUNTUSER' },
+        data: { title: "ROUTE.ESTATE.ACCOUNTUSER" },
       },
       {
-        path: 'account-user/LinkAccountAgencyId/:LinkAccountAgencyId',
+        path: "account-user/LinkAccountAgencyId/:LinkAccountAgencyId",
         component: EstateAccountExpertListComponent,
-        data: { title: 'ROUTE.ESTATE.ACCOUNTUSER' },
+        data: { title: "ROUTE.ESTATE.ACCOUNTUSER" },
       },
       /**/
       {
-        path: 'contract-type',
+        path: "contract-type",
         component: EstateContractTypeListComponent,
-        data: { title: 'ROUTE.ESTATE.CONTRACTTYPE' },
+        data: { title: "ROUTE.ESTATE.CONTRACTTYPE" },
       },
       /**/
       {
-        path: 'billboard',
+        path: "billboard",
         component: EstateBillboardListComponent,
-        data: { title: 'ROUTE.ESTATE.BILLBOARD' },
+        data: { title: "ROUTE.ESTATE.BILLBOARD" },
       },
       {
-        path: 'billboard/add',
+        path: "billboard/add",
         component: EstateBillboardAddComponent,
-        data: { title: 'ROUTE.ESTATE.BILLBOARD' },
+        data: { title: "ROUTE.ESTATE.BILLBOARD" },
       },
       {
-        path: 'billboard/add-copy/:id',
+        path: "billboard/add-copy/:id",
         component: EstateBillboardAddComponent,
-        data: { title: 'ROUTE.ESTATE.BILLBOARD' },
+        data: { title: "ROUTE.ESTATE.BILLBOARD" },
       },
       {
-        path: 'billboard/edit/:id',
+        path: "billboard/edit/:id",
         component: EstateBillboardEditComponent,
-        data: { title: 'ROUTE.ESTATE.BILLBOARD' },
+        data: { title: "ROUTE.ESTATE.BILLBOARD" },
       },
       /**/
       {
-        path: 'property-project',
+        path: "property-project",
         component: EstatePropertyProjectListComponent,
-        data: { title: 'ROUTE.ESTATE.PROJECT' },
+        data: { title: "ROUTE.ESTATE.PROJECT" },
       },
       {
-        path: 'property-project/add',
+        path: "property-project/add",
         component: EstatePropertyProjectAddComponent,
-        data: { title: 'ROUTE.ESTATE.PROJECT' },
+        data: { title: "ROUTE.ESTATE.PROJECT" },
       },
       {
-        path: 'property-project/edit/:id',
+        path: "property-project/edit/:id",
         component: EstatePropertyProjectEditComponent,
-        data: { title: 'ROUTE.ESTATE.PROJECT' },
+        data: { title: "ROUTE.ESTATE.PROJECT" },
       },
       {
-        path: 'category-zone',
+        path: "category-zone",
         component: EstateCategoryZoneListComponent,
-        data: { title: 'ROUTE.ESTATE.CATEGORY.ZONE' },
+        data: { title: "ROUTE.ESTATE.CATEGORY.ZONE" },
       },
       // {
       //   path: 'category-rack',
@@ -748,24 +750,24 @@ const routesMobile: Routes = [
       //   data: { title: 'ROUTE.ESTATE.CATEGORY.RACK' },
       // },
       {
-        path: 'customer-order',
+        path: "customer-order",
         component: EstateCustomerOrderListComponent,
-        data: { title: 'ROUTE.ESTATE.CUSTOMER.ORDER' },
+        data: { title: "ROUTE.ESTATE.CUSTOMER.ORDER" },
       },
       {
-        path: 'customer-order/recordstatus/:RecordStatus',
+        path: "customer-order/recordstatus/:RecordStatus",
         component: EstateCustomerOrderListComponent,
-        data: { title: 'ROUTE.ESTATE.CUSTOMER.ORDER' },
+        data: { title: "ROUTE.ESTATE.CUSTOMER.ORDER" },
       },
       {
-        path: 'customer-order/recordstatus/:RecordStatus/:ResponsibleUserId',
+        path: "customer-order/recordstatus/:RecordStatus/:ResponsibleUserId",
         component: EstateCustomerOrderListComponent,
-        data: { title: 'ROUTE.ESTATE.CUSTOMER.ORDER' },
+        data: { title: "ROUTE.ESTATE.CUSTOMER.ORDER" },
       },
       {
-        path: 'customer-order/responsibleUserId/:ResponsibleUserId',
+        path: "customer-order/responsibleUserId/:ResponsibleUserId",
         component: EstateCustomerOrderListComponent,
-        data: { title: 'ROUTE.ESTATE.CUSTOMER.ORDER' },
+        data: { title: "ROUTE.ESTATE.CUSTOMER.ORDER" },
       },
       // {
       //   path: 'customer-order/add',
@@ -785,31 +787,31 @@ const routesMobile: Routes = [
       // },
       /**/
       {
-        path: 'customer-order-result/LinkCustomerOrder/:LinkCustomerOrder',
+        path: "customer-order-result/LinkCustomerOrder/:LinkCustomerOrder",
         component: EstateCustomerOrderResultListComponent,
-        data: { title: 'ROUTE.ESTATE.CUSTOMER.ORDERRESULT' },
+        data: { title: "ROUTE.ESTATE.CUSTOMER.ORDERRESULT" },
       },
       {
-        path: 'customer-order-result/LinkProperty/:LinkProperty',
+        path: "customer-order-result/LinkProperty/:LinkProperty",
         component: EstateCustomerOrderResultListComponent,
-        data: { title: 'ROUTE.ESTATE.CUSTOMER.ORDERRESULT' },
+        data: { title: "ROUTE.ESTATE.CUSTOMER.ORDERRESULT" },
       },
       /**/
       {
-        path: 'property-detail-group',
+        path: "property-detail-group",
         component: EstatePropertyDetailGroupListComponent,
-        data: { title: 'ROUTE.ESTATE.DETAIL.GROUP' },
+        data: { title: "ROUTE.ESTATE.DETAIL.GROUP" },
       },
       /**/
       {
-        path: 'property-detail',
+        path: "property-detail",
         component: EstatePropertyDetailListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTYDETAIL' },
+        data: { title: "ROUTE.ESTATE.PROPERTYDETAIL" },
       },
       {
-        path: 'property-detail/LinkPropertyTypeLanduseId/:LinkPropertyTypeLanduseId',
+        path: "property-detail/LinkPropertyTypeLanduseId/:LinkPropertyTypeLanduseId",
         component: EstatePropertyDetailListComponent,
-        data: { title: 'ROUTE.ESTATE.PROPERTYDETAIL' },
+        data: { title: "ROUTE.ESTATE.PROPERTYDETAIL" },
       },
       /** */
     ],
@@ -822,4 +824,4 @@ const routesMobile: Routes = [
   ],
   exports: [RouterModule],
 })
-export class EstateRoutes { }
+export class EstateRoutes {}
