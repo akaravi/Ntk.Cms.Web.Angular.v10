@@ -78,7 +78,9 @@ export class CmsAuthService implements OnDestroy {
             payload: ret.item,
           });
         } else {
-          this.logout();
+          this.router.navigate(["/auth/login"], {
+            queryParams: {},
+          });
         }
         return ret.item;
       }),
@@ -116,7 +118,9 @@ export class CmsAuthService implements OnDestroy {
             });
           }
         } else {
-          this.logout();
+          this.router.navigate(["/auth/login"], {
+            queryParams: {},
+          });
         }
         return ret;
       }),

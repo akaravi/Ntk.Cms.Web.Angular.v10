@@ -34,11 +34,11 @@ export class processModel {
   message: string;
 }
 @Component({
-  selector: "app-auth-singin-bysms",
-  templateUrl: "./singin-bysms.component.html",
+  selector: "app-auth-signin-bysms",
+  templateUrl: "./signin-bysms.component.html",
   standalone: false,
 })
-export class AuthSingInBySmsComponent implements OnInit, OnDestroy {
+export class AuthSignInBySmsComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   private destroyRef = inject(DestroyRef);
   constructor(
@@ -53,8 +53,7 @@ export class AuthSingInBySmsComponent implements OnInit, OnDestroy {
     public pageInfo: PageInfoService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
-    if (localStorage)
-      localStorage.setItem(themeAuthPageLSKey, "singinbysms");
+    if (localStorage) localStorage.setItem(themeAuthPageLSKey, "signinbysms");
     this.RePasswordModel = "";
     this.unsubscribe.push(
       this.cmsStoreService
@@ -106,7 +105,7 @@ export class AuthSingInBySmsComponent implements OnInit, OnDestroy {
   private unsubscribe: Subscription[] = [];
   ngOnInit(): void {
     this.onCaptchaOrder();
-    this.translate.get("AUTH.SINGINBYSMS.TITLE").subscribe((str: string) => {
+    this.translate.get("AUTH.SIGNINBYSMS.TITLE").subscribe((str: string) => {
       this.pageInfo.updateTitle(str);
     });
   }

@@ -47,10 +47,13 @@ export class HttpConfigInterceptor implements HttpInterceptor {
       }),
       catchError((error: HttpErrorResponse) => {
         if (error.status === 0) {
+          //Error 0
           console.log("خطای برنامه در سرور", error.status, error.error.reason);
 
           return null;
+          //Error 0
         } else if (error.status === 500) {
+          //Error 500
           console.log("خطای برنامه در سرور", error.status, error.error.reason);
           this.translate
             .get([
@@ -61,58 +64,66 @@ export class HttpConfigInterceptor implements HttpInterceptor {
               this.cmsToastrService.typeErrorMessage(str[0], str[1]);
             });
           return null;
+          //Error 500
         } else if (error.status === 401) {
+          //Error 401
           if (this.coreAuthService.getJWT()?.refreshToken?.length > 0) {
             /** */
             this.cmsAuthService.refreshToken().subscribe({
               next: (res) => {
-                if (!res || !res.isSuccess) {
-                  this.cmsAuthService.logout();
+                if (res?.isSuccess) {
+                  this.router.navigate(["/dashboard"], {
+                    queryParams: {},
+                  });
+                } else {
+                  this.router.navigate(["/auth/login"], {
+                    queryParams: {},
+                  });
                 }
               },
               error: (er) => {
                 this.cmsToastrService.typeError(er);
-                this.cmsAuthService.logout();
               },
             });
-
             /** */
           } else {
             this.cmsAuthService.logout();
           }
           return null;
+          //Error 401
         } else if (error.status === 403) {
+          //Error 403
           if (this.coreAuthService.getJWT()?.refreshToken?.length > 0) {
             /** */
             this.cmsAuthService.refreshToken().subscribe({
               next: (res) => {
-                if (!res || !res.isSuccess) {
-                  this.cmsAuthService.logout();
+                if (res?.isSuccess) {
+                  this.router.navigate(["/dashboard"], {
+                    queryParams: {},
+                  });
+                } else {
+                  this.router.navigate(["/auth/login"], {
+                    queryParams: {},
+                  });
                 }
               },
               error: (er) => {
                 this.cmsToastrService.typeError(er);
-                this.cmsAuthService.logout();
               },
             });
-
             /** */
           } else {
             this.cmsAuthService.logout();
           }
           return null;
+          //Error 403
         } else if (error && error.error && error.error.reason) {
           this.cmsToastrService.typeError(error.status, error.error.reason);
           return null;
         } else {
           this.cmsToastrService.typeError(error.status);
         }
-        // let data = {};
-        // data = {
-        //   reason: error && error.error && error.error.reason ? error.error.reason : '',
-        //   status: error.status
-        // };
-        // this.errorDialogService.openDialog(data);
+
         return throwError(error);
       }),
     );

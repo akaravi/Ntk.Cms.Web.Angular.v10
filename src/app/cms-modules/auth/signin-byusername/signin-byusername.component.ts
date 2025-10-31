@@ -26,11 +26,11 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { environment } from "src/environments/environment";
 @Component({
-  selector: "app-auth-singin-byusername",
-  templateUrl: "./singin-byusername.component.html",
+  selector: "app-auth-signin-byusername",
+  templateUrl: "./signin-byusername.component.html",
   standalone: false,
 })
-export class AuthSingInByUsernameComponent implements OnInit, OnDestroy {
+export class AuthSignInByUsernameComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   private destroyRef = inject(DestroyRef);
   constructor(
@@ -48,7 +48,7 @@ export class AuthSingInByUsernameComponent implements OnInit, OnDestroy {
   ) {
     this.publicHelper.processService.cdr = this.cdr;
     if (localStorage)
-      localStorage.setItem(themeAuthPageLSKey, "singinbyusername");
+      localStorage.setItem(themeAuthPageLSKey, "signinbyusername");
     this.firstRun = true;
     this.unsubscribe.push(
       this.cmsStoreService
@@ -107,7 +107,7 @@ export class AuthSingInByUsernameComponent implements OnInit, OnDestroy {
     if (this.firstRun) {
       this.dataModel.captchaText = "0000";
     }
-    this.translate.get("AUTH.SINGINBYSMS.TITLE").subscribe((str: string) => {
+    this.translate.get("AUTH.SIGNINBYSMS.TITLE").subscribe((str: string) => {
       this.pageInfo.updateTitle(str);
     });
   }

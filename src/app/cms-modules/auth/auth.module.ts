@@ -12,21 +12,21 @@ import { SharedModule } from "src/app/shared/shared.module";
 import { AuthComponent } from "./auth.component";
 import { AuthRoutingModule } from "./auth.routing";
 import { AuthForgotPasswordComponent } from "./forgot-password/forgot-password.component";
-import { AuthSingInBySmsComponent } from "./singin-bysms/singin-bysms.component";
-import { AuthSingInByUsernameComponent } from "./singin-byusername/singin-byusername.component";
-import { AuthSingoutComponent } from "./singout/singout.component";
-import { AuthSingUpComponent } from "./singup/singup.component";
-import { SingupRuleComponent } from "./singupRule/singupRule.Component";
+import { AuthSignInBySmsComponent } from "./signin-bysms/signin-bysms.component";
+import { AuthSignInByUsernameComponent } from "./signin-byusername/signin-byusername.component";
+import { AuthSignOutComponent } from "./signout/signout.component";
+import { SignupRuleComponent } from "./signup-rule/signup-rule.Component";
+import { AuthSignUpComponent } from "./signup/signup.component";
 
 @NgModule({
   declarations: [
-    AuthSingInByUsernameComponent,
-    AuthSingInBySmsComponent,
-    AuthSingUpComponent,
+    AuthSignInByUsernameComponent,
+    AuthSignInBySmsComponent,
+    AuthSignUpComponent,
     AuthForgotPasswordComponent,
-    AuthSingoutComponent,
+    AuthSignOutComponent,
     AuthComponent,
-    SingupRuleComponent,
+    SignupRuleComponent,
   ],
   providers: [
     CoreModuleService,

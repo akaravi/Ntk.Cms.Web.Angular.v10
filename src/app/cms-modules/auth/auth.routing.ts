@@ -3,21 +3,21 @@ import { RouterModule, Routes } from "@angular/router";
 import { themeAuthPageLSKey } from "src/app/core/models/constModel";
 import { AuthComponent } from "./auth.component";
 import { AuthForgotPasswordComponent } from "./forgot-password/forgot-password.component";
-import { AuthSingInBySmsComponent } from "./singin-bysms/singin-bysms.component";
-import { AuthSingInByUsernameComponent } from "./singin-byusername/singin-byusername.component";
-import { AuthSingoutComponent } from "./singout/singout.component";
-import { AuthSingUpComponent } from "./singup/singup.component";
+import { AuthSignInBySmsComponent } from "./signin-bysms/signin-bysms.component";
+import { AuthSignInByUsernameComponent } from "./signin-byusername/signin-byusername.component";
+import { AuthSignOutComponent } from "./signout/signout.component";
+import { AuthSignUpComponent } from "./signup/signup.component";
 
 function lastAuthPage(): string {
   const data = localStorage.getItem(themeAuthPageLSKey);
   if (data) {
-    if (data === "singinbyusername") {
-      return "singinbyusername";
-    } else if (data === "singinbysms") {
-      return "singinbysms";
+    if (data === "signinbyusername") {
+      return "signinbyusername";
+    } else if (data === "signinbysms") {
+      return "signinbysms";
     }
   }
-  return "singinbysms";
+  return "signinbysms";
 }
 const routes: Routes = [
   {
@@ -26,23 +26,23 @@ const routes: Routes = [
     data: { title: "ROUTE.REGISTER" },
     children: [
       {
-        path: "singinbyusername",
-        component: AuthSingInByUsernameComponent,
+        path: "signinbyusername",
+        component: AuthSignInByUsernameComponent,
         data: { title: "ROUTE.REGISTER.SIGNINBYUSERNAME" },
       },
       {
-        path: "singinbysms",
-        component: AuthSingInBySmsComponent,
+        path: "signinbysms",
+        component: AuthSignInBySmsComponent,
         data: { title: "ROUTE.REGISTER.SIGNINBYSMS" },
       },
       {
-        path: "singout",
-        component: AuthSingoutComponent,
+        path: "signout",
+        component: AuthSignOutComponent,
         data: { title: "ROUTE.REGISTER.SIGNOUT" },
       },
       {
-        path: "singup",
-        component: AuthSingUpComponent,
+        path: "signup",
+        component: AuthSignUpComponent,
         data: {
           title: "ROUTE.REGISTER.SIGNUP",
         },
