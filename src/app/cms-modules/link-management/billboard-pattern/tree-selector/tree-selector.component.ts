@@ -1,6 +1,5 @@
-
-import { SelectionModel } from '@angular/cdk/collections';
-import { NestedTreeControl } from '@angular/cdk/tree';
+import { SelectionModel } from "@angular/cdk/collections";
+import { NestedTreeControl } from "@angular/cdk/tree";
 import {
   ChangeDetectorRef,
   Component,
@@ -8,27 +7,23 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
-import { TranslateService } from '@ngx-translate/core';
+  Output,
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { TranslateService } from "@ngx-translate/core";
 import {
   CoreEnumService,
   ErrorExceptionResult,
   FilterModel,
   LinkManagementBillboardPatternModel,
-  LinkManagementBillboardPatternService
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
-
+  LinkManagementBillboardPatternService,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-linkmanagement-billboard-pattern-treeselector",
@@ -83,9 +78,6 @@ export class LinkManagementBillboardPatternTreeSelectorComponent
     new ErrorExceptionResult<LinkManagementBillboardPatternModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<LinkManagementBillboardPatternModel>(
-    (node) => null,
-  );
   dataSource =
     new MatTreeNestedDataSource<LinkManagementBillboardPatternModel>();
   runComplate = false;
@@ -119,26 +111,16 @@ export class LinkManagementBillboardPatternTreeSelectorComponent
     }
   }
   loadCheked(
-    model: LinkManagementBillboardPatternModel[] = this.treeControl.dataNodes,
+    model: LinkManagementBillboardPatternModel[] = this.dataModelResult
+      .listItems,
   ): void {
     this.runComplate = false;
-    if (
-      this.treeControl.dataNodes &&
-      this.dataModelSelect &&
-      this.dataModelSelect.length > 0
-    ) {
+    if (this.dataModelSelect && this.dataModelSelect.length > 0) {
       model.forEach((element) => {
         const fItem = this.dataModelSelect.find((z) => z === element.id);
         if (fItem) {
           this.checklistSelection.select(element);
-          // const descendants = this.treeControl.getDescendants(element);
-          // this.checklistSelection.select(...descendants);
-          // this.todoItemSelectionToggle(element);
-          // this.treeControl.expand(element);
         }
-        // if (element.children && element.children.length > 0) {
-        //   this.loadCheked(element.children);
-        // }
       });
     }
     this.runComplate = true;
@@ -163,7 +145,6 @@ export class LinkManagementBillboardPatternTreeSelectorComponent
         if (ret.isSuccess) {
           this.dataModelResult = ret;
           this.dataSource.data = this.dataModelResult.listItems;
-          this.treeControl.dataNodes = this.dataModelResult.listItems;
           this.loadCheked();
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -176,7 +157,9 @@ export class LinkManagementBillboardPatternTreeSelectorComponent
       },
     });
   }
-
+  treeControl = new NestedTreeControl<LinkManagementBillboardPatternModel>(
+    (node) => [],
+  );
   /** Whether all the descendants of the node are selected */
   descendantsAllSelected(node: LinkManagementBillboardPatternModel): boolean {
     const descendants = this.treeControl.getDescendants(node);

@@ -1,5 +1,3 @@
-
-import { NestedTreeControl } from '@angular/cdk/tree';
 import {
   ChangeDetectorRef,
   Component,
@@ -7,25 +5,23 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+  Output,
+} from "@angular/core";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import {
   ApplicationSourceModel,
-  ApplicationSourceService, CoreEnumService,
+  ApplicationSourceService,
+  CoreEnumService,
   ErrorExceptionResult,
-  FilterModel
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  FilterModel,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-application-source-tree",
@@ -55,7 +51,6 @@ export class ApplicationSourceTreeComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<ApplicationSourceModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<ApplicationSourceModel>((node) => null);
   dataSource = new MatTreeNestedDataSource<ApplicationSourceModel>();
   @Output() optionChange = new EventEmitter<ApplicationSourceModel>();
   cmsApiStoreSubscribe: Subscription;

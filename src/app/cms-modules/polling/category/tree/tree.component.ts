@@ -1,5 +1,3 @@
-
-import { NestedTreeControl } from '@angular/cdk/tree';
 import {
   ChangeDetectorRef,
   Component,
@@ -7,33 +5,29 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
+  Output,
+} from "@angular/core";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
 import {
   CoreEnumService,
   ErrorExceptionResult,
   FilterModel,
   PollingCategoryModel,
-  PollingCategoryService
-} from 'ntk-cms-api';
+  PollingCategoryService,
+} from "ntk-cms-api";
 
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { PollingCategoryDeleteComponent } from '../delete/delete.component';
-import { PollingCategoryEditComponent } from '../edit/edit.component';
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { PollingCategoryDeleteComponent } from "../delete/delete.component";
+import { PollingCategoryEditComponent } from "../edit/edit.component";
 
-import { TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { environment } from 'src/environments/environment';
-import { PollingCategoryAddComponent } from '../add/add.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
-
+import { TranslateService } from "@ngx-translate/core";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { environment } from "src/environments/environment";
+import { PollingCategoryAddComponent } from "../add/add.component";
 
 @Component({
   selector: "app-polling-category-tree",
@@ -64,9 +58,6 @@ export class PollingCategoryTreeComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<PollingCategoryModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<PollingCategoryModel>(
-    (node) => node.children,
-  );
   dataSource = new MatTreeNestedDataSource<PollingCategoryModel>();
   @Output() optionChange = new EventEmitter<PollingCategoryModel>();
   cmsApiStoreSubscribe: Subscription;

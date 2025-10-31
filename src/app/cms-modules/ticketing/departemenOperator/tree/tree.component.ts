@@ -1,4 +1,3 @@
-import { NestedTreeControl } from '@angular/cdk/tree';
 import {
   ChangeDetectorRef,
   Component,
@@ -6,27 +5,23 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+  Output,
+} from "@angular/core";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import {
   CoreEnumService,
   ErrorExceptionResult,
   FilterModel,
   TicketingDepartemenOperatorModel,
-  TicketingDepartemenOperatorService
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
-
+  TicketingDepartemenOperatorService,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-application-app-tree",
@@ -60,9 +55,6 @@ export class TicketingDepartemenOperatorTreeComponent
     new ErrorExceptionResult<TicketingDepartemenOperatorModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<TicketingDepartemenOperatorModel>(
-    (node) => null,
-  );
   dataSource = new MatTreeNestedDataSource<TicketingDepartemenOperatorModel>();
   @Output() optionChange = new EventEmitter<TicketingDepartemenOperatorModel>();
   cmsApiStoreSubscribe: Subscription;

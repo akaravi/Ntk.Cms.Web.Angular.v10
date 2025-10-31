@@ -1,4 +1,3 @@
-import { NestedTreeControl } from "@angular/cdk/tree";
 import {
   ChangeDetectorRef,
   Component,
@@ -58,9 +57,6 @@ export class EstatePropertySupplierTreeComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<EstatePropertySupplierModel>();
   filterModel = new EstatePropertySupplierFilterModel();
 
-  treeControl = new NestedTreeControl<EstatePropertySupplierModel>(
-    (node) => null,
-  );
   dataSource = new MatTreeNestedDataSource<EstatePropertySupplierModel>();
   @Output() optionChange = new EventEmitter<EstatePropertySupplierModel>();
   cmsApiStoreSubscribe: Subscription;

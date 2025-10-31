@@ -1,4 +1,3 @@
-import { NestedTreeControl } from "@angular/cdk/tree";
 import {
   ChangeDetectorRef,
   Component,
@@ -56,7 +55,6 @@ export class DonateTargetTreeComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<DonateTargetModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<DonateTargetModel>((node) => null);
   dataSource = new MatTreeNestedDataSource<DonateTargetModel>();
   @Output() optionChange = new EventEmitter<DonateTargetModel>();
   cmsApiStoreSubscribe: Subscription;

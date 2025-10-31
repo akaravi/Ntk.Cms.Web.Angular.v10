@@ -56,7 +56,7 @@ export class ApplicationAppTreeComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<ApplicationAppModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<ApplicationAppModel>((node) => null);
+
   dataSource = new MatTreeNestedDataSource<ApplicationAppModel>();
   @Output() optionChange = new EventEmitter<ApplicationAppModel>();
   cmsApiStoreSubscribe: Subscription;

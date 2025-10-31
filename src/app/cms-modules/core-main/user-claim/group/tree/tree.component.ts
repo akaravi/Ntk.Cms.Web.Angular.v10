@@ -58,7 +58,6 @@ export class CoreUserClaimGroupTreeComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<CoreUserClaimGroupModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<CoreUserClaimGroupModel>((node) => null);
   dataSource = new MatTreeNestedDataSource<CoreUserClaimGroupModel>();
   @Output() optionChange = new EventEmitter<CoreUserClaimGroupModel>();
   cmsApiStoreSubscribe: Subscription;

@@ -1,6 +1,5 @@
-
-import { SelectionModel } from '@angular/cdk/collections';
-import { NestedTreeControl } from '@angular/cdk/tree';
+import { SelectionModel } from "@angular/cdk/collections";
+import { NestedTreeControl } from "@angular/cdk/tree";
 import {
   ChangeDetectorRef,
   Component,
@@ -8,24 +7,23 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
-import { TranslateService } from '@ngx-translate/core';
+  Output,
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { TranslateService } from "@ngx-translate/core";
 import {
   CoreEnumService,
-  ErrorExceptionResult, EstatePropertySupplierCategoryModel,
-  EstatePropertySupplierCategoryService, FilterModel
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  ErrorExceptionResult,
+  EstatePropertySupplierCategoryModel,
+  EstatePropertySupplierCategoryService,
+  FilterModel,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-estate-property-supplier-category-treeselector",
@@ -80,9 +78,6 @@ export class EstatePropertySupplierCategoryTreeSelectorComponent
     new ErrorExceptionResult<EstatePropertySupplierCategoryModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<EstatePropertySupplierCategoryModel>(
-    (node) => node.children,
-  );
   dataSource =
     new MatTreeNestedDataSource<EstatePropertySupplierCategoryModel>();
   runComplate = false;
@@ -95,7 +90,8 @@ export class EstatePropertySupplierCategoryTreeSelectorComponent
   );
   hasChild = (_: string, node: EstatePropertySupplierCategoryModel) =>
     !!node.children && node.children.length > 0;
-  childrenAccessor = (node: EstatePropertySupplierCategoryModel) =>    node.children ?? [];
+  childrenAccessor = (node: EstatePropertySupplierCategoryModel) =>
+    node.children ?? [];
   hasNoContent = (_: string, nodeData: EstatePropertySupplierCategoryModel) =>
     nodeData.children;
 
@@ -115,14 +111,11 @@ export class EstatePropertySupplierCategoryTreeSelectorComponent
     }
   }
   loadCheked(
-    model: EstatePropertySupplierCategoryModel[] = this.treeControl.dataNodes,
+    model: EstatePropertySupplierCategoryModel[] = this.dataModelResult
+      .listItems,
   ): void {
     this.runComplate = false;
-    if (
-      this.treeControl.dataNodes &&
-      this.dataModelSelect &&
-      this.dataModelSelect.length > 0
-    ) {
+    if (this.dataModelSelect && this.dataModelSelect.length > 0) {
       model.forEach((element) => {
         const fItem = this.dataModelSelect.find((z) => z === element.id);
         if (fItem) {
@@ -153,7 +146,6 @@ export class EstatePropertySupplierCategoryTreeSelectorComponent
         if (ret.isSuccess) {
           this.dataModelResult = ret;
           this.dataSource.data = this.dataModelResult.listItems;
-          this.treeControl.dataNodes = this.dataModelResult.listItems;
           this.loadCheked();
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -167,6 +159,9 @@ export class EstatePropertySupplierCategoryTreeSelectorComponent
       },
     });
   }
+  treeControl = new NestedTreeControl<EstatePropertySupplierCategoryModel>(
+    (node) => node.children,
+  );
   /** Whether all the descendants of the node are selected */
   descendantsAllSelected(node: EstatePropertySupplierCategoryModel): boolean {
     const descendants = this.treeControl.getDescendants(node);

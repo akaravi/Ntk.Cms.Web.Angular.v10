@@ -58,9 +58,6 @@ export class CoreModuleSaleHeaderTreeComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<CoreModuleSaleHeaderModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<CoreModuleSaleHeaderModel>(
-    (node) => null,
-  );
   dataSource = new MatTreeNestedDataSource<CoreModuleSaleHeaderModel>();
   @Output() optionChange = new EventEmitter<CoreModuleSaleHeaderModel>();
   cmsApiStoreSubscribe: Subscription;

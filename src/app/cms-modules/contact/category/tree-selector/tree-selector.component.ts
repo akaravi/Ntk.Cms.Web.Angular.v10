@@ -78,9 +78,6 @@ export class ContactCategoryTreeSelectorComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<ContactCategoryModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<ContactCategoryModel>(
-    (node) => node.children,
-  );
   dataSource = new MatTreeNestedDataSource<ContactCategoryModel>();
   runComplate = false;
   @Output() optionSelectChecked = new EventEmitter<string>();
@@ -111,13 +108,11 @@ export class ContactCategoryTreeSelectorComponent implements OnInit, OnDestroy {
       this.cmsApiStoreSubscribe.unsubscribe();
     }
   }
-  loadCheked(model: ContactCategoryModel[] = this.treeControl.dataNodes): void {
+  loadCheked(
+    model: ContactCategoryModel[] = this.dataModelResult.listItems,
+  ): void {
     this.runComplate = false;
-    if (
-      this.treeControl.dataNodes &&
-      this.dataModelSelect &&
-      this.dataModelSelect.length > 0
-    ) {
+    if (this.dataModelSelect && this.dataModelSelect.length > 0) {
       model.forEach((element) => {
         const fItem = this.dataModelSelect.find((z) => z === element.id);
         if (fItem) {
@@ -148,7 +143,6 @@ export class ContactCategoryTreeSelectorComponent implements OnInit, OnDestroy {
         if (ret.isSuccess) {
           this.dataModelResult = ret;
           this.dataSource.data = this.dataModelResult.listItems;
-          this.treeControl.dataNodes = this.dataModelResult.listItems;
           this.loadCheked();
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -161,6 +155,9 @@ export class ContactCategoryTreeSelectorComponent implements OnInit, OnDestroy {
       },
     });
   }
+  treeControl = new NestedTreeControl<ContactCategoryModel>(
+    (node) => node.children,
+  );
   /** Whether all the descendants of the node are selected */
   descendantsAllSelected(node: ContactCategoryModel): boolean {
     const descendants = this.treeControl.getDescendants(node);

@@ -59,7 +59,6 @@ export class CoreSiteTreeComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<CoreSiteModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<CoreSiteModel>((node) => null);
   dataSource = new MatTreeNestedDataSource<CoreSiteModel>();
   @Output() optionChange = new EventEmitter<CoreSiteModel>();
   cmsApiStoreSubscribe: Subscription;

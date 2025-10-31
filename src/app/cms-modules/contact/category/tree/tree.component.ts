@@ -59,9 +59,6 @@ export class ContactCategoryTreeComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<ContactCategoryModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<ContactCategoryModel>(
-    (node) => node.children,
-  );
   dataSource = new MatTreeNestedDataSource<ContactCategoryModel>();
   @Output() optionChange = new EventEmitter<ContactCategoryModel>();
   cmsApiStoreSubscribe: Subscription;

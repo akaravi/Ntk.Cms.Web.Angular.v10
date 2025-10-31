@@ -1,6 +1,5 @@
-
-import { SelectionModel } from '@angular/cdk/collections';
-import { NestedTreeControl } from '@angular/cdk/tree';
+import { SelectionModel } from "@angular/cdk/collections";
+import { CdkTree, NestedTreeControl } from "@angular/cdk/tree";
 import {
   ChangeDetectorRef,
   Component,
@@ -8,25 +7,24 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
-import { TranslateService } from '@ngx-translate/core';
+  Output,
+  ViewChild,
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { TranslateService } from "@ngx-translate/core";
 import {
   ArticleCategoryModel,
-  ArticleCategoryService, CoreEnumService,
+  ArticleCategoryService,
+  CoreEnumService,
   ErrorExceptionResult,
-  FilterModel
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  FilterModel,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-article-category-treeselector",
@@ -79,9 +77,6 @@ export class ArticleCategoryTreeSelectorComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<ArticleCategoryModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<ArticleCategoryModel>(
-    (node) => node.children,
-  );
   dataSource = new MatTreeNestedDataSource<ArticleCategoryModel>();
   runComplate = false;
   @Output() optionSelectChecked = new EventEmitter<number>();
@@ -91,7 +86,8 @@ export class ArticleCategoryTreeSelectorComponent implements OnInit, OnDestroy {
   checklistSelection = new SelectionModel<ArticleCategoryModel>(
     true /* multiple */,
   );
-  hasChild = (_: number, node: ArticleCategoryModel) =>    !!node.children && node.children.length > 0;
+  hasChild = (_: number, node: ArticleCategoryModel) =>
+    !!node.children && node.children.length > 0;
   childrenAccessor = (node: ArticleCategoryModel) => node.children ?? [];
   hasNoContent = (_: number, nodeData: ArticleCategoryModel) =>
     nodeData.children;
@@ -111,13 +107,11 @@ export class ArticleCategoryTreeSelectorComponent implements OnInit, OnDestroy {
       this.cmsApiStoreSubscribe.unsubscribe();
     }
   }
-  loadCheked(model: ArticleCategoryModel[] = this.treeControl.dataNodes): void {
+  loadCheked(
+    model: ArticleCategoryModel[] = this.dataModelResult.listItems,
+  ): void {
     this.runComplate = false;
-    if (
-      this.treeControl.dataNodes &&
-      this.dataModelSelect &&
-      this.dataModelSelect.length > 0
-    ) {
+    if (this.dataModelSelect && this.dataModelSelect.length > 0) {
       model.forEach((element) => {
         const fItem = this.dataModelSelect.find((z) => z === element.id);
         if (fItem) {
@@ -148,7 +142,7 @@ export class ArticleCategoryTreeSelectorComponent implements OnInit, OnDestroy {
         if (ret.isSuccess) {
           this.dataModelResult = ret;
           this.dataSource.data = this.dataModelResult.listItems;
-          this.treeControl.dataNodes = this.dataModelResult.listItems;
+
           this.loadCheked();
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -162,6 +156,9 @@ export class ArticleCategoryTreeSelectorComponent implements OnInit, OnDestroy {
       },
     });
   }
+  treeControl = new NestedTreeControl<ArticleCategoryModel>(
+    (node) => node.children,
+  );
   /** Whether all the descendants of the node are selected */
   descendantsAllSelected(node: ArticleCategoryModel): boolean {
     const descendants = this.treeControl.getDescendants(node);

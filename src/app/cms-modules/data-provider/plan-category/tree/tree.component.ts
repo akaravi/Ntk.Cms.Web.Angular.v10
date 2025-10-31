@@ -1,5 +1,3 @@
-
-import { NestedTreeControl } from '@angular/cdk/tree';
 import {
   ChangeDetectorRef,
   Component,
@@ -7,29 +5,27 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+  Output,
+} from "@angular/core";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
-import { TranslateService } from '@ngx-translate/core';
-import {
-  CoreEnumService, DataProviderPlanCategoryModel,
-  DataProviderPlanCategoryService, ErrorExceptionResult,
-  FilterModel
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { environment } from 'src/environments/environment';
-import { DataProviderPlanCategoryAddComponent } from '../add/add.component';
-import { DataProviderPlanCategoryDeleteComponent } from '../delete/delete.component';
-import { DataProviderPlanCategoryEditComponent } from '../edit/edit.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
-
+  CoreEnumService,
+  DataProviderPlanCategoryModel,
+  DataProviderPlanCategoryService,
+  ErrorExceptionResult,
+  FilterModel,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { environment } from "src/environments/environment";
+import { DataProviderPlanCategoryAddComponent } from "../add/add.component";
+import { DataProviderPlanCategoryDeleteComponent } from "../delete/delete.component";
+import { DataProviderPlanCategoryEditComponent } from "../edit/edit.component";
 
 @Component({
   selector: "app-data-provider-plan-category-tree",
@@ -62,9 +58,6 @@ export class DataProviderPlanCategoryTreeComponent
     new ErrorExceptionResult<DataProviderPlanCategoryModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<DataProviderPlanCategoryModel>(
-    (node) => node.children,
-  );
   dataSource = new MatTreeNestedDataSource<DataProviderPlanCategoryModel>();
   @Output() optionChange = new EventEmitter<DataProviderPlanCategoryModel>();
   cmsApiStoreSubscribe: Subscription;
@@ -72,7 +65,8 @@ export class DataProviderPlanCategoryTreeComponent
 
   hasChild = (_: number, node: DataProviderPlanCategoryModel) =>
     !!node.children && node.children.length > 0;
-  childrenAccessor = (node: DataProviderPlanCategoryModel) =>    node.children ?? [];
+  childrenAccessor = (node: DataProviderPlanCategoryModel) =>
+    node.children ?? [];
 
   ngOnInit(): void {
     setTimeout(() => {

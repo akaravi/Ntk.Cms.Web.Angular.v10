@@ -1,4 +1,3 @@
-import { NestedTreeControl } from '@angular/cdk/tree';
 import {
   ChangeDetectorRef,
   Component,
@@ -23,12 +22,12 @@ import {
 import { Subscription } from 'rxjs';
 import { PublicHelper } from 'src/app/core/helpers/publicHelper';
 import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
+import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 import { environment } from 'src/environments/environment';
 import { TicketingDepartemenAddComponent } from '../add/add.component';
 import { TicketingDepartemenDeleteComponent } from '../delete/delete.component';
 import { TicketingDepartemenEditComponent } from '../edit/edit.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 
 
 
@@ -60,7 +59,6 @@ export class TicketingDepartemenTreeComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<TicketingDepartemenModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<TicketingDepartemenModel>((node) => null);
   dataSource = new MatTreeNestedDataSource<TicketingDepartemenModel>();
   @Output() optionChange = new EventEmitter<TicketingDepartemenModel>();
   cmsApiStoreSubscribe: Subscription;

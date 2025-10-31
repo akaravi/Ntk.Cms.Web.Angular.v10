@@ -1,5 +1,3 @@
-
-import { NestedTreeControl } from '@angular/cdk/tree';
 import {
   ChangeDetectorRef,
   Component,
@@ -7,30 +5,27 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
-import { TranslateService } from '@ngx-translate/core';
+  Output,
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { TranslateService } from "@ngx-translate/core";
 import {
   CoreEnumService,
   ErrorExceptionResult,
   FilterModel,
   HyperShopCategoryModel,
-  HyperShopCategoryService
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsConfirmationDialogService } from 'src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service';
-import { environment } from 'src/environments/environment';
-import { HyperShopCategoryAddComponent } from '../add/add.component';
-import { HyperShopCategoryEditComponent } from '../edit/edit.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  HyperShopCategoryService,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { environment } from "src/environments/environment";
+import { HyperShopCategoryAddComponent } from "../add/add.component";
+import { HyperShopCategoryEditComponent } from "../edit/edit.component";
 
 @Component({
   selector: "app-hypershop-category-tree",
@@ -61,7 +56,6 @@ export class HyperShopCategoryTreeComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<HyperShopCategoryModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<HyperShopCategoryModel>((node) => null);
   dataSource = new MatTreeNestedDataSource<HyperShopCategoryModel>();
   @Output() optionChange = new EventEmitter<HyperShopCategoryModel>();
   cmsApiStoreSubscribe: Subscription;

@@ -61,9 +61,6 @@ export class CoreUserClaimGroupDetailTreeComponent
     new ErrorExceptionResult<CoreUserClaimGroupDetailModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<CoreUserClaimGroupDetailModel>(
-    (node) => null,
-  );
   dataSource = new MatTreeNestedDataSource<CoreUserClaimGroupDetailModel>();
   @Output() optionChange = new EventEmitter<CoreUserClaimGroupDetailModel>();
   cmsApiStoreSubscribe: Subscription;

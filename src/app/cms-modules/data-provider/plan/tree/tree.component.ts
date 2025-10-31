@@ -1,5 +1,3 @@
-
-import { NestedTreeControl } from '@angular/cdk/tree';
 import {
   ChangeDetectorRef,
   Component,
@@ -7,29 +5,27 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+  Output,
+} from "@angular/core";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
-import { TranslateService } from '@ngx-translate/core';
-import {
-  CoreEnumService, DataProviderPlanModel,
-  DataProviderPlanService, ErrorExceptionResult,
-  FilterModel
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { environment } from 'src/environments/environment';
-import { DataProviderPlanAddComponent } from '../add/add.component';
-import { DataProviderPlanDeleteComponent } from '../delete/delete.component';
-import { DataProviderPlanEditComponent } from '../edit/edit.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
-
+  CoreEnumService,
+  DataProviderPlanModel,
+  DataProviderPlanService,
+  ErrorExceptionResult,
+  FilterModel,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { environment } from "src/environments/environment";
+import { DataProviderPlanAddComponent } from "../add/add.component";
+import { DataProviderPlanDeleteComponent } from "../delete/delete.component";
+import { DataProviderPlanEditComponent } from "../edit/edit.component";
 
 @Component({
   selector: "app-data-provider-plan-tree",
@@ -59,7 +55,6 @@ export class DataProviderPlanTreeComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<DataProviderPlanModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<DataProviderPlanModel>((node) => null);
   dataSource = new MatTreeNestedDataSource<DataProviderPlanModel>();
   @Output() optionChange = new EventEmitter<DataProviderPlanModel>();
   cmsApiStoreSubscribe: Subscription;

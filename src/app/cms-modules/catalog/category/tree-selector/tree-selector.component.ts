@@ -1,6 +1,5 @@
-
-import { SelectionModel } from '@angular/cdk/collections';
-import { NestedTreeControl } from '@angular/cdk/tree';
+import { SelectionModel } from "@angular/cdk/collections";
+import { NestedTreeControl } from "@angular/cdk/tree";
 import {
   ChangeDetectorRef,
   Component,
@@ -8,26 +7,23 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
-import { TranslateService } from '@ngx-translate/core';
+  Output,
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { TranslateService } from "@ngx-translate/core";
 import {
   CatalogCategoryModel,
-  CatalogCategoryService, CoreEnumService,
+  CatalogCategoryService,
+  CoreEnumService,
   ErrorExceptionResult,
-  FilterModel
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
-
+  FilterModel,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-catalog-category-treeselector",
@@ -81,9 +77,6 @@ export class CatalogCategoryTreeSelectorComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<CatalogCategoryModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<CatalogCategoryModel>(
-    (node) => node.children,
-  );
   dataSource = new MatTreeNestedDataSource<CatalogCategoryModel>();
   runComplate = false;
   @Output() optionSelectChecked = new EventEmitter<string>();
@@ -116,13 +109,11 @@ export class CatalogCategoryTreeSelectorComponent implements OnInit, OnDestroy {
       this.cmsApiStoreSubscribe.unsubscribe();
     }
   }
-  loadCheked(model: CatalogCategoryModel[] = this.treeControl.dataNodes): void {
+  loadCheked(
+    model: CatalogCategoryModel[] = this.dataModelResult.listItems,
+  ): void {
     this.runComplate = false;
-    if (
-      this.treeControl.dataNodes &&
-      this.dataModelSelect &&
-      this.dataModelSelect.length > 0
-    ) {
+    if (this.dataModelSelect && this.dataModelSelect.length > 0) {
       model.forEach((element) => {
         const fItem = this.dataModelSelect.find((z) => z === element.id);
         if (fItem) {
@@ -155,7 +146,6 @@ export class CatalogCategoryTreeSelectorComponent implements OnInit, OnDestroy {
         if (ret.isSuccess) {
           this.dataModelResult = ret;
           this.dataSource.data = this.dataModelResult.listItems;
-          this.treeControl.dataNodes = this.dataModelResult.listItems;
           this.loadCheked();
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -168,7 +158,9 @@ export class CatalogCategoryTreeSelectorComponent implements OnInit, OnDestroy {
       },
     });
   }
-
+  treeControl = new NestedTreeControl<CatalogCategoryModel>(
+    (node) => node.children,
+  );
   /** Whether all the descendants of the node are selected */
   descendantsAllSelected(node: CatalogCategoryModel): boolean {
     const descendants = this.treeControl.getDescendants(node);

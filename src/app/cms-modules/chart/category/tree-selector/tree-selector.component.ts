@@ -81,9 +81,6 @@ export class ChartCategoryTreeSelectorComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<ChartCategoryModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<ChartCategoryModel>(
-    (node) => node.children,
-  );
   dataSource = new MatTreeNestedDataSource<ChartCategoryModel>();
   runComplate = false;
   @Output() optionSelectChecked = new EventEmitter<number>();
@@ -115,21 +112,15 @@ export class ChartCategoryTreeSelectorComponent implements OnInit, OnDestroy {
       this.cmsApiStoreSubscribe.unsubscribe();
     }
   }
-  loadCheked(model: ChartCategoryModel[] = this.treeControl.dataNodes): void {
+  loadCheked(
+    model: ChartCategoryModel[] = this.dataModelResult.listItems,
+  ): void {
     this.runComplate = false;
-    if (
-      this.treeControl.dataNodes &&
-      this.dataModelSelect &&
-      this.dataModelSelect.length > 0
-    ) {
+    if (this.dataModelSelect && this.dataModelSelect.length > 0) {
       model.forEach((element) => {
         const fItem = this.dataModelSelect.find((z) => z === element.id);
         if (fItem) {
           this.checklistSelection.select(element);
-          // const descendants = this.treeControl.getDescendants(element);
-          // this.checklistSelection.select(...descendants);
-          // this.todoItemSelectionToggle(element);
-          // this.treeControl.expand(element);
         }
         if (element.children && element.children.length > 0) {
           this.loadCheked(element.children);
@@ -158,7 +149,6 @@ export class ChartCategoryTreeSelectorComponent implements OnInit, OnDestroy {
         if (ret.isSuccess) {
           this.dataModelResult = ret;
           this.dataSource.data = this.dataModelResult.listItems;
-          this.treeControl.dataNodes = this.dataModelResult.listItems;
           this.loadCheked();
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -171,7 +161,9 @@ export class ChartCategoryTreeSelectorComponent implements OnInit, OnDestroy {
       },
     });
   }
-
+  treeControl = new NestedTreeControl<ChartCategoryModel>(
+    (node) => node.children,
+  );
   /** Whether all the descendants of the node are selected */
   descendantsAllSelected(node: ChartCategoryModel): boolean {
     const descendants = this.treeControl.getDescendants(node);

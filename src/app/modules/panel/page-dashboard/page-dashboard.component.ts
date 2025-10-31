@@ -11,6 +11,7 @@ import {
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { ThemeStoreMenuModel } from "src/app/core/models/themeStoreModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
@@ -205,15 +206,15 @@ export class PageDashboardComponent implements OnInit {
       return;
     }
   }
-  convertListPinToBoolean(listPin: number[]): boolean[] {
+  convertListPinToBoolean(listPin: ThemeStoreMenuModel[]): boolean[] {
     var ret = [];
     listPin.forEach((el) => {
-      ret[el] = true;
+      if (el.siteId == this.tokenInfo.site.id) ret[el.menuId] = true;
     });
     return ret;
   }
   updateThemeMenuPinToggel(id: number): void {
-    this.themeService.updateThemeMenuPinToggel(id);
+    this.themeService.updateThemeMenuPinToggel(this.tokenInfo.site.id, id);
     this.DataPinListSelect();
   }
   DataPinListSelect() {

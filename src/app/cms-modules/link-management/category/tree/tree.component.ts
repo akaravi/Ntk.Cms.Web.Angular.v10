@@ -1,5 +1,3 @@
-
-import { NestedTreeControl } from '@angular/cdk/tree';
 import {
   ChangeDetectorRef,
   Component,
@@ -7,31 +5,27 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
-import { TranslateService } from '@ngx-translate/core';
+  Output,
+} from "@angular/core";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { TranslateService } from "@ngx-translate/core";
 import {
   CoreEnumService,
   ErrorExceptionResult,
   FilterModel,
   LinkManagementCategoryModel,
-  LinkManagementCategoryService
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { environment } from 'src/environments/environment';
-import { LinkManagementCategoryAddComponent } from '../add/add.component';
-import { LinkManagementCategoryDeleteComponent } from '../delete/delete.component';
-import { LinkManagementCategoryEditComponent } from '../edit/edit.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
-
+  LinkManagementCategoryService,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { environment } from "src/environments/environment";
+import { LinkManagementCategoryAddComponent } from "../add/add.component";
+import { LinkManagementCategoryDeleteComponent } from "../delete/delete.component";
+import { LinkManagementCategoryEditComponent } from "../edit/edit.component";
 
 @Component({
   selector: "app-linkmanagement-category-tree",
@@ -63,9 +57,6 @@ export class LinkManagementCategoryTreeComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<LinkManagementCategoryModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<LinkManagementCategoryModel>(
-    (node) => node.children,
-  );
   dataSource = new MatTreeNestedDataSource<LinkManagementCategoryModel>();
   @Output() optionChange = new EventEmitter<LinkManagementCategoryModel>();
   cmsApiStoreSubscribe: Subscription;

@@ -1,4 +1,3 @@
-import { NestedTreeControl } from '@angular/cdk/tree';
 import {
   ChangeDetectorRef,
   Component,
@@ -6,30 +5,27 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
-import { TranslateService } from '@ngx-translate/core';
+  Output,
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { TranslateService } from "@ngx-translate/core";
 import {
   CoreEnumService,
   ErrorExceptionResult,
   FilterModel,
   WebDesignerMainPageModel,
-  WebDesignerMainPageService
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { environment } from 'src/environments/environment';
-import { WebDesignerMainPageAddComponent } from '../add/add.component';
-import { WebDesignerMainPageEditComponent } from '../edit/edit.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-import { ThemeService } from 'src/app/core/services/theme.service';
-
+  WebDesignerMainPageService,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { ThemeService } from "src/app/core/services/theme.service";
+import { environment } from "src/environments/environment";
+import { WebDesignerMainPageAddComponent } from "../add/add.component";
+import { WebDesignerMainPageEditComponent } from "../edit/edit.component";
 
 @Component({
   selector: "app-webdesigner-page-tree",
@@ -60,7 +56,6 @@ export class WebDesignerMainPageTreeComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<WebDesignerMainPageModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<WebDesignerMainPageModel>((node) => null);
   dataSource = new MatTreeNestedDataSource<WebDesignerMainPageModel>();
   @Output() optionChange = new EventEmitter<WebDesignerMainPageModel>();
   cmsApiStoreSubscribe: Subscription;

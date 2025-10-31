@@ -1,5 +1,3 @@
-
-import { NestedTreeControl } from '@angular/cdk/tree';
 import {
   ChangeDetectorRef,
   Component,
@@ -7,28 +5,26 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
-import { TranslateService } from '@ngx-translate/core';
+  Output,
+} from "@angular/core";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { TranslateService } from "@ngx-translate/core";
 import {
   CoreEnumService,
-  ErrorExceptionResult, FileCategoryModel,
-  FileCategoryService, FilterModel
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { environment } from 'src/environments/environment';
-import { FileCategoryDeleteComponent } from '../delete/delete.component';
-import { FileCategoryEditComponent } from '../edit/edit.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
-
+  ErrorExceptionResult,
+  FileCategoryModel,
+  FileCategoryService,
+  FilterModel,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { environment } from "src/environments/environment";
+import { FileCategoryDeleteComponent } from "../delete/delete.component";
+import { FileCategoryEditComponent } from "../edit/edit.component";
 
 @Component({
   selector: "app-file-category-tree",
@@ -58,9 +54,6 @@ export class FileCategoryTreeComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<FileCategoryModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<FileCategoryModel>(
-    (node) => node.children,
-  );
   dataSource = new MatTreeNestedDataSource<FileCategoryModel>();
   @Output() optionChange = new EventEmitter<FileCategoryModel>();
   cmsApiStoreSubscribe: Subscription;

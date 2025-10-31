@@ -1,5 +1,3 @@
-
-import { NestedTreeControl } from '@angular/cdk/tree';
 import {
   ChangeDetectorRef,
   Component,
@@ -7,31 +5,27 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
-import { TranslateService } from '@ngx-translate/core';
+  Output,
+} from "@angular/core";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { TranslateService } from "@ngx-translate/core";
 import {
   CoreEnumService,
   ErrorExceptionResult,
   FilterModel,
   NewsCategoryModel,
-  NewsCategoryService
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { environment } from 'src/environments/environment';
-import { NewsCategoryAddComponent } from '../add/add.component';
-import { NewsCategoryDeleteComponent } from '../delete/delete.component';
-import { NewsCategoryEditComponent } from '../edit/edit.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
-
+  NewsCategoryService,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { environment } from "src/environments/environment";
+import { NewsCategoryAddComponent } from "../add/add.component";
+import { NewsCategoryDeleteComponent } from "../delete/delete.component";
+import { NewsCategoryEditComponent } from "../edit/edit.component";
 
 @Component({
   selector: "app-news-category-tree",
@@ -61,14 +55,12 @@ export class NewsCategoryTreeComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<NewsCategoryModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<NewsCategoryModel>(
-    (node) => node.children,
-  );
   dataSource = new MatTreeNestedDataSource<NewsCategoryModel>();
   @Output() optionChange = new EventEmitter<NewsCategoryModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
-  hasChild = (_: number, node: NewsCategoryModel) =>    !!node.children && node.children.length > 0;
+  hasChild = (_: number, node: NewsCategoryModel) =>
+    !!node.children && node.children.length > 0;
   childrenAccessor = (node: NewsCategoryModel) => node.children ?? [];
   ngOnInit(): void {
     setTimeout(() => {

@@ -1,5 +1,3 @@
-
-import { NestedTreeControl } from '@angular/cdk/tree';
 import {
   ChangeDetectorRef,
   Component,
@@ -7,28 +5,27 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+  Output,
+} from "@angular/core";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
-import { TranslateService } from '@ngx-translate/core';
-import {
-  CoreEnumService, DonateTargetPeriodSponsorModel,
-  DonateTargetPeriodSponsorService, ErrorExceptionResult,
-  FilterModel
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { environment } from 'src/environments/environment';
-import { DonateTargetPeriodSponserAddComponent } from '../add/add.component';
-import { DonateTargetPeriodSponserDeleteComponent } from '../delete/delete.component';
-import { DonateTargetPeriodSponserEditComponent } from '../edit/edit.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  CoreEnumService,
+  DonateTargetPeriodSponsorModel,
+  DonateTargetPeriodSponsorService,
+  ErrorExceptionResult,
+  FilterModel,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { environment } from "src/environments/environment";
+import { DonateTargetPeriodSponserAddComponent } from "../add/add.component";
+import { DonateTargetPeriodSponserDeleteComponent } from "../delete/delete.component";
+import { DonateTargetPeriodSponserEditComponent } from "../edit/edit.component";
 
 @Component({
   selector: "app-donate-target-period-sponser-tree",
@@ -61,9 +58,6 @@ export class DonateTargetPeriodSponserTreeComponent
     new ErrorExceptionResult<DonateTargetPeriodSponsorModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<DonateTargetPeriodSponsorModel>(
-    (node) => null,
-  );
   dataSource = new MatTreeNestedDataSource<DonateTargetPeriodSponsorModel>();
   @Output() optionChange = new EventEmitter<DonateTargetPeriodSponsorModel>();
   cmsApiStoreSubscribe: Subscription;

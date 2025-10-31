@@ -61,9 +61,7 @@ export class CoreUserResellerChartComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<RessellerChartModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<RessellerChartModel>(
-    (node) => node.userChilds,
-  );
+
 
   dataSource = new MatTreeNestedDataSource<RessellerChartModel>();
   @Output() optionChange = new EventEmitter<RessellerChartModel>();

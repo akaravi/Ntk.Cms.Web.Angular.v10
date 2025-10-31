@@ -1,5 +1,3 @@
-
-import { NestedTreeControl } from '@angular/cdk/tree';
 import {
   ChangeDetectorRef,
   Component,
@@ -7,29 +5,28 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
-import { TranslateService } from '@ngx-translate/core';
+  Output,
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { TranslateService } from "@ngx-translate/core";
 import {
   CoreEnumService,
-  ErrorExceptionResult, EstateAccountAgencyFilterModel, EstateAccountAgencyModel,
-  EstateAccountAgencyService
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsConfirmationDialogService } from 'src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service';
-import { environment } from 'src/environments/environment';
-import { EstateAccountAgencyAddComponent } from '../add/add.component';
-import { EstateAccountAgencyEditComponent } from '../edit/edit.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-import { ThemeService } from 'src/app/core/services/theme.service';
-
+  ErrorExceptionResult,
+  EstateAccountAgencyFilterModel,
+  EstateAccountAgencyModel,
+  EstateAccountAgencyService,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { ThemeService } from "src/app/core/services/theme.service";
+import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { environment } from "src/environments/environment";
+import { EstateAccountAgencyAddComponent } from "../add/add.component";
+import { EstateAccountAgencyEditComponent } from "../edit/edit.component";
 
 @Component({
   selector: "app-estate-account-agency-tree",
@@ -61,7 +58,6 @@ export class EstateAccountAgencyTreeComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<EstateAccountAgencyModel>();
   filterModel = new EstateAccountAgencyFilterModel();
 
-  treeControl = new NestedTreeControl<EstateAccountAgencyModel>((node) => null);
   dataSource = new MatTreeNestedDataSource<EstateAccountAgencyModel>();
   @Output() optionChange = new EventEmitter<EstateAccountAgencyModel>();
   cmsApiStoreSubscribe: Subscription;

@@ -61,9 +61,6 @@ export class CoreCpMainMenuTreeComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<CoreCpMainMenuModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<CoreCpMainMenuModel>(
-    (node) => node.children,
-  );
   dataSource = new MatTreeNestedDataSource<CoreCpMainMenuModel>();
   @Output() optionChange = new EventEmitter<CoreCpMainMenuModel>();
   cmsApiStoreSubscribe: Subscription;

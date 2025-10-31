@@ -1,6 +1,5 @@
-
-import { SelectionModel } from '@angular/cdk/collections';
-import { NestedTreeControl } from '@angular/cdk/tree';
+import { SelectionModel } from "@angular/cdk/collections";
+import { NestedTreeControl } from "@angular/cdk/tree";
 import {
   ChangeDetectorRef,
   Component,
@@ -8,24 +7,23 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
-import { TranslateService } from '@ngx-translate/core';
+  Output,
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { TranslateService } from "@ngx-translate/core";
 import {
   ContactCategoryModel,
-  ContactCategoryService, CoreEnumService,
+  ContactCategoryService,
+  CoreEnumService,
   ErrorExceptionResult,
-  FilterModel
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+  FilterModel,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-cms-contact-category-tree-selector",
@@ -81,9 +79,6 @@ export class CmsContactCategoryTreeSelectorComponent
     new ErrorExceptionResult<ContactCategoryModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<ContactCategoryModel>(
-    (node) => node.children,
-  );
   dataSource = new MatTreeNestedDataSource<ContactCategoryModel>();
   runComplate = false;
   @Output() optionSelectChecked = new EventEmitter<string>();
@@ -114,13 +109,11 @@ export class CmsContactCategoryTreeSelectorComponent
       this.cmsApiStoreSubscribe.unsubscribe();
     }
   }
-  loadCheked(model: ContactCategoryModel[] = this.treeControl.dataNodes): void {
+  loadCheked(
+    model: ContactCategoryModel[] = this.dataModelResult.listItems,
+  ): void {
     this.runComplate = false;
-    if (
-      this.treeControl.dataNodes &&
-      this.dataModelSelect &&
-      this.dataModelSelect.length > 0
-    ) {
+    if (this.dataModelSelect && this.dataModelSelect.length > 0) {
       model.forEach((element) => {
         const fItem = this.dataModelSelect.find((z) => z === element.id);
         if (fItem) {
@@ -151,7 +144,6 @@ export class CmsContactCategoryTreeSelectorComponent
         if (ret.isSuccess) {
           this.dataModelResult = ret;
           this.dataSource.data = this.dataModelResult.listItems;
-          this.treeControl.dataNodes = this.dataModelResult.listItems;
           this.loadCheked();
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -164,6 +156,9 @@ export class CmsContactCategoryTreeSelectorComponent
       },
     });
   }
+  treeControl = new NestedTreeControl<ContactCategoryModel>(
+    (node) => node.children,
+  );
   /** Whether all the descendants of the node are selected */
   descendantsAllSelected(node: ContactCategoryModel): boolean {
     const descendants = this.treeControl.getDescendants(node);

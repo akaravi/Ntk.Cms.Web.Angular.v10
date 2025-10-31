@@ -58,7 +58,6 @@ export class CoreModuleTreeComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<CoreModuleModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<CoreModuleModel>((node) => null);
   dataSource = new MatTreeNestedDataSource<CoreModuleModel>();
   @Output() optionChange = new EventEmitter<CoreModuleModel>();
   cmsApiStoreSubscribe: Subscription;

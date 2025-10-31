@@ -1,5 +1,3 @@
-
-import { NestedTreeControl } from '@angular/cdk/tree';
 import {
   ChangeDetectorRef,
   Component,
@@ -7,29 +5,27 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+  Output,
+} from "@angular/core";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
-import { TranslateService } from '@ngx-translate/core';
-import {
-  CoreEnumService, DonateSponsorModel,
-  DonateSponsorService, ErrorExceptionResult,
-  FilterModel
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { environment } from 'src/environments/environment';
-import { DonateSponserAddComponent } from '../add/add.component';
-import { DonateSponserDeleteComponent } from '../delete/delete.component';
-import { DonateSponserEditComponent } from '../edit/edit.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
-
+  CoreEnumService,
+  DonateSponsorModel,
+  DonateSponsorService,
+  ErrorExceptionResult,
+  FilterModel,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { environment } from "src/environments/environment";
+import { DonateSponserAddComponent } from "../add/add.component";
+import { DonateSponserDeleteComponent } from "../delete/delete.component";
+import { DonateSponserEditComponent } from "../edit/edit.component";
 
 @Component({
   selector: "app-donate-sponser-tree",
@@ -59,7 +55,6 @@ export class DonateSponserTreeComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<DonateSponsorModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<DonateSponsorModel>((node) => null);
   dataSource = new MatTreeNestedDataSource<DonateSponsorModel>();
   @Output() optionChange = new EventEmitter<DonateSponsorModel>();
   cmsApiStoreSubscribe: Subscription;

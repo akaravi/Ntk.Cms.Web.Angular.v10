@@ -1,6 +1,5 @@
-
-import { SelectionModel } from '@angular/cdk/collections';
-import { NestedTreeControl } from '@angular/cdk/tree';
+import { SelectionModel } from "@angular/cdk/collections";
+import { NestedTreeControl } from "@angular/cdk/tree";
 import {
   ChangeDetectorRef,
   Component,
@@ -8,25 +7,23 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
-import { TranslateService } from '@ngx-translate/core';
+  Output,
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { TranslateService } from "@ngx-translate/core";
 import {
   BiographyCategoryModel,
-  BiographyCategoryService, CoreEnumService,
+  BiographyCategoryService,
+  CoreEnumService,
   ErrorExceptionResult,
-  FilterModel
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  FilterModel,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-biography-category-treeselector",
@@ -81,9 +78,6 @@ export class BiographyCategoryTreeSelectorComponent
     new ErrorExceptionResult<BiographyCategoryModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<BiographyCategoryModel>(
-    (node) => node.children,
-  );
   dataSource = new MatTreeNestedDataSource<BiographyCategoryModel>();
   runComplate = false;
   @Output() optionSelectChecked = new EventEmitter<number>();
@@ -115,14 +109,10 @@ export class BiographyCategoryTreeSelectorComponent
     }
   }
   loadCheked(
-    model: BiographyCategoryModel[] = this.treeControl.dataNodes,
+    model: BiographyCategoryModel[] = this.dataModelResult.listItems,
   ): void {
     this.runComplate = false;
-    if (
-      this.treeControl.dataNodes &&
-      this.dataModelSelect &&
-      this.dataModelSelect.length > 0
-    ) {
+    if (this.dataModelSelect && this.dataModelSelect.length > 0) {
       model.forEach((element) => {
         const fItem = this.dataModelSelect.find((z) => z === element.id);
         if (fItem) {
@@ -153,7 +143,6 @@ export class BiographyCategoryTreeSelectorComponent
         if (ret.isSuccess) {
           this.dataModelResult = ret;
           this.dataSource.data = this.dataModelResult.listItems;
-          this.treeControl.dataNodes = this.dataModelResult.listItems;
           this.loadCheked();
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -166,6 +155,9 @@ export class BiographyCategoryTreeSelectorComponent
       },
     });
   }
+  treeControl = new NestedTreeControl<BiographyCategoryModel>(
+    (node) => node.children,
+  );
   /** Whether all the descendants of the node are selected */
   descendantsAllSelected(node: BiographyCategoryModel): boolean {
     const descendants = this.treeControl.getDescendants(node);

@@ -62,9 +62,6 @@ export class CoreModuleSaleHeaderGroupTreeComponent
     new ErrorExceptionResult<CoreModuleSaleHeaderGroupModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<CoreModuleSaleHeaderGroupModel>(
-    (node) => null,
-  );
   dataSource = new MatTreeNestedDataSource<CoreModuleSaleHeaderGroupModel>();
   @Output() optionChange = new EventEmitter<CoreModuleSaleHeaderGroupModel>();
   cmsApiStoreSubscribe: Subscription;

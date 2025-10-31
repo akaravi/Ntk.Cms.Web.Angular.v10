@@ -60,7 +60,6 @@ export class CoreGuideTreeComponent implements OnInit, OnDestroy {
   dataModelResult: ErrorExceptionResult<CoreGuideModel> =
     new ErrorExceptionResult<CoreGuideModel>();
   filterModel = new FilterModel();
-  treeControl = new NestedTreeControl<CoreGuideModel>((node) => node.children);
   dataSource = new MatTreeNestedDataSource<CoreGuideModel>();
   @Output() optionChange = new EventEmitter<CoreGuideModel>();
   cmsApiStoreSubscribe: Subscription;

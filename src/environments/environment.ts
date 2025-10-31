@@ -20,9 +20,10 @@ export const environment: EnvironmentModel = {
   cmsServerConfig: {
     configApiRetry: 1,
     //configApiServerPath: "https://apicms.ir/api/v3/",
-    //configApiServerPath: "https://localhost:2390/api/v3/", // Test Api
+    configApiServerPath: "https://localhost:2390/api/v3/", // Test Api
     //configApiServerPath: "https://localhost:7130/api/v3/", // Test Api
-    configApiServerPath: " https://34fd5qq5-7130.euw.devtunnels.ms/api/v3/", // Test Api
+    //configApiServerPath: "https://34fd5qq5-2390.euw.devtunnels.ms/api/v3/", // Test Api
+    //configApiServerPath: " https://34fd5qq5-7130.euw.devtunnels.ms/api/v3/", // Test Api
 
     //configApiServerPath: 'https://localhost:44342/api/v2/', // Test Api Docer
     configHubServerPath: "https://apicms.ir/hub/",

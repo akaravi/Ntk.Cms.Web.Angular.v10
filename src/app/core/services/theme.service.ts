@@ -9,7 +9,10 @@ import {
   themeHighLightLSKey,
   themeModeLSKey,
 } from "../models/constModel";
-import { ThemeStoreModel } from "../models/themeStoreModel";
+import {
+  ThemeStoreMenuModel,
+  ThemeStoreModel,
+} from "../models/themeStoreModel";
 import { CmsStoreService } from "../reducers/cmsStore.service";
 import { SET_Theme_STATE } from "../reducers/reducer.factory";
 export type ThemeModeType = "dark" | "light" | "system";
@@ -150,7 +153,7 @@ export class ThemeService implements OnDestroy {
     }
     return +data;
   }
-  private getThemeMenuPinFromLocalStorage(): number[] {
+  private getThemeMenuPinFromLocalStorage(): ThemeStoreMenuModel[] {
     if (!localStorage) {
       return [];
     }
@@ -158,7 +161,7 @@ export class ThemeService implements OnDestroy {
     if (!data) {
       return [];
     }
-    var ret: number[] = [];
+    var ret: ThemeStoreMenuModel[] = [];
     ret = JSON.parse(data);
     if (Array.isArray(ret)) return ret;
     return [];
@@ -305,8 +308,8 @@ export class ThemeService implements OnDestroy {
       /**theme-font-changer */
     }, 10);
   }
-  //ThemeMenuPin: boolean[] = [];
-  public updateThemeMenuPin(model: number[]): void {
+
+  public updateThemeMenuPin(model: ThemeStoreMenuModel[]): void {
     if (!model) return;
     this.themeStore.themeMenuPin = model;
     this.cmsStoreService.setState({
@@ -314,13 +317,15 @@ export class ThemeService implements OnDestroy {
       payload: this.themeStore,
     });
   }
-  public updateThemeMenuPinToggel(model: number): void {
-    if (!model) return;
-    var index = this.themeStore.themeMenuPin.indexOf(model);
+  public updateThemeMenuPinToggel(siteId: number, menuId: number): void {
+    if (!siteId || !menuId) return;
+    var index = this.themeStore.themeMenuPin.findIndex(
+      (x) => x.siteId == siteId && x.menuId == menuId,
+    );
     if (index >= 0) {
       this.themeStore.themeMenuPin.splice(index, 1);
     } else {
-      this.themeStore.themeMenuPin.push(model);
+      this.themeStore.themeMenuPin.push({ menuId: menuId, siteId: siteId });
     }
     if (localStorage)
       localStorage.setItem(
@@ -332,9 +337,13 @@ export class ThemeService implements OnDestroy {
       payload: this.themeStore,
     });
   }
-  public updateThemeMenuPinAdd(model: number): void {
-    if (!model) return;
-    this.themeStore.themeMenuPin.push(model);
+  public updateThemeMenuPinAdd(siteId: number, menuId: number): void {
+    if (!siteId || !menuId) return;
+    var index = this.themeStore.themeMenuPin.findIndex(
+      (x) => x.siteId == siteId && x.menuId == menuId,
+    );
+    if (index >= 0) return;
+    this.themeStore.themeMenuPin.push({ menuId: menuId, siteId: siteId });
     if (localStorage)
       localStorage.setItem(
         THEME_MENU_PIN_LOCAL_STORAGE_KEY,
@@ -345,9 +354,11 @@ export class ThemeService implements OnDestroy {
       payload: this.themeStore,
     });
   }
-  public updateThemeMenuPinRemove(model: number): void {
-    if (!model) return;
-    var index = this.themeStore.themeMenuPin.indexOf(model);
+  public updateThemeMenuPinRemove(siteId: number, menuId: number): void {
+    if (!siteId || !menuId) return;
+    var index = this.themeStore.themeMenuPin.findIndex(
+      (x) => x.siteId == siteId && x.menuId == menuId,
+    );
     if (index >= 0) this.themeStore.themeMenuPin.splice(index, 1);
     if (localStorage)
       localStorage.setItem(

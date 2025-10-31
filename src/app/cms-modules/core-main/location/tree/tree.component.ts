@@ -57,9 +57,6 @@ export class CoreLocationTreeComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<CoreLocationModel>();
   filterModel = new FilterModel();
 
-  treeControl = new NestedTreeControl<CoreLocationModel>(
-    (node) => node.children,
-  );
   dataSource = new MatTreeNestedDataSource<CoreLocationModel>();
   @Output() optionChange = new EventEmitter<CoreLocationModel>();
   cmsApiStoreSubscribe: Subscription;
