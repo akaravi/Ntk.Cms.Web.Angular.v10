@@ -345,7 +345,10 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
         "ERRORMESSAGE.TITLE.Internetaccesswasconnected",
       ])
       .subscribe((str: string[]) => {
-        this.cmsToastrService.toastr.success(str[0], str[1]);
+        this.cmsToastrService.toastr.success(
+          str["ERRORMESSAGE.TITLE.Internetaccesswasconnected"],
+          str["ERRORMESSAGE.TITLE.Youhavesuccessfullyconnectedtotheserver"],
+        );
       });
   }
   @HostListener("window:offline", ["$event"])
@@ -364,9 +367,13 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
         "ERRORMESSAGE.TITLE.Internetaccesswasinterrupted",
       ])
       .subscribe((str: string[]) => {
-        this.toastId = this.cmsToastrService.toastr.error(str[0], str[1], {
-          disableTimeOut: true,
-        }).toastId;
+        this.toastId = this.cmsToastrService.toastr.error(
+          str["ERRORMESSAGE.TITLE.Internetaccesswasinterrupted"],
+          str["ERRORMESSAGE.TITLE.Pleasecheckyourinternetconnection"],
+          {
+            disableTimeOut: true,
+          },
+        ).toastId;
       });
   }
 

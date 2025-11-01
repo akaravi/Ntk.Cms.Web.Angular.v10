@@ -110,7 +110,7 @@ export class CoreSiteWidgetStatusComponent implements OnInit, OnDestroy {
       if (model.id !== this.tokenInfoModel.access.siteId) {
         if (model.id === this.tokenInfoModel.access.siteId) {
           this.translate.get([ 'MESSAGE.The_ID_of_this_website_is_the_same_as_the_website_you_are_on','TITLE.Warrning']).subscribe((str: string[]) => {
-            this.cmsToastrService.toastr.warning(str[0], str[1]);
+            this.cmsToastrService.toastr.warning(str["MESSAGE.The_ID_of_this_website_is_the_same_as_the_website_you_are_on"], str["TITLE.Warrning"]);
           });
           return;
         }

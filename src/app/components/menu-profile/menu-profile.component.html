@@ -18,7 +18,7 @@
   </div>
   <div class="content">
     <div class="divider mt-n2"></div>
-    <div class="d-flex mb-0 ps-2 pe-2">
+    <div class="d-flex mb-0 ps-3 pe-3">
       <div>
         <img
           [src]="
@@ -66,7 +66,7 @@
       "
     >
       <!-- userAccessAdminAllowToAllData Field -->
-      <div class="d-flex mb-0 ps-2 pe-2">
+      <div class="d-flex mb-0 ps-3 pe-3">
         <div class="pt-1">
           <h5
             data-trigger-switch="dataModel.userAccessAdminAllowToAllData"
@@ -75,7 +75,7 @@
             {{ "TITLE.Show_all_information" | translate }}
           </h5>
         </div>
-        <div class="ms-auto me-3 pe-2">
+        <div class="ms-auto me-3 pe-3">
           <div class="ios-switch small-switch">
             <input
               type="checkbox"
@@ -93,7 +93,7 @@
         </div>
       </div>
       <!-- userAccessAdminAllowToProfessionalData Field -->
-      <div class="d-flex mb-0 ps-2 pe-2">
+      <div class="d-flex mb-0 ps-3 pe-3">
         <div class="pt-1">
           <h5
             data-trigger-switch="dataModel.userAccessAdminAllowToProfessionalData"
@@ -102,7 +102,7 @@
             {{ "TITLE.Display_specialized_information" | translate }}
           </h5>
         </div>
-        <div class="ms-auto me-3 pe-2">
+        <div class="ms-auto me-3 pe-3">
           <div class="ios-switch small-switch">
             <input
               type="checkbox"
@@ -122,7 +122,7 @@
         </div>
       </div>
       <!-- LinkCmsSiteId Field -->
-      <div class="menu-item px-2 ps-2 pe-2">
+      <div class="menu-item px-2 ps-3 pe-3">
         <app-cms-site-selector
           (optionChange)="onActionSiteSelect($event)"
           [optionDisabled]="false"
@@ -133,7 +133,7 @@
       <div class="divider"></div>
     </ng-container>
 
-    <div class="row mb-0 ps-2 pe-2">
+    <div class="row mb-0 ps-3 pe-3">
       <ng-container
         *ngIf="
           tokenInfo &&

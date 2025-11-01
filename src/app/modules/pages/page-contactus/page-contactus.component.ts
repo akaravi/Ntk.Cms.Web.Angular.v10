@@ -154,7 +154,10 @@ export class PageContactusComponent extends AddBaseComponent<TicketingTaskServic
   onActionSelectSource(model: ApplicationSourceModel | null): void {
     if (!model || model.id <= 0) {
       this.translate.get(['MESSAGE.Specify_the_source', 'MESSAGE.The_source_of_the_information_application_is_not_known']).subscribe((str: string[]) => {
-        this.cmsToastrService.typeErrorMessage(str[0], str[1]);
+        this.cmsToastrService.typeErrorMessage(
+          str["MESSAGE.The_source_of_the_information_application_is_not_known"],
+          str["MESSAGE.Specify_the_source"],
+        );
       });
       return;
     }

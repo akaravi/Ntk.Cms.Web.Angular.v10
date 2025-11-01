@@ -61,7 +61,10 @@ export class HttpConfigInterceptor implements HttpInterceptor {
               "ERRORMESSAGE.TITLE.typeError500",
             ])
             .subscribe((str: string[]) => {
-              this.cmsToastrService.typeErrorMessage(str[0], str[1]);
+              this.cmsToastrService.typeErrorMessage(
+                str["ERRORMESSAGE.MESSAGE.typeError500"],
+                str["ERRORMESSAGE.TITLE.typeError500"],
+              );
             });
           return null;
           //Error 500

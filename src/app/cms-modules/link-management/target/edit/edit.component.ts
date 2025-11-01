@@ -299,7 +299,10 @@ export class LinkManagementTargetEditComponent extends EditBaseComponent<LinkMan
   onActionSelectSite(model: CoreSiteModel | null): void {
     if (!model || model.id <= 0) {
       this.translate.get(['MESSAGE.Specify_the_site', 'MESSAGE.Information_site_is_not_clear']).subscribe((str: string[]) => {
-        this.cmsToastrService.typeErrorMessage(str[0] , str[1]);
+        this.cmsToastrService.typeErrorMessage(
+          str["MESSAGE.Information_site_is_not_clear"],
+          str["MESSAGE.Specify_the_site"],
+        );
       });
       return;
     }

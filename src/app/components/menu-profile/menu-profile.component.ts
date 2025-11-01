@@ -86,7 +86,7 @@ export class MenuProfileComponent implements OnInit {
           "MESSAGE.Request_to_terminate_access_to_all_information_has been_sent_to_the_server";
       }
       this.translate.get([title, message]).subscribe((str: string[]) => {
-        this.cmsToastrService.toastr.warning(str[0], str[1]);
+        this.cmsToastrService.toastr.warning(str[message], str[title]);
       });
     }
     const pName = this.constructor.name + "main";
@@ -114,7 +114,10 @@ export class MenuProfileComponent implements OnInit {
               this.translate
                 .get([emessage, etitle])
                 .subscribe((str: string[]) => {
-                  this.cmsToastrService.toastr.success(str[0], str[1]);
+                  this.cmsToastrService.toastr.success(
+                    str[emessage],
+                    str[etitle],
+                  );
                 });
             }
           } else {
@@ -123,7 +126,10 @@ export class MenuProfileComponent implements OnInit {
               this.translate
                 .get([emessage, etitle])
                 .subscribe((str: string[]) => {
-                  this.cmsToastrService.toastr.warning(str[0], str[1]);
+                  this.cmsToastrService.toastr.warning(
+                    str[emessage],
+                    str[etitle],
+                  );
                 });
             }
           }
@@ -165,7 +171,7 @@ export class MenuProfileComponent implements OnInit {
     }
     if (this.cmsToastrService) {
       this.translate.get([message, title]).subscribe((str: string[]) => {
-        this.cmsToastrService.toastr.warning(str[0], str[1]);
+        this.cmsToastrService.toastr.warning(str[message], str[title]);
       });
     }
     const pName = this.constructor.name + "main";
@@ -194,7 +200,10 @@ export class MenuProfileComponent implements OnInit {
               this.translate
                 .get([emessage, etitle])
                 .subscribe((str: string[]) => {
-                  this.cmsToastrService.toastr.success(str[0], str[1]);
+                  this.cmsToastrService.toastr.success(
+                    str[emessage],
+                    str[etitle],
+                  );
                 });
             }
           } else {
@@ -203,7 +212,10 @@ export class MenuProfileComponent implements OnInit {
               this.translate
                 .get([emessage, etitle])
                 .subscribe((str: string[]) => {
-                  this.cmsToastrService.toastr.warning(str[0], str[1]);
+                  this.cmsToastrService.toastr.warning(
+                    str[emessage],
+                    str[etitle],
+                  );
                 });
             }
           }
@@ -232,7 +244,12 @@ export class MenuProfileComponent implements OnInit {
             "MESSAGE.The_ID_of_this_website_is_the_same_as_the_website_you_are_on",
           ])
           .subscribe((str: string[]) => {
-            this.cmsToastrService.toastr.warning(str[0], str[1]);
+            this.cmsToastrService.toastr.warning(
+              str[
+                "MESSAGE.The_ID_of_this_website_is_the_same_as_the_website_you_are_on"
+              ],
+              str["TITLE.Warrning"],
+            );
           });
       }
       return;
@@ -284,7 +301,10 @@ export class MenuProfileComponent implements OnInit {
                   title,
                 ])
                 .subscribe((str: string[]) => {
-                  this.cmsToastrService.toastr.success(str[0], str[1]);
+                  this.cmsToastrService.toastr.success(
+                    str["MESSAGE.Access_to_the_new_user_has_been_approved"],
+                    str[title],
+                  );
                 });
             }
             this.inputSiteId = null;
@@ -294,7 +314,10 @@ export class MenuProfileComponent implements OnInit {
               this.translate
                 .get(["MESSAGE.Access_to_the_new_user_was_not_approved", title])
                 .subscribe((str: string[]) => {
-                  this.cmsToastrService.toastr.success(str[0], str[1]);
+                  this.cmsToastrService.toastr.success(
+                    str["MESSAGE.Access_to_the_new_user_was_not_approved"],
+                    str[title],
+                  );
                 });
             }
           }
@@ -322,7 +345,12 @@ export class MenuProfileComponent implements OnInit {
             "MESSAGE.The_ID_of_this_website_is_the_same_as_the_website_you_are_on",
           ])
           .subscribe((str: string[]) => {
-            this.cmsToastrService.toastr.warning(str[0], str[1]);
+            this.cmsToastrService.toastr.warning(
+              str[
+                "MESSAGE.The_ID_of_this_website_is_the_same_as_the_website_you_are_on"
+              ],
+              str["TITLE.Warrning"],
+            );
           });
       }
       return;
