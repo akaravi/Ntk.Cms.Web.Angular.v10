@@ -13,7 +13,7 @@
   </ng-container>
   <ng-container cms-tree-body class="loader-container">
     <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
-   <mat-tree
+    <mat-tree
       #treeTagControl
       [dataSource]="dataSource"
       [childrenAccessor]="childrenAccessor"
@@ -36,6 +36,7 @@
         <button
           matIconButton
           matTreeNodeToggle
+          [attr.type]="'button'"
           [attr.aria-label]="'Toggle ' + node.title"
         >
           <mat-icon class="mat-icon-rtl-mirror">

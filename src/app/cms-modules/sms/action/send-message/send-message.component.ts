@@ -15,6 +15,7 @@ import {
   CoreModuleSiteUserCreditService,
   ErrorExceptionResult,
   FormInfoModel,
+  SmsActionService,
   SmsApiSendMessageDtoModel,
   SmsApiSendResultModel,
   SmsMainApiNumberModel,
@@ -59,6 +60,7 @@ export class SmsActionSendMessageComponent implements OnInit {
   constructor(
     public coreEnumService: CoreEnumService,
     public smsMainApiPathService: SmsMainApiPathService,
+    public smsActionService: SmsActionService,
     private service: CoreModuleSiteUserCreditService,
     private activatedRoute: ActivatedRoute,
     private cmsToastrService: CmsToastrService,
@@ -521,7 +523,7 @@ export class SmsActionSendMessageComponent implements OnInit {
     //this.dataModel.scheduleSendStart=new Date(this.dataModel.scheduleSendStart.getTime() + this.timezoneOffset*60*1000);
     //this.dataModel.scheduleSendExpire=new Date(this.dataModel.scheduleSendExpire.getTime() + this.timezoneOffset*60*1000);
 
-    this.smsMainApiPathService.ServiceSendMessage(this.dataModel).subscribe({
+    this.smsActionService.ServiceSendMessage(this.dataModel).subscribe({
       next: (ret) => {
         this.formInfo.formSubmitAllow = true;
         this.dataModelResult = ret;

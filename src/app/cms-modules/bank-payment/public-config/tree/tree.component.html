@@ -59,14 +59,15 @@
       >
         <button matIconButton disabled></button>
         <span (click)="onActionSelect(node)">
-		  <img
-              style="vertical-align: middle"
-              class="ntk-hover-zoom"
-              aria-hidden
-              src="{{ node.linkModuleFileLogoIdSrc }}"
-              height="40"
-              width="40"
-            />&nbsp;{{ node.title }}</span>
+          <img
+            style="vertical-align: middle"
+            class="ntk-hover-zoom"
+            aria-hidden
+            src="{{ node.linkModuleFileLogoIdSrc }}"
+            height="40"
+            width="40"
+          />&nbsp;{{ node.title }}</span
+        >
       </mat-tree-node>
       <mat-tree-node
         *matTreeNodeDef="let node; when: hasChild"
@@ -80,21 +81,25 @@
         <button
           matIconButton
           matTreeNodeToggle
+          [attr.type]="'button'"
           [attr.aria-label]="'Toggle ' + node.title"
         >
           <mat-icon class="mat-icon-rtl-mirror">
-            {{ treeTagControl.isExpanded(node) ? "expand_more" : "chevron_right" }}
+            {{
+              treeTagControl.isExpanded(node) ? "expand_more" : "chevron_right"
+            }}
           </mat-icon>
         </button>
         <span (click)="onActionSelect(node)">
-		  <img
-              style="vertical-align: middle"
-              class="ntk-hover-zoom"
-              aria-hidden
-              src="{{ node.linkModuleFileLogoIdSrc }}"
-              height="40"
-              width="40"
-            />&nbsp;{{ node.title }}</span>
+          <img
+            style="vertical-align: middle"
+            class="ntk-hover-zoom"
+            aria-hidden
+            src="{{ node.linkModuleFileLogoIdSrc }}"
+            height="40"
+            width="40"
+          />&nbsp;{{ node.title }}</span
+        >
       </mat-tree-node>
     </mat-tree>
 

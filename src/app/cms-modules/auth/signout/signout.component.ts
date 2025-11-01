@@ -13,18 +13,9 @@ export class AuthSignOutComponent implements OnInit {
     private authService: CoreAuthV3Service,
     private cmsToastrService: CmsToastrService,
     private cmsAuthService: CmsAuthService,
-  ) {
-    this.authService.ServiceLogout().subscribe({
-      next: (ret) => {
-        if (ret.isSuccess) {
-          this.cmsToastrService.typeSuccessLogout();
-        } else {
-          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-        }
-      },
-    });
-  }
+  ) {}
   ngOnInit(): void {
+    this.cmsToastrService.typeOrderActionLogout();
     this.cmsAuthService.logout();
   }
 }

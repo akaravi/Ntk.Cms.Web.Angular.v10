@@ -38,10 +38,6 @@ export class CmsAuthSiteGuard {
           queryParams: { returnUrl: state.url },
         });
     }
-
-    this.router.navigate(["/auth/signout"], {
-      queryParams: {},
-    });
     return false;
   }
 }

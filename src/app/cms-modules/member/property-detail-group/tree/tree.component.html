@@ -66,11 +66,14 @@
         "
       >
         <button matIconButton disabled></button>
-        <span (click)="onActionSelect(node)">  <i
-              [ngClass]="node.IconFont"
-              [style.color]="node.IconColor"
-              aria-hidden="true"
-            ></i> {{ node.title }}</span>
+        <span (click)="onActionSelect(node)">
+          <i
+            [ngClass]="node.IconFont"
+            [style.color]="node.IconColor"
+            aria-hidden="true"
+          ></i>
+          {{ node.title }}</span
+        >
       </mat-tree-node>
       <mat-tree-node
         *matTreeNodeDef="let node; when: hasChild"
@@ -84,6 +87,7 @@
         <button
           matIconButton
           matTreeNodeToggle
+          [attr.type]="'button'"
           [attr.aria-label]="'Toggle ' + node.title"
         >
           <mat-icon class="mat-icon-rtl-mirror">

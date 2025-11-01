@@ -23,7 +23,7 @@
       [childrenAccessor]="childrenAccessor"
     >
       <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-        <button matIconButton disabled type="button"></button>
+        <button matIconButton disabled></button>
         <mat-checkbox
           [checked]="checklistSelection.isSelected(node)"
           [indeterminate]="descendantsPartiallySelected(node)"
@@ -40,8 +40,9 @@
         <button
           matIconButton
           matTreeNodeToggle
+          [attr.type]="'button'"
           [attr.aria-label]="'Toggle ' + node.title"
-          type="button"
+          [attr.type]="'button'"
         >
           <mat-icon class="mat-icon-rtl-mirror">
             {{

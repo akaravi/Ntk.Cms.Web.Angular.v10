@@ -193,8 +193,7 @@ export class MenuMainComponent implements OnInit {
         );
       });
     this.cmsToastrService.typeOrderActionLogout();
-    this.router.navigate(["/auth/signout"], {
-      queryParams: {},
-    });
+
+    this.cmsAuthService.logout();
   }
 }

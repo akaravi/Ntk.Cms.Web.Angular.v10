@@ -69,7 +69,7 @@
             height="40"
             width="40"
           />
-         &nbsp;{{ node.title }}</span
+          &nbsp;{{ node.title }}</span
         >
       </mat-tree-node>
       <mat-tree-node
@@ -84,6 +84,7 @@
         <button
           matIconButton
           matTreeNodeToggle
+          [attr.type]="'button'"
           [attr.aria-label]="'Toggle ' + node.title"
         >
           <mat-icon class="mat-icon-rtl-mirror">
@@ -101,7 +102,7 @@
             height="40"
             width="40"
           />
-         &nbsp;{{ node.title }}</span
+          &nbsp;{{ node.title }}</span
         >
       </mat-tree-node>
     </mat-tree>

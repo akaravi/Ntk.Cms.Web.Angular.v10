@@ -168,6 +168,9 @@ export class CmsAuthService implements OnDestroy {
         });
 
         this.authService.setJWT(null);
+        this.router.navigate(["/auth"], {
+          queryParams: {},
+        });
       },
     });
   }

@@ -13,7 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatStepperModule } from '@angular/material/stepper';
 import {
   CoreAuthV3Service,
-  CoreEnumService, CoreModuleService, CoreModuleTagService, SmsEnumService, SmsMainApiPathPriceServiceService
+  CoreEnumService, CoreModuleService, CoreModuleTagService, SmsActionService, SmsEnumService, SmsMainApiPathPriceServiceService
 } from 'ntk-cms-api';
 import { CmsConfirmationDialogService } from 'src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service';
 
@@ -45,6 +45,7 @@ import { CmsConfirmationDialogService } from 'src/app/shared/cms-confirmation-di
     /*Config*/
     CmsConfirmationDialogService,
     SmsEnumService,
+    SmsActionService,
     CoreModuleTagService,
     SmsMainApiPathPriceServiceService,
   ]

@@ -19,7 +19,7 @@
     <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
     </app-progress-spinner>
     <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
-   <mat-tree
+    <mat-tree
       #treeTagControl
       [dataSource]="dataSource"
       [childrenAccessor]="childrenAccessor"
@@ -42,6 +42,7 @@
         <button
           matIconButton
           matTreeNodeToggle
+          [attr.type]="'button'"
           [attr.aria-label]="'Toggle ' + node.title"
         >
           <mat-icon class="mat-icon-rtl-mirror">

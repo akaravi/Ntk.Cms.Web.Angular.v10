@@ -25,7 +25,7 @@ export class MenuProfileComponent implements OnInit {
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public coreAuthService: CoreAuthV3Service,
-    public cmsAuthervice: CmsAuthService,
+    public cmsAuthService: CmsAuthService,
 
     private cmsToastrService: CmsToastrService,
     public translate: TranslateService,
@@ -101,7 +101,7 @@ export class MenuProfileComponent implements OnInit {
       });
     this.loadingStatus = true;
     this.disabledAllow = true;
-    this.cmsAuthervice.refreshToken(authModel).subscribe({
+    this.cmsAuthService.refreshToken(authModel).subscribe({
       next: (ret) => {
         this.loadingStatus = false;
         this.disabledAllow = false;
@@ -180,7 +180,7 @@ export class MenuProfileComponent implements OnInit {
       });
     this.loadingStatus = true;
     this.disabledAllow = true;
-    this.cmsAuthervice.refreshToken(authModel).subscribe({
+    this.cmsAuthService.refreshToken(authModel).subscribe({
       next: (ret) => {
         this.loadingStatus = false;
         this.disabledAllow = false;
@@ -272,7 +272,7 @@ export class MenuProfileComponent implements OnInit {
         );
       });
     this.loadingStatus = true;
-    this.cmsAuthervice.refreshToken(authModel).subscribe({
+    this.cmsAuthService.refreshToken(authModel).subscribe({
       next: (ret) => {
         this.loadingStatus = false;
         if (ret.isSuccess) {
@@ -362,7 +362,7 @@ export class MenuProfileComponent implements OnInit {
         );
       });
     this.loadingStatus = true;
-    this.cmsAuthervice.refreshToken(authModel).subscribe({
+    this.cmsAuthService.refreshToken(authModel).subscribe({
       next: (ret) => {
         this.loadingStatus = false;
         if (ret.isSuccess) {
@@ -419,9 +419,6 @@ export class MenuProfileComponent implements OnInit {
         );
       });
     this.cmsToastrService.typeOrderActionLogout();
-
-    this.router.navigate(["/auth/signout"], {
-      queryParams: {},
-    });
+    this.cmsAuthService.logout();
   }
 }

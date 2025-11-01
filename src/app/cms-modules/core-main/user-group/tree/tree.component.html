@@ -73,10 +73,13 @@
         <button
           matIconButton
           matTreeNodeToggle
+          [attr.type]="'button'"
           [attr.aria-label]="'Toggle ' + node.titleML"
         >
           <mat-icon class="mat-icon-rtl-mirror">
-            {{ treeTagControl.isExpanded(node) ? "expand_more" : "chevron_right" }}
+            {{
+              treeTagControl.isExpanded(node) ? "expand_more" : "chevron_right"
+            }}
           </mat-icon>
         </button>
         <span (click)="onActionSelect(node)">{{ node.titleML }}</span>

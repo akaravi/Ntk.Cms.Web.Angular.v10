@@ -87,7 +87,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
             });
             /** */
           } else {
-            this.router.navigate(["/auth/signout"], {
+            this.router.navigate(["/auth"], {
               queryParams: {},
             });
           }
@@ -115,7 +115,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
             });
             /** */
           } else {
-            this.router.navigate(["/auth/signout"], {
+            this.router.navigate(["/auth"], {
               queryParams: {},
             });
           }

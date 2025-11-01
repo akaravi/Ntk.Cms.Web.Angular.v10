@@ -927,6 +927,7 @@
   "ROUTE.POLLING": "Encuestas",
   "ROUTE.POLLING.CONTENT": "Polling content",
   "ROUTE.POLLING.VOTE": "Votes",
+  "ROUTE.REGISTER": "Registro",
   "ROUTE.REGISTER.FORGETPASSWORD": " Olvidé mi contraseña",
   "ROUTE.REGISTER.SIGNIN": "Sign in ",
   "ROUTE.REGISTER.SIGNINBYSMS": "Sign in by SMS",

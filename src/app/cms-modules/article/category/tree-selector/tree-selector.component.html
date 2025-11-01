@@ -26,7 +26,7 @@
     >
       <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
         <button matIconButton disabled></button>
-       <mat-checkbox
+        <mat-checkbox
           [checked]="checklistSelection.isSelected(node)"
           [indeterminate]="descendantsPartiallySelected(node)"
           (change)="todoItemSelectionToggle(node)"
@@ -42,6 +42,7 @@
         <button
           matIconButton
           matTreeNodeToggle
+          [attr.type]="'button'"
           [attr.aria-label]="'Toggle ' + node.title"
         >
           <mat-icon class="mat-icon-rtl-mirror">
