@@ -24,13 +24,7 @@ export class AuthComponent implements OnInit {
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef) {
     this.publicHelper.processService.cdr = this.cdr;
-    this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-    if (this.tokenInfo) {
-      if (this.tokenInfo && this.tokenInfo?.access?.userId > 0 && this.tokenInfo?.access?.siteId > 0)
-        setTimeout(() => this.router.navigate(['/dashboard']), 500);
-      else if (this.tokenInfo && this.tokenInfo?.access && this.tokenInfo?.access?.userId > 0)
-        setTimeout(() => this.router.navigate(['/core/site/selection']), 500);
-    }
+   
 
   }
   tokenInfo = new TokenInfoModelV3();

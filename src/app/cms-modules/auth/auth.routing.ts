@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { themeAuthPageLSKey } from "src/app/core/models/constModel";
+import { CmsAuthSigninGuard } from "src/app/core/services/cmsAuthSigninGuard.service";
 import { AuthComponent } from "./auth.component";
 import { AuthForgotPasswordComponent } from "./forgot-password/forgot-password.component";
 import { AuthSignInBySmsComponent } from "./signin-bysms/signin-bysms.component";
@@ -28,11 +29,13 @@ const routes: Routes = [
       {
         path: "signinbyusername",
         component: AuthSignInByUsernameComponent,
+        canActivate: [CmsAuthSigninGuard],
         data: { title: "ROUTE.REGISTER.SIGNINBYUSERNAME" },
       },
       {
         path: "signinbysms",
         component: AuthSignInBySmsComponent,
+        canActivate: [CmsAuthSigninGuard],
         data: { title: "ROUTE.REGISTER.SIGNINBYSMS" },
       },
       {
@@ -43,6 +46,7 @@ const routes: Routes = [
       {
         path: "signup",
         component: AuthSignUpComponent,
+        canActivate: [CmsAuthSigninGuard],
         data: {
           title: "ROUTE.REGISTER.SIGNUP",
         },
@@ -50,6 +54,7 @@ const routes: Routes = [
       {
         path: "forgot-password",
         component: AuthForgotPasswordComponent,
+        canActivate: [CmsAuthSigninGuard],
         data: { title: "ROUTE.REGISTER.FORGETPASSWORD" },
       },
       {

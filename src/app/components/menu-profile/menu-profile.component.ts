@@ -408,17 +408,8 @@ export class MenuProfileComponent implements OnInit {
     }
   }
   async onActionLogout() {
-    const pName = this.constructor.name + "main";
-    this.translate
-      .get("MESSAGE.Sign_out_of_user_account")
-      .subscribe((str: string) => {
-        this.publicHelper.processService.processStart(
-          pName,
-          str,
-          this.constructorInfoAreaId,
-        );
-      });
-    this.cmsToastrService.typeOrderActionLogout();
-    this.cmsAuthService.logout();
+    this.router.navigate(["/auth/signout"], {
+      queryParams: {},
+    });
   }
 }

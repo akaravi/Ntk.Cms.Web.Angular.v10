@@ -7,6 +7,7 @@ import {
 } from "@angular/router";
 import { CoreAuthV3Service } from "ntk-cms-api";
 import { CmsStoreService } from "../reducers/cmsStore.service";
+import { CmsAuthService } from "./cmsAuth.service";
 
 @Injectable({
   providedIn: "root",
@@ -24,6 +25,11 @@ export class CmsAuthGuardChild implements CanActivateChild {
     ) {
       if (this.authService.getJWT()?.accessToken?.length > 0) return true;
     }
+    setTimeout(() => {
+      this.router.navigate(["/auth/signout"], {
+        queryParams: {},
+      });
+    }, 10);
 
     return false;
   }

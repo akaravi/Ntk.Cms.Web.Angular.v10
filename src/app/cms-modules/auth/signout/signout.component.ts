@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { CoreAuthV3Service } from "ntk-cms-api";
 import { CmsAuthService } from "src/app/core/services/cmsAuth.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 @Component({
@@ -10,7 +9,6 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 export class AuthSignOutComponent implements OnInit {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private authService: CoreAuthV3Service,
     private cmsToastrService: CmsToastrService,
     private cmsAuthService: CmsAuthService,
   ) {}

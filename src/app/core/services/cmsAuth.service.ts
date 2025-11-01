@@ -54,7 +54,7 @@ export class CmsAuthService implements OnDestroy {
   }
   constructor(
     private router: Router,
-    private authService: CoreAuthV3Service,
+    private coreAuthService: CoreAuthV3Service,
     private cmsStoreService: CmsStoreService,
   ) {
     this.isLoadingSubject = new BehaviorSubject<boolean>(false);
@@ -64,12 +64,12 @@ export class CmsAuthService implements OnDestroy {
   }
 
   getTokenInfoType(): Observable<TokenInfoType> {
-    const auth = this.authService.getJWT();
+    const auth = this.coreAuthService.getJWT();
     if (!auth || !auth.accessToken) {
       return of(undefined);
     }
     this.isLoadingSubject.next(true);
-    return this.authService.ServiceCurrentToken().pipe(
+    return this.coreAuthService.ServiceCurrentToken().pipe(
       map((ret: ErrorExceptionResult<TokenInfoModelV3>) => {
         if (ret.isSuccess) {
           this.currentUserSubject.next(ret.item as TokenInfoType);
@@ -89,12 +89,12 @@ export class CmsAuthService implements OnDestroy {
     );
   }
   getTokenInfo(): Observable<ErrorExceptionResult<TokenInfoModelV3>> {
-    const auth = this.authService.getJWT();
+    const auth = this.coreAuthService.getJWT();
     if (!auth || !auth.accessToken) {
       return of(undefined);
     }
     this.isLoadingSubject.next(true);
-    return this.authService.ServiceCurrentToken().pipe(
+    return this.coreAuthService.ServiceCurrentToken().pipe(
       map((ret: ErrorExceptionResult<TokenInfoModelV3>) => {
         if (ret?.isSuccess) {
           this.currentUserSubject.next(ret.item);
@@ -133,7 +133,7 @@ export class CmsAuthService implements OnDestroy {
   ): Observable<ErrorExceptionResult<TokenInfoType>> {
     this.isLoadingSubject.next(true);
 
-    return this.authService.ServiceSigninUser(model).pipe(
+    return this.coreAuthService.ServiceSigninUser(model).pipe(
       map((auth: ErrorExceptionResult<TokenJWTModel>) => {
         if (auth) {
           const result = this.setAuthFromLocalStorage(auth.item);
@@ -151,8 +151,8 @@ export class CmsAuthService implements OnDestroy {
     );
   }
 
-  logout(): any {
-    this.authService.ServiceCurrentToken().subscribe({
+  logout(): void {
+    this.coreAuthService.ServiceCurrentToken().subscribe({
       next: (ret) => {
         this.cmsStoreService.setState({
           type: SET_TOKEN_INFO,
@@ -166,8 +166,14 @@ export class CmsAuthService implements OnDestroy {
           type: SET_CpMain_Menu,
           payload: new ErrorExceptionResult<CoreCpMainMenuModel>(),
         });
+        this.coreAuthService.setJWT(null);
+        this.router.navigate(["/auth"], {
+          queryParams: {},
+        });
+      },
+      error: (err) => {
+        console.error("err", err);
 
-        this.authService.setJWT(null);
         this.router.navigate(["/auth"], {
           queryParams: {},
         });
@@ -187,7 +193,7 @@ export class CmsAuthService implements OnDestroy {
     this.isLoadingSubject.next(true);
     var model: AuthRefreshTokenModel = {
       lang: lang,
-      refreshToken: this.authService.getJWT()?.refreshToken,
+      refreshToken: this.coreAuthService.getJWT()?.refreshToken,
       userId: this.currentUserValue.access.userId,
       siteId: this.currentUserValue.access.siteId,
       userAccessAdminAllowToProfessionalData:
@@ -195,7 +201,7 @@ export class CmsAuthService implements OnDestroy {
       userAccessAdminAllowToAllData:
         this.currentUserValue.access.userAccessAdminAllowToAllData,
     };
-    return this.authService.ServiceRefreshToken(model).pipe(
+    return this.coreAuthService.ServiceRefreshToken(model).pipe(
       map((auth: ErrorExceptionResult<TokenJWTModel>) => {
         if (auth) {
           const result = this.setAuthFromLocalStorage(auth.item);
@@ -227,7 +233,7 @@ export class CmsAuthService implements OnDestroy {
     model?: AuthRefreshTokenModel,
   ): Observable<ErrorExceptionResult<TokenInfoType>> {
     this.isLoadingSubject.next(true);
-    return this.authService.ServiceRefreshToken(model).pipe(
+    return this.coreAuthService.ServiceRefreshToken(model).pipe(
       map((auth: ErrorExceptionResult<TokenJWTModel>) => {
         if (auth) {
           const result = this.setAuthFromLocalStorage(auth.item);

@@ -10,7 +10,7 @@ import { CmsStoreService } from "../reducers/cmsStore.service";
 @Injectable({
   providedIn: "root",
 })
-export class CmsAuthSiteGuard {
+export class CmsAuthSigninGuard {
   constructor(
     private cmsStoreService: CmsStoreService,
     private authService: CoreAuthV3Service,
@@ -25,22 +25,28 @@ export class CmsAuthSiteGuard {
       this.cmsStoreService?.getStateAll?.tokenInfoStore?.access?.userId > 0 &&
       this.cmsStoreService?.getStateAll?.tokenInfoStore?.access?.siteId > 0
     ) {
-      if (this.authService.getJWT()?.accessToken?.length > 0) return true;
+      if (this.authService.getJWT()?.accessToken?.length > 0) {
+        setTimeout(() => {
+          this.router.navigate(["/dashboard"], {
+            queryParams: {},
+          });
+        }, 10);
+        return false;
+      }
     }
     if (
       this.cmsStoreService?.getStateAll?.tokenInfoStore &&
       this.cmsStoreService?.getStateAll?.tokenInfoStore?.access?.userId > 0
     ) {
-      if (this.authService.getJWT()?.accessToken?.length > 0)
-        this.router.navigate(["/core/site/selection"], {
-          queryParams: { returnUrl: state.url },
-        });
+      if (this.authService.getJWT()?.accessToken?.length > 0) {
+        setTimeout(() => {
+          this.router.navigate(["/core/site/selection"], {
+            queryParams: {},
+          });
+        }, 10);
+        return false;
+      }
     }
-    setTimeout(() => {
-      this.router.navigate(["/auth/signout"], {
-        queryParams: {},
-      });
-    }, 10);
-    return false;
+    return true;
   }
 }
