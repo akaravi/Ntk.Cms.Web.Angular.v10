@@ -13,6 +13,7 @@ import { CoreUserSupportAccessComponent } from './core-user-support-access.compo
 import { CoreUserSupportAccessRouting } from './core-user-support-access.routing';
 import { CoreUserSupportAccessEditComponent } from './edit/edit.component';
 import { CoreUserSupportAccessListComponent } from './list/list.component';
+import { CoreSharedModule } from '../core.shared.module';
 
 @NgModule({
   declarations: [
@@ -31,15 +32,15 @@ import { CoreUserSupportAccessListComponent } from './list/list.component';
     CommonModule,
     FormsModule,
     CoreUserSupportAccessRouting,
-    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     SharedModule,
+    CoreSharedModule ,
     CoreModuleEntityModule,
   ],
   providers: [
     CoreUserSupportAccessService,
     CmsConfirmationDialogService,
     CoreModuleService,
-  ]
+  ],
 })
-export class CoreUserSupportAccessCmsModule {
-}
+export class CoreUserSupportAccessCmsModule {}

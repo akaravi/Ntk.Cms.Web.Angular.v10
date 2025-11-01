@@ -19,6 +19,7 @@ import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { TRANSACTION_ID_LOCAL_STORAGE_KEY } from "src/app/core/models/constModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
@@ -29,7 +30,6 @@ import { environment } from "src/environments/environment";
 import { BankPaymentPrivateSiteConfigAddComponent } from "../add/add.component";
 import { BankPaymentPrivateSiteConfigEditComponent } from "../edit/edit.component";
 import { BankPaymentPrivateSiteConfigPaymentTestComponent } from "../paymentTest/paymentTest.component";
-import { TRANSACTION_ID_LOCAL_STORAGE_KEY } from "src/app/core/models/constModel";
 
 @Component({
   selector: "app-bankpayment-privateconfig-list",
@@ -85,6 +85,8 @@ export class BankPaymentPrivateSiteConfigListComponent
   flag = false;
   tableContentSelected = [];
   filteModelContent = new FilterModel();
+  filterDataModelQueryBuilder: FilterDataModel[] = [];
+
   dataModelPublicResult: ErrorExceptionResult<BankPaymentPublicConfigModel> =
     new ErrorExceptionResult<BankPaymentPublicConfigModel>();
 
@@ -196,6 +198,14 @@ export class BankPaymentPrivateSiteConfigListComponent
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
     /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
     const filter = new FilterDataModel();
     if (this.categoryModelSelected && this.categoryModelSelected.id > 0) {
       filter.propertyName = "LinkPublicConfigId";
@@ -309,6 +319,7 @@ export class BankPaymentPrivateSiteConfigListComponent
     var sortColumn = this.filteModelContent.sortColumn;
     var sortType = this.filteModelContent.sortType;
     this.filteModelContent = new FilterModel();
+
     this.filteModelContent.sortColumn = sortColumn;
     this.filteModelContent.sortType = sortType;
     /*filter */
@@ -549,10 +560,9 @@ export class BankPaymentPrivateSiteConfigListComponent
   }
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
     if (model && model.length > 0) {
-      this.filteModelContent.filters = [
-        ...this.filteModelContent.filters,
-        ...model,
-      ];
+      this.filterDataModelQueryBuilder = [...model];
+    } else {
+      this.filterDataModelQueryBuilder = [];
     }
     this.DataGetAll();
   }

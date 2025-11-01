@@ -18,9 +18,9 @@ import {
   CoreUserModel,
   DataFieldInfoModel,
   EstatePropertyService,
+  FilterDataModel,
   FilterModel,
   FormInfoModel,
-  FilterDataModel,
   SortTypeEnum,
   TokenInfoModelV3,
 } from "ntk-cms-api";
@@ -80,6 +80,8 @@ export class EstatePropertyResponsibleUserListComponent
   dataSource: any;
   tablePropertySelected = [];
   filteModelContent = new FilterModel();
+  filterDataModelQueryBuilder: FilterDataModel[] = [];
+
   formInfo: FormInfoModel = new FormInfoModel();
 
   optionsSearch: ComponentOptionSearchModel = new ComponentOptionSearchModel();
@@ -158,6 +160,14 @@ export class EstatePropertyResponsibleUserListComponent
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
     /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
 
     // ** */
     this.contentService
@@ -220,10 +230,9 @@ export class EstatePropertyResponsibleUserListComponent
   }
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
     if (model && model.length > 0) {
-      this.filteModelContent.filters = [
-        ...this.filteModelContent.filters,
-        ...model,
-      ];
+      this.filterDataModelQueryBuilder = [...model];
+    } else {
+      this.filterDataModelQueryBuilder = [];
     }
     this.DataGetAll();
   }

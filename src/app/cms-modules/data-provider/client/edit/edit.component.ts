@@ -1,37 +1,51 @@
 import {
-  ChangeDetectorRef, Component, Inject, OnDestroy, OnInit,
-  ViewChild
-} from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import {
   CoreEnumService,
   DataProviderClientModel,
-  DataProviderClientService, DataProviderPlanClientModel,
-  DataProviderPlanClientService, DataProviderPlanModel,
-  ErrorExceptionResultBase, FilterDataModel, FilterModel, FormInfoModel,
-  ManageUserAccessDataTypesEnum
-} from 'ntk-cms-api';
-import { TreeModel } from 'ntk-cms-filemanager';
-import { Subscription } from 'rxjs';
-import { EditBaseComponent } from 'src/app/core/cmsComponent/editBaseComponent';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsConfirmationDialogService } from 'src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  DataProviderClientService,
+  DataProviderPlanClientModel,
+  DataProviderPlanClientService,
+  DataProviderPlanModel,
+  ErrorExceptionResultBase,
+  FilterDataModel,
+  FilterModel,
+  FormInfoModel,
+  ManageUserAccessDataTypesEnum,
+} from "ntk-cms-api";
+import { TreeModel } from "ntk-cms-filemanager";
+import { Subscription } from "rxjs";
+import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 
 @Component({
-  selector: 'app-data-provider-client-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss'],
-  standalone: false
+  selector: "app-data-provider-client-edit",
+  templateUrl: "./edit.component.html",
+  styleUrls: ["./edit.component.scss"],
+  standalone: false,
 })
-export class DataProviderClientEditComponent extends EditBaseComponent<DataProviderClientService, DataProviderClientModel, number>
-  implements OnInit, OnDestroy {
+export class DataProviderClientEditComponent
+  extends EditBaseComponent<
+    DataProviderClientService,
+    DataProviderClientModel,
+    number
+  >
+  implements OnInit, OnDestroy
+{
   requestId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
@@ -47,9 +61,14 @@ export class DataProviderClientEditComponent extends EditBaseComponent<DataProvi
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private dataProviderPlanClientService: DataProviderPlanClientService,
     public translate: TranslateService,
-    private tokenHelper: TokenHelper
+    private tokenHelper: TokenHelper,
   ) {
-    super(dataProviderClientService, new DataProviderClientModel(), publicHelper, translate);
+    super(
+      dataProviderClientService,
+      new DataProviderClientModel(),
+      publicHelper,
+      translate,
+    );
 
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {
@@ -60,41 +79,39 @@ export class DataProviderClientEditComponent extends EditBaseComponent<DataProvi
 
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
-
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+      });
   }
   cmsApiStoreSubscribe: Subscription;
 
-  @ViewChild('vform', { static: false }) formGroup: FormGroup;
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
-
-  selectFileTypeMainImage = ['jpg', 'jpeg', 'png'];
-
+  selectFileTypeMainImage = ["jpg", "jpeg", "png"];
 
   fileManagerTree: TreeModel;
-  appLanguage = 'fa';
-
+  appLanguage = "fa";
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: DataProviderClientModel = new DataProviderClientModel();
 
   formInfo: FormInfoModel = new FormInfoModel();
 
-
   fileManagerOpenForm = false;
 
   ngOnInit(): void {
     if (this.requestId > 0) {
-      this.translate.get('TITLE.Edit_Categories').subscribe((str: string) => { this.formInfo.formTitle = str });
+      this.translate.get("TITLE.Edit_Categories").subscribe((str: string) => {
+        this.formInfo.formTitle = str;
+      });
       this.DataGetOneContent();
     } else {
       this.cmsToastrService.typeErrorComponentAction();
       this.dialogRef.close({ dialogChangedDate: false });
       return;
     }
-
   }
 
   ngOnDestroy(): void {
@@ -108,25 +125,42 @@ export class DataProviderClientEditComponent extends EditBaseComponent<DataProvi
       return;
     }
 
-    this.translate.get('MESSAGE.Receiving_Information_From_The_Server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    this.translate
+      .get("MESSAGE.Receiving_Information_From_The_Server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.dataProviderClientService.setAccessLoad();
-    this.dataProviderClientService.setAccessDataType(ManageUserAccessDataTypesEnum.Editor);
+    this.dataProviderClientService.setAccessDataType(
+      ManageUserAccessDataTypesEnum.Editor,
+    );
     this.dataProviderClientService.ServiceGetOneById(this.requestId).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
 
         this.dataModel = ret.item;
         if (ret.isSuccess) {
-          this.formInfo.formTitle = this.formInfo.formTitle + ' ' + ret.item.title;
-          this.formInfo.formAlert = '';
+          this.formInfo.formTitle =
+            this.formInfo.formTitle + " " + ret.item.title;
+          this.formInfo.formAlert = "";
           this.DataGetAllPlanClient();
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -135,28 +169,46 @@ export class DataProviderClientEditComponent extends EditBaseComponent<DataProvi
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
 
   DataEditContent(): void {
-    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.dataProviderClientService.ServiceEdit(this.dataModel).subscribe({
       next: (ret) => {
         this.formInfo.formSubmitAllow = true;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.registration_completed_successfully').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("MESSAGE.registration_completed_successfully")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.cmsToastrService.typeSuccessEdit();
           this.dialogRef.close({ dialogChangedDate: true });
-
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -166,9 +218,8 @@ export class DataProviderClientEditComponent extends EditBaseComponent<DataProvi
         this.formInfo.formSubmitAllow = true;
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
 
   onFormSubmit(): void {
@@ -177,57 +228,68 @@ export class DataProviderClientEditComponent extends EditBaseComponent<DataProvi
     }
     this.formInfo.formSubmitAllow = false;
     this.DataEditContent();
-
-
   }
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });
   }
   DataGetAllPlanClient(): void {
-
     if (this.requestId <= 0) {
       this.cmsToastrService.typeErrorEditRowIsNull();
       return;
     }
 
-    this.translate.get('MESSAGE.Getting_access_category_from_the_server').subscribe((str: string) => {
-      this.formInfo.formAlert = str;
-    });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    this.translate
+      .get("MESSAGE.Getting_access_category_from_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     const filteModelContent = new FilterModel();
+
     const filter = new FilterDataModel();
-    filter.propertyName = 'LinkClientId';
+    filter.propertyName = "LinkClientId";
     filter.value = this.requestId;
     filteModelContent.filters.push(filter);
 
-    this.dataProviderPlanClientService.ServiceGetAll(filteModelContent).subscribe({
-      next: (ret) => {
-        this.dataCoreCpMainMenuCmsUserGroupModel = ret.listItems;
-        const listG: number[] = [];
-        this.dataCoreCpMainMenuCmsUserGroupModel.forEach(element => {
-          listG.push(element.linkPlanId);
-        });
-        this.dataCoreCpMainMenuIds = listG;
-        if (ret.isSuccess) {
-          this.formInfo.formAlert = '';
-        } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
-          this.formInfo.formError = ret.errorMessage;
-          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-        }
-        this.publicHelper.processService.processStop(pName);
-      },
-      error: (er) => {
-        this.cmsToastrService.typeError(er);
-        this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+    this.dataProviderPlanClientService
+      .ServiceGetAll(filteModelContent)
+      .subscribe({
+        next: (ret) => {
+          this.dataCoreCpMainMenuCmsUserGroupModel = ret.listItems;
+          const listG: number[] = [];
+          this.dataCoreCpMainMenuCmsUserGroupModel.forEach((element) => {
+            listG.push(element.linkPlanId);
+          });
+          this.dataCoreCpMainMenuIds = listG;
+          if (ret.isSuccess) {
+            this.formInfo.formAlert = "";
+          } else {
+            this.translate
+              .get("ERRORMESSAGE.MESSAGE.typeError")
+              .subscribe((str: string) => {
+                this.formInfo.formAlert = str;
+              });
+            this.formInfo.formError = ret.errorMessage;
+            this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+          }
+          this.publicHelper.processService.processStop(pName);
+        },
+        error: (er) => {
+          this.cmsToastrService.typeError(er);
+          this.publicHelper.processService.processStop(pName, false);
+        },
+      });
   }
   dataCoreCpMainMenuModel: DataProviderPlanModel[];
   dataCoreCpMainMenuIds: number[] = [];
@@ -240,33 +302,34 @@ export class DataProviderClientEditComponent extends EditBaseComponent<DataProvi
     if (!this.tokenInfo.access.userAccessAdminAllowToProfessionalData) {
       /** */
       const listG: number[] = [];
-      this.dataCoreCpMainMenuIds.forEach(element => {
-        if (element != model.id)
-          listG.push(element);
+      this.dataCoreCpMainMenuIds.forEach((element) => {
+        if (element != model.id) listG.push(element);
       });
-      setTimeout(() => this.dataCoreCpMainMenuIds = listG, 1000);
+      setTimeout(() => (this.dataCoreCpMainMenuIds = listG), 1000);
       /** */
-
-
 
       var title = "";
       var message = "";
-      this.translate.get(['MESSAGE.Please_Confirm', 'MESSAGE.Would_you_like_to_buy_this_content']).subscribe((str: string) => {
-        title = str['MESSAGE.Please_Confirm'];
-        message = str['MESSAGE.Would_you_like_to_buy_this_content'] + '?';
-      });
-      this.cmsConfirmationDialogService.confirm(title, message)
+      this.translate
+        .get([
+          "MESSAGE.Please_Confirm",
+          "MESSAGE.Would_you_like_to_buy_this_content",
+        ])
+        .subscribe((str: string) => {
+          title = str["MESSAGE.Please_Confirm"];
+          message = str["MESSAGE.Would_you_like_to_buy_this_content"] + "?";
+        });
+      this.cmsConfirmationDialogService
+        .confirm(title, message)
         .then((confirmed) => {
           if (confirmed) {
-            const pName = this.constructor.name + 'main';
+            const pName = this.constructor.name + "main";
             //منتقل شود به صفحه خرید
-            this.router.navigate(['/data-provider/client-charge/', model.id]);
+            this.router.navigate(["/data-provider/client-charge/", model.id]);
             this.dialogRef.close({ dialogChangedDate: false });
           }
-        }
-        )
+        });
       return;
-
     }
     const entity = new DataProviderPlanClientModel();
     entity.linkPlanId = model.id;
@@ -275,41 +338,45 @@ export class DataProviderClientEditComponent extends EditBaseComponent<DataProvi
     this.dataProviderPlanClientService.ServiceAdd(entity).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.registration_in_this_group_was_successful').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("MESSAGE.registration_in_this_group_was_successful")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.cmsToastrService.typeSuccessEdit();
           // this.dialogRef.close({ dialogChangedDate: true });
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           /** */
           const listG: number[] = [];
-          this.dataCoreCpMainMenuIds.forEach(element => {
-            if (element != model.id)
-              listG.push(element);
+          this.dataCoreCpMainMenuIds.forEach((element) => {
+            if (element != model.id) listG.push(element);
           });
-          setTimeout(() => this.dataCoreCpMainMenuIds = listG, 1000);
+          setTimeout(() => (this.dataCoreCpMainMenuIds = listG), 1000);
           /** */
         }
       },
       error: (er) => {
         this.formInfo.formSubmitAllow = true;
         this.cmsToastrService.typeError(er);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelectorPlanSelectRemoved(model: DataProviderPlanModel): void {
-
     if (!this.tokenInfo.access.userAccessAdminAllowToProfessionalData) {
       /** */
       const listG: number[] = [];
-      this.dataCoreCpMainMenuIds.forEach(element => {
+      this.dataCoreCpMainMenuIds.forEach((element) => {
         listG.push(element);
       });
-      if (listG.indexOf(model.id) < 0)
-        listG.push(model.id);
-      setTimeout(() => this.dataCoreCpMainMenuIds = listG, 1000);
+      if (listG.indexOf(model.id) < 0) listG.push(model.id);
+      setTimeout(() => (this.dataCoreCpMainMenuIds = listG), 1000);
       /** */
       this.cmsToastrService.typeErrorAccessDelete();
 
@@ -322,22 +389,28 @@ export class DataProviderClientEditComponent extends EditBaseComponent<DataProvi
     this.dataProviderPlanClientService.ServiceDeleteEntity(entity).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.Deletion_from_this_group_Was_Successful').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("MESSAGE.Deletion_from_this_group_Was_Successful")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.cmsToastrService.typeSuccessEdit();
         } else {
-
           /** */
           const listG: number[] = [];
-          this.dataCoreCpMainMenuIds.forEach(element => {
+          this.dataCoreCpMainMenuIds.forEach((element) => {
             listG.push(element);
           });
-          if (listG.indexOf(model.id) < 0)
-            listG.push(model.id);
+          if (listG.indexOf(model.id) < 0) listG.push(model.id);
 
-          setTimeout(() => this.dataCoreCpMainMenuIds = listG, 1000);
+          setTimeout(() => (this.dataCoreCpMainMenuIds = listG), 1000);
           /** */
 
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -345,8 +418,7 @@ export class DataProviderClientEditComponent extends EditBaseComponent<DataProvi
       error: (er) => {
         this.formInfo.formSubmitAllow = true;
         this.cmsToastrService.typeError(er);
-      }
-    }
-    );
+      },
+    });
   }
 }

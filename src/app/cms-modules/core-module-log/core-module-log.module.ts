@@ -47,6 +47,7 @@ import { CoreModuleLogSiteUserCreditBlockedViewComponent } from './site-user-cre
 import { CoreModuleLogSiteUserCreditEditComponent } from './site-user-credit/edit/edit.component';
 import { CoreModuleLogSiteUserCreditListComponent } from './site-user-credit/list/list.component';
 import { CoreModuleLogSiteUserCreditViewComponent } from './site-user-credit/view/view.component';
+import { CoreSharedModule } from '../core-main/core.shared.module';
 
 
 @NgModule({
@@ -54,12 +55,14 @@ import { CoreModuleLogSiteUserCreditViewComponent } from './site-user-credit/vie
     CoreModuleLogRoutes,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
 
     SharedModule,
     AngularEditorModule,
 
-    CmsFileManagerModule
+    CoreSharedModule,
+
+    CmsFileManagerModule,
   ],
   declarations: [
     CoreModuleLogComponent,
@@ -163,7 +166,7 @@ import { CoreModuleLogSiteUserCreditViewComponent } from './site-user-credit/vie
     CoreModuleLogSiteUserCreditBlockedService,
     CoreModuleLogSiteCreditService,
     CoreModuleLogSiteUserCreditService,
-    CmsConfirmationDialogService
-  ]
+    CmsConfirmationDialogService,
+  ],
 })
-export class CoreModuleLogModule { }
+export class CoreModuleLogModule {}

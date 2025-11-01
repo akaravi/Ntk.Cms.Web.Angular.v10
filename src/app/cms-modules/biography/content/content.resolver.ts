@@ -1,12 +1,19 @@
-import { Injectable } from '@angular/core';
-import { Resolve } from '@angular/router';
-import { ErrorExceptionResult, FilterModel, NewsContentModel, NewsContentService } from 'ntk-cms-api';
-import { Observable } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { Resolve } from "@angular/router";
+import {
+  ErrorExceptionResult,
+  FilterModel,
+  NewsContentModel,
+  NewsContentService,
+} from "ntk-cms-api";
+import { Observable } from "rxjs";
 @Injectable()
-export class ContentResolver implements Resolve<ErrorExceptionResult<NewsContentModel>> {
+export class ContentResolver
+  implements Resolve<ErrorExceptionResult<NewsContentModel>>
+{
   filterModelContent = new FilterModel();
   constructorInfoAreaId = this.constructor.name;
-  constructor(private newsContentService: NewsContentService) { }
+  constructor(private newsContentService: NewsContentService) {}
   resolve(): Observable<ErrorExceptionResult<NewsContentModel>> {
     return this.newsContentService.ServiceGetAll(this.filterModelContent);
   }

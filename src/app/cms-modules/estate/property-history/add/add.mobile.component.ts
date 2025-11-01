@@ -1,7 +1,7 @@
-import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from "@angular/core";
+import { FormControl } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
 import {
   CoreEnumService,
   DataFieldInfoModel,
@@ -18,20 +18,19 @@ import {
   FormInfoModel,
   InfoEnumModel,
   TokenInfoModelV3,
-} from 'ntk-cms-api';
-import { TreeModel } from 'ntk-cms-filemanager';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { EstatePropertyHistoryAddComponent } from './add.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+} from "ntk-cms-api";
+import { TreeModel } from "ntk-cms-filemanager";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { EstatePropertyHistoryAddComponent } from "./add.component";
 
 @Component({
-  selector: 'app-estate-property-history-add-mobile',
-  templateUrl: './add.mobile.component.html',
-  styleUrls: ['./add.mobile.component.scss'],
-  standalone: false
+  selector: "app-estate-property-history-add-mobile",
+  templateUrl: "./add.mobile.component.html",
+  styleUrls: ["./add.mobile.component.scss"],
+  standalone: false,
 })
 export class EstatePropertyHistoryAddMobileComponent implements OnInit {
   constructorInfoAreaId = this.constructor.name;
@@ -47,13 +46,12 @@ export class EstatePropertyHistoryAddMobileComponent implements OnInit {
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public tokenHelper: TokenHelper,
-    public translate: TranslateService
+    public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
 
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-
 
     if (data) {
       this.dataModel.linkActivityTypeId = data.linkActivityTypeId;
@@ -68,10 +66,10 @@ export class EstatePropertyHistoryAddMobileComponent implements OnInit {
     string,
     DataFieldInfoModel
   >();
-  stepContent = 'title';
-  selectFileTypeMainImage = ['jpg', 'jpeg', 'png'];
+  stepContent = "title";
+  selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   fileManagerTree: TreeModel;
-  appLanguage = 'fa';
+  appLanguage = "fa";
   tokenInfo = new TokenInfoModelV3();
 
   dataModelResult: ErrorExceptionResult<EstatePropertyHistoryModel> =
@@ -86,27 +84,33 @@ export class EstatePropertyHistoryAddMobileComponent implements OnInit {
   dataModelEstateActivityStatusEnumResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
   ngOnInit(): void {
-    this.translate.get('TITLE.ADD').subscribe((str: string) => { this.formInfo.formTitle = str; });
+    this.translate.get("TITLE.ADD").subscribe((str: string) => {
+      this.formInfo.formTitle = str;
+    });
 
     this.DataGetAccess();
     this.getEstateActivityStatusEnum();
   }
 
   getEstateActivityStatusEnum(): void {
-    this.estateEnumService
-      .ServiceEstateActivityStatusEnum()
-      .subscribe({
-        next: (ret) => {
-          this.dataModelEstateActivityStatusEnumResult = ret;
-        }
-      });
+    this.estateEnumService.ServiceEstateActivityStatusEnum().subscribe({
+      next: (ret) => {
+        this.dataModelEstateActivityStatusEnumResult = ret;
+      },
+    });
   }
 
   DataGetAccess(): void {
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.estatePropertyHistoryService.ServiceViewModel().subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
@@ -123,34 +127,48 @@ export class EstatePropertyHistoryAddMobileComponent implements OnInit {
     });
   }
   DataAddContent(): void {
-    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => {
-      this.formInfo.formAlert = str;
-    });
-    this.formInfo.formError = '';
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
 
     if (this.dataFileModelFiles) {
       const keys = Array.from(this.dataFileModelFiles.keys());
       if (keys && keys.length > 0) {
-        this.dataModel.linkFileIds = keys.join(',');
+        this.dataModel.linkFileIds = keys.join(",");
       }
     }
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.estatePropertyHistoryService.ServiceAdd(this.dataModel).subscribe({
       next: (ret) => {
         this.dataModelResult = ret;
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.registration_completed_successfully').subscribe((str: string) => {
-            this.formInfo.formAlert = str;
-          });
+          this.translate
+            .get("MESSAGE.registration_completed_successfully")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.cmsToastrService.typeSuccessAdd();
           this.dialogRef.close({ dialogChangedDate: true });
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -167,10 +185,16 @@ export class EstatePropertyHistoryAddMobileComponent implements OnInit {
   }
 
   DataGetAllActivityType(): void {
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     const filterModel = new FilterModel();
     this.estateActivityTypeService.ServiceGetAll(filterModel).subscribe({
       next: (ret) => {
@@ -188,11 +212,11 @@ export class EstatePropertyHistoryAddMobileComponent implements OnInit {
   }
   onActionSelectorSelect(model: EstateActivityTypeModel | null): void {
     if (!model || model.id.length <= 0) {
-      this.translate.get(
-        'MESSAGE.category_of_information_is_not_clear'
-      ).subscribe((str: string) => {
-        this.cmsToastrService.typeErrorSelected(str);
-      });
+      this.translate
+        .get("MESSAGE.category_of_information_is_not_clear")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.dataModel.linkActivityTypeId = model.id;
@@ -218,7 +242,7 @@ export class EstatePropertyHistoryAddMobileComponent implements OnInit {
     }
   }
   onActionSelectorCustomerOrderId(
-    model: EstateCustomerOrderModel | null
+    model: EstateCustomerOrderModel | null,
   ): void {
     this.dataModel.linkCustomerOrderId = null;
     if (model && model.id?.length > 0) {

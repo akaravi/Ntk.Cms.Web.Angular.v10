@@ -73,6 +73,7 @@ export class CoreModuleSiteUserCreditListComponent
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   filteModelContent = new FilterModel();
+  filterDataModelQueryBuilder: FilterDataModel[] = [];
 
   dataModelCoreModuleResult: ErrorExceptionResult<CoreModuleModel> =
     new ErrorExceptionResult<CoreModuleModel>();
@@ -99,7 +100,6 @@ export class CoreModuleSiteUserCreditListComponent
   searchonCheckMyAccount = true;
   cmsApiStoreSubscribe: Subscription;
   ngOnInit(): void {
-
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
@@ -150,6 +150,14 @@ export class CoreModuleSiteUserCreditListComponent
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
     /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
     if (this.searchonCheckMyAccount) {
       filterModel.filters.push({
         propertyName: "LinkUserId",
@@ -395,10 +403,9 @@ export class CoreModuleSiteUserCreditListComponent
   }
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
     if (model && model.length > 0) {
-      this.filteModelContent.filters = [
-        ...this.filteModelContent.filters,
-        ...model,
-      ];
+      this.filterDataModelQueryBuilder = [...model];
+    } else {
+      this.filterDataModelQueryBuilder = [];
     }
     this.DataGetAll();
   }

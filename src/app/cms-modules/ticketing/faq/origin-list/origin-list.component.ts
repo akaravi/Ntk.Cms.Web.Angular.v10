@@ -59,6 +59,8 @@ export class TicketingFaqOriginListComponent implements OnInit, OnDestroy {
   tableContentSelected = [];
 
   filteModelContent = new FilterModel();
+  filterDataModelQueryBuilder: FilterDataModel[] = [];
+
   dataModelResult: ErrorExceptionResult<TicketingFaqModel> =
     new ErrorExceptionResult<TicketingFaqModel>();
   dataDepartemenModelResult: ErrorExceptionResult<TicketingDepartemenModel> =
@@ -119,6 +121,14 @@ export class TicketingFaqOriginListComponent implements OnInit, OnDestroy {
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
     /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
     if (this.categoryModelSelected && this.categoryModelSelected.id > 0) {
       const filter = new FilterDataModel();
       filter.propertyName = "LinkTicketingDepartemenId";
@@ -198,6 +208,7 @@ export class TicketingFaqOriginListComponent implements OnInit, OnDestroy {
     var sortColumn = this.filteModelContent.sortColumn;
     var sortType = this.filteModelContent.sortType;
     this.filteModelContent = new FilterModel();
+
     this.filteModelContent.sortColumn = sortColumn;
     this.filteModelContent.sortType = sortType;
     /*filter */
@@ -211,10 +222,9 @@ export class TicketingFaqOriginListComponent implements OnInit, OnDestroy {
   }
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
     if (model && model.length > 0) {
-      this.filteModelContent.filters = [
-        ...this.filteModelContent.filters,
-        ...model,
-      ];
+      this.filterDataModelQueryBuilder = [...model];
+    } else {
+      this.filterDataModelQueryBuilder = [];
     }
     this.DataGetAll();
   }

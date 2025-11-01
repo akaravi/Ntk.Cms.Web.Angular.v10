@@ -5,31 +5,27 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
-import { TranslateService } from '@ngx-translate/core';
+  Output,
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { TranslateService } from "@ngx-translate/core";
 import {
   CoreEnumService,
   ErrorExceptionResult,
   FilterModel,
   TicketingDepartemenModel,
-  TicketingDepartemenService
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { environment } from 'src/environments/environment';
-import { TicketingDepartemenAddComponent } from '../add/add.component';
-import { TicketingDepartemenDeleteComponent } from '../delete/delete.component';
-import { TicketingDepartemenEditComponent } from '../edit/edit.component';
-
-
+  TicketingDepartemenService,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { environment } from "src/environments/environment";
+import { TicketingDepartemenAddComponent } from "../add/add.component";
+import { TicketingDepartemenDeleteComponent } from "../delete/delete.component";
+import { TicketingDepartemenEditComponent } from "../edit/edit.component";
 
 @Component({
   selector: "app-ticketing-departemen-tree",

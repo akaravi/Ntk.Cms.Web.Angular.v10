@@ -1,29 +1,38 @@
-
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from "@angular/core";
+import { PageEvent } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { MatTableDataSource } from "@angular/material/table";
+import { TranslateService } from "@ngx-translate/core";
 import {
   CoreSiteCategoryCmsModuleModel,
   CoreSiteCategoryCmsModuleService,
-  DataFieldInfoModel, ErrorExceptionResult,
+  DataFieldInfoModel,
+  ErrorExceptionResult,
   FilterDataModel,
-  FilterModel, SortTypeEnum, TokenInfoModelV3
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  FilterModel,
+  SortTypeEnum,
+  TokenInfoModelV3,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-  selector: 'app-core-sitecategorycmsmodule-listview',
-  templateUrl: './listview.component.html',
-  standalone: false
+  selector: "app-core-sitecategorycmsmodule-listview",
+  templateUrl: "./listview.component.html",
+  standalone: false,
 })
-export class CoreSiteCategoryCmsModuleListViewComponent implements OnInit, OnDestroy {
+export class CoreSiteCategoryCmsModuleListViewComponent
+  implements OnInit, OnDestroy
+{
   @Input() set optionSiteCategoryId(x: number) {
     this.LinkSiteCategoryId = x;
     this.DataGetAll();
@@ -40,46 +49,53 @@ export class CoreSiteCategoryCmsModuleListViewComponent implements OnInit, OnDes
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
-
   }
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
 
   tableContentSelected = [];
   filteModelContent = new FilterModel();
-  dataModelResult: ErrorExceptionResult<CoreSiteCategoryCmsModuleModel> = new ErrorExceptionResult<CoreSiteCategoryCmsModuleModel>();
+  filterDataModelQueryBuilder: FilterDataModel[] = [];
+
+  dataModelResult: ErrorExceptionResult<CoreSiteCategoryCmsModuleModel> =
+    new ErrorExceptionResult<CoreSiteCategoryCmsModuleModel>();
   tokenInfo = new TokenInfoModelV3();
 
-
   tableRowsSelected: Array<CoreSiteCategoryCmsModuleModel> = [];
-  tableRowSelected: CoreSiteCategoryCmsModuleModel = new CoreSiteCategoryCmsModuleModel();
-  tableSource: MatTableDataSource<CoreSiteCategoryCmsModuleModel> = new MatTableDataSource<CoreSiteCategoryCmsModuleModel>();
-
+  tableRowSelected: CoreSiteCategoryCmsModuleModel =
+    new CoreSiteCategoryCmsModuleModel();
+  tableSource: MatTableDataSource<CoreSiteCategoryCmsModuleModel> =
+    new MatTableDataSource<CoreSiteCategoryCmsModuleModel>();
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    'virtual_CmsSiteCategory.title',
-    'virtual_CmsModule.title',
-    'virtual_CmsModule.Description',
+    "virtual_CmsSiteCategory.title",
+    "virtual_CmsModule.title",
+    "virtual_CmsModule.Description",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    'virtual_CmsSiteCategory.title',
-    'virtual_CmsModule.title',
-    'virtual_CmsModule.Description',
+    "virtual_CmsSiteCategory.title",
+    "virtual_CmsModule.title",
+    "virtual_CmsModule.Description",
   ];
 
   cmsApiStoreSubscribe: Subscription;
 
   ngOnInit(): void {
-    this.filteModelContent.sortColumn = 'Title';
+    this.filteModelContent.sortColumn = "Title";
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -87,7 +103,12 @@ export class CoreSiteCategoryCmsModuleListViewComponent implements OnInit, OnDes
     }
   }
   DataGetAll(): void {
-    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(this.tabledisplayedColumnsSource, this.tabledisplayedColumnsMobileSource, [], this.tokenInfo);
+    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
+      this.tabledisplayedColumnsSource,
+      this.tabledisplayedColumnsMobileSource,
+      [],
+      this.tokenInfo,
+    );
     this.tableRowsSelected = [];
     this.onActionTableRowSelect(new CoreSiteCategoryCmsModuleModel());
     this.filteModelContent.accessLoad = true;
@@ -95,14 +116,20 @@ export class CoreSiteCategoryCmsModuleListViewComponent implements OnInit, OnDes
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
     if (this.LinkSiteCategoryId && this.LinkSiteCategoryId > 0) {
       const fastfilter = new FilterDataModel();
-      fastfilter.propertyName = 'LinkCmsSiteCategoryId';
+      fastfilter.propertyName = "LinkCmsSiteCategoryId";
       fastfilter.value = this.LinkSiteCategoryId;
       filterModel.filters.push(fastfilter);
     }
-    const pName = this.constructor.name + '.ServiceGetAll';
-    this.translate.get('MESSAGE.Request_new_access').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + ".ServiceGetAll";
+    this.translate
+      .get("MESSAGE.Request_new_access")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.coreSiteCategoryCmsModuleService.ServiceGetAll(filterModel).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
@@ -111,7 +138,7 @@ export class CoreSiteCategoryCmsModuleListViewComponent implements OnInit, OnDes
           if (this.LinkSiteCategoryId && this.LinkSiteCategoryId > 0) {
             this.tabledisplayedColumns = this.publicHelper.listRemoveIfExist(
               this.tabledisplayedColumns,
-              'virtual_CmsSiteCategory.title'
+              "virtual_CmsSiteCategory.title",
             );
           }
           this.dataModelResult = ret;
@@ -124,24 +151,26 @@ export class CoreSiteCategoryCmsModuleListViewComponent implements OnInit, OnDes
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
 
-
   onTableSortData(sort: MatSort): void {
-    if (this.tableSource && this.tableSource.sort && this.tableSource.sort.active === sort.active) {
-      if (this.tableSource.sort.start === 'asc') {
-        sort.start = 'desc';
+    if (
+      this.tableSource &&
+      this.tableSource.sort &&
+      this.tableSource.sort.active === sort.active
+    ) {
+      if (this.tableSource.sort.start === "asc") {
+        sort.start = "desc";
         this.filteModelContent.sortColumn = sort.active;
         this.filteModelContent.sortType = SortTypeEnum.Descending;
-      } else if (this.tableSource.sort.start === 'desc') {
-        sort.start = 'asc';
-        this.filteModelContent.sortColumn = '';
+      } else if (this.tableSource.sort.start === "desc") {
+        sort.start = "asc";
+        this.filteModelContent.sortColumn = "";
         this.filteModelContent.sortType = SortTypeEnum.Ascending;
       } else {
-        sort.start = 'desc';
+        sort.start = "desc";
       }
     } else {
       this.filteModelContent.sortColumn = sort.active;
@@ -157,16 +186,13 @@ export class CoreSiteCategoryCmsModuleListViewComponent implements OnInit, OnDes
     this.DataGetAll();
   }
 
-
   onActionButtonReload(): void {
     this.DataGetAll();
   }
 
   onActionTableRowSelect(row: CoreSiteCategoryCmsModuleModel): void {
     this.tableRowSelected = row;
-    if (!row["expanded"])
-      row["expanded"] = false;
+    if (!row["expanded"]) row["expanded"] = false;
     row["expanded"] = !row["expanded"];
   }
-
 }

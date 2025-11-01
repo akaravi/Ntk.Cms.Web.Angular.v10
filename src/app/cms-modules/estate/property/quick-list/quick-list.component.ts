@@ -222,6 +222,8 @@ export class EstatePropertyQuickListComponent
   tablePropertySelected = [];
   searchInCheckingChecked = false;
   filteModelContent = new FilterModel();
+  filterDataModelQueryBuilder: FilterDataModel[] = [];
+
   formInfo: FormInfoModel = new FormInfoModel();
 
   optionsSearch: ComponentOptionSearchModel = new ComponentOptionSearchModel();
@@ -321,6 +323,14 @@ export class EstatePropertyQuickListComponent
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
     /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
     if (
       this.categoryModelSelected &&
       this.categoryModelSelected.id &&
@@ -515,6 +525,7 @@ export class EstatePropertyQuickListComponent
     var sortColumn = this.filteModelContent.sortColumn;
     var sortType = this.filteModelContent.sortType;
     this.filteModelContent = new FilterModel();
+
     this.filteModelContent.sortColumn = sortColumn;
     this.filteModelContent.sortType = sortType;
     /*filter */
@@ -817,10 +828,9 @@ export class EstatePropertyQuickListComponent
   }
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
     if (model && model.length > 0) {
-      this.filteModelContent.filters = [
-        ...this.filteModelContent.filters,
-        ...model,
-      ];
+      this.filterDataModelQueryBuilder = [...model];
+    } else {
+      this.filterDataModelQueryBuilder = [];
     }
     this.DataGetAll();
   }

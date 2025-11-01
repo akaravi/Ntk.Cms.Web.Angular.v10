@@ -77,6 +77,8 @@ export class NewsContentListComponent
   link: string;
 
   filteModelContent = new FilterModel();
+  filterDataModelQueryBuilder: FilterDataModel[] = [];
+
   categoryModelSelected: NewsCategoryModel;
 
   tabledisplayedColumns: string[] = [];
@@ -127,6 +129,14 @@ export class NewsContentListComponent
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
     /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
     if (this.GetAllWithHierarchyCategoryId) {
       /** GetAllWithHierarchyCategoryId */
       let selectId = 0;
@@ -281,6 +291,7 @@ export class NewsContentListComponent
     var sortColumn = this.filteModelContent.sortColumn;
     var sortType = this.filteModelContent.sortType;
     this.filteModelContent = new FilterModel();
+
     this.filteModelContent.sortColumn = sortColumn;
     this.filteModelContent.sortType = sortType;
     /*filter */
@@ -452,10 +463,9 @@ export class NewsContentListComponent
   }
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
     if (model && model.length > 0) {
-      this.filteModelContent.filters = [
-        ...this.filteModelContent.filters,
-        ...model,
-      ];
+      this.filterDataModelQueryBuilder = [...model];
+    } else {
+      this.filterDataModelQueryBuilder = [];
     }
     this.DataGetAll();
   }

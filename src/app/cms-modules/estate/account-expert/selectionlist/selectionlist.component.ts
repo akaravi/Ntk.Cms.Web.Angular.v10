@@ -1,19 +1,29 @@
-
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
-import { CoreEnumService, ErrorExceptionResult, EstateAccountExpertFilterModel, EstateAccountExpertModel, EstateAccountExpertService } from 'ntk-cms-api';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from "@angular/core";
+import { FormControl } from "@angular/forms";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  CoreEnumService,
+  ErrorExceptionResult,
+  EstateAccountExpertFilterModel,
+  EstateAccountExpertModel,
+  EstateAccountExpertService,
+} from "ntk-cms-api";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-    selector: 'app-estate-account-expert-selectionlist',
-    templateUrl: './selectionlist.component.html',
-    standalone: false
+  selector: "app-estate-account-expert-selectionlist",
+  templateUrl: "./selectionlist.component.html",
+  standalone: false,
 })
 export class EstateAccountExpertSelectionlistComponent implements OnInit {
-
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public coreEnumService: CoreEnumService,
@@ -21,11 +31,12 @@ export class EstateAccountExpertSelectionlistComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
-    private cmsToastrService: CmsToastrService) {
+    private cmsToastrService: CmsToastrService,
+  ) {
     this.publicHelper.processService.cdr = this.cdr;
-
   }
-  dataModelResult: ErrorExceptionResult<EstateAccountExpertModel> = new ErrorExceptionResult<EstateAccountExpertModel>();
+  dataModelResult: ErrorExceptionResult<EstateAccountExpertModel> =
+    new ErrorExceptionResult<EstateAccountExpertModel>();
   dataModelSelect: EstateAccountExpertModel[] = [];
   dataIdsSelect: string[] = [];
 
@@ -34,7 +45,7 @@ export class EstateAccountExpertSelectionlistComponent implements OnInit {
 
   @Input() optionDisabled = false;
   @Input() optionSelectFirstItem = false;
-  @Input() optionPlaceholder = '';
+  @Input() optionPlaceholder = "";
   @Output() optionChange = new EventEmitter<EstateAccountExpertModel[]>();
   @Output() optionSelectAdded = new EventEmitter();
   @Output() optionSelectRemoved = new EventEmitter();
@@ -48,24 +59,29 @@ export class EstateAccountExpertSelectionlistComponent implements OnInit {
   }
 
   DataGetAll(): void {
-
     const filterModel = new EstateAccountExpertFilterModel();
     filterModel.rowPerPage = 50;
     filterModel.accessLoad = true;
 
-
-
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAll(filterModel).subscribe({
       next: (ret) => {
         // this.fieldsStatus = new Map<string, boolean>();
         if (ret.isSuccess) {
           this.dataModelResult = ret;
-          this.dataModelResult.listItems.forEach((el) => this.fieldsStatus.set(el.id, false));
+          this.dataModelResult.listItems.forEach((el) =>
+            this.fieldsStatus.set(el.id, false),
+          );
           this.dataIdsSelect.forEach((el) => this.fieldsStatus.set(el, true));
           this.dataModelResult.listItems.forEach((el) => {
             if (this.fieldsStatus.get(el.id)) {
@@ -76,14 +92,12 @@ export class EstateAccountExpertSelectionlistComponent implements OnInit {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(value: EstateAccountExpertModel): void {
     if (this.fieldsStatus.get(value.id)) {
@@ -98,14 +112,13 @@ export class EstateAccountExpertSelectionlistComponent implements OnInit {
     this.optionChange.emit(this.dataModelSelect);
   }
 
-
   onActionSelectForce(ids: string[] | EstateAccountExpertModel[]): void {
     if (typeof ids === typeof Array(String)) {
-      ids.forEach(element => {
+      ids.forEach((element) => {
         this.dataIdsSelect.push(element);
       });
     } else if (typeof ids === typeof Array(EstateAccountExpertModel)) {
-      ids.forEach(element => {
+      ids.forEach((element) => {
         this.dataIdsSelect.push(element.id);
       });
     }

@@ -1,4 +1,5 @@
 <app-core-site-header [optionId]="requestLinkSiteId" *ngIf="requestLinkSiteId>0"></app-core-site-header>
+<app-core-user-header [optionId]="requestLinkUserId" *ngIf="requestLinkUserId>0"></app-core-user-header>
 <app-cms-html-list [optionsListInfoAreaId]="constructorInfoAreaId" [optionGuideNoticeKey]="'core.site.userlist'"
   [(optionActionGuideNoticeDisplay)]="viewGuideNotice" (optionOnActionButtonMemoRow)="onActionButtonMemoRow()"
   (optionOnActionButtonMemo)="onActionButtonMemo()" (optionOnActionButtonExport)="onActionButtonExport()"

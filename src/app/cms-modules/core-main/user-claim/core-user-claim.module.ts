@@ -36,6 +36,7 @@ import { CoreUserClaimTypeListComponent } from './type/list/list.component';
 import { CoreUserClaimTypeSelectionlistComponent } from './type/selectionlist/selectionlist.component';
 import { CoreUserClaimTypeSelectorComponent } from './type/selector/selector.component';
 import { CoreUserClaimTypeTreeComponent } from './type/tree/tree.component';
+import { CoreSharedModule } from '../core.shared.module';
 
 @NgModule({
   declarations: [
@@ -109,9 +110,12 @@ import { CoreUserClaimTypeTreeComponent } from './type/tree/tree.component';
     CommonModule,
     FormsModule,
     CoreUserClaimRouting,
-    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
 
     SharedModule,
+
+    CoreSharedModule,
+
     AngularEditorModule,
     CmsFileManagerModule,
   ],
@@ -124,8 +128,7 @@ import { CoreUserClaimTypeTreeComponent } from './type/tree/tree.component';
     CoreUserClaimGroupService,
     CoreUserClaimGroupDetailService,
     /** */
-    CmsConfirmationDialogService
-  ]
+    CmsConfirmationDialogService,
+  ],
 })
-export class CoreUserClaimModule {
-}
+export class CoreUserClaimModule {}

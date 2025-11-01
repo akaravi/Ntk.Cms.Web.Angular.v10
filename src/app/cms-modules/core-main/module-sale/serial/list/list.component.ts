@@ -77,6 +77,7 @@ export class CoreModuleSaleSerialListComponent
   tableContentSelected = [];
 
   filteModelContent = new FilterModel();
+  filterDataModelQueryBuilder: FilterDataModel[] = [];
 
   categoryModelSelected: CoreModuleSaleHeaderModel =
     new CoreModuleSaleHeaderModel();
@@ -157,6 +158,14 @@ export class CoreModuleSaleSerialListComponent
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
     /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
 
     if (this.categoryModelSelected && this.categoryModelSelected.id > 0) {
       const fastfilter = new FilterDataModel();
@@ -289,6 +298,7 @@ export class CoreModuleSaleSerialListComponent
     var sortColumn = this.filteModelContent.sortColumn;
     var sortType = this.filteModelContent.sortType;
     this.filteModelContent = new FilterModel();
+
     this.filteModelContent.sortColumn = sortColumn;
     this.filteModelContent.sortType = sortType;
     /*filter */
@@ -510,10 +520,9 @@ export class CoreModuleSaleSerialListComponent
   }
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
     if (model && model.length > 0) {
-      this.filteModelContent.filters = [
-        ...this.filteModelContent.filters,
-        ...model,
-      ];
+      this.filterDataModelQueryBuilder = [...model];
+    } else {
+      this.filterDataModelQueryBuilder = [];
     }
     this.DataGetAll();
   }

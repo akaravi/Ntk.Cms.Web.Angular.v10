@@ -1,20 +1,30 @@
-
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
-import { CoreEnumService, ErrorExceptionResult, FilterModel, SmsMainApiPathModel, SmsMainApiPathService } from 'ntk-cms-api';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from "@angular/core";
+import { FormControl } from "@angular/forms";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  CoreEnumService,
+  ErrorExceptionResult,
+  FilterModel,
+  SmsMainApiPathModel,
+  SmsMainApiPathService,
+} from "ntk-cms-api";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-    selector: 'app-sms-apipath-selectionlist',
-    templateUrl: './selectionlist.component.html',
-    styleUrls: ['./selectionlist.component.scss'],
-    standalone: false
+  selector: "app-sms-apipath-selectionlist",
+  templateUrl: "./selectionlist.component.html",
+  styleUrls: ["./selectionlist.component.scss"],
+  standalone: false,
 })
 export class SmsMainApiPathSelectionlistComponent implements OnInit {
-
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public coreEnumService: CoreEnumService,
@@ -22,10 +32,12 @@ export class SmsMainApiPathSelectionlistComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
-    private cmsToastrService: CmsToastrService) {
+    private cmsToastrService: CmsToastrService,
+  ) {
     this.publicHelper.processService.cdr = this.cdr;
   }
-  dataModelResult: ErrorExceptionResult<SmsMainApiPathModel> = new ErrorExceptionResult<SmsMainApiPathModel>();
+  dataModelResult: ErrorExceptionResult<SmsMainApiPathModel> =
+    new ErrorExceptionResult<SmsMainApiPathModel>();
   dataModelSelect: SmsMainApiPathModel[] = [];
   dataIdsSelect: string[] = [];
 
@@ -34,7 +46,7 @@ export class SmsMainApiPathSelectionlistComponent implements OnInit {
 
   @Input() optionDisabled = false;
   @Input() optionSelectFirstItem = false;
-  @Input() optionPlaceholder = '';
+  @Input() optionPlaceholder = "";
   @Output() optionChange = new EventEmitter<SmsMainApiPathModel[]>();
   @Output() optionSelectAdded = new EventEmitter();
   @Output() optionSelectRemoved = new EventEmitter();
@@ -52,19 +64,26 @@ export class SmsMainApiPathSelectionlistComponent implements OnInit {
     filterModel.rowPerPage = 50;
     filterModel.accessLoad = true;
 
-
     // tslint:disable-next-line: no-trailing-whitespace
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAll(filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.dataModelResult = ret;
-          this.dataModelResult.listItems.forEach((el) => this.fieldsStatus.set(el.id, false));
+          this.dataModelResult.listItems.forEach((el) =>
+            this.fieldsStatus.set(el.id, false),
+          );
           this.dataIdsSelect.forEach((el) => this.fieldsStatus.set(el, true));
           this.dataModelResult.listItems.forEach((el) => {
             if (this.fieldsStatus.get(el.id)) {
@@ -79,12 +98,10 @@ export class SmsMainApiPathSelectionlistComponent implements OnInit {
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(value: SmsMainApiPathModel): void {
-
     if (this.fieldsStatus.get(value.id)) {
       this.fieldsStatus.set(value.id, false);
       this.optionSelectRemoved.emit(value);
@@ -97,14 +114,13 @@ export class SmsMainApiPathSelectionlistComponent implements OnInit {
     this.optionChange.emit(this.dataModelSelect);
   }
 
-
   onActionSelectForce(ids: string[] | SmsMainApiPathModel[]): void {
     if (typeof ids === typeof Array(String)) {
-      ids.forEach(element => {
+      ids.forEach((element) => {
         this.dataIdsSelect.push(element);
       });
     } else if (typeof ids === typeof Array(SmsMainApiPathModel)) {
-      ids.forEach(element => {
+      ids.forEach((element) => {
         this.dataIdsSelect.push(element.id);
       });
     }

@@ -71,6 +71,8 @@ export class EstateCustomerOrderWidgetComponent implements OnInit, OnDestroy {
   public chartOptions: Partial<ChartOptionsModel>;
 
   filteModelContent = new FilterModel();
+  filterDataModelQueryBuilder: FilterDataModel[] = [];
+
   widgetInfoModel = new WidgetInfoModel();
   cmsApiStoreSubscribe: Subscription;
 

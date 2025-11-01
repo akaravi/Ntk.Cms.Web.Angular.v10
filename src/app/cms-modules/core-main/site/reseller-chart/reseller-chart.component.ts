@@ -1,5 +1,3 @@
-
-import { NestedTreeControl } from '@angular/cdk/tree';
 import {
   ChangeDetectorRef,
   Component,
@@ -7,25 +5,24 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+  Output,
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { ActivatedRoute } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
-import { ActivatedRoute } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import {
-  CoreEnumService, CoreSiteService, ErrorExceptionResult,
-  FilterModel, RessellerChartModel
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
-
+  CoreEnumService,
+  CoreSiteService,
+  ErrorExceptionResult,
+  FilterModel,
+  RessellerChartModel,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-core-site-reseller-chart",
@@ -60,12 +57,10 @@ export class CoreSiteResellerChartComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<RessellerChartModel>();
   filterModel = new FilterModel();
 
-
   dataSource = new MatTreeNestedDataSource<RessellerChartModel>();
   @Output() optionChange = new EventEmitter<RessellerChartModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
-
 
   hasChild(_: number, node: RessellerChartModel): boolean {
     if (node && node.siteChilds && node.siteChilds.length > 0) {

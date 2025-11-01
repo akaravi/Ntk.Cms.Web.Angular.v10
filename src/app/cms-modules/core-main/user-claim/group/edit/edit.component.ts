@@ -1,30 +1,54 @@
-
-import { StepperSelectionEvent } from '@angular/cdk/stepper';
+import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import {
-  ChangeDetectorRef, Component, Inject, OnInit,
-  ViewChild
-} from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MatStepper } from '@angular/material/stepper';
-import { TranslateService } from '@ngx-translate/core';
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { MatStepper } from "@angular/material/stepper";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  ApplicationAppModel, ApplicationSourceModel, CoreEnumService, CoreModuleModel, CoreSiteCategoryModel, CoreUserClaimGroupDetailModel, CoreUserClaimGroupDetailService, CoreUserClaimGroupModel, CoreUserClaimGroupService, CoreUserClaimTypeModel, CoreUserGroupModel,
-  ErrorExceptionResult, ErrorExceptionResultBase, FilterDataModel, FilterModel, FormInfoModel, InfoEnumModel, ManageUserAccessDataTypesEnum
-} from 'ntk-cms-api';
-import { TreeModel } from 'ntk-cms-filemanager';
-import { EditBaseComponent } from 'src/app/core/cmsComponent/editBaseComponent';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
+  ApplicationAppModel,
+  ApplicationSourceModel,
+  CoreEnumService,
+  CoreModuleModel,
+  CoreSiteCategoryModel,
+  CoreUserClaimGroupDetailModel,
+  CoreUserClaimGroupDetailService,
+  CoreUserClaimGroupModel,
+  CoreUserClaimGroupService,
+  CoreUserClaimTypeModel,
+  CoreUserGroupModel,
+  ErrorExceptionResult,
+  ErrorExceptionResultBase,
+  FilterDataModel,
+  FilterModel,
+  FormInfoModel,
+  InfoEnumModel,
+  ManageUserAccessDataTypesEnum,
+} from "ntk-cms-api";
+import { TreeModel } from "ntk-cms-filemanager";
+import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-    selector: 'app-core-userclaimgroup-edit',
-    templateUrl: './edit.component.html',
-    styleUrls: ['./edit.component.scss'],
-    standalone: false
+  selector: "app-core-userclaimgroup-edit",
+  templateUrl: "./edit.component.html",
+  styleUrls: ["./edit.component.scss"],
+  standalone: false,
 })
-export class CoreUserClaimGroupEditComponent extends EditBaseComponent<CoreUserClaimGroupService, CoreUserClaimGroupModel, number>
-  implements OnInit {
+export class CoreUserClaimGroupEditComponent
+  extends EditBaseComponent<
+    CoreUserClaimGroupService,
+    CoreUserClaimGroupModel,
+    number
+  >
+  implements OnInit
+{
   requestId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
@@ -38,7 +62,12 @@ export class CoreUserClaimGroupEditComponent extends EditBaseComponent<CoreUserC
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {
-    super(coreUserClaimGroupService, new CoreUserClaimGroupModel(), publicHelper, translate);
+    super(
+      coreUserClaimGroupService,
+      new CoreUserClaimGroupModel(),
+      publicHelper,
+      translate,
+    );
 
     this.publicHelper.processService.cdr = this.cdr;
 
@@ -48,31 +77,31 @@ export class CoreUserClaimGroupEditComponent extends EditBaseComponent<CoreUserC
 
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
   }
-  @ViewChild('vform', { static: false }) formGroup: FormGroup;
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
-
-  selectFileTypeMainImage = ['jpg', 'jpeg', 'png'];
+  selectFileTypeMainImage = ["jpg", "jpeg", "png"];
 
   fileManagerTree: TreeModel;
-  appLanguage = 'fa';
-
+  appLanguage = "fa";
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: CoreUserClaimGroupModel = new CoreUserClaimGroupModel();
 
   formInfo: FormInfoModel = new FormInfoModel();
 
-  dataModelEnumUserClaimGroupActionTypeResult: ErrorExceptionResult<InfoEnumModel> = new ErrorExceptionResult<InfoEnumModel>();
+  dataModelEnumUserClaimGroupActionTypeResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
 
   fileManagerOpenForm = false;
   dataCoreUserClaimTypeModels: CoreUserClaimTypeModel[];
   dataCoreClaimTypeIds: number[] = [];
   dataCoreUserClaimGroupDetailModels: CoreUserClaimGroupDetailModel[];
 
-
   ngOnInit(): void {
     if (this.requestId > 0) {
-      this.translate.get('TITLE.Edit').subscribe((str: string) => { this.formInfo.formTitle = str; });
+      this.translate.get("TITLE.Edit").subscribe((str: string) => {
+        this.formInfo.formTitle = str;
+      });
       this.DataGetOneContent();
     } else {
       this.cmsToastrService.typeErrorComponentAction();
@@ -80,16 +109,14 @@ export class CoreUserClaimGroupEditComponent extends EditBaseComponent<CoreUserC
       return;
     }
 
-
     this.getEnumUserClaimGroupActionType();
     this.DataGetAllCoreUserClaimType();
-
   }
   getEnumUserClaimGroupActionType(): void {
     this.coreEnumService.ServiceUserClaimGroupActionTypeEnum().subscribe({
       next: (ret) => {
         this.dataModelEnumUserClaimGroupActionTypeResult = ret;
-      }
+      },
     });
   }
 
@@ -99,56 +126,88 @@ export class CoreUserClaimGroupEditComponent extends EditBaseComponent<CoreUserC
       return;
     }
 
-    this.translate.get('MESSAGE.Receiving_Information_From_The_Server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'DataGetOneContent';
-    this.translate.get('MESSAGE.Receive_categories_of_documents').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    this.translate
+      .get("MESSAGE.Receiving_Information_From_The_Server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "DataGetOneContent";
+    this.translate
+      .get("MESSAGE.Receive_categories_of_documents")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.coreUserClaimGroupService.setAccessLoad();
-    this.coreUserClaimGroupService.setAccessDataType(ManageUserAccessDataTypesEnum.Editor);
+    this.coreUserClaimGroupService.setAccessDataType(
+      ManageUserAccessDataTypesEnum.Editor,
+    );
     this.coreUserClaimGroupService.ServiceGetOneById(this.requestId).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
 
         this.dataModel = ret.item;
         if (ret.isSuccess) {
-          this.formInfo.formTitle = this.formInfo.formTitle + ' ' + ret.item.title;
-          this.formInfo.formAlert = '';
+          this.formInfo.formTitle =
+            this.formInfo.formTitle + " " + ret.item.title;
+          this.formInfo.formAlert = "";
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
 
   DataEditContent(): void {
-    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Registration_of categories_of_documents').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Registration_of categories_of_documents")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.coreUserClaimGroupService.ServiceEdit(this.dataModel).subscribe({
       next: (ret) => {
         this.formInfo.formSubmitAllow = true;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.registration_completed_successfully').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("MESSAGE.registration_completed_successfully")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.cmsToastrService.typeSuccessEdit();
           this.dialogRef.close({ dialogChangedDate: true });
-
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -158,9 +217,8 @@ export class CoreUserClaimGroupEditComponent extends EditBaseComponent<CoreUserC
         this.formInfo.formSubmitAllow = true;
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelectApplication(model: ApplicationAppModel | null): void {
     if (!model || model.id <= 0) {
@@ -220,48 +278,63 @@ export class CoreUserClaimGroupEditComponent extends EditBaseComponent<CoreUserC
     }
   }
   DataGetAllCoreUserClaimType(): void {
-
     if (this.requestId <= 0) {
       this.cmsToastrService.typeErrorEditRowIsNull();
       return;
     }
 
-    this.translate.get('MESSAGE.Receiving_Information_From_The_Server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'DataGetAllCoreUserClaimType';
-    this.translate.get('MESSAGE.Receive_categories_of_documents').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    this.translate
+      .get("MESSAGE.Receiving_Information_From_The_Server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "DataGetAllCoreUserClaimType";
+    this.translate
+      .get("MESSAGE.Receive_categories_of_documents")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     const filteModelContent = new FilterModel();
+
     const filter = new FilterDataModel();
-    filter.propertyName = 'LinkUserClaimGroupId';
+    filter.propertyName = "LinkUserClaimGroupId";
     filter.value = this.requestId;
     filteModelContent.filters.push(filter);
 
-    this.coreUserClaimGroupDetailService.ServiceGetAll(filteModelContent).subscribe({
-      next: (ret) => {
-        this.dataCoreUserClaimGroupDetailModels = ret.listItems;
-        const listG: number[] = [];
-        this.dataCoreUserClaimGroupDetailModels.forEach(element => {
-          listG.push(element.linkUserClaimTypeId);
-        });
-        this.dataCoreClaimTypeIds = listG;
-        if (ret.isSuccess) {
-          this.formInfo.formAlert = '';
-        } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
-          this.formInfo.formError = ret.errorMessage;
-          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-        }
-        this.publicHelper.processService.processStop(pName);
-      },
-      error: (er) => {
-        this.cmsToastrService.typeError(er);
-        this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+    this.coreUserClaimGroupDetailService
+      .ServiceGetAll(filteModelContent)
+      .subscribe({
+        next: (ret) => {
+          this.dataCoreUserClaimGroupDetailModels = ret.listItems;
+          const listG: number[] = [];
+          this.dataCoreUserClaimGroupDetailModels.forEach((element) => {
+            listG.push(element.linkUserClaimTypeId);
+          });
+          this.dataCoreClaimTypeIds = listG;
+          if (ret.isSuccess) {
+            this.formInfo.formAlert = "";
+          } else {
+            this.translate
+              .get("ERRORMESSAGE.MESSAGE.typeError")
+              .subscribe((str: string) => {
+                this.formInfo.formAlert = str;
+              });
+            this.formInfo.formError = ret.errorMessage;
+            this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+          }
+          this.publicHelper.processService.processStop(pName);
+        },
+        error: (er) => {
+          this.cmsToastrService.typeError(er);
+          this.publicHelper.processService.processStop(pName, false);
+        },
+      });
   }
   onActionSelectorUserCategorySelect(model: CoreUserClaimTypeModel[]): void {
     this.dataCoreUserClaimTypeModels = model;
@@ -275,10 +348,18 @@ export class CoreUserClaimGroupEditComponent extends EditBaseComponent<CoreUserC
     this.coreUserClaimGroupDetailService.ServiceAdd(entity).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.registration_in_this_group_was_successful').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("MESSAGE.registration_in_this_group_was_successful")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.cmsToastrService.typeSuccessEdit();
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -286,11 +367,12 @@ export class CoreUserClaimGroupEditComponent extends EditBaseComponent<CoreUserC
       error: (er) => {
         this.formInfo.formSubmitAllow = true;
         this.cmsToastrService.typeError(er);
-      }
-    }
-    );
+      },
+    });
   }
-  onActionSelectorUserCategorySelectRemoved(model: CoreUserClaimTypeModel): void {
+  onActionSelectorUserCategorySelectRemoved(
+    model: CoreUserClaimTypeModel,
+  ): void {
     const entity = new CoreUserClaimGroupDetailModel();
     entity.linkUserClaimTypeId = model.id;
     entity.linkUserClaimGroupId = this.dataModel.id;
@@ -298,10 +380,18 @@ export class CoreUserClaimGroupEditComponent extends EditBaseComponent<CoreUserC
     this.coreUserClaimGroupDetailService.ServiceDeleteEntity(entity).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.Deletion_from_this_group_Was_Successful').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("MESSAGE.Deletion_from_this_group_Was_Successful")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.cmsToastrService.typeSuccessEdit();
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -309,8 +399,7 @@ export class CoreUserClaimGroupEditComponent extends EditBaseComponent<CoreUserC
       error: (er) => {
         this.formInfo.formSubmitAllow = true;
         this.cmsToastrService.typeError(er);
-      }
-    }
-    );
+      },
+    });
   }
 }

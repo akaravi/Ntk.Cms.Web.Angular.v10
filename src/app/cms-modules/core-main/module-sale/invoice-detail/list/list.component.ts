@@ -93,6 +93,7 @@ export class CoreModuleSaleInvoiceDetailListComponent
   tableContentSelected = [];
 
   filteModelContent = new FilterModel();
+  filterDataModelQueryBuilder: FilterDataModel[] = [];
 
   dataModelCoreModuleResult: ErrorExceptionResult<CoreModuleModel> =
     new ErrorExceptionResult<CoreModuleModel>();
@@ -178,6 +179,14 @@ export class CoreModuleSaleInvoiceDetailListComponent
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
     /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
 
     this.contentService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {
@@ -486,10 +495,9 @@ export class CoreModuleSaleInvoiceDetailListComponent
   }
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
     if (model && model.length > 0) {
-      this.filteModelContent.filters = [
-        ...this.filteModelContent.filters,
-        ...model,
-      ];
+      this.filterDataModelQueryBuilder = [...model];
+    } else {
+      this.filterDataModelQueryBuilder = [];
     }
     this.DataGetAll();
   }

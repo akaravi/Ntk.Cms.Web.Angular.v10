@@ -1,13 +1,11 @@
-
-import { StepperSelectionEvent } from '@angular/cdk/stepper';
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MatStepper } from '@angular/material/stepper';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { StepperSelectionEvent } from "@angular/cdk/stepper";
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MatStepper } from "@angular/material/stepper";
+import { Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import {
   AuthRefreshTokenModel,
-
   CoreAuthV3Service,
   CoreSiteAddFirstSiteDtoModel,
   CoreSiteCategoryModel,
@@ -15,19 +13,18 @@ import {
   DataFieldInfoModel,
   ErrorExceptionResult,
   FilterModel,
-  FormInfoModel
-} from 'ntk-cms-api';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { CmsToastrService } from '../../../../core/services/cmsToastr.service';
+  FormInfoModel,
+} from "ntk-cms-api";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsToastrService } from "../../../../core/services/cmsToastr.service";
 
 @Component({
-    selector: 'app-core-site-add-first',
-    templateUrl: './addFirst.component.html',
-    styleUrls: ['./addFirst.component.scss'],
-    standalone: false
+  selector: "app-core-site-add-first",
+  templateUrl: "./addFirst.component.html",
+  styleUrls: ["./addFirst.component.scss"],
+  standalone: false,
 })
 export class CoreSiteAddFirstComponent implements OnInit {
-
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private cmsToastrService: CmsToastrService,
@@ -40,20 +37,24 @@ export class CoreSiteAddFirstComponent implements OnInit {
   ) {
     this.publicHelper.processService.cdr = this.cdr;
 
-    this.translate.get('TITLE.Create_your_first_system').subscribe((str: string) => {
-      this.formInfo.formTitle = str;
-    });
-
+    this.translate
+      .get("TITLE.Create_your_first_system")
+      .subscribe((str: string) => {
+        this.formInfo.formTitle = str;
+      });
 
     /** read storage */
-    this.siteTypeId = + localStorage.getItem('siteTypeId');
+    this.siteTypeId = +localStorage.getItem("siteTypeId");
     if (this.siteTypeId > 0) {
       this.dataModel.linkSiteCategoryId = this.siteTypeId;
     }
     /** read storage */
   }
-  @ViewChild('vform', { static: false }) formGroup: FormGroup;
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
   alphaExp = /^[a-zA-Z0-9]+$/;
   siteTypeId = 0;
 
@@ -72,65 +73,77 @@ export class CoreSiteAddFirstComponent implements OnInit {
       this.validateDomain = false;
       return;
     }
-    this.dataModel.subDomain = this.publicHelper.parseNumberArabic(this.dataModel.subDomain);
+    this.dataModel.subDomain = this.publicHelper.parseNumberArabic(
+      this.dataModel.subDomain,
+    );
     this.validateDomain = this.alphaExp.test(this.dataModel.subDomain);
   }
 
   DataGetAccess(): void {
-    const pName = this.constructor.name + '.DataGetAccess';
-    this.translate.get('MESSAGE.get_access').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
-    this.coreSiteService
-      .ServiceViewModel()
-      .subscribe({
-        next: (ret) => {
-          if (ret.isSuccess) {
-            // this.dataAccessModel = next.access;
-            this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
-          } else {
-            this.cmsToastrService.typeErrorGetAccess(ret.errorMessage);
-          }
-          this.publicHelper.processService.processStop(pName);
-        },
-        error: (er) => {
-          this.cmsToastrService.typeErrorGetAccess(er);
-          this.publicHelper.processService.processStop(pName, false);
-        }
-      }
+    const pName = this.constructor.name + ".DataGetAccess";
+    this.translate.get("MESSAGE.get_access").subscribe((str: string) => {
+      this.publicHelper.processService.processStart(
+        pName,
+        str,
+        this.constructorInfoAreaId,
       );
-  }
-
-  GetDomainList(): void {
-    const pName = this.constructor.name + '.GetDomainList';
-    this.translate.get('MESSAGE.Get_list_of_authorized_domains').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
     });
-    this.coreSiteService.ServiceGetRegDomains(this.dataModel.linkSiteCategoryId).subscribe({
+    this.coreSiteService.ServiceViewModel().subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.dataModelResultDomains = ret;
-          if (ret.listItems.length > 0) {
-            this.dataModel.domain = ret.listItems[0];
-          }
-          if (!this.dataModel.subDomain || this.dataModel.subDomain?.length === 0) {
-            this.dataModel.subDomain = 'myname';
-          }
+          // this.dataAccessModel = next.access;
+          this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
         } else {
-          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+          this.cmsToastrService.typeErrorGetAccess(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.cmsToastrService.typeError(er);
+        this.cmsToastrService.typeErrorGetAccess(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
 
-  protocolSelect(): void {
+  GetDomainList(): void {
+    const pName = this.constructor.name + ".GetDomainList";
+    this.translate
+      .get("MESSAGE.Get_list_of_authorized_domains")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
+    this.coreSiteService
+      .ServiceGetRegDomains(this.dataModel.linkSiteCategoryId)
+      .subscribe({
+        next: (ret) => {
+          if (ret.isSuccess) {
+            this.dataModelResultDomains = ret;
+            if (ret.listItems.length > 0) {
+              this.dataModel.domain = ret.listItems[0];
+            }
+            if (
+              !this.dataModel.subDomain ||
+              this.dataModel.subDomain?.length === 0
+            ) {
+              this.dataModel.subDomain = "myname";
+            }
+          } else {
+            this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+          }
+          this.publicHelper.processService.processStop(pName);
+        },
+        error: (er) => {
+          this.cmsToastrService.typeError(er);
+          this.publicHelper.processService.processStop(pName, false);
+        },
+      });
   }
+
+  protocolSelect(): void {}
 
   domain(item): void {
     this.dataModel.domain = item;
@@ -138,40 +151,52 @@ export class CoreSiteAddFirstComponent implements OnInit {
 
   onFormSubmit(): void {
     if (this.dataModel.linkSiteCategoryId <= 0) {
-      this.translate.get('MESSAGE.System_type_not_selected').subscribe((str: string) => {
-        this.cmsToastrService.typeErrorMessage(str);
-      });
+      this.translate
+        .get("MESSAGE.System_type_not_selected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorMessage(str);
+        });
       return;
     }
     if (!this.dataModel.title || this.dataModel.title.length === 0) {
-      this.translate.get('MESSAGE.As_the_system_is_not_selected').subscribe((str: string) => {
-        this.cmsToastrService.typeErrorMessage(str);
-      });
+      this.translate
+        .get("MESSAGE.As_the_system_is_not_selected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorMessage(str);
+        });
 
       return;
     }
     if (!this.dataModel.domain || this.dataModel.domain.length === 0) {
-
-      this.translate.get('MESSAGE.System_domain_not_selected').subscribe((str: string) => {
-        this.cmsToastrService.typeErrorMessage(str);
-      });
+      this.translate
+        .get("MESSAGE.System_domain_not_selected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorMessage(str);
+        });
 
       return;
     }
     if (!this.dataModel.subDomain || this.dataModel.subDomain.length === 0) {
-      this.translate.get('MESSAGE.System_parent_domain_not_selected').subscribe((str: string) => {
-        this.cmsToastrService.typeErrorMessage(str);
-      });
-
+      this.translate
+        .get("MESSAGE.System_parent_domain_not_selected")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorMessage(str);
+        });
 
       return;
     }
 
     this.formInfo.formSubmitAllow = false;
-    const pName = this.constructor.name + '.onFormSubmit';
-    this.translate.get('MESSAGE.Registering_your_first_system_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + ".onFormSubmit";
+    this.translate
+      .get("MESSAGE.Registering_your_first_system_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.coreSiteService.ServiceAddFirstSite(this.dataModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
@@ -187,16 +212,21 @@ export class CoreSiteAddFirstComponent implements OnInit {
         this.cmsToastrService.typeError(er);
         this.formInfo.formSubmitAllow = true;
         this.publicHelper.processService.processStop(pName);
-      }
-    }
-    );
+      },
+    });
   }
 
   clickSelectSite(Id: number): void {
-    const pName = this.constructor.name + '.clickSelectSite';
-    this.translate.get('MESSAGE.Request_new_access').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + ".clickSelectSite";
+    this.translate
+      .get("MESSAGE.Request_new_access")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     let authModel: AuthRefreshTokenModel;
     authModel = new AuthRefreshTokenModel();
     authModel.siteId = Id;
@@ -204,21 +234,28 @@ export class CoreSiteAddFirstComponent implements OnInit {
       next: (res) => {
         this.publicHelper.processService.processStop(pName);
         if (res) {
-          setTimeout(() => this.router.navigate(['/dashboard/']), 2000);
+          setTimeout(() => this.router.navigate(["/dashboard/"]), 2000);
         }
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelectorSelect(model: CoreSiteCategoryModel | null): void {
     if (!model || model.id <= 0) {
-      this.translate.get(['MESSAGE.Specify_the_system_type', 'MESSAGE.Information_system_type_is_not_clear']).subscribe((str: any) => {
-        this.cmsToastrService.typeErrorMessage(str['MESSAGE.Specify_the_system_type'], str['MESSAGE.Information_system_type_is_not_clear']);
-      });
+      this.translate
+        .get([
+          "MESSAGE.Specify_the_system_type",
+          "MESSAGE.Information_system_type_is_not_clear",
+        ])
+        .subscribe((str: any) => {
+          this.cmsToastrService.typeErrorMessage(
+            str["MESSAGE.Specify_the_system_type"],
+            str["MESSAGE.Information_system_type_is_not_clear"],
+          );
+        });
       return;
     }
     this.modelDateSiteCategory = model;
@@ -234,11 +271,15 @@ export class CoreSiteAddFirstComponent implements OnInit {
           // stepper.previous();
         }, 10);
       }
-      if (!this.dataModel.linkSiteCategoryId || this.dataModel.linkSiteCategoryId <= 0) {
-
-        this.translate.get('MESSAGE.System_type_not_selected').subscribe((str: string) => {
-          this.cmsToastrService.typeErrorMessage(str);
-        });
+      if (
+        !this.dataModel.linkSiteCategoryId ||
+        this.dataModel.linkSiteCategoryId <= 0
+      ) {
+        this.translate
+          .get("MESSAGE.System_type_not_selected")
+          .subscribe((str: string) => {
+            this.cmsToastrService.typeErrorMessage(str);
+          });
         setTimeout(() => {
           stepper.selectedIndex = event.previouslySelectedIndex;
           // stepper.previous();

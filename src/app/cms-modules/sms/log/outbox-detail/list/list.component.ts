@@ -90,6 +90,8 @@ export class SmsLogOutBoxDetailListComponent
   tableContentSelected = [];
 
   filteModelContent = new FilterModel();
+  filterDataModelQueryBuilder: FilterDataModel[] = [];
+
   dataModelCoreCurrencyResult: ErrorExceptionResult<CoreCurrencyModel> =
     new ErrorExceptionResult<CoreCurrencyModel>();
   dataModelPrivateResult: ErrorExceptionResult<SmsMainApiPathModel> =
@@ -173,6 +175,14 @@ export class SmsLogOutBoxDetailListComponent
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
     /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
 
     this.contentService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {
@@ -310,6 +320,7 @@ export class SmsLogOutBoxDetailListComponent
     var sortColumn = this.filteModelContent.sortColumn;
     var sortType = this.filteModelContent.sortType;
     this.filteModelContent = new FilterModel();
+
     this.filteModelContent.sortColumn = sortColumn;
     this.filteModelContent.sortType = sortType;
     /*filter */
@@ -416,10 +427,9 @@ export class SmsLogOutBoxDetailListComponent
   }
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
     if (model && model.length > 0) {
-      this.filteModelContent.filters = [
-        ...this.filteModelContent.filters,
-        ...model,
-      ];
+      this.filterDataModelQueryBuilder = [...model];
+    } else {
+      this.filterDataModelQueryBuilder = [];
     }
     this.DataGetAll();
   }

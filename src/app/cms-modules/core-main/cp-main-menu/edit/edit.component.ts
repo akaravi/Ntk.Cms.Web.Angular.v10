@@ -1,34 +1,48 @@
-
-import { StepperSelectionEvent } from '@angular/cdk/stepper';
+import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import {
-  ChangeDetectorRef, Component, Inject, OnInit,
-  ViewChild
-} from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MatStepper } from '@angular/material/stepper';
-import { TranslateService } from '@ngx-translate/core';
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { MatStepper } from "@angular/material/stepper";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  AccessModel, CoreCpMainMenuCmsUserGroupModel,
-  CoreCpMainMenuCmsUserGroupService, CoreCpMainMenuModel, CoreCpMainMenuService, CoreEnumService, CoreModuleModel,
+  AccessModel,
+  CoreCpMainMenuCmsUserGroupModel,
+  CoreCpMainMenuCmsUserGroupService,
+  CoreCpMainMenuModel,
+  CoreCpMainMenuService,
+  CoreEnumService,
+  CoreModuleModel,
   CoreUserGroupModel,
-  ErrorExceptionResult, ErrorExceptionResultBase, FilterDataModel, FilterModel, FormInfoModel, InfoEnumModel, ManageUserAccessDataTypesEnum
-} from 'ntk-cms-api';
-import { EditBaseComponent } from 'src/app/core/cmsComponent/editBaseComponent';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  ErrorExceptionResult,
+  ErrorExceptionResultBase,
+  FilterDataModel,
+  FilterModel,
+  FormInfoModel,
+  InfoEnumModel,
+  ManageUserAccessDataTypesEnum,
+} from "ntk-cms-api";
+import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-    selector: 'app-core-user-edit',
-    templateUrl: './edit.component.html',
-    styleUrls: ['./edit.component.scss'],
-    standalone: false
+  selector: "app-core-user-edit",
+  templateUrl: "./edit.component.html",
+  styleUrls: ["./edit.component.scss"],
+  standalone: false,
 })
-export class CoreCpMainMenuEditComponent extends EditBaseComponent<CoreCpMainMenuService, CoreCpMainMenuModel, number>
-  implements OnInit {
+export class CoreCpMainMenuEditComponent
+  extends EditBaseComponent<CoreCpMainMenuService, CoreCpMainMenuModel, number>
+  implements OnInit
+{
   requestId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
@@ -39,12 +53,17 @@ export class CoreCpMainMenuEditComponent extends EditBaseComponent<CoreCpMainMen
     public coreCpMainMenuCmsUserGroupService: CoreCpMainMenuCmsUserGroupService,
     private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     public tokenHelper: TokenHelper,
   ) {
-    super(coreCpMainMenuService, new CoreCpMainMenuModel(), publicHelper, translate);
+    super(
+      coreCpMainMenuService,
+      new CoreCpMainMenuModel(),
+      publicHelper,
+      translate,
+    );
 
     this.publicHelper.processService.cdr = this.cdr;
 
@@ -52,22 +71,18 @@ export class CoreCpMainMenuEditComponent extends EditBaseComponent<CoreCpMainMen
       this.requestId = +data.id || 0;
     }
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
-
-
   }
-  @ViewChild('vform', { static: false }) formGroup: FormGroup;
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
-
-
-  appLanguage = 'fa';
-
+  appLanguage = "fa";
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: CoreCpMainMenuModel = new CoreCpMainMenuModel();
 
   formInfo: FormInfoModel = new FormInfoModel();
 
-  dataModelEnumMenuPlaceTypeResult: ErrorExceptionResult<InfoEnumModel> = new ErrorExceptionResult<InfoEnumModel>();
+  dataModelEnumMenuPlaceTypeResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
   dataAccessModel: AccessModel;
 
   fileManagerOpenForm = false;
@@ -78,7 +93,9 @@ export class CoreCpMainMenuEditComponent extends EditBaseComponent<CoreCpMainMen
 
   ngOnInit(): void {
     if (this.requestId > 0) {
-      this.translate.get('TITLE.Edit').subscribe((str: string) => { this.formInfo.formTitle = str; });
+      this.translate.get("TITLE.Edit").subscribe((str: string) => {
+        this.formInfo.formTitle = str;
+      });
       this.DataGetOneContent();
     } else {
       this.cmsToastrService.typeErrorComponentAction();
@@ -86,14 +103,13 @@ export class CoreCpMainMenuEditComponent extends EditBaseComponent<CoreCpMainMen
       return;
     }
 
-
     this.getEnumMenuPlaceType();
   }
   getEnumMenuPlaceType(): void {
     this.coreEnumService.ServiceMenuPlaceTypeEnum().subscribe({
       next: (ret) => {
         this.dataModelEnumMenuPlaceTypeResult = ret;
-      }
+      },
     });
   }
 
@@ -103,16 +119,28 @@ export class CoreCpMainMenuEditComponent extends EditBaseComponent<CoreCpMainMen
       return;
     }
 
-    this.translate.get('MESSAGE.Receiving_Information_From_The_Server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    this.translate
+      .get("MESSAGE.Receiving_Information_From_The_Server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     /*َAccess Field*/
     this.coreCpMainMenuService.setAccessLoad();
-    this.coreCpMainMenuService.setAccessDataType(ManageUserAccessDataTypesEnum.Editor);
+    this.coreCpMainMenuService.setAccessDataType(
+      ManageUserAccessDataTypesEnum.Editor,
+    );
     this.coreCpMainMenuService.ServiceGetOneById(this.requestId).subscribe({
       next: (ret) => {
         /*َAccess Field*/
@@ -121,10 +149,15 @@ export class CoreCpMainMenuEditComponent extends EditBaseComponent<CoreCpMainMen
         this.dataModel = ret.item;
         if (ret.isSuccess) {
           this.DataGetAllMenuCoreUserGroup();
-          this.formInfo.formTitle = this.formInfo.formTitle + ' ' + ret.item.title;
-          this.formInfo.formAlert = '';
+          this.formInfo.formTitle =
+            this.formInfo.formTitle + " " + ret.item.title;
+          this.formInfo.formAlert = "";
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -133,62 +166,86 @@ export class CoreCpMainMenuEditComponent extends EditBaseComponent<CoreCpMainMen
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   DataGetAllMenuCoreUserGroup(): void {
-
     if (this.requestId <= 0) {
       this.cmsToastrService.typeErrorEditRowIsNull();
       return;
     }
 
-    this.translate.get('MESSAGE.Getting_access_category_from_the_server').subscribe((str: string) => {
-      this.formInfo.formAlert = str;
-    });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    this.translate
+      .get("MESSAGE.Getting_access_category_from_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     const filteModelContent = new FilterModel();
+
     const filter = new FilterDataModel();
-    filter.propertyName = 'CmsCpMainMenu_Id';
+    filter.propertyName = "CmsCpMainMenu_Id";
     filter.value = this.requestId;
     filteModelContent.filters.push(filter);
 
-    this.coreCpMainMenuCmsUserGroupService.ServiceGetAll(filteModelContent).subscribe({
-      next: (ret) => {
-        this.dataCoreCpMainMenuCmsUserGroupModel = ret.listItems;
-        const listG: number[] = [];
-        this.dataCoreCpMainMenuCmsUserGroupModel.forEach(element => {
-          listG.push(element.cmsUserGroup_Id);
-        });
-        this.dataCoreCpMainMenuIds = listG;
-        if (ret.isSuccess) {
-          this.formInfo.formAlert = '';
-        } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
-          this.formInfo.formError = ret.errorMessage;
-          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-        }
-        this.publicHelper.processService.processStop(pName);
-      },
-      error: (er) => {
-        this.cmsToastrService.typeError(er);
-        this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+    this.coreCpMainMenuCmsUserGroupService
+      .ServiceGetAll(filteModelContent)
+      .subscribe({
+        next: (ret) => {
+          this.dataCoreCpMainMenuCmsUserGroupModel = ret.listItems;
+          const listG: number[] = [];
+          this.dataCoreCpMainMenuCmsUserGroupModel.forEach((element) => {
+            listG.push(element.cmsUserGroup_Id);
+          });
+          this.dataCoreCpMainMenuIds = listG;
+          if (ret.isSuccess) {
+            this.formInfo.formAlert = "";
+          } else {
+            this.translate
+              .get("ERRORMESSAGE.MESSAGE.typeError")
+              .subscribe((str: string) => {
+                this.formInfo.formAlert = str;
+              });
+            this.formInfo.formError = ret.errorMessage;
+            this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+          }
+          this.publicHelper.processService.processStop(pName);
+        },
+        error: (er) => {
+          this.cmsToastrService.typeError(er);
+          this.publicHelper.processService.processStop(pName, false);
+        },
+      });
   }
 
   DataEditContent(): void {
-    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     //! for convert color to hex
     this.dataModel.color = this.dataModel.color?.toString();
     this.coreCpMainMenuService.ServiceEdit(this.dataModel).subscribe({
@@ -196,11 +253,19 @@ export class CoreCpMainMenuEditComponent extends EditBaseComponent<CoreCpMainMen
         this.formInfo.formSubmitAllow = true;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.registration_completed_successfully').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("MESSAGE.registration_completed_successfully")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.cmsToastrService.typeSuccessEdit();
           this.dialogRef.close({ dialogChangedDate: true });
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -210,9 +275,8 @@ export class CoreCpMainMenuEditComponent extends EditBaseComponent<CoreCpMainMen
         this.formInfo.formSubmitAllow = true;
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onFormSubmit(): void {
     if (!this.formGroup.valid) {
@@ -258,10 +322,18 @@ export class CoreCpMainMenuEditComponent extends EditBaseComponent<CoreCpMainMen
     this.coreCpMainMenuCmsUserGroupService.ServiceAdd(entity).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.registration_in_this_group_was_successful').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("MESSAGE.registration_in_this_group_was_successful")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.cmsToastrService.typeSuccessEdit();
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -269,35 +341,42 @@ export class CoreCpMainMenuEditComponent extends EditBaseComponent<CoreCpMainMen
       error: (er) => {
         this.formInfo.formSubmitAllow = true;
         this.cmsToastrService.typeError(er);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelectorUserCategorySelectRemoved(model: CoreUserGroupModel): void {
     const entity = new CoreCpMainMenuCmsUserGroupModel();
     entity.cmsUserGroup_Id = model.id;
     entity.cmsCpMainMenu_Id = this.dataModel.id;
 
-    this.coreCpMainMenuCmsUserGroupService.ServiceDeleteEntity(entity).subscribe({
-      next: (ret) => {
-        if (ret.isSuccess) {
-          this.translate.get('MESSAGE.Deletion_from_this_group_Was_Successful').subscribe((str: string) => { this.formInfo.formAlert = str; });
-          this.cmsToastrService.typeSuccessEdit();
-        } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
-          this.formInfo.formError = ret.errorMessage;
-          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-        }
-      },
-      error: (er) => {
-        this.formInfo.formSubmitAllow = true;
-        this.cmsToastrService.typeError(er);
-      }
-    }
-    );
+    this.coreCpMainMenuCmsUserGroupService
+      .ServiceDeleteEntity(entity)
+      .subscribe({
+        next: (ret) => {
+          if (ret.isSuccess) {
+            this.translate
+              .get("MESSAGE.Deletion_from_this_group_Was_Successful")
+              .subscribe((str: string) => {
+                this.formInfo.formAlert = str;
+              });
+            this.cmsToastrService.typeSuccessEdit();
+          } else {
+            this.translate
+              .get("ERRORMESSAGE.MESSAGE.typeError")
+              .subscribe((str: string) => {
+                this.formInfo.formAlert = str;
+              });
+            this.formInfo.formError = ret.errorMessage;
+            this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+          }
+        },
+        error: (er) => {
+          this.formInfo.formSubmitAllow = true;
+          this.cmsToastrService.typeError(er);
+        },
+      });
   }
   onIconPickerSelect(model: any): void {
     this.dataModel.icon = model;
   }
-
 }

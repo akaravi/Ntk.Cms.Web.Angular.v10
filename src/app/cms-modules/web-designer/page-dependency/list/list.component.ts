@@ -89,6 +89,7 @@ export class WebDesignerMainPageDependencyListComponent
   flag = false;
   tableContentSelected = [];
   filteModelContent = new FilterModel();
+  filterDataModelQueryBuilder: FilterDataModel[] = [];
 
   dataModelCoreModuleResult: ErrorExceptionResult<CoreModuleModel> =
     new ErrorExceptionResult<CoreModuleModel>();
@@ -170,6 +171,14 @@ export class WebDesignerMainPageDependencyListComponent
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
     /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
     if (this.categoryModelSelected && this.categoryModelSelected.id > 0) {
       filter.propertyName = "LinkModuleId";
       filter.value = this.categoryModelSelected.id;
@@ -543,6 +552,7 @@ export class WebDesignerMainPageDependencyListComponent
     const sortColumn = this.filteModelContent.sortColumn;
     const sortType = this.filteModelContent.sortType;
     this.filteModelContent = new FilterModel();
+
     this.filteModelContent.sortColumn = sortColumn;
     this.filteModelContent.sortType = sortType;
     /*filter */
@@ -554,10 +564,9 @@ export class WebDesignerMainPageDependencyListComponent
   }
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
     if (model && model.length > 0) {
-      this.filteModelContent.filters = [
-        ...this.filteModelContent.filters,
-        ...model,
-      ];
+      this.filterDataModelQueryBuilder = [...model];
+    } else {
+      this.filterDataModelQueryBuilder = [];
     }
     this.DataGetAll();
   }

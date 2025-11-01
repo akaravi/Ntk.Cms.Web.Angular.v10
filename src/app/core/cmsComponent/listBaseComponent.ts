@@ -1,6 +1,15 @@
 import { MatTableDataSource } from "@angular/material/table";
 import { TranslateService } from "@ngx-translate/core";
-import { BaseEntity, DataFieldInfoModel, ErrorExceptionResult, FilterModel, IApiCmsServerBase, RecordStatusEnum, TokenInfoModelV3 } from "ntk-cms-api";
+import {
+  BaseEntity,
+  DataFieldInfoModel,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterModel,
+  IApiCmsServerBase,
+  RecordStatusEnum,
+  TokenInfoModelV3,
+} from "ntk-cms-api";
 import { CmsDataCommentComponent } from "src/app/shared/cms-data-comment/cms-data-comment.component";
 import { CmsDataMemoComponent } from "src/app/shared/cms-data-memo/cms-data-memo.component";
 import { CmsDataPinComponent } from "src/app/shared/cms-data-pin/cms-data-pin.component";
@@ -14,25 +23,38 @@ import { ContentInfoModel } from "../models/contentInfoModel";
 import { ComponentOptionSearchModel } from "./base/componentOptionSearchModel";
 import { ComponentOptionStatistModel } from "./base/componentOptionStatistModel";
 //IApiCmsServerBase
-export class ListBaseComponent<TService extends IApiCmsServerBase, TModel extends BaseEntity<TKey>, TKey> {
+export class ListBaseComponent<
+  TService extends IApiCmsServerBase,
+  TModel extends BaseEntity<TKey>,
+  TKey,
+> {
   constructorInfoAreaId = this.constructor.name;
-  constructor(public baseService: TService, public item: TModel, public publicHelper: PublicHelper, public tokenHelper: TokenHelper, public translate: TranslateService,
+  constructor(
+    public baseService: TService,
+    public item: TModel,
+    public publicHelper: PublicHelper,
+    public tokenHelper: TokenHelper,
+    public translate: TranslateService,
   ) {
     publicHelper.pageInfo.updateContentService(baseService);
-
-
-
   }
   filteModelContent = new FilterModel();
+  filterDataModelQueryBuilder: FilterDataModel[] = [];
+
   tableSource: MatTableDataSource<TModel> = new MatTableDataSource<TModel>();
   tokenInfo = new TokenInfoModelV3();
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
 
   optionsSearch: ComponentOptionSearchModel = new ComponentOptionSearchModel();
-  optionsStatist: ComponentOptionStatistModel = new ComponentOptionStatistModel();
+  optionsStatist: ComponentOptionStatistModel =
+    new ComponentOptionStatistModel();
   tableRowSelected: TModel;
   tableRowsSelected: Array<TModel> = [];
-  dataModelResult: ErrorExceptionResult<TModel> = new ErrorExceptionResult<TModel>();
+  dataModelResult: ErrorExceptionResult<TModel> =
+    new ErrorExceptionResult<TModel>();
   clickCount = 0;
   viewGuideNotice = false;
   actionScrollIntoViewRun = false;
@@ -44,15 +66,20 @@ export class ListBaseComponent<TService extends IApiCmsServerBase, TModel extend
     this.clickCount++;
     setTimeout(() => {
       this.tableRowSelected = row;
-      this.publicHelper.pageInfo.updateContentInfo(new ContentInfoModel(row.id, row['title'], row['viewContentHidden'], '', row['urlViewContent']));
+      this.publicHelper.pageInfo.updateContentInfo(
+        new ContentInfoModel(
+          row.id,
+          row["title"],
+          row["viewContentHidden"],
+          "",
+          row["urlViewContent"],
+        ),
+      );
 
       if (this.tableRowSelected.id === row.id) {
-        if (row["expanded"] == true)
-          row["expanded"] = false;
-        else
-          row["expanded"] = true;
-      }
-      else {
+        if (row["expanded"] == true) row["expanded"] = false;
+        else row["expanded"] = true;
+      } else {
         row["expanded"] = false;
       }
 
@@ -74,29 +101,27 @@ export class ListBaseComponent<TService extends IApiCmsServerBase, TModel extend
       }
 
       this.clickCount = 0;
-    }, 500)//250
-
-
+    }, 500); //250
   }
 
   onActionTableRowMouseClick(row: TModel): void {
     if (this.tableRowSelected.id === row.id) {
       row["expanded"] = false;
       this.onActionTableRowSelect(this.item);
-      this.publicHelper.pageInfo.updateContentInfo(new ContentInfoModel('', '', false, '', ''));
+      this.publicHelper.pageInfo.updateContentInfo(
+        new ContentInfoModel("", "", false, "", ""),
+      );
     } else {
       this.onActionTableRowSelect(row);
       row["expanded"] = true;
     }
   }
   onActionTableRowMouseEnter(row: TModel): void {
-    if (!environment.cmsViewConfig.tableRowMouseEnter)
-      return;
+    if (!environment.cmsViewConfig.tableRowMouseEnter) return;
     row["expanded"] = true;
   }
   onActionTableRowMouseLeave(row: TModel): void {
-    if (!environment.cmsViewConfig.tableRowMouseEnter)
-      return;
+    if (!environment.cmsViewConfig.tableRowMouseEnter) return;
     if (!this.tableRowSelected || this.tableRowSelected.id !== row.id)
       row["expanded"] = false;
   }
@@ -108,11 +133,9 @@ export class ListBaseComponent<TService extends IApiCmsServerBase, TModel extend
   }
   onActionButtonMemo(): void {
     //open popup
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
 
     const dialogRef = this.publicHelper.dialog.open(CmsDataMemoComponent, {
       height: "70%",
@@ -122,8 +145,7 @@ export class ListBaseComponent<TService extends IApiCmsServerBase, TModel extend
       data: {
         service: this.baseService,
       },
-    }
-    );
+    });
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         // this.DataGetAll();
@@ -142,11 +164,9 @@ export class ListBaseComponent<TService extends IApiCmsServerBase, TModel extend
   /////////////////////////////////////////////////////////
   onActionButtonMemoRow(model: TModel = this.tableRowSelected): void {
     //open popup
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
 
     const dialogRef = this.publicHelper.dialog.open(CmsDataMemoComponent, {
       height: "70%",
@@ -155,11 +175,10 @@ export class ListBaseComponent<TService extends IApiCmsServerBase, TModel extend
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
       data: {
         service: this.baseService,
-        id: this.tableRowSelected ? this.tableRowSelected.id : '',
-        title: this.tableRowSelected ? this.tableRowSelected['title'] : ''
+        id: this.tableRowSelected ? this.tableRowSelected.id : "",
+        title: this.tableRowSelected ? this.tableRowSelected["title"] : "",
       },
-    }
-    );
+    });
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         // this.DataGetAll();
@@ -168,18 +187,15 @@ export class ListBaseComponent<TService extends IApiCmsServerBase, TModel extend
     //open popup
   }
   onActionGridExpandRows(flag: boolean) {
-    this.tableSource.data.forEach(row => {
-      row['expanded'] = flag;
+    this.tableSource.data.forEach((row) => {
+      row["expanded"] = flag;
     });
   }
   onActionButtonExport(): void {
     //open popup
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.publicHelper.dialog.open(CmsExportListComponent, {
       height: "50%",
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
@@ -188,12 +204,10 @@ export class ListBaseComponent<TService extends IApiCmsServerBase, TModel extend
       data: {
         service: this.baseService,
         filterModel: this.filteModelContent,
-        title: ''
+        title: "",
       },
-    }
-    );
-    dialogRef.afterClosed().subscribe((result) => {
     });
+    dialogRef.afterClosed().subscribe((result) => {});
     //open popup
   }
 
@@ -211,11 +225,9 @@ export class ListBaseComponent<TService extends IApiCmsServerBase, TModel extend
       this.publicHelper.cmsToastrService.typeErrorAccessWatch();
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     //open popup
     const dialogRef = this.publicHelper.dialog.open(CmsExportEntityComponent, {
       height: "50%",
@@ -225,13 +237,11 @@ export class ListBaseComponent<TService extends IApiCmsServerBase, TModel extend
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
       data: {
         service: this.baseService,
-        id: this.tableRowSelected ? this.tableRowSelected.id : '',
-        title: this.tableRowSelected ? this.tableRowSelected['title'] : ''
+        id: this.tableRowSelected ? this.tableRowSelected.id : "",
+        title: this.tableRowSelected ? this.tableRowSelected["title"] : "",
       },
-    }
-    );
-    dialogRef.afterClosed().subscribe((result) => {
     });
+    dialogRef.afterClosed().subscribe((result) => {});
     //open popup
   }
   /////////////////////////////////////////////////////////
@@ -247,11 +257,9 @@ export class ListBaseComponent<TService extends IApiCmsServerBase, TModel extend
 
   onActionButtonPin(model: TModel = this.tableRowSelected): void {
     //open popup
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.publicHelper.dialog.open(CmsDataPinComponent, {
       height: "70%",
       panelClass: panelClass,
@@ -259,11 +267,10 @@ export class ListBaseComponent<TService extends IApiCmsServerBase, TModel extend
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
       data: {
         service: this.baseService,
-        id: this.tableRowSelected ? this.tableRowSelected.id : '',
-        title: this.tableRowSelected ? this.tableRowSelected['title'] : ''
+        id: this.tableRowSelected ? this.tableRowSelected.id : "",
+        title: this.tableRowSelected ? this.tableRowSelected["title"] : "",
       },
-    }
-    );
+    });
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         // this.DataGetAll();
@@ -273,11 +280,9 @@ export class ListBaseComponent<TService extends IApiCmsServerBase, TModel extend
   }
   onActionButtonTask(model: TModel = this.tableRowSelected): void {
     //open popup
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.publicHelper.dialog.open(CmsDataTaskComponent, {
       height: "70%",
 
@@ -286,11 +291,10 @@ export class ListBaseComponent<TService extends IApiCmsServerBase, TModel extend
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
       data: {
         service: this.baseService,
-        id: this.tableRowSelected ? this.tableRowSelected.id : '',
-        title: this.tableRowSelected ? this.tableRowSelected['title'] : ''
+        id: this.tableRowSelected ? this.tableRowSelected.id : "",
+        title: this.tableRowSelected ? this.tableRowSelected["title"] : "",
       },
-    }
-    );
+    });
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         // this.DataGetAll();
@@ -300,11 +304,9 @@ export class ListBaseComponent<TService extends IApiCmsServerBase, TModel extend
   }
   onActionButtonComment(model: TModel = this.tableRowSelected): void {
     //open popup
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.publicHelper.dialog.open(CmsDataCommentComponent, {
       height: "70%",
       panelClass: panelClass,
@@ -312,11 +314,10 @@ export class ListBaseComponent<TService extends IApiCmsServerBase, TModel extend
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
       data: {
         service: this.baseService,
-        id: this.tableRowSelected ? this.tableRowSelected.id : '',
-        title: this.tableRowSelected ? this.tableRowSelected['title'] : ''
+        id: this.tableRowSelected ? this.tableRowSelected.id : "",
+        title: this.tableRowSelected ? this.tableRowSelected["title"] : "",
       },
-    }
-    );
+    });
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         // this.DataGetAll();
@@ -325,27 +326,31 @@ export class ListBaseComponent<TService extends IApiCmsServerBase, TModel extend
     //open popup
   }
   DataGetAccess(): void {
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
-    this.baseService
-      .ServiceViewModel()
-      .subscribe({
-        next: (ret) => {
-          if (ret.isSuccess) {
-            this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
-
-          } else {
-            this.publicHelper.cmsToastrService.typeErrorGetAccess(ret.errorMessage);
-          }
-          this.publicHelper.processService.processStop(pName);
-        },
-        error: (er) => {
-          this.publicHelper.cmsToastrService.typeErrorGetAccess(er);
-          this.publicHelper.processService.processStop(pName, false);
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
+    this.baseService.ServiceViewModel().subscribe({
+      next: (ret) => {
+        if (ret.isSuccess) {
+          this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
+        } else {
+          this.publicHelper.cmsToastrService.typeErrorGetAccess(
+            ret.errorMessage,
+          );
         }
-      }
-      );
+        this.publicHelper.processService.processStop(pName);
+      },
+      error: (er) => {
+        this.publicHelper.cmsToastrService.typeErrorGetAccess(er);
+        this.publicHelper.processService.processStop(pName, false);
+      },
+    });
   }
 }

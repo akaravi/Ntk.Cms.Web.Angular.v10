@@ -1,5 +1,5 @@
 import { SelectionModel } from "@angular/cdk/collections";
-import { CdkTree, NestedTreeControl } from "@angular/cdk/tree";
+import { NestedTreeControl } from "@angular/cdk/tree";
 import {
   ChangeDetectorRef,
   Component,
@@ -8,7 +8,6 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  ViewChild,
 } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatTreeNestedDataSource } from "@angular/material/tree";

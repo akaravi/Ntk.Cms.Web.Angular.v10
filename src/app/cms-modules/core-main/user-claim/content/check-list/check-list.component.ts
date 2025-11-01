@@ -1,37 +1,41 @@
-
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatTableDataSource } from "@angular/material/table";
+import { ActivatedRoute, Router } from "@angular/router";
 import {
-  CoreUserClaimCheckDtoModel, CoreUserClaimCheckModel, CoreUserClaimContentModel,
-  CoreUserClaimContentService, CoreUserClaimTypeModel,
-  CoreUserClaimTypeService, DataFieldInfoModel, ErrorExceptionResult,
+  CoreUserClaimCheckDtoModel,
+  CoreUserClaimCheckModel,
+  CoreUserClaimContentModel,
+  CoreUserClaimContentService,
+  CoreUserClaimTypeModel,
+  CoreUserClaimTypeService,
+  DataFieldInfoModel,
+  ErrorExceptionResult,
   FilterModel,
-  TokenInfoModelV3
-} from 'ntk-cms-api';
-import { ComponentOptionSearchModel } from 'src/app/core/cmsComponent/base/componentOptionSearchModel';
-import { ComponentOptionStatistModel } from 'src/app/core/cmsComponent/base/componentOptionStatistModel';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
+  TokenInfoModelV3,
+} from "ntk-cms-api";
+import { ComponentOptionSearchModel } from "src/app/core/cmsComponent/base/componentOptionSearchModel";
+import { ComponentOptionStatistModel } from "src/app/core/cmsComponent/base/componentOptionStatistModel";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { environment } from 'src/environments/environment';
-import { CoreUserClaimContentAddComponent } from '../add/add.component';
-import { CoreUserClaimContentEditComponent } from '../edit/edit.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+import { TranslateService } from "@ngx-translate/core";
+import { Subscription } from "rxjs";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { environment } from "src/environments/environment";
+import { CoreUserClaimContentAddComponent } from "../add/add.component";
+import { CoreUserClaimContentEditComponent } from "../edit/edit.component";
 
 @Component({
-  selector: 'app-core-userclaimcontent-checklist',
-  templateUrl: './check-list.component.html',
-  styleUrls: ['./check-list.component.scss'],
-  standalone: false
+  selector: "app-core-userclaimcontent-checklist",
+  templateUrl: "./check-list.component.html",
+  styleUrls: ["./check-list.component.scss"],
+  standalone: false,
 })
-export class CoreUserClaimContentCheckListComponent implements OnInit, OnDestroy {
-
+export class CoreUserClaimContentCheckListComponent
+  implements OnInit, OnDestroy
+{
   requestLinkUserId = 0;
   requestLinkSiteId = 0;
   constructorInfoAreaId = this.constructor.name;
@@ -46,13 +50,16 @@ export class CoreUserClaimContentCheckListComponent implements OnInit, OnDestroy
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
 
-    this.requestLinkUserId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkUserId'));
-    this.requestLinkSiteId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkSiteId'));
-
+    this.requestLinkUserId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
+    );
+    this.requestLinkSiteId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
+    );
   }
   comment: string;
   author: string;
@@ -60,28 +67,33 @@ export class CoreUserClaimContentCheckListComponent implements OnInit, OnDestroy
   flag = false;
   tableContentSelected = [];
 
-  dataModelResult: ErrorExceptionResult<CoreUserClaimCheckModel> = new ErrorExceptionResult<CoreUserClaimCheckModel>();
+  dataModelResult: ErrorExceptionResult<CoreUserClaimCheckModel> =
+    new ErrorExceptionResult<CoreUserClaimCheckModel>();
   optionsSearch: ComponentOptionSearchModel = new ComponentOptionSearchModel();
-  optionsStatist: ComponentOptionStatistModel = new ComponentOptionStatistModel();
+  optionsStatist: ComponentOptionStatistModel =
+    new ComponentOptionStatistModel();
 
   tokenInfo = new TokenInfoModelV3();
 
   tableRowSelected: CoreUserClaimCheckModel = new CoreUserClaimCheckModel();
-  tableSource: MatTableDataSource<CoreUserClaimCheckModel> = new MatTableDataSource<CoreUserClaimCheckModel>();
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
+  tableSource: MatTableDataSource<CoreUserClaimCheckModel> =
+    new MatTableDataSource<CoreUserClaimCheckModel>();
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
   categoryModelSelected: CoreUserClaimTypeModel = new CoreUserClaimTypeModel();
-  dataModelCoreUserClaimTypeResult: ErrorExceptionResult<CoreUserClaimTypeModel> = new ErrorExceptionResult<CoreUserClaimTypeModel>();
+  dataModelCoreUserClaimTypeResult: ErrorExceptionResult<CoreUserClaimTypeModel> =
+    new ErrorExceptionResult<CoreUserClaimTypeModel>();
 
   tabledisplayedColumns: string[] = [
-    'TypeTitle',
-    'IsApproved',
-    'ApprovedResult',
-    'ApproveCheckDate',
-    'ApprovedExpireDate',
-    'Action'
+    "TypeTitle",
+    "IsApproved",
+    "ApprovedResult",
+    "ApproveCheckDate",
+    "ApprovedExpireDate",
+    "Action",
   ];
-
-
 
   expandedElement: CoreUserClaimContentModel | null;
   cmsApiStoreSubscribe: Subscription;
@@ -92,10 +104,12 @@ export class CoreUserClaimContentCheckListComponent implements OnInit, OnDestroy
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+        this.DataGetAll();
+      });
     this.getUserClaimType();
   }
   getUserClaimType(): void {
@@ -104,7 +118,7 @@ export class CoreUserClaimContentCheckListComponent implements OnInit, OnDestroy
     this.coreUserClaimTypeService.ServiceGetAll(filter).subscribe({
       next: (ret) => {
         this.dataModelCoreUserClaimTypeResult = ret;
-      }
+      },
     });
   }
   ngOnDestroy(): void {
@@ -114,12 +128,16 @@ export class CoreUserClaimContentCheckListComponent implements OnInit, OnDestroy
   }
   DataGetAll(): void {
     this.onActionTableRowSelect(new CoreUserClaimCheckModel());
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
-
-
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     if (this.requestLinkUserId > 0 && this.requestLinkSiteId > 0) {
       /** */
@@ -143,17 +161,14 @@ export class CoreUserClaimContentCheckListComponent implements OnInit, OnDestroy
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
-
         },
         error: (er) => {
           this.cmsToastrService.typeError(er);
           this.publicHelper.processService.processStop(pName, false);
-        }
-      }
-      );
+        },
+      });
       /** */
-    }
-    else {
+    } else {
       /** */
       this.coreUserClaimContentService.setAccessLoad();
       this.coreUserClaimContentService.ServiceClaimCheckCurrent().subscribe({
@@ -172,85 +187,78 @@ export class CoreUserClaimContentCheckListComponent implements OnInit, OnDestroy
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
-
         },
         error: (er) => {
           this.cmsToastrService.typeError(er);
           this.publicHelper.processService.processStop(pName, false);
-        }
-      }
-      );
+        },
+      });
       /** */
     }
-
   }
 
   onActionButtonNewRow(): void {
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(CoreUserClaimContentAddComponent, {
-      height: '90%',
+      height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: {}
+      data: {},
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
     });
   }
 
-  onActionButtonEditRow(model: CoreUserClaimCheckModel = this.tableRowSelected): void {
+  onActionButtonEditRow(
+    model: CoreUserClaimCheckModel = this.tableRowSelected,
+  ): void {
     if (!model || !model.linkTypeId || model.linkTypeId === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
     this.onActionTableRowSelect(model);
     if (model.linkContentId && model.linkContentId > 0) {
-      var panelClass = '';
-      if (this.publicHelper.isMobile)
-        panelClass = 'dialog-fullscreen';
-      else
-        panelClass = 'dialog-min';
+      var panelClass = "";
+      if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+      else panelClass = "dialog-min";
       const dialogRef = this.dialog.open(CoreUserClaimContentEditComponent, {
-        height: '90%',
+        height: "90%",
         panelClass: panelClass,
-        enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
+        enterAnimationDuration:
+          environment.cmsViewConfig.enterAnimationDuration,
         exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-        data: { id: this.tableRowSelected.linkContentId }
+        data: { id: this.tableRowSelected.linkContentId },
       });
-      dialogRef.afterClosed().subscribe(result => {
+      dialogRef.afterClosed().subscribe((result) => {
         if (result && result.dialogChangedDate) {
           this.DataGetAll();
         }
       });
     } else {
-      var panelClass = '';
-      if (this.publicHelper.isMobile)
-        panelClass = 'dialog-fullscreen';
-      else
-        panelClass = 'dialog-min';
+      var panelClass = "";
+      if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+      else panelClass = "dialog-min";
       const dialogRef = this.dialog.open(CoreUserClaimContentAddComponent, {
-        height: '90%',
+        height: "90%",
         panelClass: panelClass,
-        enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
+        enterAnimationDuration:
+          environment.cmsViewConfig.enterAnimationDuration,
         exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-        data: { linkUserClaimTypeId: this.tableRowSelected.linkTypeId }
+        data: { linkUserClaimTypeId: this.tableRowSelected.linkTypeId },
       });
-      dialogRef.afterClosed().subscribe(result => {
+      dialogRef.afterClosed().subscribe((result) => {
         if (result && result.dialogChangedDate) {
           this.DataGetAll();
         }
       });
     }
   }
-
-
 
   onActionButtonReload(): void {
     this.DataGetAll();
@@ -258,11 +266,10 @@ export class CoreUserClaimContentCheckListComponent implements OnInit, OnDestroy
 
   onActionTableRowSelect(row: CoreUserClaimCheckModel): void {
     this.tableRowSelected = row;
-    if (!row["expanded"])
-      row["expanded"] = false;
+    if (!row["expanded"]) row["expanded"] = false;
     row["expanded"] = !row["expanded"];
   }
   onActionBackToParent(): void {
-    this.router.navigate(['/core/user/']);
+    this.router.navigate(["/core/user/"]);
   }
 }

@@ -33,6 +33,7 @@ export class ApplicationAppWidgetComponent implements OnInit, OnDestroy {
     this.publicHelper.processService.cdr = this.cdr;
   }
   filteModelContent = new FilterModel();
+  filterDataModelQueryBuilder: FilterDataModel[] = [];
 
   widgetInfoModel = new WidgetInfoModel();
   cmsApiStoreSubscribe: Subscription;

@@ -1,7 +1,6 @@
-
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
 import {
   CoreModuleModel,
   CoreModuleService,
@@ -9,26 +8,26 @@ import {
   CoreModuleSiteUserCreditService,
   DataFieldInfoModel,
   ErrorExceptionResult,
+  FilterDataModel,
   FilterModel,
-  FormInfoModel
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { WidgetInfoModel } from 'src/app/core/models/widget-info-model';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-
+  FormInfoModel,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { WidgetInfoModel } from "src/app/core/models/widget-info-model";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-  selector: 'app-coremodule-site-user-credit-widget-price',
-  templateUrl: './widget-price.component.html',
-  styleUrls: ['./widget-price.component.scss'],
-  standalone: false
+  selector: "app-coremodule-site-user-credit-widget-price",
+  templateUrl: "./widget-price.component.html",
+  styleUrls: ["./widget-price.component.scss"],
+  standalone: false,
 })
-export class CoreModuleSiteUserCreditWidgetPriceComponent implements OnInit, OnDestroy {
-
-
+export class CoreModuleSiteUserCreditWidgetPriceComponent
+  implements OnInit, OnDestroy
+{
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private service: CoreModuleSiteUserCreditService,
@@ -42,31 +41,38 @@ export class CoreModuleSiteUserCreditWidgetPriceComponent implements OnInit, OnD
     private coreModuleService: CoreModuleService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
-
   }
-  dataModelResult: ErrorExceptionResult<CoreModuleSiteUserCreditModel> = new ErrorExceptionResult<CoreModuleSiteUserCreditModel>();
-  dataModelCoreModuleResult: ErrorExceptionResult<CoreModuleModel> = new ErrorExceptionResult<CoreModuleModel>();
-  dataModel: CoreModuleSiteUserCreditModel = new CoreModuleSiteUserCreditModel();
+  dataModelResult: ErrorExceptionResult<CoreModuleSiteUserCreditModel> =
+    new ErrorExceptionResult<CoreModuleSiteUserCreditModel>();
+  dataModelCoreModuleResult: ErrorExceptionResult<CoreModuleModel> =
+    new ErrorExceptionResult<CoreModuleModel>();
+  dataModel: CoreModuleSiteUserCreditModel =
+    new CoreModuleSiteUserCreditModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
   filteModelContent = new FilterModel();
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
+  filterDataModelQueryBuilder: FilterDataModel[] = [];
+
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
   widgetInfoModel = new WidgetInfoModel();
   cmsApiStoreSubscribe: Subscription;
 
-
-
   ngOnInit() {
-    this.translate.get('TITLE.Evidence_Identity').subscribe((str: string) => { this.widgetInfoModel.title =  str });
-    this.widgetInfoModel.description = '';
-    this.widgetInfoModel.link = '/core-module/site-credit/';
-
+    this.translate.get("TITLE.Evidence_Identity").subscribe((str: string) => {
+      this.widgetInfoModel.title = str;
+    });
+    this.widgetInfoModel.description = "";
+    this.widgetInfoModel.link = "/core-module/site-credit/";
 
     this.DataGetAll();
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    });
-
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
 
     this.getModuleList();
   }
@@ -76,30 +82,45 @@ export class CoreModuleSiteUserCreditWidgetPriceComponent implements OnInit, OnD
     this.coreModuleService.ServiceGetAllModuleName(filter).subscribe({
       next: (ret) => {
         this.dataModelCoreModuleResult = ret;
-      }
+      },
     });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
       this.cmsApiStoreSubscribe.unsubscribe();
     }
-
   }
 
   DataGetAll(): void {
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.get_information_list').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.get_information_list")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.filteModelContent.accessLoad = true;
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
     /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
 
     this.service.ServiceGetAllCredit().subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
 
         if (ret.isSuccess) {
-          this.dataModelResult = ret
+          this.dataModelResult = ret;
           this.dataModel = ret.item;
           if (ret.listItems && ret.listItems.length > 0) {
             this.dataModel = ret.listItems[0];
@@ -113,9 +134,8 @@ export class CoreModuleSiteUserCreditWidgetPriceComponent implements OnInit, OnD
         this.cmsToastrService.typeError(er);
 
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   translateHelp(t: string, v: string): string {
     return t + v;

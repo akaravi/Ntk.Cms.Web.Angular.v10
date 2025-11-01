@@ -76,6 +76,7 @@ export class ApplicationLogNotificationListComponent
   flag = false;
   tableContentSelected = [];
   filteModelContent = new FilterModel();
+  filterDataModelQueryBuilder: FilterDataModel[] = [];
 
   categoryModelSelected: ApplicationAppModel;
 
@@ -169,6 +170,14 @@ export class ApplicationLogNotificationListComponent
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
     /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
     const filter = new FilterDataModel();
     if (this.categoryModelSelected && this.categoryModelSelected.id > 0) {
       filter.propertyName = "LinkApplicationId";
@@ -365,6 +374,7 @@ export class ApplicationLogNotificationListComponent
     var sortColumn = this.filteModelContent.sortColumn;
     var sortType = this.filteModelContent.sortType;
     this.filteModelContent = new FilterModel();
+
     this.filteModelContent.sortColumn = sortColumn;
     this.filteModelContent.sortType = sortType;
     /*filter */
@@ -437,10 +447,9 @@ export class ApplicationLogNotificationListComponent
   }
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
     if (model && model.length > 0) {
-      this.filteModelContent.filters = [
-        ...this.filteModelContent.filters,
-        ...model,
-      ];
+      this.filterDataModelQueryBuilder = [...model];
+    } else {
+      this.filterDataModelQueryBuilder = [];
     }
     this.DataGetAll();
   }

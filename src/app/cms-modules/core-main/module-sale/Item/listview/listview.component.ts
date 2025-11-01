@@ -1,30 +1,38 @@
-
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from "@angular/core";
+import { PageEvent } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { MatTableDataSource } from "@angular/material/table";
+import { TranslateService } from "@ngx-translate/core";
 import {
   CoreEnumService,
   CoreModuleModel,
   CoreModuleSaleItemModel,
   CoreModuleSaleItemService,
   CoreModuleService,
-  DataFieldInfoModel, ErrorExceptionResult,
+  DataFieldInfoModel,
+  ErrorExceptionResult,
   FilterDataModel,
-  FilterModel, InfoEnumModel, SortTypeEnum, TokenInfoModelV3
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  FilterModel,
+  InfoEnumModel,
+  SortTypeEnum,
+  TokenInfoModelV3,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-  selector: 'app-core-modulesaleitem-listview',
-  templateUrl: './listview.component.html',
-  standalone: false
+  selector: "app-core-modulesaleitem-listview",
+  templateUrl: "./listview.component.html",
+  standalone: false,
 })
 export class CoreModuleSaleItemListViewComponent implements OnInit, OnDestroy {
   @Input() set optionHeaderId(x: number) {
@@ -45,43 +53,51 @@ export class CoreModuleSaleItemListViewComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
-
   }
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
 
   tableContentSelected = [];
   filteModelContent = new FilterModel();
-  dataModelResult: ErrorExceptionResult<CoreModuleSaleItemModel> = new ErrorExceptionResult<CoreModuleSaleItemModel>();
+  filterDataModelQueryBuilder: FilterDataModel[] = [];
+
+  dataModelResult: ErrorExceptionResult<CoreModuleSaleItemModel> =
+    new ErrorExceptionResult<CoreModuleSaleItemModel>();
   tokenInfo = new TokenInfoModelV3();
 
   tableRowsSelected: Array<CoreModuleSaleItemModel> = [];
   tableRowSelected: CoreModuleSaleItemModel = new CoreModuleSaleItemModel();
-  tableSource: MatTableDataSource<CoreModuleSaleItemModel> = new MatTableDataSource<CoreModuleSaleItemModel>();
-  dataModelCoreModuleResult: ErrorExceptionResult<CoreModuleModel> = new ErrorExceptionResult<CoreModuleModel>();
-  dataModelEnumCmsModuleSaleItemTypeResult: ErrorExceptionResult<InfoEnumModel> = new ErrorExceptionResult<InfoEnumModel>();
-
+  tableSource: MatTableDataSource<CoreModuleSaleItemModel> =
+    new MatTableDataSource<CoreModuleSaleItemModel>();
+  dataModelCoreModuleResult: ErrorExceptionResult<CoreModuleModel> =
+    new ErrorExceptionResult<CoreModuleModel>();
+  dataModelEnumCmsModuleSaleItemTypeResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
 
   tabledisplayedColumns: string[] = [
-    'LinkModuleId',
-    'MonthLength',
-    'EnumCmsModuleSaleItemType',
+    "LinkModuleId",
+    "MonthLength",
+    "EnumCmsModuleSaleItemType",
   ];
-
 
   cmsApiStoreSubscribe: Subscription;
 
   ngOnInit(): void {
-    this.filteModelContent.sortColumn = 'Title';
+    this.filteModelContent.sortColumn = "Title";
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
     }
 
-    this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.getEnumCmsModuleSaleItemType();
-      this.tokenInfo = value;
-      this.DataGetAll();
-    });
+    this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.getEnumCmsModuleSaleItemType();
+        this.tokenInfo = value;
+        this.DataGetAll();
+      });
     this.getModuleList();
     this.getEnumCmsModuleSaleItemType();
   }
@@ -91,14 +107,14 @@ export class CoreModuleSaleItemListViewComponent implements OnInit, OnDestroy {
     this.coreModuleService.ServiceGetAllModuleName(filter).subscribe({
       next: (ret) => {
         this.dataModelCoreModuleResult = ret;
-      }
+      },
     });
   }
   getEnumCmsModuleSaleItemType(): void {
     this.coreEnumService.ServiceCmsModuleSaleItemTypeEnum().subscribe({
       next: (ret) => {
         this.dataModelEnumCmsModuleSaleItemTypeResult = ret;
-      }
+      },
     });
   }
   ngOnDestroy(): void {
@@ -110,22 +126,27 @@ export class CoreModuleSaleItemListViewComponent implements OnInit, OnDestroy {
     this.tableRowsSelected = [];
     this.onActionTableRowSelect(new CoreModuleSaleItemModel());
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
-
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.filteModelContent.accessLoad = true;
 
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
     if (this.LinkHeaderId && this.LinkHeaderId > 0) {
       const fastfilter = new FilterDataModel();
-      fastfilter.propertyName = 'LinkModuleSaleHeader';
+      fastfilter.propertyName = "LinkModuleSaleHeader";
       fastfilter.value = this.LinkHeaderId;
       filterModel.filters.push(fastfilter);
     }
-    filterModel.sortColumn = 'Id';
+    filterModel.sortColumn = "Id";
     this.coreModuleSaleItemService.ServiceGetAll(filterModel).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
@@ -137,29 +158,30 @@ export class CoreModuleSaleItemListViewComponent implements OnInit, OnDestroy {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
 
-
   onTableSortData(sort: MatSort): void {
-    if (this.tableSource && this.tableSource.sort && this.tableSource.sort.active === sort.active) {
-      if (this.tableSource.sort.start === 'asc') {
-        sort.start = 'desc';
+    if (
+      this.tableSource &&
+      this.tableSource.sort &&
+      this.tableSource.sort.active === sort.active
+    ) {
+      if (this.tableSource.sort.start === "asc") {
+        sort.start = "desc";
         this.filteModelContent.sortColumn = sort.active;
         this.filteModelContent.sortType = SortTypeEnum.Descending;
-      } else if (this.tableSource.sort.start === 'desc') {
-        sort.start = 'asc';
-        this.filteModelContent.sortColumn = '';
+      } else if (this.tableSource.sort.start === "desc") {
+        sort.start = "asc";
+        this.filteModelContent.sortColumn = "";
         this.filteModelContent.sortType = SortTypeEnum.Ascending;
       } else {
-        sort.start = 'desc';
+        sort.start = "desc";
       }
     } else {
       this.filteModelContent.sortColumn = sort.active;
@@ -175,16 +197,13 @@ export class CoreModuleSaleItemListViewComponent implements OnInit, OnDestroy {
     this.DataGetAll();
   }
 
-
   onActionButtonReload(): void {
     this.DataGetAll();
   }
 
   onActionTableRowSelect(row: CoreModuleSaleItemModel): void {
     this.tableRowSelected = row;
-    if (!row["expanded"])
-      row["expanded"] = false;
+    if (!row["expanded"]) row["expanded"] = false;
     row["expanded"] = !row["expanded"];
   }
-
 }
