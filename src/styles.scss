@@ -245,16 +245,35 @@
 }
 
 .theme-light
-  mat-row:nth-child(
+  ntk-row-odd:nth-child(
     odd of :not(.ntk-row-expandedDetail):not(.ntk-row-expandedTitle)
   ) {
   background: rgba(0, 0, 0, 0.02) !important;
 }
 
 .theme-light
-  mat-row:nth-child(
+  ntk-row-even:nth-child(
     even of :not(.ntk-row-expandedDetail):not(.ntk-row-expandedTitle)
   ) {
+  background: rgba(0, 0, 0, 0.05) !important;
+}
+.theme-light mat-row:nth-child(2n of.ntk-row-mainfild) {
+  background: rgba(0, 0, 0, 0.02) !important;
+}
+.theme-light mat-row:nth-child(2n of.ntk-row-expandedTitle) {
+  background: rgba(0, 0, 0, 0.02) !important;
+}
+.theme-light mat-row:nth-child(2n of.ntk-row-expandedDetail) {
+  background: rgba(0, 0, 0, 0.02) !important;
+}
+
+.theme-light mat-row:nth-child(2n + 1 of.ntk-row-mainfild) {
+  background: rgba(0, 0, 0, 0.05) !important;
+}
+.theme-light mat-row:nth-child(2n + 1 of.ntk-row-expandedTitle) {
+  background: rgba(0, 0, 0, 0.05) !important;
+}
+.theme-light mat-row:nth-child(2n + 1 of.ntk-row-expandedDetail) {
   background: rgba(0, 0, 0, 0.05) !important;
 }
 
