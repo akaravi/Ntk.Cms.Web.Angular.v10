@@ -84,7 +84,7 @@ export class CoreSiteUserListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "LinkUserId";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
 
     if (this.requestLinkSiteId > 0) {
