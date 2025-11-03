@@ -1,15 +1,15 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 
-import { CoreGuideService, TokenInfoModelV3 } from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
+import { CoreGuideService, TokenInfoModelV3 } from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-  selector: 'app-cms-guide-info',
-  templateUrl: './cms-guide-info.component.html',
-  standalone: false
+  selector: "app-cms-guide-info",
+  templateUrl: "./cms-guide-info.component.html",
+  standalone: false,
 })
 export class CmsGuideinfoComponent implements OnInit, OnDestroy {
   static nextId = 0;
@@ -26,21 +26,21 @@ export class CmsGuideinfoComponent implements OnInit, OnDestroy {
     private cmsStoreService: CmsStoreService,
     private coreGuideService: CoreGuideService,
     private cmsToastrService: CmsToastrService,
-  ) { }
-  closeResult = '';
+  ) {}
+  closeResult = "";
   cmsApiStoreSubscribe: Subscription;
   tokenInfo = new TokenInfoModelV3();
-  lang = '';
+  lang = "";
   ngOnInit(): void {
-
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.lang = this.tokenInfo.access.language;
     }
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      if (value && value.access)
-        this.lang = value.access.language;
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        if (value && value.access) this.lang = value.access.language;
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -50,29 +50,28 @@ export class CmsGuideinfoComponent implements OnInit, OnDestroy {
   onActionGuideClick(content): void {
     if (this.Identity > 0) {
       this.coreGuideService.ServiceGetOneById(this.Identity).subscribe({
-
         next: (ret) => {
           if (ret.isSuccess) {
             switch (this.lang) {
-              case 'fa': {
+              case "fa": {
                 this.title = ret.item.titleFa;
                 this.description = ret.item.descriptionFa;
                 this.body = ret.item.bodyFa;
                 break;
               }
-              case 'en': {
+              case "en": {
                 this.title = ret.item.titleEn;
                 this.description = ret.item.descriptionEn;
                 this.body = ret.item.bodyEn;
                 break;
               }
-              case 'ar': {
+              case "ar": {
                 this.title = ret.item.titleAr;
                 this.description = ret.item.descriptionAr;
                 this.body = ret.item.bodyAr;
                 break;
               }
-              case 'de': {
+              case "de": {
                 this.title = ret.item.titleDe;
                 this.description = ret.item.descriptionDe;
                 this.body = ret.item.bodyDe;
@@ -92,33 +91,32 @@ export class CmsGuideinfoComponent implements OnInit, OnDestroy {
         },
         error: (err) => {
           this.cmsToastrService.typeError(err);
-        }
+        },
       });
-
     } else if (this.Key && this.Key.length > 0) {
       this.coreGuideService.ServiceGetOneByKey(this.Key).subscribe({
         next: (ret) => {
           if (ret.isSuccess) {
             switch (this.lang) {
-              case 'fa': {
+              case "fa": {
                 this.title = ret.item.titleFa;
                 this.description = ret.item.descriptionFa;
                 this.body = ret.item.bodyFa;
                 break;
               }
-              case 'en': {
+              case "en": {
                 this.title = ret.item.titleEn;
                 this.description = ret.item.descriptionEn;
                 this.body = ret.item.bodyEn;
                 break;
               }
-              case 'ar': {
+              case "ar": {
                 this.title = ret.item.titleAr;
                 this.description = ret.item.descriptionAr;
                 this.body = ret.item.bodyAr;
                 break;
               }
-              case 'de': {
+              case "de": {
                 this.title = ret.item.titleDe;
                 this.description = ret.item.descriptionDe;
                 this.body = ret.item.bodyDe;
@@ -138,10 +136,8 @@ export class CmsGuideinfoComponent implements OnInit, OnDestroy {
         },
         error: (err) => {
           this.cmsToastrService.typeError(err);
-        }
+        },
       });
-
-
     } else if (this.description && this.description.length > 0) {
       this.openModal(content);
     }
@@ -165,5 +161,4 @@ export class CmsGuideinfoComponent implements OnInit, OnDestroy {
     // }
     return "";
   }
-
 }

@@ -1,27 +1,33 @@
-
 import {
-  ChangeDetectorRef, Component, Inject, OnInit,
-  ViewChild
-} from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  AuthMobileConfirmDtoModel, CaptchaModel, CoreAuthV3Service, CoreEnumService,
-  CoreUserService, DataFieldInfoModel,
+  AuthMobileConfirmDtoModel,
+  CaptchaModel,
+  CoreAuthV3Service,
+  CoreEnumService,
+  CoreUserService,
+  DataFieldInfoModel,
   ErrorExceptionResultBase,
   FormInfoModel,
-  TokenInfoModelV3
-} from 'ntk-cms-api';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
+  TokenInfoModelV3,
+} from "ntk-cms-api";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-  selector: 'app-core-user-mobile-confirm',
-  templateUrl: './mobileConfirm.component.html',
-  standalone: false
+  selector: "app-core-user-mobile-confirm",
+  templateUrl: "./mobileConfirm.component.html",
+  standalone: false,
 })
 export class CoreUserMobileConfirmComponent implements OnInit {
   constructorInfoAreaId = this.constructor.name;
@@ -39,18 +45,19 @@ export class CoreUserMobileConfirmComponent implements OnInit {
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
-
-
   }
   firstRun = true;
   expireDate: Date;
   countAutoCaptchaOrder = 1;
 
-  dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase;
+  dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: AuthMobileConfirmDtoModel = new AuthMobileConfirmDtoModel();
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
   passwordIsValid = false;
-  @ViewChild('vform', { static: false }) formGroup: FormGroup;
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
   captchaModel: CaptchaModel = new CaptchaModel();
 
   formInfo: FormInfoModel = new FormInfoModel();
@@ -60,17 +67,17 @@ export class CoreUserMobileConfirmComponent implements OnInit {
     length: 4,
     isPasswordInput: false,
     disableAutoFocus: false,
-    placeholder: '',
+    placeholder: "",
     inputStyles: {
-      'width': '50px',
-      'height': '50px',
-      'margin': '5px',
-    }
-  }
+      width: "50px",
+      height: "50px",
+      margin: "5px",
+    },
+  };
   tokenInfo = new TokenInfoModelV3();
   ngOnInit(): void {
     this.onCaptchaOrder();
-    this.translate.get('ACTION.CONFIRMEMAIL').subscribe((str: string) => {
+    this.translate.get("ACTION.CONFIRMEMAIL").subscribe((str: string) => {
       this.formInfo.formTitle = str;
     });
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
@@ -79,34 +86,35 @@ export class CoreUserMobileConfirmComponent implements OnInit {
       this.dataModel.linkUserId = this.tokenInfo.access.userId;
     }
 
-
     this.DataGetAccess();
   }
 
-
   DataGetAccess(): void {
-    const pName = this.constructor.name + 'DataGetAccess';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "DataGetAccess";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
-    this.coreUserService
-      .ServiceViewModel()
-      .subscribe({
-        next: (ret) => {
-          if (ret.isSuccess) {
-            this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
-          } else {
-            this.cmsToastrService.typeErrorGetAccess(ret.errorMessage);
-          }
-          this.publicHelper.processService.processStop(pName);
-        },
-        error: (er) => {
-          this.cmsToastrService.typeErrorGetAccess(er);
-          this.publicHelper.processService.processStop(pName, false);
+    this.coreUserService.ServiceViewModel().subscribe({
+      next: (ret) => {
+        if (ret.isSuccess) {
+          this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
+        } else {
+          this.cmsToastrService.typeErrorGetAccess(ret.errorMessage);
         }
-      }
-      );
+        this.publicHelper.processService.processStop(pName);
+      },
+      error: (er) => {
+        this.cmsToastrService.typeErrorGetAccess(er);
+        this.publicHelper.processService.processStop(pName, false);
+      },
+    });
   }
   stepOne = true;
   stepTwo = false;
@@ -128,7 +136,7 @@ export class CoreUserMobileConfirmComponent implements OnInit {
           this.formInfo.buttonSubmittedEnabled = true;
           this.onCaptchaOrder();
         }
-      }
+      },
     });
   }
   onOtpChange(otp) {
@@ -143,24 +151,29 @@ export class CoreUserMobileConfirmComponent implements OnInit {
       return;
     }
     this.countAutoCaptchaOrder = this.countAutoCaptchaOrder + 1;
-    this.dataModel.captchaText = '';
-    const pName = this.constructor.name + '.ServiceCaptcha';
-    this.translate.get('MESSAGE.get_security_photo_content').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    this.dataModel.captchaText = "";
+    const pName = this.constructor.name + ".ServiceCaptcha";
+    this.translate
+      .get("MESSAGE.get_security_photo_content")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.coreAuthService.ServiceCaptcha().subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.captchaModel = ret.item;
-          this.expireDate = ret.item.expire;//.split('+')[1];
+          this.expireDate = ret.item.expire; //.split('+')[1];
           const startDate = new Date();
           const endDate = new Date(ret.item.expire);
-          const seconds = (endDate.getTime() - startDate.getTime());
+          const seconds = endDate.getTime() - startDate.getTime();
           if (this.countAutoCaptchaOrder < 10) {
             this.countAutoCaptchaOrder = this.countAutoCaptchaOrder + 1;
             setTimeout(() => {
-              if (!this.firstRun)
-                this.onCaptchaOrder();
+              if (!this.firstRun) this.onCaptchaOrder();
             }, seconds);
           }
         } else {
@@ -172,8 +185,7 @@ export class CoreUserMobileConfirmComponent implements OnInit {
       error: (er) => {
         this.onCaptchaOrderInProcess = false;
         this.publicHelper.processService.processStop(pName);
-      }
-    }
-    );
+      },
+    });
   }
 }

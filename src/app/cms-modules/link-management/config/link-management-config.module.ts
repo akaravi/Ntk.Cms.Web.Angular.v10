@@ -1,20 +1,19 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AngularEditorModule } from '@kolkov/angular-editor';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { AngularEditorModule } from "@kolkov/angular-editor";
 import {
   CoreModuleService,
-  LinkManagementConfigurationService
-} from 'ntk-cms-api';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { LinkManagementConfigCheckSiteComponent } from './check-site/check-site.component';
-import { LinkManagementConfigCheckUserComponent } from './check-user/check-user.component';
-import { LinkManagementConfigRouting } from './link-management-config.routing';
-import { LinkManagementConfigMainAdminComponent } from './main-admin/config-main-admin.component';
-import { LinkManagementConfigSiteComponent } from './site/config-site.component';
-import { LinkManagementConfigComponent } from './link-management-config.component';
-
+  LinkManagementConfigurationService,
+} from "ntk-cms-api";
+import { SharedModule } from "src/app/shared/shared.module";
+import { LinkManagementConfigCheckSiteComponent } from "./check-site/check-site.component";
+import { LinkManagementConfigCheckUserComponent } from "./check-user/check-user.component";
+import { LinkManagementConfigRouting } from "./link-management-config.routing";
+import { LinkManagementConfigMainAdminComponent } from "./main-admin/config-main-admin.component";
+import { LinkManagementConfigSiteComponent } from "./site/config-site.component";
+import { LinkManagementConfigComponent } from "./link-management-config.component";
 
 @NgModule({
   declarations: [
@@ -38,14 +37,10 @@ import { LinkManagementConfigComponent } from './link-management-config.componen
     CommonModule,
     FormsModule,
     LinkManagementConfigRouting,
-    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     SharedModule,
     AngularEditorModule,
   ],
-  providers: [
-    CoreModuleService,
-    LinkManagementConfigurationService,
-  ]
+  providers: [CoreModuleService, LinkManagementConfigurationService],
 })
-export class LinkManagementConfigModule {
-}
+export class LinkManagementConfigModule {}

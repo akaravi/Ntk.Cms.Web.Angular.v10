@@ -1,24 +1,24 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
   CoreModuleService,
   CoreSiteCategoryCmsModuleService,
-  CoreSiteCategoryService
-} from 'ntk-cms-api';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { CoreSiteCategoryAddComponent } from './add/add.component';
-import { CoreSiteCategoryComponent } from './coreSiteCategory.component';
-import { CoreSiteCategoryRouting } from './coreSiteCategory.routing';
-import { CoreSiteCategoryEditComponent } from './edit/edit.component';
-import { CoreSiteCategoryListComponent } from './list/list.component';
-import { CoreSiteCategorySelectorComponent } from './selector/selector.component';
-import { CoreSiteCategoryTreeComponent } from './tree/tree.component';
+  CoreSiteCategoryService,
+} from "ntk-cms-api";
+import { SharedModule } from "src/app/shared/shared.module";
+import { CoreSiteCategoryAddComponent } from "./add/add.component";
+import { CoreSiteCategoryComponent } from "./coreSiteCategory.component";
+import { CoreSiteCategoryRouting } from "./coreSiteCategory.routing";
+import { CoreSiteCategoryEditComponent } from "./edit/edit.component";
+import { CoreSiteCategoryListComponent } from "./list/list.component";
+import { CoreSiteCategorySelectorComponent } from "./selector/selector.component";
+import { CoreSiteCategoryTreeComponent } from "./tree/tree.component";
 
-import { AngularEditorModule } from '@kolkov/angular-editor';
+import { AngularEditorModule } from "@kolkov/angular-editor";
 
-import { CmsConfirmationDialogService } from 'src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service';
-import { CoreModuleModule } from '../module/coreModule.module';
+import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { CoreModuleModule } from "../module/coreModule.module";
 // import { CoreSiteCategoryCmsModuleListComponent } from './moduleList/moduleList.component';
 
 @NgModule({
@@ -44,7 +44,7 @@ import { CoreModuleModule } from '../module/coreModule.module';
     CommonModule,
     FormsModule,
     CoreSiteCategoryRouting,
-    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     SharedModule,
     AngularEditorModule,
 
@@ -56,7 +56,6 @@ import { CoreModuleModule } from '../module/coreModule.module';
     CoreModuleService,
     CoreSiteCategoryCmsModuleService,
     CmsConfirmationDialogService,
-  ]
+  ],
 })
-export class CoreSiteCategoryCmsModule {
-}
+export class CoreSiteCategoryCmsModule {}

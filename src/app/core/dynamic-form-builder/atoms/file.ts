@@ -1,37 +1,48 @@
-import { Component, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, Input } from "@angular/core";
+import { FormGroup } from "@angular/forms";
 
 // text,email,tel,textarea,password,
 @Component({
-    selector: 'file',
-    template: `
-      <div [formGroup]="optionFormControl">
-        <div *ngIf="!field.value" class="drop-container dropzone" dropZone (hovered)="toggleHover($event)"
-          (dropped)="field.onUpload($event)" [class.hovering]="isHovering">
-          <p class="m-0">
-            Drag a file here or
-            <label class="upload-button">
-              <input type="file" multiple="" (change)="field.onUpload($event.target.files)"> browse
-            </label>
-            to upload.
-          </p>
-        </div>
-        <div *ngIf="field.value">
-          <!-- <button type="button" >Change</button> -->
-          <div class="card">
-            <img class="card-img-top" [src]="field.value">
-          </div>
+  selector: "file",
+  template: `
+    <div [formGroup]="optionFormControl">
+      <div
+        *ngIf="!field.value"
+        class="drop-container dropzone"
+        dropZone
+        (hovered)="toggleHover($event)"
+        (dropped)="field.onUpload($event)"
+        [class.hovering]="isHovering"
+      >
+        <p class="m-0">
+          Drag a file here or
+          <label class="upload-button">
+            <input
+              type="file"
+              multiple=""
+              (change)="field.onUpload($event.target.files)"
+            />
+            browse
+          </label>
+          to upload.
+        </p>
+      </div>
+      <div *ngIf="field.value">
+        <!-- <button type="button" >Change</button> -->
+        <div class="card">
+          <img class="card-img-top" [src]="field.value" />
         </div>
       </div>
-    `,
-    styles: [
-        `
+    </div>
+  `,
+  styles: [
+    `
       .drop-container {
         background: #fff;
         border-radius: 6px;
         height: 150px;
         width: 100%;
-        box-shadow: 1px 2px 20px hsla(0,0%,4%,.1);
+        box-shadow: 1px 2px 20px hsla(0, 0%, 4%, 0.1);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -62,25 +73,27 @@ import { FormGroup } from '@angular/forms';
         margin: 10px 0;
       }
       .dropzone.hovering {
-          border: 2px solid #f16624;
-          color: #dadada !important;
+        border: 2px solid #f16624;
+        color: #dadada !important;
       }
       progress::-webkit-progress-value {
         transition: width 0.1s ease;
       }
-      `
-    ],
-    standalone: false
+    `,
+  ],
+  standalone: false,
 })
 export class FileComponent {
   @Input() field: any = {};
   @Input() optionFormControl: FormGroup;
-  get isValid() { return this.optionFormControl.controls[this.field.name].valid; }
-  get isDirty() { return this.optionFormControl.controls[this.field.name].dirty; }
-
-  constructor() {
-
+  get isValid() {
+    return this.optionFormControl.controls[this.field.name].valid;
   }
+  get isDirty() {
+    return this.optionFormControl.controls[this.field.name].dirty;
+  }
+
+  constructor() {}
   isHovering = false;
   ngOnChange(): void {
     //console.log(this.field.value);

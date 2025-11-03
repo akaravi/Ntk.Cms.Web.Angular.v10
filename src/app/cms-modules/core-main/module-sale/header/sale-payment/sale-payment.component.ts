@@ -1,28 +1,27 @@
-
-import { DOCUMENT } from '@angular/common';
-import {
-  ChangeDetectorRef, Component, Inject, OnInit
-} from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
+import { DOCUMENT } from "@angular/common";
+import { ChangeDetectorRef, Component, Inject, OnInit } from "@angular/core";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
 import {
   BankPaymentInjectPaymentGotoBankStep1CalculateModel,
-  BankPaymentInjectPaymentGotoBankStep2LandingSitePageModel, BankPaymentPrivateSiteConfigModel,
+  BankPaymentInjectPaymentGotoBankStep2LandingSitePageModel,
+  BankPaymentPrivateSiteConfigModel,
   CoreModuleSaleHeaderCalculateDtoModel,
   CoreModuleSaleHeaderPaymentDtoModel,
-  CoreModuleSaleHeaderService, ErrorExceptionResult,
-  FormInfoModel
-} from 'ntk-cms-api';
+  CoreModuleSaleHeaderService,
+  ErrorExceptionResult,
+  FormInfoModel,
+} from "ntk-cms-api";
 
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TRANSACTION_ID_LOCAL_STORAGE_KEY } from 'src/app/core/models/constModel';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TRANSACTION_ID_LOCAL_STORAGE_KEY } from "src/app/core/models/constModel";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-    selector: 'app-core-modulesaleheader-sale-payment',
-    templateUrl: './sale-payment.component.html',
-    styleUrls: ['./sale-payment.component.scss'],
-    standalone: false
+  selector: "app-core-modulesaleheader-sale-payment",
+  templateUrl: "./sale-payment.component.html",
+  styleUrls: ["./sale-payment.component.scss"],
+  standalone: false,
 })
 export class CoreModuleSaleHeaderSalePaymentComponent implements OnInit {
   requestLinkHeaderId = 0;
@@ -41,7 +40,7 @@ export class CoreModuleSaleHeaderSalePaymentComponent implements OnInit {
     this.publicHelper.processService.cdr = this.cdr;
 
     if (data) {
-      this.requestLinkHeaderId = + data.linkHeaderId || 0;
+      this.requestLinkHeaderId = +data.linkHeaderId || 0;
     }
     if (this.requestLinkHeaderId === 0) {
       this.cmsToastrService.typeErrorComponentAction();
@@ -55,82 +54,97 @@ export class CoreModuleSaleHeaderSalePaymentComponent implements OnInit {
   }
   viewCalculate = true;
 
-
-  dataModelResult: ErrorExceptionResult<BankPaymentPrivateSiteConfigModel> = new ErrorExceptionResult<BankPaymentPrivateSiteConfigModel>();
-  dataModelCalculateResult: ErrorExceptionResult<BankPaymentInjectPaymentGotoBankStep1CalculateModel>
-    = new ErrorExceptionResult<BankPaymentInjectPaymentGotoBankStep1CalculateModel>();
-  dataModelPaymentResult: ErrorExceptionResult<BankPaymentInjectPaymentGotoBankStep2LandingSitePageModel>
-    = new ErrorExceptionResult<BankPaymentInjectPaymentGotoBankStep2LandingSitePageModel>();
-  dataModelCalculate: CoreModuleSaleHeaderCalculateDtoModel = new CoreModuleSaleHeaderCalculateDtoModel();
-  dataModelPayment: CoreModuleSaleHeaderPaymentDtoModel = new CoreModuleSaleHeaderPaymentDtoModel();
+  dataModelResult: ErrorExceptionResult<BankPaymentPrivateSiteConfigModel> =
+    new ErrorExceptionResult<BankPaymentPrivateSiteConfigModel>();
+  dataModelCalculateResult: ErrorExceptionResult<BankPaymentInjectPaymentGotoBankStep1CalculateModel> =
+    new ErrorExceptionResult<BankPaymentInjectPaymentGotoBankStep1CalculateModel>();
+  dataModelPaymentResult: ErrorExceptionResult<BankPaymentInjectPaymentGotoBankStep2LandingSitePageModel> =
+    new ErrorExceptionResult<BankPaymentInjectPaymentGotoBankStep2LandingSitePageModel>();
+  dataModelCalculate: CoreModuleSaleHeaderCalculateDtoModel =
+    new CoreModuleSaleHeaderCalculateDtoModel();
+  dataModelPayment: CoreModuleSaleHeaderPaymentDtoModel =
+    new CoreModuleSaleHeaderPaymentDtoModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
-
   ngOnInit(): void {
-    this.translate.get('TITLE.Select_Payment_Gateway').subscribe((str: string) => {
-      this.formInfo.formTitle = str;
-    });
-
+    this.translate
+      .get("TITLE.Select_Payment_Gateway")
+      .subscribe((str: string) => {
+        this.formInfo.formTitle = str;
+      });
   }
 
   DataCalculate(): void {
     // this.viewCalculate = true;
     //console.log('r');
-    const pName = this.constructor.name + 'ServiceOrderCalculate';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
-    this.coreModuleSaleHeaderService.ServiceOrderCalculate(this.dataModelCalculate).subscribe({
-      next: (ret) => {
-        if (ret.isSuccess) {
-          this.dataModelCalculateResult = ret;
-          //console.log('a');
-          this.viewCalculate = !this.viewCalculate;
-        }
-        else {
-          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-        }
-        this.publicHelper.processService.processStop(pName);
+    const pName = this.constructor.name + "ServiceOrderCalculate";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
+    this.coreModuleSaleHeaderService
+      .ServiceOrderCalculate(this.dataModelCalculate)
+      .subscribe({
+        next: (ret) => {
+          if (ret.isSuccess) {
+            this.dataModelCalculateResult = ret;
+            //console.log('a');
+            this.viewCalculate = !this.viewCalculate;
+          } else {
+            this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+          }
+          this.publicHelper.processService.processStop(pName);
+        },
+        error: (er) => {
+          this.cmsToastrService.typeError(er);
 
-      },
-      error: (er) => {
-        this.cmsToastrService.typeError(er);
-
-        this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+          this.publicHelper.processService.processStop(pName, false);
+        },
+      });
   }
   DataPayment(): void {
-    const pName = this.constructor.name + 'ServiceOrderPayment';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
-    this.coreModuleSaleHeaderService.ServiceOrderPayment(this.dataModelPayment).subscribe({
-      next: (ret) => {
-        if (ret.isSuccess) {
-          this.dataModelPaymentResult = ret;
-          this.translate.get('MESSAGE.Transferring_to_the_payment_gateway').subscribe((str: string) => {
-            this.cmsToastrService.typeSuccessMessage(str);
-          });
-          localStorage.setItem(
-            TRANSACTION_ID_LOCAL_STORAGE_KEY,
-            ret.item.transactionId.toString(),
-          );
-          this.document.location.href = this.dataModelPaymentResult.item.urlToPay;
-        }
-        else {
-          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-        }
-        this.publicHelper.processService.processStop(pName);
-
-      },
-      error: (er) => {
-        this.cmsToastrService.typeError(er);
-        this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+    const pName = this.constructor.name + "ServiceOrderPayment";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
+    this.coreModuleSaleHeaderService
+      .ServiceOrderPayment(this.dataModelPayment)
+      .subscribe({
+        next: (ret) => {
+          if (ret.isSuccess) {
+            this.dataModelPaymentResult = ret;
+            this.translate
+              .get("MESSAGE.Transferring_to_the_payment_gateway")
+              .subscribe((str: string) => {
+                this.cmsToastrService.typeSuccessMessage(str);
+              });
+            localStorage.setItem(
+              TRANSACTION_ID_LOCAL_STORAGE_KEY,
+              ret.item.transactionId.toString(),
+            );
+            this.document.location.href =
+              this.dataModelPaymentResult.item.urlToPay;
+          } else {
+            this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+          }
+          this.publicHelper.processService.processStop(pName);
+        },
+        error: (er) => {
+          this.cmsToastrService.typeError(er);
+          this.publicHelper.processService.processStop(pName, false);
+        },
+      });
   }
   onActionSelectCalculate(model: BankPaymentPrivateSiteConfigModel): void {
     this.dataModelCalculate.bankPaymentPrivateId = model.id;
@@ -138,7 +152,6 @@ export class CoreModuleSaleHeaderSalePaymentComponent implements OnInit {
     this.DataCalculate();
   }
   onActionSelectBankPayment(): void {
-
     this.DataPayment();
   }
   onFormCancel(): void {

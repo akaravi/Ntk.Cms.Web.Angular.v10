@@ -1,5 +1,4 @@
-
-import { NestedTreeControl } from '@angular/cdk/tree';
+import { NestedTreeControl } from "@angular/cdk/tree";
 import {
   ChangeDetectorRef,
   Component,
@@ -7,27 +6,27 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+  Output,
+} from "@angular/core";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
-import { TranslateService } from '@ngx-translate/core';
-import {
-  CoreEnumService, CoreLocationModel,
-  CoreLocationService, ErrorExceptionResult, FilterDataModel, FilterModel
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { environment } from 'src/environments/environment';
-import { CoreLocationAddComponent } from '../add/add.component';
-import { CoreLocationEditComponent } from '../edit/edit.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
-
+  CoreEnumService,
+  CoreLocationModel,
+  CoreLocationService,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterModel,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { environment } from "src/environments/environment";
+import { CoreLocationAddComponent } from "../add/add.component";
+import { CoreLocationEditComponent } from "../edit/edit.component";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 
 @Component({
   selector: "app-core-location-tree",

@@ -1,15 +1,15 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 
 @Component({
-    selector: 'app-input-int',
-    templateUrl: './int.component.html',
-    styleUrls: ['./int.component.scss'],
-    standalone: false
+  selector: "app-input-int",
+  templateUrl: "./int.component.html",
+  styleUrls: ["./int.component.scss"],
+  standalone: false,
 })
 export class IntComponent implements OnInit {
   static nextId = 0;
   id = ++IntComponent.nextId;
-  constructor() { }
+  constructor() {}
   @Input()
   set model(value: number) {
     this.privateModelDate = value;
@@ -19,8 +19,8 @@ export class IntComponent implements OnInit {
   @Input() optionValueMax: number = null;
   @Input() optionRequired = false;
   @Input() optionDisabled = false;
-  @Input() optionLabel = '';
-  @Input() optionPlaceholder = '';
+  @Input() optionLabel = "";
+  @Input() optionPlaceholder = "";
 
   private privateModelDate: number;
   get modelDate(): number {
@@ -36,7 +36,5 @@ export class IntComponent implements OnInit {
     this.privateModelDate = value;
     this.modelChange.emit(value);
   }
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

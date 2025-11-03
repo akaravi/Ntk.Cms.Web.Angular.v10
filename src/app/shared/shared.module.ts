@@ -1,54 +1,59 @@
-﻿import { TreeModule } from '@ali-hm/angular-tree-component';
-import { ClipboardModule } from '@angular/cdk/clipboard';
-import { PlatformModule } from '@angular/cdk/platform';
-import { CdkTableModule } from '@angular/cdk/table';
-import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatButtonModule } from '@angular/material/button';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatCardModule } from '@angular/material/card';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatChipsModule } from '@angular/material/chips';
+﻿import { TreeModule } from "@ali-hm/angular-tree-component";
+import { ClipboardModule } from "@angular/cdk/clipboard";
+import { PlatformModule } from "@angular/cdk/platform";
+import { CdkTableModule } from "@angular/cdk/table";
+import { CommonModule } from "@angular/common";
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withFetch,
+  withInterceptorsFromDi,
+} from "@angular/common/http";
+import { ModuleWithProviders, NgModule } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { MatButtonModule } from "@angular/material/button";
+import { MatButtonToggleModule } from "@angular/material/button-toggle";
+import { MatCardModule } from "@angular/material/card";
+import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatChipsModule } from "@angular/material/chips";
 import {
   DateAdapter,
   MAT_DATE_FORMATS,
   MAT_DATE_LOCALE,
   MatNativeDateModule,
-  MatRippleModule
-} from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatListModule } from '@angular/material/list';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatSortModule } from '@angular/material/sort';
-import { MatStepperModule } from '@angular/material/stepper';
-import { MatTableModule } from '@angular/material/table';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatTreeModule } from '@angular/material/tree';
-import { LeafletModule } from '@bluehalo/ngx-leaflet';
-import { NgbDropdownModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
-import { NgApexchartsModule } from 'ng-apexcharts';
-import { CurrencyMaskModule } from 'ng2-currency-mask';
+  MatRippleModule,
+} from "@angular/material/core";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatExpansionModule } from "@angular/material/expansion";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatGridListModule } from "@angular/material/grid-list";
+import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from "@angular/material/input";
+import { MatListModule } from "@angular/material/list";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatRadioModule } from "@angular/material/radio";
+import { MatSelectModule } from "@angular/material/select";
+import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { MatSliderModule } from "@angular/material/slider";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatSortModule } from "@angular/material/sort";
+import { MatStepperModule } from "@angular/material/stepper";
+import { MatTableModule } from "@angular/material/table";
+import { MatTabsModule } from "@angular/material/tabs";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatTreeModule } from "@angular/material/tree";
+import { LeafletModule } from "@bluehalo/ngx-leaflet";
+import { NgbDropdownModule, NgbNavModule } from "@ng-bootstrap/ng-bootstrap";
+import { TranslateService } from "@ngx-translate/core";
+import { NgApexchartsModule } from "ng-apexcharts";
+import { CurrencyMaskModule } from "ng2-currency-mask";
 import {
   ApplicationAppService,
   BankPaymentEnumService,
@@ -70,118 +75,125 @@ import {
   CoreUserService,
   MemberUserService,
   SmsMainApiNumberService,
-  SmsMainApiPathService
-} from 'ntk-cms-api';
-import { CmsFileManagerModule } from 'ntk-cms-filemanager';
-import { NgOtpInputModule } from '../core/cmsComponent/ng-otp-input/ng-otp-input.module';
-import { CmsHtmlTreeActionDirective, CmsHtmlTreeBodyDirective, CmsHtmlTreeFooterDirective, CmsHtmlTreeHeaderDirective } from '../core/directive/cms-html-tree.directive';
-import { CmsRecordStatusSelfSaveDirective } from '../core/directive/cms-record-status-self-save.directive';
-import { DirDirective } from '../core/directive/dir.directive';
-import { InlineSVGComponent } from '../core/directive/inline-svg.component';
-import { InlineSVGDirective } from '../core/directive/inline-svg.directive';
-import { MatInputCommifiedDirective } from '../core/directive/mat-input-commified.directive';
-import { MatVerticalStepperScrollerDirective } from '../core/directive/mat-vertical-stepper.directive';
-import { ClipboardIfSupportedDirective } from '../core/directive/ngx-clipboard-if-supported.directive';
-import { ClipboardDirective } from '../core/directive/ngx-clipboard.directive';
-import { PhoneDirective } from '../core/directive/phone.directive';
-import { RunScriptsDirective } from '../core/directive/runScripts.directive';
-import { SelfSaveDirective } from '../core/directive/self-save.directive';
-import { TooltipGuideDirective } from '../core/directive/tooltip-guide.directive';
-import { TooltipDirective } from '../core/directive/tooltip.directive';
-import { BooleanComponent } from '../core/dynamic-input-builder/boolean/boolean.component';
-import { DateComponent } from '../core/dynamic-input-builder/date/date.component';
-import { FloatComponent } from '../core/dynamic-input-builder/float/float.component';
-import { IntComponent } from '../core/dynamic-input-builder/int/int.component';
-import { StringComponent } from '../core/dynamic-input-builder/string/string.component';
-import { TextAreaComponent } from '../core/dynamic-input-builder/text-area/text-area.component';
+  SmsMainApiPathService,
+} from "ntk-cms-api";
+import { CmsFileManagerModule } from "ntk-cms-filemanager";
+import { NgOtpInputModule } from "../core/cmsComponent/ng-otp-input/ng-otp-input.module";
+import {
+  CmsHtmlTreeActionDirective,
+  CmsHtmlTreeBodyDirective,
+  CmsHtmlTreeFooterDirective,
+  CmsHtmlTreeHeaderDirective,
+} from "../core/directive/cms-html-tree.directive";
+import { CmsRecordStatusSelfSaveDirective } from "../core/directive/cms-record-status-self-save.directive";
+import { DirDirective } from "../core/directive/dir.directive";
+import { InlineSVGComponent } from "../core/directive/inline-svg.component";
+import { InlineSVGDirective } from "../core/directive/inline-svg.directive";
+import { MatInputCommifiedDirective } from "../core/directive/mat-input-commified.directive";
+import { MatVerticalStepperScrollerDirective } from "../core/directive/mat-vertical-stepper.directive";
+import { ClipboardIfSupportedDirective } from "../core/directive/ngx-clipboard-if-supported.directive";
+import { ClipboardDirective } from "../core/directive/ngx-clipboard.directive";
+import { PhoneDirective } from "../core/directive/phone.directive";
+import { RunScriptsDirective } from "../core/directive/runScripts.directive";
+import { SelfSaveDirective } from "../core/directive/self-save.directive";
+import { TooltipGuideDirective } from "../core/directive/tooltip-guide.directive";
+import { TooltipDirective } from "../core/directive/tooltip.directive";
+import { BooleanComponent } from "../core/dynamic-input-builder/boolean/boolean.component";
+import { DateComponent } from "../core/dynamic-input-builder/date/date.component";
+import { FloatComponent } from "../core/dynamic-input-builder/float/float.component";
+import { IntComponent } from "../core/dynamic-input-builder/int/int.component";
+import { StringComponent } from "../core/dynamic-input-builder/string/string.component";
+import { TextAreaComponent } from "../core/dynamic-input-builder/text-area/text-area.component";
 
-import { TokenHelper } from '../core/helpers/tokenHelper';
-import { CmsTranslateModule } from '../core/i18n';
-import { HttpConfigInterceptor } from '../core/interceptor/httpConfigInterceptor';
-import { BoolStatusClassPipe } from '../core/pipe/boolStatusClass.pipe';
-import { CmsImageThumbnailPipe } from '../core/pipe/cms-image-thumbnail.pipe';
-import { CmsTitlePipe } from '../core/pipe/cms-title.pipe';
-import { CmsModuleInfoPipe } from '../core/pipe/core/cms-module-info.pipe';
-import { CmsSiteInfoPipe } from '../core/pipe/core/cms-site-info.pipe';
-import { CmsUserInfoPipe } from '../core/pipe/core/cms-user-info.pipe';
-import { EnumsPipe } from '../core/pipe/enums.pipe';
-import { FirstLetterPipe } from '../core/pipe/first-letter.pipe';
-import { ListKeysPipe } from '../core/pipe/list-keys.pipe';
-import { LocaleDateTime } from '../core/pipe/local-date-Time.pipe';
-import { LocaleDate } from '../core/pipe/local-date.pipe';
-import { PersianDateFull } from '../core/pipe/persian-date/persian-date-full.pipe';
-import { PersianDate } from '../core/pipe/persian-date/persian-date.pipe';
-import { PrettyjsonPipe } from '../core/pipe/prettyjson.pipe';
-import { PrettyLinePipe } from '../core/pipe/prettyLine.pipe';
-import { RecordStatusCellClassPipe } from '../core/pipe/recordStatusCellClass.pipe';
-import { RecordStatusIconClassPipe } from '../core/pipe/recordStatusIconClass.pipe';
-import { ReplaceTextPipe } from '../core/pipe/repalaceTest.pip';
-import { SafePipe } from '../core/pipe/safe.pipe';
-import { SafeHtmlPipe } from '../core/pipe/safeHtml.pipe';
-import { SortTypeIconClassPipe } from '../core/pipe/sortTypeIconClass.pipe';
-import { TruncatePipe } from '../core/pipe/truncate.pipe';
-import { ValueArrayPipe } from '../core/pipe/valueArray.pipe';
-import { NgxQueryBuilderComponent } from '../core/query-builder/ngx-ntk-query-builder.component';
-import { ThemeService } from '../core/services/theme.service';
-import { Cms360ImageListComponent } from './cms-360-image-list/cms-360-image-list.component';
-import { Cms360TourListComponent } from './cms-360-tour-list/cms-360-tour-list.component';
-import { CmsAccessInfoComponent } from './cms-access-info/cms-access-info.component';
-import { CmsApplicationSelectorComponent } from './cms-application-selector/cms-application-selector.component';
-import { CmsBankpaymentGridComponent } from './cms-bankpayment-grid/cms-bankpayment-grid.component';
-import { CmsBankpaymentTransactionInfoComponent } from './cms-bankpayment-transaction-info/cms-bankpayment-transaction-info.component';
-import { CmsContactCategoryTreeSelectorComponent } from './cms-contact-category-tree-selector/cms-contact-category-tree-selector.component';
-import { CmsContactContentSelectionListComponent } from './cms-contact-content-selection-list/cms-contact-content-selection-list.component';
-import { CmsCurrencySelectorComponent } from './cms-currency-selector/cms-currency-selector.component';
-import { CmsDataCommentComponent } from './cms-data-comment/cms-data-comment.component';
-import { CmsDataMemoComponent } from './cms-data-memo/cms-data-memo.component';
-import { CmsDataPinComponent } from './cms-data-pin/cms-data-pin.component';
-import { CmsDataTaskComponent } from './cms-data-task/cms-data-task.component';
-import { CmsEnumRecordStatusSelectorComponent } from './cms-enum-record-status-selector/cms-enum-record-status-selector.component';
-import { CmsEnumXSelectionListComponent } from './cms-enum-x-selectionlist/cms-enum-x-selectionlist.component';
-import { CmsEnumXSelectorComponent } from './cms-enum-x-selector/cms-enum-x-selector.component';
-import { CmsExportEntityComponent } from './cms-export-entity/cms-export-entity.component';
-import { CmsExportListComponent } from './cms-export-list/cmsExportList.component';
-import { CmsFilesSelectorComponent } from './cms-files-selector/cms-files-selector.component';
-import { CmsFormBuilderPropertiesComponent } from './cms-form-builder-properties/cms-form-builder-properties.component';
-import { CmsGuideinfoComponent } from './cms-guide-info/cms-guide-info.component';
-import { CmsGuideNoticeComponent } from './cms-guide-notice/cms-guide-notice.component';
-import { CmsHtmlCardComponent } from './cms-html-card/cms-html-card.component';
-import { CmsHtmlListComponent } from './cms-html-list/cms-html-list.component';
-import { CmsHtmlModalComponent } from './cms-html-modal/cms-html-modal.component';
-import { CmsHtmlNoticeComponent } from './cms-html-notice/cms-html-notice.component';
-import { CmsHtmlTreeComponent } from './cms-html-tree/cms-html-tree.component';
-import { CmsHtmlWidgetComponent } from './cms-html-widget/cms-html-widget.component';
-import { CmsJsonListComponent } from './cms-json-list/cmsJsonList.component';
-import { CmsLinkToComponent } from './cms-link-to/cms-link-to.component';
-import { CmsLocationCompleteComponent } from './cms-location-autocomplete/cms-location-autocomplete.component';
-import { CmsLocationSelectorComponent } from './cms-location-selector/cms-location-selector.component';
-import { CmsMapComponent } from './cms-map/cms-map.component';
-import { CmsMemberSelectorComponent } from './cms-member-selector/cmsMemberSelector.component';
-import { CmsModuleSelectorComponent } from './cms-module-selector/cms-module-selector.component';
-import { CmsQDocComponent } from './cms-qdoc/cms-qdoc.component';
-import { CmsSearchListComponent } from './cms-search-list/cms-search-list.component';
-import { CmsShowKeyComponent } from './cms-show-key/cms-show-key.component';
-import { CmsSiteCategorySelectionListComponent } from './cms-site-category-selection-list/cmsSiteCategorySelectionList.component';
-import { CmsSiteCategorySelectorComponent } from './cms-site-category-selector/cmsSiteCategorySelector.component';
-import { CmsSiteCreditViewComponent } from './cms-site-credit-view/cms-site-credit-view.component';
-import { CmsSiteSelectorComponent } from './cms-site-selector/cmsSiteSelector.component';
-import { CmsSiteUserCreditViewComponent } from './cms-site-user-credit-view/cms-site-user-credit-view.component';
-import { CmsSmsMainApiNumberSelectorComponent } from './cms-sms-api-number-selector/cms-sms-api-number-selector.component';
-import { CmsSmsMainApiPathSelectorComponent } from './cms-sms-apipath-selector/cms-sms-apipath-selector.component';
-import { CmsStatistListComponent } from './cms-statist-list/cms-statist-list.component';
-import { CmsTagAutocompleteComponent } from './cms-tag-autocomplete/cms-tag-autocomplete.component';
-import { CmsTokenAccessComponent } from './cms-token-access/cmsTokenAccess.component';
-import { CmsUserGroupSelectorComponent } from './cms-user-group-selector/cmsUserGroupSelector.component';
-import { CmsUserSelectorComponent } from './cms-user-selector/cmsUserSelector.component';
-import { CmsViewComponent } from './cms-view/cms-view.component';
-import { MaterialPersianDateAdapter, PERSIAN_DATE_FORMATS } from './material/material.persian-date.adapter';
-import { OverlayService } from './overlay/overlay.service';
-import { PasswordStrengthComponent } from './password-strength/password-strength.component';
-import { ProgressSpinnerComponent } from './progress-spinner/progress-spinner.component';
-import { DomChangeDirective } from '../core/directive/domChange.directive';
-import { LocaleTime } from '../core/pipe/local-Time.pipe';
-import { CmsToastrService } from '../core/services/cmsToastr.service';
-
+import { TokenHelper } from "../core/helpers/tokenHelper";
+import { CmsTranslateModule } from "../core/i18n";
+import { HttpConfigInterceptor } from "../core/interceptor/httpConfigInterceptor";
+import { BoolStatusClassPipe } from "../core/pipe/boolStatusClass.pipe";
+import { CmsImageThumbnailPipe } from "../core/pipe/cms-image-thumbnail.pipe";
+import { CmsTitlePipe } from "../core/pipe/cms-title.pipe";
+import { CmsModuleInfoPipe } from "../core/pipe/core/cms-module-info.pipe";
+import { CmsSiteInfoPipe } from "../core/pipe/core/cms-site-info.pipe";
+import { CmsUserInfoPipe } from "../core/pipe/core/cms-user-info.pipe";
+import { EnumsPipe } from "../core/pipe/enums.pipe";
+import { FirstLetterPipe } from "../core/pipe/first-letter.pipe";
+import { ListKeysPipe } from "../core/pipe/list-keys.pipe";
+import { LocaleDateTime } from "../core/pipe/local-date-Time.pipe";
+import { LocaleDate } from "../core/pipe/local-date.pipe";
+import { PersianDateFull } from "../core/pipe/persian-date/persian-date-full.pipe";
+import { PersianDate } from "../core/pipe/persian-date/persian-date.pipe";
+import { PrettyjsonPipe } from "../core/pipe/prettyjson.pipe";
+import { PrettyLinePipe } from "../core/pipe/prettyLine.pipe";
+import { RecordStatusCellClassPipe } from "../core/pipe/recordStatusCellClass.pipe";
+import { RecordStatusIconClassPipe } from "../core/pipe/recordStatusIconClass.pipe";
+import { ReplaceTextPipe } from "../core/pipe/repalaceTest.pip";
+import { SafePipe } from "../core/pipe/safe.pipe";
+import { SafeHtmlPipe } from "../core/pipe/safeHtml.pipe";
+import { SortTypeIconClassPipe } from "../core/pipe/sortTypeIconClass.pipe";
+import { TruncatePipe } from "../core/pipe/truncate.pipe";
+import { ValueArrayPipe } from "../core/pipe/valueArray.pipe";
+import { NgxQueryBuilderComponent } from "../core/query-builder/ngx-ntk-query-builder.component";
+import { ThemeService } from "../core/services/theme.service";
+import { Cms360ImageListComponent } from "./cms-360-image-list/cms-360-image-list.component";
+import { Cms360TourListComponent } from "./cms-360-tour-list/cms-360-tour-list.component";
+import { CmsAccessInfoComponent } from "./cms-access-info/cms-access-info.component";
+import { CmsApplicationSelectorComponent } from "./cms-application-selector/cms-application-selector.component";
+import { CmsBankpaymentGridComponent } from "./cms-bankpayment-grid/cms-bankpayment-grid.component";
+import { CmsBankpaymentTransactionInfoComponent } from "./cms-bankpayment-transaction-info/cms-bankpayment-transaction-info.component";
+import { CmsContactCategoryTreeSelectorComponent } from "./cms-contact-category-tree-selector/cms-contact-category-tree-selector.component";
+import { CmsContactContentSelectionListComponent } from "./cms-contact-content-selection-list/cms-contact-content-selection-list.component";
+import { CmsCurrencySelectorComponent } from "./cms-currency-selector/cms-currency-selector.component";
+import { CmsDataCommentComponent } from "./cms-data-comment/cms-data-comment.component";
+import { CmsDataMemoComponent } from "./cms-data-memo/cms-data-memo.component";
+import { CmsDataPinComponent } from "./cms-data-pin/cms-data-pin.component";
+import { CmsDataTaskComponent } from "./cms-data-task/cms-data-task.component";
+import { CmsEnumRecordStatusSelectorComponent } from "./cms-enum-record-status-selector/cms-enum-record-status-selector.component";
+import { CmsEnumXSelectionListComponent } from "./cms-enum-x-selectionlist/cms-enum-x-selectionlist.component";
+import { CmsEnumXSelectorComponent } from "./cms-enum-x-selector/cms-enum-x-selector.component";
+import { CmsExportEntityComponent } from "./cms-export-entity/cms-export-entity.component";
+import { CmsExportListComponent } from "./cms-export-list/cmsExportList.component";
+import { CmsFilesSelectorComponent } from "./cms-files-selector/cms-files-selector.component";
+import { CmsFormBuilderPropertiesComponent } from "./cms-form-builder-properties/cms-form-builder-properties.component";
+import { CmsGuideinfoComponent } from "./cms-guide-info/cms-guide-info.component";
+import { CmsGuideNoticeComponent } from "./cms-guide-notice/cms-guide-notice.component";
+import { CmsHtmlCardComponent } from "./cms-html-card/cms-html-card.component";
+import { CmsHtmlListComponent } from "./cms-html-list/cms-html-list.component";
+import { CmsHtmlModalComponent } from "./cms-html-modal/cms-html-modal.component";
+import { CmsHtmlNoticeComponent } from "./cms-html-notice/cms-html-notice.component";
+import { CmsHtmlTreeComponent } from "./cms-html-tree/cms-html-tree.component";
+import { CmsHtmlWidgetComponent } from "./cms-html-widget/cms-html-widget.component";
+import { CmsJsonListComponent } from "./cms-json-list/cmsJsonList.component";
+import { CmsLinkToComponent } from "./cms-link-to/cms-link-to.component";
+import { CmsLocationCompleteComponent } from "./cms-location-autocomplete/cms-location-autocomplete.component";
+import { CmsLocationSelectorComponent } from "./cms-location-selector/cms-location-selector.component";
+import { CmsMapComponent } from "./cms-map/cms-map.component";
+import { CmsMemberSelectorComponent } from "./cms-member-selector/cmsMemberSelector.component";
+import { CmsModuleSelectorComponent } from "./cms-module-selector/cms-module-selector.component";
+import { CmsQDocComponent } from "./cms-qdoc/cms-qdoc.component";
+import { CmsSearchListComponent } from "./cms-search-list/cms-search-list.component";
+import { CmsShowKeyComponent } from "./cms-show-key/cms-show-key.component";
+import { CmsSiteCategorySelectionListComponent } from "./cms-site-category-selection-list/cmsSiteCategorySelectionList.component";
+import { CmsSiteCategorySelectorComponent } from "./cms-site-category-selector/cmsSiteCategorySelector.component";
+import { CmsSiteCreditViewComponent } from "./cms-site-credit-view/cms-site-credit-view.component";
+import { CmsSiteSelectorComponent } from "./cms-site-selector/cmsSiteSelector.component";
+import { CmsSiteUserCreditViewComponent } from "./cms-site-user-credit-view/cms-site-user-credit-view.component";
+import { CmsSmsMainApiNumberSelectorComponent } from "./cms-sms-api-number-selector/cms-sms-api-number-selector.component";
+import { CmsSmsMainApiPathSelectorComponent } from "./cms-sms-apipath-selector/cms-sms-apipath-selector.component";
+import { CmsStatistListComponent } from "./cms-statist-list/cms-statist-list.component";
+import { CmsTagAutocompleteComponent } from "./cms-tag-autocomplete/cms-tag-autocomplete.component";
+import { CmsTokenAccessComponent } from "./cms-token-access/cmsTokenAccess.component";
+import { CmsUserGroupSelectorComponent } from "./cms-user-group-selector/cmsUserGroupSelector.component";
+import { CmsUserSelectorComponent } from "./cms-user-selector/cmsUserSelector.component";
+import { CmsViewComponent } from "./cms-view/cms-view.component";
+import {
+  MaterialPersianDateAdapter,
+  PERSIAN_DATE_FORMATS,
+} from "./material/material.persian-date.adapter";
+import { OverlayService } from "./overlay/overlay.service";
+import { PasswordStrengthComponent } from "./password-strength/password-strength.component";
+import { ProgressSpinnerComponent } from "./progress-spinner/progress-spinner.component";
+import { DomChangeDirective } from "../core/directive/domChange.directive";
+import { LocaleTime } from "../core/pipe/local-Time.pipe";
+import { CmsToastrService } from "../core/services/cmsToastr.service";
 
 @NgModule({
   declarations: [

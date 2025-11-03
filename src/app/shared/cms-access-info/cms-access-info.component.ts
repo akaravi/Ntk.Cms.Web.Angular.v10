@@ -1,13 +1,19 @@
-import { ChangeDetectorRef, Component, Inject, Input, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { AccessModel } from 'ntk-cms-api';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  Input,
+  OnInit,
+} from "@angular/core";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { AccessModel } from "ntk-cms-api";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 @Component({
-    selector: 'app-cms-access-info',
-    templateUrl: './cms-access-info.component.html',
-    standalone: false
+  selector: "app-cms-access-info",
+  templateUrl: "./cms-access-info.component.html",
+  standalone: false,
 })
 export class CmsAccessInfoComponent implements OnInit {
   static nextId = 0;
@@ -23,7 +29,7 @@ export class CmsAccessInfoComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<CmsAccessInfoComponent>,
     private tokenHelper: TokenHelper,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     private cmsToastrService: CmsToastrService,
   ) {
@@ -31,8 +37,7 @@ export class CmsAccessInfoComponent implements OnInit {
       this.access = data.access;
     }
   }
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   bodyShow = false;
   onActionMoreBottunClick() {
@@ -48,10 +53,8 @@ export class CmsAccessInfoComponent implements OnInit {
     Promise.resolve().then(() => this.cdr.detectChanges());
   }
   detectColor(value: boolean) {
-    if (value === true)
-      return "table-success"
+    if (value === true) return "table-success";
 
-    return "table-danger"
-
+    return "table-danger";
   }
 }

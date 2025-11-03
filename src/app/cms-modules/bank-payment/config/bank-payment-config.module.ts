@@ -1,17 +1,18 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AngularEditorModule } from '@kolkov/angular-editor';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { AngularEditorModule } from "@kolkov/angular-editor";
 import {
-  BankPaymentConfigurationService, CoreModuleService
-} from 'ntk-cms-api';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { BankPaymentConfigRouting } from './bank-payment-config.routing';
-import { BankPaymentConfigCheckSiteComponent } from './check-site/check-site.component';
-import { BankPaymentConfigCheckUserComponent } from './check-user/check-user.component';
-import { BankPaymentConfigMainAdminComponent } from './main-admin/config-main-admin.component';
-import { BankPaymentConfigSiteComponent } from './site/config-site.component';
-import { BankPaymentConfigComponent } from './bank-payment-config.component';
+  BankPaymentConfigurationService,
+  CoreModuleService,
+} from "ntk-cms-api";
+import { SharedModule } from "src/app/shared/shared.module";
+import { BankPaymentConfigRouting } from "./bank-payment-config.routing";
+import { BankPaymentConfigCheckSiteComponent } from "./check-site/check-site.component";
+import { BankPaymentConfigCheckUserComponent } from "./check-user/check-user.component";
+import { BankPaymentConfigMainAdminComponent } from "./main-admin/config-main-admin.component";
+import { BankPaymentConfigSiteComponent } from "./site/config-site.component";
+import { BankPaymentConfigComponent } from "./bank-payment-config.component";
 @NgModule({
   declarations: [
     BankPaymentConfigComponent,
@@ -34,14 +35,10 @@ import { BankPaymentConfigComponent } from './bank-payment-config.component';
     CommonModule,
     FormsModule,
     BankPaymentConfigRouting,
-    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     SharedModule,
     AngularEditorModule,
   ],
-  providers: [
-    CoreModuleService,
-    BankPaymentConfigurationService,
-  ]
+  providers: [CoreModuleService, BankPaymentConfigurationService],
 })
-export class BankPaymentConfigModule {
-}
+export class BankPaymentConfigModule {}

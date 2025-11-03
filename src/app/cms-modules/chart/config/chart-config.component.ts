@@ -1,17 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'app-chart-config',
-  template: '<router-outlet></router-outlet>',
-   standalone: false
+  selector: "app-chart-config",
+  template: "<router-outlet></router-outlet>",
+  standalone: false,
 })
 export class ChartConfigComponent implements OnInit {
-
   constructorInfoAreaId = this.constructor.name;
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

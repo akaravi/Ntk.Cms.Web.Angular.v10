@@ -1,6 +1,5 @@
-import { Injectable, Pipe } from '@angular/core';
-import { PersianCalendarService } from './persian-date/persian-date.service';
-
+import { Injectable, Pipe } from "@angular/core";
+import { PersianCalendarService } from "./persian-date/persian-date.service";
 
 /*
   Generated class for the PersianDate pipe.
@@ -10,51 +9,47 @@ import { PersianCalendarService } from './persian-date/persian-date.service';
 */
 // tslint:disable-next-line: use-pipe-transform-interface
 @Pipe({
-    name: 'localeDate',
-    standalone: false
+  name: "localeDate",
+  standalone: false,
 })
 @Injectable()
 export class LocaleDate {
   /**
    *
    */
-  constructor(public persianCalendarService: PersianCalendarService) {
-
-  }
+  constructor(public persianCalendarService: PersianCalendarService) {}
   /*
     Takes a value and convert it to
    */
   transform(value: string | Date): string {
-    if (typeof value === 'string') {
+    if (typeof value === "string") {
       if (!value || value.length === 0) {
-        return '';
+        return "";
       }
       const d = new Date(value);
       if (!d) {
-        return '';
+        return "";
       }
       const hundredYearsAgo = new Date();
       hundredYearsAgo.setFullYear(hundredYearsAgo.getFullYear() - 100);
       if (d < hundredYearsAgo) {
-        return '';
+        return "";
       }
-      return d.toLocaleDateString('fa-Ir');
+      return d.toLocaleDateString("fa-Ir");
       //return this.persianCalendarService.PersianCalendar(d);
     }
     if (typeof value === typeof Date) {
       if (!value) {
-        return '';
+        return "";
       }
       const hundredYearsAgo = new Date();
       hundredYearsAgo.setFullYear(hundredYearsAgo.getFullYear() - 100);
       if (value < hundredYearsAgo) {
-        return '';
+        return "";
       }
-      return value.toLocaleDateString('fa-Ir');
+      return value.toLocaleDateString("fa-Ir");
       //return this.persianCalendarService.PersianCalendar(value);
     }
     return "";
-
-
   }
 }

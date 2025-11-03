@@ -1,27 +1,25 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
   CoreModuleService,
-  CoreSiteCategoryCmsModuleService
-} from 'ntk-cms-api';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { CoreSiteCategoryCmsModuleListComponent } from './list/list.component';
-import { CoreSiteCategoryCmsModuleSelectorComponent } from './selector/selector.component';
+  CoreSiteCategoryCmsModuleService,
+} from "ntk-cms-api";
+import { SharedModule } from "src/app/shared/shared.module";
+import { CoreSiteCategoryCmsModuleListComponent } from "./list/list.component";
+import { CoreSiteCategoryCmsModuleSelectorComponent } from "./selector/selector.component";
 
+import { AngularEditorModule } from "@kolkov/angular-editor";
 
-import { AngularEditorModule } from '@kolkov/angular-editor';
-
-import { CmsConfirmationDialogService } from 'src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service';
-import { CoreModuleModule } from '../module/coreModule.module';
-import { CoreSiteCategoryCmsModule } from '../site-category/coreSiteCategory.module';
-import { CoreSiteCategoryCmsModuleAddComponent } from './add/add.component';
-import { CoreSiteCategoryCmsModuleComponent } from './coreSiteCategoryCmsModule.component';
-import { CoreSiteCategoryCmsModuleRouting } from './coreSiteCategoryCmsModule.routing';
-import { CoreSiteCategoryCmsModuleEditComponent } from './edit/edit.component';
-import { CoreSiteCategoryCmsModuleListViewComponent } from './listview/listview.component';
-
+import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { CoreModuleModule } from "../module/coreModule.module";
+import { CoreSiteCategoryCmsModule } from "../site-category/coreSiteCategory.module";
+import { CoreSiteCategoryCmsModuleAddComponent } from "./add/add.component";
+import { CoreSiteCategoryCmsModuleComponent } from "./coreSiteCategoryCmsModule.component";
+import { CoreSiteCategoryCmsModuleRouting } from "./coreSiteCategoryCmsModule.routing";
+import { CoreSiteCategoryCmsModuleEditComponent } from "./edit/edit.component";
+import { CoreSiteCategoryCmsModuleListViewComponent } from "./listview/listview.component";
 
 @NgModule({
   declarations: [
@@ -32,7 +30,6 @@ import { CoreSiteCategoryCmsModuleListViewComponent } from './listview/listview.
     CoreSiteCategoryCmsModuleEditComponent,
 
     CoreSiteCategoryCmsModuleSelectorComponent,
-
   ],
   exports: [
     CoreSiteCategoryCmsModuleComponent,
@@ -42,13 +39,12 @@ import { CoreSiteCategoryCmsModuleListViewComponent } from './listview/listview.
     CoreSiteCategoryCmsModuleEditComponent,
 
     CoreSiteCategoryCmsModuleSelectorComponent,
-
   ],
   imports: [
     CommonModule,
     FormsModule,
     CoreSiteCategoryCmsModuleRouting,
-    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     SharedModule,
     AngularEditorModule,
 
@@ -59,7 +55,6 @@ import { CoreSiteCategoryCmsModuleListViewComponent } from './listview/listview.
     CoreSiteCategoryCmsModuleService,
     CmsConfirmationDialogService,
     CoreModuleService,
-  ]
+  ],
 })
-export class CoreSiteCategoryCmsModuleModule {
-}
+export class CoreSiteCategoryCmsModuleModule {}

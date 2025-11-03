@@ -1,25 +1,35 @@
-
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT } from "@angular/common";
 import {
-  ChangeDetectorRef, Component, Inject, OnInit,
-  ViewChild
-} from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  BankPaymentInjectOnlineTransactionDtoModel, BankPaymentInjectPaymentGotoBankStep2LandingSitePageModel, BankPaymentPrivateSiteConfigModel, BankPaymentPrivateSiteConfigService, CoreEnumService, ErrorExceptionResult, FormInfoModel
-} from 'ntk-cms-api';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TRANSACTION_ID_LOCAL_STORAGE_KEY } from 'src/app/core/models/constModel';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
+  BankPaymentInjectOnlineTransactionDtoModel,
+  BankPaymentInjectPaymentGotoBankStep2LandingSitePageModel,
+  BankPaymentPrivateSiteConfigModel,
+  BankPaymentPrivateSiteConfigService,
+  CoreEnumService,
+  ErrorExceptionResult,
+  FormInfoModel,
+} from "ntk-cms-api";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TRANSACTION_ID_LOCAL_STORAGE_KEY } from "src/app/core/models/constModel";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 @Component({
-    selector: 'app-bankpayment-privateconfig-paymenttest',
-    templateUrl: './paymentTest.component.html',
-    styleUrls: ['./paymentTest.component.scss'],
-    standalone: false
+  selector: "app-bankpayment-privateconfig-paymenttest",
+  templateUrl: "./paymentTest.component.html",
+  styleUrls: ["./paymentTest.component.scss"],
+  standalone: false,
 })
-export class BankPaymentPrivateSiteConfigPaymentTestComponent implements OnInit {
+export class BankPaymentPrivateSiteConfigPaymentTestComponent
+  implements OnInit
+{
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -40,12 +50,14 @@ export class BankPaymentPrivateSiteConfigPaymentTestComponent implements OnInit 
     this.dataModel.lastUrlAddressInUse = this.document.location.href;
   }
   requestLinkPrivateSiteConfigId = 0;
-  @ViewChild('vform', { static: false }) formGroup: FormGroup;
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
-  dataModelParentSelected: BankPaymentPrivateSiteConfigModel = new BankPaymentPrivateSiteConfigModel();
-  dataModel: BankPaymentInjectOnlineTransactionDtoModel = new BankPaymentInjectOnlineTransactionDtoModel();
-  dataModelResult: ErrorExceptionResult<BankPaymentInjectPaymentGotoBankStep2LandingSitePageModel>
-    = new ErrorExceptionResult<BankPaymentInjectPaymentGotoBankStep2LandingSitePageModel>();
+  dataModelParentSelected: BankPaymentPrivateSiteConfigModel =
+    new BankPaymentPrivateSiteConfigModel();
+  dataModel: BankPaymentInjectOnlineTransactionDtoModel =
+    new BankPaymentInjectOnlineTransactionDtoModel();
+  dataModelResult: ErrorExceptionResult<BankPaymentInjectPaymentGotoBankStep2LandingSitePageModel> =
+    new ErrorExceptionResult<BankPaymentInjectPaymentGotoBankStep2LandingSitePageModel>();
   formInfo: FormInfoModel = new FormInfoModel();
   dataModelResultGotoBank = false;
   ngOnInit(): void {
@@ -56,7 +68,9 @@ export class BankPaymentPrivateSiteConfigPaymentTestComponent implements OnInit 
     }
     this.dataModel.bankPaymentPrivateId = this.requestLinkPrivateSiteConfigId;
   }
-  onActionSelectPrivateSiteConfig(model: BankPaymentPrivateSiteConfigModel): void {
+  onActionSelectPrivateSiteConfig(
+    model: BankPaymentPrivateSiteConfigModel,
+  ): void {
     this.dataModel.bankPaymentPrivateId = null;
     this.dataModelParentSelected = model;
     if (model && model.id > 0) {
@@ -64,10 +78,16 @@ export class BankPaymentPrivateSiteConfigPaymentTestComponent implements OnInit 
     }
   }
   onGotoBank(): void {
-    if (this.dataModelResultGotoBank && this.dataModelResult.isSuccess && this.dataModelResult.item.urlToPay.length > 0) {
-      this.translate.get('MESSAGE.Transferring_to_the_payment_gateway').subscribe((str: string) => {
-        this.cmsToastrService.typeSuccessMessage(str);
-      });
+    if (
+      this.dataModelResultGotoBank &&
+      this.dataModelResult.isSuccess &&
+      this.dataModelResult.item.urlToPay.length > 0
+    ) {
+      this.translate
+        .get("MESSAGE.Transferring_to_the_payment_gateway")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeSuccessMessage(str);
+        });
 
       this.document.location.href = this.dataModelResult.item.urlToPay;
     }
@@ -76,20 +96,30 @@ export class BankPaymentPrivateSiteConfigPaymentTestComponent implements OnInit 
     if (!this.formGroup.valid) {
       return;
     }
-    if (!this.dataModel.bankPaymentPrivateId || this.dataModel.bankPaymentPrivateId <= 0) {
+    if (
+      !this.dataModel.bankPaymentPrivateId ||
+      this.dataModel.bankPaymentPrivateId <= 0
+    ) {
       this.cmsToastrService.typeErrorFormInvalid();
     }
     if (!this.dataModel.amount || this.dataModel.amount <= 0) {
       this.cmsToastrService.typeErrorFormInvalid();
     }
     this.formInfo.formSubmitAllow = false;
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
-    this.bankPaymentPrivateSiteConfigService.ServiceTestPay(this.dataModel).subscribe(
-      {
+    this.bankPaymentPrivateSiteConfigService
+      .ServiceTestPay(this.dataModel)
+      .subscribe({
         next: (ret) => {
           this.formInfo.formSubmitAllow = true;
           this.dataModelResult = ret;
@@ -98,26 +128,30 @@ export class BankPaymentPrivateSiteConfigPaymentTestComponent implements OnInit 
               TRANSACTION_ID_LOCAL_STORAGE_KEY,
               ret.item.transactionId.toString(),
             );
-            this.translate.get('MESSAGE.Payment_request_was_successfully_registered').subscribe((str: string) => {
-              this.formInfo.formAlert = str;
-              this.cmsToastrService.typeSuccessMessage(str);
-            });
+            this.translate
+              .get("MESSAGE.Payment_request_was_successfully_registered")
+              .subscribe((str: string) => {
+                this.formInfo.formAlert = str;
+                this.cmsToastrService.typeSuccessMessage(str);
+              });
             this.dataModelResultGotoBank = true;
           } else {
-            this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+            this.translate
+              .get("ERRORMESSAGE.MESSAGE.typeError")
+              .subscribe((str: string) => {
+                this.formInfo.formAlert = str;
+              });
             this.formInfo.formError = ret.errorMessage;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
-
         },
         error: (err) => {
           this.formInfo.formSubmitAllow = true;
           this.cmsToastrService.typeError(err);
           this.publicHelper.processService.processStop(pName);
-        }
-      }
-    );
+        },
+      });
   }
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });

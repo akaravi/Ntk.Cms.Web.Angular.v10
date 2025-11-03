@@ -1,16 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-    selector: 'app-error500',
-    templateUrl: './error500.component.html',
-    styleUrls: ['./error500.component.scss'],
-    standalone: false
+  selector: "app-error500",
+  templateUrl: "./error500.component.html",
+  styleUrls: ["./error500.component.scss"],
+  standalone: false,
 })
 export class Error500Component implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

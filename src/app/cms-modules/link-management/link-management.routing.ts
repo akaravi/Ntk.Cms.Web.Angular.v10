@@ -1,119 +1,119 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { LinkManagementAccountingDetailListComponent } from './accounting-detail/list/list.component';
-import { LinkManagementAccountingListComponent } from './accounting/list/list.component';
-import { LinkManagementBillboardPatternListComponent } from './billboard-pattern/list/list.component';
-import { LinkManagementBillboardAddComponent } from './billboard/add/add.component';
-import { LinkManagementBillboardEditComponent } from './billboard/edit/edit.component';
-import { LinkManagementBillboardListComponent } from './billboard/list/list.component';
-import { LinkManagementComponent } from './link-management.component';
-import { LinkManagementMemberListComponent } from './member/list/list.component';
-import { LinkManagementTargetBillboardLogListComponent } from './target-billboard-log/list/list.component';
-import { LinkManagementTargetAddComponent } from './target/add/add.component';
-import { LinkManagementTargetEditComponent } from './target/edit/edit.component';
-import { LinkManagementTargetListComponent } from './target/list/list.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { LinkManagementAccountingDetailListComponent } from "./accounting-detail/list/list.component";
+import { LinkManagementAccountingListComponent } from "./accounting/list/list.component";
+import { LinkManagementBillboardPatternListComponent } from "./billboard-pattern/list/list.component";
+import { LinkManagementBillboardAddComponent } from "./billboard/add/add.component";
+import { LinkManagementBillboardEditComponent } from "./billboard/edit/edit.component";
+import { LinkManagementBillboardListComponent } from "./billboard/list/list.component";
+import { LinkManagementComponent } from "./link-management.component";
+import { LinkManagementMemberListComponent } from "./member/list/list.component";
+import { LinkManagementTargetBillboardLogListComponent } from "./target-billboard-log/list/list.component";
+import { LinkManagementTargetAddComponent } from "./target/add/add.component";
+import { LinkManagementTargetEditComponent } from "./target/edit/edit.component";
+import { LinkManagementTargetListComponent } from "./target/list/list.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: LinkManagementComponent,
-    data: { title: 'ROUTE.LINKMANAGMENT' },
+    data: { title: "ROUTE.LINKMANAGMENT" },
 
     children: [
       /* Config */
       {
-        path: 'config',
+        path: "config",
         loadChildren: () =>
-          import('./config/link-management-config.module').then(
-            (m) => m.LinkManagementConfigModule
+          import("./config/link-management-config.module").then(
+            (m) => m.LinkManagementConfigModule,
           ),
-        data: { title: 'ROUTE.LINKMANAGMENT' },
+        data: { title: "ROUTE.LINKMANAGMENT" },
       },
       /* Config */
       {
-        path: 'target',
+        path: "target",
         component: LinkManagementTargetListComponent,
-        data: { title: 'ROUTE.LINKMANAGMENT.TARGET' },
+        data: { title: "ROUTE.LINKMANAGMENT.TARGET" },
       },
       {
-        path: 'target/list/LinkBillboardPatternId/:LinkBillboardPatternId',
+        path: "target/list/LinkBillboardPatternId/:LinkBillboardPatternId",
         component: LinkManagementTargetListComponent,
-        data: { title: 'ROUTE.LINKMANAGMENT.TARGET' },
+        data: { title: "ROUTE.LINKMANAGMENT.TARGET" },
       },
       {
-        path: 'target/add/:LinkBillboardPatternId',
+        path: "target/add/:LinkBillboardPatternId",
         component: LinkManagementTargetAddComponent,
-        data: { title: 'ROUTE.LINKMANAGMENT.TARGET' },
+        data: { title: "ROUTE.LINKMANAGMENT.TARGET" },
       },
       {
-        path: 'target/edit/:Id',
+        path: "target/edit/:Id",
         component: LinkManagementTargetEditComponent,
-        data: { title: 'ROUTE.LINKMANAGMENT.TARGET' },
+        data: { title: "ROUTE.LINKMANAGMENT.TARGET" },
       },
       {
-        path: 'billboard',
+        path: "billboard",
         component: LinkManagementBillboardListComponent,
-        data: { title: 'ROUTE.LINKMANAGMENT.BILLBOARD' },
+        data: { title: "ROUTE.LINKMANAGMENT.BILLBOARD" },
       },
       {
-        path: 'billboard/list/LinkBillboardPatternId/:LinkBillboardPatternId',
+        path: "billboard/list/LinkBillboardPatternId/:LinkBillboardPatternId",
         component: LinkManagementBillboardListComponent,
-        data: { title: 'ROUTE.LINKMANAGMENT.BILLBOARD' },
+        data: { title: "ROUTE.LINKMANAGMENT.BILLBOARD" },
       },
       {
-        path: 'billboard/add/:LinkBillboardPatternId',
+        path: "billboard/add/:LinkBillboardPatternId",
         component: LinkManagementBillboardAddComponent,
-        data: { title: 'ROUTE.LINKMANAGMENT.BILLBOARD' },
+        data: { title: "ROUTE.LINKMANAGMENT.BILLBOARD" },
       },
       {
-        path: 'billboard/edit/:Id',
+        path: "billboard/edit/:Id",
         component: LinkManagementBillboardEditComponent,
-        data: { title: 'ROUTE.LINKMANAGMENT.BILLBOARD' },
+        data: { title: "ROUTE.LINKMANAGMENT.BILLBOARD" },
       },
       {
-        path: 'target-billboard-log',
+        path: "target-billboard-log",
         component: LinkManagementTargetBillboardLogListComponent,
-        data: { title: 'ROUTE.LINKMANAGMENT.TARGETBILLBOARD' },
+        data: { title: "ROUTE.LINKMANAGMENT.TARGETBILLBOARD" },
       },
       {
-        path: 'target-billboard-log/LinkManagementBillboardId/:LinkManagementBillboardId',
+        path: "target-billboard-log/LinkManagementBillboardId/:LinkManagementBillboardId",
         component: LinkManagementTargetBillboardLogListComponent,
-        data: { title: 'ROUTE.LINKMANAGMENT.TARGETBILLBOARD' },
+        data: { title: "ROUTE.LINKMANAGMENT.TARGETBILLBOARD" },
       },
       {
-        path: 'target-billboard-log/LinkManagementTargetId/:LinkManagementTargetId',
+        path: "target-billboard-log/LinkManagementTargetId/:LinkManagementTargetId",
         component: LinkManagementTargetBillboardLogListComponent,
-        data: { title: 'ROUTE.LINKMANAGMENT.TARGETBILLBOARD' },
+        data: { title: "ROUTE.LINKMANAGMENT.TARGETBILLBOARD" },
       },
       {
-        path: 'target-billboard-log/Key/:Key',
+        path: "target-billboard-log/Key/:Key",
         component: LinkManagementTargetBillboardLogListComponent,
-        data: { title: 'ROUTE.LINKMANAGMENT.TARGETBILLBOARD' },
+        data: { title: "ROUTE.LINKMANAGMENT.TARGETBILLBOARD" },
       },
       {
-        path: 'billboard-pattern',
+        path: "billboard-pattern",
         component: LinkManagementBillboardPatternListComponent,
-        data: { title: 'ROUTE.LINKMANAGMENT.BILLBOARDPATTERN' },
+        data: { title: "ROUTE.LINKMANAGMENT.BILLBOARDPATTERN" },
       },
       {
-        path: 'accounting',
+        path: "accounting",
         component: LinkManagementAccountingListComponent,
-        data: { title: 'ROUTE.LINKMANAGMENT.ACCOUNTING' },
+        data: { title: "ROUTE.LINKMANAGMENT.ACCOUNTING" },
       },
       {
-        path: 'accountingdetail',
+        path: "accountingdetail",
         component: LinkManagementAccountingDetailListComponent,
-        data: { title: 'ROUTE.LINKMANAGMENT.ACCOUNTINGDETAIL' },
+        data: { title: "ROUTE.LINKMANAGMENT.ACCOUNTINGDETAIL" },
       },
       {
-        path: 'accountingdetail/LinkManagementAccountingId/:LinkManagementAccountingId',
+        path: "accountingdetail/LinkManagementAccountingId/:LinkManagementAccountingId",
         component: LinkManagementAccountingDetailListComponent,
-        data: { title: 'ROUTE.LINKMANAGMENT.ACCOUNTINGDETAIL' },
+        data: { title: "ROUTE.LINKMANAGMENT.ACCOUNTINGDETAIL" },
       },
       {
-        path: 'member',
+        path: "member",
         component: LinkManagementMemberListComponent,
-        data: { title: 'ROUTE.LINKMANAGMENT.MEMBER' },
+        data: { title: "ROUTE.LINKMANAGMENT.MEMBER" },
       },
     ],
   },
@@ -123,4 +123,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class LinkManagementRoutes { }
+export class LinkManagementRoutes {}

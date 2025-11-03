@@ -244,11 +244,17 @@
   background: rgba(0, 0, 0, 0.02) !important;
 }
 
-.theme-light mat-row:nth-child(odd) {
+.theme-light
+  mat-row:nth-child(
+    odd of :not(.ntk-row-expandedDetail):not(.ntk-row-expandedTitle)
+  ) {
   background: rgba(0, 0, 0, 0.02) !important;
 }
 
-.theme-light mat-row:nth-child(even) {
+.theme-light
+  mat-row:nth-child(
+    even of :not(.ntk-row-expandedDetail):not(.ntk-row-expandedTitle)
+  ) {
   background: rgba(0, 0, 0, 0.05) !important;
 }
 
@@ -275,12 +281,18 @@
   background-color: #1b1e29 !important;
 }
 
-.theme-dark mat-row:nth-child(odd) {
+.theme-dark
+  mat-row:nth-child(
+    odd of :not(.ntk-row-expandedDetail):not(.ntk-row-expandedTitle)
+  ) {
   color: #fff;
   background-color: #1b1e29 !important;
 }
 
-.theme-dark mat-row:nth-child(even) {
+.theme-dark
+  mat-row:nth-child(
+    even of :not(.ntk-row-expandedDetail):not(.ntk-row-expandedTitle)
+  ) {
   color: #fff;
   background-color: #272b37 !important;
 }

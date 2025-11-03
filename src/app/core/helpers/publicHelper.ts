@@ -202,7 +202,7 @@ export class PublicHelper {
     return Math.floor(Math.random() * new Date().getTime()).toString();
     //return Math.floor(Math.random() * 1000) + "";
   }
- 
+
   SplitAllChar(str: string): string[] {
     if (str && str.length > 0) {
       const ret = str.replace(/\n/g, ",").split(",");

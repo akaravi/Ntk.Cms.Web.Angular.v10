@@ -1,24 +1,28 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
 //import { QueryBuilderFieldMap, Rule, RuleSet } from 'ngx-ntk-query-builder';
-import { AccessModel, ClauseTypeEnum, FilterDataModel } from 'ntk-cms-api';
-import { ComponentOptionSearchModel } from 'src/app/core/cmsComponent/base/componentOptionSearchModel';
-import { QueryBuilderFieldMap, QueryRule, QueryRuleSet } from 'src/app/core/query-builder/interfaces/ngx-ntk-query-builder.interfaces';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-
+import { AccessModel, ClauseTypeEnum, FilterDataModel } from "ntk-cms-api";
+import { ComponentOptionSearchModel } from "src/app/core/cmsComponent/base/componentOptionSearchModel";
+import {
+  QueryBuilderFieldMap,
+  QueryRule,
+  QueryRuleSet,
+} from "src/app/core/query-builder/interfaces/ngx-ntk-query-builder.interfaces";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-    selector: 'app-cms-search-list',
-    templateUrl: './cms-search-list.component.html',
-    standalone: false
+  selector: "app-cms-search-list",
+  templateUrl: "./cms-search-list.component.html",
+  standalone: false,
 })
 export class CmsSearchListComponent implements OnInit {
   static nextId = 0;
   id = ++CmsSearchListComponent.nextId;
-  public optionsData: ComponentOptionSearchModel = new ComponentOptionSearchModel();
-  @Output() optionsChange: EventEmitter<ComponentOptionSearchModel> = new EventEmitter<ComponentOptionSearchModel>();
+  public optionsData: ComponentOptionSearchModel =
+    new ComponentOptionSearchModel();
+  @Output() optionsChange: EventEmitter<ComponentOptionSearchModel> =
+    new EventEmitter<ComponentOptionSearchModel>();
   @Input() set options(model: ComponentOptionSearchModel) {
-    
     if (!model) {
       model = new ComponentOptionSearchModel();
     }
@@ -28,7 +32,6 @@ export class CmsSearchListComponent implements OnInit {
     };
     this.optionsChange.emit(model);
     this.checkLoadSearch(false);
-
   }
   get options(): ComponentOptionSearchModel {
     return this.optionsData;
@@ -50,10 +53,8 @@ export class CmsSearchListComponent implements OnInit {
   }
   ngOnInit(): void {
     this.formSubmited = false;
-
   }
   setAccess(model: AccessModel): void {
-    
     this.optionsData.data.access = model;
     if (!this.filters || this.filters.length === 0) {
       this.setFields();
@@ -68,58 +69,60 @@ export class CmsSearchListComponent implements OnInit {
       this.optionsData.data.access.fieldsInfo
     ) {
       this.optionsData.data.access.fieldsInfo.forEach((column) => {
-        if (!column.accessSearchField) { return; }
+        if (!column.accessSearchField) {
+          return;
+        }
         if (
-          column.fieldTypeString === 'System.Int32' ||
-          column.fieldTypeString === 'System.Int64'
+          column.fieldTypeString === "System.Int32" ||
+          column.fieldTypeString === "System.Int64"
         ) {
           this.fieldMap[column.fieldName] = {
             name: column.fieldTitle,
-            type: 'integer',
+            type: "integer",
           };
-        } else if (column.fieldTypeString === 'System.String') {
+        } else if (column.fieldTypeString === "System.String") {
           this.fieldMap[column.fieldName] = {
             name: column.fieldTitle,
-            type: 'string',
+            type: "string",
           };
-        } else if (column.fieldTypeString === 'MongoDB.Bson.ObjectId') {
+        } else if (column.fieldTypeString === "MongoDB.Bson.ObjectId") {
           this.fieldMap[column.fieldName] = {
             name: column.fieldName,
-            type: 'string',
+            type: "string",
           };
-        } else if (column.fieldTypeString === 'System.Boolean') {
+        } else if (column.fieldTypeString === "System.Boolean") {
           this.fieldMap[column.fieldName] = {
             name: column.fieldTitle,
-            type: 'select',
+            type: "select",
 
             options: [
-              { name: 'بله', value: true },
-              { name: 'خیر', value: false },
+              { name: "بله", value: true },
+              { name: "خیر", value: false },
             ],
           };
-        } else if (column.fieldTypeString.indexOf('.RecordStatusEnum') > 0) {
+        } else if (column.fieldTypeString.indexOf(".RecordStatusEnum") > 0) {
           this.fieldMap[column.fieldName] = {
             name: column.fieldTitle,
-            type: 'select',
+            type: "select",
             options: [
-              { name: 'Available', value: 1 },
-              { name: 'Disable', value: 2 },
-              { name: 'Deleted', value: 3 },
-              { name: 'Pending', value: 4 },
-              { name: 'DeniedConfirmed', value: 5 },
-              { name: 'Archive', value: 6 },
+              { name: "Available", value: 1 },
+              { name: "Disable", value: 2 },
+              { name: "Deleted", value: 3 },
+              { name: "Pending", value: 4 },
+              { name: "DeniedConfirmed", value: 5 },
+              { name: "Archive", value: 6 },
             ],
           };
-        } else if (column.fieldTypeString === 'System.DateTime') {
+        } else if (column.fieldTypeString === "System.DateTime") {
           this.fieldMap[column.fieldName] = {
             name: column.fieldTitle,
-            type: 'date',
+            type: "date",
             settings: {},
           };
-        } else if (column.fieldTypeString === 'link') {
+        } else if (column.fieldTypeString === "link") {
           this.fieldMap[column.fieldName] = {
             name: column.fieldTitle,
-            type: 'string',
+            type: "string",
           };
         } else {
           // console.log("Error: Type is not defined for columns! Please add 'type' property for each columns in gridOptions.");
@@ -130,9 +133,13 @@ export class CmsSearchListComponent implements OnInit {
   getRules(): void {
     this.filters = new Array<FilterDataModel>();
     let clauseType: ClauseTypeEnum = ClauseTypeEnum.And;
-    if (!this.query || !this.query.condition) { return; }
+    if (!this.query || !this.query.condition) {
+      return;
+    }
 
-    if (this.query.condition === 'or') { clauseType = ClauseTypeEnum.Or; }
+    if (this.query.condition === "or") {
+      clauseType = ClauseTypeEnum.Or;
+    }
     this.query.rules.forEach((column) => {
       const ruleSet = column as QueryRuleSet;
       const rule = column as QueryRule;
@@ -164,7 +171,9 @@ export class CmsSearchListComponent implements OnInit {
   getRulesSetChild(ruleSetInput: QueryRuleSet): Array<FilterDataModel> {
     const Filters = new Array<FilterDataModel>();
     let clauseType: ClauseTypeEnum = ClauseTypeEnum.And;
-    if (ruleSetInput.condition === 'or') { clauseType = ClauseTypeEnum.Or; }
+    if (ruleSetInput.condition === "or") {
+      clauseType = ClauseTypeEnum.Or;
+    }
     ruleSetInput.rules.forEach((column) => {
       const ruleSet = column as QueryRuleSet;
       const rule = column as QueryRule;
@@ -206,51 +215,65 @@ export class CmsSearchListComponent implements OnInit {
     this.checkLoadSearch(true);
   }
   onActionRemoveRules(): void {
-    localStorage.removeItem(this.optionsData.data.access.moduleName + "_" + this.optionsData.data.access.moduleEntityName);
+    localStorage.removeItem(
+      this.optionsData.data.access.moduleName +
+        "_" +
+        this.optionsData.data.access.moduleEntityName,
+    );
     this.allowLoadSearch = false;
   }
   onActionSaveRules(): void {
-    localStorage.setItem(this.optionsData.data.access.moduleName + "_" + this.optionsData.data.access.moduleEntityName, JSON.stringify(this.query));
-
+    localStorage.setItem(
+      this.optionsData.data.access.moduleName +
+        "_" +
+        this.optionsData.data.access.moduleEntityName,
+      JSON.stringify(this.query),
+    );
   }
-  onSetRules(): void {
-
-  }
+  onSetRules(): void {}
   getSearchType(operator: string): number {
     switch (operator) {
-      case 'equal':
+      case "equal":
         return 0;
-      case 'not_equal':
+      case "not_equal":
         return 1;
-      case 'less':
+      case "less":
         return 2;
-      case 'greater':
+      case "greater":
         return 3;
-      case 'between':
+      case "between":
         return 4;
-      case 'contains':
+      case "contains":
         return 5;
-      case 'not_contains':
+      case "not_contains":
         return 6;
-      case 'begins_with':
+      case "begins_with":
         return 7;
-      case 'ends_with':
+      case "ends_with":
         return 8;
-      case 'less_or_equal':
+      case "less_or_equal":
         return 9;
-      case 'greater_or_equal':
+      case "greater_or_equal":
         return 10;
     }
     return 0;
   }
   checkLoadSearch(loadInfield: boolean): boolean {
-    if (this.optionsData && this.optionsData.data && this.optionsData.data.access) {
-      const storeVal = localStorage.getItem(this.optionsData.data.access.moduleName + "_" + this.optionsData.data.access.moduleEntityName);
+    if (
+      this.optionsData &&
+      this.optionsData.data &&
+      this.optionsData.data.access
+    ) {
+      const storeVal = localStorage.getItem(
+        this.optionsData.data.access.moduleName +
+          "_" +
+          this.optionsData.data.access.moduleEntityName,
+      );
       if (storeVal) {
         try {
           if (loadInfield) {
             this.query = JSON.parse(storeVal);
-            this.getRules()
+            this.getRules();
           }
           this.allowLoadSearch = true;
           this.allowSaveSearch = true;
@@ -264,14 +287,20 @@ export class CmsSearchListComponent implements OnInit {
     return false;
   }
   checkLoadDefaultQuery(): boolean {
-    if (this.optionsData && this.optionsData.data && this.optionsData.data.defaultQuery) {
+    if (
+      this.optionsData &&
+      this.optionsData.data &&
+      this.optionsData.data.defaultQuery
+    ) {
       const storeVal = this.optionsData.data.defaultQuery;
       if (storeVal) {
         try {
           this.query = JSON.parse(storeVal);
-          this.getRules()
-          setTimeout(() => { this.onSubmit(); }, 1000);
-          this.optionsData.data.defaultQuery = '';
+          this.getRules();
+          setTimeout(() => {
+            this.onSubmit();
+          }, 1000);
+          this.optionsData.data.defaultQuery = "";
           return true;
         } catch (error) {
           //console.log(error);

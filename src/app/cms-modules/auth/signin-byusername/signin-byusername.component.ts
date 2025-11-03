@@ -132,12 +132,13 @@ export class AuthSignInByUsernameComponent implements OnInit, OnDestroy {
           this.constructorInfoAreaId,
         );
       });
-    
+
     if (localStorage.getItem(SELECT_SITE_LOCAL_STORAGE_KEY)) {
       const sitelist = localStorage
         .getItem(SELECT_SITE_LOCAL_STORAGE_KEY)
         .split(",");
-      if (sitelist && sitelist.length > 0) this.dataModel.siteId = +sitelist[sitelist.length-1];
+      if (sitelist && sitelist.length > 0)
+        this.dataModel.siteId = +sitelist[sitelist.length - 1];
     }
 
     this.coreAuthService.ServiceSigninUser(this.dataModel).subscribe({

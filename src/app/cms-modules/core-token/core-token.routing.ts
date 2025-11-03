@@ -1,121 +1,121 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { CoreTokenActivationListComponent } from './activation/list/list.component';
-import { CoreTokenComponent } from './core-token.component';
-import { CoreLogTokenMicroServiceListComponent } from './micro-service-log/list/list.component';
-import { CoreTokenMicroServiceListComponent } from './micro-service/list/list.component';
-import { CoreLogTokenConnectionListComponent } from './notification-log/list/list.component';
-import { CoreTokenConnectionListComponent } from './notification/list/list.component';
-import { CoreTokenUserListComponent } from './user/list/list.component';
-import { CoreTokenUserBadLoginListComponent } from './userBadLogin/list/list.component';
-import { CoreLogTokenUserListComponent } from './userLog/list/list.component';
-import { CoreTokenConnectionListOnlineComponent } from './notification/list-online/list-online.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { CoreTokenActivationListComponent } from "./activation/list/list.component";
+import { CoreTokenComponent } from "./core-token.component";
+import { CoreLogTokenMicroServiceListComponent } from "./micro-service-log/list/list.component";
+import { CoreTokenMicroServiceListComponent } from "./micro-service/list/list.component";
+import { CoreLogTokenConnectionListComponent } from "./notification-log/list/list.component";
+import { CoreTokenConnectionListComponent } from "./notification/list/list.component";
+import { CoreTokenUserListComponent } from "./user/list/list.component";
+import { CoreTokenUserBadLoginListComponent } from "./userBadLogin/list/list.component";
+import { CoreLogTokenUserListComponent } from "./userLog/list/list.component";
+import { CoreTokenConnectionListOnlineComponent } from "./notification/list-online/list-online.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: CoreTokenComponent,
-    data: { title: 'ROUTE.CORETOKEN' },
+    data: { title: "ROUTE.CORETOKEN" },
     children: [
       /** */
       {
-        path: 'user',
+        path: "user",
         component: CoreTokenUserListComponent,
-        data: { title: 'ROUTE.CORETOKEN.USER' },
+        data: { title: "ROUTE.CORETOKEN.USER" },
       },
       {
-        path: 'user/LinkSiteId/:LinkSiteId',
+        path: "user/LinkSiteId/:LinkSiteId",
         component: CoreTokenUserListComponent,
-        data: { title: 'ROUTE.CORETOKEN.USER' },
+        data: { title: "ROUTE.CORETOKEN.USER" },
       },
       {
-        path: 'user/LinkUserId/:LinkUserId',
+        path: "user/LinkUserId/:LinkUserId",
         component: CoreTokenUserListComponent,
-        data: { title: 'ROUTE.CORETOKEN.USER' },
+        data: { title: "ROUTE.CORETOKEN.USER" },
       },
       {
-        path: 'user/LinkDeviceId/:LinkDeviceId',
+        path: "user/LinkDeviceId/:LinkDeviceId",
         component: CoreTokenUserListComponent,
-        data: { title: 'ROUTE.CORETOKEN.USER' },
+        data: { title: "ROUTE.CORETOKEN.USER" },
       },
       /** */
       {
-        path: 'userlog',
+        path: "userlog",
         component: CoreLogTokenUserListComponent,
-        data: { title: 'ROUTE.CORETOKEN.USERLOG' },
+        data: { title: "ROUTE.CORETOKEN.USERLOG" },
       },
       {
-        path: 'userlog/LinkSiteId/:LinkSiteId',
+        path: "userlog/LinkSiteId/:LinkSiteId",
         component: CoreLogTokenUserListComponent,
-        data: { title: 'ROUTE.CORETOKEN.USERLOG' },
+        data: { title: "ROUTE.CORETOKEN.USERLOG" },
       },
       {
-        path: 'userlog/LinkUserId/:LinkUserId',
+        path: "userlog/LinkUserId/:LinkUserId",
         component: CoreLogTokenUserListComponent,
-        data: { title: 'ROUTE.CORETOKEN.USERLOG' },
+        data: { title: "ROUTE.CORETOKEN.USERLOG" },
       },
       {
-        path: 'userlog/LinkDeviceId/:LinkDeviceId',
+        path: "userlog/LinkDeviceId/:LinkDeviceId",
         component: CoreLogTokenUserListComponent,
-        data: { title: 'ROUTE.CORETOKEN.USERLOG' },
+        data: { title: "ROUTE.CORETOKEN.USERLOG" },
       },
       /** */
       {
-        path: 'userbadlogin',
+        path: "userbadlogin",
         component: CoreTokenUserBadLoginListComponent,
-        data: { title: 'ROUTE.CORETOKEN.USERBADLOGIN' },
+        data: { title: "ROUTE.CORETOKEN.USERBADLOGIN" },
       },
       {
-        path: 'userbadlogin/LinkSiteId/:LinkSiteId',
+        path: "userbadlogin/LinkSiteId/:LinkSiteId",
         component: CoreTokenUserBadLoginListComponent,
-        data: { title: 'ROUTE.CORETOKEN.USERBADLOGIN' },
+        data: { title: "ROUTE.CORETOKEN.USERBADLOGIN" },
       },
       {
-        path: 'userbadlogin/LinkUserId/:LinkUserId',
+        path: "userbadlogin/LinkUserId/:LinkUserId",
         component: CoreTokenUserBadLoginListComponent,
-        data: { title: 'ROUTE.CORETOKEN.USERBADLOGIN' },
+        data: { title: "ROUTE.CORETOKEN.USERBADLOGIN" },
       },
       {
-        path: 'userbadlogin/LinkDeviceId/:LinkDeviceId',
+        path: "userbadlogin/LinkDeviceId/:LinkDeviceId",
         component: CoreTokenUserBadLoginListComponent,
-        data: { title: 'ROUTE.CORETOKEN.USERBADLOGIN' },
+        data: { title: "ROUTE.CORETOKEN.USERBADLOGIN" },
       },
       /** */
       {
-        path: 'activation',
+        path: "activation",
         component: CoreTokenActivationListComponent,
-        data: { title: 'ROUTE.CORETOKEN.ACTIVATION' },
+        data: { title: "ROUTE.CORETOKEN.ACTIVATION" },
       },
       /** */
       {
-        path: 'microservice',
+        path: "microservice",
         component: CoreTokenMicroServiceListComponent,
-        data: { title: 'ROUTE.CORETOKEN.MICROSERVICE' },
+        data: { title: "ROUTE.CORETOKEN.MICROSERVICE" },
       },
       /** */
       {
-        path: 'microservicelog',
+        path: "microservicelog",
         component: CoreLogTokenMicroServiceListComponent,
-        data: { title: 'ROUTE.CORETOKEN.MICROSERVICELOG' },
+        data: { title: "ROUTE.CORETOKEN.MICROSERVICELOG" },
       },
       /** */
       {
-        path: 'notification',
+        path: "notification",
         component: CoreTokenConnectionListComponent,
-        data: { title: 'ROUTE.CORETOKEN.NOTIFICATION' },
+        data: { title: "ROUTE.CORETOKEN.NOTIFICATION" },
       },
       /** */
       {
-        path: 'online',
+        path: "online",
         component: CoreTokenConnectionListOnlineComponent,
-        data: { title: 'ROUTE.CORETOKEN.NOTIFICATION' },
+        data: { title: "ROUTE.CORETOKEN.NOTIFICATION" },
       },
-      
+
       /** */
       {
-        path: 'notificationlog',
+        path: "notificationlog",
         component: CoreLogTokenConnectionListComponent,
-        data: { title: 'ROUTE.CORETOKEN.NOTIFICATIONLOG' },
+        data: { title: "ROUTE.CORETOKEN.NOTIFICATIONLOG" },
       },
     ],
   },
@@ -125,4 +125,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class CoreTokenRoutes { }
+export class CoreTokenRoutes {}

@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from "@angular/core";
 
 @Component({
-    selector: 'app-cms-html-notice',
-    templateUrl: './cms-html-notice.component.html',
-    standalone: false
+  selector: "app-cms-html-notice",
+  templateUrl: "./cms-html-notice.component.html",
+  standalone: false,
 })
 export class CmsHtmlNoticeComponent implements OnInit {
   static nextId = 0;
@@ -13,8 +13,7 @@ export class CmsHtmlNoticeComponent implements OnInit {
   @Input() icon: string;
   @Input() svg: string;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }
-

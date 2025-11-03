@@ -25,12 +25,15 @@
 .box-rack-child-open {
   /* display: none; */
   width: 230px;
-  background: linear-gradient(90deg, rgba(134, 93, 58, 1) 0%, rgba(99, 50, 7, 1) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(134, 93, 58, 1) 0%,
+    rgba(99, 50, 7, 1) 100%
+  );
   text-align: center;
   border-radius: 10px;
   border: 10px solid #6d4c41;
   height: 500px;
-
 }
 
 .box-rack-child-open-title {
@@ -167,7 +170,6 @@
   border-radius: 100%;
   width: 40px;
   height: 40px;
-
 }
 
 .add-rack {

@@ -36,13 +36,17 @@
         <h6 class="font-500 font-14 pb-2">
           {{ "TITLE.SummaryOfSpecifications" | translate }} :
         </h6>
-        <a routerLink="{{ '/core/user/edit/' + this.tokenInfo.access.userId }}">
+        <a
+          routerLink="{{ '/core/user/edit/' + this.tokenInfo.access?.userId }}"
+        >
           <h5>
             {{ "TITLE.User_Id" | translate }} :
             {{ this.tokenInfo?.access?.userId }}
           </h5>
         </a>
-        <a routerLink="{{ '/core/site/edit/' + this.tokenInfo.access.siteId }}">
+        <a
+          routerLink="{{ '/core/site/edit/' + this.tokenInfo.access?.siteId }}"
+        >
           <h5>
             {{ "TITLE.Site_Id" | translate }} :
             {{ this.tokenInfo?.access?.siteId }}

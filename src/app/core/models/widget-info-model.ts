@@ -1,12 +1,11 @@
 export class WidgetInfoModel {
-  title = '';
-  description = '';
-  link = '';
+  title = "";
+  description = "";
+  link = "";
   //items: WidgetContentInfoModel[];
   items = new Map<string, WidgetContentInfoModel>();
   setItem(model: WidgetContentInfoModel) {
-    if (!this.items)
-      this.items = new Map<string, WidgetContentInfoModel>();// [];
+    if (!this.items) this.items = new Map<string, WidgetContentInfoModel>(); // [];
     if (this.items.size == 0) {
       this.items.set(model.key, model);
       return;
@@ -24,7 +23,14 @@ export class WidgetInfoModel {
   }
 }
 export class WidgetContentInfoModel {
-  constructor(_key: string, _index: number, _count: number, _link = '', _color = '', _description: string = '') {
+  constructor(
+    _key: string,
+    _index: number,
+    _count: number,
+    _link = "",
+    _color = "",
+    _description: string = "",
+  ) {
     this.key = _key;
     this.index = _index;
     this.count = _count;
@@ -33,10 +39,10 @@ export class WidgetContentInfoModel {
     this.color = _color;
   }
 
-  key = '';
+  key = "";
   index = 0;
   count = 0;
-  description = '';
-  link = '';
-  color = '';
+  description = "";
+  link = "";
+  color = "";
 }

@@ -1,26 +1,32 @@
-
 import {
-  ChangeDetectorRef, Component, Input, OnDestroy, OnInit
-} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  DataFieldInfoModel, ErrorExceptionResult,
+  DataFieldInfoModel,
+  ErrorExceptionResult,
   EstatePropertyExpertPriceModel,
-  EstatePropertyExpertPriceService
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
+  EstatePropertyExpertPriceService,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 @Component({
-  selector: 'app-estate-property-expert-price-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
-  standalone: false
+  selector: "app-estate-property-expert-price-header",
+  templateUrl: "./header.component.html",
+  styleUrls: ["./header.component.scss"],
+  standalone: false,
 })
-export class EstatePropertyExpertPriceHeaderComponent implements OnInit, OnDestroy {
+export class EstatePropertyExpertPriceHeaderComponent
+  implements OnInit, OnDestroy
+{
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private headerService: EstatePropertyExpertPriceService,
@@ -29,17 +35,19 @@ export class EstatePropertyExpertPriceHeaderComponent implements OnInit, OnDestr
     private cmsToastrService: CmsToastrService,
     public dialog: MatDialog,
     public translate: TranslateService,
-    	private cmsStoreService:CmsStoreService,
-    public tokenHelper: TokenHelper
+    private cmsStoreService: CmsStoreService,
+    public tokenHelper: TokenHelper,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }
-  @Input() optionId = '';
+  @Input() optionId = "";
 
-  dataModelResult: ErrorExceptionResult<EstatePropertyExpertPriceModel> = new ErrorExceptionResult<EstatePropertyExpertPriceModel>();
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
-
-
+  dataModelResult: ErrorExceptionResult<EstatePropertyExpertPriceModel> =
+    new ErrorExceptionResult<EstatePropertyExpertPriceModel>();
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
 
   cmsApiStoreSubscribe: Subscription;
   ngOnInit(): void {
@@ -47,9 +55,11 @@ export class EstatePropertyExpertPriceHeaderComponent implements OnInit, OnDestr
       this.DataGetOneContent();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetOneContent();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetOneContent();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -58,10 +68,16 @@ export class EstatePropertyExpertPriceHeaderComponent implements OnInit, OnDestr
   }
 
   DataGetOneContent(): void {
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.headerService.setAccessLoad();
     this.headerService.ServiceGetOneById(this.optionId).subscribe({
@@ -73,13 +89,11 @@ export class EstatePropertyExpertPriceHeaderComponent implements OnInit, OnDestr
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
 }

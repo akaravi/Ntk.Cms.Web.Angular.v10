@@ -1,15 +1,17 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, combineLatest } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-import { EnvironmentModel } from '../models/environmentModel';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, Observable, combineLatest } from "rxjs";
+import { map, switchMap } from "rxjs/operators";
+import { EnvironmentModel } from "../models/environmentModel";
 import { DeviceTypeEnum, OperatingSystemTypeEnum } from "ntk-cms-api";
-import { ServerConfigService, ServerConfig } from './server-config.service';
+import { ServerConfigService, ServerConfig } from "./server-config.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class DynamicEnvironmentService {
-  private environmentSubject = new BehaviorSubject<EnvironmentModel | null>(null);
+  private environmentSubject = new BehaviorSubject<EnvironmentModel | null>(
+    null,
+  );
   public environment$ = this.environmentSubject.asObservable();
 
   constructor(private serverConfigService: ServerConfigService) {
@@ -20,7 +22,7 @@ export class DynamicEnvironmentService {
    * Initialize environment with dynamic server config
    */
   private initializeEnvironment(): void {
-    this.serverConfigService.loadServerConfig().subscribe(serverConfig => {
+    this.serverConfigService.loadServerConfig().subscribe((serverConfig) => {
       const environment = this.createEnvironmentWithServerConfig(serverConfig);
       this.environmentSubject.next(environment);
     });
@@ -29,13 +31,15 @@ export class DynamicEnvironmentService {
   /**
    * Create environment object with dynamic server configuration
    */
-  private createEnvironmentWithServerConfig(serverConfig: ServerConfig): EnvironmentModel {
+  private createEnvironmentWithServerConfig(
+    serverConfig: ServerConfig,
+  ): EnvironmentModel {
     return {
       production: false,
       checkAccess: false,
       consoleLog: false,
-      appVersion: '1.0.0',
-      appName: 'CMS',
+      appVersion: "1.0.0",
+      appName: "CMS",
       authKey: "authf649fc9a5f55",
       loadDemoTheme: false,
       ProgressConsoleLog: false,
@@ -108,7 +112,9 @@ export class DynamicEnvironmentService {
   get environment(): EnvironmentModel {
     const currentEnv = this.environmentSubject.value;
     if (!currentEnv) {
-      throw new Error('Environment not initialized. Server config is still loading.');
+      throw new Error(
+        "Environment not initialized. Server config is still loading.",
+      );
     }
     return currentEnv;
   }
@@ -125,11 +131,12 @@ export class DynamicEnvironmentService {
    */
   reloadServerConfig(): Observable<EnvironmentModel> {
     return this.serverConfigService.reloadServerConfig().pipe(
-      map(serverConfig => {
-        const environment = this.createEnvironmentWithServerConfig(serverConfig);
+      map((serverConfig) => {
+        const environment =
+          this.createEnvironmentWithServerConfig(serverConfig);
         this.environmentSubject.next(environment);
         return environment;
-      })
+      }),
     );
   }
 }

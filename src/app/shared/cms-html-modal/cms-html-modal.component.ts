@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FormInfoModel } from 'ntk-cms-api';
+import { Component, Input, OnInit } from "@angular/core";
+import { FormInfoModel } from "ntk-cms-api";
 
 @Component({
-    selector: 'app-cms-html-modal',
-    templateUrl: './cms-html-modal.component.html',
-    standalone: false
+  selector: "app-cms-html-modal",
+  templateUrl: "./cms-html-modal.component.html",
+  standalone: false,
 })
 export class CmsHtmlModalComponent implements OnInit {
   static nextId = 0;
@@ -15,9 +15,6 @@ export class CmsHtmlModalComponent implements OnInit {
   }
   formInfo = new FormInfoModel();
 
-  constructor() { }
-  ngOnInit(): void {
-
-  }
- 
+  constructor() {}
+  ngOnInit(): void {}
 }

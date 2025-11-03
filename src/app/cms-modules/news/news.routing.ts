@@ -1,66 +1,66 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { NewsCategoryMenuComponent } from './category/menu/menu.component';
-import { NewsCommentListComponent } from './comment/list/list.component';
-import { NewsContentAddComponent } from './content/add/add.component';
-import { NewsContentEditComponent } from './content/edit/edit.component';
-import { NewsContentListComponent } from './content/list/list.component';
-import { NewsComponent } from './news.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { NewsCategoryMenuComponent } from "./category/menu/menu.component";
+import { NewsCommentListComponent } from "./comment/list/list.component";
+import { NewsContentAddComponent } from "./content/add/add.component";
+import { NewsContentEditComponent } from "./content/edit/edit.component";
+import { NewsContentListComponent } from "./content/list/list.component";
+import { NewsComponent } from "./news.component";
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: NewsComponent,
-    data: { title: 'ROUTE.NEWS' },
+    data: { title: "ROUTE.NEWS" },
 
     children: [
       /* Config */
       {
-        path: 'config',
+        path: "config",
         loadChildren: () =>
-          import('./config/news-config.module').then((m) => m.NewsConfigModule),
-        data: { title: 'ROUTE.NEWS' },
+          import("./config/news-config.module").then((m) => m.NewsConfigModule),
+        data: { title: "ROUTE.NEWS" },
       },
       /* Config */
       {
-        path: 'category',
+        path: "category",
         component: NewsCategoryMenuComponent,
-        data: { title: 'ROUTE.NEWS.CATEGORY' },
+        data: { title: "ROUTE.NEWS.CATEGORY" },
       },
       {
-        path: 'category/LinkParentId/:LinkParentId',
+        path: "category/LinkParentId/:LinkParentId",
         component: NewsCategoryMenuComponent,
-        data: { title: 'ROUTE.NEWS.CATEGORY' },
+        data: { title: "ROUTE.NEWS.CATEGORY" },
       },
       {
-        path: 'content',
+        path: "content",
         component: NewsContentListComponent,
-        data: { title: 'ROUTE.NEWS.CONTENT' },
+        data: { title: "ROUTE.NEWS.CONTENT" },
       },
       {
-        path: 'content/LinkCategoryId/:LinkCategoryId',
+        path: "content/LinkCategoryId/:LinkCategoryId",
         component: NewsContentListComponent,
-        data: { title: 'ROUTE.NEWS.CONTENT' },
+        data: { title: "ROUTE.NEWS.CONTENT" },
       },
 
       {
-        path: 'content/add/:CategoryId',
+        path: "content/add/:CategoryId",
         component: NewsContentAddComponent,
-        data: { title: 'ROUTE.NEWS.CONTENT' },
+        data: { title: "ROUTE.NEWS.CONTENT" },
       },
       {
-        path: 'content/edit/:Id',
+        path: "content/edit/:Id",
         component: NewsContentEditComponent,
-        data: { title: 'ROUTE.NEWS.CONTENT' },
+        data: { title: "ROUTE.NEWS.CONTENT" },
       },
       {
-        path: 'comment',
+        path: "comment",
         component: NewsCommentListComponent,
-        data: { title: 'ROUTE.NEWS.COMMENT' },
+        data: { title: "ROUTE.NEWS.COMMENT" },
       },
       {
-        path: 'comment/:ContentId',
+        path: "comment/:ContentId",
         component: NewsCommentListComponent,
-        data: { title: 'ROUTE.NEWS.COMMENT' },
+        data: { title: "ROUTE.NEWS.COMMENT" },
       },
     ],
   },
@@ -69,4 +69,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class NewsRouting { }
+export class NewsRouting {}

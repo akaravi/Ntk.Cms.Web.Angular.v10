@@ -1,4 +1,4 @@
-import { Renderer2 } from '@angular/core';
+import { Renderer2 } from "@angular/core";
 
 /**
  * Checks whether a given URL is for an SVG symbol.
@@ -6,14 +6,14 @@ import { Renderer2 } from '@angular/core';
  * @param url URL of SVG to load.
  */
 export function isUrlSymbol(url: string): boolean {
-  return url.charAt(0) === '#' || url.indexOf('.svg#') > -1;
+  return url.charAt(0) === "#" || url.indexOf(".svg#") > -1;
 }
 
 /**
  * Checks whether SVGs are supported.
  */
 export function isSvgSupported(): boolean {
-  return typeof SVGRect !== 'undefined';
+  return typeof SVGRect !== "undefined";
 }
 
 /**
@@ -24,17 +24,20 @@ export function isSvgSupported(): boolean {
  * @param symbolId The ID of the symbol.
  */
 export function createSymbolSvg(
-  renderer: Renderer2, svg: SVGElement, symbolId: string): SVGElement {
+  renderer: Renderer2,
+  svg: SVGElement,
+  symbolId: string,
+): SVGElement {
   const symbol = svg.querySelector(`[id="${symbolId}"]`);
   if (!symbol) {
     throw new Error(`Symbol "${symbolId}" not found`);
   }
 
-  const elSvg = renderer.createElement('svg', 'svg');
+  const elSvg = renderer.createElement("svg", "svg");
   renderer.appendChild(elSvg, symbol);
 
-  const elSvgUse = renderer.createElement('use', 'svg');
-  renderer.setAttribute(elSvgUse, 'href', `#${symbolId}`, 'xlink');
+  const elSvgUse = renderer.createElement("use", "svg");
+  renderer.setAttribute(elSvgUse, "href", `#${symbolId}`, "xlink");
   renderer.appendChild(elSvg, elSvgUse);
 
   return elSvg;
@@ -55,7 +58,7 @@ export function removeAttributes(element: Element, attrs: Array<string>): void {
   }
 
   // Child nodes
-  const innerEls = element.getElementsByTagName('*');
+  const innerEls = element.getElementsByTagName("*");
   for (let i = 0; i < innerEls.length; i++) {
     removeAttributes(innerEls[i], attrs);
   }
@@ -67,7 +70,10 @@ export function removeAttributes(element: Element, attrs: Array<string>): void {
  * @param element Element to set attributes on.
  * @param attrs Attribute key/values.
  */
-export function setAttributes(element: Element, attrs: { [key: string]: any }): void {
+export function setAttributes(
+  element: Element,
+  attrs: { [key: string]: any },
+): void {
   for (const attr in attrs) {
     element.setAttribute(attr, attrs[attr]);
   }

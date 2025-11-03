@@ -1,31 +1,29 @@
-﻿import { DateAdapter } from '@angular/material/core';
+﻿import { DateAdapter } from "@angular/material/core";
 //import * as jalaliMoment from 'jalali-moment';
 /*
 /tsconfig.json
 /compilerOptions:{}
 /add "esModuleInterop": true,
 */
-import jalaliMoment from 'jalali-moment';
+import jalaliMoment from "jalali-moment";
 
 export const PERSIAN_DATE_FORMATS = {
   parse: {
-    dateInput: 'jYYYY/jMM/jDD',
+    dateInput: "jYYYY/jMM/jDD",
   },
   display: {
-    dateInput: 'jYYYY/jMM/jDD',
-    monthYearLabel: 'jYYYY jMMMM',
-    dateA11yLabel: 'jYYYY/jMM/jDD',
-    monthYearA11yLabel: 'jYYYY jMMMM',
+    dateInput: "jYYYY/jMM/jDD",
+    monthYearLabel: "jYYYY jMMMM",
+    dateA11yLabel: "jYYYY/jMM/jDD",
+    monthYearA11yLabel: "jYYYY jMMMM",
   },
 };
 
-export class MaterialPersianDateAdapter extends DateAdapter<
-  jalaliMoment.Moment
-> {
+export class MaterialPersianDateAdapter extends DateAdapter<jalaliMoment.Moment> {
   constructor() {
     super();
-    super.setLocale('fa');
-    jalaliMoment.locale('fa');
+    super.setLocale("fa");
+    jalaliMoment.locale("fa");
   }
 
   getYear(date: jalaliMoment.Moment): number {
@@ -44,13 +42,13 @@ export class MaterialPersianDateAdapter extends DateAdapter<
     return this.clone(date).day();
   }
 
-  getMonthNames(style: 'long' | 'short' | 'narrow'): string[] {
+  getMonthNames(style: "long" | "short" | "narrow"): string[] {
     switch (style) {
-      case 'long':
-      case 'short':
-        return jalaliMoment.localeData('fa').jMonths().slice(0);
-      case 'narrow':
-        return jalaliMoment.localeData('fa').jMonthsShort().slice(0);
+      case "long":
+      case "short":
+        return jalaliMoment.localeData("fa").jMonths().slice(0);
+      case "narrow":
+        return jalaliMoment.localeData("fa").jMonthsShort().slice(0);
     }
   }
 
@@ -62,14 +60,14 @@ export class MaterialPersianDateAdapter extends DateAdapter<
     return valuesArray;
   }
 
-  getDayOfWeekNames(style: 'long' | 'short' | 'narrow'): string[] {
+  getDayOfWeekNames(style: "long" | "short" | "narrow"): string[] {
     switch (style) {
-      case 'long':
-        return jalaliMoment.localeData('fa').weekdays().slice(0);
-      case 'short':
-        return jalaliMoment.localeData('fa').weekdaysShort().slice(0);
-      case 'narrow':
-        return ['ی', 'د', 'س', 'چ', 'پ', 'ج', 'ش'];
+      case "long":
+        return jalaliMoment.localeData("fa").weekdays().slice(0);
+      case "short":
+        return jalaliMoment.localeData("fa").weekdaysShort().slice(0);
+      case "narrow":
+        return ["ی", "د", "س", "چ", "پ", "ج", "ش"];
     }
   }
 
@@ -78,7 +76,7 @@ export class MaterialPersianDateAdapter extends DateAdapter<
   }
 
   getFirstDayOfWeek(): number {
-    return jalaliMoment.localeData('fa').firstDayOfWeek();
+    return jalaliMoment.localeData("fa").firstDayOfWeek();
   }
 
   getNumDaysInMonth(date: jalaliMoment.Moment): number {
@@ -86,13 +84,13 @@ export class MaterialPersianDateAdapter extends DateAdapter<
   }
 
   clone(date: jalaliMoment.Moment): jalaliMoment.Moment {
-    return date.clone().locale('fa');
+    return date.clone().locale("fa");
   }
 
   createDate(year: number, month: number, date: number): jalaliMoment.Moment {
     if (month < 0 || month > 11) {
       throw Error(
-        `Invalid month index "${month}". Month index has to be between 0 and 11.`
+        `Invalid month index "${month}". Month index has to be between 0 and 11.`,
       );
     }
     if (date < 1) {
@@ -106,7 +104,7 @@ export class MaterialPersianDateAdapter extends DateAdapter<
       .minutes(0)
       .seconds(0)
       .milliseconds(0)
-      .locale('fa');
+      .locale("fa");
 
     if (this.getMonth(result) !== month) {
       throw Error(`Invalid date ${date} for month with index ${month}.`);
@@ -118,46 +116,46 @@ export class MaterialPersianDateAdapter extends DateAdapter<
   }
 
   today(): jalaliMoment.Moment {
-    return jalaliMoment().locale('fa');
+    return jalaliMoment().locale("fa");
   }
 
   parse(
     value: any,
-    parseFormat: string | string[]
+    parseFormat: string | string[],
   ): jalaliMoment.Moment | null {
-    if (value && typeof value === 'string') {
-      return jalaliMoment(value, parseFormat, 'fa');
+    if (value && typeof value === "string") {
+      return jalaliMoment(value, parseFormat, "fa");
     }
-    return value ? jalaliMoment(value).locale('fa') : null;
+    return value ? jalaliMoment(value).locale("fa") : null;
   }
 
   format(date: jalaliMoment.Moment, displayFormat: string): string {
     date = this.clone(date);
     if (!this.isValid(date)) {
-      throw Error('JalaliMomentDateAdapter: Cannot format invalid date.');
+      throw Error("JalaliMomentDateAdapter: Cannot format invalid date.");
     }
     return date.format(displayFormat);
   }
 
   addCalendarYears(
     date: jalaliMoment.Moment,
-    years: number
+    years: number,
   ): jalaliMoment.Moment {
-    return this.clone(date).add(years, 'jYear');
+    return this.clone(date).add(years, "jYear");
   }
 
   addCalendarMonths(
     date: jalaliMoment.Moment,
-    months: number
+    months: number,
   ): jalaliMoment.Moment {
-    return this.clone(date).add(months, 'jmonth');
+    return this.clone(date).add(months, "jmonth");
   }
 
   addCalendarDays(
     date: jalaliMoment.Moment,
-    days: number
+    days: number,
   ): jalaliMoment.Moment {
-    return this.clone(date).add(days, 'jDay');
+    return this.clone(date).add(days, "jDay");
   }
 
   toIso8601(date: jalaliMoment.Moment): string {
@@ -181,11 +179,11 @@ export class MaterialPersianDateAdapter extends DateAdapter<
     if (value instanceof Date) {
       date = jalaliMoment(value);
     }
-    if (typeof value === 'string') {
+    if (typeof value === "string") {
       if (!value) {
         return null;
       }
-      date = jalaliMoment(value).locale('fa');
+      date = jalaliMoment(value).locale("fa");
     }
     if (date && this.isValid(date)) {
       return date;

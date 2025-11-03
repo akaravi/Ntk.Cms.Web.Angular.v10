@@ -1,20 +1,37 @@
-
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from "@angular/core";
+import { FormControl } from "@angular/forms";
+import { TranslateService } from "@ngx-translate/core";
 import {
   BankPaymentPrivateSiteConfigModel,
-  BankPaymentPrivateSiteConfigService, ClauseTypeEnum, CoreEnumService, ErrorExceptionResult,
-  FilterDataModel, FilterDataModelSearchTypesEnum, FilterModel
-} from 'ntk-cms-api';
-import { Observable, firstValueFrom } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
+  BankPaymentPrivateSiteConfigService,
+  ClauseTypeEnum,
+  CoreEnumService,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterDataModelSearchTypesEnum,
+  FilterModel,
+} from "ntk-cms-api";
+import { Observable, firstValueFrom } from "rxjs";
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  startWith,
+  switchMap,
+} from "rxjs/operators";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 @Component({
-    selector: 'app-bankpayment-privatesiteconfig-selector',
-    templateUrl: './selector.component.html',
-    standalone: false
+  selector: "app-bankpayment-privatesiteconfig-selector",
+  templateUrl: "./selector.component.html",
+  standalone: false,
 })
 export class BankPaymentPrivateSiteConfigSelectorComponent implements OnInit {
   static nextId = 0;
@@ -26,51 +43,55 @@ export class BankPaymentPrivateSiteConfigSelectorComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
-    public categoryService: BankPaymentPrivateSiteConfigService) {
+    public categoryService: BankPaymentPrivateSiteConfigService,
+  ) {
     this.publicHelper.processService.cdr = this.cdr;
-
   }
-  @Input() set optionSelectForce(x: number | BankPaymentPrivateSiteConfigModel) {
+  @Input() set optionSelectForce(
+    x: number | BankPaymentPrivateSiteConfigModel,
+  ) {
     this.onActionSelectForce(x);
   }
   @Input() set optionSelectParentForce(x: number) {
     this.onActionSelectParentForce(x);
   }
-  dataModelResult: ErrorExceptionResult<BankPaymentPrivateSiteConfigModel> = new ErrorExceptionResult<BankPaymentPrivateSiteConfigModel>();
-  dataModelSelect: BankPaymentPrivateSiteConfigModel = new BankPaymentPrivateSiteConfigModel();
+  dataModelResult: ErrorExceptionResult<BankPaymentPrivateSiteConfigModel> =
+    new ErrorExceptionResult<BankPaymentPrivateSiteConfigModel>();
+  dataModelSelect: BankPaymentPrivateSiteConfigModel =
+    new BankPaymentPrivateSiteConfigModel();
   formControl = new FormControl();
   filteredOptions: Observable<BankPaymentPrivateSiteConfigModel[]>;
   parentId = 0;
   @Input() optionSelectFirstItem = false;
-  @Input() optionPlaceholder = '';
+  @Input() optionPlaceholder = "";
   @Input() optionDisabled = false;
   @Input() optionRequired = false;
-  @Input() optionLabel = '';
-  @Output() optionChange = new EventEmitter<BankPaymentPrivateSiteConfigModel>();
+  @Input() optionLabel = "";
+  @Output() optionChange =
+    new EventEmitter<BankPaymentPrivateSiteConfigModel>();
   @Input() optionReload = () => this.onActionButtonReload();
-
-
-
 
   ngOnInit(): void {
     this.loadOptions();
-    if (!this.optionLabel || this.optionLabel.length == 0 && this.optionPlaceholder?.length > 0)
+    if (
+      !this.optionLabel ||
+      (this.optionLabel.length == 0 && this.optionPlaceholder?.length > 0)
+    )
       this.optionLabel = this.optionPlaceholder;
   }
   loadOptions(): void {
-    this.filteredOptions = this.formControl.valueChanges
-      .pipe(
-        startWith(''),
-        debounceTime(1500),
-        distinctUntilChanged(),
-        switchMap(val => {
-          if (typeof val === 'string' || typeof val === 'number') {
-            return this.DataGetAll(val || '');
-          }
-          return [];
-        }),
-        // tap(() => this.myControl.setValue(this.options[0]))
-      );
+    this.filteredOptions = this.formControl.valueChanges.pipe(
+      startWith(""),
+      debounceTime(1500),
+      distinctUntilChanged(),
+      switchMap((val) => {
+        if (typeof val === "string" || typeof val === "number") {
+          return this.DataGetAll(val || "");
+        }
+        return [];
+      }),
+      // tap(() => this.myControl.setValue(this.options[0]))
+    );
   }
   displayFn(model?: BankPaymentPrivateSiteConfigModel): string | undefined {
     return model ? model.title : undefined;
@@ -78,20 +99,22 @@ export class BankPaymentPrivateSiteConfigSelectorComponent implements OnInit {
   displayOption(model?: BankPaymentPrivateSiteConfigModel): string | undefined {
     return model ? model.title : undefined;
   }
-  async DataGetAll(text: string | number | any): Promise<BankPaymentPrivateSiteConfigModel[]> {
+  async DataGetAll(
+    text: string | number | any,
+  ): Promise<BankPaymentPrivateSiteConfigModel[]> {
     const filterModel = new FilterModel();
     filterModel.rowPerPage = 20;
     filterModel.accessLoad = true;
     const filters = new Array<FilterDataModel>();
     let filter = new FilterDataModel();
-    filter.propertyName = 'Title';
+    filter.propertyName = "Title";
     filter.value = text;
     filter.searchType = FilterDataModelSearchTypesEnum.Contains;
     filter.clauseType = ClauseTypeEnum.Or;
     filterModel.filters.push(filter);
-    if (text && typeof +text === 'number' && +text > 0) {
+    if (text && typeof +text === "number" && +text > 0) {
       filter = new FilterDataModel();
-      filter.propertyName = 'Id';
+      filter.propertyName = "Id";
       filter.value = text;
       filter.searchType = FilterDataModelSearchTypesEnum.Equal;
       filter.clauseType = ClauseTypeEnum.Or;
@@ -99,10 +122,10 @@ export class BankPaymentPrivateSiteConfigSelectorComponent implements OnInit {
     }
     if (this.parentId > 0) {
       const parent = {
-        PropertyName: 'LinkSourceId',
+        PropertyName: "LinkSourceId",
         Value: this.parentId.toString(),
         ClauseType: 2,
-        SearchType: 0
+        SearchType: 0,
       };
       filterModel.filters.push(parent as unknown as FilterDataModel);
       const tree = {
@@ -111,31 +134,42 @@ export class BankPaymentPrivateSiteConfigSelectorComponent implements OnInit {
       if (filters && filters.length > 0) {
         filterModel.filters.push(tree as unknown as FilterDataModel);
       }
-    }
-    else if (filters && filters.length > 0) {
+    } else if (filters && filters.length > 0) {
       filterModel.filters = filters as FilterDataModel[];
     }
 
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
+    return await firstValueFrom(
+      this.categoryService.ServiceGetAll(filterModel),
+    ).then((response) => {
+      this.dataModelResult = response;
+      /*select First Item */
+      if (
+        this.optionSelectFirstItem &&
+        (!this.dataModelSelect ||
+          !this.dataModelSelect.id ||
+          this.dataModelSelect.id <= 0) &&
+        this.dataModelResult.listItems.length > 0
+      ) {
+        this.optionSelectFirstItem = false;
+        setTimeout(() => {
+          this.formControl.setValue(this.dataModelResult.listItems[0]);
+        }, 1000);
+        this.onActionSelect(this.dataModelResult.listItems[0]);
+      }
+      /*select First Item */
+      this.publicHelper.processService.processStop(pName);
+      return response.listItems;
     });
-    return await firstValueFrom(this.categoryService.ServiceGetAll(filterModel))
-      .then(
-        (response) => {
-          this.dataModelResult = response;
-          /*select First Item */
-          if (this.optionSelectFirstItem &&
-            (!this.dataModelSelect || !this.dataModelSelect.id || this.dataModelSelect.id <= 0) &&
-            this.dataModelResult.listItems.length > 0) {
-            this.optionSelectFirstItem = false;
-            setTimeout(() => { this.formControl.setValue(this.dataModelResult.listItems[0]); }, 1000);
-            this.onActionSelect(this.dataModelResult.listItems[0]);
-          }
-          /*select First Item */
-          this.publicHelper.processService.processStop(pName);
-          return response.listItems;
-        });
   }
   onActionSelect(model: BankPaymentPrivateSiteConfigModel): void {
     if (this.optionDisabled) {
@@ -152,22 +186,30 @@ export class BankPaymentPrivateSiteConfigSelectorComponent implements OnInit {
     this.formControl.setValue(null);
     this.optionChange.emit(null);
   }
-  push(newvalue: BankPaymentPrivateSiteConfigModel): Observable<BankPaymentPrivateSiteConfigModel[]> {
-    return this.filteredOptions.pipe(map(items => {
-      if (items.find(x => x.id === newvalue.id)) {
+  push(
+    newvalue: BankPaymentPrivateSiteConfigModel,
+  ): Observable<BankPaymentPrivateSiteConfigModel[]> {
+    return this.filteredOptions.pipe(
+      map((items) => {
+        if (items.find((x) => x.id === newvalue.id)) {
+          return items;
+        }
+        items.push(newvalue);
         return items;
-      }
-      items.push(newvalue);
-      return items;
-    }));
+      }),
+    );
   }
   onActionSelectForce(id: number | BankPaymentPrivateSiteConfigModel): void {
-    if (typeof id === 'number' && id > 0) {
+    if (typeof id === "number" && id > 0) {
       if (this.dataModelSelect && this.dataModelSelect.id === id) {
         return;
       }
-      if (this.dataModelResult && this.dataModelResult.listItems && this.dataModelResult.listItems.find(x => x.id === id)) {
-        const item = this.dataModelResult.listItems.find(x => x.id === id);
+      if (
+        this.dataModelResult &&
+        this.dataModelResult.listItems &&
+        this.dataModelResult.listItems.find((x) => x.id === id)
+      ) {
+        const item = this.dataModelResult.listItems.find((x) => x.id === id);
         this.dataModelSelect = item;
         this.formControl.setValue(item);
         return;
@@ -182,13 +224,13 @@ export class BankPaymentPrivateSiteConfigSelectorComponent implements OnInit {
           } else {
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
-        }
+        },
       });
       return;
     }
     if (typeof id === typeof BankPaymentPrivateSiteConfigModel) {
-      this.filteredOptions = this.push((id as BankPaymentPrivateSiteConfigModel));
-      this.dataModelSelect = (id as BankPaymentPrivateSiteConfigModel);
+      this.filteredOptions = this.push(id as BankPaymentPrivateSiteConfigModel);
+      this.dataModelSelect = id as BankPaymentPrivateSiteConfigModel;
       this.formControl.setValue(id);
       return;
     }

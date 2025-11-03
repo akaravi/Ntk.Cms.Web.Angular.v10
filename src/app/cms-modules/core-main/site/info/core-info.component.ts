@@ -1,24 +1,26 @@
-
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { CoreSiteService, ErrorExceptionResult, ShareInfoModel, TokenInfoModelV3 } from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsLinkToComponent } from 'src/app/shared/cms-link-to/cms-link-to.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  CoreSiteService,
+  ErrorExceptionResult,
+  ShareInfoModel,
+  TokenInfoModelV3,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { CmsLinkToComponent } from "src/app/shared/cms-link-to/cms-link-to.component";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 
 @Component({
-  selector: 'app-core-info',
-  templateUrl: './core-info.component.html',
-  standalone: false
+  selector: "app-core-info",
+  templateUrl: "./core-info.component.html",
+  standalone: false,
 })
 export class CoreInfoComponent implements OnInit, OnDestroy {
-
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private tokenHelper: TokenHelper,
@@ -29,8 +31,7 @@ export class CoreInfoComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
-    public dialog: MatDialog
-
+    public dialog: MatDialog,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
 
@@ -38,39 +39,46 @@ export class CoreInfoComponent implements OnInit, OnDestroy {
     if (this.tokenInfo) {
       this.DataGetInfo();
     }
-    this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-      this.DataGetInfo();
-    });
-
+    this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+        this.DataGetInfo();
+      });
   }
   cmsApiStoreSubscribe: Subscription;
   tokenInfo: TokenInfoModelV3;
 
-
-  dataModelResult: ErrorExceptionResult<ShareInfoModel> = new ErrorExceptionResult<ShareInfoModel>();
+  dataModelResult: ErrorExceptionResult<ShareInfoModel> =
+    new ErrorExceptionResult<ShareInfoModel>();
 
   ngOnInit(): void {
     /** read storage */
-    const siteId = + localStorage.getItem('siteId');
+    const siteId = +localStorage.getItem("siteId");
     if (siteId > 0) {
       //  this.dataModel.siteId = siteId;
     }
-    const ResellerSiteId = + localStorage.getItem('ResellerSiteId');
+    const ResellerSiteId = +localStorage.getItem("ResellerSiteId");
     if (ResellerSiteId > 0) {
       //  this.dataModel.resellerSiteId = ResellerSiteId;
     }
-    const ResellerUserId = + localStorage.getItem('ResellerUserId');
+    const ResellerUserId = +localStorage.getItem("ResellerUserId");
     if (ResellerUserId > 0) {
       //  this.dataModel.resellerUserId = ResellerUserId;
     }
     /** read storage */
   }
   DataGetInfo(): void {
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.coreSiteService.ServiceGetShareInfo().subscribe({
       next: (ret) => {
@@ -84,9 +92,8 @@ export class CoreInfoComponent implements OnInit, OnDestroy {
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   ngOnDestroy() {
     if (this.cmsApiStoreSubscribe) {
@@ -97,54 +104,71 @@ export class CoreInfoComponent implements OnInit, OnDestroy {
     this.cmsToastrService.typeSuccessCopedToClipboard();
   }
   onActionButtonResllerUser(): void {
-
-    this.router.navigate(['/core/user/reseller-chart']);
-
+    this.router.navigate(["/core/user/reseller-chart"]);
   }
   onActionButtonResllerUserShortLinkStatus(): void {
     if (this.dataModelResult?.item?.urlResellerUserShortLinkUrl?.length > 0) {
-
-      const indexLast = this.dataModelResult.item.urlResellerUserShortLinkUrl.lastIndexOf('/');
+      const indexLast =
+        this.dataModelResult.item.urlResellerUserShortLinkUrl.lastIndexOf("/");
       if (indexLast > 0) {
-        const key = this.dataModelResult.item.urlResellerUserShortLinkUrl.substr(indexLast + 1);
+        const key =
+          this.dataModelResult.item.urlResellerUserShortLinkUrl.substr(
+            indexLast + 1,
+          );
         // const url = this.router.serializeUrl(
         //   this.router.createUrlTree([encodeURI('#/linkmanagement/target-billboard-log/Key/' + key)])
         // );
         // window.open(url, '_blank');
-        this.router.navigate(['/linkmanagement/target-billboard-log/Key/' + key]);
+        this.router.navigate([
+          "/linkmanagement/target-billboard-log/Key/" + key,
+        ]);
       }
     }
   }
   onActionButtonResllerUserCategoryShortLinkStatus(): void {
-    if (this.dataModelResult?.item?.urlResellerSiteCategoryShortLinkUrl?.length > 0) {
-      const indexLast = this.dataModelResult.item.urlResellerSiteCategoryShortLinkUrl.lastIndexOf('/');
+    if (
+      this.dataModelResult?.item?.urlResellerSiteCategoryShortLinkUrl?.length >
+      0
+    ) {
+      const indexLast =
+        this.dataModelResult.item.urlResellerSiteCategoryShortLinkUrl.lastIndexOf(
+          "/",
+        );
       if (indexLast > 0) {
-        const key = this.dataModelResult.item.urlResellerSiteCategoryShortLinkUrl.substr(indexLast + 1);
+        const key =
+          this.dataModelResult.item.urlResellerSiteCategoryShortLinkUrl.substr(
+            indexLast + 1,
+          );
         // const url = this.router.serializeUrl(
         //   this.router.createUrlTree([encodeURI('#/linkmanagement/target-billboard-log/Key/' + key)])
         // );
         // window.open(url, '_blank');
-        this.router.navigate(['/linkmanagement/target-billboard-log/Key/' + key]);
+        this.router.navigate([
+          "/linkmanagement/target-billboard-log/Key/" + key,
+        ]);
       }
     }
   }
   onActionButtonResllerSite(): void {
-
-
-    this.router.navigate(['/core/site/reseller-chart']);
-
+    this.router.navigate(["/core/site/reseller-chart"]);
   }
   onActionButtonResllerSiteShortLinkStatus(): void {
     if (this.dataModelResult?.item?.urlResellerSiteShortLinkUrl?.length > 0) {
-      const indexLast = this.dataModelResult.item.urlResellerSiteShortLinkUrl.lastIndexOf('/');
+      const indexLast =
+        this.dataModelResult.item.urlResellerSiteShortLinkUrl.lastIndexOf("/");
       if (indexLast > 0) {
-        const key = this.dataModelResult.item.urlResellerSiteShortLinkUrl.substr(indexLast + 1);
+        const key =
+          this.dataModelResult.item.urlResellerSiteShortLinkUrl.substr(
+            indexLast + 1,
+          );
 
         // const url = this.router.serializeUrl(
         //   this.router.createUrlTree([encodeURI('#/linkmanagement/target-billboard-log/Key/' + key)])
         // );
         // window.open(url, '_blank');
-        this.router.navigate(['/linkmanagement/target-billboard-log/Key/' + key]);
+        this.router.navigate([
+          "/linkmanagement/target-billboard-log/Key/" + key,
+        ]);
       }
     }
   }
@@ -153,8 +177,9 @@ export class CoreInfoComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(CmsLinkToComponent, {
       // height: "90%",
       data: {
-        title: 'TITLE.website_address',
-        urlViewContentQRCodeBase64: this.dataModelResult.item?.urlSiteHomeShortLinkQRCodeBase64,
+        title: "TITLE.website_address",
+        urlViewContentQRCodeBase64:
+          this.dataModelResult.item?.urlSiteHomeShortLinkQRCodeBase64,
         urlViewContent: this.dataModelResult.item?.urlSiteHome,
       },
     });
@@ -169,8 +194,9 @@ export class CoreInfoComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(CmsLinkToComponent, {
       // height: "90%",
       data: {
-        title: 'TITLE.The_address_of_the_content_management_system',
-        urlViewContentQRCodeBase64: this.dataModelResult.item.urlSiteCPanelShortLinkQRCodeBase64,
+        title: "TITLE.The_address_of_the_content_management_system",
+        urlViewContentQRCodeBase64:
+          this.dataModelResult.item.urlSiteCPanelShortLinkQRCodeBase64,
         urlViewContent: this.dataModelResult.item.urlSiteCPanel,
       },
     });
@@ -185,8 +211,9 @@ export class CoreInfoComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(CmsLinkToComponent, {
       // height: "90%",
       data: {
-        title: 'TITLE.Website_sharing_address',
-        urlViewContentQRCodeBase64: this.dataModelResult.item.urlSiteCPanelShortLinkQRCodeBase64,
+        title: "TITLE.Website_sharing_address",
+        urlViewContentQRCodeBase64:
+          this.dataModelResult.item.urlSiteCPanelShortLinkQRCodeBase64,
         urlViewContent: this.dataModelResult.item.urlSiteCPanel,
       },
     });
@@ -201,8 +228,9 @@ export class CoreInfoComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(CmsLinkToComponent, {
       // height: "90%",
       data: {
-        title: 'TITLE.Sharing_address_with_your_user_account',
-        urlViewContentQRCodeBase64: this.dataModelResult.item.urlResellerUserShortLinkQRCodeBase64,
+        title: "TITLE.Sharing_address_with_your_user_account",
+        urlViewContentQRCodeBase64:
+          this.dataModelResult.item.urlResellerUserShortLinkQRCodeBase64,
         urlViewContent: this.dataModelResult.item.urlResellerUserShortLinkUrl,
       },
     });
@@ -217,9 +245,12 @@ export class CoreInfoComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(CmsLinkToComponent, {
       // height: "90%",
       data: {
-        title: 'TITLE.Sharing_address_with_your_user_account',
-        urlViewContentQRCodeBase64: this.dataModelResult.item.urlResellerSiteCategoryShortLinkQRCodeBase64,
-        urlViewContent: this.dataModelResult.item.urlResellerSiteCategoryShortLinkUrl,
+        title: "TITLE.Sharing_address_with_your_user_account",
+        urlViewContentQRCodeBase64:
+          this.dataModelResult.item
+            .urlResellerSiteCategoryShortLinkQRCodeBase64,
+        urlViewContent:
+          this.dataModelResult.item.urlResellerSiteCategoryShortLinkUrl,
       },
     });
     dialogRef.afterClosed().subscribe((result) => {

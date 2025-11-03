@@ -1,17 +1,15 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AngularEditorModule } from '@kolkov/angular-editor';
-import {
-  BiographyConfigurationService, CoreModuleService
-} from 'ntk-cms-api';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { BiographyConfigRouting } from './biography-config.routing';
-import { BiographyConfigCheckSiteComponent } from './check-site/check-site.component';
-import { BiographyConfigCheckUserComponent } from './check-user/check-user.component';
-import { BiographyConfigMainAdminComponent } from './main-admin/config-main-admin.component';
-import { BiographyConfigSiteComponent } from './site/config-site.component';
-import { BiographyConfigComponent } from './biography-config.component';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { AngularEditorModule } from "@kolkov/angular-editor";
+import { BiographyConfigurationService, CoreModuleService } from "ntk-cms-api";
+import { SharedModule } from "src/app/shared/shared.module";
+import { BiographyConfigRouting } from "./biography-config.routing";
+import { BiographyConfigCheckSiteComponent } from "./check-site/check-site.component";
+import { BiographyConfigCheckUserComponent } from "./check-user/check-user.component";
+import { BiographyConfigMainAdminComponent } from "./main-admin/config-main-admin.component";
+import { BiographyConfigSiteComponent } from "./site/config-site.component";
+import { BiographyConfigComponent } from "./biography-config.component";
 @NgModule({
   declarations: [
     BiographyConfigComponent,
@@ -34,14 +32,10 @@ import { BiographyConfigComponent } from './biography-config.component';
     CommonModule,
     FormsModule,
     BiographyConfigRouting,
-    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     SharedModule,
     AngularEditorModule,
   ],
-  providers: [
-    CoreModuleService,
-    BiographyConfigurationService,
-  ]
+  providers: [CoreModuleService, BiographyConfigurationService],
 })
-export class BiographyConfigModule {
-}
+export class BiographyConfigModule {}

@@ -1,22 +1,17 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  CoreModuleService,
-  HyperShopConfigurationService
-} from 'ntk-cms-api';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { CoreModuleService, HyperShopConfigurationService } from "ntk-cms-api";
+import { SharedModule } from "src/app/shared/shared.module";
 
-
-import { AngularEditorModule } from '@kolkov/angular-editor';
-import { HyperShopConfigCheckSiteComponent } from './check-site/check-site.component';
-import { HyperShopConfigCheckUserComponent } from './check-user/check-user.component';
-import { HyperShopConfigRouting } from './hyper-shop-config.routing';
-import { HyperShopConfigMainAdminComponent } from './main-admin/config-main-admin.component';
-import { HyperShopConfigSiteComponent } from './site/config-site.component';
-import { HyperShopConfigComponent } from './hyper-shop-config.component';
-
+import { AngularEditorModule } from "@kolkov/angular-editor";
+import { HyperShopConfigCheckSiteComponent } from "./check-site/check-site.component";
+import { HyperShopConfigCheckUserComponent } from "./check-user/check-user.component";
+import { HyperShopConfigRouting } from "./hyper-shop-config.routing";
+import { HyperShopConfigMainAdminComponent } from "./main-admin/config-main-admin.component";
+import { HyperShopConfigSiteComponent } from "./site/config-site.component";
+import { HyperShopConfigComponent } from "./hyper-shop-config.component";
 
 @NgModule({
   declarations: [
@@ -40,14 +35,10 @@ import { HyperShopConfigComponent } from './hyper-shop-config.component';
     CommonModule,
     FormsModule,
     HyperShopConfigRouting,
-    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     SharedModule,
     AngularEditorModule,
   ],
-  providers: [
-    CoreModuleService,
-    HyperShopConfigurationService,
-  ]
+  providers: [CoreModuleService, HyperShopConfigurationService],
 })
-export class HyperShopConfigModule {
-}
+export class HyperShopConfigModule {}

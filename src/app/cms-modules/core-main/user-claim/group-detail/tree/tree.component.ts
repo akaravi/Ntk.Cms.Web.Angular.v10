@@ -1,5 +1,4 @@
-
-import { NestedTreeControl } from '@angular/cdk/tree';
+import { NestedTreeControl } from "@angular/cdk/tree";
 import {
   ChangeDetectorRef,
   Component,
@@ -7,28 +6,26 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+  Output,
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
-import { TranslateService } from '@ngx-translate/core';
-import {
-  CoreEnumService, CoreUserClaimGroupDetailModel,
-  CoreUserClaimGroupDetailService, ErrorExceptionResult,
-  FilterModel
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { environment } from 'src/environments/environment';
-import { CoreUserClaimGroupDetailAddComponent } from '../add/add.component';
-import { CoreUserClaimGroupDetailEditComponent } from '../edit/edit.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
-
+  CoreEnumService,
+  CoreUserClaimGroupDetailModel,
+  CoreUserClaimGroupDetailService,
+  ErrorExceptionResult,
+  FilterModel,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { environment } from "src/environments/environment";
+import { CoreUserClaimGroupDetailAddComponent } from "../add/add.component";
+import { CoreUserClaimGroupDetailEditComponent } from "../edit/edit.component";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 
 @Component({
   selector: "app-core-userclaimgroupdetail-tree",

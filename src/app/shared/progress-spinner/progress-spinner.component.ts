@@ -31,8 +31,12 @@ export class ProgressSpinnerComponent implements OnInit, OnDestroy {
         } else {
           this.infoArea = [];
         }
-        if (value?.inRunArea && value.inRunArea[this.infoAreaId]) {
-          this.inRunAreaStatus = value.inRunArea[this.infoAreaId];
+        if (
+          value?.inRunArea &&
+          value.inRunArea[this.infoAreaId] &&
+          value.inRunArea[this.infoAreaId] == true
+        ) {
+          this.inRunAreaStatus = true;
         } else {
           this.inRunAreaStatus = false;
         }

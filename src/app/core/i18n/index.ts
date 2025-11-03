@@ -1,2 +1,2 @@
-export * from './cmsTranslation.module';
-export * from './cmsTranslation.service';
+export * from "./cmsTranslation.module";
+export * from "./cmsTranslation.service";

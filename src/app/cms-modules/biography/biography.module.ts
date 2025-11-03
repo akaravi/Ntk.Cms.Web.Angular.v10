@@ -1,15 +1,17 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { BiographyComponent } from './biography.component';
-import { BiographyRouting } from './biography.routing';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { BiographyComponent } from "./biography.component";
+import { BiographyRouting } from "./biography.routing";
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AngularEditorModule } from '@kolkov/angular-editor';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { AngularEditorModule } from "@kolkov/angular-editor";
 import {
   BiographyCategoryService,
   BiographyCommentService,
   BiographyConfigurationService,
-  BiographyContentAndParameterValueService, BiographyContentCategoryService, BiographyContentOtherInfoService,
+  BiographyContentAndParameterValueService,
+  BiographyContentCategoryService,
+  BiographyContentOtherInfoService,
   BiographyContentParameterService,
   BiographyContentParameterTypeService,
   BiographyContentService,
@@ -17,24 +19,27 @@ import {
   BiographyContentTagService,
   BiographyShareMainAdminSettingService,
   BiographyShareReceiverCategoryService,
-  BiographyShareServerCategoryService, CoreEnumService, CoreModuleService, CoreModuleTagService
-} from 'ntk-cms-api';
-import { CmsFileManagerModule } from 'ntk-cms-filemanager';
-import { CmsConfirmationDialogService } from 'src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { BiographyCategoryAddComponent } from './category/add/add.component';
-import { BiographyCategoryDeleteComponent } from './category/delete/delete.component';
-import { BiographyCategoryEditComponent } from './category/edit/edit.component';
-import { BiographyCategorySelectorComponent } from './category/selector/selector.component';
-import { BiographyCategoryTreeSelectorComponent } from './category/tree-selector/tree-selector.component';
-import { BiographyCategoryTreeComponent } from './category/tree/tree.component';
-import { BiographyCommentEditComponent } from './comment/edit/edit.component';
-import { BiographyCommentListComponent } from './comment/list/list.component';
-import { BiographyContentAddComponent } from './content/add/add.component';
-import { BiographyContentDeleteComponent } from './content/delete/delete.component';
-import { BiographyContentEditComponent } from './content/edit/edit.component';
-import { BiographyContentListComponent } from './content/list/list.component';
-import { BiographyContentSelectorComponent } from './content/selector/selector.component';
+  BiographyShareServerCategoryService,
+  CoreEnumService,
+  CoreModuleService,
+  CoreModuleTagService,
+} from "ntk-cms-api";
+import { CmsFileManagerModule } from "ntk-cms-filemanager";
+import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { SharedModule } from "src/app/shared/shared.module";
+import { BiographyCategoryAddComponent } from "./category/add/add.component";
+import { BiographyCategoryDeleteComponent } from "./category/delete/delete.component";
+import { BiographyCategoryEditComponent } from "./category/edit/edit.component";
+import { BiographyCategorySelectorComponent } from "./category/selector/selector.component";
+import { BiographyCategoryTreeSelectorComponent } from "./category/tree-selector/tree-selector.component";
+import { BiographyCategoryTreeComponent } from "./category/tree/tree.component";
+import { BiographyCommentEditComponent } from "./comment/edit/edit.component";
+import { BiographyCommentListComponent } from "./comment/list/list.component";
+import { BiographyContentAddComponent } from "./content/add/add.component";
+import { BiographyContentDeleteComponent } from "./content/delete/delete.component";
+import { BiographyContentEditComponent } from "./content/edit/edit.component";
+import { BiographyContentListComponent } from "./content/list/list.component";
+import { BiographyContentSelectorComponent } from "./content/selector/selector.component";
 @NgModule({
   declarations: [
     BiographyComponent,
@@ -56,11 +61,11 @@ import { BiographyContentSelectorComponent } from './content/selector/selector.c
     CommonModule,
     BiographyRouting,
     FormsModule,
-    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     SharedModule,
     AngularEditorModule,
 
-    CmsFileManagerModule
+    CmsFileManagerModule,
   ],
   providers: [
     CoreModuleService,
@@ -84,6 +89,6 @@ import { BiographyContentSelectorComponent } from './content/selector/selector.c
     BiographyShareMainAdminSettingService,
     BiographyShareReceiverCategoryService,
     BiographyShareServerCategoryService,
-  ]
+  ],
 })
-export class BiographyModule { }
+export class BiographyModule {}

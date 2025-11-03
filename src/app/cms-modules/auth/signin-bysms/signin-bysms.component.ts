@@ -245,7 +245,8 @@ export class AuthSignInBySmsComponent implements OnInit, OnDestroy {
         .getItem(SELECT_SITE_LOCAL_STORAGE_KEY)
         .split(",");
       if (sitelist && sitelist.length > 0)
-        this.dataModelAuthUserSignInBySms.siteId = +sitelist[sitelist.length-1];
+        this.dataModelAuthUserSignInBySms.siteId =
+          +sitelist[sitelist.length - 1];
     }
     const ResellerSiteId = +localStorage.getItem(
       RESSELLER_SITE_ID_LOCAL_STORAGE_KEY,

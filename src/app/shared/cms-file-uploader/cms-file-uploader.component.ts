@@ -1,14 +1,14 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { HttpClient } from "@angular/common/http";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 
-import { FileUploaderPickerAdapter } from './fileUploaderPickerAdapter';
-import { FilePreviewModel } from 'ngx-ntk-file-picker';
+import { FileUploaderPickerAdapter } from "./fileUploaderPickerAdapter";
+import { FilePreviewModel } from "ngx-ntk-file-picker";
 
 @Component({
-    selector: 'app-cms-file-uploader',
-    templateUrl: './cms-file-uploader.component.html',
-    styleUrls: ['./cms-file-uploader.component.scss'],
-    standalone: false
+  selector: "app-cms-file-uploader",
+  templateUrl: "./cms-file-uploader.component.html",
+  styleUrls: ["./cms-file-uploader.component.scss"],
+  standalone: false,
 })
 export class CmsFileUploaderComponent implements OnInit {
   static nextId = 0;
@@ -24,9 +24,7 @@ export class CmsFileUploaderComponent implements OnInit {
       this.fileType = x;
     }
   }
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
   uploadSuccess(event: FilePreviewModel): void {
     this.optionUploadSuccess.emit(event);
   }

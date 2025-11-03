@@ -3,11 +3,11 @@
  *
  * @param dateInStr: string (format => 'MM/dd/yyyy')
  */
-export function getDateFromString(dateInStr: string = ''): Date {
+export function getDateFromString(dateInStr: string = ""): Date {
   if (dateInStr && dateInStr.length > 0) {
-    const dateParts = dateInStr.trim().split('/');
+    const dateParts = dateInStr.trim().split("/");
     const year = toInteger(dateParts[2]);
-    const month =  toInteger(dateParts[0]);
+    const month = toInteger(dateParts[0]);
     const day = toInteger(dateParts[1]);
     // tslint:disable-next-line:prefer-const
     let result = new Date();

@@ -1,25 +1,32 @@
-
 import {
-  ChangeDetectorRef, Component, Input, OnDestroy, OnInit
-} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  DataFieldInfoModel, DonateTargetPeriodSponsorModel,
-  DonateTargetPeriodSponsorService, ErrorExceptionResult
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
+  DataFieldInfoModel,
+  DonateTargetPeriodSponsorModel,
+  DonateTargetPeriodSponsorService,
+  ErrorExceptionResult,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 @Component({
-  selector: 'app-donate-target-period-sponser-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
-  standalone: false
+  selector: "app-donate-target-period-sponser-header",
+  templateUrl: "./header.component.html",
+  styleUrls: ["./header.component.scss"],
+  standalone: false,
 })
-export class DonateTargetPeriodSponserHeaderComponent implements OnInit, OnDestroy {
+export class DonateTargetPeriodSponserHeaderComponent
+  implements OnInit, OnDestroy
+{
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private headerService: DonateTargetPeriodSponsorService,
@@ -29,16 +36,18 @@ export class DonateTargetPeriodSponserHeaderComponent implements OnInit, OnDestr
     public dialog: MatDialog,
     public translate: TranslateService,
     private cmsStoreService: CmsStoreService,
-    public tokenHelper: TokenHelper
+    public tokenHelper: TokenHelper,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }
-  @Input() optionId = '';
+  @Input() optionId = "";
 
-  dataModelResult: ErrorExceptionResult<DonateTargetPeriodSponsorModel> = new ErrorExceptionResult<DonateTargetPeriodSponsorModel>();
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
-
-
+  dataModelResult: ErrorExceptionResult<DonateTargetPeriodSponsorModel> =
+    new ErrorExceptionResult<DonateTargetPeriodSponsorModel>();
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
 
   cmsApiStoreSubscribe: Subscription;
   ngOnInit(): void {
@@ -46,9 +55,11 @@ export class DonateTargetPeriodSponserHeaderComponent implements OnInit, OnDestr
       this.DataGetOneContent();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetOneContent();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetOneContent();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -57,10 +68,16 @@ export class DonateTargetPeriodSponserHeaderComponent implements OnInit, OnDestr
   }
 
   DataGetOneContent(): void {
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.headerService.setAccessLoad();
     this.headerService.ServiceGetOneById(this.optionId.length).subscribe({
@@ -76,8 +93,7 @@ export class DonateTargetPeriodSponserHeaderComponent implements OnInit, OnDestr
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
 }

@@ -1,69 +1,94 @@
 <div class="card card-style loader-container">
-  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId"> </app-progress-spinner>
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
   <div class="menu-title">
-    <p class="color-highlight">نتیجه تراکنش </p>
-    <a class="close-menu" (click)="onFormCancel()"><i class="fa fa-times-circle"></i></a>
-    <hr>
+    <p class="color-highlight">نتیجه تراکنش</p>
+    <a class="close-menu" (click)="onFormCancel()"
+      ><i class="fa fa-times-circle"></i
+    ></a>
+    <hr />
   </div>
   <div class="content mb-0">
     <p class="mb-0 color-highlight font-600 font-12">
-      {{'TITLE.Transaction_status' | translate}}:{{requestId}}
+      {{ "TITLE.Transaction_status" | translate }}:{{ requestId }}
     </p>
 
     <!--Content-->
 
-<div class="ntk-cms-html-card-header">
-  <!--begin:::::::::::::::::::::::::::::::::::::::::cms-header-->
+    <div class="ntk-cms-html-card-header">
+      <!--begin:::::::::::::::::::::::::::::::::::::::::cms-header-->
 
-  <!--end:::::::::::::::::::::::::::::::::::::::::cms-header-->
-</div>
-<div class="ntk-cms-html-card-body ntk-allow-text-selection loader-container">
-  <app-progress-spinner [optionsInfoAreaId]="constructor.name"> </app-progress-spinner>
-  <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
-  <div class="table" *ngIf="dataModelResult.item&& dataModelResult.item.id>0">
-    <div class="tr">
-      <div class="td">{{'TITLE.Transaction_ID' | translate}}</div>
-      <div class="td">{{dataModelResult.item.id}}</div>
-      <div style="clear: both;"></div>
+      <!--end:::::::::::::::::::::::::::::::::::::::::cms-header-->
     </div>
-    <div class="tr">
-      <div class="td">{{'TITLE.Transaction_status' | translate}}:{{requestId}}</div>
-      <div class="td">
-        <div *ngIf="dataModelResult.item.transactionStatus===TransactionSuccessful">
-          <span class="svg-icon svg-icon-3x svg-icon-primary"
-            [inlineSVG]="'assets/media/svg/icons/General/Shield-check.svg'"></span>
-          <br>
+    <div
+      class="ntk-cms-html-card-body ntk-allow-text-selection loader-container"
+    >
+      <app-progress-spinner [optionsInfoAreaId]="constructor.name">
+      </app-progress-spinner>
+      <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
+      <div
+        class="table"
+        *ngIf="dataModelResult.item && dataModelResult.item.id > 0"
+      >
+        <div class="tr">
+          <div class="td">{{ "TITLE.Transaction_ID" | translate }}</div>
+          <div class="td">{{ dataModelResult.item.id }}</div>
+          <div style="clear: both"></div>
         </div>
-        {{dataModelResult.item.transactionStatus | enums : dataModelEnumTransactionRecordStatusResult.listItems}}
+        <div class="tr">
+          <div class="td">
+            {{ "TITLE.Transaction_status" | translate }}:{{ requestId }}
+          </div>
+          <div class="td">
+            <div
+              *ngIf="
+                dataModelResult.item.transactionStatus === TransactionSuccessful
+              "
+            >
+              <span
+                class="svg-icon svg-icon-3x svg-icon-primary"
+                [inlineSVG]="'assets/media/svg/icons/General/Shield-check.svg'"
+              ></span>
+              <br />
+            </div>
+            {{
+              dataModelResult.item.transactionStatus
+                | enums: dataModelEnumTransactionRecordStatusResult.listItems
+            }}
+          </div>
+          <div style="clear: both"></div>
+        </div>
+
+        <div class="tr">
+          <div class="td">{{ "TITLE.Amount" | translate }}</div>
+          <div class="td">
+            {{ dataModelResult.item.amount }}
+            {{ dataModelResult.item.currencyUnit }}
+          </div>
+          <div style="clear: both"></div>
+        </div>
+        <div class="tr">
+          <div class="td">{{ "TITLE.Message" | translate }}</div>
+          <div class="td">{{ dataModelResult.item.lastStatusMessage }}</div>
+          <div style="clear: both"></div>
+        </div>
       </div>
-      <div style="clear: both;"></div>
+      <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
     </div>
 
-    <div class="tr">
-      <div class="td"> {{'TITLE.Amount' | translate}} </div>
-      <div class="td">{{dataModelResult.item.amount}} {{dataModelResult.item.currencyUnit}}</div>
-      <div style="clear: both;"></div>
+    <div class="ntk-cms-html-card-footer">
+      <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
+      <div class="form-actions">
+        <button
+          type="button"
+          (click)="onFormCancel()"
+          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+        >
+          <i class="ft-x"></i> {{ "ACTION.BACK" | translate }}
+        </button>
+      </div>
+      <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
     </div>
-    <div class="tr">
-      <div class="td">{{'TITLE.Message' | translate}} </div>
-      <div class="td">{{dataModelResult.item.lastStatusMessage}}</div>
-      <div style="clear: both;"></div>
-    </div>
-
+    <!--Content-->
   </div>
-  <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
-</div>
-
-<div class="ntk-cms-html-card-footer">
-  <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
-  <div class="form-actions">
-    <button type="button" (click)="onFormCancel()"
-      class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray">
-      <i class="ft-x"></i> {{'ACTION.BACK' | translate}}
-    </button>
-  </div>
-  <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
-</div>
- <!--Content-->
-</div>
 </div>

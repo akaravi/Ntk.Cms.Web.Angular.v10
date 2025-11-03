@@ -5,7 +5,7 @@ export class InlineSVGConfig {
 }
 
 export const enum SVGScriptEvalMode {
-  ALWAYS = 'always',
-  ONCE = 'once',
-  NEVER = 'never'
+  ALWAYS = "always",
+  ONCE = "once",
+  NEVER = "never",
 }

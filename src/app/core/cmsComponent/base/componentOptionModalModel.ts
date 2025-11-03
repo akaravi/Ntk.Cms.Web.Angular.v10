@@ -1,10 +1,14 @@
-import { ComponentModalDataModel } from './componentModalDataModel';
-import { ComponentOptionModel } from './componentOptionModel';
-
-
+import { ComponentModalDataModel } from "./componentModalDataModel";
+import { ComponentOptionModel } from "./componentOptionModel";
 
 export class ComponentOptionModalModel
-  implements ComponentOptionModel<ComponentOptionModalDataModel, ComponentOptionModalActionsModel, ComponentOptionModalMethodsModel> {
+  implements
+    ComponentOptionModel<
+      ComponentOptionModalDataModel,
+      ComponentOptionModalActionsModel,
+      ComponentOptionModalMethodsModel
+    >
+{
   childMethods: ComponentOptionModalActionsModel;
   parentMethods: ComponentOptionModalMethodsModel;
   data: ComponentOptionModalDataModel = new ComponentOptionModalDataModel();

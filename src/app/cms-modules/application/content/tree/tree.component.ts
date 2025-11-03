@@ -1,5 +1,4 @@
-
-import { NestedTreeControl } from '@angular/cdk/tree';
+import { NestedTreeControl } from "@angular/cdk/tree";
 import {
   ChangeDetectorRef,
   Component,
@@ -7,26 +6,23 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output
-} from '@angular/core';
-import {
-  MatTreeNestedDataSource
-} from '@angular/material/tree';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+  Output,
+} from "@angular/core";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import {
   ApplicationAppModel,
-  ApplicationAppService, CoreEnumService,
+  ApplicationAppService,
+  CoreEnumService,
   ErrorExceptionResult,
-  FilterModel
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
-
+  FilterModel,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 
 @Component({
   selector: "app-application-app-tree",
@@ -56,13 +52,12 @@ export class ApplicationAppTreeComponent implements OnInit, OnDestroy {
     new ErrorExceptionResult<ApplicationAppModel>();
   filterModel = new FilterModel();
 
-
   dataSource = new MatTreeNestedDataSource<ApplicationAppModel>();
   @Output() optionChange = new EventEmitter<ApplicationAppModel>();
   cmsApiStoreSubscribe: Subscription;
   @Input() optionReload = () => this.onActionButtonReload();
   hasChild = (_: number, node: ApplicationAppModel) => false;
-  childrenAccessor = (node: ApplicationAppModel) =>  [];
+  childrenAccessor = (node: ApplicationAppModel) => [];
   ngOnInit(): void {
     setTimeout(() => {
       this.DataGetAll();

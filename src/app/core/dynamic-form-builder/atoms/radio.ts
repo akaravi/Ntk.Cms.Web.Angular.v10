@@ -1,17 +1,22 @@
-import { Component, Input } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, Input } from "@angular/core";
+import { FormControl } from "@angular/forms";
 
 @Component({
-    selector: 'radio',
-    template: `
-        <div class="form-check" *ngFor="let opt of field.options">
-          <input [formControl]="optionFormControl" class="form-check-input input-ltr" type="radio" [value]="opt.key" >
-          <label class="form-check-label">
-            {{opt.label}}
-          </label>
-        </div>
-    `,
-    standalone: false
+  selector: "radio",
+  template: `
+    <div class="form-check" *ngFor="let opt of field.options">
+      <input
+        [formControl]="optionFormControl"
+        class="form-check-input input-ltr"
+        type="radio"
+        [value]="opt.key"
+      />
+      <label class="form-check-label">
+        {{ opt.label }}
+      </label>
+    </div>
+  `,
+  standalone: false,
 })
 export class RadioComponent {
   @Input() field: any = {};

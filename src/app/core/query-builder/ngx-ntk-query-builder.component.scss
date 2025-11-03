@@ -1,5 +1,4 @@
 .ngx-ntk-query-builder {
-
   &.disabled {
     opacity: 0.5;
 
@@ -53,7 +52,6 @@
         border-color: #204d74;
       }
     }
-
   }
 
   .ngx-actions {
@@ -63,7 +61,6 @@
 }
 
 .ngx-ntk-query-conditions {
-
   ul {
     margin: 0;
     padding: 0 10px 0 25px;
@@ -89,8 +86,9 @@
       top: 50%;
     }
 
-    &::before, &::after {
-      content: '';
+    &::before,
+    &::after {
+      content: "";
       left: -14px;
       border-color: #cccccc;
       border-style: solid;
@@ -122,18 +120,16 @@
         padding: 5px 0;
         margin-right: 15px;
       }
-
     }
 
     .ngx-rule-controls {
       padding: 8px 0;
     }
   }
-
 }
 
 .ngx-ntk-query-control {
-  padding: 0 .75rem;
+  padding: 0 0.75rem;
   height: 40px;
   line-height: 40px;
   font-size: 1rem;
@@ -145,12 +141,12 @@
   display: block;
   width: 100%;
   color: #495057;
-  padding: .5rem .75rem;
+  padding: 0.5rem 0.75rem;
   background-color: #fff;
   box-sizing: border-box;
   background-clip: padding-box;
   border: 1px solid #ced4da;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
 }
 
 .ngx-ntk-query-multi-select {
@@ -196,4 +192,3 @@
     border-color: #bd2130;
   }
 }
-

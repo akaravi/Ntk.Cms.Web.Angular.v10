@@ -1,5 +1,12 @@
-  <input matInput [matDatepicker]="ExpireDate" [(ngModel)]="modelDate"
-  [ngModelOptions]="{standalone: true}"/>
-  <mat-datepicker-toggle matSuffix  [for]="ExpireDate"  [disabled]="optionDisabled"></mat-datepicker-toggle>
-  <mat-datepicker touchUi #ExpireDate></mat-datepicker>
-
+<input
+  matInput
+  [matDatepicker]="ExpireDate"
+  [(ngModel)]="modelDate"
+  [ngModelOptions]="{ standalone: true }"
+/>
+<mat-datepicker-toggle
+  matSuffix
+  [for]="ExpireDate"
+  [disabled]="optionDisabled"
+></mat-datepicker-toggle>
+<mat-datepicker touchUi #ExpireDate></mat-datepicker>

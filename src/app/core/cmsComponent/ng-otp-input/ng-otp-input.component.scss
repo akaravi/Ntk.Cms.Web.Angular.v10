@@ -9,23 +9,22 @@
 
 .wrapper {
   .otp-input:not(:last-child) {
-      margin-right: 8px;
+    margin-right: 8px;
   }
 }
 
-@media screen and (max-width:767px) {
+@media screen and (max-width: 767px) {
   .otp-input {
-      width: 40px;
-      font-size: 24px;
-      height: 40px;
+    width: 40px;
+    font-size: 24px;
+    height: 40px;
   }
 }
 
-
-@media screen and (max-width:420px) {
+@media screen and (max-width: 420px) {
   .otp-input {
-      width: 30px;
-      font-size: 18px;
-      height: 30px;
+    width: 30px;
+    font-size: 18px;
+    height: 30px;
   }
 }

@@ -1,28 +1,39 @@
-
 import {
-  ChangeDetectorRef, Component, Inject, OnInit,
-  ViewChild
-} from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  AccessModel, CoreEnumService, CoreSiteModel,
+  AccessModel,
+  CoreEnumService,
+  CoreSiteModel,
   CoreSiteUserModel,
-  CoreSiteUserService, CoreUserGroupModel, CoreUserModel, DataFieldInfoModel, ErrorExceptionResult,
-  FormInfoModel
-} from 'ntk-cms-api';
-import { AddBaseComponent } from 'src/app/core/cmsComponent/addBaseComponent';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
+  CoreSiteUserService,
+  CoreUserGroupModel,
+  CoreUserModel,
+  DataFieldInfoModel,
+  ErrorExceptionResult,
+  FormInfoModel,
+} from "ntk-cms-api";
+import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-    selector: 'app-core-site-user-add',
-    templateUrl: './userAdd.component.html',
-    styleUrls: ['./userAdd.component.scss'],
-    standalone: false
+  selector: "app-core-site-user-add",
+  templateUrl: "./userAdd.component.html",
+  styleUrls: ["./userAdd.component.scss"],
+  standalone: false,
 })
-export class CoreSiteUserAddComponent extends AddBaseComponent<CoreSiteUserService, CoreSiteUserModel, number> implements OnInit {
+export class CoreSiteUserAddComponent
+  extends AddBaseComponent<CoreSiteUserService, CoreSiteUserModel, number>
+  implements OnInit
+{
   requestLinkSiteId = 0;
   requestLinkUserId = 0;
   requestLinkUserGroupId = 0;
@@ -55,60 +66,72 @@ export class CoreSiteUserAddComponent extends AddBaseComponent<CoreSiteUserServi
       this.dataModel.linkUserGroupId = this.requestLinkUserGroupId;
     }
   }
-  @ViewChild('vform', { static: false }) formGroup: FormGroup;
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
-
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
 
   dataAccessModel: AccessModel;
-  dataModelResult: ErrorExceptionResult<CoreSiteUserModel> = new ErrorExceptionResult<CoreSiteUserModel>();
+  dataModelResult: ErrorExceptionResult<CoreSiteUserModel> =
+    new ErrorExceptionResult<CoreSiteUserModel>();
   dataModel: CoreSiteUserModel = new CoreSiteUserModel();
 
   formInfo: FormInfoModel = new FormInfoModel();
 
-
   fileManagerOpenForm = false;
 
-
   ngOnInit(): void {
-
     this.DataGetAccess();
   }
 
-
-
-
   DataAddContent(): void {
-    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.coreSiteService.ServiceAdd(this.dataModel).subscribe({
       next: (ret) => {
         this.formInfo.formSubmitAllow = true;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.registration_completed_successfully').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("MESSAGE.registration_completed_successfully")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.cmsToastrService.typeSuccessAdd();
           this.dialogRef.close({ dialogChangedDate: true });
-
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.formInfo.formSubmitAllow = true;
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onFormSubmit(): void {
     if (!this.formGroup.valid) {

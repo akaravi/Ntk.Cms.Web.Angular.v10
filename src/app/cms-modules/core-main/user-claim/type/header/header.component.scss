@@ -1,6 +1,6 @@
 .table {
   display: table;
-  border: 1px solid #40A1F5;
+  border: 1px solid #40a1f5;
   padding: 2px;
 }
 .table .th {
@@ -10,20 +10,20 @@
   font-weight: bold;
 }
 .table .tr:nth-child(odd) {
-background-color: #F9F9F9;
+  background-color: #f9f9f9;
 }
-.table .tr{
- display: table-row;
- border-bottom: 1px solid #000;
+.table .tr {
+  display: table-row;
+  border-bottom: 1px solid #000;
 }
 .table .td {
- display: table-cell;
- padding: 15px;
- border-bottom: 1px solid #40A1F5;
+  display: table-cell;
+  padding: 15px;
+  border-bottom: 1px solid #40a1f5;
 }
-.table .tr:last-child .td{
- border: 0;
+.table .tr:last-child .td {
+  border: 0;
 }
 .clear {
- clear: both;
+  clear: both;
 }

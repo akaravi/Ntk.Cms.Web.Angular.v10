@@ -1,7 +1,17 @@
-import { CoreCpMainMenuModel, CoreCurrencyModel, CoreModuleModel, CoreSiteModel, ErrorExceptionResult, InfoEnumModel, ProcessInfoModel, TokenDeviceModel, TokenInfoModelV3 } from 'ntk-cms-api';
-import { ConnectionStatusModel } from '../models/connectionStatusModel';
-import { ThemeStoreModel } from '../models/themeStoreModel';
-import { TokenInfoType } from '../models/tokenInfoType';
+import {
+  CoreCpMainMenuModel,
+  CoreCurrencyModel,
+  CoreModuleModel,
+  CoreSiteModel,
+  ErrorExceptionResult,
+  InfoEnumModel,
+  ProcessInfoModel,
+  TokenDeviceModel,
+  TokenInfoModelV3,
+} from "ntk-cms-api";
+import { ConnectionStatusModel } from "../models/connectionStatusModel";
+import { ThemeStoreModel } from "../models/themeStoreModel";
+import { TokenInfoType } from "../models/tokenInfoType";
 
 export interface ReducerCmsStoreModel {
   tokenInfoStore: TokenInfoType;
@@ -18,7 +28,7 @@ export interface ReducerCmsStoreModel {
 }
 
 export const initialState: ReducerCmsStoreModel = {
-  tokenInfoStore:undefined,// new TokenInfoModelV3(),
+  tokenInfoStore: undefined, // new TokenInfoModelV3(),
   deviceTokenInfoStore: new TokenDeviceModel(),
   processInfoStore: new Map<string, ProcessInfoModel>(),
   processOrderStore: [],
@@ -28,10 +38,10 @@ export const initialState: ReducerCmsStoreModel = {
   enumRecordStatusResultStore: new ErrorExceptionResult<InfoEnumModel>(),
   currencyResultStore: new ErrorExceptionResult<CoreCurrencyModel>(),
   connectionStatusStore: new ConnectionStatusModel(),
-  themeStore: new ThemeStoreModel()
+  themeStore: new ThemeStoreModel(),
 };
 export declare class ProcessOrderModel {
-  id:string;
+  id: string;
   isRun: boolean;
   isComplate: boolean;
   isSuccess: boolean;
@@ -40,12 +50,14 @@ export declare class ProcessOrderModel {
   contentJson: string;
 }
 
-
 export interface AppStoreModel {
   cmsState: ReducerCmsStoreModel;
 }
 // REDUCERS
-export function stateReducer(state: ReducerCmsStoreModel = initialState, action: Actions): ReducerCmsStoreModel {
+export function stateReducer(
+  state: ReducerCmsStoreModel = initialState,
+  action: Actions,
+): ReducerCmsStoreModel {
   switch (action.type) {
     case SET_TOKEN_INFO:
       return { ...state, tokenInfoStore: action.payload };
@@ -75,31 +87,30 @@ export function stateReducer(state: ReducerCmsStoreModel = initialState, action:
   }
 }
 
-
 // ACTIONS
 export interface ActionInterface {
   readonly type: string;
   payload?: any;
 }
-export const SET_TOKEN_INFO = 'SET_TOKEN_INFO';
-export const SET_TOKEN_DEVICE = 'SET_TOKEN_DEVICE';
-export const SET_Process_Info = 'SET_Process_Info';
-export const SET_Process_Order = 'SET_Process_Order';
-export const SET_Core_Site = 'SET_Core_Site';
-export const SET_Core_Module = 'SET_Core_Module';
-export const SET_CpMain_Menu = 'SET_CpMain_Menu';
-export const SET_Core_Currency = 'SET_Core_Currency';
-export const SET_Info_Enum = 'SET_Info_Enum';
-export const SET_Connection_STATE = 'SET_Connection_STATE';
-export const SET_Theme_STATE = 'SET_Theme_STATE';
+export const SET_TOKEN_INFO = "SET_TOKEN_INFO";
+export const SET_TOKEN_DEVICE = "SET_TOKEN_DEVICE";
+export const SET_Process_Info = "SET_Process_Info";
+export const SET_Process_Order = "SET_Process_Order";
+export const SET_Core_Site = "SET_Core_Site";
+export const SET_Core_Module = "SET_Core_Module";
+export const SET_CpMain_Menu = "SET_CpMain_Menu";
+export const SET_Core_Currency = "SET_Core_Currency";
+export const SET_Info_Enum = "SET_Info_Enum";
+export const SET_Connection_STATE = "SET_Connection_STATE";
+export const SET_Theme_STATE = "SET_Theme_STATE";
 
 export class SetTokenInfoState implements ActionInterface {
- readonly type = SET_TOKEN_INFO;
- payload: TokenInfoModelV3;
+  readonly type = SET_TOKEN_INFO;
+  payload: TokenInfoModelV3;
 }
 export class SetTokenDeviceState implements ActionInterface {
- readonly type = SET_TOKEN_DEVICE;
- payload: TokenDeviceModel;
+  readonly type = SET_TOKEN_DEVICE;
+  payload: TokenDeviceModel;
 }
 export class SetProcessInfo implements ActionInterface {
   readonly type = SET_Process_Info;
@@ -139,4 +150,15 @@ export class SetThemeState implements ActionInterface {
   payload: ThemeStoreModel;
 }
 
-export type Actions = SetTokenDeviceState | SetTokenInfoState | SetProcessInfo | SetProcessOrder | SetCoreSite | SetCoreModule | SetCpMainMenu | SetInfoEnum | SetCoreCurrency | SetConnectionState | SetThemeState;
+export type Actions =
+  | SetTokenDeviceState
+  | SetTokenInfoState
+  | SetProcessInfo
+  | SetProcessOrder
+  | SetCoreSite
+  | SetCoreModule
+  | SetCpMainMenu
+  | SetInfoEnum
+  | SetCoreCurrency
+  | SetConnectionState
+  | SetThemeState;

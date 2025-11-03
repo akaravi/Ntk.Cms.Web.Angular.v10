@@ -1,23 +1,19 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  CoreModuleService,
-  CoreSiteDomainAliasService
-} from 'ntk-cms-api';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { CoreSiteDomainAliasAddComponent } from './add/add.component';
-import { CoreSiteDomainAliasComponent } from './coreSiteDomainAlias.component';
-import { CoreSiteDomainAliasRouting } from './coreSiteDomainAlias.routing';
-import { CoreSiteDomainAliasEditComponent } from './edit/edit.component';
-import { CoreSiteDomainAliasListComponent } from './list/list.component';
-import { CoreSiteDomainAliasSelectorComponent } from './selector/selector.component';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { CoreModuleService, CoreSiteDomainAliasService } from "ntk-cms-api";
+import { SharedModule } from "src/app/shared/shared.module";
+import { CoreSiteDomainAliasAddComponent } from "./add/add.component";
+import { CoreSiteDomainAliasComponent } from "./coreSiteDomainAlias.component";
+import { CoreSiteDomainAliasRouting } from "./coreSiteDomainAlias.routing";
+import { CoreSiteDomainAliasEditComponent } from "./edit/edit.component";
+import { CoreSiteDomainAliasListComponent } from "./list/list.component";
+import { CoreSiteDomainAliasSelectorComponent } from "./selector/selector.component";
 
-import { AngularEditorModule } from '@kolkov/angular-editor';
+import { AngularEditorModule } from "@kolkov/angular-editor";
 
-import { CmsConfirmationDialogService } from 'src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service';
-import { CoreSiteModule } from '../site/coreSite.module';
-
+import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { CoreSiteModule } from "../site/coreSite.module";
 
 @NgModule({
   declarations: [
@@ -38,19 +34,17 @@ import { CoreSiteModule } from '../site/coreSite.module';
     CommonModule,
     FormsModule,
     CoreSiteDomainAliasRouting,
-    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
 
     SharedModule,
     AngularEditorModule,
 
-    CoreSiteModule
-
+    CoreSiteModule,
   ],
   providers: [
     CoreSiteDomainAliasService,
     CoreModuleService,
-    CmsConfirmationDialogService
-  ]
+    CmsConfirmationDialogService,
+  ],
 })
-export class CoreSiteDomainAliasModule {
-}
+export class CoreSiteDomainAliasModule {}

@@ -1,18 +1,20 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ComponentOptionStatistModel } from 'src/app/core/cmsComponent/base/componentOptionStatistModel';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { ComponentOptionStatistModel } from "src/app/core/cmsComponent/base/componentOptionStatistModel";
 
 @Component({
-    selector: 'app-cms-statist-list',
-    templateUrl: './cms-statist-list.component.html',
-    standalone: false
+  selector: "app-cms-statist-list",
+  templateUrl: "./cms-statist-list.component.html",
+  standalone: false,
 })
 export class CmsStatistListComponent implements OnInit {
   static nextId = 0;
   id = ++CmsStatistListComponent.nextId;
-  constructor() { }
-  public optionsData: ComponentOptionStatistModel = new ComponentOptionStatistModel();
+  constructor() {}
+  public optionsData: ComponentOptionStatistModel =
+    new ComponentOptionStatistModel();
   @Output()
-  optionsChange: EventEmitter<ComponentOptionStatistModel> = new EventEmitter<ComponentOptionStatistModel>();
+  optionsChange: EventEmitter<ComponentOptionStatistModel> =
+    new EventEmitter<ComponentOptionStatistModel>();
   @Input() set options(model: ComponentOptionStatistModel) {
     if (!model) {
       model = new ComponentOptionStatistModel();
@@ -27,7 +29,7 @@ export class CmsStatistListComponent implements OnInit {
     return this.optionsData;
   }
   modelData: Map<string, number> = new Map<string, number>();
-  ngOnInit(): void { }
+  ngOnInit(): void {}
   setStatistValue(model: Map<string, number>): void {
     this.modelData = model;
   }

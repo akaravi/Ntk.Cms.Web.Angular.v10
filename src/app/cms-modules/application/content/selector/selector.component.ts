@@ -1,19 +1,36 @@
-
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from "@angular/core";
+import { FormControl } from "@angular/forms";
+import { TranslateService } from "@ngx-translate/core";
 import {
   ApplicationAppModel,
-  ApplicationAppService, ClauseTypeEnum, CoreEnumService, ErrorExceptionResult,
-  FilterDataModel, FilterDataModelSearchTypesEnum, FilterModel
-} from 'ntk-cms-api';
-import { Observable, firstValueFrom } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
+  ApplicationAppService,
+  ClauseTypeEnum,
+  CoreEnumService,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterDataModelSearchTypesEnum,
+  FilterModel,
+} from "ntk-cms-api";
+import { Observable, firstValueFrom } from "rxjs";
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  startWith,
+  switchMap,
+} from "rxjs/operators";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
 @Component({
-    selector: 'app-application-app-selector',
-    templateUrl: './selector.component.html',
-    standalone: false
+  selector: "app-application-app-selector",
+  templateUrl: "./selector.component.html",
+  standalone: false,
 })
 export class ApplicationAppSelectorComponent implements OnInit {
   static nextId = 0;
@@ -24,47 +41,47 @@ export class ApplicationAppSelectorComponent implements OnInit {
     public translate: TranslateService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
-    public categoryService: ApplicationAppService) {
+    public categoryService: ApplicationAppService,
+  ) {
     this.publicHelper.processService.cdr = this.cdr;
-
   }
-  dataModelResult: ErrorExceptionResult<ApplicationAppModel> = new ErrorExceptionResult<ApplicationAppModel>();
+  dataModelResult: ErrorExceptionResult<ApplicationAppModel> =
+    new ErrorExceptionResult<ApplicationAppModel>();
   dataModelSelect: ApplicationAppModel = new ApplicationAppModel();
   formControl = new FormControl();
   filteredOptions: Observable<ApplicationAppModel[]>;
   @Input() optionSelectFirstItem = false;
-  @Input() optionPlaceholder = '';
+  @Input() optionPlaceholder = "";
   @Input() optionDisabled = false;
   @Input() optionRequired = false;
-  @Input() optionLabel = '';
+  @Input() optionLabel = "";
   @Output() optionChange = new EventEmitter<ApplicationAppModel>();
   @Input() optionReload = () => this.onActionButtonReload();
   @Input() set optionSelectForce(x: number | ApplicationAppModel) {
     this.onActionSelectForce(x);
   }
 
-
-
-
   ngOnInit(): void {
     this.loadOptions();
-    if (!this.optionLabel || this.optionLabel.length == 0 && this.optionPlaceholder?.length > 0)
+    if (
+      !this.optionLabel ||
+      (this.optionLabel.length == 0 && this.optionPlaceholder?.length > 0)
+    )
       this.optionLabel = this.optionPlaceholder;
   }
   loadOptions(): void {
-    this.filteredOptions = this.formControl.valueChanges
-      .pipe(
-        startWith(''),
-        debounceTime(1500),
-        distinctUntilChanged(),
-        switchMap(val => {
-          if (typeof val === 'string' || typeof val === 'number') {
-            return this.DataGetAll(val || '');
-          }
-          return [];
-        }),
-        // tap(() => this.myControl.setValue(this.options[0]))
-      );
+    this.filteredOptions = this.formControl.valueChanges.pipe(
+      startWith(""),
+      debounceTime(1500),
+      distinctUntilChanged(),
+      switchMap((val) => {
+        if (typeof val === "string" || typeof val === "number") {
+          return this.DataGetAll(val || "");
+        }
+        return [];
+      }),
+      // tap(() => this.myControl.setValue(this.options[0]))
+    );
   }
   displayFn(model?: ApplicationAppModel): string | undefined {
     return model ? model.title : undefined;
@@ -72,45 +89,58 @@ export class ApplicationAppSelectorComponent implements OnInit {
   displayOption(model?: ApplicationAppModel): string | undefined {
     return model ? model.title : undefined;
   }
-  async DataGetAll(text: string | number | any): Promise<ApplicationAppModel[]> {
+  async DataGetAll(
+    text: string | number | any,
+  ): Promise<ApplicationAppModel[]> {
     const filterModel = new FilterModel();
     filterModel.rowPerPage = 20;
     filterModel.accessLoad = true;
     let filter = new FilterDataModel();
-    filter.propertyName = 'Title';
+    filter.propertyName = "Title";
     filter.value = text;
     filter.searchType = FilterDataModelSearchTypesEnum.Contains;
     filter.clauseType = ClauseTypeEnum.Or;
     filterModel.filters.push(filter);
-    if (text && typeof +text === 'number' && +text > 0) {
+    if (text && typeof +text === "number" && +text > 0) {
       filter = new FilterDataModel();
-      filter.propertyName = 'Id';
+      filter.propertyName = "Id";
       filter.value = text;
       filter.searchType = FilterDataModelSearchTypesEnum.Equal;
       filter.clauseType = ClauseTypeEnum.Or;
       filterModel.filters.push(filter);
     }
-    const pName = this.constructor.name + 'categoryService.ServiceGetAll';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
+    const pName = this.constructor.name + "categoryService.ServiceGetAll";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
+    return await firstValueFrom(
+      this.categoryService.ServiceGetAll(filterModel),
+    ).then((response) => {
+      this.dataModelResult = response;
+      /*select First Item */
+      if (
+        this.optionSelectFirstItem &&
+        (!this.dataModelSelect ||
+          !this.dataModelSelect.id ||
+          this.dataModelSelect.id <= 0) &&
+        this.dataModelResult.listItems.length > 0
+      ) {
+        this.optionSelectFirstItem = false;
+        setTimeout(() => {
+          this.formControl.setValue(this.dataModelResult.listItems[0]);
+        }, 1000);
+        this.onActionSelect(this.dataModelResult.listItems[0]);
+      }
+      /*select First Item */
+      this.publicHelper.processService.processStop(pName);
+      return response.listItems;
     });
-    return await firstValueFrom(this.categoryService.ServiceGetAll(filterModel))
-      .then(
-        (response) => {
-          this.dataModelResult = response;
-          /*select First Item */
-          if (this.optionSelectFirstItem &&
-            (!this.dataModelSelect || !this.dataModelSelect.id || this.dataModelSelect.id <= 0) &&
-            this.dataModelResult.listItems.length > 0) {
-            this.optionSelectFirstItem = false;
-            setTimeout(() => { this.formControl.setValue(this.dataModelResult.listItems[0]); }, 1000);
-            this.onActionSelect(this.dataModelResult.listItems[0]);
-          }
-          /*select First Item */
-          this.publicHelper.processService.processStop(pName);
-          return response.listItems;
-        }
-      );
   }
   onActionSelect(model: ApplicationAppModel): void {
     if (this.optionDisabled) {
@@ -128,21 +158,27 @@ export class ApplicationAppSelectorComponent implements OnInit {
     this.optionChange.emit(null);
   }
   push(newvalue: ApplicationAppModel): Observable<ApplicationAppModel[]> {
-    return this.filteredOptions.pipe(map(items => {
-      if (items.find(x => x.id === newvalue.id)) {
+    return this.filteredOptions.pipe(
+      map((items) => {
+        if (items.find((x) => x.id === newvalue.id)) {
+          return items;
+        }
+        items.push(newvalue);
         return items;
-      }
-      items.push(newvalue);
-      return items;
-    }));
+      }),
+    );
   }
   onActionSelectForce(id: number | ApplicationAppModel): void {
-    if (typeof id === 'number' && id > 0) {
+    if (typeof id === "number" && id > 0) {
       if (this.dataModelSelect && this.dataModelSelect.id === id) {
         return;
       }
-      if (this.dataModelResult && this.dataModelResult.listItems && this.dataModelResult.listItems.find(x => x.id === id)) {
-        const item = this.dataModelResult.listItems.find(x => x.id === id);
+      if (
+        this.dataModelResult &&
+        this.dataModelResult.listItems &&
+        this.dataModelResult.listItems.find((x) => x.id === id)
+      ) {
+        const item = this.dataModelResult.listItems.find((x) => x.id === id);
         this.dataModelSelect = item;
         this.formControl.setValue(item);
         return;
@@ -155,13 +191,13 @@ export class ApplicationAppSelectorComponent implements OnInit {
             this.formControl.setValue(ret.item);
             this.optionChange.emit(ret.item);
           }
-        }
+        },
       });
       return;
     }
     if (typeof id === typeof ApplicationAppModel) {
-      this.filteredOptions = this.push((id as ApplicationAppModel));
-      this.dataModelSelect = (id as ApplicationAppModel);
+      this.filteredOptions = this.push(id as ApplicationAppModel);
+      this.dataModelSelect = id as ApplicationAppModel;
       this.formControl.setValue(id);
       return;
     }

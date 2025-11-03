@@ -1,17 +1,25 @@
-
-import { DOCUMENT } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import { CoreModuleSiteUserCreditChargeDirectDtoModel, CoreModuleSiteUserCreditModel, CoreModuleSiteUserCreditService, ErrorExceptionResult } from 'ntk-cms-api';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
+import { DOCUMENT } from "@angular/common";
+import { Component, Inject, OnInit } from "@angular/core";
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from "@angular/material/dialog";
+import { Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  CoreModuleSiteUserCreditChargeDirectDtoModel,
+  CoreModuleSiteUserCreditModel,
+  CoreModuleSiteUserCreditService,
+  ErrorExceptionResult,
+} from "ntk-cms-api";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-    selector: 'app-coremodule-site-credit-direct-add',
-    templateUrl: './charge-direct.component.html',
-    standalone: false
+  selector: "app-coremodule-site-credit-direct-add",
+  templateUrl: "./charge-direct.component.html",
+  standalone: false,
 })
 export class CoreModuleSiteUserCreditChargeDirectComponent implements OnInit {
   requestModel: CoreModuleSiteUserCreditModel;
@@ -26,19 +34,23 @@ export class CoreModuleSiteUserCreditChargeDirectComponent implements OnInit {
     private service: CoreModuleSiteUserCreditService,
     public translate: TranslateService,
     private dialogRef: MatDialogRef<CoreModuleSiteUserCreditChargeDirectComponent>,
-
   ) {
     if (data) {
       this.requestModel = data.model || new CoreModuleSiteUserCreditModel();
     }
   }
 
-
-  dataModel: CoreModuleSiteUserCreditChargeDirectDtoModel = new CoreModuleSiteUserCreditChargeDirectDtoModel();
-  dataModelResult: ErrorExceptionResult<CoreModuleSiteUserCreditModel> = new ErrorExceptionResult<CoreModuleSiteUserCreditModel>();
+  dataModel: CoreModuleSiteUserCreditChargeDirectDtoModel =
+    new CoreModuleSiteUserCreditChargeDirectDtoModel();
+  dataModelResult: ErrorExceptionResult<CoreModuleSiteUserCreditModel> =
+    new ErrorExceptionResult<CoreModuleSiteUserCreditModel>();
   ngOnInit(): void {
-
-    if (!this.requestModel || this.requestModel.linkSiteId <= 0 || this.requestModel.linkModuleId <= 0 || this.requestModel.linkUserId <= 0) {
+    if (
+      !this.requestModel ||
+      this.requestModel.linkSiteId <= 0 ||
+      this.requestModel.linkModuleId <= 0 ||
+      this.requestModel.linkUserId <= 0
+    ) {
       this.cmsToastrService.typeErrorComponentAction();
       this.dialogRef.close({ dialogChangedDate: false });
       return;
@@ -49,35 +61,36 @@ export class CoreModuleSiteUserCreditChargeDirectComponent implements OnInit {
     this.dataModel.linkUserId = this.requestModel.linkUserId;
   }
   onActionButtonAdd(): void {
-    const pName = this.constructor.name + 'ServiceChargeDirect';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "ServiceChargeDirect";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.service.ServiceChargeDirect(this.dataModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.dataModelResult = ret;
           this.cmsToastrService.typeSuccessAdd();
           this.dialogRef.close({ dialogChangedDate: true });
-        }
-        else {
+        } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
 
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
 
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });
-
   }
 }
-

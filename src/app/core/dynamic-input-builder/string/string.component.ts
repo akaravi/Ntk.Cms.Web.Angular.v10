@@ -1,19 +1,19 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 
 @Component({
-    selector: 'app-input-string',
-    templateUrl: './string.component.html',
-    styleUrls: ['./string.component.scss'],
-    standalone: false
+  selector: "app-input-string",
+  templateUrl: "./string.component.html",
+  styleUrls: ["./string.component.scss"],
+  standalone: false,
 })
 export class StringComponent implements OnInit {
   static nextId = 0;
   id = ++StringComponent.nextId;
-  constructor() { }
+  constructor() {}
   @Input()
   set model(value: string) {
     if (value) {
-      value.split(',').forEach(element => {
+      value.split(",").forEach((element) => {
         this.itemSelected[element] = true;
       });
     }
@@ -24,13 +24,13 @@ export class StringComponent implements OnInit {
   @Input() optionForceUseDefaultValue = false;
   @Input() optionDefaultValue: string[] = [];
   @Input() optionRequired = false;
-  @Input() optionDisplayOnlyValid=false;
+  @Input() optionDisplayOnlyValid = false;
   @Input() optionDisabled = false;
-  @Input() optionLabel = '';
-  @Input() optionPlaceholder = '';
-  @Input() optionIconColor = '';
+  @Input() optionLabel = "";
+  @Input() optionPlaceholder = "";
+  @Input() optionIconColor = "";
 
-  private privateModelDate = '';
+  private privateModelDate = "";
   get modelDate(): string {
     return this.privateModelDate;
   }
@@ -40,17 +40,26 @@ export class StringComponent implements OnInit {
   }
   itemSelected: Map<string, boolean> = new Map<string, boolean>();
 
-  colors = ['primary', 'accent', 'warn', 'primary', 'accent', 'warn', 'primary', 'accent', 'warn'];
+  colors = [
+    "primary",
+    "accent",
+    "warn",
+    "primary",
+    "accent",
+    "warn",
+    "primary",
+    "accent",
+    "warn",
+  ];
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   onActionSelect(value: string): void {
     const retOut = [];
-    this.optionDefaultValue.forEach(element => {
+    this.optionDefaultValue.forEach((element) => {
       if (this.itemSelected[element] && this.itemSelected[element] === true) {
         retOut.push(element);
       }
     });
-    this.modelDate = retOut.join(',');
+    this.modelDate = retOut.join(",");
   }
 }

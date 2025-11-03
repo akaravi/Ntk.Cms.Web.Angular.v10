@@ -1,21 +1,24 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { MatTableDataSource } from "@angular/material/table";
+import { ActivatedRoute } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  BaseModuleSiteCheckUserModel, CoreEnumService,
-  ErrorExceptionResult, TokenInfoModelV3, WebDesignerConfigurationService
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
+  BaseModuleSiteCheckUserModel,
+  CoreEnumService,
+  ErrorExceptionResult,
+  TokenInfoModelV3,
+  WebDesignerConfigurationService,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 
 @Component({
-  selector: 'app-web-designer-config-checkuser',
-  templateUrl: './check-user.component.html',
-  standalone: false
+  selector: "app-web-designer-config-checkuser",
+  templateUrl: "./check-user.component.html",
+  standalone: false,
 })
 export class WebDesignerConfigCheckUserComponent implements OnInit, OnDestroy {
   requestLinkUserId = 0;
@@ -32,31 +35,32 @@ export class WebDesignerConfigCheckUserComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
-    this.requestLinkUserId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkUserId'));
+    this.requestLinkUserId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
+    );
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.onLoadDate();
     }
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-      this.onLoadDate();
-    });
-
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+        this.onLoadDate();
+      });
   }
   cmsApiStoreSubscribe: Subscription;
   tokenInfo = new TokenInfoModelV3();
 
-  dataModelResult: ErrorExceptionResult<BaseModuleSiteCheckUserModel> = new ErrorExceptionResult<BaseModuleSiteCheckUserModel>();
+  dataModelResult: ErrorExceptionResult<BaseModuleSiteCheckUserModel> =
+    new ErrorExceptionResult<BaseModuleSiteCheckUserModel>();
   tableRowsSelected: Array<BaseModuleSiteCheckUserModel> = [];
-  tableRowSelected: BaseModuleSiteCheckUserModel = new BaseModuleSiteCheckUserModel();
-  tableSource: MatTableDataSource<BaseModuleSiteCheckUserModel> = new MatTableDataSource<BaseModuleSiteCheckUserModel>();
-  tabledisplayedColumns: string[] = [
-    'Accepted',
-    'Title',
-    'Description'
-  ];
-  ngOnInit(): void {
-  }
+  tableRowSelected: BaseModuleSiteCheckUserModel =
+    new BaseModuleSiteCheckUserModel();
+  tableSource: MatTableDataSource<BaseModuleSiteCheckUserModel> =
+    new MatTableDataSource<BaseModuleSiteCheckUserModel>();
+  tabledisplayedColumns: string[] = ["Accepted", "Title", "Description"];
+  ngOnInit(): void {}
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
       this.cmsApiStoreSubscribe.unsubscribe();
@@ -69,24 +73,27 @@ export class WebDesignerConfigCheckUserComponent implements OnInit, OnDestroy {
     if (!this.requestLinkUserId || this.requestLinkUserId === 0) {
       return;
     }
-    const pName = this.constructor.name + '.ServiceCheckUser';
-    this.translate.get('TITLE.Check_account').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
-    this.configService
-      .ServiceCheckUser(this.requestLinkUserId)
-      .subscribe({
-        next: (ret) => {
-          this.publicHelper.processService.processStop(pName);
-          this.dataModelResult = ret;
-          this.tableSource.data = ret.listItems;
-          if (!ret.isSuccess) {
-            this.cmsToastrService.typeErrorGetOne(ret.errorMessage);
-          }
-        },
-        error: (err) => {
-          this.cmsToastrService.typeErrorGetOne(err);
-          this.publicHelper.processService.processStop(pName);
-        }
-      }
+    const pName = this.constructor.name + ".ServiceCheckUser";
+    this.translate.get("TITLE.Check_account").subscribe((str: string) => {
+      this.publicHelper.processService.processStart(
+        pName,
+        str,
+        this.constructorInfoAreaId,
       );
+    });
+    this.configService.ServiceCheckUser(this.requestLinkUserId).subscribe({
+      next: (ret) => {
+        this.publicHelper.processService.processStop(pName);
+        this.dataModelResult = ret;
+        this.tableSource.data = ret.listItems;
+        if (!ret.isSuccess) {
+          this.cmsToastrService.typeErrorGetOne(ret.errorMessage);
+        }
+      },
+      error: (err) => {
+        this.cmsToastrService.typeErrorGetOne(err);
+        this.publicHelper.processService.processStop(pName);
+      },
+    });
   }
 }

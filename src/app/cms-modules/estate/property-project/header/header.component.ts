@@ -1,27 +1,29 @@
-
 import {
-  ChangeDetectorRef, Component, Input, OnDestroy, OnInit
-} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  DataFieldInfoModel, ErrorExceptionResult,
+  DataFieldInfoModel,
+  ErrorExceptionResult,
   EstatePropertyProjectModel,
-  EstatePropertyProjectService
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
-
+  EstatePropertyProjectService,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 
 @Component({
-  selector: 'app-estate-property-project-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
-  standalone: false
+  selector: "app-estate-property-project-header",
+  templateUrl: "./header.component.html",
+  styleUrls: ["./header.component.scss"],
+  standalone: false,
 })
 export class EstatePropertyProjectHeaderComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -36,25 +38,26 @@ export class EstatePropertyProjectHeaderComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
-
   }
-  @Input() optionId = '';
+  @Input() optionId = "";
 
-  dataModelResult: ErrorExceptionResult<EstatePropertyProjectModel> = new ErrorExceptionResult<EstatePropertyProjectModel>();
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
-
-
+  dataModelResult: ErrorExceptionResult<EstatePropertyProjectModel> =
+    new ErrorExceptionResult<EstatePropertyProjectModel>();
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
 
   cmsApiStoreSubscribe: Subscription;
   ngOnInit(): void {
     if (this.optionId.length > 0) {
       this.DataGetOneContent();
-      this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-        this.DataGetOneContent();
-      });
+      this.cmsApiStoreSubscribe = this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.DataGetOneContent();
+        });
     }
-
-
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -63,10 +66,16 @@ export class EstatePropertyProjectHeaderComponent implements OnInit, OnDestroy {
   }
 
   DataGetOneContent(): void {
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.headerService.setAccessLoad();
     this.headerService.ServiceGetOneById(this.optionId).subscribe({
@@ -78,13 +87,11 @@ export class EstatePropertyProjectHeaderComponent implements OnInit, OnDestroy {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
 }

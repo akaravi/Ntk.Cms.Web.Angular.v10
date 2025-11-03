@@ -8,7 +8,7 @@ export enum TemplateConfigDeviceEnum {
   lg = 1,
   md = 2,
   sm = 3,
-  xs = 4
+  xs = 4,
 }
 
 export class HtmlBuilderHtmlConfigModel {

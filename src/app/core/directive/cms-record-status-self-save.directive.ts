@@ -1,4 +1,4 @@
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT } from "@angular/common";
 import {
   ChangeDetectorRef,
   Directive,
@@ -6,15 +6,17 @@ import {
   HostListener,
   Inject,
   Input,
-  Renderer2
-} from '@angular/core';
-import { ManageUserAccessDataTypesEnum, RecordStatusEnum } from 'ntk-cms-api';
-import { PublicHelper } from '../helpers/publicHelper';
-import { CmsToastrService } from '../services/cmsToastr.service';
+  Renderer2,
+} from "@angular/core";
+import { ManageUserAccessDataTypesEnum, RecordStatusEnum } from "ntk-cms-api";
+import { PublicHelper } from "../helpers/publicHelper";
+import { CmsToastrService } from "../services/cmsToastr.service";
 
-const SUCCESS_ICON = 'https://i.pinimg.com/originals/7b/dd/1b/7bdd1bc7db7fd48025d4e39a0e2f0fd8.jpg';
-const ERROR_ICON = 'https://www.seekpng.com/png/detail/334-3345964_error-icon-download-attention-symbol.png';
-const LOADING_ICON = 'https://replit.com/public/images/loading_dots.gif';
+const SUCCESS_ICON =
+  "https://i.pinimg.com/originals/7b/dd/1b/7bdd1bc7db7fd48025d4e39a0e2f0fd8.jpg";
+const ERROR_ICON =
+  "https://www.seekpng.com/png/detail/334-3345964_error-icon-download-attention-symbol.png";
+const LOADING_ICON = "https://replit.com/public/images/loading_dots.gif";
 /**
  * `persistOnChange` directive takes an Input - @param observableFn which @returns an Observable ideally returned by an http request.
  * and shows loader when the request is in-flight and  shows a tick mark on API success.
@@ -22,13 +24,13 @@ const LOADING_ICON = 'https://replit.com/public/images/loading_dots.gif';
  * Ideally to be used with the Select element(not limitted to)
  */
 @Directive({
-    selector: '[cmsRecordStatusSelfSave]',
-    standalone: false
+  selector: "[cmsRecordStatusSelfSave]",
+  standalone: false,
 })
 export class CmsRecordStatusSelfSaveDirective {
-  @Input('row')
+  @Input("row")
   row: any;
-  @Input('contentService')
+  @Input("contentService")
   contentService: any;
   constructor(
     private elRef: ElementRef,
@@ -43,22 +45,36 @@ export class CmsRecordStatusSelfSaveDirective {
   }
   async DataEnumRecordStatus(): Promise<void> {
     const dataModelResult = await this.publicHelper.getEnumRecordStatus();
-    dataModelResult.listItems.forEach(co => {
-      const option = document.createElement('option');
-      option.innerHTML = ' ' + co.title + ' ' + '<i Class="' + this.iconStatus(co.value) + '"></i>';
+    dataModelResult.listItems.forEach((co) => {
+      const option = document.createElement("option");
+      option.innerHTML =
+        " " +
+        co.title +
+        " " +
+        '<i Class="' +
+        this.iconStatus(co.value) +
+        '"></i>';
       option.value = co.value.toString();
       this.elRef.nativeElement.add(option);
     });
 
-    if (this.elRef.nativeElement.options.length > 0 && this.row && this.row.recordStatus) {
-      this.renderer.setProperty(this.elRef.nativeElement, 'value', this.row.recordStatus);
+    if (
+      this.elRef.nativeElement.options.length > 0 &&
+      this.row &&
+      this.row.recordStatus
+    ) {
+      this.renderer.setProperty(
+        this.elRef.nativeElement,
+        "value",
+        this.row.recordStatus,
+      );
     }
   }
 
-  @HostListener('change')
+  @HostListener("change")
   onChange() {
     const element: HTMLElement = this.elRef.nativeElement;
-    const recordStatus = element['value'] as RecordStatusEnum;
+    const recordStatus = element["value"] as RecordStatusEnum;
     this.addLoader(element);
     this.contentService.setAccessDataType(ManageUserAccessDataTypesEnum.Editor);
     this.contentService.ServiceSetStatus(this.row.id, recordStatus).subscribe({
@@ -68,21 +84,26 @@ export class CmsRecordStatusSelfSaveDirective {
           this.cmsToastrService.typeSuccessSetStatus(ret.errorMessage);
           this.row.recordStatus = recordStatus | 0;
           this.cdr.markForCheck();
-        }
-        else {
-          this.renderer.setProperty(this.elRef.nativeElement, 'value', this.row.recordStatus);
+        } else {
+          this.renderer.setProperty(
+            this.elRef.nativeElement,
+            "value",
+            this.row.recordStatus,
+          );
           this.cmsToastrService.typeErrorSetStatus(ret.errorMessage);
           this.handleErrorCase(element);
         }
       },
       error: (err) => {
-        this.renderer.setProperty(this.elRef.nativeElement, 'value', this.row.recordStatus);
+        this.renderer.setProperty(
+          this.elRef.nativeElement,
+          "value",
+          this.row.recordStatus,
+        );
         this.cmsToastrService.typeError(err);
         this.handleErrorCase(element);
-      }
-    }
-
-    );
+      },
+    });
   }
 
   handleSuccessCase(element: HTMLElement) {
@@ -95,8 +116,8 @@ export class CmsRecordStatusSelfSaveDirective {
 
   handleErrorCase(element) {
     this.removeBackground(element);
-    const child = this.document.createElement('img');
-    child.style.width = '20px';
+    const child = this.document.createElement("img");
+    child.style.width = "20px";
     child.src = ERROR_ICON;
     const parent = this.renderer.parentNode(this.elRef.nativeElement);
     this.renderer.appendChild(parent, child);
@@ -115,38 +136,38 @@ export class CmsRecordStatusSelfSaveDirective {
   addBackground(
     element: HTMLElement,
     backgroundImg: string,
-    backgroundSize: number
+    backgroundSize: number,
   ) {
     element.style.background = `#fff url("${backgroundImg}") no-repeat right 20px center`;
     element.style.backgroundSize = `${backgroundSize}px`;
   }
 
   removeBackground(element: HTMLElement) {
-    element.style.background = 'none';
+    element.style.background = "none";
   }
   iconStatus(value: RecordStatusEnum): string {
-    let ret = '';
+    let ret = "";
     switch (value) {
       case 1:
-        ret = 'fa fa-check';
+        ret = "fa fa-check";
         break;
       case 2:
-        ret = 'fa fa-eye-slash';
+        ret = "fa fa-eye-slash";
         break;
       case 3:
-        ret = 'fa fa-times';
+        ret = "fa fa-times";
         break;
       case 4:
-        ret = 'fa fa-hourglass-half';
+        ret = "fa fa-hourglass-half";
         break;
       case 5:
-        ret = 'far fa-thumbs-down';
+        ret = "far fa-thumbs-down";
         break;
       case 6:
-        ret = 'fa fa-archive';
+        ret = "fa fa-archive";
         break;
       default:
-        ret = 'fa fa-check';
+        ret = "fa fa-check";
     }
     return ret;
   }

@@ -1,26 +1,28 @@
-import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable, NgZone, Optional } from '@angular/core';
-import { WINDOW } from 'ngx-window-token';
-import { Observable, Subject } from 'rxjs';
-import { ClipboardParams, IClipboardResponse } from '../models/ngx-clipboardModel';
-
-
+import { DOCUMENT } from "@angular/common";
+import { Inject, Injectable, NgZone, Optional } from "@angular/core";
+import { WINDOW } from "ngx-window-token";
+import { Observable, Subject } from "rxjs";
+import {
+  ClipboardParams,
+  IClipboardResponse,
+} from "../models/ngx-clipboardModel";
 
 /**
  * The following code is heavily copied from https://github.com/zenorocha/clipboard.js
  */
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class ClipboardService {
   private copySubject = new Subject<IClipboardResponse>();
-  public copyResponse$: Observable<IClipboardResponse> = this.copySubject.asObservable();
+  public copyResponse$: Observable<IClipboardResponse> =
+    this.copySubject.asObservable();
   private tempTextArea: HTMLTextAreaElement | undefined;
   private config: ClipboardParams = {};
 
   constructor(
     private ngZone: NgZone,
     @Inject(DOCUMENT) public document: any,
-    @Optional() @Inject(WINDOW) private window: any
-  ) { }
+    @Optional() @Inject(WINDOW) private window: any,
+  ) {}
 
   public configure(config: ClipboardParams) {
     this.config = config;
@@ -38,23 +40,37 @@ export class ClipboardService {
   }
 
   public get isSupported(): boolean {
-    return !!this.document.queryCommandSupported && !!this.document.queryCommandSupported('copy') && !!this.window;
+    return (
+      !!this.document.queryCommandSupported &&
+      !!this.document.queryCommandSupported("copy") &&
+      !!this.window
+    );
   }
 
-  public isTargetValid(element: HTMLInputElement | HTMLTextAreaElement): boolean {
-    if (element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement) {
-      if (element.hasAttribute('disabled')) {
-        throw new Error('Invalid "target" attribute. Please use "readonly" instead of "disabled" attribute');
+  public isTargetValid(
+    element: HTMLInputElement | HTMLTextAreaElement,
+  ): boolean {
+    if (
+      element instanceof HTMLInputElement ||
+      element instanceof HTMLTextAreaElement
+    ) {
+      if (element.hasAttribute("disabled")) {
+        throw new Error(
+          'Invalid "target" attribute. Please use "readonly" instead of "disabled" attribute',
+        );
       }
       return true;
     }
-    throw new Error('Target should be input or textarea');
+    throw new Error("Target should be input or textarea");
   }
 
   /**
    * Attempts to copy from an input `targetElm`
    */
-  public copyFromInputElement(targetElm: HTMLInputElement | HTMLTextAreaElement, isFocus = true): boolean {
+  public copyFromInputElement(
+    targetElm: HTMLInputElement | HTMLTextAreaElement,
+    isFocus = true,
+  ): boolean {
     try {
       this.selectTarget(targetElm);
       const re = this.copyText();
@@ -69,9 +85,9 @@ export class ClipboardService {
    * This is a hack for IE11 to return `true` even if copy fails.
    */
   public isCopySuccessInIE11(): boolean {
-    const clipboardData = this.window['clipboardData'];
+    const clipboardData = this.window["clipboardData"];
     if (clipboardData && clipboardData.getData) {
-      if (!clipboardData.getData('Text')) {
+      if (!clipboardData.getData("Text")) {
         return false;
       }
     }
@@ -82,7 +98,10 @@ export class ClipboardService {
    * Creates a fake textarea element, sets its value from `text` property,
    * and makes a selection on it.
    */
-  public copyFromContent(content: string, container: HTMLElement = this.document.body): boolean {
+  public copyFromContent(
+    content: string,
+    container: HTMLElement = this.document.body,
+  ): boolean {
     // check if the temp textarea still belongs to the current container.
     // In case we have multiple places using ngx-clipboard, one is in a modal using container but the other one is not.
     if (this.tempTextArea && !container.contains(this.tempTextArea)) {
@@ -94,7 +113,7 @@ export class ClipboardService {
       try {
         container.appendChild(this.tempTextArea);
       } catch (error) {
-        throw new Error('Container should be a Dom element');
+        throw new Error("Container should be a Dom element");
       }
     }
     this.tempTextArea.value = content;
@@ -120,20 +139,25 @@ export class ClipboardService {
   /**
    * Select the target html input element.
    */
-  private selectTarget(inputElement: HTMLInputElement | HTMLTextAreaElement): number | undefined {
+  private selectTarget(
+    inputElement: HTMLInputElement | HTMLTextAreaElement,
+  ): number | undefined {
     inputElement.select();
     inputElement.setSelectionRange(0, inputElement.value.length);
     return inputElement.value.length;
   }
 
   private copyText(): boolean {
-    return this.document.execCommand('copy');
+    return this.document.execCommand("copy");
   }
 
   /**
    * Moves focus away from `target` and back to the trigger, removes current selection.
    */
-  private clearSelection(inputElement: HTMLInputElement | HTMLTextAreaElement | undefined, window: Window): void {
+  private clearSelection(
+    inputElement: HTMLInputElement | HTMLTextAreaElement | undefined,
+    window: Window,
+  ): void {
     inputElement && inputElement.focus();
     window.getSelection()?.removeAllRanges();
   }
@@ -141,23 +165,26 @@ export class ClipboardService {
   /**
    * Creates a fake textarea for copy command.
    */
-  private createTempTextArea(doc: Document, window: Window): HTMLTextAreaElement {
-    const isRTL = doc.documentElement.getAttribute('dir') === 'rtl';
+  private createTempTextArea(
+    doc: Document,
+    window: Window,
+  ): HTMLTextAreaElement {
+    const isRTL = doc.documentElement.getAttribute("dir") === "rtl";
     let ta: HTMLTextAreaElement;
-    ta = doc.createElement('textarea');
+    ta = doc.createElement("textarea");
     // Prevent zooming on iOS
-    ta.style.fontSize = '12pt';
+    ta.style.fontSize = "12pt";
     // Reset box model
-    ta.style.border = '0';
-    ta.style.padding = '0';
-    ta.style.margin = '0';
+    ta.style.border = "0";
+    ta.style.padding = "0";
+    ta.style.margin = "0";
     // Move element out of screen horizontally
-    ta.style.position = 'absolute';
-    ta.style[isRTL ? 'right' : 'left'] = '-9999px';
+    ta.style.position = "absolute";
+    ta.style[isRTL ? "right" : "left"] = "-9999px";
     // Move element to the same position vertically
     const yPosition = window.pageYOffset || doc.documentElement.scrollTop;
-    ta.style.top = yPosition + 'px';
-    ta.setAttribute('readonly', '');
+    ta.style.top = yPosition + "px";
+    ta.setAttribute("readonly", "");
     return ta;
   }
 

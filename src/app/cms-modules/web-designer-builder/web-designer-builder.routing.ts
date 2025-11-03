@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { WebDesignerBuilderComponent } from './web-designer-builder.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { WebDesignerBuilderComponent } from "./web-designer-builder.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: WebDesignerBuilderComponent,
-    data: { title: 'ROUTE.WEBDESIGNERBUILDER' },
+    data: { title: "ROUTE.WEBDESIGNERBUILDER" },
     children: [
       /** */
       /** */
@@ -17,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class WebDesignerBuilderRoutes { }
+export class WebDesignerBuilderRoutes {}

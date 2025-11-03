@@ -1,16 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-    selector: 'app-ticketing',
-    template: '<router-outlet></router-outlet>',
-    standalone: false
+  selector: "app-ticketing",
+  template: "<router-outlet></router-outlet>",
+  standalone: false,
 })
 export class TicketingComponent implements OnInit {
-
   constructorInfoAreaId = this.constructor.name;
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

@@ -1,26 +1,30 @@
-
-import { StepperSelectionEvent } from '@angular/cdk/stepper';
+import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import {
-  ChangeDetectorRef, Component, Inject, OnInit,
-  ViewChild
-} from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MatStepper } from '@angular/material/stepper';
-import { TranslateService } from '@ngx-translate/core';
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { MatStepper } from "@angular/material/stepper";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService, CoreSiteService, ErrorExceptionResult,
-  FormInfoModel, ProcessModuleSiteDataInfoOutputModel
-} from 'ntk-cms-api';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-
+  CoreEnumService,
+  CoreSiteService,
+  ErrorExceptionResult,
+  FormInfoModel,
+  ProcessModuleSiteDataInfoOutputModel,
+} from "ntk-cms-api";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-    selector: 'app-core-site-module-site-info',
-    templateUrl: './module-site-info.component.html',
-    styleUrls: ['./module-site-info.component.scss'],
-    standalone: false
+  selector: "app-core-site-module-site-info",
+  templateUrl: "./module-site-info.component.html",
+  styleUrls: ["./module-site-info.component.scss"],
+  standalone: false,
 })
 export class CoreSiteModuleSiteInfoComponent implements OnInit {
   requestLinkSiteId = 0;
@@ -42,9 +46,9 @@ export class CoreSiteModuleSiteInfoComponent implements OnInit {
     }
   }
 
-
-  dataModelResult: ErrorExceptionResult<ProcessModuleSiteDataInfoOutputModel> = new ErrorExceptionResult<ProcessModuleSiteDataInfoOutputModel>();
-  @ViewChild('vform', { static: false }) formGroup: FormGroup;
+  dataModelResult: ErrorExceptionResult<ProcessModuleSiteDataInfoOutputModel> =
+    new ErrorExceptionResult<ProcessModuleSiteDataInfoOutputModel>();
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
   formInfo: FormInfoModel = new FormInfoModel();
 
   ngOnInit(): void {
@@ -53,33 +57,40 @@ export class CoreSiteModuleSiteInfoComponent implements OnInit {
       this.dialogRef.close({ dialogChangedDate: false });
       return;
     }
-    this.translate.get('TITLE.VIEW_STATISTICS').subscribe((str: string) => {
+    this.translate.get("TITLE.VIEW_STATISTICS").subscribe((str: string) => {
       this.formInfo.formTitle = str;
     });
     this.DataGetAll();
   }
   DataGetAll(): void {
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
-    this.coreSiteService.ServiceModuleDataInfo(this.requestLinkSiteId).subscribe({
-      next: (ret) => {
-        if (ret.isSuccess) {
-          this.dataModelResult = ret;
-        } else {
-          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-        }
-        this.publicHelper.processService.processStop(pName);
-      },
-      error: (er) => {
-        this.cmsToastrService.typeError(er);
+    this.coreSiteService
+      .ServiceModuleDataInfo(this.requestLinkSiteId)
+      .subscribe({
+        next: (ret) => {
+          if (ret.isSuccess) {
+            this.dataModelResult = ret;
+          } else {
+            this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+          }
+          this.publicHelper.processService.processStop(pName);
+        },
+        error: (er) => {
+          this.cmsToastrService.typeError(er);
 
-        this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+          this.publicHelper.processService.processStop(pName, false);
+        },
+      });
   }
 
   onFormCancel(): void {

@@ -1,4 +1,8 @@
-import { ApexChart, ApexNonAxisChartSeries, ApexResponsive } from "ng-apexcharts";
+import {
+  ApexChart,
+  ApexNonAxisChartSeries,
+  ApexResponsive,
+} from "ng-apexcharts";
 
 export class ChartOptionsModel {
   series: ApexNonAxisChartSeries;

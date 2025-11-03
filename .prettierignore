@@ -9,6 +9,8 @@ dist/
 build/
 out/
 
+# Assets
+assets/
 # Environment files
 .env
 .env.local

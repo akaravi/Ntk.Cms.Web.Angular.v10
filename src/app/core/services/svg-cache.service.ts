@@ -1,13 +1,22 @@
-import { APP_BASE_HREF, PlatformLocation } from '@angular/common';
-import { HttpBackend, HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Inject, Injectable, Optional, Renderer2, RendererFactory2 } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, map, share, tap } from 'rxjs/operators';
-import { InlineSVGConfig } from '../models/inline-svg.config';
-
+import { APP_BASE_HREF, PlatformLocation } from "@angular/common";
+import {
+  HttpBackend,
+  HttpClient,
+  HttpErrorResponse,
+} from "@angular/common/http";
+import {
+  Inject,
+  Injectable,
+  Optional,
+  Renderer2,
+  RendererFactory2,
+} from "@angular/core";
+import { Observable, of, throwError } from "rxjs";
+import { catchError, map, share, tap } from "rxjs/operators";
+import { InlineSVGConfig } from "../models/inline-svg.config";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class SVGCacheService {
   private static _cache: Map<string, SVGElement>;
@@ -24,11 +33,12 @@ export class SVGCacheService {
     @Optional() private _config: InlineSVGConfig,
     httpClient: HttpClient,
     httpBackend: HttpBackend,
-    rendererFactory: RendererFactory2
+    rendererFactory: RendererFactory2,
   ) {
-    this._http = _config && !_config.bypassHttpClientInterceptorChain
-      ? httpClient
-      : new HttpClient(httpBackend);
+    this._http =
+      _config && !_config.bypassHttpClientInterceptorChain
+        ? httpClient
+        : new HttpClient(httpBackend);
 
     this._renderer = rendererFactory.createRenderer(null, null);
 
@@ -38,14 +48,22 @@ export class SVGCacheService {
       SVGCacheService._cache = new Map<string, SVGElement>();
     }
     if (!SVGCacheService._inProgressReqs) {
-      SVGCacheService._inProgressReqs = new Map<string, Observable<SVGElement>>();
+      SVGCacheService._inProgressReqs = new Map<
+        string,
+        Observable<SVGElement>
+      >();
     }
   }
 
-  getSVG(url: string, resolveSVGUrl: boolean, cache: boolean = true): Observable<SVGElement> {
-    const svgUrl = (resolveSVGUrl
-      ? this.getAbsoluteUrl(url)
-      : url).replace(/#.+$/, '');
+  getSVG(
+    url: string,
+    resolveSVGUrl: boolean,
+    cache: boolean = true,
+  ): Observable<SVGElement> {
+    const svgUrl = (resolveSVGUrl ? this.getAbsoluteUrl(url) : url).replace(
+      /#.+$/,
+      "",
+    );
 
     // Return cached copy if it exists
     if (cache && SVGCacheService._cache.has(svgUrl)) {
@@ -58,22 +76,21 @@ export class SVGCacheService {
     }
 
     // Otherwise, make the HTTP call to fetch
-    const req = this._http.get(svgUrl, { responseType: 'text' })
-      .pipe(
-        tap(() => {
-          SVGCacheService._inProgressReqs.delete(svgUrl);
-        }),
-        catchError((error: HttpErrorResponse) => {
-          SVGCacheService._inProgressReqs.delete(svgUrl);
-          return throwError(error.message);
-        }),
-        share(),
-        map((svgText: string) => {
-          const svgEl = this._svgElementFromString(svgText);
-          SVGCacheService._cache.set(svgUrl, svgEl);
-          return this._cloneSVG(svgEl);
-        })
-      );
+    const req = this._http.get(svgUrl, { responseType: "text" }).pipe(
+      tap(() => {
+        SVGCacheService._inProgressReqs.delete(svgUrl);
+      }),
+      catchError((error: HttpErrorResponse) => {
+        SVGCacheService._inProgressReqs.delete(svgUrl);
+        return throwError(error.message);
+      }),
+      share(),
+      map((svgText: string) => {
+        const svgEl = this._svgElementFromString(svgText);
+        SVGCacheService._cache.set(svgUrl, svgEl);
+        return this._cloneSVG(svgEl);
+      }),
+    );
 
     SVGCacheService._inProgressReqs.set(svgUrl, req);
 
@@ -97,25 +114,25 @@ export class SVGCacheService {
 
       // Convert leading "//" to "/" to prevent a malformed URL
       // See https://github.com/arkon/ng-inline-svg/issues/50
-      if (url.indexOf('//') === 0) {
+      if (url.indexOf("//") === 0) {
         url = url.substring(1);
       }
     }
 
-    const base = this._renderer.createElement('BASE');
+    const base = this._renderer.createElement("BASE");
     base.href = url;
 
     return base.href;
   }
 
   private _svgElementFromString(str: string): SVGElement | never {
-    const div = this._renderer.createElement('DIV');
+    const div = this._renderer.createElement("DIV");
     div.innerHTML = str;
 
-    const svg = div.querySelector('svg') as SVGElement;
+    const svg = div.querySelector("svg") as SVGElement;
 
     if (!svg) {
-      throw new Error('No SVG found in loaded contents');
+      throw new Error("No SVG found in loaded contents");
     }
 
     return svg;
@@ -124,5 +141,4 @@ export class SVGCacheService {
   private _cloneSVG(svg: SVGElement): SVGElement {
     return svg.cloneNode(true) as SVGElement;
   }
-
 }

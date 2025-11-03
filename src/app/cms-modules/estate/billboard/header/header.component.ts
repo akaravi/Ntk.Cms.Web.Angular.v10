@@ -1,28 +1,32 @@
-
 import {
-  ChangeDetectorRef, Component, Input, OnDestroy, OnInit
-} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  DataFieldInfoModel, ErrorExceptionResult,
+  DataFieldInfoModel,
+  ErrorExceptionResult,
   EstateBillboardModel,
   EstateBillboardService,
-  RecordStatusEnum
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { ThemeService } from 'src/app/core/services/theme.service';
-import { CmsLinkToComponent } from 'src/app/shared/cms-link-to/cms-link-to.component';
-import { environment } from 'src/environments/environment';
+  RecordStatusEnum,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { ThemeService } from "src/app/core/services/theme.service";
+import { CmsLinkToComponent } from "src/app/shared/cms-link-to/cms-link-to.component";
+import { environment } from "src/environments/environment";
 @Component({
-  selector: 'app-estate-billboard-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
-  standalone: false
+  selector: "app-estate-billboard-header",
+  templateUrl: "./header.component.html",
+  styleUrls: ["./header.component.scss"],
+  standalone: false,
 })
 export class EstateBillboardHeaderComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -35,16 +39,18 @@ export class EstateBillboardHeaderComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     public translate: TranslateService,
     private cmsStoreService: CmsStoreService,
-    public tokenHelper: TokenHelper
+    public tokenHelper: TokenHelper,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }
-  @Input() optionId = '';
+  @Input() optionId = "";
 
-  dataModelResult: ErrorExceptionResult<EstateBillboardModel> = new ErrorExceptionResult<EstateBillboardModel>();
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
-
-
+  dataModelResult: ErrorExceptionResult<EstateBillboardModel> =
+    new ErrorExceptionResult<EstateBillboardModel>();
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
 
   cmsApiStoreSubscribe: Subscription;
   ngOnInit(): void {
@@ -52,9 +58,11 @@ export class EstateBillboardHeaderComponent implements OnInit, OnDestroy {
       this.DataGetOneContent();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetOneContent();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetOneContent();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -63,10 +71,16 @@ export class EstateBillboardHeaderComponent implements OnInit, OnDestroy {
   }
 
   DataGetOneContent(): void {
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.headerService.setAccessLoad();
     this.headerService.ServiceGetOneById(this.optionId).subscribe({
@@ -82,11 +96,12 @@ export class EstateBillboardHeaderComponent implements OnInit, OnDestroy {
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
-  onActionButtonLinkTo(model: EstateBillboardModel = this.dataModelResult.item): void {
+  onActionButtonLinkTo(
+    model: EstateBillboardModel = this.dataModelResult.item,
+  ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
@@ -96,11 +111,9 @@ export class EstateBillboardHeaderComponent implements OnInit, OnDestroy {
       return;
     }
     //open popup
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(CmsLinkToComponent, {
       height: "90%",
       panelClass: panelClass,

@@ -1,163 +1,344 @@
 <div class="card card-style loader-container">
-  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId"> </app-progress-spinner>
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
   <div class="content mb-0">
     <p class="mb-0 color-highlight font-600 font-12">
       {{ formInfo.formTitle }}
     </p>
-    <h4>{{'TITLE.SERVICE_PROVIDER_COMPANIES' | translate}}</h4>
+    <h4>{{ "TITLE.SERVICE_PROVIDER_COMPANIES" | translate }}</h4>
 
     <p>
-      {{'TITLE.SERVICE_PROVIDER_COMPANIES_DESCRIPTION' | translate}}
+      {{ "TITLE.SERVICE_PROVIDER_COMPANIES_DESCRIPTION" | translate }}
     </p>
     <!--content-->
     <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
       <!-- RecordStatus Field -->
-      <app-cms-enum-record-status-selector *ngIf="fieldsInfo['recordStatus']?.accessWatchField"
-        [(model)]="dataModel.recordStatus" [optionDisabled]="false"
-        [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle" [optionRequired]="true"
-        [optionSelectFirstItem]="true"></app-cms-enum-record-status-selector>
-
-
+      <app-cms-enum-record-status-selector
+        *ngIf="fieldsInfo['recordStatus']?.accessWatchField"
+        [(model)]="dataModel.recordStatus"
+        [optionDisabled]="false"
+        [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
+        [optionRequired]="true"
+        [optionSelectFirstItem]="true"
+      ></app-cms-enum-record-status-selector>
 
       <!-- Title Field -->
-      <div *ngIf="fieldsInfo['title']?.accessWatchField"
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
-        <label for="dataModel.title" class="color-highlight">{{ fieldsInfo["title"]?.fieldTitle }}</label>
-        <input matInput type="text" [(ngModel)]="dataModel.title" name="dataModel.title" #Title type="text"
-          placeholder="{{fieldsInfo['title']?.fieldTitle }}" minlength="3" maxlength="100" required
-          class="form-control validate-name" id="dataModel.title" />
-        <i *ngIf="!Title.value" class="fa fa-times  invalid color-red-dark"></i>
-        <i *ngIf="Title.value" class="fa fa-check  valid color-green-dark"></i>
+      <div
+        *ngIf="fieldsInfo['title']?.accessWatchField"
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+      >
+        <label for="dataModel.title" class="color-highlight">{{
+          fieldsInfo["title"]?.fieldTitle
+        }}</label>
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="dataModel.title"
+          name="dataModel.title"
+          #Title
+          type="text"
+          placeholder="{{ fieldsInfo['title']?.fieldTitle }}"
+          minlength="3"
+          maxlength="100"
+          required
+          class="form-control validate-name"
+          id="dataModel.title"
+        />
+        <i *ngIf="!Title.value" class="fa fa-times invalid color-red-dark"></i>
+        <i *ngIf="Title.value" class="fa fa-check valid color-green-dark"></i>
         <em>{{ Title.value.length }} / 100</em>
         <mat-error *ngIf="Title.errors?.required">
-          Title is <strong>{{'MESSAGE.required' | translate}}</strong>
+          Title is <strong>{{ "MESSAGE.required" | translate }}</strong>
         </mat-error>
       </div>
       <!-- CheckCredit Field -->
-      <div *ngIf="fieldsInfo['checkCredit']?.accessWatchField" class="d-flex mb-3">
+      <div
+        *ngIf="fieldsInfo['checkCredit']?.accessWatchField"
+        class="d-flex mb-3"
+      >
         <div class="pt-1">
-          <h5 data-trigger-switch="dataModel.checkCredit" class="font-600 font-14">
-            {{fieldsInfo['checkCredit']?.fieldTitle}}</h5>
+          <h5
+            data-trigger-switch="dataModel.checkCredit"
+            class="font-600 font-14"
+          >
+            {{ fieldsInfo["checkCredit"]?.fieldTitle }}
+          </h5>
         </div>
         <div class="ms-auto me-3 pe-2">
           <div class="custom-control ios-switch small-switch">
-            <input type="checkbox" class="ios-input" id="dataModel.checkCredit" [(ngModel)]="dataModel.checkCredit"
-              name="dataModel.checkCredit">
-            <label class="custom-control-label" for="dataModel.checkCredit"></label>
+            <input
+              type="checkbox"
+              class="ios-input"
+              id="dataModel.checkCredit"
+              [(ngModel)]="dataModel.checkCredit"
+              name="dataModel.checkCredit"
+            />
+            <label
+              class="custom-control-label"
+              for="dataModel.checkCredit"
+            ></label>
           </div>
         </div>
       </div>
       <!-- CalculateCredit Field -->
-      <div *ngIf="fieldsInfo['calculateCredit']?.accessWatchField" class="d-flex mb-3">
+      <div
+        *ngIf="fieldsInfo['calculateCredit']?.accessWatchField"
+        class="d-flex mb-3"
+      >
         <div class="pt-1">
-          <h5 data-trigger-switch="dataModel.calculateCredit" class="font-600 font-14">
-            {{fieldsInfo['calculateCredit']?.fieldTitle}}</h5>
+          <h5
+            data-trigger-switch="dataModel.calculateCredit"
+            class="font-600 font-14"
+          >
+            {{ fieldsInfo["calculateCredit"]?.fieldTitle }}
+          </h5>
         </div>
         <div class="ms-auto me-3 pe-2">
           <div class="custom-control ios-switch small-switch">
-            <input type="checkbox" class="ios-input" id="dataModel.calculateCredit"
-              [(ngModel)]="dataModel.calculateCredit" name="dataModel.calculateCredit">
-            <label class="custom-control-label" for="dataModel.calculateCredit"></label>
+            <input
+              type="checkbox"
+              class="ios-input"
+              id="dataModel.calculateCredit"
+              [(ngModel)]="dataModel.calculateCredit"
+              name="dataModel.calculateCredit"
+            />
+            <label
+              class="custom-control-label"
+              for="dataModel.calculateCredit"
+            ></label>
           </div>
         </div>
       </div>
       <!-- ServiceAvailableCredit Field -->
-      <div *ngIf="fieldsInfo['serviceAvailableCredit']?.accessWatchField"
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+      <div
+        *ngIf="fieldsInfo['serviceAvailableCredit']?.accessWatchField"
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+      >
         <label for="dataModel.serviceAvailableCredit" class="color-highlight">{{
-          fieldsInfo["serviceAvailableCredit"]?.fieldTitle }}</label>
-        <input matInput type="text" [(ngModel)]="dataModel.serviceAvailableCredit" currencyMask
-          name="dataModel.serviceAvailableCredit" #ServiceAvailableCredit type="number" placeholder="0"
-          [disabled]="!fieldsInfo['serviceAvailableCredit']?.accessAddField" required class="form-control validate-name"
-          id="dataModel.serviceAvailableCredit" />
-        <i *ngIf="!ServiceAvailableCredit.value" class="fa fa-times  invalid color-red-dark"></i>
-        <i *ngIf="ServiceAvailableCredit.value" class="fa fa-check  valid color-green-dark"></i>
+          fieldsInfo["serviceAvailableCredit"]?.fieldTitle
+        }}</label>
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="dataModel.serviceAvailableCredit"
+          currencyMask
+          name="dataModel.serviceAvailableCredit"
+          #ServiceAvailableCredit
+          type="number"
+          placeholder="0"
+          [disabled]="!fieldsInfo['serviceAvailableCredit']?.accessAddField"
+          required
+          class="form-control validate-name"
+          id="dataModel.serviceAvailableCredit"
+        />
+        <i
+          *ngIf="!ServiceAvailableCredit.value"
+          class="fa fa-times invalid color-red-dark"
+        ></i>
+        <i
+          *ngIf="ServiceAvailableCredit.value"
+          class="fa fa-check valid color-green-dark"
+        ></i>
         <mat-error *ngIf="ServiceAvailableCredit.errors?.required">
-          {{ fieldsInfo['serviceAvailableCredit']?.fieldTitle }} is <strong>{{'MESSAGE.required' |
-            translate}}</strong>
+          {{ fieldsInfo["serviceAvailableCredit"]?.fieldTitle }} is
+          <strong>{{ "MESSAGE.required" | translate }}</strong>
         </mat-error>
       </div>
       <!-- ServiceSumCredit Field -->
-      <div *ngIf="fieldsInfo['serviceSumCredit']?.accessWatchField"
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
-        <label for="dataModel.serviceSumCredit" class="color-highlight">{{ fieldsInfo["serviceSumCredit"]?.fieldTitle
-          }}</label>
-        <input matInput type="text" [(ngModel)]="dataModel.serviceSumCredit" name="dataModel.serviceSumCredit" currencyMask
-          #ServiceSumCredit type="number" placeholder="0" [disabled]="!fieldsInfo['serviceSumCredit']?.accessAddField"
-          required class="form-control validate-name" id="dataModel.serviceSumCredit" />
-        <i *ngIf="!ServiceSumCredit.value" class="fa fa-times  invalid color-red-dark"></i>
-        <i *ngIf="ServiceSumCredit.value" class="fa fa-check  valid color-green-dark"></i>
+      <div
+        *ngIf="fieldsInfo['serviceSumCredit']?.accessWatchField"
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+      >
+        <label for="dataModel.serviceSumCredit" class="color-highlight">{{
+          fieldsInfo["serviceSumCredit"]?.fieldTitle
+        }}</label>
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="dataModel.serviceSumCredit"
+          name="dataModel.serviceSumCredit"
+          currencyMask
+          #ServiceSumCredit
+          type="number"
+          placeholder="0"
+          [disabled]="!fieldsInfo['serviceSumCredit']?.accessAddField"
+          required
+          class="form-control validate-name"
+          id="dataModel.serviceSumCredit"
+        />
+        <i
+          *ngIf="!ServiceSumCredit.value"
+          class="fa fa-times invalid color-red-dark"
+        ></i>
+        <i
+          *ngIf="ServiceSumCredit.value"
+          class="fa fa-check valid color-green-dark"
+        ></i>
         <mat-error *ngIf="ServiceSumCredit.errors?.required">
-          {{ fieldsInfo['serviceSumCredit']?.fieldTitle }} is <strong>{{'MESSAGE.required' | translate}}</strong>
+          {{ fieldsInfo["serviceSumCredit"]?.fieldTitle }} is
+          <strong>{{ "MESSAGE.required" | translate }}</strong>
         </mat-error>
       </div>
       <!-- UserAvailableCredit Field -->
-      <div *ngIf="fieldsInfo['userAvailableCredit']?.accessWatchField"
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+      <div
+        *ngIf="fieldsInfo['userAvailableCredit']?.accessWatchField"
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+      >
         <label for="dataModel.userAvailableCredit" class="color-highlight">{{
-          fieldsInfo["userAvailableCredit"]?.fieldTitle }}</label>
-        <input matInput type="text" [(ngModel)]="dataModel.userAvailableCredit" name="dataModel.userAvailableCredit" currencyMask
-          #UserAvailableCredit type="number" placeholder="0"
-          [disabled]="!fieldsInfo['userAvailableCredit']?.accessAddField" required class="form-control validate-name"
-          id="dataModel.userAvailableCredit" />
-        <i *ngIf="!UserAvailableCredit.value" class="fa fa-times  invalid color-red-dark"></i>
-        <i *ngIf="UserAvailableCredit.value" class="fa fa-check  valid color-green-dark"></i>
+          fieldsInfo["userAvailableCredit"]?.fieldTitle
+        }}</label>
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="dataModel.userAvailableCredit"
+          name="dataModel.userAvailableCredit"
+          currencyMask
+          #UserAvailableCredit
+          type="number"
+          placeholder="0"
+          [disabled]="!fieldsInfo['userAvailableCredit']?.accessAddField"
+          required
+          class="form-control validate-name"
+          id="dataModel.userAvailableCredit"
+        />
+        <i
+          *ngIf="!UserAvailableCredit.value"
+          class="fa fa-times invalid color-red-dark"
+        ></i>
+        <i
+          *ngIf="UserAvailableCredit.value"
+          class="fa fa-check valid color-green-dark"
+        ></i>
         <mat-error *ngIf="UserAvailableCredit.errors?.required">
-          {{ fieldsInfo['userAvailableCredit']?.fieldTitle }} is <strong>{{'MESSAGE.required' |
-            translate}}</strong>
+          {{ fieldsInfo["userAvailableCredit"]?.fieldTitle }} is
+          <strong>{{ "MESSAGE.required" | translate }}</strong>
         </mat-error>
       </div>
       <!-- UserSumCredit Field -->
-      <div *ngIf="fieldsInfo['userSumCredit']?.accessWatchField"
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
-        <label for="dataModel.userSumCredit" class="color-highlight">{{ fieldsInfo["userSumCredit"]?.fieldTitle
-          }}</label>
-        <input matInput type="text" [(ngModel)]="dataModel.userSumCredit" name="dataModel.userSumCredit" currencyMask #UserSumCredit
-          type="number" placeholder="0" [disabled]="!fieldsInfo['userSumCredit']?.accessAddField" required
-          class="form-control validate-name" id="dataModel.userSumCredit" />
-        <i *ngIf="!UserSumCredit.value" class="fa fa-times  invalid color-red-dark"></i>
-        <i *ngIf="UserSumCredit.value" class="fa fa-check  valid color-green-dark"></i>
+      <div
+        *ngIf="fieldsInfo['userSumCredit']?.accessWatchField"
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+      >
+        <label for="dataModel.userSumCredit" class="color-highlight">{{
+          fieldsInfo["userSumCredit"]?.fieldTitle
+        }}</label>
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="dataModel.userSumCredit"
+          name="dataModel.userSumCredit"
+          currencyMask
+          #UserSumCredit
+          type="number"
+          placeholder="0"
+          [disabled]="!fieldsInfo['userSumCredit']?.accessAddField"
+          required
+          class="form-control validate-name"
+          id="dataModel.userSumCredit"
+        />
+        <i
+          *ngIf="!UserSumCredit.value"
+          class="fa fa-times invalid color-red-dark"
+        ></i>
+        <i
+          *ngIf="UserSumCredit.value"
+          class="fa fa-check valid color-green-dark"
+        ></i>
         <mat-error *ngIf="UserSumCredit.errors?.required">
-          {{ fieldsInfo['userSumCredit']?.fieldTitle }} is <strong>{{'MESSAGE.required' | translate}}</strong>
+          {{ fieldsInfo["userSumCredit"]?.fieldTitle }} is
+          <strong>{{ "MESSAGE.required" | translate }}</strong>
         </mat-error>
       </div>
       <!-- Description Field -->
-      <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
-        <label for="dataModel.description" class="color-highlight">{{fieldsInfo['description']?.fieldTitle}}</label>
-        <textarea matInput [(ngModel)]="dataModel.description" name="dataModel.description" #Description type="text"
-          placeholder="{{ fieldsInfo['description']?.fieldTitle }}" minlength="1" maxlength="500" rows="5"
-          id="dataModel.description" class="form-control validate-name"></textarea>
+      <div
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+      >
+        <label for="dataModel.description" class="color-highlight">{{
+          fieldsInfo["description"]?.fieldTitle
+        }}</label>
+        <textarea
+          matInput
+          [(ngModel)]="dataModel.description"
+          name="dataModel.description"
+          #Description
+          type="text"
+          placeholder="{{ fieldsInfo['description']?.fieldTitle }}"
+          minlength="1"
+          maxlength="500"
+          rows="5"
+          id="dataModel.description"
+          class="form-control validate-name"
+        ></textarea>
         <em>{{ Description.value.length }} / 500</em>
         <mat-error *ngIf="Description.errors?.required">
-          Description is <strong>{{'MESSAGE.required' | translate}}</strong>
+          Description is <strong>{{ "MESSAGE.required" | translate }}</strong>
         </mat-error>
       </div>
-        <!-- LinkMainImageId Field -->
-        <div class="mb-3">
-          <a href="{{dataModel.linkMainImageIdSrc | cmsthumbnail}}" target="_blank">
-            <img *ngIf="dataModel?.linkMainImageIdSrc?.length>0" style="vertical-align:middle;" class="ntk-hover-zoom"
-              aria-hidden src="{{dataModel.linkMainImageIdSrc | cmsthumbnail}}" height="50" width="50" />
-          </a>
-        </div>
-        <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
-          <label (click)="fileManagerOpenForm = true" for="dataModel.linkMainImageId"
-            class="color-highlight">{{"TITLE.Icon_File" | translate}}</label>
-          <input matInput type="text" [(ngModel)]="dataModel.linkMainImageId" name="dataModel.linkMainImageId"
-            #LinkMainImageId placeholder="{{'TITLE.Original_File_ID' | translate}}" autocomplete="off"
-            (click)="fileManagerOpenForm = true" class="form-control validate-name" id="dataModel.linkMainImageId" />
-          <cms-file-manager (itemSelected)="onActionFileSelected($event)" [language]="appLanguage" [isPopup]="true"
-            [(openForm)]="fileManagerOpenForm" [tree]="fileManagerTree" [openFilemanagerButtonLabelKey]="'select'"
-            [openDirectUploadView]="true" [selectFileType]="selectFileTypeMainImage" [openFilemanagerButtonView]="false">
-          </cms-file-manager>
-        </div>
-      <div class="form-actions" *ngIf="formInfo.formSubmitAllow  ">
-        <button type="button" (click)="onFormCancel()"
-          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray">
-          <i class="ft-x"></i> {{'ACTION.CANCEL' | translate}}
+      <!-- LinkMainImageId Field -->
+      <div class="mb-3">
+        <a
+          href="{{ dataModel.linkMainImageIdSrc | cmsthumbnail }}"
+          target="_blank"
+        >
+          <img
+            *ngIf="dataModel?.linkMainImageIdSrc?.length > 0"
+            style="vertical-align: middle"
+            class="ntk-hover-zoom"
+            aria-hidden
+            src="{{ dataModel.linkMainImageIdSrc | cmsthumbnail }}"
+            height="50"
+            width="50"
+          />
+        </a>
+      </div>
+      <div
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+      >
+        <label
+          (click)="fileManagerOpenForm = true"
+          for="dataModel.linkMainImageId"
+          class="color-highlight"
+          >{{ "TITLE.Icon_File" | translate }}</label
+        >
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="dataModel.linkMainImageId"
+          name="dataModel.linkMainImageId"
+          #LinkMainImageId
+          placeholder="{{ 'TITLE.Original_File_ID' | translate }}"
+          autocomplete="off"
+          (click)="fileManagerOpenForm = true"
+          class="form-control validate-name"
+          id="dataModel.linkMainImageId"
+        />
+        <cms-file-manager
+          (itemSelected)="onActionFileSelected($event)"
+          [language]="appLanguage"
+          [isPopup]="true"
+          [(openForm)]="fileManagerOpenForm"
+          [tree]="fileManagerTree"
+          [openFilemanagerButtonLabelKey]="'select'"
+          [openDirectUploadView]="true"
+          [selectFileType]="selectFileTypeMainImage"
+          [openFilemanagerButtonView]="false"
+        >
+        </cms-file-manager>
+      </div>
+      <div class="form-actions" *ngIf="formInfo.formSubmitAllow">
+        <button
+          type="button"
+          (click)="onFormCancel()"
+          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+        >
+          <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
         </button>
-        <button type="submit" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
-          [disabled]="!vform.form.valid">
-          <i class="fa fa-check-square-o"></i> {{'ACTION.SAVE' | translate}}
+        <button
+          type="submit"
+          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
+          [disabled]="!vform.form.valid"
+        >
+          <i class="fa fa-check-square-o"></i> {{ "ACTION.SAVE" | translate }}
         </button>
       </div>
     </form>

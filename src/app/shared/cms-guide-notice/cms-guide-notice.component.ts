@@ -1,20 +1,28 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { CoreGuideService, TokenInfoModelV3 } from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { PageInfoService } from 'src/app/core/services/page-info.service';
-import { ThemeService } from 'src/app/core/services/theme.service';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { CoreGuideService, TokenInfoModelV3 } from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { PageInfoService } from "src/app/core/services/page-info.service";
+import { ThemeService } from "src/app/core/services/theme.service";
 
-import { environment } from 'src/environments/environment';
+import { environment } from "src/environments/environment";
 @Component({
-  selector: 'app-cms-guide-notice',
-  templateUrl: './cms-guide-notice.component.html',
+  selector: "app-cms-guide-notice",
+  templateUrl: "./cms-guide-notice.component.html",
   styleUrls: ["./cms-guide-notice.component.scss"],
-  standalone: false
+  standalone: false,
 })
 export class CmsGuideNoticeComponent implements OnInit, OnDestroy {
   static nextId = 0;
@@ -46,25 +54,23 @@ export class CmsGuideNoticeComponent implements OnInit, OnDestroy {
     private coreGuideService: CoreGuideService,
     private cmsToastrService: CmsToastrService,
     public dialog: MatDialog,
-  ) {
-
-  }
+  ) {}
   tokenInfo = new TokenInfoModelV3();
-  closeResult = '';
+  closeResult = "";
   cmsApiStoreSubscribe: Subscription;
-  lang = '';
+  lang = "";
   ngOnInit(): void {
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.lang = this.tokenInfo.access.language;
       this.onGetOne();
     }
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      if (value && value.access)
-        this.lang = value.access.language;
-      this.onGetOne();
-    });
-
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        if (value && value.access) this.lang = value.access.language;
+        this.onGetOne();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -75,11 +81,10 @@ export class CmsGuideNoticeComponent implements OnInit, OnDestroy {
   onGetOne(): void {
     if (this.Identity > 0) {
       this.coreGuideService.ServiceGetOneById(this.Identity).subscribe({
-
         next: (ret) => {
           if (ret.isSuccess) {
             switch (this.lang) {
-              case 'fa': {
+              case "fa": {
                 this.title = ret.item.titleFa;
                 this.description = ret.item.descriptionFa;
                 this.body = ret.item.bodyFa;
@@ -89,7 +94,7 @@ export class CmsGuideNoticeComponent implements OnInit, OnDestroy {
                 this.movieSrc = ret.item.linkFileMovieIdFaSrc;
                 break;
               }
-              case 'en': {
+              case "en": {
                 this.title = ret.item.titleEn;
                 this.description = ret.item.descriptionEn;
                 this.body = ret.item.bodyEn;
@@ -99,7 +104,7 @@ export class CmsGuideNoticeComponent implements OnInit, OnDestroy {
                 this.movieSrc = ret.item.linkFileMovieIdEnSrc;
                 break;
               }
-              case 'ar': {
+              case "ar": {
                 this.title = ret.item.titleAr;
                 this.description = ret.item.descriptionAr;
                 this.body = ret.item.bodyAr;
@@ -109,7 +114,7 @@ export class CmsGuideNoticeComponent implements OnInit, OnDestroy {
                 this.movieSrc = ret.item.linkFileMovieIdArSrc;
                 break;
               }
-              case 'de': {
+              case "de": {
                 this.title = ret.item.titleDe;
                 this.description = ret.item.descriptionDe;
                 this.body = ret.item.bodyDe;
@@ -129,27 +134,27 @@ export class CmsGuideNoticeComponent implements OnInit, OnDestroy {
                 this.movieSrc = ret.item.linkFileMovieIdFaSrc;
                 break;
               }
-
             }
             this.pageInfo.setTitle(this.title);
             this.pageInfo.setDescription(this.description);
           } else if (!environment.production) {
             // console.log(ret.errorMessage, this.Key);
-            this.cmsToastrService.typeWarningMessage(ret.errorMessage, this.Key + ' راهنما یافت نشد ');
+            this.cmsToastrService.typeWarningMessage(
+              ret.errorMessage,
+              this.Key + " راهنما یافت نشد ",
+            );
           }
         },
         error: (err) => {
           this.cmsToastrService.typeError(err);
-        }
+        },
       });
-
     } else if (this.Key && this.Key.length > 0) {
       this.coreGuideService.ServiceGetOneByKey(this.Key).subscribe({
         next: (ret) => {
           if (ret.isSuccess) {
-
             switch (this.lang) {
-              case 'fa': {
+              case "fa": {
                 this.title = ret.item.titleFa;
                 this.description = ret.item.descriptionFa;
                 this.body = ret.item.bodyFa;
@@ -159,7 +164,7 @@ export class CmsGuideNoticeComponent implements OnInit, OnDestroy {
                 this.movieSrc = ret.item.linkFileMovieIdFaSrc;
                 break;
               }
-              case 'en': {
+              case "en": {
                 this.title = ret.item.titleEn;
                 this.description = ret.item.descriptionEn;
                 this.body = ret.item.bodyEn;
@@ -169,7 +174,7 @@ export class CmsGuideNoticeComponent implements OnInit, OnDestroy {
                 this.movieSrc = ret.item.linkFileMovieIdEnSrc;
                 break;
               }
-              case 'ar': {
+              case "ar": {
                 this.title = ret.item.titleAr;
                 this.description = ret.item.descriptionAr;
                 this.body = ret.item.bodyAr;
@@ -179,7 +184,7 @@ export class CmsGuideNoticeComponent implements OnInit, OnDestroy {
                 this.movieSrc = ret.item.linkFileMovieIdArSrc;
                 break;
               }
-              case 'de': {
+              case "de": {
                 this.title = ret.item.titleDe;
                 this.description = ret.item.descriptionDe;
                 this.body = ret.item.bodyDe;
@@ -204,32 +209,31 @@ export class CmsGuideNoticeComponent implements OnInit, OnDestroy {
             this.pageInfo.setDescription(this.description);
           } else if (!environment.production) {
             // console.log(ret.errorMessage, this.Key);
-            this.cmsToastrService.typeWarningMessage(ret.errorMessage, this.Key + ' راهنما یافت نشد ');
+            this.cmsToastrService.typeWarningMessage(
+              ret.errorMessage,
+              this.Key + " راهنما یافت نشد ",
+            );
           }
         },
         error: (err) => {
           this.cmsToastrService.typeError(err);
-        }
+        },
       });
-
-
     }
   }
   onActionCopyHeaderKey(keyTemplate: any, event?: MouseEvent): void {
-
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     if (event?.ctrlKey && event?.altKey) {
       const dialogRef = this.dialog.open(keyTemplate, {
-        width: '15%',
+        width: "15%",
         panelClass: panelClass,
-        enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
+        enterAnimationDuration:
+          environment.cmsViewConfig.enterAnimationDuration,
         exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
       });
-      dialogRef.afterClosed().subscribe(result => {
+      dialogRef.afterClosed().subscribe((result) => {
         if (result && result.dialogChangedDate) {
         }
       });
@@ -237,7 +241,6 @@ export class CmsGuideNoticeComponent implements OnInit, OnDestroy {
   }
   onActionCopied(): void {
     this.cmsToastrService.typeSuccessCopedToClipboard();
-
   }
   onActionBottunClick() {
     this.bodyShow = true;

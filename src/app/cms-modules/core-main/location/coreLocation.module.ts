@@ -1,24 +1,21 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  CoreLocationService, CoreModuleService
-} from 'ntk-cms-api';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { CoreLocationAddComponent } from './add/add.component';
-import { CoreLocationComponent } from './coreLocation.component';
-import { CoreLocationRouting } from './coreLocation.routing';
-import { CoreLocationEditComponent } from './edit/edit.component';
-import { CoreLocationListComponent } from './list/list.component';
-import { CoreLocationSelectorComponent } from './selector/selector.component';
-import { CoreLocationTreeComponent } from './tree/tree.component';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { CoreLocationService, CoreModuleService } from "ntk-cms-api";
+import { SharedModule } from "src/app/shared/shared.module";
+import { CoreLocationAddComponent } from "./add/add.component";
+import { CoreLocationComponent } from "./coreLocation.component";
+import { CoreLocationRouting } from "./coreLocation.routing";
+import { CoreLocationEditComponent } from "./edit/edit.component";
+import { CoreLocationListComponent } from "./list/list.component";
+import { CoreLocationSelectorComponent } from "./selector/selector.component";
+import { CoreLocationTreeComponent } from "./tree/tree.component";
 
-import { AngularEditorModule } from '@kolkov/angular-editor';
+import { AngularEditorModule } from "@kolkov/angular-editor";
 
-import { CmsFileManagerModule } from 'ntk-cms-filemanager';
-import { CmsConfirmationDialogService } from 'src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service';
-import { CoreLocationAddBulkComponent } from './add-bulk/add-bulk.component';
-
+import { CmsFileManagerModule } from "ntk-cms-filemanager";
+import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { CoreLocationAddBulkComponent } from "./add-bulk/add-bulk.component";
 
 @NgModule({
   declarations: [
@@ -43,7 +40,7 @@ import { CoreLocationAddBulkComponent } from './add-bulk/add-bulk.component';
     CommonModule,
     FormsModule,
     CoreLocationRouting,
-    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     SharedModule,
     AngularEditorModule,
     CmsFileManagerModule,
@@ -51,8 +48,7 @@ import { CoreLocationAddBulkComponent } from './add-bulk/add-bulk.component';
   providers: [
     CoreLocationService,
     CoreModuleService,
-    CmsConfirmationDialogService
-  ]
+    CmsConfirmationDialogService,
+  ],
 })
-export class CoreLocationCmsModule {
-}
+export class CoreLocationCmsModule {}

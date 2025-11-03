@@ -1,17 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'app-data-provider-config',
-  template: '<router-outlet></router-outlet>',
-   standalone: false
+  selector: "app-data-provider-config",
+  template: "<router-outlet></router-outlet>",
+  standalone: false,
 })
 export class DataProviderConfigComponent implements OnInit {
-
   constructorInfoAreaId = this.constructor.name;
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

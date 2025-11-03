@@ -1,20 +1,37 @@
-
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from "@angular/core";
+import { FormControl } from "@angular/forms";
+import { TranslateService } from "@ngx-translate/core";
 import {
   ArticleCategoryModel,
-  ArticleCategoryService, ClauseTypeEnum, CoreEnumService, ErrorExceptionResult,
-  FilterDataModel, FilterDataModelSearchTypesEnum, FilterModel
-} from 'ntk-cms-api';
-import { Observable, firstValueFrom } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, startWith, switchMap } from 'rxjs/operators';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
+  ArticleCategoryService,
+  ClauseTypeEnum,
+  CoreEnumService,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterDataModelSearchTypesEnum,
+  FilterModel,
+} from "ntk-cms-api";
+import { Observable, firstValueFrom } from "rxjs";
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  startWith,
+  switchMap,
+} from "rxjs/operators";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 @Component({
-    selector: 'app-article-category-selector',
-    templateUrl: './selector.component.html',
-    standalone: false
+  selector: "app-article-category-selector",
+  templateUrl: "./selector.component.html",
+  standalone: false,
 })
 export class ArticleCategorySelectorComponent implements OnInit {
   static nextId = 0;
@@ -26,46 +43,47 @@ export class ArticleCategorySelectorComponent implements OnInit {
     private cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
-    public categoryService: ArticleCategoryService) {
+    public categoryService: ArticleCategoryService,
+  ) {
     this.publicHelper.processService.cdr = this.cdr;
-
   }
-  dataModelResult: ErrorExceptionResult<ArticleCategoryModel> = new ErrorExceptionResult<ArticleCategoryModel>();
+  dataModelResult: ErrorExceptionResult<ArticleCategoryModel> =
+    new ErrorExceptionResult<ArticleCategoryModel>();
   dataModelSelect: ArticleCategoryModel = new ArticleCategoryModel();
   formControl = new FormControl();
   filteredOptions: Observable<ArticleCategoryModel[]>;
-  @Input() optionPlaceholder = '';
+  @Input() optionPlaceholder = "";
   @Input() optionSelectFirstItem = false;
   @Input() optionDisabled = false;
   @Input() optionRequired = false;
-  @Input() optionLabel = '';
+  @Input() optionLabel = "";
   @Output() optionChange = new EventEmitter<ArticleCategoryModel>();
   @Input() optionReload = () => this.onActionButtonReload();
   @Input() set optionSelectForce(x: number | ArticleCategoryModel) {
     this.onActionSelectForce(x);
   }
 
-
-
   ngOnInit(): void {
     this.loadOptions();
-    if (!this.optionLabel || this.optionLabel.length == 0 && this.optionPlaceholder?.length > 0)
+    if (
+      !this.optionLabel ||
+      (this.optionLabel.length == 0 && this.optionPlaceholder?.length > 0)
+    )
       this.optionLabel = this.optionPlaceholder;
   }
   loadOptions(): void {
-    this.filteredOptions = this.formControl.valueChanges
-      .pipe(
-        startWith(''),
-        debounceTime(1500),
-        distinctUntilChanged(),
-        switchMap(val => {
-          if (typeof val === 'string' || typeof val === 'number') {
-            return this.DataGetAll(val || '');
-          }
-          return [];
-        }),
-        // tap(() => this.myControl.setValue(this.options[0]))
-      );
+    this.filteredOptions = this.formControl.valueChanges.pipe(
+      startWith(""),
+      debounceTime(1500),
+      distinctUntilChanged(),
+      switchMap((val) => {
+        if (typeof val === "string" || typeof val === "number") {
+          return this.DataGetAll(val || "");
+        }
+        return [];
+      }),
+      // tap(() => this.myControl.setValue(this.options[0]))
+    );
   }
   displayFn(model?: ArticleCategoryModel): string | undefined {
     return model ? model.title : undefined;
@@ -73,44 +91,58 @@ export class ArticleCategorySelectorComponent implements OnInit {
   displayOption(model?: ArticleCategoryModel): string | undefined {
     return model ? model.title : undefined;
   }
-  async DataGetAll(text: string | number | any): Promise<ArticleCategoryModel[]> {
+  async DataGetAll(
+    text: string | number | any,
+  ): Promise<ArticleCategoryModel[]> {
     const filterModel = new FilterModel();
     filterModel.rowPerPage = 20;
     filterModel.accessLoad = true;
     let filter = new FilterDataModel();
-    filter.propertyName = 'Title';
+    filter.propertyName = "Title";
     filter.value = text;
     filter.searchType = FilterDataModelSearchTypesEnum.Contains;
     filter.clauseType = ClauseTypeEnum.Or;
     filterModel.filters.push(filter);
-    if (text && typeof +text === 'number' && +text > 0) {
+    if (text && typeof +text === "number" && +text > 0) {
       filter = new FilterDataModel();
-      filter.propertyName = 'Id';
+      filter.propertyName = "Id";
       filter.value = text;
       filter.searchType = FilterDataModelSearchTypesEnum.Equal;
       filter.clauseType = ClauseTypeEnum.Or;
       filterModel.filters.push(filter);
     }
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
+    return await firstValueFrom(
+      this.categoryService.ServiceGetAll(filterModel),
+    ).then((response) => {
+      this.dataModelResult = response;
+      /*select First Item */
+      if (
+        this.optionSelectFirstItem &&
+        (!this.dataModelSelect ||
+          !this.dataModelSelect.id ||
+          this.dataModelSelect.id <= 0) &&
+        this.dataModelResult.listItems.length > 0
+      ) {
+        this.optionSelectFirstItem = false;
+        setTimeout(() => {
+          this.formControl.setValue(this.dataModelResult.listItems[0]);
+        }, 1000);
+        this.onActionSelect(this.dataModelResult.listItems[0]);
+      }
+      /*select First Item */
+      this.publicHelper.processService.processStop(pName);
+      return response.listItems;
     });
-    return await firstValueFrom(this.categoryService.ServiceGetAll(filterModel))
-      .then(
-        (response) => {
-          this.dataModelResult = response;
-          /*select First Item */
-          if (this.optionSelectFirstItem &&
-            (!this.dataModelSelect || !this.dataModelSelect.id || this.dataModelSelect.id <= 0) &&
-            this.dataModelResult.listItems.length > 0) {
-            this.optionSelectFirstItem = false;
-            setTimeout(() => { this.formControl.setValue(this.dataModelResult.listItems[0]); }, 1000);
-            this.onActionSelect(this.dataModelResult.listItems[0]);
-          }
-          /*select First Item */
-          this.publicHelper.processService.processStop(pName);
-          return response.listItems;
-        });
   }
   onActionSelect(model: ArticleCategoryModel): void {
     this.dataModelSelect = model;
@@ -122,22 +154,27 @@ export class ArticleCategorySelectorComponent implements OnInit {
     this.optionChange.emit(null);
   }
   push(newvalue: ArticleCategoryModel): Observable<ArticleCategoryModel[]> {
-    return this.filteredOptions.pipe(map(items => {
-      if (items.find(x => x.id === newvalue.id)) {
+    return this.filteredOptions.pipe(
+      map((items) => {
+        if (items.find((x) => x.id === newvalue.id)) {
+          return items;
+        }
+        items.push(newvalue);
         return items;
-      }
-      items.push(newvalue);
-      return items;
-    }));
-
+      }),
+    );
   }
   onActionSelectForce(id: number | ArticleCategoryModel): void {
-    if (typeof id === 'number' && id > 0) {
+    if (typeof id === "number" && id > 0) {
       if (this.dataModelSelect && this.dataModelSelect.id === id) {
         return;
       }
-      if (this.dataModelResult && this.dataModelResult.listItems && this.dataModelResult.listItems.find(x => x.id === id)) {
-        const item = this.dataModelResult.listItems.find(x => x.id === id);
+      if (
+        this.dataModelResult &&
+        this.dataModelResult.listItems &&
+        this.dataModelResult.listItems.find((x) => x.id === id)
+      ) {
+        const item = this.dataModelResult.listItems.find((x) => x.id === id);
         this.dataModelSelect = item;
         this.formControl.setValue(item);
         return;
@@ -152,20 +189,19 @@ export class ArticleCategorySelectorComponent implements OnInit {
           } else {
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
-        }
+        },
       });
       return;
     }
     if (typeof id === typeof ArticleCategoryModel) {
-      this.filteredOptions = this.push((id as ArticleCategoryModel));
-      this.dataModelSelect = (id as ArticleCategoryModel);
+      this.filteredOptions = this.push(id as ArticleCategoryModel);
+      this.dataModelSelect = id as ArticleCategoryModel;
       this.formControl.setValue(id);
       return;
     }
     this.formControl.setValue(null);
   }
   onActionButtonReload(): void {
-
     this.dataModelSelect = new ArticleCategoryModel();
     this.loadOptions();
   }

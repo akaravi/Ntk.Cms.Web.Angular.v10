@@ -1,36 +1,40 @@
-
-import { ENTER } from '@angular/cdk/keycodes';
-import { StepperSelectionEvent } from '@angular/cdk/stepper';
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { MatStepper } from '@angular/material/stepper';
-import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import * as Leaflet from 'leaflet';
-import { Map as leafletMap } from 'leaflet';
+import { ENTER } from "@angular/cdk/keycodes";
+import { StepperSelectionEvent } from "@angular/cdk/stepper";
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MatChipInputEvent } from "@angular/material/chips";
+import { MatStepper } from "@angular/material/stepper";
+import { MatTableDataSource } from "@angular/material/table";
+import { ActivatedRoute, Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
+import * as Leaflet from "leaflet";
+import { Map as leafletMap } from "leaflet";
 import {
-  AccessModel, CoreEnumService,
-  ErrorExceptionResultBase, FileCategoryModel, FileContentModel,
-  FileContentService, FormInfoModel,
-  ManageUserAccessDataTypesEnum
-} from 'ntk-cms-api';
-import { TreeModel } from 'ntk-cms-filemanager';
-import { EditBaseComponent } from 'src/app/core/cmsComponent/editBaseComponent';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { PoinModel } from 'src/app/core/models/pointModel';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
+  AccessModel,
+  CoreEnumService,
+  ErrorExceptionResultBase,
+  FileCategoryModel,
+  FileContentModel,
+  FileContentService,
+  FormInfoModel,
+  ManageUserAccessDataTypesEnum,
+} from "ntk-cms-api";
+import { TreeModel } from "ntk-cms-filemanager";
+import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { PoinModel } from "src/app/core/models/pointModel";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-    selector: 'app-file-content-edit',
-    templateUrl: './edit.component.html',
-    styleUrls: ['./edit.component.scss'
-    ],
-    standalone: false
+  selector: "app-file-content-edit",
+  templateUrl: "./edit.component.html",
+  styleUrls: ["./edit.component.scss"],
+  standalone: false,
 })
-export class FileContentEditComponent extends EditBaseComponent<FileContentService, FileContentModel, number>
-  implements OnInit {
+export class FileContentEditComponent
+  extends EditBaseComponent<FileContentService, FileContentModel, number>
+  implements OnInit
+{
   requestId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
@@ -48,20 +52,19 @@ export class FileContentEditComponent extends EditBaseComponent<FileContentServi
     this.publicHelper.processService.cdr = this.cdr;
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
   }
-  @ViewChild('vform', { static: false }) formGroup: FormGroup;
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
   dataModel = new FileContentModel();
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
 
   similarDataModel = new Array<FileContentModel>();
   contentSimilarSelected: FileContentModel = new FileContentModel();
-  otherInfoTabledisplayedColumns = ['Id', 'Title', 'TypeId', 'Action'];
-  similarTabledisplayedColumns = ['Id', 'RecordStatus', 'Title', 'Action'];
+  otherInfoTabledisplayedColumns = ["Id", "Title", "TypeId", "Action"];
+  similarTabledisplayedColumns = ["Id", "RecordStatus", "Title", "Action"];
   similarTabledataSource = new MatTableDataSource<FileContentModel>();
 
-
-  selectFileTypeMainImage = ['jpg', 'jpeg', 'png'];
-  selectFileTypePodcast = ['mp3'];
-  selectFileTypeMovie = ['mp4', 'webm'];
+  selectFileTypeMainImage = ["jpg", "jpeg", "png"];
+  selectFileTypePodcast = ["mp3"];
+  selectFileTypeMovie = ["mp4", "webm"];
   formInfo: FormInfoModel = new FormInfoModel();
   mapMarker: any;
   fileManagerOpenForm = false;
@@ -72,22 +75,19 @@ export class FileContentEditComponent extends EditBaseComponent<FileContentServi
   tagIdsData: number[];
   dataAccessModel: AccessModel;
 
-
-
-  appLanguage = 'fa';
+  appLanguage = "fa";
 
   viewMap = false;
   private mapModel: leafletMap;
   private mapMarkerPoints: Array<PoinModel> = [];
   mapOptonCenter = new PoinModel();
   ngOnInit(): void {
-    this.requestId = + Number(this.activatedRoute.snapshot.paramMap.get('Id'));
+    this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("Id"));
     if (this.requestId === 0) {
       this.cmsToastrService.typeErrorAddRowParentIsNull();
       return;
     }
     this.DataGetOne();
-
   }
   onFormSubmit(): void {
     if (this.requestId <= 0) {
@@ -98,10 +98,10 @@ export class FileContentEditComponent extends EditBaseComponent<FileContentServi
       this.cmsToastrService.typeErrorFormInvalid();
       return;
     }
-    this.dataModel.keyword = '';
+    this.dataModel.keyword = "";
     if (this.keywordDataModel && this.keywordDataModel.length > 0) {
       const listKeyword = [];
-      this.keywordDataModel.forEach(element => {
+      this.keywordDataModel.forEach((element) => {
         if (element.display) {
           listKeyword.push(element.display);
         } else {
@@ -109,7 +109,7 @@ export class FileContentEditComponent extends EditBaseComponent<FileContentServi
         }
       });
       if (listKeyword && listKeyword.length > 0) {
-        this.dataModel.keyword = listKeyword.join(',');
+        this.dataModel.keyword = listKeyword.join(",");
       }
     }
     this.DataEditContent();
@@ -117,95 +117,119 @@ export class FileContentEditComponent extends EditBaseComponent<FileContentServi
 
   DataGetOne(): void {
     this.formInfo.formSubmitAllow = false;
-    this.translate.get('MESSAGE.get_information_from_the_server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    this.translate
+      .get("MESSAGE.get_information_from_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     /*َAccess Field*/
     this.fileContentService.setAccessLoad();
-    this.fileContentService.setAccessDataType(ManageUserAccessDataTypesEnum.Editor);
-    this.fileContentService
-      .ServiceGetOneById(this.requestId)
-      .subscribe({
-        next: (ret) => {
+    this.fileContentService.setAccessDataType(
+      ManageUserAccessDataTypesEnum.Editor,
+    );
+    this.fileContentService.ServiceGetOneById(this.requestId).subscribe({
+      next: (ret) => {
+        /*َAccess Field*/
+        this.dataAccessModel = ret.access;
+        this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
 
-          /*َAccess Field*/
-          this.dataAccessModel = ret.access;
-          this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
+        this.publicHelper.processService.processStop(pName);
 
-          this.publicHelper.processService.processStop(pName);
+        this.dataModelResult = ret;
+        this.formInfo.formSubmitAllow = true;
 
-          this.dataModelResult = ret;
-          this.formInfo.formSubmitAllow = true;
-
-          if (ret.isSuccess) {
-            this.dataModel = ret.item;
-            const lat = this.dataModel.geolocationlatitude;
-            const lon = this.dataModel.geolocationlongitude;
-            if (lat > 0 && lon > 0) {
-              this.mapMarkerPoints = [];
-              this.mapMarkerPoints.push({ lat, lon });
-              this.receiveMap();
-            }
-            this.dataModel.keyword = this.dataModel.keyword + '';
-            this.keywordDataModel = this.dataModel.keyword.split(',');
-            this.publicHelper.processService.processStop(pName);
-
-          } else {
-            this.cmsToastrService.typeErrorGetOne(ret.errorMessage);
+        if (ret.isSuccess) {
+          this.dataModel = ret.item;
+          const lat = this.dataModel.geolocationlatitude;
+          const lon = this.dataModel.geolocationlongitude;
+          if (lat > 0 && lon > 0) {
+            this.mapMarkerPoints = [];
+            this.mapMarkerPoints.push({ lat, lon });
+            this.receiveMap();
           }
-        },
-        error: (er) => {
+          this.dataModel.keyword = this.dataModel.keyword + "";
+          this.keywordDataModel = this.dataModel.keyword.split(",");
           this.publicHelper.processService.processStop(pName);
-          this.formInfo.formSubmitAllow = true;
-          this.cmsToastrService.typeErrorGetOne(er);
+        } else {
+          this.cmsToastrService.typeErrorGetOne(ret.errorMessage);
         }
-      }
-      );
+      },
+      error: (er) => {
+        this.publicHelper.processService.processStop(pName);
+        this.formInfo.formSubmitAllow = true;
+        this.cmsToastrService.typeErrorGetOne(er);
+      },
+    });
   }
 
   DataEditContent(): void {
     this.formInfo.formSubmitAllow = false;
-    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
+    this.fileContentService.ServiceEdit(this.dataModel).subscribe({
+      next: (ret) => {
+        this.publicHelper.processService.processStop(pName);
 
-    this.fileContentService
-      .ServiceEdit(this.dataModel)
-      .subscribe({
-        next: (ret) => {
-          this.publicHelper.processService.processStop(pName);
+        this.formInfo.formSubmitAllow = true;
+        this.dataModelResult = ret;
+        if (ret.isSuccess) {
+          this.translate
+            .get("MESSAGE.registration_completed_successfully")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
+          this.cmsToastrService.typeSuccessEdit();
 
-          this.formInfo.formSubmitAllow = true;
-          this.dataModelResult = ret;
-          if (ret.isSuccess) {
-
-            this.translate.get('MESSAGE.registration_completed_successfully').subscribe((str: string) => { this.formInfo.formAlert = str; });
-            this.cmsToastrService.typeSuccessEdit();
-
-            setTimeout(() => this.router.navigate(['/file/content/edit/', this.requestId]), 1000);
-          } else {
-            this.cmsToastrService.typeErrorAdd(ret.errorMessage);
-          }
-          this.publicHelper.processService.processStop(pName);
-
-        },
-        error: (er) => {
-          this.publicHelper.processService.processStop(pName);
-          this.formInfo.formSubmitAllow = true;
-          this.cmsToastrService.typeError(er);;
+          setTimeout(
+            () => this.router.navigate(["/file/content/edit/", this.requestId]),
+            1000,
+          );
+        } else {
+          this.cmsToastrService.typeErrorAdd(ret.errorMessage);
         }
-      }
-      );
+        this.publicHelper.processService.processStop(pName);
+      },
+      error: (er) => {
+        this.publicHelper.processService.processStop(pName);
+        this.formInfo.formSubmitAllow = true;
+        this.cmsToastrService.typeError(er);
+      },
+    });
   }
   onActionSelectorSelect(model: FileCategoryModel | null): void {
     if (!model || model.id <= 0) {
-      this.translate.get('MESSAGE.category_of_information_is_not_clear').subscribe((str: string) => { this.cmsToastrService.typeErrorSelected(str); });
+      this.translate
+        .get("MESSAGE.category_of_information_is_not_clear")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.dataModel.linkCategoryId = model.id;
@@ -223,7 +247,9 @@ export class FileContentEditComponent extends EditBaseComponent<FileContentServi
     if (!this.contentSimilarSelected || this.contentSimilarSelected.id <= 0) {
       return;
     }
-    if (this.similarDataModel.find(x => x.id === this.contentSimilarSelected.id)) {
+    if (
+      this.similarDataModel.find((x) => x.id === this.contentSimilarSelected.id)
+    ) {
       this.cmsToastrService.typeErrorAddDuplicate();
       return;
     }
@@ -238,7 +264,7 @@ export class FileContentEditComponent extends EditBaseComponent<FileContentServi
       return;
     }
     const retOut = new Array<FileContentModel>();
-    this.similarDataModel.forEach(x => {
+    this.similarDataModel.forEach((x) => {
       if (x.id !== model.id) {
         retOut.push(x);
       }
@@ -258,7 +284,7 @@ export class FileContentEditComponent extends EditBaseComponent<FileContentServi
     }
   }
   onActionBackToParent(): void {
-    this.router.navigate(['/file/content/']);
+    this.router.navigate(["/file/content/"]);
   }
   receiveMap(model: leafletMap = this.mapModel): void {
     if (!model) {
@@ -267,14 +293,16 @@ export class FileContentEditComponent extends EditBaseComponent<FileContentServi
     this.mapModel = model;
 
     if (this.mapMarkerPoints && this.mapMarkerPoints.length > 0) {
-      this.mapMarkerPoints.forEach(item => {
-        this.mapMarker = Leaflet.marker([item.lat, item.lon]).addTo(this.mapModel);
+      this.mapMarkerPoints.forEach((item) => {
+        this.mapMarker = Leaflet.marker([item.lat, item.lon]).addTo(
+          this.mapModel,
+        );
       });
       this.mapOptonCenter = this.mapMarkerPoints[0];
       this.mapMarkerPoints = [];
     }
 
-    this.mapModel.on('click', (e) => {
+    this.mapModel.on("click", (e) => {
       // @ts-ignore
       const lat = e.latlng.lat;
       // @ts-ignore
@@ -282,7 +310,10 @@ export class FileContentEditComponent extends EditBaseComponent<FileContentServi
       if (this.mapMarker !== undefined) {
         this.mapModel.removeLayer(this.mapMarker);
       }
-      if (lat === this.dataModel.geolocationlatitude && lon === this.dataModel.geolocationlongitude) {
+      if (
+        lat === this.dataModel.geolocationlatitude &&
+        lon === this.dataModel.geolocationlongitude
+      ) {
         this.dataModel.geolocationlatitude = null;
         this.dataModel.geolocationlongitude = null;
         return;
@@ -291,19 +322,17 @@ export class FileContentEditComponent extends EditBaseComponent<FileContentServi
       this.dataModel.geolocationlatitude = lat;
       this.dataModel.geolocationlongitude = lon;
     });
-
   }
 
-  receiveZoom(zoom: number): void {
-  }
+  receiveZoom(zoom: number): void {}
 
   /**
-* tag
-*/
+   * tag
+   */
   addOnBlurTag = true;
   readonly separatorKeysCodes = [ENTER] as const;
   addTag(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
+    const value = (event.value || "").trim();
     // Add our item
     if (value) {
       this.keywordDataModel.push(value);

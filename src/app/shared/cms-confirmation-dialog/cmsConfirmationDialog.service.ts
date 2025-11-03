@@ -1,21 +1,21 @@
-import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { environment } from 'src/environments/environment';
-import { ConfirmationDialogComponent } from './cmsConfirmationDialog.component';
-import { ThemeService } from 'src/app/core/services/theme.service';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
+import { Injectable } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { environment } from "src/environments/environment";
+import { ConfirmationDialogComponent } from "./cmsConfirmationDialog.component";
+import { ThemeService } from "src/app/core/services/theme.service";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
 
 export class ConfirmDialogModel {
-  constructor(public title: string, public message: string) {
+  constructor(
+    public title: string,
+    public message: string,
+  ) {}
 
-  }
-
-  btnConfirmText: string = 'OK';
-  btnCancelText: string = 'Cancel';
-  dialogSize: 'sm' | 'lg' = 'sm';
-
+  btnConfirmText: string = "OK";
+  btnCancelText: string = "Cancel";
+  dialogSize: "sm" | "lg" = "sm";
 }
 @Injectable()
 export class CmsConfirmationDialogService {
@@ -25,29 +25,39 @@ export class CmsConfirmationDialogService {
     public tokenHelper: TokenHelper,
     public themeService: ThemeService,
     public translate: TranslateService,
-
-  ) { }
+  ) {}
   public confirm(
     title: string,
     message: string,
-    btnConfirmText: string = '',
-    btnCancelText: string = '',
-    dialogSize: 'sm' | 'lg' = 'sm'): Promise<boolean> {
+    btnConfirmText: string = "",
+    btnCancelText: string = "",
+    dialogSize: "sm" | "lg" = "sm",
+  ): Promise<boolean> {
     const dialogData = new ConfirmDialogModel(title, message);
     dialogData.btnConfirmText = btnConfirmText;
     dialogData.btnCancelText = btnCancelText;
     dialogData.dialogSize = dialogSize;
 
-    if (!dialogData.btnConfirmText || dialogData.btnConfirmText == '' || dialogData.btnConfirmText.length == 0)
-      this.translate.get('ACTION.CONFIRM').subscribe((str: string) => { dialogData.btnConfirmText = str; });
-    if (!dialogData.btnCancelText || dialogData.btnCancelText == '' || dialogData.btnCancelText.length == 0)
-      this.translate.get('ACTION.CANCEL').subscribe((str: string) => { dialogData.btnCancelText = str; });
+    if (
+      !dialogData.btnConfirmText ||
+      dialogData.btnConfirmText == "" ||
+      dialogData.btnConfirmText.length == 0
+    )
+      this.translate.get("ACTION.CONFIRM").subscribe((str: string) => {
+        dialogData.btnConfirmText = str;
+      });
+    if (
+      !dialogData.btnCancelText ||
+      dialogData.btnCancelText == "" ||
+      dialogData.btnCancelText.length == 0
+    )
+      this.translate.get("ACTION.CANCEL").subscribe((str: string) => {
+        dialogData.btnCancelText = str;
+      });
     //open poup
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       height: "90%",
       panelClass: panelClass,
@@ -55,13 +65,13 @@ export class CmsConfirmationDialogService {
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
       data: dialogData,
     });
-    return dialogRef.afterClosed()
+    return dialogRef
+      .afterClosed()
       .toPromise() // here you have a Promise instead an Observable
-      .then(result => {
+      .then((result) => {
         return Promise.resolve(result); // will return a Promise here
       });
 
     //open poup
   }
-
 }

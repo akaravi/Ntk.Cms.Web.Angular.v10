@@ -1,3 +1,1 @@
-export class HtmlBuilderWidgetBodyModel {
-
-}
+export class HtmlBuilderWidgetBodyModel {}

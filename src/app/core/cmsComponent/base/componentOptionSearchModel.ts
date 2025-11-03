@@ -1,13 +1,14 @@
-import { AccessModel, FilterDataModel } from 'ntk-cms-api';
-import { ComponentOptionModel } from './componentOptionModel';
+import { AccessModel, FilterDataModel } from "ntk-cms-api";
+import { ComponentOptionModel } from "./componentOptionModel";
 
 export class ComponentOptionSearchModel
   implements
-  ComponentOptionModel<
-    ComponentOptionSearchDataModel,
-    ComponentOptionSearchChildMethodsModel,
-    ComponentOptionSearchParentMethodsModel
-  > {
+    ComponentOptionModel<
+      ComponentOptionSearchDataModel,
+      ComponentOptionSearchChildMethodsModel,
+      ComponentOptionSearchParentMethodsModel
+    >
+{
   childMethods: ComponentOptionSearchChildMethodsModel;
   parentMethods: ComponentOptionSearchParentMethodsModel;
   data: ComponentOptionSearchDataModel = new ComponentOptionSearchDataModel();

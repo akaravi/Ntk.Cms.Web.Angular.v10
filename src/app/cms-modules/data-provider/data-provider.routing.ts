@@ -1,172 +1,172 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { DataProviderClientChargeComponent } from './client/charge/charge.component';
-import { DataProviderClientListComponent } from './client/list/list.component';
-import { DataProviderComponent } from './data-provider.component';
-import { DataProviderLogClientListComponent } from './log-client/list/list.component';
-import { DataProviderLogPlanListComponent } from './log-plan/list/list.component';
-import { DataProviderLogSourceListComponent } from './log-source/list/list.component';
-import { DataProviderPlanClientListComponent } from './plan-client/list/list.component';
-import { DataProviderPlanPriceListComponent } from './plan-price/list/list.component';
-import { DataProviderPlanSourceListComponent } from './plan-source/list/list.component';
-import { DataProviderPlanListComponent } from './plan/list/list.component';
-import { DataProviderSourceListComponent } from './source/list/list.component';
-import { DataProviderTransactionListComponent } from './transaction/list/list.component';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { DataProviderClientChargeComponent } from "./client/charge/charge.component";
+import { DataProviderClientListComponent } from "./client/list/list.component";
+import { DataProviderComponent } from "./data-provider.component";
+import { DataProviderLogClientListComponent } from "./log-client/list/list.component";
+import { DataProviderLogPlanListComponent } from "./log-plan/list/list.component";
+import { DataProviderLogSourceListComponent } from "./log-source/list/list.component";
+import { DataProviderPlanClientListComponent } from "./plan-client/list/list.component";
+import { DataProviderPlanPriceListComponent } from "./plan-price/list/list.component";
+import { DataProviderPlanSourceListComponent } from "./plan-source/list/list.component";
+import { DataProviderPlanListComponent } from "./plan/list/list.component";
+import { DataProviderSourceListComponent } from "./source/list/list.component";
+import { DataProviderTransactionListComponent } from "./transaction/list/list.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: DataProviderComponent,
-    data: { title: 'ROUTE.DATAPROVIDER' },
+    data: { title: "ROUTE.DATAPROVIDER" },
 
     children: [
       /* Config */
       {
-        path: 'config',
+        path: "config",
         loadChildren: () =>
-          import('./config/data-provider-config.module').then(
-            (m) => m.DataProviderConfigModule
+          import("./config/data-provider-config.module").then(
+            (m) => m.DataProviderConfigModule,
           ),
-        data: { title: 'ROUTE.DATAPROVIDER' },
+        data: { title: "ROUTE.DATAPROVIDER" },
       },
       /* Config */
       {
-        path: 'log-client',
+        path: "log-client",
         component: DataProviderLogClientListComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.LOGCLIENT' },
+        data: { title: "ROUTE.DATAPROVIDER.LOGCLIENT" },
       },
       {
-        path: 'log-client/LinkClientId/:LinkClientId',
+        path: "log-client/LinkClientId/:LinkClientId",
         component: DataProviderLogClientListComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.LOGCLIENT' },
+        data: { title: "ROUTE.DATAPROVIDER.LOGCLIENT" },
       },
       {
-        path: 'log-client/LinkPlanId/:LinkPlanId',
+        path: "log-client/LinkPlanId/:LinkPlanId",
         component: DataProviderLogClientListComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.LOGCLIENT' },
+        data: { title: "ROUTE.DATAPROVIDER.LOGCLIENT" },
       },
       /** */
       {
-        path: 'log-plan',
+        path: "log-plan",
         component: DataProviderLogPlanListComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.LOGPLAN' },
+        data: { title: "ROUTE.DATAPROVIDER.LOGPLAN" },
       },
       {
-        path: 'log-plan/LinkSourceId/:LinkSourceId',
+        path: "log-plan/LinkSourceId/:LinkSourceId",
         component: DataProviderLogPlanListComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.LOGPLAN' },
+        data: { title: "ROUTE.DATAPROVIDER.LOGPLAN" },
       },
       {
-        path: 'log-plan/LinkPlanId/:LinkPlanId',
+        path: "log-plan/LinkPlanId/:LinkPlanId",
         component: DataProviderLogPlanListComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.LOGPLAN' },
+        data: { title: "ROUTE.DATAPROVIDER.LOGPLAN" },
       },
       /** */
       {
-        path: 'log-source',
+        path: "log-source",
         component: DataProviderLogSourceListComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.LOGSOURCE' },
+        data: { title: "ROUTE.DATAPROVIDER.LOGSOURCE" },
       },
       {
-        path: 'log-source/LinkSourceId/:LinkSourceId',
+        path: "log-source/LinkSourceId/:LinkSourceId",
         component: DataProviderLogSourceListComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.LOGSOURCE' },
+        data: { title: "ROUTE.DATAPROVIDER.LOGSOURCE" },
       },
       /** */
       {
-        path: 'client',
+        path: "client",
         component: DataProviderClientListComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.CLIENT' },
+        data: { title: "ROUTE.DATAPROVIDER.CLIENT" },
       },
       {
-        path: 'client-charge/:LinkClientId',
+        path: "client-charge/:LinkClientId",
         component: DataProviderClientChargeComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.CLIENTCHARGE' },
+        data: { title: "ROUTE.DATAPROVIDER.CLIENTCHARGE" },
       },
       {
-        path: 'source',
+        path: "source",
         component: DataProviderSourceListComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.SOURCE' },
+        data: { title: "ROUTE.DATAPROVIDER.SOURCE" },
       },
       {
-        path: 'plan-client',
+        path: "plan-client",
         component: DataProviderPlanClientListComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.PLANCLIENT' },
+        data: { title: "ROUTE.DATAPROVIDER.PLANCLIENT" },
       },
       {
-        path: 'plan-client/LinkPlanId/:LinkPlanId',
+        path: "plan-client/LinkPlanId/:LinkPlanId",
         component: DataProviderPlanClientListComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.PLANCLIENT' },
+        data: { title: "ROUTE.DATAPROVIDER.PLANCLIENT" },
       },
       {
-        path: 'plan-client/LinkClientId/:LinkClientId',
+        path: "plan-client/LinkClientId/:LinkClientId",
         component: DataProviderPlanClientListComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.PLANCLIENT' },
+        data: { title: "ROUTE.DATAPROVIDER.PLANCLIENT" },
       },
       {
-        path: 'plan',
+        path: "plan",
         component: DataProviderPlanListComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.PLAN' },
+        data: { title: "ROUTE.DATAPROVIDER.PLAN" },
       },
       {
-        path: 'plan/LinkPlanCategory/:LinkPlanCategory',
+        path: "plan/LinkPlanCategory/:LinkPlanCategory",
         component: DataProviderPlanListComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.PLAN' },
+        data: { title: "ROUTE.DATAPROVIDER.PLAN" },
       },
       {
-        path: 'plan-source',
+        path: "plan-source",
         component: DataProviderPlanSourceListComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.PLANSOURCE' },
+        data: { title: "ROUTE.DATAPROVIDER.PLANSOURCE" },
       },
       {
-        path: 'plan-source/LinkPlanId/:LinkPlanId',
+        path: "plan-source/LinkPlanId/:LinkPlanId",
         component: DataProviderPlanSourceListComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.PLANSOURCE' },
+        data: { title: "ROUTE.DATAPROVIDER.PLANSOURCE" },
       },
       {
-        path: 'plan-source/LinkSourceId/:LinkSourceId',
+        path: "plan-source/LinkSourceId/:LinkSourceId",
         component: DataProviderPlanSourceListComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.PLANSOURCE' },
+        data: { title: "ROUTE.DATAPROVIDER.PLANSOURCE" },
       },
       {
-        path: 'plan-price',
+        path: "plan-price",
         component: DataProviderPlanPriceListComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.PLANPRICE' },
+        data: { title: "ROUTE.DATAPROVIDER.PLANPRICE" },
       },
       {
-        path: 'plan-price/LinkPlanId/:LinkPlanId',
+        path: "plan-price/LinkPlanId/:LinkPlanId",
         component: DataProviderPlanPriceListComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.PLANPRICE' },
+        data: { title: "ROUTE.DATAPROVIDER.PLANPRICE" },
       },
       {
-        path: 'transaction',
+        path: "transaction",
         component: DataProviderTransactionListComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.TRANSACTION' },
+        data: { title: "ROUTE.DATAPROVIDER.TRANSACTION" },
       },
       {
-        path: 'transaction/LinkPlanId/:LinkPlanId',
+        path: "transaction/LinkPlanId/:LinkPlanId",
         component: DataProviderTransactionListComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.TRANSACTION' },
+        data: { title: "ROUTE.DATAPROVIDER.TRANSACTION" },
       },
       {
-        path: 'transaction/LinkCmsUserId/:LinkCmsUserId',
+        path: "transaction/LinkCmsUserId/:LinkCmsUserId",
         component: DataProviderTransactionListComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.TRANSACTION' },
+        data: { title: "ROUTE.DATAPROVIDER.TRANSACTION" },
       },
       {
-        path: 'transaction/LinkClientId/:LinkClientId',
+        path: "transaction/LinkClientId/:LinkClientId",
         component: DataProviderTransactionListComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.TRANSACTION' },
+        data: { title: "ROUTE.DATAPROVIDER.TRANSACTION" },
       },
       {
-        path: 'transaction/LinkSponsorId/:LinkSponsorId',
+        path: "transaction/LinkSponsorId/:LinkSponsorId",
         component: DataProviderTransactionListComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.TRANSACTION' },
+        data: { title: "ROUTE.DATAPROVIDER.TRANSACTION" },
       },
       {
-        path: 'transaction/LinkPlanPriceId/:LinkPlanPriceId',
+        path: "transaction/LinkPlanPriceId/:LinkPlanPriceId",
         component: DataProviderTransactionListComponent,
-        data: { title: 'ROUTE.DATAPROVIDER.TRANSACTION' },
+        data: { title: "ROUTE.DATAPROVIDER.TRANSACTION" },
       },
       /** */
     ],
@@ -177,4 +177,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class DataProviderRoutes { }
+export class DataProviderRoutes {}

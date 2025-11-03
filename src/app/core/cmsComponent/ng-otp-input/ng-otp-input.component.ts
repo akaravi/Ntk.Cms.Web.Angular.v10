@@ -4,18 +4,18 @@ import {
   EventEmitter,
   Input,
   OnInit,
-  Output
-} from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { OtpInputModel } from '../../models/otpInputModel';
-import { KeysPipe } from '../../pipe/keys.pipe';
+  Output,
+} from "@angular/core";
+import { FormControl, FormGroup } from "@angular/forms";
+import { OtpInputModel } from "../../models/otpInputModel";
+import { KeysPipe } from "../../pipe/keys.pipe";
 
 @Component({
-    // tslint:disable-next-line: component-selector
-    selector: 'ng-otp-input',
-    templateUrl: './ng-otp-input.component.html',
-    styleUrls: ['./ng-otp-input.component.scss'],
-    standalone: false
+  // tslint:disable-next-line: component-selector
+  selector: "ng-otp-input",
+  templateUrl: "./ng-otp-input.component.html",
+  styleUrls: ["./ng-otp-input.component.scss"],
+  standalone: false,
 })
 export class NgOtpInputComponent implements OnInit, AfterViewInit {
   @Input() config: OtpInputModel = { length: 4 };
@@ -24,11 +24,9 @@ export class NgOtpInputComponent implements OnInit, AfterViewInit {
   otpForm: FormGroup;
   inputControls: FormControl[] = new Array(this.config.length);
   componentKey =
-    Math.random()
-      .toString(36)
-      .substring(2) + new Date().getTime().toString(36);
+    Math.random().toString(36).substring(2) + new Date().getTime().toString(36);
   inputType: string;
-  constructor(private keysPipe: KeysPipe) { }
+  constructor(private keysPipe: KeysPipe) {}
 
   ngOnInit() {
     this.otpForm = new FormGroup({});
@@ -36,14 +34,13 @@ export class NgOtpInputComponent implements OnInit, AfterViewInit {
       this.otpForm.addControl(this.getControlName(index), new FormControl());
     }
     this.inputType = this.getInputType();
-
   }
   ngAfterViewInit(): void {
     if (!this.config.disableAutoFocus) {
       const containerItem = document.getElementById(`c_${this.componentKey}`);
       if (containerItem) {
-        containerItem.addEventListener('paste', (evt) => this.handlePaste(evt));
-        const ele: any = containerItem.getElementsByClassName('otp-input')[0];
+        containerItem.addEventListener("paste", (evt) => this.handlePaste(evt));
+        const ele: any = containerItem.getElementsByClassName("otp-input")[0];
         if (ele && ele.focus) {
           ele.focus();
         }
@@ -58,15 +55,14 @@ export class NgOtpInputComponent implements OnInit, AfterViewInit {
     return this.ifKeyCode(event, 37);
   }
 
-
   ifRightArrow(event: any) {
     return this.ifKeyCode(event, 39);
   }
 
   ifBackspaceOrDelete(event: any) {
     return (
-      event.key === 'Backspace' ||
-      event.key === 'Delete' ||
+      event.key === "Backspace" ||
+      event.key === "Delete" ||
       this.ifKeyCode(event, 8) ||
       this.ifKeyCode(event, 46)
     );
@@ -78,8 +74,9 @@ export class NgOtpInputComponent implements OnInit, AfterViewInit {
     return key == targetCode ? true : false;
   }
   onKeyDown($event: any): boolean {
-    var isSpace = this.ifKeyCode($event, 32)
-    if (isSpace) {// prevent space
+    var isSpace = this.ifKeyCode($event, 32);
+    if (isSpace) {
+      // prevent space
       return false;
     }
     return true;
@@ -154,7 +151,7 @@ export class NgOtpInputComponent implements OnInit, AfterViewInit {
       this.rebuildValue();
       return;
     }
-    value = value.toString().replace(/\s/g, ''); // remove whitespace
+    value = value.toString().replace(/\s/g, ""); // remove whitespace
     Array.from(value).forEach((c, idx) => {
       if (this.otpForm.get(this.getControlName(idx))) {
         this.otpForm.get(this.getControlName(idx)).setValue(c);
@@ -162,8 +159,14 @@ export class NgOtpInputComponent implements OnInit, AfterViewInit {
     });
     if (!this.config.disableAutoFocus) {
       const containerItem = document.getElementById(`c_${this.componentKey}`);
-      var indexOfElementToFocus = value.length < this.config.length ? value.length : (this.config.length - 1);
-      let ele: any = containerItem.getElementsByClassName('otp-input')[indexOfElementToFocus];
+      var indexOfElementToFocus =
+        value.length < this.config.length
+          ? value.length
+          : this.config.length - 1;
+      let ele: any =
+        containerItem.getElementsByClassName("otp-input")[
+          indexOfElementToFocus
+        ];
       if (ele && ele.focus) {
         ele.focus();
       }
@@ -171,10 +174,9 @@ export class NgOtpInputComponent implements OnInit, AfterViewInit {
     this.rebuildValue();
   }
 
-
   rebuildValue() {
-    let val = '';
-    this.keysPipe.transform(this.otpForm.controls).forEach(k => {
+    let val = "";
+    this.keysPipe.transform(this.otpForm.controls).forEach((k) => {
       if (this.otpForm.controls[k].value) {
         val += this.otpForm.controls[k].value;
       }
@@ -183,16 +185,16 @@ export class NgOtpInputComponent implements OnInit, AfterViewInit {
   }
   getInputType(): string {
     return this.config.isPasswordInput
-      ? 'password'
+      ? "password"
       : this.config.allowNumbersOnly
-        ? 'tel'
-        : 'text';
+        ? "tel"
+        : "text";
   }
   handlePaste(e) {
     // Get pasted data via clipboard API
-    let clipboardData = e.clipboardData || window['clipboardData'];
+    let clipboardData = e.clipboardData || window["clipboardData"];
     if (clipboardData) {
-      var pastedData = clipboardData.getData('Text');
+      var pastedData = clipboardData.getData("Text");
     }
     // Stop data actually being pasted into div
     e.stopPropagation();

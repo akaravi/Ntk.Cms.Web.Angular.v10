@@ -1,30 +1,29 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { SortTypeEnum } from 'ntk-cms-api';
+import { Pipe, PipeTransform } from "@angular/core";
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { SortTypeEnum } from "ntk-cms-api";
 
 @Pipe({
-    name: 'sortTypeIconClass',
-    standalone: false
+  name: "sortTypeIconClass",
+  standalone: false,
 })
 export class SortTypeIconClassPipe implements PipeTransform {
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(private sanitizer: DomSanitizer) {}
 
   transform(value: SortTypeEnum, editable = false): SafeHtml {
-    let ret = '';
+    let ret = "";
     switch (value) {
-      case 0://Descending
-        ret = 'fa fa-sort-amount-desc';
+      case 0: //Descending
+        ret = "fa fa-sort-amount-desc";
         break;
-      case 1://Ascending
-        ret = 'fa fa-sort-amount-asc';
+      case 1: //Ascending
+        ret = "fa fa-sort-amount-asc";
         break;
-      case 2://Random
-        ret = 'fa fa-random';
+      case 2: //Random
+        ret = "fa fa-random";
         break;
       default:
-        ret = 'fa fa-sort-amount-desc';
+        ret = "fa fa-sort-amount-desc";
     }
     return ret;
   }
-
 }

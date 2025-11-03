@@ -1,26 +1,27 @@
-import { Routes } from '@angular/router';
-import { CmsAuthGuard } from './core/services/cmsAuthGuard.service';
+import { Routes } from "@angular/router";
+import { CmsAuthGuard } from "./core/services/cmsAuthGuard.service";
 
 export const routes: Routes = [
   {
-    path: 'error',
+    path: "error",
     loadChildren: () =>
-      import('./modules/errors/errors.module').then((m) => m.ErrorsModule),
+      import("./modules/errors/errors.module").then((m) => m.ErrorsModule),
   },
   {
-    path: 'page',
+    path: "page",
     loadChildren: () =>
-      import('./modules/pages/pages.module').then((m) => m.PagesModule),
+      import("./modules/pages/pages.module").then((m) => m.PagesModule),
   },
   {
-    path: 'auth',
-    loadChildren: () => import('./cms-modules/auth/auth.module').then((m) => m.AuthModule),
+    path: "auth",
+    loadChildren: () =>
+      import("./cms-modules/auth/auth.module").then((m) => m.AuthModule),
   },
   {
-    path: '',
+    path: "",
     canActivate: [CmsAuthGuard],
-    loadChildren: () => import('./modules/panel/panel.module').then((m) => m.PanelModule),
+    loadChildren: () =>
+      import("./modules/panel/panel.module").then((m) => m.PanelModule),
   },
-  { path: '**', redirectTo: 'error/404' },
+  { path: "**", redirectTo: "error/404" },
 ];
-

@@ -4,17 +4,17 @@ import {
   ElementRef,
   Input,
   OnChanges,
-  SimpleChanges
-} from '@angular/core';
+  SimpleChanges,
+} from "@angular/core";
 
-import { InlineSVGService } from '../services/inline-svg.service';
-import { InlineSVGDirective } from './inline-svg.directive';
+import { InlineSVGService } from "../services/inline-svg.service";
+import { InlineSVGDirective } from "./inline-svg.directive";
 //import { InlineSVGService } from './inline-svg.service';
 
 @Component({
-    selector: 'inline-svg',
-    template: '',
-    standalone: false
+  selector: "inline-svg",
+  template: "",
+  standalone: false,
 })
 export class InlineSVGComponent implements AfterViewInit, OnChanges {
   @Input() context: InlineSVGDirective;
@@ -25,7 +25,10 @@ export class InlineSVGComponent implements AfterViewInit, OnChanges {
   /** @internal */
   _el: ElementRef;
 
-  constructor(private _inlineSVGService: InlineSVGService, private el: ElementRef) {
+  constructor(
+    private _inlineSVGService: InlineSVGService,
+    private el: ElementRef,
+  ) {
     this._el = el;
   }
 
@@ -34,7 +37,7 @@ export class InlineSVGComponent implements AfterViewInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['content']) {
+    if (changes["content"]) {
       this._updateContent();
     }
   }
@@ -45,7 +48,7 @@ export class InlineSVGComponent implements AfterViewInit, OnChanges {
       this._el.nativeElement,
       this.content,
       this.replaceContents,
-      this.prepend
+      this.prepend,
     );
   }
 }

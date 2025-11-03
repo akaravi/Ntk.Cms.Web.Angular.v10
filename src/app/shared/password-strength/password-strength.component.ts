@@ -1,10 +1,17 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChange } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChange,
+} from "@angular/core";
 
 @Component({
-    selector: 'app-password-strength',
-    templateUrl: './password-strength.component.html',
-    styleUrls: ['./password-strength.component.scss'],
-    standalone: false
+  selector: "app-password-strength",
+  templateUrl: "./password-strength.component.html",
+  styleUrls: ["./password-strength.component.scss"],
+  standalone: false,
 })
 export class PasswordStrengthComponent implements OnChanges {
   static nextId = 0;
@@ -16,9 +23,9 @@ export class PasswordStrengthComponent implements OnChanges {
   bar2: string;
   bar3: string;
 
-  msg = '';
+  msg = "";
 
-  private colors = ['darkred', 'orangered', 'orange', 'yellowgreen'];
+  private colors = ["darkred", "orangered", "orange", "yellowgreen"];
 
   private static checkStrength(p: string): any {
     let force = 0;
@@ -37,50 +44,53 @@ export class PasswordStrengthComponent implements OnChanges {
       passedMatches += flag === true ? 1 : 0;
     }
 
-    force += 2 * p.length + ((p.length >= 10) ? 1 : 0);
+    force += 2 * p.length + (p.length >= 10 ? 1 : 0);
     force += passedMatches * 10;
 
     // short password
-    force = (p.length <= 6) ? Math.min(force, 10) : force;
+    force = p.length <= 6 ? Math.min(force, 10) : force;
 
     // poor variety of characters
-    force = (passedMatches === 1) ? Math.min(force, 10) : force;
-    force = (passedMatches === 2) ? Math.min(force, 20) : force;
-    force = (passedMatches === 3) ? Math.min(force, 30) : force;
-    force = (passedMatches === 4) ? Math.min(force, 40) : force;
+    force = passedMatches === 1 ? Math.min(force, 10) : force;
+    force = passedMatches === 2 ? Math.min(force, 20) : force;
+    force = passedMatches === 3 ? Math.min(force, 30) : force;
+    force = passedMatches === 4 ? Math.min(force, 40) : force;
 
     return force;
   }
 
   ngOnChanges(changes: { [propName: string]: SimpleChange }): void {
     const password = changes.passwordToCheck.currentValue;
-    this.setBarColors(4, '#DDD');
+    this.setBarColors(4, "#DDD");
     if (password) {
-      const c = this.getColor(PasswordStrengthComponent.checkStrength(password));
+      const c = this.getColor(
+        PasswordStrengthComponent.checkStrength(password),
+      );
       this.setBarColors(c.idx, c.col);
 
       const pwdStrength = PasswordStrengthComponent.checkStrength(password);
-      pwdStrength === 40 ? this.passwordStrength.emit(true) : this.passwordStrength.emit(false);
+      pwdStrength === 40
+        ? this.passwordStrength.emit(true)
+        : this.passwordStrength.emit(false);
 
       switch (c.idx) {
         case 1:
-          this.msg = 'Poor';
+          this.msg = "Poor";
           break;
         case 2:
-          this.msg = 'Not Good';
+          this.msg = "Not Good";
           break;
         case 3:
-          this.msg = 'Average';
+          this.msg = "Average";
           break;
         case 4:
-          this.msg = 'Good';
+          this.msg = "Good";
           break;
       }
     } else {
-      this.msg = '';
+      this.msg = "";
     }
   }
-
 
   private getColor(s: number): any {
     let idx = 0;
@@ -97,14 +107,13 @@ export class PasswordStrengthComponent implements OnChanges {
     }
     return {
       idx: idx + 1,
-      col: this.colors[idx]
+      col: this.colors[idx],
     };
   }
 
   private setBarColors(count: number, col: string): any {
     for (let n = 0; n < count; n++) {
-      this['bar' + n] = col;
+      this["bar" + n] = col;
     }
   }
-
 }

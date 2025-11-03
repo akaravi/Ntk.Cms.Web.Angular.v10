@@ -1,16 +1,20 @@
 // Angular
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from "@angular/core";
 import {
   DomSanitizer,
-  SafeHtml, SafeResourceUrl, SafeScript, SafeStyle, SafeUrl
-} from '@angular/platform-browser';
+  SafeHtml,
+  SafeResourceUrl,
+  SafeScript,
+  SafeStyle,
+  SafeUrl,
+} from "@angular/platform-browser";
 
 /**
  * Sanitize HTML
  */
 @Pipe({
-    name: 'safe',
-    standalone: false
+  name: "safe",
+  standalone: false,
 })
 export class SafePipe implements PipeTransform {
   /**
@@ -19,7 +23,7 @@ export class SafePipe implements PipeTransform {
    * @param _sanitizer: DomSanitezer
    */
   // tslint:disable-next-line
-  constructor(protected _sanitizer: DomSanitizer) { }
+  constructor(protected _sanitizer: DomSanitizer) {}
 
   /**
    * Transform
@@ -29,18 +33,18 @@ export class SafePipe implements PipeTransform {
    */
   transform(
     value: string,
-    type: string
+    type: string,
   ): SafeHtml | SafeStyle | SafeScript | SafeUrl | SafeResourceUrl {
     switch (type) {
-      case 'html':
+      case "html":
         return this._sanitizer.bypassSecurityTrustHtml(value);
-      case 'style':
+      case "style":
         return this._sanitizer.bypassSecurityTrustStyle(value);
-      case 'script':
+      case "script":
         return this._sanitizer.bypassSecurityTrustScript(value);
-      case 'url':
+      case "url":
         return this._sanitizer.bypassSecurityTrustUrl(value);
-      case 'resourceUrl':
+      case "resourceUrl":
         return this._sanitizer.bypassSecurityTrustResourceUrl(value);
       default:
         return this._sanitizer.bypassSecurityTrustHtml(value);

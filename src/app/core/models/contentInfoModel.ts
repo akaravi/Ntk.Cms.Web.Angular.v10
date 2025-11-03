@@ -1,8 +1,11 @@
 export class ContentInfoModel {
-  constructor(_id: any,
+  constructor(
+    _id: any,
     _title: string,
     _contentHidden: boolean,
-    _description: string, _contentUrl: string) {
+    _description: string,
+    _contentUrl: string,
+  ) {
     this.id = _id;
     this.title = _title;
     this.contentHidden = _contentHidden;

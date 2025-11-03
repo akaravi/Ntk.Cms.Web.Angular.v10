@@ -1,21 +1,17 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  CatalogConfigurationService, CoreModuleService
-} from 'ntk-cms-api';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { CatalogConfigurationService, CoreModuleService } from "ntk-cms-api";
+import { SharedModule } from "src/app/shared/shared.module";
 
-
-import { AngularEditorModule } from '@kolkov/angular-editor';
-import { CatalogConfigRouting } from './catalog-config.routing';
-import { CatalogConfigCheckSiteComponent } from './check-site/check-site.component';
-import { CatalogConfigCheckUserComponent } from './check-user/check-user.component';
-import { CatalogConfigMainAdminComponent } from './main-admin/config-main-admin.component';
-import { CatalogConfigSiteComponent } from './site/config-site.component';
-import { CatalogConfigComponent } from './catalog-config.component';
-
+import { AngularEditorModule } from "@kolkov/angular-editor";
+import { CatalogConfigRouting } from "./catalog-config.routing";
+import { CatalogConfigCheckSiteComponent } from "./check-site/check-site.component";
+import { CatalogConfigCheckUserComponent } from "./check-user/check-user.component";
+import { CatalogConfigMainAdminComponent } from "./main-admin/config-main-admin.component";
+import { CatalogConfigSiteComponent } from "./site/config-site.component";
+import { CatalogConfigComponent } from "./catalog-config.component";
 
 @NgModule({
   declarations: [
@@ -39,14 +35,10 @@ import { CatalogConfigComponent } from './catalog-config.component';
     CommonModule,
     FormsModule,
     CatalogConfigRouting,
-    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     SharedModule,
     AngularEditorModule,
   ],
-  providers: [
-    CoreModuleService,
-    CatalogConfigurationService,
-  ]
+  providers: [CoreModuleService, CatalogConfigurationService],
 })
-export class CatalogConfigModule {
-}
+export class CatalogConfigModule {}

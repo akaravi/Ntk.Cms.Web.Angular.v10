@@ -1,20 +1,19 @@
 .float-left {
-    float: left !important;
+  float: left !important;
 }
 
 .pointer {
-    cursor: pointer;
+  cursor: pointer;
 }
-.short-link{
-    max-width: 300px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    display: block;
-    direction: ltr;
-}
-
-.cursor{
-    cursor: pointer;
+.short-link {
+  max-width: 300px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+  direction: ltr;
 }
 
+.cursor {
+  cursor: pointer;
+}

@@ -39,9 +39,6 @@ import { CoreUserViewComponent } from "./view/view.component";
     CoreUserSelectorComponent,
     CoreUserViewComponent,
     CoreUserResellerChartComponent,
-    CoreUserEmailConfirmComponent,
-    CoreUserMobileConfirmComponent,
-
   ],
   exports: [
     CoreUserComponent,
@@ -52,9 +49,6 @@ import { CoreUserViewComponent } from "./view/view.component";
     CoreUserSelectorComponent,
     CoreUserViewComponent,
     CoreUserResellerChartComponent,
-    CoreUserEmailConfirmComponent,
-    CoreUserMobileConfirmComponent,
-
   ],
   imports: [
     CommonModule,

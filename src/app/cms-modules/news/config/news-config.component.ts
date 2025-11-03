@@ -1,13 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 @Component({
-  selector: 'app-news-config',
-  template: '<router-outlet></router-outlet>',
-   standalone: false
+  selector: "app-news-config",
+  template: "<router-outlet></router-outlet>",
+  standalone: false,
 })
 export class NewsConfigComponent implements OnInit {
   constructorInfoAreaId = this.constructor.name;
-  constructor() {
-  }
-  ngOnInit(): void {
-  }
+  constructor() {}
+  ngOnInit(): void {}
 }

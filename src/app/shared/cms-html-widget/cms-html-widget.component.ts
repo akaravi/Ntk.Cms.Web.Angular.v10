@@ -1,20 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-    selector: 'app-cms-html-widget',
-    templateUrl: './cms-html-widget.component.html',
-    standalone: false
+  selector: "app-cms-html-widget",
+  templateUrl: "./cms-html-widget.component.html",
+  standalone: false,
 })
 export class CmsHtmlWidgetComponent implements OnInit {
   static nextId = 0;
   id = ++CmsHtmlWidgetComponent.nextId;
 
-
-
-  constructor() { }
-  ngOnInit(): void {
-
-  }
+  constructor() {}
+  ngOnInit(): void {}
   /*
   <app-cms-html-widget >
     <ng-container  cms-header>
@@ -35,4 +31,3 @@ export class CmsHtmlWidgetComponent implements OnInit {
   </app-cms-html-widget>
 */
 }
-

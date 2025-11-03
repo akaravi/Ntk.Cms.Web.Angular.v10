@@ -1,14 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 
 @Component({
-    selector: 'app-input-date',
-    templateUrl: './date.component.html',
-    styleUrls: ['./date.component.scss'],
-    standalone: false
+  selector: "app-input-date",
+  templateUrl: "./date.component.html",
+  styleUrls: ["./date.component.scss"],
+  standalone: false,
 })
 export class DateComponent implements OnInit {
-
-  constructor() { }
+  constructor() {}
   @Input()
   set model(value: Date) {
     this.privateModelDate = value;
@@ -24,8 +23,5 @@ export class DateComponent implements OnInit {
     this.privateModelDate = value;
     this.modelChange.emit(value);
   }
-  ngOnInit(): void {
-  }
-
-
+  ngOnInit(): void {}
 }

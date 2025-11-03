@@ -1,18 +1,18 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AngularEditorModule } from '@kolkov/angular-editor';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { AngularEditorModule } from "@kolkov/angular-editor";
 import {
   CoreModuleService,
-  WebDesignerConfigurationService
-} from 'ntk-cms-api';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { WebDesignerConfigCheckSiteComponent } from './check-site/check-site.component';
-import { WebDesignerConfigCheckUserComponent } from './check-user/check-user.component';
-import { WebDesignerConfigMainAdminComponent } from './main-admin/config-main-admin.component';
-import { WebDesignerConfigSiteComponent } from './site/config-site.component';
-import { WebDesignerConfigRouting } from './web-designer-config.routing';
-import { WebDesignerConfigComponent } from './web-designer-config.component';
+  WebDesignerConfigurationService,
+} from "ntk-cms-api";
+import { SharedModule } from "src/app/shared/shared.module";
+import { WebDesignerConfigCheckSiteComponent } from "./check-site/check-site.component";
+import { WebDesignerConfigCheckUserComponent } from "./check-user/check-user.component";
+import { WebDesignerConfigMainAdminComponent } from "./main-admin/config-main-admin.component";
+import { WebDesignerConfigSiteComponent } from "./site/config-site.component";
+import { WebDesignerConfigRouting } from "./web-designer-config.routing";
+import { WebDesignerConfigComponent } from "./web-designer-config.component";
 @NgModule({
   declarations: [
     WebDesignerConfigComponent,
@@ -35,14 +35,10 @@ import { WebDesignerConfigComponent } from './web-designer-config.component';
     CommonModule,
     FormsModule,
     WebDesignerConfigRouting,
-    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     SharedModule,
     AngularEditorModule,
   ],
-  providers: [
-    CoreModuleService,
-    WebDesignerConfigurationService,
-  ]
+  providers: [CoreModuleService, WebDesignerConfigurationService],
 })
-export class WebDesignerConfigModule {
-}
+export class WebDesignerConfigModule {}

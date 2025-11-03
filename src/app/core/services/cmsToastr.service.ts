@@ -66,21 +66,21 @@ export class CmsToastrService {
         title: "System Message",
       });
     }
-      return this.translate.get(keys).pipe(
-        take(1),
-        map((translations: any) => {
-          const message = translations[keys[0]] || "Message not found";
-          const title = translations[keys[1]] || "System Message";
-          return { message, title };
-        }),
-        catchError((error) => {
-          console.error("Translation error:", error);
-          return of({
-            message: "Translation error occurred",
-            title: "Error",
-          });
-        }),
-      );
+    return this.translate.get(keys).pipe(
+      take(1),
+      map((translations: any) => {
+        const message = translations[keys[0]] || "Message not found";
+        const title = translations[keys[1]] || "System Message";
+        return { message, title };
+      }),
+      catchError((error) => {
+        console.error("Translation error:", error);
+        return of({
+          message: "Translation error occurred",
+          title: "Error",
+        });
+      }),
+    );
   }
 
   /**
@@ -908,7 +908,6 @@ export class CmsToastrService {
       });
       return;
     }
-
 
     if (model && model.errorMessage) {
       this.showToast({

@@ -1,26 +1,31 @@
-
 import {
-  ChangeDetectorRef, Component, Input, OnDestroy, OnInit
-} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  DataFieldInfoModel, DataProviderPlanPriceModel,
-  DataProviderPlanPriceService, ErrorExceptionResult,
-  RecordStatusEnum
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsLinkToComponent } from 'src/app/shared/cms-link-to/cms-link-to.component';
-import { environment } from 'src/environments/environment';
+  DataFieldInfoModel,
+  DataProviderPlanPriceModel,
+  DataProviderPlanPriceService,
+  ErrorExceptionResult,
+  RecordStatusEnum,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { CmsLinkToComponent } from "src/app/shared/cms-link-to/cms-link-to.component";
+import { environment } from "src/environments/environment";
 @Component({
-  selector: 'app-data-provider-plan-price-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
-  standalone: false
+  selector: "app-data-provider-plan-price-header",
+  templateUrl: "./header.component.html",
+  styleUrls: ["./header.component.scss"],
+  standalone: false,
 })
 export class DataProviderPlanPriceHeaderComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
@@ -32,16 +37,18 @@ export class DataProviderPlanPriceHeaderComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
     private cmsStoreService: CmsStoreService,
     public dialog: MatDialog,
-    public tokenHelper: TokenHelper
+    public tokenHelper: TokenHelper,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }
   @Input() optionId = 0;
 
-  dataModelResult: ErrorExceptionResult<DataProviderPlanPriceModel> = new ErrorExceptionResult<DataProviderPlanPriceModel>();
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
-
-
+  dataModelResult: ErrorExceptionResult<DataProviderPlanPriceModel> =
+    new ErrorExceptionResult<DataProviderPlanPriceModel>();
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
 
   cmsApiStoreSubscribe: Subscription;
   ngOnInit(): void {
@@ -49,9 +56,11 @@ export class DataProviderPlanPriceHeaderComponent implements OnInit, OnDestroy {
       this.DataGetOneContent();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetOneContent();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetOneContent();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -60,10 +69,16 @@ export class DataProviderPlanPriceHeaderComponent implements OnInit, OnDestroy {
   }
 
   DataGetOneContent(): void {
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.headerService.setAccessLoad();
     this.headerService.ServiceGetOneById(this.optionId).subscribe({
@@ -75,16 +90,16 @@ export class DataProviderPlanPriceHeaderComponent implements OnInit, OnDestroy {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
-  onActionButtonLinkTo(model: DataProviderPlanPriceModel = this.dataModelResult.item): void {
+  onActionButtonLinkTo(
+    model: DataProviderPlanPriceModel = this.dataModelResult.item,
+  ): void {
     if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
@@ -93,11 +108,9 @@ export class DataProviderPlanPriceHeaderComponent implements OnInit, OnDestroy {
       this.cmsToastrService.typeWarningRecordStatusNoAvailable();
       return;
     }
-    var panelClass = '';
-    if (this.publicHelper.isMobile)
-      panelClass = 'dialog-fullscreen';
-    else
-      panelClass = 'dialog-min';
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     //open popup
     const dialogRef = this.dialog.open(CmsLinkToComponent, {
       height: "90%",
@@ -107,8 +120,8 @@ export class DataProviderPlanPriceHeaderComponent implements OnInit, OnDestroy {
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
       data: {
         // title: model.title,
-        urlViewContentQRCodeBase64: '',
-        urlViewContent: '',
+        urlViewContentQRCodeBase64: "",
+        urlViewContent: "",
       },
     });
     dialogRef.afterClosed().subscribe((result) => {

@@ -1,22 +1,22 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { environment } from 'src/environments/environment';
+import { Component, HostBinding, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { environment } from "src/environments/environment";
 
 @Component({
-    selector: 'app-pages',
-    templateUrl: './pages.component.html',
-    styleUrls: ['./pages.component.scss'],
-    standalone: false
+  selector: "app-pages",
+  templateUrl: "./pages.component.html",
+  styleUrls: ["./pages.component.scss"],
+  standalone: false,
 })
 export class PagesComponent implements OnInit {
-  @HostBinding('class') class = 'd-flex flex-column flex-root';
+  @HostBinding("class") class = "d-flex flex-column flex-root";
   env = environment;
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   routeToDashboard() {
-    this.router.navigate(['dashboard']);
+    this.router.navigate(["dashboard"]);
     // setTimeout(() => {
     //   ToggleComponent.bootstrap();
     //   ScrollTopComponent.bootstrap();

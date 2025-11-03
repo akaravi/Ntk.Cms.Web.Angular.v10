@@ -1,12 +1,12 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from "@angular/core";
 
 @Pipe({
-    name: 'cmsthumbnail',
-    standalone: false
+  name: "cmsthumbnail",
+  standalone: false,
 })
 export class CmsImageThumbnailPipe implements PipeTransform {
   transform(value): any {
-    value = value + '';
-    return value.replace('/images/', '/thumbnails/');
+    value = value + "";
+    return value.replace("/images/", "/thumbnails/");
   }
 }

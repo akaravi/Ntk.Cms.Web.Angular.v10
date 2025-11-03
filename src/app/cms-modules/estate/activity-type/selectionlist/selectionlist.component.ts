@@ -1,26 +1,35 @@
-
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from "@angular/core";
+import { FormControl } from "@angular/forms";
+import { TranslateService } from "@ngx-translate/core";
 import {
   CoreEnumService,
-  ErrorExceptionResult, EstateActivityTypeModel,
-  EstateActivityTypeService, FilterModel
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-
+  ErrorExceptionResult,
+  EstateActivityTypeModel,
+  EstateActivityTypeService,
+  FilterModel,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-  selector: 'app-estate-activity-type-selectionlist',
-  templateUrl: './selectionlist.component.html',
-  standalone: false
+  selector: "app-estate-activity-type-selectionlist",
+  templateUrl: "./selectionlist.component.html",
+  standalone: false,
 })
-export class EstateActivityTypeSelectionlistComponent implements OnInit, OnDestroy {
-
+export class EstateActivityTypeSelectionlistComponent
+  implements OnInit, OnDestroy
+{
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public coreEnumService: CoreEnumService,
@@ -30,10 +39,12 @@ export class EstateActivityTypeSelectionlistComponent implements OnInit, OnDestr
     public tokenHelper: TokenHelper,
     public translate: TranslateService,
     private cmsStoreService: CmsStoreService,
-    private cmsToastrService: CmsToastrService) {
+    private cmsToastrService: CmsToastrService,
+  ) {
     this.publicHelper.processService.cdr = this.cdr;
   }
-  dataModelResult: ErrorExceptionResult<EstateActivityTypeModel> = new ErrorExceptionResult<EstateActivityTypeModel>();
+  dataModelResult: ErrorExceptionResult<EstateActivityTypeModel> =
+    new ErrorExceptionResult<EstateActivityTypeModel>();
   dataModelSelect: EstateActivityTypeModel[] = [];
   dataIdsSelect: string[] = [];
 
@@ -42,7 +53,7 @@ export class EstateActivityTypeSelectionlistComponent implements OnInit, OnDestr
 
   @Input() optionDisabled = false;
   @Input() optionSelectFirstItem = false;
-  @Input() optionPlaceholder = '';
+  @Input() optionPlaceholder = "";
   @Output() optionChange = new EventEmitter<EstateActivityTypeModel[]>();
   @Output() optionSelectAdded = new EventEmitter();
   @Output() optionSelectRemoved = new EventEmitter();
@@ -54,12 +65,13 @@ export class EstateActivityTypeSelectionlistComponent implements OnInit, OnDestr
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -71,17 +83,24 @@ export class EstateActivityTypeSelectionlistComponent implements OnInit, OnDestr
     filterModel.rowPerPage = 50;
     filterModel.accessLoad = true;
 
-
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAll(filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.dataModelResult = ret;
-          this.dataModelResult.listItems.forEach((el) => this.fieldsStatus.set(el.id, false));
+          this.dataModelResult.listItems.forEach((el) =>
+            this.fieldsStatus.set(el.id, false),
+          );
           this.dataIdsSelect.forEach((el) => this.fieldsStatus.set(el, true));
           this.dataModelResult.listItems.forEach((el) => {
             if (this.fieldsStatus.get(el.id)) {
@@ -92,14 +111,12 @@ export class EstateActivityTypeSelectionlistComponent implements OnInit, OnDestr
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(value: EstateActivityTypeModel): void {
     if (this.fieldsStatus.get(value.id)) {
@@ -114,14 +131,13 @@ export class EstateActivityTypeSelectionlistComponent implements OnInit, OnDestr
     this.optionChange.emit(this.dataModelSelect);
   }
 
-
   onActionSelectForce(ids: string[] | EstateActivityTypeModel[]): void {
     if (typeof ids === typeof Array(String)) {
-      ids.forEach(element => {
+      ids.forEach((element) => {
         this.dataIdsSelect.push(element);
       });
     } else if (typeof ids === typeof Array(EstateActivityTypeModel)) {
-      ids.forEach(element => {
+      ids.forEach((element) => {
         this.dataIdsSelect.push(element.id);
       });
     }

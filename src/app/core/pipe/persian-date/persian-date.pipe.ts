@@ -1,5 +1,5 @@
-import { Injectable, Pipe } from '@angular/core';
-import { PersianCalendarService } from './persian-date.service';
+import { Injectable, Pipe } from "@angular/core";
+import { PersianCalendarService } from "./persian-date.service";
 
 /*
   Generated class for the PersianDate pipe.
@@ -9,34 +9,32 @@ import { PersianCalendarService } from './persian-date.service';
 */
 // tslint:disable-next-line: use-pipe-transform-interface
 @Pipe({
-    name: 'persianDate',
-    standalone: false
+  name: "persianDate",
+  standalone: false,
 })
 @Injectable()
 export class PersianDate {
   /**
    *
    */
-  constructor(public persianCalendarService: PersianCalendarService) {
-
-  }
+  constructor(public persianCalendarService: PersianCalendarService) {}
   /*
     Takes a value and convert it to
    */
   transform(value: string | Date): string {
-    if (typeof value === 'string') {
+    if (typeof value === "string") {
       if (!value || value.length === 0) {
-        return '';
+        return "";
       }
       const d = new Date(value);
       if (!d) {
-        return '';
+        return "";
       }
       return this.persianCalendarService.PersianCalendar(d);
     }
     if (typeof value === typeof Date) {
       if (!value) {
-        return '';
+        return "";
       }
       return this.persianCalendarService.PersianCalendar(value);
     }

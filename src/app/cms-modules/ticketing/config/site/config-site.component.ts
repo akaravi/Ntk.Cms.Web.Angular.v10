@@ -1,8 +1,14 @@
-import { StepperSelectionEvent } from '@angular/cdk/stepper';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { StepperSelectionEvent } from "@angular/cdk/stepper";
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import {
   AccessModel,
   CoreEnumService,
@@ -11,23 +17,22 @@ import {
   TicketingConfigurationService,
   TicketingModuleConfigSiteAccessValuesModel,
   TicketingModuleConfigSiteValuesModel,
-  TicketingModuleSiteStorageValuesModel, TokenInfoModelV3
-} from 'ntk-cms-api';
-import { TreeModel } from 'ntk-cms-filemanager';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { PoinModel } from 'src/app/core/models/pointModel';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
-
+  TicketingModuleSiteStorageValuesModel,
+  TokenInfoModelV3,
+} from "ntk-cms-api";
+import { TreeModel } from "ntk-cms-filemanager";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { PoinModel } from "src/app/core/models/pointModel";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 
 @Component({
-  selector: 'app-ticketing-config-site',
-  templateUrl: './config-site.component.html',
-  styleUrls: ['./config-site.component.scss'],
-  standalone: false
+  selector: "app-ticketing-config-site",
+  templateUrl: "./config-site.component.html",
+  styleUrls: ["./config-site.component.scss"],
+  standalone: false,
 })
 export class TicketingConfigSiteComponent implements OnInit, OnDestroy {
   requestLinkSiteId = 0;
@@ -49,19 +54,23 @@ export class TicketingConfigSiteComponent implements OnInit, OnDestroy {
   }
   dataSiteStorageModel = new TicketingModuleSiteStorageValuesModel();
   dataConfigSiteValuesModel = new TicketingModuleConfigSiteValuesModel();
-  dataConfigSiteAccessValuesModel = new TicketingModuleConfigSiteAccessValuesModel();
+  dataConfigSiteAccessValuesModel =
+    new TicketingModuleConfigSiteAccessValuesModel();
 
   tokenInfo = new TokenInfoModelV3();
 
-  @ViewChild('vform', { static: false }) formGroup: FormGroup;
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
   formInfo: FormInfoModel = new FormInfoModel();
   dataAccessModel: AccessModel;
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
 
-  selectFileTypeMainImage = ['jpg', 'jpeg', 'png'];
+  selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   fileManagerOpenForm = false;
-  appLanguage = 'fa';
+  appLanguage = "fa";
 
   fileManagerTree: TreeModel;
   mapMarker: any;
@@ -70,16 +79,20 @@ export class TicketingConfigSiteComponent implements OnInit, OnDestroy {
   cmsApiStoreSubscribe: Subscription;
 
   ngOnInit(): void {
-    this.requestLinkSiteId = + Number(this.activatedRoute.snapshot.paramMap.get('LinkSiteId'));
+    this.requestLinkSiteId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
+    );
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.onLoadDate();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-      this.onLoadDate();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+        this.onLoadDate();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -112,8 +125,6 @@ export class TicketingConfigSiteComponent implements OnInit, OnDestroy {
     }
   }
 
-
-
   onStepClick(event: StepperSelectionEvent, stepper: any): void {
     if (event.previouslySelectedIndex < event.selectedIndex) {
       // if (!this.formGroup.valid) {
@@ -127,44 +138,65 @@ export class TicketingConfigSiteComponent implements OnInit, OnDestroy {
   }
 
   onActionBackToParent(): void {
-    this.router.navigate(['/core/site/']);
+    this.router.navigate(["/core/site/"]);
   }
 
   GetServiceSiteStorage(SiteId: number): void {
     this.formInfo.formSubmitAllow = false;
-    this.translate.get('MESSAGE.get_information_from_the_server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'ServiceSiteStorage';
-    this.translate.get('MESSAGE.get_saved_module_values').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    this.translate
+      .get("MESSAGE.get_information_from_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "ServiceSiteStorage";
+    this.translate
+      .get("MESSAGE.get_saved_module_values")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
-    this.configService
-      .ServiceSiteStorage(SiteId)
-      .subscribe({
-        next: (ret) => {
-          this.formInfo.formSubmitAllow = true;
-          if (ret.isSuccess) {
-            this.dataSiteStorageModel = ret.item;
-          } else {
-            this.cmsToastrService.typeErrorGetOne(ret.errorMessage);
-          }
-          this.formInfo.formSubmitAllow = true;
-          this.publicHelper.processService.processStop(pName);
-        },
-        error: (err) => {
-          this.cmsToastrService.typeErrorGetOne(err);
-          this.formInfo.formSubmitAllow = true;
-          this.publicHelper.processService.processStop(pName);
+    this.configService.ServiceSiteStorage(SiteId).subscribe({
+      next: (ret) => {
+        this.formInfo.formSubmitAllow = true;
+        if (ret.isSuccess) {
+          this.dataSiteStorageModel = ret.item;
+        } else {
+          this.cmsToastrService.typeErrorGetOne(ret.errorMessage);
         }
-      }
-      );
+        this.formInfo.formSubmitAllow = true;
+        this.publicHelper.processService.processStop(pName);
+      },
+      error: (err) => {
+        this.cmsToastrService.typeErrorGetOne(err);
+        this.formInfo.formSubmitAllow = true;
+        this.publicHelper.processService.processStop(pName);
+      },
+    });
   }
   SetServiceSiteStorageSave(SiteId: number): void {
     this.formInfo.formSubmitAllow = false;
-    this.translate.get('MESSAGE.Saving_Information_On_The_Server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
+    this.translate
+      .get("MESSAGE.Saving_Information_On_The_Server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
 
-    const pName = this.constructor.name + 'ServiceSiteStorageSave';
-    this.translate.get('MESSAGE.Save_the_stored_values_of_the_module').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    const pName = this.constructor.name + "ServiceSiteStorageSave";
+    this.translate
+      .get("MESSAGE.Save_the_stored_values_of_the_module")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.configService
       .ServiceSiteStorageSave(SiteId, this.dataSiteStorageModel)
       .subscribe({
@@ -182,45 +214,64 @@ export class TicketingConfigSiteComponent implements OnInit, OnDestroy {
           this.formInfo.formSubmitAllow = true;
           this.cmsToastrService.typeErrorGetOne(err);
           this.publicHelper.processService.processStop(pName);
-        }
-      }
-      );
+        },
+      });
   }
   GetServiceSiteConfig(SiteId: number): void {
-    if (!(SiteId && SiteId > 0))
-      return;
+    if (!(SiteId && SiteId > 0)) return;
     this.formInfo.formSubmitAllow = false;
-    this.translate.get('MESSAGE.get_information_from_the_server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
+    this.translate
+      .get("MESSAGE.get_information_from_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
 
-    const pName = this.constructor.name + 'ServiceSiteConfig';
-    this.translate.get('MESSAGE.get_module_setting').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
-    this.configService
-      .ServiceSiteConfig(SiteId)
-      .subscribe({
-        next: (ret) => {
-          if (ret.isSuccess) {
-            this.dataConfigSiteValuesModel = ret.item;
-          } else {
-            this.cmsToastrService.typeErrorGetOne(ret.errorMessage);
-          }
-          this.formInfo.formSubmitAllow = true;
-          this.publicHelper.processService.processStop(pName);
-        },
-        error: (err) => {
-          this.formInfo.formSubmitAllow = true;
-          this.cmsToastrService.typeErrorGetOne(err);
-          this.publicHelper.processService.processStop(pName);
+    const pName = this.constructor.name + "ServiceSiteConfig";
+    this.translate
+      .get("MESSAGE.get_module_setting")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
+    this.configService.ServiceSiteConfig(SiteId).subscribe({
+      next: (ret) => {
+        if (ret.isSuccess) {
+          this.dataConfigSiteValuesModel = ret.item;
+        } else {
+          this.cmsToastrService.typeErrorGetOne(ret.errorMessage);
         }
-      }
-      );
+        this.formInfo.formSubmitAllow = true;
+        this.publicHelper.processService.processStop(pName);
+      },
+      error: (err) => {
+        this.formInfo.formSubmitAllow = true;
+        this.cmsToastrService.typeErrorGetOne(err);
+        this.publicHelper.processService.processStop(pName);
+      },
+    });
   }
   SetServiceSiteConfigSave(SiteId: number): void {
     this.formInfo.formSubmitAllow = false;
-    this.translate.get('MESSAGE.Saving_Information_On_The_Server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'ServiceSiteConfigSave';
-    this.translate.get('MESSAGE.Save_module_setting').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    this.translate
+      .get("MESSAGE.Saving_Information_On_The_Server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "ServiceSiteConfigSave";
+    this.translate
+      .get("MESSAGE.Save_module_setting")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.configService
       .ServiceSiteConfigSave(SiteId, this.dataConfigSiteValuesModel)
@@ -238,47 +289,63 @@ export class TicketingConfigSiteComponent implements OnInit, OnDestroy {
           this.formInfo.formSubmitAllow = true;
           this.cmsToastrService.typeErrorGetOne(err);
           this.publicHelper.processService.processStop(pName);
-        }
-      }
-      );
+        },
+      });
   }
   GetServiceSiteAccess(SiteId: number): void {
     this.formInfo.formSubmitAllow = false;
-    this.translate.get('MESSAGE.get_information_from_the_server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
+    this.translate
+      .get("MESSAGE.get_information_from_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
 
-    const pName = this.constructor.name + 'ServiceSiteAccess';
-    this.translate.get('MESSAGE.get_module_access').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
-
-    this.configService
-      .ServiceSiteAccess(SiteId)
-      .subscribe({
-        next: (ret) => {
-          if (ret.isSuccess) {
-            this.dataConfigSiteAccessValuesModel = ret.item;
-          } else {
-            this.cmsToastrService.typeErrorGetOne(ret.errorMessage);
-          }
-          this.formInfo.formSubmitAllow = true;
-          this.publicHelper.processService.processStop(pName);
-        },
-        error: (err) => {
-          this.formInfo.formSubmitAllow = true;
-          this.cmsToastrService.typeErrorGetOne(err);
-          this.publicHelper.processService.processStop(pName);
-        }
-      }
+    const pName = this.constructor.name + "ServiceSiteAccess";
+    this.translate.get("MESSAGE.get_module_access").subscribe((str: string) => {
+      this.publicHelper.processService.processStart(
+        pName,
+        str,
+        this.constructorInfoAreaId,
       );
+    });
+
+    this.configService.ServiceSiteAccess(SiteId).subscribe({
+      next: (ret) => {
+        if (ret.isSuccess) {
+          this.dataConfigSiteAccessValuesModel = ret.item;
+        } else {
+          this.cmsToastrService.typeErrorGetOne(ret.errorMessage);
+        }
+        this.formInfo.formSubmitAllow = true;
+        this.publicHelper.processService.processStop(pName);
+      },
+      error: (err) => {
+        this.formInfo.formSubmitAllow = true;
+        this.cmsToastrService.typeErrorGetOne(err);
+        this.publicHelper.processService.processStop(pName);
+      },
+    });
   }
   SetServiceSiteAccessSave(SiteId: number): void {
     this.formInfo.formSubmitAllow = false;
-    this.translate.get('MESSAGE.Saving_Information_On_The_Server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
+    this.translate
+      .get("MESSAGE.Saving_Information_On_The_Server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
 
-
-
-    const pName = this.constructor.name + 'ServiceSiteAccessSave';
-    this.translate.get('MESSAGE.Save_module_access').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    const pName = this.constructor.name + "ServiceSiteAccessSave";
+    this.translate
+      .get("MESSAGE.Save_module_access")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.configService
       .ServiceSiteAccessSave(SiteId, this.dataConfigSiteAccessValuesModel)
@@ -296,10 +363,7 @@ export class TicketingConfigSiteComponent implements OnInit, OnDestroy {
           this.cmsToastrService.typeErrorGetOne(err);
           this.formInfo.formSubmitAllow = true;
           this.publicHelper.processService.processStop(pName);
-        }
-      }
-      );
+        },
+      });
   }
-
-
 }

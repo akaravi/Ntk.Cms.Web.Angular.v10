@@ -5,12 +5,15 @@ import { environment } from "src/environments/environment";
 
 @Injectable()
 export class PromptUpdateService {
-
   constructor(swUpdate: SwUpdate) {
     if (swUpdate.isEnabled)
       swUpdate.versionUpdates
-        .pipe(filter((evt): evt is VersionReadyEvent => evt.type === 'VERSION_READY'))
-        .subscribe(evt => {
+        .pipe(
+          filter(
+            (evt): evt is VersionReadyEvent => evt.type === "VERSION_READY",
+          ),
+        )
+        .subscribe((evt) => {
           if (environment.production) {
             if (confirm("New version available. Load New Version?")) {
               window.location.reload();
@@ -21,7 +24,4 @@ export class PromptUpdateService {
           }
         });
   }
-
 }
-
-

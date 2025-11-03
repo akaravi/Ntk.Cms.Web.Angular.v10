@@ -1,36 +1,34 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
-import {
-  ErrorExceptionResult,
-  InfoEnumModel,
-} from 'ntk-cms-api';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { FormControl } from "@angular/forms";
+import { TranslateService } from "@ngx-translate/core";
+import { ErrorExceptionResult, InfoEnumModel } from "ntk-cms-api";
 
 @Component({
-    selector: 'app-cms-enum-x-selectionlist',
-    templateUrl: './cms-enum-x-selectionlist.component.html',
-    standalone: false
+  selector: "app-cms-enum-x-selectionlist",
+  templateUrl: "./cms-enum-x-selectionlist.component.html",
+  standalone: false,
 })
 export class CmsEnumXSelectionListComponent implements OnInit {
   static nextId = 0;
   id = ++CmsEnumXSelectionListComponent.nextId;
-  constructor(
-    public translate: TranslateService,) {
-  }
+  constructor(public translate: TranslateService) {}
   @Input()
   set model(value: number[]) {
     this.onActionSelectForce(value);
   }
   @Output() modelChange: EventEmitter<number[]> = new EventEmitter<number[]>();
-  dataModelResult: ErrorExceptionResult<InfoEnumModel> = new ErrorExceptionResult<InfoEnumModel>();
+  dataModelResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
 
   @Input() optionDisabled = false;
-  @Input() optionLabel = '';
+  @Input() optionLabel = "";
   @Input() optionRequired = false;
   @Input()
   set optionDataListResult(vallue: ErrorExceptionResult<InfoEnumModel>) {
     this.dataModelResult = vallue;
-    this.dataModelResult.listItems.forEach((el) => this.fieldsStatus.set(el.value, false));
+    this.dataModelResult.listItems.forEach((el) =>
+      this.fieldsStatus.set(el.value, false),
+    );
     this.dataIdsSelect.forEach((el) => this.fieldsStatus.set(el, true));
     this.dataModelResult.listItems.forEach((el) => {
       if (this.fieldsStatus.get(el.value)) {
@@ -39,19 +37,16 @@ export class CmsEnumXSelectionListComponent implements OnInit {
     });
   }
 
-
   dataIdsSelect: number[] = [];
 
   formControl = new FormControl();
   fieldsStatus: Map<number, boolean> = new Map<number, boolean>();
-  @Input() optionPlaceholder = '';
+  @Input() optionPlaceholder = "";
   @Output() optionSelectAdded = new EventEmitter();
   @Output() optionSelectRemoved = new EventEmitter();
   @Input() optionReload = () => this.onActionButtonReload();
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   onActionSelect(value: InfoEnumModel): void {
     if (this.fieldsStatus.get(value.value)) {
@@ -68,12 +63,12 @@ export class CmsEnumXSelectionListComponent implements OnInit {
 
   onActionSelectForce(ids: number[] | InfoEnumModel[]): void {
     if (typeof ids === typeof Array(Number)) {
-      ids.forEach(element => {
+      ids.forEach((element) => {
         if (this.dataIdsSelect.indexOf(element) < 0)
           this.dataIdsSelect.push(element);
       });
     } else if (typeof ids === typeof Array(InfoEnumModel)) {
-      ids.forEach(element => {
+      ids.forEach((element) => {
         this.dataIdsSelect.push(element.value);
       });
     }
@@ -81,6 +76,5 @@ export class CmsEnumXSelectionListComponent implements OnInit {
   }
   onActionButtonReload(): void {
     // this.dataModelSelect = new ContactContentModel();
-
   }
 }

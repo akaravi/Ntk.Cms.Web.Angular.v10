@@ -1,44 +1,49 @@
 <div class="card card-style loader-container">
-  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId"> </app-progress-spinner>
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
   <div class="content">
-
-
     <div class="table">
       <div class="tr">
         <div class="td"></div>
-        <div class="td align" style="color: darkblue;">
-          <h5> <b>{{'TITLE.Selected_User'|translate}}</b> </h5>
+        <div class="td align" style="color: darkblue">
+          <h5>
+            <b>{{ "TITLE.Selected_User" | translate }}</b>
+          </h5>
         </div>
         <div class="td" *ngIf="dataModelResult?.item?.id">
           <img
-          [src]="
-            dataModelResult &&
-            dataModelResult?.item?.linkMainImageIdSrc &&
-            dataModelResult?.item?.linkMainImageIdSrc?.length > 0
-              ? dataModelResult?.item?.linkMainImageIdSrc
-              : './assets/media/avatars/300-1.jpg'
-          "
-          class="rounded-sm"
-          width="80"
-        />
+            [src]="
+              dataModelResult &&
+              dataModelResult?.item?.linkMainImageIdSrc &&
+              dataModelResult?.item?.linkMainImageIdSrc?.length > 0
+                ? dataModelResult?.item?.linkMainImageIdSrc
+                : './assets/media/avatars/300-1.jpg'
+            "
+            class="rounded-sm"
+            width="80"
+          />
         </div>
       </div>
       <div class="tr">
-        <div class="td"><b>{{fieldsInfo['id']?.fieldTitle}} </b>: </div>
-        <div class="td align">{{dataModelResult?.item?.id}}</div>
+        <div class="td">
+          <b>{{ fieldsInfo["id"]?.fieldTitle }} </b>:
+        </div>
+        <div class="td align">{{ dataModelResult?.item?.id }}</div>
         <div class="td"></div>
-        <div style="clear: both;"></div>
+        <div style="clear: both"></div>
       </div>
       <div class="tr">
-        <div class="td"><b>{{fieldsInfo['name']?.fieldTitle}}</b> : </div>
-        <div class="td align">{{dataModelResult?.item?.name}} {{dataModelResult?.item?.lastName}}</div>
+        <div class="td">
+          <b>{{ fieldsInfo["name"]?.fieldTitle }}</b> :
+        </div>
+        <div class="td align">
+          {{ dataModelResult?.item?.name }}
+          {{ dataModelResult?.item?.lastName }}
+        </div>
         <div class="td"></div>
-        <div style="clear: both;"></div>
+        <div style="clear: both"></div>
       </div>
     </div>
-
-
-
   </div>
 </div>
 <div class="divider divider-margins"></div>

@@ -1,22 +1,20 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
   CoreModuleService,
-  DataProviderConfigurationService
-} from 'ntk-cms-api';
-import { SharedModule } from 'src/app/shared/shared.module';
+  DataProviderConfigurationService,
+} from "ntk-cms-api";
+import { SharedModule } from "src/app/shared/shared.module";
 
-
-import { AngularEditorModule } from '@kolkov/angular-editor';
-import { DataProviderConfigCheckSiteComponent } from './check-site/check-site.component';
-import { DataProviderConfigCheckUserComponent } from './check-user/check-user.component';
-import { DataProviderConfigRouting } from './data-provider-config.routing';
-import { DataProviderConfigMainAdminComponent } from './main-admin/config-main-admin.component';
-import { DataProviderConfigSiteComponent } from './site/config-site.component';
-import { DataProviderConfigComponent } from './data-provider-config.component';
-
+import { AngularEditorModule } from "@kolkov/angular-editor";
+import { DataProviderConfigCheckSiteComponent } from "./check-site/check-site.component";
+import { DataProviderConfigCheckUserComponent } from "./check-user/check-user.component";
+import { DataProviderConfigRouting } from "./data-provider-config.routing";
+import { DataProviderConfigMainAdminComponent } from "./main-admin/config-main-admin.component";
+import { DataProviderConfigSiteComponent } from "./site/config-site.component";
+import { DataProviderConfigComponent } from "./data-provider-config.component";
 
 @NgModule({
   declarations: [
@@ -40,14 +38,10 @@ import { DataProviderConfigComponent } from './data-provider-config.component';
     CommonModule,
     FormsModule,
     DataProviderConfigRouting,
-    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     SharedModule,
     AngularEditorModule,
   ],
-  providers: [
-    CoreModuleService,
-    DataProviderConfigurationService,
-  ]
+  providers: [CoreModuleService, DataProviderConfigurationService],
 })
-export class DataProviderConfigModule {
-}
+export class DataProviderConfigModule {}

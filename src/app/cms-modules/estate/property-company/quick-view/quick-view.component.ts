@@ -1,32 +1,43 @@
-
 import {
-  ChangeDetectorRef, Component, Inject,
-  OnDestroy, OnInit,
-  ViewChild
-} from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
-import { TranslateService } from '@ngx-translate/core';
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { MatTableDataSource } from "@angular/material/table";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService, DataFieldInfoModel, ErrorExceptionResult, EstateContractModel, EstateContractTypeModel,
+  CoreEnumService,
+  DataFieldInfoModel,
+  ErrorExceptionResult,
+  EstateContractModel,
+  EstateContractTypeModel,
   EstatePropertyCompanyModel,
-  EstatePropertyCompanyService, FormInfoModel, InputDataTypeEnum, ManageUserAccessDataTypesEnum, TokenInfoModelV3
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  EstatePropertyCompanyService,
+  FormInfoModel,
+  InputDataTypeEnum,
+  ManageUserAccessDataTypesEnum,
+  TokenInfoModelV3,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 
 @Component({
-  selector: 'app-estate-property-company-quick-view',
-  templateUrl: './quick-view.component.html',
-  standalone: false
+  selector: "app-estate-property-company-quick-view",
+  templateUrl: "./quick-view.component.html",
+  standalone: false,
 })
-export class EstatePropertyCompanyQuickViewComponent implements OnInit, OnDestroy {
-  requestId = '';
+export class EstatePropertyCompanyQuickViewComponent
+  implements OnInit, OnDestroy
+{
+  requestId = "";
   requestPerviousItem: any;
   requestNextItem: any;
   constructorInfoAreaId = this.constructor.name;
@@ -45,30 +56,34 @@ export class EstatePropertyCompanyQuickViewComponent implements OnInit, OnDestro
     this.publicHelper.processService.cdr = this.cdr;
 
     if (data) {
-      this.requestId = data.id + '';
+      this.requestId = data.id + "";
       this.requestPerviousItem = data.perviousItem;
       this.requestNextItem = data.nextItem;
     }
   }
-  @ViewChild('vform', { static: false }) formGroup: FormGroup;
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
   tokenInfo = new TokenInfoModelV3();
 
-  dataModelResult: ErrorExceptionResult<EstatePropertyCompanyModel> = new ErrorExceptionResult<EstatePropertyCompanyModel>();
-  dataModelEstateContractTypeResult: ErrorExceptionResult<EstateContractTypeModel> = new ErrorExceptionResult<EstateContractTypeModel>();
+  dataModelResult: ErrorExceptionResult<EstatePropertyCompanyModel> =
+    new ErrorExceptionResult<EstatePropertyCompanyModel>();
+  dataModelEstateContractTypeResult: ErrorExceptionResult<EstateContractTypeModel> =
+    new ErrorExceptionResult<EstateContractTypeModel>();
   dataModel: EstatePropertyCompanyModel = new EstatePropertyCompanyModel();
   formInfo: FormInfoModel = new FormInfoModel();
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
 
   optionTabledataSource = new MatTableDataSource<EstateContractModel>();
-  optionTabledisplayedColumns = ['LinkEstateContractTypeId', 'Price'];// 'SalePrice', 'DepositPrice', 'RentPrice', 'PeriodPrice'];
+  optionTabledisplayedColumns = ["LinkEstateContractTypeId", "Price"]; // 'SalePrice', 'DepositPrice', 'RentPrice', 'PeriodPrice'];
   fileManagerOpenForm = false;
-  errorMessage: string = '';
+  errorMessage: string = "";
   enumInputDataType = InputDataTypeEnum;
-
 
   cmsApiStoreSubscribe: Subscription;
   ngOnInit(): void {
-    this.translate.get('TITLE.QUICK_VIEW').subscribe((str: string) => {
+    this.translate.get("TITLE.QUICK_VIEW").subscribe((str: string) => {
       this.formInfo.formTitle = str;
     });
     if (this.requestId.length === 0) {
@@ -79,10 +94,11 @@ export class EstatePropertyCompanyQuickViewComponent implements OnInit, OnDestro
     this.DataGetOneContent();
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
-
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+      });
   }
 
   ngOnDestroy(): void {
@@ -91,46 +107,59 @@ export class EstatePropertyCompanyQuickViewComponent implements OnInit, OnDestro
     }
   }
 
-
   DataGetOneContent(): void {
-    this.translate.get('MESSAGE.Receiving_Information_From_The_Server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    this.translate
+      .get("MESSAGE.Receiving_Information_From_The_Server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     /*َAccess Field*/
     this.estatePropertyCompanyService.setAccessLoad();
-    this.estatePropertyCompanyService.setAccessDataType(ManageUserAccessDataTypesEnum.Editor);
-    this.estatePropertyCompanyService.ServiceGetOneById(this.requestId).subscribe({
-      next: (ret) => {
-        /*َAccess Field*/
-        // this.dataAccessModel = next.access;
-        this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
-        this.dataModel = ret.item;
-
-
-        if (ret.isSuccess) {
-
-          this.formInfo.formTitle = this.formInfo.formTitle;
-          this.formInfo.formAlert = '';
-
-        } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
-          this.formInfo.formError = ret.errorMessage;
-          this.errorMessage = ret.errorMessage + '<br> ( ' + ret.errorTypeTitle + ' ) ';
-          this.cmsToastrService.typeErrorMessage(this.errorMessage);
-        }
-        this.publicHelper.processService.processStop(pName);
-
-      },
-      error: (er) => {
-        this.cmsToastrService.typeError(er);
-        this.publicHelper.processService.processStop(pName, false);
-      }
-    }
+    this.estatePropertyCompanyService.setAccessDataType(
+      ManageUserAccessDataTypesEnum.Editor,
     );
+    this.estatePropertyCompanyService
+      .ServiceGetOneById(this.requestId)
+      .subscribe({
+        next: (ret) => {
+          /*َAccess Field*/
+          // this.dataAccessModel = next.access;
+          this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
+          this.dataModel = ret.item;
+
+          if (ret.isSuccess) {
+            this.formInfo.formTitle = this.formInfo.formTitle;
+            this.formInfo.formAlert = "";
+          } else {
+            this.translate
+              .get("ERRORMESSAGE.MESSAGE.typeError")
+              .subscribe((str: string) => {
+                this.formInfo.formAlert = str;
+              });
+            this.formInfo.formError = ret.errorMessage;
+            this.errorMessage =
+              ret.errorMessage + "<br> ( " + ret.errorTypeTitle + " ) ";
+            this.cmsToastrService.typeErrorMessage(this.errorMessage);
+          }
+          this.publicHelper.processService.processStop(pName);
+        },
+        error: (er) => {
+          this.cmsToastrService.typeError(er);
+          this.publicHelper.processService.processStop(pName, false);
+        },
+      });
   }
   setStep(index: number): void {
     this.step = index;
@@ -148,9 +177,15 @@ export class EstatePropertyCompanyQuickViewComponent implements OnInit, OnDestro
     this.dialogRef.close({ dialogChangedDate: false });
   }
   onActionNext(): void {
-    this.dialogRef.close({ dialogChangedDate: true, onActionOpenItem: this.requestNextItem });
+    this.dialogRef.close({
+      dialogChangedDate: true,
+      onActionOpenItem: this.requestNextItem,
+    });
   }
   onActionPervious(): void {
-    this.dialogRef.close({ dialogChangedDate: true, onActionOpenItem: this.requestPerviousItem });
+    this.dialogRef.close({
+      dialogChangedDate: true,
+      onActionOpenItem: this.requestPerviousItem,
+    });
   }
 }

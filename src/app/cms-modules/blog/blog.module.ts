@@ -1,15 +1,16 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { BlogComponent } from './blog.component';
-import { BlogRouting } from './blog.routing';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { BlogComponent } from "./blog.component";
+import { BlogRouting } from "./blog.routing";
 
-
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
   BlogCategoryService,
   BlogCommentService,
   BlogConfigurationService,
-  BlogContentAndParameterValueService, BlogContentCategoryService, BlogContentOtherInfoService,
+  BlogContentAndParameterValueService,
+  BlogContentCategoryService,
+  BlogContentOtherInfoService,
   BlogContentParameterService,
   BlogContentParameterTypeService,
   BlogContentService,
@@ -17,29 +18,32 @@ import {
   BlogContentTagService,
   BlogShareMainAdminSettingService,
   BlogShareReceiverCategoryService,
-  BlogShareServerCategoryService, CoreEnumService, CoreModuleService, CoreModuleTagService
-} from 'ntk-cms-api';
-import { BlogCategoryDeleteComponent } from './category/delete/delete.component';
-import { BlogCategoryEditComponent } from './category/edit/edit.component';
-import { BlogContentAddComponent } from './content/add/add.component';
-import { BlogContentEditComponent } from './content/edit/edit.component';
+  BlogShareServerCategoryService,
+  CoreEnumService,
+  CoreModuleService,
+  CoreModuleTagService,
+} from "ntk-cms-api";
+import { BlogCategoryDeleteComponent } from "./category/delete/delete.component";
+import { BlogCategoryEditComponent } from "./category/edit/edit.component";
+import { BlogContentAddComponent } from "./content/add/add.component";
+import { BlogContentEditComponent } from "./content/edit/edit.component";
 
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from "src/app/shared/shared.module";
 
-import { AngularEditorModule } from '@kolkov/angular-editor';
+import { AngularEditorModule } from "@kolkov/angular-editor";
 
-import { CmsFileManagerModule } from 'ntk-cms-filemanager';
-import { CmsConfirmationDialogService } from 'src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service';
-import { BlogCategoryAddComponent } from './category/add/add.component';
-import { BlogCategorySelectorComponent } from './category/selector/selector.component';
-import { BlogCategoryTreeSelectorComponent } from './category/tree-selector/tree-selector.component';
-import { BlogCategoryTreeComponent } from './category/tree/tree.component';
-import { BlogCommentEditComponent } from './comment/edit/edit.component';
-import { BlogCommentListComponent } from './comment/list/list.component';
-import { BlogContentDeleteComponent } from './content/delete/delete.component';
-import { BlogContentHeaderComponent } from './content/header/header.component';
-import { BlogContentListComponent } from './content/list/list.component';
-import { BlogContentSelectorComponent } from './content/selector/selector.component';
+import { CmsFileManagerModule } from "ntk-cms-filemanager";
+import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { BlogCategoryAddComponent } from "./category/add/add.component";
+import { BlogCategorySelectorComponent } from "./category/selector/selector.component";
+import { BlogCategoryTreeSelectorComponent } from "./category/tree-selector/tree-selector.component";
+import { BlogCategoryTreeComponent } from "./category/tree/tree.component";
+import { BlogCommentEditComponent } from "./comment/edit/edit.component";
+import { BlogCommentListComponent } from "./comment/list/list.component";
+import { BlogContentDeleteComponent } from "./content/delete/delete.component";
+import { BlogContentHeaderComponent } from "./content/header/header.component";
+import { BlogContentListComponent } from "./content/list/list.component";
+import { BlogContentSelectorComponent } from "./content/selector/selector.component";
 
 @NgModule({
   declarations: [
@@ -64,7 +68,7 @@ import { BlogContentSelectorComponent } from './content/selector/selector.compon
     CommonModule,
     BlogRouting,
     FormsModule,
-    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     SharedModule,
     AngularEditorModule,
     CmsFileManagerModule,
@@ -91,7 +95,6 @@ import { BlogContentSelectorComponent } from './content/selector/selector.compon
     BlogShareMainAdminSettingService,
     BlogShareReceiverCategoryService,
     BlogShareServerCategoryService,
-
-  ]
+  ],
 })
-export class BlogModule { }
+export class BlogModule {}

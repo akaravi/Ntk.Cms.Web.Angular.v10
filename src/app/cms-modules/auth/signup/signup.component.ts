@@ -189,7 +189,8 @@ export class AuthSignUpComponent implements OnInit, OnDestroy {
       const sitelist = localStorage
         .getItem(SELECT_SITE_LOCAL_STORAGE_KEY)
         .split(",");
-      if (sitelist && sitelist.length > 0) this.dataModel.siteId = +sitelist[sitelist.length-1];
+      if (sitelist && sitelist.length > 0)
+        this.dataModel.siteId = +sitelist[sitelist.length - 1];
     }
     const ResellerSiteId = +localStorage.getItem(
       RESSELLER_SITE_ID_LOCAL_STORAGE_KEY,

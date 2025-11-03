@@ -1,27 +1,35 @@
 import {
-  ChangeDetectorRef, Component, Inject, OnInit,
-  ViewChild
-} from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService, DataFieldInfoModel,
-  ErrorExceptionResultBase, FormInfoModel,
+  CoreEnumService,
+  DataFieldInfoModel,
+  ErrorExceptionResultBase,
+  FormInfoModel,
   WebDesignerMainPageModel,
   WebDesignerMainPageService,
-  WebDesignerMainPageTemplateModel, WebDesignerPageAutoAddDtoModel
-} from 'ntk-cms-api';
-import { TreeModel } from 'ntk-cms-filemanager';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
+  WebDesignerMainPageTemplateModel,
+  WebDesignerPageAutoAddDtoModel,
+} from "ntk-cms-api";
+import { TreeModel } from "ntk-cms-filemanager";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 @Component({
-    selector: 'app-webdesigner-pagedependency-autoaddpage',
-    templateUrl: './auto-add-page.component.html',
-    styleUrls: ['./auto-add-page.component.scss'],
-    standalone: false
+  selector: "app-webdesigner-pagedependency-autoaddpage",
+  templateUrl: "./auto-add-page.component.html",
+  styleUrls: ["./auto-add-page.component.scss"],
+  standalone: false,
 })
-export class WebDesignerMainPageDependencyAutoAddPageComponent implements OnInit {
+export class WebDesignerMainPageDependencyAutoAddPageComponent
+  implements OnInit
+{
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -36,41 +44,64 @@ export class WebDesignerMainPageDependencyAutoAddPageComponent implements OnInit
     this.publicHelper.processService.cdr = this.cdr;
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
   }
-  @ViewChild('vform', { static: false }) formGroup: FormGroup;
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
-  selectFileTypeMainImage = ['jpg', 'jpeg', 'png'];
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
+  selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   fileManagerTree: TreeModel;
-  appLanguage = 'fa';
+  appLanguage = "fa";
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
-  dataModel: WebDesignerPageAutoAddDtoModel = new WebDesignerPageAutoAddDtoModel();
+  dataModel: WebDesignerPageAutoAddDtoModel =
+    new WebDesignerPageAutoAddDtoModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
   fileManagerOpenForm = false;
   ngOnInit(): void {
-    this.translate.get('TITLE.Automatically_add_all_pages').subscribe((str: string) => {
-      this.formInfo.formTitle = str;
-    });
-
+    this.translate
+      .get("TITLE.Automatically_add_all_pages")
+      .subscribe((str: string) => {
+        this.formInfo.formTitle = str;
+      });
   }
 
   DataAddContent(): void {
-    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.webDesignerMainPageService.ServiceAutoAdd(this.dataModel).subscribe({
       next: (ret) => {
         this.formInfo.formSubmitAllow = true;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.registration_completed_successfully').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("MESSAGE.registration_completed_successfully")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.cmsToastrService.typeSuccessAdd();
           this.dialogRef.close({ dialogChangedDate: true });
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -80,24 +111,28 @@ export class WebDesignerMainPageDependencyAutoAddPageComponent implements OnInit
         this.formInfo.formSubmitAllow = true;
         this.cmsToastrService.typeError(err);
         this.publicHelper.processService.processStop(pName);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelectModule(model: WebDesignerMainPageTemplateModel | null): void {
     if (!model || model.id.length <= 0) {
-      this.translate.get(['MESSAGE.Specify_the_template', 'MESSAGE.Information_of_template_is_not_clear']).subscribe((str: any) => {
-        this.cmsToastrService.typeErrorMessage(
-          str['MESSAGE.Specify_the_template'],
-          str['MESSAGE.Information_of_template_is_not_clear']
-        );
-      });
+      this.translate
+        .get([
+          "MESSAGE.Specify_the_template",
+          "MESSAGE.Information_of_template_is_not_clear",
+        ])
+        .subscribe((str: any) => {
+          this.cmsToastrService.typeErrorMessage(
+            str["MESSAGE.Specify_the_template"],
+            str["MESSAGE.Information_of_template_is_not_clear"],
+          );
+        });
       return;
     }
     this.dataModel.linkPageTemplateGuId = model.id;
   }
   onActionSelectParent(model: WebDesignerMainPageModel): void {
-    this.dataModel.linkPageParentGuId = '';
+    this.dataModel.linkPageParentGuId = "";
     if (model && model.id && model.id.length > 0) {
       this.dataModel.linkPageParentGuId = model.id;
     }
@@ -107,13 +142,21 @@ export class WebDesignerMainPageDependencyAutoAddPageComponent implements OnInit
       return;
     }
     this.formInfo.formSubmitAllow = false;
-    if (!this.dataModel.linkPageTemplateGuId || this.dataModel.linkPageTemplateGuId.length <= 0) {
-      this.translate.get(['MESSAGE.Specify_the_template', 'MESSAGE.Information_of_template_is_not_clear']).subscribe((str: any) => {
-        this.cmsToastrService.typeErrorMessage(
-          str['MESSAGE.Specify_the_template'],
-          str['MESSAGE.Information_of_template_is_not_clear']
-        );
-      });
+    if (
+      !this.dataModel.linkPageTemplateGuId ||
+      this.dataModel.linkPageTemplateGuId.length <= 0
+    ) {
+      this.translate
+        .get([
+          "MESSAGE.Specify_the_template",
+          "MESSAGE.Information_of_template_is_not_clear",
+        ])
+        .subscribe((str: any) => {
+          this.cmsToastrService.typeErrorMessage(
+            str["MESSAGE.Specify_the_template"],
+            str["MESSAGE.Information_of_template_is_not_clear"],
+          );
+        });
       return;
     }
     this.DataAddContent();

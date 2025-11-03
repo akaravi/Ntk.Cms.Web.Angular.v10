@@ -1,12 +1,12 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
+import { HttpClient } from "@angular/common/http";
+import { Component, Inject, Input, OnDestroy, OnInit } from "@angular/core";
+import { MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-    selector: 'app-cms-view',
-    templateUrl: './cms-view.component.html',
-    standalone: false
+  selector: "app-cms-view",
+  templateUrl: "./cms-view.component.html",
+  standalone: false,
 })
 export class CmsViewComponent implements OnInit, OnDestroy {
   static nextId = 0;
@@ -27,11 +27,6 @@ export class CmsViewComponent implements OnInit, OnDestroy {
   @Input() optionListItems: any[];
   @Input() optionItem: any;
   @Input() optionLabel: "";
-  ngOnInit(): void {
-  }
-  ngOnDestroy(): void {
-
-  }
-
+  ngOnInit(): void {}
+  ngOnDestroy(): void {}
 }
-

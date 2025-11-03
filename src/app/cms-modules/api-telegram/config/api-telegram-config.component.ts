@@ -1,17 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'app-apitelegram-config',
-  template: '<router-outlet></router-outlet>', 
-  standalone: false
+  selector: "app-apitelegram-config",
+  template: "<router-outlet></router-outlet>",
+  standalone: false,
 })
 export class ApiTelegramConfigComponent implements OnInit {
-
   constructorInfoAreaId = this.constructor.name;
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

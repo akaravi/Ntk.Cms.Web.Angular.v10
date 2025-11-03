@@ -1,9 +1,15 @@
-<div class="card card-style loader-container" style="height:100vh;overflow-y: auto;">
-  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId"> </app-progress-spinner>
+<div
+  class="card card-style loader-container"
+  style="height: 100vh; overflow-y: auto"
+>
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
   <div class="menu-title">
-    <p class="color-highlight">{{ formInfo.formTitle }} </p>
-    <a class="close-menu" (click)="onFormCancel()"><i class="fa fa-times-circle"></i></a>
-    <hr>
+    <p class="color-highlight">{{ formInfo.formTitle }}</p>
+    <a class="close-menu" (click)="onFormCancel()"
+      ><i class="fa fa-times-circle"></i
+    ></a>
+    <hr />
   </div>
   <div class="content mb-0">
     <p class="mb-0 color-highlight font-600 font-12">
@@ -13,57 +19,63 @@
     <ng-container *ngIf="!this.publicHelper.processService.process.inRunAll">
       <div class="ntk-cms-html-card-header">
         <!--begin:::::::::::::::::::::::::::::::::::::::::cms-header-->
-        <button type="button" (click)="onActionNext()" *ngIf="requestNextItem&& requestNextItem?.id?.length>0"
-          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray">
+        <button
+          type="button"
+          (click)="onActionNext()"
+          *ngIf="requestNextItem && requestNextItem?.id?.length > 0"
+          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+        >
           <i class="ft-x"></i>
-          < </button> <button type="button" (click)="onActionPervious()"
-              *ngIf="requestPerviousItem&& requestPerviousItem?.id?.length>0"
-              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray">
-              <i class="ft-x"></i>
-              >
-            </button>
-            <hr>
+          <
+        </button>
+        <button
+          type="button"
+          (click)="onActionPervious()"
+          *ngIf="requestPerviousItem && requestPerviousItem?.id?.length > 0"
+          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+        >
+          <i class="ft-x"></i>
+          >
+        </button>
+        <hr />
 
-            <!--end:::::::::::::::::::::::::::::::::::::::::cms-header-->
+        <!--end:::::::::::::::::::::::::::::::::::::::::cms-header-->
       </div>
       <div class="ntk-cms-html-card-body ntk-allow-text-selection" dir="rtl">
-
         <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
-
 
         <table class="table table-striped">
           <tbody>
-
             <tr>
-              <td>{{fieldsInfo['recordStatus']?.fieldTitle}}:</td>
-              <td><i [ngClass]="dataModel.recordStatus|statusIconClass"></i></td>
+              <td>{{ fieldsInfo["recordStatus"]?.fieldTitle }}:</td>
+              <td>
+                <i [ngClass]="dataModel.recordStatus | statusIconClass"></i>
+              </td>
             </tr>
             <tr>
-              <td>{{fieldsInfo['title']?.fieldTitle}}:</td>
-              <td>{{dataModel.title}}</td>
+              <td>{{ fieldsInfo["title"]?.fieldTitle }}:</td>
+              <td>{{ dataModel.title }}</td>
             </tr>
 
             <tr>
-              <td>{{fieldsInfo['createdBy']?.fieldTitle}}:</td>
-              <td>{{dataModel.createdBy| cmsuserinfo |async}}</td>
+              <td>{{ fieldsInfo["createdBy"]?.fieldTitle }}:</td>
+              <td>{{ dataModel.createdBy | cmsuserinfo | async }}</td>
             </tr>
             <tr *ngIf="dataModel.updatedBy">
-              <td>{{fieldsInfo['updatedBy']?.fieldTitle}}:</td>
-              <td>{{dataModel.updatedBy| cmsuserinfo |async}}</td>
+              <td>{{ fieldsInfo["updatedBy"]?.fieldTitle }}:</td>
+              <td>{{ dataModel.updatedBy | cmsuserinfo | async }}</td>
             </tr>
-            <tr *ngIf="dataModel.linkCmsUserId>0">
-              <td>{{fieldsInfo['linkCmsUserId']?.fieldTitle}}:</td>
-              <td>{{dataModel.linkCmsUserId|cmsuserinfo |async}}</td>
-            </tr>
-
-            <tr *ngIf="dataModel.description?.length>0">
-              <td>{{'TITLE.General_Description' | translate}}:</td>
-              <td>{{dataModel.description}}</td>
+            <tr *ngIf="dataModel.linkCmsUserId > 0">
+              <td>{{ fieldsInfo["linkCmsUserId"]?.fieldTitle }}:</td>
+              <td>{{ dataModel.linkCmsUserId | cmsuserinfo | async }}</td>
             </tr>
 
+            <tr *ngIf="dataModel.description?.length > 0">
+              <td>{{ "TITLE.General_Description" | translate }}:</td>
+              <td>{{ dataModel.description }}</td>
+            </tr>
           </tbody>
         </table>
-
 
         <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
       </div>
@@ -71,28 +83,46 @@
         <!--begin:::::::::::::::::::::::::::::::::::::::::cms-message-->
         <div class="form-actions">
           <small class="form-text text-muted">{{ formInfo.formAlert }} </small>
-          <small class="form-text text-muted danger">{{ formInfo.formError }}
+          <small class="form-text text-muted danger"
+            >{{ formInfo.formError }}
           </small>
         </div>
         <!--end:::::::::::::::::::::::::::::::::::::::::cms-message-->
       </div>
       <div class="ntk-cms-html-card-footer">
         <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
-        <div class="form-actions"
-          *ngIf="formInfo.formSubmitAllow  && !this.publicHelper.processService.process.inRunAll">
-          <button type="button" (click)="onFormCancel()"
-            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray">
-            <i class="ft-x"></i> {{'ACTION.CANCEL' | translate}}
+        <div
+          class="form-actions"
+          *ngIf="
+            formInfo.formSubmitAllow &&
+            !this.publicHelper.processService.process.inRunAll
+          "
+        >
+          <button
+            type="button"
+            (click)="onFormCancel()"
+            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+          >
+            <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
           </button>
-          <button type="button" (click)="onActionNext()" *ngIf="requestNextItem&& requestNextItem?.id?.length>0"
-            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray">
+          <button
+            type="button"
+            (click)="onActionNext()"
+            *ngIf="requestNextItem && requestNextItem?.id?.length > 0"
+            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+          >
             <i class="ft-x"></i>
-            < </button>
-              <button type="button" (click)="onActionPervious()"
-                *ngIf="requestPerviousItem&& requestPerviousItem?.id?.length>0"
-                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray">
-                <i class="ft-x"></i>
-                > </button>
+            <
+          </button>
+          <button
+            type="button"
+            (click)="onActionPervious()"
+            *ngIf="requestPerviousItem && requestPerviousItem?.id?.length > 0"
+            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+          >
+            <i class="ft-x"></i>
+            >
+          </button>
         </div>
         <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
       </div>

@@ -1,6 +1,6 @@
 .table {
   display: table;
-  border: 1px solid #40A1F5;
+  border: 1px solid #40a1f5;
   padding: 2px;
   background: white;
   border-radius: 5px;
@@ -12,27 +12,27 @@
   font-weight: bold;
 }
 .table .tr:nth-child(odd) {
-background-color: #F9F9F9;
+  background-color: #f9f9f9;
 }
-.table .tr{
- display: table-row;
- border-bottom: 1px solid #000;
+.table .tr {
+  display: table-row;
+  border-bottom: 1px solid #000;
 }
 .table .td {
- display: table-cell;
- padding: 15px;
- border-bottom: 1px solid #40A1F5;
- color:rgb(61, 124, 122);
+  display: table-cell;
+  padding: 15px;
+  border-bottom: 1px solid #40a1f5;
+  color: rgb(61, 124, 122);
 }
-.table .tr:last-child .td{
- border: 0;
+.table .tr:last-child .td {
+  border: 0;
 }
-.small-width{
+.small-width {
   width: 90px;
 }
-.large-width{
+.large-width {
   width: 400px;
 }
 .clear {
- clear: both;
+  clear: both;
 }

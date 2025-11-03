@@ -1,485 +1,964 @@
-<app-cms-guide-notice [Key]="'estate.property.list.add'" [svg]="'assets/media/svg/icons/General/Notifications1.svg'">
+<app-cms-guide-notice
+  [Key]="'estate.property.list.add'"
+  [svg]="'assets/media/svg/icons/General/Notifications1.svg'"
+>
 </app-cms-guide-notice>
 <div class="card card-style loader-container">
-  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId"> </app-progress-spinner>
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
   <div class="content mb-0">
     <p class="mb-0 color-highlight font-600 font-12">
       {{ formInfo.formTitle }}
     </p>
 
-
     <p>
-      {{'TITLE.Be_Careful_When_Entering_Information' | translate}}
+      {{ "TITLE.Be_Careful_When_Entering_Information" | translate }}
     </p>
     <!--content-->
     <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
-      <mat-vertical-stepper (selectionChange)="onStepClick($event, stepper)" #stepper>
-        <mat-step label="{{ 'TITLE.REQUIRED_INFORMATION' | translate }}" state="main">
+      <mat-vertical-stepper
+        (selectionChange)="onStepClick($event, stepper)"
+        #stepper
+      >
+        <mat-step
+          label="{{ 'TITLE.REQUIRED_INFORMATION' | translate }}"
+          state="main"
+        >
           <!-- LinkPropertyTypeUsageId Field -->
-          <p>{{'TITLE.Type_Usage' | translate }}</p>
-          <app-estate-property-type-usage-selector (optionChange)="onActionSelectorSelectUsage($event)"
-            [optionDisabled]="!fieldsInfo['linkPropertyTypeUsageId']?.accessAddField" [optionTypeView]="2"
+          <p>{{ "TITLE.Type_Usage" | translate }}</p>
+          <app-estate-property-type-usage-selector
+            (optionChange)="onActionSelectorSelectUsage($event)"
+            [optionDisabled]="
+              !fieldsInfo['linkPropertyTypeUsageId']?.accessAddField
+            "
+            [optionTypeView]="2"
             [optionSelectForce]="dataModel.linkPropertyTypeUsageId"
-            [optionPlaceholder]="'TITLE.Type_Usage' | translate">
+            [optionPlaceholder]="'TITLE.Type_Usage' | translate"
+          >
           </app-estate-property-type-usage-selector>
 
           <p
-            *ngIf="dataModel.linkPropertyTypeUsageId && dataModel.linkPropertyTypeUsageId.length > 0 && listTypeLanduse && listTypeLanduse.length > 0">
-            {{'TITLE.Property_Type' | translate }}</p>
+            *ngIf="
+              dataModel.linkPropertyTypeUsageId &&
+              dataModel.linkPropertyTypeUsageId.length > 0 &&
+              listTypeLanduse &&
+              listTypeLanduse.length > 0
+            "
+          >
+            {{ "TITLE.Property_Type" | translate }}
+          </p>
           <!-- LinkPropertyTypeLanduseId Field -->
           <div
-            *ngIf="dataModel.linkPropertyTypeUsageId && dataModel.linkPropertyTypeUsageId.length > 0 && listTypeLanduse && listTypeLanduse.length > 0"
-            class="row mb-0">
-            <div *ngFor="let state of listTypeLanduse" class="col-xl-2 col-lg-3 col-md-4 col-sm-12 pe-1">
-              <a [attr.disabled]="!fieldsInfo['linkPropertyTypeLanduseId']?.accessAddField ? true : null"
-                [ngClass]="state.id===dataModel.linkPropertyTypeLanduseId ? 'btn font-13 font-600 btn-s m-1 rounded-xl shadow-xl border-0 gradient-highlight btn-full' : 'btn font-13 font-600 btn-s m-1 rounded-xl shadow-xl border-blue-dark color-blue-dark bg-theme btn-border btn-full'"
-                (click)="onActionSelectorSelectLanduse(state)">{{ state.titleML }}</a>
+            *ngIf="
+              dataModel.linkPropertyTypeUsageId &&
+              dataModel.linkPropertyTypeUsageId.length > 0 &&
+              listTypeLanduse &&
+              listTypeLanduse.length > 0
+            "
+            class="row mb-0"
+          >
+            <div
+              *ngFor="let state of listTypeLanduse"
+              class="col-xl-2 col-lg-3 col-md-4 col-sm-12 pe-1"
+            >
+              <a
+                [attr.disabled]="
+                  !fieldsInfo['linkPropertyTypeLanduseId']?.accessAddField
+                    ? true
+                    : null
+                "
+                [ngClass]="
+                  state.id === dataModel.linkPropertyTypeLanduseId
+                    ? 'btn font-13 font-600 btn-s m-1 rounded-xl shadow-xl border-0 gradient-highlight btn-full'
+                    : 'btn font-13 font-600 btn-s m-1 rounded-xl shadow-xl border-blue-dark color-blue-dark bg-theme btn-border btn-full'
+                "
+                (click)="onActionSelectorSelectLanduse(state)"
+                >{{ state.titleML }}</a
+              >
             </div>
           </div>
           <!-- LinkPropertyTypeLanduseId Field -->
 
-          <app-estate-property-type-landuse-selector (optionChange)="onActionSelectorSelectLanduse($event)" *ngIf="
+          <app-estate-property-type-landuse-selector
+            (optionChange)="onActionSelectorSelectLanduse($event)"
+            *ngIf="
               (!listTypeLanduse || listTypeLanduse.length === 0) &&
               dataModel.linkPropertyTypeUsageId &&
               dataModel.linkPropertyTypeUsageId.length > 0
-              " [optionDisabled]="
+            "
+            [optionDisabled]="
               !fieldsInfo['linkPropertyTypeLanduseId']?.accessAddField
-              " [optionTypeView]="2" [optionSelectForce]="dataModel.linkPropertyTypeLanduseId"
-            [optionPlaceholder]="'TITLE.Property_Type'  | translate"
-            [optionTypeUsageId]="dataModel.linkPropertyTypeUsageId">
+            "
+            [optionTypeView]="2"
+            [optionSelectForce]="dataModel.linkPropertyTypeLanduseId"
+            [optionPlaceholder]="'TITLE.Property_Type' | translate"
+            [optionTypeUsageId]="dataModel.linkPropertyTypeUsageId"
+          >
           </app-estate-property-type-landuse-selector>
-          <br>
-          <br>
-          <br>
-          <div *ngIf=" dataModel.linkPropertyTypeLanduseId && dataModel.linkPropertyTypeLanduseId.length > 0">
-            <div *ngIf="tokenHelper.isAdminSite || this.tokenHelper.isSupportSite" class="d-flex mb-3">
+          <br />
+          <br />
+          <br />
+          <div
+            *ngIf="
+              dataModel.linkPropertyTypeLanduseId &&
+              dataModel.linkPropertyTypeLanduseId.length > 0
+            "
+          >
+            <div
+              *ngIf="tokenHelper.isAdminSite || this.tokenHelper.isSupportSite"
+              class="d-flex mb-3"
+            >
               <div class="pt-1">
-                <h5 data-trigger-switch="dataProfessional" class="font-600 font-14">
-                  {{"TITLE.Would_you_like_to_complete_your_information" | translate}}</h5>
+                <h5
+                  data-trigger-switch="dataProfessional"
+                  class="font-600 font-14"
+                >
+                  {{
+                    "TITLE.Would_you_like_to_complete_your_information"
+                      | translate
+                  }}
+                </h5>
               </div>
               <div style="position: inherit" class="ms-auto me-3 pe-2">
                 <div class="custom-control ios-switch small-switch">
-                  <input type="checkbox" class="ios-input" id="dataProfessional" [(ngModel)]="dataProfessional"
-                    name="dataProfessional">
-                  <label class="custom-control-label" for="dataProfessional"></label>
+                  <input
+                    type="checkbox"
+                    class="ios-input"
+                    id="dataProfessional"
+                    [(ngModel)]="dataProfessional"
+                    name="dataProfessional"
+                  />
+                  <label
+                    class="custom-control-label"
+                    for="dataProfessional"
+                  ></label>
                 </div>
               </div>
             </div>
-            <br>
+            <br />
             <!-- RecordStatus Field -->
-            <app-cms-enum-record-status-selector *ngIf="dataProfessional &&fieldsInfo['recordStatus']?.accessWatchField"
-              [(model)]="dataModel.recordStatus" [optionDisabled]="false"
-              [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle" [optionRequired]="true"
-              [optionSelectFirstItem]="true"></app-cms-enum-record-status-selector>
-
+            <app-cms-enum-record-status-selector
+              *ngIf="
+                dataProfessional && fieldsInfo['recordStatus']?.accessWatchField
+              "
+              [(model)]="dataModel.recordStatus"
+              [optionDisabled]="false"
+              [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
+              [optionRequired]="true"
+              [optionSelectFirstItem]="true"
+            ></app-cms-enum-record-status-selector>
 
             <!-- Title Field -->
-            <div *ngIf="fieldsInfo['title']?.accessWatchField"
-              class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
-              <label for="dataModel.title" class="color-highlight">{{ fieldsInfo["title"]?.fieldTitle }}</label>
-              <input matInput type="text" [(ngModel)]="dataModel.title" name="dataModel.title" #Title type="text"
-                placeholder="{{fieldsInfo['title']?.fieldTitle }}" disabled="{{ !fieldsInfo['title']?.accessAddField }}"
-                minlength="3" maxlength="100" required class="form-control validate-name" id="dataModel.title" />
-              <i *ngIf="!Title.value" class="fa fa-times  invalid color-red-dark"></i>
-              <i *ngIf="Title.value" class="fa fa-check  valid color-green-dark"></i>
+            <div
+              *ngIf="fieldsInfo['title']?.accessWatchField"
+              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            >
+              <label for="dataModel.title" class="color-highlight">{{
+                fieldsInfo["title"]?.fieldTitle
+              }}</label>
+              <input
+                matInput
+                type="text"
+                [(ngModel)]="dataModel.title"
+                name="dataModel.title"
+                #Title
+                type="text"
+                placeholder="{{ fieldsInfo['title']?.fieldTitle }}"
+                disabled="{{ !fieldsInfo['title']?.accessAddField }}"
+                minlength="3"
+                maxlength="100"
+                required
+                class="form-control validate-name"
+                id="dataModel.title"
+              />
+              <i
+                *ngIf="!Title.value"
+                class="fa fa-times invalid color-red-dark"
+              ></i>
+              <i
+                *ngIf="Title.value"
+                class="fa fa-check valid color-green-dark"
+              ></i>
               <em>{{ Title.value.length }} / 100</em>
               <mat-error *ngIf="Title.errors?.required">
-                {{ fieldsInfo["title"]?.fieldTitle }} <strong>{{ "MESSAGE.required" | translate }}</strong>
+                {{ fieldsInfo["title"]?.fieldTitle }}
+                <strong>{{ "MESSAGE.required" | translate }}</strong>
               </mat-error>
-              <mat-icon matSuffix class="pointer" *ngIf="dataModel.title"
-                (click)="onActionButtonQuickListSearchTitle()">find_replace</mat-icon>
+              <mat-icon
+                matSuffix
+                class="pointer"
+                *ngIf="dataModel.title"
+                (click)="onActionButtonQuickListSearchTitle()"
+                >find_replace</mat-icon
+              >
             </div>
             <!-- CaseCode Field -->
-            <div *ngIf="fieldsInfo['caseCode']?.accessWatchField"
-              class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
-              <label for="dataModel.caseCode" class="color-highlight">{{ fieldsInfo["caseCode"]?.fieldTitle }}</label>
-              <input matInput type="text" [(ngModel)]="dataModel.caseCode" name="dataModel.caseCode" #CaseCode
-                type="text" placeholder="{{fieldsInfo['caseCode']?.fieldTitle }}"
-                disabled="{{ !fieldsInfo['caseCode']?.accessAddField }}" minlength="3" maxlength="100"
-                class="form-control validate-name" id="dataModel.caseCode" />
+            <div
+              *ngIf="fieldsInfo['caseCode']?.accessWatchField"
+              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            >
+              <label for="dataModel.caseCode" class="color-highlight">{{
+                fieldsInfo["caseCode"]?.fieldTitle
+              }}</label>
+              <input
+                matInput
+                type="text"
+                [(ngModel)]="dataModel.caseCode"
+                name="dataModel.caseCode"
+                #CaseCode
+                type="text"
+                placeholder="{{ fieldsInfo['caseCode']?.fieldTitle }}"
+                disabled="{{ !fieldsInfo['caseCode']?.accessAddField }}"
+                minlength="3"
+                maxlength="100"
+                class="form-control validate-name"
+                id="dataModel.caseCode"
+              />
               <em>{{ CaseCode.value.length }} / 100</em>
               <mat-error *ngIf="CaseCode.errors?.required">
-                {{ fieldsInfo["caseCode"]?.fieldTitle }} <strong>{{ "MESSAGE.required" | translate }}</strong>
+                {{ fieldsInfo["caseCode"]?.fieldTitle }}
+                <strong>{{ "MESSAGE.required" | translate }}</strong>
               </mat-error>
             </div>
             <!-- ViewConfigHiddenInList Field -->
-            <div *ngIf="tokenHelper.isAdminSite || this.tokenHelper.isSupportSite" class="d-flex mb-3">
+            <div
+              *ngIf="tokenHelper.isAdminSite || this.tokenHelper.isSupportSite"
+              class="d-flex mb-3"
+            >
               <div class="pt-1">
-                <h5 data-trigger-switch="dataModel.viewConfigHiddenInList" class="font-600 font-14">{{
-                  fieldsInfo["viewConfigHiddenInList"]?.fieldTitle }}</h5>
+                <h5
+                  data-trigger-switch="dataModel.viewConfigHiddenInList"
+                  class="font-600 font-14"
+                >
+                  {{ fieldsInfo["viewConfigHiddenInList"]?.fieldTitle }}
+                </h5>
               </div>
               <div style="position: inherit" class="ms-auto me-3 pe-2">
                 <div class="custom-control ios-switch small-switch">
-                  <input type="checkbox" class="ios-input" id="dataModel.viewConfigHiddenInList"
-                    [(ngModel)]="dataModel.viewConfigHiddenInList" name="dataModel.viewConfigHiddenInList">
-                  <label class="custom-control-label" for="dataModel.viewConfigHiddenInList"></label>
+                  <input
+                    type="checkbox"
+                    class="ios-input"
+                    id="dataModel.viewConfigHiddenInList"
+                    [(ngModel)]="dataModel.viewConfigHiddenInList"
+                    name="dataModel.viewConfigHiddenInList"
+                  />
+                  <label
+                    class="custom-control-label"
+                    for="dataModel.viewConfigHiddenInList"
+                  ></label>
                 </div>
               </div>
             </div>
             <!-- CreatedYaer Field -->
-            <div *ngIf="
-                 this.dataModel.linkPropertyTypeLanduseId &&
-                 PropertyTypeSelected.titleCreatedYaer.length > 1 &&
-                 PropertyTypeSelected.titleCreatedYaer !== '---' "
-              class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+            <div
+              *ngIf="
+                this.dataModel.linkPropertyTypeLanduseId &&
+                PropertyTypeSelected.titleCreatedYaer.length > 1 &&
+                PropertyTypeSelected.titleCreatedYaer !== '---'
+              "
+              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            >
               <label for="dataModel.createdYaer" class="color-highlight">
-                {{ PropertyTypeSelected.titleCreatedYaer }}</label>
-              <input matInput [(ngModel)]="dataModel.createdYaer" name="dataModel.createdYaer" #CreatedYaer
-                type="number" placeholder="{{ fieldsInfo['createdYaer']?.fieldTitle }}"
-                class="form-control validate-name input-ltr-center" id="dataModel.createdYaer" />
+                {{ PropertyTypeSelected.titleCreatedYaer }}</label
+              >
+              <input
+                matInput
+                [(ngModel)]="dataModel.createdYaer"
+                name="dataModel.createdYaer"
+                #CreatedYaer
+                type="number"
+                placeholder="{{ fieldsInfo['createdYaer']?.fieldTitle }}"
+                class="form-control validate-name input-ltr-center"
+                id="dataModel.createdYaer"
+              />
             </div>
             <!-- Partition Field -->
-            <div *ngIf="
-                 this.dataModel.linkPropertyTypeLanduseId &&
-                 PropertyTypeSelected.titlePartition.length > 1 &&
-                 PropertyTypeSelected.titlePartition !== '---'"
-              class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
-              <label for="dataModel.partition" class="color-highlight">{{
-                PropertyTypeSelected.titlePartition}}
+            <div
+              *ngIf="
+                this.dataModel.linkPropertyTypeLanduseId &&
+                PropertyTypeSelected.titlePartition.length > 1 &&
+                PropertyTypeSelected.titlePartition !== '---'
+              "
+              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            >
+              <label for="dataModel.partition" class="color-highlight"
+                >{{ PropertyTypeSelected.titlePartition }}
               </label>
-              <input matInput [(ngModel)]="dataModel.partition" name="dataModel.partition" #Partition type="number"
+              <input
+                matInput
+                [(ngModel)]="dataModel.partition"
+                name="dataModel.partition"
+                #Partition
+                type="number"
                 placeholder="{{ PropertyTypeSelected.titlePartition }}"
-                class="form-control validate-name input-ltr-center" id="dataModel.partition" />
+                class="form-control validate-name input-ltr-center"
+                id="dataModel.partition"
+              />
             </div>
             <!-- Area Field -->
-            <div *ngIf="fieldsInfo['area']?.accessWatchField"
-              class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
-              <label for="dataModel.area" class="color-highlight">{{
-                fieldsInfo["area"]?.fieldTitle}}
+            <div
+              *ngIf="fieldsInfo['area']?.accessWatchField"
+              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            >
+              <label for="dataModel.area" class="color-highlight"
+                >{{ fieldsInfo["area"]?.fieldTitle }}
               </label>
-              <input matInput [(ngModel)]="dataModel.area" name="dataModel.area" #Area type="text" currencyMask
-                disabled="{{ !fieldsInfo['area']?.accessAddField }}" placeholder="{{ fieldsInfo['area']?.fieldTitle }}"
-                class="form-control validate-name input-ltr-center" id="dataModel.area" />
+              <input
+                matInput
+                [(ngModel)]="dataModel.area"
+                name="dataModel.area"
+                #Area
+                type="text"
+                currencyMask
+                disabled="{{ !fieldsInfo['area']?.accessAddField }}"
+                placeholder="{{ fieldsInfo['area']?.fieldTitle }}"
+                class="form-control validate-name input-ltr-center"
+                id="dataModel.area"
+              />
             </div>
             <!-- LinkLocationId Field -->
-            <app-cms-location-selector (optionChange)="onActionSelectorLocation($event)"
+            <app-cms-location-selector
+              (optionChange)="onActionSelectorLocation($event)"
               [optionDisabled]="!fieldsInfo['linkLocationId']?.accessAddField"
-              [optionSelectForce]="dataModel.linkLocationId" [optionPlaceholder]="'TITLE.Region' | translate">
+              [optionSelectForce]="dataModel.linkLocationId"
+              [optionPlaceholder]="'TITLE.Region' | translate"
+            >
             </app-cms-location-selector>
             <!-- Address Field -->
-            <div *ngIf="fieldsInfo['address']?.accessWatchField"
-              class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
-              <label for="dataModel.address" class="color-highlight">{{ fieldsInfo["address"]?.fieldTitle }}</label>
-              <textarea matInput [(ngModel)]="dataModel.address" name="dataModel.address" #Address type="text"
+            <div
+              *ngIf="fieldsInfo['address']?.accessWatchField"
+              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            >
+              <label for="dataModel.address" class="color-highlight">{{
+                fieldsInfo["address"]?.fieldTitle
+              }}</label>
+              <textarea
+                matInput
+                [(ngModel)]="dataModel.address"
+                name="dataModel.address"
+                #Address
+                type="text"
                 placeholder="{{ fieldsInfo['address']?.fieldTitle }}"
-                [disabled]="!fieldsInfo['address']?.accessAddField" minlength="1" maxlength="500" rows="5"
-                id="dataModel.address" class="form-control validate-name">
-                 </textarea>
+                [disabled]="!fieldsInfo['address']?.accessAddField"
+                minlength="1"
+                maxlength="500"
+                rows="5"
+                id="dataModel.address"
+                class="form-control validate-name"
+              >
+              </textarea>
               <em>{{ Address.value.length }} / 500</em>
             </div>
             <!-- Description Field -->
-            <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
-              <label for="dataModel.description" class="color-highlight">{{ "TITLE.General_Description" | translate
-                }}</label>
-              <textarea matInput [(ngModel)]="dataModel.description" name="dataModel.description" #Description
-                type="text" placeholder="{{fieldsInfo['description']?.fieldTitle}}" minlength="1" maxlength="2000"
-                rows="5" required id="dataModel.description" class="form-control validate-name">
-                    </textarea>
+            <div
+              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            >
+              <label for="dataModel.description" class="color-highlight">{{
+                "TITLE.General_Description" | translate
+              }}</label>
+              <textarea
+                matInput
+                [(ngModel)]="dataModel.description"
+                name="dataModel.description"
+                #Description
+                type="text"
+                placeholder="{{ fieldsInfo['description']?.fieldTitle }}"
+                minlength="1"
+                maxlength="2000"
+                rows="5"
+                required
+                id="dataModel.description"
+                class="form-control validate-name"
+              >
+              </textarea>
               <em>{{ Description.value.length }} / 2000</em>
-              <i *ngIf="!Description.value" class="fa fa-times  invalid color-red-dark"></i>
-              <i *ngIf="Description.value" class="fa fa-check  valid color-green-dark"></i>
+              <i
+                *ngIf="!Description.value"
+                class="fa fa-times invalid color-red-dark"
+              ></i>
+              <i
+                *ngIf="Description.value"
+                class="fa fa-check valid color-green-dark"
+              ></i>
               <mat-error *ngIf="Description.errors?.required">
-                {{ fieldsInfo["description"]?.fieldTitle }} <strong>{{'MESSAGE.required' | translate}}</strong>
+                {{ fieldsInfo["description"]?.fieldTitle }}
+                <strong>{{ "MESSAGE.required" | translate }}</strong>
               </mat-error>
             </div>
-            <div class="form-actions" *ngIf="formInfo.formSubmitAllow ">
-              <button type="button" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+            <div class="form-actions" *ngIf="formInfo.formSubmitAllow">
+              <button
+                type="button"
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
                 (click)="onActionBackToParent()"
-                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray">
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+              >
                 {{ "ACTION.CANCEL" | translate }}
               </button>
-              <button type="button" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
-                *ngIf="dataModel.linkPropertyTypeUsageId && dataModel.linkPropertyTypeUsageId.length > 0"
-                [disabled]="!vform.form.valid" matStepperNext>
+              <button
+                type="button"
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
+                *ngIf="
+                  dataModel.linkPropertyTypeUsageId &&
+                  dataModel.linkPropertyTypeUsageId.length > 0
+                "
+                [disabled]="!vform.form.valid"
+                matStepperNext
+              >
                 {{ "ACTION.NEXT" | translate }}
               </button>
             </div>
           </div>
         </mat-step>
 
-        <mat-step label="{{ 'TITLE.Admin_Config' | translate }}" state="main" *ngIf="tokenHelper.isAdminSite">
+        <mat-step
+          label="{{ 'TITLE.Admin_Config' | translate }}"
+          state="main"
+          *ngIf="tokenHelper.isAdminSite"
+        >
           <!-- LinkSiteId Field -->
-          <div *ngIf="fieldsInfo['linkSiteId']?.accessWatchField && this.tokenHelper.isAdminSite"
-            class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
-            <label for="dataModel.title" class="color-highlight">{{fieldsInfo['linkSiteId']?.fieldTitle}}</label>
-            <input type="text" [(ngModel)]="dataModel.linkSiteId" name="dataModel.linkSiteId" #LinkSiteId
+          <div
+            *ngIf="
+              fieldsInfo['linkSiteId']?.accessWatchField &&
+              this.tokenHelper.isAdminSite
+            "
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+          >
+            <label for="dataModel.title" class="color-highlight">{{
+              fieldsInfo["linkSiteId"]?.fieldTitle
+            }}</label>
+            <input
+              type="text"
+              [(ngModel)]="dataModel.linkSiteId"
+              name="dataModel.linkSiteId"
+              #LinkSiteId
               placeholder="{{ fieldsInfo['linkSiteId']?.fieldTitle }}"
-              disabled="{{ !fieldsInfo['linkSiteId']?.accessAddField }}" minlength="3" maxlength="100"
-              class="form-control validate-name" id="dataModel.linkSiteId" />
+              disabled="{{ !fieldsInfo['linkSiteId']?.accessAddField }}"
+              minlength="3"
+              maxlength="100"
+              class="form-control validate-name"
+              id="dataModel.linkSiteId"
+            />
           </div>
           <!-- viewContentHidden Field -->
-          <div *ngIf="fieldsInfo['viewContentHidden']?.accessWatchField" class="d-flex mb-3">
+          <div
+            *ngIf="fieldsInfo['viewContentHidden']?.accessWatchField"
+            class="d-flex mb-3"
+          >
             <div class="pt-1">
-              <h5 data-trigger-switch="dataModel.viewContentHidden" class="font-600 font-14">{{
-                fieldsInfo["viewContentHidden"]?.fieldTitle }}</h5>
+              <h5
+                data-trigger-switch="dataModel.viewContentHidden"
+                class="font-600 font-14"
+              >
+                {{ fieldsInfo["viewContentHidden"]?.fieldTitle }}
+              </h5>
             </div>
             <div style="position: inherit" class="ms-auto me-3 pe-2">
               <div class="custom-control ios-switch small-switch">
-                <input type="checkbox" class="ios-input" id="dataModel.viewContentHidden"
-                  [(ngModel)]="dataModel.viewContentHidden" name="dataModel.viewContentHidden">
-                <label class="custom-control-label" for="dataModel.viewContentHidden"></label>
+                <input
+                  type="checkbox"
+                  class="ios-input"
+                  id="dataModel.viewContentHidden"
+                  [(ngModel)]="dataModel.viewContentHidden"
+                  name="dataModel.viewContentHidden"
+                />
+                <label
+                  class="custom-control-label"
+                  for="dataModel.viewContentHidden"
+                ></label>
               </div>
             </div>
           </div>
           <!-- siteAdminViewContentHidden Field -->
-          <div *ngIf="tokenHelper.isAdminSite || this.tokenHelper.isSupportSite" class="d-flex mb-3">
+          <div
+            *ngIf="tokenHelper.isAdminSite || this.tokenHelper.isSupportSite"
+            class="d-flex mb-3"
+          >
             <div class="pt-1">
-              <h5 data-trigger-switch="dataModel.siteAdminViewContentHidden" class="font-600 font-14"> {{
-                fieldsInfo["siteAdminViewContentHidden"]?.fieldTitle }}</h5>
+              <h5
+                data-trigger-switch="dataModel.siteAdminViewContentHidden"
+                class="font-600 font-14"
+              >
+                {{ fieldsInfo["siteAdminViewContentHidden"]?.fieldTitle }}
+              </h5>
             </div>
             <div style="position: inherit" class="ms-auto me-3 pe-2">
               <div class="custom-control ios-switch small-switch">
-                <input type="checkbox" class="ios-input" id="dataModel.siteAdminViewContentHidden"
-                  [(ngModel)]="dataModel.siteAdminViewContentHidden" name="dataModel.siteAdminViewContentHidden">
-                <label class="custom-control-label" for="dataModel.siteAdminViewContentHidden"></label>
+                <input
+                  type="checkbox"
+                  class="ios-input"
+                  id="dataModel.siteAdminViewContentHidden"
+                  [(ngModel)]="dataModel.siteAdminViewContentHidden"
+                  name="dataModel.siteAdminViewContentHidden"
+                />
+                <label
+                  class="custom-control-label"
+                  for="dataModel.siteAdminViewContentHidden"
+                ></label>
               </div>
             </div>
           </div>
 
           <!-- MainAdminRecordStatus Field -->
-          <app-cms-enum-record-status-selector *ngIf="fieldsInfo['mainAdminRecordStatus']?.accessWatchField"
-            [(model)]="dataModel.mainAdminRecordStatus" [optionDisabled]="false"
-            [optionLabel]="fieldsInfo['mainAdminRecordStatus']?.fieldTitle" [optionRequired]="false"
-            [optionSelectFirstItem]="true"></app-cms-enum-record-status-selector>
-
+          <app-cms-enum-record-status-selector
+            *ngIf="fieldsInfo['mainAdminRecordStatus']?.accessWatchField"
+            [(model)]="dataModel.mainAdminRecordStatus"
+            [optionDisabled]="false"
+            [optionLabel]="fieldsInfo['mainAdminRecordStatus']?.fieldTitle"
+            [optionRequired]="false"
+            [optionSelectFirstItem]="true"
+          ></app-cms-enum-record-status-selector>
 
           <!-- score Field -->
-          <div *ngIf="tokenHelper.isAdminSite || this.tokenHelper.isSupportSite">
+          <div
+            *ngIf="tokenHelper.isAdminSite || this.tokenHelper.isSupportSite"
+          >
             <!-- scoreEstateLocation Field -->
             <div class="range-slider bottom-15 range-slider-icons">
-              <label for="dataModel.scoreEstateLocation" class="color-highlight">{{
-                fieldsInfo["scoreEstateLocation"]?.fieldTitle }}</label>
+              <label
+                for="dataModel.scoreEstateLocation"
+                class="color-highlight"
+                >{{ fieldsInfo["scoreEstateLocation"]?.fieldTitle }}</label
+              >
               <i class="fa fa-range-icon-1 fa-angle-down color-theme"></i>
               <i class="fa fa-range-icon-2 fa-angle-up color-theme"></i>
-              <input class="ios-slider input-ltr" type="range" min="0" max="10" id="dataModel.scoreEstateLocation"
-                [(ngModel)]="dataModel.scoreEstateLocation" name="dataModel.scoreEstateLocation"
-                #scoreEstateLocation="ngModel" [disabled]="!fieldsInfo['scoreEstateLocation']?.accessEditField"
-                ngClass="cms-range-score-{{ dataModel.scoreEstateLocation }}">
+              <input
+                class="ios-slider input-ltr"
+                type="range"
+                min="0"
+                max="10"
+                id="dataModel.scoreEstateLocation"
+                [(ngModel)]="dataModel.scoreEstateLocation"
+                name="dataModel.scoreEstateLocation"
+                #scoreEstateLocation="ngModel"
+                [disabled]="!fieldsInfo['scoreEstateLocation']?.accessEditField"
+                ngClass="cms-range-score-{{ dataModel.scoreEstateLocation }}"
+              />
             </div>
             <!-- scoreEstateBuild Field -->
             <div class="range-slider bottom-15 range-slider-icons">
               <label for="dataModel.scoreEstateBuild" class="color-highlight">{{
-                fieldsInfo["scoreEstateBuild"]?.fieldTitle }}</label>
+                fieldsInfo["scoreEstateBuild"]?.fieldTitle
+              }}</label>
               <i class="fa fa-range-icon-1 fa-angle-down color-theme"></i>
               <i class="fa fa-range-icon-2 fa-angle-up color-theme"></i>
-              <input class="ios-slider input-ltr" type="range" min="0" max="10" id="dataModel.scoreEstateBuild"
-                [(ngModel)]="dataModel.scoreEstateBuild" name="dataModel.scoreEstateBuild" #scoreEstateBuild="ngModel"
+              <input
+                class="ios-slider input-ltr"
+                type="range"
+                min="0"
+                max="10"
+                id="dataModel.scoreEstateBuild"
+                [(ngModel)]="dataModel.scoreEstateBuild"
+                name="dataModel.scoreEstateBuild"
+                #scoreEstateBuild="ngModel"
                 [disabled]="!fieldsInfo['scoreEstateBuild']?.accessEditField"
-                ngClass="cms-range-score-{{ dataModel.scoreEstateBuild }}">
+                ngClass="cms-range-score-{{ dataModel.scoreEstateBuild }}"
+              />
             </div>
             <!-- scoreEstatePrice Field -->
             <div class="range-slider bottom-15 range-slider-icons">
               <label for="dataModel.scoreEstatePrice" class="color-highlight">{{
-                fieldsInfo["scoreEstatePrice"]?.fieldTitle }}</label>
+                fieldsInfo["scoreEstatePrice"]?.fieldTitle
+              }}</label>
               <i class="fa fa-range-icon-1 fa-angle-down color-theme"></i>
               <i class="fa fa-range-icon-2 fa-angle-up color-theme"></i>
-              <input class="ios-slider input-ltr" type="range" min="0" max="10" id="dataModel.scoreEstatePrice"
-                [(ngModel)]="dataModel.scoreEstatePrice" name="dataModel.scoreEstatePrice" #scoreEstatePrice="ngModel"
+              <input
+                class="ios-slider input-ltr"
+                type="range"
+                min="0"
+                max="10"
+                id="dataModel.scoreEstatePrice"
+                [(ngModel)]="dataModel.scoreEstatePrice"
+                name="dataModel.scoreEstatePrice"
+                #scoreEstatePrice="ngModel"
                 [disabled]="!fieldsInfo['scoreEstatePrice']?.accessEditField"
-                ngClass="cms-range-score-{{ dataModel.scoreEstatePrice }}">
+                ngClass="cms-range-score-{{ dataModel.scoreEstatePrice }}"
+              />
             </div>
           </div>
 
-          <div class="form-actions" *ngIf="formInfo.formSubmitAllow ">
-            <button type="button" matStepperPrevious
-              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue">
+          <div class="form-actions" *ngIf="formInfo.formSubmitAllow">
+            <button
+              type="button"
+              matStepperPrevious
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
+            >
               {{ "ACTION.BEFOR" | translate }}
             </button>
-            <button type="button" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
-              *ngIf="dataModel.linkPropertyTypeUsageId && dataModel.linkPropertyTypeUsageId.length > 0"
-              [disabled]="!vform.form.valid" matStepperNext>
+            <button
+              type="button"
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
+              *ngIf="
+                dataModel.linkPropertyTypeUsageId &&
+                dataModel.linkPropertyTypeUsageId.length > 0
+              "
+              [disabled]="!vform.form.valid"
+              matStepperNext
+            >
               {{ "ACTION.NEXT" | translate }}
             </button>
           </div>
         </mat-step>
 
-        <mat-step label="{{ 'TITLE.Personal_Information' | translate }}" state="main">
-
-
+        <mat-step
+          label="{{ 'TITLE.Personal_Information' | translate }}"
+          state="main"
+        >
           <!-- linkEstateAgencyId Field -->
-          <app-estate-account-agency-selector *ngIf="tokenHelper.isAdminSite"
+          <app-estate-account-agency-selector
+            *ngIf="tokenHelper.isAdminSite"
             (optionChange)="onActionSelectorEstateAgency($event)"
             [optionDisabled]="!fieldsInfo['linkEstateAgencyId']?.accessAddField"
-            [optionSelectForce]="dataModel.linkEstateAgencyId" [optionSelectUserId]="tokenInfo.access.userId"
-            [optionPlaceholder]="'TITLE.Property_agency'  | translate">
+            [optionSelectForce]="dataModel.linkEstateAgencyId"
+            [optionSelectUserId]="tokenInfo.access.userId"
+            [optionPlaceholder]="'TITLE.Property_agency' | translate"
+          >
           </app-estate-account-agency-selector>
 
           <!-- LinkEstateExpertId Field -->
-          <app-estate-account-expert-selector *ngIf="tokenHelper.isAdminSite"
+          <app-estate-account-expert-selector
+            *ngIf="tokenHelper.isAdminSite"
             (optionChange)="onActionSelectorEstateUser($event)"
             [optionDisabled]="!fieldsInfo['linkEstateExpertId']?.accessAddField"
             [optionSelectForce]="dataModel.linkEstateExpertId"
-            [optionPlaceholder]="'TITLE.Property_personnel' | translate ">
+            [optionPlaceholder]="'TITLE.Property_personnel' | translate"
+          >
           </app-estate-account-expert-selector>
           <!-- AboutAgentMobile Field -->
-          <div *ngIf="fieldsInfo['aboutAgentMobile']?.accessWatchField"
-            class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+          <div
+            *ngIf="fieldsInfo['aboutAgentMobile']?.accessWatchField"
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+          >
             <label for="dataModel.aboutAgentMobile" class="color-highlight">{{
-              fieldsInfo["aboutAgentMobile"]?.fieldTitle }}</label>
-            <input matInput type="text" [(ngModel)]="dataModel.aboutAgentMobile" name="dataModel.aboutAgentMobile"
-              #AboutAgentMobile type="text" placeholder="{{ fieldsInfo['aboutAgentMobile']?.fieldTitle }}"
-              disabled="{{ !fieldsInfo['aboutAgentMobile']?.accessAddField }}" minlength="0" maxlength="100"
-              class="form-control validate-name" id="dataModel.title" />
+              fieldsInfo["aboutAgentMobile"]?.fieldTitle
+            }}</label>
+            <input
+              matInput
+              type="text"
+              [(ngModel)]="dataModel.aboutAgentMobile"
+              name="dataModel.aboutAgentMobile"
+              #AboutAgentMobile
+              type="text"
+              placeholder="{{ fieldsInfo['aboutAgentMobile']?.fieldTitle }}"
+              disabled="{{ !fieldsInfo['aboutAgentMobile']?.accessAddField }}"
+              minlength="0"
+              maxlength="100"
+              class="form-control validate-name"
+              id="dataModel.title"
+            />
             <em>{{ AboutAgentMobile.value.length }} / 100</em>
           </div>
           <!-- AboutAgentTel Field -->
-          <div *ngIf="fieldsInfo['aboutAgentTel']?.accessWatchField"
-            class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
-            <label for="dataModel.aboutAgentTel" class="color-highlight">{{ fieldsInfo["aboutAgentTel"]?.fieldTitle
-              }}</label>
-            <input matInput type="text" [(ngModel)]="dataModel.aboutAgentTel" name="dataModel.aboutAgentTel"
-              #AboutAgentTel type="text" placeholder="{{ fieldsInfo['aboutAgentTel']?.fieldTitle }}"
-              disabled="{{ !fieldsInfo['aboutAgentTel']?.accessAddField }}" minlength="0" maxlength="100"
-              class="form-control validate-name" id="dataModel.title" />
+          <div
+            *ngIf="fieldsInfo['aboutAgentTel']?.accessWatchField"
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+          >
+            <label for="dataModel.aboutAgentTel" class="color-highlight">{{
+              fieldsInfo["aboutAgentTel"]?.fieldTitle
+            }}</label>
+            <input
+              matInput
+              type="text"
+              [(ngModel)]="dataModel.aboutAgentTel"
+              name="dataModel.aboutAgentTel"
+              #AboutAgentTel
+              type="text"
+              placeholder="{{ fieldsInfo['aboutAgentTel']?.fieldTitle }}"
+              disabled="{{ !fieldsInfo['aboutAgentTel']?.accessAddField }}"
+              minlength="0"
+              maxlength="100"
+              class="form-control validate-name"
+              id="dataModel.title"
+            />
             <em>{{ AboutAgentTel.value.length }} / 100</em>
           </div>
           <!-- AboutCustomerMobile Field -->
-          <div *ngIf="fieldsInfo['aboutCustomerMobile']?.accessWatchField"
-            class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
-            <label for="dataModel.aboutCustomerMobile" class="color-highlight">{{
-              fieldsInfo["aboutCustomerMobile"]?.fieldTitle }}</label>
-            <input matInput type="text" [(ngModel)]="dataModel.aboutCustomerMobile" name="dataModel.aboutCustomerMobile"
-              #AboutCustomerMobile type="text" placeholder="{{ fieldsInfo['aboutCustomerMobile']?.fieldTitle }}"
-              disabled="{{ !fieldsInfo['aboutCustomerMobile']?.accessAddField }}" minlength="0" maxlength="100"
-              class="form-control validate-name" id="dataModel.title" />
+          <div
+            *ngIf="fieldsInfo['aboutCustomerMobile']?.accessWatchField"
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+          >
+            <label
+              for="dataModel.aboutCustomerMobile"
+              class="color-highlight"
+              >{{ fieldsInfo["aboutCustomerMobile"]?.fieldTitle }}</label
+            >
+            <input
+              matInput
+              type="text"
+              [(ngModel)]="dataModel.aboutCustomerMobile"
+              name="dataModel.aboutCustomerMobile"
+              #AboutCustomerMobile
+              type="text"
+              placeholder="{{ fieldsInfo['aboutCustomerMobile']?.fieldTitle }}"
+              disabled="{{
+                !fieldsInfo['aboutCustomerMobile']?.accessAddField
+              }}"
+              minlength="0"
+              maxlength="100"
+              class="form-control validate-name"
+              id="dataModel.title"
+            />
             <em>{{ AboutCustomerMobile.value.length }} / 100</em>
 
-
-            <mat-icon matSuffix class="pointer" *ngIf="dataModel.aboutCustomerMobile"
-              (click)="onActionButtonQuickListSearchCustomerMobile()">find_replace</mat-icon>
+            <mat-icon
+              matSuffix
+              class="pointer"
+              *ngIf="dataModel.aboutCustomerMobile"
+              (click)="onActionButtonQuickListSearchCustomerMobile()"
+              >find_replace</mat-icon
+            >
           </div>
           <!-- AboutCustomerTel Field -->
-          <div *ngIf="fieldsInfo['aboutCustomerTel']?.accessWatchField"
-            class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+          <div
+            *ngIf="fieldsInfo['aboutCustomerTel']?.accessWatchField"
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+          >
             <label for="dataModel.aboutCustomerTel" class="color-highlight">{{
-              fieldsInfo["aboutCustomerTel"]?.fieldTitle }}</label>
-            <input matInput type="text" [(ngModel)]="dataModel.aboutCustomerTel" name="dataModel.aboutCustomerTel"
-              #AboutCustomerTel type="text" placeholder="{{ fieldsInfo['aboutCustomerTel']?.fieldTitle }}"
-              disabled="{{ !fieldsInfo['aboutCustomerTel']?.accessAddField }}" minlength="0" maxlength="100"
-              class="form-control validate-name" id="dataModel.title" />
+              fieldsInfo["aboutCustomerTel"]?.fieldTitle
+            }}</label>
+            <input
+              matInput
+              type="text"
+              [(ngModel)]="dataModel.aboutCustomerTel"
+              name="dataModel.aboutCustomerTel"
+              #AboutCustomerTel
+              type="text"
+              placeholder="{{ fieldsInfo['aboutCustomerTel']?.fieldTitle }}"
+              disabled="{{ !fieldsInfo['aboutCustomerTel']?.accessAddField }}"
+              minlength="0"
+              maxlength="100"
+              class="form-control validate-name"
+              id="dataModel.title"
+            />
             <em>{{ AboutCustomerTel.value.length }} / 100</em>
-            <mat-icon matSuffix class="pointer" *ngIf="dataModel.aboutCustomerTel"
-              (click)="onActionButtonQuickListSearchCustomerTel()">find_replace</mat-icon>
+            <mat-icon
+              matSuffix
+              class="pointer"
+              *ngIf="dataModel.aboutCustomerTel"
+              (click)="onActionButtonQuickListSearchCustomerTel()"
+              >find_replace</mat-icon
+            >
           </div>
 
+          <!-- actionCreateNewCmsUser Field  -->
+          <div
+            *ngIf="fieldsInfo['actionCreateNewCmsUser']?.accessWatchField"
+            class="blockquote"
+          >
+            <div class="d-flex mb-3">
+              <div class="pt-1">
+                <h5
+                  data-trigger-switch="dataModel.actionCreateNewCmsUser"
+                  class="font-600 font-14"
+                >
+                  {{ "TITLE.CREATE_NEW_USER" | translate }}
+                </h5>
+              </div>
+              <div class="ms-auto me-3 pe-2">
+                <div class="custom-control ios-switch small-switch">
+                  <input
+                    type="checkbox"
+                    class="ios-input"
+                    id="dataModel.actionCreateNewCmsUser"
+                    [(ngModel)]="dataModel.actionCreateNewCmsUser"
+                    name="dataModel.actionCreateNewCmsUser"
+                  />
+                  <label
+                    class="custom-control-label"
+                    for="dataModel.actionCreateNewCmsUser"
+                  ></label>
+                </div>
+              </div>
+            </div>
 
-     <!-- actionCreateNewCmsUser Field  -->
-     <div *ngIf="fieldsInfo['actionCreateNewCmsUser']?.accessWatchField" class="blockquote">
+            <!-- LinkCmsUserId Field -->
+            <app-cms-user-selector
+              *ngIf="!dataModel.actionCreateNewCmsUser"
+              (optionChange)="onActionSelectorCmsUser($event)"
+              [optionDisabled]="!fieldsInfo['linkCmsUserId']?.accessAddField"
+              [optionSelectForce]="dataModel.linkCmsUserId"
+              [optionPlaceholder]="'TITLE.user' | translate"
+            >
+            </app-cms-user-selector>
 
+            <!-- actionCreateNewCmsUserFirstName Field -->
+            <div
+              *ngIf="dataModel.actionCreateNewCmsUser"
+              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            >
+              <label
+                for="dataModel.actionCreateNewCmsUserFirstName"
+                class="color-highlight"
+                >{{ "TITLE.FIRST_NAME" | translate }}</label
+              >
+              <input
+                matInput
+                type="text"
+                [(ngModel)]="dataModel.actionCreateNewCmsUserFirstName"
+                name="dataModel.actionCreateNewCmsUserFirstName"
+                #actionCreateNewCmsUserFirstName
+                type="text"
+                placeholder="{{ 'TITLE.FIRST_NAME' | translate }}"
+                minlength="3"
+                maxlength="50"
+                class="form-control validate-name"
+                id="dataModel.actionCreateNewCmsUserFirstName"
+              />
+              <i
+                *ngIf="!actionCreateNewCmsUserFirstName.value"
+                class="fa fa-times invalid color-red-dark"
+              ></i>
+              <i
+                *ngIf="actionCreateNewCmsUserFirstName.value"
+                class="fa fa-check valid color-green-dark"
+              ></i>
+              <em>{{ actionCreateNewCmsUserFirstName.value.length }} / 50</em>
+              <mat-error
+                *ngIf="actionCreateNewCmsUserFirstName.errors?.required"
+              >
+                <strong>{{ "MESSAGE.required" | translate }}</strong>
+              </mat-error>
+            </div>
 
+            <!-- actionCreateNewCmsUserLastName Field -->
+            <div
+              *ngIf="dataModel.actionCreateNewCmsUser"
+              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            >
+              <label
+                for="dataModel.actionCreateNewCmsUserLastName"
+                class="color-highlight"
+                >{{ "TITLE.LAST_NAME" | translate }}</label
+              >
+              <input
+                matInput
+                type="text"
+                [(ngModel)]="dataModel.actionCreateNewCmsUserLastName"
+                name="dataModel.actionCreateNewCmsUserLastName"
+                #actionCreateNewCmsUserLastName
+                type="text"
+                placeholder="{{ 'TITLE.LAST_NAME' | translate }}"
+                minlength="3"
+                maxlength="50"
+                class="form-control validate-name"
+                id="dataModel.actionCreateNewCmsUserLastName"
+              />
+              <i
+                *ngIf="!actionCreateNewCmsUserLastName.value"
+                class="fa fa-times invalid color-red-dark"
+              ></i>
+              <i
+                *ngIf="actionCreateNewCmsUserLastName.value"
+                class="fa fa-check valid color-green-dark"
+              ></i>
+              <em>{{ actionCreateNewCmsUserLastName.value.length }} / 50</em>
+              <mat-error
+                *ngIf="actionCreateNewCmsUserLastName.errors?.required"
+              >
+                <strong>{{ "MESSAGE.required" | translate }}</strong>
+              </mat-error>
+            </div>
 
-      <div class="d-flex mb-3">
-        <div class="pt-1">
-                        <h5 data-trigger-switch="dataModel.actionCreateNewCmsUser" class="font-600 font-14">{{'TITLE.CREATE_NEW_USER' | translate}}
-          </h5>
-        </div>
-        <div class="ms-auto me-3 pe-2">
-          <div class="custom-control ios-switch small-switch">
-            <input type="checkbox" class="ios-input" id="dataModel.actionCreateNewCmsUser"
-              [(ngModel)]="dataModel.actionCreateNewCmsUser" name="dataModel.actionCreateNewCmsUser">
-            <label class="custom-control-label" for="dataModel.actionCreateNewCmsUser"></label>
+            <!-- actionCreateNewCmsUserMobile Field -->
+            <div
+              *ngIf="dataModel.actionCreateNewCmsUser"
+              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            >
+              <label
+                for="dataModel.actionCreateNewCmsUserMobile"
+                class="color-highlight"
+                >{{ "TITLE.MOBILE_NUMBER" | translate }}</label
+              >
+              <input
+                matInput
+                type="text"
+                [(ngModel)]="dataModel.actionCreateNewCmsUserMobile"
+                name="dataModel.actionCreateNewCmsUserMobile"
+                #actionCreateNewCmsUserMobile
+                type="text"
+                placeholder="0912"
+                minlength="3"
+                maxlength="20"
+                class="form-control validate-name"
+                id="dataModel.actionCreateNewCmsUserMobile"
+              />
+              <i
+                *ngIf="!actionCreateNewCmsUserMobile.value"
+                class="fa fa-times invalid color-red-dark"
+              ></i>
+              <i
+                *ngIf="actionCreateNewCmsUserMobile.value"
+                class="fa fa-check valid color-green-dark"
+              ></i>
+              <em>{{ actionCreateNewCmsUserMobile.value.length }} / 20</em>
+              <mat-error *ngIf="actionCreateNewCmsUserMobile.errors?.required">
+                <strong>{{ "MESSAGE.required" | translate }}</strong>
+              </mat-error>
+            </div>
           </div>
-        </div>
-      </div>
 
-
-
-
-      <!-- LinkCmsUserId Field -->
-      <app-cms-user-selector *ngIf="!dataModel.actionCreateNewCmsUser"
-        (optionChange)="onActionSelectorCmsUser($event)"
-        [optionDisabled]="!fieldsInfo['linkCmsUserId']?.accessAddField" [optionSelectForce]="dataModel.linkCmsUserId"
-        [optionPlaceholder]="'TITLE.user'  | translate">
-      </app-cms-user-selector>
-
-      <!-- actionCreateNewCmsUserFirstName Field -->
-      <div *ngIf="dataModel.actionCreateNewCmsUser"
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
-                      <label for="dataModel.actionCreateNewCmsUserFirstName" class="color-highlight">{{'TITLE.FIRST_NAME' | translate}}</label>
-              <input matInput type="text" [(ngModel)]="dataModel.actionCreateNewCmsUserFirstName"
-                name="dataModel.actionCreateNewCmsUserFirstName" #actionCreateNewCmsUserFirstName type="text"
-                placeholder="{{'TITLE.FIRST_NAME' | translate}}" minlength="3" maxlength="50"  class="form-control validate-name"
-          id="dataModel.actionCreateNewCmsUserFirstName" />
-        <i *ngIf="!actionCreateNewCmsUserFirstName.value" class="fa fa-times  invalid color-red-dark"></i>
-        <i *ngIf="actionCreateNewCmsUserFirstName.value" class="fa fa-check  valid color-green-dark"></i>
-        <em>{{ actionCreateNewCmsUserFirstName.value.length }} / 50</em>
-        <mat-error *ngIf="actionCreateNewCmsUserFirstName.errors?.required">
-          <strong>{{'MESSAGE.required' | translate}}</strong>
-        </mat-error>
-      </div>
-
-
-      <!-- actionCreateNewCmsUserLastName Field -->
-      <div *ngIf="dataModel.actionCreateNewCmsUser"
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
-                      <label for="dataModel.actionCreateNewCmsUserLastName" class="color-highlight">{{'TITLE.LAST_NAME' | translate}}</label>
-              <input matInput type="text" [(ngModel)]="dataModel.actionCreateNewCmsUserLastName"
-                name="dataModel.actionCreateNewCmsUserLastName" #actionCreateNewCmsUserLastName type="text"
-                placeholder="{{'TITLE.LAST_NAME' | translate}}" minlength="3" maxlength="50"  class="form-control validate-name"
-          id="dataModel.actionCreateNewCmsUserLastName" />
-        <i *ngIf="!actionCreateNewCmsUserLastName.value" class="fa fa-times  invalid color-red-dark"></i>
-        <i *ngIf="actionCreateNewCmsUserLastName.value" class="fa fa-check  valid color-green-dark"></i>
-        <em>{{ actionCreateNewCmsUserLastName.value.length }} / 50</em>
-        <mat-error *ngIf="actionCreateNewCmsUserLastName.errors?.required">
-          <strong>{{'MESSAGE.required' | translate}}</strong>
-        </mat-error>
-      </div>
-
-
-
-      <!-- actionCreateNewCmsUserMobile Field -->
-      <div *ngIf="dataModel.actionCreateNewCmsUser"
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
-                      <label for="dataModel.actionCreateNewCmsUserMobile" class="color-highlight">{{'TITLE.MOBILE_NUMBER' | translate}}</label>
-        <input matInput type="text" [(ngModel)]="dataModel.actionCreateNewCmsUserMobile"
-          name="dataModel.actionCreateNewCmsUserMobile" #actionCreateNewCmsUserMobile type="text" placeholder="0912"
-          minlength="3" maxlength="20"  class="form-control validate-name"
-          id="dataModel.actionCreateNewCmsUserMobile" />
-        <i *ngIf="!actionCreateNewCmsUserMobile.value" class="fa fa-times  invalid color-red-dark"></i>
-        <i *ngIf="actionCreateNewCmsUserMobile.value" class="fa fa-check  valid color-green-dark"></i>
-        <em>{{ actionCreateNewCmsUserMobile.value.length }} / 20</em>
-        <mat-error *ngIf="actionCreateNewCmsUserMobile.errors?.required">
-          <strong>{{'MESSAGE.required' | translate}}</strong>
-        </mat-error>
-      </div>
-
-
-    </div>
-
-
-
-
-
-          <div class="form-actions" *ngIf="formInfo.formSubmitAllow ">
-            <button type="button" matStepperPrevious
-              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue">
+          <div class="form-actions" *ngIf="formInfo.formSubmitAllow">
+            <button
+              type="button"
+              matStepperPrevious
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
+            >
               {{ "ACTION.BEFOR" | translate }}
             </button>
-            <button type="button" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
-              *ngIf="dataModel.linkPropertyTypeUsageId && dataModel.linkPropertyTypeUsageId.length > 0"
-              [disabled]="!vform.form.valid" matStepperNext>
+            <button
+              type="button"
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
+              *ngIf="
+                dataModel.linkPropertyTypeUsageId &&
+                dataModel.linkPropertyTypeUsageId.length > 0
+              "
+              [disabled]="!vform.form.valid"
+              matStepperNext
+            >
               {{ "ACTION.NEXT" | translate }}
             </button>
           </div>
         </mat-step>
 
-        <mat-step label="{{ 'TITLE.Details' | translate }}" state="seo"
-          *ngIf="dataModel.propertyDetailGroups && dataModel.propertyDetailGroups.length > 0">
-          <p>{{ "TITLE.Property_details_according_to_the_type_of_property"| translate}}</p>
+        <mat-step
+          label="{{ 'TITLE.Details' | translate }}"
+          state="seo"
+          *ngIf="
+            dataModel.propertyDetailGroups &&
+            dataModel.propertyDetailGroups.length > 0
+          "
+        >
+          <p>
+            {{
+              "TITLE.Property_details_according_to_the_type_of_property"
+                | translate
+            }}
+          </p>
           <!-- LinkPropertyCompanyId Field -->
-          <app-estate-property-company-selector *ngIf="tokenHelper.isAdminSite"
-            (optionChange)="onActionSelectorCompany($event)" [optionSelectForce]="dataModel.linkPropertyCompanyId"
-            [optionPlaceholder]="'TITLE.Company' | translate ">
+          <app-estate-property-company-selector
+            *ngIf="tokenHelper.isAdminSite"
+            (optionChange)="onActionSelectorCompany($event)"
+            [optionSelectForce]="dataModel.linkPropertyCompanyId"
+            [optionPlaceholder]="'TITLE.Company' | translate"
+          >
           </app-estate-property-company-selector>
           <!-- LinkPropertyProjectId Field -->
-          <app-estate-property-project-selector *ngIf="tokenHelper.isAdminSite"
-            (optionChange)="onActionSelectorProject($event)" [optionSelectForce]="dataModel.linkPropertyProjectId"
-            [optionPlaceholder]="'TITLE.Project' | translate ">
+          <app-estate-property-project-selector
+            *ngIf="tokenHelper.isAdminSite"
+            (optionChange)="onActionSelectorProject($event)"
+            [optionSelectForce]="dataModel.linkPropertyProjectId"
+            [optionPlaceholder]="'TITLE.Project' | translate"
+          >
           </app-estate-property-project-selector>
           <hr />
           <mat-accordion class="example-headers-align">
-            <mat-expansion-panel *ngFor="let itemGroup of dataModel.propertyDetailGroups; index as i"
-              [expanded]="step === i" (opened)="setStep(i)">
+            <mat-expansion-panel
+              *ngFor="
+                let itemGroup of dataModel.propertyDetailGroups;
+                index as i
+              "
+              [expanded]="step === i"
+              (opened)="setStep(i)"
+            >
               <mat-expansion-panel-header>
                 <mat-panel-title>{{ itemGroup.title }}</mat-panel-title>
                 <mat-panel-description>
@@ -488,109 +967,213 @@
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <!-- value-->
-              <ng-container *ngFor="let itemDetail of itemGroup.propertyDetails">
+              <ng-container
+                *ngFor="let itemDetail of itemGroup.propertyDetails"
+              >
                 <ng-container [ngSwitch]="itemDetail.inputDataType">
                   <!-- ngSwitchCase-->
-                  <div *ngSwitchCase="enumInputDataType.String" class="ntk-full-width">
-                    <i [ngClass]="itemDetail.iconFont" [style.color]="itemDetail.iconColor"
-                      aria-hidden="true"></i>&nbsp;&nbsp;
-                    <app-input-string [(model)]="propertyDetails[itemDetail.id]"
-                      [optionForceUseDefaultValue]="itemDetail.configValueForceUseDefaultValue"
-                      [optionMultipleChoice]="itemDetail.configValueMultipleChoice"
-                      [optionDefaultValue]="itemDetail.configValueDefaultValues" [optionLabel]="itemDetail.title"
-                      style="color:'{{ itemDetail.iconColor }}';">
+                  <div
+                    *ngSwitchCase="enumInputDataType.String"
+                    class="ntk-full-width"
+                  >
+                    <i
+                      [ngClass]="itemDetail.iconFont"
+                      [style.color]="itemDetail.iconColor"
+                      aria-hidden="true"
+                    ></i
+                    >&nbsp;&nbsp;
+                    <app-input-string
+                      [(model)]="propertyDetails[itemDetail.id]"
+                      [optionForceUseDefaultValue]="
+                        itemDetail.configValueForceUseDefaultValue
+                      "
+                      [optionMultipleChoice]="
+                        itemDetail.configValueMultipleChoice
+                      "
+                      [optionDefaultValue]="itemDetail.configValueDefaultValues"
+                      [optionLabel]="itemDetail.title"
+                      style="color:'{{ itemDetail.iconColor }}';"
+                    >
                     </app-input-string>
                   </div>
                   <!-- ngSwitchCase-->
-                  <div *ngSwitchCase="enumInputDataType.Int" class="ntk-full-width">
-                    <i [ngClass]="itemDetail.iconFont" [style.color]="itemDetail.iconColor"
-                      aria-hidden="true"></i>&nbsp;&nbsp;
-                    <app-input-int [(model)]="propertyDetails[itemDetail.id]" [optionLabel]="itemDetail.title"
-                      style="color:'{{ itemDetail.iconColor }}';">
+                  <div
+                    *ngSwitchCase="enumInputDataType.Int"
+                    class="ntk-full-width"
+                  >
+                    <i
+                      [ngClass]="itemDetail.iconFont"
+                      [style.color]="itemDetail.iconColor"
+                      aria-hidden="true"
+                    ></i
+                    >&nbsp;&nbsp;
+                    <app-input-int
+                      [(model)]="propertyDetails[itemDetail.id]"
+                      [optionLabel]="itemDetail.title"
+                      style="color:'{{ itemDetail.iconColor }}';"
+                    >
                     </app-input-int>
                   </div>
                   <!-- ngSwitchCase-->
-                  <div *ngSwitchCase="enumInputDataType.Boolean" class="ntk-full-width">
-                    <i [ngClass]="itemDetail.iconFont" [style.color]="itemDetail.iconColor"
-                      aria-hidden="true"></i>&nbsp;&nbsp;
-                    <app-input-boolean [(model)]="propertyDetails[itemDetail.id]">{{ itemDetail.title }}
+                  <div
+                    *ngSwitchCase="enumInputDataType.Boolean"
+                    class="ntk-full-width"
+                  >
+                    <i
+                      [ngClass]="itemDetail.iconFont"
+                      [style.color]="itemDetail.iconColor"
+                      aria-hidden="true"
+                    ></i
+                    >&nbsp;&nbsp;
+                    <app-input-boolean
+                      [(model)]="propertyDetails[itemDetail.id]"
+                      >{{ itemDetail.title }}
                     </app-input-boolean>
                   </div>
                   <br />
                   <!-- ngSwitchCase-->
-                  <div *ngSwitchCase="enumInputDataType.Float" class="ntk-full-width">
-                    <i [ngClass]="itemDetail.iconFont" [style.color]="itemDetail.iconColor"
-                      aria-hidden="true"></i>&nbsp;&nbsp;
-                    <app-input-float [(model)]="propertyDetails[itemDetail.id]" [optionLabel]="itemDetail.title"
-                      style="color:'{{ itemDetail.iconColor }}';">
+                  <div
+                    *ngSwitchCase="enumInputDataType.Float"
+                    class="ntk-full-width"
+                  >
+                    <i
+                      [ngClass]="itemDetail.iconFont"
+                      [style.color]="itemDetail.iconColor"
+                      aria-hidden="true"
+                    ></i
+                    >&nbsp;&nbsp;
+                    <app-input-float
+                      [(model)]="propertyDetails[itemDetail.id]"
+                      [optionLabel]="itemDetail.title"
+                      style="color:'{{ itemDetail.iconColor }}';"
+                    >
                     </app-input-float>
                   </div>
                   <!-- ngSwitchCase-->
-                  <div *ngSwitchCase="enumInputDataType.Date" class="ntk-full-width">
-                    <i [ngClass]="itemDetail.iconFont" [style.color]="itemDetail.iconColor"
-                      aria-hidden="true"></i>&nbsp;&nbsp;
+                  <div
+                    *ngSwitchCase="enumInputDataType.Date"
+                    class="ntk-full-width"
+                  >
+                    <i
+                      [ngClass]="itemDetail.iconFont"
+                      [style.color]="itemDetail.iconColor"
+                      aria-hidden="true"
+                    ></i
+                    >&nbsp;&nbsp;
                     <label style="color:'{{ itemDetail.iconColor }}';">{{
                       itemDetail.title
-                      }}</label>
-                    <app-input-date [(model)]="propertyDetails[itemDetail.id]"></app-input-date>
+                    }}</label>
+                    <app-input-date
+                      [(model)]="propertyDetails[itemDetail.id]"
+                    ></app-input-date>
                   </div>
                   <!-- ngSwitchCase-->
-                  <div *ngSwitchCase="enumInputDataType.TextArea" class="ntk-full-width">
-                    <i [ngClass]="itemDetail.iconFont" [style.color]="itemDetail.iconColor"
-                      aria-hidden="true"></i>&nbsp;&nbsp;
-                    <app-input-textarea [(model)]="propertyDetails[itemDetail.id]" [optionLabel]="itemDetail.title"
-                      style="color:'{{ itemDetail.iconColor }}';"></app-input-textarea>
+                  <div
+                    *ngSwitchCase="enumInputDataType.TextArea"
+                    class="ntk-full-width"
+                  >
+                    <i
+                      [ngClass]="itemDetail.iconFont"
+                      [style.color]="itemDetail.iconColor"
+                      aria-hidden="true"
+                    ></i
+                    >&nbsp;&nbsp;
+                    <app-input-textarea
+                      [(model)]="propertyDetails[itemDetail.id]"
+                      [optionLabel]="itemDetail.title"
+                      style="color:'{{ itemDetail.iconColor }}';"
+                    ></app-input-textarea>
                   </div>
                   <!-- ngSwitchCase-->
                   <div *ngSwitchDefault>
-                    <i [ngClass]="itemDetail.iconFont" [style.color]="itemDetail.iconColor"
-                      aria-hidden="true"></i>&nbsp;&nbsp;
-                    <app-input-string [(model)]="propertyDetails[itemDetail.id]" [optionLabel]="itemDetail.title"
-                      style="color:'{{ itemDetail.iconColor }}';"></app-input-string>
+                    <i
+                      [ngClass]="itemDetail.iconFont"
+                      [style.color]="itemDetail.iconColor"
+                      aria-hidden="true"
+                    ></i
+                    >&nbsp;&nbsp;
+                    <app-input-string
+                      [(model)]="propertyDetails[itemDetail.id]"
+                      [optionLabel]="itemDetail.title"
+                      style="color:'{{ itemDetail.iconColor }}';"
+                    ></app-input-string>
                   </div>
                 </ng-container>
               </ng-container>
               <mat-action-row>
-                <button type="button" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
-                  *ngIf="i > 0" (click)="prevStep()">
+                <button
+                  type="button"
+                  class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
+                  *ngIf="i > 0"
+                  (click)="prevStep()"
+                >
                   {{ "ACTION.BEFOR" | translate }}
                 </button>
-                <button type="button" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
-                  *ngIf="i + 1 < dataModel.propertyDetailGroups.length" (click)="nextStep()">
+                <button
+                  type="button"
+                  class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
+                  *ngIf="i + 1 < dataModel.propertyDetailGroups.length"
+                  (click)="nextStep()"
+                >
                   {{ "ACTION.NEXT" | translate }}
                 </button>
-                <button type="button" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
-                  *ngIf="i + 1 === dataModel.propertyDetailGroups.length" (click)="nextStep()">
+                <button
+                  type="button"
+                  class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
+                  *ngIf="i + 1 === dataModel.propertyDetailGroups.length"
+                  (click)="nextStep()"
+                >
                   {{ "ACTION.END" | translate }}
                 </button>
               </mat-action-row>
             </mat-expansion-panel>
             <br />
           </mat-accordion>
-          <div class="form-actions" *ngIf="formInfo.formSubmitAllow ">
-            <button type="button" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
-              matStepperPrevious>
+          <div class="form-actions" *ngIf="formInfo.formSubmitAllow">
+            <button
+              type="button"
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
+              matStepperPrevious
+            >
               {{ "ACTION.BEFOR" | translate }}
             </button>
-            <button type="button" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
-              [disabled]="!vform.form.valid" matStepperNext>
+            <button
+              type="button"
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
+              [disabled]="!vform.form.valid"
+              matStepperNext
+            >
               {{ "ACTION.NEXT" | translate }}
             </button>
           </div>
         </mat-step>
 
-        <mat-step label="{{ 'TITLE.SECRET_INFORMATION' | translate }}" state="main">
+        <mat-step
+          label="{{ 'TITLE.SECRET_INFORMATION' | translate }}"
+          state="main"
+        >
           <!-- DescriptionHidden Field -->
-          <div *ngIf="fieldsInfo['descriptionHidden']?.accessWatchField"
-            class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
-            <label for="dataModel.descriptionHidden" class="color-highlight">{{
-              "TITLE.Description_Hidden" | translate}}
+          <div
+            *ngIf="fieldsInfo['descriptionHidden']?.accessWatchField"
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+          >
+            <label for="dataModel.descriptionHidden" class="color-highlight"
+              >{{ "TITLE.Description_Hidden" | translate }}
             </label>
-            <textarea matInput [(ngModel)]="dataModel.descriptionHidden" name="dataModel.descriptionHidden"
-              #DescriptionHidden type="text" placeholder="{{ fieldsInfo['descriptionHidden']?.fieldTitle }}"
-              minlength="0" maxlength="2000" rows="5" id="dataModel.descriptionHidden"
-              class="form-control validate-name">
-             </textarea>
+            <textarea
+              matInput
+              [(ngModel)]="dataModel.descriptionHidden"
+              name="dataModel.descriptionHidden"
+              #DescriptionHidden
+              type="text"
+              placeholder="{{ fieldsInfo['descriptionHidden']?.fieldTitle }}"
+              minlength="0"
+              maxlength="2000"
+              rows="5"
+              id="dataModel.descriptionHidden"
+              class="form-control validate-name"
+            >
+            </textarea>
             <em>{{ DescriptionHidden.value.length }} / 2000</em>
             <mat-error *ngIf="DescriptionHidden.errors?.required">
               {{ fieldsInfo["descriptionHidden"]?.fieldTitle }}
@@ -598,70 +1181,138 @@
             </mat-error>
           </div>
           <!-- AddressHidden Field -->
-          <div *ngIf="fieldsInfo['addressHidden']?.accessWatchField"
-            class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+          <div
+            *ngIf="fieldsInfo['addressHidden']?.accessWatchField"
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+          >
             <label for="dataModel.addressHidden" class="color-highlight">
               {{ "TITLE.Address_Hidden" | translate }}
             </label>
-            <textarea matInput [(ngModel)]="dataModel.addressHidden" name="dataModel.addressHidden" #AddressHidden
-              type="text" placeholder="{{ fieldsInfo['addressHidden']?.fieldTitle }}" minlength="0" maxlength="2000"
-              rows="5" id="dataModel.addressHidden" class="form-control validate-name">
-              </textarea>
+            <textarea
+              matInput
+              [(ngModel)]="dataModel.addressHidden"
+              name="dataModel.addressHidden"
+              #AddressHidden
+              type="text"
+              placeholder="{{ fieldsInfo['addressHidden']?.fieldTitle }}"
+              minlength="0"
+              maxlength="2000"
+              rows="5"
+              id="dataModel.addressHidden"
+              class="form-control validate-name"
+            >
+            </textarea>
             <em>{{ AddressHidden.value.length }} / 2000</em>
             <mat-error *ngIf="AddressHidden.errors?.required">
               {{ fieldsInfo["addressHidden"]?.fieldTitle }}
               <strong>{{ "MESSAGE.required" | translate }}</strong>
             </mat-error>
           </div>
-          <div class="form-actions" *ngIf="formInfo.formSubmitAllow ">
-            <button type="button" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
-              matStepperPrevious>
+          <div class="form-actions" *ngIf="formInfo.formSubmitAllow">
+            <button
+              type="button"
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
+              matStepperPrevious
+            >
               {{ "ACTION.BEFOR" | translate }}
             </button>
-            <button type="button" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
-              [disabled]="!vform.form.valid" matStepperNext>
+            <button
+              type="button"
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
+              [disabled]="!vform.form.valid"
+              matStepperNext
+            >
               {{ "ACTION.NEXT" | translate }}
             </button>
           </div>
         </mat-step>
 
-        <mat-step label="{{ 'TITLE.Transaction' | translate }}" state="contract">
-          <p>{{"TITLE.Specify_the_type_of_transaction_for_this_property"| translate}}</p>
-          <app-estate-contract-type-selector (optionChange)="onActionSelectorContractType($event)" [optionTypeView]="2"
-            [optionDisabled]="false" [optionPlaceholder]="translate.get('TITLE.Type_Of_Transaction')| async"
-            [optionSelectForce]="contractDataModel.linkEstateContractTypeId">
+        <mat-step
+          label="{{ 'TITLE.Transaction' | translate }}"
+          state="contract"
+        >
+          <p>
+            {{
+              "TITLE.Specify_the_type_of_transaction_for_this_property"
+                | translate
+            }}
+          </p>
+          <app-estate-contract-type-selector
+            (optionChange)="onActionSelectorContractType($event)"
+            [optionTypeView]="2"
+            [optionDisabled]="false"
+            [optionPlaceholder]="
+              translate.get('TITLE.Type_Of_Transaction') | async
+            "
+            [optionSelectForce]="contractDataModel.linkEstateContractTypeId"
+          >
           </app-estate-contract-type-selector>
-          <div class="container" *ngIf="contractTypeSelected && contractTypeSelected.id.length > 0">
-            <br>
-            <br>
-            <app-cms-currency-selector [optionSelectFirstItem]="currencyOptionSelectFirstItem"
-              [optionSelectForce]="contractDataModel.linkCoreCurrencyId" (optionChange)="onActionSelectCurrency($event)"
-              [optionPlaceholder]="'TITLE.Specify_the_transaction_currency'  | translate">
+          <div
+            class="container"
+            *ngIf="contractTypeSelected && contractTypeSelected.id.length > 0"
+          >
+            <br />
+            <br />
+            <app-cms-currency-selector
+              [optionSelectFirstItem]="currencyOptionSelectFirstItem"
+              [optionSelectForce]="contractDataModel.linkCoreCurrencyId"
+              (optionChange)="onActionSelectCurrency($event)"
+              [optionPlaceholder]="
+                'TITLE.Specify_the_transaction_currency' | translate
+              "
+            >
             </app-cms-currency-selector>
             <div *ngIf="contractDataModel.linkCoreCurrencyId > 0">
               <!-- SalePrice Field -->
               <div *ngIf="contractTypeSelected.hasSalePrice" class="row">
-                <div class="col-6 input-style has-borders no-icon input-style-always-active validate-field mb-4">
-                  <label for="contractDataModel.salePrice"
-                    class="color-highlight">contractTypeSelected.titleSalePriceML</label>
-                  <input matInput type="text" [(ngModel)]="contractDataModel.salePrice"
-                    name="contractDataModel.salePrice" currencyMask type="text" placeholder="0"
+                <div
+                  class="col-6 input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                >
+                  <label
+                    for="contractDataModel.salePrice"
+                    class="color-highlight"
+                    >contractTypeSelected.titleSalePriceML</label
+                  >
+                  <input
+                    matInput
+                    type="text"
+                    [(ngModel)]="contractDataModel.salePrice"
+                    name="contractDataModel.salePrice"
+                    currencyMask
+                    type="text"
+                    placeholder="0"
                     [disabled]="contractDataModel.salePriceByAgreement"
-                    class="form-control validate-name input-ltr-center" id="contractDataModel.salePrice" />
+                    class="form-control validate-name input-ltr-center"
+                    id="contractDataModel.salePrice"
+                  />
                 </div>
                 <div class="col-3">
-                  <div *ngIf="contractTypeSelected.salePriceAllowAgreement" class="d-flex mb-3">
+                  <div
+                    *ngIf="contractTypeSelected.salePriceAllowAgreement"
+                    class="d-flex mb-3"
+                  >
                     <div class="pt-1">
-                      <h5 data-trigger-switch="contractDataModel.salePriceAllowAgreement" class="font-600 font-14">{{
-                        "TITLE.Agreement" | translate }}</h5>
+                      <h5
+                        data-trigger-switch="contractDataModel.salePriceAllowAgreement"
+                        class="font-600 font-14"
+                      >
+                        {{ "TITLE.Agreement" | translate }}
+                      </h5>
                     </div>
                     <div class="ms-auto me-3 pe-2">
                       <div class="custom-control ios-switch small-switch">
-                        <input type="checkbox" class="ios-input" id="contractDataModel.salePriceAllowAgreement"
+                        <input
+                          type="checkbox"
+                          class="ios-input"
+                          id="contractDataModel.salePriceAllowAgreement"
                           [(ngModel)]="contractDataModel.salePriceByAgreement"
                           name="contractDataModel.salePriceAllowAgreement"
-                          (change)="onActionClickSalePriceAllowAgreement()">
-                        <label class="custom-control-label" for="contractDataModel.salePriceAllowAgreement"></label>
+                          (change)="onActionClickSalePriceAllowAgreement()"
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="contractDataModel.salePriceAllowAgreement"
+                        ></label>
                       </div>
                     </div>
                   </div>
@@ -669,28 +1320,56 @@
               </div>
               <!-- DepositPrice Field -->
               <div *ngIf="contractTypeSelected.hasDepositPrice" class="row">
-                <div class="col-6 input-style has-borders no-icon input-style-always-active validate-field mb-4">
-                  <label for="contractDataModel.depositPrice" class="color-highlight">{{
-                    contractTypeSelected.titleDepositPriceML
-                    }}</label>
-                  <input matInput type="text" [(ngModel)]="contractDataModel.depositPrice"
-                    name="contractDataModel.depositPrice" currencyMask type="text" placeholder="0"
+                <div
+                  class="col-6 input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                >
+                  <label
+                    for="contractDataModel.depositPrice"
+                    class="color-highlight"
+                    >{{ contractTypeSelected.titleDepositPriceML }}</label
+                  >
+                  <input
+                    matInput
+                    type="text"
+                    [(ngModel)]="contractDataModel.depositPrice"
+                    name="contractDataModel.depositPrice"
+                    currencyMask
+                    type="text"
+                    placeholder="0"
                     [disabled]="contractDataModel.depositPriceByAgreement"
-                    class="form-control validate-name input-ltr-center" id="contractDataModel.depositPrice" />
+                    class="form-control validate-name input-ltr-center"
+                    id="contractDataModel.depositPrice"
+                  />
                 </div>
                 <div class="col-3">
-                  <div *ngIf="contractTypeSelected.depositPriceAllowAgreement" class="d-flex mb-3">
+                  <div
+                    *ngIf="contractTypeSelected.depositPriceAllowAgreement"
+                    class="d-flex mb-3"
+                  >
                     <div class="pt-1">
-                      <h5 data-trigger-switch="contractDataModel.depositPriceByAgreement" class="font-600 font-14">{{
-                        "TITLE.Agreement" | translate }}</h5>
+                      <h5
+                        data-trigger-switch="contractDataModel.depositPriceByAgreement"
+                        class="font-600 font-14"
+                      >
+                        {{ "TITLE.Agreement" | translate }}
+                      </h5>
                     </div>
                     <div class="ms-auto me-3 pe-2">
                       <div class="custom-control ios-switch small-switch">
-                        <input type="checkbox" class="ios-input" id="contractDataModel.depositPriceByAgreement"
-                          [(ngModel)]="contractDataModel.depositPriceByAgreement"
+                        <input
+                          type="checkbox"
+                          class="ios-input"
+                          id="contractDataModel.depositPriceByAgreement"
+                          [(ngModel)]="
+                            contractDataModel.depositPriceByAgreement
+                          "
                           name="contractDataModel.depositPriceByAgreement"
-                          (change)="onActionClickDepositPriceByAgreement()">
-                        <label class="custom-control-label" for="contractDataModel.depositPriceByAgreement"></label>
+                          (change)="onActionClickDepositPriceByAgreement()"
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="contractDataModel.depositPriceByAgreement"
+                        ></label>
                       </div>
                     </div>
                   </div>
@@ -698,27 +1377,54 @@
               </div>
               <!-- RentPrice Field -->
               <div *ngIf="contractTypeSelected.hasRentPrice" class="row">
-                <div class="col-6 input-style has-borders no-icon input-style-always-active validate-field mb-4">
-                  <label for="contractDataModel.rentPrice"
-                    class="color-highlight">contractTypeSelected.titleRentPriceML</label>
-                  <input matInput type="text" [(ngModel)]="contractDataModel.rentPrice"
-                    name="contractDataModel.rentPrice" currencyMask type="text" placeholder="0"
+                <div
+                  class="col-6 input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                >
+                  <label
+                    for="contractDataModel.rentPrice"
+                    class="color-highlight"
+                    >contractTypeSelected.titleRentPriceML</label
+                  >
+                  <input
+                    matInput
+                    type="text"
+                    [(ngModel)]="contractDataModel.rentPrice"
+                    name="contractDataModel.rentPrice"
+                    currencyMask
+                    type="text"
+                    placeholder="0"
                     [disabled]="contractDataModel.rentPriceByAgreement"
-                    class="form-control validate-name input-ltr-center" id="contractDataModel.rentPrice" />
+                    class="form-control validate-name input-ltr-center"
+                    id="contractDataModel.rentPrice"
+                  />
                 </div>
                 <div class="col-3">
-                  <div *ngIf="contractTypeSelected.rentPriceAllowAgreement" class="d-flex mb-3">
+                  <div
+                    *ngIf="contractTypeSelected.rentPriceAllowAgreement"
+                    class="d-flex mb-3"
+                  >
                     <div class="pt-1">
-                      <h5 data-trigger-switch="contractDataModel.rentPriceByAgreement" class="font-600 font-14">{{
-                        "TITLE.Agreement" | translate }}</h5>
+                      <h5
+                        data-trigger-switch="contractDataModel.rentPriceByAgreement"
+                        class="font-600 font-14"
+                      >
+                        {{ "TITLE.Agreement" | translate }}
+                      </h5>
                     </div>
                     <div class="ms-auto me-3 pe-2">
                       <div class="custom-control ios-switch small-switch">
-                        <input type="checkbox" class="ios-input" id="contractDataModel.rentPriceByAgreement"
+                        <input
+                          type="checkbox"
+                          class="ios-input"
+                          id="contractDataModel.rentPriceByAgreement"
                           [(ngModel)]="contractDataModel.rentPriceByAgreement"
                           name="contractDataModel.rentPriceByAgreement"
-                          (change)="onActionClickRentPriceAllowAgreement()">
-                        <label class="custom-control-label" for="contractDataModel.rentPriceByAgreement"></label>
+                          (change)="onActionClickRentPriceAllowAgreement()"
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="contractDataModel.rentPriceByAgreement"
+                        ></label>
                       </div>
                     </div>
                   </div>
@@ -726,60 +1432,115 @@
               </div>
               <!-- periodPrice Field -->
               <div *ngIf="contractTypeSelected.hasPeriodPrice" class="row">
-                <div class="col-6 input-style has-borders no-icon input-style-always-active validate-field mb-4">
-                  <label for="contractDataModel.periodPrice"
-                    class="color-highlight">contractTypeSelected.titlePeriodPriceML</label>
-                  <input matInput type="text" [(ngModel)]="contractDataModel.periodPrice"
-                    name="contractDataModel.periodPrice" currencyMask type="text" placeholder="0"
+                <div
+                  class="col-6 input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                >
+                  <label
+                    for="contractDataModel.periodPrice"
+                    class="color-highlight"
+                    >contractTypeSelected.titlePeriodPriceML</label
+                  >
+                  <input
+                    matInput
+                    type="text"
+                    [(ngModel)]="contractDataModel.periodPrice"
+                    name="contractDataModel.periodPrice"
+                    currencyMask
+                    type="text"
+                    placeholder="0"
                     [disabled]="contractDataModel.periodPriceByAgreement"
-                    class="form-control validate-name input-ltr-center" id="contractDataModel.periodPrice" />
+                    class="form-control validate-name input-ltr-center"
+                    id="contractDataModel.periodPrice"
+                  />
                 </div>
                 <div class="col-3">
-                  <div *ngIf=" contractTypeSelected.hasPeriodPrice && contractTypeSelected.periodPriceAllowAgreement"
-                    class="d-flex mb-3">
+                  <div
+                    *ngIf="
+                      contractTypeSelected.hasPeriodPrice &&
+                      contractTypeSelected.periodPriceAllowAgreement
+                    "
+                    class="d-flex mb-3"
+                  >
                     <div class="pt-1">
-                      <h5 data-trigger-switch="contractDataModel.periodPriceByAgreement" class="font-600 font-14">{{
-                        "TITLE.Agreement" | translate }}</h5>
+                      <h5
+                        data-trigger-switch="contractDataModel.periodPriceByAgreement"
+                        class="font-600 font-14"
+                      >
+                        {{ "TITLE.Agreement" | translate }}
+                      </h5>
                     </div>
                     <div class="ms-auto me-3 pe-2">
                       <div class="custom-control ios-switch small-switch">
-                        <input type="checkbox" class="ios-input" id="contractDataModel.periodPriceByAgreement"
+                        <input
+                          type="checkbox"
+                          class="ios-input"
+                          id="contractDataModel.periodPriceByAgreement"
                           [(ngModel)]="contractDataModel.periodPriceByAgreement"
                           name="contractDataModel.periodPriceByAgreement"
-                          (change)="onActionClickPeriodPriceAllowAgreement()">
-                        <label class="custom-control-label" for="contractDataModel.periodPriceByAgreement"></label>
+                          (change)="onActionClickPeriodPriceAllowAgreement()"
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="contractDataModel.periodPriceByAgreement"
+                        ></label>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <hr>
+              <hr />
               <!-- contractDataModel.description Field -->
-              <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
-                <label for="contractDataModel.description" class="color-highlight">{{
-                  fieldsInfo["description"]?.fieldTitle }}</label>
-                <textarea matInput [(ngModel)]="contractDataModel.description" name="contractDataModel. description"
-                  #contractDataModel_Description type="text" placeholder="{{ fieldsInfo['description']?.fieldTitle }}"
-                  minlength="0" maxlength="500" rows="5" id="dataModel.description" class="form-control validate-name">
-                        </textarea>
+              <div
+                class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+              >
+                <label
+                  for="contractDataModel.description"
+                  class="color-highlight"
+                  >{{ fieldsInfo["description"]?.fieldTitle }}</label
+                >
+                <textarea
+                  matInput
+                  [(ngModel)]="contractDataModel.description"
+                  name="contractDataModel. description"
+                  #contractDataModel_Description
+                  type="text"
+                  placeholder="{{ fieldsInfo['description']?.fieldTitle }}"
+                  minlength="0"
+                  maxlength="500"
+                  rows="5"
+                  id="dataModel.description"
+                  class="form-control validate-name"
+                >
+                </textarea>
                 <em>{{ contractDataModel_Description.value.length }} / 500</em>
               </div>
             </div>
-            <br>
-            <br>
+            <br />
+            <br />
           </div>
-          <button (click)="onActionOptionAddToList()" type="button"
+          <button
+            (click)="onActionOptionAddToList()"
+            type="button"
             class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-            *ngIf="contractTypeSelected && contractTypeSelected.id.length > 0">
+            *ngIf="contractTypeSelected && contractTypeSelected.id.length > 0"
+          >
             {{ "ACTION.Add_To_List" | translate }} ...
           </button>
           <hr />
           <p>
-            {{ "TITLE.List_Of_Transaction_Details_Of_This_Property" | translate }}
+            {{
+              "TITLE.List_Of_Transaction_Details_Of_This_Property" | translate
+            }}
           </p>
           <!-- TABLE  -->
-          <div class="example-container mat-elevation-z8" *ngIf="!this.publicHelper.processService.process.inRunAll">
-            <mat-table [dataSource]="optionTabledataSource" multiTemplateDataRows>
+          <div
+            class="example-container mat-elevation-z8"
+            *ngIf="!this.publicHelper.processService.process.inRunAll"
+          >
+            <mat-table
+              [dataSource]="optionTabledataSource"
+              multiTemplateDataRows
+            >
               <!-- LinkEstateContractTypeId Column -->
               <ng-container matColumnDef="LinkEstateContractTypeId">
                 <mat-header-cell *matHeaderCellDef>
@@ -787,8 +1548,8 @@
                 </mat-header-cell>
                 <mat-cell *matCellDef="let row">
                   {{
-                  row.linkEstateContractTypeId
-                  | cmstitle : dataModelEstateContractTypeResult.listItems
+                    row.linkEstateContractTypeId
+                      | cmstitle: dataModelEstateContractTypeResult.listItems
                   }}
                 </mat-cell>
               </ng-container>
@@ -863,11 +1624,20 @@
                   {{ "TITLE.OPTION" | translate }}
                 </mat-header-cell>
                 <mat-cell *matCellDef="let row; let i = index" class="Action">
-                  <button type="button" mat-icon-button (click)="onActionOptionRemoveFromList(i)"
-                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-red">
+                  <button
+                    type="button"
+                    mat-icon-button
+                    (click)="onActionOptionRemoveFromList(i)"
+                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-red"
+                  >
                     <small>
-                      <mat-icon matTooltip="{{ 'ACTION.DELETE' | translate }}" matTooltipPosition="before"
-                        aria-hidden="false" style="color: red">delete</mat-icon>
+                      <mat-icon
+                        matTooltip="{{ 'ACTION.DELETE' | translate }}"
+                        matTooltipPosition="before"
+                        aria-hidden="false"
+                        style="color: red"
+                        >delete</mat-icon
+                      >
                     </small>
                   </button>
                 </mat-cell>
@@ -883,25 +1653,49 @@
                 </mat-cell>
               </ng-container>
 
-              <mat-header-row *matHeaderRowDef="optionTabledisplayedColumns"></mat-header-row>
-              <mat-row *matRowDef="let row; columns: optionTabledisplayedColumns; let i = dataIndex;"
-                [class.ntk-row-odd]="i % 2" [class.ntk-row-even]="!(i % 2)">
+              <mat-header-row
+                *matHeaderRowDef="optionTabledisplayedColumns"
+              ></mat-header-row>
+              <mat-row
+                *matRowDef="
+                  let row;
+                  columns: optionTabledisplayedColumns;
+                  let i = dataIndex
+                "
+                [class.ntk-row-odd]="i % 2"
+                [class.ntk-row-even]="!(i % 2)"
+              >
               </mat-row>
-              <mat-row *matRowDef="let row; columns: ['descriptionDetail']; let i = dataIndex;"
-                [class.ntk-row-odd]="i % 2" [class.ntk-row-even]="!(i % 2)">
+              <mat-row
+                *matRowDef="
+                  let row;
+                  columns: ['descriptionDetail'];
+                  let i = dataIndex
+                "
+                [class.ntk-row-odd]="i % 2"
+                [class.ntk-row-even]="!(i % 2)"
+              >
               </mat-row>
             </mat-table>
           </div>
           <!-- TABLE  -->
-          <div class="form-actions" *ngIf="formInfo.formSubmitAllow ">
-            <button type="button" matStepperPrevious
-              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue">
+          <div class="form-actions" *ngIf="formInfo.formSubmitAllow">
+            <button
+              type="button"
+              matStepperPrevious
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
+            >
               {{ "ACTION.BEFOR" | translate }}
             </button>
-            <button type="button" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
+            <button
+              type="button"
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
               *ngIf="
-                  this.dataModel.contracts && this.dataModel.contracts.length > 0" [disabled]="!vform.form.valid"
-              matStepperNext>
+                this.dataModel.contracts && this.dataModel.contracts.length > 0
+              "
+              [disabled]="!vform.form.valid"
+              matStepperNext
+            >
               {{ "ACTION.NEXT" | translate }}
             </button>
           </div>
@@ -911,54 +1705,109 @@
           <p>{{ "TITLE.CONTENT_ATTACH_FILES" | translate }}</p>
           <!-- LinkMainImageId Field -->
           <div class="mb-3">
-            <a href="{{dataModel.linkMainImageIdSrc | cmsthumbnail}}" target="_blank">
-              <img *ngIf="dataModel?.linkMainImageIdSrc?.length>0" style="vertical-align:middle;" class="ntk-hover-zoom"
-                aria-hidden src="{{dataModel.linkMainImageIdSrc | cmsthumbnail}}" height="50" width="50" />
+            <a
+              href="{{ dataModel.linkMainImageIdSrc | cmsthumbnail }}"
+              target="_blank"
+            >
+              <img
+                *ngIf="dataModel?.linkMainImageIdSrc?.length > 0"
+                style="vertical-align: middle"
+                class="ntk-hover-zoom"
+                aria-hidden
+                src="{{ dataModel.linkMainImageIdSrc | cmsthumbnail }}"
+                height="50"
+                width="50"
+              />
             </a>
           </div>
-          <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
-            <label (click)="fileManagerOpenForm = true" for="dataModel.linkMainImageId"
-              class="color-highlight">{{"TITLE.Original_Photo" | translate}}</label>
-            <input matInput type="text" [(ngModel)]="dataModel.linkMainImageId" name="dataModel.linkMainImageId"
-              #LinkMainImageId placeholder="{{'TITLE.Original_File_ID' | translate}}" autocomplete="off"
-              (click)="fileManagerOpenForm = true" class="form-control validate-name" id="dataModel.linkMainImageId" />
-            <cms-file-manager (itemSelected)="onActionFileSelectedLinkMainImageId($event)" [language]="appLanguage"
-              [openDirectUploadView]="true" [isPopup]="true" [(openForm)]="fileManagerOpenForm" [tree]="fileManagerTree"
-              [openFilemanagerButtonLabelKey]="'select'" [selectFileType]="selectFileTypeMainImage"
-              [openFilemanagerButtonView]="false">
+          <div
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+          >
+            <label
+              (click)="fileManagerOpenForm = true"
+              for="dataModel.linkMainImageId"
+              class="color-highlight"
+              >{{ "TITLE.Original_Photo" | translate }}</label
+            >
+            <input
+              matInput
+              type="text"
+              [(ngModel)]="dataModel.linkMainImageId"
+              name="dataModel.linkMainImageId"
+              #LinkMainImageId
+              placeholder="{{ 'TITLE.Original_File_ID' | translate }}"
+              autocomplete="off"
+              (click)="fileManagerOpenForm = true"
+              class="form-control validate-name"
+              id="dataModel.linkMainImageId"
+            />
+            <cms-file-manager
+              (itemSelected)="onActionFileSelectedLinkMainImageId($event)"
+              [language]="appLanguage"
+              [openDirectUploadView]="true"
+              [isPopup]="true"
+              [(openForm)]="fileManagerOpenForm"
+              [tree]="fileManagerTree"
+              [openFilemanagerButtonLabelKey]="'select'"
+              [selectFileType]="selectFileTypeMainImage"
+              [openFilemanagerButtonView]="false"
+            >
             </cms-file-manager>
           </div>
-          <hr>
+          <hr />
           <p *ngIf="dataFileModelImgaes && dataFileModelImgaes.size > 0">
             {{ "TITLE.List_of_attached_photos" | translate }}
           </p>
-          <app-cms-files-selector [(dataFileModel)]="dataFileModelImgaes" [optionFileType]="selectFileTypeMainImage"
-            [openDirectUploadView]="true">
+          <app-cms-files-selector
+            [(dataFileModel)]="dataFileModelImgaes"
+            [optionFileType]="selectFileTypeMainImage"
+            [openDirectUploadView]="true"
+          >
           </app-cms-files-selector>
           <hr />
           <div *ngIf="!hidden">
             <p>{{ "TITLE.List_of_attached_files" | translate }}</p>
-            <app-cms-files-selector [(dataFileModel)]="dataFileModelFiles" [openDirectUploadView]="true">
+            <app-cms-files-selector
+              [(dataFileModel)]="dataFileModelFiles"
+              [openDirectUploadView]="true"
+            >
             </app-cms-files-selector>
             <br />
           </div>
           <h3>{{ "TITLE.image_360" | translate }}</h3>
-          <app-cms-360-image-list [(dataModel)]="dataModel.file360Views"></app-cms-360-image-list>
+          <app-cms-360-image-list
+            [(dataModel)]="dataModel.file360Views"
+          ></app-cms-360-image-list>
           <br />
           <h3>{{ "TITLE.virtual_tour" | translate }}</h3>
-          <app-cms-360-tour-list [(dataModel)]="dataModel.file360Tour" [dataImageModel]="dataModel.file360Views">
+          <app-cms-360-tour-list
+            [(dataModel)]="dataModel.file360Tour"
+            [dataImageModel]="dataModel.file360Views"
+          >
           </app-cms-360-tour-list>
-          <div *ngIf="formInfo.formSubmitAllow " class="ntk-button-row">
-            <button type="button" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
-              matStepperPrevious>
+          <div *ngIf="formInfo.formSubmitAllow" class="ntk-button-row">
+            <button
+              type="button"
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
+              matStepperPrevious
+            >
               {{ "ACTION.BEFOR" | translate }}
             </button>
-            <button type="button" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
-              [disabled]="!vform.form.valid" matStepperNext>
+            <button
+              type="button"
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
+              [disabled]="!vform.form.valid"
+              matStepperNext
+            >
               {{ "ACTION.NEXT" | translate }}
             </button>
-            <button type="submit" [disabled]="!vform.form.valid  || !connectionStatus.internetConnection"
-              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green">
+            <button
+              type="submit"
+              [disabled]="
+                !vform.form.valid || !connectionStatus.internetConnection
+              "
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
+            >
               {{ "ACTION.SAVE" | translate }}
             </button>
           </div>
@@ -968,22 +1817,40 @@
           <p>
             {{ "TITLE.Click_on_the_map_to_specify_the_location" | translate }}
           </p>
-          <app-cms-map (map$)="receiveMap($event)" (zoom$)="receiveZoom($event)" [optonCenter]="mapOptonCenter"
-            id="main-map">
+          <app-cms-map
+            (map$)="receiveMap($event)"
+            (zoom$)="receiveZoom($event)"
+            [optonCenter]="mapOptonCenter"
+            id="main-map"
+          >
           </app-cms-map>
-          <button type="button" (click)="ActionCurrentPoint()"
-            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight">
+          <button
+            type="button"
+            (click)="ActionCurrentPoint()"
+            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
+          >
             {{ "ACTION.MY_LOCATION" | translate }}
           </button>
-          <div class="form-actions" *ngIf="formInfo.formSubmitAllow ">
-            <button type="button" matStepperPrevious
-              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue">
+          <div class="form-actions" *ngIf="formInfo.formSubmitAllow">
+            <button
+              type="button"
+              matStepperPrevious
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
+            >
               {{ "ACTION.BEFOR" | translate }}
             </button>
-            <button type="submit"
-              *ngIf="dataModel.linkPropertyTypeUsageId && dataModel.linkPropertyTypeUsageId.length > 0"
-              [disabled]="!vform.form.valid  || !connectionStatus.internetConnection" matStepperNext
-              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green">
+            <button
+              type="submit"
+              *ngIf="
+                dataModel.linkPropertyTypeUsageId &&
+                dataModel.linkPropertyTypeUsageId.length > 0
+              "
+              [disabled]="
+                !vform.form.valid || !connectionStatus.internetConnection
+              "
+              matStepperNext
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
+            >
               {{ "ACTION.SAVE" | translate }}
             </button>
           </div>

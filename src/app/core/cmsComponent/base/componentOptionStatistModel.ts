@@ -1,13 +1,14 @@
-import { FilterDataModel } from 'ntk-cms-api';
-import { ComponentOptionModel } from './componentOptionModel';
+import { FilterDataModel } from "ntk-cms-api";
+import { ComponentOptionModel } from "./componentOptionModel";
 
 export class ComponentOptionStatistModel
   implements
-  ComponentOptionModel<
-    ComponentOptionStatistDataModel,
-    ComponentOptionStatistChildMethodsModel,
-    ComponentOptionStatistParentMethodsModel
-  > {
+    ComponentOptionModel<
+      ComponentOptionStatistDataModel,
+      ComponentOptionStatistChildMethodsModel,
+      ComponentOptionStatistParentMethodsModel
+    >
+{
   childMethods: ComponentOptionStatistChildMethodsModel;
   parentMethods: ComponentOptionStatistParentMethodsModel;
   data: ComponentOptionStatistDataModel = new ComponentOptionStatistDataModel();

@@ -1,15 +1,19 @@
 <!--begin::Card-->
 <div class="card card-style loader-container">
-  <app-progress-spinner [optionsInfoAreaId]="constructor.name"> </app-progress-spinner>
+  <app-progress-spinner [optionsInfoAreaId]="constructor.name">
+  </app-progress-spinner>
   <div class="content mb-0">
     <!--begin::Header-->
-    <p *ngIf="formInfo.formTitle?.length>0" class="mb-0 color-highlight font-600 font-12">
+    <p
+      *ngIf="formInfo.formTitle?.length > 0"
+      class="mb-0 color-highlight font-600 font-12"
+    >
       {{ formInfo.formTitle }}
     </p>
-    <p *ngIf="formInfo.formDescription?.length>0">
+    <p *ngIf="formInfo.formDescription?.length > 0">
       {{ formInfo.formDescription }}
     </p>
-    <br>
+    <br />
     <ng-content select="[cms-message]"></ng-content>
     <!--end::Header-->
     <!--begin::Body-->

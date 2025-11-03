@@ -1,25 +1,33 @@
-
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
 import {
-  ErrorExceptionResult, InfoEnumModel,
-  SmsEnumService
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from "@angular/core";
+import { FormControl } from "@angular/forms";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  ErrorExceptionResult,
+  InfoEnumModel,
+  SmsEnumService,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-  selector: 'app-sms-message-type-enum-selectionlist',
-  templateUrl: './selectionlist.component.html',
-  standalone: false
+  selector: "app-sms-message-type-enum-selectionlist",
+  templateUrl: "./selectionlist.component.html",
+  standalone: false,
 })
-export class SmsMessageTypeEnumSelectionlistComponent implements OnInit, OnDestroy {
-
+export class SmsMessageTypeEnumSelectionlistComponent
+  implements OnInit, OnDestroy
+{
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public enumService: SmsEnumService,
@@ -28,10 +36,12 @@ export class SmsMessageTypeEnumSelectionlistComponent implements OnInit, OnDestr
     public tokenHelper: TokenHelper,
     public translate: TranslateService,
     private cmsStoreService: CmsStoreService,
-    private cmsToastrService: CmsToastrService) {
+    private cmsToastrService: CmsToastrService,
+  ) {
     this.publicHelper.processService.cdr = this.cdr;
   }
-  dataModelResult: ErrorExceptionResult<InfoEnumModel> = new ErrorExceptionResult<InfoEnumModel>();
+  dataModelResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
   dataModelSelect: InfoEnumModel[] = [];
   dataIdsSelect: number[] = [];
 
@@ -40,7 +50,7 @@ export class SmsMessageTypeEnumSelectionlistComponent implements OnInit, OnDestr
 
   @Input() optionDisabled = false;
   @Input() optionSelectFirstItem = false;
-  @Input() optionPlaceholder = '';
+  @Input() optionPlaceholder = "";
   @Output() optionChange = new EventEmitter<InfoEnumModel[]>();
   @Output() optionSelectAdded = new EventEmitter();
   @Output() optionSelectRemoved = new EventEmitter();
@@ -52,12 +62,13 @@ export class SmsMessageTypeEnumSelectionlistComponent implements OnInit, OnDestr
 
   ngOnInit(): void {
     setTimeout(() => {
-
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.DataGetAll();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.DataGetAll();
+      });
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -65,16 +76,24 @@ export class SmsMessageTypeEnumSelectionlistComponent implements OnInit, OnDestr
     }
   }
   DataGetAll(): void {
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.enumService.ServiceSmsMessageTypeEnum().subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.dataModelResult = ret;
-          this.dataModelResult.listItems.forEach((el) => this.fieldsStatus.set(el.value, false));
+          this.dataModelResult.listItems.forEach((el) =>
+            this.fieldsStatus.set(el.value, false),
+          );
           this.dataIdsSelect.forEach((el) => this.fieldsStatus.set(el, true));
           this.dataModelResult.listItems.forEach((el) => {
             if (this.fieldsStatus.get(el.value)) {
@@ -85,14 +104,12 @@ export class SmsMessageTypeEnumSelectionlistComponent implements OnInit, OnDestr
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(value: InfoEnumModel): void {
     if (this.fieldsStatus.get(value.value)) {
@@ -107,14 +124,13 @@ export class SmsMessageTypeEnumSelectionlistComponent implements OnInit, OnDestr
     this.optionChange.emit(this.dataModelSelect);
   }
 
-
   onActionSelectForce(ids: string[] | InfoEnumModel[]): void {
     if (typeof ids === typeof Array(String)) {
-      ids.forEach(element => {
+      ids.forEach((element) => {
         this.dataIdsSelect.push(element);
       });
     } else if (typeof ids === typeof Array(InfoEnumModel)) {
-      ids.forEach(element => {
+      ids.forEach((element) => {
         this.dataIdsSelect.push(element.id);
       });
     }

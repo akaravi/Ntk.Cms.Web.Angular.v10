@@ -1,20 +1,16 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AngularEditorModule } from '@kolkov/angular-editor';
-import {
-  CoreModuleService,
-  PollingConfigurationService
-} from 'ntk-cms-api';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { PollingConfigCheckSiteComponent } from './check-site/check-site.component';
-import { PollingConfigCheckUserComponent } from './check-user/check-user.component';
-import { PollingConfigMainAdminComponent } from './main-admin/config-main-admin.component';
-import { PollingConfigRouting } from './polling-config.routing';
-import { PollingConfigSiteComponent } from './site/config-site.component';
-import { PollingConfigComponent } from './polling-config.component';
-
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { AngularEditorModule } from "@kolkov/angular-editor";
+import { CoreModuleService, PollingConfigurationService } from "ntk-cms-api";
+import { SharedModule } from "src/app/shared/shared.module";
+import { PollingConfigCheckSiteComponent } from "./check-site/check-site.component";
+import { PollingConfigCheckUserComponent } from "./check-user/check-user.component";
+import { PollingConfigMainAdminComponent } from "./main-admin/config-main-admin.component";
+import { PollingConfigRouting } from "./polling-config.routing";
+import { PollingConfigSiteComponent } from "./site/config-site.component";
+import { PollingConfigComponent } from "./polling-config.component";
 
 @NgModule({
   declarations: [
@@ -38,14 +34,10 @@ import { PollingConfigComponent } from './polling-config.component';
     CommonModule,
     FormsModule,
     PollingConfigRouting,
-    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     SharedModule,
     AngularEditorModule,
   ],
-  providers: [
-    CoreModuleService,
-    PollingConfigurationService,
-  ]
+  providers: [CoreModuleService, PollingConfigurationService],
 })
-export class PollingConfigModule {
-}
+export class PollingConfigModule {}

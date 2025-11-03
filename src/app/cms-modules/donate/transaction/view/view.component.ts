@@ -1,28 +1,34 @@
-
 import {
-  ChangeDetectorRef, Component, Inject,
-  OnDestroy, OnInit,
-  ViewChild
-} from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService, DataFieldInfoModel, DonateTransactionModel,
-  DonateTransactionService, ErrorExceptionResult,
-  FormInfoModel, InfoEnumModel, TokenInfoModelV3
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  CoreEnumService,
+  DataFieldInfoModel,
+  DonateTransactionModel,
+  DonateTransactionService,
+  ErrorExceptionResult,
+  FormInfoModel,
+  InfoEnumModel,
+  TokenInfoModelV3,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 
 @Component({
-  selector: 'app-donate-transaction-view',
-  templateUrl: './view.component.html',
-  standalone: false
+  selector: "app-donate-transaction-view",
+  templateUrl: "./view.component.html",
+  standalone: false,
 })
 export class DonateTransactionViewComponent implements OnInit, OnDestroy {
   requestId = 0;
@@ -44,19 +50,24 @@ export class DonateTransactionViewComponent implements OnInit, OnDestroy {
       this.requestId = data.id || 0;
     }
   }
-  @ViewChild('vform', { static: false }) formGroup: FormGroup;
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
   tokenInfo = new TokenInfoModelV3();
 
-  dataModelResult: ErrorExceptionResult<DonateTransactionModel> = new ErrorExceptionResult<DonateTransactionModel>();
+  dataModelResult: ErrorExceptionResult<DonateTransactionModel> =
+    new ErrorExceptionResult<DonateTransactionModel>();
   dataModel: DonateTransactionModel = new DonateTransactionModel();
   formInfo: FormInfoModel = new FormInfoModel();
-  dataModelEnumSendSmsStatusTypeResult: ErrorExceptionResult<InfoEnumModel> = new ErrorExceptionResult<InfoEnumModel>();
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
+  dataModelEnumSendSmsStatusTypeResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
   fileManagerOpenForm = false;
 
   cmsApiStoreSubscribe: Subscription;
   ngOnInit(): void {
-    this.translate.get('TITLE.VIEW').subscribe((str: string) => {
+    this.translate.get("TITLE.VIEW").subscribe((str: string) => {
       this.formInfo.formTitle = str;
     });
     if (this.requestId <= 0) {
@@ -67,10 +78,11 @@ export class DonateTransactionViewComponent implements OnInit, OnDestroy {
     this.DataGetOneContent();
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
-
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+      });
     this.getEnumSendSmsStatusType();
   }
 
@@ -78,7 +90,7 @@ export class DonateTransactionViewComponent implements OnInit, OnDestroy {
     this.coreEnumService.ServiceSendSmsStatusTypeEnum().subscribe({
       next: (ret) => {
         this.dataModelEnumSendSmsStatusTypeResult = ret;
-      }
+      },
     });
   }
 
@@ -89,12 +101,22 @@ export class DonateTransactionViewComponent implements OnInit, OnDestroy {
   }
 
   DataGetOneContent(): void {
-    this.translate.get('MESSAGE.Receiving_Information_From_The_Server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    this.translate
+      .get("MESSAGE.Receiving_Information_From_The_Server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     /*َAccess Field*/
     this.donateTransactionService.setAccessLoad();
@@ -105,24 +127,25 @@ export class DonateTransactionViewComponent implements OnInit, OnDestroy {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
         this.dataModel = ret.item;
         if (ret.isSuccess) {
-          this.formInfo.formTitle = this.formInfo.formTitle + ' ' + ret.item.id;
-          this.formInfo.formAlert = '';
+          this.formInfo.formTitle = this.formInfo.formTitle + " " + ret.item.id;
+          this.formInfo.formAlert = "";
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
-
 
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });

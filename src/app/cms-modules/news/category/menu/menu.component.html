@@ -1,35 +1,62 @@
 <div class="col pe-2 loader-container">
-  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId"> </app-progress-spinner>
-  <a *ngIf="requestLinkParentId>0" (click)="onActionClickMenu(null)" data-back-button
-    class="card card-style rounded-m me-0 p-3 mb-3">
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
+  <a
+    *ngIf="requestLinkParentId > 0"
+    (click)="onActionClickMenu(null)"
+    data-back-button
+    class="card card-style rounded-m me-0 p-3 mb-3"
+  >
     <i class="fa fa-home color-red-light font-40 icon-50"></i>
-    <h4 class="pt-3">{{"AUTH.GENERAL.BACK_BUTTON"|translate}}</h4>
-    <p class="font-11 mt-n2 mb-0 color-highlight">{{"TABLE.BackToBefore"|translate}}</p>
+    <h4 class="pt-3">{{ "AUTH.GENERAL.BACK_BUTTON" | translate }}</h4>
+    <p class="font-11 mt-n2 mb-0 color-highlight">
+      {{ "TABLE.BackToBefore" | translate }}
+    </p>
   </a>
-  <a [routerLink]="[routerLinkContect]" data-back-button class="card card-style rounded-m me-0 p-3 mb-3">
+  <a
+    [routerLink]="[routerLinkContect]"
+    data-back-button
+    class="card card-style rounded-m me-0 p-3 mb-3"
+  >
     <i class="fa fa-home color-red-light font-40 icon-50"></i>
-    <h4 class="pt-3"><span>{{"MESSAGE.All"|translate}}</span></h4>
-    <p class="font-11 mt-n2 mb-0 color-highlight">{{'TITLE.ALL_INFORMATION' | translate}}</p>
+    <h4 class="pt-3">
+      <span>{{ "MESSAGE.All" | translate }}</span>
+    </h4>
+    <p class="font-11 mt-n2 mb-0 color-highlight">
+      {{ "TITLE.ALL_INFORMATION" | translate }}
+    </p>
   </a>
-  <div *ngIf="requestLinkParentId>0" class="w-100"></div>
+  <div *ngIf="requestLinkParentId > 0" class="w-100"></div>
 </div>
 <div class="row mb-0">
-  <ng-container *ngFor="let item of dataListResult;index as i">
+  <ng-container *ngFor="let item of dataListResult; index as i">
     <div class="col pe-2">
-      <a (click)="onActionClickMenu(item)" class="card card-style rounded-m me-0 p-3 mb-3"
-        style="cursor: pointer; color:color-white">
-        <i class="{{item.fontIcon}} font-40 icon-50"></i>
-        <h4 class="pt-3">{{item.title}}</h4>
-        <p class="font-11 mt-n2 mb-0 color-highlight">:{{item.description}}</p>
-        <img [src]="cmsImageThumbnailPipe.transform(item.linkMainImageIdSrc)" class="rounded-sm" width="100">
+      <a
+        (click)="onActionClickMenu(item)"
+        class="card card-style rounded-m me-0 p-3 mb-3"
+        style="cursor: pointer; color: color-white"
+      >
+        <i class="{{ item.fontIcon }} font-40 icon-50"></i>
+        <h4 class="pt-3">{{ item.title }}</h4>
+        <p class="font-11 mt-n2 mb-0 color-highlight">
+          :{{ item.description }}
+        </p>
+        <img
+          [src]="cmsImageThumbnailPipe.transform(item.linkMainImageIdSrc)"
+          class="rounded-sm"
+          width="100"
+        />
       </a>
-
     </div>
-    <div *ngIf="i%2>0" class="w-100"></div>
+    <div *ngIf="i % 2 > 0" class="w-100"></div>
   </ng-container>
 </div>
-<div *ngIf="dataListResult?.length>8" class="content mt-5 mb-5">
-  <a (click)="scrollToTop()" style="cursor: pointer;"
-    class="back-to-top-badge bg-highlight color-white shadow-xl py-2"><span>{{"TABLE.BackToTop"|translate}}</span><i
-      class="fa fa-caret-up"></i></a>
+<div *ngIf="dataListResult?.length > 8" class="content mt-5 mb-5">
+  <a
+    (click)="scrollToTop()"
+    style="cursor: pointer"
+    class="back-to-top-badge bg-highlight color-white shadow-xl py-2"
+    ><span>{{ "TABLE.BackToTop" | translate }}</span
+    ><i class="fa fa-caret-up"></i
+  ></a>
 </div>

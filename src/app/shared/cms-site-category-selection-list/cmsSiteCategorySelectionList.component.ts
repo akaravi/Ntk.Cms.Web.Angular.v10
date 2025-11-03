@@ -1,15 +1,27 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
-import { CoreEnumService, CoreSiteCategoryModel, CoreSiteCategoryService, ErrorExceptionResult, FilterModel } from 'ntk-cms-api';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from "@angular/core";
+import { FormControl } from "@angular/forms";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  CoreEnumService,
+  CoreSiteCategoryModel,
+  CoreSiteCategoryService,
+  ErrorExceptionResult,
+  FilterModel,
+} from "ntk-cms-api";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-    selector: 'app-cms-sitecategory-selectionlist',
-    templateUrl: './cmsSiteCategorySelectionList.component.html',
-    standalone: false
+  selector: "app-cms-sitecategory-selectionlist",
+  templateUrl: "./cmsSiteCategorySelectionList.component.html",
+  standalone: false,
 })
 export class CmsSiteCategorySelectionListComponent implements OnInit {
   static nextId = 0;
@@ -24,12 +36,11 @@ export class CmsSiteCategorySelectionListComponent implements OnInit {
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
-
   }
-  dataModelResult: ErrorExceptionResult<CoreSiteCategoryModel> = new ErrorExceptionResult<CoreSiteCategoryModel>();
+  dataModelResult: ErrorExceptionResult<CoreSiteCategoryModel> =
+    new ErrorExceptionResult<CoreSiteCategoryModel>();
   dataModelSelect: CoreSiteCategoryModel[] = [];
   dataIdsSelect: number[] = [];
-
 
   formControl = new FormControl();
   fieldsStatus: Map<number, boolean> = new Map<number, boolean>();
@@ -54,36 +65,39 @@ export class CmsSiteCategorySelectionListComponent implements OnInit {
     filterModel.rowPerPage = 50;
     filterModel.accessLoad = true;
 
-
-
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceGetAll(filterModel).subscribe({
       next: (ret) => {
         // this.fieldsStatus = new Map<number, boolean>();
         if (ret.isSuccess) {
           this.dataModelResult = ret;
-          this.dataModelResult.listItems.forEach((el) => this.fieldsStatus.set(el.id, false));
+          this.dataModelResult.listItems.forEach((el) =>
+            this.fieldsStatus.set(el.id, false),
+          );
           this.dataIdsSelect.forEach((el) => this.fieldsStatus.set(el, true));
           this.dataModelResult.listItems.forEach((el) => {
             if (this.fieldsStatus.get(el.id)) {
               this.dataModelSelect.push(el);
             }
           });
-
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (err) => {
         this.cmsToastrService.typeError(err);
         this.publicHelper.processService.processStop(pName);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelect(value: CoreSiteCategoryModel): void {
     if (this.fieldsStatus.get(value.id)) {
@@ -98,14 +112,13 @@ export class CmsSiteCategorySelectionListComponent implements OnInit {
     this.optionChange.emit(this.dataModelSelect);
   }
 
-
   onActionSelectForce(ids: number[] | CoreSiteCategoryModel[]): void {
     if (typeof ids === typeof Array(Number)) {
-      ids.forEach(element => {
+      ids.forEach((element) => {
         this.dataIdsSelect.push(element);
       });
     } else if (typeof ids === typeof Array(CoreSiteCategoryModel)) {
-      ids.forEach(element => {
+      ids.forEach((element) => {
         this.dataIdsSelect.push(element.id);
       });
     }

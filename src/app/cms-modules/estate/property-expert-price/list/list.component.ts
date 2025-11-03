@@ -31,6 +31,7 @@ import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { environment } from "src/environments/environment";
 import { PublicHelper } from "../../../../core/helpers/publicHelper";
 import { CmsToastrService } from "../../../../core/services/cmsToastr.service";
 import { EstatePropertyExpertPriceAddComponent } from "../add/add.component";
@@ -564,18 +565,19 @@ export class EstatePropertyExpertPriceListComponent
       this.cmsToastrService.typeErrorAccessAdd();
       return;
     }
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.height = "90%";
-    dialogConfig.data = { id: this.tableRowSelected.id };
-
     var panelClass = "";
     if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
     else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(
       EstatePropertyExpertPriceInquiryCalculateComponent,
-      dialogConfig,
+      {
+        height: "90%",
+        panelClass: panelClass,
+        enterAnimationDuration:
+          environment.cmsViewConfig.enterAnimationDuration,
+        exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+        data: {},
+      },
     );
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {

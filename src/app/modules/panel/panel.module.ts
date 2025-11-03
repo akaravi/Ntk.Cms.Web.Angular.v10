@@ -33,7 +33,7 @@ import { PageDashboardComponent } from "./page-dashboard/page-dashboard.componen
 import { PageMenuComponent } from "./page-menu/page-menu.component";
 import { PanelComponent } from "./panel.component";
 import { PanelRouting } from "./panel.routing";
-
+import { CoreSharedModule } from "src/app/cms-modules/core-main/core.shared.module";
 @NgModule({
   declarations: [
     PanelComponent,
@@ -47,6 +47,7 @@ import { PanelRouting } from "./panel.routing";
     SharedModule,
     ComponentsModule,
     CmsModulesWidgetModule,
+    CoreSharedModule,
   ],
   exports: [RouterModule],
   providers: [

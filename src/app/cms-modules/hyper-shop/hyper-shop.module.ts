@@ -1,30 +1,35 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { HyperShopComponent } from './hyper-shop.component';
-import { HyperShopRoutes } from './hyper-shop.routing';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { HyperShopComponent } from "./hyper-shop.component";
+import { HyperShopRoutes } from "./hyper-shop.routing";
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
-import { AngularEditorModule } from '@kolkov/angular-editor';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { AngularEditorModule } from "@kolkov/angular-editor";
+import { SharedModule } from "src/app/shared/shared.module";
 
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatStepperModule } from '@angular/material/stepper';
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule } from "@angular/material/icon";
+import { MatStepperModule } from "@angular/material/stepper";
 import {
   CoreAuthV3Service,
-  CoreEnumService, CoreModuleService, CoreModuleTagService, HyperShopCategoryService, HyperShopConfigurationService, HyperShopContentService
-} from 'ntk-cms-api';
-import { CmsConfirmationDialogService } from 'src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service';
-import { HyperShopCategoryAddComponent } from './category/add/add.component';
-import { HyperShopCategoryEditComponent } from './category/edit/edit.component';
-import { HyperShopCategoryListComponent } from './category/list/list.component';
-import { HyperShopCategorySelectorComponent } from './category/selector/selector.component';
-import { HyperShopCategoryTreeComponent } from './category/tree/tree.component';
-import { HyperShopContentAddComponent } from './content/add/add.component';
-import { HyperShopContentEditComponent } from './content/edit/edit.component';
-import { HyperShopContentListComponent } from './content/list/list.component';
-import { HyperShopContentViewComponent } from './content/view/view.component';
+  CoreEnumService,
+  CoreModuleService,
+  CoreModuleTagService,
+  HyperShopCategoryService,
+  HyperShopConfigurationService,
+  HyperShopContentService,
+} from "ntk-cms-api";
+import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { HyperShopCategoryAddComponent } from "./category/add/add.component";
+import { HyperShopCategoryEditComponent } from "./category/edit/edit.component";
+import { HyperShopCategoryListComponent } from "./category/list/list.component";
+import { HyperShopCategorySelectorComponent } from "./category/selector/selector.component";
+import { HyperShopCategoryTreeComponent } from "./category/tree/tree.component";
+import { HyperShopContentAddComponent } from "./content/add/add.component";
+import { HyperShopContentEditComponent } from "./content/edit/edit.component";
+import { HyperShopContentListComponent } from "./content/list/list.component";
+import { HyperShopContentViewComponent } from "./content/view/view.component";
 
 @NgModule({
   declarations: [
@@ -45,11 +50,10 @@ import { HyperShopContentViewComponent } from './content/view/view.component';
     CommonModule,
     HyperShopRoutes,
     FormsModule,
-    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
 
     SharedModule,
     AngularEditorModule,
-
 
     MatIconModule,
     MatFormFieldModule,
@@ -66,7 +70,6 @@ import { HyperShopContentViewComponent } from './content/view/view.component';
     HyperShopContentService,
     CmsConfirmationDialogService,
     CoreModuleTagService,
-
-  ]
+  ],
 })
-export class HyperShopModule { }
+export class HyperShopModule {}

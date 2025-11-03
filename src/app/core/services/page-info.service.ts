@@ -1,28 +1,26 @@
-import { Injectable } from '@angular/core';
-import { IApiCmsServerBase } from 'ntk-cms-api';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { IApiCmsServerBase } from "ntk-cms-api";
+import { BehaviorSubject } from "rxjs";
 //import { ContentInfoModel } from 'src/app/core/models/contentInfoModel';
-import { ContentInfoModel } from '../models/contentInfoModel';
-import { PageLinkModel } from '../models/pageLinkModel';
-
-
+import { ContentInfoModel } from "../models/contentInfoModel";
+import { PageLinkModel } from "../models/pageLinkModel";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class PageInfoService {
-  public title: BehaviorSubject<string> = new BehaviorSubject<string>(
-    '.'
-  );
-  public description: BehaviorSubject<string> = new BehaviorSubject<string>('');
-  public breadcrumbs: BehaviorSubject<Array<PageLinkModel>> = new BehaviorSubject<
-    Array<PageLinkModel>
-  >([]);
-  public contentService: BehaviorSubject<IApiCmsServerBase> = new BehaviorSubject<IApiCmsServerBase>(null);
-  public contentInfo: BehaviorSubject<ContentInfoModel> = new BehaviorSubject<ContentInfoModel>(new ContentInfoModel('', '', false, '', ''));
+  public title: BehaviorSubject<string> = new BehaviorSubject<string>(".");
+  public description: BehaviorSubject<string> = new BehaviorSubject<string>("");
+  public breadcrumbs: BehaviorSubject<Array<PageLinkModel>> =
+    new BehaviorSubject<Array<PageLinkModel>>([]);
+  public contentService: BehaviorSubject<IApiCmsServerBase> =
+    new BehaviorSubject<IApiCmsServerBase>(null);
+  public contentInfo: BehaviorSubject<ContentInfoModel> =
+    new BehaviorSubject<ContentInfoModel>(
+      new ContentInfoModel("", "", false, "", ""),
+    );
 
-
-  constructor() { }
+  constructor() {}
 
   public setTitle(_title: string) {
     this.title.next(_title);
@@ -30,8 +28,6 @@ export class PageInfoService {
   public updateTitle(_title: string) {
     this.setTitle(_title);
   }
-
-
 
   public setContentService(model: IApiCmsServerBase) {
     this.contentService.next(model);
@@ -71,9 +67,9 @@ export class PageInfoService {
   }
 
   public calculateTitle() {
-    const asideTitle = this.calculateTitleInMenu('asideMenu');
-    const headerTitle = this.calculateTitleInMenu('#kt_header_menu');
-    const title = asideTitle || headerTitle || '';
+    const asideTitle = this.calculateTitleInMenu("asideMenu");
+    const headerTitle = this.calculateTitleInMenu("#kt_header_menu");
+    const title = asideTitle || headerTitle || "";
     this.setTitle(title);
   }
 
@@ -84,15 +80,15 @@ export class PageInfoService {
     }
 
     const allActiveMenuLinks = Array.from<HTMLLinkElement>(
-      menu.querySelectorAll('a.menu-link')
-    ).filter((link) => link.classList.contains('active'));
+      menu.querySelectorAll("a.menu-link"),
+    ).filter((link) => link.classList.contains("active"));
 
     if (!allActiveMenuLinks || allActiveMenuLinks.length === 0) {
       return null;
     }
 
     const titleSpan = allActiveMenuLinks[0].querySelector(
-      'span.menu-title'
+      "span.menu-title",
     ) as HTMLSpanElement | null;
     if (!titleSpan) {
       return null;
@@ -102,8 +98,8 @@ export class PageInfoService {
   }
 
   public calculateBreadcrumbs() {
-    const asideBc = this.calculateBreadcrumbsInMenu('asideMenu');
-    const headerBc = this.calculateBreadcrumbsInMenu('#kt_header_menu');
+    const asideBc = this.calculateBreadcrumbsInMenu("asideMenu");
+    const headerBc = this.calculateBreadcrumbsInMenu("#kt_header_menu");
     const bc = asideBc && asideBc.length > 0 ? asideBc : headerBc;
     if (!bc) {
       this.setBreadcrumbs([]);
@@ -113,7 +109,7 @@ export class PageInfoService {
   }
 
   public calculateBreadcrumbsInMenu(
-    menuId: string
+    menuId: string,
   ): Array<PageLinkModel> | undefined {
     const result: Array<PageLinkModel> = [];
     const menu = document.getElementById(menuId);
@@ -122,8 +118,8 @@ export class PageInfoService {
     }
 
     const allActiveParents = Array.from<HTMLDivElement>(
-      menu.querySelectorAll('div.menu-item')
-    ).filter((link) => link.classList.contains('here'));
+      menu.querySelectorAll("div.menu-item"),
+    ).filter((link) => link.classList.contains("here"));
 
     if (!allActiveParents || allActiveParents.length === 0) {
       return null;
@@ -131,14 +127,14 @@ export class PageInfoService {
 
     allActiveParents.forEach((parent) => {
       const titleSpan = parent.querySelector(
-        'span.menu-title'
+        "span.menu-title",
       ) as HTMLSpanElement | null;
       if (!titleSpan) {
         return null;
       }
 
       const title = titleSpan.innerText;
-      const path = titleSpan.getAttribute('data-link');
+      const path = titleSpan.getAttribute("data-link");
       if (!path) {
         return null;
       }
@@ -151,8 +147,8 @@ export class PageInfoService {
       });
       // add separator
       result.push({
-        title: '',
-        path: '',
+        title: "",
+        path: "",
         isSeparator: true,
         isActive: false,
       });

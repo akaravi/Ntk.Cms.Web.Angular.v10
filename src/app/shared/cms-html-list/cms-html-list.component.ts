@@ -1,14 +1,23 @@
-import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-import { ThemeService } from 'src/app/core/services/theme.service';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
+} from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { ThemeService } from "src/app/core/services/theme.service";
 @Component({
-  selector: 'app-cms-html-list',
-  templateUrl: './cms-html-list.component.html',
-  standalone: false
+  selector: "app-cms-html-list",
+  templateUrl: "./cms-html-list.component.html",
+  standalone: false,
 })
 export class CmsHtmlListComponent implements OnInit, OnDestroy {
   static nextId = 0;
@@ -19,16 +28,15 @@ export class CmsHtmlListComponent implements OnInit, OnDestroy {
   @Input() set optionActionGuideNoticeDisplay(view: boolean) {
     this.viewGuideNotice = view;
   }
-  @Input() optionGuideNoticeKey = '';
+  @Input() optionGuideNoticeKey = "";
   @Input() optionFooterDisplay = true;
   @Input() optionActionRowDisplay = false;
   lastSelectId: number | string;
   @Input()
   public set optionActionRowId(id: number | string) {
-
-    if (typeof id === 'number' && id > 0) {
+    if (typeof id === "number" && id > 0) {
       this.optionActionRowDisplay = true;
-    } else if (typeof id === 'string' && id.length > 0) {
+    } else if (typeof id === "string" && id.length > 0) {
       this.optionActionRowDisplay = true;
     } else {
       this.optionActionRowDisplay = false;
@@ -45,23 +53,19 @@ export class CmsHtmlListComponent implements OnInit, OnDestroy {
   }
   @Input()
   public set optionActionRowDisplayMenu(status: boolean) {
-    if (this.optionActionRowDisplay && status)
-      this.viewMenuItemRow = true;
-    else
-      this.viewMenuItemRow = false;
+    if (this.optionActionRowDisplay && status) this.viewMenuItemRow = true;
+    else this.viewMenuItemRow = false;
   }
   @Input()
   public set optionActionRowDisplayMenuAct(status: boolean) {
-    if (this.optionActionRowDisplay)
-      this.viewMenuItemRow = true;
+    if (this.optionActionRowDisplay) this.viewMenuItemRow = true;
   }
-  @Input() optionTitle = '';
-  @Input() optionCategoryTitle = '';
-  @Input() optionSelectRowItemTitle = '';
-  @Input() optionClassBody = 'ntk-cms-html-tree-body';
+  @Input() optionTitle = "";
+  @Input() optionCategoryTitle = "";
+  @Input() optionSelectRowItemTitle = "";
+  @Input() optionClassBody = "ntk-cms-html-tree-body";
   @Input() optionTreeDisplay = true;
-  @Input() optionsListInfoAreaId = 'list';
-
+  @Input() optionsListInfoAreaId = "list";
 
   @Output() optionOnActionButtonMemo = new EventEmitter<any>();
   @Output() optionOnActionButtonExport = new EventEmitter<any>();
@@ -74,37 +78,45 @@ export class CmsHtmlListComponent implements OnInit, OnDestroy {
     public themeService: ThemeService,
     public translate: TranslateService,
     private cmsStoreService: CmsStoreService,
-
   ) {
-    this.unsubscribe.push(this.cmsStoreService.getState((state) => state.themeStore).subscribe(async (value) => {
-      if (value.actionScrollTopList && this.topList && this.topList.nativeElement) {
-        this.topList.nativeElement.scrollIntoView({ behavior: 'smooth', block: "start" })
-        //k:by karavi for test//    this.themeService.onActionScrollTopList(false);
-      };
-    }));
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.themeStore)
+        .subscribe(async (value) => {
+          if (
+            value.actionScrollTopList &&
+            this.topList &&
+            this.topList.nativeElement
+          ) {
+            this.topList.nativeElement.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+            //k:by karavi for test//    this.themeService.onActionScrollTopList(false);
+          }
+        }),
+    );
 
-    this.translate.get('TITLE.OperationMenu').subscribe((str: string) => { this.optionTitle = str });
-    this.translate.get('TITLE.Category').subscribe((str: string) => { this.optionCategoryTitle = str });
+    this.translate.get("TITLE.OperationMenu").subscribe((str: string) => {
+      this.optionTitle = str;
+    });
+    this.translate.get("TITLE.Category").subscribe((str: string) => {
+      this.optionCategoryTitle = str;
+    });
   }
   @ViewChild("topList") topList: ElementRef;
   private unsubscribe: Subscription[] = [];
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   ngOnDestroy() {
-    if (this.unsubscribe)
-      this.unsubscribe.forEach((sb) => sb.unsubscribe());
-
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   actionScrollIntoViewRun = false;
-  viewGuideNotice = false
+  viewGuideNotice = false;
   viewMenuMain = false;
   viewMenuItemRow = false;
   viewTree = false;
-
-
 
   actionViewTree(state?: boolean) {
     if (state == true) {
@@ -115,7 +127,7 @@ export class CmsHtmlListComponent implements OnInit, OnDestroy {
       this.viewTree = !this.viewTree;
     }
 
-    this.viewGuideNotice = false
+    this.viewGuideNotice = false;
     this.viewMenuMain = false;
     this.viewMenuItemRow = false;
     //this.viewTree = false;
@@ -145,7 +157,7 @@ export class CmsHtmlListComponent implements OnInit, OnDestroy {
     } else {
       this.viewMenuMain = !this.viewMenuMain;
     }
-    this.viewGuideNotice = false
+    this.viewGuideNotice = false;
     //this.viewMenuMain = false;
     this.viewMenuItemRow = false;
     this.viewTree = false;
@@ -158,7 +170,7 @@ export class CmsHtmlListComponent implements OnInit, OnDestroy {
     } else {
       this.viewMenuItemRow = !this.viewMenuItemRow;
     }
-    this.viewGuideNotice = false
+    this.viewGuideNotice = false;
     this.viewMenuMain = false;
     //this.viewMenuItemRow = false;
     this.viewTree = false;
@@ -216,4 +228,3 @@ export class CmsHtmlListComponent implements OnInit, OnDestroy {
   </app-cms-html-list>
 */
 }
-
