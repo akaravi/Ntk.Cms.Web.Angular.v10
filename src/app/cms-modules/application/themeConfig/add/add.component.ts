@@ -1,30 +1,48 @@
-
 import {
-  ChangeDetectorRef, Component, Inject, OnInit,
-  ViewChild
-} from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
 import {
-  AccessModel, ApplicationThemeConfigModel,
-  ApplicationThemeConfigService, CoreEnumService, CoreSiteCategoryModel, DataFieldInfoModel, ErrorExceptionResult,
-  FormInfoModel
-} from 'ntk-cms-api';
-import { NodeInterface, TreeModel } from 'ntk-cms-filemanager';
-import { AddBaseComponent } from 'src/app/core/cmsComponent/addBaseComponent';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  AccessModel,
+  ApplicationThemeConfigModel,
+  ApplicationThemeConfigService,
+  CoreEnumService,
+  CoreSiteCategoryModel,
+  DataFieldInfoModel,
+  ErrorExceptionResult,
+  FormInfoModel,
+} from "ntk-cms-api";
+import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
+import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 type NewType = MatDialog;
 
 @Component({
-    selector: 'app-core-sitecategorycmsmodule-add',
-    templateUrl: './add.component.html',
-    styleUrls: ['./add.component.scss'],
-    standalone: false
+  selector: "app-core-sitecategorycmsmodule-add",
+  templateUrl: "./add.component.html",
+
+  standalone: false,
 })
-export class ApplicationThemeConfigAddComponent extends AddBaseComponent<ApplicationThemeConfigService, ApplicationThemeConfigModel, number> implements OnInit {
+export class ApplicationThemeConfigAddComponent
+  extends AddBaseComponent<
+    ApplicationThemeConfigService,
+    ApplicationThemeConfigModel,
+    number
+  >
+  implements OnInit
+{
   requestLinkSourceId = 0;
   requestLinkCmsSiteCategoryId = 0;
   constructorInfoAreaId = this.constructor.name;
@@ -38,7 +56,12 @@ export class ApplicationThemeConfigAddComponent extends AddBaseComponent<Applica
     public translate: TranslateService,
     public publicHelper: PublicHelper,
   ) {
-    super(applicationThemeConfigService, new ApplicationThemeConfigModel(), publicHelper, translate);
+    super(
+      applicationThemeConfigService,
+      new ApplicationThemeConfigModel(),
+      publicHelper,
+      translate,
+    );
     this.publicHelper.processService.cdr = this.cdr;
 
     if (data) {
@@ -51,49 +74,63 @@ export class ApplicationThemeConfigAddComponent extends AddBaseComponent<Applica
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
     this.DataGetAccess();
   }
-  @ViewChild('vform', { static: false }) formGroup: FormGroup;
-  selectFileTypeMainImage = ['jpg', 'jpeg', 'png'];
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
+  selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   fileManagerTree: TreeModel;
-  appLanguage = 'fa';
+  appLanguage = "fa";
 
   dataAccessModel: AccessModel;
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
 
-
-  dataModelResult: ErrorExceptionResult<ApplicationThemeConfigModel> = new ErrorExceptionResult<ApplicationThemeConfigModel>();
+  dataModelResult: ErrorExceptionResult<ApplicationThemeConfigModel> =
+    new ErrorExceptionResult<ApplicationThemeConfigModel>();
   dataModel: ApplicationThemeConfigModel = new ApplicationThemeConfigModel();
-
 
   formInfo: FormInfoModel = new FormInfoModel();
 
-
   fileManagerOpenForm = false;
 
-
-  ngOnInit(): void {
-
-  }
-
-
+  ngOnInit(): void {}
 
   DataAddContent(): void {
-    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.applicationThemeConfigService.ServiceAdd(this.dataModel).subscribe({
       next: (ret) => {
         this.formInfo.formSubmitAllow = true;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.registration_completed_successfully').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("MESSAGE.registration_completed_successfully")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.cmsToastrService.typeSuccessAdd();
           this.dialogRef.close({ dialogChangedDate: true });
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -103,14 +140,12 @@ export class ApplicationThemeConfigAddComponent extends AddBaseComponent<Applica
         this.formInfo.formSubmitAllow = true;
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionFileSelected(model: NodeInterface): void {
     this.dataModel.linkMainImageId = model.id;
     this.dataModel.linkMainImageIdSrc = model.downloadLinksrc;
-
   }
   onFormSubmit(): void {
     if (!this.formGroup.valid) {

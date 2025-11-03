@@ -18,7 +18,6 @@ import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 @Component({
     selector: 'app-core-module-add',
     templateUrl: './add.component.html',
-    styleUrls: ['./add.component.scss'],
     standalone: false
 })
 export class CoreModuleAddComponent extends AddBaseComponent<CoreModuleService, CoreModuleModel, number> implements OnInit {

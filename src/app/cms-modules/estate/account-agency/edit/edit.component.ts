@@ -41,7 +41,7 @@ import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 @Component({
   selector: "app-estate-account-agency-edit",
   templateUrl: "./edit.component.html",
-  styleUrls: ["./edit.component.scss"],
+
   standalone: false,
 })
 export class EstateAccountAgencyEditComponent

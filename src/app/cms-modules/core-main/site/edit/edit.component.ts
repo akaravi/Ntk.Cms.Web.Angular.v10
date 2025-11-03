@@ -1,39 +1,51 @@
-
-import { ENTER } from '@angular/cdk/keycodes';
-import { StepperSelectionEvent } from '@angular/cdk/stepper';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { MatStepper } from '@angular/material/stepper';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import * as Leaflet from 'leaflet';
-import { Map as leafletMap } from 'leaflet';
+import { ENTER } from "@angular/cdk/keycodes";
+import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import {
-  AccessModel, CoreEnumService, CoreSiteCategoryModel, CoreSiteModel,
-  CoreSiteService, CoreUserModel,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MatChipInputEvent } from "@angular/material/chips";
+import { MatStepper } from "@angular/material/stepper";
+import { ActivatedRoute, Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
+import * as Leaflet from "leaflet";
+import { Map as leafletMap } from "leaflet";
+import {
+  AccessModel,
+  CoreEnumService,
+  CoreSiteCategoryModel,
+  CoreSiteModel,
+  CoreSiteService,
+  CoreUserModel,
   ErrorExceptionResult,
   ErrorExceptionResultBase,
-  FormInfoModel, InfoEnumModel, ManageUserAccessDataTypesEnum
-} from 'ntk-cms-api';
-import { NodeInterface, TreeModel } from 'ntk-cms-filemanager';
-import { Subscription } from 'rxjs';
-import { EditBaseComponent } from 'src/app/core/cmsComponent/editBaseComponent';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { PoinModel } from 'src/app/core/models/pointModel';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  FormInfoModel,
+  InfoEnumModel,
+  ManageUserAccessDataTypesEnum,
+} from "ntk-cms-api";
+import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
+import { Subscription } from "rxjs";
+import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { PoinModel } from "src/app/core/models/pointModel";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-  selector: 'app-core-site-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss'],
-  standalone: false
+  selector: "app-core-site-edit",
+  templateUrl: "./edit.component.html",
+
+  standalone: false,
 })
-export class CoreSiteEditComponent extends EditBaseComponent<CoreSiteService, CoreSiteModel, number>
-  implements OnInit, OnDestroy {
+export class CoreSiteEditComponent
+  extends EditBaseComponent<CoreSiteService, CoreSiteModel, number>
+  implements OnInit, OnDestroy
+{
   requestId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
@@ -42,17 +54,17 @@ export class CoreSiteEditComponent extends EditBaseComponent<CoreSiteService, Co
     public coreEnumService: CoreEnumService,
     private coreSiteService: CoreSiteService,
     private cmsToastrService: CmsToastrService,
-    private cmsStoreService:CmsStoreService,
+    private cmsStoreService: CmsStoreService,
     private router: Router,
     public translate: TranslateService,
     private cdr: ChangeDetectorRef,
-    private tokenHelper: TokenHelper
+    private tokenHelper: TokenHelper,
   ) {
     super(coreSiteService, new CoreSiteModel(), publicHelper, translate);
 
     this.publicHelper.processService.cdr = this.cdr;
 
-    this.requestId = + Number(this.activatedRoute.snapshot.paramMap.get('Id'));
+    this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("Id"));
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
@@ -62,16 +74,18 @@ export class CoreSiteEditComponent extends EditBaseComponent<CoreSiteService, Co
         this.DataGetOne(this.tokenInfo.access.siteId);
       }
     }
-    this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
+    this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
         this.tokenInfo = value;
         if (this.requestId > 0) {
           this.DataGetOne(this.requestId);
         } else {
           this.DataGetOne(this.tokenInfo.access.siteId);
         }
-    });
+      });
   }
-  @ViewChild('vform', { static: false }) formGroup: FormGroup;
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
   formInfo: FormInfoModel = new FormInfoModel();
   dataAccessModel: AccessModel;
@@ -79,9 +93,11 @@ export class CoreSiteEditComponent extends EditBaseComponent<CoreSiteService, Co
   dataModel = new CoreSiteModel();
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
 
-  dataModelEnumSiteStatusResult: ErrorExceptionResult<InfoEnumModel> = new ErrorExceptionResult<InfoEnumModel>();
-  dataModelEnumLanguageResult: ErrorExceptionResult<InfoEnumModel> = new ErrorExceptionResult<InfoEnumModel>();
-  selectFileTypeMainImage = ['jpg', 'jpeg', 'png'];
+  dataModelEnumSiteStatusResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
+  dataModelEnumLanguageResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
+  selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   fileManagerOpenFormAboutUsLinkImageId = false;
   fileManagerOpenFormLinkFavIconId = false;
   fileManagerOpenFormPwaIconSize72x72Id = false;
@@ -90,7 +106,7 @@ export class CoreSiteEditComponent extends EditBaseComponent<CoreSiteService, Co
   fileManagerOpenFormPwaIconSize512x512Id = false;
   fileManagerOpenFormLinkFileIdLogo = false;
   fileManagerOpenFormLinkImageLogoId = false;
-  appLanguage = 'fa';
+  appLanguage = "fa";
 
   cmsApiStoreSubscribe: Subscription;
   fileManagerTree: TreeModel;
@@ -100,10 +116,8 @@ export class CoreSiteEditComponent extends EditBaseComponent<CoreSiteService, Co
   mapOptonCenter = new PoinModel();
   keywordDataModel = [];
   ngOnInit(): void {
-
     this.getEnumSiteStatus();
     this.getEnumLanguage();
-
   }
   ngOnDestroy() {
     if (this.cmsApiStoreSubscribe) {
@@ -114,17 +128,16 @@ export class CoreSiteEditComponent extends EditBaseComponent<CoreSiteService, Co
     this.coreEnumService.ServiceSiteStatusEnum().subscribe({
       next: (ret) => {
         this.dataModelEnumSiteStatusResult = ret;
-      }
+      },
     });
   }
   getEnumLanguage(): void {
     this.coreEnumService.ServiceLanguageEnum().subscribe({
       next: (ret) => {
         this.dataModelEnumLanguageResult = ret;
-      }
+      },
     });
   }
-
 
   onFormSubmit(): void {
     if (!this.formGroup.valid) {
@@ -132,16 +145,18 @@ export class CoreSiteEditComponent extends EditBaseComponent<CoreSiteService, Co
       return;
     }
     if (this.dataModel.linkSiteCategoryId <= 0) {
-      this.translate.get('MESSAGE.Specify_the_source_code_of_the_program').subscribe((str: string) => {
-        this.cmsToastrService.typeErrorEdit(str);
-      });
+      this.translate
+        .get("MESSAGE.Specify_the_source_code_of_the_program")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorEdit(str);
+        });
 
       return;
     }
-    this.dataModel.seoKeyword = '';
+    this.dataModel.seoKeyword = "";
     if (this.keywordDataModel && this.keywordDataModel.length > 0) {
       const listKeyword = [];
-      this.keywordDataModel.forEach(element => {
+      this.keywordDataModel.forEach((element) => {
         if (element.display) {
           listKeyword.push(element.display);
         } else {
@@ -149,91 +164,116 @@ export class CoreSiteEditComponent extends EditBaseComponent<CoreSiteService, Co
         }
       });
       if (listKeyword && listKeyword.length > 0) {
-        this.dataModel.seoKeyword = listKeyword.join(',');
+        this.dataModel.seoKeyword = listKeyword.join(",");
       }
     }
     this.DataEditContent();
   }
   DataGetOne(id: number): void {
-    if (!id || id <= 0)
-      return;
+    if (!id || id <= 0) return;
     this.formInfo.formSubmitAllow = false;
-    this.translate.get('MESSAGE.get_information_from_the_server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    this.translate
+      .get("MESSAGE.get_information_from_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     /*َAccess Field*/
     this.coreSiteService.setAccessLoad();
-    this.coreSiteService.setAccessDataType(ManageUserAccessDataTypesEnum.Editor);
-    this.coreSiteService
-      .ServiceGetOneById(id)
-      .subscribe({
-        next: (ret) => {
-          /*َAccess Field*/
-          this.dataAccessModel = ret.access;
-          this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
-          this.dataModelResult = ret;
-          this.formInfo.formSubmitAllow = true;
-          if (ret.isSuccess) {
-            this.dataModel = ret.item;
-            const lat = this.dataModel.aboutUsGeolocationlatitude;
-            const lon = this.dataModel.aboutUsGeolocationlongitude;
-            if (lat > 0 && lon > 0) {
-              this.mapMarkerPoints = [];
-              this.mapMarkerPoints.push({ lat, lon });
-              this.receiveMap();
-            }
-            this.keywordDataModel = [];
-            if (this.dataModel.seoKeyword && this.dataModel.seoKeyword.length > 0) {
-              this.keywordDataModel = this.dataModel.seoKeyword.split(',');
-            }
-          } else {
-            this.cmsToastrService.typeErrorGetOne(ret.errorMessage);
+    this.coreSiteService.setAccessDataType(
+      ManageUserAccessDataTypesEnum.Editor,
+    );
+    this.coreSiteService.ServiceGetOneById(id).subscribe({
+      next: (ret) => {
+        /*َAccess Field*/
+        this.dataAccessModel = ret.access;
+        this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
+        this.dataModelResult = ret;
+        this.formInfo.formSubmitAllow = true;
+        if (ret.isSuccess) {
+          this.dataModel = ret.item;
+          const lat = this.dataModel.aboutUsGeolocationlatitude;
+          const lon = this.dataModel.aboutUsGeolocationlongitude;
+          if (lat > 0 && lon > 0) {
+            this.mapMarkerPoints = [];
+            this.mapMarkerPoints.push({ lat, lon });
+            this.receiveMap();
           }
-          this.publicHelper.processService.processStop(pName);
-        },
-        error: (er) => {
-          this.formInfo.formSubmitAllow = true;
-          this.cmsToastrService.typeErrorGetOne(er);
-          this.publicHelper.processService.processStop(pName, false);
+          this.keywordDataModel = [];
+          if (
+            this.dataModel.seoKeyword &&
+            this.dataModel.seoKeyword.length > 0
+          ) {
+            this.keywordDataModel = this.dataModel.seoKeyword.split(",");
+          }
+        } else {
+          this.cmsToastrService.typeErrorGetOne(ret.errorMessage);
         }
-      }
-      );
+        this.publicHelper.processService.processStop(pName);
+      },
+      error: (er) => {
+        this.formInfo.formSubmitAllow = true;
+        this.cmsToastrService.typeErrorGetOne(er);
+        this.publicHelper.processService.processStop(pName, false);
+      },
+    });
   }
   DataEditContent(): void {
     //! for convert color to hex
     this.dataModel.pwaThemeColor = this.dataModel.pwaThemeColor?.toString();
     //! for convert color to hex
-    this.dataModel.pwaThemeBackgroundColor = this.dataModel.pwaThemeBackgroundColor?.toString();
+    this.dataModel.pwaThemeBackgroundColor =
+      this.dataModel.pwaThemeBackgroundColor?.toString();
     this.formInfo.formSubmitAllow = false;
-    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
-    this.coreSiteService
-      .ServiceEdit(this.dataModel)
-      .subscribe({
-        next: (ret) => {
-          this.formInfo.formSubmitAllow = !ret.isSuccess;
-          this.dataModelResult = ret;
-          if (ret.isSuccess) {
-            this.translate.get('MESSAGE.registration_completed_successfully').subscribe((str: string) => { this.formInfo.formAlert = str; });
-            this.cmsToastrService.typeSuccessEdit();
-            this.formInfo.formSubmitAllow = true;
-          } else {
-            this.cmsToastrService.typeErrorEdit(ret.errorMessage);
-          }
-          this.publicHelper.processService.processStop(pName);
-        },
-        error: (er) => {
-          this.publicHelper.processService.processStop(pName);
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
+    this.coreSiteService.ServiceEdit(this.dataModel).subscribe({
+      next: (ret) => {
+        this.formInfo.formSubmitAllow = !ret.isSuccess;
+        this.dataModelResult = ret;
+        if (ret.isSuccess) {
+          this.translate
+            .get("MESSAGE.registration_completed_successfully")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
+          this.cmsToastrService.typeSuccessEdit();
           this.formInfo.formSubmitAllow = true;
-          this.cmsToastrService.typeError(er);;
+        } else {
+          this.cmsToastrService.typeErrorEdit(ret.errorMessage);
         }
-      }
-      );
+        this.publicHelper.processService.processStop(pName);
+      },
+      error: (er) => {
+        this.publicHelper.processService.processStop(pName);
+        this.formInfo.formSubmitAllow = true;
+        this.cmsToastrService.typeError(er);
+      },
+    });
   }
   onStepClick(event: StepperSelectionEvent, stepper: MatStepper): void {
     if (event.previouslySelectedIndex < event.selectedIndex) {
@@ -252,13 +292,15 @@ export class CoreSiteEditComponent extends EditBaseComponent<CoreSiteService, Co
     }
     this.mapModel = model;
     if (this.mapMarkerPoints && this.mapMarkerPoints.length > 0) {
-      this.mapMarkerPoints.forEach(item => {
-        this.mapMarker = Leaflet.marker([item.lat, item.lon]).addTo(this.mapModel);
+      this.mapMarkerPoints.forEach((item) => {
+        this.mapMarker = Leaflet.marker([item.lat, item.lon]).addTo(
+          this.mapModel,
+        );
       });
       this.mapOptonCenter = this.mapMarkerPoints[0];
       this.mapMarkerPoints = [];
     }
-    this.mapModel.on('click', (e) => {
+    this.mapModel.on("click", (e) => {
       // @ts-ignore
       const lat = e.latlng.lat;
       // @ts-ignore
@@ -266,7 +308,10 @@ export class CoreSiteEditComponent extends EditBaseComponent<CoreSiteService, Co
       if (this.mapMarker !== undefined) {
         this.mapModel.removeLayer(this.mapMarker);
       }
-      if (lat === this.dataModel.aboutUsGeolocationlatitude && lon === this.dataModel.aboutUsGeolocationlongitude) {
+      if (
+        lat === this.dataModel.aboutUsGeolocationlatitude &&
+        lon === this.dataModel.aboutUsGeolocationlongitude
+      ) {
         this.dataModel.aboutUsGeolocationlatitude = null;
         this.dataModel.aboutUsGeolocationlongitude = null;
         return;
@@ -277,7 +322,7 @@ export class CoreSiteEditComponent extends EditBaseComponent<CoreSiteService, Co
     });
   }
   onActionBackToParent(): void {
-    this.router.navigate(['/core/site/']);
+    this.router.navigate(["/core/site/"]);
   }
   onActionFileSelectedAboutUsLinkImageId(model: NodeInterface): void {
     this.dataModel.aboutUsLinkImageId = model.id;
@@ -309,18 +354,22 @@ export class CoreSiteEditComponent extends EditBaseComponent<CoreSiteService, Co
   }
   onActionSelectCategory(model: CoreSiteCategoryModel | null): void {
     if (!model || model.id <= 0) {
-      this.translate.get('MESSAGE.category_of_site_is_not_clear').subscribe((str: string) => {
-        this.cmsToastrService.typeErrorSelected(str);
-      });
+      this.translate
+        .get("MESSAGE.category_of_site_is_not_clear")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.dataModel.linkSiteCategoryId = model.id;
   }
   onActionSelectCreatedBy(model: CoreSiteModel | null): void {
     if (!model || model.id <= 0) {
-      this.translate.get('MESSAGE.category_of_site_is_not_clear').subscribe((str: string) => {
-        this.cmsToastrService.typeErrorSelected(str);
-      });
+      this.translate
+        .get("MESSAGE.category_of_site_is_not_clear")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.dataModel.linkCreatedBySiteId = model.id;
@@ -340,12 +389,12 @@ export class CoreSiteEditComponent extends EditBaseComponent<CoreSiteService, Co
     this.dataModel.linkResellerUserId = model.id;
   }
   /**
-  * tag
-  */
+   * tag
+   */
   addOnBlurTag = true;
   readonly separatorKeysCodes = [ENTER] as const;
   addTag(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
+    const value = (event.value || "").trim();
     // Add our item
     if (value) {
       this.keywordDataModel.push(value);

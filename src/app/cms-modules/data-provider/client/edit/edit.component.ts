@@ -35,7 +35,7 @@ import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-di
 @Component({
   selector: "app-data-provider-client-edit",
   templateUrl: "./edit.component.html",
-  styleUrls: ["./edit.component.scss"],
+
   standalone: false,
 })
 export class DataProviderClientEditComponent

@@ -1,38 +1,45 @@
-
-import { StepperSelectionEvent } from '@angular/cdk/stepper';
+import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import {
-  ChangeDetectorRef, Component, OnDestroy, OnInit,
-  ViewChild
-} from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { MatStepper } from '@angular/material/stepper';
-import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MatDialog } from "@angular/material/dialog";
+import { MatStepper } from "@angular/material/stepper";
+import { ActivatedRoute, Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  AccessModel, CoreEnumService, CoreSiteModel, CoreUserModel, CoreUserService,
+  AccessModel,
+  CoreEnumService,
+  CoreSiteModel,
+  CoreUserModel,
+  CoreUserService,
   ErrorExceptionResultBase,
   FormInfoModel,
-  ManageUserAccessDataTypesEnum
-} from 'ntk-cms-api';
-import { NodeInterface, TreeModel } from 'ntk-cms-filemanager';
-import { Subscription } from 'rxjs';
-import { EditBaseComponent } from 'src/app/core/cmsComponent/editBaseComponent';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CoreUserChangePasswordComponent } from '../changePassword/changePassword.component';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  ManageUserAccessDataTypesEnum,
+} from "ntk-cms-api";
+import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
+import { Subscription } from "rxjs";
+import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { CoreUserChangePasswordComponent } from "../changePassword/changePassword.component";
 
 @Component({
-  selector: 'app-core-user-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss'],
-  standalone: false
+  selector: "app-core-user-edit",
+  templateUrl: "./edit.component.html",
+
+  standalone: false,
 })
-export class CoreUserEditComponent extends EditBaseComponent<CoreUserService, CoreUserModel, number>
-  implements OnInit, OnDestroy {
+export class CoreUserEditComponent
+  extends EditBaseComponent<CoreUserService, CoreUserModel, number>
+  implements OnInit, OnDestroy
+{
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -50,34 +57,33 @@ export class CoreUserEditComponent extends EditBaseComponent<CoreUserService, Co
     super(coreUserService, new CoreUserModel(), publicHelper, translate);
     this.publicHelper.processService.cdr = this.cdr;
 
-    this.requestId = + Number(this.activatedRoute.snapshot.paramMap.get('Id'));
+    this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("Id"));
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
-
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-      this.DataGetOneContent();
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+        this.DataGetOneContent();
+      });
   }
   // tokenInfo: TokenInfoModelV3;
   cmsApiStoreSubscribe: Subscription;
 
   requestId = 0;
-  selectFileTypeMainImage = ['jpg', 'jpeg', 'png'];
+  selectFileTypeMainImage = ["jpg", "jpeg", "png"];
 
   fileManagerTree: TreeModel;
-  appLanguage = 'fa';
-
+  appLanguage = "fa";
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: CoreUserModel = new CoreUserModel();
-  @ViewChild('vform', { static: false }) formGroup: FormGroup;
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
   formInfo: FormInfoModel = new FormInfoModel();
 
   dataAccessModel: AccessModel;
-
 
   fileManagerOpenForm = false;
 
@@ -95,9 +101,10 @@ export class CoreUserEditComponent extends EditBaseComponent<CoreUserService, Co
       return;
     }
 
-    this.translate.get('TITLE.Edit').subscribe((str: string) => { this.formInfo.formTitle = str; });
+    this.translate.get("TITLE.Edit").subscribe((str: string) => {
+      this.formInfo.formTitle = str;
+    });
     this.DataGetOneContent();
-
   }
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -106,17 +113,28 @@ export class CoreUserEditComponent extends EditBaseComponent<CoreUserService, Co
   }
 
   DataGetOneContent(): void {
-
-    this.translate.get('MESSAGE.Receiving_Information_From_The_Server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    this.translate
+      .get("MESSAGE.Receiving_Information_From_The_Server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     /*َAccess Field*/
     this.coreUserService.setAccessLoad();
-    this.coreUserService.setAccessDataType(ManageUserAccessDataTypesEnum.Editor);
+    this.coreUserService.setAccessDataType(
+      ManageUserAccessDataTypesEnum.Editor,
+    );
     this.coreUserService.ServiceGetOneById(this.requestId).subscribe({
       next: (ret) => {
         /*َAccess Field*/
@@ -125,10 +143,15 @@ export class CoreUserEditComponent extends EditBaseComponent<CoreUserService, Co
 
         this.dataModel = ret.item;
         if (ret.isSuccess) {
-          this.formInfo.formTitle = this.formInfo.formTitle + ' ' + ret.item.username;
-          this.formInfo.formAlert = '';
+          this.formInfo.formTitle =
+            this.formInfo.formTitle + " " + ret.item.username;
+          this.formInfo.formAlert = "";
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -137,30 +160,49 @@ export class CoreUserEditComponent extends EditBaseComponent<CoreUserService, Co
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
 
   DataEditContent(): void {
-    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
-
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.coreUserService.ServiceEdit(this.dataModel).subscribe({
       next: (ret) => {
         this.formInfo.formSubmitAllow = true;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.registration_completed_successfully').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("MESSAGE.registration_completed_successfully")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.cmsToastrService.typeSuccessEdit();
           if (this.dataModel.id === this.tokenInfo.access.userId) {
-            this.tokenInfo = this.cmsStoreService.getStateSnapshot().tokenInfoStore
+            this.tokenInfo =
+              this.cmsStoreService.getStateSnapshot().tokenInfoStore;
           }
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -170,9 +212,8 @@ export class CoreUserEditComponent extends EditBaseComponent<CoreUserService, Co
         this.formInfo.formSubmitAllow = true;
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onFormSubmit(): void {
     if (!this.formGroup.valid) {
@@ -182,7 +223,7 @@ export class CoreUserEditComponent extends EditBaseComponent<CoreUserService, Co
     this.DataEditContent();
   }
   onActionBackToParent(): void {
-    this.router.navigate(['/core/user/']);
+    this.router.navigate(["/core/user/"]);
   }
   onStepClick(event: StepperSelectionEvent, stepper: MatStepper): void {
     if (event.previouslySelectedIndex < event.selectedIndex) {
@@ -210,25 +251,20 @@ export class CoreUserEditComponent extends EditBaseComponent<CoreUserService, Co
     this.dataModel.linkResellerUserId = model.id;
   }
   onActionButtonChangePassword(): void {
-    if (this.tokenInfo.access.userId != this.dataModel.id &&
-      (
-        this.dataAccessModel == null ||
-        !this.dataAccessModel.accessEditRow
-      )) {
+    if (
+      this.tokenInfo.access.userId != this.dataModel.id &&
+      (this.dataAccessModel == null || !this.dataAccessModel.accessEditRow)
+    ) {
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
     const dialogRef = this.dialog.open(CoreUserChangePasswordComponent, {
       //height: '90%',
-      data: { linkUserId: this.dataModel.id }
+      data: { linkUserId: this.dataModel.id },
     });
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
-
       }
     });
   }
-
 }
-
-

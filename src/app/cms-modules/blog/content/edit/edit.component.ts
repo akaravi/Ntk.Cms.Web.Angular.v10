@@ -42,7 +42,7 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 @Component({
   selector: "app-blog-content-edit",
   templateUrl: "./edit.component.html",
-  styleUrls: ["./edit.component.scss"],
+
   standalone: false,
 })
 export class BlogContentEditComponent

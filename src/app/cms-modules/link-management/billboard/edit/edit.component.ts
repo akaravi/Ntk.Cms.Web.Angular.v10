@@ -32,7 +32,7 @@ import { PoinModel } from "src/app/core/models/pointModel";
 @Component({
   selector: "app-linkmanagement-billboard-edit",
   templateUrl: "./edit.component.html",
-  styleUrls: ["./edit.component.scss"],
+
   standalone: false,
 })
 export class LinkManagementBillboardEditComponent

@@ -1,34 +1,44 @@
-
 import {
-  ChangeDetectorRef, Component, Inject,
-  OnDestroy, OnInit,
-  ViewChild
-} from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService, CoreModuleLogLikeModel, CoreModuleLogLikeService,
+  CoreEnumService,
+  CoreModuleLogLikeModel,
+  CoreModuleLogLikeService,
   ErrorExceptionResultBase,
-  FormInfoModel, ManageUserAccessDataTypesEnum
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { EditBaseComponent } from 'src/app/core/cmsComponent/editBaseComponent';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  FormInfoModel,
+  ManageUserAccessDataTypesEnum,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-  selector: 'app-coremodulelog-like-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss'],
-  standalone: false
+  selector: "app-coremodulelog-like-edit",
+  templateUrl: "./edit.component.html",
+
+  standalone: false,
 })
-export class CoreModuleLogLikeEditComponent extends EditBaseComponent<CoreModuleLogLikeService, CoreModuleLogLikeModel, string>
-  implements OnInit, OnDestroy {
-  requestId = '';
+export class CoreModuleLogLikeEditComponent
+  extends EditBaseComponent<
+    CoreModuleLogLikeService,
+    CoreModuleLogLikeModel,
+    string
+  >
+  implements OnInit, OnDestroy
+{
+  requestId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -42,7 +52,12 @@ export class CoreModuleLogLikeEditComponent extends EditBaseComponent<CoreModule
     public publicHelper: PublicHelper,
     public translate: TranslateService,
   ) {
-    super(coreModuleLogLikeService, new CoreModuleLogLikeModel(), publicHelper, translate);
+    super(
+      coreModuleLogLikeService,
+      new CoreModuleLogLikeModel(),
+      publicHelper,
+      translate,
+    );
 
     this.publicHelper.processService.cdr = this.cdr;
 
@@ -51,16 +66,11 @@ export class CoreModuleLogLikeEditComponent extends EditBaseComponent<CoreModule
     }
   }
 
-
-
-
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: CoreModuleLogLikeModel = new CoreModuleLogLikeModel();
-  @ViewChild('vform', { static: false }) formGroup: FormGroup;
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
   formInfo: FormInfoModel = new FormInfoModel();
-
-
 
   fileManagerOpenForm = false;
 
@@ -68,7 +78,9 @@ export class CoreModuleLogLikeEditComponent extends EditBaseComponent<CoreModule
 
   ngOnInit(): void {
     if (this.requestId && this.requestId.length > 0) {
-      this.translate.get('TITLE.Edit').subscribe((str: string) => { this.formInfo.formTitle = str; });
+      this.translate.get("TITLE.Edit").subscribe((str: string) => {
+        this.formInfo.formTitle = str;
+      });
       this.DataGetOneContent();
     } else {
       this.cmsToastrService.typeErrorComponentAction();
@@ -77,13 +89,12 @@ export class CoreModuleLogLikeEditComponent extends EditBaseComponent<CoreModule
     }
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
-
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+      });
   }
-
-
 
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -91,23 +102,34 @@ export class CoreModuleLogLikeEditComponent extends EditBaseComponent<CoreModule
     }
   }
 
-
   DataGetOneContent(): void {
     if (!this.requestId || this.requestId.length === 0) {
       this.cmsToastrService.typeErrorEditRowIsNull();
       return;
     }
 
-    this.translate.get('MESSAGE.Receiving_Information_From_The_Server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    this.translate
+      .get("MESSAGE.Receiving_Information_From_The_Server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     /*َAccess Field*/
     this.coreModuleLogLikeService.setAccessLoad();
-    this.coreModuleLogLikeService.setAccessDataType(ManageUserAccessDataTypesEnum.Editor);
+    this.coreModuleLogLikeService.setAccessDataType(
+      ManageUserAccessDataTypesEnum.Editor,
+    );
     this.coreModuleLogLikeService.ServiceGetOneById(this.requestId).subscribe({
       next: (ret) => {
         /*َAccess Field*/
@@ -115,39 +137,61 @@ export class CoreModuleLogLikeEditComponent extends EditBaseComponent<CoreModule
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
         this.dataModel = ret.item;
         if (ret.isSuccess) {
-          this.formInfo.formTitle = this.formInfo.formTitle + ' ' + ret.item.id;
-          this.formInfo.formAlert = '';
+          this.formInfo.formTitle = this.formInfo.formTitle + " " + ret.item.id;
+          this.formInfo.formAlert = "";
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
 
   DataEditContent(): void {
-    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.coreModuleLogLikeService.ServiceEdit(this.dataModel).subscribe({
       next: (ret) => {
         this.dataModelResult = ret;
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.registration_completed_successfully').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("MESSAGE.registration_completed_successfully")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.cmsToastrService.typeSuccessEdit();
           this.dialogRef.close({ dialogChangedDate: true });
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -159,9 +203,8 @@ export class CoreModuleLogLikeEditComponent extends EditBaseComponent<CoreModule
         this.formInfo.formSubmitAllow = true;
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
 
   onFormSubmit(): void {

@@ -1,29 +1,46 @@
-import { ENTER } from '@angular/cdk/keycodes';
+import { ENTER } from "@angular/cdk/keycodes";
 import {
-  ChangeDetectorRef, Component, Inject, OnInit,
-  ViewChild
-} from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MatChipInputEvent } from "@angular/material/chips";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreSiteCategoryModel, DataFieldInfoModel, ErrorExceptionResult,
-  FormInfoModel, InfoEnumModel, WebDesignerEnumService,
-  WebDesignerMainPageDependencyModel, WebDesignerMainPageModel, WebDesignerMainPageService, WebDesignerMainPageTemplateModel
-} from 'ntk-cms-api';
-import { TreeModel } from 'ntk-cms-filemanager';
-import { AddBaseComponent } from 'src/app/core/cmsComponent/addBaseComponent';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
+  CoreSiteCategoryModel,
+  DataFieldInfoModel,
+  ErrorExceptionResult,
+  FormInfoModel,
+  InfoEnumModel,
+  WebDesignerEnumService,
+  WebDesignerMainPageDependencyModel,
+  WebDesignerMainPageModel,
+  WebDesignerMainPageService,
+  WebDesignerMainPageTemplateModel,
+} from "ntk-cms-api";
+import { TreeModel } from "ntk-cms-filemanager";
+import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 @Component({
-    selector: 'app-webdesigner-page-add',
-    templateUrl: './add.component.html',
-    styleUrls: ['./add.component.scss'],
-    standalone: false
+  selector: "app-webdesigner-page-add",
+  templateUrl: "./add.component.html",
+
+  standalone: false,
 })
-export class WebDesignerMainPageAddComponent extends AddBaseComponent<WebDesignerMainPageService, WebDesignerMainPageModel, string> implements OnInit {
-  requestLinkPageDependencyGuId = '';
+export class WebDesignerMainPageAddComponent
+  extends AddBaseComponent<
+    WebDesignerMainPageService,
+    WebDesignerMainPageModel,
+    string
+  >
+  implements OnInit
+{
+  requestLinkPageDependencyGuId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -35,30 +52,43 @@ export class WebDesignerMainPageAddComponent extends AddBaseComponent<WebDesigne
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {
-    super(webDesignerMainPageService, new WebDesignerMainPageModel(), publicHelper, translate);
+    super(
+      webDesignerMainPageService,
+      new WebDesignerMainPageModel(),
+      publicHelper,
+      translate,
+    );
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {
-      this.requestLinkPageDependencyGuId = data.linkPageDependencyGuId + '';
+      this.requestLinkPageDependencyGuId = data.linkPageDependencyGuId + "";
     }
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
     if (this.requestLinkPageDependencyGuId.length > 0) {
-      this.dataModel.linkPageDependencyGuId = this.requestLinkPageDependencyGuId;
+      this.dataModel.linkPageDependencyGuId =
+        this.requestLinkPageDependencyGuId;
     }
   }
-  @ViewChild('vform', { static: false }) formGroup: FormGroup;
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
-  selectFileTypeMainImage = ['jpg', 'jpeg', 'png'];
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
+  selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   keywordDataModel = [];
   fileManagerTree: TreeModel;
-  appLanguage = 'fa';
-  dataModelResult: ErrorExceptionResult<WebDesignerMainPageModel> = new ErrorExceptionResult<WebDesignerMainPageModel>();
+  appLanguage = "fa";
+  dataModelResult: ErrorExceptionResult<WebDesignerMainPageModel> =
+    new ErrorExceptionResult<WebDesignerMainPageModel>();
   dataModel: WebDesignerMainPageModel = new WebDesignerMainPageModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
-  dataModelEnumPageAbilityTypeResult: ErrorExceptionResult<InfoEnumModel> = new ErrorExceptionResult<InfoEnumModel>();
+  dataModelEnumPageAbilityTypeResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
   fileManagerOpenForm = false;
   ngOnInit(): void {
-    this.translate.get('TITLE.ADD').subscribe((str: string) => { this.formInfo.formTitle = str; });
+    this.translate.get("TITLE.ADD").subscribe((str: string) => {
+      this.formInfo.formTitle = str;
+    });
 
     this.DataGetAccess();
     this.getEnumPageAbilityType();
@@ -67,28 +97,46 @@ export class WebDesignerMainPageAddComponent extends AddBaseComponent<WebDesigne
     this.webDesignerEnumService.ServicePageAbilityTypeEnum().subscribe({
       next: (ret) => {
         this.dataModelEnumPageAbilityTypeResult = ret;
-      }
+      },
     });
   }
 
-
   DataAddContent(): void {
-    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'webDesignerMainPageService.ServiceAdd';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName =
+      this.constructor.name + "webDesignerMainPageService.ServiceAdd";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.webDesignerMainPageService.ServiceAdd(this.dataModel).subscribe({
       next: (ret) => {
         this.formInfo.formSubmitAllow = true;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.registration_completed_successfully').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("MESSAGE.registration_completed_successfully")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.cmsToastrService.typeSuccessAdd();
           this.dialogRef.close({ dialogChangedDate: true });
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -98,36 +146,47 @@ export class WebDesignerMainPageAddComponent extends AddBaseComponent<WebDesigne
         this.formInfo.formSubmitAllow = true;
         this.cmsToastrService.typeError(err);
         this.publicHelper.processService.processStop(pName);
-      }
-    }
-    );
+      },
+    });
   }
-  onActionSelectDependency(model: WebDesignerMainPageDependencyModel | null): void {
+  onActionSelectDependency(
+    model: WebDesignerMainPageDependencyModel | null,
+  ): void {
     if (!model || model.id?.length <= 0) {
-      this.translate.get(['MESSAGE.Specify_the_display_location', 'MESSAGE.information_screen_is_not_clear']).subscribe((str: any) => {
-        this.cmsToastrService.typeErrorMessage(
-          str['MESSAGE.Specify_the_display_location'],
-          str['MESSAGE.information_screen_is_not_clear']
-        );
-      });
+      this.translate
+        .get([
+          "MESSAGE.Specify_the_display_location",
+          "MESSAGE.information_screen_is_not_clear",
+        ])
+        .subscribe((str: any) => {
+          this.cmsToastrService.typeErrorMessage(
+            str["MESSAGE.Specify_the_display_location"],
+            str["MESSAGE.information_screen_is_not_clear"],
+          );
+        });
       return;
     }
     this.dataModel.linkPageDependencyGuId = model.id;
   }
   onActionSelectTemplate(model: WebDesignerMainPageTemplateModel | null): void {
     if (!model || model.id?.length <= 0) {
-      this.translate.get(['MESSAGE.Specify_the_template', 'MESSAGE.Screen_template_is_not_clear']).subscribe((str: any) => {
-        this.cmsToastrService.typeErrorMessage(
-          str['MESSAGE.Specify_the_template'],
-          str['MESSAGE.Screen_template_is_not_clear']
-        );
-      });
+      this.translate
+        .get([
+          "MESSAGE.Specify_the_template",
+          "MESSAGE.Screen_template_is_not_clear",
+        ])
+        .subscribe((str: any) => {
+          this.cmsToastrService.typeErrorMessage(
+            str["MESSAGE.Specify_the_template"],
+            str["MESSAGE.Screen_template_is_not_clear"],
+          );
+        });
       return;
     }
     this.dataModel.linkPageTemplateGuId = model.id;
   }
   onActionSelectParent(model: WebDesignerMainPageModel): void {
-    this.dataModel.linkPageParentGuId = '';
+    this.dataModel.linkPageParentGuId = "";
     if (model && model.id && model.id.length > 0) {
       this.dataModel.linkPageParentGuId = model.id;
     }
@@ -137,10 +196,10 @@ export class WebDesignerMainPageAddComponent extends AddBaseComponent<WebDesigne
       return;
     }
     this.formInfo.formSubmitAllow = false;
-    this.dataModel.keyword = '';
+    this.dataModel.keyword = "";
     if (this.keywordDataModel && this.keywordDataModel.length > 0) {
       const listKeyword = [];
-      this.keywordDataModel.forEach(element => {
+      this.keywordDataModel.forEach((element) => {
         if (element.display) {
           listKeyword.push(element.display);
         } else {
@@ -148,7 +207,7 @@ export class WebDesignerMainPageAddComponent extends AddBaseComponent<WebDesigne
         }
       });
       if (listKeyword && listKeyword.length > 0) {
-        this.dataModel.keyword = listKeyword.join(',');
+        this.dataModel.keyword = listKeyword.join(",");
       }
     }
     this.DataAddContent();
@@ -158,22 +217,23 @@ export class WebDesignerMainPageAddComponent extends AddBaseComponent<WebDesigne
   }
   onActionSelectCategory(model: CoreSiteCategoryModel | null): void {
     if (!model || model.id <= 0) {
-      this.translate.get('MESSAGE.category_of_site_is_not_clear').subscribe((message: string) => {
-        this.cmsToastrService.typeErrorSelected(message);
-      });
+      this.translate
+        .get("MESSAGE.category_of_site_is_not_clear")
+        .subscribe((message: string) => {
+          this.cmsToastrService.typeErrorSelected(message);
+        });
       return;
     }
     this.dataModel.pageDependencyIsDefaultPageLinkSiteCategoryId = model.id;
   }
 
-
   /**
-* tag
-*/
+   * tag
+   */
   addOnBlurTag = true;
   readonly separatorKeysCodes = [ENTER] as const;
   addTag(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
+    const value = (event.value || "").trim();
     // Add our item
     if (value) {
       this.keywordDataModel.push(value);

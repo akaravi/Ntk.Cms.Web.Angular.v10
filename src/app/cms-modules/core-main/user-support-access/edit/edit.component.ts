@@ -29,7 +29,7 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 @Component({
   selector: "app-core-user-support-access-edit",
   templateUrl: "./edit.component.html",
-  styleUrls: ["./edit.component.scss"],
+
   standalone: false,
 })
 export class CoreUserSupportAccessEditComponent

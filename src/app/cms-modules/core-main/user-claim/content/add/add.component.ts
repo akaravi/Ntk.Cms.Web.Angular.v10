@@ -24,7 +24,6 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 @Component({
   selector: 'app-core-userclaimcontent-add',
   templateUrl: './add.component.html',
-  styleUrls: ['./add.component.scss'],
   standalone: false
 })
 export class CoreUserClaimContentAddComponent extends AddBaseComponent<CoreUserClaimContentService, CoreUserClaimContentModel, number> implements OnInit, OnDestroy {

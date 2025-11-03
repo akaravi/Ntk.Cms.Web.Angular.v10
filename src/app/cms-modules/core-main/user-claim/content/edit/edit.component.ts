@@ -24,7 +24,7 @@ import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
 @Component({
   selector: 'app-core-userclaim-edit',
   templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss'],
+
   standalone: false
 })
 export class CoreUserClaimContentEditComponent extends EditBaseComponent<CoreUserClaimContentService, CoreUserClaimContentModel, number>

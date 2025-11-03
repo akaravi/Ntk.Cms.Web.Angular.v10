@@ -1,30 +1,40 @@
-
 import {
-  ChangeDetectorRef, Component, Inject, OnInit,
-  ViewChild
-} from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
 import {
   CoreEnumService,
   ErrorExceptionResultBase,
   FormInfoModel,
-  ManageUserAccessDataTypesEnum, PollingCategoryModel, PollingCategoryService
-} from 'ntk-cms-api';
-import { NodeInterface, TreeModel } from 'ntk-cms-filemanager';
-import { EditBaseComponent } from 'src/app/core/cmsComponent/editBaseComponent';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
+  ManageUserAccessDataTypesEnum,
+  PollingCategoryModel,
+  PollingCategoryService,
+} from "ntk-cms-api";
+import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
+import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-    selector: 'app-polling-category-edit',
-    templateUrl: './edit.component.html',
-    styleUrls: ['./edit.component.scss'],
-    standalone: false
+  selector: "app-polling-category-edit",
+  templateUrl: "./edit.component.html",
+
+  standalone: false,
 })
-export class PollingCategoryEditComponent extends EditBaseComponent<PollingCategoryService, PollingCategoryModel, number>
-  implements OnInit {
+export class PollingCategoryEditComponent
+  extends EditBaseComponent<
+    PollingCategoryService,
+    PollingCategoryModel,
+    number
+  >
+  implements OnInit
+{
   requestId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
@@ -37,7 +47,12 @@ export class PollingCategoryEditComponent extends EditBaseComponent<PollingCateg
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {
-    super(pollingCategoryService, new PollingCategoryModel(), publicHelper, translate);
+    super(
+      pollingCategoryService,
+      new PollingCategoryModel(),
+      publicHelper,
+      translate,
+    );
 
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {
@@ -46,34 +61,28 @@ export class PollingCategoryEditComponent extends EditBaseComponent<PollingCateg
 
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
   }
-  @ViewChild('vform', { static: false }) formGroup: FormGroup;
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
-
-  selectFileTypeMainImage = ['jpg', 'jpeg', 'png'];
+  selectFileTypeMainImage = ["jpg", "jpeg", "png"];
 
   fileManagerTree: TreeModel;
-  appLanguage = 'fa';
-
+  appLanguage = "fa";
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: PollingCategoryModel = new PollingCategoryModel();
 
-
   formInfo: FormInfoModel = new FormInfoModel();
 
-
   fileManagerOpenForm = false;
-
 
   onActionFileSelected(model: NodeInterface): void {
     this.dataModel.linkMainImageId = model.id;
     this.dataModel.linkMainImageIdSrc = model.downloadLinksrc;
-
   }
 
   ngOnInit(): void {
     if (this.requestId > 0) {
-      this.translate.get('TITLE.Edit_Categories').subscribe((str: string) => {
+      this.translate.get("TITLE.Edit_Categories").subscribe((str: string) => {
         this.formInfo.formTitle = str;
       });
       this.DataGetOneContent();
@@ -82,9 +91,7 @@ export class PollingCategoryEditComponent extends EditBaseComponent<PollingCateg
       this.dialogRef.close({ dialogChangedDate: false });
       return;
     }
-
   }
-
 
   DataGetOneContent(): void {
     if (this.requestId <= 0) {
@@ -92,56 +99,90 @@ export class PollingCategoryEditComponent extends EditBaseComponent<PollingCateg
       return;
     }
 
-    this.translate.get('MESSAGE.Receiving_Information_From_The_Server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    this.translate
+      .get("MESSAGE.Receiving_Information_From_The_Server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.pollingCategoryService.setAccessLoad();
-    this.pollingCategoryService.setAccessDataType(ManageUserAccessDataTypesEnum.Editor);
+    this.pollingCategoryService.setAccessDataType(
+      ManageUserAccessDataTypesEnum.Editor,
+    );
     this.pollingCategoryService.ServiceGetOneById(this.requestId).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
 
         this.dataModel = ret.item;
         if (ret.isSuccess) {
-          this.formInfo.formTitle = this.formInfo.formTitle + ' ' + ret.item.title;
-          this.formInfo.formAlert = '';
+          this.formInfo.formTitle =
+            this.formInfo.formTitle + " " + ret.item.title;
+          this.formInfo.formAlert = "";
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
 
   DataEditContent(): void {
-    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.pollingCategoryService.ServiceEdit(this.dataModel).subscribe({
       next: (ret) => {
         this.formInfo.formSubmitAllow = true;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.registration_completed_successfully').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("MESSAGE.registration_completed_successfully")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.cmsToastrService.typeSuccessEdit();
           this.dialogRef.close({ dialogChangedDate: true });
-
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -151,9 +192,8 @@ export class PollingCategoryEditComponent extends EditBaseComponent<PollingCateg
         this.formInfo.formSubmitAllow = true;
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onFormSubmit(): void {
     if (!this.formGroup.valid) {

@@ -39,7 +39,7 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 @Component({
   selector: "app-estate-account-expert-edit",
   templateUrl: "./edit.component.html",
-  styleUrls: ["./edit.component.scss"],
+
   standalone: false,
 })
 export class EstateAccountExpertEditComponent

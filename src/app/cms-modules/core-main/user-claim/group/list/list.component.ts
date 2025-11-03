@@ -73,7 +73,7 @@ export class CoreUserClaimGroupListComponent
 
     /*filter Sort*/
     this.filteModelContent.sortColumn = "Id";
-    this.filteModelContent.sortType = SortTypeEnum.Descending;
+    this.filteModelContent.sortType = SortTypeEnum.Ascending;
   }
   comment: string;
   author: string;
@@ -93,7 +93,7 @@ export class CoreUserClaimGroupListComponent
   tabledisplayedColumnsSource: string[] = [
     "Id",
     "RecordStatus",
-    // 'Title',
+    "Title",
     "LinkModuleId",
     "LinkSiteCategoryId",
     // 'Action'
@@ -101,7 +101,7 @@ export class CoreUserClaimGroupListComponent
   tabledisplayedColumnsMobileSource: string[] = [
     "Id",
     "RecordStatus",
-    // 'Title',
+    "Title",
     "LinkModuleId",
     "LinkSiteCategoryId",
     // 'Action'
@@ -111,7 +111,7 @@ export class CoreUserClaimGroupListComponent
   cmsApiStoreSubscribe: Subscription;
 
   ngOnInit(): void {
-    this.filteModelContent.sortColumn = "Title";
+    this.filteModelContent.sortColumn = "Id";
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();

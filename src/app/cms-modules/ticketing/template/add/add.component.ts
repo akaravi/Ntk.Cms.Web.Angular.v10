@@ -1,26 +1,41 @@
-import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
 import {
-  CoreEnumService, DataFieldInfoModel, ErrorExceptionResult,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  CoreEnumService,
+  DataFieldInfoModel,
+  ErrorExceptionResult,
   FormInfoModel,
-  TicketingDepartemenModel, TicketingTemplateModel,
-  TicketingTemplateService
-} from 'ntk-cms-api';
-import { AddBaseComponent } from 'src/app/core/cmsComponent/addBaseComponent';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { CmsFormsErrorStateMatcher } from 'src/app/core/pipe/cmsFormsErrorStateMatcher';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-
+  TicketingDepartemenModel,
+  TicketingTemplateModel,
+  TicketingTemplateService,
+} from "ntk-cms-api";
+import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsFormsErrorStateMatcher } from "src/app/core/pipe/cmsFormsErrorStateMatcher";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-    selector: 'app-ticketing-template-add',
-    templateUrl: './add.component.html',
-    styleUrls: ['./add.component.scss'],
-    standalone: false
+  selector: "app-ticketing-template-add",
+  templateUrl: "./add.component.html",
+
+  standalone: false,
 })
-export class TicketingTemplateAddComponent extends AddBaseComponent<TicketingTemplateService, TicketingTemplateModel, number> implements OnInit {
+export class TicketingTemplateAddComponent
+  extends AddBaseComponent<
+    TicketingTemplateService,
+    TicketingTemplateModel,
+    number
+  >
+  implements OnInit
+{
   requestParentId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
@@ -33,7 +48,12 @@ export class TicketingTemplateAddComponent extends AddBaseComponent<TicketingTem
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {
-    super(ticketingTemplateService, new TicketingTemplateModel(), publicHelper, translate);
+    super(
+      ticketingTemplateService,
+      new TicketingTemplateModel(),
+      publicHelper,
+      translate,
+    );
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {
       this.requestParentId = +data.parentId || 0;
@@ -42,58 +62,73 @@ export class TicketingTemplateAddComponent extends AddBaseComponent<TicketingTem
       this.dataModel.linkTicketingDepartemenId = this.requestParentId;
     }
   }
-  @ViewChild('vform', { static: false }) formGroup: FormGroup;
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
 
   formMatcher = new CmsFormsErrorStateMatcher();
-  dataModelResult: ErrorExceptionResult<TicketingTemplateModel> = new ErrorExceptionResult<TicketingTemplateModel>();
+  dataModelResult: ErrorExceptionResult<TicketingTemplateModel> =
+    new ErrorExceptionResult<TicketingTemplateModel>();
   dataModel: TicketingTemplateModel = new TicketingTemplateModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
-
-
-
   ngOnInit(): void {
-
-    this.translate.get('TITLE.Submit_New_Content').subscribe((str: string) => {
+    this.translate.get("TITLE.Submit_New_Content").subscribe((str: string) => {
       this.formInfo.formTitle = str;
     });
-
 
     this.DataGetAccess();
   }
 
   DataAddContent(): void {
-    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.ticketingTemplateService.ServiceAdd(this.dataModel).subscribe({
       next: (ret) => {
         this.formInfo.formSubmitAllow = true;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.registration_completed_successfully').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("MESSAGE.registration_completed_successfully")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.cmsToastrService.typeSuccessAdd();
           this.dialogRef.close({ dialogChangedDate: true });
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (err) => {
         this.formInfo.formSubmitAllow = true;
         this.cmsToastrService.typeError(err);
         this.publicHelper.processService.processStop(pName);
-      }
-    }
-    );
+      },
+    });
   }
   // DataEditContent(): void {
   //   this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => {this.formInfo.formAlert = str;});
@@ -102,7 +137,6 @@ export class TicketingTemplateAddComponent extends AddBaseComponent<TicketingTem
   // this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
   //   this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
   // });
-
 
   //   this.ticketingTemplateService.ServiceEdit(this.dataModel).subscribe(
   //     next:(ret) => {
@@ -131,9 +165,11 @@ export class TicketingTemplateAddComponent extends AddBaseComponent<TicketingTem
   // }
   onActionSelectorSelect(model: TicketingDepartemenModel | null): void {
     if (!model || model.id <= 0) {
-      this.translate.get('MESSAGE.Information_department_is_not_clear').subscribe((message: string) => {
-        this.cmsToastrService.typeErrorSelected(message);
-      });
+      this.translate
+        .get("MESSAGE.Information_department_is_not_clear")
+        .subscribe((message: string) => {
+          this.cmsToastrService.typeErrorSelected(message);
+        });
       return;
     }
     this.dataModel.linkTicketingDepartemenId = model.id;
@@ -145,7 +181,6 @@ export class TicketingTemplateAddComponent extends AddBaseComponent<TicketingTem
     this.formInfo.formSubmitAllow = false;
 
     this.DataAddContent();
-
   }
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });

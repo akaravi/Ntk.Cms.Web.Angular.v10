@@ -29,7 +29,7 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 @Component({
   selector: "app-estate-property-supplier-edit",
   templateUrl: "./edit.component.html",
-  styleUrls: ["./edit.component.scss"],
+
   standalone: false,
 })
 export class EstatePropertySupplierEditComponent

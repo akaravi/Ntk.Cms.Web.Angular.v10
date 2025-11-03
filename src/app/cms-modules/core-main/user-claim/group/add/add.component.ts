@@ -18,7 +18,6 @@ import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
 @Component({
     selector: 'app-core-userclaimgroup-add',
     templateUrl: './add.component.html',
-    styleUrls: ['./add.component.scss'],
     standalone: false
 })
 export class CoreUserClaimGroupAddComponent extends AddBaseComponent<CoreUserClaimGroupService, CoreUserClaimGroupModel, number> implements OnInit {

@@ -1,27 +1,38 @@
-import { ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
 import {
-  CoreEnumService, DataFieldInfoModel, ErrorExceptionResult,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  CoreEnumService,
+  DataFieldInfoModel,
+  ErrorExceptionResult,
   FormInfoModel,
-  TicketingDepartemenModel, TicketingFaqModel,
-  TicketingFaqService
-} from 'ntk-cms-api';
-import { TreeModel } from 'ntk-cms-filemanager';
-import { AddBaseComponent } from 'src/app/core/cmsComponent/addBaseComponent';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { CmsFormsErrorStateMatcher } from 'src/app/core/pipe/cmsFormsErrorStateMatcher';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-
+  TicketingDepartemenModel,
+  TicketingFaqModel,
+  TicketingFaqService,
+} from "ntk-cms-api";
+import { TreeModel } from "ntk-cms-filemanager";
+import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsFormsErrorStateMatcher } from "src/app/core/pipe/cmsFormsErrorStateMatcher";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-    selector: 'app-ticketing-faq-add',
-    templateUrl: './add.component.html',
-    styleUrls: ['./add.component.scss'],
-    standalone: false
+  selector: "app-ticketing-faq-add",
+  templateUrl: "./add.component.html",
+
+  standalone: false,
 })
-export class TicketingFaqAddComponent extends AddBaseComponent<TicketingFaqService, TicketingFaqModel, number> implements OnInit {
+export class TicketingFaqAddComponent
+  extends AddBaseComponent<TicketingFaqService, TicketingFaqModel, number>
+  implements OnInit
+{
   requestParentId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
@@ -34,7 +45,12 @@ export class TicketingFaqAddComponent extends AddBaseComponent<TicketingFaqServi
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {
-    super(ticketingFaqService, new TicketingFaqModel(), publicHelper, translate);
+    super(
+      ticketingFaqService,
+      new TicketingFaqModel(),
+      publicHelper,
+      translate,
+    );
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {
       this.requestParentId = +data.parentId || 0;
@@ -44,45 +60,55 @@ export class TicketingFaqAddComponent extends AddBaseComponent<TicketingFaqServi
     }
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
   }
-  @ViewChild('vform', { static: false }) formGroup: FormGroup;
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
 
-  selectFileTypeMainImage = ['jpg', 'jpeg', 'png'];
+  selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   fileManagerTree: TreeModel;
-  appLanguage = 'fa';
+  appLanguage = "fa";
   formMatcher = new CmsFormsErrorStateMatcher();
-  dataModelResult: ErrorExceptionResult<TicketingFaqModel> = new ErrorExceptionResult<TicketingFaqModel>();
+  dataModelResult: ErrorExceptionResult<TicketingFaqModel> =
+    new ErrorExceptionResult<TicketingFaqModel>();
   dataModel: TicketingFaqModel = new TicketingFaqModel();
   dataFileModel = new Map<number, string>();
   formInfo: FormInfoModel = new FormInfoModel();
 
   fileManagerOpenForm = false;
 
-
   ngOnInit(): void {
-
-
-    this.translate.get('TITLE.Submit_New_Content').subscribe((str: string) => {
+    this.translate.get("TITLE.Submit_New_Content").subscribe((str: string) => {
       this.formInfo.formTitle = str;
     });
-
 
     this.DataGetAccess();
   }
 
   DataAddContent(): void {
-    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
-    this.dataModel.linkFileIds = '';
+    this.dataModel.linkFileIds = "";
     if (this.dataFileModel) {
       const keys = Array.from(this.dataFileModel.keys());
       if (keys && keys.length > 0) {
-        this.dataModel.linkFileIds = keys.join(',');
+        this.dataModel.linkFileIds = keys.join(",");
       }
     }
     this.ticketingFaqService.ServiceAdd(this.dataModel).subscribe({
@@ -90,31 +116,38 @@ export class TicketingFaqAddComponent extends AddBaseComponent<TicketingFaqServi
         this.formInfo.formSubmitAllow = true;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.registration_completed_successfully').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("MESSAGE.registration_completed_successfully")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.cmsToastrService.typeSuccessAdd();
           this.dialogRef.close({ dialogChangedDate: true });
-
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (err) => {
         this.formInfo.formSubmitAllow = true;
         this.cmsToastrService.typeError(err);
         this.publicHelper.processService.processStop(pName);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelectorSelect(model: TicketingDepartemenModel | null): void {
     if (!model || model.id <= 0) {
-      this.translate.get('MESSAGE.Information_department_is_not_clear').subscribe((message: string) => {
-        this.cmsToastrService.typeErrorSelected(message);
-      });
+      this.translate
+        .get("MESSAGE.Information_department_is_not_clear")
+        .subscribe((message: string) => {
+          this.cmsToastrService.typeErrorSelected(message);
+        });
       return;
     }
     this.dataModel.linkTicketingDepartemenId = model.id;
@@ -126,7 +159,6 @@ export class TicketingFaqAddComponent extends AddBaseComponent<TicketingFaqServi
     this.formInfo.formSubmitAllow = false;
 
     this.DataAddContent();
-
   }
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });

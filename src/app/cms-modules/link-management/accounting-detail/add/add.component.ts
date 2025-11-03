@@ -1,28 +1,43 @@
-
 import {
-  ChangeDetectorRef, Component, Inject, OnInit,
-  ViewChild
-} from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService, DataFieldInfoModel, ErrorExceptionResult,
-  FormInfoModel, InfoEnumModel, LinkManagementAccountingDetailModel, LinkManagementAccountingDetailService, LinkManagementAccountingModel,
-  LinkManagementEnumService
-} from 'ntk-cms-api';
-import { TreeModel } from 'ntk-cms-filemanager';
-import { AddBaseComponent } from 'src/app/core/cmsComponent/addBaseComponent';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
+  CoreEnumService,
+  DataFieldInfoModel,
+  ErrorExceptionResult,
+  FormInfoModel,
+  InfoEnumModel,
+  LinkManagementAccountingDetailModel,
+  LinkManagementAccountingDetailService,
+  LinkManagementAccountingModel,
+  LinkManagementEnumService,
+} from "ntk-cms-api";
+import { TreeModel } from "ntk-cms-filemanager";
+import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-    selector: 'app-linkmanagement-accounting-detail-add',
-    templateUrl: './add.component.html',
-    styleUrls: ['./add.component.scss'],
-    standalone: false
+  selector: "app-linkmanagement-accounting-detail-add",
+  templateUrl: "./add.component.html",
+
+  standalone: false,
 })
-export class LinkManagementAccountingDetailAddComponent extends AddBaseComponent<LinkManagementAccountingDetailService, LinkManagementAccountingDetailModel, number> implements OnInit {
+export class LinkManagementAccountingDetailAddComponent
+  extends AddBaseComponent<
+    LinkManagementAccountingDetailService,
+    LinkManagementAccountingDetailModel,
+    number
+  >
+  implements OnInit
+{
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -35,64 +50,92 @@ export class LinkManagementAccountingDetailAddComponent extends AddBaseComponent
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {
-    super(categoryService, new LinkManagementAccountingDetailModel(), publicHelper, translate);
+    super(
+      categoryService,
+      new LinkManagementAccountingDetailModel(),
+      publicHelper,
+      translate,
+    );
     this.publicHelper.processService.cdr = this.cdr;
 
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
   }
-  @ViewChild('vform', { static: false }) formGroup: FormGroup;
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
 
-  selectFileTypeMainImage = ['jpg', 'jpeg', 'png'];
+  selectFileTypeMainImage = ["jpg", "jpeg", "png"];
 
   fileManagerTree: TreeModel;
-  appLanguage = 'fa';
+  appLanguage = "fa";
 
-  dataModelResult: ErrorExceptionResult<LinkManagementAccountingDetailModel> = new ErrorExceptionResult<LinkManagementAccountingDetailModel>();
-  dataModel: LinkManagementAccountingDetailModel = new LinkManagementAccountingDetailModel();
-
+  dataModelResult: ErrorExceptionResult<LinkManagementAccountingDetailModel> =
+    new ErrorExceptionResult<LinkManagementAccountingDetailModel>();
+  dataModel: LinkManagementAccountingDetailModel =
+    new LinkManagementAccountingDetailModel();
 
   formInfo: FormInfoModel = new FormInfoModel();
-  dataModelEnumSharingAccountingTypeResult: ErrorExceptionResult<InfoEnumModel> = new ErrorExceptionResult<InfoEnumModel>();
+  dataModelEnumSharingAccountingTypeResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
   fileManagerOpenForm = false;
 
-
-
   ngOnInit(): void {
-
-    this.translate.get('TITLE.Register_New_Categories').subscribe((str: string) => {
-      this.formInfo.formTitle = str;
-    });
+    this.translate
+      .get("TITLE.Register_New_Categories")
+      .subscribe((str: string) => {
+        this.formInfo.formTitle = str;
+      });
 
     this.DataGetAccess();
 
     this.getEnumSharingAccountingType();
   }
   getEnumSharingAccountingType(): void {
-    this.linkManagementEnumService.ServiceSharingAccountingTypeEnum().subscribe((res) => {
-      this.dataModelEnumSharingAccountingTypeResult = res;
-    });
+    this.linkManagementEnumService
+      .ServiceSharingAccountingTypeEnum()
+      .subscribe((res) => {
+        this.dataModelEnumSharingAccountingTypeResult = res;
+      });
   }
 
   DataAddContent(): void {
-    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
-
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.categoryService.ServiceAdd(this.dataModel).subscribe({
       next: (ret) => {
         this.formInfo.formSubmitAllow = true;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.registration_completed_successfully').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("MESSAGE.registration_completed_successfully")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.cmsToastrService.typeSuccessAdd();
           this.dialogRef.close({ dialogChangedDate: true });
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -102,15 +145,16 @@ export class LinkManagementAccountingDetailAddComponent extends AddBaseComponent
         this.formInfo.formSubmitAllow = true;
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onActionSelectorAccount(model: LinkManagementAccountingModel | null): void {
     if (!model || !model.id || model.id <= 0) {
-      this.translate.get('MESSAGE.Account_information_is_not_clear').subscribe((str: string) => {
-        this.cmsToastrService.typeErrorSelected(str);
-      });
+      this.translate
+        .get("MESSAGE.Account_information_is_not_clear")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.dataModel.linkManagementAccountingId = model.id;
@@ -122,7 +166,6 @@ export class LinkManagementAccountingDetailAddComponent extends AddBaseComponent
     this.formInfo.formSubmitAllow = false;
 
     this.DataAddContent();
-
   }
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });

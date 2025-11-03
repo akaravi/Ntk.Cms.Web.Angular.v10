@@ -49,7 +49,7 @@ import { EstateCustomerOrderActionComponent } from "../action/action.component";
 @Component({
   selector: "app-estate-customer-order-edit",
   templateUrl: "./edit.component.html",
-  styleUrls: ["./edit.component.scss"],
+
   standalone: false,
 })
 export class EstateCustomerOrderEditComponent

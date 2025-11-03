@@ -84,9 +84,10 @@ export class ApplicationAppListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
+    "LinkMainImageIdSrc",
     "Id",
     "RecordStatus",
-    // 'Title',
+    "Title",
     "AppVersion",
     "LinkSourceId",
     // 'CreatedDate',
@@ -96,9 +97,10 @@ export class ApplicationAppListComponent
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
+    "LinkMainImageIdSrc",
     "Id",
     "RecordStatus",
-    // 'Title',
+    "Title",
     "AppVersion",
     "LinkSourceId",
     // 'CreatedDate',

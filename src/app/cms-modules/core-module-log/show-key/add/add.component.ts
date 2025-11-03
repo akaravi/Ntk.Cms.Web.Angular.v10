@@ -1,27 +1,41 @@
-
 import {
-  ChangeDetectorRef, Component, Inject, OnInit,
-  ViewChild
-} from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  AccessModel, CoreEnumService, CoreModuleLogShowKeyModel,
-  CoreModuleLogShowKeyService, CoreSiteModel, DataFieldInfoModel, ErrorExceptionResult,
-  FormInfoModel
-} from 'ntk-cms-api';
-import { AddBaseComponent } from 'src/app/core/cmsComponent/addBaseComponent';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
+  AccessModel,
+  CoreEnumService,
+  CoreModuleLogShowKeyModel,
+  CoreModuleLogShowKeyService,
+  CoreSiteModel,
+  DataFieldInfoModel,
+  ErrorExceptionResult,
+  FormInfoModel,
+} from "ntk-cms-api";
+import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-    selector: 'app-coremodule-data-memo-add',
-    templateUrl: './add.component.html',
-    styleUrls: ['./add.component.scss'],
-    standalone: false
+  selector: "app-coremodule-data-memo-add",
+  templateUrl: "./add.component.html",
+
+  standalone: false,
 })
-export class CoreModuleLogShowKeyAddComponent extends AddBaseComponent<CoreModuleLogShowKeyService, CoreModuleLogShowKeyModel, string> implements OnInit {
+export class CoreModuleLogShowKeyAddComponent
+  extends AddBaseComponent<
+    CoreModuleLogShowKeyService,
+    CoreModuleLogShowKeyModel,
+    string
+  >
+  implements OnInit
+{
   requestLinkSiteId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
@@ -34,7 +48,12 @@ export class CoreModuleLogShowKeyAddComponent extends AddBaseComponent<CoreModul
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {
-    super(coreModuleLogShowKeyService, new CoreModuleLogShowKeyModel(), publicHelper, translate);
+    super(
+      coreModuleLogShowKeyService,
+      new CoreModuleLogShowKeyModel(),
+      publicHelper,
+      translate,
+    );
     this.publicHelper.processService.cdr = this.cdr;
 
     if (data) {
@@ -44,60 +63,72 @@ export class CoreModuleLogShowKeyAddComponent extends AddBaseComponent<CoreModul
       this.dataModel.linkSiteId = this.requestLinkSiteId;
     }
   }
-  @ViewChild('vform', { static: false }) formGroup: FormGroup;
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<string, DataFieldInfoModel>();
-
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
 
   dataAccessModel: AccessModel;
-  dataModelResult: ErrorExceptionResult<CoreModuleLogShowKeyModel> = new ErrorExceptionResult<CoreModuleLogShowKeyModel>();
+  dataModelResult: ErrorExceptionResult<CoreModuleLogShowKeyModel> =
+    new ErrorExceptionResult<CoreModuleLogShowKeyModel>();
   dataModel: CoreModuleLogShowKeyModel = new CoreModuleLogShowKeyModel();
 
   formInfo: FormInfoModel = new FormInfoModel();
 
-
   fileManagerOpenForm = false;
 
-
   ngOnInit(): void {
-
     this.DataGetAccess();
   }
 
-
-
-
   DataAddContent(): void {
-    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     this.coreModuleLogShowKeyService.ServiceAdd(this.dataModel).subscribe({
       next: (ret) => {
         this.formInfo.formSubmitAllow = true;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
-          this.translate.get('MESSAGE.registration_completed_successfully').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("MESSAGE.registration_completed_successfully")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.cmsToastrService.typeSuccessAdd();
           this.dialogRef.close({ dialogChangedDate: true });
-
         } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.formAlert = str;
+            });
           this.formInfo.formError = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-
       },
       error: (er) => {
         this.formInfo.formSubmitAllow = true;
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+      },
+    });
   }
   onFormSubmit(): void {
     if (!this.formGroup.valid) {

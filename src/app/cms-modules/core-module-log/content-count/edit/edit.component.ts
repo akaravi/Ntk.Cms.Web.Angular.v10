@@ -1,34 +1,44 @@
-
 import {
-  ChangeDetectorRef, Component, Inject,
-  OnDestroy, OnInit,
-  ViewChild
-} from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TranslateService } from '@ngx-translate/core';
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService, CoreModuleLogContentCountModel, CoreModuleLogContentCountService,
+  CoreEnumService,
+  CoreModuleLogContentCountModel,
+  CoreModuleLogContentCountService,
   ErrorExceptionResultBase,
-  FormInfoModel, ManageUserAccessDataTypesEnum
-} from 'ntk-cms-api';
-import { Subscription } from 'rxjs';
-import { EditBaseComponent } from 'src/app/core/cmsComponent/editBaseComponent';
-import { PublicHelper } from 'src/app/core/helpers/publicHelper';
-import { TokenHelper } from 'src/app/core/helpers/tokenHelper';
-import { CmsToastrService } from 'src/app/core/services/cmsToastr.service';
-import { CmsStoreService } from 'src/app/core/reducers/cmsStore.service';
-
+  FormInfoModel,
+  ManageUserAccessDataTypesEnum,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-  selector: 'app-coremodulelog-content-count-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss'],
-  standalone: false
+  selector: "app-coremodulelog-content-count-edit",
+  templateUrl: "./edit.component.html",
+
+  standalone: false,
 })
-export class CoreModuleLogContentCountEditComponent extends EditBaseComponent<CoreModuleLogContentCountService, CoreModuleLogContentCountModel, string>
-  implements OnInit, OnDestroy {
-  requestId = '';
+export class CoreModuleLogContentCountEditComponent
+  extends EditBaseComponent<
+    CoreModuleLogContentCountService,
+    CoreModuleLogContentCountModel,
+    string
+  >
+  implements OnInit, OnDestroy
+{
+  requestId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -42,7 +52,12 @@ export class CoreModuleLogContentCountEditComponent extends EditBaseComponent<Co
     public publicHelper: PublicHelper,
     public translate: TranslateService,
   ) {
-    super(coreModuleLogContentCountService, new CoreModuleLogContentCountModel(), publicHelper, translate);
+    super(
+      coreModuleLogContentCountService,
+      new CoreModuleLogContentCountModel(),
+      publicHelper,
+      translate,
+    );
 
     this.publicHelper.processService.cdr = this.cdr;
 
@@ -51,16 +66,12 @@ export class CoreModuleLogContentCountEditComponent extends EditBaseComponent<Co
     }
   }
 
-
-
-
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
-  dataModel: CoreModuleLogContentCountModel = new CoreModuleLogContentCountModel();
-  @ViewChild('vform', { static: false }) formGroup: FormGroup;
+  dataModel: CoreModuleLogContentCountModel =
+    new CoreModuleLogContentCountModel();
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
   formInfo: FormInfoModel = new FormInfoModel();
-
-
 
   fileManagerOpenForm = false;
 
@@ -68,7 +79,9 @@ export class CoreModuleLogContentCountEditComponent extends EditBaseComponent<Co
 
   ngOnInit(): void {
     if (this.requestId && this.requestId.length > 0) {
-      this.translate.get('TITLE.Edit').subscribe((str: string) => { this.formInfo.formTitle = str; });
+      this.translate.get("TITLE.Edit").subscribe((str: string) => {
+        this.formInfo.formTitle = str;
+      });
       this.DataGetOneContent();
     } else {
       this.cmsToastrService.typeErrorComponentAction();
@@ -77,13 +90,12 @@ export class CoreModuleLogContentCountEditComponent extends EditBaseComponent<Co
     }
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
-
-    this.cmsApiStoreSubscribe = this.cmsStoreService.getState((state) => state.tokenInfoStore).subscribe(async (value) => {
-      this.tokenInfo = value;
-    });
+    this.cmsApiStoreSubscribe = this.cmsStoreService
+      .getState((state) => state.tokenInfoStore)
+      .subscribe(async (value) => {
+        this.tokenInfo = value;
+      });
   }
-
-
 
   ngOnDestroy(): void {
     if (this.cmsApiStoreSubscribe) {
@@ -91,77 +103,114 @@ export class CoreModuleLogContentCountEditComponent extends EditBaseComponent<Co
     }
   }
 
-
   DataGetOneContent(): void {
     if (!this.requestId || this.requestId.length === 0) {
       this.cmsToastrService.typeErrorEditRowIsNull();
       return;
     }
 
-    this.translate.get('MESSAGE.Receiving_Information_From_The_Server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-      this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-    });
+    this.translate
+      .get("MESSAGE.Receiving_Information_From_The_Server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
     /*َAccess Field*/
     this.coreModuleLogContentCountService.setAccessLoad();
-    this.coreModuleLogContentCountService.setAccessDataType(ManageUserAccessDataTypesEnum.Editor);
-    this.coreModuleLogContentCountService.ServiceGetOneById(this.requestId).subscribe({
-      next: (ret) => {
-        /*َAccess Field*/
-        // this.dataAccessModel = next.access;
-        this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
-        this.dataModel = ret.item;
-        if (ret.isSuccess) {
-          this.formInfo.formTitle = this.formInfo.formTitle + ' ' + ret.item.id;
-          this.formInfo.formAlert = '';
-        } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
-          this.formInfo.formError = ret.errorMessage;
-          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-        }
-        this.publicHelper.processService.processStop(pName);
-
-      },
-      error: (er) => {
-        this.cmsToastrService.typeError(er);
-        this.publicHelper.processService.processStop(pName, false);
-      }
-    }
+    this.coreModuleLogContentCountService.setAccessDataType(
+      ManageUserAccessDataTypesEnum.Editor,
     );
+    this.coreModuleLogContentCountService
+      .ServiceGetOneById(this.requestId)
+      .subscribe({
+        next: (ret) => {
+          /*َAccess Field*/
+          // this.dataAccessModel = next.access;
+          this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
+          this.dataModel = ret.item;
+          if (ret.isSuccess) {
+            this.formInfo.formTitle =
+              this.formInfo.formTitle + " " + ret.item.id;
+            this.formInfo.formAlert = "";
+          } else {
+            this.translate
+              .get("ERRORMESSAGE.MESSAGE.typeError")
+              .subscribe((str: string) => {
+                this.formInfo.formAlert = str;
+              });
+            this.formInfo.formError = ret.errorMessage;
+            this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+          }
+          this.publicHelper.processService.processStop(pName);
+        },
+        error: (er) => {
+          this.cmsToastrService.typeError(er);
+          this.publicHelper.processService.processStop(pName, false);
+        },
+      });
   }
 
   DataEditContent(): void {
-    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => { this.formInfo.formAlert = str; });
-    this.formInfo.formError = '';
-    const pName = this.constructor.name + 'main';
-    this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => { this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId); });
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.formAlert = str;
+      });
+    this.formInfo.formError = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
-    this.coreModuleLogContentCountService.ServiceEdit(this.dataModel).subscribe({
-      next: (ret) => {
-        this.dataModelResult = ret;
-        if (ret.isSuccess) {
-          this.translate.get('MESSAGE.registration_completed_successfully').subscribe((str: string) => { this.formInfo.formAlert = str; });
-          this.cmsToastrService.typeSuccessEdit();
-          this.dialogRef.close({ dialogChangedDate: true });
-        } else {
-          this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => { this.formInfo.formAlert = str; });
-          this.formInfo.formError = ret.errorMessage;
-          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-        }
-        this.publicHelper.processService.processStop(pName);
+    this.coreModuleLogContentCountService
+      .ServiceEdit(this.dataModel)
+      .subscribe({
+        next: (ret) => {
+          this.dataModelResult = ret;
+          if (ret.isSuccess) {
+            this.translate
+              .get("MESSAGE.registration_completed_successfully")
+              .subscribe((str: string) => {
+                this.formInfo.formAlert = str;
+              });
+            this.cmsToastrService.typeSuccessEdit();
+            this.dialogRef.close({ dialogChangedDate: true });
+          } else {
+            this.translate
+              .get("ERRORMESSAGE.MESSAGE.typeError")
+              .subscribe((str: string) => {
+                this.formInfo.formAlert = str;
+              });
+            this.formInfo.formError = ret.errorMessage;
+            this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+          }
+          this.publicHelper.processService.processStop(pName);
 
-        this.formInfo.formSubmitAllow = true;
-      },
-      error: (er) => {
-        this.formInfo.formSubmitAllow = true;
-        this.cmsToastrService.typeError(er);
-        this.publicHelper.processService.processStop(pName, false);
-      }
-    }
-    );
+          this.formInfo.formSubmitAllow = true;
+        },
+        error: (er) => {
+          this.formInfo.formSubmitAllow = true;
+          this.cmsToastrService.typeError(er);
+          this.publicHelper.processService.processStop(pName, false);
+        },
+      });
   }
 
   onFormSubmit(): void {

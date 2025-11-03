@@ -33,7 +33,7 @@ import { PoinModel } from "src/app/core/models/pointModel";
 @Component({
   selector: "app-polling-content-edit",
   templateUrl: "./edit.component.html",
-  styleUrls: ["./edit.component.scss"],
+
   standalone: false,
 })
 export class PollingContentEditComponent
