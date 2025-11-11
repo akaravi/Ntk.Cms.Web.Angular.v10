@@ -284,30 +284,6 @@ export class EstatePropertyAddMobileComponent
     });
   }
 
-  DataGetAccess(): void {
-    const pName = this.constructor.name + "ServiceViewModel";
-    this.translate.get("TITLE.Get_Estate_access").subscribe((str: string) => {
-      this.publicHelper.processService.processStart(
-        pName,
-        str,
-        this.constructorInfoAreaId,
-      );
-    });
-    this.estatePropertyService.ServiceViewModel().subscribe({
-      next: (ret) => {
-        if (ret.isSuccess) {
-          this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
-        } else {
-          this.cmsToastrService.typeErrorGetAccess(ret.errorMessage);
-        }
-        this.publicHelper.processService.processStop(pName);
-      },
-      error: (er) => {
-        this.cmsToastrService.typeErrorGetAccess(er);
-        this.publicHelper.processService.processStop(pName, false);
-      },
-    });
-  }
 
   DataGetPropertyDetailGroup(id: string): void {
     const filteModelProperty = new FilterModel();
