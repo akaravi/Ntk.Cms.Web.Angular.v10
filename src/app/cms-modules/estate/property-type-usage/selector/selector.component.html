@@ -62,7 +62,7 @@
     class="fa fa-check valid color-green-dark"
   ></i>
   <i
-    *ngIf="dataModelSelect?.id?.length > 0"
+    *ngIf="optionAllowUnSelect&&dataModelSelect?.id?.length > 0"
     class="fa fa-times action color-red-dark"
     (click)="onActionSelectClear()"
   ></i>
@@ -94,7 +94,7 @@
     >
   </div>
   <i
-    *ngIf="dataModelSelect?.id?.length > 0"
+    *ngIf="optionAllowUnSelect&&dataModelSelect?.id?.length > 0"
     class="fa fa-times action color-red-dark"
     (click)="onActionSelectClear()"
   ></i>

@@ -31,7 +31,6 @@ import { PublicHelper } from "src/app/core/helpers/publicHelper";
 @Component({
   selector: "app-api-telegram-bot-config-selector",
   templateUrl: "./selector.component.html",
-  styleUrls: ["./selector.component.scss"],
   standalone: false,
 })
 export class ApiTelegramBotConfigSelectorComponent implements OnInit {

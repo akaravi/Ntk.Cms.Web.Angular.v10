@@ -178,6 +178,7 @@ export class EstatePropertyTypeUsageSelectorComponent
     });
   }
   onActionSelect(model: EstatePropertyTypeUsageModel): void {
+    
     if (this.optionDisabled) {
       return;
     }
@@ -185,8 +186,10 @@ export class EstatePropertyTypeUsageSelectorComponent
       this.optionAllowUnSelect &&
       this.dataModelSelect &&
       this.dataModelSelect.id == model.id
-    )
+    ) {
       this.onActionSelectClear();
+      return;
+    }
     this.dataModelSelect = model;
     this.optionChange.emit(this.dataModelSelect);
   }

@@ -159,8 +159,10 @@ export class SmsMessageTypeEnumSelectorComponent implements OnInit, OnDestroy {
       this.optionAllowUnSelect &&
       this.dataModelSelect &&
       this.dataModelSelect.value == model.value
-    )
+    ) {
       this.onActionSelectClear();
+      return;
+    }
     this.dataModelSelect = model;
     this.optionChange.emit(this.dataModelSelect);
   }

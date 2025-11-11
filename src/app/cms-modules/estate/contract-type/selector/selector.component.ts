@@ -198,8 +198,10 @@ export class EstateContractTypeSelectorComponent implements OnInit, OnDestroy {
       this.optionAllowUnSelect &&
       this.dataModelSelect &&
       this.dataModelSelect.id == model.id
-    )
+    ){
       this.onActionSelectClear();
+      return;
+    }
     this.dataModelSelect = model;
     this.optionChange.emit(this.dataModelSelect);
   }
