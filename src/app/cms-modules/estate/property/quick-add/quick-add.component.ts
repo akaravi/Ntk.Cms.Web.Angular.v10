@@ -55,15 +55,10 @@ import { EstatePropertyQuickListComponent } from "../quick-list/quick-list.compo
 @Component({
   selector: "app-estate-property-quick-add",
   templateUrl: "./quick-add.component.html",
-  styleUrls: ["./quick-add.component.scss"],
   standalone: false,
 })
 export class EstatePropertyQuickAddComponent
-  extends AddBaseComponent<
-    EstatePropertyTypeService,
-    EstatePropertyTypeModel,
-    string
-  >
+  extends AddBaseComponent<EstatePropertyService, EstatePropertyModel, string>
   implements OnInit, OnDestroy
 {
   constructorInfoAreaId = this.constructor.name;
@@ -85,8 +80,8 @@ export class EstatePropertyQuickAddComponent
     public translate: TranslateService,
   ) {
     super(
-      estatePropertyTypeService,
-      new EstatePropertyTypeModel(),
+      estatePropertyService,
+      new EstatePropertyModel(),
       publicHelper,
       translate,
     );
@@ -97,10 +92,7 @@ export class EstatePropertyQuickAddComponent
 
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
   currencyOptionSelectFirstItem = true;
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
-    string,
-    DataFieldInfoModel
-  >();
+
   enumInputDataType = InputDataTypeEnum;
   tokenInfo = new TokenInfoModelV3();
   appLanguage = "fa";

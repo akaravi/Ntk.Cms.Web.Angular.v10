@@ -220,7 +220,7 @@
               (click)="onActionButtonChangePassword()"
               *ngIf="
                 tokenInfo.access?.userId === this.dataModel.id ||
-                dataAccessModel.accessEditRow
+                (dataAccessModel?.accessEditRow ?? false)
               "
             >
               {{ "AUTH.FORGOT.PASSWORD" | translate }}

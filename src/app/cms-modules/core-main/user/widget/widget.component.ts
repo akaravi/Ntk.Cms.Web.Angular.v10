@@ -72,35 +72,12 @@ export class CoreUserWidgetComponent implements OnInit, OnDestroy {
     );
     this.widgetInfoModel.link =
       "/core/user/edit/" + this.tokenInfo.access.userId;
-    // this.modelData.set('Id', this.tokenInfoModel.userId + '');
-    // this.modelData.set('Username', '...');
-    // this.modelData.set('Name', '...');
-    // this.modelData.set('Last Name', '...');
-    // this.modelData.set('Compnay', '...');
-    // this.modelData.set('Email', '...');
-    // this.modelData.set('Email Confirmed', '...');
-    // this.modelData.set('Mobile', '...');
-    // this.modelData.set('Mobile Confirmed', '...');
-
-    // this.modelData.set('Created Date', '...');
-    // this.modelData.set('Expire Date', '...');
+ 
     this.service.ServiceGetOneById(this.tokenInfo.access.userId).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.dataModel = ret.item;
-          //this.modelData.set('Username', ret.item.username);
-          //this.modelData.set('Name', ret.item.name);
-          // this.modelData.set('Last Name', ret.item.lastName);
-          // this.modelData.set('Compnay', ret.item.companyName);
-          // this.modelData.set('Email', ret.item.email);
-          // this.modelData.set('Email Confirmed', ret.item.emailConfirmed + '');
-          // this.modelData.set('Mobile', ret.item.mobile);
-          // this.modelData.set('Mobile Confirmed', ret.item.mobileConfirmed + '');
 
-          // this.modelData.set('Created Date', this.persianCalendarService.PersianCalendar(ret.item.createdDate));
-          // if (ret.item.expireDate) {
-          //   this.modelData.set('Expire Date', this.persianCalendarService.PersianCalendar(ret.item.expireDate));
-          // }
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }

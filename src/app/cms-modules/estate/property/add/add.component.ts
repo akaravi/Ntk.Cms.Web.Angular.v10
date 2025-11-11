@@ -137,10 +137,7 @@ export class EstatePropertyAddComponent
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
   @ViewChild(CmsMapComponent) childMap: CmsMapComponent;
   currencyOptionSelectFirstItem = true;
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
-    string,
-    DataFieldInfoModel
-  >();
+
   enumInputDataType = InputDataTypeEnum;
   tokenInfo = new TokenInfoModelV3();
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];

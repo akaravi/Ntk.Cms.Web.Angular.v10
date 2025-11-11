@@ -22,7 +22,7 @@
           <app-cms-enum-record-status-selector
             *ngIf="fieldsInfo['recordStatus']?.accessWatchField"
             [(model)]="dataModel.recordStatus"
-            [optionDisabled]="false"
+            [optionDisabled]="!fieldsInfo['recordStatus']?.accessEditField"
             [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
             [optionRequired]="true"
             [optionSelectFirstItem]="true"
@@ -35,6 +35,7 @@
             <select
               id="dataModel.ownerSiteSetStatus"
               [(ngModel)]="dataModel.ownerSiteSetStatus"
+              [disabled]="!fieldsInfo['ownerSiteSetStatus']?.accessEditField"
               name="dataModel.ownerSiteSetStatus"
               #OwnerSiteSetStatus="ngModel"
               class="form-control validate-name"

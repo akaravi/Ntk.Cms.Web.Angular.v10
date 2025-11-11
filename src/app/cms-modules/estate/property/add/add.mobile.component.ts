@@ -60,13 +60,17 @@ import { environment } from "src/environments/environment";
 import { EstatePropertyExpertPriceInquiryListComponent } from "../../property-expert-price/inquiry-list/inquiry-list.component";
 import { EstatePropertyActionComponent } from "../action/action.component";
 import { EstatePropertyQuickListComponent } from "../quick-list/quick-list.component";
+import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 
 @Component({
   selector: "app-estate-property-add-mobile",
   templateUrl: "./add.mobile.component.html",
   standalone: false,
 })
-export class EstatePropertyAddMobileComponent implements OnInit, OnDestroy {
+export class EstatePropertyAddMobileComponent
+  extends AddBaseComponent<EstatePropertyService, EstatePropertyModel, string>
+  implements OnInit, OnDestroy
+{
   requestLinkPropertyTypeLanduseId = "";
   requestLinkPropertyTypeUsageId = "";
   constructorInfoAreaId = this.constructor.name;
@@ -88,6 +92,12 @@ export class EstatePropertyAddMobileComponent implements OnInit, OnDestroy {
     public tokenHelper: TokenHelper,
     public translate: TranslateService,
   ) {
+       super(
+         estatePropertyService,
+         new EstatePropertyModel(),
+         publicHelper,
+         translate,
+       );
     this.publicHelper.processService.cdr = this.cdr;
 
     this.requestLinkPropertyTypeLanduseId =
