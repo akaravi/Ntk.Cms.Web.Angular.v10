@@ -29,6 +29,7 @@ import {
   SET_TOKEN_INFO,
   SET_Theme_STATE,
 } from "../reducers/reducer.factory";
+import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root",
@@ -144,6 +145,7 @@ export class CmsAuthService implements OnDestroy {
       }),
       switchMap(() => this.getTokenInfo()),
       catchError((err) => {
+        if(environment.consoleLog)
         console.error("err", err);
         return of(undefined);
       }),
@@ -172,6 +174,7 @@ export class CmsAuthService implements OnDestroy {
         });
       },
       error: (err) => {
+        if(environment.consoleLog)
         console.error("err", err);
 
         this.router.navigate(["/auth"], {
@@ -212,6 +215,7 @@ export class CmsAuthService implements OnDestroy {
       }),
       switchMap(() => this.getTokenInfoType()),
       catchError((err) => {
+        if(environment.consoleLog)
         console.error("err", err);
         return of(undefined);
       }),
@@ -243,7 +247,8 @@ export class CmsAuthService implements OnDestroy {
       }),
       switchMap(() => this.getTokenInfo()),
       catchError((err) => {
-        //console.error("err", err);
+        if(environment.consoleLog)
+        console.error("err", err);
         return of(undefined);
       }),
       finalize(() => this.isLoadingSubject.next(false)),
