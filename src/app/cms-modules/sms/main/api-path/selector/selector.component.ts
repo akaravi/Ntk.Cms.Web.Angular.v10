@@ -219,6 +219,7 @@ export class SmsMainApiPathSelectorComponent implements OnInit {
 
   onActionButtonReload(): void {
     this.dataModelSelect = new SmsMainApiPathModel();
-    //this.loadOptions();
+    this.onActionSelectClear();
+    this.loadOptions();
   }
 }

@@ -12,7 +12,6 @@ import {
   CoreEnumService,
   DataFieldInfoModel,
   ErrorExceptionResult,
-  ErrorExceptionResultBase,
   InfoEnumModel,
   TicketStatusEnum,
   TokenInfoModelV3,
@@ -302,7 +301,10 @@ export class PublicHelper {
     dataAccessModel.fieldsInfo.forEach(
       (el) => (retOut[this.toLowerCaseFirstChar(el.fieldName)] = el),
     );
-    if (environment.checkAccess || localStorage.getItem(KeyboardEventF9)) {
+    if (
+      environment.checkAccess ||
+      localStorage.getItem(KeyboardEventF9)?.length > 0
+    ) {
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = false;
       dialogConfig.autoFocus = true;

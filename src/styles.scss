@@ -163,7 +163,12 @@
   user-select: text !important;
   cursor: text !important;
 }
-
+.grid-row-rtl {
+  direction: rtl;
+}
+.grid-row-ltr {
+  direction: ltr;
+}
 .theme-rtl {
   direction: rtl;
 }

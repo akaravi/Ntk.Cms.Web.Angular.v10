@@ -8,6 +8,7 @@ import { AngularEditorModule } from "@kolkov/angular-editor";
 import { CmsFileManagerModule } from "ntk-cms-filemanager";
 import { SharedModule } from "src/app/shared/shared.module";
 
+import { CurrencyMaskModule } from "ng2-currency-mask";
 import {
   CoreModuleService,
   CoreModuleSiteCreditService,
@@ -41,7 +42,7 @@ import { CoreModuleTagCategoryTreeComponent } from "./tagCategory/tree/tree.comp
     CommonModule,
     FormsModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
-
+    CurrencyMaskModule,
     SharedModule,
     AngularEditorModule,
 

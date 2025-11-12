@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Injectable } from "@angular/core";
 import { ProcessInfoModel } from "ntk-cms-api";
-import { BehaviorSubject, Observable, Subscription } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { ProcessModel } from "../models/processModel";
 import { CmsStoreService } from "../reducers/cmsStore.service";
@@ -93,6 +93,12 @@ export class ProcessService {
     if (environment.ProgressConsoleLog)
       console.log("#### processStop #### " + key + " " + JSON.stringify(model));
     this.process.infoAll.set(key, model);
+    if (!this.process.infoArea[model.infoAreaId]) {
+      this.process.infoArea[model.infoAreaId] = new Map<
+        string,
+        ProcessInfoModel
+      >();
+    }
     this.process.infoArea[model.infoAreaId].set(key, model);
     /** processInRun */
     var retOutInRunAll = false;

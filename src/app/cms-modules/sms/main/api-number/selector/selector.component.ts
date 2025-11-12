@@ -241,6 +241,7 @@ export class SmsMainApiNumberSelectorComponent implements OnInit {
 
   onActionButtonReload(): void {
     this.dataModelSelect = new SmsMainApiNumberModel();
+    this.onActionSelectClear();
     this.loadOptions();
   }
 }
