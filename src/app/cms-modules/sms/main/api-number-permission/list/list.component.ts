@@ -87,8 +87,8 @@ export class SmsMainApiNumberPermissionListComponent
     "hasInherits",
     "fromDate",
     "expireDate",
-    "CreatedDate",
-    "UpdatedDate",
+    // "CreatedDate",
+    // "UpdatedDate",
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
@@ -422,32 +422,6 @@ export class SmsMainApiNumberPermissionListComponent
     });
   }
 
-  onActionButtonApiList(
-    model: SmsMainApiNumberPermissionModel = this.tableRowSelected,
-  ): void {
-    if (!model || !model.id || model.id.length == 0) {
-      this.translate
-        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
-        .subscribe((str: string) => {
-          this.cmsToastrService.typeErrorSelected(str);
-        });
-      return;
-    }
-    this.onActionTableRowSelect(model);
-
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessDeleteRow
-    ) {
-      this.cmsToastrService.typeErrorSelected();
-      return;
-    }
-    this.router.navigate([
-      "/sms/main/api-path/list/LinkPermissionId",
-      this.tableRowSelected.id,
-    ]);
-  }
 
   onActionButtonReload(): void {
     this.DataGetAll();
