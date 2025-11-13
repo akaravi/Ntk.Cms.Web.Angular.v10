@@ -16,8 +16,8 @@ import {
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-estate-property-supplier-header",
@@ -50,21 +50,21 @@ export class EstatePropertySupplierHeaderComponent
     DataFieldInfoModel
   >();
 
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   ngOnInit(): void {
     if (this.optionId.length > 0) {
       this.DataGetOneContent();
-      this.cmsApiStoreSubscribe = this.cmsStoreService
-        .getState((state) => state.tokenInfoStore)
-        .subscribe(async (value) => {
-          this.DataGetOneContent();
-        });
+      this.unsubscribe.push(
+        this.cmsStoreService
+          .getState((state) => state.tokenInfoStore)
+          .subscribe(async () => {
+            this.DataGetOneContent();
+          }),
+      );
     }
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 
   DataGetOneContent(): void {

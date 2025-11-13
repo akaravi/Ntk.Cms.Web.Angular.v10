@@ -47,6 +47,7 @@ import {
 } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { Subscription } from "rxjs";
+import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { ConnectionStatusModel } from "src/app/core/models/connectionStatusModel";
@@ -60,7 +61,6 @@ import { environment } from "src/environments/environment";
 import { EstatePropertyExpertPriceInquiryListComponent } from "../../property-expert-price/inquiry-list/inquiry-list.component";
 import { EstatePropertyActionComponent } from "../action/action.component";
 import { EstatePropertyQuickListComponent } from "../quick-list/quick-list.component";
-import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 
 @Component({
   selector: "app-estate-property-add-mobile",
@@ -92,12 +92,12 @@ export class EstatePropertyAddMobileComponent
     public tokenHelper: TokenHelper,
     public translate: TranslateService,
   ) {
-       super(
-         estatePropertyService,
-         new EstatePropertyModel(),
-         publicHelper,
-         translate,
-       );
+    super(
+      estatePropertyService,
+      new EstatePropertyModel(),
+      publicHelper,
+      translate,
+    );
     this.publicHelper.processService.cdr = this.cdr;
 
     this.requestLinkPropertyTypeLanduseId =
@@ -188,7 +188,6 @@ export class EstatePropertyAddMobileComponent
   listTypeLanduse: EstatePropertyTypeLanduseModel[] = [];
   dataProfessional = false;
   hidden = true;
-  cmsApiStoreSubscribe: Subscription;
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
@@ -201,23 +200,22 @@ export class EstatePropertyAddMobileComponent
     this.getEstatePropertyType();
     this.getEstatePropertyTypeLanduse();
     this.dataModel.caseCode = this.publicHelper.StringRandomGenerator(5, true);
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.DataGetAccess();
-        this.getEstateContractType();
-        this.getEstatePropertyType();
-        this.getEstatePropertyTypeLanduse();
-        this.translate.get("ACTION.Add_To_List").subscribe((str: string) => {
-          this.optionActionTitle = str;
-        });
-        this.tokenInfo = value;
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.DataGetAccess();
+          this.getEstateContractType();
+          this.getEstatePropertyType();
+          this.getEstatePropertyTypeLanduse();
+          this.translate.get("ACTION.Add_To_List").subscribe((str: string) => {
+            this.optionActionTitle = str;
+          });
+          this.tokenInfo = value;
+        }),
+    );
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   getEstateContractType(): void {
@@ -283,7 +281,6 @@ export class EstatePropertyAddMobileComponent
       },
     });
   }
-
 
   DataGetPropertyDetailGroup(id: string): void {
     const filteModelProperty = new FilterModel();

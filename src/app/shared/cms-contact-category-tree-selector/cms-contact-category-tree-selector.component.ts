@@ -84,7 +84,7 @@ export class CmsContactCategoryTreeSelectorComponent
   @Output() optionSelectChecked = new EventEmitter<string>();
   @Output() optionSelectDisChecked = new EventEmitter<string>();
   @Output() optionModelChange = new EventEmitter<string[]>();
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   checklistSelection = new SelectionModel<ContactCategoryModel>(
     true /* multiple */,
   );
@@ -98,16 +98,16 @@ export class CmsContactCategoryTreeSelectorComponent
     setTimeout(() => {
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.DataGetAll();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async () => {
+          this.DataGetAll();
+        }),
+    );
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   loadCheked(
     model: ContactCategoryModel[] = this.dataModelResult.listItems,

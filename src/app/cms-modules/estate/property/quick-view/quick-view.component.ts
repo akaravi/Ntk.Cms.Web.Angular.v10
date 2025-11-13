@@ -28,8 +28,8 @@ import {
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-estate-property-quick-view",
@@ -86,7 +86,7 @@ export class EstatePropertyQuickViewComponent implements OnInit, OnDestroy {
   propertyDetails: Map<string, string> = new Map<string, string>();
   enumInputDataType = InputDataTypeEnum;
 
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   ngOnInit(): void {
     this.translate.get("TITLE.QUICK_VIEW").subscribe((str: string) => {
       this.formInfo.formTitle = str;
@@ -100,18 +100,18 @@ export class EstatePropertyQuickViewComponent implements OnInit, OnDestroy {
     this.getEstateContractType();
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-        this.getEstateContractType();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+          this.getEstateContractType();
+        }),
+    );
   }
 
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   @HostListener("window:keyup", ["$event"])
   keyEvent(event: KeyboardEvent) {

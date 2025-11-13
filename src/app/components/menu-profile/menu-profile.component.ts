@@ -26,22 +26,22 @@ export class MenuProfileComponent implements OnInit {
   constructor(
     public coreAuthService: CoreAuthV3Service,
     public cmsAuthService: CmsAuthService,
-
     private cmsToastrService: CmsToastrService,
     public translate: TranslateService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private cmsStoreService: CmsStoreService,
-
     private router: Router,
   ) {
     this.tokenInfo = this.cmsStoreService.getStateSnapshot().tokenInfoStore;
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-        Promise.resolve().then(() => this.cdr.detectChanges());
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+          Promise.resolve().then(() => this.cdr.detectChanges());
+        }),
+    );
     this.unsubscribe.push(
       this.cmsStoreService
         .getState((state) => state.themeStore)
@@ -51,7 +51,6 @@ export class MenuProfileComponent implements OnInit {
     );
   }
 
-  cmsApiStoreSubscribe: Subscription;
   tokenInfo: TokenInfoModelV3 = new TokenInfoModelV3();
   inputSiteId?: number;
   inputUserId?: number;
@@ -62,7 +61,6 @@ export class MenuProfileComponent implements OnInit {
 
   ngOnInit(): void {}
   ngOnDestroy(): void {
-    this.cmsApiStoreSubscribe.unsubscribe();
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   onActionButtonUserAccessAdminAllowToAllData(): void {

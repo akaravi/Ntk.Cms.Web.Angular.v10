@@ -69,22 +69,24 @@ export class CmsLinkToComponent implements OnInit, OnDestroy {
   @Input() optionurlViewContentQRCodeBase64 = "";
   @Input() optionurlViewContent = "";
   QDocModel: any = {};
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   ngOnInit(): void {
     this.dataModel.message = `${this.optionLabel}
     ${this.optionurlViewContent}`;
 
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+        }),
+    );
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
+    if (this.unsubscribe) {
+      this.unsubscribe.forEach((sb) => sb.unsubscribe());
     }
   }
   onActionSelectApiNumber(model: SmsMainApiNumberModel): void {

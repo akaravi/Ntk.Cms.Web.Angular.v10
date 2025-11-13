@@ -136,19 +136,21 @@ export class EstatePropertyExpertPriceListComponent
   dataModelInquiry: EstatePriceInquiryDtoModel =
     new EstatePriceInquiryDtoModel();
 
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   ngOnInit(): void {
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-        this.DataGetAll();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+          this.DataGetAll();
+        }),
+    );
     this.getEstatePropertyExpertPriceTypeEnum();
     this.getEstatePropertyTypeUsages();
     this.getEstatePropertyTypeLanduses();
@@ -156,9 +158,7 @@ export class EstatePropertyExpertPriceListComponent
     this.getCoreCurrency();
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   getEstatePropertyExpertPriceTypeEnum(): void {
     this.estateEnumService

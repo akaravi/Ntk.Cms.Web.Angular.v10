@@ -141,8 +141,6 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
     string,
     DataFieldInfoModel
   >();
-
-  cmsApiStoreSubscribe: Subscription;
   checkingOnDayRange = new FormGroup({
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
@@ -159,14 +157,16 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
       this.constructor.name,
       "linkCmsUserId",
     );
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.linkCmsUserId = value.access.userId;
-        if (Number.isFinite(lStorlinkCmsUserId) && +lStorlinkCmsUserId >= 0)
-          this.linkCmsUserId = +lStorlinkCmsUserId;
-        this.onActionButtonOnDateSearch();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.linkCmsUserId = value.access.userId;
+          if (Number.isFinite(lStorlinkCmsUserId) && +lStorlinkCmsUserId >= 0)
+            this.linkCmsUserId = +lStorlinkCmsUserId;
+          this.onActionButtonOnDateSearch();
+        }),
+    );
     if (this.tokenInfo?.access?.userId > 0) {
       this.linkCmsUserId = this.tokenInfo.access.userId;
     }
@@ -614,9 +614,6 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   viewOnlyTime = false;

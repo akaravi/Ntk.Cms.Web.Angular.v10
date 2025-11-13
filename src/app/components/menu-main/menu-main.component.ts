@@ -91,16 +91,12 @@ export class MenuMainComponent implements OnInit {
   }
 
   tokenInfo = new TokenInfoModelV3();
-  cmsApiStoreSubscribe: Subscription;
   dataModelResult: ErrorExceptionResult<CoreCpMainMenuModel> =
     new ErrorExceptionResult<CoreCpMainMenuModel>();
   themeStore = new ThemeStoreModel();
   private unsubscribe: Subscription[] = [];
   ngOnInit(): void {}
   ngOnDestroy() {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 

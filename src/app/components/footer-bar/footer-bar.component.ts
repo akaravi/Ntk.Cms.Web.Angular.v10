@@ -38,15 +38,11 @@ export class FooterBarComponent implements OnInit {
     );
   }
   themeStore = new ThemeStoreModel();
-  cmsApiStoreSubscribe: Subscription;
   tokenInfo = new TokenInfoModelV3();
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {}
   ngOnDestroy() {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   onActionCleanDataMenu(): void {

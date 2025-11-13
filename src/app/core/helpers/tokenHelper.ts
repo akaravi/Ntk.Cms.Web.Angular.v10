@@ -41,11 +41,9 @@ export class TokenHelper implements OnDestroy {
     this.userTokenCtor();
     this.deviceTokenCtor();
   }
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   public ngOnInitAppMain() {}
   private async userTokenCtor(): Promise<Observable<void>> {

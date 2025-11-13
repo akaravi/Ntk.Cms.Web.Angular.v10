@@ -168,7 +168,6 @@ export class EstatePropertyEditComponent
   // ** Accardon */
   step = 0;
   hidden = true;
-  cmsApiStoreSubscribe: Subscription;
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
@@ -184,17 +183,16 @@ export class EstatePropertyEditComponent
 
     this.getEstateContractType();
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.DataGetOne();
-        this.getEstateContractType();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async () => {
+          this.DataGetOne();
+          this.getEstateContractType();
+        }),
+    );
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 

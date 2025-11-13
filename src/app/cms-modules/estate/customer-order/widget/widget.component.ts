@@ -74,7 +74,7 @@ export class EstateCustomerOrderWidgetComponent implements OnInit, OnDestroy {
   filterDataModelQueryBuilder: FilterDataModel[] = [];
 
   widgetInfoModel = new WidgetInfoModel();
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
 
   rowExist = false;
   ngOnInit() {
@@ -93,11 +93,13 @@ export class EstateCustomerOrderWidgetComponent implements OnInit, OnDestroy {
       this.onActionStatist();
     }, 1000);
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.onActionStatist();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async () => {
+          this.onActionStatist();
+        }),
+    );
   }
 
   onActionButtonReload(): void {
@@ -105,9 +107,7 @@ export class EstateCustomerOrderWidgetComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   async onActionStatist() {
     this.translate.get("MESSAGE.property_list").subscribe((str: string) => {

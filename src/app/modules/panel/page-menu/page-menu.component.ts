@@ -66,10 +66,12 @@ export class PageMenuComponent implements OnInit {
       this.cmsStoreService
         .getState((state) => state.themeStore)
         .subscribe(async (value) => {
+          debugger;
           if (value?.themeMenuPin)
             this.ThemeMenuPin = this.convertListPinToBoolean(
               value.themeMenuPin,
             );
+          else this.ThemeMenuPin = [];
           this.loadData();
         }),
     );
@@ -166,11 +168,6 @@ export class PageMenuComponent implements OnInit {
       return;
     }
     this.findListInChild(this.dataModelResult.listItems);
-    // var findRow = this.dataModelResult.listItems.filter(x => x.id === this.requestLinkParentId);
-    // if (findRow && findRow.length > 0 && findRow[0].children && findRow[0].children.length > 0)
-    //   {
-    //     this.dataListResult = findRow[0].children;
-    //   }
   }
   findListInChild(items: CoreCpMainMenuModel[]): boolean {
     var findRow = items.filter((x) => x.id === this.requestLinkParentId);
@@ -229,7 +226,10 @@ export class PageMenuComponent implements OnInit {
   }
   updateThemeMenuPinToggel(id: number): void {
     this.themeService.updateThemeMenuPinToggel(this.tokenInfo.site.id, id);
-    this.DataPinListSelect();
+    setTimeout(() => {
+      this.DataPinListSelect();
+      this.loadData();
+    }, 100);
   }
   scrollToTop() {
     window.scrollTo({ top: 0, behavior: `smooth` });

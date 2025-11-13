@@ -65,16 +65,18 @@ export class PageContactusComponent
       this.dataModel.email = this.tokenInfo?.user?.email;
       this.dataModel.phoneNo = this.tokenInfo?.user?.mobile;
     }
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-        this.dataModel.fullName = this.tokenInfo?.user?.lastName;
-        this.dataModel.email = this.tokenInfo?.user?.email;
-        this.dataModel.phoneNo = this.tokenInfo?.user?.mobile;
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+          this.dataModel.fullName = this.tokenInfo?.user?.lastName;
+          this.dataModel.email = this.tokenInfo?.user?.email;
+          this.dataModel.phoneNo = this.tokenInfo?.user?.mobile;
+        }),
+    );
   }
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   // tokenInfo: TokenInfoModelV3;
 
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
@@ -119,7 +121,7 @@ export class PageContactusComponent
   }
 
   ngOnDestroy(): void {
-    this.cmsApiStoreSubscribe.unsubscribe();
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   DataAddContent(): void {
     this.formInfo.formSubmitAllow = false;

@@ -70,14 +70,16 @@ export class EstatePropertySelectorComponent implements OnInit, OnDestroy {
     this.onActionSelectForce(x);
   }
 
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   ngOnInit(): void {
     this.loadOptions();
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.loadOptions();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async () => {
+          this.loadOptions();
+        }),
+    );
     if (
       !this.optionLabel ||
       (this.optionLabel.length == 0 && this.optionPlaceholder?.length > 0)
@@ -85,9 +87,7 @@ export class EstatePropertySelectorComponent implements OnInit, OnDestroy {
       this.optionLabel = this.optionPlaceholder;
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   loadOptions(): void {
     this.filteredOptions = this.formControl.valueChanges.pipe(

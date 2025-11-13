@@ -11,7 +11,6 @@ import { MatDialog } from "@angular/material/dialog";
 import { CoreGuideService, TokenInfoModelV3 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
-import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
@@ -57,7 +56,7 @@ export class CmsGuideNoticeComponent implements OnInit, OnDestroy {
   ) {}
   tokenInfo = new TokenInfoModelV3();
   closeResult = "";
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   lang = "";
   ngOnInit(): void {
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
@@ -65,16 +64,18 @@ export class CmsGuideNoticeComponent implements OnInit, OnDestroy {
       this.lang = this.tokenInfo.access.language;
       this.onGetOne();
     }
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        if (value && value.access) this.lang = value.access.language;
-        this.onGetOne();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          if (value && value.access) this.lang = value.access.language;
+          this.onGetOne();
+        }),
+    );
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
+    if (this.unsubscribe) {
+      this.unsubscribe.forEach((sb) => sb.unsubscribe());
     }
   }
   bodyShow = false;

@@ -21,7 +21,9 @@ export class MenuColorsComponent implements OnInit, OnDestroy {
       this.cmsStoreService
         .getState((state) => state.themeStore)
         .subscribe(async (value) => {
-          this.themeStore = value;
+          if (value) {
+            this.themeStore = value;
+          }
         }),
     );
   }

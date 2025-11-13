@@ -33,12 +33,14 @@ export class CmsTokenAccessComponent implements OnInit, OnDestroy {
     if (this.tokenInfo) {
       Promise.resolve().then(() => this.cdr.detectChanges());
     }
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-        Promise.resolve().then(() => this.cdr.detectChanges());
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+          Promise.resolve().then(() => this.cdr.detectChanges());
+        }),
+    );
   }
 
   tokenInfo: TokenInfoModelV3 = new TokenInfoModelV3();
@@ -46,12 +48,12 @@ export class CmsTokenAccessComponent implements OnInit, OnDestroy {
   disabledAllow = false;
   inputSiteId?: number;
   inputUserId?: number;
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {}
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
+    if (this.unsubscribe) {
+      this.unsubscribe.forEach((sb) => sb.unsubscribe());
     }
   }
   onActionButtonUserAccessAdminAllowToAllData(): void {

@@ -29,8 +29,8 @@ import {
 } from "rxjs/operators";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-estate-category-zone-selector",
@@ -75,7 +75,7 @@ export class EstateCategoryZoneSelectorComponent implements OnInit, OnDestroy {
 
   typeUsageId = "";
   @Input() optionReload = () => this.onActionButtonReload();
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
     this.loadOptions();
@@ -84,16 +84,16 @@ export class EstateCategoryZoneSelectorComponent implements OnInit, OnDestroy {
       (this.optionLabel.length == 0 && this.optionPlaceholder?.length > 0)
     )
       this.optionLabel = this.optionPlaceholder;
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.loadOptions();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async () => {
+          this.loadOptions();
+        }),
+    );
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   loadOptions(): void {
     this.filteredOptions = this.formControl.valueChanges.pipe(

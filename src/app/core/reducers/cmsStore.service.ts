@@ -16,8 +16,7 @@ export class CmsStoreService {
   get getStateAll(): ReducerCmsStoreModel {
     return this.state;
   }
-  stateSubject: BehaviorSubject<ReducerCmsStoreModel> =
-    new BehaviorSubject<ReducerCmsStoreModel>(initialState);
+  stateSubject: BehaviorSubject<ReducerCmsStoreModel> = new BehaviorSubject<ReducerCmsStoreModel>(initialState);
   constructor() {
     this.state = initialState;
     // @ts-ignore

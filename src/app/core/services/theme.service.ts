@@ -34,39 +34,39 @@ export class ThemeService implements OnDestroy {
     public translate: TranslateService,
     private cmsTranslationService: CmsTranslationService,
   ) {
-    const storeSnapshot = this.cmsStoreService.getStateSnapshot();
-    if (storeSnapshot.themeStore) this.themeStore = storeSnapshot.themeStore;
+    //const storeSnapshot = this.cmsStoreService.getStateSnapshot();
+    //if (storeSnapshot.themeStore) this.themeStore = storeSnapshot.themeStore;
   }
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
 
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   public ctorAppMain(): void {
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.themeStore)
-      .subscribe((value) => {
-        if (environment.consoleLog)
-          console.log("onInitAppComponentStateOnChange:ThemeService");
-        if (value) {
-          if (value.themeMode != this.themeStoreLast.themeMode)
-            this.updateThemeModeType(value.themeMode);
-          if (value.themeHighlight != this.themeStoreLast.themeHighlight)
-            this.updateThemeHighLight(value.themeHighlight);
-          if (value.themeDirection != this.themeStoreLast.themeDirection)
-            this.updateThemeDirection(value.themeDirection);
-          if (value.themeLanguage != this.themeStoreLast.themeLanguage)
-            this.updateThemeLanguage(value.themeLanguage);
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.themeStore)
+        .subscribe((value) => {
+          if (environment.consoleLog)
+            console.log("onInitAppComponentStateOnChange:ThemeService");
+          if (value) {
+            if (value.themeMode != this.themeStoreLast.themeMode)
+              this.updateThemeModeType(value.themeMode);
+            if (value.themeHighlight != this.themeStoreLast.themeHighlight)
+              this.updateThemeHighLight(value.themeHighlight);
+            if (value.themeDirection != this.themeStoreLast.themeDirection)
+              this.updateThemeDirection(value.themeDirection);
+            if (value.themeLanguage != this.themeStoreLast.themeLanguage)
+              this.updateThemeLanguage(value.themeLanguage);
 
-          this.themeStore = value;
-          this.themeStoreLast = { ...value };
-        } else {
-          this.themeStore = new ThemeStoreModel();
-          this.themeStoreLast = new ThemeStoreModel();
-        }
-      });
+            //this.themeStore = value;
+            this.themeStoreLast = { ...value };
+          } else {
+            //this.themeStore = new ThemeStoreModel();
+            this.themeStoreLast = new ThemeStoreModel();
+          }
+        }),
+    );
 
     this.updateInnerSize();
   }
@@ -110,7 +110,12 @@ export class ThemeService implements OnDestroy {
       );
     }
   }
-  themeStore = new ThemeStoreModel();
+  get themeStore(): ThemeStoreModel {
+    return (
+      this.cmsStoreService.getStateSnapshot()?.themeStore ??
+      new ThemeStoreModel()
+    );
+  }
   themeStoreLast = new ThemeStoreModel();
 
   private getThemeModeTypeFromLocalStorage(): ThemeModeType {
@@ -319,19 +324,21 @@ export class ThemeService implements OnDestroy {
   }
   public updateThemeMenuPinToggel(siteId: number, menuId: number): void {
     if (!siteId || !menuId) return;
-    var index = this.themeStore.themeMenuPin.findIndex(
+    const themeMenuPin = [...this.themeStore.themeMenuPin];
+    var index = themeMenuPin.findIndex(
       (x) => x.siteId == siteId && x.menuId == menuId,
     );
     if (index >= 0) {
-      this.themeStore.themeMenuPin.splice(index, 1);
+      themeMenuPin.splice(index, 1);
     } else {
-      this.themeStore.themeMenuPin.push({ menuId: menuId, siteId: siteId });
+      themeMenuPin.push({ menuId: menuId, siteId: siteId });
     }
     if (localStorage)
       localStorage.setItem(
         THEME_MENU_PIN_LOCAL_STORAGE_KEY,
-        JSON.stringify(this.themeStore.themeMenuPin),
+        JSON.stringify(themeMenuPin),
       );
+    this.themeStore.themeMenuPin = [...themeMenuPin];
     this.cmsStoreService.setState({
       type: SET_Theme_STATE,
       payload: this.themeStore,

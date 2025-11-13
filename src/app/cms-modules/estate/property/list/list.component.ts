@@ -290,7 +290,7 @@ export class EstatePropertyListComponent
   enumInputDataType = InputDataTypeEnum;
   // ** Accardon */
   step = 0;
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   ngOnInit(): void {
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
@@ -314,37 +314,40 @@ export class EstatePropertyListComponent
       }
     }
     this.tokenInfo.access.direction;
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-        if (this.tokenInfo?.access?.siteId > 0)
-          this.GetServiceSiteConfig(this.tokenInfo.access.siteId);
-        this.DataGetAll();
-        if (!this.tokenHelper.isAdminSite && !this.tokenHelper.isSupportSite) {
-          this.tabledisplayedColumnsSource =
-            this.publicHelper.listRemoveIfExist(
-              this.tabledisplayedColumnsSource,
-              "scoreEstateLocation",
-            );
-          this.tabledisplayedColumnsSource =
-            this.publicHelper.listRemoveIfExist(
-              this.tabledisplayedColumnsSource,
-              "scoreEstateBuild",
-            );
-          this.tabledisplayedColumnsSource =
-            this.publicHelper.listRemoveIfExist(
-              this.tabledisplayedColumnsSource,
-              "scoreEstatePrice",
-            );
-        }
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+          if (this.tokenInfo?.access?.siteId > 0)
+            this.GetServiceSiteConfig(this.tokenInfo.access.siteId);
+          this.DataGetAll();
+          if (
+            !this.tokenHelper.isAdminSite &&
+            !this.tokenHelper.isSupportSite
+          ) {
+            this.tabledisplayedColumnsSource =
+              this.publicHelper.listRemoveIfExist(
+                this.tabledisplayedColumnsSource,
+                "scoreEstateLocation",
+              );
+            this.tabledisplayedColumnsSource =
+              this.publicHelper.listRemoveIfExist(
+                this.tabledisplayedColumnsSource,
+                "scoreEstateBuild",
+              );
+            this.tabledisplayedColumnsSource =
+              this.publicHelper.listRemoveIfExist(
+                this.tabledisplayedColumnsSource,
+                "scoreEstatePrice",
+              );
+          }
+        }),
+    );
   }
 
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   GetServiceSiteConfig(SiteId: number): void {
     const pName = this.constructor.name + "ServiceSiteConfig";

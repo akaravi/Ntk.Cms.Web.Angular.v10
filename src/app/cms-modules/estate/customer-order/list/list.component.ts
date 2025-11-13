@@ -162,7 +162,7 @@ export class EstateCustomerOrderListComponent
   ];
 
   expandedElement: EstateCustomerOrderModel | null;
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   propertyDetails: Map<string, string> = new Map<string, string>();
   @Input() optionloadComponent = true;
   @Input() optionloadByRoute = true;
@@ -200,40 +200,40 @@ export class EstateCustomerOrderListComponent
       }
       this.DataGetAll();
     }
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-        if (!this.tokenHelper.isAdminSite && this.tokenHelper.isSupportSite) {
-          this.tabledisplayedColumnsSource =
-            this.publicHelper.listRemoveIfExist(
-              this.tabledisplayedColumnsSource,
-              "scoreRushToBuy",
-            );
-          this.tabledisplayedColumnsSource =
-            this.publicHelper.listRemoveIfExist(
-              this.tabledisplayedColumnsSource,
-              "scorePurchaseDecision",
-            );
-          this.tabledisplayedColumnsSource =
-            this.publicHelper.listRemoveIfExist(
-              this.tabledisplayedColumnsSource,
-              "scoreLiquidityPower",
-            );
-          this.tabledisplayedColumnsSource =
-            this.publicHelper.listRemoveIfExist(
-              this.tabledisplayedColumnsSource,
-              "scorePurchasingPower",
-            );
-        }
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+          if (!this.tokenHelper.isAdminSite && this.tokenHelper.isSupportSite) {
+            this.tabledisplayedColumnsSource =
+              this.publicHelper.listRemoveIfExist(
+                this.tabledisplayedColumnsSource,
+                "scoreRushToBuy",
+              );
+            this.tabledisplayedColumnsSource =
+              this.publicHelper.listRemoveIfExist(
+                this.tabledisplayedColumnsSource,
+                "scorePurchaseDecision",
+              );
+            this.tabledisplayedColumnsSource =
+              this.publicHelper.listRemoveIfExist(
+                this.tabledisplayedColumnsSource,
+                "scoreLiquidityPower",
+              );
+            this.tabledisplayedColumnsSource =
+              this.publicHelper.listRemoveIfExist(
+                this.tabledisplayedColumnsSource,
+                "scorePurchasingPower",
+              );
+          }
 
-        this.DataGetAll();
-      });
+          this.DataGetAll();
+        }),
+    );
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 
   DataGetAll(): void {

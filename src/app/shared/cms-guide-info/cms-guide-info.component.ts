@@ -28,7 +28,7 @@ export class CmsGuideinfoComponent implements OnInit, OnDestroy {
     private cmsToastrService: CmsToastrService,
   ) {}
   closeResult = "";
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   tokenInfo = new TokenInfoModelV3();
   lang = "";
   ngOnInit(): void {
@@ -36,15 +36,17 @@ export class CmsGuideinfoComponent implements OnInit, OnDestroy {
     if (this.tokenInfo) {
       this.lang = this.tokenInfo.access.language;
     }
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        if (value && value.access) this.lang = value.access.language;
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          if (value && value.access) this.lang = value.access.language;
+        }),
+    );
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
+    if (this.unsubscribe) {
+      this.unsubscribe.forEach((sb) => sb.unsubscribe());
     }
   }
   onActionGuideClick(content): void {

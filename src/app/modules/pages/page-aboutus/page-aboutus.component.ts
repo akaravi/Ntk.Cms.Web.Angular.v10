@@ -35,16 +35,18 @@ export class PageAboutusComponent implements OnInit {
       this.SiteInfo(this.tokenInfo.access?.siteId);
     else this.SiteInfo(0);
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-        if (this.tokenInfo.access?.siteId > 0)
-          this.SiteInfo(this.tokenInfo.access?.siteId);
-        else this.SiteInfo(0);
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+          if (this.tokenInfo.access?.siteId > 0)
+            this.SiteInfo(this.tokenInfo.access?.siteId);
+          else this.SiteInfo(0);
+        }),
+    );
   }
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   tokenInfo = new TokenInfoModelV3();
 
   dataModelResult: ErrorExceptionResult<CoreSiteModel> =
@@ -56,7 +58,7 @@ export class PageAboutusComponent implements OnInit {
     });
   }
   ngOnDestroy(): void {
-    this.cmsApiStoreSubscribe.unsubscribe();
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   SiteInfo(linkSiteId: number): void {
     const pName = this.constructor.name + "main";

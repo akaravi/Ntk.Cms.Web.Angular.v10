@@ -58,17 +58,18 @@ export class MenuLanguageComponent implements OnInit {
   languages: LanguageFlagModel[];
   language: LanguageFlagModel;
 
-  cmsApiStoreSubscribe: Subscription;
   tokenInfo: TokenInfoModelV3 = new TokenInfoModelV3();
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
     this.setSelectedLanguage();
-    this.router.events
-      .pipe(filter((event) => event instanceof NavigationStart))
-      .subscribe((event) => {
-        this.setSelectedLanguage();
-      });
+    this.unsubscribe.push(
+      this.router.events
+        .pipe(filter((event) => event instanceof NavigationStart))
+        .subscribe(() => {
+          this.setSelectedLanguage();
+        }),
+    );
     var lastLang = this.cmsTranslationService.getSelectedLanguage;
     if (lastLang?.length > 0) {
       const indexId = this.languages.findIndex((x) => x.lang == lastLang);
@@ -78,7 +79,6 @@ export class MenuLanguageComponent implements OnInit {
     }
   }
   ngOnDestroy(): void {
-    this.cmsApiStoreSubscribe.unsubscribe();
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   setLanguageWithRefresh(lang: string): void {

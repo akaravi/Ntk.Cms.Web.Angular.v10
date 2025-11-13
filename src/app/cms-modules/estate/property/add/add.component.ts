@@ -19,7 +19,6 @@ import {
   CoreEnumService,
   CoreLocationModel,
   CoreUserModel,
-  DataFieldInfoModel,
   ErrorExceptionResult,
   EstateAccountAgencyModel,
   EstateAccountExpertModel,
@@ -185,7 +184,6 @@ export class EstatePropertyAddComponent
   listTypeLanduse: EstatePropertyTypeLanduseModel[] = [];
   dataProfessional = false;
   hidden = true;
-  cmsApiStoreSubscribe: Subscription;
 
   ngOnInit(): void {
     this.translate.get("TITLE.Submit_New_Content").subscribe((str: string) => {
@@ -197,23 +195,22 @@ export class EstatePropertyAddComponent
     this.getEstatePropertyType();
     this.getEstatePropertyTypeLanduse();
     this.dataModel.caseCode = this.publicHelper.StringRandomGenerator(5, true);
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.DataGetAccess();
-        this.getEstateContractType();
-        this.getEstatePropertyType();
-        this.getEstatePropertyTypeLanduse();
-        this.translate.get("ACTION.Add_To_List").subscribe((str: string) => {
-          this.optionActionTitle = str;
-        });
-        this.tokenInfo = value;
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.DataGetAccess();
+          this.getEstateContractType();
+          this.getEstatePropertyType();
+          this.getEstatePropertyTypeLanduse();
+          this.translate.get("ACTION.Add_To_List").subscribe((str: string) => {
+            this.optionActionTitle = str;
+          });
+          this.tokenInfo = value;
+        }),
+    );
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   getEstateContractType(): void {

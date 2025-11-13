@@ -44,20 +44,22 @@ export class HeaderBarComponent implements OnInit {
     private router: Router,
     public dialog: MatDialog,
   ) {
-    this.router.events.subscribe((event: Event) => {
-      if (event instanceof NavigationStart) {
-        //do something on start activity
-      }
-      if (event instanceof NavigationError) {
-        // Handle error
-        console.error(event.error);
-      }
+    this.unsubscribe.push(
+      this.router.events.subscribe((event: Event) => {
+        if (event instanceof NavigationStart) {
+          //do something on start activity
+        }
+        if (event instanceof NavigationError) {
+          // Handle error
+          console.error(event.error);
+        }
 
-      if (event instanceof NavigationEnd) {
-        //do something on end activity
-        this.contentService = null;
-      }
-    });
+        if (event instanceof NavigationEnd) {
+          //do something on end activity
+          this.contentService = null;
+        }
+      }),
+    );
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     this.unsubscribe.push(
       this.cmsStoreService
@@ -75,7 +77,6 @@ export class HeaderBarComponent implements OnInit {
     );
   }
 
-  cmsApiStoreSubscribe: Subscription;
   tokenInfo = new TokenInfoModelV3();
   themeStore = new ThemeStoreModel();
   title$: Observable<string>;
@@ -90,23 +91,24 @@ export class HeaderBarComponent implements OnInit {
     this.description$ = this.pageInfoService.description.asObservable();
     this.bc$ = this.pageInfoService.breadcrumbs.asObservable();
 
-    this.pageInfoService.contentService.asObservable().subscribe({
-      next: (ret) => {
-        this.contentService = ret;
-        Promise.resolve().then(() => this.cdr.detectChanges());
-      },
-    });
-    this.pageInfoService.contentInfo.asObservable().subscribe({
-      next: (ret) => {
-        this.contentInfo = ret;
-        Promise.resolve().then(() => this.cdr.detectChanges());
-      },
-    });
+    this.unsubscribe.push(
+      this.pageInfoService.contentService.asObservable().subscribe({
+        next: (ret) => {
+          this.contentService = ret;
+          Promise.resolve().then(() => this.cdr.detectChanges());
+        },
+      }),
+    );
+    this.unsubscribe.push(
+      this.pageInfoService.contentInfo.asObservable().subscribe({
+        next: (ret) => {
+          this.contentInfo = ret;
+          Promise.resolve().then(() => this.cdr.detectChanges());
+        },
+      }),
+    );
   }
   ngOnDestroy() {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   get rootClass() {

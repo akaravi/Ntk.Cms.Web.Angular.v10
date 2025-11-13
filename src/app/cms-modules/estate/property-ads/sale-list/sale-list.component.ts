@@ -73,7 +73,7 @@ export class EstatePropertyAdsSaleListComponent implements OnInit, OnDestroy {
   ];
 
   // expandedElement: CoreModuleSaleItemModel | null;
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   currency = "";
 
   ngOnInit(): void {
@@ -90,12 +90,14 @@ export class EstatePropertyAdsSaleListComponent implements OnInit, OnDestroy {
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-        this.DataGetAll();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+          this.DataGetAll();
+        }),
+    );
 
     setTimeout(() => {
       this.DataGetAll();
@@ -151,9 +153,7 @@ export class EstatePropertyAdsSaleListComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   DataGetAll(): void {
     this.tableRowSelected = new EstateAdsTypeModel();
