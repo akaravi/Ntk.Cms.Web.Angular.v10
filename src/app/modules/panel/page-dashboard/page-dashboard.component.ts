@@ -99,10 +99,13 @@ export class PageDashboardComponent implements OnInit {
       this.cmsStoreService
         .getState((state) => state.themeStore)
         .subscribe(async (value) => {
-          if (value?.themeMenuPin)
+          if (value?.themeMenuPin) {
             this.ThemeMenuPin = this.convertListPinToBoolean(
               value.themeMenuPin,
             );
+          } else {
+            this.ThemeMenuPin = [];
+          }
           this.loadData();
         }),
     );

@@ -367,7 +367,7 @@
           <!-- PerriodStartWorkTime Field -->
           <div
             *ngIf="fieldsInfo['perriodStartWorkTime']?.accessWatchField"
-            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
           >
             <label
               for="dataModel.perriodStartWorkTime"
@@ -378,9 +378,8 @@
               matInput
               [ngxTimepicker]="PerriodStartWorkTime"
               [(ngModel)]="dataModel.perriodStartWorkTime"
-              name="dataModel.perriodStartWorkTime"
-              type="number"
               [format]="24"
+              name="dataModel.perriodStartWorkTime"
               class="form-control validate-name"
               id="dataModel.perriodStartWorkTime"
             />
@@ -397,7 +396,7 @@
           <!-- PerriodEndWorkTime Field -->
           <div
             *ngIf="fieldsInfo['perriodEndWorkTime']?.accessWatchField"
-            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4  cms-input-group"
           >
             <label for="dataModel.perriodEndWorkTime" class="color-highlight">{{
               fieldsInfo["perriodEndWorkTime"]?.fieldTitle

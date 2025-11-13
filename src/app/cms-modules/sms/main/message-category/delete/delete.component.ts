@@ -23,7 +23,6 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 @Component({
   selector: "app-sms-main-message-category-delete",
   templateUrl: "./delete.component.html",
-  styleUrls: ["./delete.component.scss"],
   standalone: false,
 })
 export class SmsMainMessageCategoryDeleteComponent implements OnInit {

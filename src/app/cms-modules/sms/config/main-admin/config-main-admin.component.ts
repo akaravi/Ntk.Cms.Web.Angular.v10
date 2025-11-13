@@ -31,7 +31,6 @@ import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 @Component({
   selector: "app-sms-config-mainadmin",
   templateUrl: "./config-main-admin.component.html",
-  styleUrls: ["./config-main-admin.component.scss"],
   standalone: false,
 })
 export class SmsConfigMainAdminComponent implements OnInit, OnDestroy {
