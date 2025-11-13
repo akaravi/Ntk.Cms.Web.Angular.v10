@@ -226,10 +226,10 @@ export class PageMenuComponent implements OnInit {
   }
   updateThemeMenuPinToggel(id: number): void {
     this.themeService.updateThemeMenuPinToggel(this.tokenInfo.site.id, id);
-    setTimeout(() => {
-      this.DataPinListSelect();
-      this.loadData();
-    }, 100);
+    // setTimeout(() => {
+    //   this.DataPinListSelect();
+    //   this.loadData();
+    // }, 1000);
   }
   scrollToTop() {
     window.scrollTo({ top: 0, behavior: `smooth` });

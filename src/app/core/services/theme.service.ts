@@ -34,8 +34,7 @@ export class ThemeService implements OnDestroy {
     public translate: TranslateService,
     private cmsTranslationService: CmsTranslationService,
   ) {
-    //const storeSnapshot = this.cmsStoreService.getStateSnapshot();
-    //if (storeSnapshot.themeStore) this.themeStore = storeSnapshot.themeStore;
+
   }
   private unsubscribe: Subscription[] = [];
 
@@ -58,11 +57,8 @@ export class ThemeService implements OnDestroy {
               this.updateThemeDirection(value.themeDirection);
             if (value.themeLanguage != this.themeStoreLast.themeLanguage)
               this.updateThemeLanguage(value.themeLanguage);
-
-            //this.themeStore = value;
             this.themeStoreLast = { ...value };
           } else {
-            //this.themeStore = new ThemeStoreModel();
             this.themeStoreLast = new ThemeStoreModel();
           }
         }),
@@ -341,7 +337,7 @@ export class ThemeService implements OnDestroy {
     this.themeStore.themeMenuPin = [...themeMenuPin];
     this.cmsStoreService.setState({
       type: SET_Theme_STATE,
-      payload: this.themeStore,
+      payload: { ...this.themeStore },
     });
   }
   public updateThemeMenuPinAdd(siteId: number, menuId: number): void {

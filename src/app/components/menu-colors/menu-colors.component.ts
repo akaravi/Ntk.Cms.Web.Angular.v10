@@ -23,6 +23,8 @@ export class MenuColorsComponent implements OnInit, OnDestroy {
         .subscribe(async (value) => {
           if (value) {
             this.themeStore = value;
+          } else {
+            this.themeStore = new ThemeStoreModel();
           }
         }),
     );
