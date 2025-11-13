@@ -183,6 +183,24 @@
           {{ row.createdDate | localeDate }}
         </mat-cell>
       </ng-container>
+      <!-- fromDate Column -->
+      <ng-container matColumnDef="fromDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ fieldsInfo["fromDate"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.fromDate | localeDate }}
+        </mat-cell>
+      </ng-container>
+      <!-- expireDate Column -->
+      <ng-container matColumnDef="expireDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ fieldsInfo["expireDate"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.expireDate | localeDate }}
+        </mat-cell>
+      </ng-container>
       <!-- UpdatedDate Column -->
       <ng-container matColumnDef="UpdatedDate">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -191,6 +209,24 @@
         <mat-cell *matCellDef="let row">
           {{ row.updatedDate | localeDate }}
         </mat-cell>
+      </ng-container>
+      <!-- hasAccess Column -->
+      <ng-container matColumnDef="hasAccess">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="form-label">
+          {{ fieldsInfo["hasAccess"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <i [ngClass]="row.hasAccess | boolclass"></i
+        ></mat-cell>
+      </ng-container>
+      <!-- hasInherits Column -->
+      <ng-container matColumnDef="hasInherits">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="form-label">
+          {{ fieldsInfo["hasInherits"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <i [ngClass]="row.hasInherits | boolclass"></i
+        ></mat-cell>
       </ng-container>
       <!-- Action Column -->
       <ng-container matColumnDef="Action">

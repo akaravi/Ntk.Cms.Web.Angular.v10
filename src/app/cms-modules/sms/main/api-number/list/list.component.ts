@@ -482,6 +482,7 @@ export class SmsMainApiNumberListComponent
   onActionButtonPermissionList(
     model: SmsMainApiNumberModel = this.tableRowSelected,
   ): void {
+    debugger;
     if (!model || !model.id || model.id.length == 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
@@ -492,11 +493,7 @@ export class SmsMainApiNumberListComponent
     }
     this.onActionTableRowSelect(model);
 
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessDeleteRow
-    ) {
+    if (this.dataModelResult == null || this.dataModelResult.access == null) {
       this.cmsToastrService.typeErrorSelected();
       return;
     }

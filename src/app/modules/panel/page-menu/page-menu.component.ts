@@ -66,7 +66,6 @@ export class PageMenuComponent implements OnInit {
       this.cmsStoreService
         .getState((state) => state.themeStore)
         .subscribe(async (value) => {
-          debugger;
           if (value?.themeMenuPin)
             this.ThemeMenuPin = this.convertListPinToBoolean(
               value.themeMenuPin,
