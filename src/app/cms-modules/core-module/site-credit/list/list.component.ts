@@ -85,7 +85,9 @@ export class CoreModuleSiteCreditListComponent
     "linkModuleId",
     "Credit",
     "SumCreditBlocked",
-    // 'Action'
+    "SumCost",
+    "SumDebtor",
+    "SumCreditor",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "RecordStatus",
@@ -93,7 +95,6 @@ export class CoreModuleSiteCreditListComponent
     "linkModuleId",
     "Credit",
     "SumCreditBlocked",
-    // 'Action'
   ];
 
   cmsApiStoreSubscribe: Subscription;

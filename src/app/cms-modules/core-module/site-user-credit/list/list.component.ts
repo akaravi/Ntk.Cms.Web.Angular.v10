@@ -86,6 +86,9 @@ export class CoreModuleSiteUserCreditListComponent
     "LinkModuleId",
     "Credit",
     "SumCreditBlocked",
+    "SumCost",
+    "SumDebtor",
+    "SumCreditor",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [

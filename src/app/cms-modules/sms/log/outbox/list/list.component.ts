@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
-import { ActivatedRoute, NavigationExtras, Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
   CoreCurrencyModel,
@@ -43,8 +43,6 @@ export class SmsLogOutBoxListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private contentService: SmsLogOutBoxService,
-    // private smsMainApiPathCompanyService: SmsMainApiPathCompanyService,
-    // private smsMainApiPathPublicConfigService: SmsMainApiPathPublicConfigService,
     private activatedRoute: ActivatedRoute,
     private cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
@@ -305,7 +303,6 @@ export class SmsLogOutBoxListComponent
         this.DataGetAll();
       }
     });
-    // this.router.navigate(['/sms/main/api-path/edit', this.tableRowSelected.id]);
   }
 
   onActionButtonViewRow(
@@ -348,11 +345,7 @@ export class SmsLogOutBoxListComponent
       return;
     }
     this.onActionTableRowSelect(model);
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessEditRow
-    ) {
+    if (this.dataModelResult == null || this.dataModelResult.access == null) {
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
@@ -514,110 +507,7 @@ export class SmsLogOutBoxListComponent
       },
     });
   }
-  onActionButtonSuperSedersList(
-    model: SmsLogOutBoxModel = this.tableRowSelected,
-  ): void {
-    if (!model || !model.id || model.id.length === 0) {
-      this.translate
-        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
-        .subscribe((str: string) => {
-          this.cmsToastrService.typeErrorSelected(str);
-        });
-      return;
-    }
-    this.onActionTableRowSelect(model);
 
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessWatchRow
-    ) {
-      this.cmsToastrService.typeErrorSelected();
-      return;
-    }
-    this.router.navigate([
-      "/bankpayment/privatesiteconfig/LinkPublicConfigId",
-      this.tableRowSelected.id,
-    ]);
-  }
-  onActionButtonMustSuperSedersList(
-    model: SmsLogOutBoxModel = this.tableRowSelected,
-  ): void {
-    if (!model || !model.id || model.id.length === 0) {
-      this.translate
-        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
-        .subscribe((str: string) => {
-          this.cmsToastrService.typeErrorSelected(str);
-        });
-      return;
-    }
-    this.onActionTableRowSelect(model);
-
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessWatchRow
-    ) {
-      this.cmsToastrService.typeErrorSelected();
-      return;
-    }
-    this.router.navigate([
-      "/bankpayment/privatesiteconfig/LinkPublicConfigId",
-      this.tableRowSelected.id,
-    ]);
-  }
-  onActionButtonNumbersList(
-    model: SmsLogOutBoxModel = this.tableRowSelected,
-  ): void {
-    if (!model || !model.id || model.id.length === 0) {
-      this.translate
-        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
-        .subscribe((str: string) => {
-          this.cmsToastrService.typeErrorSelected(str);
-        });
-      return;
-    }
-    this.onActionTableRowSelect(model);
-
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessWatchRow
-    ) {
-      this.cmsToastrService.typeErrorSelected();
-      return;
-    }
-    this.router.navigate([
-      "/bankpayment/privatesiteconfig/LinkPublicConfigId",
-      this.tableRowSelected.id,
-    ]);
-  }
-  onActionButtonPermitionList(
-    model: SmsLogOutBoxModel = this.tableRowSelected,
-  ): void {
-    if (!model || !model.id || model.id.length === 0) {
-      this.translate
-        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
-        .subscribe((str: string) => {
-          this.cmsToastrService.typeErrorSelected(str);
-        });
-      return;
-    }
-    this.onActionTableRowSelect(model);
-
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessWatchRow
-    ) {
-      this.cmsToastrService.typeErrorSelected();
-      return;
-    }
-    this.router.navigate([
-      "/sms/main/api-path-permission/LinkApiPathId",
-      this.tableRowSelected.id,
-    ]);
-  }
   onActionButtonPriceServicesList(
     model: SmsLogOutBoxModel = this.tableRowSelected,
   ): void {
@@ -641,43 +531,8 @@ export class SmsLogOutBoxListComponent
     }
     this.router.navigate([
       "/sms/main/api-path-price-service/LinkApiPathId",
-      this.tableRowSelected.id,
+      this.tableRowSelected.linkApiPathId,
     ]);
-  }
-
-  onActionButtonSendMessage(
-    model: SmsLogOutBoxModel = this.tableRowSelected,
-  ): void {
-    if (!model || !model.id || model.id.length === 0) {
-      this.translate
-        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
-        .subscribe((str: string) => {
-          this.cmsToastrService.typeErrorSelected(str);
-        });
-      return;
-    }
-    this.onActionTableRowSelect(model);
-
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessWatchRow
-    ) {
-      this.cmsToastrService.typeErrorSelected();
-      return;
-    }
-    const navigationExtras: NavigationExtras = {
-      state: {
-        LinkApiPathId: model.linkApiPathId,
-        LinkNumberId: model.linkApiNumberId,
-        // ReceiverNumber: model.senderNumber,
-        // SenderNumber: model.receiverNumber,
-      },
-    };
-    this.router.navigate(
-      ["/sms/action/send-message/outbox-extras"],
-      navigationExtras,
-    );
   }
 
   onActionButtonReload(): void {

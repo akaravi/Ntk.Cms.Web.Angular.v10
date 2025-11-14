@@ -232,6 +232,27 @@
         <mat-cell *matCellDef="let row"> {{ row.sumCreditBlocked }} </mat-cell>
       </ng-container>
 
+      <!-- sumCost Column -->
+      <ng-container matColumnDef="SumCost">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ fieldsInfo["sumCost"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.sumCost }} </mat-cell>
+      </ng-container>
+      <!-- sumDebtor Column -->
+      <ng-container matColumnDef="SumDebtor">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ fieldsInfo["sumDebtor"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.sumDebtor }} </mat-cell>
+      </ng-container>
+      <!-- sumCreditor Column -->
+      <ng-container matColumnDef="SumCreditor">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ fieldsInfo["sumCreditor"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.sumCreditor }} </mat-cell>
+      </ng-container>
       <!-- Action Column -->
       <ng-container matColumnDef="Action">
         <mat-header-cell *matHeaderCellDef>
