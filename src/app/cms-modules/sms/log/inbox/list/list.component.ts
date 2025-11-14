@@ -111,7 +111,7 @@ export class SmsLogInBoxListComponent
   ];
 
   expandedElement: SmsLogInBoxModel | null;
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
     if (this.activatedRoute.snapshot.paramMap.get("LinkSiteId")) {
@@ -150,12 +150,14 @@ export class SmsLogInBoxListComponent
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-        this.DataGetAll();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+          this.DataGetAll();
+        }),
+    );
 
     this.getPrivateConfig();
   }
@@ -171,9 +173,7 @@ export class SmsLogInBoxListComponent
   }
 
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   DataGetAll(): void {
     this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(

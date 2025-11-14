@@ -122,7 +122,7 @@ export class CoreModuleEntityReportFileListComponent
     // 'Action'
   ];
   expandedElement: CoreModuleEntityReportFileModel | null;
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
     this.filteModelContent.sortColumn = "ShowInMenuOrder";
@@ -131,19 +131,19 @@ export class CoreModuleEntityReportFileListComponent
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-        this.DataGetAll();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+          this.DataGetAll();
+        }),
+    );
     this.getModuleList();
     this.getEnumReportFileType();
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   getEnumReportFileType(): void {
     this.coreEnumService.ServiceReportFileTypeEnum().subscribe({

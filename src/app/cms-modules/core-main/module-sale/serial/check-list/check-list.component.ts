@@ -91,7 +91,7 @@ export class CoreModuleSaleSerialCheckListComponent
   ];
 
   expandedElement: CoreModuleSaleItemModel | null;
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
     if (this.requestSerial && this.requestSerial.length > 0) {
@@ -128,9 +128,7 @@ export class CoreModuleSaleSerialCheckListComponent
     });
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   DataCheckUseSerialForSite(serial: string): void {
     this.tableRowsSelected = [];

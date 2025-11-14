@@ -12,8 +12,8 @@ import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { HtmlBuilderModel } from "src/app/core/models/htmlBuilderModel";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-web-designer-builder",
@@ -36,7 +36,7 @@ export class WebDesignerBuilderComponent implements OnInit, OnDestroy {
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   tokenInfo = new TokenInfoModelV3();
 
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
@@ -54,18 +54,18 @@ export class WebDesignerBuilderComponent implements OnInit, OnDestroy {
       this.DataGetOneContent();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-        this.DataGetOneContent();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+          this.DataGetOneContent();
+        }),
+    );
   }
 
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   DataGetOneContent(): void {
     const pName =

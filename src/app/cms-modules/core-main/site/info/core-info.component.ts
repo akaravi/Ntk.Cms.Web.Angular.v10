@@ -11,9 +11,9 @@ import {
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { CmsLinkToComponent } from "src/app/shared/cms-link-to/cms-link-to.component";
-import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 
 @Component({
   selector: "app-core-info",
@@ -46,7 +46,7 @@ export class CoreInfoComponent implements OnInit, OnDestroy {
         this.DataGetInfo();
       });
   }
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   tokenInfo: TokenInfoModelV3;
 
   dataModelResult: ErrorExceptionResult<ShareInfoModel> =
@@ -96,9 +96,7 @@ export class CoreInfoComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   onActionCopied(): void {
     this.cmsToastrService.typeSuccessCopedToClipboard();

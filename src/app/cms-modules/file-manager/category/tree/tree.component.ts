@@ -56,7 +56,7 @@ export class FileCategoryTreeComponent implements OnInit, OnDestroy {
 
   dataSource = new MatTreeNestedDataSource<FileCategoryModel>();
   @Output() optionChange = new EventEmitter<FileCategoryModel>();
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   @Input() optionReload = () => this.onActionButtonReload();
 
   hasChild = (_: number, node: FileCategoryModel) =>
@@ -67,16 +67,16 @@ export class FileCategoryTreeComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.DataGetAll();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.DataGetAll();
+        }),
+    );
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   DataGetAll(): void {
     this.filterModel.rowPerPage = 200;

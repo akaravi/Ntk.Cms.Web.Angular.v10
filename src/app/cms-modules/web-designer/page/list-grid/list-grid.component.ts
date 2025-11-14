@@ -136,7 +136,7 @@ export class WebDesignerMainPageListGridComponent
     //'Action'
   ];
   expandedElement: WebDesignerMainPageModel | null;
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
     this.filteModelContent.sortColumn = "Title";
@@ -144,12 +144,14 @@ export class WebDesignerMainPageListGridComponent
     if (this.tokenInfo) {
       this.DataGetAll();
     }
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-        this.DataGetAll();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+          this.DataGetAll();
+        }),
+    );
     this.getModuleList();
     this.getSiteCategory();
   }
@@ -172,9 +174,7 @@ export class WebDesignerMainPageListGridComponent
     });
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   DataGetAll(): void {
     this.tableRowsSelected = [];

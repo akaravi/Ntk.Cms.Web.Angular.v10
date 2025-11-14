@@ -60,7 +60,7 @@ export class ContactCategoryTreeComponent implements OnInit, OnDestroy {
 
   dataSource = new MatTreeNestedDataSource<ContactCategoryModel>();
   @Output() optionChange = new EventEmitter<ContactCategoryModel>();
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   @Input() optionReload = () => this.onActionButtonReload();
 
   hasChild = (_: string, node: ContactCategoryModel) =>
@@ -68,20 +68,20 @@ export class ContactCategoryTreeComponent implements OnInit, OnDestroy {
   childrenAccessor = (node: ContactCategoryModel) => node.children ?? [];
 
   ngOnInit(): void {
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.DataGetAll();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.DataGetAll();
+        }),
+    );
 
     setTimeout(() => {
       this.DataGetAll();
     }, 500);
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   DataGetAll(): void {
     this.filterModel.rowPerPage = 200;

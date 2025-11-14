@@ -72,7 +72,7 @@ export class TicketingDepartemenLogEditComponent
 
   fileManagerOpenForm = false;
 
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
     this.translate.get("TITLE.Edit").subscribe((str: string) => {
@@ -86,17 +86,17 @@ export class TicketingDepartemenLogEditComponent
     this.DataGetOneContent();
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+        }),
+    );
   }
 
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 
   DataGetOneContent(): void {

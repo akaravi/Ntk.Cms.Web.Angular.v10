@@ -108,7 +108,7 @@ export class CoreSiteEditComponent
   fileManagerOpenFormLinkImageLogoId = false;
   appLanguage = "fa";
 
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   fileManagerTree: TreeModel;
   mapMarker: any;
   private mapModel: leafletMap;
@@ -120,9 +120,7 @@ export class CoreSiteEditComponent
     this.getEnumLanguage();
   }
   ngOnDestroy() {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   getEnumSiteStatus(): void {
     this.coreEnumService.ServiceSiteStatusEnum().subscribe({

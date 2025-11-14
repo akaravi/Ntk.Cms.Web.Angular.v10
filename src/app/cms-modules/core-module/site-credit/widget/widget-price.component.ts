@@ -56,7 +56,7 @@ export class CoreModuleSiteCreditWidgetPriceComponent
     DataFieldInfoModel
   >();
   widgetInfoModel = new WidgetInfoModel();
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
 
   ngOnInit() {
     this.translate.get("TITLE.Evidence_Identity").subscribe((str: string) => {
@@ -66,11 +66,13 @@ export class CoreModuleSiteCreditWidgetPriceComponent
     this.widgetInfoModel.link = "/core-module/site-credit/";
 
     this.DataGetAll();
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.DataGetAll();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.DataGetAll();
+        }),
+    );
 
     this.getModuleList();
   }
@@ -84,9 +86,7 @@ export class CoreModuleSiteCreditWidgetPriceComponent
     });
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 
   DataGetAll(): void {

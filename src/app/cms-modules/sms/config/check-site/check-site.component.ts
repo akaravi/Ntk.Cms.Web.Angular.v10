@@ -12,8 +12,8 @@ import {
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-sms-config-checksite",
@@ -44,14 +44,16 @@ export class SmsConfigCheckSiteComponent implements OnInit, OnDestroy {
       this.onLoadDate();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-        this.onLoadDate();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+          this.onLoadDate();
+        }),
+    );
   }
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   tokenInfo = new TokenInfoModelV3();
 
   dataModelResult: ErrorExceptionResult<BaseModuleSiteCheckSiteModel> =
@@ -65,9 +67,7 @@ export class SmsConfigCheckSiteComponent implements OnInit, OnDestroy {
   tabledisplayedColumns: string[] = ["Accepted", "Title", "Description"];
   ngOnInit(): void {}
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   onLoadDate(): void {
     if (!this.requestLinkSiteId || this.requestLinkSiteId === 0) {

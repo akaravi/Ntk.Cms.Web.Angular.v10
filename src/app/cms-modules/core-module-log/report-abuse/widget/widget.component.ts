@@ -38,7 +38,7 @@ export class CoreModuleLogReportAbuseWidgetComponent
   filterDataModelQueryBuilder: FilterDataModel[] = [];
 
   widgetInfoModel = new WidgetInfoModel();
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
 
   ngOnInit() {
     this.translate.get("TITLE.Report_Abuse").subscribe((str: string) => {
@@ -50,11 +50,13 @@ export class CoreModuleLogReportAbuseWidgetComponent
       this.onActionStatist();
     }, 1000);
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.onActionStatist();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.onActionStatist();
+        }),
+    );
   }
 
   onActionButtonReload(): void {
@@ -62,9 +64,7 @@ export class CoreModuleLogReportAbuseWidgetComponent
   }
 
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   onActionStatist(): void {
     this.translate

@@ -25,8 +25,8 @@ import { Subscription } from "rxjs";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-core-userclaim-edit",
@@ -83,7 +83,7 @@ export class CoreUserClaimContentEditComponent
         this.ProfessionalData = false;
       }
     }
-    this.cmsApiStoreSubscribe = this.cmsStoreService
+    this.unsubscribe.push( this.cmsStoreService
       .getState((state) => state.tokenInfoStore)
       .subscribe(async (value) => {
         this.tokenInfo = value;
@@ -97,12 +97,12 @@ export class CoreUserClaimContentEditComponent
         } else {
           this.ProfessionalData = false;
         }
-      });
+      }));
   }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
 
   ProfessionalData = false;
   fileManagerTree: TreeModel;
@@ -128,9 +128,7 @@ export class CoreUserClaimContentEditComponent
     }
   }
   ngOnDestroy() {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 
   DataGetOneContent(): void {

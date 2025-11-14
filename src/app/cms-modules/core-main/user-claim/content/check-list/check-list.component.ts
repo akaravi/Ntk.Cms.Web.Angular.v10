@@ -96,7 +96,7 @@ export class CoreUserClaimContentCheckListComponent
   ];
 
   expandedElement: CoreUserClaimContentModel | null;
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
@@ -104,12 +104,14 @@ export class CoreUserClaimContentCheckListComponent
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-        this.DataGetAll();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+          this.DataGetAll();
+        }),
+    );
     this.getUserClaimType();
   }
   getUserClaimType(): void {
@@ -122,9 +124,7 @@ export class CoreUserClaimContentCheckListComponent
     });
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   DataGetAll(): void {
     this.onActionTableRowSelect(new CoreUserClaimCheckModel());

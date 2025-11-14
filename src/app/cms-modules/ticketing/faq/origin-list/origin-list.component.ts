@@ -77,7 +77,7 @@ export class TicketingFaqOriginListComponent implements OnInit, OnDestroy {
     new MatTableDataSource<TicketingFaqModel>();
   categoryModelSelected: TicketingDepartemenModel;
 
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   DataDepartemanLinkSelect = 0;
   DataFaqLinkSelect = 0;
 
@@ -88,18 +88,17 @@ export class TicketingFaqOriginListComponent implements OnInit, OnDestroy {
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService
+    this.unsubscribe.push( this.cmsStoreService
       .getState((state) => state.tokenInfoStore)
       .subscribe(async (value) => {
         this.DataDepartemenGetAll();
         this.tokenInfo = value;
         this.DataGetAll();
-      });
+      }),
+    );
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 
   DataGetAll(): void {

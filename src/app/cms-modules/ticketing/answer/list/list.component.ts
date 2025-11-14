@@ -108,7 +108,7 @@ export class TicketingAnswerListComponent
     // 'Action'
   ];
 
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
     this.requestLinkTaskId = +Number(
@@ -119,19 +119,19 @@ export class TicketingAnswerListComponent
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.getEnumAnswerStatus();
-        this.tokenInfo = value;
-        this.DataGetAll();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.getEnumAnswerStatus();
+          this.tokenInfo = value;
+          this.DataGetAll();
+        }),
+    );
     this.getEnumAnswerStatus();
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   getEnumAnswerStatus(): void {
     this.ticketingEnumService.ServiceTicketStatusEnum().subscribe({

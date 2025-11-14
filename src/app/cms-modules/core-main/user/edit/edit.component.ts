@@ -61,15 +61,15 @@ export class CoreUserEditComponent
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService
+    this.unsubscribe.push( this.cmsStoreService
       .getState((state) => state.tokenInfoStore)
       .subscribe(async (value) => {
         this.tokenInfo = value;
         this.DataGetOneContent();
-      });
+      }));
   }
   // tokenInfo: TokenInfoModelV3;
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
 
   requestId = 0;
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
@@ -107,9 +107,7 @@ export class CoreUserEditComponent
     this.DataGetOneContent();
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 
   DataGetOneContent(): void {

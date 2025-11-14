@@ -82,7 +82,7 @@ export class CoreModuleSaleItemListViewComponent implements OnInit, OnDestroy {
     "EnumCmsModuleSaleItemType",
   ];
 
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
     this.filteModelContent.sortColumn = "Title";
@@ -118,9 +118,7 @@ export class CoreModuleSaleItemListViewComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   DataGetAll(): void {
     this.tableRowsSelected = [];

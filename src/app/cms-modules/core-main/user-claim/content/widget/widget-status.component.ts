@@ -47,7 +47,7 @@ export class CoreUserClaimContentWidgetStatusComponent
   filterDataModelQueryBuilder: FilterDataModel[] = [];
 
   widgetInfoModel = new WidgetInfoModel();
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
 
   ngOnInit() {
     this.translate.get("TITLE.Evidence_Identity").subscribe((str: string) => {
@@ -60,11 +60,13 @@ export class CoreUserClaimContentWidgetStatusComponent
       this.onActionStatist();
     }, 1000);
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.onActionStatist();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.onActionStatist();
+        }),
+    );
   }
 
   onActionButtonReload(): void {
@@ -72,9 +74,7 @@ export class CoreUserClaimContentWidgetStatusComponent
   }
 
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 
   onActionButtonEditRow(model: CoreUserClaimCheckModel): void {

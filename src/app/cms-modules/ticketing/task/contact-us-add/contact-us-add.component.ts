@@ -29,8 +29,8 @@ import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { PoinModel } from "src/app/core/models/pointModel";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-ticketing-task-contactus",
@@ -70,16 +70,17 @@ export class TicketingTaskContactUsAddComponent
       this.dataModel.email = this.tokenInfo.user.email;
       this.dataModel.phoneNo = this.tokenInfo.user.mobile;
     }
-    this.cmsApiStoreSubscribe = this.cmsStoreService
+    this.unsubscribe.push( this.cmsStoreService
       .getState((state) => state.tokenInfoStore)
       .subscribe(async (value) => {
         this.tokenInfo = value;
         this.dataModel.fullName = this.tokenInfo.user.lastName;
         this.dataModel.email = this.tokenInfo.user.email;
         this.dataModel.phoneNo = this.tokenInfo.user.mobile;
-      });
+      }),
+    );
   }
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   // tokenInfo: TokenInfoModelV3;
 
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
@@ -125,9 +126,7 @@ export class TicketingTaskContactUsAddComponent
   }
 
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   DataAddContent(): void {
     this.formInfo.formSubmitAllow = false;

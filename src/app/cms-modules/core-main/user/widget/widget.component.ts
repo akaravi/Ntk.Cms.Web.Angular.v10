@@ -6,11 +6,11 @@ import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { WidgetInfoModel } from "src/app/core/models/widget-info-model";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { environment } from "src/environments/environment";
 import { CoreUserEmailConfirmComponent } from "../emailConfirm/emailConfirm.component";
 import { CoreUserMobileConfirmComponent } from "../mobileConfirm/mobileConfirm.component";
-import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 
 @Component({
   selector: "app-core-user-widget",
@@ -20,7 +20,7 @@ import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 export class CoreUserWidgetComponent implements OnInit, OnDestroy {
   tokenInfo = new TokenInfoModelV3();
   widgetInfoModel = new WidgetInfoModel();
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
 
   constructorInfoAreaId = this.constructor.name;
   constructor(
@@ -45,12 +45,12 @@ export class CoreUserWidgetComponent implements OnInit, OnDestroy {
     if (this.tokenInfo) {
       this.onActionStatist();
     }
-    this.cmsApiStoreSubscribe = this.cmsStoreService
+    this.unsubscribe.push( this.cmsStoreService
       .getState((state) => state.tokenInfoStore)
       .subscribe(async (value) => {
         this.tokenInfo = value;
         this.onActionStatist();
-      });
+      }));
   }
 
   onActionButtonReload(): void {
@@ -58,9 +58,7 @@ export class CoreUserWidgetComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 
   onActionStatist(): void {
@@ -72,12 +70,11 @@ export class CoreUserWidgetComponent implements OnInit, OnDestroy {
     );
     this.widgetInfoModel.link =
       "/core/user/edit/" + this.tokenInfo.access.userId;
- 
+
     this.service.ServiceGetOneById(this.tokenInfo.access.userId).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.dataModel = ret.item;
-
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }

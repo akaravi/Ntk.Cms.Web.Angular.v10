@@ -1,4 +1,3 @@
-import { NestedTreeControl } from "@angular/cdk/tree";
 import {
   ChangeDetectorRef,
   Component,
@@ -21,11 +20,11 @@ import {
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { environment } from "src/environments/environment";
 import { CoreUserClaimGroupDetailAddComponent } from "../add/add.component";
 import { CoreUserClaimGroupDetailEditComponent } from "../edit/edit.component";
-import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 
 @Component({
   selector: "app-core-userclaimgroupdetail-tree",
@@ -60,7 +59,7 @@ export class CoreUserClaimGroupDetailTreeComponent
 
   dataSource = new MatTreeNestedDataSource<CoreUserClaimGroupDetailModel>();
   @Output() optionChange = new EventEmitter<CoreUserClaimGroupDetailModel>();
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   @Input() optionReload = () => this.onActionButtonReload();
 
   hasChild = (_: number, node: CoreUserClaimGroupDetailModel) => false;
@@ -70,16 +69,16 @@ export class CoreUserClaimGroupDetailTreeComponent
     setTimeout(() => {
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.DataGetAll();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.DataGetAll();
+        }),
+    );
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   DataGetAll(): void {
     this.filterModel.rowPerPage = 200;

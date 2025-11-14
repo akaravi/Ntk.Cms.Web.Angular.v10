@@ -26,8 +26,8 @@ import { Subscription } from "rxjs";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-core-userclaimcontent-add",
@@ -84,21 +84,23 @@ export class CoreUserClaimContentAddComponent
         this.ProfessionalData = false;
       }
     }
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-        if (
-          !this.tokenInfo.access.userAccessAdminAllowToProfessionalData &&
-          this.tokenInfo.access.userAccessAdminAllowToAllData
-        ) {
-          this.dataModel.linkUserId = this.tokenInfo.access.userId;
-          this.dataModel.linkSiteId = this.tokenInfo.access.siteId;
-          this.ProfessionalData = true;
-        } else {
-          this.ProfessionalData = false;
-        }
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+          if (
+            !this.tokenInfo.access.userAccessAdminAllowToProfessionalData &&
+            this.tokenInfo.access.userAccessAdminAllowToAllData
+          ) {
+            this.dataModel.linkUserId = this.tokenInfo.access.userId;
+            this.dataModel.linkSiteId = this.tokenInfo.access.siteId;
+            this.ProfessionalData = true;
+          } else {
+            this.ProfessionalData = false;
+          }
+        }),
+    );
   }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
@@ -116,7 +118,7 @@ export class CoreUserClaimContentAddComponent
   dataModel: CoreUserClaimContentModel = new CoreUserClaimContentModel();
   tokenInfo = new TokenInfoModelV3();
   ProfessionalData = false;
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   formInfo: FormInfoModel = new FormInfoModel();
 
   fileManagerOpenForm = false;
@@ -129,9 +131,7 @@ export class CoreUserClaimContentAddComponent
     this.DataGetAccess();
   }
   ngOnDestroy() {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 
   DataAddContent(): void {

@@ -80,7 +80,7 @@ export class ContactCategoryTreeSelectorComponent implements OnInit, OnDestroy {
   @Output() optionSelectChecked = new EventEmitter<string>();
   @Output() optionSelectDisChecked = new EventEmitter<string>();
   @Output() optionModelChange = new EventEmitter<string[]>();
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   checklistSelection = new SelectionModel<ContactCategoryModel>(
     true /* multiple */,
   );
@@ -90,20 +90,20 @@ export class ContactCategoryTreeSelectorComponent implements OnInit, OnDestroy {
   hasNoContent = (_: string, nodeData: ContactCategoryModel) =>
     nodeData.children;
   ngOnInit(): void {
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.DataGetAll();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.DataGetAll();
+        }),
+    );
     setTimeout(() => {
       this.DataGetAll();
     }, 500);
   }
 
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   loadCheked(
     model: ContactCategoryModel[] = this.dataModelResult.listItems,

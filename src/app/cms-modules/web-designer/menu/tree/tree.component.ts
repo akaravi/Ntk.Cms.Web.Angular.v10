@@ -61,7 +61,7 @@ export class WebDesignerMainMenuTreeComponent implements OnInit, OnDestroy {
 
   dataSource = new MatTreeNestedDataSource<WebDesignerMainMenuModel>();
   @Output() optionChange = new EventEmitter<WebDesignerMainMenuModel>();
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   @Input() optionReload = () => this.onActionButtonReload();
   hasChild = (_: number, node: WebDesignerMainMenuModel) =>
     !!node.children && node.children.length > 0;
@@ -71,16 +71,16 @@ export class WebDesignerMainMenuTreeComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.DataGetAll();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.DataGetAll();
+        }),
+    );
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   DataGetAll(): void {
     this.filterModel.rowPerPage = 200;

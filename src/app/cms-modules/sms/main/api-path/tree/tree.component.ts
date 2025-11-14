@@ -56,7 +56,7 @@ export class SmsMainApiPathTreeComponent implements OnInit, OnDestroy {
 
   dataSource = new MatTreeNestedDataSource<SmsMainApiPathModel>();
   @Output() optionChange = new EventEmitter<SmsMainApiPathModel>();
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   @Input() optionReload = () => this.onActionButtonReload();
 
   hasChild = (_: number, node: SmsMainApiPathModel) => false;
@@ -66,16 +66,16 @@ export class SmsMainApiPathTreeComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.DataGetAll();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async () => {
+          this.DataGetAll();
+        }),
+    );
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   DataGetAll(): void {
     this.filterModel.rowPerPage = 200;

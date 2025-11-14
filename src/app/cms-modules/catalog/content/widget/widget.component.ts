@@ -38,7 +38,7 @@ export class CatalogContentWidgetComponent implements OnInit, OnDestroy {
   filterDataModelQueryBuilder: FilterDataModel[] = [];
 
   widgetInfoModel = new WidgetInfoModel();
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
 
   ngOnInit() {
     this.translate.get("TITLE.Registered_Catalog").subscribe((str: string) => {
@@ -51,7 +51,7 @@ export class CatalogContentWidgetComponent implements OnInit, OnDestroy {
       this.onActionStatist();
     }, 1000);
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService
+    this.unsubscribe.push( this.cmsStoreService
       .getState((state) => state.tokenInfoStore)
       .subscribe(async (value) => {
         this.translate
@@ -60,7 +60,7 @@ export class CatalogContentWidgetComponent implements OnInit, OnDestroy {
             this.widgetInfoModel.title = str;
           });
         this.onActionStatist();
-      });
+      }));
   }
 
   onActionButtonReload(): void {
@@ -68,9 +68,7 @@ export class CatalogContentWidgetComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 
   onActionStatist(): void {
