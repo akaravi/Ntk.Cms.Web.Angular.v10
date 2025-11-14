@@ -83,7 +83,7 @@ export class BiographyCategoryTreeSelectorComponent
   @Output() optionSelectChecked = new EventEmitter<number>();
   @Output() optionSelectDisChecked = new EventEmitter<number>();
   @Output() optionModelChange = new EventEmitter<number[]>();
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   checklistSelection = new SelectionModel<BiographyCategoryModel>(
     true /* multiple */,
   );
@@ -97,16 +97,16 @@ export class BiographyCategoryTreeSelectorComponent
     setTimeout(() => {
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.DataGetAll();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async () => {
+          this.DataGetAll();
+        }),
+    );
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   loadCheked(
     model: BiographyCategoryModel[] = this.dataModelResult.listItems,

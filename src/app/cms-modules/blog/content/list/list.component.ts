@@ -96,7 +96,7 @@ export class BlogContentListComponent
     "action_menu",
   ];
 
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   GetAllWithHierarchyCategoryId = false;
   ngOnInit(): void {
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
@@ -104,17 +104,17 @@ export class BlogContentListComponent
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-        this.DataGetAll();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+          this.DataGetAll();
+        }),
+    );
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   DataGetAll(): void {
     this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(

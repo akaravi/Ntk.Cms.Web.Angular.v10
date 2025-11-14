@@ -79,13 +79,15 @@ export class DataProviderClientEditComponent
 
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+        }),
+    );
   }
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
 
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
@@ -115,9 +117,7 @@ export class DataProviderClientEditComponent
   }
 
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   DataGetOneContent(): void {
     if (this.requestId <= 0) {

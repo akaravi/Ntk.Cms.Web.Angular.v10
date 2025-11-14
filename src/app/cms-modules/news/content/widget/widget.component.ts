@@ -36,7 +36,7 @@ export class NewsContentWidgetComponent implements OnInit, OnDestroy {
   filterDataModelQueryBuilder: FilterDataModel[] = [];
 
   widgetInfoModel = new WidgetInfoModel();
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
 
   ngOnInit() {
     this.translate.get("TITLE.Registered_news").subscribe((str: string) => {
@@ -48,20 +48,20 @@ export class NewsContentWidgetComponent implements OnInit, OnDestroy {
       this.onActionStatist();
     }, 1000);
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.onActionStatist();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async () => {
+          this.onActionStatist();
+        }),
+    );
   }
 
   onActionButtonReload(): void {
     this.onActionStatist();
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   onActionStatist(): void {
     this.translate

@@ -74,7 +74,7 @@ export class BlogConfigSiteComponent implements OnInit, OnDestroy {
   mapMarker: any;
   mapOptonCenter = new PoinModel();
 
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
     this.requestLinkSiteId = +Number(
@@ -85,17 +85,17 @@ export class BlogConfigSiteComponent implements OnInit, OnDestroy {
       this.onLoadDate();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-        this.onLoadDate();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+          this.onLoadDate();
+        }),
+    );
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   onLoadDate(): void {
     if (!this.requestLinkSiteId || this.requestLinkSiteId === 0) {

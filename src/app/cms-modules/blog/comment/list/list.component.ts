@@ -121,7 +121,7 @@ export class BlogCommentListComponent
   ];
 
   expandedElement: BlogCommentModel | null;
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
     this.requestContentId = +Number(
@@ -133,18 +133,18 @@ export class BlogCommentListComponent
       this.DataGetAll();
     }
 
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-        this.DataGetAll();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+          this.DataGetAll();
+        }),
+    );
   }
 
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   DataGetAll(): void {
     this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(

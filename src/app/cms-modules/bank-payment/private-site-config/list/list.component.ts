@@ -93,7 +93,7 @@ export class BankPaymentPrivateSiteConfigListComponent
   categoryModelSelected: BankPaymentPublicConfigModel;
 
   expandedElement: BankPaymentPrivateSiteConfigModel | null;
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "LinkMainImageIdSrc",
@@ -127,12 +127,14 @@ export class BankPaymentPrivateSiteConfigListComponent
     if (this.tokenInfo) {
       this.DataGetAll();
     }
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-        this.DataGetAll();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+          this.DataGetAll();
+        }),
+    );
     this.getPublicConfig();
     //**بررسی تراکنش از قبل */
     const transactionId =
@@ -165,9 +167,7 @@ export class BankPaymentPrivateSiteConfigListComponent
     });
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   DataGetAll(): void {
     this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(

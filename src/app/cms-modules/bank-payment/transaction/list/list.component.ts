@@ -124,7 +124,7 @@ export class BankPaymentTransactionListComponent
   dataModelEnumTransactionBankStatusResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
   expandedElement: BankPaymentTransactionModel | null;
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   ngOnInit(): void {
     this.requestLinkPrivateSiteConfigId = +Number(
       this.activatedRoute.snapshot.paramMap.get("LinkPrivateSiteConfigId"),
@@ -148,12 +148,14 @@ export class BankPaymentTransactionListComponent
     if (this.tokenInfo) {
       this.DataGetAll();
     }
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-        this.DataGetAll();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+          this.DataGetAll();
+        }),
+    );
     this.getEnumTransactionRecordStatus();
     this.getEnumTransactionBankStatus();
   }
@@ -172,9 +174,7 @@ export class BankPaymentTransactionListComponent
     });
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   DataGetAll(): void {
     this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(

@@ -43,14 +43,16 @@ export class NewsConfigCheckUserComponent implements OnInit, OnDestroy {
     if (this.tokenInfo) {
       this.onLoadDate();
     }
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-        this.onLoadDate();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+          this.onLoadDate();
+        }),
+    );
   }
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   tokenInfo = new TokenInfoModelV3();
 
   dataModelResult: ErrorExceptionResult<BaseModuleSiteCheckUserModel> =
@@ -63,9 +65,7 @@ export class NewsConfigCheckUserComponent implements OnInit, OnDestroy {
   tabledisplayedColumns: string[] = ["Accepted", "Title", "Description"];
   ngOnInit(): void {}
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   onLoadDate(): void {
     if (!this.requestLinkUserId || this.requestLinkUserId === 0) {

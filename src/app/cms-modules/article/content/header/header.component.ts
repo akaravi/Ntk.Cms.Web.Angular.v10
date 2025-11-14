@@ -17,10 +17,10 @@ import {
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { CmsLinkToComponent } from "src/app/shared/cms-link-to/cms-link-to.component";
 import { environment } from "src/environments/environment";
-import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 
 @Component({
   selector: "app-article-content-header",
@@ -51,23 +51,23 @@ export class ArticletHeaderComponent implements OnInit, OnDestroy {
     DataFieldInfoModel
   >();
 
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   ngOnInit(): void {
     if (this.optionId > 0) {
-      this.cmsApiStoreSubscribe = this.cmsStoreService
-        .getState((state) => state.tokenInfoStore)
-        .subscribe(async (value) => {
-          this.DataGetOneContent();
-        });
+      this.unsubscribe.push(
+        this.cmsStoreService
+          .getState((state) => state.tokenInfoStore)
+          .subscribe(async () => {
+            this.DataGetOneContent();
+          }),
+      );
       setTimeout(() => {
         this.DataGetOneContent();
       }, 500);
     }
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 
   DataGetOneContent(): void {

@@ -1,4 +1,3 @@
-import { NestedTreeControl } from "@angular/cdk/tree";
 import {
   ChangeDetectorRef,
   Component,
@@ -21,8 +20,8 @@ import {
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-application-app-tree",
@@ -54,7 +53,7 @@ export class ApplicationAppTreeComponent implements OnInit, OnDestroy {
 
   dataSource = new MatTreeNestedDataSource<ApplicationAppModel>();
   @Output() optionChange = new EventEmitter<ApplicationAppModel>();
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   @Input() optionReload = () => this.onActionButtonReload();
   hasChild = (_: number, node: ApplicationAppModel) => false;
   childrenAccessor = (node: ApplicationAppModel) => [];
@@ -62,16 +61,16 @@ export class ApplicationAppTreeComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.DataGetAll();
     }, 500);
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.DataGetAll();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async () => {
+          this.DataGetAll();
+        }),
+    );
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   DataGetAll(): void {
     this.filterModel.rowPerPage = 200;

@@ -54,23 +54,25 @@ export class NewsCategoryMenuComponent implements OnInit, OnDestroy {
         this.loadData();
       }
     }
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-        if (
-          this.tokenInfo &&
-          this.tokenInfo?.access?.userId > 0 &&
-          this.tokenInfo?.access?.siteId > 0
-        ) {
-          this.loadData();
-        }
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+          if (
+            this.tokenInfo &&
+            this.tokenInfo?.access?.userId > 0 &&
+            this.tokenInfo?.access?.siteId > 0
+          ) {
+            this.loadData();
+          }
+        }),
+    );
   }
   routerLinkContect = "/news/content/";
   routerLinkCategory = "/news/category/";
 
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   tokenInfo = new TokenInfoModelV3();
   dataModelResult: ErrorExceptionResult<NewsCategoryModel> =
     new ErrorExceptionResult<NewsCategoryModel>();
@@ -79,9 +81,7 @@ export class NewsCategoryMenuComponent implements OnInit, OnDestroy {
   cmsImageThumbnailPipe = new CmsImageThumbnailPipe();
   ngOnInit(): void {}
   ngOnDestroy() {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   loadData() {
     this.DataGetAll();

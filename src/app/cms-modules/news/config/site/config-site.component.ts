@@ -66,7 +66,7 @@ export class NewsConfigSiteComponent implements OnInit, OnDestroy {
   fileManagerTree: TreeModel;
   mapMarker: any;
   mapOptonCenter = new PoinModel();
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
   ngOnInit(): void {
     this.requestLinkSiteId = +Number(
       this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
@@ -75,17 +75,17 @@ export class NewsConfigSiteComponent implements OnInit, OnDestroy {
     if (this.tokenInfo) {
       this.onLoadDate();
     }
-    this.cmsApiStoreSubscribe = this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-        this.onLoadDate();
-      });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+          this.onLoadDate();
+        }),
+    );
   }
   ngOnDestroy(): void {
-    if (this.cmsApiStoreSubscribe) {
-      this.cmsApiStoreSubscribe.unsubscribe();
-    }
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   onLoadDate(): void {
     if (!this.requestLinkSiteId || this.requestLinkSiteId === 0) {
