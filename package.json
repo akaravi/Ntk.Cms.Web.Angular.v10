@@ -1,6 +1,6 @@
 {
   "name": "ntk-cms-web",
-  "version": "20.25.1111",
+  "version": "20.25.1114",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
