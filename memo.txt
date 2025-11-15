@@ -221,6 +221,7 @@ publish github
 *MEMO*************************************************
 git pull
 git push
+git merge publish
 git switch publish
 git pull
 git merge main

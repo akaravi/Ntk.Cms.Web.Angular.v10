@@ -63,12 +63,7 @@ export class ProcessService {
     /** processInRun */
     this.process.inRunAll = true;
     this.process.infoAll.set(key, model);
-    if (!this.process.infoArea[model.infoAreaId])
-      this.process.infoArea[model.infoAreaId] = new Map<
-        string,
-        ProcessInfoModel
-      >();
-    this.process.infoArea[model.infoAreaId].set(key, model);
+    this.ensureInfoAreaMap(model.infoAreaId).set(key, model);
     this.process.inRunArea[model.infoAreaId] = true;
     /** processInRun */
 
@@ -93,13 +88,7 @@ export class ProcessService {
     if (environment.ProgressConsoleLog)
       console.log("#### processStop #### " + key + " " + JSON.stringify(model));
     this.process.infoAll.set(key, model);
-    if (!this.process.infoArea[model.infoAreaId]) {
-      this.process.infoArea[model.infoAreaId] = new Map<
-        string,
-        ProcessInfoModel
-      >();
-    }
-    this.process.infoArea[model.infoAreaId].set(key, model);
+    this.ensureInfoAreaMap(model.infoAreaId).set(key, model);
     /** processInRun */
     var retOutInRunAll = false;
     var retOutInRunArea = false;
@@ -133,4 +122,13 @@ export class ProcessService {
   /process info
   /
   */
+  private ensureInfoAreaMap(infoAreaId: string): Map<string, ProcessInfoModel> {
+    const currentArea = this.process.infoArea[infoAreaId];
+    if (currentArea && typeof currentArea?.set === "function") {
+      return currentArea as Map<string, ProcessInfoModel>;
+    }
+    const newArea = new Map<string, ProcessInfoModel>();
+    this.process.infoArea[infoAreaId] = newArea;
+    return newArea;
+  }
 }
