@@ -87,8 +87,11 @@ export class SmsMainApiNumberListComponent
     "RecordStatus",
     "NumberChar",
     "accessUseStartDate",
+    "expireDate",
     "lastUseOfDate",
+    "isPublic",
     "SaleStatus",
+
     "CreatedDate",
     "UpdatedDate",
     // 'Action'
@@ -98,6 +101,7 @@ export class SmsMainApiNumberListComponent
     "RecordStatus",
     "NumberChar",
     "accessUseStartDate",
+    "isPublic",
     "lastUseOfDate",
     "SaleStatus",
     "CreatedDate",

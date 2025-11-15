@@ -206,6 +206,15 @@
         </mat-cell>
       </ng-container>
 
+      <!-- isPublic Column -->
+      <ng-container matColumnDef="isPublic">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ fieldsInfo["isPublic"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <i [ngClass]="row.isPublic | statusIconClass"></i>
+        </mat-cell>
+      </ng-container>
       <!-- SaleStatus Column -->
       <ng-container matColumnDef="SaleStatus">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -215,7 +224,6 @@
           <i [ngClass]="row.saleStatus | statusIconClass"></i>
         </mat-cell>
       </ng-container>
-
       <!-- accessUseStartDate Column -->
       <ng-container matColumnDef="accessUseStartDate">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -223,6 +231,15 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let row">
           {{ row.accessUseStartDate | localeDate }}
+        </mat-cell>
+      </ng-container>
+      <!-- expireDate Column -->
+      <ng-container matColumnDef="expireDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ fieldsInfo["expireDate"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.expireDate | localeDate }}
         </mat-cell>
       </ng-container>
       <!-- lastUseOfDate Column -->

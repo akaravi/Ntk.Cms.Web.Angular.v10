@@ -25,7 +25,22 @@ npm instal   ntk-cms-filemanager
 
 
 *INDO*************************************************
+*MEMO*************************************************
+publish github
+*MEMO*************************************************
+git pull
+git push
+git merge publish
+git switch publish
+git pull
+git merge main
+git push
+git switch main
 
+#END#################################################
+#
+#
+#
 *MEMO*************************************************
 برای رفع مشکل نام فولدر ها
 *MEMO*************************************************
@@ -217,16 +232,9 @@ https://www.codeandweb.com/babeledit/start-download?os=win&bits=64
 #
 #
 *MEMO*************************************************
-publish github
+.
 *MEMO*************************************************
-git pull
-git push
-git merge publish
-git switch publish
-git pull
-git merge main
-git push
-git switch main
+
 
 #END#################################################
 #
