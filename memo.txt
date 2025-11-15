@@ -217,8 +217,14 @@ https://www.codeandweb.com/babeledit/start-download?os=win&bits=64
 #
 #
 *MEMO*************************************************
-.
+publish github
 *MEMO*************************************************
+git push
+git switch publish
+git pull
+git merge main
+git push
+git switch main
 
 #END#################################################
 #
@@ -417,10 +423,3 @@ code --install-extension zobo.php-intellisense
 #END#################################################
 #END#################################################
 #END#################################################
-
-
-
-
-
-
-
