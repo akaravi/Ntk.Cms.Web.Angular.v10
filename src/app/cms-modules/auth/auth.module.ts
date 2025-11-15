@@ -15,7 +15,7 @@ import { AuthForgotPasswordComponent } from "./forgot-password/forgot-password.c
 import { AuthSignInBySmsComponent } from "./signin-bysms/signin-bysms.component";
 import { AuthSignInByUsernameComponent } from "./signin-byusername/signin-byusername.component";
 import { AuthSignOutComponent } from "./signout/signout.component";
-import { SignupRuleComponent } from "./signup-rule/signup-rule.Component";
+import { SignupRuleComponent } from "./signup-rule/signup-rule.component";
 import { AuthSignUpComponent } from "./signup/signup.component";
 
 @NgModule({

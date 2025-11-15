@@ -28,7 +28,7 @@ import { SET_TOKEN_INFO } from "src/app/core/reducers/reducer.factory";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { environment } from "src/environments/environment";
-import { SignupRuleComponent } from "../signup-rule/signup-rule.Component";
+import { SignupRuleComponent } from "../signup-rule/signup-rule.component";
 @Component({
   selector: "app-auth-signup",
   templateUrl: "./signup.component.html",
