@@ -410,11 +410,7 @@ export class SmsMainApiPathCompanyListComponent
     }
     this.onActionTableRowSelect(model);
 
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessDeleteRow
-    ) {
+    if (this.dataModelResult == null || this.dataModelResult.access == null) {
       this.cmsToastrService.typeErrorSelected();
       return;
     }

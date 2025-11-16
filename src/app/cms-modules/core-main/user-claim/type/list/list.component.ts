@@ -456,8 +456,7 @@ export class CoreUserClaimTypeListComponent
 
     if (
       this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessDeleteRow
+      this.dataModelResult.access == null
     ) {
       this.cmsToastrService.typeErrorSelected();
       return;
@@ -482,8 +481,7 @@ export class CoreUserClaimTypeListComponent
 
     if (
       this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessDeleteRow
+      this.dataModelResult.access == null
     ) {
       this.cmsToastrService.typeErrorSelected();
       return;

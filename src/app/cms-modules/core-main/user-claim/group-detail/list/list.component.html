@@ -8,7 +8,7 @@
   (optionOnActionButtonPrintRow)="onActionButtonPrintRow()"
   [optionTreeDisplay]="requestLinkUserClaimGroupId === 0"
   [optionActionRowId]="tableRowSelected?.linkUserClaimGroupId"
-  [optionActionRowDisplayMenu]="tableRowSelectDoubleClick"
+  [optionActionRowDisplayMenu]="tableRowSelect2Click"
   [optionSelectRowItemTitle]="
     (tableRowSelected?.linkUserClaimTypeId
       | cmstitle: dataModelCoreUserClaimTypeResult.listItems) +
@@ -229,7 +229,8 @@
       <mat-row
         *matRowDef="let row; columns: tabledisplayedColumns; let i = dataIndex"
         class="ntk-row-mainfild"
-        (click)="onActionTableRowSelect(row)"
+        (click)="onActionTableRowSelect(row, $event)"
+        (rtclick)="onActionTableRowSelect(row, $event)"
         [class.ntk-row-selected]="
           row.linkUserClaimGroupId === tableRowSelected?.linkUserClaimGroupId &&
           row.linkUserClaimTypeId === tableRowSelected?.linkUserClaimTypeId

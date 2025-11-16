@@ -114,10 +114,7 @@ export class CoreUserListComponent
     "RecordStatus",
     "Name",
     "LastName",
-    // 'CompanyName',
-    // 'email',
-    // 'mobile',
-    // 'CreatedDate',
+    "mobile",
     "action_menu",
   ];
 

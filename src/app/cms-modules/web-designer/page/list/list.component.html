@@ -9,7 +9,7 @@
   [optionTreeDisplay]="false"
   [optionClassBody]="''"
   [optionActionRowId]="tableRowSelected?.id"
-  [optionActionRowDisplayMenu]="tableRowSelectDoubleClick"
+  [optionActionRowDisplayMenu]="tableRowSelect2Click"
   [optionSelectRowItemTitle]="tableRowSelected?.title"
 >
   <ng-container cms-tree>
@@ -213,9 +213,7 @@
                       : dataModelWebDesignerMainPageTemplateResult.listItems
                 }}
                 <br />
-                {{
-                  "TITLE.Default_template_classification_system" | translate
-                }}
+                {{ "TITLE.Default_template_classification_system" | translate }}
                 :
                 {{
                   row.pageDependencyIsDefaultPageLinkSiteCategoryId
@@ -233,7 +231,8 @@
                 <button
                   type="button"
                   mat-icon-button
-                  (click)="onActionTableRowSelect(row)"
+                  (click)="onActionTableRowSelect(row, $event)"
+                  (rtclick)="onActionTableRowSelect(row, $event)"
                   aria-label="Action Menu"
                 >
                   <mat-icon>more_vert</mat-icon>

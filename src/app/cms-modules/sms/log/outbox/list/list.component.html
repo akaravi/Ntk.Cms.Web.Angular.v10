@@ -11,7 +11,7 @@
     !requestLinkApiPathId || requestLinkApiPathId.length === 0
   "
   [optionActionRowId]="tableRowSelected?.id"
-  [optionActionRowDisplayMenu]="tableRowSelectDoubleClick"
+  [optionActionRowDisplayMenu]="tableRowSelect2Click"
   [optionSelectRowItemTitle]="tableRowSelected?.message"
 >
   <ng-container cms-tree>
@@ -150,7 +150,6 @@
       </p>
     </div>
 
-   
     <div class="col-4">
       <a
         (click)="onActionButtonPriceServicesList(tableRowSelected)"
@@ -162,7 +161,6 @@
         {{ "ACTION.PRICE_LIST" | translate }}
       </p>
     </div>
-
 
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-row-->
   </ng-container>
@@ -185,7 +183,8 @@
       <mat-row
         *matRowDef="let row; columns: ['expandedTitle']; let i = dataIndex"
         class="ntk-row-expandedTitle"
-        (click)="onActionTableRowSelect(row)"
+        (click)="onActionTableRowSelect(row, $event)"
+        (rtclick)="onActionTableRowSelect(row, $event)"
         (mouseenter)="onActionTableRowMouseEnter(row)"
         (mouseleave)="onActionTableRowMouseLeave(row)"
         [class.ntk-row-selected]="row.id === tableRowSelected?.id"
@@ -276,7 +275,8 @@
       <mat-row
         *matRowDef="let row; columns: tabledisplayedColumns; let i = dataIndex"
         class="ntk-row-mainfild"
-        (click)="onActionTableRowSelect(row)"
+        (click)="onActionTableRowSelect(row, $event)"
+        (rtclick)="onActionTableRowSelect(row, $event)"
         [class.ntk-row-selected]="row.id === tableRowSelected?.id"
       >
       </mat-row>

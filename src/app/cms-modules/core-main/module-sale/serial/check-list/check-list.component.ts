@@ -20,6 +20,7 @@ import {
   TokenInfoModelV3,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
+import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
@@ -31,6 +32,11 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
   standalone: false,
 })
 export class CoreModuleSaleSerialCheckListComponent
+  extends ListBaseComponent<
+    CoreModuleSaleSerialService,
+    CoreModuleSaleInvoiceDetailModel,
+    number
+  >
   implements OnInit, OnDestroy
 {
   requestSerial = "";
@@ -49,6 +55,13 @@ export class CoreModuleSaleSerialCheckListComponent
     private cdr: ChangeDetectorRef,
     public dialog: MatDialog,
   ) {
+    super(
+      coreModuleSaleSerialService,
+      new CoreModuleSaleInvoiceDetailModel(),
+      publicHelper,
+      tokenHelper,
+      translate,
+    );
     this.publicHelper.processService.cdr = this.cdr;
 
     this.requestSerial = this.activatedRoute.snapshot.paramMap.get("Serial");
@@ -249,11 +262,7 @@ export class CoreModuleSaleSerialCheckListComponent
     this.RegisterUseSerialForSite(this.dataModel);
   }
 
-  onActionTableRowSelect(row: CoreModuleSaleInvoiceDetailModel): void {
-    this.tableRowSelected = row;
-    if (!row["expanded"]) row["expanded"] = false;
-    row["expanded"] = !row["expanded"];
-  }
+
   onActionBackToParent(): void {
     this.router.navigate(["/core/modulesale/serial"]);
   }

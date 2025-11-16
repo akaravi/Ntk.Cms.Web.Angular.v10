@@ -8,7 +8,7 @@
   (optionOnActionButtonPrintRow)="onActionButtonPrintRow()"
   [optionTreeDisplay]="requestLinkApplicationId === 0"
   [optionActionRowId]="tableRowSelected?.id"
-  [optionActionRowDisplayMenu]="tableRowSelectDoubleClick"
+  [optionActionRowDisplayMenu]="tableRowSelect2Click"
   [optionActionRowDisplayMenuAct]="tableRowSelectActionMenuClick"
   [optionSelectRowItemTitle]="tableRowSelected?.id"
 >
@@ -388,7 +388,8 @@
       <mat-row
         *matRowDef="let row; columns: ['expandedTitle']; let i = dataIndex"
         class="ntk-row-expandedTitle"
-        (click)="onActionTableRowSelect(row)"
+        (click)="onActionTableRowSelect(row, $event)"
+        (rtclick)="onActionTableRowSelect(row, $event)"
         (mouseenter)="onActionTableRowMouseEnter(row)"
         (mouseleave)="onActionTableRowMouseLeave(row)"
         [class.ntk-row-selected]="row.id === tableRowSelected?.id"
@@ -397,7 +398,8 @@
       <mat-row
         *matRowDef="let row; columns: tabledisplayedColumns; let i = dataIndex"
         class="ntk-row-mainfild"
-        (click)="onActionTableRowSelect(row)"
+        (click)="onActionTableRowSelect(row, $event)"
+        (rtclick)="onActionTableRowSelect(row, $event)"
         (mouseenter)="onActionTableRowMouseEnter(row)"
         (mouseleave)="onActionTableRowMouseLeave(row)"
         [class.ntk-row-selected]="row.id === tableRowSelected?.id"
@@ -406,7 +408,8 @@
       <mat-row
         *matRowDef="let row; columns: ['expandedDetail']; let i = dataIndex"
         class="ntk-row-expandedDetail"
-        (click)="onActionTableRowSelect(row)"
+        (click)="onActionTableRowSelect(row, $event)"
+        (rtclick)="onActionTableRowSelect(row, $event)"
         (mouseenter)="onActionTableRowMouseEnter(row)"
         (mouseleave)="onActionTableRowMouseLeave(row)"
         [class.ntk-row-selected]="row.id === tableRowSelected?.id"

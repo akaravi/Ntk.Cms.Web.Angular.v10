@@ -20,6 +20,7 @@ import {
   TokenInfoModelV3,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
+import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
@@ -31,8 +32,8 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
   standalone: false,
 })
 export class CoreSiteCategoryCmsModuleListViewComponent
-  implements OnInit, OnDestroy
-{
+  extends ListBaseComponent<CoreSiteCategoryCmsModuleService, CoreSiteCategoryCmsModuleModel, number>
+  implements OnInit, OnDestroy {
   @Input() set optionSiteCategoryId(x: number) {
     this.LinkSiteCategoryId = x;
     this.DataGetAll();
@@ -40,14 +41,21 @@ export class CoreSiteCategoryCmsModuleListViewComponent
   LinkSiteCategoryId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private coreSiteCategoryCmsModuleService: CoreSiteCategoryCmsModuleService,
+    public CoreSiteCategoryCmsModuleService: CoreSiteCategoryCmsModuleService,
     public publicHelper: PublicHelper,
     private cmsToastrService: CmsToastrService,
-    private tokenHelper: TokenHelper,
+    public tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {
+    super(
+      CoreSiteCategoryCmsModuleService,
+      new CoreSiteCategoryCmsModuleModel(),
+      publicHelper,
+      tokenHelper,
+      translate,
+    );
     this.publicHelper.processService.cdr = this.cdr;
   }
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
@@ -130,7 +138,7 @@ export class CoreSiteCategoryCmsModuleListViewComponent
           this.constructorInfoAreaId,
         );
       });
-    this.coreSiteCategoryCmsModuleService.ServiceGetAll(filterModel).subscribe({
+    this.CoreSiteCategoryCmsModuleService.ServiceGetAll(filterModel).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
 
@@ -190,9 +198,5 @@ export class CoreSiteCategoryCmsModuleListViewComponent
     this.DataGetAll();
   }
 
-  onActionTableRowSelect(row: CoreSiteCategoryCmsModuleModel): void {
-    this.tableRowSelected = row;
-    if (!row["expanded"]) row["expanded"] = false;
-    row["expanded"] = !row["expanded"];
-  }
+  
 }

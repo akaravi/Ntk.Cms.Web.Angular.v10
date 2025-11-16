@@ -105,6 +105,8 @@ import { IntComponent } from "../core/dynamic-input-builder/int/int.component";
 import { StringComponent } from "../core/dynamic-input-builder/string/string.component";
 import { TextAreaComponent } from "../core/dynamic-input-builder/text-area/text-area.component";
 
+import { DomChangeDirective } from "../core/directive/domChange.directive";
+import { RightClickDirective } from "../core/directive/rtclick.directive";
 import { TokenHelper } from "../core/helpers/tokenHelper";
 import { CmsTranslateModule } from "../core/i18n";
 import { HttpConfigInterceptor } from "../core/interceptor/httpConfigInterceptor";
@@ -119,6 +121,7 @@ import { FirstLetterPipe } from "../core/pipe/first-letter.pipe";
 import { ListKeysPipe } from "../core/pipe/list-keys.pipe";
 import { LocaleDateTime } from "../core/pipe/local-date-Time.pipe";
 import { LocaleDate } from "../core/pipe/local-date.pipe";
+import { LocaleTime } from "../core/pipe/local-Time.pipe";
 import { PersianDateFull } from "../core/pipe/persian-date/persian-date-full.pipe";
 import { PersianDate } from "../core/pipe/persian-date/persian-date.pipe";
 import { PrettyjsonPipe } from "../core/pipe/prettyjson.pipe";
@@ -132,6 +135,7 @@ import { SortTypeIconClassPipe } from "../core/pipe/sortTypeIconClass.pipe";
 import { TruncatePipe } from "../core/pipe/truncate.pipe";
 import { ValueArrayPipe } from "../core/pipe/valueArray.pipe";
 import { NgxQueryBuilderComponent } from "../core/query-builder/ngx-ntk-query-builder.component";
+import { CmsToastrService } from "../core/services/cmsToastr.service";
 import { ThemeService } from "../core/services/theme.service";
 import { Cms360ImageListComponent } from "./cms-360-image-list/cms-360-image-list.component";
 import { Cms360TourListComponent } from "./cms-360-tour-list/cms-360-tour-list.component";
@@ -191,9 +195,6 @@ import {
 import { OverlayService } from "./overlay/overlay.service";
 import { PasswordStrengthComponent } from "./password-strength/password-strength.component";
 import { ProgressSpinnerComponent } from "./progress-spinner/progress-spinner.component";
-import { DomChangeDirective } from "../core/directive/domChange.directive";
-import { LocaleTime } from "../core/pipe/local-Time.pipe";
-import { CmsToastrService } from "../core/services/cmsToastr.service";
 
 @NgModule({
   declarations: [
@@ -291,6 +292,7 @@ import { CmsToastrService } from "../core/services/cmsToastr.service";
     TooltipDirective,
     DirDirective,
     DomChangeDirective,
+    RightClickDirective,
     //DomClassCardDirective,
     PhoneDirective,
     RunScriptsDirective,
@@ -539,6 +541,7 @@ import { CmsToastrService } from "../core/services/cmsToastr.service";
     TooltipDirective,
     DirDirective,
     DomChangeDirective,
+    RightClickDirective,
     //DomClassCardDirective,
     PhoneDirective,
     RunScriptsDirective,

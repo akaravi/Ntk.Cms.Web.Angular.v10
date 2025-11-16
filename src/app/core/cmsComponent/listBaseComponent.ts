@@ -58,44 +58,59 @@ export class ListBaseComponent<
   clickCount = 0;
   viewGuideNotice = false;
   actionScrollIntoViewRun = false;
-  public tableRowSelectDoubleClick = false;
+  public tableRowSelect2Click = false;
   public tableRowSelect3Click = false;
   public tableRowSelectActionMenuClick = false;
   requestRecordStatus: RecordStatusEnum;
-  onActionTableRowSelect(row: TModel): void {
+  onActionTableRowSelect(row: TModel, event: MouseEvent = null): void {
+    if (event) event.preventDefault();
+    //row selected
+    this.tableRowSelected = row;
+    this.publicHelper.pageInfo.updateContentInfo(
+      new ContentInfoModel(
+        row.id,
+        row["title"],
+        row["viewContentHidden"],
+        "",
+        row["urlViewContent"],
+      ),
+    );
+
+    if (this.tableRowSelected.id === row.id) {
+      if (row["expanded"] == true) row["expanded"] = false;
+      else row["expanded"] = true;
+    } else {
+      row["expanded"] = false;
+    }
+    //row selected
+    if (event?.button === 2) {
+      // single
+      this.tableRowSelect2Click = false;
+      this.tableRowSelect3Click = false;
+      // single
+      setTimeout(() => {
+        // double
+        this.tableRowSelect2Click = true;
+        this.tableRowSelect3Click = false;
+        // double
+      }, 100);
+      return;
+    }
     this.clickCount++;
     setTimeout(() => {
-      this.tableRowSelected = row;
-      this.publicHelper.pageInfo.updateContentInfo(
-        new ContentInfoModel(
-          row.id,
-          row["title"],
-          row["viewContentHidden"],
-          "",
-          row["urlViewContent"],
-        ),
-      );
-
-      if (this.tableRowSelected.id === row.id) {
-        if (row["expanded"] == true) row["expanded"] = false;
-        else row["expanded"] = true;
-      } else {
-        row["expanded"] = false;
-      }
-
       if (this.clickCount === 1) {
         // single
-        this.tableRowSelectDoubleClick = false;
+        this.tableRowSelect2Click = false;
         this.tableRowSelect3Click = false;
         // single
       } else if (this.clickCount === 2) {
         // double
-        this.tableRowSelectDoubleClick = true;
+        this.tableRowSelect2Click = true;
         this.tableRowSelect3Click = false;
         // double
       } else if (this.clickCount === 3) {
         // double
-        this.tableRowSelectDoubleClick = false;
+        this.tableRowSelect2Click = false;
         this.tableRowSelect3Click = true;
         // double
       }
@@ -126,7 +141,7 @@ export class ListBaseComponent<
       row["expanded"] = false;
   }
   onActionTableRowSelectActionMenu(row: TModel): void {
-    this.onActionTableRowSelect(row);
+    this.onActionTableRowSelect(row, null);
     setTimeout(() => {
       this.tableRowSelectActionMenuClick = !this.tableRowSelectActionMenuClick;
     }, 1000);

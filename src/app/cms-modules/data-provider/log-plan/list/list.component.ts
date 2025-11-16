@@ -317,11 +317,7 @@ export class DataProviderLogPlanListComponent
     }
     this.DataGetAll();
   }
-  onActionTableRowSelect(row: DataProviderLogPlanModel): void {
-    this.tableRowSelected = row;
-    if (!row["expanded"]) row["expanded"] = false;
-    row["expanded"] = !row["expanded"];
-  }
+
   onActionBackToParent(): void {
     if (this.requestLinkPlanId > 0) {
       this.router.navigate(["/data-provider/plan/"]);

@@ -481,8 +481,7 @@ export class CoreModuleSaleHeaderListComponent
 
     if (
       this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessDeleteRow
+      this.dataModelResult.access == null
     ) {
       this.cmsToastrService.typeErrorSelected();
       return;
@@ -507,8 +506,7 @@ export class CoreModuleSaleHeaderListComponent
 
     if (
       this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessDeleteRow
+      this.dataModelResult.access == null
     ) {
       this.cmsToastrService.typeErrorSelected();
       return;

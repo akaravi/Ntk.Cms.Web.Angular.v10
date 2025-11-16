@@ -19,7 +19,7 @@
   (optionOnActionButtonPrintRow)="onActionButtonPrintRow()"
   [optionTreeDisplay]="false"
   [optionActionRowId]="tableRowSelected?.id"
-  [optionActionRowDisplayMenu]="tableRowSelectDoubleClick"
+  [optionActionRowDisplayMenu]="tableRowSelect2Click"
   [optionSelectRowItemTitle]="tableRowSelected?.id"
 >
   <ng-container cms-tree>
@@ -219,7 +219,8 @@
       <mat-row
         *matRowDef="let row; columns: tabledisplayedColumns; let i = dataIndex"
         class="ntk-row-mainfild"
-        (click)="onActionTableRowSelect(row)"
+        (click)="onActionTableRowSelect(row, $event)"
+        (rtclick)="onActionTableRowSelect(row, $event)"
         [class.ntk-row-selected]="row.id === tableRowSelected?.id"
       >
       </mat-row>

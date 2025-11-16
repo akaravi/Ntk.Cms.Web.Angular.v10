@@ -15,7 +15,7 @@
     !requestLinkApiPathId || requestLinkApiPathId.length === 0
   "
   [optionActionRowId]="tableRowSelected?.id"
-  [optionActionRowDisplayMenu]="tableRowSelectDoubleClick"
+  [optionActionRowDisplayMenu]="tableRowSelect2Click"
   [optionSelectRowItemTitle]="tableRowSelected?.id"
 >
   <ng-container cms-tree>
@@ -122,7 +122,6 @@
         {{ "ACTION.DELETE" | translate }}
       </p>
     </div>
-
 
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-row-->
   </ng-container>
@@ -318,14 +317,16 @@
       <mat-row
         *matRowDef="let row; columns: tabledisplayedColumns; let i = dataIndex"
         class="ntk-row-mainfild"
-        (click)="onActionTableRowSelect(row)"
+        (click)="onActionTableRowSelect(row, $event)"
+        (rtclick)="onActionTableRowSelect(row, $event)"
         [class.ntk-row-selected]="row.id === tableRowSelected?.id"
       >
       </mat-row>
       <mat-row
         *matRowDef="let row; columns: ['expandedDetail']; let i = dataIndex"
         class="ntk-row-expandedDetail"
-        (click)="onActionTableRowSelect(row)"
+        (click)="onActionTableRowSelect(row, $event)"
+        (rtclick)="onActionTableRowSelect(row, $event)"
         (mouseenter)="onActionTableRowMouseEnter(row)"
         (mouseleave)="onActionTableRowMouseLeave(row)"
         [class.ntk-row-selected]="row.id === tableRowSelected?.id"

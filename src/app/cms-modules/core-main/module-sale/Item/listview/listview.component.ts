@@ -28,13 +28,16 @@ import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
 
 @Component({
   selector: "app-core-modulesaleitem-listview",
   templateUrl: "./listview.component.html",
   standalone: false,
 })
-export class CoreModuleSaleItemListViewComponent implements OnInit, OnDestroy {
+export class CoreModuleSaleItemListViewComponent
+  extends ListBaseComponent<CoreModuleSaleItemService, CoreModuleSaleItemModel, number>
+  implements OnInit, OnDestroy {
   @Input() set optionHeaderId(x: number) {
     this.LinkHeaderId = x;
     this.DataGetAll();
@@ -48,10 +51,17 @@ export class CoreModuleSaleItemListViewComponent implements OnInit, OnDestroy {
     private coreModuleService: CoreModuleService,
     private coreEnumService: CoreEnumService,
     private cdr: ChangeDetectorRef,
-    private tokenHelper: TokenHelper,
+    public tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
   ) {
+    super(
+      coreModuleSaleItemService,
+      new CoreModuleSaleItemModel(),
+      publicHelper,
+      tokenHelper,
+      translate,
+    );
     this.publicHelper.processService.cdr = this.cdr;
   }
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
@@ -199,9 +209,5 @@ export class CoreModuleSaleItemListViewComponent implements OnInit, OnDestroy {
     this.DataGetAll();
   }
 
-  onActionTableRowSelect(row: CoreModuleSaleItemModel): void {
-    this.tableRowSelected = row;
-    if (!row["expanded"]) row["expanded"] = false;
-    row["expanded"] = !row["expanded"];
-  }
+
 }
