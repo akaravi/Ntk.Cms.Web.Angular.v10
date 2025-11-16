@@ -11,6 +11,7 @@ import { IApiCmsServerBase, TokenInfoModelV3 } from "ntk-cms-api";
 import { Observable, Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { ROUTE_SELECT_SITE } from "src/app/core/models/constModel";
 import { ContentInfoModel } from "src/app/core/models/contentInfoModel";
 import { PageLinkModel } from "src/app/core/models/pageLinkModel";
 import { ThemeStoreModel } from "src/app/core/models/themeStoreModel";
@@ -34,6 +35,7 @@ import { environment } from "src/environments/environment";
   standalone: false,
 })
 export class HeaderBarComponent implements OnInit {
+  ROUTE_SELECT_SITE = ROUTE_SELECT_SITE;
   constructor(
     public tokenHelper: TokenHelper,
     public publicHelper: PublicHelper,

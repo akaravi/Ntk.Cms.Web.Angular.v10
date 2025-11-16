@@ -11,6 +11,11 @@ const RESSELLER_USER_ID_LOCAL_STORAGE_KEY = "ResellerUserId";
 const TRANSACTION_ID_LOCAL_STORAGE_KEY = "TransactionId";
 const SITE_ID_LOCAL_STORAGE_KEY = "siteId";
 const SITE_TYPE_ID_LOCAL_STORAGE_KEY = "siteTypeId";
+const ROUTE_SELECT_SITE = "/core/site/site-select";
+const ROUTE_SIGNIN = "/auth/signin";
+const ROUTE_SIGNUP = "/auth/signup";
+const ROUTE_SIGNOUT = "/auth/signout";
+const ROUTE_DASHBOARD = "/dashboard";
 export {
   KeyboardEventF9,
   LOCALIZATION_LOCAL_STORAGE_KEY,
@@ -25,4 +30,9 @@ export {
   TRANSACTION_ID_LOCAL_STORAGE_KEY,
   SITE_ID_LOCAL_STORAGE_KEY,
   SITE_TYPE_ID_LOCAL_STORAGE_KEY,
+  ROUTE_SELECT_SITE,
+  ROUTE_SIGNIN,
+  ROUTE_SIGNUP,
+  ROUTE_SIGNOUT,
+  ROUTE_DASHBOARD,
 };

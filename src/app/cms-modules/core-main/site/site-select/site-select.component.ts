@@ -24,12 +24,12 @@ import { CmsAuthService } from "src/app/core/services/cmsAuth.service";
 import { CmsToastrService } from "../../../../core/services/cmsToastr.service";
 
 @Component({
-  selector: "app-site-selection",
-  templateUrl: "./selection.component.html",
-  styleUrls: ["./selection.component.scss"],
+  selector: "app-site-select",
+  templateUrl: "./site-select.component.html",
+  styleUrls: ["./site-select.component.scss"],
   standalone: false,
 })
-export class CoreSiteSelectionComponent implements OnInit {
+export class CoreSiteSiteSelectComponent implements OnInit {
   constructorInfoAreaId = this.constructor.name;
   private destroyRef = inject(DestroyRef);
   constructor(

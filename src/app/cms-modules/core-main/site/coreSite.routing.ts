@@ -10,8 +10,8 @@ import { CoreSiteModuleAddComponent } from "./moduleAdd/moduleAdd.component";
 import { CoreSiteModuleEditComponent } from "./moduleEdit/moduleEdit.component";
 import { CoreSiteModuleListComponent } from "./moduleList/moduleList.component";
 import { CoreSiteResellerChartComponent } from "./reseller-chart/reseller-chart.component";
-import { CoreSiteSelectionComponent } from "./selection/selection.component";
-import { CoreSiteUserListComponent } from "./userList/userList.component";
+import { CoreSiteSiteSelectComponent } from "./site-select/site-select.component";
+import { CoreSiteUserListComponent } from "./user-list/user-list.component";
 
 const routes: Routes = [
   {
@@ -36,8 +36,8 @@ const routes: Routes = [
         data: { title: "ROUTE.CORE.SITE" },
       },
       {
-        path: "selection",
-        component: CoreSiteSelectionComponent,
+        path: "site-select",
+        component: CoreSiteSiteSelectComponent,
         data: { title: "ROUTE.CORE.SITE" },
       },
       {

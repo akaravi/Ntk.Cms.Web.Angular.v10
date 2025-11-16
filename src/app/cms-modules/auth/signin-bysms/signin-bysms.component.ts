@@ -21,6 +21,7 @@ import { ConnectionStatusModel } from "src/app/core/models/connectionStatusModel
 import {
   RESSELLER_SITE_ID_LOCAL_STORAGE_KEY,
   RESSELLER_USER_ID_LOCAL_STORAGE_KEY,
+  ROUTE_SELECT_SITE,
   SELECT_SITE_LOCAL_STORAGE_KEY,
   themeAuthPageLSKey,
 } from "src/app/core/models/constModel";
@@ -85,7 +86,7 @@ export class AuthSignInBySmsComponent implements OnInit, OnDestroy {
             this.cmsStoreService?.getStateAll?.tokenInfoStore?.access?.userId >
               0
           ) {
-            this.router.navigate(["/core/site/selection"], {});
+            this.router.navigate([ROUTE_SELECT_SITE], {});
           }
         }),
     );
@@ -285,7 +286,7 @@ export class AuthSignInBySmsComponent implements OnInit, OnDestroy {
                     this.onNavigate = true;
                     setTimeout(() => {
                       if (!this.destroyRef.destroyed)
-                        this.router.navigate(["/core/site/selection"]);
+                        this.router.navigate([ROUTE_SELECT_SITE]);
                     }, 10);
                   }
                 }

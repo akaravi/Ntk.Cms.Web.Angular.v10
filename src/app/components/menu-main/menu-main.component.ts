@@ -11,6 +11,7 @@ import {
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { ROUTE_SELECT_SITE, ROUTE_SIGNIN, ROUTE_SIGNUP, ROUTE_SIGNOUT, ROUTE_DASHBOARD } from "src/app/core/models/constModel";
 import { ThemeStoreModel } from "src/app/core/models/themeStoreModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { SET_CpMain_Menu } from "src/app/core/reducers/reducer.factory";
@@ -28,6 +29,11 @@ import { environment } from "src/environments/environment";
   standalone: false,
 })
 export class MenuMainComponent implements OnInit {
+  ROUTE_SIGNIN = ROUTE_SIGNIN;
+  ROUTE_SIGNUP = ROUTE_SIGNUP;
+  ROUTE_SIGNOUT = ROUTE_SIGNOUT;
+  ROUTE_DASHBOARD = ROUTE_DASHBOARD;
+  ROUTE_SELECT_SITE = ROUTE_SELECT_SITE;
   env = environment;
   constructorInfoAreaId = this.constructor.name;
   constructor(
@@ -178,7 +184,7 @@ export class MenuMainComponent implements OnInit {
   }
 
   async onActionLogout() {
-    this.router.navigate(["/auth/signout"], {
+    this.router.navigate([ROUTE_SIGNOUT], {
       queryParams: {},
     });
   }

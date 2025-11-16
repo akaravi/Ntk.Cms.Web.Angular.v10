@@ -20,6 +20,7 @@ import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsTranslationService } from "src/app/core/i18n/cmsTranslation.service";
 import { ConnectionStatusModel } from "src/app/core/models/connectionStatusModel";
 import {
+  ROUTE_SELECT_SITE,
   SELECT_SITE_LOCAL_STORAGE_KEY,
   themeAuthPageLSKey,
 } from "src/app/core/models/constModel";
@@ -78,7 +79,7 @@ export class AuthSignInByUsernameComponent implements OnInit, OnDestroy {
             this.cmsStoreService?.getStateAll?.tokenInfoStore?.access?.userId >
               0
           ) {
-            this.router.navigate(["/core/site/selection"], {});
+            this.router.navigate([ROUTE_SELECT_SITE], {});
           }
         }),
     );
@@ -162,7 +163,7 @@ export class AuthSignInByUsernameComponent implements OnInit, OnDestroy {
                   this.onNavigate = true;
                   setTimeout(() => {
                     if (!this.destroyRef.destroyed)
-                      this.router.navigate(["/core/site/selection"]);
+                      this.router.navigate([ROUTE_SELECT_SITE]);
                   }, 10);
                 }
               }

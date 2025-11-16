@@ -2,7 +2,7 @@
   <h3 *ngIf="title$ | async as thisTitle">{{ thisTitle }}</h3>
   <a
     *ngIf="tokenInfo?.access?.siteId > 0 && this.tokenInfo?.access?.userId > 0"
-    [routerLink]="['/core/site/selection']"
+    [routerLink]="[ROUTE_SELECT_SITE]"
     class="page-title-icon shadow-xl bg-theme color-theme gradient-highlight"
     style="width: auto; padding-left: 10px; padding-right: 10px"
     >{{ tokenInfo?.site?.title }}</a

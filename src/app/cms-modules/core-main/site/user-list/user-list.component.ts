@@ -29,12 +29,12 @@ import { PageInfoService } from "src/app/core/services/page-info.service";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { environment } from "src/environments/environment";
 import { CoreUserChangePasswordComponent } from "../../user/changePassword/changePassword.component";
-import { CoreSiteUserAddComponent } from "../userAdd/userAdd.component";
-import { CoreSiteUserEditComponent } from "../userEdit/userEdit.component";
+import { CoreSiteUserAddComponent } from "../user-add/user-add.component";
+import { CoreSiteUserEditComponent } from "../user-edit/user-edit.component";
 
 @Component({
   selector: "app-core-site-user-list",
-  templateUrl: "./userList.component.html",
+  templateUrl: "./user-list.component.html",
   standalone: false,
 })
 export class CoreSiteUserListComponent

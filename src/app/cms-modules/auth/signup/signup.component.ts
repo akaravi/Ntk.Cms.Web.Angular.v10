@@ -21,6 +21,7 @@ import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import {
   RESSELLER_SITE_ID_LOCAL_STORAGE_KEY,
   RESSELLER_USER_ID_LOCAL_STORAGE_KEY,
+  ROUTE_SELECT_SITE,
   SELECT_SITE_LOCAL_STORAGE_KEY,
 } from "src/app/core/models/constModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
@@ -66,7 +67,7 @@ export class AuthSignUpComponent implements OnInit, OnDestroy {
             this.cmsStoreService?.getStateAll?.tokenInfoStore?.access?.userId >
               0
           ) {
-            this.router.navigate(["/core/site/selection"], {});
+            this.router.navigate([ROUTE_SELECT_SITE], {});
           }
         }),
     );
@@ -242,12 +243,10 @@ export class AuthSignUpComponent implements OnInit, OnDestroy {
                   });
                   if (ret.item.access.siteId > 0) {
                     this.onNavigate = true;
-                    //setTimeout(() => this.router.navigate(['/dashboard']), 500);
                     this.router.navigate(["/dashboard"]);
                   } else {
                     this.onNavigate = true;
-                    //setTimeout(() => this.router.navigate(['/core/site/selection']), 500);
-                    this.router.navigate(["/core/site/selection"]);
+                    this.router.navigate([ROUTE_SELECT_SITE]);
                   }
                 } else {
                   this.formInfo.buttonSubmittedEnabled = true;

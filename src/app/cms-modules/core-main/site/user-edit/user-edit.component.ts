@@ -28,8 +28,8 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-core-site-user-edit",
-  templateUrl: "./userEdit.component.html",
-  styleUrls: ["./userEdit.component.scss"],
+  templateUrl: "./user-edit.component.html",
+  styleUrls: ["./user-edit.component.scss"],
   standalone: false,
 })
 export class CoreSiteUserEditComponent

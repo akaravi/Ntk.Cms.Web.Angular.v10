@@ -26,8 +26,8 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-core-site-user-add",
-  templateUrl: "./userAdd.component.html",
-  styleUrls: ["./userAdd.component.scss"],
+  templateUrl: "./user-add.component.html",
+  styleUrls: ["./user-add.component.scss"],
   standalone: false,
 })
 export class CoreSiteUserAddComponent

@@ -71,7 +71,7 @@
     <a
       *ngIf="tokenInfo?.access?.userId > 0"
       id="nav-homepages"
-      (click)="onActionCleanDataMenu('/dashboard')"
+      (click)="onActionCleanDataMenu(ROUTE_DASHBOARD)"
       style="cursor: pointer"
     >
       <i class="fa fa-home gradient-green color-white"></i>
@@ -80,7 +80,7 @@
     <a
       *ngIf="tokenInfo?.access?.userId > 0"
       id="nav-components"
-      (click)="onActionCleanDataMenu('/core/site/selection')"
+      (click)="onActionCleanDataMenu(ROUTE_SELECT_SITE)"
       style="cursor: pointer"
     >
       <i class="fa fa-cog gradient-blue color-white"></i>

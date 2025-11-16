@@ -12,6 +12,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { CoreAuthV3Service } from "ntk-cms-api";
 import { Observable, throwError } from "rxjs";
 import { catchError, map } from "rxjs/operators";
+import { ROUTE_SIGNOUT } from "../models/constModel";
 import { CmsAuthService } from "../services/cmsAuth.service";
 import { CmsToastrService } from "../services/cmsToastr.service";
 
@@ -70,8 +71,18 @@ export class HttpConfigInterceptor implements HttpInterceptor {
           //Error 500
         } else if (error.status === 401) {
           //Error 401
+          const isRefreshingToken = localStorage.getItem("isRefreshingToken");
+          if (isRefreshingToken === "true") {
+            localStorage.removeItem("isRefreshingToken");
+            this.cmsAuthService.logout();
+            this.router.navigate([ROUTE_SIGNOUT], {
+              queryParams: {},
+            });
+            return null;
+          }
           if (this.coreAuthService.getJWT()?.refreshToken?.length > 0) {
             /** */
+            localStorage.setItem("isRefreshingToken", "true");
             this.cmsAuthService.refreshToken().subscribe({
               next: (res) => {
                 if (res?.isSuccess) {

@@ -6,6 +6,7 @@ import {
 } from "@angular/router";
 import { CoreAuthV3Service } from "ntk-cms-api";
 import { CmsStoreService } from "../reducers/cmsStore.service";
+import { ROUTE_SELECT_SITE } from "../models/constModel";
 
 @Injectable({
   providedIn: "root",
@@ -32,7 +33,7 @@ export class CmsAuthSiteGuard {
       this.cmsStoreService?.getStateAll?.tokenInfoStore?.access?.userId > 0
     ) {
       if (this.authService.getJWT()?.accessToken?.length > 0)
-        this.router.navigate(["/core/site/selection"], {
+        this.router.navigate([ROUTE_SELECT_SITE], {
           queryParams: { returnUrl: state.url },
         });
     }
