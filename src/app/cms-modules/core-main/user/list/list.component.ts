@@ -102,7 +102,7 @@ export class CoreUserListComponent
     "Name",
     "LastName",
     "CompanyName",
-    "Username",
+    "username",
     "email",
     "mobile",
     // 'CreatedDate',

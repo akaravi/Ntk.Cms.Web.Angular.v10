@@ -378,6 +378,14 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{ row.email }} </mat-cell>
       </ng-container>
+
+      <!-- username Column -->
+      <ng-container matColumnDef="username">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ fieldsInfo["username"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.username }} </mat-cell>
+      </ng-container>
       <!-- mobile Column -->
       <ng-container matColumnDef="mobile">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
