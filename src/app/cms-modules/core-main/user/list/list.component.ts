@@ -579,6 +579,26 @@ export class CoreUserListComponent
       ]);
     }
   }
+  onActionButtonCreditRow(
+    model: CoreUserModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
+    if (!model || !model.id || model.id === 0) {
+      this.cmsToastrService.typeErrorSelectedRow();
+      return;
+    }
+    this.onActionTableRowSelect(model);
+
+    if (event?.ctrlKey) {
+      this.link = "/#/coremodule/site-user-credit/LinkUserId/" + model.id;
+      window.open(this.link, "_blank");
+    } else {
+      this.router.navigate([
+        "/coremodule/site-user-credit/LinkUserId/",
+        this.tableRowSelected.id,
+      ]);
+    }
+  }
   onActionButtonResller(
     model: CoreUserModel = this.tableRowSelected,
     event?: MouseEvent,

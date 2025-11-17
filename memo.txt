@@ -36,6 +36,8 @@ git pull
 git merge main
 git push
 git switch main
+git status
+
 
 #END#################################################
 #

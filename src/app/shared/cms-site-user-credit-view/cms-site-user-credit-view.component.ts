@@ -36,8 +36,6 @@ export class CmsSiteUserCreditViewComponent implements OnInit {
   id = ++CmsSiteUserCreditViewComponent.nextId;
   constructorInfoAreaId = this.constructor.name;
 
-  // requestLinkSiteId = 0;
-  // requestLinkUserId = 0;
   requestLinkModuleId = 0;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,

@@ -18,7 +18,6 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 @Component({
   selector: "app-polling-config-checkuser",
   templateUrl: "./check-user.component.html",
-  styleUrls: ["./check-user.component.scss"],
   standalone: false,
 })
 export class PollingConfigCheckUserComponent implements OnInit, OnDestroy {

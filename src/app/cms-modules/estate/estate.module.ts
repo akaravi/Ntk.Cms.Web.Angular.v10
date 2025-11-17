@@ -156,10 +156,10 @@ import { EstateAccountAgencyWorkAreaAddComponent } from "./account-agency-work-a
 import { EstateAccountAgencyWorkAreaListComponent } from "./account-agency-work-area/list/list.component";
 import { EstateAccountAgencyHeaderComponent } from "./account-agency/header/header.component";
 import { EstateAccountAgencySelectionlistComponent } from "./account-agency/selectionlist/selectionlist.component";
-import { EstateAccountExpertHeaderComponent } from "./account-expert/header/header.component";
-import { EstateAccountExpertSelectionlistComponent } from "./account-expert/selectionlist/selectionlist.component";
 import { EstateAccountExpertWorkAreaAddComponent } from "./account-expert-work-area/add/add.component";
 import { EstateAccountExpertWorkAreaListComponent } from "./account-expert-work-area/list/list.component";
+import { EstateAccountExpertHeaderComponent } from "./account-expert/header/header.component";
+import { EstateAccountExpertSelectionlistComponent } from "./account-expert/selectionlist/selectionlist.component";
 import { EstateCategoryRackAddComponent } from "./category-rack/add/add.component";
 import { EstateCategoryRackEditComponent } from "./category-rack/edit/edit.component";
 import { EstateCategoryRackListComponent } from "./category-rack/list/list.component";
@@ -191,6 +191,8 @@ import { EstatePropertyCompanyDeleteComponent } from "./property-company/delete/
 import { EstatePropertyCompanyEditComponent } from "./property-company/edit/edit.component";
 import { EstatePropertyCompanyHeaderComponent } from "./property-company/header/header.component";
 
+import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
+import { CoreSharedModule } from "../core-main/core.shared.module";
 import { EstateCustomerOrderResponsibleUserListComponent } from "./customer-order/responsible-user-list/responsible-user-list.component";
 import { EstatePropertyCompanyListComponent } from "./property-company/list/list.component";
 import { EstatePropertyCompanyQuickViewComponent } from "./property-company/quick-view/quick-view.component";
@@ -233,7 +235,6 @@ import { EstatePropertyQuickAddComponent } from "./property/quick-add/quick-add.
 import { EstatePropertyQuickListComponent } from "./property/quick-list/quick-list.component";
 import { EstatePropertyQuickViewComponent } from "./property/quick-view/quick-view.component";
 import { EstatePropertyResponsibleUserListComponent } from "./property/responsible-user-list/responsible-user-list.component";
-import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
 
 @NgModule({
   declarations: [
@@ -447,6 +448,7 @@ import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
     FormsModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     SharedModule,
+    CoreSharedModule,
     AngularEditorModule,
     CurrencyMaskModule,
     MatIconModule,

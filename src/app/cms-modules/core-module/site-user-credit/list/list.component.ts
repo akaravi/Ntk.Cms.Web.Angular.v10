@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
   CoreModuleModel,
@@ -40,6 +40,8 @@ export class CoreModuleSiteUserCreditListComponent
   >
   implements OnInit, OnDestroy
 {
+  requestLinkUserId = 0;
+  requestLinkSiteId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: CoreModuleSiteUserCreditService,
@@ -54,6 +56,7 @@ export class CoreModuleSiteUserCreditListComponent
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog,
+    private activatedRoute: ActivatedRoute,
   ) {
     super(
       contentService,
@@ -64,6 +67,24 @@ export class CoreModuleSiteUserCreditListComponent
     );
     this.publicHelper.processService.cdr = this.cdr;
 
+    this.requestLinkUserId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
+    );
+    this.requestLinkSiteId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
+    );
+    if (this.requestLinkUserId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "LinkUserId";
+      filter.value = this.requestLinkUserId;
+      this.filteModelContent.filters.push(filter);
+    }
+    if (this.requestLinkSiteId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "LinkSiteId";
+      filter.value = this.requestLinkSiteId;
+      this.filteModelContent.filters.push(filter);
+    }
     this.optionsSearch.parentMethods = {
       onSubmit: (model) => this.onSubmitOptionsSearch(model),
     };

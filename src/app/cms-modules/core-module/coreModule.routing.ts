@@ -35,6 +35,16 @@ const routes: Routes = [
         data: { title: "ROUTE.COREMODULE" },
       },
       {
+        path: "site-user-credit/LinkUserId/:LinkUserId",
+        component: CoreModuleSiteUserCreditListComponent,
+        data: { title: "ROUTE.COREMODULE" },
+      },
+      {
+        path: "site-user-credit/LinkSiteId/:LinkSiteId",
+        component: CoreModuleSiteUserCreditListComponent,
+        data: { title: "ROUTE.COREMODULE" },
+      },
+      {
         path: "site-user-credit-charge/:LinkModuleId",
         component: CoreModuleSiteUserCreditChargeComponent,
         data: { title: "ROUTE.COREMODULE" },

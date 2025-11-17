@@ -3,19 +3,20 @@ import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
   CoreEnumService,
+  CoreLogTokenConnectionService,
+  CoreLogTokenMicroServiceService,
+  CoreLogTokenUserService,
   CoreModuleService,
   CoreTokenActivationService,
-  CoreLogTokenMicroServiceService,
-  CoreTokenMicroServiceService,
-  CoreLogTokenConnectionService,
   CoreTokenConnectionService,
+  CoreTokenMicroServiceService,
   CoreTokenUserBadLoginService,
-  CoreLogTokenUserService,
   CoreTokenUserService,
   CoreUserService,
 } from "ntk-cms-api";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { SharedModule } from "src/app/shared/shared.module";
+import { CoreSharedModule } from "../core-main/core.shared.module";
 import { CoreTokenActivationEditComponent } from "./activation/edit/edit.component";
 import { CoreTokenActivationListComponent } from "./activation/list/list.component";
 import { CoreTokenActivationViewComponent } from "./activation/view/view.component";
@@ -31,8 +32,8 @@ import { CoreLogTokenConnectionEditComponent } from "./notification-log/edit/edi
 import { CoreLogTokenConnectionListComponent } from "./notification-log/list/list.component";
 import { CoreLogTokenConnectionViewComponent } from "./notification-log/view/view.component";
 import { CoreTokenConnectionEditComponent } from "./notification/edit/edit.component";
-import { CoreTokenConnectionListComponent } from "./notification/list/list.component";
 import { CoreTokenConnectionListOnlineComponent } from "./notification/list-online/list-online.component";
+import { CoreTokenConnectionListComponent } from "./notification/list/list.component";
 import { CoreTokenConnectionViewComponent } from "./notification/view/view.component";
 import { CoreTokenUserEditComponent } from "./user/edit/edit.component";
 import { CoreTokenUserListComponent } from "./user/list/list.component";
@@ -51,6 +52,7 @@ import { CoreLogTokenUserViewComponent } from "./userLog/view/view.component";
     FormsModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     SharedModule,
+    CoreSharedModule,
   ],
   declarations: [
     CoreTokenComponent,
