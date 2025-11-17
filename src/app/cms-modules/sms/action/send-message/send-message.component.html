@@ -11,12 +11,12 @@
 
     <!-- Form Validation Errors -->
     <div
-      *ngIf="formInfo.formError?.length > 0"
+      *ngIf="formInfo.submitResultMessage?.length > 0"
       class="alert alert-danger"
       role="alert"
     >
       <strong>{{ "MESSAGE.Error" | translate }}:</strong>
-      {{ formInfo.formError }}
+      {{ formInfo.submitResultMessage }}
     </div>
     <div class="divider mt-3 mb-3"></div>
     <ul class="icon-list ps-3">
@@ -624,7 +624,7 @@
               <div
                 class="row"
                 *ngIf="
-                  formInfo.formSubmitAllow &&
+                  formInfo.submitButtonEnabled &&
                   !this.publicHelper.processService.process.inRunAll
                 "
                 style="

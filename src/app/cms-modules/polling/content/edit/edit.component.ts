@@ -141,13 +141,13 @@ export class PollingContentEditComponent
   }
 
   DataGetOne(): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.get_information_from_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -173,7 +173,7 @@ export class PollingContentEditComponent
         this.publicHelper.processService.processStop(pName);
 
         this.dataModelResult = ret;
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
 
         if (ret.isSuccess) {
           this.dataModel = ret.item;
@@ -192,19 +192,19 @@ export class PollingContentEditComponent
       },
       error: (er) => {
         this.publicHelper.processService.processStop(pName);
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeErrorGetOne(er);
       },
     });
   }
   DataOptionGetAll(): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.Receiving_Options_From_The_Server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
 
     const filterModel = new FilterModel();
 
@@ -214,7 +214,7 @@ export class PollingContentEditComponent
     filterModel.filters.push(filter);
     this.pollingOptionService.ServiceGetAll(filterModel).subscribe({
       next: (ret) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.dataOptionModelResult = ret;
         if (ret.isSuccess) {
           this.optionDataModel = ret.listItems;
@@ -224,19 +224,19 @@ export class PollingContentEditComponent
         }
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeErrorGetAll(er);
       },
     });
   }
   DataEditContent(): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.sending_information_to_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.sending_information_to_the_server")
@@ -252,13 +252,13 @@ export class PollingContentEditComponent
       next: (ret) => {
         this.publicHelper.processService.processStop(pName);
 
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
           this.translate
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
           this.cmsToastrService.typeSuccessEdit();
 
@@ -270,7 +270,7 @@ export class PollingContentEditComponent
       },
       error: (er) => {
         this.publicHelper.processService.processStop(pName);
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(er);
       },
     });

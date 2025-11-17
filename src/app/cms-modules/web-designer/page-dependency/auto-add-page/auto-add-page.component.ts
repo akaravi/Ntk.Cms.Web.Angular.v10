@@ -71,9 +71,9 @@ export class WebDesignerMainPageDependencyAutoAddPageComponent
     this.translate
       .get("MESSAGE.sending_information_to_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -86,13 +86,13 @@ export class WebDesignerMainPageDependencyAutoAddPageComponent
       });
     this.webDesignerMainPageService.ServiceAutoAdd(this.dataModel).subscribe({
       next: (ret) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
           this.translate
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
           this.cmsToastrService.typeSuccessAdd();
           this.dialogRef.close({ dialogChangedDate: true });
@@ -100,15 +100,15 @@ export class WebDesignerMainPageDependencyAutoAddPageComponent
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
-          this.formInfo.formError = ret.errorMessage;
+          this.formInfo.submitResultMessage = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
       },
       error: (err) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(err);
         this.publicHelper.processService.processStop(pName);
       },
@@ -141,7 +141,7 @@ export class WebDesignerMainPageDependencyAutoAddPageComponent
     if (!this.formGroup.valid) {
       return;
     }
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     if (
       !this.dataModel.linkPageTemplateGuId ||
       this.dataModel.linkPageTemplateGuId.length <= 0

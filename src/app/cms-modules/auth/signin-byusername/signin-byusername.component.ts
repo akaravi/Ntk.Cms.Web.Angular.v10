@@ -119,7 +119,7 @@ export class AuthSignInByUsernameComponent implements OnInit, OnDestroy {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   onActionSubmit(): void {
-    this.formInfo.buttonSubmittedEnabled = false;
+    this.formInfo.submitButtonEnabled = false;
     this.hasError = false;
     this.dataModel.captchaKey = this.captchaModel.key;
     this.dataModel.lang = this.cmsTranslationService.getSelectedLanguage;
@@ -171,7 +171,7 @@ export class AuthSignInByUsernameComponent implements OnInit, OnDestroy {
           });
         } else {
           this.firstRun = false;
-          this.formInfo.buttonSubmittedEnabled = true;
+          this.formInfo.submitButtonEnabled = true;
           this.cmsToastrService.typeErrorLogin(res.errorMessage);
           this.onCaptchaOrder();
         }
@@ -180,7 +180,7 @@ export class AuthSignInByUsernameComponent implements OnInit, OnDestroy {
       },
       error: (er) => {
         this.firstRun = false;
-        this.formInfo.buttonSubmittedEnabled = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(er);
         this.onCaptchaOrder();
         this.publicHelper.processService.processStop(pName);

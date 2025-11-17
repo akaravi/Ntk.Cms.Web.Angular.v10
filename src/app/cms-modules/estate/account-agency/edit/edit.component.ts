@@ -138,9 +138,9 @@ export class EstateAccountAgencyEditComponent
     this.translate
       .get("MESSAGE.Receiving_Information_From_The_Server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -165,7 +165,7 @@ export class EstateAccountAgencyEditComponent
           if (ret.isSuccess) {
             this.formInfo.formTitle =
               this.formInfo.formTitle + " " + ret.item.title;
-            this.formInfo.formAlert = "";
+            this.formInfo.submitResultMessage = "";
             const lat = this.dataModel.geolocationlatitude;
             const lon = this.dataModel.geolocationlongitude;
             if (lat > 0 && lon > 0) {
@@ -177,9 +177,9 @@ export class EstateAccountAgencyEditComponent
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
               .subscribe((str: string) => {
-                this.formInfo.formAlert = str;
+                this.formInfo.submitResultMessage = str;
               });
-            this.formInfo.formError = ret.errorMessage;
+            this.formInfo.submitResultMessage = ret.errorMessage;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -194,9 +194,9 @@ export class EstateAccountAgencyEditComponent
     this.translate
       .get("MESSAGE.sending_information_to_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.sending_information_to_the_server")
@@ -215,7 +215,7 @@ export class EstateAccountAgencyEditComponent
           this.translate
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
           this.cmsToastrService.typeSuccessEdit();
           this.dialogRef.close({ dialogChangedDate: true });
@@ -223,17 +223,17 @@ export class EstateAccountAgencyEditComponent
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
-          this.formInfo.formError = ret.errorMessage;
+          this.formInfo.submitResultMessage = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
 
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
       },
@@ -309,9 +309,9 @@ export class EstateAccountAgencyEditComponent
     this.translate
       .get("MESSAGE.Getting_access_category_from_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -338,14 +338,14 @@ export class EstateAccountAgencyEditComponent
           this.optionTabledataSource.data = this.dataEstateAccountExpertModel;
 
           if (ret.isSuccess) {
-            this.formInfo.formAlert = "";
+            this.formInfo.submitResultMessage = "";
           } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
               .subscribe((str: string) => {
-                this.formInfo.formAlert = str;
+                this.formInfo.submitResultMessage = str;
               });
-            this.formInfo.formError = ret.errorMessage;
+            this.formInfo.submitResultMessage = ret.errorMessage;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -373,16 +373,16 @@ export class EstateAccountAgencyEditComponent
       .subscribe({
         next: (ret) => {
           if (ret.isSuccess) {
-            this.formInfo.formAlert = "";
+            this.formInfo.submitResultMessage = "";
             this.optionTabledataSource.data = ret.listItems;
             this.DataGetAllGroup();
           } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
               .subscribe((str: string) => {
-                this.formInfo.formAlert = str;
+                this.formInfo.submitResultMessage = str;
               });
-            this.formInfo.formError = ret.errorMessage;
+            this.formInfo.submitResultMessage = ret.errorMessage;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -442,7 +442,7 @@ export class EstateAccountAgencyEditComponent
     if (!this.formGroup.valid) {
       return;
     }
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.DataEditContent();
   }
   onFormCancel(): void {

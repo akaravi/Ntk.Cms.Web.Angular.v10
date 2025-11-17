@@ -191,7 +191,7 @@
         <mat-datepicker touchUi #ExpireDate></mat-datepicker>
       </div>
       <hr class="pb-5" />
-      <div class="form-actions" *ngIf="formInfo.formSubmitAllow">
+      <div class="form-actions" *ngIf="formInfo.submitButtonEnabled">
         <button
           type="button"
           (click)="onFormCancel()"

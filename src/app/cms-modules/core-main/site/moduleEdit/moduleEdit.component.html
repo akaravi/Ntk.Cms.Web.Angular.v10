@@ -72,7 +72,7 @@
 
         <ng-container cms-footer>
           <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
-          <div *ngIf="formInfo.formSubmitAllow" class="ntk-button-row">
+          <div *ngIf="formInfo.submitButtonEnabled" class="ntk-button-row">
             <button
               (click)="onFormCancel()"
               type="button"

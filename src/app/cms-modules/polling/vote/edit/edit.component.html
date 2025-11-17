@@ -21,7 +21,7 @@
         [optionSelectFirstItem]="true"
       ></app-cms-enum-record-status-selector>
 
-      <div class="form-actions" *ngIf="formInfo.formSubmitAllow">
+      <div class="form-actions" *ngIf="formInfo.submitButtonEnabled">
         <button
           type="button"
           (click)="onFormCancel()"

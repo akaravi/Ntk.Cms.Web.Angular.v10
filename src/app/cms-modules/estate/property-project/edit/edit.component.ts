@@ -158,13 +158,13 @@ export class EstatePropertyProjectEditComponent
     this.DataEditContent();
   }
   DataGetOne(): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.get_information_from_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.get_information_list")
@@ -185,7 +185,7 @@ export class EstatePropertyProjectEditComponent
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
         this.publicHelper.processService.processStop(pName);
         this.dataModelResult = ret;
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         if (ret.isSuccess) {
           this.dataModel = ret.item;
           const lat = this.dataModel.geolocationlatitude;
@@ -239,7 +239,7 @@ export class EstatePropertyProjectEditComponent
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeErrorGetOne(er);
         this.publicHelper.processService.processStop(pName, false);
       },
@@ -250,13 +250,13 @@ export class EstatePropertyProjectEditComponent
     if (!ids || ids.length === 0) {
       return;
     }
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.get_other_information_from_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.get_other_information_from_the_server")
@@ -279,7 +279,7 @@ export class EstatePropertyProjectEditComponent
     });
     this.contentService.ServiceGetAll(filterModel).subscribe({
       next: (ret) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         if (ret.isSuccess) {
           this.similarDataModel = ret.listItems;
           this.similarTabledataSource.data = ret.listItems;
@@ -289,20 +289,20 @@ export class EstatePropertyProjectEditComponent
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeErrorGetAll(er);
         this.publicHelper.processService.processStop(pName);
       },
     });
   }
   DataEditContent(): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.sending_information_to_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
 
     if (this.dataFileModelFiles) {
       const keys = Array.from(this.dataFileModelFiles.keys());
@@ -330,13 +330,13 @@ export class EstatePropertyProjectEditComponent
     this.contentService.ServiceEdit(this.dataModel).subscribe({
       next: (ret) => {
         this.publicHelper.processService.processStop(pName);
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
           this.translate
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
           this.cmsToastrService.typeSuccessEdit();
           setTimeout(
@@ -349,7 +349,7 @@ export class EstatePropertyProjectEditComponent
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeErrorEdit(er);
         this.publicHelper.processService.processStop(pName);
       },

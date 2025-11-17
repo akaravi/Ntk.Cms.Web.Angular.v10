@@ -111,9 +111,9 @@ export class TicketingTaskViewComponent implements OnInit, OnDestroy {
     this.translate
       .get("MESSAGE.Receiving_Information_From_The_Server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -142,16 +142,16 @@ export class TicketingTaskViewComponent implements OnInit, OnDestroy {
             " ( " +
             ret.item.id +
             " ) ";
-          this.formInfo.formAlert = "";
+          this.formInfo.submitResultMessage = "";
 
           this.dataTaskReaded(this.requestId);
         } else {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
-          this.formInfo.formError = ret.errorMessage;
+          this.formInfo.submitResultMessage = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);

@@ -1,6 +1,9 @@
+import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
+import { MatStepper } from "@angular/material/stepper";
 import { ActivatedRoute, Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
 import { Map as leafletMap } from "leaflet";
 import {
   AccessModel,
@@ -19,15 +22,12 @@ import {
   ManageUserAccessDataTypesEnum,
 } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
-import { StepperSelectionEvent } from "@angular/cdk/stepper";
-import { MatStepper } from "@angular/material/stepper";
-import { TranslateService } from "@ngx-translate/core";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { PoinModel } from "src/app/core/models/pointModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-linkmanagement-target-edit",
@@ -162,13 +162,13 @@ export class LinkManagementTargetEditComponent
   }
 
   DataGetOne(): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.get_information_from_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -193,7 +193,7 @@ export class LinkManagementTargetEditComponent
           this.dataAccessModel = ret.access;
           this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
           this.dataModelResult = ret;
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
 
           if (ret.isSuccess) {
             this.dataModel = ret.item;
@@ -205,20 +205,20 @@ export class LinkManagementTargetEditComponent
         error: (er) => {
           this.publicHelper.processService.processStop(pName);
 
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.cmsToastrService.typeErrorGetOne(er);
         },
       });
   }
 
   DataEditContent(): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.sending_information_to_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.sending_information_to_the_server")
@@ -234,13 +234,13 @@ export class LinkManagementTargetEditComponent
       next: (ret) => {
         this.publicHelper.processService.processStop(pName);
 
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
           this.translate
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
           this.cmsToastrService.typeSuccessEdit();
           setTimeout(
@@ -254,7 +254,7 @@ export class LinkManagementTargetEditComponent
       },
       error: (er) => {
         this.publicHelper.processService.processStop(pName);
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(er);
       },
     });
@@ -291,21 +291,21 @@ export class LinkManagementTargetEditComponent
           this.translate
             .get("MESSAGE.registration_in_this_group_was_successful")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
           this.cmsToastrService.typeSuccessEdit();
         } else {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
-          this.formInfo.formError = ret.errorMessage;
+          this.formInfo.submitResultMessage = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(er);
       },
     });
@@ -328,21 +328,21 @@ export class LinkManagementTargetEditComponent
           this.translate
             .get("MESSAGE.registration_in_this_group_was_successful")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
           this.cmsToastrService.typeSuccessEdit();
         } else {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
-          this.formInfo.formError = ret.errorMessage;
+          this.formInfo.submitResultMessage = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(er);
       },
     });

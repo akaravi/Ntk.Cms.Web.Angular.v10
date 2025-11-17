@@ -92,7 +92,7 @@ export class SmsMainApiPathSendTestComponent implements OnInit {
     ) {
       this.cmsToastrService.typeErrorFormInvalid();
     }
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -108,13 +108,13 @@ export class SmsMainApiPathSendTestComponent implements OnInit {
       .ServiceSendMessageTest(this.dataModel)
       .subscribe({
         next: (ret) => {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.dataModelResult = ret;
           if (ret.isSuccess) {
             this.translate
               .get("MESSAGE.Submit_request_was_successfully_registered")
               .subscribe((str: string) => {
-                this.formInfo.formAlert = str;
+                this.formInfo.submitResultMessage = str;
               });
             this.translate
               .get("MESSAGE.Send_request_was_successfully_registered")
@@ -125,15 +125,15 @@ export class SmsMainApiPathSendTestComponent implements OnInit {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
               .subscribe((str: string) => {
-                this.formInfo.formAlert = str;
+                this.formInfo.submitResultMessage = str;
               });
-            this.formInfo.formError = ret.errorMessage;
+            this.formInfo.submitResultMessage = ret.errorMessage;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
         },
         error: (err) => {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.cmsToastrService.typeError(err);
           this.publicHelper.processService.processStop(pName);
         },

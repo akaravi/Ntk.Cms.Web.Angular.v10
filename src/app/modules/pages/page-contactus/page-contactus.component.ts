@@ -124,13 +124,13 @@ export class PageContactusComponent
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   DataAddContent(): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.sending_information_to_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -145,18 +145,18 @@ export class PageContactusComponent
     this.dataModel.captchaKey = this.captchaModel.key;
     this.ticketingTaskService.ServiceContactUS(this.dataModel).subscribe({
       next: async (ret) => {
-        this.formInfo.formSubmitAllow = !ret.isSuccess;
+        this.formInfo.submitButtonEnabled = !ret.isSuccess;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
-          this.formInfo.formSubmitedStatus = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
           this.translate
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
           this.cmsToastrService.typeSuccessAdd();
         } else {
-          this.formInfo.formSubmitedStatus = FormSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorAdd(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
@@ -165,7 +165,7 @@ export class PageContactusComponent
       error: (err) => {
         this.publicHelper.processService.processStop(pName);
 
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeErrorAdd(err);
         this.cdr.markForCheck();
       },

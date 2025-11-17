@@ -112,9 +112,9 @@ export class CoreModuleLogSiteCreditEditComponent
     this.translate
       .get("MESSAGE.Receiving_Information_From_The_Server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -142,14 +142,14 @@ export class CoreModuleLogSiteCreditEditComponent
           if (ret.isSuccess) {
             this.formInfo.formTitle =
               this.formInfo.formTitle + " " + ret.item.id;
-            this.formInfo.formAlert = "";
+            this.formInfo.submitResultMessage = "";
           } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
               .subscribe((str: string) => {
-                this.formInfo.formAlert = str;
+                this.formInfo.submitResultMessage = str;
               });
-            this.formInfo.formError = ret.errorMessage;
+            this.formInfo.submitResultMessage = ret.errorMessage;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);

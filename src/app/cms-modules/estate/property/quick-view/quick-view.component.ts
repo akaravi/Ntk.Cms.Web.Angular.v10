@@ -149,9 +149,9 @@ export class EstatePropertyQuickViewComponent implements OnInit, OnDestroy {
     this.translate
       .get("MESSAGE.Receiving_Information_From_The_Server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -179,7 +179,7 @@ export class EstatePropertyQuickViewComponent implements OnInit, OnDestroy {
           this.optionTabledataSource.data = this.dataModel.contracts;
 
           this.formInfo.formTitle = this.formInfo.formTitle;
-          this.formInfo.formAlert = "";
+          this.formInfo.submitResultMessage = "";
           /** load Value */
           if (this.dataModel.propertyDetailGroups)
             this.dataModel.propertyDetailGroups.forEach((itemGroup) => {
@@ -201,9 +201,9 @@ export class EstatePropertyQuickViewComponent implements OnInit, OnDestroy {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
-          this.formInfo.formError = ret.errorMessage;
+          this.formInfo.submitResultMessage = ret.errorMessage;
           this.errorMessage =
             ret.errorMessage + "<br> ( " + ret.errorTypeTitle + " ) ";
           this.cmsToastrService.typeErrorMessage(this.errorMessage);

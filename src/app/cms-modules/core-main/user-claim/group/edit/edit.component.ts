@@ -128,9 +128,9 @@ export class CoreUserClaimGroupEditComponent
     this.translate
       .get("MESSAGE.Receiving_Information_From_The_Server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "DataGetOneContent";
     this.translate
       .get("MESSAGE.Receive_categories_of_documents")
@@ -153,14 +153,14 @@ export class CoreUserClaimGroupEditComponent
         if (ret.isSuccess) {
           this.formInfo.formTitle =
             this.formInfo.formTitle + " " + ret.item.title;
-          this.formInfo.formAlert = "";
+          this.formInfo.submitResultMessage = "";
         } else {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
-          this.formInfo.formError = ret.errorMessage;
+          this.formInfo.submitResultMessage = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
@@ -176,9 +176,9 @@ export class CoreUserClaimGroupEditComponent
     this.translate
       .get("MESSAGE.sending_information_to_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.Registration_of categories_of_documents")
@@ -191,13 +191,13 @@ export class CoreUserClaimGroupEditComponent
       });
     this.coreUserClaimGroupService.ServiceEdit(this.dataModel).subscribe({
       next: (ret) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
           this.translate
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
           this.cmsToastrService.typeSuccessEdit();
           this.dialogRef.close({ dialogChangedDate: true });
@@ -205,15 +205,15 @@ export class CoreUserClaimGroupEditComponent
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
-          this.formInfo.formError = ret.errorMessage;
+          this.formInfo.submitResultMessage = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
       },
@@ -259,7 +259,7 @@ export class CoreUserClaimGroupEditComponent
     if (!this.formGroup.valid) {
       return;
     }
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.DataEditContent();
   }
   onFormCancel(): void {
@@ -285,9 +285,9 @@ export class CoreUserClaimGroupEditComponent
     this.translate
       .get("MESSAGE.Receiving_Information_From_The_Server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "DataGetAllCoreUserClaimType";
     this.translate
       .get("MESSAGE.Receive_categories_of_documents")
@@ -317,14 +317,14 @@ export class CoreUserClaimGroupEditComponent
           });
           this.dataCoreClaimTypeIds = listG;
           if (ret.isSuccess) {
-            this.formInfo.formAlert = "";
+            this.formInfo.submitResultMessage = "";
           } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
               .subscribe((str: string) => {
-                this.formInfo.formAlert = str;
+                this.formInfo.submitResultMessage = str;
               });
-            this.formInfo.formError = ret.errorMessage;
+            this.formInfo.submitResultMessage = ret.errorMessage;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -350,21 +350,21 @@ export class CoreUserClaimGroupEditComponent
           this.translate
             .get("MESSAGE.registration_in_this_group_was_successful")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
           this.cmsToastrService.typeSuccessEdit();
         } else {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
-          this.formInfo.formError = ret.errorMessage;
+          this.formInfo.submitResultMessage = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(er);
       },
     });
@@ -382,21 +382,21 @@ export class CoreUserClaimGroupEditComponent
           this.translate
             .get("MESSAGE.Deletion_from_this_group_Was_Successful")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
           this.cmsToastrService.typeSuccessEdit();
         } else {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
-          this.formInfo.formError = ret.errorMessage;
+          this.formInfo.submitResultMessage = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(er);
       },
     });

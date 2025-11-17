@@ -71,7 +71,7 @@ export class BlogCategoryDeleteComponent implements OnInit {
       return;
     }
     this.translate.get("TITLE.Loading_Information").subscribe((str: string) => {
-      this.formInfo.formAlert = str;
+      this.formInfo.submitResultMessage = str;
     });
     const pName = this.constructor.name + "main";
     this.translate
@@ -96,13 +96,14 @@ export class BlogCategoryDeleteComponent implements OnInit {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
-          this.formInfo.formError = ret.errorMessage;
-          this.formInfo.formErrorStatus = true;
+          this.formInfo.submitResultMessage = ret.errorMessage;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
           this.cmsToastrService.typeErrorGetOne();
         } else {
-          this.formInfo.formAlert = "";
+          this.formInfo.submitResultMessage = "";
         }
         this.publicHelper.processService.processStop(pName);
       },
@@ -110,9 +111,9 @@ export class BlogCategoryDeleteComponent implements OnInit {
         this.translate
           .get("ERRORMESSAGE.MESSAGE.typeError")
           .subscribe((str: string) => {
-            this.formInfo.formAlert = str;
+            this.formInfo.submitResultMessage = str;
           });
-        this.formInfo.formErrorStatus = true;
+        this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
       },
@@ -120,7 +121,7 @@ export class BlogCategoryDeleteComponent implements OnInit {
   }
   DataGetAll(): void {
     this.translate.get("TITLE.Loading_Information").subscribe((str: string) => {
-      this.formInfo.formAlert = str;
+      this.formInfo.submitResultMessage = str;
     });
     const filterModel: FilterModel = new FilterModel();
     filterModel.rowPerPage = 100;
@@ -142,13 +143,14 @@ export class BlogCategoryDeleteComponent implements OnInit {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
-          this.formInfo.formError = ret.errorMessage;
-          this.formInfo.formErrorStatus = true;
+          this.formInfo.submitResultMessage = ret.errorMessage;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
           this.cmsToastrService.typeErrorGetAll();
         } else {
-          this.formInfo.formAlert = "";
+          this.formInfo.submitResultMessage = "";
         }
         this.publicHelper.processService.processStop(pName);
       },
@@ -156,9 +158,9 @@ export class BlogCategoryDeleteComponent implements OnInit {
         this.translate
           .get("ERRORMESSAGE.MESSAGE.typeError")
           .subscribe((str: string) => {
-            this.formInfo.formAlert = str;
+            this.formInfo.submitResultMessage = str;
           });
-        this.formInfo.formErrorStatus = true;
+        this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
       },
@@ -172,24 +174,24 @@ export class BlogCategoryDeleteComponent implements OnInit {
     if (!this.formGroup.valid) {
       return;
     }
-    this.formInfo.formSubmitAllow = true;
+    this.formInfo.submitButtonEnabled = true;
     if (this.dataModel.newCatId === this.requestId) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeError")
         .subscribe((str: string) => {
-          this.formInfo.formAlert = str;
+          this.formInfo.submitResultMessage = str;
         });
       this.translate
         .get(
           "ERRORMESSAGE.MESSAGE.The_delete_category_ID_is_the_same_as_the_alternate_category",
         )
         .subscribe((str: string) => {
-          this.formInfo.formError = str;
+          this.formInfo.submitResultMessage = str;
         });
-      this.formInfo.buttonSubmittedEnabled = true;
+      this.formInfo.submitButtonEnabled = true;
     }
 
-    this.formInfo.buttonSubmittedEnabled = false;
+    this.formInfo.submitButtonEnabled = false;
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -209,31 +211,31 @@ export class BlogCategoryDeleteComponent implements OnInit {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
               .subscribe((str: string) => {
-                this.formInfo.formAlert = str;
+                this.formInfo.submitResultMessage = str;
               });
-            this.formInfo.formError = ret.errorMessage;
+            this.formInfo.submitResultMessage = ret.errorMessage;
             this.cmsToastrService.typeErrorMove();
           } else {
             this.translate
               .get("MESSAGE.The_Transfer_Was_Successful")
               .subscribe((str: string) => {
-                this.formInfo.formAlert = str;
+                this.formInfo.submitResultMessage = str;
               });
             this.cmsToastrService.typeSuccessMove();
           }
-          this.formInfo.formSubmitAllow = true;
-          this.formInfo.buttonSubmittedEnabled = true;
+          this.formInfo.submitButtonEnabled = true;
+          this.formInfo.submitButtonEnabled = true;
           this.publicHelper.processService.processStop(pName);
         },
         error: (er) => {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
           this.cmsToastrService.typeError(er);
-          this.formInfo.buttonSubmittedEnabled = true;
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
+          this.formInfo.submitButtonEnabled = true;
           this.publicHelper.processService.processStop(pName);
         },
       });
@@ -244,8 +246,8 @@ export class BlogCategoryDeleteComponent implements OnInit {
       return;
     }
 
-    this.formInfo.formSubmitAllow = false;
-    this.formInfo.buttonSubmittedEnabled = false;
+    this.formInfo.submitButtonEnabled = false;
+    this.formInfo.submitButtonEnabled = false;
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -259,42 +261,42 @@ export class BlogCategoryDeleteComponent implements OnInit {
 
     this.categoryService.ServiceDelete(this.requestId).subscribe({
       next: (ret) => {
-        this.formInfo.formSubmitAllow = !ret.isSuccess;
+        this.formInfo.submitButtonEnabled = !ret.isSuccess;
         if (!ret.isSuccess) {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
-          this.formInfo.formError = ret.errorMessage;
+          this.formInfo.submitResultMessage = ret.errorMessage;
           this.cmsToastrService.typeErrorRemove();
         } else {
           this.translate
             .get("MESSAGE.Deletion_Was_Successful")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
           this.cmsToastrService.typeSuccessRemove();
           this.dialogRef.close({ dialogChangedDate: true });
         }
-        this.formInfo.buttonSubmittedEnabled = true;
+        this.formInfo.submitButtonEnabled = true;
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
         this.translate
           .get("ERRORMESSAGE.MESSAGE.typeError")
           .subscribe((str: string) => {
-            this.formInfo.formAlert = str;
+            this.formInfo.submitResultMessage = str;
           });
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(er);
-        this.formInfo.buttonSubmittedEnabled = true;
+        this.formInfo.submitButtonEnabled = true;
         this.publicHelper.processService.processStop(pName);
       },
     });
   }
   onFormChangeNewCatId(model: BlogCategoryModel): void {
-    this.formInfo.formAlert = "";
+    this.formInfo.submitResultMessage = "";
     if (this.requestId === 0 || !model || model.id <= 0) {
       this.cmsToastrService.typeErrorDeleteRowIsNull();
       return;
@@ -304,19 +306,19 @@ export class BlogCategoryDeleteComponent implements OnInit {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeError")
         .subscribe((str: string) => {
-          this.formInfo.formAlert = str;
+          this.formInfo.submitResultMessage = str;
         });
       this.translate
         .get(
           "ERRORMESSAGE.MESSAGE.The_delete_category_ID_is_the_same_as_the_alternate_category",
         )
         .subscribe((str: string) => {
-          this.formInfo.formError = str;
+          this.formInfo.submitResultMessage = str;
         });
-      this.formInfo.buttonSubmittedEnabled = false;
+      this.formInfo.submitButtonEnabled = false;
     } else {
-      this.formInfo.buttonSubmittedEnabled = true;
-      this.formInfo.formError = "";
+      this.formInfo.submitButtonEnabled = true;
+      this.formInfo.submitResultMessage = "";
     }
   }
   onFormCancel(): void {

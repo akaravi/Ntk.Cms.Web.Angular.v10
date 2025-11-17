@@ -223,9 +223,9 @@ export class EstatePropertyEditComponent
     this.translate
       .get("MESSAGE.Receiving_Information_From_The_Server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
 
     const pName = this.constructor.name + "ServiceGetOneById";
     this.translate
@@ -266,7 +266,7 @@ export class EstatePropertyEditComponent
             this.receiveMap();
           }
           this.formInfo.formTitle = ret.item.title;
-          this.formInfo.formAlert = "";
+          this.formInfo.submitResultMessage = "";
           /*
            * check file attach list
            */
@@ -306,9 +306,9 @@ export class EstatePropertyEditComponent
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
-          this.formInfo.formError = ret.errorMessage;
+          this.formInfo.submitResultMessage = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
@@ -375,9 +375,9 @@ export class EstatePropertyEditComponent
     this.translate
       .get("MESSAGE.sending_information_to_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     if (this.dataFileModelFiles) {
       const keys = Array.from(this.dataFileModelFiles.keys());
       if (keys && keys.length > 0) {
@@ -403,13 +403,13 @@ export class EstatePropertyEditComponent
 
     this.estatePropertyService.ServiceEdit(this.dataModel).subscribe({
       next: (ret) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
           this.translate
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
           this.cmsToastrService.typeSuccessEdit();
           if (
@@ -441,15 +441,15 @@ export class EstatePropertyEditComponent
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
-          this.formInfo.formError = ret.errorMessage;
+          this.formInfo.submitResultMessage = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
       },
@@ -595,7 +595,7 @@ export class EstatePropertyEditComponent
     if (!this.formGroup.valid) {
       return;
     }
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     /** Save Value */
     this.dataModel.propertyDetailValues = [];
     if (this.dataModel.propertyDetailGroups)
@@ -618,7 +618,7 @@ export class EstatePropertyEditComponent
         .subscribe((str: string) => {
           this.cmsToastrService.typeErrorSelected(str);
         });
-      this.formInfo.formSubmitAllow = true;
+      this.formInfo.submitButtonEnabled = true;
       return;
     }
 

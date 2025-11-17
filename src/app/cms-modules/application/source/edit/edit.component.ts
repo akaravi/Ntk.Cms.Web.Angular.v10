@@ -111,13 +111,13 @@ export class ApplicationSourceEditComponent
   }
 
   DataGetOne(requestId: number): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.get_information_from_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -141,7 +141,7 @@ export class ApplicationSourceEditComponent
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
 
         this.dataModelResult = ret;
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
 
         if (ret.isSuccess) {
           this.dataModel = ret.item;
@@ -152,7 +152,7 @@ export class ApplicationSourceEditComponent
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeErrorGetOne(er);
         this.publicHelper.processService.processStop(pName, false);
       },
@@ -162,9 +162,9 @@ export class ApplicationSourceEditComponent
     this.translate
       .get("MESSAGE.Receiving_Information_From_The_Server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -194,14 +194,14 @@ export class ApplicationSourceEditComponent
           });
           this.dataCoreSiteCategoryIds = listG;
           if (ret.isSuccess) {
-            this.formInfo.formAlert = "";
+            this.formInfo.submitResultMessage = "";
           } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
               .subscribe((str: string) => {
-                this.formInfo.formAlert = str;
+                this.formInfo.submitResultMessage = str;
               });
-            this.formInfo.formError = ret.errorMessage;
+            this.formInfo.submitResultMessage = ret.errorMessage;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -213,13 +213,13 @@ export class ApplicationSourceEditComponent
       });
   }
   DataEditContent(): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.sending_information_to_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.sending_information_to_the_server")
@@ -233,13 +233,13 @@ export class ApplicationSourceEditComponent
 
     this.applicationSourceService.ServiceEdit(this.dataModel).subscribe({
       next: (ret) => {
-        this.formInfo.formSubmitAllow = !ret.isSuccess;
+        this.formInfo.submitButtonEnabled = !ret.isSuccess;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
           this.translate
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
           this.cmsToastrService.typeSuccessEdit();
           setTimeout(
@@ -252,7 +252,7 @@ export class ApplicationSourceEditComponent
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName);
       },
@@ -273,7 +273,7 @@ export class ApplicationSourceEditComponent
           this.translate
             .get("MESSAGE.registration_in_this_group_was_successful")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
           this.cmsToastrService.typeSuccessEdit();
           // this.dialogRef.close({ dialogChangedDate: true });
@@ -281,14 +281,14 @@ export class ApplicationSourceEditComponent
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
-          this.formInfo.formError = ret.errorMessage;
+          this.formInfo.submitResultMessage = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(er);
       },
     });
@@ -308,21 +308,21 @@ export class ApplicationSourceEditComponent
             this.translate
               .get("MESSAGE.Deletion_from_this_group_Was_Successful")
               .subscribe((str: string) => {
-                this.formInfo.formAlert = str;
+                this.formInfo.submitResultMessage = str;
               });
             this.cmsToastrService.typeSuccessEdit();
           } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
               .subscribe((str: string) => {
-                this.formInfo.formAlert = str;
+                this.formInfo.submitResultMessage = str;
               });
-            this.formInfo.formError = ret.errorMessage;
+            this.formInfo.submitResultMessage = ret.errorMessage;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
         },
         error: (er) => {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.cmsToastrService.typeError(er);
         },
       });

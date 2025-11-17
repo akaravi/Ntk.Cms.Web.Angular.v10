@@ -156,7 +156,7 @@
             [(ngModel)]="dataModel.body"
             name="dataModel.body"
           ></angular-editor>
-          <div *ngIf="formInfo.formSubmitAllow" class="form-actions">
+          <div *ngIf="formInfo.submitButtonEnabled" class="form-actions">
             <button
               type="button"
               class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
@@ -188,7 +188,7 @@
             (optionSelectDisChecked)="onActionCategorySelectDisChecked($event)"
           ></app-article-category-treeselector>
           <br />
-          <div *ngIf="formInfo.formSubmitAllow" class="form-actions">
+          <div *ngIf="formInfo.submitButtonEnabled" class="form-actions">
             <button
               type="button"
               class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
@@ -275,7 +275,7 @@
               />
             </mat-chip-grid>
           </mat-form-field>
-          <div *ngIf="formInfo.formSubmitAllow" class="form-actions">
+          <div *ngIf="formInfo.submitButtonEnabled" class="form-actions">
             <button
               type="button"
               class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
@@ -432,7 +432,7 @@
             >
             </cms-file-manager>
           </div>
-          <div *ngIf="formInfo.formSubmitAllow" class="form-actions">
+          <div *ngIf="formInfo.submitButtonEnabled" class="form-actions">
             <button
               type="button"
               class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
@@ -617,7 +617,7 @@
             </mat-table>
           </div>
           <!-- TABLE  -->
-          <div *ngIf="formInfo.formSubmitAllow" class="form-actions">
+          <div *ngIf="formInfo.submitButtonEnabled" class="form-actions">
             <button
               type="button"
               class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
@@ -742,7 +742,7 @@
             </mat-table>
           </div>
           <!-- TABLE  -->
-          <div *ngIf="formInfo.formSubmitAllow" class="ntk-button-row">
+          <div *ngIf="formInfo.submitButtonEnabled" class="ntk-button-row">
             <button
               type="button"
               class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
@@ -778,7 +778,7 @@
             [optonCenter]="mapOptonCenter"
             id="main-map"
           ></app-cms-map>
-          <div *ngIf="formInfo.formSubmitAllow" class="ntk-button-row">
+          <div *ngIf="formInfo.submitButtonEnabled" class="ntk-button-row">
             <button
               type="button"
               class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"

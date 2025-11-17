@@ -240,7 +240,7 @@
               <strong>{{ "MESSAGE.required" | translate }}</strong>
             </mat-error>
           </div>
-          <div *ngIf="formInfo.formSubmitAllow" class="ntk-button-row">
+          <div *ngIf="formInfo.submitButtonEnabled" class="ntk-button-row">
             <button
               type="button"
               class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
@@ -438,7 +438,7 @@
               id="dataModel.fireBaseServerKey"
             ></textarea>
           </div>
-          <div *ngIf="formInfo.formSubmitAllow" class="ntk-button-row">
+          <div *ngIf="formInfo.submitButtonEnabled" class="ntk-button-row">
             <button
               type="button"
               class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
@@ -508,7 +508,7 @@
               [openFilemanagerButtonView]="false"
             ></cms-file-manager>
           </div>
-          <div *ngIf="formInfo.formSubmitAllow" class="ntk-button-row">
+          <div *ngIf="formInfo.submitButtonEnabled" class="ntk-button-row">
             <button
               type="button"
               class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
@@ -1056,7 +1056,7 @@
               </td>
             </tr>
           </table>
-          <div *ngIf="formInfo.formSubmitAllow" class="ntk-button-row">
+          <div *ngIf="formInfo.submitButtonEnabled" class="ntk-button-row">
             <button
               type="button"
               class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
@@ -1242,7 +1242,7 @@
               id="dataModel.lastUnsuccessfullyBuildErrorMessage"
             ></textarea>
           </div>
-          <div *ngIf="formInfo.formSubmitAllow" class="ntk-button-row">
+          <div *ngIf="formInfo.submitButtonEnabled" class="ntk-button-row">
             <button
               type="button"
               class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"

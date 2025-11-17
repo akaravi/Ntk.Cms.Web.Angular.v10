@@ -78,14 +78,14 @@
               {{ item.virtual_CmsSite.seoDescription }}
             </p>
             <a
-              *ngIf="formInfo.buttonSubmittedEnabled"
+              *ngIf="formInfo.submitButtonEnabled"
               (click)="onActionClickSelectSite(item.virtual_CmsSite.id)"
               class="btn btn-s rounded-s font-600 bg-highlight"
               >{{ "ACTION.LOGIN" | translate }}</a
             >
             <span
               *ngIf="
-                !this.formInfo.buttonSubmittedEnabled &&
+                !this.formInfo.submitButtonEnabled &&
                 selectSiteId === item.virtual_CmsSite.id
               "
               class="btn btn-s rounded-s font-600 bg-highlight"

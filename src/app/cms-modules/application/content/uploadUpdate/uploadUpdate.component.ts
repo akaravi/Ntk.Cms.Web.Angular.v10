@@ -51,7 +51,7 @@ export class ApplicationAppUploadUpdateComponent implements OnInit {
     this.dataModel.appVersion = this.dataItemModel.appVersion;
     this.dataModel.lastBuildAppKey = this.dataItemModel.lastBuildAppKey;
     this.dataModel.linkApplicationId = this.dataItemModel.id;
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.DataGetAccess();
   }
   DataGetAccess(): void {
@@ -116,20 +116,20 @@ export class ApplicationAppUploadUpdateComponent implements OnInit {
           this.constructorInfoAreaId,
         );
       });
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.applicationAppService.ServiceUploadUpdate(this.dataModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.formInfo.formSubmitAllow = false;
+          this.formInfo.submitButtonEnabled = false;
           this.cmsToastrService.typeSuccessAppUpload();
         } else {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.cmsToastrService.typeErrorEdit(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName);
       },
@@ -151,7 +151,7 @@ export class ApplicationAppUploadUpdateComponent implements OnInit {
       model.uploadResponse.item.fileKey
     ) {
       this.dataModel.uploadFileGUID = model.uploadResponse.item.fileKey;
-      this.formInfo.formSubmitAllow = true;
+      this.formInfo.submitButtonEnabled = true;
     }
   }
 }

@@ -20,7 +20,6 @@ import {
   SmsApiSendResultModel,
   SmsMainApiNumberModel,
   SmsMainApiPathModel,
-  SmsMainApiPathService,
   SmsMainMessageCategoryModel,
   SmsMainMessageContentModel,
   TokenInfoModelV3,
@@ -59,7 +58,6 @@ export class SmsActionSendMessageComponent implements OnInit {
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public coreEnumService: CoreEnumService,
-    public smsMainApiPathService: SmsMainApiPathService,
     public smsActionService: SmsActionService,
     private service: CoreModuleSiteUserCreditService,
     private activatedRoute: ActivatedRoute,
@@ -504,7 +502,7 @@ export class SmsActionSendMessageComponent implements OnInit {
     }
     this.onActionScheduleSendCheck();
 
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -516,8 +514,8 @@ export class SmsActionSendMessageComponent implements OnInit {
         );
       });
 
-    this.formInfo.formAlert = "";
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
+    this.formInfo.submitResultMessage = "";
     // this.dataModel.scheduleSendStart.setMinutes(this.dataModel.scheduleSendStart.getMinutes() + this.timezoneOffset);
     // this.dataModel.scheduleSendExpire.setMinutes(this.dataModel.scheduleSendExpire.getMinutes() + this.timezoneOffset);
     //this.dataModel.scheduleSendStart=new Date(this.dataModel.scheduleSendStart.getTime() + this.timezoneOffset*60*1000);
@@ -525,13 +523,13 @@ export class SmsActionSendMessageComponent implements OnInit {
 
     this.smsActionService.ServiceSendMessage(this.dataModel).subscribe({
       next: (ret) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
           this.translate
             .get("MESSAGE.Submit_request_was_successfully_registered")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
           this.translate
             .get("MESSAGE.Send_request_was_successfully_registered")
@@ -542,15 +540,15 @@ export class SmsActionSendMessageComponent implements OnInit {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
-          this.formInfo.formError = ret.errorMessage;
+          this.formInfo.submitResultMessage = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
       },
       error: (e) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(e);
         this.publicHelper.processService.processStop(pName, false);
       },

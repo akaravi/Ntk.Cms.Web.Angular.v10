@@ -186,7 +186,7 @@ export class CoreSiteAddFirstComponent implements OnInit {
       return;
     }
 
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     const pName = this.constructor.name + ".onFormSubmit";
     this.translate
       .get("MESSAGE.Registering_your_first_system_information")
@@ -203,14 +203,14 @@ export class CoreSiteAddFirstComponent implements OnInit {
           this.cmsToastrService.typeSuccessAddFirstSite();
           this.clickSelectSite(ret.item.id);
         } else {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.cmsToastrService.typeErrorAdd(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.publicHelper.processService.processStop(pName);
       },
     });

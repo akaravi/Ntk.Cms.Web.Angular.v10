@@ -100,13 +100,13 @@ export class TicketingTaskEditComponent
   }
 
   DataGetOne(requestId: number): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.get_information_from_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -132,7 +132,7 @@ export class TicketingTaskEditComponent
         this.publicHelper.processService.processStop(pName);
 
         this.dataModelResult = ret;
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
 
         if (ret.isSuccess) {
           this.dataModel = ret.item;
@@ -151,19 +151,19 @@ export class TicketingTaskEditComponent
       error: (err) => {
         this.publicHelper.processService.processStop(pName);
 
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeErrorGetOne(err);
       },
     });
   }
   DataEditContent(): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.sending_information_to_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.sending_information_to_the_server")
@@ -177,13 +177,13 @@ export class TicketingTaskEditComponent
 
     this.ticketingTaskService.ServiceEdit(this.dataModel).subscribe({
       next: (ret) => {
-        this.formInfo.formSubmitAllow = !ret.isSuccess;
+        this.formInfo.submitButtonEnabled = !ret.isSuccess;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
           this.translate
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
           this.cmsToastrService.typeSuccessEdit();
           setTimeout(() => {
@@ -197,7 +197,7 @@ export class TicketingTaskEditComponent
       error: (err) => {
         this.publicHelper.processService.processStop(pName);
 
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeErrorEdit(err);
       },
     });

@@ -162,7 +162,7 @@
         </textarea>
         <em>{{ ModuleSiteAccessJsonValue.value.length }} / 1000</em>
       </div>
-      <div class="form-actions" *ngIf="formInfo.formSubmitAllow">
+      <div class="form-actions" *ngIf="formInfo.submitButtonEnabled">
         <button
           type="button"
           (click)="onFormCancel()"

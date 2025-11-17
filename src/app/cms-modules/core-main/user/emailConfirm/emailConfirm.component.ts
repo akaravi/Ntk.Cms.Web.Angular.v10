@@ -20,8 +20,8 @@ import {
 } from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-core-user-email-confirm",
@@ -143,7 +143,7 @@ export class CoreUserEmailConfirmComponent implements OnInit {
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           this.firstRun = false;
-          this.formInfo.buttonSubmittedEnabled = true;
+          this.formInfo.submitButtonEnabled = true;
           this.onCaptchaOrder();
         }
       },

@@ -15,6 +15,7 @@ import {
   CaptchaModel,
   CoreAuthV3Service,
   FormInfoModel,
+  FormSubmitedStatusEnum,
 } from "ntk-cms-api";
 import { Observable, Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -106,9 +107,12 @@ export class AuthSignUpComponent implements OnInit, OnDestroy {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.enter_your_email_address")
         .subscribe((str: string) => {
-          this.formInfo.formError = str;
-          this.formInfo.formErrorStatus = true;
-          this.cmsToastrService.typeErrorRegistery(this.formInfo.formError);
+          this.formInfo.submitResultMessage = str;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.cmsToastrService.typeErrorRegistery(
+            this.formInfo.submitResultMessage,
+          );
         });
       return;
     }
@@ -116,9 +120,12 @@ export class AuthSignUpComponent implements OnInit, OnDestroy {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.enter_your_name")
         .subscribe((str: string) => {
-          this.formInfo.formError = str;
-          this.formInfo.formErrorStatus = true;
-          this.cmsToastrService.typeErrorRegistery(this.formInfo.formError);
+          this.formInfo.submitResultMessage = str;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.cmsToastrService.typeErrorRegistery(
+            this.formInfo.submitResultMessage,
+          );
         });
       return;
     }
@@ -126,9 +133,12 @@ export class AuthSignUpComponent implements OnInit, OnDestroy {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.enter_your_last_name")
         .subscribe((str: string) => {
-          this.formInfo.formError = str;
-          this.formInfo.formErrorStatus = true;
-          this.cmsToastrService.typeErrorRegistery(this.formInfo.formError);
+          this.formInfo.submitResultMessage = str;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.cmsToastrService.typeErrorRegistery(
+            this.formInfo.submitResultMessage,
+          );
         });
       return;
     }
@@ -136,9 +146,12 @@ export class AuthSignUpComponent implements OnInit, OnDestroy {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.enter_the_password")
         .subscribe((str: string) => {
-          this.formInfo.formError = str;
-          this.formInfo.formErrorStatus = true;
-          this.cmsToastrService.typeErrorRegistery(this.formInfo.formError);
+          this.formInfo.submitResultMessage = str;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.cmsToastrService.typeErrorRegistery(
+            this.formInfo.submitResultMessage,
+          );
         });
       return;
     }
@@ -146,9 +159,12 @@ export class AuthSignUpComponent implements OnInit, OnDestroy {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.re_enter_the_password")
         .subscribe((str: string) => {
-          this.formInfo.formError = str;
-          this.formInfo.formErrorStatus = true;
-          this.cmsToastrService.typeErrorRegistery(this.formInfo.formError);
+          this.formInfo.submitResultMessage = str;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.cmsToastrService.typeErrorRegistery(
+            this.formInfo.submitResultMessage,
+          );
         });
       return;
     }
@@ -156,23 +172,28 @@ export class AuthSignUpComponent implements OnInit, OnDestroy {
       !this.dataModel.captchaText ||
       this.dataModel.captchaText.length === 0
     ) {
-      this.formInfo.formErrorStatus = true;
-      this.cmsToastrService.typeErrorRegistery(this.formInfo.formError);
+      this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+      this.cmsToastrService.typeErrorRegistery(
+        this.formInfo.submitResultMessage,
+      );
       return;
     }
     if (this.dataModel.password !== this.RePasswordModel) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.password_and_re_password_are_different")
         .subscribe((str: string) => {
-          this.formInfo.formError = str;
+          this.formInfo.submitResultMessage = str;
           this.dataModel.password = "";
           this.RePasswordModel = "";
-          this.formInfo.formErrorStatus = true;
-          this.cmsToastrService.typeErrorRegistery(this.formInfo.formError);
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.cmsToastrService.typeErrorRegistery(
+            this.formInfo.submitResultMessage,
+          );
         });
       return;
     }
-    this.formInfo.formErrorStatus = false;
+    this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
     this.dataModel.captchaKey = this.captchaModel.key;
     const pName = this.constructor.name + ".ServiceSignupUser";
     this.translate
@@ -210,7 +231,7 @@ export class AuthSignUpComponent implements OnInit, OnDestroy {
       next: (ret) => {
         if (ret.isSuccess) {
           this.cmsToastrService.typeSuccessRegistery();
-          this.formInfo.formErrorStatus = false;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
           if (!this.loginAuto) {
             setTimeout(() => this.router.navigate(["/"]), 500);
           }
@@ -249,14 +270,14 @@ export class AuthSignUpComponent implements OnInit, OnDestroy {
                     this.router.navigate([ROUTE_SELECT_SITE]);
                   }
                 } else {
-                  this.formInfo.buttonSubmittedEnabled = true;
+                  this.formInfo.submitButtonEnabled = true;
                   this.cmsToastrService.typeErrorLogin(res.errorMessage);
                   setTimeout(() => this.router.navigate(["/"]), 500);
                 }
                 this.publicHelper.processService.processStop(pName2);
               },
               error: (err) => {
-                this.formInfo.buttonSubmittedEnabled = true;
+                this.formInfo.submitButtonEnabled = true;
                 this.cmsToastrService.typeError(err);
                 this.publicHelper.processService.processStop(pName2);
               },
@@ -265,16 +286,17 @@ export class AuthSignUpComponent implements OnInit, OnDestroy {
           /** Login */
         } else {
           this.cmsToastrService.typeErrorRegistery(ret.errorMessage);
-          this.formInfo.buttonSubmittedEnabled = true;
-          this.formInfo.formErrorStatus = true;
+          this.formInfo.submitButtonEnabled = true;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
           this.onCaptchaOrder();
         }
         this.publicHelper.processService.processStop(pName);
       },
       error: (err) => {
         this.cmsToastrService.typeError(err);
-        this.formInfo.formErrorStatus = true;
-        this.formInfo.buttonSubmittedEnabled = true;
+        this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+        this.formInfo.submitButtonEnabled = true;
         this.onCaptchaOrder();
         this.publicHelper.processService.processStop(pName);
       },

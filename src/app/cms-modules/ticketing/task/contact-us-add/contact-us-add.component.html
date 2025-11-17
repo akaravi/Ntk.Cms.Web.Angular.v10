@@ -54,7 +54,9 @@
     <div class="card contact-form">
       <div
         class="content"
-        *ngIf="formInfo?.formSubmitedStatus !== enumFormSubmitedStatus.Success"
+        *ngIf="
+          formInfo?.submitResultMessageType !== enumFormSubmitedStatus.Success
+        "
       >
         <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
           <fieldset>
@@ -176,7 +178,9 @@
 
     <div
       class="form-sent"
-      *ngIf="formInfo?.formSubmitedStatus === enumFormSubmitedStatus.Success"
+      *ngIf="
+        formInfo?.submitResultMessageType === enumFormSubmitedStatus.Success
+      "
     >
       <div class="card card-style">
         <div class="shadow-l rounded-m gradient-green ms-n1 mb-0">

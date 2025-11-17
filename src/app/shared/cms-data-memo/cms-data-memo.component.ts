@@ -15,13 +15,14 @@ import {
   ErrorExceptionResult,
   ErrorExceptionResultBase,
   FormInfoModel,
+  FormSubmitedStatusEnum,
   IApiCmsServerBase,
   TokenInfoModelV3,
 } from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-cms-data-memo",
@@ -30,6 +31,7 @@ import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
   standalone: false,
 })
 export class CmsDataMemoComponent implements OnInit {
+  enumFormSubmitedStatus = FormSubmitedStatusEnum;
   static nextId = 0;
   id = ++CmsDataMemoComponent.nextId;
   service: IApiCmsServerBase;
@@ -54,7 +56,9 @@ export class CmsDataMemoComponent implements OnInit {
       this.formInfo.formTitle = data.title;
     }
     this.formInfo.formDescription = "یادداشت خود را مدیریت کنید";
-
+    this.formInfo.submitResultMessage =
+      "formAlertformAlertformAlertformAlertformAlertformAlert";
+    this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
     ////
     if (!this.service) this.dialogRef.close({ dialogChangedDate: true });
   }
@@ -109,7 +113,7 @@ export class CmsDataMemoComponent implements OnInit {
               this.dataModel.moduleEntityId = this.data.id;
               this.dataModel.subjectTitle = this.data.title;
             }
-            this.formInfo.formAlert = "";
+            this.formInfo.submitResultMessage = "";
           },
           error: (er) => {
             this.cmsToastrService.typeError(er);
@@ -142,9 +146,9 @@ export class CmsDataMemoComponent implements OnInit {
     this.translate
       .get("MESSAGE.sending_information_to_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -158,13 +162,13 @@ export class CmsDataMemoComponent implements OnInit {
 
     this.service.ServiceMemoAdd(this.dataModel).subscribe({
       next: (ret) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         // this.dataModelResultBase = ret;
         if (ret.isSuccess) {
           this.translate
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
           this.cmsToastrService.typeSuccessAdd();
           this.DataGetAll();
@@ -172,15 +176,15 @@ export class CmsDataMemoComponent implements OnInit {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
-          this.formInfo.formError = ret.errorMessage;
+          this.formInfo.submitResultMessage = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
       },
@@ -190,9 +194,9 @@ export class CmsDataMemoComponent implements OnInit {
     this.translate
       .get("MESSAGE.sending_information_to_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -206,13 +210,13 @@ export class CmsDataMemoComponent implements OnInit {
 
     this.service.ServiceMemoDelete(id).subscribe({
       next: (ret) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         // this.dataModelResultBase = ret;
         if (ret.isSuccess) {
           this.translate
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
           this.cmsToastrService.typeSuccessRemove();
           this.DataGetAll();
@@ -221,15 +225,15 @@ export class CmsDataMemoComponent implements OnInit {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
-          this.formInfo.formError = ret.errorMessage;
+          this.formInfo.submitResultMessage = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(er);
         this.publicHelper.processService.processStop(pName, false);
       },
@@ -240,7 +244,7 @@ export class CmsDataMemoComponent implements OnInit {
     if (!this.formGroup.valid) {
       return;
     }
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.DataAddContent();
   }
 

@@ -121,7 +121,7 @@ export class CmsExportListComponent implements OnInit {
         );
       });
     this.dataModelSubmitResult = new ErrorExceptionResultExportFile();
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.requestService.ServiceReportFileGetAll().subscribe({
       next: (ret) => {
         this.dataModelReportFileResult = ret;
@@ -134,13 +134,13 @@ export class CmsExportListComponent implements OnInit {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
 
         this.publicHelper.processService.processStop(pName, false);
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
       },
     });
   }
@@ -165,7 +165,7 @@ export class CmsExportListComponent implements OnInit {
           this.constructorInfoAreaId,
         );
       });
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
 
     this.requestService.ServiceExportFile(this.filterModel).subscribe({
       next: (ret) => {
@@ -174,25 +174,25 @@ export class CmsExportListComponent implements OnInit {
           this.translate
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
         } else {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
-          this.formInfo.formError = ret.errorMessage;
+          this.formInfo.submitResultMessage = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
 
         this.publicHelper.processService.processStop(pName, false);
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
       },
     });
   }

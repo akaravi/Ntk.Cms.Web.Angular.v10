@@ -25,8 +25,8 @@ import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { PoinModel } from "src/app/core/models/pointModel";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-news-config-mainadmin",
@@ -127,13 +127,13 @@ export class NewsConfigMainAdminComponent implements OnInit, OnDestroy {
     this.router.navigate(["/core/site/"]);
   }
   GetServiceSiteConfigDefault(): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.get_information_from_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "ServiceSiteConfigDefault";
     this.translate
       .get("MESSAGE.get_the_module_default_settings")
@@ -146,7 +146,7 @@ export class NewsConfigMainAdminComponent implements OnInit, OnDestroy {
       });
     this.configService.ServiceSiteConfigDefault().subscribe({
       next: (ret) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         if (ret.isSuccess) {
           this.dataConfigSiteValuesDefaultModel = ret.item;
         } else {
@@ -155,20 +155,20 @@ export class NewsConfigMainAdminComponent implements OnInit, OnDestroy {
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeErrorGetOne(er);
         this.publicHelper.processService.processStop(pName, false);
       },
     });
   }
   SetServiceSiteConfigDefaultSave(): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.Saving_Information_On_The_Server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "ServiceSiteConfigDefault";
     this.translate
       .get("MESSAGE.Save_module_default_setting")
@@ -188,24 +188,24 @@ export class NewsConfigMainAdminComponent implements OnInit, OnDestroy {
           } else {
             this.cmsToastrService.typeErrorGetOne(ret.errorMessage);
           }
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.publicHelper.processService.processStop(pName);
         },
         error: (er) => {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.cmsToastrService.typeErrorGetOne(er);
           this.publicHelper.processService.processStop(pName, false);
         },
       });
   }
   GetServiceSiteAccessDefault(): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.get_information_from_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "ServiceSiteAccessDefault";
     this.translate
       .get("MESSAGE.get_the_module_default_access")
@@ -218,7 +218,7 @@ export class NewsConfigMainAdminComponent implements OnInit, OnDestroy {
       });
     this.configService.ServiceSiteAccessDefault().subscribe({
       next: (ret) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         if (ret.isSuccess) {
           this.dataConfigSiteAccessValuesDefaultModel = ret.item;
         } else {
@@ -227,20 +227,20 @@ export class NewsConfigMainAdminComponent implements OnInit, OnDestroy {
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeErrorGetOne(er);
         this.publicHelper.processService.processStop(pName, false);
       },
     });
   }
   SetServiceSiteAccessDefaultSave(): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.Saving_Information_On_The_Server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "ServiceSiteAccessDefaultSave";
     this.translate
       .get("MESSAGE.Save_the_module_default_access")
@@ -255,7 +255,7 @@ export class NewsConfigMainAdminComponent implements OnInit, OnDestroy {
       .ServiceSiteAccessDefaultSave(this.dataConfigSiteAccessValuesDefaultModel)
       .subscribe({
         next: (ret) => {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           if (ret.isSuccess) {
             this.dataConfigSiteAccessValuesDefaultModel = ret.item;
           } else {
@@ -264,20 +264,20 @@ export class NewsConfigMainAdminComponent implements OnInit, OnDestroy {
           this.publicHelper.processService.processStop(pName);
         },
         error: (er) => {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.cmsToastrService.typeErrorGetOne(er);
           this.publicHelper.processService.processStop(pName, false);
         },
       });
   }
   GetServiceAdminMain(): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.get_information_from_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "ServiceAdminMain";
     this.translate
       .get("MESSAGE.get_module_setting")
@@ -290,7 +290,7 @@ export class NewsConfigMainAdminComponent implements OnInit, OnDestroy {
       });
     this.configService.ServiceAdminMain().subscribe({
       next: (ret) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         if (ret.isSuccess) {
           this.dataConfigAdminMainModel = ret.item;
         } else {
@@ -299,20 +299,20 @@ export class NewsConfigMainAdminComponent implements OnInit, OnDestroy {
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeErrorGetOne(er);
         this.publicHelper.processService.processStop(pName, false);
       },
     });
   }
   SetServiceAdminMainSave(): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.Saving_Information_On_The_Server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "ServiceAdminMain";
     this.translate
       .get("MESSAGE.Save_module_setting")
@@ -327,7 +327,7 @@ export class NewsConfigMainAdminComponent implements OnInit, OnDestroy {
       .ServiceAdminMainSave(this.dataConfigAdminMainModel)
       .subscribe({
         next: (ret) => {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           if (ret.isSuccess) {
             this.dataConfigAdminMainModel = ret.item;
           } else {
@@ -336,7 +336,7 @@ export class NewsConfigMainAdminComponent implements OnInit, OnDestroy {
           this.publicHelper.processService.processStop(pName);
         },
         error: (er) => {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.cmsToastrService.typeErrorGetOne(er);
           this.publicHelper.processService.processStop(pName, false);
         },

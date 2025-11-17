@@ -133,7 +133,7 @@ export class CoreUserMobileConfirmComponent implements OnInit {
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           this.firstRun = false;
-          this.formInfo.buttonSubmittedEnabled = true;
+          this.formInfo.submitButtonEnabled = true;
           this.onCaptchaOrder();
         }
       },

@@ -69,7 +69,7 @@
             name="dataModel.captchaText"
             #captchaText
             id="dataModel.captchaText"
-            [disabled]="!formInfo.buttonSubmittedEnabled"
+            [disabled]="!formInfo.submitButtonEnabled"
             type="text"
             class="form-control validate-name input-ltr-center"
             placeholder="{{ 'AUTH.INPUT.CAPTCHACODE' | translate }}"
@@ -90,7 +90,7 @@
           </mat-error>
         </div>
       </ng-container>
-      <div class="form-actions" *ngIf="formInfo.formSubmitAllow">
+      <div class="form-actions" *ngIf="formInfo.submitButtonEnabled">
         <button
           type="button"
           (click)="onFormCancel()"

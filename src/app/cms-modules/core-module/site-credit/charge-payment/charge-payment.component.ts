@@ -120,7 +120,7 @@ export class CoreModuleSiteCreditChargePaymentComponent implements OnInit {
       });
   }
   DataPayment(): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     const pName = this.constructor.name + "ServiceOrderPayment";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -150,13 +150,13 @@ export class CoreModuleSiteCreditChargePaymentComponent implements OnInit {
               this.dataModelPaymentResult.item.urlToPay;
           } else {
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-            this.formInfo.formSubmitAllow = true;
+            this.formInfo.submitButtonEnabled = true;
           }
           this.publicHelper.processService.processStop(pName);
         },
         error: (er) => {
           this.cmsToastrService.typeError(er);
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.publicHelper.processService.processStop(pName);
         },
       });

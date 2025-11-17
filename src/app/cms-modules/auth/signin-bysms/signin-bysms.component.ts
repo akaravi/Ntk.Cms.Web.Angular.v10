@@ -150,7 +150,7 @@ export class AuthSignInBySmsComponent implements OnInit, OnDestroy {
       this.dataModelAuthUserSignInBySms.code = "";
     }
 
-    this.formInfo.buttonSubmittedEnabled = false;
+    this.formInfo.submitButtonEnabled = false;
     this.errorState = ErrorStates.NotSubmitted;
     this.dataModelAuthUserSignInBySms.captchaKey = this.captchaModel.key;
     this.dataModelAuthUserSignInBySms.lang =
@@ -202,7 +202,7 @@ export class AuthSignInBySmsComponent implements OnInit, OnDestroy {
           } else {
             this.cmsToastrService.typeErrorMessage(res.errorMessage);
           }
-          this.formInfo.buttonSubmittedEnabled = true;
+          this.formInfo.submitButtonEnabled = true;
           if (this.countAutoCaptchaOrder < 10) {
             if (!this.captchaModel || this.diffSeconds < 2) {
               this.onCaptchaOrder();
@@ -212,7 +212,7 @@ export class AuthSignInBySmsComponent implements OnInit, OnDestroy {
         },
         error: (er) => {
           this.cmsToastrService.typeError(er);
-          this.formInfo.buttonSubmittedEnabled = true;
+          this.formInfo.submitButtonEnabled = true;
           this.onCaptchaOrder();
           this.publicHelper.processService.processStop(pName);
         },
@@ -224,7 +224,7 @@ export class AuthSignInBySmsComponent implements OnInit, OnDestroy {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   onActionSubmitEntryPinCode(): void {
-    this.formInfo.buttonSubmittedEnabled = false;
+    this.formInfo.submitButtonEnabled = false;
     this.errorState = ErrorStates.NotSubmitted;
     this.dataModelAuthUserSignInBySms.captchaKey = this.captchaModel.key;
     this.dataModelAuthUserSignInBySms.lang =
@@ -268,7 +268,7 @@ export class AuthSignInBySmsComponent implements OnInit, OnDestroy {
         next: (res) => {
           if (res.isSuccess) {
             this.cmsToastrService.typeSuccessLogin();
-            this.formInfo.buttonSubmittedEnabled = false;
+            this.formInfo.submitButtonEnabled = false;
             this.coreAuthService.ServiceCurrentToken().subscribe({
               next: (ret) => {
                 if (ret.isSuccess) {
@@ -296,12 +296,12 @@ export class AuthSignInBySmsComponent implements OnInit, OnDestroy {
             this.onCaptchaOrder();
             this.cmsToastrService.typeErrorMessage(res.errorMessage);
           }
-          this.formInfo.buttonSubmittedEnabled = true;
+          this.formInfo.submitButtonEnabled = true;
           this.publicHelper.processService.processStop(pName);
         },
         error: (er) => {
           this.cmsToastrService.typeError(er);
-          this.formInfo.buttonSubmittedEnabled = true;
+          this.formInfo.submitButtonEnabled = true;
           this.onCaptchaOrder();
           this.publicHelper.processService.processStop(pName);
         },

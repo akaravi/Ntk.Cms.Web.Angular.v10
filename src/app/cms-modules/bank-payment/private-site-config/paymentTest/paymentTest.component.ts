@@ -105,7 +105,7 @@ export class BankPaymentPrivateSiteConfigPaymentTestComponent
     if (!this.dataModel.amount || this.dataModel.amount <= 0) {
       this.cmsToastrService.typeErrorFormInvalid();
     }
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -121,7 +121,7 @@ export class BankPaymentPrivateSiteConfigPaymentTestComponent
       .ServiceTestPay(this.dataModel)
       .subscribe({
         next: (ret) => {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.dataModelResult = ret;
           if (ret.isSuccess) {
             localStorage.setItem(
@@ -131,7 +131,7 @@ export class BankPaymentPrivateSiteConfigPaymentTestComponent
             this.translate
               .get("MESSAGE.Payment_request_was_successfully_registered")
               .subscribe((str: string) => {
-                this.formInfo.formAlert = str;
+                this.formInfo.submitResultMessage = str;
                 this.cmsToastrService.typeSuccessMessage(str);
               });
             this.dataModelResultGotoBank = true;
@@ -139,15 +139,15 @@ export class BankPaymentPrivateSiteConfigPaymentTestComponent
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
               .subscribe((str: string) => {
-                this.formInfo.formAlert = str;
+                this.formInfo.submitResultMessage = str;
               });
-            this.formInfo.formError = ret.errorMessage;
+            this.formInfo.submitResultMessage = ret.errorMessage;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
         },
         error: (err) => {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.cmsToastrService.typeError(err);
           this.publicHelper.processService.processStop(pName);
         },

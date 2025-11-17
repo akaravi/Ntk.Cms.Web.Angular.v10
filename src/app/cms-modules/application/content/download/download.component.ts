@@ -33,13 +33,13 @@ export class ApplicationAppDownloadComponent implements OnInit {
     this.DataGetOne(this.dataModel.id);
   }
   DataGetOne(requestId: number): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.get_information_from_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "ServiceGetOneById";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -52,7 +52,7 @@ export class ApplicationAppDownloadComponent implements OnInit {
       });
     this.applicationAppService.ServiceGetOneById(requestId).subscribe({
       next: (ret) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         if (ret.isSuccess) {
           this.dataModel = ret.item;
         } else {
@@ -61,7 +61,7 @@ export class ApplicationAppDownloadComponent implements OnInit {
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeErrorGetOne(er);
         this.publicHelper.processService.processStop(pName, false);
       },

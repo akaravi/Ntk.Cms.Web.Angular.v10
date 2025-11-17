@@ -69,7 +69,7 @@ export class AuthForgotPasswordComponent implements OnInit {
     });
   }
   onActionSubmitOrderCodeBySms(): void {
-    this.formInfo.buttonSubmittedEnabled = false;
+    this.formInfo.submitButtonEnabled = false;
     this.errorState = ErrorStates.NotSubmitted;
     this.dataModelforgetPasswordBySms.captchaKey = this.captchaModel.key;
     this.dataModelforgetPasswordEntryPinCode.email = "";
@@ -99,20 +99,20 @@ export class AuthForgotPasswordComponent implements OnInit {
           } else {
             this.cmsToastrService.typeErrorMessage(res.errorMessage);
           }
-          this.formInfo.buttonSubmittedEnabled = true;
+          this.formInfo.submitButtonEnabled = true;
           this.onCaptchaOrder();
           this.publicHelper.processService.processStop(pName);
         },
         error: (er) => {
           this.cmsToastrService.typeError(er);
-          this.formInfo.buttonSubmittedEnabled = true;
+          this.formInfo.submitButtonEnabled = true;
           this.onCaptchaOrder();
           this.publicHelper.processService.processStop(pName);
         },
       });
   }
   onActionSubmitOrderCodeByEmail(): void {
-    this.formInfo.buttonSubmittedEnabled = false;
+    this.formInfo.submitButtonEnabled = false;
     this.errorState = ErrorStates.NotSubmitted;
     this.dataModelforgetPasswordByEmail.captchaKey = this.captchaModel.key;
     this.dataModelforgetPasswordEntryPinCode.mobile = "";
@@ -142,20 +142,20 @@ export class AuthForgotPasswordComponent implements OnInit {
           } else {
             this.cmsToastrService.typeErrorMessage(res.errorMessage);
           }
-          this.formInfo.buttonSubmittedEnabled = true;
+          this.formInfo.submitButtonEnabled = true;
           this.onCaptchaOrder();
           this.publicHelper.processService.processStop(pName);
         },
         error: (er) => {
           this.cmsToastrService.typeError(er);
-          this.formInfo.buttonSubmittedEnabled = true;
+          this.formInfo.submitButtonEnabled = true;
           this.onCaptchaOrder();
           this.publicHelper.processService.processStop(pName);
         },
       });
   }
   onActionSubmitEntryPinCode(): void {
-    this.formInfo.buttonSubmittedEnabled = false;
+    this.formInfo.submitButtonEnabled = false;
     this.errorState = ErrorStates.NotSubmitted;
     this.dataModelforgetPasswordEntryPinCode.captchaKey = this.captchaModel.key;
     const pName = this.constructor.name + ".ServiceForgetPasswordEntryPinCode";
@@ -187,13 +187,13 @@ export class AuthForgotPasswordComponent implements OnInit {
           } else {
             this.cmsToastrService.typeErrorMessage(res.errorMessage);
           }
-          this.formInfo.buttonSubmittedEnabled = true;
+          this.formInfo.submitButtonEnabled = true;
           this.onCaptchaOrder();
           this.publicHelper.processService.processStop(pName);
         },
         error: (er) => {
           this.cmsToastrService.typeError(er);
-          this.formInfo.buttonSubmittedEnabled = true;
+          this.formInfo.submitButtonEnabled = true;
           this.onCaptchaOrder();
           this.publicHelper.processService.processStop(pName);
         },

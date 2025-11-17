@@ -182,7 +182,7 @@
         ></mat-datepicker-toggle>
         <mat-datepicker touchUi #EndDate></mat-datepicker>
       </div>
-      <div class="form-actions" *ngIf="formInfo.formSubmitAllow">
+      <div class="form-actions" *ngIf="formInfo.submitButtonEnabled">
         <button
           type="button"
           (click)="onFormCancel()"

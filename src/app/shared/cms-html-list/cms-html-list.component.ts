@@ -216,9 +216,9 @@ export class CmsHtmlListComponent implements OnInit, OnDestroy {
       <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
     </ng-container>
     <ng-container  cms-message>
-      <!--begin:::::::::::::::::::::::::::::::::::::::::cms-message-->
+      <!--begin:::::::::::::::::::::::::::::::::::::::::cms-message -->
       --------------------------------------
-      <!--end:::::::::::::::::::::::::::::::::::::::::cms-message-->
+      <!--end:::::::::::::::::::::::::::::::::::::::::cms-message -->
     </ng-container>
     <ng-container  cms-footer>
       <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->

@@ -22,8 +22,8 @@ import {
 } from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-cms-site-credit-view",
@@ -90,9 +90,9 @@ export class CmsSiteCreditViewComponent implements OnInit {
     this.translate
       .get("MESSAGE.Receiving_Information_From_The_Server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -115,14 +115,14 @@ export class CmsSiteCreditViewComponent implements OnInit {
           if (ret.isSuccess) {
             this.formInfo.formTitle =
               this.formInfo.formTitle + " " + ret.item.linkSiteId;
-            this.formInfo.formAlert = "";
+            this.formInfo.submitResultMessage = "";
           } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
               .subscribe((str: string) => {
-                this.formInfo.formAlert = str;
+                this.formInfo.submitResultMessage = str;
               });
-            this.formInfo.formError = ret.errorMessage;
+            this.formInfo.submitResultMessage = ret.errorMessage;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -138,9 +138,9 @@ export class CmsSiteCreditViewComponent implements OnInit {
     this.translate
       .get("MESSAGE.Receiving_Information_From_The_Server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -161,14 +161,14 @@ export class CmsSiteCreditViewComponent implements OnInit {
           if (ret.isSuccess) {
             this.formInfo.formTitle =
               this.formInfo.formTitle + " " + ret.item.title;
-            this.formInfo.formAlert = "";
+            this.formInfo.submitResultMessage = "";
           } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
               .subscribe((str: string) => {
-                this.formInfo.formAlert = str;
+                this.formInfo.submitResultMessage = str;
               });
-            this.formInfo.formError = ret.errorMessage;
+            this.formInfo.submitResultMessage = ret.errorMessage;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -184,7 +184,7 @@ export class CmsSiteCreditViewComponent implements OnInit {
     if (!this.formGroup.valid) {
       return;
     }
-    // this.formInfo.formSubmitAllow = false;
+    // this.formInfo.submitButtonEnabled = false;
     // if (this.ComponentAction === ComponentActionEnum.add) {
     //   this.DataAddContent();
     // }

@@ -234,7 +234,7 @@
             [(ngModel)]="dataModel.body"
             name="dataModel.body"
           ></angular-editor>
-          <div *ngIf="formInfo.formSubmitAllow" class="ntk-button-row">
+          <div *ngIf="formInfo.submitButtonEnabled" class="ntk-button-row">
             <button
               type="button"
               class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
@@ -257,7 +257,7 @@
             [(optionModel)]="dataModel.linkEstatePropertySupplierCategoryIds"
           ></app-estate-property-supplier-category-treeselector>
           <br />
-          <div *ngIf="formInfo.formSubmitAllow" class="ntk-button-row">
+          <div *ngIf="formInfo.submitButtonEnabled" class="ntk-button-row">
             <button
               type="button"
               class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
@@ -339,7 +339,7 @@
               />
             </mat-chip-grid>
           </mat-form-field>
-          <div *ngIf="formInfo.formSubmitAllow" class="ntk-button-row">
+          <div *ngIf="formInfo.submitButtonEnabled" class="ntk-button-row">
             <button
               type="button"
               class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
@@ -511,7 +511,7 @@
             [(dataModel)]="dataModel.file360Tour"
             [dataImageModel]="dataModel.file360Views"
           ></app-cms-360-tour-list>
-          <div *ngIf="formInfo.formSubmitAllow" class="ntk-button-row">
+          <div *ngIf="formInfo.submitButtonEnabled" class="ntk-button-row">
             <button
               type="button"
               class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
@@ -552,7 +552,7 @@
             </button>
             <button
               type="submit"
-              *ngIf="formInfo.formSubmitAllow"
+              *ngIf="formInfo.submitButtonEnabled"
               class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
               [disabled]="!vform.form.valid"
             >

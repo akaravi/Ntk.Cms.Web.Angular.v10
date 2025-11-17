@@ -111,9 +111,9 @@ export class EstatePropertyCompanyQuickViewComponent
     this.translate
       .get("MESSAGE.Receiving_Information_From_The_Server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -141,14 +141,14 @@ export class EstatePropertyCompanyQuickViewComponent
 
           if (ret.isSuccess) {
             this.formInfo.formTitle = this.formInfo.formTitle;
-            this.formInfo.formAlert = "";
+            this.formInfo.submitResultMessage = "";
           } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
               .subscribe((str: string) => {
-                this.formInfo.formAlert = str;
+                this.formInfo.submitResultMessage = str;
               });
-            this.formInfo.formError = ret.errorMessage;
+            this.formInfo.submitResultMessage = ret.errorMessage;
             this.errorMessage =
               ret.errorMessage + "<br> ( " + ret.errorTypeTitle + " ) ";
             this.cmsToastrService.typeErrorMessage(this.errorMessage);

@@ -84,7 +84,7 @@
         </select>
         <em>{{ "MESSAGE.Enter_Time_Duration_In_Minutes" | translate }}</em>
       </div>
-      <div class="form-actions" *ngIf="formInfo.formSubmitAllow">
+      <div class="form-actions" *ngIf="formInfo.submitButtonEnabled">
         <button
           type="submit"
           *ngIf="showFormAdd"

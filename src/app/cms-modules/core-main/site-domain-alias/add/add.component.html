@@ -97,7 +97,7 @@
         />
         <em>{{ ConfigNeshanMapApiKey.value.length }} / 100</em>
       </div>
-      <div class="form-actions" *ngIf="formInfo.formSubmitAllow">
+      <div class="form-actions" *ngIf="formInfo.submitButtonEnabled">
         <button
           type="button"
           (click)="onFormCancel()"

@@ -1,6 +1,11 @@
 import { StepperSelectionEvent } from "@angular/cdk/stepper";
-import { OnDestroy } from "@angular/core";
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
@@ -20,8 +25,8 @@ import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { PoinModel } from "src/app/core/models/pointModel";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-news-config-site",
@@ -125,13 +130,13 @@ export class NewsConfigSiteComponent implements OnInit, OnDestroy {
     this.router.navigate(["/core/site/"]);
   }
   GetServiceSiteStorage(SiteId: number): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.get_information_from_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "ServiceSiteStorage";
     this.translate
       .get("MESSAGE.get_saved_module_values")
@@ -144,30 +149,30 @@ export class NewsConfigSiteComponent implements OnInit, OnDestroy {
       });
     this.configService.ServiceSiteStorage(SiteId).subscribe({
       next: (ret) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         if (ret.isSuccess) {
           this.dataSiteStorageModel = ret.item;
         } else {
           this.cmsToastrService.typeErrorGetOne(ret.errorMessage);
         }
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeErrorGetOne(er);
         this.publicHelper.processService.processStop(pName, false);
       },
     });
   }
   SetServiceSiteStorageSave(SiteId: number): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.Saving_Information_On_The_Server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "ServiceSiteStorageSave";
     this.translate
       .get("MESSAGE.Save_the_stored_values_of_the_module")
@@ -182,17 +187,17 @@ export class NewsConfigSiteComponent implements OnInit, OnDestroy {
       .ServiceSiteStorageSave(SiteId, this.dataSiteStorageModel)
       .subscribe({
         next: (ret) => {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           if (ret.isSuccess) {
             this.dataSiteStorageModel = ret.item;
           } else {
             this.cmsToastrService.typeErrorGetOne(ret.errorMessage);
           }
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.publicHelper.processService.processStop(pName);
         },
         error: (er) => {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.cmsToastrService.typeErrorGetOne(er);
           this.publicHelper.processService.processStop(pName, false);
         },
@@ -200,13 +205,13 @@ export class NewsConfigSiteComponent implements OnInit, OnDestroy {
   }
   GetServiceSiteConfig(SiteId: number): void {
     if (!(SiteId && SiteId > 0)) return;
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.get_information_from_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "ServiceSiteConfig";
     this.translate
       .get("MESSAGE.get_module_setting")
@@ -224,24 +229,24 @@ export class NewsConfigSiteComponent implements OnInit, OnDestroy {
         } else {
           this.cmsToastrService.typeErrorGetOne(ret.errorMessage);
         }
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeErrorGetOne(er);
         this.publicHelper.processService.processStop(pName, false);
       },
     });
   }
   SetServiceSiteConfigSave(SiteId: number): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.Saving_Information_On_The_Server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "ServiceSiteConfigSave";
     this.translate
       .get("MESSAGE.Save_module_setting")
@@ -261,24 +266,24 @@ export class NewsConfigSiteComponent implements OnInit, OnDestroy {
           } else {
             this.cmsToastrService.typeErrorGetOne(ret.errorMessage);
           }
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.publicHelper.processService.processStop(pName);
         },
         error: (er) => {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.cmsToastrService.typeErrorGetOne(er);
           this.publicHelper.processService.processStop(pName, false);
         },
       });
   }
   GetServiceSiteAccess(SiteId: number): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.get_information_from_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "ServiceSiteAccess";
     this.translate.get("MESSAGE.get_module_access").subscribe((str: string) => {
       this.publicHelper.processService.processStart(
@@ -294,24 +299,24 @@ export class NewsConfigSiteComponent implements OnInit, OnDestroy {
         } else {
           this.cmsToastrService.typeErrorGetOne(ret.errorMessage);
         }
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeErrorGetOne(er);
         this.publicHelper.processService.processStop(pName, false);
       },
     });
   }
   SetServiceSiteAccessSave(SiteId: number): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.Saving_Information_On_The_Server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "ServiceSiteAccessSave";
     this.translate
       .get("MESSAGE.Save_module_access")
@@ -331,11 +336,11 @@ export class NewsConfigSiteComponent implements OnInit, OnDestroy {
           } else {
             this.cmsToastrService.typeErrorGetOne(ret.errorMessage);
           }
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.publicHelper.processService.processStop(pName);
         },
         error: (er) => {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.cmsToastrService.typeErrorGetOne(er);
           this.publicHelper.processService.processStop(pName, false);
         },

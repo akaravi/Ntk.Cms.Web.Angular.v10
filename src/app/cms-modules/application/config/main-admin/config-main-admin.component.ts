@@ -133,13 +133,13 @@ export class ApplicationConfigMainAdminComponent implements OnInit, OnDestroy {
   }
 
   GetServiceSiteConfigDefault(): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.get_information_from_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
 
     const pName = this.constructor.name + "ServiceSiteConfigDefault";
     this.translate
@@ -153,7 +153,7 @@ export class ApplicationConfigMainAdminComponent implements OnInit, OnDestroy {
       });
     this.configService.ServiceSiteConfigDefault().subscribe({
       next: (ret) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         if (ret.isSuccess) {
           this.dataConfigSiteValuesDefaultModel = ret.item;
         } else {
@@ -162,20 +162,20 @@ export class ApplicationConfigMainAdminComponent implements OnInit, OnDestroy {
         this.publicHelper.processService.processStop(pName);
       },
       error: (err) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeErrorGetOne(err);
         this.publicHelper.processService.processStop(pName);
       },
     });
   }
   SetServiceSiteConfigDefaultSave(): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.Saving_Information_On_The_Server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
 
     const pName = this.constructor.name + "ServiceSiteConfigDefault";
     this.translate
@@ -196,11 +196,11 @@ export class ApplicationConfigMainAdminComponent implements OnInit, OnDestroy {
           } else {
             this.cmsToastrService.typeErrorGetOne(ret.errorMessage);
           }
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.publicHelper.processService.processStop(pName);
         },
         error: (err) => {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.cmsToastrService.typeErrorGetOne(err);
           this.publicHelper.processService.processStop(pName);
         },
@@ -208,13 +208,13 @@ export class ApplicationConfigMainAdminComponent implements OnInit, OnDestroy {
   }
 
   GetServiceSiteAccessDefault(): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.get_information_from_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
 
     const pName = this.constructor.name + "ServiceSiteAccessDefault";
     this.translate
@@ -228,7 +228,7 @@ export class ApplicationConfigMainAdminComponent implements OnInit, OnDestroy {
       });
     this.configService.ServiceSiteAccessDefault().subscribe({
       next: (ret) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         if (ret.isSuccess) {
           this.dataConfigSiteAccessValuesDefaultModel = ret.item;
         } else {
@@ -237,20 +237,20 @@ export class ApplicationConfigMainAdminComponent implements OnInit, OnDestroy {
         this.publicHelper.processService.processStop(pName);
       },
       error: (err) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeErrorGetOne(err);
         this.publicHelper.processService.processStop(pName);
       },
     });
   }
   SetServiceSiteAccessDefaultSave(): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.Saving_Information_On_The_Server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
 
     const pName = this.constructor.name + "ServiceSiteAccessDefaultSave";
     this.translate
@@ -266,7 +266,7 @@ export class ApplicationConfigMainAdminComponent implements OnInit, OnDestroy {
       .ServiceSiteAccessDefaultSave(this.dataConfigSiteAccessValuesDefaultModel)
       .subscribe({
         next: (ret) => {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           if (ret.isSuccess) {
             this.dataConfigSiteAccessValuesDefaultModel = ret.item;
           } else {
@@ -275,20 +275,20 @@ export class ApplicationConfigMainAdminComponent implements OnInit, OnDestroy {
           this.publicHelper.processService.processStop(pName);
         },
         error: (err) => {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.cmsToastrService.typeErrorGetOne(err);
           this.publicHelper.processService.processStop(pName);
         },
       });
   }
   GetServiceAdminMain(): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.get_information_from_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
 
     const pName = this.constructor.name + "ServiceAdminMain";
     this.translate
@@ -302,7 +302,7 @@ export class ApplicationConfigMainAdminComponent implements OnInit, OnDestroy {
       });
     this.configService.ServiceAdminMain().subscribe({
       next: (ret) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         if (ret.isSuccess) {
           this.dataConfigAdminMainModel = ret.item;
         } else {
@@ -311,20 +311,20 @@ export class ApplicationConfigMainAdminComponent implements OnInit, OnDestroy {
         this.publicHelper.processService.processStop(pName);
       },
       error: (err) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeErrorGetOne(err);
         this.publicHelper.processService.processStop(pName);
       },
     });
   }
   SetServiceAdminMainSave(): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.Saving_Information_On_The_Server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
 
     const pName = this.constructor.name + "ServiceAdminMain";
     this.translate
@@ -340,7 +340,7 @@ export class ApplicationConfigMainAdminComponent implements OnInit, OnDestroy {
       .ServiceAdminMainSave(this.dataConfigAdminMainModel)
       .subscribe({
         next: (ret) => {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           if (ret.isSuccess) {
             this.dataConfigAdminMainModel = ret.item;
           } else {
@@ -349,7 +349,7 @@ export class ApplicationConfigMainAdminComponent implements OnInit, OnDestroy {
           this.publicHelper.processService.processStop(pName);
         },
         error: (err) => {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.cmsToastrService.typeErrorGetOne(err);
           this.publicHelper.processService.processStop(pName);
         },

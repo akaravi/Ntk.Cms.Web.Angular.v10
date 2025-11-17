@@ -36,7 +36,7 @@
         [optionPlaceholder]="'TITLE.Category' | translate"
       >
       </app-data-provider-plan-category-selector>
-      <div class="form-actions" *ngIf="formInfo.formSubmitAllow">
+      <div class="form-actions" *ngIf="formInfo.submitButtonEnabled">
         <button
           type="button"
           (click)="onFormCancel()"

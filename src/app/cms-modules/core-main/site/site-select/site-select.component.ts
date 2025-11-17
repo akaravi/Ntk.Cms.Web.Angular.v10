@@ -121,11 +121,11 @@ export class CoreSiteSiteSelectComponent implements OnInit {
     });
   }
   onActionClickSelectSite(id: number): void {
-    if (!this.formInfo.buttonSubmittedEnabled) {
+    if (!this.formInfo.submitButtonEnabled) {
       return;
     }
     this.selectSiteId = id;
-    this.formInfo.buttonSubmittedEnabled = false;
+    this.formInfo.submitButtonEnabled = false;
     let authModel: AuthRefreshTokenModel;
     authModel = new AuthRefreshTokenModel();
     authModel.siteId = id;
@@ -164,13 +164,13 @@ export class CoreSiteSiteSelectComponent implements OnInit {
           /**Select Site */
         } else {
           this.cmsToastrService.typeErrorSelected();
-          this.formInfo.buttonSubmittedEnabled = true;
+          this.formInfo.submitButtonEnabled = true;
         }
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
-        this.formInfo.buttonSubmittedEnabled = true;
+        this.formInfo.submitButtonEnabled = true;
         this.publicHelper.processService.processStop(pName);
       },
     });

@@ -141,13 +141,13 @@ export class LinkManagementBillboardAddComponent
   }
 
   DataGetOne(): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.get_information_from_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -166,7 +166,7 @@ export class LinkManagementBillboardAddComponent
           this.publicHelper.processService.processStop(pName);
 
           this.dataModelResult = ret;
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
 
           if (ret.isSuccess) {
             this.dataModel = ret.item;
@@ -179,7 +179,7 @@ export class LinkManagementBillboardAddComponent
         error: (er) => {
           this.publicHelper.processService.processStop(pName);
 
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.cmsToastrService.typeErrorGetOne(er);
         },
       });
@@ -188,13 +188,13 @@ export class LinkManagementBillboardAddComponent
   DataAddContent(): void {
     //! for convert color to hex
     this.dataModel.bgColor = this.dataModel.bgColor?.toString();
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.sending_information_to_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -217,25 +217,25 @@ export class LinkManagementBillboardAddComponent
         } else {
           this.cmsToastrService.typeErrorAdd(ret.errorMessage);
         }
-        this.formInfo.formAlert = "";
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitResultMessage = "";
+        this.formInfo.submitButtonEnabled = true;
       },
       error: (er) => {
         this.publicHelper.processService.processStop(pName);
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeErrorAdd(er);
       },
     });
   }
 
   DataEditContent(): void {
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.translate
       .get("MESSAGE.sending_information_to_the_server")
       .subscribe((str: string) => {
-        this.formInfo.formAlert = str;
+        this.formInfo.submitResultMessage = str;
       });
-    this.formInfo.formError = "";
+    this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -250,7 +250,7 @@ export class LinkManagementBillboardAddComponent
     this.linkManagementBillboardService.ServiceEdit(this.dataModel).subscribe({
       next: (ret) => {
         this.publicHelper.processService.processStop(pName);
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         //this.dataModelResult = ret;
         if (ret.isSuccess) {
           /**Get One */
@@ -269,7 +269,7 @@ export class LinkManagementBillboardAddComponent
               next: (ret) => {
                 this.publicHelper.processService.processStop(pName);
 
-                this.formInfo.formSubmitAllow = true;
+                this.formInfo.submitButtonEnabled = true;
                 this.dataModelResult = ret;
                 if (ret.isSuccess) {
                   this.dataModel = ret.item;
@@ -280,7 +280,7 @@ export class LinkManagementBillboardAddComponent
               },
               error: (er) => {
                 this.publicHelper.processService.processStop(pName);
-                this.formInfo.formSubmitAllow = true;
+                this.formInfo.submitButtonEnabled = true;
                 this.cmsToastrService.typeError(er);
               },
             });
@@ -288,7 +288,7 @@ export class LinkManagementBillboardAddComponent
           this.translate
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
           this.cmsToastrService.typeSuccessEdit();
 
@@ -303,7 +303,7 @@ export class LinkManagementBillboardAddComponent
       },
       error: (er) => {
         this.publicHelper.processService.processStop(pName);
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(er);
       },
     });
@@ -354,21 +354,21 @@ export class LinkManagementBillboardAddComponent
             this.translate
               .get("MESSAGE.registration_in_this_group_was_successful")
               .subscribe((str: string) => {
-                this.formInfo.formAlert = str;
+                this.formInfo.submitResultMessage = str;
               });
             this.cmsToastrService.typeSuccessEdit();
           } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
               .subscribe((str: string) => {
-                this.formInfo.formAlert = str;
+                this.formInfo.submitResultMessage = str;
               });
-            this.formInfo.formError = ret.errorMessage;
+            this.formInfo.submitResultMessage = ret.errorMessage;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
         },
         error: (er) => {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.cmsToastrService.typeError(er);
         },
       });
@@ -393,21 +393,21 @@ export class LinkManagementBillboardAddComponent
           this.translate
             .get("MESSAGE.registration_in_this_group_was_successful")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
           this.cmsToastrService.typeSuccessEdit();
         } else {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
             .subscribe((str: string) => {
-              this.formInfo.formAlert = str;
+              this.formInfo.submitResultMessage = str;
             });
-          this.formInfo.formError = ret.errorMessage;
+          this.formInfo.submitResultMessage = ret.errorMessage;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(er);
       },
     });

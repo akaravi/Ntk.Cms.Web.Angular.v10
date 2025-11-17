@@ -1,10 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  Inject,
-  OnDestroy,
-  OnInit,
-} from "@angular/core";
+import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
@@ -24,8 +18,8 @@ import {
 import { Observable } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-cms-export-entity",
@@ -136,7 +130,7 @@ export class CmsExportEntityComponent implements OnInit, OnDestroy {
         );
       });
     this.dataModelSubmitResult = new ErrorExceptionResultExportFile();
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
     this.requestService.ServiceReportFileGetAll().subscribe({
       next: (ret) => {
         this.dataModelReportFileResult = ret;
@@ -149,13 +143,13 @@ export class CmsExportEntityComponent implements OnInit, OnDestroy {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
 
         this.publicHelper.processService.processStop(pName, false);
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
       },
     });
   }
@@ -176,7 +170,7 @@ export class CmsExportEntityComponent implements OnInit, OnDestroy {
           this.constructorInfoAreaId,
         );
       });
-    this.formInfo.formSubmitAllow = false;
+    this.formInfo.submitButtonEnabled = false;
 
     this.requestService
       .ServiceExportFileGetOne(this.requestId, this.dataModel)
@@ -187,25 +181,25 @@ export class CmsExportEntityComponent implements OnInit, OnDestroy {
             this.translate
               .get("MESSAGE.registration_completed_successfully")
               .subscribe((str: string) => {
-                this.formInfo.formAlert = str;
+                this.formInfo.submitResultMessage = str;
               });
           } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
               .subscribe((str: string) => {
-                this.formInfo.formAlert = str;
+                this.formInfo.submitResultMessage = str;
               });
-            this.formInfo.formError = ret.errorMessage;
+            this.formInfo.submitResultMessage = ret.errorMessage;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
         },
         error: (er) => {
           this.cmsToastrService.typeError(er);
 
           this.publicHelper.processService.processStop(pName, false);
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
         },
       });
   }
