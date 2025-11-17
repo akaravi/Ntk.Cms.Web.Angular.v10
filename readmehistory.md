@@ -1,5 +1,25 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-11-17 08:05:00
+
+### فراهم‌سازی دسترسی سراسری به FormSubmitedStatusEnum
+
+**مشکل:**
+
+- در تمام پروژه ارجاعاتی به `FormSubmitedStatusEnum` بدون `import` وجود داشت که باعث خطای `Cannot find name 'FormSubmitedStatusEnum'` می‌شد.
+
+**راه‌حل:**
+
+1. تعریف یک declaration فایل (`src/types/form-submited-status.d.ts`) برای اعلان سراسری این enum و هماهنگی با TypeScript.
+2. تزریق مقدار واقعی enum در ابتدای اجرای برنامه از طریق `globalThis` در `src/main.ts` تا همه بخش‌ها بتوانند از مقدار runtime استفاده کنند.
+
+**فایل‌های تغییر یافته:**
+
+- `src/types/form-submited-status.d.ts`
+- `src/main.ts`
+
+---
+
 ## 2025-11-17 07:43:10
 
 ### رفع خطای ExpressionChangedAfterItHasBeenCheckedError در MenuColorsComponent (نسخه نهایی)

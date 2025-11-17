@@ -29,7 +29,19 @@
         ></i>
         <i *ngIf="item.status === 3" class="fa fa-times color-red-dark"></i>
 
-        {{ item.title }}
+        @if (item.linkSrc?.length > 0) {
+          <a [target]="item.linkTarget" [href]="item.linkSrc">
+            <span>{{ item.title }}</span>
+            @if (item.description?.length > 0) {
+              <span> ( {{ item.description }} ) </span>
+            }
+          </a>
+        } @else {
+          <span>{{ item.title }}</span>
+          @if (item.description?.length > 0) {
+            <span> ( {{ item.description }} ) </span>
+          }
+        }
       </li>
     </ul>
     <div class="divider mt-3 mb-3"></div>

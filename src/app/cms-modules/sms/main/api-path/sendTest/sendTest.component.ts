@@ -13,10 +13,10 @@ import {
   CoreEnumService,
   ErrorExceptionResult,
   FormInfoModel,
+  SmsActionService,
   SmsApiSendMessageTestDtoModel,
   SmsApiSendResultModel,
   SmsMainApiPathModel,
-  SmsMainApiPathService,
 } from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
@@ -35,11 +35,11 @@ export class SmsMainApiPathSendTestComponent implements OnInit {
     @Inject(DOCUMENT) private document: any,
     private dialogRef: MatDialogRef<SmsMainApiPathSendTestComponent>,
     public coreEnumService: CoreEnumService,
-    public smsMainApiPathService: SmsMainApiPathService,
     private cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
+    public smsActionService: SmsActionService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
 
@@ -104,40 +104,38 @@ export class SmsMainApiPathSendTestComponent implements OnInit {
         );
       });
 
-    this.smsMainApiPathService
-      .ServiceSendMessageTest(this.dataModel)
-      .subscribe({
-        next: (ret) => {
-          this.formInfo.submitButtonEnabled = true;
-          this.dataModelResult = ret;
-          if (ret.isSuccess) {
-            this.translate
-              .get("MESSAGE.Submit_request_was_successfully_registered")
-              .subscribe((str: string) => {
-                this.formInfo.submitResultMessage = str;
-              });
-            this.translate
-              .get("MESSAGE.Send_request_was_successfully_registered")
-              .subscribe((str: string) => {
-                this.cmsToastrService.typeSuccessMessage(str);
-              });
-          } else {
-            this.translate
-              .get("ERRORMESSAGE.MESSAGE.typeError")
-              .subscribe((str: string) => {
-                this.formInfo.submitResultMessage = str;
-              });
-            this.formInfo.submitResultMessage = ret.errorMessage;
-            this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-          }
-          this.publicHelper.processService.processStop(pName);
-        },
-        error: (err) => {
-          this.formInfo.submitButtonEnabled = true;
-          this.cmsToastrService.typeError(err);
-          this.publicHelper.processService.processStop(pName);
-        },
-      });
+    this.smsActionService.ServiceSendMessageTest(this.dataModel).subscribe({
+      next: (ret) => {
+        this.formInfo.submitButtonEnabled = true;
+        this.dataModelResult = ret;
+        if (ret.isSuccess) {
+          this.translate
+            .get("MESSAGE.Submit_request_was_successfully_registered")
+            .subscribe((str: string) => {
+              this.formInfo.submitResultMessage = str;
+            });
+          this.translate
+            .get("MESSAGE.Send_request_was_successfully_registered")
+            .subscribe((str: string) => {
+              this.cmsToastrService.typeSuccessMessage(str);
+            });
+        } else {
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.submitResultMessage = str;
+            });
+          this.formInfo.submitResultMessage = ret.errorMessage;
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+        }
+        this.publicHelper.processService.processStop(pName);
+      },
+      error: (err) => {
+        this.formInfo.submitButtonEnabled = true;
+        this.cmsToastrService.typeError(err);
+        this.publicHelper.processService.processStop(pName);
+      },
+    });
   }
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });

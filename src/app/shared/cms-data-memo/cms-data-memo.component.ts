@@ -56,8 +56,7 @@ export class CmsDataMemoComponent implements OnInit {
       this.formInfo.formTitle = data.title;
     }
     this.formInfo.formDescription = "یادداشت خود را مدیریت کنید";
-    this.formInfo.submitResultMessage =
-      "formAlertformAlertformAlertformAlertformAlertformAlert";
+
     this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
     ////
     if (!this.service) this.dialogRef.close({ dialogChangedDate: true });
