@@ -45,12 +45,14 @@ export class CoreUserWidgetComponent implements OnInit, OnDestroy {
     if (this.tokenInfo) {
       this.onActionStatist();
     }
-    this.unsubscribe.push( this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfo = value;
-        this.onActionStatist();
-      }));
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+          this.onActionStatist();
+        }),
+    );
   }
 
   onActionButtonReload(): void {
@@ -62,7 +64,12 @@ export class CoreUserWidgetComponent implements OnInit, OnDestroy {
   }
 
   onActionStatist(): void {
-    if (!this.tokenInfo.access.userId || this.tokenInfo.access.userId <= 0) {
+    if (
+      !this.tokenInfo ||
+      !this.tokenInfo.access ||
+      !this.tokenInfo.access.userId ||
+      this.tokenInfo.access.userId <= 0
+    ) {
       return;
     }
     this.publicHelper.processService.processStart(

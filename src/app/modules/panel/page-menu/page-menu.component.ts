@@ -91,7 +91,7 @@ export class PageMenuComponent implements OnInit {
     var ret = [];
     if (listPin && listPin.length > 0)
       listPin.forEach((el) => {
-        if (el.siteId == this.tokenInfo.site.id) ret[el.menuId] = true;
+        if (el.siteId == this.tokenInfo?.site?.id) ret[el.menuId] = true;
       });
     return ret;
   }

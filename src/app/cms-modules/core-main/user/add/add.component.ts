@@ -17,6 +17,7 @@ import {
   DataFieldInfoModel,
   ErrorExceptionResult,
   FormInfoModel,
+  RecordStatusEnum,
 } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
@@ -82,6 +83,7 @@ export class CoreUserAddComponent
   }
 
   DataAddContent(): void {
+    this.dataModel.recordStatus = RecordStatusEnum.Available;
     this.translate
       .get("MESSAGE.sending_information_to_the_server")
       .subscribe((str: string) => {

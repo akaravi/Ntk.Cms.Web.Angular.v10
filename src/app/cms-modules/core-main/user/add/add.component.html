@@ -11,16 +11,7 @@
     </p>
     <!--Content-->
     <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
-      <!-- RecordStatus Field -->
-      <app-cms-enum-record-status-selector
-        *ngIf="fieldsInfo['recordStatus']?.accessWatchField"
-        [(model)]="dataModel.recordStatus"
-        [optionDisabled]="false"
-        [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
-        [optionRequired]="true"
-        [optionSelectFirstItem]="true"
-      >
-      </app-cms-enum-record-status-selector>
+
       <!-- Username Field -->
       <div
         *ngIf="fieldsInfo['username']?.accessWatchField"

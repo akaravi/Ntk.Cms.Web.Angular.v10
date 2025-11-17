@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { ThemeStoreModel } from "src/app/core/models/themeStoreModel";
@@ -16,23 +16,36 @@ export class MenuColorsComponent implements OnInit, OnDestroy {
     public publicHelper: PublicHelper,
     private themeService: ThemeService,
     private cmsStoreService: CmsStoreService,
+    private cdr: ChangeDetectorRef,
   ) {
+    // مقدار اولیه را از snapshot بگیریم
+    const snapshot = this.cmsStoreService.getStateSnapshot();
+    this.themeStore = snapshot?.themeStore ?? new ThemeStoreModel();
+  }
+  themeStore = new ThemeStoreModel();
+  private unsubscribe: Subscription[] = [];
+
+  ngOnInit(): void {
+    // انتقال subscription به ngOnInit برای جلوگیری از ExpressionChangedAfterItHasBeenCheckedError
     this.unsubscribe.push(
       this.cmsStoreService
         .getState((state) => state.themeStore)
         .subscribe(async (value) => {
           if (value) {
-            this.themeStore = value;
+            // استفاده از setTimeout برای به تعویق انداختن تغییرات به چرخه بعدی
+            setTimeout(() => {
+              this.themeStore = value;
+              this.cdr.markForCheck();
+            }, 0);
           } else {
-            this.themeStore = new ThemeStoreModel();
+            setTimeout(() => {
+              this.themeStore = new ThemeStoreModel();
+              this.cdr.markForCheck();
+            }, 0);
           }
         }),
     );
   }
-  themeStore = new ThemeStoreModel();
-  private unsubscribe: Subscription[] = [];
-
-  ngOnInit(): void {}
   ngOnDestroy() {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }

@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { ToastrService } from "ngx-toastr";
-import { ErrorExceptionResultBase } from "ntk-cms-api";
 import { Observable, of } from "rxjs";
 import { catchError, map, take } from "rxjs/operators";
 
@@ -126,18 +125,19 @@ export class CmsToastrService {
     message: string,
     title: string,
   ): void {
+    const formattedMessage = this.formatMessage(message);
     switch (type) {
       case ToastType.SUCCESS:
-        this.toastr.success(message, title);
+        this.toastr.success(formattedMessage, title);
         break;
       case ToastType.ERROR:
-        this.toastr.error(message, title);
+        this.toastr.error(formattedMessage, title);
         break;
       case ToastType.WARNING:
-        this.toastr.warning(message, title);
+        this.toastr.warning(formattedMessage, title);
         break;
       case ToastType.INFO:
-        this.toastr.info(message, title);
+        this.toastr.info(formattedMessage, title);
         break;
     }
   }
