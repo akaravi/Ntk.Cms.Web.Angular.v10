@@ -35,6 +35,7 @@ import { CoreModuleTagCategoryDeleteComponent } from "./tagCategory/delete/delet
 import { CoreModuleTagCategoryEditComponent } from "./tagCategory/edit/edit.component";
 import { CoreModuleTagCategorySelectorComponent } from "./tagCategory/selector/selector.component";
 import { CoreModuleTagCategoryTreeComponent } from "./tagCategory/tree/tree.component";
+import { CoreSharedModule } from "../core-main/core.shared.module";
 
 @NgModule({
   imports: [
@@ -45,7 +46,7 @@ import { CoreModuleTagCategoryTreeComponent } from "./tagCategory/tree/tree.comp
     CurrencyMaskModule,
     SharedModule,
     AngularEditorModule,
-
+    CoreSharedModule,
     CmsFileManagerModule,
   ],
   declarations: [
