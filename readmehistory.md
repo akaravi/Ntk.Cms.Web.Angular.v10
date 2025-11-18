@@ -1,5 +1,21 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-11-18 12:30:00
+
+### حذف متدهای بدون استفاده در myself-list.component
+
+**تغییرات:**
+
+- حذف متدهای جدول (مرتب‌سازی، صفحه‌بندی) و اکشن‌های ویرایش/حذف/آمار که در نسخه فعلی UI استفاده نمی‌شدند
+- حذف وابستگی‌های بلااستفاده شامل `MatSort`, `PageEvent`, `MatDialogConfig`, `RecordStatusEnum`, `CmsConfirmationDialogService` و کامپوننت ویرایش
+- ساده‌سازی `DataGetAll` برای عدم فراخوانی متد آمار حذف‌شده
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/cms-modules/core-module/site-user-credit/myself-list/myself-list.component.ts`
+
+---
+
 ## 2025-01-27 12:00:00
 
 ### اضافه کردن EventEmitter برای optionReload در کامپوننت cms-action-button-reload
