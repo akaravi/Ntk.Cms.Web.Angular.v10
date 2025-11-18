@@ -32,8 +32,13 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
   standalone: false,
 })
 export class CoreSiteCategoryCmsModuleListViewComponent
-  extends ListBaseComponent<CoreSiteCategoryCmsModuleService, CoreSiteCategoryCmsModuleModel, number>
-  implements OnInit, OnDestroy {
+  extends ListBaseComponent<
+    CoreSiteCategoryCmsModuleService,
+    CoreSiteCategoryCmsModuleModel,
+    number
+  >
+  implements OnInit, OnDestroy
+{
   @Input() set optionSiteCategoryId(x: number) {
     this.LinkSiteCategoryId = x;
     this.DataGetAll();
@@ -92,7 +97,6 @@ export class CoreSiteCategoryCmsModuleListViewComponent
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
-    this.filteModelContent.sortColumn = "Title";
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
@@ -197,6 +201,4 @@ export class CoreSiteCategoryCmsModuleListViewComponent
   onActionButtonReload(): void {
     this.DataGetAll();
   }
-
-  
 }

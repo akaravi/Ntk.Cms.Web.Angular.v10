@@ -104,7 +104,6 @@ export class SmsMainApiPathPermissionListComponent
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
-    this.filteModelContent.sortColumn = "Title";
     if (this.activatedRoute.snapshot.paramMap.get("LinkApiPathId")) {
       this.requestLinkApiPathId =
         this.activatedRoute.snapshot.paramMap.get("LinkApiPathId");

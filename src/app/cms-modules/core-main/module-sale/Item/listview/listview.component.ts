@@ -24,11 +24,11 @@ import {
   TokenInfoModelV3,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
+import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
-import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
 
 @Component({
   selector: "app-core-modulesaleitem-listview",
@@ -36,8 +36,13 @@ import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
   standalone: false,
 })
 export class CoreModuleSaleItemListViewComponent
-  extends ListBaseComponent<CoreModuleSaleItemService, CoreModuleSaleItemModel, number>
-  implements OnInit, OnDestroy {
+  extends ListBaseComponent<
+    CoreModuleSaleItemService,
+    CoreModuleSaleItemModel,
+    number
+  >
+  implements OnInit, OnDestroy
+{
   @Input() set optionHeaderId(x: number) {
     this.LinkHeaderId = x;
     this.DataGetAll();
@@ -95,7 +100,6 @@ export class CoreModuleSaleItemListViewComponent
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
-    this.filteModelContent.sortColumn = "Title";
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
@@ -208,6 +212,4 @@ export class CoreModuleSaleItemListViewComponent
   onActionButtonReload(): void {
     this.DataGetAll();
   }
-
-
 }

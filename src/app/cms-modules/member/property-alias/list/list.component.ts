@@ -98,7 +98,6 @@ export class MemberPropertyAliasListComponent
   private unsubscribe: Subscription[] = [];
   GetAllWithHierarchyCategoryId = false;
   ngOnInit(): void {
-    this.filteModelContent.sortColumn = "Title";
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();

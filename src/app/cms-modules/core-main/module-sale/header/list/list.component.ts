@@ -124,7 +124,6 @@ export class CoreModuleSaleHeaderListComponent
   expandedElement: CoreModuleSaleHeaderModel | null;
   private unsubscribe: Subscription[] = [];
   ngOnInit(): void {
-    this.filteModelContent.sortColumn = "Title";
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
@@ -479,10 +478,7 @@ export class CoreModuleSaleHeaderListComponent
     }
     this.onActionTableRowSelect(model);
 
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null
-    ) {
+    if (this.dataModelResult == null || this.dataModelResult.access == null) {
       this.cmsToastrService.typeErrorSelected();
       return;
     }
@@ -504,10 +500,7 @@ export class CoreModuleSaleHeaderListComponent
     }
     this.onActionTableRowSelect(model);
 
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null
-    ) {
+    if (this.dataModelResult == null || this.dataModelResult.access == null) {
       this.cmsToastrService.typeErrorSelected();
       return;
     }
