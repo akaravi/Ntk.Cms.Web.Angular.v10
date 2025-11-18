@@ -205,6 +205,15 @@
           {{ row.transactionCredit | number }}
         </mat-cell>
       </ng-container>
+      <!-- transactionId Column -->
+      <ng-container matColumnDef="transactionId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ fieldsInfo["transactionId"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.transactionId }}
+        </mat-cell>
+      </ng-container>
       <!-- CreatedDate Column -->
       <ng-container matColumnDef="CreatedDate">
         <mat-header-cell *matHeaderCellDef mat-sort-header>

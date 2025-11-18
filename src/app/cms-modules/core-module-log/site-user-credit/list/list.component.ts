@@ -133,6 +133,7 @@ export class CoreModuleLogSiteUserCreditListComponent
     "LinkSiteId",
     "linkModuleId",
     "transactionCredit",
+    "transactionId",
     "CreatedDate",
     // 'Action'
   ];
