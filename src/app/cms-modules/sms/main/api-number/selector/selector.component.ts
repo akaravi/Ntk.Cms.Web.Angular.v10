@@ -138,7 +138,16 @@ export class SmsMainApiNumberSelectorComponent implements OnInit {
       filter.searchType = FilterDataModelSearchTypesEnum.Equal;
       filterModel.filters.push(filter);
     }
-    this.publicHelper.processService.processStart("DataGetAll");
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.get_information_list")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     return await firstValueFrom(
       this.categoryService.ServiceGetAll(filterModel),
     ).then((response) => {
@@ -158,7 +167,7 @@ export class SmsMainApiNumberSelectorComponent implements OnInit {
         }, 1000);
       }
       /*select First Item */
-      this.publicHelper.processService.processStop("DataGetAll");
+      this.publicHelper.processService.processStop(pName);
       return response.listItems;
     });
   }

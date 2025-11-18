@@ -63,6 +63,7 @@ export class ProcessService {
     /** processInRun */
     this.process.inRunAll = true;
     this.process.infoAll.set(key, model);
+
     this.ensureInfoAreaMap(model.infoAreaId).set(key, model);
     this.process.inRunArea[model.infoAreaId] = true;
     /** processInRun */

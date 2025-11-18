@@ -1,5 +1,48 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-11-18 15:15:00
+
+### فعال‌سازی RouterLink در CmsFormValidationComponent
+
+**تغییرات:**
+
+- افزودن `RouterModule` به `imports` و `exports` ماژول `SharedModule` برای فراهم شدن دایرکتیوهای مسیریابی در تمامی کامپوننت‌های اشتراکی
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/shared/shared.module.ts`
+
+---
+
+## 2025-11-18 15:25:00
+
+### پیکربندی Prettier برای جلوگیری از شکست خطوط HTML تک‌خط
+
+**تغییرات:**
+
+- اضافه کردن گزینه `singleAttributePerLine: false` در `.prettierrc` تا فرمتری مانند Prettier - Code Formatter اجباراً صفات HTML را روی خطوط جداگانه نبرد و ساختار تک‌خطی حفظ شود.
+
+**فایل‌های تغییر یافته:**
+
+- `.prettierrc`
+
+---
+
+## 2025-11-18 15:40:00
+
+### رفع خطاهای صفحه ارسال پیام (SmsActionSendMessageComponent)
+
+**تغییرات:**
+
+- جلوگیری از حذف تصادفی آیتم‌های `validationList` هنگام انتخاب مسیر ارسال (حذف فقط در صورت وجود `sendMessageAddTextFirst/End`)
+- جلوگیری از وقوع خطای `Cannot read properties of undefined (reading 'length')` هنگام افزودن متن پیش‌فرض به پیام از طریق کنترل اختیاری `dataModel.message?.length`
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/cms-modules/sms/action/send-message/send-message.component.ts`
+
+---
+
 ## 2025-11-18 12:30:00
 
 ### حذف متدهای بدون استفاده در myself-list.component

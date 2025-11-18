@@ -125,7 +125,16 @@ export class SmsMainApiPathSelectorComponent implements OnInit {
       filter.searchType = FilterDataModelSearchTypesEnum.Equal;
       filterModel.filters.push(filter);
     }
-    this.publicHelper.processService.processStart("DataGetAll");
+   const pName = this.constructor.name + "main";
+   this.translate
+     .get("MESSAGE.get_information_list")
+     .subscribe((str: string) => {
+       this.publicHelper.processService.processStart(
+         pName,
+         str,
+         this.constructorInfoAreaId,
+       );
+     });
     /*filter Sort*/
     filterModel.sortColumn = "priority";
     filterModel.sortType = SortTypeEnum.Ascending;
@@ -148,7 +157,7 @@ export class SmsMainApiPathSelectorComponent implements OnInit {
         this.onActionSelect(this.dataModelResult.listItems[0]);
       }
       /*select First Item */
-      this.publicHelper.processService.processStop("DataGetAll");
+      this.publicHelper.processService.processStop(pName);
       return response.listItems;
     });
   }

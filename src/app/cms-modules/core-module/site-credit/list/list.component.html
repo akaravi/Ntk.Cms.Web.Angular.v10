@@ -40,7 +40,13 @@
       (click)="onActionButtonReload()"
       target="_blank"
     >
-      <i class="fa-solid fa-rotate-right font-18" style="color: #ffffff"></i>
+      <i
+        class="fa-solid fa-rotate-right font-18"
+        style="color: #ffffff"
+        [class.rotation360]="
+          publicHelper.processService.process.inRunArea[constructorInfoAreaId]
+        "
+      ></i>
     </a>
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-header-start-->
   </ng-container>
@@ -210,7 +216,9 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["sumCreditBlocked"]?.fieldTitle }}
         </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.sumCreditBlocked | number }} </mat-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.sumCreditBlocked | number }}
+        </mat-cell>
       </ng-container>
 
       <!-- sumCost Column -->
@@ -225,14 +233,18 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["sumDebtor"]?.fieldTitle }}
         </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.sumDebtor | number }} </mat-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.sumDebtor | number }}
+        </mat-cell>
       </ng-container>
       <!-- sumCreditor Column -->
       <ng-container matColumnDef="SumCreditor">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["sumCreditor"]?.fieldTitle }}
         </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.sumCreditor | number }} </mat-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.sumCreditor | number }}
+        </mat-cell>
       </ng-container>
 
       <!-- Action Column -->

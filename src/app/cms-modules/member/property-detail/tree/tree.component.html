@@ -52,6 +52,9 @@
       <mat-icon
         style="font-size: 20px; margin: -6px"
         title="{{ 'ACTION.RELOAD' | translate }}"
+        [class.rotation360]="
+          publicHelper.processService.process.inRunArea[constructorInfoAreaId]
+        "
         >refresh</mat-icon
       >
     </button>

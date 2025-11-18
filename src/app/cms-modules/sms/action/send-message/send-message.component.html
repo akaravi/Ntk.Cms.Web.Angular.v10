@@ -10,40 +10,7 @@
     </p>
 
     <!-- Form Validation Errors -->
-    <div
-      *ngIf="formInfo.submitResultMessage?.length > 0"
-      class="alert alert-danger"
-      role="alert"
-    >
-      <strong>{{ "MESSAGE.Error" | translate }}:</strong>
-      {{ formInfo.submitResultMessage }}
-    </div>
-    <div class="divider mt-3 mb-3"></div>
-    <ul class="icon-list ps-3">
-      <li *ngFor="let item of validationList">
-        <i *ngIf="item.status === 0" class="fa fa-info color-blue-dark"></i>
-        <i *ngIf="item.status === 1" class="fa fa-check color-green-dark"></i>
-        <i
-          *ngIf="item.status === 2"
-          class="fa fa-exclamation-triangle color-yellow-dark"
-        ></i>
-        <i *ngIf="item.status === 3" class="fa fa-times color-red-dark"></i>
-
-        @if (item.linkSrc?.length > 0) {
-          <a [routerLink]="[item.linkSrc]">
-            <span>{{ item.title }}</span>
-            @if (item.description?.length > 0) {
-              <span> ( {{ item.description }} ) </span>
-            }
-          </a>
-        } @else {
-          <span>{{ item.title }}</span>
-          @if (item.description?.length > 0) {
-            <span> ( {{ item.description }} ) </span>
-          }
-        }
-      </li>
-    </ul>
+    <app-cms-form-validation [formInfo]="formInfo"></app-cms-form-validation>
     <div class="divider mt-3 mb-3"></div>
 
     <!--Content-->

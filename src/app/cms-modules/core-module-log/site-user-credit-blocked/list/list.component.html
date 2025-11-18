@@ -1,7 +1,8 @@
 <app-core-user-header
   [optionId]="requestLinkUserId"
   *ngIf="requestLinkUserId > 0"
-></app-core-user-header><app-cms-html-list
+></app-core-user-header
+><app-cms-html-list
   [optionsListInfoAreaId]="constructorInfoAreaId"
   [optionGuideNoticeKey]="''"
   [(optionActionGuideNoticeDisplay)]="viewGuideNotice"
@@ -54,7 +55,13 @@
       (click)="onActionButtonReload()"
       target="_blank"
     >
-      <i class="fa-solid fa-rotate-right font-18" style="color: #ffffff"></i>
+      <i
+        class="fa-solid fa-rotate-right font-18"
+        style="color: #ffffff"
+        [class.rotation360]="
+          publicHelper.processService.process.inRunArea[constructorInfoAreaId]
+        "
+      ></i>
     </a>
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-header-start-->
   </ng-container>

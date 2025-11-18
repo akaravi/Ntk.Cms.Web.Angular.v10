@@ -1,0 +1,41 @@
+<div
+  *ngIf="formInfo.submitResultMessage?.length > 0"
+  class="alert alert-danger"
+  role="alert"
+>
+  <strong>{{ "MESSAGE.Error" | translate }}:</strong>
+  {{ formInfo.submitResultMessage }}
+</div>
+<div class="divider mt-3 mb-3"></div>
+<ul class="icon-list ps-3">
+  <li *ngFor="let item of formInfo.validationList">
+    @switch (item.status) {
+      @case (ValidationStatusEnum.info) {
+        <i class="fa fa-info color-blue-dark"></i>
+      }
+      @case (ValidationStatusEnum.Success) {
+        <i class="fa fa-check color-green-dark"></i>
+      }
+      @case (ValidationStatusEnum.Warning) {
+        <i class="fa fa-exclamation-triangle color-yellow-dark"></i>
+      }
+      @case (ValidationStatusEnum.Error) {
+        <i class="fa fa-times color-red-dark"></i>
+      }
+    }
+
+    @if (item.linkSrc?.length > 0) {
+      <a [routerLink]="[item.linkSrc]">
+        <span>{{ item.title }}</span>
+        @if (item.description?.length > 0) {
+          <span> ( {{ item.description }} ) </span>
+        }
+      </a>
+    } @else {
+      <span>{{ item.title }}</span>
+      @if (item.description?.length > 0) {
+        <span> ( {{ item.description }} ) </span>
+      }
+    }
+  </li>
+</ul>

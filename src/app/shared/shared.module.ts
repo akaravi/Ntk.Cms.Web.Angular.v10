@@ -49,6 +49,7 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatTreeModule } from "@angular/material/tree";
+import { RouterModule } from "@angular/router";
 import { LeafletModule } from "@bluehalo/ngx-leaflet";
 import { NgbDropdownModule, NgbNavModule } from "@ng-bootstrap/ng-bootstrap";
 import { TranslateService } from "@ngx-translate/core";
@@ -140,6 +141,7 @@ import { ThemeService } from "../core/services/theme.service";
 import { Cms360ImageListComponent } from "./cms-360-image-list/cms-360-image-list.component";
 import { Cms360TourListComponent } from "./cms-360-tour-list/cms-360-tour-list.component";
 import { CmsAccessInfoComponent } from "./cms-access-info/cms-access-info.component";
+import { CmsActionButtonReloadComponent } from "./cms-action-button-reload/cms-action-button-reload.component";
 import { CmsApplicationSelectorComponent } from "./cms-application-selector/cms-application-selector.component";
 import { CmsBankpaymentGridComponent } from "./cms-bankpayment-grid/cms-bankpayment-grid.component";
 import { CmsBankpaymentTransactionInfoComponent } from "./cms-bankpayment-transaction-info/cms-bankpayment-transaction-info.component";
@@ -157,6 +159,7 @@ import { CmsExportEntityComponent } from "./cms-export-entity/cms-export-entity.
 import { CmsExportListComponent } from "./cms-export-list/cmsExportList.component";
 import { CmsFilesSelectorComponent } from "./cms-files-selector/cms-files-selector.component";
 import { CmsFormBuilderPropertiesComponent } from "./cms-form-builder-properties/cms-form-builder-properties.component";
+import { CmsFormValidationComponent } from "./cms-form-validation/cms-form-validation.component";
 import { CmsGuideinfoComponent } from "./cms-guide-info/cms-guide-info.component";
 import { CmsGuideNoticeComponent } from "./cms-guide-notice/cms-guide-notice.component";
 import { CmsHtmlCardComponent } from "./cms-html-card/cms-html-card.component";
@@ -195,7 +198,6 @@ import {
 import { OverlayService } from "./overlay/overlay.service";
 import { PasswordStrengthComponent } from "./password-strength/password-strength.component";
 import { ProgressSpinnerComponent } from "./progress-spinner/progress-spinner.component";
-import { CmsActionButtonReloadComponent } from "./cms-action-button-reload/cms-action-button-reload.component";
 
 @NgModule({
   declarations: [
@@ -264,6 +266,7 @@ import { CmsActionButtonReloadComponent } from "./cms-action-button-reload/cms-a
     CmsGuideinfoComponent,
     CmsGuideNoticeComponent,
     CmsFormBuilderPropertiesComponent,
+    CmsFormValidationComponent,
     CmsBankpaymentGridComponent,
     CmsBankpaymentTransactionInfoComponent,
     CmsFilesSelectorComponent,
@@ -354,6 +357,7 @@ import { CmsActionButtonReloadComponent } from "./cms-action-button-reload/cms-a
 
   imports: [
     CommonModule,
+    RouterModule,
 
     CmsTranslateModule.forChild({}),
     FormsModule,
@@ -408,6 +412,7 @@ import { CmsActionButtonReloadComponent } from "./cms-action-button-reload/cms-a
   exports: [
     // common and shared components/directives/pipes between more than one module and components will be listed here.
     CommonModule,
+    RouterModule,
     CmsTranslateModule,
     FormsModule,
     NgApexchartsModule,
@@ -514,6 +519,7 @@ import { CmsActionButtonReloadComponent } from "./cms-action-button-reload/cms-a
     CmsGuideinfoComponent,
     CmsGuideNoticeComponent,
     CmsFormBuilderPropertiesComponent,
+    CmsFormValidationComponent,
     CmsBankpaymentGridComponent,
     CmsBankpaymentTransactionInfoComponent,
     CmsFilesSelectorComponent,

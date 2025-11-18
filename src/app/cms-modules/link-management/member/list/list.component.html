@@ -42,7 +42,13 @@
       (click)="onActionButtonReload()"
       target="_blank"
     >
-      <i class="fa-solid fa-rotate-right font-18" style="color: #ffffff"></i>
+      <i
+        class="fa-solid fa-rotate-right font-18"
+        style="color: #ffffff"
+        [class.rotation360]="
+          publicHelper.processService.process.inRunArea[constructorInfoAreaId]
+        "
+      ></i>
     </a>
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-header-start-->
   </ng-container>

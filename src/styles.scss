@@ -641,3 +641,6 @@
     transform: rotate(360deg);
   }
 }
+.rotation360 {
+  animation: rotation360 3s linear infinite;
+}

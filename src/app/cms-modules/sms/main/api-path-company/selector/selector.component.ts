@@ -116,7 +116,16 @@ export class SmsMainApiPathCompanySelectorComponent implements OnInit {
       filter.clauseType = ClauseTypeEnum.Or;
       filterModel.filters.push(filter);
     }
-    this.publicHelper.processService.processStart("DataGetAll");
+  const pName = this.constructor.name + "main";
+  this.translate
+    .get("MESSAGE.get_information_list")
+    .subscribe((str: string) => {
+      this.publicHelper.processService.processStart(
+        pName,
+        str,
+        this.constructorInfoAreaId,
+      );
+    });
     return await firstValueFrom(
       this.categoryService.ServiceGetAll(filterModel),
     ).then((response) => {
@@ -136,7 +145,7 @@ export class SmsMainApiPathCompanySelectorComponent implements OnInit {
         this.onActionSelect(this.dataModelResult.listItems[0]);
       }
       /*select First Item */
-      this.publicHelper.processService.processStop("DataGetAll");
+      this.publicHelper.processService.processStop(pName);
       return response.listItems;
     });
   }

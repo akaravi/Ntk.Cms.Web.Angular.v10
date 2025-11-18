@@ -23,6 +23,7 @@ import {
   SmsMainMessageCategoryModel,
   SmsMainMessageContentModel,
   TokenInfoModelV3,
+  ValidationStatusEnum,
 } from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
@@ -32,20 +33,6 @@ import { environment } from "src/environments/environment";
 export class DateByClock {
   date: Date;
   clock: string;
-}
-
-export enum ValidationStatus {
-  info = 0,
-  Success = 1,
-  Warning = 2,
-  Error = 3,
-}
-export class ValidationModel {
-  key = "";
-  title = "";
-  description = "";
-  status = ValidationStatus.Success;
-  linkSrc = "";
 }
 
 @Component({
@@ -101,46 +88,46 @@ export class SmsActionSendMessageComponent implements OnInit {
 
     let dateTime = new Date();
     this.timezoneOffset = dateTime.getTimezoneOffset();
-    this.validationList.push({
+    this.formInfo.validationList.push({
       key: "checkCredit",
       title: "اعتبار بررسی شود",
-      status: ValidationStatus.Warning,
+      status: ValidationStatusEnum.Warning,
       description: "",
-
       linkSrc: "",
+      linkTarget: "",
     });
-    this.validationList.push({
+    this.formInfo.validationList.push({
       key: "message",
       title: "متن پیام وارد شود",
-      status: ValidationStatus.Warning,
+      status: ValidationStatusEnum.Warning,
       description: "",
-
       linkSrc: "",
+      linkTarget: "",
     });
 
-    this.validationList.push({
+    this.formInfo.validationList.push({
       key: "linkApiPathId",
       title: "مسیر ارسال انتخاب شود",
-      status: ValidationStatus.Warning,
+      status: ValidationStatusEnum.Warning,
       description: "",
-
       linkSrc: "",
+      linkTarget: "",
     });
-    this.validationList.push({
+    this.formInfo.validationList.push({
       key: "linkFromNumber",
       title: "شماره فرستنده انتخاب شود",
-      status: ValidationStatus.Error,
+      status: ValidationStatusEnum.Error,
       description: "",
-
       linkSrc: "",
+      linkTarget: "",
     });
-    this.validationList.push({
+    this.formInfo.validationList.push({
       key: "toNumbers",
       title: "شماره گیرنده انتخاب شود",
-      status: ValidationStatus.Error,
+      status: ValidationStatusEnum.Error,
       description: "",
-
       linkSrc: "",
+      linkTarget: "",
     });
   }
   timezoneOffset = 0;
@@ -149,7 +136,6 @@ export class SmsActionSendMessageComponent implements OnInit {
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
   @ViewChild("Message") message: ElementRef;
 
-  validationList: ValidationModel[] = [];
   receiverNumber: string = "";
   senderNumber: string = "";
   linkApiPathId: string = "";
@@ -332,6 +318,44 @@ export class SmsActionSendMessageComponent implements OnInit {
         this.dataModel.sendByQueue = false;
         this.dataModel["sendByQueueDisabled"] = true;
       }
+      const messageAddTextFirst = this.formInfo.validationList.find(
+        (x) => x.key === "sendMessageAddTextFirst",
+      );
+      if (messageAddTextFirst) {
+        this.formInfo.validationList.splice(
+          this.formInfo.validationList.indexOf(messageAddTextFirst),
+          1,
+        );
+      }
+      const messageAddTextEnd = this.formInfo.validationList.find(
+        (x) => x.key === "sendMessageAddTextEnd",
+      );
+      if (messageAddTextEnd) {
+        this.formInfo.validationList.splice(
+          this.formInfo.validationList.indexOf(messageAddTextEnd),
+          1,
+        );
+      }
+      if (model.sendMessageAddTextFirst?.length > 0) {
+        this.formInfo.validationList.push({
+          key: "sendMessageAddTextFirst",
+          title: "در ابتدای پیام اضافه شود",
+          status: ValidationStatusEnum.info,
+          description: model.sendMessageAddTextFirst,
+          linkSrc: "",
+          linkTarget: "",
+        });
+      }
+      if (model.sendMessageAddTextEnd?.length > 0) {
+        this.formInfo.validationList.push({
+          key: "sendMessageAddTextEnd",
+          title: "در انتهای پیام اضافه شود",
+          status: ValidationStatusEnum.info,
+          description: model.sendMessageAddTextEnd,
+          linkSrc: "",
+          linkTarget: "",
+        });
+      }
     } else {
       if (this.requestLinkApiPathId && this.requestLinkApiPathId.length > 0) {
         this.dataModel.linkApiPathId = this.requestLinkApiPathId;
@@ -340,11 +364,13 @@ export class SmsActionSendMessageComponent implements OnInit {
       }
     }
     if (this.dataModel.linkApiPathId?.length > 0) {
-      this.validationList.find((x) => x.key === "linkApiPathId").status =
-        ValidationStatus.Success;
+      this.formInfo.validationList.find(
+        (x) => x.key === "linkApiPathId",
+      ).status = ValidationStatusEnum.Success;
     } else {
-      this.validationList.find((x) => x.key === "linkApiPathId").status =
-        ValidationStatus.Error;
+      this.formInfo.validationList.find(
+        (x) => x.key === "linkApiPathId",
+      ).status = ValidationStatusEnum.Error;
     }
   }
   /**
@@ -352,13 +378,14 @@ export class SmsActionSendMessageComponent implements OnInit {
    */
   onActionValidationStatusMessageBodyChange() {
     if (this.dataModel.message?.length > 0) {
-      this.validationList.find((x) => x.key === "message").status =
-        ValidationStatus.Success;
-      this.validationList.find((x) => x.key === "message").description =
-        this.dataModel.message;
+      this.formInfo.validationList.find((x) => x.key === "message").status =
+        ValidationStatusEnum.Success;
+      this.formInfo.validationList.find(
+        (x) => x.key === "message",
+      ).description = this.dataModel.message.length + " کاراکتر";
     } else {
-      this.validationList.find((x) => x.key === "message").status =
-        ValidationStatus.Error;
+      this.formInfo.validationList.find((x) => x.key === "message").status =
+        ValidationStatusEnum.Error;
     }
     this.cdr.detectChanges();
   }
@@ -367,48 +394,55 @@ export class SmsActionSendMessageComponent implements OnInit {
       this.dataModel.toContactCategories?.length > 0 ||
       this.dataModel.toContactContents?.length > 0
     ) {
-      this.validationList.find((x) => x.key === "toNumbers").status =
-        ValidationStatus.Success;
+      this.formInfo.validationList.find((x) => x.key === "toNumbers").status =
+        ValidationStatusEnum.Success;
     } else if (this.dataModel.toNumbers?.length > 0) {
-      this.validationList.find((x) => x.key === "toNumbers").status =
-        ValidationStatus.Success;
+      this.formInfo.validationList.find((x) => x.key === "toNumbers").status =
+        ValidationStatusEnum.Success;
     } else {
-      this.validationList.find((x) => x.key === "toNumbers").status =
-        ValidationStatus.Error;
+      this.formInfo.validationList.find((x) => x.key === "toNumbers").status =
+        ValidationStatusEnum.Error;
     }
     this.cdr.detectChanges();
   }
   onActionValidationStatusFromNumbersChange() {
     if (this.dataModel.linkFromNumber?.length > 0) {
-      this.validationList.find((x) => x.key === "linkFromNumber").status =
-        ValidationStatus.Success;
+      this.formInfo.validationList.find(
+        (x) => x.key === "linkFromNumber",
+      ).status = ValidationStatusEnum.Success;
     } else {
-      this.validationList.find((x) => x.key === "linkFromNumber").status =
-        ValidationStatus.Error;
+      this.formInfo.validationList.find(
+        (x) => x.key === "linkFromNumber",
+      ).status = ValidationStatusEnum.Error;
     }
     this.cdr.detectChanges();
   }
   onActionValidationStatusCheckProcessesChange() {
-    var model = this.validationList.find((x) => x.key === "checkProcesses");
+    var model = this.formInfo.validationList.find(
+      (x) => x.key === "checkProcesses",
+    );
     if (model) {
-      this.validationList.splice(this.validationList.indexOf(model), 1);
+      this.formInfo.validationList.splice(
+        this.formInfo.validationList.indexOf(model),
+        1,
+      );
     }
     if (this.dataModel.checkProcesses) {
-      this.validationList.push({
+      this.formInfo.validationList.push({
         key: "checkProcesses",
         title: "ارسال در حال شبیه سازی  می باشد",
-        status: ValidationStatus.info,
+        status: ValidationStatusEnum.info,
         description: "ارسال در حال شبیه سازی  می باشد",
-
+        linkTarget: "",
         linkSrc: "",
       });
     } else {
-      this.validationList.push({
+      this.formInfo.validationList.push({
         key: "checkProcesses",
         title: "ارسال در حالت معمول می باشد",
-        status: ValidationStatus.Success,
+        status: ValidationStatusEnum.Success,
         description: "ارسال در حالت معمول می باشد",
-
+        linkTarget: "",
         linkSrc: "",
       });
     }
@@ -419,47 +453,57 @@ export class SmsActionSendMessageComponent implements OnInit {
       this.dataModelCreditResult.isSuccess &&
       this.dataModelCreditResult.item.credit > 0
     ) {
-      this.validationList.find((x) => x.key === "checkCredit").title =
+      this.formInfo.validationList.find((x) => x.key === "checkCredit").title =
         "حداقل اعتبار برای ارسال پیام بررسی شد : ";
-      this.validationList.find((x) => x.key === "checkCredit").description =
-        this.dataModelCreditResult.item.credit + "";
-      this.validationList.find((x) => x.key === "checkCredit").status =
-        ValidationStatus.info;
+      this.formInfo.validationList.find(
+        (x) => x.key === "checkCredit",
+      ).description = this.dataModelCreditResult.item.credit + "";
+      this.formInfo.validationList.find((x) => x.key === "checkCredit").status =
+        ValidationStatusEnum.info;
     } else {
-      this.validationList.find((x) => x.key === "checkCredit").title =
+      this.formInfo.validationList.find((x) => x.key === "checkCredit").title =
         "اعتبار بررسی شود";
-      this.validationList.find((x) => x.key === "checkCredit").description =
-        " برای شارژ اعتبار کلیک کنید";
-      this.validationList.find((x) => x.key === "checkCredit").linkSrc =
-        "/coremodule/site-user-credit";
-      this.validationList.find((x) => x.key === "checkCredit").status =
-        ValidationStatus.Error;
+      this.formInfo.validationList.find(
+        (x) => x.key === "checkCredit",
+      ).description = " برای شارژ اعتبار کلیک کنید";
+      this.formInfo.validationList.find(
+        (x) => x.key === "checkCredit",
+      ).linkSrc = "/coremodule/site-user-credit";
+      this.formInfo.validationList.find((x) => x.key === "checkCredit").status =
+        ValidationStatusEnum.Error;
     }
     this.cdr.detectChanges();
   }
   onActionValidationStatusCronChange(event: any) {
     this.dataModel.scheduleCron = event;
-    var model = this.validationList.find((x) => x.key === "scheduleCron");
+    var model = this.formInfo.validationList.find(
+      (x) => x.key === "scheduleCron",
+    );
     if (model) {
-      this.validationList.splice(this.validationList.indexOf(model), 1);
+      this.formInfo.validationList.splice(
+        this.formInfo.validationList.indexOf(model),
+        1,
+      );
     }
     if (this.dataModel.scheduleCron) {
-      this.validationList.push({
+      this.formInfo.validationList.push({
         key: "scheduleCron",
         title: "زمانبندی ارسال فعال است",
-        status: ValidationStatus.info,
+        status: ValidationStatusEnum.info,
         description: "زمانبندی ارسال فعال است",
 
         linkSrc: "",
+        linkTarget: "",
       });
     } else {
-      this.validationList.push({
+      this.formInfo.validationList.push({
         key: "scheduleCron",
         title: "زمانبندی ارسال غیر فعال است",
-        status: ValidationStatus.Success,
+        status: ValidationStatusEnum.Success,
         description: "زمانبندی ارسال غیر فعال است",
 
         linkSrc: "",
+        linkTarget: "",
       });
     }
     this.cdr.detectChanges();
@@ -497,7 +541,7 @@ export class SmsActionSendMessageComponent implements OnInit {
 
   onActionMessageContentAdd() {
     if (this.dataMessageContentModel?.messageBody?.length > 0) {
-      if (this.dataModel.message.length > 0)
+      if (this.dataModel.message?.length > 0)
         this.dataModel.message =
           this.dataModel.message +
           " " +
@@ -680,8 +724,9 @@ export class SmsActionSendMessageComponent implements OnInit {
 
   hasValidationStatusError(): boolean {
     return (
-      this.validationList.find((x) => x.status === ValidationStatus.Error) !==
-      undefined
+      this.formInfo.validationList.find(
+        (x) => x.status === ValidationStatusEnum.Error,
+      ) !== undefined
     );
   }
 }
