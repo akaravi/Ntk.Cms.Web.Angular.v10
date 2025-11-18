@@ -124,9 +124,8 @@
         {{ "ACTION.USER_CHARGE" | translate }}
       </p>
     </div>
-    <div class="col-4">
+    <div class="col-4" *ngIf="tokenHelper.isAdminSite">
       <a
-        *ngIf="tokenHelper.isAdminSite"
         (click)="onActionButtonSiteUserCreditDirectAccountRow(tableRowSelected)"
         class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
         target="_blank"
@@ -137,7 +136,18 @@
         {{ "ACTION.Direct_CREDIT_CHARGE" | translate }}
       </p>
     </div>
-
+    <div class="col-4">
+      <a
+        (click)="onActionButtonLogCreditAccountRow(tableRowSelected, $event)"
+        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
+        target="_blank"
+        ><i class="fa-solid fa-file-invoice font-18" style="color: #ffffff"></i
+        ><br />
+      </a>
+      <p class="font-11 text-center opacity-70">
+        {{ "ACTION.LOG_CREDIT" | translate }}
+      </p>
+    </div>
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-row-->
   </ng-container>
   <ng-container cms-action-area>
@@ -231,14 +241,14 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["credit"]?.fieldTitle }}
         </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.credit }} </mat-cell>
+        <mat-cell *matCellDef="let row"> {{ row.credit | number }} </mat-cell>
       </ng-container>
       <!-- SumCreditBlocked Column -->
       <ng-container matColumnDef="SumCreditBlocked">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["sumCreditBlocked"]?.fieldTitle }}
         </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.sumCreditBlocked }} </mat-cell>
+        <mat-cell *matCellDef="let row"> {{ row.sumCreditBlocked | number }} </mat-cell>
       </ng-container>
 
       <!-- sumCost Column -->
@@ -246,21 +256,21 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["sumCost"]?.fieldTitle }}
         </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.sumCost }} </mat-cell>
+        <mat-cell *matCellDef="let row"> {{ row.sumCost  | number }} </mat-cell>
       </ng-container>
       <!-- sumDebtor Column -->
       <ng-container matColumnDef="SumDebtor">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["sumDebtor"]?.fieldTitle }}
         </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.sumDebtor }} </mat-cell>
+        <mat-cell *matCellDef="let row"> {{ row.sumDebtor  | number }} </mat-cell>
       </ng-container>
       <!-- sumCreditor Column -->
       <ng-container matColumnDef="SumCreditor">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["sumCreditor"]?.fieldTitle }}
         </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.sumCreditor }} </mat-cell>
+        <mat-cell *matCellDef="let row"> {{ row.sumCreditor  | number }} </mat-cell>
       </ng-container>
       <!-- Action Column -->
       <ng-container matColumnDef="Action">

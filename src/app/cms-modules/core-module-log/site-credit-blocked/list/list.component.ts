@@ -8,7 +8,10 @@ import {
   CoreEnumService,
   CoreModuleLogSiteCreditBlockedModel,
   CoreModuleLogSiteCreditBlockedService,
+  CoreModuleModel,
+  CoreModuleService,
   CoreSiteModel,
+  ErrorExceptionResult,
   FilterDataModel,
   FilterModel,
   RecordStatusEnum,
@@ -45,6 +48,7 @@ export class CoreModuleLogSiteCreditBlockedListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private coreEnumService: CoreEnumService,
+    private coreModuleService: CoreModuleService,
     public contentService: CoreModuleLogSiteCreditBlockedService,
     private cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
@@ -116,16 +120,22 @@ export class CoreModuleLogSiteCreditBlockedListComponent
   tabledisplayedColumnsSource: string[] = [
     "Id",
     "LinkSiteId",
+    "linkModuleId",
+    "transactionCredit",
     "CreatedDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "Id",
     "LinkSiteId",
+    "linkModuleId",
+    "transactionCredit",
     "CreatedDate",
     // 'Action'
   ];
 
+  dataModelCoreModuleResult: ErrorExceptionResult<CoreModuleModel> =
+    new ErrorExceptionResult<CoreModuleModel>();
   expandedElement: CoreSiteModel | null;
   private unsubscribe: Subscription[] = [];
 
@@ -145,6 +155,16 @@ export class CoreModuleLogSiteCreditBlockedListComponent
           this.DataGetAll();
         }),
     );
+    this.getModuleList();
+  }
+  getModuleList(): void {
+    const filter = new FilterModel();
+    filter.rowPerPage = 100;
+    this.coreModuleService.ServiceGetAllModuleName(filter).subscribe({
+      next: (ret) => {
+        this.dataModelCoreModuleResult = ret;
+      },
+    });
   }
 
   ngOnDestroy(): void {

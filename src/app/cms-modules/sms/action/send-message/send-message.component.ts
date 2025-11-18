@@ -45,7 +45,6 @@ export class ValidationModel {
   title = "";
   description = "";
   status = ValidationStatus.Success;
-  linkTarget = "_blank";
   linkSrc = "";
 }
 
@@ -107,7 +106,7 @@ export class SmsActionSendMessageComponent implements OnInit {
       title: "اعتبار بررسی شود",
       status: ValidationStatus.Warning,
       description: "",
-      linkTarget: "_blank",
+
       linkSrc: "",
     });
     this.validationList.push({
@@ -115,7 +114,7 @@ export class SmsActionSendMessageComponent implements OnInit {
       title: "متن پیام وارد شود",
       status: ValidationStatus.Warning,
       description: "",
-      linkTarget: "_blank",
+
       linkSrc: "",
     });
 
@@ -124,7 +123,7 @@ export class SmsActionSendMessageComponent implements OnInit {
       title: "مسیر ارسال انتخاب شود",
       status: ValidationStatus.Warning,
       description: "",
-      linkTarget: "_blank",
+
       linkSrc: "",
     });
     this.validationList.push({
@@ -132,7 +131,7 @@ export class SmsActionSendMessageComponent implements OnInit {
       title: "شماره فرستنده انتخاب شود",
       status: ValidationStatus.Error,
       description: "",
-      linkTarget: "_blank",
+
       linkSrc: "",
     });
     this.validationList.push({
@@ -140,7 +139,7 @@ export class SmsActionSendMessageComponent implements OnInit {
       title: "شماره گیرنده انتخاب شود",
       status: ValidationStatus.Error,
       description: "",
-      linkTarget: "_blank",
+
       linkSrc: "",
     });
   }
@@ -400,7 +399,7 @@ export class SmsActionSendMessageComponent implements OnInit {
         title: "ارسال در حال شبیه سازی  می باشد",
         status: ValidationStatus.info,
         description: "ارسال در حال شبیه سازی  می باشد",
-        linkTarget: "_blank",
+
         linkSrc: "",
       });
     } else {
@@ -409,7 +408,7 @@ export class SmsActionSendMessageComponent implements OnInit {
         title: "ارسال در حالت معمول می باشد",
         status: ValidationStatus.Success,
         description: "ارسال در حالت معمول می باشد",
-        linkTarget: "_blank",
+
         linkSrc: "",
       });
     }
@@ -433,7 +432,6 @@ export class SmsActionSendMessageComponent implements OnInit {
         " برای شارژ اعتبار کلیک کنید";
       this.validationList.find((x) => x.key === "checkCredit").linkSrc =
         "/coremodule/site-user-credit";
-      this.validationList.find((x) => x.key === "checkCredit").linkTarget = "";
       this.validationList.find((x) => x.key === "checkCredit").status =
         ValidationStatus.Error;
     }
@@ -451,7 +449,7 @@ export class SmsActionSendMessageComponent implements OnInit {
         title: "زمانبندی ارسال فعال است",
         status: ValidationStatus.info,
         description: "زمانبندی ارسال فعال است",
-        linkTarget: "_blank",
+
         linkSrc: "",
       });
     } else {
@@ -460,7 +458,7 @@ export class SmsActionSendMessageComponent implements OnInit {
         title: "زمانبندی ارسال غیر فعال است",
         status: ValidationStatus.Success,
         description: "زمانبندی ارسال غیر فعال است",
-        linkTarget: "_blank",
+
         linkSrc: "",
       });
     }

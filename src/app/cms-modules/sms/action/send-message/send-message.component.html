@@ -30,7 +30,7 @@
         <i *ngIf="item.status === 3" class="fa fa-times color-red-dark"></i>
 
         @if (item.linkSrc?.length > 0) {
-          <a [target]="item.linkTarget" [href]="item.linkSrc">
+          <a [routerLink]="[item.linkSrc]">
             <span>{{ item.title }}</span>
             @if (item.description?.length > 0) {
               <span> ( {{ item.description }} ) </span>

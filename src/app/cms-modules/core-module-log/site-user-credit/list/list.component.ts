@@ -8,7 +8,10 @@ import {
   CoreEnumService,
   CoreModuleLogSiteUserCreditModel,
   CoreModuleLogSiteUserCreditService,
+  CoreModuleModel,
+  CoreModuleService,
   CoreSiteModel,
+  ErrorExceptionResult,
   FilterDataModel,
   FilterModel,
   RecordStatusEnum,
@@ -41,10 +44,12 @@ export class CoreModuleLogSiteUserCreditListComponent
 {
   requestLinkSiteId = 0;
   requestLinkUserId = 0;
+  requestLinkModuleId = 0;
   requestlinkMemberUserId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private coreEnumService: CoreEnumService,
+    private coreModuleService: CoreModuleService,
     public contentService: CoreModuleLogSiteUserCreditService,
     private cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
@@ -70,6 +75,9 @@ export class CoreModuleLogSiteUserCreditListComponent
     this.requestLinkSiteId = +Number(
       this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
     );
+    this.requestLinkModuleId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkModuleId"),
+    );
     this.requestLinkUserId = +Number(
       this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
     );
@@ -87,6 +95,12 @@ export class CoreModuleLogSiteUserCreditListComponent
       const filter = new FilterDataModel();
       filter.propertyName = "LinkUserId";
       filter.value = this.requestLinkUserId;
+      this.filteModelContent.filters.push(filter);
+    }
+    if (this.requestLinkModuleId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "LinkModuleId";
+      filter.value = this.requestLinkModuleId;
       this.filteModelContent.filters.push(filter);
     }
     if (this.requestlinkMemberUserId > 0) {
@@ -117,6 +131,8 @@ export class CoreModuleLogSiteUserCreditListComponent
     "Id",
     "LinkUserId",
     "LinkSiteId",
+    "linkModuleId",
+    "transactionCredit",
     "CreatedDate",
     // 'Action'
   ];
@@ -124,10 +140,14 @@ export class CoreModuleLogSiteUserCreditListComponent
     "Id",
     "LinkUserId",
     "LinkSiteId",
+    "linkModuleId",
+    "transactionCredit",
     "CreatedDate",
     // 'Action'
   ];
 
+  dataModelCoreModuleResult: ErrorExceptionResult<CoreModuleModel> =
+    new ErrorExceptionResult<CoreModuleModel>();
   expandedElement: CoreSiteModel | null;
   private unsubscribe: Subscription[] = [];
 
@@ -147,6 +167,16 @@ export class CoreModuleLogSiteUserCreditListComponent
           this.DataGetAll();
         }),
     );
+  this.getModuleList();
+  }
+  getModuleList(): void {
+    const filter = new FilterModel();
+    filter.rowPerPage = 100;
+    this.coreModuleService.ServiceGetAllModuleName(filter).subscribe({
+      next: (ret) => {
+        this.dataModelCoreModuleResult = ret;
+      },
+    });
   }
 
   ngOnDestroy(): void {

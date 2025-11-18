@@ -121,7 +121,7 @@ export class CoreModuleSiteUserCreditListComponent
     "SumCreditBlocked",
     // 'Action'
   ];
-  searchonCheckMyAccount = true;
+  searchonCheckMyAccount = false;
   private unsubscribe: Subscription[] = [];
   ngOnInit(): void {
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
@@ -420,9 +420,9 @@ export class CoreModuleSiteUserCreditListComponent
   }
   onActionButtonCheckMyAccount(view = !this.searchonCheckMyAccount): void {
     this.searchonCheckMyAccount = view;
-    if (!this.searchonCheckMyAccount) {
-      return;
-    }
+    // if (!this.searchonCheckMyAccount) {
+    //   return;
+    // }
     this.DataGetAll();
   }
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
@@ -457,6 +457,47 @@ export class CoreModuleSiteUserCreditListComponent
       model.linkModuleId,
     ]);
   }
+  onActionButtonLogCreditAccountRow(
+    model: CoreModuleSiteUserCreditModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
+    if (
+      !model ||
+      !model.linkModuleId ||
+      model.linkModuleId === 0 ||
+      !model.linkSiteId ||
+      model.linkSiteId === 0 ||
+      !model.linkUserId ||
+      model.linkUserId === 0
+    ) {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+    this.onActionTableRowSelect(model);
+
+    if (event?.ctrlKey) {
+      var link =
+        "/#/coremodulelog/site-user-credit/" +
+        model.linkSiteId +
+        "/" +
+        model.linkUserId +
+        "/" +
+        model.linkModuleId;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/coremodulelog/site-user-credit",
+        model.linkSiteId,
+        model.linkUserId,
+        model.linkModuleId,
+      ]);
+    }
+  }
+
   onActionButtonSiteUserCreditDirectAccountRow(
     model: CoreModuleSiteUserCreditModel = this.tableRowSelected,
   ): void {

@@ -54,6 +54,11 @@ const routes: Routes = [
         data: { title: "ROUTE.COREMODULELOG" },
       },
       {
+        path: "site-user-credit/:LinkSiteId/:LinkUserId/:LinkModuleId",
+        component: CoreModuleLogSiteUserCreditListComponent,
+        data: { title: "ROUTE.COREMODULELOG" },
+      },
+      {
         path: "site-credit-blocked",
         component: CoreModuleLogSiteCreditBlockedListComponent,
         data: { title: "ROUTE.COREMODULELOG" },

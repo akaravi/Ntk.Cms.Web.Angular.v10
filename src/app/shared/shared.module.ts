@@ -195,6 +195,7 @@ import {
 import { OverlayService } from "./overlay/overlay.service";
 import { PasswordStrengthComponent } from "./password-strength/password-strength.component";
 import { ProgressSpinnerComponent } from "./progress-spinner/progress-spinner.component";
+import { CmsActionButtonReloadComponent } from "./cms-action-button-reload/cms-action-button-reload.component";
 
 @NgModule({
   declarations: [
@@ -237,6 +238,7 @@ import { ProgressSpinnerComponent } from "./progress-spinner/progress-spinner.co
     CmsLocationSelectorComponent,
     CmsLocationCompleteComponent,
     CmsApplicationSelectorComponent,
+    CmsActionButtonReloadComponent,
     CmsSiteCategorySelectorComponent,
     CmsSiteCategorySelectionListComponent,
     CmsUserSelectorComponent,
@@ -486,6 +488,7 @@ import { ProgressSpinnerComponent } from "./progress-spinner/progress-spinner.co
     CmsLocationSelectorComponent,
     CmsLocationCompleteComponent,
     CmsApplicationSelectorComponent,
+    CmsActionButtonReloadComponent,
     CmsSiteCategorySelectorComponent,
     CmsSiteCategorySelectionListComponent,
     CmsUserSelectorComponent,

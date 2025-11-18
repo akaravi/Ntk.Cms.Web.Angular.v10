@@ -1,5 +1,35 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-01-27 12:00:00
+
+### اضافه کردن EventEmitter برای optionReload در کامپوننت cms-action-button-reload
+
+**تغییرات:**
+
+- اضافه کردن `EventEmitter` به imports کامپوننت
+- حذف setter `optionReload` و متد `reload` قبلی
+- ایجاد `@Output() optionReload` از نوع `EventEmitter<void>` برای ارسال event به کامپوننت مادر
+- تغییر نام متد داخلی از `onActionButtonReload()` به `onActionButtonReloadClick()` برای جلوگیری از تداخل با نام `@Output`
+- ساده‌سازی متد `onActionButtonReloadClick()` که فقط event `optionReload` را emit می‌کند
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/shared/cms-action-button-reload/cms-action-button-reload.component.ts`
+- `src/app/shared/cms-action-button-reload/cms-action-button-reload.component.html`
+- `src/app/cms-modules/core-module/site-user-credit/myself-list/myself-list.component.html`
+
+**نحوه استفاده در کامپوننت مادر:**
+
+```html
+<app-cms-action-button-reload
+  (optionReload)="onActionButtonReload()"
+></app-cms-action-button-reload>
+```
+
+**نکته:** استفاده از event binding `(optionReload)` به جای property binding `[optionReload]`
+
+---
+
 ## 2025-11-17 08:05:00
 
 ### فراهم‌سازی دسترسی سراسری به FormSubmitedStatusEnum

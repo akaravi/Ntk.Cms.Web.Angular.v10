@@ -36,8 +36,8 @@ import { CoreSiteWidgetStatusComponent } from "src/app/cms-modules/core-main/sit
 import { CoreUserClaimContentWidgetStatusComponent } from "src/app/cms-modules/core-main/user-claim/content/widget/widget-status.component";
 import { CoreUserWidgetComponent } from "src/app/cms-modules/core-main/user/widget/widget.component";
 import { CoreModuleLogReportAbuseWidgetComponent } from "src/app/cms-modules/core-module-log/report-abuse/widget/widget.component";
-import { CoreModuleSiteCreditWidgetPriceComponent } from "src/app/cms-modules/core-module/site-credit/widget/widget-price.component";
-import { CoreModuleSiteUserCreditWidgetPriceComponent } from "src/app/cms-modules/core-module/site-user-credit/widget/widget-price.component";
+import { CoreModuleSiteCreditWidgetCreditComponent } from "src/app/cms-modules/core-module/site-credit/widget/widget-credit.component";
+import { CoreModuleSiteUserCreditWidgetCreditComponent } from "src/app/cms-modules/core-module/site-user-credit/widget/widget-credit.component";
 import { EstateCustomerOrderWidgetComponent } from "src/app/cms-modules/estate/customer-order/widget/widget.component";
 import { EstatePropertyHistoryWidgetComponent } from "src/app/cms-modules/estate/property-history/widget/widget.component";
 import { EstatePropertyWidgetComponent } from "src/app/cms-modules/estate/property/widget/widget.component";
@@ -73,8 +73,8 @@ import { RouterModule } from "@angular/router";
     EstateCustomerOrderWidgetComponent,
     EstatePropertyHistoryWidgetComponent,
     CoreModuleLogReportAbuseWidgetComponent,
-    CoreModuleSiteCreditWidgetPriceComponent,
-    CoreModuleSiteUserCreditWidgetPriceComponent,
+    CoreModuleSiteCreditWidgetCreditComponent,
+    CoreModuleSiteUserCreditWidgetCreditComponent,
     /*widget*/
   ],
   imports: [
@@ -105,8 +105,8 @@ import { RouterModule } from "@angular/router";
     EstateCustomerOrderWidgetComponent,
     EstatePropertyHistoryWidgetComponent,
     CoreModuleLogReportAbuseWidgetComponent,
-    CoreModuleSiteCreditWidgetPriceComponent,
-    CoreModuleSiteUserCreditWidgetPriceComponent,
+    CoreModuleSiteCreditWidgetCreditComponent,
+    CoreModuleSiteUserCreditWidgetCreditComponent,
     /*widget*/
   ],
   providers: [

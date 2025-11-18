@@ -4,8 +4,8 @@ import { TranslateService } from "@ngx-translate/core";
 import {
   CoreModuleModel,
   CoreModuleService,
-  CoreModuleSiteCreditModel,
-  CoreModuleSiteCreditService,
+  CoreModuleSiteUserCreditModel,
+  CoreModuleSiteUserCreditService,
   DataFieldInfoModel,
   ErrorExceptionResult,
   FilterDataModel,
@@ -20,16 +20,16 @@ import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-  selector: "app-coremodule-site-credit-widget-price",
-  templateUrl: "./widget-price.component.html",
+  selector: "app-coremodule-site-user-credit-widget-credit",
+  templateUrl: "./widget-credit.component.html",
   standalone: false,
 })
-export class CoreModuleSiteCreditWidgetPriceComponent
+export class CoreModuleSiteUserCreditWidgetCreditComponent
   implements OnInit, OnDestroy
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private service: CoreModuleSiteCreditService,
+    private service: CoreModuleSiteUserCreditService,
     private cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public dialog: MatDialog,
@@ -41,11 +41,12 @@ export class CoreModuleSiteCreditWidgetPriceComponent
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }
-  dataModelResult: ErrorExceptionResult<CoreModuleSiteCreditModel> =
-    new ErrorExceptionResult<CoreModuleSiteCreditModel>();
+  dataModelResult: ErrorExceptionResult<CoreModuleSiteUserCreditModel> =
+    new ErrorExceptionResult<CoreModuleSiteUserCreditModel>();
   dataModelCoreModuleResult: ErrorExceptionResult<CoreModuleModel> =
     new ErrorExceptionResult<CoreModuleModel>();
-  dataModel: CoreModuleSiteCreditModel = new CoreModuleSiteCreditModel();
+  dataModel: CoreModuleSiteUserCreditModel =
+    new CoreModuleSiteUserCreditModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
   filteModelContent = new FilterModel();
@@ -63,7 +64,7 @@ export class CoreModuleSiteCreditWidgetPriceComponent
       this.widgetInfoModel.title = str;
     });
     this.widgetInfoModel.description = "";
-    this.widgetInfoModel.link = "/core-module/site-credit/";
+    this.widgetInfoModel.link = "/coremodule/site-user-credit-myself/";
 
     this.DataGetAll();
     this.unsubscribe.push(

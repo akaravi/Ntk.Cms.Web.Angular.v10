@@ -30,6 +30,8 @@ import {
 } from "ntk-cms-api";
 import { CmsFileManagerModule } from "ntk-cms-filemanager";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
+import { CoreSharedModule } from "../core-main/core.shared.module";
 import { CoreModuleModule } from "../core-main/module/coreModule.module";
 import { WebDesignerMainIntroAddComponent } from "./intro/add/add.component";
 import { WebDesignerMainIntroEditComponent } from "./intro/edit/edit.component";
@@ -62,7 +64,6 @@ import { WebDesignerMainPageListGridComponent } from "./page/list-grid/list-grid
 import { WebDesignerMainPageListComponent } from "./page/list/list.component";
 import { WebDesignerMainPageSelectorComponent } from "./page/selector/selector.component";
 import { WebDesignerMainPageTreeComponent } from "./page/tree/tree.component";
-import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
 @NgModule({
   declarations: [
     WebDesignerComponent,
@@ -115,6 +116,7 @@ import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
     FormsModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     SharedModule,
+    CoreSharedModule,
     AngularEditorModule,
 
     MatIconModule,

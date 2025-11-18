@@ -5,6 +5,7 @@ import { CoreModuleSiteCreditChargeComponent } from "./site-credit/charge/charge
 import { CoreModuleSiteCreditListComponent } from "./site-credit/list/list.component";
 import { CoreModuleSiteUserCreditChargeComponent } from "./site-user-credit/charge/charge.component";
 import { CoreModuleSiteUserCreditListComponent } from "./site-user-credit/list/list.component";
+import { CoreModuleSiteUserCreditMyselfListComponent } from "./site-user-credit/myself-list/myself-list.component";
 import { CoreModuleTagListComponent } from "./tag/list/list.component";
 
 const routes: Routes = [
@@ -27,6 +28,11 @@ const routes: Routes = [
       {
         path: "site-credit-charge/:LinkModuleId",
         component: CoreModuleSiteCreditChargeComponent,
+        data: { title: "ROUTE.COREMODULE" },
+      },
+      {
+        path: "site-user-credit-myself",
+        component: CoreModuleSiteUserCreditMyselfListComponent,
         data: { title: "ROUTE.COREMODULE" },
       },
       {

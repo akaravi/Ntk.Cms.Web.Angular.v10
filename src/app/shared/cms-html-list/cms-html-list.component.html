@@ -275,6 +275,7 @@
   <div class="divider divider-margins"></div>
   <!--begin::cms-action-row-->
   <div class="row text-center">
+    <ng-content select="[cms-action-row]"></ng-content>
     <div *ngIf="optionOnActionButtonPrintRow" class="col-4">
       <a
         type="button"
@@ -301,7 +302,6 @@
         {{ "ACTION.MEMO" | translate }}
       </p>
     </div>
-    <ng-content select="[cms-action-row]"></ng-content>
   </div>
   <!--end::cms-action-row-->
 </div>

@@ -1,7 +1,14 @@
 <app-core-user-header
   [optionId]="requestLinkUserId"
   *ngIf="requestLinkUserId > 0"
-></app-core-user-header><app-cms-html-list
+></app-core-user-header>
+<app-core-module-header
+  [optionId]="requestLinkModuleId"
+  *ngIf="requestLinkModuleId > 0"
+></app-core-module-header>
+
+
+<app-cms-html-list
   [optionsListInfoAreaId]="constructorInfoAreaId"
   [optionGuideNoticeKey]="''"
   [(optionActionGuideNoticeDisplay)]="viewGuideNotice"
@@ -194,6 +201,22 @@
         </mat-cell>
       </ng-container>
 
+            <!-- linkModuleId Column -->
+      <ng-container matColumnDef="linkModuleId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ fieldsInfo["linkModuleId"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.linkModuleId | cmstitle: dataModelCoreModuleResult.listItems }}
+        </mat-cell>
+      </ng-container>
+      <!-- transactionCredit Column -->
+      <ng-container matColumnDef="transactionCredit">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ fieldsInfo["transactionCredit"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.transactionCredit | number }} </mat-cell>
+      </ng-container>
       <!-- CreatedDate Column -->
       <ng-container matColumnDef="CreatedDate">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
