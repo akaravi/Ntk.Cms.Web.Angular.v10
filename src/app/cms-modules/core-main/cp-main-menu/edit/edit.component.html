@@ -189,19 +189,17 @@
           <!-- color Field -->
           <div
             *ngIf="fieldsInfo['color']?.accessWatchField"
-            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
           >
             <label for="dataModel.color" class="color-highlight">{{
               fieldsInfo["routeAddressLink"]?.fieldTitle
             }}</label>
             <input
               matInput
-              type="text"
               [style.background]="dataModel.color"
               [ngxMatColorPicker]="colorPicker"
               [(ngModel)]="dataModel.color"
-              name="dataModel.color"
-              #color
+              name="colorPicker.color"
               placeholder="{{ fieldsInfo['color']?.fieldTitle }}"
               [disabled]="!fieldsInfo['color']?.accessEditField"
               class="form-control validate-name"
@@ -212,8 +210,8 @@
               [for]="colorPicker"
             ></ngx-mat-color-toggle>
             <ngx-mat-color-picker
+              touchUi
               #colorPicker
-              [touchUi]="true"
               [color]="'primary'"
             ></ngx-mat-color-picker>
           </div>
