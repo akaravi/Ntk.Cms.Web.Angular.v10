@@ -133,7 +133,7 @@ export class CoreModuleLogSiteUserCreditListComponent
     "LinkSiteId",
     "linkModuleId",
     "transactionCredit",
-    "transactionId",
+    "linkModuleBankPaymentTransactionId",
     "CreatedDate",
     // 'Action'
   ];
@@ -168,7 +168,7 @@ export class CoreModuleLogSiteUserCreditListComponent
           this.DataGetAll();
         }),
     );
-  this.getModuleList();
+    this.getModuleList();
   }
   getModuleList(): void {
     const filter = new FilterModel();
@@ -484,6 +484,7 @@ export class CoreModuleLogSiteUserCreditListComponent
 
   onActionButtonViewUserRow(
     model: CoreModuleLogSiteUserCreditModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -501,11 +502,20 @@ export class CoreModuleLogSiteUserCreditListComponent
         });
       return;
     }
-    this.router.navigate(["/core/user/edit", this.tableRowSelected.linkUserId]);
+    if (event?.ctrlKey) {
+      const link = "/#/core/user/edit/" + this.tableRowSelected.linkUserId;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/core/user/edit",
+        this.tableRowSelected.linkUserId,
+      ]);
+    }
   }
 
   onActionButtonViewSiteRow(
     model: CoreModuleLogSiteUserCreditModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -523,7 +533,41 @@ export class CoreModuleLogSiteUserCreditListComponent
         });
       return;
     }
-    this.router.navigate(["/core/site/edit", this.tableRowSelected.linkSiteId]);
+    if (event?.ctrlKey) {
+      const link = "/#/core/site/edit/" + this.tableRowSelected.linkSiteId;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/core/site/edit",
+        this.tableRowSelected.linkSiteId,
+      ]);
+    }
+  }
+
+  onActionButtonBankPaymentTransactionRow(
+    model: CoreModuleLogSiteUserCreditModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
+    if (
+      !model ||
+      !model.linkModuleBankPaymentTransactionId ||
+      model.linkModuleBankPaymentTransactionId === 0
+    ) {
+      this.cmsToastrService.typeErrorSelectedRow();
+      return;
+    }
+    this.onActionTableRowSelect(model);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/bankpayment/transaction/" +
+        this.tableRowSelected.linkModuleBankPaymentTransactionId;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/bankpayment/transaction/",
+        this.tableRowSelected.linkModuleBankPaymentTransactionId,
+      ]);
+    }
   }
 
   onActionButtonReload(): void {

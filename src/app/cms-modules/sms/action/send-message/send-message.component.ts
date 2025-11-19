@@ -100,7 +100,6 @@ export class SmsActionSendMessageComponent implements OnInit {
       status: ValidationStatusEnum.Warning,
       description: "",
       linkSrc: "",
-      linkTarget: "",
     });
     this.formInfo.validationList.push({
       key: "message",
@@ -108,7 +107,6 @@ export class SmsActionSendMessageComponent implements OnInit {
       status: ValidationStatusEnum.Warning,
       description: "",
       linkSrc: "",
-      linkTarget: "",
     });
 
     this.formInfo.validationList.push({
@@ -117,7 +115,6 @@ export class SmsActionSendMessageComponent implements OnInit {
       status: ValidationStatusEnum.Warning,
       description: "",
       linkSrc: "",
-      linkTarget: "",
     });
     this.formInfo.validationList.push({
       key: "linkFromNumber",
@@ -125,7 +122,6 @@ export class SmsActionSendMessageComponent implements OnInit {
       status: ValidationStatusEnum.Error,
       description: "",
       linkSrc: "",
-      linkTarget: "",
     });
     this.formInfo.validationList.push({
       key: "toNumbers",
@@ -133,7 +129,6 @@ export class SmsActionSendMessageComponent implements OnInit {
       status: ValidationStatusEnum.Error,
       description: "",
       linkSrc: "",
-      linkTarget: "",
     });
   }
   timezoneOffset = 0;
@@ -349,7 +344,6 @@ export class SmsActionSendMessageComponent implements OnInit {
           status: ValidationStatusEnum.info,
           description: model.sendMessageAddTextFirst,
           linkSrc: "",
-          linkTarget: "",
         });
       }
       if (model.sendMessageAddTextEnd?.length > 0) {
@@ -359,7 +353,6 @@ export class SmsActionSendMessageComponent implements OnInit {
           status: ValidationStatusEnum.info,
           description: model.sendMessageAddTextEnd,
           linkSrc: "",
-          linkTarget: "",
         });
       }
     } else {
@@ -390,6 +383,9 @@ export class SmsActionSendMessageComponent implements OnInit {
         (x) => x.key === "message",
       ).description = this.dataModel.message.length + " کاراکتر";
     } else {
+      this.formInfo.validationList.find(
+        (x) => x.key === "message",
+      ).description = "";
       this.formInfo.validationList.find((x) => x.key === "message").status =
         ValidationStatusEnum.Error;
     }
@@ -439,7 +435,6 @@ export class SmsActionSendMessageComponent implements OnInit {
         title: "ارسال در حال شبیه سازی  می باشد",
         status: ValidationStatusEnum.info,
         description: "ارسال در حال شبیه سازی  می باشد",
-        linkTarget: "",
         linkSrc: "",
       });
     } else {
@@ -448,7 +443,6 @@ export class SmsActionSendMessageComponent implements OnInit {
         title: "ارسال در حالت معمول می باشد",
         status: ValidationStatusEnum.Success,
         description: "ارسال در حالت معمول می باشد",
-        linkTarget: "",
         linkSrc: "",
       });
     }
@@ -499,7 +493,6 @@ export class SmsActionSendMessageComponent implements OnInit {
         description: "زمانبندی ارسال فعال است",
 
         linkSrc: "",
-        linkTarget: "",
       });
     } else {
       this.formInfo.validationList.push({
@@ -507,9 +500,7 @@ export class SmsActionSendMessageComponent implements OnInit {
         title: "زمانبندی ارسال غیر فعال است",
         status: ValidationStatusEnum.Success,
         description: "زمانبندی ارسال غیر فعال است",
-
         linkSrc: "",
-        linkTarget: "",
       });
     }
     this.cdr.detectChanges();

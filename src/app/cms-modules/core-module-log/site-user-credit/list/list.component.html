@@ -129,13 +129,41 @@
     </div>
     <div *ngIf="tableRowSelected?.linkUserId > 0" class="col-4">
       <a
-        (click)="onActionButtonViewUserRow(tableRowSelected)"
+        (click)="onActionButtonViewUserRow(tableRowSelected, $event)"
         class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
         target="_blank"
         ><i class="fa-solid fa-user font-18" style="color: #ffffff"></i><br />
       </a>
       <p class="font-11 text-center opacity-70">
         {{ "ACTION.USER" | translate }}
+      </p>
+    </div>
+    <div *ngIf="tableRowSelected?.linkSiteId > 0" class="col-4">
+      <a
+        (click)="onActionButtonViewSiteRow(tableRowSelected, $event)"
+        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
+        target="_blank"
+        ><i class="fa-solid fa-globe font-18" style="color: #ffffff"></i><br />
+      </a>
+      <p class="font-11 text-center opacity-70">
+        {{ "ACTION.SITE" | translate }}
+      </p>
+    </div>
+    <div
+      *ngIf="tableRowSelected?.linkModuleBankPaymentTransactionId > 0"
+      class="col-4"
+    >
+      <a
+        (click)="
+          onActionButtonBankPaymentTransactionRow(tableRowSelected, $event)
+        "
+        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
+        target="_blank"
+        ><i class="fa-solid fa-money-bill font-18" style="color: #ffffff"></i
+        ><br />
+      </a>
+      <p class="font-11 text-center opacity-70">
+        {{ "ACTION.BANK_PAYMENT_TRANSACTION" | translate }}
       </p>
     </div>
 
@@ -224,13 +252,13 @@
           {{ row.transactionCredit | number }}
         </mat-cell>
       </ng-container>
-      <!-- transactionId Column -->
-      <ng-container matColumnDef="transactionId">
+      <!-- linkModuleBankPaymentTransactionId Column -->
+      <ng-container matColumnDef="linkModuleBankPaymentTransactionId">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
-          {{ fieldsInfo["transactionId"]?.fieldTitle }}
+          {{ fieldsInfo["linkModuleBankPaymentTransactionId"]?.fieldTitle }}
         </mat-header-cell>
         <mat-cell *matCellDef="let row">
-          {{ row.transactionId }}
+          {{ row.linkModuleBankPaymentTransactionId }}
         </mat-cell>
       </ng-container>
       <!-- CreatedDate Column -->

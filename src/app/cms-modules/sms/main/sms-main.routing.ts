@@ -7,7 +7,6 @@ import { SmsMainApiPathPermissionListComponent } from "./api-path-permission/lis
 import { SmsMainApiPathPriceServiceListComponent } from "./api-path-price-service/list/list.component";
 import { SmsMainApiPathEditComponent } from "./api-path/edit/edit.component";
 import { SmsMainApiPathListComponent } from "./api-path/list/list.component";
-import { SmsMainCustomerCreditListComponent } from "./customer-credit/list/list.component";
 import { SmsMainMessageContentListComponent } from "./message-content/list/list.component";
 import { SmsMainApiPathPublicConfigListComponent } from "./public-config/list/list.component";
 import { SmsMainComponent } from "./sms-main.component";
@@ -98,11 +97,7 @@ const routes: Routes = [
         component: SmsMainApiNumberPermissionListComponent,
         data: { title: "ROUTE.SMS.MAIN" },
       },
-      {
-        path: "customer-credit",
-        component: SmsMainCustomerCreditListComponent,
-        data: { title: "ROUTE.SMS.MAIN" },
-      },
+
       {
         path: "message",
         component: SmsMainMessageContentListComponent,

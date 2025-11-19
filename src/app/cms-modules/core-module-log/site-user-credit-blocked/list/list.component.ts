@@ -117,6 +117,7 @@ export class CoreModuleLogSiteUserCreditBlockedListComponent
     "Id",
     "LinkUserId",
     "LinkSiteId",
+    "linkModuleBankPaymentTransactionId",
     "CreatedDate",
     // 'Action'
   ];
@@ -494,7 +495,31 @@ export class CoreModuleLogSiteUserCreditBlockedListComponent
     }
     this.router.navigate(["/core/site/edit", this.tableRowSelected.linkSiteId]);
   }
-
+  onActionButtonBankPaymentTransactionRow(
+    model: CoreModuleLogSiteUserCreditBlockedModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
+    if (
+      !model ||
+      !model.linkModuleBankPaymentTransactionId ||
+      model.linkModuleBankPaymentTransactionId === 0
+    ) {
+      this.cmsToastrService.typeErrorSelectedRow();
+      return;
+    }
+    this.onActionTableRowSelect(model);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/bankpayment/transaction/" +
+        this.tableRowSelected.linkModuleBankPaymentTransactionId;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/bankpayment/transaction/",
+        this.tableRowSelected.linkModuleBankPaymentTransactionId,
+      ]);
+    }
+  }
   onActionButtonReload(): void {
     this.DataGetAll();
   }

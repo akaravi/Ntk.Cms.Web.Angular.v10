@@ -7,6 +7,7 @@ import { TranslateService } from "@ngx-translate/core";
 import {
   AuthRefreshTokenModel,
   CoreAuthV3Service,
+  CoreSiteModel,
   CoreUserModel,
   CoreUserService,
   FilterDataModel,
@@ -169,6 +170,21 @@ export class CoreUserListComponent
     ) {
       filterModel.filters = [...this.filterDataModelQueryBuilder];
     }
+    /*filterActionSearch*/
+    if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyAnyName = "LinkSiteId";
+      filter.propertyName = "SiteUsers";
+      filter.value = this.filteModelContent.filterActionSearchLinkSiteId;
+      filterModel.filters.push(filter);
+    }
+    if (this.filteModelContent.filterActionSearchLinkUserId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "Id";
+      filter.value = this.filteModelContent.filterActionSearchLinkUserId;
+      filterModel.filters.push(filter);
+    }
+    /*filterActionSearch*/
     /*filter add search*/
     this.coreUserService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {

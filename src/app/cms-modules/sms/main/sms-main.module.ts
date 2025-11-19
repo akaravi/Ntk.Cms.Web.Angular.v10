@@ -19,7 +19,6 @@ import {
   SmsMainApiPathPermissionService,
   SmsMainApiPathPublicConfigService,
   SmsMainApiPathService,
-  SmsMainCustomerCreditService,
   SmsMainMessageCategoryService,
   SmsMainMessageContentService,
 } from "ntk-cms-api";
@@ -49,13 +48,11 @@ import { SmsMainApiPathPriceServiceEditComponent } from "./api-path-price-servic
 import { SmsMainApiPathPriceServiceListComponent } from "./api-path-price-service/list/list.component";
 import { SmsMainApiPathAddComponent } from "./api-path/add/add.component";
 import { SmsMainApiPathEditComponent } from "./api-path/edit/edit.component";
+import { SmsMainApiPathHeaderComponent } from "./api-path/header/header.component";
 import { SmsMainApiPathListComponent } from "./api-path/list/list.component";
 import { SmsMainApiPathSelectionlistComponent } from "./api-path/selectionlist/selectionlist.component";
 import { SmsMainApiPathSelectorComponent } from "./api-path/selector/selector.component";
 import { SmsMainApiPathSendTestComponent } from "./api-path/sendTest/sendTest.component";
-import { SmsMainCustomerCreditAddComponent } from "./customer-credit/add/add.component";
-import { SmsMainCustomerCreditEditComponent } from "./customer-credit/edit/edit.component";
-import { SmsMainCustomerCreditListComponent } from "./customer-credit/list/list.component";
 import { SmsMainMessageCategoryAddComponent } from "./message-category/add/add.component";
 import { SmsMainMessageCategoryDeleteComponent } from "./message-category/delete/delete.component";
 import { SmsMainMessageCategoryEditComponent } from "./message-category/edit/edit.component";
@@ -71,7 +68,6 @@ import { SmsMainApiPathPublicConfigHeaderComponent } from "./public-config/heade
 import { SmsMainApiPathPublicConfigListComponent } from "./public-config/list/list.component";
 import { SmsMainApiPathPublicConfigSelectorComponent } from "./public-config/selector/selector.component";
 import { SmsMainApiPathPublicConfigTreeComponent } from "./public-config/tree/tree.component";
-import { SmsMainApiPathHeaderComponent } from "./api-path/header/header.component";
 
 @NgModule({
   declarations: [
@@ -117,10 +113,7 @@ import { SmsMainApiPathHeaderComponent } from "./api-path/header/header.componen
     SmsMainApiNumberPermissionListComponent,
     SmsMainApiNumberPermissionAddComponent,
     SmsMainApiNumberPermissionEditComponent,
-    /*CustomerCredit*/
-    SmsMainCustomerCreditListComponent,
-    SmsMainCustomerCreditEditComponent,
-    SmsMainCustomerCreditAddComponent,
+
     /** */
     SmsMainMessageCategoryAddComponent,
     SmsMainMessageCategoryDeleteComponent,
@@ -175,10 +168,6 @@ import { SmsMainApiPathHeaderComponent } from "./api-path/header/header.componen
     SmsMainApiNumberPermissionListComponent,
     SmsMainApiNumberPermissionAddComponent,
     SmsMainApiNumberPermissionEditComponent,
-    /*CustomerCredit*/
-    SmsMainCustomerCreditListComponent,
-    SmsMainCustomerCreditEditComponent,
-    SmsMainCustomerCreditAddComponent,
 
     /** */
     SmsMainMessageCategoryAddComponent,
@@ -221,7 +210,6 @@ import { SmsMainApiPathHeaderComponent } from "./api-path/header/header.componen
     SmsMainApiPathPublicConfigService,
     SmsMainApiNumberService,
     SmsMainApiPathAndApiNumberService,
-    SmsMainCustomerCreditService,
     SmsMainMessageContentService,
     SmsMainMessageCategoryService,
   ],

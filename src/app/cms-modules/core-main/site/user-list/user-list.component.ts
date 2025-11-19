@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
   AuthRefreshTokenModel,
+  CoreSiteModel,
   CoreSiteUserModel,
   CoreSiteUserService,
   CoreUserModel,
@@ -211,6 +212,22 @@ export class CoreSiteUserListComponent
       filterModel.filters = [...this.filterDataModelQueryBuilder];
     }
     /*filter add search*/
+    /*filterActionSearch*/
+    if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyAnyName = "LinkSiteId";
+      filter.propertyName = "SiteUsers";
+      filter.value = this.filteModelContent.filterActionSearchLinkSiteId;
+      filterModel.filters.push(filter);
+    }
+    if (this.filteModelContent.filterActionSearchLinkUserId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyAnyName = "LinkUserId";
+      filter.propertyName = "SiteUsers";
+      filter.value = this.filteModelContent.filterActionSearchLinkUserId;
+      filterModel.filters.push(filter);
+    }
+    /*filterActionSearch*/
     this.contentService.ServiceGetAll(filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {

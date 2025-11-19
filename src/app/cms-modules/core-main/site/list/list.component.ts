@@ -176,6 +176,21 @@ export class CoreSiteListComponent
     ) {
       filterModel.filters = [...this.filterDataModelQueryBuilder];
     }
+    /*filterActionSearch*/
+    if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "Id";
+      filter.value = this.filteModelContent.filterActionSearchLinkSiteId;
+      filterModel.filters.push(filter);
+    }
+    if (this.filteModelContent.filterActionSearchLinkUserId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyAnyName = "LinkUserId";
+      filter.propertyName = "SiteUsers";
+      filter.value = this.filteModelContent.filterActionSearchLinkUserId;
+      filterModel.filters.push(filter);
+    }
+    /*filterActionSearch*/
     /*filter add search*/
     this.contentService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {
@@ -442,6 +457,7 @@ export class CoreSiteListComponent
       }
     });
   }
+
   onActionButtonModuleSiteOptimaze(
     model: CoreSiteModel = this.tableRowSelected,
   ): void {
