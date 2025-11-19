@@ -398,6 +398,7 @@ export class SmsMainApiPathCompanyListComponent
 
   onActionButtonApiList(
     model: SmsMainApiPathCompanyModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!model || !model.id || model.id.length == 0) {
       this.translate
@@ -413,10 +414,15 @@ export class SmsMainApiPathCompanyListComponent
       this.cmsToastrService.typeErrorSelected();
       return;
     }
-    this.router.navigate([
-      "/sms/main/api-path/list/LinkCompanyId",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link = "/#/sms/main/api-path/list/LinkCompanyId/" + this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+        this.router.navigate([
+        "/sms/main/api-path/list/LinkCompanyId",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
 
   onActionButtonReload(): void {

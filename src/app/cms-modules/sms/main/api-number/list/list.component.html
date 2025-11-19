@@ -124,9 +124,21 @@
         {{ "ACTION.DELETE" | translate }}
       </p>
     </div>
+      <div class="col-4">
+      <a
+        (click)="onActionButtonSendMessage(tableRowSelected, $event)"
+        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
+        target="_blank"
+        ><i class="fa-solid fa-receipt font-18" style="color: #ffffff"></i
+        ><br />
+      </a>
+      <p class="font-11 text-center opacity-70">
+          {{ "ACTION.SEND_MESSAGE" | translate }}
+      </p>
+    </div>
     <div class="col-4">
       <a
-        (click)="onActionButtonReceiveList(tableRowSelected)"
+        (click)="onActionButtonInboxList(tableRowSelected, $event)"
         class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
         target="_blank"
         ><i class="fa-solid fa-receipt font-18" style="color: #ffffff"></i
@@ -136,21 +148,9 @@
         {{ "ACTION.RECEIPTS" | translate }}
       </p>
     </div>
-    <div class="col-4">
+        <div class="col-4">
       <a
-        (click)="onActionButtonPermissionList(tableRowSelected)"
-        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-        target="_blank"
-        ><i class="fa-solid fa-receipt font-18" style="color: #ffffff"></i
-        ><br />
-      </a>
-      <p class="font-11 text-center opacity-70">
-        {{ "ACTION.Permission" | translate }}
-      </p>
-    </div>
-    <div class="col-4">
-      <a
-        (click)="onActionButtonSendList(tableRowSelected)"
+        (click)="onActionButtonOutboxList(tableRowSelected, $event)"
         class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
         target="_blank"
         ><i
@@ -163,6 +163,20 @@
         {{ "ACTION.SUBMISSIONS" | translate }}
       </p>
     </div>
+    <div class="col-4">
+      <a
+        (click)="onActionButtonPermissionList(tableRowSelected, $event)"
+        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
+        target="_blank"
+        ><i class="fa-solid fa-receipt font-18" style="color: #ffffff"></i
+        ><br />
+      </a>
+      <p class="font-11 text-center opacity-70">
+        {{ "ACTION.Permission" | translate }}
+      </p>
+    </div>
+
+
 
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-row-->
   </ng-container>

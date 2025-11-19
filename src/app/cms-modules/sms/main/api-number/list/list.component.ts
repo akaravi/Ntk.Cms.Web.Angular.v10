@@ -456,34 +456,9 @@ export class SmsMainApiNumberListComponent
     });
   }
 
-  onActionButtonReceiveList(
-    model: SmsMainApiNumberModel = this.tableRowSelected,
-  ): void {
-    if (!model || !model.id || model.id.length == 0) {
-      this.translate
-        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
-        .subscribe((str: string) => {
-          this.cmsToastrService.typeErrorSelected(str);
-        });
-      return;
-    }
-    this.onActionTableRowSelect(model);
-
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessWatchRow
-    ) {
-      this.cmsToastrService.typeErrorSelected();
-      return;
-    }
-    this.router.navigate([
-      "/sms/log/inbox/list/ReceiverNumber",
-      this.tableRowSelected.numberChar,
-    ]);
-  }
   onActionButtonPermissionList(
     model: SmsMainApiNumberModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     debugger;
     if (!model || !model.id || model.id.length == 0) {
@@ -500,13 +475,19 @@ export class SmsMainApiNumberListComponent
       this.cmsToastrService.typeErrorSelected();
       return;
     }
-    this.router.navigate([
-      "/sms/main/api-number-permission/LinkApiNumberId/",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link = "/#/sms/main/api-number-permission/LinkApiNumberId/" + this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/sms/main/api-number-permission/LinkApiNumberId/",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
-  onActionButtonSendList(
+  onActionButtonInboxList(
     model: SmsMainApiNumberModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!model || !model.id || model.id.length == 0) {
       this.translate
@@ -526,12 +507,81 @@ export class SmsMainApiNumberListComponent
       this.cmsToastrService.typeErrorSelected();
       return;
     }
-    this.router.navigate([
-      "/sms/log/outbox/list/SenderNumber",
-      this.tableRowSelected.numberChar,
-    ]);
+    if (event?.ctrlKey) {
+      const link = "/#/sms/log/inbox/list/ReceiverNumber/" + this.tableRowSelected.numberChar;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/sms/log/inbox/list/ReceiverNumber",
+        this.tableRowSelected.numberChar,
+      ]);
+    }
+  }
+  onActionButtonOutboxList(
+    model: SmsMainApiNumberModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
+    if (!model || !model.id || model.id.length == 0) {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+    this.onActionTableRowSelect(model);
+
+    if (
+      this.dataModelResult == null ||
+      this.dataModelResult.access == null ||
+      !this.dataModelResult.access.accessWatchRow
+    ) {
+      this.cmsToastrService.typeErrorSelected();
+      return;
+    }
+    if (event?.ctrlKey) {
+      const link = "/#/sms/log/outbox/list/SenderNumber/" + this.tableRowSelected.numberChar;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/sms/log/outbox/list/SenderNumber",
+        this.tableRowSelected.numberChar,
+      ]);
+    }
   }
 
+  onActionButtonSendMessage(
+    model: SmsMainApiNumberModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
+    if (!model || !model.id || model.id.length == 0) {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+    this.onActionTableRowSelect(model);
+
+    if (
+      this.dataModelResult == null ||
+      this.dataModelResult.access == null ||
+      !this.dataModelResult.access.accessWatchRow
+    ) {
+      this.cmsToastrService.typeErrorSelected();
+      return;
+    }
+    if (event?.ctrlKey) {
+      const link = "/#/sms/action/send-message/LinkApiNumberId/" + this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/sms/action/send-message/LinkApiNumberId",
+        this.tableRowSelected.id,
+      ]);
+    }
+  }
   onActionButtonReload(): void {
     this.DataGetAll();
   }

@@ -547,8 +547,43 @@ export class SmsMainApiPathListComponent
       },
     });
   }
+  onActionButtonSendMessage(
+    model: SmsMainApiPathModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
+    if (!model || !model.id || model.id.length == 0) {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+    this.onActionTableRowSelect(model);
+
+    if (
+      this.dataModelResult == null ||
+      this.dataModelResult.access == null ||
+      !this.dataModelResult.access.accessWatchRow
+    ) {
+      this.cmsToastrService.typeErrorSelected();
+      return;
+    }
+    if (event?.ctrlKey) {
+      const link =
+        "/#/sms/action/send-message/LinkApiPathId/" +
+        this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/sms/action/send-message/LinkApiPathId",
+        this.tableRowSelected.id,
+      ]);
+    }
+  }
   onActionButtonSuperSedersList(
     model: SmsMainApiPathModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.translate
@@ -568,13 +603,21 @@ export class SmsMainApiPathListComponent
       this.cmsToastrService.typeErrorSelected();
       return;
     }
-    this.router.navigate([
-      "/bankpayment/privatesiteconfig/LinkPublicConfigId",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/bankpayment/privatesiteconfig/LinkPublicConfigId/" +
+        this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/bankpayment/privatesiteconfig/LinkPublicConfigId",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
   onActionButtonMustSuperSedersList(
     model: SmsMainApiPathModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.translate
@@ -594,13 +637,21 @@ export class SmsMainApiPathListComponent
       this.cmsToastrService.typeErrorSelected();
       return;
     }
-    this.router.navigate([
-      "/bankpayment/privatesiteconfig/LinkPublicConfigId",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/bankpayment/privatesiteconfig/LinkPublicConfigId/" +
+        this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/bankpayment/privatesiteconfig/LinkPublicConfigId",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
   onActionButtonNumbersList(
     model: SmsMainApiPathModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.translate
@@ -620,13 +671,20 @@ export class SmsMainApiPathListComponent
       this.cmsToastrService.typeErrorSelected();
       return;
     }
-    this.router.navigate([
-      "/sms/main/api-number/LinkApiPathId",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/sms/main/api-number/LinkApiPathId/" + this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/sms/main/api-number/LinkApiPathId",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
   onActionButtonPermitionList(
     model: SmsMainApiPathModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.translate
@@ -653,6 +711,7 @@ export class SmsMainApiPathListComponent
   }
   onActionButtonOutBoxQueue(
     model: SmsMainApiPathModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.translate
@@ -672,10 +731,16 @@ export class SmsMainApiPathListComponent
       this.cmsToastrService.typeErrorSelected();
       return;
     }
-    this.router.navigate([
-      "/sms/log/outbox-queue/LinkApiPathId",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/sms/log/outbox-queue/LinkApiPathId/" + this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/sms/log/outbox-queue/LinkApiPathId",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
   onActionButtonCopy(model: SmsMainApiPathModel = this.tableRowSelected): void {
     if (!model || !model.id || model.id.length === 0) {
@@ -709,6 +774,7 @@ export class SmsMainApiPathListComponent
   }
   onActionButtonPriceServicesList(
     model: SmsMainApiPathModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.translate
@@ -728,10 +794,17 @@ export class SmsMainApiPathListComponent
       this.cmsToastrService.typeErrorSelected();
       return;
     }
-    this.router.navigate([
-      "/sms/main/api-path-price-service/LinkApiPathId",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/sms/main/api-path-price-service/LinkApiPathId/" +
+        this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/sms/main/api-path-price-service/LinkApiPathId",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
 
   onActionButtonSendTest(
@@ -766,6 +839,7 @@ export class SmsMainApiPathListComponent
   }
   onActionButtonReportsRow(
     model: SmsMainApiPathModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -780,10 +854,16 @@ export class SmsMainApiPathListComponent
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
-    this.router.navigate([
-      "/sms/log/api-path/LinkApiPathId",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/sms/log/api-path/LinkApiPathId/" + this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/sms/log/api-path/LinkApiPathId",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
   onActionButtonReload(): void {
     this.DataGetAll();

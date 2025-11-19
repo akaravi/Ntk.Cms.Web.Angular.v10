@@ -43,6 +43,7 @@ export class DateByClock {
 })
 export class SmsActionSendMessageComponent implements OnInit {
   requestLinkApiPathId = "";
+  requestLinkApiNumberId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public coreEnumService: CoreEnumService,
@@ -64,6 +65,11 @@ export class SmsActionSendMessageComponent implements OnInit {
       this.activatedRoute.snapshot.paramMap.get("LinkApiPathId");
     if (this.requestLinkApiPathId?.length > 0) {
       this.dataModel.linkApiPathId = this.requestLinkApiPathId;
+    }
+    this.requestLinkApiNumberId =
+      this.activatedRoute.snapshot.paramMap.get("LinkApiNumberId");
+    if (this.requestLinkApiNumberId?.length > 0) {
+      this.dataModel.linkFromNumber = this.requestLinkApiNumberId;
     }
     this.dataModel.scheduleCron = "";
 

@@ -16,12 +16,12 @@ const routes: Routes = [
         data: { title: "ROUTE.SMS.ACTION" },
       },
       {
-        path: "send-message/inbox-extras",
+        path: "send-message/LinkApiPathId/:LinkApiPathId",
         component: SmsActionSendMessageComponent,
         data: { title: "ROUTE.SMS.ACTION" },
       },
       {
-        path: "send-message/outbox-extras",
+        path: "send-message/LinkApiNumberId/:LinkApiNumberId",
         component: SmsActionSendMessageComponent,
         data: { title: "ROUTE.SMS.ACTION" },
       },
