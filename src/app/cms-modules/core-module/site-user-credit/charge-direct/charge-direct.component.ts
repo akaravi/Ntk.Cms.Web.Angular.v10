@@ -11,6 +11,7 @@ import {
   CoreModuleSiteUserCreditChargeDirectDtoModel,
   CoreModuleSiteUserCreditModel,
   CoreModuleSiteUserCreditService,
+  CoreSiteService,
   ErrorExceptionResult,
 } from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -27,7 +28,7 @@ export class CoreModuleSiteUserCreditChargeDirectComponent implements OnInit {
   constructor(
     @Inject(DOCUMENT) private document: any,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialog: MatDialog,
+    private coreSiteService: CoreSiteService,
     private cmsToastrService: CmsToastrService,
     private router: Router,
     public publicHelper: PublicHelper,
@@ -59,6 +60,7 @@ export class CoreModuleSiteUserCreditChargeDirectComponent implements OnInit {
     this.dataModel.linkModuleId = this.requestModel.linkModuleId;
     this.dataModel.linkSiteId = this.requestModel.linkSiteId;
     this.dataModel.linkUserId = this.requestModel.linkUserId;
+    this.DataGetCurrency();
   }
   onActionButtonAdd(): void {
     const pName = this.constructor.name + "ServiceChargeDirect";
@@ -89,7 +91,21 @@ export class CoreModuleSiteUserCreditChargeDirectComponent implements OnInit {
       },
     });
   }
-
+  currency = "";
+  DataGetCurrency(): void {
+    this.coreSiteService.ServiceGetCurrencyMaster().subscribe({
+      next: (ret) => {
+        if (ret.isSuccess) {
+          this.currency = ret.item;
+        } else {
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+        }
+      },
+      error: (er) => {
+        this.cmsToastrService.typeError(er);
+      },
+    });
+  }
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });
   }

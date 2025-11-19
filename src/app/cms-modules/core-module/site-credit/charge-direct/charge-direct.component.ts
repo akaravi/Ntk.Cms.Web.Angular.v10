@@ -91,7 +91,21 @@ export class CoreModuleSiteCreditChargeDirectComponent implements OnInit {
       },
     });
   }
-
+  currency="";
+  DataGetCurrency(): void {
+    this.coreSiteService.ServiceGetCurrencyMaster().subscribe({
+      next: (ret) => {
+        if (ret.isSuccess) {
+          this.currency = ret.item;
+        } else {
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+        }
+      },
+      error: (er) => {
+        this.cmsToastrService.typeError(er);
+      },
+    });
+  }
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });
   }

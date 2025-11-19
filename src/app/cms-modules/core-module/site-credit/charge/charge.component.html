@@ -24,8 +24,10 @@
                   [(ngModel)]="dataModelCalculate.credit"
                   name="dataModelCalculate.credit"
                   #Credit
-                  type="number"
+                  currencyMask
+                  type="text"
                   placeholder="0"
+                  class="form-control validate-name input-ltr-center"
                 />
                 <span matSuffix>{{ currency }}</span>
                 <mat-icon

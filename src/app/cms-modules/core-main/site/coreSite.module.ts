@@ -11,6 +11,7 @@ import {
   CoreSiteService,
   CoreSiteUserService,
   CoreUserService,
+  SmsActionService,
 } from "ntk-cms-api";
 import { CmsFileManagerModule } from "ntk-cms-filemanager";
 import { CmsTranslationService } from "src/app/core/i18n/cmsTranslation.service";
@@ -77,6 +78,7 @@ import { CoreSiteUserListComponent } from "./user-list/user-list.component";
     CoreUserService,
     CoreSiteUserService,
     CmsTranslationService,
+    SmsActionService,
   ],
   imports: [
     CommonModule,

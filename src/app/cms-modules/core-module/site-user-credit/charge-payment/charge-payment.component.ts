@@ -9,6 +9,7 @@ import {
   CoreModuleSiteUserCreditCalculateDtoModel,
   CoreModuleSiteUserCreditPaymentDtoModel,
   CoreModuleSiteUserCreditService,
+  CoreSiteService,
   ErrorExceptionResult,
   FormInfoModel,
 } from "ntk-cms-api";
@@ -20,7 +21,6 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 @Component({
   selector: "app-coremodule-site-user-credit-charge-payment",
   templateUrl: "./charge-payment.component.html",
-  styleUrls: ["./charge-payment.component.scss"],
   standalone: false,
 })
 export class CoreModuleSiteUserCreditChargePaymentComponent implements OnInit {
@@ -34,6 +34,7 @@ export class CoreModuleSiteUserCreditChargePaymentComponent implements OnInit {
     private dialogRef: MatDialogRef<CoreModuleSiteUserCreditChargePaymentComponent>,
     private cmsToastrService: CmsToastrService,
     private coreModuleSiteUserCreditService: CoreModuleSiteUserCreditService,
+    private coreSiteService: CoreSiteService,
     public translate: TranslateService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
@@ -160,6 +161,21 @@ export class CoreModuleSiteUserCreditChargePaymentComponent implements OnInit {
           this.publicHelper.processService.processStop(pName);
         },
       });
+  }
+  currency = "";
+  DataGetCurrency(): void {
+    this.coreSiteService.ServiceGetCurrencyMaster().subscribe({
+      next: (ret) => {
+        if (ret.isSuccess) {
+          this.currency = ret.item;
+        } else {
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+        }
+      },
+      error: (er) => {
+        this.cmsToastrService.typeError(er);
+      },
+    });
   }
   onActionSelectCalculate(model: BankPaymentPrivateSiteConfigModel): void {
     this.dataModelCalculate.bankPaymentPrivateId = model.id;
