@@ -6,8 +6,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
   AuthRefreshTokenModel,
-  CoreAuthV3Service,
-  CoreSiteModel,
   CoreUserModel,
   CoreUserService,
   FilterDataModel,
@@ -22,7 +20,6 @@ import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsAuthService } from "src/app/core/services/cmsAuth.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
-import { PageInfoService } from "src/app/core/services/page-info.service";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { environment } from "src/environments/environment";
 import { CoreUserAddComponent } from "../add/add.component";
@@ -47,11 +44,9 @@ export class CoreUserListComponent
     private router: Router,
     private cmsToastrService: CmsToastrService,
     private activatedRoute: ActivatedRoute,
-    private coreAuthService: CoreAuthV3Service,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
     private cmsStoreService: CmsStoreService,
     private cmsAuthService: CmsAuthService,
@@ -84,13 +79,14 @@ export class CoreUserListComponent
       filter.value = this.requestLinkSiteId;
       this.filteModelContent.filters.push(filter);
     }
+    /**filterActionSearch */
+    this.optionsSearch.data.filterModelContent = this.filteModelContent;
+    this.optionsSearch.data.filterActionSearchRecordStatusShow = true;
+    this.optionsSearch.data.filterActionSearchLinkUserIdShow = true;
+    this.optionsSearch.data.filterActionSearchLinkSiteIdShow = true;
+    /**filterActionSearch */
   }
   link: string;
-  comment: string;
-  author: string;
-  dataSource: any;
-  flag = false;
-  tableContentSelected = [];
 
   filteModelContent = new FilterModel();
   filterDataModelQueryBuilder: FilterDataModel[] = [];
@@ -119,7 +115,6 @@ export class CoreUserListComponent
     "action_menu",
   ];
 
-  expandedElement: CoreUserModel | null;
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
@@ -170,7 +165,13 @@ export class CoreUserListComponent
     ) {
       filterModel.filters = [...this.filterDataModelQueryBuilder];
     }
-    /*filterActionSearch*/
+    /**filterActionSearch */
+    if (this.filteModelContent.filterActionSearchRecordStatus > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "RecordStatus";
+      filter.value = this.filteModelContent.filterActionSearchRecordStatus;
+      filterModel.filters.push(filter);
+    }
     if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
       const filter = new FilterDataModel();
       filter.propertyAnyName = "LinkSiteId";
@@ -184,7 +185,7 @@ export class CoreUserListComponent
       filter.value = this.filteModelContent.filterActionSearchLinkUserId;
       filterModel.filters.push(filter);
     }
-    /*filterActionSearch*/
+    /**filterActionSearch */
     /*filter add search*/
     this.coreUserService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {

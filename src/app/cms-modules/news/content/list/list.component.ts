@@ -73,6 +73,13 @@ export class NewsContentListComponent
     /*filter Sort*/
     this.filteModelContent.sortColumn = "Id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
+
+    /**filterActionSearch */
+    this.optionsSearch.data.filterModelContent = this.filteModelContent;
+    this.optionsSearch.data.filterActionSearchRecordStatusShow = true;
+    this.optionsSearch.data.filterActionSearchLinkUserIdShow = true;
+    this.optionsSearch.data.filterActionSearchLinkSiteIdShow = true;
+    /**filterActionSearch */
   }
   link: string;
 
@@ -137,6 +144,26 @@ export class NewsContentListComponent
       filterModel.filters = [...this.filterDataModelQueryBuilder];
     }
     /*filter add search*/
+    /**filterActionSearch */
+    if (this.filteModelContent.filterActionSearchRecordStatus > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "RecordStatus";
+      filter.value = this.filteModelContent.filterActionSearchRecordStatus;
+      filterModel.filters.push(filter);
+    }
+    if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyAnyName = "LinkSiteId";
+      filter.value = this.filteModelContent.filterActionSearchLinkSiteId;
+      filterModel.filters.push(filter);
+    }
+    if (this.filteModelContent.filterActionSearchLinkUserId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "LinkUserId";
+      filter.value = this.filteModelContent.filterActionSearchLinkUserId;
+      filterModel.filters.push(filter);
+    }
+    /**filterActionSearch */
     if (this.GetAllWithHierarchyCategoryId) {
       /** GetAllWithHierarchyCategoryId */
       let selectId = 0;

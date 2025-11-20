@@ -87,6 +87,13 @@ export class CoreSiteListComponent
       filter.value = this.requestLinkSiteCategoryId;
       this.filteModelContent.filters.push(filter);
     }
+    /**filterActionSearch */
+    this.optionsSearch.data.filterModelContent = this.filteModelContent;
+    this.optionsSearch.data.filterModelContent = this.filteModelContent;
+    this.optionsSearch.data.filterActionSearchRecordStatusShow = true;
+    this.optionsSearch.data.filterActionSearchLinkUserIdShow = true;
+    this.optionsSearch.data.filterActionSearchLinkSiteIdShow = true;
+    /**filterActionSearch */
   }
   comment: string;
   author: string;
@@ -176,7 +183,13 @@ export class CoreSiteListComponent
     ) {
       filterModel.filters = [...this.filterDataModelQueryBuilder];
     }
-    /*filterActionSearch*/
+    /**filterActionSearch */
+    if (this.filteModelContent.filterActionSearchRecordStatus > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "RecordStatus";
+      filter.value = this.filteModelContent.filterActionSearchRecordStatus;
+      filterModel.filters.push(filter);
+    }
     if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
       const filter = new FilterDataModel();
       filter.propertyName = "Id";
@@ -190,7 +203,7 @@ export class CoreSiteListComponent
       filter.value = this.filteModelContent.filterActionSearchLinkUserId;
       filterModel.filters.push(filter);
     }
-    /*filterActionSearch*/
+    /**filterActionSearch */
     /*filter add search*/
     this.contentService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {

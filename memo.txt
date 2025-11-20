@@ -24,6 +24,14 @@ npm instal   ntk-cms-filemanager
 
 
 
+PS D:\SourceKaravi\GitHub\Ntk.Cms.Web.Angular.v10> npm i
+npm warn deprecated popsicle-proxy-agent@3.0.0: Use `agent` option with `popsicle` directly
+npm warn deprecated typings@2.1.1: Typings is deprecated in favor of NPM @types -- see README for more information
+npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+npm warn deprecated ng2-popover@0.0.14: name updated to match new angular versions. install ngx-popover instead
+npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 *INDO*************************************************
 *MEMO*************************************************
 publish github
@@ -114,21 +122,15 @@ npm run analyze
 #
 #
 *MEMO*************************************************
-.memory of run
+.مازول ها شناخته نمی شود
 *MEMO*************************************************
-node --max-old-space-size=1024 index.js #increase to 1gb
-node --max-old-space-size=2048 index.js #increase to 2gb
-node --max-old-space-size=3072 index.js #increase to 3gb
-node --max-old-space-size=4096 index.js #increase to 4gb
-node --max-old-space-size=5120 index.js #increase to 5gb
-node --max-old-space-size=6144 index.js #increase to 6gb
-node --max-old-space-size=7168 index.js #increase to 7gb
-node --max-old-space-size=8192 index.js #increase to 8gb
-node --max-old-space-size=16384 index.js #increase to 16gb
-node --max-old-space-size=32768 index.js #increase to 32gb
+ر IDE هنوز خطا نشان می‌دهد:
+Restart TypeScript Server در VS Code:
+Ctrl+Shift+P → TypeScript: Restart TS Server
+بررسی وجود node_modules:
+اگر مشکل ادامه داشت، می‌توانید moduleResolution را به "node" تغییر دهید (اما bundler بهتر است):
 
-See the current value of max-old-space-size (in MB)
-node -e 'console.log(v8.getHeapStatistics().heap_size_limit/(1024*1024))'
+
 #END#################################################
 #
 #

@@ -213,12 +213,15 @@ export class PageDashboardComponent implements OnInit {
     var ret = [];
     if (listPin && listPin.length > 0)
       listPin.forEach((el) => {
-        if (el.siteId == this.tokenInfo.site.id) ret[el.menuId] = true;
+        if (el.siteId == this.tokenInfo?.site?.id) ret[el.menuId] = true;
       });
     return ret;
   }
   updateThemeMenuPinToggel(id: number): void {
-    this.themeService.updateThemeMenuPinToggel(this.tokenInfo.site.id, id);
+    this.themeService.updateThemeMenuPinToggel(
+      this.tokenInfo?.site?.id ?? 0,
+      id,
+    );
     this.DataPinListSelect();
   }
   DataPinListSelect() {

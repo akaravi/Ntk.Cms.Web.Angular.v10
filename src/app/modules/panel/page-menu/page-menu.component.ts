@@ -224,7 +224,10 @@ export class PageMenuComponent implements OnInit {
     }
   }
   updateThemeMenuPinToggel(id: number): void {
-    this.themeService.updateThemeMenuPinToggel(this.tokenInfo.site.id, id);
+    this.themeService.updateThemeMenuPinToggel(
+      this.tokenInfo?.site?.id ?? 0,
+      id,
+    );
     // setTimeout(() => {
     //   this.DataPinListSelect();
     //   this.loadData();

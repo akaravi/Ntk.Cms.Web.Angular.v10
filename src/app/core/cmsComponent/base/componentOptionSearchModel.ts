@@ -1,4 +1,4 @@
-import { AccessModel, FilterDataModel } from "ntk-cms-api";
+import { AccessModel, FilterDataModel, FilterModel } from "ntk-cms-api";
 import { ComponentOptionModel } from "./componentOptionModel";
 
 export class ComponentOptionSearchModel
@@ -28,4 +28,13 @@ export class ComponentOptionSearchDataModel {
   select: any;
   defaultQuery: string;
   access: AccessModel;
+  filterModelContent: FilterModel = new FilterModel();
+  /**show fast search  */
+  filterActionSearchLinkEntityIdShow = false;
+  filterActionSearchLinkUserIdShow = false;
+  filterActionSearchLinkSiteIdShow = false;
+  filterActionSearchLinkModuleIdShow = false;
+  filterActionSearchRecordStatusShow = false;
+  filterActionSearchCreatedDateShow = false;
+  filterActionSearchUpdatedDateShow = false;
 }

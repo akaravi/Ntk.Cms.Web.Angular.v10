@@ -198,6 +198,7 @@ import {
 import { OverlayService } from "./overlay/overlay.service";
 import { PasswordStrengthComponent } from "./password-strength/password-strength.component";
 import { ProgressSpinnerComponent } from "./progress-spinner/progress-spinner.component";
+import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
 
 @NgModule({
   declarations: [
@@ -364,6 +365,7 @@ import { ProgressSpinnerComponent } from "./progress-spinner/progress-spinner.co
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     CurrencyMaskModule,
     NgApexchartsModule,
+    NgxMaterialTimepickerModule,
     //Material
     MatAutocompleteModule,
     MatButtonModule,

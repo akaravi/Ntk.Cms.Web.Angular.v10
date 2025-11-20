@@ -280,27 +280,14 @@
   </ng-container>
   <ng-container cms-action-area>
     <!--begin:::::::::::::::::::::::::::::::::::::::::cms-action-area-->
-    <app-cms-search-list [(options)]="optionsSearch">
-      <!-- LinkUserId Field -->
-      <app-cms-user-selector
-        (optionChange)="this.filteModelContent.filterActionSearchLinkUserId = $event?.id??0"
-        [optionPlaceholder]="'TITLE.USER' | translate"
-      >
-      </app-cms-user-selector>
-      <!-- LinkSiteId Field -->
-      <app-cms-site-selector
-        (optionChange)="this.filteModelContent.filterActionSearchLinkSiteId = $event?.id??0"
-        [optionPlaceholder]="'TITLE.SITE' | translate"
-      >
-      </app-cms-site-selector>
-    </app-cms-search-list>
+    <app-cms-search-list [(options)]="optionsSearch"> </app-cms-search-list>
 
     <app-cms-statist-list [(options)]="optionsStatist"></app-cms-statist-list>
 
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-area-->
   </ng-container>
   <ng-container cms-body>
-    <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
+    <!--begin:::::::::::::::::::::::::::::::::::::::::cms-b     ody-->
     <mat-table
       [dataSource]="tableSource"
       matSort

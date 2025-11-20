@@ -1,8 +1,15 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
-//import { QueryBuilderFieldMap, Rule, RuleSet } from 'ngx-ntk-query-builder';
-import { AccessModel, ClauseTypeEnum, FilterDataModel } from "ntk-cms-api";
+
+import {
+  AccessModel,
+  ClauseTypeEnum,
+  ErrorExceptionResult,
+  FilterDataModel,
+  InfoEnumModel,
+} from "ntk-cms-api";
 import { ComponentOptionSearchModel } from "src/app/core/cmsComponent/base/componentOptionSearchModel";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import {
   QueryBuilderFieldMap,
   QueryRule,
@@ -44,15 +51,18 @@ export class CmsSearchListComponent implements OnInit {
   lang: string;
   model: any;
   query: QueryRuleSet;
+
   fieldMap: QueryBuilderFieldMap = {};
   constructor(
     public translate: TranslateService,
     private cmsToastrService: CmsToastrService,
+    private publicHelper: PublicHelper,
   ) {
     this.lang = this.translate.currentLang;
   }
   ngOnInit(): void {
     this.formSubmited = false;
+    this.loadOptionsRecordStatus();
   }
   setAccess(model: AccessModel): void {
     this.optionsData.data.access = model;
@@ -308,5 +318,11 @@ export class CmsSearchListComponent implements OnInit {
       }
     }
     return false;
+  }
+  dataModelResultRecordStatus: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
+  async loadOptionsRecordStatus(): Promise<void> {
+    this.dataModelResultRecordStatus =
+      await this.publicHelper.getEnumRecordStatus();
   }
 }
