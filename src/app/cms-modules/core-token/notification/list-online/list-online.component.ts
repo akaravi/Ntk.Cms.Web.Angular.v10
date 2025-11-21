@@ -102,6 +102,17 @@ export class CoreTokenConnectionListOnlineComponent
     /*filter Sort*/
     this.filteModelContent.sortColumn = "CreatedDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
+    /**filterActionSearch */
+    this.optionsSearch.data.filterModelContent = this.filteModelContent;
+    this.optionsSearch.data.filterActionSearchRecordStatusShow = true;
+    if (this.tokenHelper.isAdminSite) {
+      this.optionsSearch.data.filterActionSearchLinkUserIdShow = true;
+      this.optionsSearch.data.filterActionSearchLinkSiteIdShow = true;
+    } else {
+      this.optionsSearch.data.filterActionSearchLinkSiteIdShow = false;
+      this.optionsSearch.data.filterActionSearchLinkUserIdShow = false;
+    }
+    /**filterActionSearch */
   }
   comment: string;
   author: string;
@@ -166,22 +177,24 @@ export class CoreTokenConnectionListOnlineComponent
         }),
     );
 
-    this.unsubscribe.push( this.cmsStoreService
-      .getState((state) => state.processOrderStore)
-      .subscribe(async (value) => {
-        var rowProcessOrder = value.find(
-          (x) => x.contentAction == "core_token_online_update_list" && !x.isRun,
-        );
-        if (rowProcessOrder && rowProcessOrder?.id?.length > 0) {
-          rowProcessOrder.isRun = true;
-          this.publicHelper.setProcessOrder(rowProcessOrder);
-          this.DataGetAll((isSuccess) => {
-            rowProcessOrder.isComplate = true;
-            rowProcessOrder.isSuccess = isSuccess;
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.processOrderStore)
+        .subscribe(async (value) => {
+          var rowProcessOrder = value.find(
+            (x) =>
+              x.contentAction == "core_token_online_update_list" && !x.isRun,
+          );
+          if (rowProcessOrder && rowProcessOrder?.id?.length > 0) {
+            rowProcessOrder.isRun = true;
             this.publicHelper.setProcessOrder(rowProcessOrder);
-          });
-        }
-      }),
+            this.DataGetAll((isSuccess) => {
+              rowProcessOrder.isComplate = true;
+              rowProcessOrder.isSuccess = isSuccess;
+              this.publicHelper.setProcessOrder(rowProcessOrder);
+            });
+          }
+        }),
     );
   }
 
@@ -219,6 +232,27 @@ export class CoreTokenConnectionListOnlineComponent
       filterModel.filters = [...this.filterDataModelQueryBuilder];
     }
     /*filter add search*/
+    /**filterActionSearch */
+    if (this.filteModelContent.filterActionSearchRecordStatus > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "RecordStatus";
+      filter.value = this.filteModelContent.filterActionSearchRecordStatus;
+      filterModel.filters.push(filter);
+    }
+    if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyAnyName = "LinkSiteId";
+      filter.propertyName = "SiteUsers";
+      filter.value = this.filteModelContent.filterActionSearchLinkSiteId;
+      filterModel.filters.push(filter);
+    }
+    if (this.filteModelContent.filterActionSearchLinkUserId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyAnyName = "LinkUserId";
+      filter.value = this.filteModelContent.filterActionSearchLinkUserId;
+      filterModel.filters.push(filter);
+    }
+    /**filterActionSearch */
     this.contentService.ServiceGetAllLiveConnection(filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {

@@ -83,6 +83,17 @@ export class BankPaymentTransactionListComponent
     /*filter Sort*/
     this.filteModelContent.sortColumn = "Id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
+    /**filterActionSearch */
+    this.optionsSearch.data.filterModelContent = this.filteModelContent;
+    this.optionsSearch.data.filterActionSearchRecordStatusShow = true;
+    if (this.tokenHelper.isAdminSite) {
+      this.optionsSearch.data.filterActionSearchLinkUserIdShow = true;
+      this.optionsSearch.data.filterActionSearchLinkSiteIdShow = true;
+    } else {
+      this.optionsSearch.data.filterActionSearchLinkSiteIdShow = false;
+      this.optionsSearch.data.filterActionSearchLinkUserIdShow = false;
+    }
+    /**filterActionSearch */
   }
   comment: string;
   author: string;
@@ -207,6 +218,27 @@ export class BankPaymentTransactionListComponent
       filterModel.filters = [...this.filterDataModelQueryBuilder];
     }
     /*filter add search*/
+    /**filterActionSearch */
+    if (this.filteModelContent.filterActionSearchRecordStatus > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "RecordStatus";
+      filter.value = this.filteModelContent.filterActionSearchRecordStatus;
+      filterModel.filters.push(filter);
+    }
+    if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyAnyName = "LinkSiteId";
+      filter.propertyName = "SiteUsers";
+      filter.value = this.filteModelContent.filterActionSearchLinkSiteId;
+      filterModel.filters.push(filter);
+    }
+    if (this.filteModelContent.filterActionSearchLinkUserId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyAnyName = "LinkUserId";
+      filter.value = this.filteModelContent.filterActionSearchLinkUserId;
+      filterModel.filters.push(filter);
+    }
+    /**filterActionSearch */
     const filter = new FilterDataModel();
     if (this.categoryModelSelected && this.categoryModelSelected.id > 0) {
       filter.propertyName = "LinkPrivateSiteConfigId";

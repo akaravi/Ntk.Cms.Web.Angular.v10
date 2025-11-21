@@ -71,6 +71,15 @@ export class CoreModuleSiteCreditListComponent
     /*filter Sort*/
     this.filteModelContent.sortColumn = "Id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
+    /**filterActionSearch */
+    this.optionsSearch.data.filterModelContent = this.filteModelContent;
+    this.optionsSearch.data.filterActionSearchRecordStatusShow = true;
+    if (this.tokenHelper.isAdminSite) {
+      this.optionsSearch.data.filterActionSearchLinkSiteIdShow = true;
+    } else {
+      this.optionsSearch.data.filterActionSearchLinkSiteIdShow = false;
+    }
+    /**filterActionSearch */
   }
   filteModelContent = new FilterModel();
   filterDataModelQueryBuilder: FilterDataModel[] = [];
@@ -157,7 +166,27 @@ export class CoreModuleSiteCreditListComponent
       filterModel.filters = [...this.filterDataModelQueryBuilder];
     }
     /*filter add search*/
-
+    /**filterActionSearch */
+    if (this.filteModelContent.filterActionSearchRecordStatus > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "RecordStatus";
+      filter.value = this.filteModelContent.filterActionSearchRecordStatus;
+      filterModel.filters.push(filter);
+    }
+    if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyAnyName = "LinkSiteId";
+      filter.propertyName = "SiteUsers";
+      filter.value = this.filteModelContent.filterActionSearchLinkSiteId;
+      filterModel.filters.push(filter);
+    }
+    if (this.filteModelContent.filterActionSearchLinkUserId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyAnyName = "LinkUserId";
+      filter.value = this.filteModelContent.filterActionSearchLinkUserId;
+      filterModel.filters.push(filter);
+    }
+    /**filterActionSearch */
     this.contentService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);

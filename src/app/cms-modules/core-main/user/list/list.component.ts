@@ -82,8 +82,13 @@ export class CoreUserListComponent
     /**filterActionSearch */
     this.optionsSearch.data.filterModelContent = this.filteModelContent;
     this.optionsSearch.data.filterActionSearchRecordStatusShow = true;
-    this.optionsSearch.data.filterActionSearchLinkUserIdShow = true;
-    this.optionsSearch.data.filterActionSearchLinkSiteIdShow = true;
+    if (this.tokenHelper.isAdminSite) {
+      this.optionsSearch.data.filterActionSearchLinkUserIdShow = true;
+      this.optionsSearch.data.filterActionSearchLinkSiteIdShow = true;
+    } else {
+      this.optionsSearch.data.filterActionSearchLinkSiteIdShow = false;
+      this.optionsSearch.data.filterActionSearchLinkUserIdShow = false;
+    }
     /**filterActionSearch */
   }
   link: string;

@@ -100,6 +100,17 @@ export class CoreLogSmsListComponent
     /*filter Sort*/
     this.filteModelContent.sortColumn = "CreatedDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
+    /**filterActionSearch */
+    this.optionsSearch.data.filterModelContent = this.filteModelContent;
+    this.optionsSearch.data.filterActionSearchRecordStatusShow = true;
+    if (this.tokenHelper.isAdminSite) {
+      this.optionsSearch.data.filterActionSearchLinkUserIdShow = true;
+      this.optionsSearch.data.filterActionSearchLinkSiteIdShow = true;
+    } else {
+      this.optionsSearch.data.filterActionSearchLinkSiteIdShow = false;
+      this.optionsSearch.data.filterActionSearchLinkUserIdShow = false;
+    }
+    /**filterActionSearch */
   }
   comment: string;
   author: string;
