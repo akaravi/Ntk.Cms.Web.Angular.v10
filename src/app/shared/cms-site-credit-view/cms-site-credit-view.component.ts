@@ -35,6 +35,7 @@ export class CmsSiteCreditViewComponent implements OnInit {
   static nextId = 0;
   id = ++CmsSiteCreditViewComponent.nextId;
   requestLinkModuleId = 0;
+  requestLinkSiteId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -53,6 +54,7 @@ export class CmsSiteCreditViewComponent implements OnInit {
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {
       this.requestLinkModuleId = +data.linkModuleId || 0;
+      this.requestLinkSiteId = +data.linkSiteId || 0;
     }
   }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
@@ -197,6 +199,7 @@ export class CmsSiteCreditViewComponent implements OnInit {
       () =>
         this.router.navigate([
           "/coremodule/site-credit-charge/",
+          this.requestLinkSiteId,
           this.requestLinkModuleId,
         ]),
       1000,

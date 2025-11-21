@@ -26,6 +26,7 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 export class CoreModuleSiteCreditChargePaymentComponent implements OnInit {
   requestCredit = 0;
   requestLinkModuleId = 0;
+  requestLinkSiteId = 0;
   requestBankPrivateMaster = true;
   constructorInfoAreaId = this.constructor.name;
   constructor(
@@ -47,6 +48,9 @@ export class CoreModuleSiteCreditChargePaymentComponent implements OnInit {
       if (data.linkModuleId && data.linkModuleId > 0) {
         this.requestLinkModuleId = data.linkModuleId;
       }
+      if (data.linkSiteId && data.linkSiteId > 0) {
+        this.requestLinkSiteId = data.linkSiteId;
+      }
     }
     if (this.requestCredit === 0) {
       this.cmsToastrService.typeErrorComponentAction();
@@ -61,6 +65,7 @@ export class CoreModuleSiteCreditChargePaymentComponent implements OnInit {
 
     this.dataModelCalculate.credit = this.requestCredit;
     this.dataModelCalculate.linkModuleId = this.requestLinkModuleId;
+    this.dataModelCalculate.linkSiteId = this.requestLinkSiteId;
     this.dataModelPayment.credit = this.requestCredit;
     this.dataModelPayment.linkModuleId = this.requestLinkModuleId;
     this.dataModelPayment.lastUrlAddressInUse = this.document.location.href;

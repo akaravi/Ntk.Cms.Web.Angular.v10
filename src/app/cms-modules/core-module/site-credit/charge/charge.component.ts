@@ -18,6 +18,7 @@ import { CoreModuleSiteCreditChargePaymentComponent } from "../charge-payment/ch
 })
 export class CoreModuleSiteCreditChargeComponent implements OnInit {
   requestLinkModuleId = 0;
+  requestLinkSiteId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(DOCUMENT) private document: any,
@@ -31,6 +32,10 @@ export class CoreModuleSiteCreditChargeComponent implements OnInit {
     this.requestLinkModuleId = +Number(
       this.activatedRoute.snapshot.paramMap.get("LinkModuleId"),
     );
+    this.requestLinkSiteId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
+    );
+    this.dataModelCalculate.linkSiteId = this.requestLinkSiteId;
     this.dataModelCalculate.linkModuleId = this.requestLinkModuleId;
   }
   currency = "";
@@ -83,6 +88,7 @@ export class CoreModuleSiteCreditChargeComponent implements OnInit {
         data: {
           credit: this.dataModelCalculate.credit,
           linkModuleId: this.dataModelCalculate.linkModuleId,
+          linkSiteId: this.dataModelCalculate.linkSiteId,
         },
       },
     );

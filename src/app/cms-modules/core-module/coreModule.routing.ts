@@ -26,7 +26,7 @@ const routes: Routes = [
         data: { title: "ROUTE.COREMODULE" },
       },
       {
-        path: "site-credit-charge/:LinkModuleId",
+        path: "site-credit-charge/:LinkSiteId/:LinkModuleId",
         component: CoreModuleSiteCreditChargeComponent,
         data: { title: "ROUTE.COREMODULE" },
       },
@@ -51,7 +51,7 @@ const routes: Routes = [
         data: { title: "ROUTE.COREMODULE" },
       },
       {
-        path: "site-user-credit-charge/:LinkModuleId",
+        path: "site-user-credit-charge/:LinkSiteId/:LinkUserId/:LinkModuleId",
         component: CoreModuleSiteUserCreditChargeComponent,
         data: { title: "ROUTE.COREMODULE" },
       },

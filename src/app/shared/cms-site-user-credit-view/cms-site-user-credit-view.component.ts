@@ -37,6 +37,8 @@ export class CmsSiteUserCreditViewComponent implements OnInit {
   constructorInfoAreaId = this.constructor.name;
 
   requestLinkModuleId = 0;
+  requestLinkSiteId = 0;
+  requestLinkUserId = 0;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<CmsSiteUserCreditViewComponent>,
@@ -52,10 +54,10 @@ export class CmsSiteUserCreditViewComponent implements OnInit {
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
-
+    debugger;
     if (data) {
-      // this.requestLinkSiteId = +data.linkSiteId || 0;
-      // this.requestLinkUserId = +data.linkUserId || 0;
+      this.requestLinkSiteId = +data.linkSiteId || 0;
+      this.requestLinkUserId = +data.linkUserId || 0;
       this.requestLinkModuleId = +data.linkModuleId || 0;
     }
   }
@@ -200,6 +202,8 @@ export class CmsSiteUserCreditViewComponent implements OnInit {
       () =>
         this.router.navigate([
           "/coremodule/site-user-credit-charge/",
+          this.requestLinkSiteId,
+          this.requestLinkUserId,
           this.requestLinkModuleId,
         ]),
       1000,

@@ -184,14 +184,16 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["amount"]?.fieldTitle }}
         </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.amount }} </mat-cell>
+        <mat-cell *matCellDef="let row"> {{ row.amount | number }} </mat-cell>
       </ng-container>
       <!-- AmountPure Column -->
       <ng-container matColumnDef="AmountPure">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["amountPure"]?.fieldTitle }}
         </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.amountPure }} </mat-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.amountPure | number }}
+        </mat-cell>
       </ng-container>
       <!-- Action Column -->
       <ng-container matColumnDef="Action">

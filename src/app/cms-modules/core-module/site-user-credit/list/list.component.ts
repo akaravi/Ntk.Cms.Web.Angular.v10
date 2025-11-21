@@ -486,6 +486,8 @@ export class CoreModuleSiteUserCreditListComponent
 
     this.router.navigate([
       "/coremodule/site-user-credit-charge/",
+      model.linkSiteId,
+      model.linkUserId,
       model.linkModuleId,
     ]);
   }

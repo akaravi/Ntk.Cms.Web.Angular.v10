@@ -228,7 +228,7 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["amountPure"]?.fieldTitle }}
         </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.amountPure }} </mat-cell>
+        <mat-cell *matCellDef="let row"> {{ row.amountPure | number }} </mat-cell>
       </ng-container>
       <!-- FeeTransport Column -->
       <ng-container matColumnDef="FeeTransport">
@@ -249,7 +249,7 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["amount"]?.fieldTitle }}
         </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.amount }} </mat-cell>
+        <mat-cell *matCellDef="let row"> {{ row.amount | number }} </mat-cell>
       </ng-container>
 
       <!-- CreatedDate Column -->

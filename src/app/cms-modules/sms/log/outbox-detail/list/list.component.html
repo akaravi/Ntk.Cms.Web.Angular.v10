@@ -250,14 +250,14 @@
               <tr>
                 <td></td>
                 <td>
-                  {{ fieldsInfo["credit"]?.fieldTitle }} : {{ row.credit }}
+                  {{ fieldsInfo["credit"]?.fieldTitle }} : {{ row.credit|number }}
                 </td>
               </tr>
               <tr>
                 <td></td>
                 <td>
                   {{ fieldsInfo["giveBackCredit"]?.fieldTitle }} :
-                  {{ row.giveBackCredit }}
+                  {{ row.giveBackCredit|number }}
                 </td>
               </tr>
               <tr *ngIf="row.slaLink">

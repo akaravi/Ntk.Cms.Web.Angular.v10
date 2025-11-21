@@ -294,24 +294,24 @@
             <br />
             {{ fieldsInfo["countRow"]?.fieldTitle }} : {{ row.countRow }}
             <br />
-            {{ fieldsInfo["countSent"]?.fieldTitle }} : {{ row.countSent }}
+            {{ fieldsInfo["countSent"]?.fieldTitle }} : {{ row.countSent|number }}
             <br />
             {{ fieldsInfo["countDelivery"]?.fieldTitle }} :
-            {{ row.countDelivery }}
+            {{ row.countDelivery|number }}
             <br />
             {{ fieldsInfo["countCreditBacked"]?.fieldTitle }} :
-            {{ row.countCreditBacked }}
+            {{ row.countCreditBacked|number }}
             <br />
-            {{ fieldsInfo["sumCredit"]?.fieldTitle }} : {{ row.sumCredit }}
+            {{ fieldsInfo["sumCredit"]?.fieldTitle }} : {{ row.sumCredit|number }}
             <br />
             {{ fieldsInfo["sumCreditBacked"]?.fieldTitle }} :
-            {{ row.sumCreditBacked }}
+            {{ row.sumCreditBacked|number }}
             <br />
             {{ fieldsInfo["creditOverPlus"]?.fieldTitle }} :
-            {{ row.creditOverPlus }}
+            {{ row.creditOverPlus|number }}
             <br />
             {{ fieldsInfo["creditUserBefor"]?.fieldTitle }} :
-            {{ row.creditUserBefor }}
+            {{ row.creditUserBefor|number }}
           </div>
           <div
             class="col-sm-12 col-md-6"

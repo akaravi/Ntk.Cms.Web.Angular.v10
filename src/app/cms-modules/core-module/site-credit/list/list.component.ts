@@ -435,6 +435,7 @@ export class CoreModuleSiteCreditListComponent
 
     this.router.navigate([
       "/coremodule/site-credit-charge/",
+      model.linkSiteId,
       model.linkModuleId,
     ]);
   }

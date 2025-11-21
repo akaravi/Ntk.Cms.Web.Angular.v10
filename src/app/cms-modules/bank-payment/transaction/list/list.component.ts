@@ -114,6 +114,7 @@ export class BankPaymentTransactionListComponent
     "BankStatus",
     "Amount",
     "AmountPure",
+    "CurrencyUnit",
     // 'CreatedDate',
     // 'UpdatedDate',
     // 'Action'
@@ -126,6 +127,7 @@ export class BankPaymentTransactionListComponent
     "BankStatus",
     "Amount",
     "AmountPure",
+    "CurrencyUnit",
     // 'CreatedDate',
     // 'UpdatedDate',
     // 'Action'

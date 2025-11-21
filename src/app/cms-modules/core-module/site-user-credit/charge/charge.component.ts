@@ -12,12 +12,14 @@ import { CmsBankpaymentTransactionInfoComponent } from "src/app/shared/cms-bankp
 import { CoreModuleSiteUserCreditChargePaymentComponent } from "../charge-payment/charge-payment.component";
 
 @Component({
-  selector: "app-coremodule-site-credit-charge",
+  selector: "app-coremodule-site-user-credit-charge",
   templateUrl: "./charge.component.html",
   standalone: false,
 })
 export class CoreModuleSiteUserCreditChargeComponent implements OnInit {
   requestLinkModuleId = 0;
+  requestLinkSiteId = 0;
+  requestLinkUserId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(DOCUMENT) private document: any,
@@ -31,7 +33,15 @@ export class CoreModuleSiteUserCreditChargeComponent implements OnInit {
     this.requestLinkModuleId = +Number(
       this.activatedRoute.snapshot.paramMap.get("LinkModuleId"),
     );
+    this.requestLinkSiteId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
+    );
+    this.requestLinkUserId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
+    );
     this.dataModelCalculate.linkModuleId = this.requestLinkModuleId;
+    this.dataModelCalculate.linkSiteId = this.requestLinkSiteId;
+    this.dataModelCalculate.linkUserId = this.requestLinkUserId;
   }
   currency = "";
   viewCalculate = false;
@@ -83,6 +93,8 @@ export class CoreModuleSiteUserCreditChargeComponent implements OnInit {
         data: {
           credit: this.dataModelCalculate.credit,
           linkModuleId: this.dataModelCalculate.linkModuleId,
+          linkSiteId: this.dataModelCalculate.linkSiteId,
+          linkUserId: this.dataModelCalculate.linkUserId,
         },
       },
     );
