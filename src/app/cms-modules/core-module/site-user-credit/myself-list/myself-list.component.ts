@@ -218,7 +218,7 @@ export class CoreModuleSiteUserCreditMyselfListComponent
     this.onActionTableRowSelect(model);
 
     this.router.navigate([
-      "/coremodule/site-user-credit-charge/",
+      "/coremodule/site-user-credit-charge-online/",
       model.linkSiteId,
       model.linkUserId,
       model.linkModuleId,

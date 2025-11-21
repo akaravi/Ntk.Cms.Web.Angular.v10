@@ -21,6 +21,25 @@
       >
       </app-cms-bankpayment-grid>
       <div *ngIf="viewCalculate">
+        <div *ngIf="dataModelCalculate.linkSiteId > 0">
+          {{ "TITLE.site" | translate }}:
+          {{ dataModelCalculate.linkSiteId | cmssiteinfo | async }}
+        </div>
+        <br />
+        <div *ngIf="dataModelCalculate.linkUserId > 0">
+          {{ "TITLE.user" | translate }}:
+          {{ dataModelCalculate.linkUserId | cmsuserinfo | async }}
+        </div>
+        <br />
+        <div *ngIf="dataModelCalculate.linkModuleId > 0">
+          {{ "TITLE.module" | translate }}:
+          {{
+            dataModelCalculate.linkModuleId
+              | cmstitle: dataModelCoreModuleResult.listItems
+          }}
+        </div>
+
+        <br />
         <div *ngIf="dataModelCalculateResult.item?.feeTax > 0">
           {{ "TITLE.FEETAX" | translate }}:
           {{

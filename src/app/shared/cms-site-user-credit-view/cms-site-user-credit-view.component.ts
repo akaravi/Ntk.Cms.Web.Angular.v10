@@ -201,7 +201,7 @@ export class CmsSiteUserCreditViewComponent implements OnInit {
     setTimeout(
       () =>
         this.router.navigate([
-          "/coremodule/site-user-credit-charge/",
+          "/coremodule/site-user-credit-charge-online/",
           this.requestLinkSiteId,
           this.requestLinkUserId,
           this.requestLinkModuleId,

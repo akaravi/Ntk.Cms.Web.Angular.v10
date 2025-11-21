@@ -10,23 +10,23 @@ import { SharedModule } from "src/app/shared/shared.module";
 
 import { CurrencyMaskModule } from "ng2-currency-mask";
 import {
-  CoreModuleService,
-  CoreModuleSiteCreditService,
-  CoreModuleSiteUserCreditService,
-  CoreModuleTagCategoryService,
-  CoreModuleTagService,
+    CoreModuleService,
+    CoreModuleSiteCreditService,
+    CoreModuleSiteUserCreditService,
+    CoreModuleTagCategoryService,
+    CoreModuleTagService,
 } from "ntk-cms-api";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { CoreSharedModule } from "../core-main/core.shared.module";
 import { CoreModuleSiteCreditChargeDirectComponent } from "./site-credit/charge-direct/charge-direct.component";
-import { CoreModuleSiteCreditChargePaymentComponent } from "./site-credit/charge-payment/charge-payment.component";
-import { CoreModuleSiteCreditChargeComponent } from "./site-credit/charge/charge.component";
+import { CoreModuleSiteCreditChargeOnlineComponent } from "./site-credit/charge-online/charge-online.component";
 import { CoreModuleSiteCreditEditComponent } from "./site-credit/edit/edit.component";
 import { CoreModuleSiteCreditListComponent } from "./site-credit/list/list.component";
+import { CoreModuleSiteCreditChargePaymentComponent } from "./site-credit/charge-payment/charge-payment.component";
 
 import { CoreModuleSiteUserCreditChargeDirectComponent } from "./site-user-credit/charge-direct/charge-direct.component";
+import { CoreModuleSiteUserCreditChargeOnlineComponent } from "./site-user-credit/charge-online/charge-online.component";
 import { CoreModuleSiteUserCreditChargePaymentComponent } from "./site-user-credit/charge-payment/charge-payment.component";
-import { CoreModuleSiteUserCreditChargeComponent } from "./site-user-credit/charge/charge.component";
 import { CoreModuleSiteUserCreditEditComponent } from "./site-user-credit/edit/edit.component";
 import { CoreModuleSiteUserCreditListComponent } from "./site-user-credit/list/list.component";
 import { CoreModuleSiteUserCreditMyselfListComponent } from "./site-user-credit/myself-list/myself-list.component";
@@ -67,8 +67,8 @@ import { CoreModuleTagCategoryTreeComponent } from "./tagCategory/tree/tree.comp
     CoreModuleSiteUserCreditEditComponent,
     CoreModuleSiteUserCreditListComponent,
     CoreModuleSiteUserCreditMyselfListComponent,
-    CoreModuleSiteUserCreditChargeComponent,
-    CoreModuleSiteCreditChargeComponent,
+    CoreModuleSiteUserCreditChargeOnlineComponent,
+    CoreModuleSiteCreditChargeOnlineComponent,
     CoreModuleSiteCreditChargePaymentComponent,
     CoreModuleSiteUserCreditChargePaymentComponent,
     CoreModuleSiteCreditChargeDirectComponent,
@@ -90,8 +90,8 @@ import { CoreModuleTagCategoryTreeComponent } from "./tagCategory/tree/tree.comp
     CoreModuleSiteUserCreditEditComponent,
     CoreModuleSiteUserCreditListComponent,
     CoreModuleSiteUserCreditMyselfListComponent,
-    CoreModuleSiteUserCreditChargeComponent,
-    CoreModuleSiteCreditChargeComponent,
+    CoreModuleSiteUserCreditChargeOnlineComponent,
+    CoreModuleSiteCreditChargeOnlineComponent,
     CoreModuleSiteCreditChargePaymentComponent,
     CoreModuleSiteUserCreditChargePaymentComponent,
     CoreModuleSiteCreditChargeDirectComponent,

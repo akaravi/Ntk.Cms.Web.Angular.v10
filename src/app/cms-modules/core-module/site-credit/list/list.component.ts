@@ -434,7 +434,7 @@ export class CoreModuleSiteCreditListComponent
     this.onActionTableRowSelect(model);
 
     this.router.navigate([
-      "/coremodule/site-credit-charge/",
+      "/coremodule/site-credit-charge-online/",
       model.linkSiteId,
       model.linkModuleId,
     ]);

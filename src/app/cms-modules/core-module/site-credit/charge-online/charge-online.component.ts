@@ -12,11 +12,11 @@ import { CmsBankpaymentTransactionInfoComponent } from "src/app/shared/cms-bankp
 import { CoreModuleSiteCreditChargePaymentComponent } from "../charge-payment/charge-payment.component";
 
 @Component({
-  selector: "app-coremodule-site-credit-charge",
-  templateUrl: "./charge.component.html",
+  selector: "app-coremodule-site-credit-charge-online",
+  templateUrl: "./charge-online.component.html",
   standalone: false,
 })
-export class CoreModuleSiteCreditChargeComponent implements OnInit {
+export class CoreModuleSiteCreditChargeOnlineComponent implements OnInit {
   requestLinkModuleId = 0;
   requestLinkSiteId = 0;
   constructorInfoAreaId = this.constructor.name;

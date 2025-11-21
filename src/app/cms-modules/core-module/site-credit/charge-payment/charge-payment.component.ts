@@ -6,10 +6,13 @@ import {
   BankPaymentInjectPaymentGotoBankStep1CalculateModel,
   BankPaymentInjectPaymentGotoBankStep2LandingSitePageModel,
   BankPaymentPrivateSiteConfigModel,
+  CoreModuleModel,
+  CoreModuleService,
   CoreModuleSiteCreditCalculateDtoModel,
   CoreModuleSiteCreditPaymentDtoModel,
   CoreModuleSiteCreditService,
   ErrorExceptionResult,
+  FilterModel,
   FormInfoModel,
 } from "ntk-cms-api";
 
@@ -20,7 +23,6 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 @Component({
   selector: "app-coremodule-site-credit-charge-payment",
   templateUrl: "./charge-payment.component.html",
-  styleUrls: ["./charge-payment.component.scss"],
   standalone: false,
 })
 export class CoreModuleSiteCreditChargePaymentComponent implements OnInit {
@@ -35,6 +37,8 @@ export class CoreModuleSiteCreditChargePaymentComponent implements OnInit {
     private dialogRef: MatDialogRef<CoreModuleSiteCreditChargePaymentComponent>,
     private cmsToastrService: CmsToastrService,
     private coreModuleSiteCreditService: CoreModuleSiteCreditService,
+    private coreModuleService: CoreModuleService,
+
     public translate: TranslateService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
@@ -68,6 +72,7 @@ export class CoreModuleSiteCreditChargePaymentComponent implements OnInit {
     this.dataModelCalculate.linkSiteId = this.requestLinkSiteId;
     this.dataModelPayment.credit = this.requestCredit;
     this.dataModelPayment.linkModuleId = this.requestLinkModuleId;
+    this.dataModelPayment.linkSiteId = this.requestLinkSiteId;
     this.dataModelPayment.lastUrlAddressInUse = this.document.location.href;
   }
   viewCalculate = false;
@@ -84,15 +89,25 @@ export class CoreModuleSiteCreditChargePaymentComponent implements OnInit {
   dataModelPayment: CoreModuleSiteCreditPaymentDtoModel =
     new CoreModuleSiteCreditPaymentDtoModel();
   formInfo: FormInfoModel = new FormInfoModel();
-
+  dataModelCoreModuleResult: ErrorExceptionResult<CoreModuleModel> =
+    new ErrorExceptionResult<CoreModuleModel>();
   ngOnInit(): void {
     this.translate
       .get("TITLE.Select_Payment_Gateway")
       .subscribe((str: string) => {
         this.formInfo.formTitle = str;
       });
+    this.getModuleList();
   }
-
+  getModuleList(): void {
+    const filter = new FilterModel();
+    filter.rowPerPage = 100;
+    this.coreModuleService.ServiceGetAllModuleName(filter).subscribe({
+      next: (ret) => {
+        this.dataModelCoreModuleResult = ret;
+      },
+    });
+  }
   DataCalculate(): void {
     this.viewCalculate = false;
     const pName = this.constructor.name + "ServiceOrderCalculate";

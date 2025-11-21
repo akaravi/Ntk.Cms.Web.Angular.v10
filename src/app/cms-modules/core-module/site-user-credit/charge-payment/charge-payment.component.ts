@@ -6,11 +6,14 @@ import {
   BankPaymentInjectPaymentGotoBankStep1CalculateModel,
   BankPaymentInjectPaymentGotoBankStep2LandingSitePageModel,
   BankPaymentPrivateSiteConfigModel,
+  CoreModuleModel,
+  CoreModuleService,
   CoreModuleSiteUserCreditCalculateDtoModel,
   CoreModuleSiteUserCreditPaymentDtoModel,
   CoreModuleSiteUserCreditService,
   CoreSiteService,
   ErrorExceptionResult,
+  FilterModel,
   FormInfoModel,
 } from "ntk-cms-api";
 
@@ -36,6 +39,8 @@ export class CoreModuleSiteUserCreditChargePaymentComponent implements OnInit {
     private dialogRef: MatDialogRef<CoreModuleSiteUserCreditChargePaymentComponent>,
     private cmsToastrService: CmsToastrService,
     private coreModuleSiteUserCreditService: CoreModuleSiteUserCreditService,
+    private coreModuleService: CoreModuleService,
+
     private coreSiteService: CoreSiteService,
     public translate: TranslateService,
     private cdr: ChangeDetectorRef,
@@ -74,6 +79,8 @@ export class CoreModuleSiteUserCreditChargePaymentComponent implements OnInit {
     this.dataModelCalculate.linkUserId = this.requestLinkUserId;
     this.dataModelPayment.credit = this.requestCredit;
     this.dataModelPayment.linkModuleId = this.requestLinkModuleId;
+    this.dataModelPayment.linkSiteId = this.requestLinkSiteId;
+    this.dataModelPayment.linkUserId = this.requestLinkUserId;
     this.dataModelPayment.lastUrlAddressInUse = this.document.location.href;
   }
   viewCalculate = false;
@@ -90,15 +97,25 @@ export class CoreModuleSiteUserCreditChargePaymentComponent implements OnInit {
   dataModelPayment: CoreModuleSiteUserCreditPaymentDtoModel =
     new CoreModuleSiteUserCreditPaymentDtoModel();
   formInfo: FormInfoModel = new FormInfoModel();
-
+  dataModelCoreModuleResult: ErrorExceptionResult<CoreModuleModel> =
+    new ErrorExceptionResult<CoreModuleModel>();
   ngOnInit(): void {
     this.translate
       .get("TITLE.Select_Payment_Gateway")
       .subscribe((str: string) => {
         this.formInfo.formTitle = str;
       });
+    this.getModuleList();
   }
-
+  getModuleList(): void {
+    const filter = new FilterModel();
+    filter.rowPerPage = 100;
+    this.coreModuleService.ServiceGetAllModuleName(filter).subscribe({
+      next: (ret) => {
+        this.dataModelCoreModuleResult = ret;
+      },
+    });
+  }
   DataCalculate(): void {
     this.viewCalculate = false;
     const pName = this.constructor.name + "ServiceOrderCalculate";

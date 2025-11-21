@@ -1,9 +1,9 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { CoreModuleComponent } from "./coreModule.component";
-import { CoreModuleSiteCreditChargeComponent } from "./site-credit/charge/charge.component";
+import { CoreModuleSiteCreditChargeOnlineComponent } from "./site-credit/charge-online/charge-online.component";
 import { CoreModuleSiteCreditListComponent } from "./site-credit/list/list.component";
-import { CoreModuleSiteUserCreditChargeComponent } from "./site-user-credit/charge/charge.component";
+import { CoreModuleSiteUserCreditChargeOnlineComponent } from "./site-user-credit/charge-online/charge-online.component";
 import { CoreModuleSiteUserCreditListComponent } from "./site-user-credit/list/list.component";
 import { CoreModuleSiteUserCreditMyselfListComponent } from "./site-user-credit/myself-list/myself-list.component";
 import { CoreModuleTagListComponent } from "./tag/list/list.component";
@@ -26,8 +26,8 @@ const routes: Routes = [
         data: { title: "ROUTE.COREMODULE" },
       },
       {
-        path: "site-credit-charge/:LinkSiteId/:LinkModuleId",
-        component: CoreModuleSiteCreditChargeComponent,
+        path: "site-credit-charge-online/:LinkSiteId/:LinkModuleId",
+        component: CoreModuleSiteCreditChargeOnlineComponent,
         data: { title: "ROUTE.COREMODULE" },
       },
       {
@@ -51,8 +51,8 @@ const routes: Routes = [
         data: { title: "ROUTE.COREMODULE" },
       },
       {
-        path: "site-user-credit-charge/:LinkSiteId/:LinkUserId/:LinkModuleId",
-        component: CoreModuleSiteUserCreditChargeComponent,
+        path: "site-user-credit-charge-online/:LinkSiteId/:LinkUserId/:LinkModuleId",
+        component: CoreModuleSiteUserCreditChargeOnlineComponent,
         data: { title: "ROUTE.COREMODULE" },
       },
     ],
