@@ -1,5 +1,20 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-11-21 14:00:00
+
+### تبدیل دکمه ORDER_CALCULATE به آیکون ماشین حساب
+
+**تغییرات:**
+
+- تبدیل دکمه متنی `ORDER_CALCULATE` به دکمه آیکون با Material Icon `calculate`
+- اضافه کردن `title` و `aria-label` برای دسترسی‌پذیری
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/cms-modules/sms/action/send-message/send-message.component.html`
+
+---
+
 ## 2025-11-21 10:00:00
 
 ### نرمال‌سازی کاراکترهای ورودی بر اساس زبان هدف

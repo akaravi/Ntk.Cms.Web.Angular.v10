@@ -17,6 +17,8 @@ import {
   FormInfoModel,
   SmsActionService,
   SmsApiSendMessageDtoModel,
+  SmsApiSendMessageOrderCalculateDtoModel,
+  SmsApiSendOrderCalculateResultModel,
   SmsApiSendResultModel,
   SmsMainApiNumberModel,
   SmsMainApiPathModel,
@@ -143,8 +145,12 @@ export class SmsActionSendMessageComponent implements OnInit {
   linkNumberId: string = "";
 
   dataModel: SmsApiSendMessageDtoModel = new SmsApiSendMessageDtoModel();
+  dataModelOrderCalculate: SmsApiSendMessageOrderCalculateDtoModel =
+    new SmsApiSendMessageOrderCalculateDtoModel();
   dataModelResult: ErrorExceptionResult<SmsApiSendResultModel> =
     new ErrorExceptionResult<SmsApiSendResultModel>();
+  dataModelOrderCalculateResult: ErrorExceptionResult<SmsApiSendOrderCalculateResultModel> =
+    new ErrorExceptionResult<SmsApiSendOrderCalculateResultModel>();
   dataModelCreditResult: ErrorExceptionResult<CoreModuleSiteUserCreditModel> =
     new ErrorExceptionResult<CoreModuleSiteUserCreditModel>();
   dataModelDateByClockStart: DateByClock = new DateByClock();
@@ -581,10 +587,6 @@ export class SmsActionSendMessageComponent implements OnInit {
 
     this.formInfo.submitResultMessage = "";
     this.formInfo.submitResultMessage = "";
-    // this.dataModel.scheduleSendStart.setMinutes(this.dataModel.scheduleSendStart.getMinutes() + this.timezoneOffset);
-    // this.dataModel.scheduleSendExpire.setMinutes(this.dataModel.scheduleSendExpire.getMinutes() + this.timezoneOffset);
-    //this.dataModel.scheduleSendStart=new Date(this.dataModel.scheduleSendStart.getTime() + this.timezoneOffset*60*1000);
-    //this.dataModel.scheduleSendExpire=new Date(this.dataModel.scheduleSendExpire.getTime() + this.timezoneOffset*60*1000);
 
     this.smsActionService.ServiceSendMessage(this.dataModel).subscribe({
       next: (ret) => {
@@ -621,6 +623,72 @@ export class SmsActionSendMessageComponent implements OnInit {
         console.info;
       },
     });
+  }
+
+  onActionOrderCalculate(): void {
+    if (!this.formGroup.valid) {
+      return;
+    }
+    if (
+      !this.dataModel.linkApiPathId ||
+      this.dataModel.linkApiPathId.length <= 0
+    ) {
+      this.cmsToastrService.typeErrorFormInvalid();
+    }
+    this.onActionScheduleSendCheck();
+
+    this.formInfo.submitButtonEnabled = false;
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
+
+    this.formInfo.submitResultMessage = "";
+    this.formInfo.submitResultMessage = "";
+    this.dataModelOrderCalculate =(this.dataModel as unknown as SmsApiSendMessageOrderCalculateDtoModel);
+    this.smsActionService
+      .ServiceOrderCalculate(this.dataModelOrderCalculate)
+      .subscribe({
+        next: (ret) => {
+          this.formInfo.submitButtonEnabled = true;
+          this.dataModelOrderCalculateResult = ret;
+          if (ret.isSuccess) {
+            this.translate
+              .get("MESSAGE.Submit_request_was_successfully_registered")
+              .subscribe((str: string) => {
+                this.formInfo.submitResultMessage = str;
+              });
+            this.translate
+              .get("MESSAGE.Send_request_was_successfully_registered")
+              .subscribe((str: string) => {
+                this.cmsToastrService.typeSuccessMessage(str);
+              });
+          } else {
+            this.translate
+              .get("ERRORMESSAGE.MESSAGE.typeError")
+              .subscribe((str: string) => {
+                this.formInfo.submitResultMessage = str;
+              });
+            this.formInfo.submitResultMessage = ret.errorMessage;
+            this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+          }
+          this.publicHelper.processService.processStop(pName);
+        },
+        error: (e) => {
+          this.formInfo.submitButtonEnabled = true;
+          this.cmsToastrService.typeError(e);
+          this.publicHelper.processService.processStop(pName, false);
+        },
+        complete: () => {
+          console.info;
+        },
+      });
   }
 
   DataCheckCredit(): void {
