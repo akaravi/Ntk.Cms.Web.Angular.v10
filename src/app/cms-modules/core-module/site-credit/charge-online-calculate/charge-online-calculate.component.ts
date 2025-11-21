@@ -8,10 +8,9 @@ import {
   BankPaymentPrivateSiteConfigModel,
   CoreModuleModel,
   CoreModuleService,
-  CoreModuleSiteUserCreditCalculateDtoModel,
-  CoreModuleSiteUserCreditPaymentDtoModel,
-  CoreModuleSiteUserCreditService,
-  CoreSiteService,
+  CoreModuleSiteCreditCalculateDtoModel,
+  CoreModuleSiteCreditPaymentDtoModel,
+  CoreModuleSiteCreditService,
   ErrorExceptionResult,
   FilterModel,
   FormInfoModel,
@@ -22,26 +21,26 @@ import { TRANSACTION_ID_LOCAL_STORAGE_KEY } from "src/app/core/models/constModel
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-  selector: "app-coremodule-site-user-credit-charge-payment",
-  templateUrl: "./charge-payment.component.html",
+  selector: "app-coremodule-site-credit-charge-online-calculate",
+  templateUrl: "./charge-online-calculate.component.html",
   standalone: false,
 })
-export class CoreModuleSiteUserCreditChargePaymentComponent implements OnInit {
+export class CoreModuleSiteCreditChargeOnlineCalculateComponent
+  implements OnInit
+{
   requestCredit = 0;
   requestLinkModuleId = 0;
   requestLinkSiteId = 0;
-  requestLinkUserId = 0;
-  requestBankPrivateMaster = false;
+  requestBankPrivateMaster = true;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     @Inject(DOCUMENT) private document: any,
-    private dialogRef: MatDialogRef<CoreModuleSiteUserCreditChargePaymentComponent>,
+    private dialogRef: MatDialogRef<CoreModuleSiteCreditChargeOnlineCalculateComponent>,
     private cmsToastrService: CmsToastrService,
-    private coreModuleSiteUserCreditService: CoreModuleSiteUserCreditService,
+    private coreModuleSiteCreditService: CoreModuleSiteCreditService,
     private coreModuleService: CoreModuleService,
 
-    private coreSiteService: CoreSiteService,
     public translate: TranslateService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
@@ -58,9 +57,6 @@ export class CoreModuleSiteUserCreditChargePaymentComponent implements OnInit {
       if (data.linkSiteId && data.linkSiteId > 0) {
         this.requestLinkSiteId = data.linkSiteId;
       }
-      if (data.linkUserId && data.linkUserId > 0) {
-        this.requestLinkUserId = data.linkUserId;
-      }
     }
     if (this.requestCredit === 0) {
       this.cmsToastrService.typeErrorComponentAction();
@@ -76,11 +72,9 @@ export class CoreModuleSiteUserCreditChargePaymentComponent implements OnInit {
     this.dataModelCalculate.credit = this.requestCredit;
     this.dataModelCalculate.linkModuleId = this.requestLinkModuleId;
     this.dataModelCalculate.linkSiteId = this.requestLinkSiteId;
-    this.dataModelCalculate.linkUserId = this.requestLinkUserId;
     this.dataModelPayment.credit = this.requestCredit;
     this.dataModelPayment.linkModuleId = this.requestLinkModuleId;
     this.dataModelPayment.linkSiteId = this.requestLinkSiteId;
-    this.dataModelPayment.linkUserId = this.requestLinkUserId;
     this.dataModelPayment.lastUrlAddressInUse = this.document.location.href;
   }
   viewCalculate = false;
@@ -92,10 +86,10 @@ export class CoreModuleSiteUserCreditChargePaymentComponent implements OnInit {
   dataModelPaymentResult: ErrorExceptionResult<BankPaymentInjectPaymentGotoBankStep2LandingSitePageModel> =
     new ErrorExceptionResult<BankPaymentInjectPaymentGotoBankStep2LandingSitePageModel>();
 
-  dataModelCalculate: CoreModuleSiteUserCreditCalculateDtoModel =
-    new CoreModuleSiteUserCreditCalculateDtoModel();
-  dataModelPayment: CoreModuleSiteUserCreditPaymentDtoModel =
-    new CoreModuleSiteUserCreditPaymentDtoModel();
+  dataModelCalculate: CoreModuleSiteCreditCalculateDtoModel =
+    new CoreModuleSiteCreditCalculateDtoModel();
+  dataModelPayment: CoreModuleSiteCreditPaymentDtoModel =
+    new CoreModuleSiteCreditPaymentDtoModel();
   formInfo: FormInfoModel = new FormInfoModel();
   dataModelCoreModuleResult: ErrorExceptionResult<CoreModuleModel> =
     new ErrorExceptionResult<CoreModuleModel>();
@@ -128,7 +122,7 @@ export class CoreModuleSiteUserCreditChargePaymentComponent implements OnInit {
           this.constructorInfoAreaId,
         );
       });
-    this.coreModuleSiteUserCreditService
+    this.coreModuleSiteCreditService
       .ServiceOrderCalculate(this.dataModelCalculate)
       .subscribe({
         next: (ret) => {
@@ -159,7 +153,7 @@ export class CoreModuleSiteUserCreditChargePaymentComponent implements OnInit {
           this.constructorInfoAreaId,
         );
       });
-    this.coreModuleSiteUserCreditService
+    this.coreModuleSiteCreditService
       .ServiceOrderPayment(this.dataModelPayment)
       .subscribe({
         next: (ret) => {
@@ -188,21 +182,6 @@ export class CoreModuleSiteUserCreditChargePaymentComponent implements OnInit {
           this.publicHelper.processService.processStop(pName);
         },
       });
-  }
-  currency = "";
-  DataGetCurrency(): void {
-    this.coreSiteService.ServiceGetCurrencyMaster().subscribe({
-      next: (ret) => {
-        if (ret.isSuccess) {
-          this.currency = ret.item;
-        } else {
-          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-        }
-      },
-      error: (er) => {
-        this.cmsToastrService.typeError(er);
-      },
-    });
   }
   onActionSelectCalculate(model: BankPaymentPrivateSiteConfigModel): void {
     this.dataModelCalculate.bankPaymentPrivateId = model.id;

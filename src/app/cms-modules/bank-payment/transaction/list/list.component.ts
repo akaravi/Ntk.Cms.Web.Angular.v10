@@ -50,6 +50,7 @@ export class BankPaymentTransactionListComponent
 {
   requestLinkPrivateSiteConfigId = 0;
   requestLinkUserId = 0;
+  requestLinkTransactionId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(DOCUMENT) private document: any,
@@ -145,6 +146,15 @@ export class BankPaymentTransactionListComponent
     this.requestLinkUserId = +Number(
       this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
     );
+    this.requestLinkTransactionId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkTransactionId"),
+    );
+    if (this.requestLinkTransactionId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "Id";
+      filter.value = this.requestLinkTransactionId;
+      this.filteModelContent.filters.push(filter);
+    }
     if (this.requestLinkPrivateSiteConfigId > 0) {
       const filter = new FilterDataModel();
       filter.propertyName = "LinkPrivateSiteConfigId";

@@ -47,6 +47,11 @@ const routes: Routes = [
         data: { title: "ROUTE.BANKPAYMENT" },
       },
       {
+        path: "transaction/LinkTransactionId/:LinkTransactionId",
+        component: BankPaymentTransactionListComponent,
+        data: { title: "ROUTE.BANKPAYMENT" },
+      },
+      {
         path: "transaction/LinkPrivateSiteConfigId/:LinkPrivateSiteConfigId",
         component: BankPaymentTransactionListComponent,
         data: { title: "ROUTE.BANKPAYMENT" },

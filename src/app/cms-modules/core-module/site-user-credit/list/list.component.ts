@@ -20,11 +20,13 @@ import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
+import { CmsBankpaymentTransactionInfoComponent } from "src/app/shared/cms-bankpayment-transaction-info/cms-bankpayment-transaction-info.component";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { environment } from "src/environments/environment";
 import { PublicHelper } from "../../../../core/helpers/publicHelper";
 import { CmsToastrService } from "../../../../core/services/cmsToastr.service";
 import { CoreModuleSiteUserCreditChargeDirectComponent } from "../charge-direct/charge-direct.component";
+import { CoreModuleSiteUserCreditChargeOnlineComponent } from "../charge-online/charge-online.component";
 import { CoreModuleSiteUserCreditEditComponent } from "../edit/edit.component";
 
 @Component({
@@ -149,6 +151,25 @@ export class CoreModuleSiteUserCreditListComponent
         }),
     );
     this.getModuleList();
+    /**last payment transaction check*/
+    const transactionId = +localStorage.getItem("TransactionId");
+    if (transactionId > 0) {
+      const dialogRef = this.dialog.open(
+        CmsBankpaymentTransactionInfoComponent,
+        {
+          // height: "90%",
+          data: {
+            id: transactionId,
+          },
+        },
+      );
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result && result.dialogChangedDate) {
+          localStorage.removeItem("TransactionId");
+        }
+      });
+    }
+    /**last payment transaction check*/
   }
   getModuleList(): void {
     const filter = new FilterModel();
@@ -465,32 +486,7 @@ export class CoreModuleSiteUserCreditListComponent
     }
     this.DataGetAll();
   }
-  onActionButtonSiteUserCreditBuyAccountRow(
-    model: CoreModuleSiteUserCreditModel = this.tableRowSelected,
-  ): void {
-    if (
-      !model ||
-      !model.linkModuleId ||
-      model.linkModuleId === 0 ||
-      !model.linkSiteId ||
-      model.linkSiteId === 0
-    ) {
-      this.translate
-        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
-        .subscribe((str: string) => {
-          this.cmsToastrService.typeErrorSelected(str);
-        });
-      return;
-    }
-    this.onActionTableRowSelect(model);
 
-    this.router.navigate([
-      "/coremodule/site-user-credit-charge-online/",
-      model.linkSiteId,
-      model.linkUserId,
-      model.linkModuleId,
-    ]);
-  }
   onActionButtonLogCreditAccountRow(
     model: CoreModuleSiteUserCreditModel = this.tableRowSelected,
     event?: MouseEvent,
@@ -556,6 +552,51 @@ export class CoreModuleSiteUserCreditListComponent
     //open popup
     const dialogRef = this.dialog.open(
       CoreModuleSiteUserCreditChargeDirectComponent,
+      {
+        height: "50%",
+        width: "50%",
+        panelClass: panelClass,
+        enterAnimationDuration:
+          environment.cmsViewConfig.enterAnimationDuration,
+        exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+        data: {
+          model: model,
+        },
+      },
+    );
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result && result.dialogChangedDate) {
+        this.DataGetAll();
+      }
+    });
+    //open popup
+  }
+
+  onActionButtonSiteUserCreditOnlineAccountRow(
+    model: CoreModuleSiteUserCreditModel = this.tableRowSelected,
+  ): void {
+    if (
+      !model ||
+      !model.linkModuleId ||
+      model.linkModuleId === 0 ||
+      !model.linkSiteId ||
+      model.linkSiteId === 0
+    ) {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+    this.onActionTableRowSelect(model);
+
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
+    //open popup
+    const dialogRef = this.dialog.open(
+      CoreModuleSiteUserCreditChargeOnlineComponent,
       {
         height: "50%",
         width: "50%",

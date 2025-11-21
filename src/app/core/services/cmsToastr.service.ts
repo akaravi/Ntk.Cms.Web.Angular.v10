@@ -158,7 +158,13 @@ export class CmsToastrService {
   }
 
   // ===== SUCCESS METHODS =====
-
+  typeSuccessSubmit(): void {
+    this.showToast({
+      messageKeys: ["ERRORMESSAGE.MESSAGE.typeSuccessSubmit"],
+      titleKeys: ["ERRORMESSAGE.TITLE.typeSuccessSubmit"],
+      type: ToastType.SUCCESS,
+    });
+  }
   typeSuccessAdd(): void {
     this.showToast({
       messageKeys: ["ERRORMESSAGE.MESSAGE.typeSuccessAdd"],

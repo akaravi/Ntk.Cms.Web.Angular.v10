@@ -22,6 +22,7 @@
       <i class="fa fa-user"></i>
       <input
         [(ngModel)]="dataModel.email"
+        cmsKeyboardForce="en"
         name="dataModel.email"
         id="dataModel.email"
         [disabled]="!formInfo.submitButtonEnabled"
@@ -47,6 +48,7 @@
       <input
         [type]="hidePassword ? 'password' : 'text'"
         [(ngModel)]="dataModel.password"
+        cmsKeyboardForce="en"
         name="dataModel.password"
         id="dataModel.password"
         [disabled]="!formInfo.submitButtonEnabled"

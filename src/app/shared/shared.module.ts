@@ -90,6 +90,8 @@ import { CmsRecordStatusSelfSaveDirective } from "../core/directive/cms-record-s
 import { DirDirective } from "../core/directive/dir.directive";
 import { InlineSVGComponent } from "../core/directive/inline-svg.component";
 import { InlineSVGDirective } from "../core/directive/inline-svg.directive";
+import { KeyboardForceNumberDirective } from "../core/directive/keyboard-force-number.directive";
+import { KeyboardForceDirective } from "../core/directive/keyboard-force.directive";
 import { MatInputCommifiedDirective } from "../core/directive/mat-input-commified.directive";
 import { MatVerticalStepperScrollerDirective } from "../core/directive/mat-vertical-stepper.directive";
 import { ClipboardIfSupportedDirective } from "../core/directive/ngx-clipboard-if-supported.directive";
@@ -106,6 +108,7 @@ import { IntComponent } from "../core/dynamic-input-builder/int/int.component";
 import { StringComponent } from "../core/dynamic-input-builder/string/string.component";
 import { TextAreaComponent } from "../core/dynamic-input-builder/text-area/text-area.component";
 
+import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
 import { DomChangeDirective } from "../core/directive/domChange.directive";
 import { RightClickDirective } from "../core/directive/rtclick.directive";
 import { TokenHelper } from "../core/helpers/tokenHelper";
@@ -120,13 +123,13 @@ import { CmsUserInfoPipe } from "../core/pipe/core/cms-user-info.pipe";
 import { EnumsPipe } from "../core/pipe/enums.pipe";
 import { FirstLetterPipe } from "../core/pipe/first-letter.pipe";
 import { ListKeysPipe } from "../core/pipe/list-keys.pipe";
+import { LocaleTime } from "../core/pipe/local-Time.pipe";
 import { LocaleDateTime } from "../core/pipe/local-date-Time.pipe";
 import { LocaleDate } from "../core/pipe/local-date.pipe";
-import { LocaleTime } from "../core/pipe/local-Time.pipe";
 import { PersianDateFull } from "../core/pipe/persian-date/persian-date-full.pipe";
 import { PersianDate } from "../core/pipe/persian-date/persian-date.pipe";
-import { PrettyjsonPipe } from "../core/pipe/prettyjson.pipe";
 import { PrettyLinePipe } from "../core/pipe/prettyLine.pipe";
+import { PrettyjsonPipe } from "../core/pipe/prettyjson.pipe";
 import { RecordStatusCellClassPipe } from "../core/pipe/recordStatusCellClass.pipe";
 import { RecordStatusIconClassPipe } from "../core/pipe/recordStatusIconClass.pipe";
 import { ReplaceTextPipe } from "../core/pipe/repalaceTest.pip";
@@ -198,7 +201,6 @@ import {
 import { OverlayService } from "./overlay/overlay.service";
 import { PasswordStrengthComponent } from "./password-strength/password-strength.component";
 import { ProgressSpinnerComponent } from "./progress-spinner/progress-spinner.component";
-import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
 
 @NgModule({
   declarations: [
@@ -314,6 +316,8 @@ import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
     ClipboardDirective,
     InlineSVGDirective,
     InlineSVGComponent,
+    KeyboardForceDirective,
+    KeyboardForceNumberDirective,
   ],
 
   providers: [
@@ -567,6 +571,8 @@ import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
     ClipboardIfSupportedDirective,
     ClipboardDirective,
     InlineSVGDirective,
+    KeyboardForceDirective,
+    KeyboardForceNumberDirective,
   ],
 })
 export class SharedModule {

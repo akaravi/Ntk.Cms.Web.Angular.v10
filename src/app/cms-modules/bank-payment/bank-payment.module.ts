@@ -36,6 +36,7 @@ import { BankPaymentPublicConfigTreeComponent } from "./public-config/tree/tree.
 import { BankPaymentTransactionLogListComponent } from "./transaction-log/list/list.component";
 import { BankPaymentTransactionLogViewComponent } from "./transaction-log/view/view.component";
 import { BankPaymentTransactionEditComponent } from "./transaction/edit/edit.component";
+import { BankPaymentTransactionHeaderComponent } from "./transaction/header/header.component";
 import { BankPaymentTransactionListComponent } from "./transaction/list/list.component";
 import { BankPaymentTransactionViewComponent } from "./transaction/view/view.component";
 @NgModule({
@@ -58,6 +59,7 @@ import { BankPaymentTransactionViewComponent } from "./transaction/view/view.com
     BankPaymentTransactionListComponent,
     BankPaymentTransactionViewComponent,
     BankPaymentTransactionEditComponent,
+    BankPaymentTransactionHeaderComponent,
     /* */
     BankPaymentTransactionLogListComponent,
     BankPaymentTransactionLogViewComponent,

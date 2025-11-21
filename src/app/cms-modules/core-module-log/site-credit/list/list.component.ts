@@ -501,12 +501,12 @@ export class CoreModuleLogSiteCreditListComponent
     this.onActionTableRowSelect(model);
     if (event?.ctrlKey) {
       const link =
-        "/#/bankpayment/transaction/" +
+        "/#/bankpayment/transactionlog/LinkTransactionId/" +
         this.tableRowSelected.linkModuleBankPaymentTransactionId;
       window.open(link, "_blank");
     } else {
       this.router.navigate([
-        "/bankpayment/transaction/",
+        "/bankpayment/transactionlog/LinkTransactionId/",
         this.tableRowSelected.linkModuleBankPaymentTransactionId,
       ]);
     }

@@ -82,6 +82,7 @@
         style="direction: ltr !important; text-align: center"
         placeholder="{{ 'AUTH.INPUT.EMAIL' | translate }}"
         [(ngModel)]="dataModel.email"
+        cmsKeyboardForce="en"
         name="dataModel.email"
         [disabled]="!formInfo.submitButtonEnabled"
         #email
@@ -112,6 +113,7 @@
         style="direction: ltr !important; text-align: center"
         placeholder="{{ 'AUTH.INPUT.PASSWORD' | translate }}"
         [(ngModel)]="dataModel.password"
+        cmsKeyboardForce="en"
         name="dataModel.password"
         [disabled]="!formInfo.submitButtonEnabled"
         #password

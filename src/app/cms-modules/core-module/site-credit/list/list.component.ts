@@ -25,8 +25,9 @@ import { environment } from "src/environments/environment";
 import { PublicHelper } from "../../../../core/helpers/publicHelper";
 import { CmsToastrService } from "../../../../core/services/cmsToastr.service";
 import { CoreModuleSiteCreditChargeDirectComponent } from "../charge-direct/charge-direct.component";
+import { CoreModuleSiteCreditChargeOnlineComponent } from "../charge-online/charge-online.component";
 import { CoreModuleSiteCreditEditComponent } from "../edit/edit.component";
-
+import { CmsBankpaymentTransactionInfoComponent } from "src/app/shared/cms-bankpayment-transaction-info/cms-bankpayment-transaction-info.component";
 @Component({
   selector: "app-coremodule-site-credit-list",
   templateUrl: "./list.component.html",
@@ -122,6 +123,26 @@ export class CoreModuleSiteCreditListComponent
         }),
     );
     this.getModuleList();
+
+    /**last payment transaction check*/
+    const transactionId = +localStorage.getItem("TransactionId");
+    if (transactionId > 0) {
+      const dialogRef = this.dialog.open(
+        CmsBankpaymentTransactionInfoComponent,
+        {
+          // height: "90%",
+          data: {
+            id: transactionId,
+          },
+        },
+      );
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result && result.dialogChangedDate) {
+          localStorage.removeItem("TransactionId");
+        }
+      });
+    }
+    /**last payment transaction check*/
   }
   getModuleList(): void {
     const filter = new FilterModel();
@@ -414,31 +435,6 @@ export class CoreModuleSiteCreditListComponent
     });
   }
 
-  onActionButtonSiteCreditBuyAccountRow(
-    model: CoreModuleSiteCreditModel = this.tableRowSelected,
-  ): void {
-    if (
-      !model ||
-      !model.linkModuleId ||
-      model.linkModuleId === 0 ||
-      !model.linkSiteId ||
-      model.linkSiteId === 0
-    ) {
-      this.translate
-        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
-        .subscribe((str: string) => {
-          this.cmsToastrService.typeErrorSelected(str);
-        });
-      return;
-    }
-    this.onActionTableRowSelect(model);
-
-    this.router.navigate([
-      "/coremodule/site-credit-charge-online/",
-      model.linkSiteId,
-      model.linkModuleId,
-    ]);
-  }
   onActionButtonSiteCreditDirectAccountRow(
     model: CoreModuleSiteCreditModel = this.tableRowSelected,
   ): void {
@@ -463,6 +459,51 @@ export class CoreModuleSiteCreditListComponent
     //open popup
     const dialogRef = this.dialog.open(
       CoreModuleSiteCreditChargeDirectComponent,
+      {
+        height: "50%",
+        width: "50%",
+        panelClass: panelClass,
+        enterAnimationDuration:
+          environment.cmsViewConfig.enterAnimationDuration,
+        exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+        data: {
+          model: model,
+        },
+      },
+    );
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result && result.dialogChangedDate) {
+        this.DataGetAll();
+      }
+    });
+    //open popup
+  }
+
+  onActionButtonSiteCreditOnlineAccountRow(
+    model: CoreModuleSiteCreditModel = this.tableRowSelected,
+  ): void {
+    if (
+      !model ||
+      !model.linkModuleId ||
+      model.linkModuleId === 0 ||
+      !model.linkSiteId ||
+      model.linkSiteId === 0
+    ) {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+    this.onActionTableRowSelect(model);
+
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
+    //open popup
+    const dialogRef = this.dialog.open(
+      CoreModuleSiteCreditChargeOnlineComponent,
       {
         height: "50%",
         width: "50%",

@@ -1,5 +1,225 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-11-21 10:00:00
+
+### نرمال‌سازی کاراکترهای ورودی بر اساس زبان هدف
+
+**تغییرات:**
+
+- تبدیل خودکار حروف تایپ‌شده به چیدمان هدف (انگلیسی ↔ فارسی) در `cmsKeyboardForce`
+- نگهداری موقعیت کرسر و انتشار مجدد رویداد `input` بدون حلقه‌ی بی‌نهایت
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/core/directive/keyboard-force.directive.ts`
+
+---
+
+## 2025-11-21 10:30:00
+
+### تعمیم دایرکتیو cmsKeyboardForce با پشتیبانی از مپ‌های سفارشی
+
+**تغییرات:**
+
+- افزودن ورودی‌های `cmsKeyboardForceSource` و `cmsKeyboardForceMap` برای تعیین چیدمان مبدا و مپ اختصاصی
+- تعریف `DEFAULT_MAPPINGS` جهت تشخیص خودکار تبدیل‌های رایج (انگلیسی ↔ فارسی) و قابلیت توسعه برای زبان‌های بیشتر
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/core/directive/keyboard-force.directive.ts`
+
+---
+
+## 2025-11-21 11:10:00
+
+### بهبود تشخیص چیدمان و Auto Detect در cmsKeyboardForce
+
+**تغییرات:**
+
+- تعیین خودکار `sourceLocale` در صورت نبود مقدار ورودی (مثلاً هدف `fa` ← مبدا `en`)
+- تشخیص لحظه‌ای مپ مناسب بر اساس `InputEvent.data` در صورت نبود مپ صریح
+- جلوگیری از نیاز کاربر به تعیین دستی مبدا برای حالت‌های رایج
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/core/directive/keyboard-force.directive.ts`
+
+---
+
+## 2025-11-21 11:40:00
+
+### پشتیبانی از CAPS LOCK و SHIFT در دایرکتیو cmsKeyboardForce
+
+**تغییرات:**
+
+- ذخیره وضعیت کلیدهای `Shift` و `CapsLock` در رویداد `keydown`
+- اعمال منطق case فقط روی نویسه‌ای که به‌تازگی درج شده تا اعداد و متن‌های قبلی تحت تاثیر قرار نگیرند
+- بهبود تجربه تایپ انگلیسی هنگامی که صفحه‌کلید فارسی فعال است و بالعکس
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/core/directive/keyboard-force.directive.ts`
+
+---
+
+## 2025-11-21 12:15:00
+
+### افزودن فلگ‌های کنترلی و قابلیت‌های کمکی به cmsKeyboardForce
+
+**تغییرات:**
+
+- ورودی‌های جدید برای کنترل فعال/غیرفعال بودن ویژگی‌ها: `cmsKeyboardForceInputMode`, `cmsKeyboardForceIndicator`, `cmsKeyboardForceCloneMap`, `cmsKeyboardForceNormalizePaste`, `cmsKeyboardForceSmartReplace`
+- اضافه شدن hint خودکار `inputmode`، نشانگر بصری فعال بودن دایرکتیو و بازگردانی حالت قبلی بعد از blur
+- امکان کلون‌کردن map سفارشی برای جلوگیری از mutation خارجی
+- انتخاب نرمال‌سازی هوشمند فقط روی کاراکتر درج‌شده و قابلیت چشم‌پوشی از paste/drop
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/core/directive/keyboard-force.directive.ts`
+
+---
+
+## 2025-11-21 12:45:00
+
+### رفع مشکل تایپ با کلید Shift در حالت تبدیل فارسی → انگلیسی
+
+**تغییرات:**
+
+- ذخیره `event.code` و نگاشت آن به کلیدهای فیزیکی برای استخراج کاراکتر پایه
+- افزودن fallback جهت تبدیل کاراکترهای بدون مپ (مانند علائم حاصل از `Shift` در کیبورد فارسی) به متن هدف
+- اطمینان از اعمال حالت حروف بزرگ طبق ترکیب `Shift`/`CapsLock`
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/core/directive/keyboard-force.directive.ts`
+
+---
+
+## 2025-11-21 13:05:00
+
+### جلوگیری از تغییر حروفی که از قبل در زبان مقصد هستند
+
+**تغییرات:**
+
+- افزودن کنترل تشخیص زبان نویسه: اگر کاربر در همان زبان هدف تایپ کند (مثلاً فارسی در فیلد فارسی)، متن دست‌نخورده باقی می‌ماند
+- جلوگیری از تبدیل‌های ناخواسته برای علامت‌ها و متن‌های ترکیبی
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/core/directive/keyboard-force.directive.ts`
+
+---
+
+## 2025-11-21 13:25:00
+
+### مستندسازی کامل دایرکتیو cmsKeyboardForce
+
+**تغییرات:**
+
+- اضافه کردن توضیحات انگلیسی برای تمامی متدها شامل هدف و خروجی
+- مستندسازی متغیرها و ثابت‌های کلیدی برای درک سریع‌تر نقش هر بخش
+- بهبود خوانایی کلی فایل با کامنت‌های ساختار یافته
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/core/directive/keyboard-force.directive.ts`
+
+---
+
+## 2025-11-21 13:35:00
+
+### حذف وابستگی LayoutDirection از دایرکتیو کیبورد
+
+**تغییرات:**
+
+- جایگزینی type داخلی `'ltr' | 'rtl'` به جای استفاده از `LayoutDirection` ماژول دیگر
+- کاهش coupling بین `keyboard-force.directive` و `dir.directive`
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/core/directive/keyboard-force.directive.ts`
+
+---
+
+## 2025-11-21 13:50:00
+
+### اعمال خودکار English keyboard برای فیلدهای عددی و currency
+
+**تغییرات:**
+
+- ایجاد دایرکتیو جدید `KeyboardForceNumberDirective` که روی همه‌ی `input[type="number"]`، `input[numberOnly]` و `input[currencyMask]` (در صورت عدم وجود `cmsKeyboardForce`) اعمال می‌شود
+- مقداردهی خودکار `cmsKeyboardForce="en"`، `cmsKeyboardForceSource="en"` و جهت `ltr` برای ورودی‌های عددی
+- اضافه کردن دایرکتیو به `SharedModule` تا در تمام پروژه در دسترس باشد
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/core/directive/keyboard-force-number.directive.ts`
+- `src/app/shared/shared.module.ts`
+
+---
+
+## 2025-11-21 13:55:00
+
+### رفع خطای Selector برای دایرکتیو titleML
+
+**تغییرات:**
+
+- Escape کردن `$` در selector دایرکتیو `KeyboardForceTitleDirective` تا کامپایلر Angular خطای `Unescaped "$"` ندهد
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/core/directive/keyboard-force-title.directive.ts`
+
+---
+
+## 2025-11-21 14:05:00
+
+### افزودن ترجمه برای ACTION.BANK_PAYMENT_TRANSACTION
+
+**تغییرات:**
+
+- تعریف کلید جدید `ACTION.BANK_PAYMENT_TRANSACTION` در فایل‌های `en.json` و `fa.json`
+- آماده‌سازی ترجمه انگلیسی و فارسی برای استفاده در دکمه‌ها/اکشن‌های مرتبط با تراکنش بانکی
+
+**فایل‌های تغییر یافته:**
+
+- `src/assets/i18n/en.json`
+- `src/assets/i18n/fa.json`
+
+---
+
+## 2025-11-21 09:30:00
+
+### محدود کردن دایرکتیو cmsKeyboardForce به همان ورودی
+
+**تغییرات:**
+
+- حذف وابستگی به `DOCUMENT` و عدم اعمال `lang/dir` روی کل صفحه
+- ذخیره و بازگرداندن فقط ویژگی‌های `lang` و `dir` خود ورودی هنگام `focus`/`blur`
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/core/directive/keyboard-force.directive.ts`
+
+---
+
+## 2025-11-21 09:00:00
+
+### اضافه شدن دایرکتیو cmsKeyboardForce برای اجبار زبان ورودی
+
+**تغییرات:**
+
+- ایجاد دایرکتیو جدید `cmsKeyboardForce` برای ذخیره زبان جاری صفحه، اعمال زبان و جهت دلخواه روی ورودی فعال (مثلاً `fa` یا `en`) و بازگرداندن تنظیمات قبلی بعد از `blur`
+- پشتیبانی از تعیین جهت دلخواه (`cmsKeyboardForceDir`) یا انتخاب خودکار بر اساس زبان‌های RTL
+- اضافه کردن دایرکتیو جدید به `SharedModule` برای استفاده در سراسر پروژه
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/core/directive/keyboard-force.directive.ts`
+- `src/app/shared/shared.module.ts`
+
+---
+
 ## 2025-11-18 15:15:00
 
 ### فعال‌سازی RouterLink در CmsFormValidationComponent

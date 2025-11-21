@@ -1,93 +1,155 @@
-<app-cms-guide-notice
-  [Key]="'module.coremodule.sitecreditcharge'"
-  [svg]="'assets/media/svg/icons/Shopping/Sale2.svg'"
->
-</app-cms-guide-notice>
-<div class="row">
-  <div Class="col-xl-12">
-    <div class="row">
-      <div class="col">
-        <mat-card class="example-card">
-          <mat-card-header>
-            <mat-card-title>{{
-              "TITLE.Account_charge_amount" | translate
-            }}</mat-card-title>
-            <mat-card-subtitle></mat-card-subtitle>
-          </mat-card-header>
-          <mat-card-content>
-            <p>
-              <!-- Credit Field -->
-              <mat-form-field class="ntk-full-width">
-                <mat-label> {{ "TITLE.credit" | translate }} </mat-label>
-                <input
-                  matInput
-                  [(ngModel)]="dataModel.credit"
-                  name="dataModel.credit"
-                  #Credit
-                  currencyMask
-                  type="text"
-                  placeholder="0"
-                  class="form-control validate-name input-ltr-center"
-                />
-                <span matSuffix>{{ currency }}</span>
-                <mat-icon
-                  matSuffix
-                  *ngIf="dataModel.credit"
-                  matSuffix
-                  mat-icon-button
-                  aria-label="Clear"
-                  (click)="dataModel.credit = 0"
-                  >close</mat-icon
-                >
-                <mat-icon matSuffix>mode_edit</mat-icon>
-              </mat-form-field>
-            </p>
-            <!-- Description Field -->
-            <div
-              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-            >
-              <label for="dataModel.description" class="color-highlight">{{
-                "TITLE.DESCRIPTION" | translate
-              }}</label>
-              <textarea
-                matInput
-                [(ngModel)]="dataModel.description"
-                name="dataModel.description"
-                #Description
-                type="text"
-                placeholder="{{ 'TITLE.DESCRIPTION' | translate }}"
-                row="10"
-                minlength="0"
-                maxlength="500"
-                required
-                class="form-control validate-name"
-                id="dataModel.description"
-              ></textarea>
-              <em>{{ Description.value.length }} / 500</em>
-              <mat-error *ngIf="Description.errors?.required">
-                {{ "TITLE.DESCRIPTION" | translate }} is
-                <strong>{{ "MESSAGE.required" | translate }}</strong>
-              </mat-error>
-            </div>
-          </mat-card-content>
-          <mat-card-actions>
-            <button
-              [disabled]="publicHelper.processService.process.inRunAll"
-              (click)="onActionButtonAdd()"
-              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
-            >
-              {{ "ACTION.ADD" | translate }}
-            </button>
-            <button
-              type="button"
-              (click)="onFormCancel()"
-              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-            >
-              <i class="ft-x"></i> {{ "ACTION.BACK" | translate }}
-            </button>
-          </mat-card-actions>
-        </mat-card>
+<div class="card card-style loader-container">
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
+  <div class="menu-title">
+    <p class="color-highlight">{{ formInfo.formTitle }}</p>
+    <a class="close-menu" (click)="onFormCancel()"
+      ><i class="fa fa-times-circle"></i
+    ></a>
+    <hr />
+  </div>
+  <div class="content mb-0">
+    <p class="mb-0 color-highlight font-600 font-12">
+      {{ formInfo.formDescription }}
+    </p>
+
+    <!--Content-->
+    <mat-dialog-content>
+      <!-- Credit Field -->
+      <mat-form-field class="ntk-full-width">
+        <mat-label> {{ "TITLE.Amount" | translate }} </mat-label>
+        <input
+          matInput
+          [(ngModel)]="dataModel.credit"
+          name="dataModel.credit"
+          #Credit
+          currencyMask
+          type="text"
+          placeholder="0"
+          class="form-control validate-name input-ltr-center"
+        />
+        <span matSuffix>{{ currency }}</span>
+        <mat-icon
+          matSuffix
+          *ngIf="dataModel.credit"
+          matSuffix
+          mat-icon-button
+          aria-label="Clear"
+          (click)="dataModel.credit = 0"
+          >close</mat-icon
+        >
+        <mat-icon matSuffix>mode_edit</mat-icon>
+      </mat-form-field>
+
+      <!-- Description Field -->
+      <div
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+      >
+        <label for="dataModel.description" class="color-highlight">{{
+          "TITLE.DESCRIPTION" | translate
+        }}</label>
+        <textarea
+          matInput
+          [(ngModel)]="dataModel.description"
+          name="dataModel.description"
+          #Description
+          type="text"
+          placeholder="{{ 'TITLE.DESCRIPTION' | translate }}"
+          row="10"
+          minlength="0"
+          maxlength="500"
+          required
+          class="form-control validate-name"
+          id="dataModel.description"
+        ></textarea>
+        <em>{{ Description.value.length }} / 500</em>
+        <mat-error *ngIf="Description.errors?.required">
+          {{ "TITLE.DESCRIPTION" | translate }} is
+          <strong>{{ "MESSAGE.required" | translate }}</strong>
+        </mat-error>
       </div>
-    </div>
+      <div>
+        <div *ngIf="dataModel.linkSiteId > 0">
+          {{ "TITLE.site" | translate }}:
+          {{ dataModel.linkSiteId | cmssiteinfo | async }}
+        </div>
+        <div *ngIf="dataModel.linkUserId > 0">
+          {{ "TITLE.user" | translate }}:
+          {{ dataModel.linkUserId | cmsuserinfo | async }}
+        </div>
+        <div *ngIf="dataModel.linkModuleId > 0">
+          {{ "TITLE.module" | translate }}:
+          {{
+            dataModel.linkModuleId
+              | cmstitle: dataModelCoreModuleResult.listItems
+          }}
+        </div>
+        <div *ngIf="dataModel.credit > 0">
+          {{ "TITLE.Amount" | translate }}:
+          {{ dataModel.credit | number: " " + currency + " " }}
+        </div>
+      </div>
+    </mat-dialog-content>
+    <mat-dialog-actions style="text-align: left">
+      <div class="ntk-cms-html-card-message">
+        <!--begin:::::::::::::::::::::::::::::::::::::::::cms-message -->
+        @if (formInfo?.submitResultMessage?.length > 0) {
+          @switch (formInfo.submitResult) {
+            @case ("success") {
+              <div class="chip chip-s bg-green-dark">
+                <i class="fa fa-check color-white bg-green-light"></i>
+                <span class="color-white">{{
+                  formInfo.submitResultMessage
+                }}</span>
+              </div>
+            }
+            @case ("error") {
+              <div class="chip chip-s bg-red-dark">
+                <i class="fa fa-check color-white bg-red-light"></i>
+                <span class="color-white">{{
+                  formInfo.submitResultMessage
+                }}</span>
+              </div>
+            }
+            @case ("warning") {
+              <div class="chip chip-s bg-yellow-dark">
+                <i class="fa fa-check color-white bg-yellow-light"></i>
+                <span class="color-white">{{
+                  formInfo.submitResultMessage
+                }}</span>
+              </div>
+            }
+            @default {
+              <div class="chip chip-s bg-gray-dark">
+                <i class="fa fa-check color-white bg-gray-light"></i>
+                <span class="color-white">{{
+                  formInfo.submitResultMessage
+                }}</span>
+              </div>
+            }
+          }
+        }
+        <!--end:::::::::::::::::::::::::::::::::::::::::cms-message -->
+      </div>
+      <div class="form-actions" *ngIf="formInfo.submitButtonEnabled">
+        <button
+          type="button"
+          (click)="onFormCancel()"
+          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+        >
+          <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
+        </button>
+
+        <button
+          type="submit"
+          (click)="onActionButtonSubmit()"
+          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
+        >
+          <i class="fa fa-check-square-o"></i>
+          {{ "ACTION.SUBMIT_BUTTON" | translate }}
+        </button>
+      </div>
+    </mat-dialog-actions>
+    <!--Content-->
   </div>
 </div>

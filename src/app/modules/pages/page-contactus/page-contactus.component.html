@@ -17,7 +17,9 @@
     <div class="card contact-form">
       <div
         class="content"
-        *ngIf="formInfo?.submitResultMessageType !== enumFormSubmitedStatus.Success"
+        *ngIf="
+          formInfo?.submitResultMessageType !== enumFormSubmitedStatus.Success
+        "
       >
         <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
           <fieldset>
@@ -83,6 +85,7 @@
               <input
                 type="email"
                 [(ngModel)]="dataModel.email"
+                cmsKeyboardForce="en"
                 name="dataModel.email"
                 class="round-small input-ltr-center"
                 placeholder="{{ 'TITLE.Enter_email' | translate }}"
@@ -132,7 +135,9 @@
 
     <div
       class="form-sent"
-      *ngIf="formInfo?.submitResultMessageType === enumFormSubmitedStatus.Success"
+      *ngIf="
+        formInfo?.submitResultMessageType === enumFormSubmitedStatus.Success
+      "
     >
       <div class="card card-style">
         <div class="shadow-l rounded-m gradient-green ms-n1 mb-0">

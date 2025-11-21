@@ -8,11 +8,15 @@ import {
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
+  CoreModuleModel,
+  CoreModuleService,
   CoreModuleSiteCreditChargeDirectDtoModel,
   CoreModuleSiteCreditModel,
   CoreModuleSiteCreditService,
   CoreSiteService,
   ErrorExceptionResult,
+  FilterModel,
+  FormInfoModel,
 } from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
@@ -23,7 +27,7 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
   standalone: false,
 })
 export class CoreModuleSiteCreditChargeDirectComponent implements OnInit {
-  requestModel: CoreModuleSiteCreditModel;
+  requestModel: CoreModuleSiteCreditChargeDirectDtoModel;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(DOCUMENT) private document: any,
@@ -31,6 +35,7 @@ export class CoreModuleSiteCreditChargeDirectComponent implements OnInit {
     private dialog: MatDialog,
     private coreSiteService: CoreSiteService,
     private cmsToastrService: CmsToastrService,
+    private coreModuleService: CoreModuleService,
     private router: Router,
     public publicHelper: PublicHelper,
     private service: CoreModuleSiteCreditService,
@@ -38,7 +43,8 @@ export class CoreModuleSiteCreditChargeDirectComponent implements OnInit {
     private dialogRef: MatDialogRef<CoreModuleSiteCreditChargeDirectComponent>,
   ) {
     if (data) {
-      this.requestModel = data.model || new CoreModuleSiteCreditModel();
+      this.requestModel =
+        data.model || new CoreModuleSiteCreditChargeDirectDtoModel();
     }
   }
 
@@ -46,8 +52,15 @@ export class CoreModuleSiteCreditChargeDirectComponent implements OnInit {
     new CoreModuleSiteCreditChargeDirectDtoModel();
   dataModelResult: ErrorExceptionResult<CoreModuleSiteCreditModel> =
     new ErrorExceptionResult<CoreModuleSiteCreditModel>();
-
+  dataModelCoreModuleResult: ErrorExceptionResult<CoreModuleModel> =
+    new ErrorExceptionResult<CoreModuleModel>();
+  formInfo: FormInfoModel = new FormInfoModel();
   ngOnInit(): void {
+    this.translate
+      .get("ACTION.CHARGE_DIRECT")
+      .subscribe((str: string) => {
+        this.formInfo.formTitle = str;
+      });
     if (
       !this.requestModel ||
       this.requestModel.linkSiteId <= 0 ||
@@ -60,9 +73,18 @@ export class CoreModuleSiteCreditChargeDirectComponent implements OnInit {
     this.dataModel.credit = this.requestModel.credit;
     this.dataModel.linkModuleId = this.requestModel.linkModuleId;
     this.dataModel.linkSiteId = this.requestModel.linkSiteId;
+    this.getModuleList();
   }
-
-  onActionButtonAdd(): void {
+  getModuleList(): void {
+    const filter = new FilterModel();
+    filter.rowPerPage = 100;
+    this.coreModuleService.ServiceGetAllModuleName(filter).subscribe({
+      next: (ret) => {
+        this.dataModelCoreModuleResult = ret;
+      },
+    });
+  }
+  onActionButtonSubmit(): void {
     const pName = this.constructor.name + "ServiceChargeDirect";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -77,7 +99,7 @@ export class CoreModuleSiteCreditChargeDirectComponent implements OnInit {
       next: (ret) => {
         if (ret.isSuccess) {
           this.dataModelResult = ret;
-          this.cmsToastrService.typeSuccessAdd();
+          this.cmsToastrService.typeSuccessSubmit();
           this.dialogRef.close({ dialogChangedDate: true });
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -91,7 +113,7 @@ export class CoreModuleSiteCreditChargeDirectComponent implements OnInit {
       },
     });
   }
-  currency="";
+  currency = "";
   DataGetCurrency(): void {
     this.coreSiteService.ServiceGetCurrencyMaster().subscribe({
       next: (ret) => {

@@ -8,11 +8,15 @@ import {
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
+  CoreModuleModel,
+  CoreModuleService,
   CoreModuleSiteUserCreditChargeDirectDtoModel,
   CoreModuleSiteUserCreditModel,
   CoreModuleSiteUserCreditService,
   CoreSiteService,
   ErrorExceptionResult,
+  FilterModel,
+  FormInfoModel,
 } from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
@@ -30,6 +34,7 @@ export class CoreModuleSiteUserCreditChargeDirectComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private coreSiteService: CoreSiteService,
     private cmsToastrService: CmsToastrService,
+    private coreModuleService: CoreModuleService,
     private router: Router,
     public publicHelper: PublicHelper,
     private service: CoreModuleSiteUserCreditService,
@@ -45,7 +50,13 @@ export class CoreModuleSiteUserCreditChargeDirectComponent implements OnInit {
     new CoreModuleSiteUserCreditChargeDirectDtoModel();
   dataModelResult: ErrorExceptionResult<CoreModuleSiteUserCreditModel> =
     new ErrorExceptionResult<CoreModuleSiteUserCreditModel>();
+  dataModelCoreModuleResult: ErrorExceptionResult<CoreModuleModel> =
+    new ErrorExceptionResult<CoreModuleModel>();
+  formInfo: FormInfoModel = new FormInfoModel();
   ngOnInit(): void {
+    this.translate.get("ACTION.CHARGE_DIRECT").subscribe((str: string) => {
+      this.formInfo.formTitle = str;
+    });
     if (
       !this.requestModel ||
       this.requestModel.linkSiteId <= 0 ||
@@ -61,8 +72,18 @@ export class CoreModuleSiteUserCreditChargeDirectComponent implements OnInit {
     this.dataModel.linkSiteId = this.requestModel.linkSiteId;
     this.dataModel.linkUserId = this.requestModel.linkUserId;
     this.DataGetCurrency();
+    this.getModuleList();
   }
-  onActionButtonAdd(): void {
+  getModuleList(): void {
+    const filter = new FilterModel();
+    filter.rowPerPage = 100;
+    this.coreModuleService.ServiceGetAllModuleName(filter).subscribe({
+      next: (ret) => {
+        this.dataModelCoreModuleResult = ret;
+      },
+    });
+  }
+  onActionButtonSubmit(): void {
     const pName = this.constructor.name + "ServiceChargeDirect";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -77,7 +98,7 @@ export class CoreModuleSiteUserCreditChargeDirectComponent implements OnInit {
       next: (ret) => {
         if (ret.isSuccess) {
           this.dataModelResult = ret;
-          this.cmsToastrService.typeSuccessAdd();
+          this.cmsToastrService.typeSuccessSubmit();
           this.dialogRef.close({ dialogChangedDate: true });
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);

@@ -23,6 +23,7 @@
           matInput
           type="text"
           [(ngModel)]="dataModel.username"
+          cmsKeyboardForce="en"
           name="dataModel.username"
           #Username
           [disabled]="!fieldsInfo['username']?.accessAddField"
@@ -49,6 +50,7 @@
           matInput
           type="text"
           [(ngModel)]="dataModel.email"
+          cmsKeyboardForce="en"
           name="dataModel.email"
           #Email
           [disabled]="!fieldsInfo['email']?.accessAddField"
@@ -75,6 +77,7 @@
           matInput
           type="text"
           [(ngModel)]="dataModel.mobile"
+          cmsKeyboardForce="en"
           name="dataModel.mobile"
           #Mobile
           [disabled]="!fieldsInfo['mobile']?.accessAddField"

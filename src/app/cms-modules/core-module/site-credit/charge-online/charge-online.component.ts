@@ -1,15 +1,25 @@
 import { DOCUMENT } from "@angular/common";
 import { Component, Inject, OnInit } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
+  CoreModuleModel,
+  CoreModuleService,
   CoreModuleSiteCreditCalculateDtoModel,
+  CoreModuleSiteCreditPaymentDtoModel,
   CoreSiteService,
+  ErrorExceptionResult,
+  FilterModel,
+  FormInfoModel,
 } from "ntk-cms-api";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
-import { CmsBankpaymentTransactionInfoComponent } from "src/app/shared/cms-bankpayment-transaction-info/cms-bankpayment-transaction-info.component";
-import { CoreModuleSiteCreditChargePaymentComponent } from "../charge-payment/charge-payment.component";
+
+import { CoreModuleSiteCreditChargeOnlineCalculateComponent } from "../charge-online-calculate/charge-online-calculate.component";
 
 @Component({
   selector: "app-coremodule-site-credit-charge-online",
@@ -17,52 +27,49 @@ import { CoreModuleSiteCreditChargePaymentComponent } from "../charge-payment/ch
   standalone: false,
 })
 export class CoreModuleSiteCreditChargeOnlineComponent implements OnInit {
-  requestLinkModuleId = 0;
-  requestLinkSiteId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(DOCUMENT) private document: any,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
     private coreSiteService: CoreSiteService,
     private cmsToastrService: CmsToastrService,
+    private coreModuleService: CoreModuleService,
     private router: Router,
     public translate: TranslateService,
+    private dialogRef: MatDialogRef<CoreModuleSiteCreditChargeOnlineComponent>,
   ) {
-    this.requestLinkModuleId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkModuleId"),
-    );
-    this.requestLinkSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
-    );
-    this.dataModelCalculate.linkSiteId = this.requestLinkSiteId;
-    this.dataModelCalculate.linkModuleId = this.requestLinkModuleId;
+    if (data) {
+      this.dataModelCalculate =
+        data.model || new CoreModuleSiteCreditPaymentDtoModel();
+    }
   }
   currency = "";
-  viewCalculate = false;
+  formInfo: FormInfoModel = new FormInfoModel();
 
   dataModelCalculate: CoreModuleSiteCreditCalculateDtoModel =
     new CoreModuleSiteCreditCalculateDtoModel();
-
+  dataModelCoreModuleResult: ErrorExceptionResult<CoreModuleModel> =
+    new ErrorExceptionResult<CoreModuleModel>();
   ngOnInit(): void {
-    this.DataGetCurrency();
-    const transactionId = +localStorage.getItem("TransactionId");
-    if (transactionId > 0) {
-      const dialogRef = this.dialog.open(
-        CmsBankpaymentTransactionInfoComponent,
-        {
-          // height: "90%",
-          data: {
-            id: transactionId,
-          },
-        },
-      );
-      dialogRef.afterClosed().subscribe((result) => {
-        if (result && result.dialogChangedDate) {
-          localStorage.removeItem("TransactionId");
-        }
+    this.translate
+      .get("ACTION.CHARGE_ONLINE")
+      .subscribe((str: string) => {
+        this.formInfo.formTitle = str;
       });
-    }
+    this.DataGetCurrency();
+
+    this.getModuleList();
+  }
+  getModuleList(): void {
+    const filter = new FilterModel();
+    filter.rowPerPage = 100;
+    this.coreModuleService.ServiceGetAllModuleName(filter).subscribe({
+      next: (ret) => {
+        this.dataModelCoreModuleResult = ret;
+      },
+    });
   }
 
   DataGetCurrency(): void {
@@ -82,7 +89,7 @@ export class CoreModuleSiteCreditChargeOnlineComponent implements OnInit {
 
   onActionButtonBuy(): void {
     const dialogRef = this.dialog.open(
-      CoreModuleSiteCreditChargePaymentComponent,
+      CoreModuleSiteCreditChargeOnlineCalculateComponent,
       {
         //height: '90%',
         data: {
@@ -98,7 +105,7 @@ export class CoreModuleSiteCreditChargeOnlineComponent implements OnInit {
     });
   }
 
-  onActionBackToParent(): void {
-    this.router.navigate(["/coremodule/site-credit/"]);
+  onFormCancel(): void {
+    this.dialogRef.close({ dialogChangedDate: false });
   }
 }

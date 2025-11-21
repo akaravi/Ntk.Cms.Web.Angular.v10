@@ -1,3 +1,8 @@
+<app-bank-payment-transaction-header
+  *ngIf="requestLinkTransactionId > 0"
+  [optionId]="requestLinkTransactionId"
+>
+</app-bank-payment-transaction-header>
 <app-cms-html-list
   [optionsListInfoAreaId]="constructorInfoAreaId"
   [optionGuideNoticeKey]="''"
