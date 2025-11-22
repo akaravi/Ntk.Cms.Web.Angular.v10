@@ -642,18 +642,22 @@
         </div>
       </div>
       {{ dataModelMessagePagination | json }}
-      <app-cms-json-list [(ngModel)]="dataModelMessagePagination" [optionMethod]="1">
+      <app-cms-json-list
+        [(ngModel)]="dataModelMessagePagination"
+        [optionMethod]="1"
+        *ngIf="this.tokenHelper.isAdminSite"
+      >
       </app-cms-json-list>
       <app-cms-json-list
         [(ngModel)]="dataModelResult.item"
         [optionMethod]="1"
-        *ngIf="dataModelResult?.item"
+        *ngIf="dataModelResult?.item && this.tokenHelper.isAdminSite"
       >
       </app-cms-json-list>
       <app-cms-json-list
         [(ngModel)]="dataModelOrderCalculateResult.item"
         [optionMethod]="1"
-        *ngIf="dataModelOrderCalculateResult?.item"
+        *ngIf="dataModelOrderCalculateResult?.item && this.tokenHelper.isAdminSite"
       >
       </app-cms-json-list>
 
@@ -662,7 +666,7 @@
         [(ngModel)]="dataModelApiPathPriceServiceEstimateResult.listItems"
         [optionMethod]="2"
         [optionTitleLocation]="'top'"
-        *ngIf="dataModelApiPathPriceServiceEstimateResult?.listItems"
+        *ngIf="dataModelApiPathPriceServiceEstimateResult?.listItems && this.tokenHelper.isAdminSite"
       >
       </app-cms-json-list>
     </form>

@@ -32,6 +32,7 @@ import {
 } from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { SmsMessagePaginationModel } from "src/app/core/models/smsMessagePaginationModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { environment } from "src/environments/environment";
@@ -39,69 +40,7 @@ export class DateByClock {
   date: Date;
   clock: string;
 }
-export class messagePaginationModel {
-  get messageMaxLength(): number {
-    return (
-      this._serverItemInUse?.EndUserMessageLengthPaginationList?.slice(-1)[0] ??
-      0
-    );
-  }
-  private _message: string = "";
-  private _messageUnicode: boolean = false;
-  private _messagePage: number = 0;
-  private _serverItems: SmsMainApiPathPriceServiceEstimateModel[] = [];
-  private _serverItemInUse: SmsMainApiPathPriceServiceEstimateModel;
-  set serverList(serverList: SmsMainApiPathPriceServiceEstimateModel[]) {
-    this._serverItems = serverList;
-  }
-  set message(message: string) {
-    this._message = message;
-    this.checkMessageUnicode();
-  }
-  private checkMessageUnicode() {
-    if (this._message?.length > 0) {
-      for (let i = 0; i < this._message.length; i++) {
-        const code = this._message.charCodeAt(i);
-        if (code > 125 || code < 0) {
-          this._messageUnicode = true;
-          this._serverItemInUse = this._serverItems.find(
-            (x) => x.messageType === SmsMessageTypeEnum.TextUnicode,
-          );
-          return;
-        }
-      }
-    }
-  }
-  private checkMessagePage() {
-    if (this._message?.length > 0) {
-      // متن را به صورت برعکس برمی‌گرداند (فقط به عنوان نمونه اجرای "آخرین دستور" روی این متن)
-      this._messagePage =
-        this._serverItemInUse?.EndUserMessageLengthPaginationList?.findIndex(
-          (x) => this._message.length <= x,
-        ) ??
-        0 + 1 ??
-        0;
-    }
-  }
-  get messagePage(): number {
-    return this._messagePage;
-  }
-  get messageUnicode(): boolean {
-    return this._messageUnicode;
-  }
-  get EndUserPricePerPageMin(): number {
-    return this._serverItemInUse?.EndUserPricePerPageMin ?? 0;
-  }
-  get EndUserPricePerPageMax(): number {
-    return this._serverItemInUse?.EndUserPricePerPageMax ?? 0;
-  }
-  get EndUserPriceMin(): number {
-    return this.EndUserPricePerPageMin * this.messagePage;
-  }
-  get EndUserPriceMax(): number {
-    return this.EndUserPricePerPageMax * this.messagePage;
-  }
-}
+
 @Component({
   selector: "app-sms-action-send-message",
   templateUrl: "./send-message.component.html",
@@ -123,7 +62,7 @@ export class SmsActionSendMessageComponent implements OnInit {
     public publicHelper: PublicHelper,
     public translate: TranslateService,
     private router: Router,
-    private tokenHelper: TokenHelper,
+    public tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private translateUiService: TranslateUiService,
   ) {
@@ -209,7 +148,7 @@ export class SmsActionSendMessageComponent implements OnInit {
   senderNumber: string = "";
   linkApiPathId: string = "";
   linkNumberId: string = "";
-  messageMaxLength = 0;
+
   dataModel: SmsApiSendMessageDtoModel = new SmsApiSendMessageDtoModel();
   dataModelOrderCalculate: SmsApiSendMessageOrderCalculateDtoModel =
     new SmsApiSendMessageOrderCalculateDtoModel();
@@ -227,8 +166,8 @@ export class SmsActionSendMessageComponent implements OnInit {
   dataModelDateByClockExpire: DateByClock = new DateByClock();
   formInfo: FormInfoModel = new FormInfoModel();
   clipboardText = "";
-  dataModelMessagePagination: messagePaginationModel =
-    new messagePaginationModel();
+  dataModelMessagePagination: SmsMessagePaginationModel =
+    new SmsMessagePaginationModel();
   // Hangfire 1.7+ compatible expression: '3 2 12 1/1 ?'
   // Quartz compatible expression: '4 3 2 12 1/1 ? *'
   //public cronExpression = '0 12 1W 1/1 ?';
@@ -457,7 +396,6 @@ export class SmsActionSendMessageComponent implements OnInit {
             this.dataModelApiPathPriceServiceEstimateResult = ret;
             if (ret.isSuccess && ret.listItems?.length > 0) {
               this.dataModelMessagePagination.serverList = ret.listItems;
-              this.dataModelMessagePagination.message = this.dataModel.message;
             }
           },
         });
