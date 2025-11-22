@@ -26,7 +26,6 @@ import {
   SmsMainApiPathPriceServiceService,
   SmsMainMessageCategoryModel,
   SmsMainMessageContentModel,
-  SmsMessageTypeEnum,
   TokenInfoModelV3,
   ValidationStatusEnum,
 } from "ntk-cms-api";
@@ -394,9 +393,7 @@ export class SmsActionSendMessageComponent implements OnInit {
         .subscribe({
           next: (ret) => {
             this.dataModelApiPathPriceServiceEstimateResult = ret;
-            if (ret.isSuccess && ret.listItems?.length > 0) {
-              this.dataModelMessagePagination.serverList = ret.listItems;
-            }
+            this.dataModelMessagePagination.serverList = ret.listItems;
           },
         });
     }

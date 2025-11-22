@@ -1,5 +1,7 @@
-
-import { SmsMainApiPathPriceServiceEstimateModel, SmsMessageTypeEnum } from "ntk-cms-api";
+import {
+  SmsMainApiPathPriceServiceEstimateModel,
+  SmsMessageTypeEnum,
+} from "ntk-cms-api";
 export class SmsMessagePaginationModel {
   private _message: string = "";
   messageUnicode: boolean = false;
@@ -36,18 +38,20 @@ export class SmsMessagePaginationModel {
     this.messageUnicode = false;
     this._serverItemInUse = this._serverItems.find(
       (x) => x.messageType === SmsMessageTypeEnum.TextNormal,
-    );
+    )?.[0];
   }
   private checkCalculate() {
-    debugger;
+    this.messagePage = 0;
     if (this._message?.length > 0) {
       // متن را به صورت برعکس برمی‌گرداند (فقط به عنوان نمونه اجرای "آخرین دستور" روی این متن)
-      this.messagePage =
+      const index =
         this._serverItemInUse?.endUserMessageLengthPaginationList?.findIndex(
           (x) => this._message.length <= x,
-        ) ??
-        0 + 1 ??
-        0;
+        ) ?? -1;
+
+      if (index >= 0) {
+        this.messagePage = index + 1;
+      }
     }
     this.endUserPricePerPageMin =
       this._serverItemInUse?.endUserPricePerPageMin ?? 0;
