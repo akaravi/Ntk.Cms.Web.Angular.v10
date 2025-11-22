@@ -145,7 +145,7 @@
           </mat-error>
         </div>
         <app-cms-json-list
-          [dataModel]="dataModelResult.item"
+          [(ngModel)]="dataModelResult.item"
           [optionMethod]="1"
           *ngIf="dataModelResultGotoBank"
         >

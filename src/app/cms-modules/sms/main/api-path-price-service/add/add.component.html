@@ -56,6 +56,16 @@
         [optionSelectForce]="dataModel.linkApiPathId"
         [optionPlaceholder]="'TITLE.Direction' | translate"
       >
+      <!-- MessageType Field -->
+      <app-cms-enum-x-selector
+        *ngIf="fieldsInfo['messageType']?.accessWatchField"
+        [optionDataListResult]="dataModelSmsMessageTypeEnumResult"
+        [(model)]="dataModel.messageType"
+        [optionDisabled]="false"
+        [optionLabel]="fieldsInfo['messageType']?.fieldTitle"
+        [optionRequired]="true"
+        [optionSelectFirstItem]="true"
+      ></app-cms-enum-x-selector>
       </app-sms-apipath-selector>
       <!-- LinkCoreUserId Field -->
       <app-cms-user-selector
@@ -319,16 +329,7 @@
         </div>
       </div>
       <br />
-      <!-- MessageType Field -->
-      <app-cms-enum-x-selector
-        *ngIf="fieldsInfo['messageType']?.accessWatchField"
-        [optionDataListResult]="dataModelSmsMessageTypeEnumResult"
-        [(model)]="dataModel.messageType"
-        [optionDisabled]="false"
-        [optionLabel]="fieldsInfo['messageType']?.fieldTitle"
-        [optionRequired]="true"
-        [optionSelectFirstItem]="true"
-      ></app-cms-enum-x-selector>
+
       <!-- OutBoxType Field -->
       <app-cms-enum-x-selectionlist
         *ngIf="fieldsInfo['outBoxTypeJson']?.accessWatchField"

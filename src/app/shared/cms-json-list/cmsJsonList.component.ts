@@ -10,9 +10,51 @@ export class CmsJsonListComponent implements OnInit {
   static nextId = 0;
   id = ++CmsJsonListComponent.nextId;
   constructor() {}
+  @Input() optionIsChild = false;
   @Input() optionMethod = 1;
-  @Input() dataModel: any;
+  @Input() optionTitleLocation: "top" | "side" = "side";
+  dataModel: any;
   @Input() optionFields: Map<string, string>;
   @Input() optionViewHead: boolean = true;
+  @Input() optionViewChild: boolean = true;
+  // برای پشتیبانی از [(ngModel)]
+  @Input()
+  get ngModel(): any {
+    return this.dataModel;
+  }
+  set ngModel(value: any) {
+    this.dataModel = value;
+    if (this.dataModel) {
+      if (this.isMap(this.dataModel)) {
+        this.optionMethod = 2;
+      }
+    }
+  }
   ngOnInit(): void {}
+
+  isObject(item: any): boolean {
+    // Check for plain object, but not Array or Map
+    return (
+      item !== null &&
+      item !== undefined &&
+      typeof item === "object" &&
+      !Array.isArray(item) &&
+      !(item instanceof Map)
+    );
+  }
+
+  isArray(item: any): boolean {
+    // True if Array
+    return item !== null && item !== undefined && Array.isArray(item);
+  }
+
+  isMap(item: any): boolean {
+    // Recognize Map for key and value like name['ali']='aaaa'
+    return (
+      item !== null &&
+      item !== undefined &&
+      item instanceof Map &&
+      !Array.isArray(item)
+    );
+  }
 }

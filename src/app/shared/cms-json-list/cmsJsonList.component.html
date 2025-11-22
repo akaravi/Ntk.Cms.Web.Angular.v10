@@ -1,69 +1,194 @@
-<div class="card card-style">
+<div class="card" [ngClass]="optionIsChild ? '' : 'card-style'">
   <div class="content mb-0">
     <!--Content-->
     <!--optionMethod 1-->
-    <div class="table" *ngIf="optionMethod === 1 && dataModel">
-      <div class="th" *ngIf="optionViewHead">
-        <div class="td">{{ "TITLE.parameter" | translate }}</div>
-        <div class="td">{{ "TITLE.Values" | translate }}</div>
-        <div class="clear"></div>
+    @if (optionMethod === 1 && dataModel) {
+      <div class="table">
+        @if (optionTitleLocation === "side") {
+          <div class="th" *ngIf="optionViewHead">
+            <div class="td">{{ "TITLE.parameter" | translate }}</div>
+            <div class="td">{{ "TITLE.Values" | translate }}</div>
+            <div class="clear"></div>
+          </div>
+          <div
+            class="tr"
+            *ngFor="let head of dataModel | listkeys: optionFields"
+          >
+            @if (optionViewHead || !isArray(dataModel)) {
+              <div class="td">
+                {{
+                  optionFields && optionFields.size > 0
+                    ? optionFields.get(head)
+                    : head
+                }}
+              </div>
+            }
+            <div class="td">
+              <ng-container
+                *ngTemplateOutlet="
+                  templateItem;
+                  context: { $implicit: dataModel[head] }
+                "
+              ></ng-container>
+            </div>
+            <div style="clear: both"></div>
+          </div>
+        }
+        @if (optionTitleLocation === "top") {
+          <div class="th" *ngIf="optionViewHead">
+            <div
+              class="td"
+              *ngFor="let head of dataModel | listkeys: optionFields"
+            >
+              {{
+                optionFields && optionFields.size > 0
+                  ? optionFields.get(head)
+                  : head
+              }}
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="tr">
+            <div
+              class="td"
+              *ngFor="let list of dataModel | listkeys: optionFields"
+            >
+              <ng-container
+                *ngTemplateOutlet="
+                  templateItem;
+                  context: { $implicit: dataModel[list] }
+                "
+              ></ng-container>
+            </div>
+            <div style="clear: both"></div>
+          </div>
+        }
       </div>
-      <div class="tr" *ngFor="let head of dataModel | listkeys: optionFields">
-        <div class="td">
-          {{
-            optionFields && optionFields.size > 0
-              ? optionFields.get(head)
-              : head
-          }}
-        </div>
-        <div class="td">{{ dataModel[head] }}</div>
-        <div style="clear: both"></div>
-      </div>
-    </div>
+    }
+
     <!--optionMethod 2-->
-    <div class="table" *ngIf="optionMethod === 2 && dataModel">
-      <div class="th" *ngIf="optionViewHead">
-        <div
-          class="td"
-          *ngFor="let head of dataModel[0] | listkeys: optionFields"
-        >
-          {{
-            optionFields && optionFields.size > 0
-              ? optionFields.get(head)
-              : head
-          }}
-        </div>
-        <div class="clear"></div>
+    @if (optionMethod === 2 && dataModel) {
+      <div class="table">
+        @if (optionTitleLocation === "side") {
+          <div class="th" *ngIf="optionViewHead">
+            <div class="td">{{ "TITLE.parameter" | translate }}</div>
+            <div
+              class="td"
+              *ngFor="let head of dataModel[0] | listkeys: optionFields"
+            >
+              {{
+                optionFields && optionFields.size > 0
+                  ? optionFields.get(head)
+                  : head
+              }}
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="tr" *ngFor="let item of dataModel">
+            <div class="td" *ngIf="optionViewHead"></div>
+            <div class="td" *ngFor="let list of item | listkeys: optionFields">
+              <ng-container
+                *ngTemplateOutlet="
+                  templateItem;
+                  context: { $implicit: item[list] }
+                "
+              ></ng-container>
+            </div>
+            <div style="clear: both"></div>
+          </div>
+        }
+        @if (optionTitleLocation === "top") {
+          <div class="th" *ngIf="optionViewHead">
+            <div class="td">{{ "TITLE.parameter" | translate }}</div>
+            <div
+              class="td"
+              *ngFor="let head of dataModel | listkeys: optionFields"
+            >
+              {{
+                optionFields && optionFields.size > 0
+                  ? optionFields.get(head)
+                  : head
+              }}
+            </div>
+            <div class="clear"></div>
+          </div>
+
+          <ng-container
+            *ngFor="let key of dataModel[0] | listkeys: optionFields"
+          >
+            <div class="tr">
+              <div class="td">
+                {{
+                  optionFields && optionFields.size > 0
+                    ? optionFields.get(key)
+                    : key
+                }}
+              </div>
+              <div class="td" *ngFor="let item of dataModel">
+                <ng-container
+                  *ngTemplateOutlet="
+                    templateItem;
+                    context: { $implicit: item[key] }
+                  "
+                ></ng-container>
+              </div>
+              <div style="clear: both"></div>
+            </div>
+          </ng-container>
+        }
       </div>
-      <div class="tr" *ngFor="let item of dataModel">
-        <div class="td" *ngFor="let list of item | listkeys: optionFields">
-          {{ item[list] }}
-        </div>
-        <div style="clear: both"></div>
-      </div>
-    </div>
-    <!--optionMethod 3-->
-    <div class="table" *ngIf="optionMethod === 3 && dataModel">
-      <div class="th" *ngIf="optionViewHead">
-        <div
-          class="td"
-          *ngFor="let head of dataModel[0] | listkeys: optionFields"
-        >
-          {{
-            optionFields && optionFields.size > 0
-              ? optionFields.get(head)
-              : head
-          }}
-        </div>
-        <div class="clear"></div>
-      </div>
-      <div class="tr">
-        <div class="td" *ngFor="let list of dataModel | listkeys: optionFields">
-          {{ dataModel[list] }}
-        </div>
-        <div style="clear: both"></div>
-      </div>
-    </div>
+    }
+
     <!--Content-->
   </div>
 </div>
+<!-- قالب‌های نمایشی به پایین صفحه منتقل شدند -->
+<ng-template #templateItem let-item>
+  @if (optionViewChild) {
+    @if (isObject(item)) {
+      <app-cms-json-list
+        [ngModel]="item"
+        [optionMethod]="optionMethod"
+        [optionTitleLocation]="'side'"
+        [optionViewChild]="optionViewChild"
+        [optionFields]="optionFields"
+        [optionViewHead]="optionViewHead"
+        [optionIsChild]="true"
+      >
+      </app-cms-json-list>
+    } @else if (isMap(item)) {
+      <app-cms-json-list
+        [ngModel]="item"
+        [optionMethod]="2"
+        [optionTitleLocation]="'side'"
+        [optionViewChild]="optionViewChild"
+        [optionFields]="optionFields"
+        [optionViewHead]="optionViewHead"
+        [optionIsChild]="true"
+      >
+      </app-cms-json-list>
+    } @else if (isArray(item)) {
+      <app-cms-json-list
+        [ngModel]="item"
+        [optionMethod]="1"
+        [optionTitleLocation]="'side'"
+        [optionViewChild]="optionViewChild"
+        [optionFields]="optionFields"
+        [optionViewHead]="false"
+        [optionIsChild]="true"
+      >
+      </app-cms-json-list>
+    } @else {
+      {{ item }}
+    }
+  } @else {
+    @if (isObject(item) || isArray(item)) {
+      <div
+        [innerHTML]="item | prettyjson"
+        style="white-space: pre-wrap; direction: ltr"
+      ></div>
+    } @else {
+      {{ item }}
+    }
+  }
+</ng-template>

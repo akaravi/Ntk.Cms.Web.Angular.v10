@@ -22,8 +22,11 @@ import {
   SmsApiSendResultModel,
   SmsMainApiNumberModel,
   SmsMainApiPathModel,
+  SmsMainApiPathPriceServiceEstimateModel,
+  SmsMainApiPathPriceServiceService,
   SmsMainMessageCategoryModel,
   SmsMainMessageContentModel,
+  SmsMessageTypeEnum,
   TokenInfoModelV3,
   ValidationStatusEnum,
 } from "ntk-cms-api";
@@ -36,7 +39,69 @@ export class DateByClock {
   date: Date;
   clock: string;
 }
-
+export class messagePaginationModel {
+  get messageMaxLength(): number {
+    return (
+      this._serverItemInUse?.EndUserMessageLengthPaginationList?.slice(-1)[0] ??
+      0
+    );
+  }
+  private _message: string = "";
+  private _messageUnicode: boolean = false;
+  private _messagePage: number = 0;
+  private _serverItems: SmsMainApiPathPriceServiceEstimateModel[] = [];
+  private _serverItemInUse: SmsMainApiPathPriceServiceEstimateModel;
+  set serverList(serverList: SmsMainApiPathPriceServiceEstimateModel[]) {
+    this._serverItems = serverList;
+  }
+  set message(message: string) {
+    this._message = message;
+    this.checkMessageUnicode();
+  }
+  private checkMessageUnicode() {
+    if (this._message?.length > 0) {
+      for (let i = 0; i < this._message.length; i++) {
+        const code = this._message.charCodeAt(i);
+        if (code > 125 || code < 0) {
+          this._messageUnicode = true;
+          this._serverItemInUse = this._serverItems.find(
+            (x) => x.messageType === SmsMessageTypeEnum.TextUnicode,
+          );
+          return;
+        }
+      }
+    }
+  }
+  private checkMessagePage() {
+    if (this._message?.length > 0) {
+      // متن را به صورت برعکس برمی‌گرداند (فقط به عنوان نمونه اجرای "آخرین دستور" روی این متن)
+      this._messagePage =
+        this._serverItemInUse?.EndUserMessageLengthPaginationList?.findIndex(
+          (x) => this._message.length <= x,
+        ) ??
+        0 + 1 ??
+        0;
+    }
+  }
+  get messagePage(): number {
+    return this._messagePage;
+  }
+  get messageUnicode(): boolean {
+    return this._messageUnicode;
+  }
+  get EndUserPricePerPageMin(): number {
+    return this._serverItemInUse?.EndUserPricePerPageMin ?? 0;
+  }
+  get EndUserPricePerPageMax(): number {
+    return this._serverItemInUse?.EndUserPricePerPageMax ?? 0;
+  }
+  get EndUserPriceMin(): number {
+    return this.EndUserPricePerPageMin * this.messagePage;
+  }
+  get EndUserPriceMax(): number {
+    return this.EndUserPricePerPageMax * this.messagePage;
+  }
+}
 @Component({
   selector: "app-sms-action-send-message",
   templateUrl: "./send-message.component.html",
@@ -52,6 +117,7 @@ export class SmsActionSendMessageComponent implements OnInit {
     public smsActionService: SmsActionService,
     private service: CoreModuleSiteUserCreditService,
     private activatedRoute: ActivatedRoute,
+    public smsMainApiPathPriceServiceService: SmsMainApiPathPriceServiceService,
     private cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
@@ -143,7 +209,7 @@ export class SmsActionSendMessageComponent implements OnInit {
   senderNumber: string = "";
   linkApiPathId: string = "";
   linkNumberId: string = "";
-
+  messageMaxLength = 0;
   dataModel: SmsApiSendMessageDtoModel = new SmsApiSendMessageDtoModel();
   dataModelOrderCalculate: SmsApiSendMessageOrderCalculateDtoModel =
     new SmsApiSendMessageOrderCalculateDtoModel();
@@ -153,11 +219,16 @@ export class SmsActionSendMessageComponent implements OnInit {
     new ErrorExceptionResult<SmsApiSendOrderCalculateResultModel>();
   dataModelCreditResult: ErrorExceptionResult<CoreModuleSiteUserCreditModel> =
     new ErrorExceptionResult<CoreModuleSiteUserCreditModel>();
+
+  dataModelApiPathPriceServiceEstimateResult: ErrorExceptionResult<SmsMainApiPathPriceServiceEstimateModel> =
+    new ErrorExceptionResult<SmsMainApiPathPriceServiceEstimateModel>();
+
   dataModelDateByClockStart: DateByClock = new DateByClock();
   dataModelDateByClockExpire: DateByClock = new DateByClock();
   formInfo: FormInfoModel = new FormInfoModel();
   clipboardText = "";
-
+  dataModelMessagePagination: messagePaginationModel =
+    new messagePaginationModel();
   // Hangfire 1.7+ compatible expression: '3 2 12 1/1 ?'
   // Quartz compatible expression: '4 3 2 12 1/1 ? *'
   //public cronExpression = '0 12 1W 1/1 ?';
@@ -305,7 +376,6 @@ export class SmsActionSendMessageComponent implements OnInit {
     this.message.nativeElement.style.textAlign = "right";
   }
   onActionSelectApiPath(model: SmsMainApiPathModel): void {
-    //if (!model || !model.id || model.id.length === 0 || model.id != this.dataModel.linkFromNumber)
     this.dataModel.linkApiPathId = null;
     this.dataModel.linkFromNumber = null;
     if (model && model.id?.length > 0) {
@@ -377,11 +447,28 @@ export class SmsActionSendMessageComponent implements OnInit {
         (x) => x.key === "linkApiPathId",
       ).status = ValidationStatusEnum.Error;
     }
+    this.dataModelApiPathPriceServiceEstimateResult =
+      new ErrorExceptionResult<SmsMainApiPathPriceServiceEstimateModel>();
+    if (this.dataModel.linkApiPathId?.length > 0) {
+      this.smsMainApiPathPriceServiceService
+        .ServiceGetApiPriceEstimate(this.dataModel.linkApiPathId)
+        .subscribe({
+          next: (ret) => {
+            this.dataModelApiPathPriceServiceEstimateResult = ret;
+            if (ret.isSuccess && ret.listItems?.length > 0) {
+              this.dataModelMessagePagination.serverList = ret.listItems;
+              this.dataModelMessagePagination.message = this.dataModel.message;
+            }
+          },
+        });
+    }
   }
+
   /**
    * onActionValidationStatus
    */
   onActionValidationStatusMessageBodyChange() {
+    this.dataModelMessagePagination.message = this.dataModel.message;
     if (this.dataModel.message?.length > 0) {
       this.formInfo.validationList.find((x) => x.key === "message").status =
         ValidationStatusEnum.Success;
@@ -651,7 +738,8 @@ export class SmsActionSendMessageComponent implements OnInit {
 
     this.formInfo.submitResultMessage = "";
     this.formInfo.submitResultMessage = "";
-    this.dataModelOrderCalculate =(this.dataModel as unknown as SmsApiSendMessageOrderCalculateDtoModel);
+    this.dataModelOrderCalculate = this
+      .dataModel as unknown as SmsApiSendMessageOrderCalculateDtoModel;
     this.smsActionService
       .ServiceOrderCalculate(this.dataModelOrderCalculate)
       .subscribe({

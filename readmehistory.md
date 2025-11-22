@@ -1,5 +1,26 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-11-22 11:48:40
+
+### رفع خطاهای کامپوننت cms-json-list
+
+**تغییرات:**
+
+- رفع خطای استفاده همزمان از `*ngIf` و `*ngTemplateOutlet` روی یک عنصر در خط 21-22
+- حذف template بازگشتی `displayJsonChild` که باعث خطای parsing می‌شد
+- اصلاح ساختار `@if` block با استفاده از متد `isPrimitive` به جای `typeof` که در template expressions قابل استفاده نیست
+- افزودن متدهای `isObject` و `isPrimitive` در کامپوننت برای بررسی نوع داده‌ها
+- افزودن بررسی `dataModel.length > 0` برای optionMethod 2 جهت جلوگیری از خطای دسترسی به `dataModel[0]`
+- اصلاح optionMethod 3 برای استفاده صحیح از `dataModel` به عنوان object
+- انتقال تمام properties (`optionFields`, `optionViewHead`) به کامپوننت بازگشتی `app-cms-json-list`
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/shared/cms-json-list/cmsJsonList.component.html`
+- `src/app/shared/cms-json-list/cmsJsonList.component.ts`
+
+---
+
 ## 2025-11-21 14:00:00
 
 ### تبدیل دکمه ORDER_CALCULATE به آیکون ماشین حساب

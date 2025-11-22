@@ -565,7 +565,10 @@
                     rows="9"
                     style="height: 276px"
                   ></textarea>
-                  <em>{{ Message.value?.length }} / 500</em>
+                  <em
+                    >{{ Message.value?.length }} /
+                    dataModelMessagePagination?.messageMaxLength</em
+                  >
                   <mat-error *ngIf="Message.errors?.required">
                     {{ "TITLE.Message_Text" | translate }}
                     <strong>{{ "MESSAGE.required" | translate }}</strong>
@@ -638,16 +641,28 @@
           </div>
         </div>
       </div>
+      {{ dataModelMessagePagination | json }}
+      <app-cms-json-list [(ngModel)]="dataModelMessagePagination" [optionMethod]="1">
+      </app-cms-json-list>
       <app-cms-json-list
-        [dataModel]="dataModelResult.item"
+        [(ngModel)]="dataModelResult.item"
         [optionMethod]="1"
         *ngIf="dataModelResult?.item"
       >
       </app-cms-json-list>
       <app-cms-json-list
-        [dataModel]="dataModelOrderCalculateResult.item"
+        [(ngModel)]="dataModelOrderCalculateResult.item"
         [optionMethod]="1"
         *ngIf="dataModelOrderCalculateResult?.item"
+      >
+      </app-cms-json-list>
+
+      <hr />
+      <app-cms-json-list
+        [(ngModel)]="dataModelApiPathPriceServiceEstimateResult.listItems"
+        [optionMethod]="2"
+        [optionTitleLocation]="'top'"
+        *ngIf="dataModelApiPathPriceServiceEstimateResult?.listItems"
       >
       </app-cms-json-list>
     </form>
