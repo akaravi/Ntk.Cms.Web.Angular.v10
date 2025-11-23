@@ -4,6 +4,8 @@ import {
 } from "ntk-cms-api";
 export class SmsMessagePaginationModel {
   private _message: string = "";
+  messageLength: number = 0;
+  messageMaxLength: number = 0;
   messageUnicode: boolean = false;
   messagePage: number = 0;
   endUserPricePerPageMin: number = 0;
@@ -41,12 +43,15 @@ export class SmsMessagePaginationModel {
     )?.[0];
   }
   private checkCalculate() {
+    this.messageLength = this._message?.length ?? 0;
+    this.messageMaxLength =
+      this._serverItemInUse?.endUserMessageLengthPaginationList?.slice(-1)[0] ??
+      0;
     this.messagePage = 0;
-    if (this._message?.length > 0) {
-      // متن را به صورت برعکس برمی‌گرداند (فقط به عنوان نمونه اجرای "آخرین دستور" روی این متن)
+    if (this.messageLength > 0) {
       const index =
         this._serverItemInUse?.endUserMessageLengthPaginationList?.findIndex(
-          (x) => this._message.length <= x,
+          (x) => this.messageLength <= x,
         ) ?? -1;
 
       if (index >= 0) {
@@ -59,11 +64,5 @@ export class SmsMessagePaginationModel {
       this._serverItemInUse?.endUserPricePerPageMax ?? 0;
     this.endUserPriceMin = this.endUserPricePerPageMin * this.messagePage;
     this.endUserPriceMax = this.endUserPricePerPageMax * this.messagePage;
-  }
-  get messageMaxLength(): number {
-    return (
-      this._serverItemInUse?.endUserMessageLengthPaginationList?.slice(-1)[0] ??
-      0
-    );
   }
 }

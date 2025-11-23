@@ -151,9 +151,9 @@ export class SmsMainApiPathSelectorComponent implements OnInit {
         this.dataModelResult.listItems.length > 0
       ) {
         this.optionSelectFirstItem = false;
-        setTimeout(() => {
+        //setTimeout(() => {
           this.formControl.setValue(this.dataModelResult.listItems[0]);
-        }, 1000);
+        //}, 1000);
         this.onActionSelect(this.dataModelResult.listItems[0]);
       }
       /*select First Item */

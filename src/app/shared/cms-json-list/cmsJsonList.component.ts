@@ -13,23 +13,11 @@ export class CmsJsonListComponent implements OnInit {
   @Input() optionIsChild = false;
   @Input() optionMethod = 1;
   @Input() optionTitleLocation: "top" | "side" = "side";
-  dataModel: any;
+  @Input() dataModel: any;
   @Input() optionFields: Map<string, string>;
   @Input() optionViewHead: boolean = true;
   @Input() optionViewChild: boolean = true;
-  // برای پشتیبانی از [(ngModel)]
-  @Input()
-  get ngModel(): any {
-    return this.dataModel;
-  }
-  set ngModel(value: any) {
-    this.dataModel = value;
-    if (this.dataModel) {
-      if (this.isMap(this.dataModel)) {
-        this.optionMethod = 2;
-      }
-    }
-  }
+
   ngOnInit(): void {}
 
   isObject(item: any): boolean {

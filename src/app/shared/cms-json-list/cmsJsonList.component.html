@@ -147,7 +147,7 @@
   @if (optionViewChild) {
     @if (isObject(item)) {
       <app-cms-json-list
-        [ngModel]="item"
+        [dataModel]="item"
         [optionMethod]="optionMethod"
         [optionTitleLocation]="'side'"
         [optionViewChild]="optionViewChild"
@@ -158,7 +158,7 @@
       </app-cms-json-list>
     } @else if (isMap(item)) {
       <app-cms-json-list
-        [ngModel]="item"
+        [dataModel]="item"
         [optionMethod]="2"
         [optionTitleLocation]="'side'"
         [optionViewChild]="optionViewChild"
@@ -169,7 +169,7 @@
       </app-cms-json-list>
     } @else if (isArray(item)) {
       <app-cms-json-list
-        [ngModel]="item"
+        [dataModel]="item"
         [optionMethod]="1"
         [optionTitleLocation]="'side'"
         [optionViewChild]="optionViewChild"
