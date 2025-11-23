@@ -561,14 +561,21 @@
                     class="form-control validate-name"
                     id="dataModel.message"
                     minlength="1"
-                    maxlength="500"
+                    [maxlength]="
+                      dataModelMessagePagination?.messageMaxLength ?? 0
+                    "
                     rows="9"
                     style="height: 276px"
                   ></textarea>
-                  <em
-                    >{{ Message.value?.length }} /
-                    dataModelMessagePagination?.messageMaxLength</em
-                  >
+                  <em class="sms-message-box">
+                    character:
+                    {{ dataModelMessagePagination?.messageLength }} /
+                    {{ dataModelMessagePagination?.messageMaxLength }}
+                    page: {{ dataModelMessagePagination?.messagePage }}/{{
+                      dataModelMessagePagination?.messageMaxPage
+                    }}
+                  </em>
+
                   <mat-error *ngIf="Message.errors?.required">
                     {{ "TITLE.Message_Text" | translate }}
                     <strong>{{ "MESSAGE.required" | translate }}</strong>
@@ -608,7 +615,7 @@
                     rows="2"
                     style="height: 138px"
                   ></textarea>
-                  <em>
+                  <em class="sms-number-box">
                     <strong class="info-field-text">{{
                       "TITLE.You_can_separate_the_number_of_the_recipient_of_the_message_with_an_inter"
                         | translate
@@ -641,7 +648,6 @@
           </div>
         </div>
       </div>
-      {{ dataModelMessagePagination | json }}
       <app-cms-json-list
         [dataModel]="dataModelMessagePagination"
         [optionMethod]="1"

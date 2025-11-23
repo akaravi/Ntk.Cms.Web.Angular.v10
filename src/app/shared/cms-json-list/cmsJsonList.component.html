@@ -2,7 +2,7 @@
   <div class="content mb-0">
     <!--Content-->
     <!--optionMethod 1-->
-    @if (optionMethod === 1 && dataModel) {
+    @if (optionMethod === 1 && dataModelPrivate) {
       <div class="table">
         @if (optionTitleLocation === "side") {
           <div class="th" *ngIf="optionViewHead">
@@ -12,9 +12,9 @@
           </div>
           <div
             class="tr"
-            *ngFor="let head of dataModel | listkeys: optionFields"
+            *ngFor="let head of dataModelPrivate | listkeys: optionFields"
           >
-            @if (optionViewHead || !isArray(dataModel)) {
+            @if (optionViewHead || !isArray(dataModelPrivate)) {
               <div class="td">
                 {{
                   optionFields && optionFields.size > 0
@@ -27,7 +27,7 @@
               <ng-container
                 *ngTemplateOutlet="
                   templateItem;
-                  context: { $implicit: dataModel[head] }
+                  context: { $implicit: dataModelPrivate[head] }
                 "
               ></ng-container>
             </div>
@@ -38,7 +38,7 @@
           <div class="th" *ngIf="optionViewHead">
             <div
               class="td"
-              *ngFor="let head of dataModel | listkeys: optionFields"
+              *ngFor="let head of dataModelPrivate | listkeys: optionFields"
             >
               {{
                 optionFields && optionFields.size > 0
@@ -51,12 +51,12 @@
           <div class="tr">
             <div
               class="td"
-              *ngFor="let list of dataModel | listkeys: optionFields"
+              *ngFor="let list of dataModelPrivate | listkeys: optionFields"
             >
               <ng-container
                 *ngTemplateOutlet="
                   templateItem;
-                  context: { $implicit: dataModel[list] }
+                  context: { $implicit: dataModelPrivate[list] }
                 "
               ></ng-container>
             </div>
@@ -67,14 +67,14 @@
     }
 
     <!--optionMethod 2-->
-    @if (optionMethod === 2 && dataModel) {
+    @if (optionMethod === 2 && dataModelPrivate) {
       <div class="table">
         @if (optionTitleLocation === "side") {
           <div class="th" *ngIf="optionViewHead">
             <div class="td">{{ "TITLE.parameter" | translate }}</div>
             <div
               class="td"
-              *ngFor="let head of dataModel[0] | listkeys: optionFields"
+              *ngFor="let head of dataModelPrivate[0] | listkeys: optionFields"
             >
               {{
                 optionFields && optionFields.size > 0
@@ -84,7 +84,7 @@
             </div>
             <div class="clear"></div>
           </div>
-          <div class="tr" *ngFor="let item of dataModel">
+          <div class="tr" *ngFor="let item of dataModelPrivate">
             <div class="td" *ngIf="optionViewHead"></div>
             <div class="td" *ngFor="let list of item | listkeys: optionFields">
               <ng-container
@@ -102,7 +102,7 @@
             <div class="td">{{ "TITLE.parameter" | translate }}</div>
             <div
               class="td"
-              *ngFor="let head of dataModel | listkeys: optionFields"
+              *ngFor="let head of dataModelPrivate | listkeys: optionFields"
             >
               {{
                 optionFields && optionFields.size > 0
@@ -114,7 +114,7 @@
           </div>
 
           <ng-container
-            *ngFor="let key of dataModel[0] | listkeys: optionFields"
+            *ngFor="let key of dataModelPrivate[0] | listkeys: optionFields"
           >
             <div class="tr">
               <div class="td">
@@ -124,7 +124,7 @@
                     : key
                 }}
               </div>
-              <div class="td" *ngFor="let item of dataModel">
+              <div class="td" *ngFor="let item of dataModelPrivate">
                 <ng-container
                   *ngTemplateOutlet="
                     templateItem;

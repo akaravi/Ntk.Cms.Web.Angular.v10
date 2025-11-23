@@ -13,10 +13,20 @@ export class CmsJsonListComponent implements OnInit {
   @Input() optionIsChild = false;
   @Input() optionMethod = 1;
   @Input() optionTitleLocation: "top" | "side" = "side";
-  @Input() dataModel: any;
+
   @Input() optionFields: Map<string, string>;
   @Input() optionViewHead: boolean = true;
   @Input() optionViewChild: boolean = true;
+  dataModelPrivate: any;
+  @Input()
+  set dataModel(value: any) {
+    this.dataModelPrivate = value;
+    if (this.dataModelPrivate) {
+      if (this.isMap(this.dataModel)) {
+        this.optionMethod = 2;
+      }
+    }
+  }
 
   ngOnInit(): void {}
 

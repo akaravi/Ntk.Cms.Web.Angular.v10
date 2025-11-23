@@ -8,10 +8,14 @@ export class SmsMessagePaginationModel {
   messageMaxLength: number = 0;
   messageUnicode: boolean = false;
   messagePage: number = 0;
+  messageMaxPage: number = 0;
+  messageAddTextFirst: string = "";
+  messageAddTextEnd: string = "";
   endUserPricePerPageMin: number = 0;
   endUserPricePerPageMax: number = 0;
   endUserPriceMin = 0;
   endUserPriceMax = 0;
+
   private _serverItems: SmsMainApiPathPriceServiceEstimateModel[] = [];
   private _serverItemInUse: SmsMainApiPathPriceServiceEstimateModel;
   set serverList(serverList: SmsMainApiPathPriceServiceEstimateModel[]) {
@@ -21,6 +25,10 @@ export class SmsMessagePaginationModel {
   }
   set message(message: string) {
     this._message = message;
+    if (this.messageAddTextFirst?.length > 0)
+      this._message = this.messageAddTextFirst + this._message;
+    if (this.messageAddTextEnd?.length > 0)
+      this._message = this._message + this.messageAddTextEnd;
     this.checkMessageUnicode();
     this.checkCalculate();
   }
@@ -30,17 +38,19 @@ export class SmsMessagePaginationModel {
         const code = this._message.charCodeAt(i);
         if (code > 125 || code < 0) {
           this.messageUnicode = true;
-          this._serverItemInUse = this._serverItems.find(
-            (x) => x.messageType === SmsMessageTypeEnum.TextUnicode,
-          );
+          this._serverItemInUse =
+            this._serverItems.find(
+              (x) => x.messageType === SmsMessageTypeEnum.TextUnicode,
+            ) ?? new SmsMainApiPathPriceServiceEstimateModel();
           return;
         }
       }
     }
     this.messageUnicode = false;
-    this._serverItemInUse = this._serverItems.find(
-      (x) => x.messageType === SmsMessageTypeEnum.TextNormal,
-    )?.[0];
+    this._serverItemInUse =
+      this._serverItems.find(
+        (x) => x.messageType === SmsMessageTypeEnum.TextNormal,
+      ) ?? new SmsMainApiPathPriceServiceEstimateModel();
   }
   private checkCalculate() {
     this.messageLength = this._message?.length ?? 0;
@@ -58,6 +68,8 @@ export class SmsMessagePaginationModel {
         this.messagePage = index + 1;
       }
     }
+    this.messageMaxPage =
+      this._serverItemInUse?.endUserMessageLengthPaginationList?.length ?? 0;
     this.endUserPricePerPageMin =
       this._serverItemInUse?.endUserPricePerPageMin ?? 0;
     this.endUserPricePerPageMax =

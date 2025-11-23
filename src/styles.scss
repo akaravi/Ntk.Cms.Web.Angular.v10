@@ -645,3 +645,19 @@
 .rotation360 {
   animation: rotation360 3s linear infinite;
 }
+.sms-message-box {
+  direction: ltr !important;
+  position: absolute !important;
+  top: 93% !important;
+  margin-top: -5px !important;
+  left: 20px !important;
+  pointer-events: none !important;
+}
+.sms-number-box {
+  direction: ltr !important;
+  position: absolute !important;
+  top: 82% !important;
+  margin-top: -5px !important;
+  left: 20px !important;
+  pointer-events: none !important;
+}

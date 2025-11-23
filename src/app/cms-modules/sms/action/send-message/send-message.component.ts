@@ -394,6 +394,10 @@ export class SmsActionSendMessageComponent implements OnInit {
           next: (ret) => {
             this.dataModelApiPathPriceServiceEstimateResult = ret;
             this.dataModelMessagePagination.serverList = ret.listItems;
+            this.dataModelMessagePagination.messageAddTextFirst =
+              model.sendMessageAddTextFirst;
+            this.dataModelMessagePagination.messageAddTextEnd =
+              model.sendMessageAddTextEnd;
           },
         });
     }
@@ -404,12 +408,20 @@ export class SmsActionSendMessageComponent implements OnInit {
    */
   onActionValidationStatusMessageBodyChange() {
     this.dataModelMessagePagination.message = this.dataModel.message;
-    if (this.dataModel.message?.length > 0) {
+    if (this.dataModelMessagePagination.messageLength > 0) {
       this.formInfo.validationList.find((x) => x.key === "message").status =
         ValidationStatusEnum.Success;
       this.formInfo.validationList.find(
         (x) => x.key === "message",
-      ).description = this.dataModel.message.length + " کاراکتر";
+      ).description =
+        "character: " +
+        this.dataModelMessagePagination.messageLength +
+        "/" +
+        this.dataModelMessagePagination.messageMaxLength +
+        " page: " +
+        this.dataModelMessagePagination.messagePage +
+        "/" +
+        this.dataModelMessagePagination.messageMaxPage;
     } else {
       this.formInfo.validationList.find(
         (x) => x.key === "message",
