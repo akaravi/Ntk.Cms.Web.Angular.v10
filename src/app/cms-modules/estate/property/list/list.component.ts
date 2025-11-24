@@ -508,8 +508,7 @@ export class EstatePropertyListComponent
         });
       // ** */
     } else if (
-      this.requestLinkCustomerOrderId &&
-      this.requestLinkCustomerOrderId.length > 0
+      this.requestLinkCustomerOrderId?.length > 0
     ) {
       // **requestLinkCustomerOrderId*/
       this.actionbuttonExportOn = false;

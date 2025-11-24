@@ -370,7 +370,7 @@ export class SmsActionSendMessageComponent implements OnInit {
         });
       }
     } else {
-      if (this.requestLinkApiPathId && this.requestLinkApiPathId.length > 0) {
+      if (this.requestLinkApiPathId?.length > 0) {
         this.dataModel.linkApiPathId = this.requestLinkApiPathId;
       } else {
         this.dataModel.linkApiPathId = null;

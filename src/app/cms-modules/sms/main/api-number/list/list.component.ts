@@ -121,7 +121,7 @@ export class SmsMainApiNumberListComponent
       this.requestLinkApiPathId =
         this.activatedRoute.snapshot.paramMap.get("LinkApiPathId");
     }
-    if (this.requestLinkApiPathId.length > 0) {
+    if (this.requestLinkApiPathId?.length > 0) {
       const filter = new FilterDataModel();
       filter.propertyName = "ApiPathAndApiNumbers";
       filter.propertyAnyName = "LinkApiPathId";
@@ -179,7 +179,7 @@ export class SmsMainApiNumberListComponent
     /** filter Category */
     if (
       this.categoryModelSelected &&
-      this.categoryModelSelected.id.length > 0
+      this.categoryModelSelected.id?.length > 0
     ) {
       let fastfilter = new FilterDataModel();
       fastfilter.propertyName = "ApiPathAndApiNumbers";

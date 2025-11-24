@@ -65,7 +65,7 @@ export class SmsMainApiPathPriceServiceAddComponent
     this.publicHelper.processService.cdr = this.cdr;
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
     if (data) {
-      if (data.linkApiPathId && data.linkApiPathId.length > 0)
+      if ( data.linkApiPathId?.length > 0)
         this.dataModel.linkApiPathId = data.linkApiPathId;
       if (data.id) {
         this.requestId = data.id;

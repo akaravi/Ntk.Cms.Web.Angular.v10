@@ -80,7 +80,7 @@ export class SmsMainApiNumberPermissionListComponent
       filter.value = this.requestLinkCoreUserId;
       this.filteModelContent.filters.push(filter);
     }
-    if (this.requestLinkApiNumberId.length > 0) {
+    if (this.requestLinkApiNumberId?.length > 0) {
       const filter = new FilterDataModel();
       filter.propertyName = "LinkApiPathId";
       filter.value = this.requestLinkApiNumberId;

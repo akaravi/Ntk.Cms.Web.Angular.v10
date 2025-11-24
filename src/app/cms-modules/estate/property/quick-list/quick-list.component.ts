@@ -385,8 +385,7 @@ export class EstatePropertyQuickListComponent
         });
       // ** */
     } else if (
-      this.requestLinkCustomerOrderId &&
-      this.requestLinkCustomerOrderId.length > 0
+      this.requestLinkCustomerOrderId?.length > 0
     ) {
       // ** */
       this.contentService

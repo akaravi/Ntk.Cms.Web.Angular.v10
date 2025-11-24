@@ -124,7 +124,7 @@ export class SmsMainApiPathPriceServiceListComponent
       this.requestLinkApiPathId =
         this.activatedRoute.snapshot.paramMap.get("LinkApiPathId");
     }
-    if (this.requestLinkApiPathId.length > 0) {
+    if (this.requestLinkApiPathId?.length > 0) {
       const filter = new FilterDataModel();
       filter.propertyName = "LinkApiPathId";
       filter.value = this.requestLinkApiPathId;

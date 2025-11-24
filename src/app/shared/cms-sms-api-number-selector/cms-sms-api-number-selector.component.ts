@@ -114,7 +114,7 @@ export class CmsSmsMainApiNumberSelectorComponent implements OnInit {
     filter.searchType = FilterDataModelSearchTypesEnum.Contains;
     filter.clauseType = ClauseTypeEnum.Or;
     filterModel.filters.push(filter);
-    if (this.privateLinkApiPathId && this.privateLinkApiPathId.length > 0) {
+    if ( this.privateLinkApiPathId?.length > 0) {
       filter = new FilterDataModel();
       filter.propertyName = "ApiPathAndApiNumbers";
       filter.propertyAnyName = "LinkApiPathId";

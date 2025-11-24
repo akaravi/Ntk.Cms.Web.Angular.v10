@@ -70,7 +70,7 @@ export class SmsLogApiPathListComponent
     this.filteModelContent.sortColumn = "CreatedDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     const filter = new FilterDataModel();
-    if (this.requestLinkApiPathId && this.requestLinkApiPathId.length > 0) {
+    if ( this.requestLinkApiPathId?.length > 0) {
       filter.propertyName = "LinkApiPathId";
       filter.value = this.requestLinkApiPathId;
       this.filteModelContent.filters.push(filter);

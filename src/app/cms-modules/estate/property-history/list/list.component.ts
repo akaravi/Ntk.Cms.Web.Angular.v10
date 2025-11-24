@@ -335,8 +335,7 @@ export class EstatePropertyHistoryListComponent
       filterModel.filters.push(filter);
     }
     if (
-      this.requestLinkCustomerOrderId &&
-      this.requestLinkCustomerOrderId.length > 0
+      this.requestLinkCustomerOrderId?.length > 0
     ) {
       const filter = new FilterDataModel();
       filter.propertyName = "linkCustomerOrderId";

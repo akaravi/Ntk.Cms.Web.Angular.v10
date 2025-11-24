@@ -45,7 +45,7 @@ export class ApplicationLogNotificationActionSendComponent implements OnInit {
       this.requestLinkApplicationId = +data.linkApplicationId || 0;
       this.requestLinkApplicationMemberId = data.linkApplicationMemberId + "";
     }
-    if (this.requestLinkApplicationMemberId.length > 0) {
+    if (this.requestLinkApplicationMemberId?.length > 0) {
       this.LinkMemberId = this.requestLinkApplicationMemberId;
     }
     if (this.requestLinkApplicationId > 0) {
@@ -183,7 +183,7 @@ export class ApplicationLogNotificationActionSendComponent implements OnInit {
     if (!this.formGroup.valid) {
       return;
     }
-    if (this.LinkMemberId && this.LinkMemberId.length > 0) {
+    if (this.LinkMemberId?.length > 0) {
       this.dataModel.linkMemberIds = [];
       this.dataModel.linkMemberIds.push(this.LinkMemberId);
       this.dataModel.appId = this.applicationMemberInfoModel.linkApplicationId;
