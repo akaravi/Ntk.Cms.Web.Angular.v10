@@ -150,12 +150,7 @@ export class SmsMainApiPathPermissionListComponent
       [],
       this.tokenInfo,
     );
-    if (this.requestLinkApiPathId.length > 0) {
-      this.tabledisplayedColumns.splice(
-        this.tabledisplayedColumns.indexOf("linkApiPathId"),
-        1,
-      );
-    }
+
     this.tableRowsSelected = [];
     this.onActionTableRowSelect(new SmsMainApiPathPermissionModel());
     const pName = this.constructor.name + "main";

@@ -151,12 +151,7 @@ export class SmsMainApiNumberPermissionListComponent
       [],
       this.tokenInfo,
     );
-    if (this.requestLinkApiNumberId.length > 0) {
-      this.tabledisplayedColumns.splice(
-        this.tabledisplayedColumns.indexOf("linkApiNumberId"),
-        1,
-      );
-    }
+
     this.tableRowsSelected = [];
     this.onActionTableRowSelect(new SmsMainApiNumberPermissionModel());
     const pName = this.constructor.name + "main";

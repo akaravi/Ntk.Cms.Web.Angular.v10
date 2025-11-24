@@ -50,12 +50,12 @@
         />
       </div>
       <!-- firewallAllowIPList Field -->
-      <b>{{ "TITLE.ACCEPTABLE_PREFIXES" | translate }}</b>
+      <b>{{ "MESSAGE.firewallAllowIP" | translate }}</b>
       <mat-form-field style="width: 100%" appearance="fill">
-        <mat-label>{{ "TITLE.ACCEPTABLE_PREFIXES" | translate }}</mat-label>
+        <mat-label>{{ "TITLE.firewallAllowIPList" | translate }}</mat-label>
         <mat-chip-grid
           #chipListRegulatorNumberList
-          aria-label="'TITLE.Number'|translate"
+          aria-label="'TITLE.IP'|translate"
         >
           <mat-chip
             *ngFor="let item of dataModel.firewallAllowIPList"
@@ -71,7 +71,7 @@
             </button>
           </mat-chip>
           <input
-            [placeholder]="'TITLE.key_word' | translate"
+            [placeholder]="'TITLE.IP' | translate"
             #tagInput
             [matChipInputAddOnBlur]="addOnBlurTag"
             [matChipInputFor]="chipListRegulatorNumberList"
@@ -82,7 +82,7 @@
         </mat-chip-grid>
       </mat-form-field>
       <div>
-        {{ "TITLE.ACCEPTABLE_PREFIXES" | translate }}
+        {{ "TITLE.firewallAllowIPList" | translate }}
         <br />
         <div *ngFor="let itemPage of dataModel.firewallAllowIPList; index as i">
           {{ itemPage }}
