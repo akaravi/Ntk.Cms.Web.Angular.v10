@@ -485,7 +485,7 @@ export class SmsLogInBoxListComponent
       },
     });
   }
-  onActionButtonSuperSedersList(
+  onActionButtonSupersedesList(
     model: SmsLogInBoxModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
@@ -511,7 +511,7 @@ export class SmsLogInBoxListComponent
       this.tableRowSelected.id,
     ]);
   }
-  onActionButtonMustSuperSedersList(
+  onActionButtonMustSupersedesList(
     model: SmsLogInBoxModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {

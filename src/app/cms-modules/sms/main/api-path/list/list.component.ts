@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
@@ -5,7 +6,9 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
+  ActionGoStepEnum,
   CoreCurrencyModel,
+  EditStepDtoModel,
   ErrorExceptionResult,
   FilterDataModel,
   FilterModel,
@@ -103,6 +106,7 @@ export class SmsMainApiPathListComponent
     "LinkPublicConfigId",
     "UpdatedDate",
     // 'Action'
+    "position",
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
@@ -114,6 +118,7 @@ export class SmsMainApiPathListComponent
     "LinkPublicConfigId",
     //'UpdatedDate',
     // 'Action'
+    "position",
   ];
 
   expandedElement: SmsMainApiPathModel | null;
@@ -287,6 +292,37 @@ export class SmsMainApiPathListComponent
     this.DataGetAll();
   }
 
+  onTableDropRow(event: CdkDragDrop<SmsMainApiPathModel[]>): void {
+    const previousIndex = this.tableSource.data.findIndex(
+      (row) => row === event.item.data,
+    );
+    const model = new EditStepDtoModel<string>();
+    model.id = this.tableSource.data[previousIndex].id;
+    model.centerId = this.tableSource.data[event.currentIndex].id;
+    if (previousIndex > event.currentIndex) {
+      model.actionGo = ActionGoStepEnum.GoUp;
+    } else {
+      model.actionGo = ActionGoStepEnum.GoDown;
+    }
+    this.contentService.ServiceEditStep(model).subscribe({
+      next: (ret) => {
+        if (ret.isSuccess) {
+          moveItemInArray(
+            this.tableSource.data,
+            previousIndex,
+            event.currentIndex,
+          );
+          this.tableSource.data = this.tableSource.data.slice();
+        } else {
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+        }
+      },
+      error: (er) => {
+        this.cmsToastrService.typeError(er);
+      },
+    });
+  }
+
   onActionButtonNewRow(): void {
     if (
       !this.requestLinkCompanyId ||
@@ -439,6 +475,7 @@ export class SmsMainApiPathListComponent
     this.filteModelContent.sortColumn = sortColumn;
     this.filteModelContent.sortType = sortType;
     /*filter */
+    this.filteModelContent.sortColumn = "priority";
     this.categoryModelSelected = model;
 
     this.DataGetAll();
@@ -571,8 +608,7 @@ export class SmsMainApiPathListComponent
     }
     if (event?.ctrlKey) {
       const link =
-        "/#/sms/action/send-message/LinkApiPathId/" +
-        this.tableRowSelected.id;
+        "/#/sms/action/send-message/LinkApiPathId/" + this.tableRowSelected.id;
       window.open(link, "_blank");
     } else {
       this.router.navigate([
@@ -581,7 +617,7 @@ export class SmsMainApiPathListComponent
       ]);
     }
   }
-  onActionButtonSuperSedersList(
+  onActionButtonSupersedesList(
     model: SmsMainApiPathModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
@@ -615,7 +651,7 @@ export class SmsMainApiPathListComponent
       ]);
     }
   }
-  onActionButtonMustSuperSedersList(
+  onActionButtonMustSupersedesList(
     model: SmsMainApiPathModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
@@ -866,6 +902,7 @@ export class SmsMainApiPathListComponent
     }
   }
   onActionButtonReload(): void {
+    this.filteModelContent.sortColumn = "priority";
     this.DataGetAll();
   }
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {

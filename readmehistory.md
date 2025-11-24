@@ -1,5 +1,28 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-01-27 14:30:00
+
+### پیاده‌سازی Drag & Drop برای priority در کامپوننت‌های SMS
+
+**تغییرات:**
+
+- اضافه کردن قابلیت جابجایی ردیف‌ها با Drag & Drop برای فیلد `priority` در `SmsMainApiPathListComponent`
+- اضافه کردن قابلیت جابجایی ردیف‌ها با Drag & Drop برای فیلد `priority` در `SmsMainApiNumberListComponent`
+- پیاده‌سازی متد `onTableDropRow` مشابه `CoreCpMainMenuListComponent` برای هر دو کامپوننت
+- اضافه کردن ستون `position` با آیکون `reorder` برای هر دو کامپوننت
+- تغییر `sortColumn` به `priority` در `SmsMainApiNumberListComponent` (در `SmsMainApiPathListComponent` قبلاً انجام شده بود)
+- اضافه کردن import های لازم (`CdkDragDrop`, `moveItemInArray`, `EditStepDtoModel`, `ActionGoStepEnum`)
+- اضافه کردن `cdkDropList` و `cdkDrag` به HTML هر دو کامپوننت
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/cms-modules/sms/main/api-path/list/list.component.ts`
+- `src/app/cms-modules/sms/main/api-path/list/list.component.html`
+- `src/app/cms-modules/sms/main/api-number/list/list.component.ts`
+- `src/app/cms-modules/sms/main/api-number/list/list.component.html`
+
+---
+
 ## 2025-11-22 11:48:40
 
 ### رفع خطاهای کامپوننت cms-json-list

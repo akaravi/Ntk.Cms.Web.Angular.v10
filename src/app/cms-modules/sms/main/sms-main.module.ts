@@ -5,6 +5,7 @@ import { SmsMainRoutes } from "./sms-main.routing";
 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
+import { DragDropModule } from "@angular/cdk/drag-drop";
 import { AngularEditorModule } from "@kolkov/angular-editor";
 import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
 import {
@@ -19,6 +20,7 @@ import {
   SmsMainApiPathPermissionService,
   SmsMainApiPathPublicConfigService,
   SmsMainApiPathService,
+  SmsMainClientPermissionService,
   SmsMainMessageCategoryService,
   SmsMainMessageContentService,
 } from "ntk-cms-api";
@@ -53,6 +55,9 @@ import { SmsMainApiPathListComponent } from "./api-path/list/list.component";
 import { SmsMainApiPathSelectionlistComponent } from "./api-path/selectionlist/selectionlist.component";
 import { SmsMainApiPathSelectorComponent } from "./api-path/selector/selector.component";
 import { SmsMainApiPathSendTestComponent } from "./api-path/sendTest/sendTest.component";
+import { SmsMainClientPermissionAddComponent } from "./client-permission/add/add.component";
+import { SmsMainClientPermissionEditComponent } from "./client-permission/edit/edit.component";
+import { SmsMainClientPermissionListComponent } from "./client-permission/list/list.component";
 import { SmsMainMessageCategoryAddComponent } from "./message-category/add/add.component";
 import { SmsMainMessageCategoryDeleteComponent } from "./message-category/delete/delete.component";
 import { SmsMainMessageCategoryEditComponent } from "./message-category/edit/edit.component";
@@ -68,6 +73,7 @@ import { SmsMainApiPathPublicConfigHeaderComponent } from "./public-config/heade
 import { SmsMainApiPathPublicConfigListComponent } from "./public-config/list/list.component";
 import { SmsMainApiPathPublicConfigSelectorComponent } from "./public-config/selector/selector.component";
 import { SmsMainApiPathPublicConfigTreeComponent } from "./public-config/tree/tree.component";
+import { CoreSharedModule } from "../../core-main/core.shared.module";
 
 @NgModule({
   declarations: [
@@ -113,6 +119,11 @@ import { SmsMainApiPathPublicConfigTreeComponent } from "./public-config/tree/tr
     SmsMainApiNumberPermissionListComponent,
     SmsMainApiNumberPermissionAddComponent,
     SmsMainApiNumberPermissionEditComponent,
+
+    /*Permission*/
+    SmsMainClientPermissionListComponent,
+    SmsMainClientPermissionAddComponent,
+    SmsMainClientPermissionEditComponent,
 
     /** */
     SmsMainMessageCategoryAddComponent,
@@ -168,7 +179,10 @@ import { SmsMainApiPathPublicConfigTreeComponent } from "./public-config/tree/tr
     SmsMainApiNumberPermissionListComponent,
     SmsMainApiNumberPermissionAddComponent,
     SmsMainApiNumberPermissionEditComponent,
-
+    /*Permission*/
+    SmsMainClientPermissionListComponent,
+    SmsMainClientPermissionAddComponent,
+    SmsMainClientPermissionEditComponent,
     /** */
     SmsMainMessageCategoryAddComponent,
     SmsMainMessageCategoryDeleteComponent,
@@ -188,12 +202,14 @@ import { SmsMainApiPathPublicConfigTreeComponent } from "./public-config/tree/tr
     FormsModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     SharedModule,
+    CoreSharedModule,
 
     AngularEditorModule,
     CmsFileManagerModule,
     DynamicFormBuilderModule,
     NgxMaterialTimepickerModule,
     SmsSharedModule,
+    DragDropModule,
   ],
   providers: [
     CoreModuleService,
@@ -212,6 +228,7 @@ import { SmsMainApiPathPublicConfigTreeComponent } from "./public-config/tree/tr
     SmsMainApiPathAndApiNumberService,
     SmsMainMessageContentService,
     SmsMainMessageCategoryService,
+    SmsMainClientPermissionService,
   ],
 })
 export class SmsMainModule {}

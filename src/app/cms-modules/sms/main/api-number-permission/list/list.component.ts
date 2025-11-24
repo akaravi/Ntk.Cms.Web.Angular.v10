@@ -38,6 +38,8 @@ export class SmsMainApiNumberPermissionListComponent
   implements OnInit, OnDestroy
 {
   requestLinkApiNumberId = "";
+  requestLinkCoreUserId = 0;
+  requestLinkCoreSiteId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: SmsMainApiNumberPermissionService,
@@ -64,7 +66,26 @@ export class SmsMainApiNumberPermissionListComponent
     this.optionsSearch.parentMethods = {
       onSubmit: (model) => this.onSubmitOptionsSearch(model),
     };
-
+    this.requestLinkCoreUserId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
+    );
+    this.requestLinkCoreSiteId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
+    );
+    this.requestLinkApiNumberId =
+      this.activatedRoute.snapshot.paramMap.get("LinkApiNumberId");
+    if (this.requestLinkCoreUserId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "LinkCoreUserId";
+      filter.value = this.requestLinkCoreUserId;
+      this.filteModelContent.filters.push(filter);
+    }
+    if (this.requestLinkApiNumberId.length > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "LinkApiPathId";
+      filter.value = this.requestLinkApiNumberId;
+      this.filteModelContent.filters.push(filter);
+    }
     /*filter Sort*/
     this.filteModelContent.sortColumn = "Id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
@@ -105,16 +126,7 @@ export class SmsMainApiNumberPermissionListComponent
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
-    if (this.activatedRoute.snapshot.paramMap.get("LinkApiNumberId")) {
-      this.requestLinkApiNumberId =
-        this.activatedRoute.snapshot.paramMap.get("LinkApiNumberId");
-    }
-    if (this.requestLinkApiNumberId.length > 0) {
-      const filter = new FilterDataModel();
-      filter.propertyName = "LinkApiNumberId";
-      filter.value = this.requestLinkApiNumberId;
-      this.filteModelContent.filters.push(filter);
-    }
+
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();

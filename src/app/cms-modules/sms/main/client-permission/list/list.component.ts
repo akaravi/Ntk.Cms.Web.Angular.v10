@@ -5,15 +5,11 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreCurrencyModel,
-  ErrorExceptionResult,
   FilterDataModel,
   FilterModel,
   RecordStatusEnum,
-  SmsLogOutBoxTaskSchedulerModel,
-  SmsLogOutBoxTaskSchedulerService,
-  SmsMainApiPathModel,
-  SmsMainApiPathService,
+  SmsMainClientPermissionModel,
+  SmsMainClientPermissionService,
   SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
@@ -25,29 +21,28 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { environment } from "src/environments/environment";
-import { SmsLogOutBoxTaskSchedulerEditComponent } from "../edit/edit.component";
-import { SmsLogOutBoxTaskSchedulerViewComponent } from "../view/view.component";
+import { SmsMainClientPermissionAddComponent } from "../add/add.component";
+import { SmsMainClientPermissionEditComponent } from "../edit/edit.component";
 
 @Component({
-  selector: "app-sms-log-outbox-task-scheduler-list",
+  selector: "app-sms-client-list",
   templateUrl: "./list.component.html",
   standalone: false,
 })
-export class SmsLogOutBoxTaskSchedulerListComponent
+export class SmsMainClientPermissionListComponent
   extends ListBaseComponent<
-    SmsLogOutBoxTaskSchedulerService,
-    SmsLogOutBoxTaskSchedulerModel,
+    SmsMainClientPermissionService,
+    SmsMainClientPermissionModel,
     string
   >
   implements OnInit, OnDestroy
 {
-  requestLinkApiPathId = "";
+  requestLinkUserId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    public contentService: SmsLogOutBoxTaskSchedulerService,
-    private smsMainApiPathService: SmsMainApiPathService,
-    private activatedRoute: ActivatedRoute,
+    public contentService: SmsMainClientPermissionService,
     private cmsToastrService: CmsToastrService,
+    private activatedRoute: ActivatedRoute,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private router: Router,
     public tokenHelper: TokenHelper,
@@ -60,7 +55,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
   ) {
     super(
       contentService,
-      new SmsLogOutBoxTaskSchedulerModel(),
+      new SmsMainClientPermissionModel(),
       publicHelper,
       tokenHelper,
       translate,
@@ -69,9 +64,18 @@ export class SmsLogOutBoxTaskSchedulerListComponent
     this.optionsSearch.parentMethods = {
       onSubmit: (model) => this.onSubmitOptionsSearch(model),
     };
+    this.requestLinkUserId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
+    );
+    if (this.requestLinkUserId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "LinkCoreUserId";
+      filter.value = this.requestLinkUserId;
+      this.filteModelContent.filters.push(filter);
+    }
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "CreatedDate";
+    this.filteModelContent.sortColumn = "Id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   comment: string;
@@ -83,56 +87,26 @@ export class SmsLogOutBoxTaskSchedulerListComponent
   filteModelContent = new FilterModel();
   filterDataModelQueryBuilder: FilterDataModel[] = [];
 
-  dataModelCoreCurrencyResult: ErrorExceptionResult<CoreCurrencyModel> =
-    new ErrorExceptionResult<CoreCurrencyModel>();
-  dataModelPrivateResult: ErrorExceptionResult<SmsMainApiPathModel> =
-    new ErrorExceptionResult<SmsMainApiPathModel>();
-
-  categoryModelSelected: SmsMainApiPathModel;
-
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
     "RecordStatus",
-    "IsFlash",
-    "ScheduleCron",
-    "Message",
-    "ScheduleSendStart",
-    "ScheduleSendExpire",
-    "ScheduleSendAllowNextRun",
-    "CreatedDate",
-    "UpdatedDate",
-    // 'Action'
-  ];
-  tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
-    "IsFlash",
-    "ScheduleCron",
-    "Message",
-    "ScheduleSendStart",
-    "ScheduleSendExpire",
-    "ScheduleSendAllowNextRun",
-    "CreatedDate",
-    "UpdatedDate",
-    // 'Action'
+    "linkCoreUserId",
+
+    "fromDate",
+    "expireDate",
   ];
 
-  expandedElement: SmsLogOutBoxTaskSchedulerModel | null;
+  tabledisplayedColumnsMobileSource: string[] = [
+    "RecordStatus",
+    "linkCoreUserId",
+    "fromDate",
+    "expireDate",
+  ];
+
+  expandedElement: SmsMainClientPermissionModel | null;
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
-    if (this.activatedRoute.snapshot.paramMap.get("LinkApiPathId")) {
-      this.requestLinkApiPathId =
-        this.activatedRoute.snapshot.paramMap.get("LinkApiPathId");
-    }
-    const filter = new FilterDataModel();
-    if (this.requestLinkApiPathId?.length > 0) {
-      filter.propertyName = "LinkApiPathId";
-      filter.value = this.requestLinkApiPathId;
-      this.filteModelContent.filters.push(filter);
-    }
-    // this.filteModelContent.sortColumn = 'Title';
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
@@ -146,20 +120,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
           this.DataGetAll();
         }),
     );
-
-    this.getPrivateConfig();
   }
-
-  getPrivateConfig(): void {
-    const filter = new FilterModel();
-    filter.rowPerPage = 100;
-    this.smsMainApiPathService.ServiceGetAll(filter).subscribe({
-      next: (ret) => {
-        this.dataModelPrivateResult = ret;
-      },
-    });
-  }
-
   ngOnDestroy(): void {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
@@ -170,8 +131,9 @@ export class SmsLogOutBoxTaskSchedulerListComponent
       [],
       this.tokenInfo,
     );
+
     this.tableRowsSelected = [];
-    this.onActionTableRowSelect(new SmsLogOutBoxTaskSchedulerModel());
+    this.onActionTableRowSelect(new SmsMainClientPermissionModel());
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.get_information_list")
@@ -186,25 +148,8 @@ export class SmsLogOutBoxTaskSchedulerListComponent
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
     /*filter CLone*/
-    /*filter add search*/
-    if (
-      this.filterDataModelQueryBuilder &&
-      this.filterDataModelQueryBuilder.length > 0
-    ) {
-      filterModel.filters = [...this.filterDataModelQueryBuilder];
-    }
-    /*filter add search*/
-    /** filter Category */
-    if (
-      this.categoryModelSelected &&
-      this.categoryModelSelected.id.length > 0
-    ) {
-      let fastfilter = new FilterDataModel();
-      fastfilter.propertyName = "LinkPrivateConfigId";
-      fastfilter.value = this.categoryModelSelected.id;
-      filterModel.filters.push(fastfilter);
-    }
-    /** filter Category */
+   
+
     this.contentService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
@@ -218,13 +163,12 @@ export class SmsLogOutBoxTaskSchedulerListComponent
             if (this.optionsSearch.childMethods)
               this.optionsSearch.childMethods.setAccess(ret.access);
           }, 1000);
-        } else {
-          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
+
         this.publicHelper.processService.processStop(pName, false);
       },
     });
@@ -261,10 +205,36 @@ export class SmsLogOutBoxTaskSchedulerListComponent
     this.DataGetAll();
   }
 
+  onActionButtonNewRow(): void {
+    if (
+      this.dataModelResult == null ||
+      this.dataModelResult.access == null ||
+      !this.dataModelResult.access.accessAddRow
+    ) {
+      this.cmsToastrService.typeErrorAccessAdd();
+      return;
+    }
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
+    const dialogRef = this.dialog.open(SmsMainClientPermissionAddComponent, {
+      height: "90%",
+      panelClass: panelClass,
+      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
+      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+      data: {},
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result && result.dialogChangedDate) {
+        this.DataGetAll();
+      }
+    });
+  }
+
   onActionButtonEditRow(
-    model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
+    model: SmsMainClientPermissionModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!model || !model.id || model.id.length == 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -280,7 +250,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
     var panelClass = "";
     if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
     else panelClass = "dialog-min";
-    const dialogRef = this.dialog.open(SmsLogOutBoxTaskSchedulerEditComponent, {
+    const dialogRef = this.dialog.open(SmsMainClientPermissionEditComponent, {
       height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
@@ -292,12 +262,11 @@ export class SmsLogOutBoxTaskSchedulerListComponent
         this.DataGetAll();
       }
     });
-    // this.router.navigate(['/sms/main/api-path/edit', this.tableRowSelected.id]);
   }
   onActionButtonDeleteRow(
-    model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
+    model: SmsMainClientPermissionModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!model || !model.id || model.id.length == 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -325,12 +294,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
       ])
       .subscribe((str: string) => {
         title = str["MESSAGE.Please_Confirm"];
-        message =
-          str["MESSAGE.Do_you_want_to_delete_this_content"] +
-          "?" +
-          "<br> ( " +
-          this.tableRowSelected.id +
-          " ) ";
+        message = str["MESSAGE.Do_you_want_to_delete_this_content"] + "?";
       });
     this.cmsConfirmationDialogService
       .confirm(title, message)
@@ -369,50 +333,6 @@ export class SmsLogOutBoxTaskSchedulerListComponent
       .catch(() => {
         // console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)')
       });
-  }
-
-  onActionButtonViewRow(
-    model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
-  ): void {
-    if (!model || !model.id || model.id.length === 0) {
-      this.cmsToastrService.typeErrorSelectedRow();
-      return;
-    }
-    this.onActionTableRowSelect(model);
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessWatchRow
-    ) {
-      this.cmsToastrService.typeErrorAccessWatch();
-      return;
-    }
-    var panelClass = "";
-    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
-    else panelClass = "dialog-min";
-    const dialogRef = this.dialog.open(SmsLogOutBoxTaskSchedulerViewComponent, {
-      height: "90%",
-      panelClass: panelClass,
-      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
-      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id: this.tableRowSelected.id },
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result && result.dialogChangedDate) {
-      }
-    });
-  }
-  onActionSelectorSelect(model: SmsMainApiPathModel | null): void {
-    /*filter */
-    var sortColumn = this.filteModelContent.sortColumn;
-    var sortType = this.filteModelContent.sortType;
-    this.filteModelContent = new FilterModel();
-
-    this.filteModelContent.sortColumn = sortColumn;
-    this.filteModelContent.sortType = sortType;
-    /*filter */
-    this.categoryModelSelected = model;
-    this.DataGetAll();
   }
 
   onActionButtonStatist(view = !this.optionsStatist.data.show): void {
@@ -476,136 +396,6 @@ export class SmsLogOutBoxTaskSchedulerListComponent
       },
     });
   }
-  onActionButtonSupersedesList(
-    model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
-  ): void {
-    if (!model || !model.id || model.id.length === 0) {
-      this.translate
-        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
-        .subscribe((str: string) => {
-          this.cmsToastrService.typeErrorSelected(str);
-        });
-      return;
-    }
-    this.onActionTableRowSelect(model);
-
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessWatchRow
-    ) {
-      this.cmsToastrService.typeErrorSelected();
-      return;
-    }
-    this.router.navigate([
-      "/bankpayment/privatesiteconfig/LinkPrivateConfigId",
-      this.tableRowSelected.id,
-    ]);
-  }
-  onActionButtonMustSupersedesList(
-    model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
-  ): void {
-    if (!model || !model.id || model.id.length === 0) {
-      this.translate
-        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
-        .subscribe((str: string) => {
-          this.cmsToastrService.typeErrorSelected(str);
-        });
-      return;
-    }
-    this.onActionTableRowSelect(model);
-
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessWatchRow
-    ) {
-      this.cmsToastrService.typeErrorSelected();
-      return;
-    }
-    this.router.navigate([
-      "/bankpayment/privatesiteconfig/LinkPrivateConfigId",
-      this.tableRowSelected.id,
-    ]);
-  }
-  onActionButtonNumbersList(
-    model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
-  ): void {
-    if (!model || !model.id || model.id.length === 0) {
-      this.translate
-        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
-        .subscribe((str: string) => {
-          this.cmsToastrService.typeErrorSelected(str);
-        });
-      return;
-    }
-    this.onActionTableRowSelect(model);
-
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessWatchRow
-    ) {
-      this.cmsToastrService.typeErrorSelected();
-      return;
-    }
-    this.router.navigate([
-      "/bankpayment/privatesiteconfig/LinkPrivateConfigId",
-      this.tableRowSelected.id,
-    ]);
-  }
-  onActionButtonPermitionList(
-    model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
-  ): void {
-    if (!model || !model.id || model.id.length === 0) {
-      this.translate
-        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
-        .subscribe((str: string) => {
-          this.cmsToastrService.typeErrorSelected(str);
-        });
-      return;
-    }
-    this.onActionTableRowSelect(model);
-
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessWatchRow
-    ) {
-      this.cmsToastrService.typeErrorSelected();
-      return;
-    }
-    this.router.navigate([
-      "/sms/main/api-path-permission/LinkApiPathId",
-      this.tableRowSelected.id,
-    ]);
-  }
-  onActionButtonPriceServicesList(
-    model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
-  ): void {
-    if (!model || !model.id || model.id.length === 0) {
-      this.translate
-        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
-        .subscribe((str: string) => {
-          this.cmsToastrService.typeErrorSelected(str);
-        });
-      return;
-    }
-    this.onActionTableRowSelect(model);
-
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessWatchRow
-    ) {
-      this.cmsToastrService.typeErrorSelected();
-      return;
-    }
-    this.router.navigate([
-      "/sms/main/api-path-price-service/LinkApiPathId",
-      this.tableRowSelected.id,
-    ]);
-  }
 
   onActionButtonReload(): void {
     this.DataGetAll();
@@ -619,7 +409,4 @@ export class SmsLogOutBoxTaskSchedulerListComponent
     this.DataGetAll();
   }
 
-  onActionBackToParent(): void {
-    // this.router.navigate(['/sms/main/api-path-company']);
-  }
 }

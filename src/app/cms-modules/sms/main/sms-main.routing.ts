@@ -7,6 +7,7 @@ import { SmsMainApiPathPermissionListComponent } from "./api-path-permission/lis
 import { SmsMainApiPathPriceServiceListComponent } from "./api-path-price-service/list/list.component";
 import { SmsMainApiPathEditComponent } from "./api-path/edit/edit.component";
 import { SmsMainApiPathListComponent } from "./api-path/list/list.component";
+import { SmsMainClientPermissionListComponent } from "./client-permission/list/list.component";
 import { SmsMainMessageContentListComponent } from "./message-content/list/list.component";
 import { SmsMainApiPathPublicConfigListComponent } from "./public-config/list/list.component";
 import { SmsMainComponent } from "./sms-main.component";
@@ -68,6 +69,16 @@ const routes: Routes = [
         data: { title: "ROUTE.SMS.MAIN" },
       },
       {
+        path: "api-path-permission/LinkUserId/:LinkUserId",
+        component: SmsMainApiPathPermissionListComponent,
+        data: { title: "ROUTE.SMS.MAIN" },
+      },
+      {
+        path: "api-path-permission/LinkSiteId/:LinkSiteId",
+        component: SmsMainApiPathPermissionListComponent,
+        data: { title: "ROUTE.SMS.MAIN" },
+      },
+      {
         path: "api-path-price-service",
         component: SmsMainApiPathPriceServiceListComponent,
         data: { title: "ROUTE.SMS.MAIN" },
@@ -87,6 +98,7 @@ const routes: Routes = [
         component: SmsMainApiNumberListComponent,
         data: { title: "ROUTE.SMS.MAIN" },
       },
+
       {
         path: "api-number-permission",
         component: SmsMainApiNumberPermissionListComponent,
@@ -97,7 +109,26 @@ const routes: Routes = [
         component: SmsMainApiNumberPermissionListComponent,
         data: { title: "ROUTE.SMS.MAIN" },
       },
-
+      {
+        path: "api-number-permission/LinkUserId/:LinkUserId",
+        component: SmsMainApiNumberPermissionListComponent,
+        data: { title: "ROUTE.SMS.MAIN" },
+      },
+      {
+        path: "api-number-permission/LinkSiteId/:LinkSiteId",
+        component: SmsMainApiNumberPermissionListComponent,
+        data: { title: "ROUTE.SMS.MAIN" },
+      },
+      {
+        path: "client-permission",
+        component: SmsMainClientPermissionListComponent,
+        data: { title: "ROUTE.SMS.MAIN" },
+      },
+      {
+        path: "client-permission/LinkUserId/:LinkUserId",
+        component: SmsMainClientPermissionListComponent,
+        data: { title: "ROUTE.SMS.MAIN" },
+      },
       {
         path: "message",
         component: SmsMainMessageContentListComponent,

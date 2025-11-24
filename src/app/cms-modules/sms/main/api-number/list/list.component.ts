@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
@@ -5,6 +6,8 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
+  ActionGoStepEnum,
+  EditStepDtoModel,
   FilterDataModel,
   FilterModel,
   RecordStatusEnum,
@@ -67,8 +70,8 @@ export class SmsMainApiNumberListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
-    this.filteModelContent.sortType = SortTypeEnum.Descending;
+    this.filteModelContent.sortColumn = "priority";
+    this.filteModelContent.sortType = SortTypeEnum.Ascending;
   }
   comment: string;
   author: string;
@@ -95,6 +98,7 @@ export class SmsMainApiNumberListComponent
     "CreatedDate",
     "UpdatedDate",
     // 'Action'
+    "position",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "Id",
@@ -107,6 +111,7 @@ export class SmsMainApiNumberListComponent
     "CreatedDate",
     "UpdatedDate",
     // 'Action'
+    "position",
   ];
   expandedElement: SmsMainApiNumberModel | null;
   private unsubscribe: Subscription[] = [];
@@ -238,6 +243,37 @@ export class SmsMainApiNumberListComponent
     this.filteModelContent.rowPerPage = event.pageSize;
     this.DataGetAll();
   }
+
+  onTableDropRow(event: CdkDragDrop<SmsMainApiNumberModel[]>): void {
+    const previousIndex = this.tableSource.data.findIndex(
+      (row) => row === event.item.data,
+    );
+    const model = new EditStepDtoModel<string>();
+    model.id = this.tableSource.data[previousIndex].id;
+    model.centerId = this.tableSource.data[event.currentIndex].id;
+    if (previousIndex > event.currentIndex) {
+      model.actionGo = ActionGoStepEnum.GoUp;
+    } else {
+      model.actionGo = ActionGoStepEnum.GoDown;
+    }
+    this.contentService.ServiceEditStep(model).subscribe({
+      next: (ret) => {
+        if (ret.isSuccess) {
+          moveItemInArray(
+            this.tableSource.data,
+            previousIndex,
+            event.currentIndex,
+          );
+          this.tableSource.data = this.tableSource.data.slice();
+        } else {
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+        }
+      },
+      error: (er) => {
+        this.cmsToastrService.typeError(er);
+      },
+    });
+  }
   onActionSelectorSelect(model: SmsMainApiPathModel | null): void {
     /*filter */
     var sortColumn = this.filteModelContent.sortColumn;
@@ -247,6 +283,7 @@ export class SmsMainApiNumberListComponent
     this.filteModelContent.sortColumn = sortColumn;
     this.filteModelContent.sortType = sortType;
     /*filter */
+    this.filteModelContent.sortColumn = "priority";
     this.categoryModelSelected = model;
 
     this.DataGetAll();
@@ -476,7 +513,9 @@ export class SmsMainApiNumberListComponent
       return;
     }
     if (event?.ctrlKey) {
-      const link = "/#/sms/main/api-number-permission/LinkApiNumberId/" + this.tableRowSelected.id;
+      const link =
+        "/#/sms/main/api-number-permission/LinkApiNumberId/" +
+        this.tableRowSelected.id;
       window.open(link, "_blank");
     } else {
       this.router.navigate([
@@ -508,7 +547,9 @@ export class SmsMainApiNumberListComponent
       return;
     }
     if (event?.ctrlKey) {
-      const link = "/#/sms/log/inbox/list/ReceiverNumber/" + this.tableRowSelected.numberChar;
+      const link =
+        "/#/sms/log/inbox/list/ReceiverNumber/" +
+        this.tableRowSelected.numberChar;
       window.open(link, "_blank");
     } else {
       this.router.navigate([
@@ -540,7 +581,9 @@ export class SmsMainApiNumberListComponent
       return;
     }
     if (event?.ctrlKey) {
-      const link = "/#/sms/log/outbox/list/SenderNumber/" + this.tableRowSelected.numberChar;
+      const link =
+        "/#/sms/log/outbox/list/SenderNumber/" +
+        this.tableRowSelected.numberChar;
       window.open(link, "_blank");
     } else {
       this.router.navigate([
@@ -573,7 +616,9 @@ export class SmsMainApiNumberListComponent
       return;
     }
     if (event?.ctrlKey) {
-      const link = "/#/sms/action/send-message/LinkApiNumberId/" + this.tableRowSelected.id;
+      const link =
+        "/#/sms/action/send-message/LinkApiNumberId/" +
+        this.tableRowSelected.id;
       window.open(link, "_blank");
     } else {
       this.router.navigate([
@@ -583,6 +628,7 @@ export class SmsMainApiNumberListComponent
     }
   }
   onActionButtonReload(): void {
+    this.filteModelContent.sortColumn = "priority";
     this.DataGetAll();
   }
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {

@@ -39,6 +39,8 @@ export class SmsMainApiPathPermissionListComponent
   implements OnInit, OnDestroy
 {
   requestLinkApiPathId = "";
+  requestLinkCoreUserId = 0;
+  requestLinkCoreSiteId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: SmsMainApiPathPermissionService,
@@ -65,6 +67,26 @@ export class SmsMainApiPathPermissionListComponent
     this.optionsSearch.parentMethods = {
       onSubmit: (model) => this.onSubmitOptionsSearch(model),
     };
+    this.requestLinkCoreUserId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
+    );
+    this.requestLinkCoreSiteId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
+    );
+    this.requestLinkApiPathId =
+      this.activatedRoute.snapshot.paramMap.get("LinkApiPathId");
+    if (this.requestLinkCoreUserId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "LinkCoreUserId";
+      filter.value = this.requestLinkCoreUserId;
+      this.filteModelContent.filters.push(filter);
+    }
+    if (this.requestLinkApiPathId.length > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "LinkApiPathId";
+      filter.value = this.requestLinkApiPathId;
+      this.filteModelContent.filters.push(filter);
+    }
 
     /*filter Sort*/
     this.filteModelContent.sortColumn = "Id";
@@ -104,16 +126,6 @@ export class SmsMainApiPathPermissionListComponent
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
-    if (this.activatedRoute.snapshot.paramMap.get("LinkApiPathId")) {
-      this.requestLinkApiPathId =
-        this.activatedRoute.snapshot.paramMap.get("LinkApiPathId");
-    }
-    if (this.requestLinkApiPathId.length > 0) {
-      const filter = new FilterDataModel();
-      filter.propertyName = "LinkApiPathId";
-      filter.value = this.requestLinkApiPathId;
-      this.filteModelContent.filters.push(filter);
-    }
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();

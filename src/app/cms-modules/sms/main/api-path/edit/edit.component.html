@@ -766,17 +766,17 @@
               </div>
             </div>
           </div>
-          <!-- apiAllowSuperSeder Field -->
+          <!-- apiAllowSupersede Field -->
           <div
-            *ngIf="fieldsInfo['apiAllowSuperSeder']?.accessWatchField"
+            *ngIf="fieldsInfo['apiAllowSupersede']?.accessWatchField"
             class="d-flex mb-3"
           >
             <div class="pt-1">
               <h5
-                data-trigger-switch="dataModel.apiAllowSuperSeder"
+                data-trigger-switch="dataModel.apiAllowSupersede"
                 class="font-600 font-14"
               >
-                {{ fieldsInfo["apiAllowSuperSeder"]?.fieldTitle }}
+                {{ fieldsInfo["apiAllowSupersede"]?.fieldTitle }}
               </h5>
             </div>
             <div class="ms-auto me-3 pe-2">
@@ -784,13 +784,13 @@
                 <input
                   type="checkbox"
                   class="ios-input"
-                  id="dataModel.apiAllowSuperSeder"
-                  [(ngModel)]="dataModel.apiAllowSuperSeder"
-                  name="dataModel.apiAllowSuperSeder"
+                  id="dataModel.apiAllowSupersede"
+                  [(ngModel)]="dataModel.apiAllowSupersede"
+                  name="dataModel.apiAllowSupersede"
                 />
                 <label
                   class="custom-control-label"
-                  for="dataModel.apiAllowSuperSeder"
+                  for="dataModel.apiAllowSupersede"
                 ></label>
               </div>
             </div>
