@@ -314,6 +314,7 @@ export class LinkManagementBillboardEditComponent
         });
       return;
     }
+
     const entity = new LinkManagementBillboardCategoryModel();
     entity.linkCategoryId = model;
     entity.linkManagementBillboardId = this.dataModel.id;

@@ -21,13 +21,7 @@
         [optionSelectFirstItem]="true"
       >
       </app-cms-enum-record-status-selector>
-      <!-- LinkCategoryId Field -->
-      <app-contact-category-selector
-        (optionChange)="onActionSelectCategory($event)"
-        [optionSelectForce]="dataModel.linkCategoryId"
-        [optionPlaceholder]="'TITLE.Category' | translate"
-      >
-      </app-contact-category-selector>
+
       <!-- Title Field -->
       <div
         class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
@@ -108,6 +102,14 @@
           </div>
         </div>
       </div>
+
+      <!-- category Field -->
+      <app-contact-category-treeselector
+        [(optionModel)]="dataContentCategoryModel"
+        (optionSelectChecked)="onActionCategorySelectChecked($event)"
+        (optionSelectDisChecked)="onActionCategorySelectDisChecked($event)"
+      ></app-contact-category-treeselector>
+
       <div class="form-actions" *ngIf="formInfo.submitButtonEnabled">
         <button
           type="button"

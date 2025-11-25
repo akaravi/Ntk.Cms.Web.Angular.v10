@@ -282,6 +282,7 @@ export class LinkManagementTargetEditComponent
         });
       return;
     }
+
     const entity = new LinkManagementTargetCategoryModel();
     entity.linkCategoryId = model;
     entity.linkManagementTargetId = this.dataModel.id;

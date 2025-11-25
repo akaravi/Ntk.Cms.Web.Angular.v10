@@ -9,11 +9,16 @@ import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
+  ClauseTypeEnum,
   ContactCategoryModel,
+  ContactContentCategoryModel,
+  ContactContentCategoryService,
   ContactContentModel,
   ContactContentService,
   CoreEnumService,
   ErrorExceptionResultBase,
+  FilterDataModel,
+  FilterModel,
   FormInfoModel,
   ManageUserAccessDataTypesEnum,
 } from "ntk-cms-api";
@@ -39,6 +44,7 @@ export class ContactContentEditComponent
     private dialogRef: MatDialogRef<ContactContentEditComponent>,
     public coreEnumService: CoreEnumService,
     public ContactContentService: ContactContentService,
+    private contentCategoryService: ContactContentCategoryService,
     private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -75,16 +81,8 @@ export class ContactContentEditComponent
   onActionFileSelected(model: NodeInterface): void {}
 
   ngOnInit(): void {
-    if (this.requestId.length > 0) {
-      this.translate.get("TITLE.Edit_Categories").subscribe((str: string) => {
-        this.formInfo.formTitle = str;
-      });
-      this.DataGetOneContent();
-    } else {
-      this.cmsToastrService.typeErrorComponentAction();
-      this.dialogRef.close({ dialogChangedDate: false });
-      return;
-    }
+    this.DataGetOneContent();
+    this.DataCategoryGetAll();
   }
 
   DataGetOneContent(): void {
@@ -140,7 +138,47 @@ export class ContactContentEditComponent
       },
     });
   }
-
+  DataCategoryGetAll(): void {
+    this.formInfo.submitButtonEnabled = false;
+    this.translate
+      .get("MESSAGE.get_category_information_from_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.submitResultMessage = str;
+      });
+    this.formInfo.submitResultMessage = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.get_category_information_from_the_server")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
+    const filterModel = new FilterModel();
+    const filter = new FilterDataModel();
+    filter.propertyName = "LinkContentId";
+    filter.value = this.requestId;
+    filter.clauseType = ClauseTypeEnum.And;
+    filterModel.filters.push(filter);
+    this.contentCategoryService.ServiceGetAll(filterModel).subscribe({
+      next: (ret) => {
+        const itemList = [];
+        ret.listItems.forEach((element) => {
+          itemList.push(element.linkCategoryId);
+        });
+        this.dataContentCategoryModel = itemList;
+        this.formInfo.submitButtonEnabled = true;
+        this.publicHelper.processService.processStop(pName);
+      },
+      error: (er) => {
+        this.formInfo.submitButtonEnabled = true;
+        this.cmsToastrService.typeErrorGetAll(er);
+        this.publicHelper.processService.processStop(pName);
+      },
+    });
+  }
   DataEditContent(): void {
     this.translate
       .get("MESSAGE.sending_information_to_the_server")
@@ -189,21 +227,98 @@ export class ContactContentEditComponent
       },
     });
   }
-  onFormSubmit(): void {
-    if (!this.formGroup.valid) {
-      return;
-    }
-    if (
-      !this.dataModel.linkCategoryId ||
-      this.dataModel.linkCategoryId.length == 0
-    ) {
+
+  dataContentCategoryModel: string[] = [];
+  onActionCategorySelectChecked(model: string): void {
+    if (!model || model.length == 0) {
       this.translate
-        .get("MESSAGE.Category_is_not_clear")
+        .get("MESSAGE.category_of_information_is_not_clear")
         .subscribe((str: string) => {
           this.cmsToastrService.typeErrorSelected(str);
         });
       return;
     }
+
+    const entity = new ContactContentCategoryModel();
+    entity.linkCategoryId = model;
+    entity.linkContentId = this.dataModel.id;
+    this.contentCategoryService.ServiceAdd(entity).subscribe({
+      next: (ret) => {
+        if (ret.isSuccess) {
+          this.translate
+            .get("MESSAGE.registration_in_this_group_was_successful")
+            .subscribe((str: string) => {
+              this.formInfo.submitResultMessage = str;
+            });
+          this.cmsToastrService.typeSuccessEdit();
+        } else {
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.submitResultMessage = str;
+            });
+          this.formInfo.submitResultMessage = ret.errorMessage;
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+        }
+      },
+      error: (er) => {
+        this.formInfo.submitButtonEnabled = true;
+        this.cmsToastrService.typeError(er);
+      },
+    });
+  }
+  onActionCategorySelectDisChecked(model: string): void {
+    if (!model || model.length == 0) {
+      this.translate
+        .get("MESSAGE.category_of_information_is_not_clear")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+    const entity = new ContactContentCategoryModel();
+    entity.linkCategoryId = model;
+    entity.linkContentId = this.dataModel.id;
+    this.contentCategoryService.ServiceDeleteEntity(entity).subscribe({
+      next: (ret) => {
+        if (ret.isSuccess) {
+          this.translate
+            .get("MESSAGE.registration_in_this_group_was_successful")
+            .subscribe((str: string) => {
+              this.formInfo.submitResultMessage = str;
+            });
+          this.cmsToastrService.typeSuccessEdit();
+        } else {
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.submitResultMessage = str;
+            });
+          this.formInfo.submitResultMessage = ret.errorMessage;
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+        }
+      },
+      error: (er) => {
+        this.formInfo.submitButtonEnabled = true;
+        this.cmsToastrService.typeError(er);
+      },
+    });
+  }
+  onFormSubmit(): void {
+    if (!this.formGroup.valid) {
+      return;
+    }
+    // if (
+    //   !this.dataModel.linkCategoryId ||
+    //   this.dataModel.linkCategoryId.length == 0
+    // ) {
+    //   this.translate
+    //     .get("MESSAGE.Category_is_not_clear")
+    //     .subscribe((str: string) => {
+    //       this.cmsToastrService.typeErrorSelected(str);
+    //     });
+    //   return;
+    // }
     this.formInfo.submitButtonEnabled = false;
     this.DataEditContent();
   }
@@ -220,6 +335,6 @@ export class ContactContentEditComponent
         });
       return;
     }
-    this.dataModel.linkCategoryId = model.id;
+    //this.dataModel.linkCategoryId = model.id;
   }
 }

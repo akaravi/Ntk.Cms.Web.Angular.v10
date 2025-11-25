@@ -685,6 +685,7 @@ export class ChartContentEditComponent
         });
       return;
     }
+
     const entity = new ChartContentCategoryModel();
     entity.linkCategoryId = model;
     entity.linkContentId = this.dataModel.id;

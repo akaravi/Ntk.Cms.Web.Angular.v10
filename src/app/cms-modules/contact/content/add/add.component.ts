@@ -10,6 +10,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
   ContactCategoryModel,
+  ContactContentCategoryModel,
+  ContactContentCategoryService,
   ContactContentModel,
   ContactContentService,
   CoreEnumService,
@@ -38,6 +40,7 @@ export class ContactContentAddComponent
     private dialogRef: MatDialogRef<ContactContentAddComponent>,
     public coreEnumService: CoreEnumService,
     public ContactContentService: ContactContentService,
+    private contentCategoryService: ContactContentCategoryService,
     private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -51,8 +54,8 @@ export class ContactContentAddComponent
     );
     this.publicHelper.processService.cdr = this.cdr;
 
-    if (data && data.linkCategoryId && data.linkCategoryId.length > 0)
-      this.dataModel.linkCategoryId = data.linkCategoryId;
+    // if (data && data.linkCategoryId && data.linkCategoryId.length > 0)
+    //   this.dataModel.linkCategoryId = data.linkCategoryId;
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
   }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
@@ -115,6 +118,41 @@ export class ContactContentAddComponent
               this.formInfo.submitResultMessage = str;
             });
           this.cmsToastrService.typeSuccessAdd();
+          /**add category */
+          for (
+            let index = 0;
+            index < this.dataContentCategoryModel.length;
+            index++
+          ) {
+            const entity = new ContactContentCategoryModel();
+            entity.linkCategoryId = this.dataContentCategoryModel[index];
+            entity.linkContentId = ret.item.id;
+            this.contentCategoryService.ServiceAdd(entity).subscribe({
+              next: (ret) => {
+                if (ret.isSuccess) {
+                  this.translate
+                    .get("MESSAGE.registration_in_this_group_was_successful")
+                    .subscribe((str: string) => {
+                      this.formInfo.submitResultMessage = str;
+                    });
+                  this.cmsToastrService.typeSuccessEdit();
+                } else {
+                  this.translate
+                    .get("ERRORMESSAGE.MESSAGE.typeError")
+                    .subscribe((str: string) => {
+                      this.formInfo.submitResultMessage = str;
+                    });
+                  this.formInfo.submitResultMessage = ret.errorMessage;
+                  this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+                }
+              },
+              error: (er) => {
+                this.formInfo.submitButtonEnabled = true;
+                this.cmsToastrService.typeError(er);
+              },
+            });
+          }
+          /**add category */
           this.dialogRef.close({ dialogChangedDate: true });
         } else {
           this.translate
@@ -134,18 +172,94 @@ export class ContactContentAddComponent
       },
     });
   }
+
+  dataContentCategoryModel: string[] = [];
+  onActionCategorySelectChecked(model: string): void {
+    if (!model || model.length == 0) {
+      this.translate
+        .get("MESSAGE.category_of_information_is_not_clear")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+    // const entity = new ContactContentCategoryModel();
+    // entity.linkCategoryId = model;
+    // entity.linkContentId = this.dataModel.id;
+    // this.contentCategoryService.ServiceAdd(entity).subscribe({
+    //   next: (ret) => {
+    //     if (ret.isSuccess) {
+    //       this.translate
+    //         .get("MESSAGE.registration_in_this_group_was_successful")
+    //         .subscribe((str: string) => {
+    //           this.formInfo.submitResultMessage = str;
+    //         });
+    //       this.cmsToastrService.typeSuccessEdit();
+    //     } else {
+    //       this.translate
+    //         .get("ERRORMESSAGE.MESSAGE.typeError")
+    //         .subscribe((str: string) => {
+    //           this.formInfo.submitResultMessage = str;
+    //         });
+    //       this.formInfo.submitResultMessage = ret.errorMessage;
+    //       this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+    //     }
+    //   },
+    //   error: (er) => {
+    //     this.formInfo.submitButtonEnabled = true;
+    //     this.cmsToastrService.typeError(er);
+    //   },
+    // });
+  }
+  onActionCategorySelectDisChecked(model: string): void {
+    if (!model || model.length == 0) {
+      this.translate
+        .get("MESSAGE.category_of_information_is_not_clear")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+    // const entity = new ContactContentCategoryModel();
+    // entity.linkCategoryId = model;
+    // entity.linkContentId = this.dataModel.id;
+    // this.contentCategoryService.ServiceDeleteEntity(entity).subscribe({
+    //   next: (ret) => {
+    //     if (ret.isSuccess) {
+    //       this.translate
+    //         .get("MESSAGE.registration_in_this_group_was_successful")
+    //         .subscribe((str: string) => {
+    //           this.formInfo.submitResultMessage = str;
+    //         });
+    //       this.cmsToastrService.typeSuccessEdit();
+    //     } else {
+    //       this.translate
+    //         .get("ERRORMESSAGE.MESSAGE.typeError")
+    //         .subscribe((str: string) => {
+    //           this.formInfo.submitResultMessage = str;
+    //         });
+    //       this.formInfo.submitResultMessage = ret.errorMessage;
+    //       this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+    //     }
+    //   },
+    //   error: (er) => {
+    //     this.formInfo.submitButtonEnabled = true;
+    //     this.cmsToastrService.typeError(er);
+    //   },
+    // });
+  }
   onFormSubmit(): void {
     if (!this.formGroup.valid) {
       return;
     }
-    if (
-      !this.dataModel.linkCategoryId ||
-      this.dataModel.linkCategoryId.length == 0
-    ) {
-      const message = "دست بندی   مشخص نیست";
-      this.cmsToastrService.typeErrorSelected(message);
-      return;
-    }
+    // if (
+    //   !this.dataModel.linkCategoryId ||
+    //   this.dataModel.linkCategoryId.length == 0
+    // ) {
+    //   const message = "دست بندی   مشخص نیست";
+    //   this.cmsToastrService.typeErrorSelected(message);
+    //   return;
+    // }
     this.formInfo.submitButtonEnabled = false;
 
     this.DataAddContent();
@@ -163,6 +277,6 @@ export class ContactContentAddComponent
         });
       return;
     }
-    this.dataModel.linkCategoryId = model.id;
+    //this.dataModel.linkCategoryId = model.id;
   }
 }

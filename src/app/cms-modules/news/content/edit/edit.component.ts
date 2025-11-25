@@ -657,6 +657,7 @@ export class NewsContentEditComponent
         });
       return;
     }
+
     const entity = new NewsContentCategoryModel();
     entity.linkCategoryId = model;
     entity.linkContentId = this.dataModel.id;

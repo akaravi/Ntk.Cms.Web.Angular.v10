@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
   ContactCategoryService,
   ContactConfigurationService,
+  ContactContentCategoryService,
   ContactContentService,
   CoreEnumService,
   CoreModuleService,
@@ -66,6 +67,7 @@ import { ContactContentSelectorComponent } from "./content/selector/selector.com
     CmsConfirmationDialogService,
     ContactCategoryService,
     ContactContentService,
+    ContactContentCategoryService,
   ],
 })
 export class ContactModule {}

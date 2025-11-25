@@ -678,6 +678,7 @@ export class BlogContentEditComponent
         });
       return;
     }
+
     const entity = new BlogContentCategoryModel();
     entity.linkCategoryId = model;
     entity.linkContentId = this.dataModel.id;

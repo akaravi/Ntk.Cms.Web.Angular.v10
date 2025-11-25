@@ -69,8 +69,8 @@ export class ContactContentListComponent
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     if (this.requestLinkCategoryId && this.requestLinkCategoryId.length > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "LinkCategoryId";
-      filter.value = this.requestLinkCategoryId;
+      filter.propertyName = "ContentCategores";
+      filter.propertyAnyName = "LinkCategoryId";
       this.filteModelContent.filters.push(filter);
     }
   }
@@ -153,7 +153,8 @@ export class ContactContentListComponent
       this.categoryModelSelected.id?.length > 0
     ) {
       const filter = new FilterDataModel();
-      filter.propertyName = "LinkCategoryId";
+      filter.propertyName = "ContentCategores";
+      filter.propertyAnyName = "LinkCategoryId";
       filter.value = this.categoryModelSelected.id;
       filterModel.filters.push(filter);
     }

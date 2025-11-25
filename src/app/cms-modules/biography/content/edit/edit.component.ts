@@ -659,6 +659,7 @@ export class BiographyContentEditComponent
         });
       return;
     }
+
     const entity = new BiographyContentCategoryModel();
     entity.linkCategoryId = model;
     entity.linkContentId = this.dataModel.id;
