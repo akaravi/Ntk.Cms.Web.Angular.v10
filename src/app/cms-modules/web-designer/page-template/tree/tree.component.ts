@@ -66,9 +66,6 @@ export class WebDesignerMainPageTemplateTreeComponent
   hasChild = (_: number, node: WebDesignerMainPageTemplateModel) => false;
   childrenAccessor = (node: WebDesignerMainPageTemplateModel) => [];
   ngOnInit(): void {
-    setTimeout(() => {
-      this.DataGetAll();
-    }, 500);
     this.unsubscribe.push(
       this.cmsStoreService
         .getState((state) => state.tokenInfoStore)

@@ -65,9 +65,6 @@ export class DataProviderPlanPriceTreeComponent implements OnInit, OnDestroy {
   childrenAccessor = (node: DataProviderPlanPriceModel) => null;
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.DataGetAll();
-    }, 500);
     this.unsubscribe.push(
       this.cmsStoreService
         .getState((state) => state.tokenInfoStore)

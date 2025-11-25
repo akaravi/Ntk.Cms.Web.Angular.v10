@@ -68,9 +68,6 @@ export class PollingCategoryTreeComponent implements OnInit, OnDestroy {
   childrenAccessor = (node: PollingCategoryModel) => node.children ?? [];
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.DataGetAll();
-    }, 500);
     this.unsubscribe.push(
       this.cmsStoreService
         .getState((state) => state.tokenInfoStore)

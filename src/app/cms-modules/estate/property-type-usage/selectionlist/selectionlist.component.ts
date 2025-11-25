@@ -64,9 +64,6 @@ export class EstatePropertyTypeUsageSelectionlistComponent
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.DataGetAll();
-    }, 500);
     this.unsubscribe.push(
       this.cmsStoreService
         .getState((state) => state.tokenInfoStore)

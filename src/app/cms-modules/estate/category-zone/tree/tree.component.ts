@@ -67,9 +67,6 @@ export class EstateCategoryZoneTreeComponent implements OnInit, OnDestroy {
   childrenAccessor = (node: EstateCategoryZoneModel) => [];
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.DataGetAll();
-    }, 500);
     this.unsubscribe.push(
       this.cmsStoreService
         .getState((state) => state.tokenInfoStore)

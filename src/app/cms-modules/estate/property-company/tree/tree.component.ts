@@ -66,9 +66,6 @@ export class EstatePropertyCompanyTreeComponent implements OnInit, OnDestroy {
   childrenAccessor = (node: EstatePropertyCompanyModel) => [];
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.DataGetAll();
-    }, 500);
     this.unsubscribe.push(
       this.cmsStoreService
         .getState((state) => state.tokenInfoStore)

@@ -65,9 +65,6 @@ export class DonateTargetCategoryTreeComponent implements OnInit, OnDestroy {
   childrenAccessor = (node: DonateTargetCategoryModel) => node.children ?? [];
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.DataGetAll();
-    }, 500);
     this.unsubscribe.push(
       this.cmsStoreService
         .getState((state) => state.tokenInfoStore)

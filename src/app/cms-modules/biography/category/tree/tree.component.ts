@@ -63,9 +63,6 @@ export class BiographyCategoryTreeComponent implements OnInit, OnDestroy {
     !!node.children && node.children.length > 0;
   childrenAccessor = (node: BiographyCategoryModel) => node.children ?? [];
   ngOnInit(): void {
-    setTimeout(() => {
-      this.DataGetAll();
-    }, 500);
     this.unsubscribe.push(
       this.cmsStoreService
         .getState((state) => state.tokenInfoStore)

@@ -68,9 +68,6 @@ export class WebDesignerMainMenuTreeComponent implements OnInit, OnDestroy {
   childrenAccessor = (node: WebDesignerMainMenuModel) => node.children ?? [];
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.DataGetAll();
-    }, 500);
     this.unsubscribe.push(
       this.cmsStoreService
         .getState((state) => state.tokenInfoStore)

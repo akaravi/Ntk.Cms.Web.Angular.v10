@@ -58,9 +58,6 @@ export class ApplicationAppTreeComponent implements OnInit, OnDestroy {
   hasChild = (_: number, node: ApplicationAppModel) => false;
   childrenAccessor = (node: ApplicationAppModel) => [];
   ngOnInit(): void {
-    setTimeout(() => {
-      this.DataGetAll();
-    }, 500);
     this.unsubscribe.push(
       this.cmsStoreService
         .getState((state) => state.tokenInfoStore)

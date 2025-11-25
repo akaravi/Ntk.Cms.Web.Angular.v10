@@ -63,9 +63,6 @@ export class CoreSiteCategoryTreeComponent implements OnInit, OnDestroy {
   childrenAccessor = (node: CoreSiteCategoryModel) => [];
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.DataGetAll();
-    }, 500);
     this.unsubscribe.push(
       this.cmsStoreService
         .getState((state) => state.tokenInfoStore)

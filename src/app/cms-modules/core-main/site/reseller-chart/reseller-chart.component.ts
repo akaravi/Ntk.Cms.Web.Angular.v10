@@ -74,9 +74,6 @@ export class CoreSiteResellerChartComponent implements OnInit, OnDestroy {
   childrenAccessor = (node: RessellerChartModel) => node.siteChilds ?? [];
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.DataGetAll();
-    }, 500);
     this.unsubscribe.push(
       this.cmsStoreService
         .getState((state) => state.tokenInfoStore)

@@ -76,7 +76,7 @@ export class ContactCategoryTreeSelectorComponent implements OnInit, OnDestroy {
   filterModel = new FilterModel();
 
   dataSource = new MatTreeNestedDataSource<ContactCategoryModel>();
-  runComplate = false;
+
   @Output() optionSelectChecked = new EventEmitter<string>();
   @Output() optionSelectDisChecked = new EventEmitter<string>();
   @Output() optionModelChange = new EventEmitter<string[]>();
@@ -97,30 +97,43 @@ export class ContactCategoryTreeSelectorComponent implements OnInit, OnDestroy {
           this.DataGetAll();
         }),
     );
-    setTimeout(() => {
-      this.DataGetAll();
-    }, 500);
   }
 
   ngOnDestroy(): void {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
-  loadCheked(
-    model: ContactCategoryModel[] = this.dataModelResult.listItems,
-  ): void {
+  runComplate = false;
+  loadCheked() {
     this.runComplate = false;
-    if (model && this.dataModelSelect && this.dataModelSelect.length > 0) {
-      model.forEach((element) => {
-        const fItem = this.dataModelSelect.find((z) => z === element.id);
-        if (fItem) {
-          this.checklistSelection.select(element);
-        }
-        if (element.children && element.children.length > 0) {
-          this.loadCheked(element.children);
-        }
-      });
-    }
+    this.CompileDataByCheked(
+      this.dataModelResult.listItems,
+      this.dataModelSelect,
+    );
     this.runComplate = true;
+  }
+  CompileDataByCheked(
+    model: ContactCategoryModel[],
+    selectedItems: string[],
+  ): boolean {
+    if (!(model?.length > 0)) return false;
+    let checkedAny = false;
+    for (const item of model) {
+      if (selectedItems?.includes(item.id)) {
+        this.checklistSelection.select(item);
+        checkedAny = true;
+      } else {
+        this.checklistSelection.deselect(item);
+      }
+      if (item.children?.length > 0) {
+        let localCheckedAny =
+          this.CompileDataByCheked(item.children, selectedItems) || checkedAny;
+        if (localCheckedAny) {
+          checkedAny = true;
+          this.treeControl.expand(item);
+        }
+      }
+    }
+    return checkedAny;
   }
   DataGetAll(): void {
     this.filterModel.rowPerPage = 200;

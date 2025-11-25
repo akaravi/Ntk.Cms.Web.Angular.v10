@@ -65,9 +65,6 @@ export class MemberGroupTreeComponent implements OnInit, OnDestroy {
   childrenAccessor = (node: MemberGroupModel) => [];
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.DataGetAll();
-    }, 500);
     this.unsubscribe.push(
       this.cmsStoreService
         .getState((state) => state.tokenInfoStore)

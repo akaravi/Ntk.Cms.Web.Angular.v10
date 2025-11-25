@@ -64,9 +64,6 @@ export class TicketingDepartemenTreeComponent implements OnInit, OnDestroy {
   childrenAccessor = (node: TicketingDepartemenModel) => [];
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.DataGetAll();
-    }, 500);
     this.unsubscribe.push(
       this.cmsStoreService
         .getState((state) => state.tokenInfoStore)

@@ -65,9 +65,6 @@ export class MemberPropertyDetailTreeComponent implements OnInit, OnDestroy {
   childrenAccessor = (node: MemberPropertyDetailModel) => [];
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.DataGetAll();
-    }, 500);
     this.unsubscribe.push(
       this.cmsStoreService
         .getState((state) => state.tokenInfoStore)

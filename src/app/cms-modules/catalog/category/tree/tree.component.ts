@@ -65,14 +65,12 @@ export class CatalogCategoryTreeComponent implements OnInit, OnDestroy {
   childrenAccessor = (node: CatalogCategoryModel) => node.children ?? [];
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.DataGetAll();
-    }, 500);
-    this.unsubscribe.push( this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.DataGetAll();
-      })
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.DataGetAll();
+        }),
     );
   }
   ngOnDestroy(): void {

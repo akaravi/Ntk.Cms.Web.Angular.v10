@@ -75,10 +75,6 @@ export class ContactCategoryTreeComponent implements OnInit, OnDestroy {
           this.DataGetAll();
         }),
     );
-
-    setTimeout(() => {
-      this.DataGetAll();
-    }, 500);
   }
   ngOnDestroy(): void {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());

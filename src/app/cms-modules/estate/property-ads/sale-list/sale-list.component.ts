@@ -99,9 +99,6 @@ export class EstatePropertyAdsSaleListComponent implements OnInit, OnDestroy {
         }),
     );
 
-    setTimeout(() => {
-      this.DataGetAll();
-    }, 500);
     this.DataGetCurrency();
     const transactionId = +localStorage.getItem("TransactionId");
     if (transactionId > 0) {

@@ -80,9 +80,6 @@ export class MemberPropertyDetailGroupTreeComponent
   childrenAccessor = (node: MemberPropertyDetailGroupModel) => [];
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.DataGetAll();
-    }, 500);
     this.unsubscribe.push(
       this.cmsStoreService
         .getState((state) => state.tokenInfoStore)

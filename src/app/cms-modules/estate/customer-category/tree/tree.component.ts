@@ -68,9 +68,6 @@ export class EstateCustomerCategoryTreeComponent implements OnInit, OnDestroy {
   childrenAccessor = (node: EstateCustomerCategoryModel) => [];
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.DataGetAll();
-    }, 500);
     this.unsubscribe.push(
       this.cmsStoreService
         .getState((state) => state.tokenInfoStore)
