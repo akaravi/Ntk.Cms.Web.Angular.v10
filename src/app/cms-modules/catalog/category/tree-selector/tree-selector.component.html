@@ -39,6 +39,8 @@
         matTreeNodePadding
         matTreeNodeToggle
         [cdkTreeNodeTypeaheadLabel]="node.title"
+        isExpandable
+        [isExpanded]="node.isExpanded ?? false"
       >
         <button
           matIconButton

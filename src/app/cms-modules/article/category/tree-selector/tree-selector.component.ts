@@ -119,6 +119,7 @@ export class ArticleCategoryTreeSelectorComponent implements OnInit, OnDestroy {
     if (!(model?.length > 0)) return false;
     let checkedAny = false;
     for (const item of model) {
+      let localCheckedAny = false;
       if (selectedItems?.includes(item.id)) {
         this.checklistSelection.select(item);
         checkedAny = true;
@@ -126,11 +127,13 @@ export class ArticleCategoryTreeSelectorComponent implements OnInit, OnDestroy {
         this.checklistSelection.deselect(item);
       }
       if (item.children?.length > 0) {
-        let localCheckedAny =
-          this.CompileDataByCheked(item.children, selectedItems) || checkedAny;
+        localCheckedAny = this.CompileDataByCheked(
+          item.children,
+          selectedItems,
+        );
         if (localCheckedAny) {
           checkedAny = true;
-          this.treeControl.expand(item);
+          item["isExpanded"] = true;
         }
       }
     }

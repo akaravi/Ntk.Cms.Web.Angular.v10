@@ -63,6 +63,8 @@
         matTreeNodePadding
         matTreeNodeToggle
         [cdkTreeNodeTypeaheadLabel]="node.titleFa"
+        isExpandable
+        [isExpanded]="node.isExpanded ?? false"
         [class.ntk-tree-selected]="
           dataModelSelect.id > 0 && dataModelSelect.id === node.id
         "

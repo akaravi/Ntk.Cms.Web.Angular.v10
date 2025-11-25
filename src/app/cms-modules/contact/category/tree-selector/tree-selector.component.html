@@ -36,6 +36,8 @@
         matTreeNodePadding
         matTreeNodeToggle
         [cdkTreeNodeTypeaheadLabel]="node.title"
+        isExpandable
+        [isExpanded]="node.isExpanded ?? false"
       >
         <button
           matIconButton
@@ -54,7 +56,7 @@
           class="checklist-leaf-node"
           [checked]="checklistSelection.isSelected(node)"
           (change)="checklistSelection.toggle(node)"
-          >{{ node.title }}</mat-checkbox
+          >{{ node.title }}:haaaaa{{ node.isExpanded }}</mat-checkbox
         >
       </mat-tree-node>
     </mat-tree>

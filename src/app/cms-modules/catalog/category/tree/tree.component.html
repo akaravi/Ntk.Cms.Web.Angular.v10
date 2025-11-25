@@ -83,6 +83,8 @@
         matTreeNodePadding
         matTreeNodeToggle
         [cdkTreeNodeTypeaheadLabel]="node.title"
+        isExpandable
+        [isExpanded]="node.isExpanded ?? false"
         [class.ntk-tree-selected]="
           dataModelSelect.id?.length > 0 && dataModelSelect.id === node.id
         "
@@ -122,6 +124,8 @@
         matTreeNodePadding
         matTreeNodeToggle
         [cdkTreeNodeTypeaheadLabel]="node.title"
+        isExpandable
+        [isExpanded]="node.isExpanded ?? false"
         [class.ntk-tree-selected]="
           dataModelSelect.id?.length > 0 && dataModelSelect.id === node.id
         "
