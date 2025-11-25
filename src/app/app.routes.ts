@@ -1,7 +1,14 @@
 import { Routes } from "@angular/router";
 import { CmsAuthGuard } from "./core/services/cmsAuthGuard.service";
 
+
+
 export const routes: Routes = [
+  {
+    path: "test",
+    loadChildren: () =>
+      import("./modules/test/test.module").then((m) => m.TestModule),
+  },
   {
     path: "error",
     loadChildren: () =>
@@ -23,5 +30,6 @@ export const routes: Routes = [
     loadChildren: () =>
       import("./modules/panel/panel.module").then((m) => m.PanelModule),
   },
+
   { path: "**", redirectTo: "error/404" },
 ];
