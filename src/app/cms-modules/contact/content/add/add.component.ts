@@ -34,6 +34,7 @@ export class ContactContentAddComponent
   extends AddBaseComponent<ContactContentService, ContactContentModel, string>
   implements OnInit
 {
+  linkCategoryId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -53,9 +54,11 @@ export class ContactContentAddComponent
       translate,
     );
     this.publicHelper.processService.cdr = this.cdr;
-
-    // if (data && data.linkCategoryId && data.linkCategoryId.length > 0)
-    //   this.dataModel.linkCategoryId = data.linkCategoryId;
+    this.dataContentCategoryModel = [];
+    if (data) {
+      this.linkCategoryId = data.linkCategoryId;
+      this.dataContentCategoryModel.push(this.linkCategoryId);
+    }
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
   }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
@@ -183,33 +186,6 @@ export class ContactContentAddComponent
         });
       return;
     }
-    // const entity = new ContactContentCategoryModel();
-    // entity.linkCategoryId = model;
-    // entity.linkContentId = this.dataModel.id;
-    // this.contentCategoryService.ServiceAdd(entity).subscribe({
-    //   next: (ret) => {
-    //     if (ret.isSuccess) {
-    //       this.translate
-    //         .get("MESSAGE.registration_in_this_group_was_successful")
-    //         .subscribe((str: string) => {
-    //           this.formInfo.submitResultMessage = str;
-    //         });
-    //       this.cmsToastrService.typeSuccessEdit();
-    //     } else {
-    //       this.translate
-    //         .get("ERRORMESSAGE.MESSAGE.typeError")
-    //         .subscribe((str: string) => {
-    //           this.formInfo.submitResultMessage = str;
-    //         });
-    //       this.formInfo.submitResultMessage = ret.errorMessage;
-    //       this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-    //     }
-    //   },
-    //   error: (er) => {
-    //     this.formInfo.submitButtonEnabled = true;
-    //     this.cmsToastrService.typeError(er);
-    //   },
-    // });
   }
   onActionCategorySelectDisChecked(model: string): void {
     if (!model || model.length == 0) {
@@ -220,46 +196,12 @@ export class ContactContentAddComponent
         });
       return;
     }
-    // const entity = new ContactContentCategoryModel();
-    // entity.linkCategoryId = model;
-    // entity.linkContentId = this.dataModel.id;
-    // this.contentCategoryService.ServiceDeleteEntity(entity).subscribe({
-    //   next: (ret) => {
-    //     if (ret.isSuccess) {
-    //       this.translate
-    //         .get("MESSAGE.registration_in_this_group_was_successful")
-    //         .subscribe((str: string) => {
-    //           this.formInfo.submitResultMessage = str;
-    //         });
-    //       this.cmsToastrService.typeSuccessEdit();
-    //     } else {
-    //       this.translate
-    //         .get("ERRORMESSAGE.MESSAGE.typeError")
-    //         .subscribe((str: string) => {
-    //           this.formInfo.submitResultMessage = str;
-    //         });
-    //       this.formInfo.submitResultMessage = ret.errorMessage;
-    //       this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-    //     }
-    //   },
-    //   error: (er) => {
-    //     this.formInfo.submitButtonEnabled = true;
-    //     this.cmsToastrService.typeError(er);
-    //   },
-    // });
   }
   onFormSubmit(): void {
     if (!this.formGroup.valid) {
       return;
     }
-    // if (
-    //   !this.dataModel.linkCategoryId ||
-    //   this.dataModel.linkCategoryId.length == 0
-    // ) {
-    //   const message = "دست بندی   مشخص نیست";
-    //   this.cmsToastrService.typeErrorSelected(message);
-    //   return;
-    // }
+
     this.formInfo.submitButtonEnabled = false;
 
     this.DataAddContent();
@@ -277,6 +219,5 @@ export class ContactContentAddComponent
         });
       return;
     }
-    //this.dataModel.linkCategoryId = model.id;
   }
 }

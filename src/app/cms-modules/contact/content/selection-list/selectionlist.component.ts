@@ -125,7 +125,6 @@ export class ContactContentSelectionlistComponent implements OnInit {
   }
 
   onActionButtonReload(): void {
-    // this.dataModelSelect = new ContactContentModel();
     this.DataGetAll();
   }
 }
