@@ -75,6 +75,7 @@ import {
   CoreUserGroupService,
   CoreUserService,
   MemberUserService,
+  SmsActionService,
   SmsMainApiNumberService,
   SmsMainApiPathService,
 } from "ntk-cms-api";
@@ -201,6 +202,7 @@ import {
 import { OverlayService } from "./overlay/overlay.service";
 import { PasswordStrengthComponent } from "./password-strength/password-strength.component";
 import { ProgressSpinnerComponent } from "./progress-spinner/progress-spinner.component";
+import { CmsFormResultMessageComponent } from "./cms-form-result-message/cms-form-result-message.component";
 
 @NgModule({
   declarations: [
@@ -270,6 +272,7 @@ import { ProgressSpinnerComponent } from "./progress-spinner/progress-spinner.co
     CmsGuideNoticeComponent,
     CmsFormBuilderPropertiesComponent,
     CmsFormValidationComponent,
+    CmsFormResultMessageComponent,
     CmsBankpaymentGridComponent,
     CmsBankpaymentTransactionInfoComponent,
     CmsFilesSelectorComponent,
@@ -358,6 +361,7 @@ import { ProgressSpinnerComponent } from "./progress-spinner/progress-spinner.co
     CoreModuleDataCommentService,
     SmsMainApiPathService,
     SmsMainApiNumberService,
+    SmsActionService,
   ],
 
   imports: [
@@ -526,6 +530,7 @@ import { ProgressSpinnerComponent } from "./progress-spinner/progress-spinner.co
     CmsGuideNoticeComponent,
     CmsFormBuilderPropertiesComponent,
     CmsFormValidationComponent,
+    CmsFormResultMessageComponent,
     CmsBankpaymentGridComponent,
     CmsBankpaymentTransactionInfoComponent,
     CmsFilesSelectorComponent,

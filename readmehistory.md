@@ -1,5 +1,52 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-11-26 15:05:17
+
+### تکمیل ترجمه چندزبانه Info و ORDER_CALCULATE
+
+**تغییرات:**
+
+- افزودن کلیدهای `TITLE.Info` و `TITLE.Info_about_the_message` و ترجمه آن‌ها در تمامی زبان‌های پروژه
+- تعریف ترجمه‌ی `ACTION.ORDER_CALCULATE` برای دکمه محاسبه سفارش در صفحه ارسال پیام
+
+**فایل‌های تغییر یافته:**
+
+- `src/assets/i18n/ar.json`
+- `src/assets/i18n/de.json`
+- `src/assets/i18n/en.json`
+- `src/assets/i18n/es.json`
+- `src/assets/i18n/fa.json`
+- `src/assets/i18n/fr.json`
+- `src/assets/i18n/ja.json`
+- `src/assets/i18n/tr.json`
+- `src/assets/i18n/zh.json`
+- `readmehistory.md`
+
+---
+
+## 2025-11-26 11:52:18
+
+### افزودن ترجمه چندزبانه برای Message Placeholders
+
+**تغییرات:**
+
+- تعریف کلیدهای `TITLE.Message_Placeholders` و توضیحات مربوط به متغیرهای Title$, FirstName$, LastName$ و تاریخ/زمان جاری
+- تکمیل ترجمه این کلیدها در تمامی فایل‌های چندزبانه موجود در پروژه
+
+**فایل‌های تغییر یافته:**
+
+- `src/assets/i18n/ar.json`
+- `src/assets/i18n/de.json`
+- `src/assets/i18n/en.json`
+- `src/assets/i18n/es.json`
+- `src/assets/i18n/fa.json`
+- `src/assets/i18n/fr.json`
+- `src/assets/i18n/ja.json`
+- `src/assets/i18n/tr.json`
+- `src/assets/i18n/zh.json`
+
+---
+
 ## 2025-11-25 17:07:46
 
 ### تنظیم printWidth برای افزونه Prettier

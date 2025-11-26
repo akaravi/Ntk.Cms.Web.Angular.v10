@@ -1,0 +1,8 @@
+<div
+  *ngIf="formInfo.submitResultMessage?.length > 0"
+  class="alert alert-danger"
+  role="alert"
+>
+  <strong>{{ "MESSAGE.Error" | translate }}:</strong>
+  {{ formInfo.submitResultMessage }}
+</div>

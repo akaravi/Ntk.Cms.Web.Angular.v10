@@ -1,12 +1,4 @@
-<div
-  *ngIf="formInfo.submitResultMessage?.length > 0"
-  class="alert alert-danger"
-  role="alert"
->
-  <strong>{{ "MESSAGE.Error" | translate }}:</strong>
-  {{ formInfo.submitResultMessage }}
-</div>
-<div class="divider mt-3 mb-3"></div>
+
 <ul class="icon-list ps-3">
   <li *ngFor="let item of formInfo.validationList">
     @switch (item.status) {

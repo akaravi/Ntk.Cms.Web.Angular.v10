@@ -15,6 +15,8 @@ import {
   CoreModuleSiteUserCreditService,
   ErrorExceptionResult,
   FormInfoModel,
+  ManageUserAccessDataTypesEnum,
+  MessagePlaceholderModel,
   SmsActionService,
   SmsApiSendMessageDtoModel,
   SmsApiSendMessageOrderCalculateDtoModel,
@@ -157,7 +159,7 @@ export class SmsActionSendMessageComponent implements OnInit {
     new ErrorExceptionResult<SmsApiSendOrderCalculateResultModel>();
   dataModelCreditResult: ErrorExceptionResult<CoreModuleSiteUserCreditModel> =
     new ErrorExceptionResult<CoreModuleSiteUserCreditModel>();
-
+  dataModelMessagePlaceholdersResult: MessagePlaceholderModel[] = [];
   dataModelApiPathPriceServiceEstimateResult: ErrorExceptionResult<SmsMainApiPathPriceServiceEstimateModel> =
     new ErrorExceptionResult<SmsMainApiPathPriceServiceEstimateModel>();
 
@@ -204,8 +206,9 @@ export class SmsActionSendMessageComponent implements OnInit {
     if (this.senderNumber && this.senderNumber?.length > 0)
       this.dataModel.linkFromNumber = this.senderNumber;
     this.DataCheckCredit();
+    this.DataMessagePlaceholders();
   }
-
+  ManageUserAccessDataTypesEnum = ManageUserAccessDataTypesEnum;
   onActionScheduleSendNow() {
     const now = new Date();
     this.dataModel.scheduleSendStart = now;
@@ -354,7 +357,7 @@ export class SmsActionSendMessageComponent implements OnInit {
       if (model.sendMessageAddTextFirst?.length > 0) {
         this.formInfo.validationList.push({
           key: "sendMessageAddTextFirst",
-          title: "در ابتدای پیام اضافه شود",
+          title: "در ابتدای پیام اضافه شده",
           status: ValidationStatusEnum.info,
           description: model.sendMessageAddTextFirst,
           linkSrc: "",
@@ -363,7 +366,7 @@ export class SmsActionSendMessageComponent implements OnInit {
       if (model.sendMessageAddTextEnd?.length > 0) {
         this.formInfo.validationList.push({
           key: "sendMessageAddTextEnd",
-          title: "در انتهای پیام اضافه شود",
+          title: "در انتهای پیام اضافه شده",
           status: ValidationStatusEnum.info,
           description: model.sendMessageAddTextEnd,
           linkSrc: "",
@@ -380,10 +383,16 @@ export class SmsActionSendMessageComponent implements OnInit {
       this.formInfo.validationList.find(
         (x) => x.key === "linkApiPathId",
       ).status = ValidationStatusEnum.Success;
+      this.formInfo.validationList.find(
+        (x) => x.key === "linkApiPathId",
+      ).description = model.title;
     } else {
       this.formInfo.validationList.find(
         (x) => x.key === "linkApiPathId",
       ).status = ValidationStatusEnum.Error;
+      this.formInfo.validationList.find(
+        (x) => x.key === "linkApiPathId",
+      ).description = "";
     }
     this.dataModelApiPathPriceServiceEstimateResult =
       new ErrorExceptionResult<SmsMainApiPathPriceServiceEstimateModel>();
@@ -447,15 +456,21 @@ export class SmsActionSendMessageComponent implements OnInit {
     }
     this.cdr.detectChanges();
   }
-  onActionValidationStatusFromNumbersChange() {
+  onActionValidationStatusFromNumbersChange(model: SmsMainApiNumberModel) {
     if (this.dataModel.linkFromNumber?.length > 0) {
       this.formInfo.validationList.find(
         (x) => x.key === "linkFromNumber",
       ).status = ValidationStatusEnum.Success;
+      this.formInfo.validationList.find(
+        (x) => x.key === "linkFromNumber",
+      ).description = model.numberChar;
     } else {
       this.formInfo.validationList.find(
         (x) => x.key === "linkFromNumber",
       ).status = ValidationStatusEnum.Error;
+      this.formInfo.validationList.find(
+        (x) => x.key === "linkFromNumber",
+      ).description = "";
     }
     this.cdr.detectChanges();
   }
@@ -554,7 +569,7 @@ export class SmsActionSendMessageComponent implements OnInit {
     } else {
       this.dataModel.linkFromNumber = null;
     }
-    this.onActionValidationStatusFromNumbersChange();
+    this.onActionValidationStatusFromNumbersChange(model);
   }
 
   dataMessageCategoryModel: SmsMainMessageCategoryModel =
@@ -576,6 +591,16 @@ export class SmsActionSendMessageComponent implements OnInit {
     }
   }
 
+  onActionMessageContentAddPlaceholder(item: string) {
+    if (item?.length > 0) {
+      if (this.dataModel.message?.length > 0) {
+        this.dataModel.message = this.dataModel.message + " " + item;
+      } else {
+        this.dataModel.message = item;
+      }
+    }
+    this.onActionValidationStatusMessageBodyChange();
+  }
   onActionMessageContentAdd() {
     if (this.dataMessageContentModel?.messageBody?.length > 0) {
       if (this.dataModel.message?.length > 0)
@@ -583,8 +608,7 @@ export class SmsActionSendMessageComponent implements OnInit {
           this.dataModel.message +
           " " +
           this.dataMessageContentModel.messageBody;
-    } else {
-      this.dataModel.message = this.dataMessageContentModel.messageBody;
+      else this.dataModel.message = this.dataMessageContentModel.messageBody;
     }
     this.onActionValidationStatusMessageBodyChange();
   }
@@ -619,7 +643,6 @@ export class SmsActionSendMessageComponent implements OnInit {
         );
       });
 
-    this.formInfo.submitResultMessage = "";
     this.formInfo.submitResultMessage = "";
 
     this.smsActionService.ServiceSendMessage(this.dataModel).subscribe({
@@ -682,8 +705,6 @@ export class SmsActionSendMessageComponent implements OnInit {
           this.constructorInfoAreaId,
         );
       });
-
-    this.formInfo.submitResultMessage = "";
     this.formInfo.submitResultMessage = "";
     this.dataModelOrderCalculate = this
       .dataModel as unknown as SmsApiSendMessageOrderCalculateDtoModel;
@@ -746,6 +767,30 @@ export class SmsActionSendMessageComponent implements OnInit {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.onActionValidationStatusCheckCredit();
+        this.publicHelper.processService.processStop(pName);
+      },
+      error: (er) => {
+        this.cmsToastrService.typeError(er);
+
+        this.publicHelper.processService.processStop(pName, false);
+      },
+    });
+  }
+  DataMessagePlaceholders(): void {
+    const pName = this.constructor.name + "DataMessagePlaceholders";
+    this.translate
+      .get("MESSAGE.get_information_list")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
+
+    this.smsActionService.ServiceGetMessagePlaceholders().subscribe({
+      next: (ret) => {
+        this.dataModelMessagePlaceholdersResult = ret;
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {

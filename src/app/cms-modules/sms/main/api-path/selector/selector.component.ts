@@ -15,6 +15,7 @@ import {
   FilterDataModel,
   FilterDataModelSearchTypesEnum,
   FilterModel,
+  ManageUserAccessDataTypesEnum,
   RecordStatusEnum,
   SmsMainApiPathModel,
   SmsMainApiPathService,
@@ -63,6 +64,7 @@ export class SmsMainApiPathSelectorComponent implements OnInit {
   @Input() optionSelectForSendMessage = false;
   @Input() optionPlaceholder = "";
   @Input() optionLabel = "";
+  @Input() optionAccessDataType: ManageUserAccessDataTypesEnum;
   @Output() optionChange = new EventEmitter<SmsMainApiPathModel>();
   @Input() optionReload = () => this.onActionButtonReload();
   @Input() set optionSelectForce(x: string | SmsMainApiPathModel) {
@@ -125,19 +127,21 @@ export class SmsMainApiPathSelectorComponent implements OnInit {
       filter.searchType = FilterDataModelSearchTypesEnum.Equal;
       filterModel.filters.push(filter);
     }
-   const pName = this.constructor.name + "main";
-   this.translate
-     .get("MESSAGE.get_information_list")
-     .subscribe((str: string) => {
-       this.publicHelper.processService.processStart(
-         pName,
-         str,
-         this.constructorInfoAreaId,
-       );
-     });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.get_information_list")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     /*filter Sort*/
     filterModel.sortColumn = "priority";
     filterModel.sortType = SortTypeEnum.Ascending;
+    if (this.optionAccessDataType)
+      this.categoryService.setAccessDataType(this.optionAccessDataType);
     return await firstValueFrom(
       this.categoryService.ServiceGetAll(filterModel),
     ).then((response) => {
@@ -152,7 +156,7 @@ export class SmsMainApiPathSelectorComponent implements OnInit {
       ) {
         this.optionSelectFirstItem = false;
         //setTimeout(() => {
-          this.formControl.setValue(this.dataModelResult.listItems[0]);
+        this.formControl.setValue(this.dataModelResult.listItems[0]);
         //}, 1000);
         this.onActionSelect(this.dataModelResult.listItems[0]);
       }

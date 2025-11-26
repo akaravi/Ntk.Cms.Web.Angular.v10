@@ -8,20 +8,9 @@
     <p>
       {{ "TITLE.Be_Careful_When_Entering_Information" | translate }}
     </p>
-
-    <!-- Form Validation Errors -->
-    <app-cms-form-validation [formInfo]="formInfo"></app-cms-form-validation>
-    <div class="divider mt-3 mb-3"></div>
-    @if (
-      formInfo.submitButtonEnabled &&
-      !this.publicHelper.processService.process.inRunAll
-    ) {
-      <mat-icon
-        (click)="onActionOrderCalculate()"
-        [title]="'ACTION.ORDER_CALCULATE' | translate"
-        >calculate</mat-icon
-      >
-    }
+    <app-cms-form-result-message
+      [formInfo]="formInfo"
+    ></app-cms-form-result-message>
     <!--Content-->
     <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
       <div class="ntk-cms-html-card-body ntk-allow-text-selection">
@@ -32,6 +21,55 @@
               <mat-expansion-panel
                 [expanded]="step === 0"
                 (opened)="setStep(0)"
+                hideToggle
+              >
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <mat-icon>info</mat-icon>
+                    {{ "TITLE.Info" | translate }}
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    {{ "TITLE.Info_about_the_message" | translate }}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                @if (
+                  formInfo.submitButtonEnabled &&
+                  !this.publicHelper.processService.process.inRunAll
+                ) {
+                  <mat-icon
+                    (click)="onActionOrderCalculate()"
+                    [title]="'ACTION.ORDER_CALCULATE' | translate"
+                    >calculate</mat-icon
+                  >
+                }
+
+                <!-- Form Validation Errors -->
+                <app-cms-form-validation
+                  [formInfo]="formInfo"
+                ></app-cms-form-validation>
+                <div class="divider mt-3 mb-3"></div>
+
+                <mat-action-row>
+                  <button
+                    type="button"
+                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+                    (click)="onActionOrderCalculate()"
+                  >
+                    {{ "ACTION.ORDER_CALCULATE" | translate }}
+                  </button>
+                  <button
+                    type="button"
+                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
+                    (click)="nextStep()"
+                  >
+                    {{ "ACTION.NEXT" | translate }}
+                  </button>
+                </mat-action-row>
+              </mat-expansion-panel>
+              <mat-expansion-panel
+                [expanded]="step === 1"
+                (opened)="setStep(1)"
                 hideToggle
               >
                 <mat-expansion-panel-header>
@@ -53,6 +91,8 @@
                   [optionPlaceholder]="'TITLE.Direction' | translate"
                   [optionSelectFirstItem]="true"
                   [optionSelectForSendMessage]="true"
+                  ,
+                  [optionAccessDataType]="ManageUserAccessDataTypesEnum.Action"
                 >
                 </app-sms-apipath-selector>
                 <app-sms-api-number-selector
@@ -64,6 +104,7 @@
                   [optionSelectFirstItem]="true"
                   [optionSelectForSendMessage]="true"
                   [optionSelectFirstItemOnChangeApi]="true"
+                  [optionAccessDataType]="ManageUserAccessDataTypesEnum.Action"
                 >
                 </app-sms-api-number-selector>
                 <mat-action-row>
@@ -78,8 +119,51 @@
               </mat-expansion-panel>
 
               <mat-expansion-panel
-                [expanded]="step === 1"
-                (opened)="setStep(1)"
+                [expanded]="step === 2"
+                (opened)="setStep(2)"
+                hideToggle
+              >
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <mat-icon>account_circle</mat-icon>
+                    {{ "TITLE.Message_Placeholders" | translate }}
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    {{ "TITLE.Message_Placeholders" | translate }}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div *ngFor="let item of dataModelMessagePlaceholdersResult">
+                  ({{ item.charValue }}) :
+                  {{
+                    "TITLE.Message_Placeholders_Description_" +
+                      item.charValue.replace("$", "") | translate
+                  }}
+                  <button
+                    type="button"
+                    (click)="
+                      onActionMessageContentAddPlaceholder(item.charValue)
+                    "
+                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+                  >
+                    <i class="ft-x"></i>
+                    {{ "TITLE.Added_to_the_text" | translate }}
+                  </button>
+                </div>
+
+                <mat-action-row>
+                  <button
+                    type="button"
+                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
+                    (click)="nextStep()"
+                  >
+                    {{ "ACTION.NEXT" | translate }}
+                  </button>
+                </mat-action-row>
+              </mat-expansion-panel>
+
+              <mat-expansion-panel
+                [expanded]="step === 3"
+                (opened)="setStep(3)"
                 hideToggle
               >
                 <mat-expansion-panel-header>
@@ -151,8 +235,8 @@
               </mat-expansion-panel>
 
               <mat-expansion-panel
-                [expanded]="step === 2"
-                (opened)="setStep(2)"
+                [expanded]="step === 4"
+                (opened)="setStep(4)"
                 hideToggle
               >
                 <mat-expansion-panel-header>
@@ -193,8 +277,8 @@
               </mat-expansion-panel>
 
               <mat-expansion-panel
-                [expanded]="step === 3"
-                (opened)="setStep(3)"
+                [expanded]="step === 5"
+                (opened)="setStep(5)"
                 hideToggle
               >
                 <mat-expansion-panel-header>

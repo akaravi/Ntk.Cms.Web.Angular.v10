@@ -15,6 +15,7 @@ import {
   FilterDataModel,
   FilterDataModelSearchTypesEnum,
   FilterModel,
+  ManageUserAccessDataTypesEnum,
   RecordStatusEnum,
   SmsMainApiNumberModel,
   SmsMainApiNumberService,
@@ -62,6 +63,7 @@ export class SmsMainApiNumberSelectorComponent implements OnInit {
   @Input() optionPlaceholder = "";
   @Input() optionLabel = "";
   @Input() optionSelectForSendMessage = false;
+  @Input() optionAccessDataType: ManageUserAccessDataTypesEnum;
   @Output() optionChange = new EventEmitter<SmsMainApiNumberModel>();
   @Input() optionReload = () => this.onActionButtonReload();
   @Input() set optionSelectForce(x: string | SmsMainApiNumberModel) {
@@ -138,6 +140,8 @@ export class SmsMainApiNumberSelectorComponent implements OnInit {
       filter.searchType = FilterDataModelSearchTypesEnum.Equal;
       filterModel.filters.push(filter);
     }
+    if (this.optionAccessDataType)
+      this.categoryService.setAccessDataType(this.optionAccessDataType);
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.get_information_list")
@@ -148,6 +152,8 @@ export class SmsMainApiNumberSelectorComponent implements OnInit {
           this.constructorInfoAreaId,
         );
       });
+    if (this.optionAccessDataType)
+      this.categoryService.setAccessDataType(this.optionAccessDataType);
     return await firstValueFrom(
       this.categoryService.ServiceGetAll(filterModel),
     ).then((response) => {
