@@ -255,8 +255,18 @@
                   (optionSelectDisChecked)="
                     onActionContactCategorySelectDisChecked($event)
                   "
+                  (optionNodeClicked)="optionrLinkCategoryId = $event"
                 >
                 </app-cms-contact-category-tree-selector>
+                <app-cms-contact-content-selection-list
+                  [optionrLinkCategoryId]="optionrLinkCategoryId"
+                  (optionSelectAdded)="
+                    onActionContactContentSelectChecked($event)
+                  "
+                  (optionSelectRemoved)="
+                    onActionContactContentSelectDisChecked($event)
+                  "
+                ></app-cms-contact-content-selection-list>
                 <mat-action-row>
                   <button
                     type="button"
@@ -439,8 +449,8 @@
                 </mat-action-row>
               </mat-expansion-panel>
               <mat-expansion-panel
-                [expanded]="step === 4"
-                (opened)="setStep(4)"
+                [expanded]="step === 6"
+                (opened)="setStep(6)"
                 hideToggle
               >
                 <mat-expansion-panel-header>
@@ -495,8 +505,8 @@
                 </mat-action-row>
               </mat-expansion-panel>
               <mat-expansion-panel
-                [expanded]="step === 5"
-                (opened)="setStep(5)"
+                [expanded]="step === 7"
+                (opened)="setStep(7)"
                 hideToggle
               >
                 <mat-expansion-panel-header>

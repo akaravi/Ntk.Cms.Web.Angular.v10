@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { CronOptionModel, TranslateUiService } from "ngx-ntk-cron-editor";
 import {
+  ContactContentModel,
   CoreEnumService,
   CoreModuleSiteUserCreditModel,
   CoreModuleSiteUserCreditService,
@@ -800,6 +801,8 @@ export class SmsActionSendMessageComponent implements OnInit {
       },
     });
   }
+  optionrLinkCategoryId:string = "";
+
   onActionContactCategorySelectChecked(model: string): void {
     if (!model || model.length <= 0) {
       this.translate
@@ -844,6 +847,59 @@ export class SmsActionSendMessageComponent implements OnInit {
     this.publicHelper.listRemoveIfExist(
       this.dataModel.toContactCategories,
       model,
+    );
+    if (
+      this.dataModel.toContactCategories?.length > 0 ||
+      this.dataModel.toContactContents?.length > 0
+    ) {
+      this.dataModel.toNumbers = "";
+    }
+    this.onActionValidationStatusToNumbersChange();
+  }
+  onActionContactContentSelectChecked(model: ContactContentModel): void {
+    if (!model || model.id?.length <= 0) {
+      this.translate
+        .get("MESSAGE.category_of_information_is_not_clear")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      this.onActionValidationStatusToNumbersChange();
+      return;
+    }
+    if (!this.dataModel.toContactContents)
+      this.dataModel.toContactContents = [];
+    if (!this.dataModel.toContactContents)
+      this.dataModel.toContactContents = [];
+    this.publicHelper.listAddIfNotExist(
+      this.dataModel.toContactContents,
+      model.id,
+      0,
+    );
+    if (
+      this.dataModel.toContactCategories?.length > 0 ||
+      this.dataModel.toContactContents?.length > 0
+    ) {
+      this.dataModel.toNumbers = "";
+    }
+    this.onActionValidationStatusToNumbersChange();
+  }
+  onActionContactContentSelectDisChecked(model: ContactContentModel): void {
+    if (!model || model.id?.length <= 0) {
+      this.translate
+        .get("MESSAGE.category_of_information_is_not_clear")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      this.onActionValidationStatusToNumbersChange();
+      return;
+    }
+    if (!this.dataModel.toContactCategories)
+      this.dataModel.toContactCategories = [];
+    if (!this.dataModel.toContactContents)
+      this.dataModel.toContactContents = [];
+    this.publicHelper.listRemoveIfExist(
+      this.dataModel.toContactContents,
+      model.id,
     );
     if (
       this.dataModel.toContactCategories?.length > 0 ||

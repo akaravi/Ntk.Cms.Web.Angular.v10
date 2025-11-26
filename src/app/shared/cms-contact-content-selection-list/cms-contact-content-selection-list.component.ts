@@ -13,6 +13,7 @@ import {
   ContactContentService,
   CoreEnumService,
   ErrorExceptionResult,
+  FilterDataModel,
   FilterModel,
 } from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -44,10 +45,14 @@ export class CmsContactContentSelectionListComponent implements OnInit {
 
   formControl = new FormControl();
   fieldsStatus: Map<string, boolean> = new Map<string, boolean>();
-
+  linkCategoryId = "";
   @Input() optionDisabled = false;
   @Input() optionSelectFirstItem = false;
   @Input() optionPlaceholder = "";
+  @Input() set optionrLinkCategoryId(id: string) {
+    this.linkCategoryId = id;
+    this.DataGetAll();
+  }
   @Output() optionChange = new EventEmitter<ContactContentModel[]>();
   @Output() optionSelectAdded = new EventEmitter();
   @Output() optionSelectRemoved = new EventEmitter();
@@ -61,9 +66,9 @@ export class CmsContactContentSelectionListComponent implements OnInit {
   }
 
   DataGetAll(): void {
-    const filterModel = new FilterModel();
-    filterModel.rowPerPage = 50;
-    filterModel.accessLoad = true;
+    const filteModelContent = new FilterModel();
+    filteModelContent.rowPerPage = 50;
+    filteModelContent.accessLoad = true;
 
     const pName = this.constructor.name + "main";
     this.translate
@@ -76,6 +81,16 @@ export class CmsContactContentSelectionListComponent implements OnInit {
         );
       });
 
+    /*filter CLone*/
+    const filterModel = JSON.parse(JSON.stringify(filteModelContent));
+    /*filter CLone*/
+    if (this.linkCategoryId?.length > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "ContentCategores";
+      filter.propertyAnyName = "LinkCategoryId";
+      filter.value = this.linkCategoryId;
+      filterModel.filters.push(filter);
+    }
     this.categoryService.ServiceGetAll(filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {

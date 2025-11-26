@@ -48,6 +48,7 @@ export class CmsContactCategoryTreeSelectorComponent
     private cmsStoreService: CmsStoreService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
+
     this.checklistSelection.changed.subscribe((x) => {
       if (!this.runComplate) {
         return;
@@ -68,6 +69,7 @@ export class CmsContactCategoryTreeSelectorComponent
         });
       }
     });
+    // Add a method to handle click on node and emit the value via optionNodeClicked
   }
   @Input()
   set optionModel(model: string[]) {
@@ -81,6 +83,7 @@ export class CmsContactCategoryTreeSelectorComponent
 
   dataSource = new MatTreeNestedDataSource<ContactCategoryModel>();
   runComplate = false;
+  @Output() optionNodeClicked = new EventEmitter<string>();
   @Output() optionSelectChecked = new EventEmitter<string>();
   @Output() optionSelectDisChecked = new EventEmitter<string>();
   @Output() optionModelChange = new EventEmitter<string[]>();
@@ -196,5 +199,8 @@ export class CmsContactCategoryTreeSelectorComponent
     this.checklistSelection.isSelected(node)
       ? this.checklistSelection.select(...descendants)
       : this.checklistSelection.deselect(...descendants);
+  }
+  onNodeClicked(node: ContactCategoryModel): void {
+    this.optionNodeClicked.emit(node.id);
   }
 }

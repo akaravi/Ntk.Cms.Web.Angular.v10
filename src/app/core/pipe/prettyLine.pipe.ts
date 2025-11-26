@@ -9,6 +9,7 @@ export class PrettyLinePipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) {}
 
   transform(html) {
-    return html.replace(/(?:\r\n|\r|\n)/g, "<br>");
+    if (html?.length > 0) return html.replace(/(?:\r\n|\r|\n)/g, "<br>");
+    return html;
   }
 }

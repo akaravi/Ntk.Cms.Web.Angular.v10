@@ -31,8 +31,9 @@
         <div class="td large-width">
           <b>{{ fieldsInfo["message"]?.fieldTitle }} </b>:
         </div>
-        <div class="td large-width">
-          {{ dataModelResult?.item?.message | prettyLine }}
+        <div class="td large-width" [innerHTML]="dataModelResult?.item?.message | prettyLine">
+
+
         </div>
         <div style="clear: both"></div>
       </div>

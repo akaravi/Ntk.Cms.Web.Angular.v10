@@ -250,14 +250,15 @@
               <tr>
                 <td></td>
                 <td>
-                  {{ fieldsInfo["credit"]?.fieldTitle }} : {{ row.credit|number }}
+                  {{ fieldsInfo["credit"]?.fieldTitle }} :
+                  {{ row.credit | number }}
                 </td>
               </tr>
               <tr>
                 <td></td>
                 <td>
                   {{ fieldsInfo["giveBackCredit"]?.fieldTitle }} :
-                  {{ row.giveBackCredit|number }}
+                  {{ row.giveBackCredit | number }}
                 </td>
               </tr>
               <tr *ngIf="row.slaLink">
@@ -281,6 +282,10 @@
               </tr> -->
             </table>
           </div>
+          <div
+            class="col-sm-12 col-md-6"
+            [innerHTML]="row.message | prettyLine"
+          ></div>
         </mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="tabledisplayedColumns"></mat-header-row>

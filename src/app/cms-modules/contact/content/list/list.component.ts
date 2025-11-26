@@ -71,6 +71,7 @@ export class ContactContentListComponent
       const filter = new FilterDataModel();
       filter.propertyName = "ContentCategores";
       filter.propertyAnyName = "LinkCategoryId";
+      filter.value = this.requestLinkCategoryId;
       this.filteModelContent.filters.push(filter);
     }
   }
