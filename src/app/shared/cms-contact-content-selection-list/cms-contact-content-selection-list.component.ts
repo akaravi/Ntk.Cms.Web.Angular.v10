@@ -9,6 +9,7 @@ import {
 import { FormControl } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
 import {
+  ClauseTypeEnum,
   ContactContentModel,
   ContactContentService,
   CoreEnumService,
@@ -89,6 +90,13 @@ export class CmsContactContentSelectionListComponent implements OnInit {
       filter.propertyName = "ContentCategores";
       filter.propertyAnyName = "LinkCategoryId";
       filter.value = this.linkCategoryId;
+      filterModel.filters.push(filter);
+    }
+    if (this.dataIdsSelect?.length > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "Id";
+      filter.values = this.dataIdsSelect;
+      filter.clauseType = ClauseTypeEnum.Or;
       filterModel.filters.push(filter);
     }
     this.categoryService.ServiceGetAll(filterModel).subscribe({

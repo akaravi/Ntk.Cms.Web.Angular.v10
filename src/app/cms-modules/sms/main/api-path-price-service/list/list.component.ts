@@ -144,6 +144,7 @@ export class SmsMainApiPathPriceServiceListComponent
         }),
     );
     this.getPrivateConfig();
+    this.getSmsMessageTypeEnum();
   }
   ngOnDestroy(): void {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());

@@ -54,7 +54,6 @@ export class PublicHelper {
   ) {
     this.fileManagerTreeConfig = new TreeModel(this.treefileConfig);
     this.appClientVersion = environment.appVersion;
-
   }
   get isMobile() {
     if (window.innerWidth < environment.cmsViewConfig.mobileWindowInnerWidth)
@@ -318,6 +317,9 @@ export class PublicHelper {
       });
     }
     return retOut;
+  }
+  getKeyboardEventF9(): boolean {
+    return localStorage.getItem(KeyboardEventF9)?.length > 0 ? true : false;
   }
   toLowerCaseFirstChar(str: string) {
     if (!str || str.length == 0) return "";

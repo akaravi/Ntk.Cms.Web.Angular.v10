@@ -61,7 +61,7 @@ export class SmsMessagePaginationModel {
     if (this.messageLength > 0) {
       const index =
         this._serverItemInUse?.endUserMessageLengthPaginationList?.findIndex(
-          (x) => this.messageLength <= x,
+          (x) =>x>= this.messageLength ,
         ) ?? -1;
 
       if (index >= 0) {

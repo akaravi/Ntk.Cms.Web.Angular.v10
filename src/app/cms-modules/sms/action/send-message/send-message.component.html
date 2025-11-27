@@ -737,38 +737,41 @@
           </div>
         </div>
       </div>
-      <app-cms-json-list
-        [dataModel]="dataModelMessagePagination"
-        [optionMethod]="1"
-        *ngIf="this.tokenHelper.isAdminSite"
-      >
-      </app-cms-json-list>
-      <app-cms-json-list
-        [dataModel]="dataModelResult.item"
-        [optionMethod]="1"
-        *ngIf="dataModelResult?.item && this.tokenHelper.isAdminSite"
-      >
-      </app-cms-json-list>
-      <app-cms-json-list
-        [dataModel]="dataModelOrderCalculateResult.item"
-        [optionMethod]="1"
-        *ngIf="
-          dataModelOrderCalculateResult?.item && this.tokenHelper.isAdminSite
-        "
-      >
-      </app-cms-json-list>
+      @if (this.publicHelper.getKeyboardEventF9()) {
+        @if (dataModelResult?.item && this.tokenHelper.isAdminSite) {
+          <b>نتیجه ارسال</b>
+          <app-cms-json-list
+            [dataModel]="dataModelResult.item"
+            [optionMethod]="1"
+          >
+          </app-cms-json-list>
+        }
 
-      <hr />
-      <app-cms-json-list
-        [dataModel]="dataModelApiPathPriceServiceEstimateResult.listItems"
-        [optionMethod]="2"
-        [optionTitleLocation]="'top'"
-        *ngIf="
-          dataModelApiPathPriceServiceEstimateResult?.listItems &&
-          this.tokenHelper.isAdminSite
-        "
-      >
-      </app-cms-json-list>
+        <b>محاسبه متن و صفحه بندی </b>
+        <app-cms-json-list
+          [dataModel]="dataModelMessagePagination"
+          [optionMethod]="1"
+        >
+        </app-cms-json-list>
+        @if (dataModelOrderCalculateResult?.item) {
+          <b>محاسبه سفارش</b>
+          <app-cms-json-list
+            [dataModel]="dataModelOrderCalculateResult.item"
+            [optionMethod]="1"
+          >
+          </app-cms-json-list>
+        }
+        <hr />
+        @if (dataModelApiPathPriceServiceEstimateResult?.listItems) {
+          <b>پیش بینی قیمت مسیر</b>
+          <app-cms-json-list
+            [dataModel]="dataModelApiPathPriceServiceEstimateResult.listItems"
+            [optionMethod]="2"
+            [optionTitleLocation]="'top'"
+          >
+          </app-cms-json-list>
+        }
+      }
     </form>
     <!--Content-->
   </div>

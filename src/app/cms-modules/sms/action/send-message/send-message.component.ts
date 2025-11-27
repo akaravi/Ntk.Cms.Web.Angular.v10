@@ -70,6 +70,7 @@ export class SmsActionSendMessageComponent implements OnInit {
   ) {
     this.publicHelper.processService.cdr = this.cdr;
 
+
     this.requestLinkApiPathId =
       this.activatedRoute.snapshot.paramMap.get("LinkApiPathId");
     if (this.requestLinkApiPathId?.length > 0) {

@@ -13,7 +13,7 @@ export class CmsJsonListComponent implements OnInit {
   @Input() optionIsChild = false;
   @Input() optionMethod = 1;
   @Input() optionTitleLocation: "top" | "side" = "side";
-
+  @Input() optionDisplayTitle: string[] = [];
   @Input() optionFields: Map<string, string>;
   @Input() optionViewHead: boolean = true;
   @Input() optionViewChild: boolean = true;

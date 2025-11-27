@@ -5,11 +5,13 @@
     @if (optionMethod === 1 && dataModelPrivate) {
       <div class="table">
         @if (optionTitleLocation === "side") {
-          <div class="th" *ngIf="optionViewHead">
-            <div class="td">{{ "TITLE.parameter" | translate }}</div>
-            <div class="td">{{ "TITLE.Values" | translate }}</div>
-            <div class="clear"></div>
-          </div>
+          @if (optionViewHead) {
+            <div class="th">
+              <div class="td">{{ "TITLE.parameter" | translate }}</div>
+              <div class="td">{{ "TITLE.Values" | translate }}</div>
+              <div class="clear"></div>
+            </div>
+          }
           <div
             class="tr"
             *ngFor="let head of dataModelPrivate | listkeys: optionFields"
@@ -35,19 +37,21 @@
           </div>
         }
         @if (optionTitleLocation === "top") {
-          <div class="th" *ngIf="optionViewHead">
-            <div
-              class="td"
-              *ngFor="let head of dataModelPrivate | listkeys: optionFields"
-            >
-              {{
-                optionFields && optionFields.size > 0
-                  ? optionFields.get(head)
-                  : head
-              }}
+          @if (optionViewHead) {
+            <div class="th">
+              <div
+                class="td"
+                *ngFor="let head of dataModelPrivate | listkeys: optionFields"
+              >
+                {{
+                  optionFields && optionFields.size > 0
+                    ? optionFields.get(head)
+                    : head
+                }}
+              </div>
+              <div class="clear"></div>
             </div>
-            <div class="clear"></div>
-          </div>
+          }
           <div class="tr">
             <div
               class="td"
@@ -70,20 +74,24 @@
     @if (optionMethod === 2 && dataModelPrivate) {
       <div class="table">
         @if (optionTitleLocation === "side") {
-          <div class="th" *ngIf="optionViewHead">
-            <div class="td">{{ "TITLE.parameter" | translate }}</div>
-            <div
-              class="td"
-              *ngFor="let head of dataModelPrivate[0] | listkeys: optionFields"
-            >
-              {{
-                optionFields && optionFields.size > 0
-                  ? optionFields.get(head)
-                  : head
-              }}
+          @if (optionViewHead) {
+            <div class="th">
+              <div class="td">{{ "TITLE.parameter" | translate }}</div>
+              <div
+                class="td"
+                *ngFor="
+                  let head of dataModelPrivate[0] | listkeys: optionFields
+                "
+              >
+                {{
+                  optionFields && optionFields.size > 0
+                    ? optionFields.get(head)
+                    : head
+                }}
+              </div>
+              <div class="clear"></div>
             </div>
-            <div class="clear"></div>
-          </div>
+          }
           <div class="tr" *ngFor="let item of dataModelPrivate">
             <div class="td" *ngIf="optionViewHead"></div>
             <div class="td" *ngFor="let list of item | listkeys: optionFields">
@@ -98,21 +106,22 @@
           </div>
         }
         @if (optionTitleLocation === "top") {
-          <div class="th" *ngIf="optionViewHead">
-            <div class="td">{{ "TITLE.parameter" | translate }}</div>
-            <div
-              class="td"
-              *ngFor="let head of dataModelPrivate | listkeys: optionFields"
-            >
-              {{
-                optionFields && optionFields.size > 0
-                  ? optionFields.get(head)
-                  : head
-              }}
+          @if (optionViewHead) {
+            <div class="th">
+              <div class="td">{{ "TITLE.parameter" | translate }}</div>
+              <div
+                class="td"
+                *ngFor="let head of dataModelPrivate | listkeys: optionFields"
+              >
+                {{
+                  optionFields && optionFields.size > 0
+                    ? optionFields.get(head)
+                    : head
+                }}
+              </div>
+              <div class="clear"></div>
             </div>
-            <div class="clear"></div>
-          </div>
-
+          }
           <ng-container
             *ngFor="let key of dataModelPrivate[0] | listkeys: optionFields"
           >
