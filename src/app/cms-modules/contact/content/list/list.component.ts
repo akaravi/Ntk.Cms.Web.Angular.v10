@@ -83,17 +83,18 @@ export class ContactContentListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "Id",
-    "RecordStatus",
-    "Title",
+    "title",
+    "firstName",
+    "lastName",
     "countNumber",
-    "CreatedDate",
-    "UpdatedDate",
+
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "Id",
-    "RecordStatus",
-    "Title",
+    "title",
+    "firstName",
+    "lastName",
     //'CreatedDate',
     //'UpdatedDate',
     // 'Action'

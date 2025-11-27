@@ -11,17 +11,6 @@
     </p>
     <!--Content-->
     <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
-      <!-- RecordStatus Field -->
-      <app-cms-enum-record-status-selector
-        *ngIf="fieldsInfo['recordStatus']?.accessWatchField"
-        [(model)]="dataModel.recordStatus"
-        [optionDisabled]="false"
-        [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
-        [optionRequired]="true"
-        [optionSelectFirstItem]="true"
-      >
-      </app-cms-enum-record-status-selector>
-
       <!-- Title Field -->
       <div
         class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
@@ -44,6 +33,56 @@
         <em>{{ Title.value.length }} / 100</em>
         <mat-error *ngIf="Title.errors?.required">
           {{ fieldsInfo["title"]?.fieldTitle }} is
+          <strong>{{ "MESSAGE.required" | translate }}</strong>
+        </mat-error>
+      </div>
+      <!-- firstName Field -->
+      <div
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+      >
+        <label for="dataModel.firstName" class="color-highlight">{{
+          fieldsInfo["firstName"]?.fieldTitle
+        }}</label>
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="dataModel.firstName"
+          name="dataModel.firstName"
+          #FirstName
+          placeholder="{{ fieldsInfo['firstName']?.fieldTitle }}"
+          minlength="3"
+          maxlength="100"
+          class="form-control validate-name"
+          id="dataModel.firstName"
+        />
+        <em>{{ FirstName.value.length }} / 100</em>
+        <mat-error *ngIf="FirstName.errors?.required">
+          {{ fieldsInfo["firstName"]?.fieldTitle }} is
+          <strong>{{ "MESSAGE.required" | translate }}</strong>
+        </mat-error>
+      </div>
+      <!-- lastName Field -->
+      <div
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+      >
+        <label for="dataModel.lastName" class="color-highlight">{{
+          fieldsInfo["lastName"]?.fieldTitle
+        }}</label>
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="dataModel.lastName"
+          name="dataModel.lastName"
+          #LastName
+          placeholder="{{ fieldsInfo['lastName']?.fieldTitle }}"
+          minlength="3"
+          maxlength="100"
+          class="form-control validate-name"
+          id="dataModel.lastName"
+        />
+        <em>{{ LastName.value.length }} / 100</em>
+        <mat-error *ngIf="LastName.errors?.required">
+          {{ fieldsInfo["lastName"]?.fieldTitle }} is
           <strong>{{ "MESSAGE.required" | translate }}</strong>
         </mat-error>
       </div>

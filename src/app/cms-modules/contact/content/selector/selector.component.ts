@@ -89,10 +89,10 @@ export class ContactContentSelectorComponent implements OnInit {
   }
 
   displayFn(model?: ContactContentModel): string | undefined {
-    return model ? model.title : undefined;
+    return model ?(model.title + " " + model.firstName + " " + model.lastName).replace("  ", " ").trim() : undefined;
   }
   displayOption(model?: ContactContentModel): string | undefined {
-    return model ? model.title : undefined;
+    return model ? (model.title + " " + model.firstName + " " + model.lastName).replace("  ", " ").trim() : undefined;
   }
   async DataGetAll(
     text: string | number | any,

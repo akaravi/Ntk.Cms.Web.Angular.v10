@@ -5,7 +5,7 @@
       [checked]="fieldsStatus.get(item.id)"
       [disabled]="optionDisabled"
     >
-      {{ item.title }}
+      {{  (item.title + " " + item.firstName + " " + item.lastName).replace("  ", " ").trim() }}
     </mat-checkbox>
   </li>
 </ul>
