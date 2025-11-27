@@ -1,0 +1,93 @@
+<div class="send-result-dialog" *ngIf="data">
+  <div class="dialog-header">
+    <div class="title">
+      {{ "TITLE.Send_Message_Result" | translate }}
+    </div>
+    <button class="close-btn" type="button" (click)="onClose()">
+      {{ "ACTION.CLOSE" | translate }}
+    </button>
+  </div>
+
+  <div class="meta-grid">
+    <div class="meta-card">
+      <span>{{ "TITLE.Send_Id" | translate }}</span>
+      <strong>{{ data.sendId || "---" }}</strong>
+    </div>
+    <div class="meta-card">
+      <span>{{ "TITLE.LogOut_Id" | translate }}</span>
+      <strong>{{ data.logOutId || "---" }}</strong>
+    </div>
+    <div class="meta-card">
+      <span>{{ "TITLE.Selected_Api_Number" | translate }}</span>
+      <strong>{{ data.linkApiNumberId || "---" }}</strong>
+    </div>
+    <div class="meta-card">
+      <span>{{ "TITLE.Selected_Route" | translate }}</span>
+      <strong>{{ data.linkApiPathId || "---" }}</strong>
+    </div>
+    <div class="meta-card">
+      <span>{{ "TITLE.Sender_Number" | translate }}</span>
+      <strong>{{ data.fromNumber || "---" }}</strong>
+    </div>
+    <div class="meta-card">
+      <span>{{ "TITLE.Receiver_number" | translate }}</span>
+      <strong>{{ data.receiverNumberCount || 0 }}</strong>
+    </div>
+    <div class="meta-card">
+      <span>{{ "TITLE.End_User_Credit_Before" | translate }}</span>
+      <strong>{{ data.endUserCreditBefore || 0 }}</strong>
+    </div>
+    <div class="meta-card">
+      <span>{{ "TITLE.End_User_Credit_Sum" | translate }}</span>
+      <strong>{{ data.endUserCreditSum || 0 }}</strong>
+    </div>
+    <div class="meta-card">
+      <span>{{ "TITLE.Service_Credit_Sum" | translate }}</span>
+      <strong>{{ data.serviceCreditSum || 0 }}</strong>
+    </div>
+    <div class="meta-card">
+      <span>{{ "TITLE.Message_Is_Unicode" | translate }}</span>
+      <strong>{{
+        data.messageIsUnicode
+          ? ("TITLE.Yes" | translate)
+          : ("TITLE.No" | translate)
+      }}</strong>
+    </div>
+  </div>
+
+  <div class="receiver-panel" *ngIf="receivers.length > 0">
+    <div class="panel-title">
+      {{ "TITLE.Receivers" | translate }}
+      <span>{{ receivers.length }}</span>
+    </div>
+
+    <div class="receiver-table-wrapper">
+      <table class="receiver-table">
+        <thead>
+          <tr>
+            <th>{{ "TITLE.Receiver_number" | translate }}</th>
+            <th>{{ "TITLE.Credit" | translate }}</th>
+            <th>{{ "TITLE.Service_Credit" | translate }}</th>
+            <th>{{ "TITLE.Page_Count" | translate }}</th>
+            <th>{{ "TITLE.Number_Hidden" | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let receiver of receivers">
+            <td>{{ receiver.toNumber || "---" }}</td>
+            <td>{{ receiver.credit || 0 }}</td>
+            <td>{{ receiver.serviceCredit || 0 }}</td>
+            <td>{{ receiver.pageCount || 0 }}</td>
+            <td>
+              {{
+                receiver.receiverNumberHidden
+                  ? ("TITLE.Yes" | translate)
+                  : ("TITLE.No" | translate)
+              }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

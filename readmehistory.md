@@ -384,6 +384,50 @@
 
 ---
 
+## 2025-11-27 10:15:00
+
+### نمایش نتیجه ارسال پیامک در پاپ‌آپ اختصاصی
+
+**تغییرات:**
+
+- ایجاد کامپوننت `SmsActionSendMessageResultComponent` برای نمایش جزئیات نتیجه ارسال پیام در قالب پاپ‌آپ زیبا (نمایش شناسه‌ها، اعتبارها، لیست گیرندگان و ...)
+- اتصال پاپ‌آپ به فرآیند ارسال پیام در `SmsActionSendMessageComponent` و فراخوانی آن بعد از موفقیت سرویس
+- افزودن استایل اختصاصی، ثبت ماژول جدید در `SmsActionModule` و اضافه کردن کلیدهای چندزبانه مورد نیاز
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/cms-modules/sms/action/send-message/send-message.component.ts`
+- `src/app/cms-modules/sms/action/send-message/send-message-result/send-message-result.component.ts`
+- `src/app/cms-modules/sms/action/send-message/send-message-result/send-message-result.component.html`
+- `src/app/cms-modules/sms/action/send-message/send-message-result/send-message-result.component.scss`
+- `src/app/cms-modules/sms/action/sms-action.module.ts`
+- `src/assets/i18n/en.json`
+- `src/assets/i18n/fa.json`
+
+---
+
+## 2025-11-27 10:30:00
+
+### نمایش نتیجه محاسبه ارسال پیامک در پاپ‌آپ اختصاصی
+
+**تغییرات:**
+
+- ایجاد کامپوننت `SmsActionSendMessageCalculateResultComponent` برای نمایش جزئیات نتیجه محاسبه ارسال پیام در قالب پاپ‌آپ زیبا (نمایش شناسه‌ها، اعتبارها، لیست گیرندگان و ...)
+- اتصال پاپ‌آپ به فرآیند محاسبه ارسال پیام در `SmsActionSendMessageComponent` و فراخوانی آن بعد از موفقیت سرویس `ServiceOrderCalculate`
+- افزودن استایل اختصاصی، ثبت ماژول جدید در `SmsActionModule` و اضافه کردن کلیدهای چندزبانه مورد نیاز
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/cms-modules/sms/action/send-message/send-message.component.ts`
+- `src/app/cms-modules/sms/action/send-message/send-message-calculate-result/send-message-calculate-result.component.ts`
+- `src/app/cms-modules/sms/action/send-message/send-message-calculate-result/send-message-calculate-result.component.html`
+- `src/app/cms-modules/sms/action/send-message/send-message-calculate-result/send-message-calculate-result.component.scss`
+- `src/app/cms-modules/sms/action/sms-action.module.ts`
+- `src/assets/i18n/en.json`
+- `src/assets/i18n/fa.json`
+
+---
+
 ## 2025-11-18 12:30:00
 
 ### حذف متدهای بدون استفاده در myself-list.component

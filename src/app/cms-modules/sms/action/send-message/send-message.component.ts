@@ -6,6 +6,7 @@ import {
   ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
+import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { CronOptionModel, TranslateUiService } from "ngx-ntk-cron-editor";
@@ -38,6 +39,8 @@ import { SmsMessagePaginationModel } from "src/app/core/models/smsMessagePaginat
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { environment } from "src/environments/environment";
+import { SmsActionSendMessageCalculateResultComponent } from "./send-message-calculate-result/send-message-calculate-result.component";
+import { SmsActionSendMessageResultComponent } from "./send-message-result/send-message-result.component";
 export class DateByClock {
   date: Date;
   clock: string;
@@ -67,9 +70,9 @@ export class SmsActionSendMessageComponent implements OnInit {
     public tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private translateUiService: TranslateUiService,
+    private dialog: MatDialog,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
-
 
     this.requestLinkApiPathId =
       this.activatedRoute.snapshot.paramMap.get("LinkApiPathId");
@@ -662,6 +665,8 @@ export class SmsActionSendMessageComponent implements OnInit {
             .subscribe((str: string) => {
               this.cmsToastrService.typeSuccessMessage(str);
             });
+
+          this.openResultDialog(ret.item);
         } else {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
@@ -727,6 +732,8 @@ export class SmsActionSendMessageComponent implements OnInit {
               .subscribe((str: string) => {
                 this.cmsToastrService.typeSuccessMessage(str);
               });
+
+            this.openCalculateResultDialog(ret.item);
           } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
@@ -802,7 +809,7 @@ export class SmsActionSendMessageComponent implements OnInit {
       },
     });
   }
-  optionrLinkCategoryId:string = "";
+  optionrLinkCategoryId: string = "";
 
   onActionContactCategorySelectChecked(model: string): void {
     if (!model || model.length <= 0) {
@@ -930,5 +937,33 @@ export class SmsActionSendMessageComponent implements OnInit {
         (x) => x.status === ValidationStatusEnum.Error,
       ) !== undefined
     );
+  }
+
+  private openResultDialog(result: SmsApiSendResultModel): void {
+    if (!result) {
+      return;
+    }
+
+    this.dialog.open(SmsActionSendMessageResultComponent, {
+      panelClass: "sms-send-result-dialog",
+      data: result,
+      width: "960px",
+      disableClose: false,
+    });
+  }
+
+  private openCalculateResultDialog(
+    result: SmsApiSendOrderCalculateResultModel,
+  ): void {
+    if (!result) {
+      return;
+    }
+
+    this.dialog.open(SmsActionSendMessageCalculateResultComponent, {
+      panelClass: "sms-send-calculate-result-dialog",
+      data: result,
+      width: "960px",
+      disableClose: false,
+    });
   }
 }

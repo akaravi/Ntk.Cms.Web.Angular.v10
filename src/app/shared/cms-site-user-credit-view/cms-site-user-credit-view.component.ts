@@ -54,7 +54,7 @@ export class CmsSiteUserCreditViewComponent implements OnInit {
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
-    debugger;
+
     if (data) {
       this.requestLinkSiteId = +data.linkSiteId || 0;
       this.requestLinkUserId = +data.linkUserId || 0;

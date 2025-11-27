@@ -497,7 +497,6 @@ export class SmsMainApiNumberListComponent
     model: SmsMainApiNumberModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    debugger;
     if (!model || !model.id || model.id.length == 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
