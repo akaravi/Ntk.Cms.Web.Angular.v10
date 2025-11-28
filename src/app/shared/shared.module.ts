@@ -1,5 +1,6 @@
 ﻿import { TreeModule } from "@ali-hm/angular-tree-component";
 import { ClipboardModule } from "@angular/cdk/clipboard";
+import { DragDropModule } from "@angular/cdk/drag-drop";
 import { PlatformModule } from "@angular/cdk/platform";
 import { CdkTableModule } from "@angular/cdk/table";
 import { CommonModule } from "@angular/common";
@@ -203,6 +204,7 @@ import { OverlayService } from "./overlay/overlay.service";
 import { PasswordStrengthComponent } from "./password-strength/password-strength.component";
 import { ProgressSpinnerComponent } from "./progress-spinner/progress-spinner.component";
 import { CmsFormResultMessageComponent } from "./cms-form-result-message/cms-form-result-message.component";
+import { CmsContactContentDropListComponent } from "./cms-contact-content-drop-list/cms-contact-content-drop-list.component";
 
 @NgModule({
   declarations: [
@@ -286,6 +288,7 @@ import { CmsFormResultMessageComponent } from "./cms-form-result-message/cms-for
     CmsSiteUserCreditViewComponent,
     CmsContactCategoryTreeSelectorComponent,
     CmsContactContentSelectionListComponent,
+    CmsContactContentDropListComponent,
     CmsAccessInfoComponent,
     CmsSmsMainApiPathSelectorComponent,
     CmsSmsMainApiNumberSelectorComponent,
@@ -374,6 +377,7 @@ import { CmsFormResultMessageComponent } from "./cms-form-result-message/cms-for
     CurrencyMaskModule,
     NgApexchartsModule,
     NgxMaterialTimepickerModule,
+    DragDropModule,
     //Material
     MatAutocompleteModule,
     MatButtonModule,
@@ -544,6 +548,7 @@ import { CmsFormResultMessageComponent } from "./cms-form-result-message/cms-for
     CmsSiteUserCreditViewComponent,
     CmsContactCategoryTreeSelectorComponent,
     CmsContactContentSelectionListComponent,
+    CmsContactContentDropListComponent,
     CmsAccessInfoComponent,
     CmsSmsMainApiPathSelectorComponent,
     CmsSmsMainApiNumberSelectorComponent,

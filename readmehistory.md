@@ -1,5 +1,78 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-11-28 10:36:46
+
+### تغییر ساختار جستجو در کامپوننت cms-contact-content-drop-list به جستجوی جداگانه برای هر لیست
+
+**تغییرات:**
+
+- تغییر از یک فیلد جستجو مشترک به دو فیلد جستجو جداگانه
+- افزودن فیلد جستجو بالای لیست اولیه (`searchTermList`)
+- افزودن فیلد جستجو بالای لیست انتخاب شده (`searchTermBasket`)
+- ایجاد متدهای جداگانه `highlightTextList` و `highlightTextBasket` برای highlight کردن متن در هر لیست
+- به‌روزرسانی getter‌های `filteredListItems` و `filteredBasketItems` برای استفاده از `searchTermList` و `searchTermBasket` به جای `searchTerm` مشترک
+- انتقال search container به داخل هر `example-container` برای قرارگیری بهتر در UI
+- بهبود استایل CSS برای search container در داخل هر لیست
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/shared/cms-contact-content-drop-list/cms-contact-content-drop-list.component.html`
+- `src/app/shared/cms-contact-content-drop-list/cms-contact-content-drop-list.component.ts`
+- `src/app/shared/cms-contact-content-drop-list/cms-contact-content-drop-list.component.scss`
+- `readmehistory.md`
+
+---
+
+## 2025-11-28 10:34:53
+
+### بهبود UI کامپوننت cms-contact-content-drop-list: لیست‌ها در یک ردیف، جستجو و highlight
+
+**تغییرات:**
+
+- قرار دادن دو لیست در کنار هم در یک ردیف با layout ریسپانسیو (با استفاده از flexbox)
+- افزودن اسکرول به لیست‌ها برای نمایش بهتر زمانی که تعداد آیتم‌ها زیاد است (حداکثر ارتفاع 500px در دسکتاپ و 300px در موبایل)
+- افزودن فیلد جستجو بالای دو لیست با آیکن search
+- پیاده‌سازی منطق فیلتر کردن بر اساس `title`, `firstName` و `lastName` به صورت real-time
+- افزودن highlight کردن متن‌های یافته شده در جستجو با رنگ زرد (#ffeb3b)
+- ایجاد متد `highlightText` برای highlight کردن متن‌های match شده
+- ایجاد getter‌های `filteredListItems` و `filteredBasketItems` برای فیلتر کردن بر اساس جستجو
+- افزودن لیست‌های `allListItems` و `allBasketItems` برای نگهداری تمام آیتم‌ها (بدون فیلتر)
+- بهبود متد `drop` برای همگام‌سازی با لیست‌های اصلی هنگام drag & drop
+- اضافه کردن استایل‌های CSS برای search container و اسکرول بار زیبا
+- بهبود ریسپانسیو بودن با استفاده از media queries برای صفحات کوچک (تبدیل به layout عمودی در عرض کمتر از 768px)
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/shared/cms-contact-content-drop-list/cms-contact-content-drop-list.component.html`
+- `src/app/shared/cms-contact-content-drop-list/cms-contact-content-drop-list.component.ts`
+- `src/app/shared/cms-contact-content-drop-list/cms-contact-content-drop-list.component.scss`
+- `readmehistory.md`
+
+---
+
+## 2025-11-28 10:25:47
+
+### افزودن آیکن‌های + و - برای انتقال آیتم‌ها در کامپوننت cms-contact-content-drop-list
+
+**تغییرات:**
+
+- افزودن آیکن + (fa-solid fa-plus) در لیست اولیه برای انتقال آیتم‌ها به لیست انتخاب شده
+- افزودن آیکن - (fa-solid fa-minus) در لیست انتخاب شده برای انتقال آیتم‌ها به لیست اولیه
+- ایجاد متد `addToBasket` برای اضافه کردن آیتم از لیست اولیه به لیست انتخاب شده
+- ایجاد متد `removeFromBasket` برای حذف آیتم از لیست انتخاب شده و بازگرداندن به لیست اولیه
+- همگام‌سازی `basket` با `dataModelSelect` در متد `DataGetAll`
+- به‌روزرسانی متد `drop` برای همگام‌سازی با `dataModelSelect` و `fieldsStatus` هنگام drag & drop
+- افزودن استایل‌های CSS برای دکمه‌های آیکن (+ و -) با رنگ‌های مناسب
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/shared/cms-contact-content-drop-list/cms-contact-content-drop-list.component.html`
+- `src/app/shared/cms-contact-content-drop-list/cms-contact-content-drop-list.component.ts`
+- `src/app/shared/cms-contact-content-drop-list/cms-contact-content-drop-list.component.scss`
+- `readmehistory.md`
+
+---
+
 ## 2025-11-26 15:05:17
 
 ### تکمیل ترجمه چندزبانه Info و ORDER_CALCULATE

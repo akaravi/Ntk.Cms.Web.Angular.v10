@@ -258,7 +258,7 @@
                   (optionNodeClicked)="optionrLinkCategoryId = $event"
                 >
                 </app-cms-contact-category-tree-selector>
-                <app-cms-contact-content-selection-list
+                <app-cms-contact-content-drop-list
                   [optionrLinkCategoryId]="optionrLinkCategoryId"
                   (optionSelectAdded)="
                     onActionContactContentSelectChecked($event)
@@ -266,7 +266,7 @@
                   (optionSelectRemoved)="
                     onActionContactContentSelectDisChecked($event)
                   "
-                ></app-cms-contact-content-selection-list>
+                ></app-cms-contact-content-drop-list>
                 <mat-action-row>
                   <button
                     type="button"

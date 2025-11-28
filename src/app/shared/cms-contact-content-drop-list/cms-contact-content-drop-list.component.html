@@ -1,0 +1,82 @@
+<div class="drop-list-wrapper">
+  <!-- Lists Container -->
+  <div class="lists-container" cdkDropListGroup>
+    <div class="example-container">
+      <h2>لیست مخاطبین دفترچه تلفن</h2>
+      <!-- Search Input for List -->
+      <div class="search-container">
+        <input
+          type="text"
+          class="search-input"
+          [(ngModel)]="searchTermList"
+          [placeholder]="'ACTION.SEARCH' | translate"
+        />
+        <i class="fa-solid fa-search search-icon"></i>
+      </div>
+      <div
+        cdkDropList
+        [cdkDropListData]="filteredListItems"
+        class="example-list scrollable-list"
+        cdkDropListSortingDisabled
+        (cdkDropListDropped)="drop($event)"
+      >
+        @for (item of filteredListItems; track item.id) {
+          <div class="example-box" cdkDrag>
+            <span [innerHTML]="highlightTextList(getItemFullText(item))"></span>
+            <button
+              type="button"
+              class="btn-icon-add"
+              (click)="addToBasket(item)"
+              [title]="'ACTION.ADD' | translate"
+            >
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
+        }
+        @if (filteredListItems.length === 0 && searchTermList.trim() !== "") {
+          <div class="empty-state">موردی یافت نشد</div>
+        }
+      </div>
+    </div>
+    <div class="example-container">
+      <h2>لیست انتخاب شده</h2>
+      <!-- Search Input for Basket -->
+      <div class="search-container">
+        <input
+          type="text"
+          class="search-input"
+          [(ngModel)]="searchTermBasket"
+          [placeholder]="'ACTION.SEARCH' | translate"
+        />
+        <i class="fa-solid fa-search search-icon"></i>
+      </div>
+      <div
+        cdkDropList
+        [cdkDropListData]="filteredBasketItems"
+        class="example-list scrollable-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        @for (item of filteredBasketItems; track item.id) {
+          <div class="example-box" cdkDrag>
+            <span
+              [innerHTML]="highlightTextBasket(getItemFullText(item))"
+            ></span>
+            <button
+              type="button"
+              class="btn-icon-remove"
+              (click)="removeFromBasket(item)"
+              [title]="'ACTION.REMOVE' | translate"
+            >
+              <i class="fa-solid fa-minus"></i>
+            </button>
+          </div>
+        }
+        @if (
+          filteredBasketItems.length === 0 && searchTermBasket.trim() !== ""
+        ) {
+          <div class="empty-state">موردی یافت نشد</div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
