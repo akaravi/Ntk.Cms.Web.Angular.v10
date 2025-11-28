@@ -237,6 +237,10 @@ export class ContactContentListComponent
     });
   }
 
+  onActionButtonImport(): void {
+    this.router.navigate(["/contact/content/import"]);
+  }
+
   onActionButtonEditRow(
     model: ContactContentModel = this.tableRowSelected,
   ): void {

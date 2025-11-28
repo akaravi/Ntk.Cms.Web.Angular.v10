@@ -1,5 +1,34 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-01-28 12:00:00
+
+### افزودن مسیر Import و دکمه Import در ContactContentListComponent
+
+**تغییرات:**
+
+- افزودن مسیر `/contact/content/import` به routing ماژول contact برای دسترسی به صفحه Import
+- افزودن متد `onActionButtonImport()` در `ContactContentListComponent` برای navigate به صفحه import
+- افزودن دکمه Import در بخش `cms-action-main` کنار دکمه Add با آیکن `fa-file-import`
+- افزودن کلید ترجمه `ACTION.IMPORT` به تمام فایل‌های چندزبانه (en, fa, ar, de, es, fr, tr, zh, ja)
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/cms-modules/contact/contact.routing.ts`
+- `src/app/cms-modules/contact/content/list/list.component.ts`
+- `src/app/cms-modules/contact/content/list/list.component.html`
+- `src/assets/i18n/en.json`
+- `src/assets/i18n/fa.json`
+- `src/assets/i18n/ar.json`
+- `src/assets/i18n/de.json`
+- `src/assets/i18n/es.json`
+- `src/assets/i18n/fr.json`
+- `src/assets/i18n/tr.json`
+- `src/assets/i18n/zh.json`
+- `src/assets/i18n/ja.json`
+- `readmehistory.md`
+
+---
+
 ## 2025-11-28 10:36:46
 
 ### تغییر ساختار جستجو در کامپوننت cms-contact-content-drop-list به جستجوی جداگانه برای هر لیست

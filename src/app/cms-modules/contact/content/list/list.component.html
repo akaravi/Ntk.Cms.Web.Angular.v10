@@ -93,6 +93,20 @@
         {{ "ACTION.ADD" | translate }}
       </p>
     </div>
+    <div *ngIf="dataModelResult?.access?.accessAddRow" class="col-4">
+      <a
+        type="button"
+        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
+        (click)="onActionButtonImport()"
+        target="_blank"
+      >
+        <i class="fa-solid fa-file-import font-18" style="color: #ffffff"></i>
+        <br />
+      </a>
+      <p class="font-11 text-center opacity-70">
+        {{ "ACTION.IMPORT" | translate }}
+      </p>
+    </div>
 
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-->
   </ng-container>
