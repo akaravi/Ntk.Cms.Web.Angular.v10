@@ -100,6 +100,10 @@ export class ContactContentListComponent
     // 'Action'
   ];
 
+  // برای حذف گروهی
+  selectedRowsForBulkDelete: Set<string> = new Set<string>();
+  isAllSelected = false;
+
   private unsubscribe: Subscription[] = [];
   ngOnInit(): void {
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
@@ -126,7 +130,14 @@ export class ContactContentListComponent
       [],
       this.tokenInfo,
     );
+    // اضافه کردن ستون چک‌باکس به انتهای ستون‌ها برای حذف گروهی
+    const selectColumnIndex = this.tabledisplayedColumns.indexOf("select");
+    if (selectColumnIndex === -1) {
+      this.tabledisplayedColumns.push("select");
+    }
     this.tableRowsSelected = [];
+    this.selectedRowsForBulkDelete.clear();
+    this.isAllSelected = false;
     this.onActionTableRowSelect(new ContactContentModel());
     const pName = this.constructor.name + "main";
     this.translate
@@ -150,41 +161,74 @@ export class ContactContentListComponent
       filterModel.filters = [...this.filterDataModelQueryBuilder];
     }
     /*filter add search*/
+    debugger
     if (
       this.categoryModelSelected &&
       this.categoryModelSelected.id?.length > 0
     ) {
-      const filter = new FilterDataModel();
-      filter.propertyName = "ContentCategores";
-      filter.propertyAnyName = "LinkCategoryId";
-      filter.value = this.categoryModelSelected.id;
-      filterModel.filters.push(filter);
+      /** filter Category */
+      this.contentService.setAccessLoad();
+      this.contentService
+        .ServiceGetAllWithHierarchyCategoryId(
+          this.categoryModelSelected.id,
+          filterModel,
+        )
+        .subscribe({
+          next: (ret) => {
+            this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
+
+            if (ret.isSuccess) {
+              this.dataModelResult = ret;
+              this.tableSource.data = ret.listItems;
+
+              if (this.optionsStatist?.data?.show)
+                this.onActionButtonStatist(true);
+              setTimeout(() => {
+                if (this.optionsSearch.childMethods)
+                  this.optionsSearch.childMethods.setAccess(ret.access);
+              }, 1000);
+            } else {
+              this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+            }
+            this.publicHelper.processService.processStop(pName);
+          },
+          error: (er) => {
+            this.cmsToastrService.typeError(er);
+
+            this.publicHelper.processService.processStop(pName, false);
+          },
+        });
+      /** filter Category */
+    } else {
+      //** Normal */
+      this.contentService.setAccessLoad();
+      this.contentService.ServiceGetAllEditor(filterModel).subscribe({
+        next: (ret) => {
+          this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
+
+          if (ret.isSuccess) {
+            this.dataModelResult = ret;
+            this.tableSource.data = ret.listItems;
+
+            if (this.optionsStatist?.data?.show)
+              this.onActionButtonStatist(true);
+            setTimeout(() => {
+              if (this.optionsSearch.childMethods)
+                this.optionsSearch.childMethods.setAccess(ret.access);
+            }, 1000);
+          } else {
+            this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+          }
+          this.publicHelper.processService.processStop(pName);
+        },
+        error: (er) => {
+          this.cmsToastrService.typeError(er);
+
+          this.publicHelper.processService.processStop(pName, false);
+        },
+      });
+      /** Normal */
     }
-    this.contentService.setAccessLoad();
-    this.contentService.ServiceGetAllEditor(filterModel).subscribe({
-      next: (ret) => {
-        this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
-
-        if (ret.isSuccess) {
-          this.dataModelResult = ret;
-          this.tableSource.data = ret.listItems;
-
-          if (this.optionsStatist?.data?.show) this.onActionButtonStatist(true);
-          setTimeout(() => {
-            if (this.optionsSearch.childMethods)
-              this.optionsSearch.childMethods.setAccess(ret.access);
-          }, 1000);
-        } else {
-          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-        }
-        this.publicHelper.processService.processStop(pName);
-      },
-      error: (er) => {
-        this.cmsToastrService.typeError(er);
-
-        this.publicHelper.processService.processStop(pName, false);
-      },
-    });
   }
 
   onTableSortData(sort: MatSort): void {
@@ -436,5 +480,127 @@ export class ContactContentListComponent
     /*filter */
     this.categoryModelSelected = model;
     this.DataGetAll();
+  }
+
+  // متدهای مدیریت چک‌باکس برای حذف گروهی
+  onCheckboxChange(row: ContactContentModel, event: any): void {
+    if (event.checked) {
+      this.selectedRowsForBulkDelete.add(row.id);
+    } else {
+      this.selectedRowsForBulkDelete.delete(row.id);
+    }
+    this.updateSelectAllState();
+  }
+
+  isRowSelected(rowId: string): boolean {
+    return this.selectedRowsForBulkDelete.has(rowId);
+  }
+
+  onSelectAllChange(event: any): void {
+    this.isAllSelected = event.checked;
+    if (this.isAllSelected) {
+      this.tableSource.data.forEach((row) => {
+        if (row.id) {
+          this.selectedRowsForBulkDelete.add(row.id);
+        }
+      });
+    } else {
+      this.selectedRowsForBulkDelete.clear();
+    }
+  }
+
+  updateSelectAllState(): void {
+    if (this.tableSource.data.length === 0) {
+      this.isAllSelected = false;
+      return;
+    }
+    const allSelected = this.tableSource.data.every((row) =>
+      this.selectedRowsForBulkDelete.has(row.id),
+    );
+    this.isAllSelected = allSelected;
+  }
+
+  getSelectedCount(): number {
+    return this.selectedRowsForBulkDelete.size;
+  }
+
+  // متد حذف گروهی
+  onActionButtonBulkDelete(): void {
+    if (this.selectedRowsForBulkDelete.size === 0) {
+      this.translate
+        .get("MESSAGE.no_row_selected_to_delete")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+
+    if (
+      this.dataModelResult == null ||
+      this.dataModelResult.access == null ||
+      !this.dataModelResult.access.accessDeleteRow
+    ) {
+      this.cmsToastrService.typeErrorAccessDelete();
+      return;
+    }
+
+    var title = "";
+    var message = "";
+    const selectedCount = this.selectedRowsForBulkDelete.size;
+    this.translate
+      .get([
+        "MESSAGE.Please_Confirm",
+        "MESSAGE.Do_you_want_to_delete_this_content",
+      ])
+      .subscribe((str: string) => {
+        title = str["MESSAGE.Please_Confirm"];
+        message =
+          str["MESSAGE.Do_you_want_to_delete_this_content"] +
+          "?" +
+          "<br> ( " +
+          selectedCount +
+          " " +
+          "آیتم انتخاب شده" +
+          " ) ";
+      });
+
+    this.cmsConfirmationDialogService
+      .confirm(title, message)
+      .then((confirmed) => {
+        if (confirmed) {
+          const pName = this.constructor.name + "BulkDelete";
+          this.translate
+            .get("MESSAGE.Receiving_information")
+            .subscribe((str: string) => {
+              this.publicHelper.processService.processStart(
+                pName,
+                str,
+                this.constructorInfoAreaId,
+              );
+            });
+
+          const idsToDelete = Array.from(this.selectedRowsForBulkDelete);
+          this.contentService.ServiceDeleteList(idsToDelete).subscribe({
+            next: (ret) => {
+              if (ret.isSuccess) {
+                this.cmsToastrService.typeSuccessRemove();
+                this.selectedRowsForBulkDelete.clear();
+                this.isAllSelected = false;
+                this.DataGetAll();
+              } else {
+                this.cmsToastrService.typeErrorRemove();
+              }
+              this.publicHelper.processService.processStop(pName);
+            },
+            error: (er) => {
+              this.cmsToastrService.typeError(er);
+              this.publicHelper.processService.processStop(pName, false);
+            },
+          });
+        }
+      })
+      .catch(() => {
+        // User dismissed the dialog
+      });
   }
 }

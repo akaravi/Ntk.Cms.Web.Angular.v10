@@ -56,6 +56,7 @@
   "ACTION.DATA": "Data",
   "ACTION.DEFAULT": "Default",
   "ACTION.DELETE": "Effacer",
+  "ACTION.DELETE_SELECTED": "Effacer sélectionné",
   "ACTION.DELETE_CONTENT": " Delete content",
   "ACTION.DENY": "Deny",
   "ACTION.DESCRIPTION_OF_BUILDER": "The layout builder is to assist your set and configure your preferred project layout specifications and preview it in real time. The configured layout options will be saved until you change or reset them. To use the layout builder choose the layout options and click the Preview button to preview the changes.",

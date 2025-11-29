@@ -276,10 +276,12 @@ export class ContactContentImportComponent
     if (!confirmed) {
       return;
     }
+
     this.lastApplyError = "";
     this.applyResult = undefined;
     this.isApplyLoading = true;
     const model = this.buildApplyModel();
+    model.linkCategoryId = this.modelCategory.id;
     this.translate.get("MESSAGE.Receiving_information").subscribe((message) => {
       this.publicHelper.processService.processStart(
         this.applyProcessKey,
@@ -442,16 +444,17 @@ export class ContactContentImportComponent
       normalizedDestinationTitles.includes(header.toLowerCase()),
     );
   }
-  model = new ContactImportApplyRequestDtoModel();
+
   private buildApplyModel(): ContactImportApplyRequestDtoModel {
-    this.model.sessionId = this.previewResponse?.sessionId ?? "";
-    this.model.mappings = this.destinationHeaders.map((destination) => {
+    const model = new ContactImportApplyRequestDtoModel();
+    model.sessionId = this.previewResponse?.sessionId ?? "";
+    model.mappings = this.destinationHeaders.map((destination) => {
       const item = new ContactImportMappingItem();
       item.destinationKey = destination.key;
       item.sourceHeader = this.mappingSelections[destination.key] ?? "";
       return item;
     });
-    return this.model;
+    return model;
   }
 
   private clearFileSelection(): void {
