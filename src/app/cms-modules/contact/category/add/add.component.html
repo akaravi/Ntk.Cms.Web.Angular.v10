@@ -46,6 +46,15 @@
           <strong>{{ "MESSAGE.required" | translate }}</strong>
         </mat-error>
       </div>
+      <!-- CategoryId Field -->
+       <!-- LinkParentId Field -->
+      <app-contact-category-selector
+        (optionChange)="onActionParentSelect($event)"
+        [optionDisabled]="false"
+        [optionSelectForce]="dataModel.linkParentId"
+        [optionPlaceholder]="'TITLE.Parent_Area' | translate"
+      >
+      </app-contact-category-selector>
       <!-- Description Field -->
       <div
         class="input-style has-borders no-icon input-style-always-active validate-field mb-4"

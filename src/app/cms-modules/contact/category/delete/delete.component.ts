@@ -23,7 +23,6 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 @Component({
   selector: "app-contact-category-delete",
   templateUrl: "./delete.component.html",
-  styleUrls: ["./delete.component.scss"],
   standalone: false,
 })
 export class ContactCategoryDeleteComponent implements OnInit {
@@ -88,6 +87,7 @@ export class ContactCategoryDeleteComponent implements OnInit {
     this.contactCategoryService.setAccessDataType(
       ManageUserAccessDataTypesEnum.Editor,
     );
+    
     this.contactCategoryService.ServiceGetOneById(this.requestId).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);

@@ -206,12 +206,12 @@ export class ContactCategoryEditComponent
     this.dialogRef.close({ dialogChangedDate: false });
   }
   onActionParentSelect(model: ContactCategoryModel): void {
-    const befor = this.dataModel.linkParentId + "";
-    this.dataModel.linkParentId = null;
+    if (this.dataModel?.id == model?.id) return;
+
     if (model && model.id?.length > 0) {
       this.dataModel.linkParentId = model.id;
+    } else {
+      this.dataModel.linkParentId = null;
     }
-    if ((this.dataModel.linkParentId = this.dataModel.id))
-      this.dataModel.linkParentId = befor;
   }
 }

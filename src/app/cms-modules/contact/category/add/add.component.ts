@@ -151,4 +151,13 @@ export class ContactCategoryAddComponent
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });
   }
+  onActionParentSelect(model: ContactCategoryModel): void {
+    if (this.dataModel?.id == model?.id) return;
+
+    if (model && model.id?.length > 0) {
+      this.dataModel.linkParentId = model.id;
+    } else {
+      this.dataModel.linkParentId = null;
+    }
+  }
 }

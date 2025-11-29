@@ -9,8 +9,8 @@ import { CoreGuideService, TokenInfoModelV3 } from "ntk-cms-api";
 import { environment } from "src/environments/environment";
 import { PublicHelper } from "../helpers/publicHelper";
 import { TokenHelper } from "../helpers/tokenHelper";
-import { CmsToastrService } from "../services/cmsToastr.service";
 import { CmsStoreService } from "../reducers/cmsStore.service";
+import { CmsToastrService } from "../services/cmsToastr.service";
 
 @Directive({
   selector: "[cmsTooltipGuide]",
@@ -99,11 +99,17 @@ export class TooltipGuideDirective {
             /*run */
           } else {
             if (!environment.production) {
-              //console.log('tooltip',next.errorMessage);
-              this.cmsToastrService.typeErrorMessage(
-                "kay:" + this.cmsTooltipGuide + "-" + ret.errorMessage,
+              console.log(
+                "cmsTooltipGuide",
+                ret.errorMessage,
+                this.cmsTooltipGuide,
+              );
+              this.cmsToastrService.typeWarningMessage(
+                ret.errorMessage,
+                this.cmsTooltipGuide + " راهنما یافت نشد ",
               );
             }
+
             /*run */
             this.create("Identity :" + this.cmsTooltipGuide);
             this.setPosition();
@@ -158,9 +164,14 @@ export class TooltipGuideDirective {
             /*run */
           } else {
             if (!environment.production) {
-              // console.log('tooltip',next.errorMessage);
-              this.cmsToastrService.typeErrorMessage(
-                "kay:" + this.cmsTooltipGuide + "-" + ret.errorMessage,
+              console.log(
+                "cmsTooltipGuide",
+                ret.errorMessage,
+                this.cmsTooltipGuide,
+              );
+              this.cmsToastrService.typeWarningMessage(
+                ret.errorMessage,
+                this.cmsTooltipGuide + " راهنما یافت نشد ",
               );
             }
             /*run */

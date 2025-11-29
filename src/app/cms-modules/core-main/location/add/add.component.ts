@@ -158,9 +158,12 @@ export class CoreLocationAddComponent
     this.dialogRef.close({ dialogChangedDate: false });
   }
   onActionParentSelect(model: CoreLocationModel): void {
-    this.dataModel.linkParentId = null;
+    if (this.dataModel?.id == model?.id) return;
+
     if (model && model.id > 0) {
       this.dataModel.linkParentId = model.id;
+    } else {
+      this.dataModel.linkParentId = null;
     }
   }
   onActionFileSelected(model: NodeInterface): void {

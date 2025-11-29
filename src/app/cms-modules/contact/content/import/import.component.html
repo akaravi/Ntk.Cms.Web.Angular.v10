@@ -137,7 +137,7 @@
           [optionSelectFirstItem]="true"
           [optionRequired]="true"
           [optionLabel]="'TITLE.Category' | translate"
-          (optionChange)="$event?.id ? (model.linkCategoryId = $event.id) : ''"
+          (optionChange)=" modelCategory = $event"
         ></app-contact-category-selector>
         <br />
         <div class="mapping-grid">

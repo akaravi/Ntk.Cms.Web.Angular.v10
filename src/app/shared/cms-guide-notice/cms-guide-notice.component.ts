@@ -139,7 +139,7 @@ export class CmsGuideNoticeComponent implements OnInit, OnDestroy {
             this.pageInfo.setTitle(this.title);
             this.pageInfo.setDescription(this.description);
           } else if (!environment.production) {
-            // console.log(ret.errorMessage, this.Key);
+            console.log(ret.errorMessage, this.Key);
             this.cmsToastrService.typeWarningMessage(
               ret.errorMessage,
               this.Key + " راهنما یافت نشد ",
@@ -209,7 +209,7 @@ export class CmsGuideNoticeComponent implements OnInit, OnDestroy {
             this.pageInfo.setTitle(this.title);
             this.pageInfo.setDescription(this.description);
           } else if (!environment.production) {
-            // console.log(ret.errorMessage, this.Key);
+            console.log(ret.errorMessage, this.Key);
             this.cmsToastrService.typeWarningMessage(
               ret.errorMessage,
               this.Key + " راهنما یافت نشد ",

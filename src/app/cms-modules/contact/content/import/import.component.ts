@@ -8,6 +8,7 @@ import {
 } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import {
+  ContactCategoryModel,
   ContactContentModel,
   ContactContentService,
   ContactImportApplyRequestDtoModel,
@@ -85,7 +86,7 @@ export class ContactContentImportComponent
     );
     this.publicHelper.processService.cdr = this.cdr;
   }
-
+  modelCategory: ContactCategoryModel = new ContactCategoryModel();
   ngOnInit(): void {
     this.translate
       .get(["CONTACT.IMPORT.PAGE_TITLE", "CONTACT.IMPORT.PAGE_DESCRIPTION"])
@@ -261,6 +262,14 @@ export class ContactContentImportComponent
 
   async onApplyImport(): Promise<void> {
     if (this.isApplyDisabled) {
+      return;
+    }
+    if (!this.modelCategory?.id) {
+      this.translate
+        .get("MESSAGE.Category_is_not_clear")
+        .subscribe((message) => {
+          this.cmsToastrService.typeErrorMessage(message);
+        });
       return;
     }
     const confirmed = await this.askForConfirmation();
@@ -478,7 +487,8 @@ export class ContactContentImportComponent
     );
     return this.cmsConfirmationDialogService.confirm(
       translated["CONTACT.IMPORT.CONFIRM_APPLY_TITLE"],
-      translated["CONTACT.IMPORT.CONFIRM_APPLY_MESSAGE"],
+      translated["CONTACT.IMPORT.CONFIRM_APPLY_MESSAGE"] +
+        `<br><br><b>در دسته بندی  ${this.modelCategory?.title}</b>`,
     );
   }
 }
