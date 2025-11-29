@@ -28,7 +28,7 @@
           [checked]="checklistSelection.isSelected(node)"
           [indeterminate]="descendantsPartiallySelected(node)"
           (change)="todoItemSelectionToggle(node)"
-          >{{ node.title }}</mat-checkbox
+          >{{ node.title }} ({{ node.contentCount ?? 0 }} {{ "TITLE.Number_of_contacts" | translate }})</mat-checkbox
         >
       </mat-tree-node>
       <mat-tree-node
@@ -56,7 +56,7 @@
           class="checklist-leaf-node"
           [checked]="checklistSelection.isSelected(node)"
           (change)="checklistSelection.toggle(node)"
-          >{{ node.title }}</mat-checkbox
+          >{{ node.title }} ({{ node.contentCount ?? 0 }} {{ "TITLE.Number_of_contacts" | translate }})</mat-checkbox
         >
       </mat-tree-node>
     </mat-tree>

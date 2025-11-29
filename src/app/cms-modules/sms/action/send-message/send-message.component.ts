@@ -688,8 +688,14 @@ export class SmsActionSendMessageComponent implements OnInit {
       },
     });
   }
-
+  calculateName = this.constructor.name + "Calculate";
   onActionOrderCalculate(): void {
+    if (
+      !this.formInfo.submitButtonEnabled ||
+      this.publicHelper.processService.process.inRunAll
+    )
+      return;
+
     if (!this.formGroup.valid) {
       return;
     }
@@ -702,7 +708,7 @@ export class SmsActionSendMessageComponent implements OnInit {
     this.onActionScheduleSendCheck();
 
     this.formInfo.submitButtonEnabled = false;
-    const pName = this.constructor.name + "main";
+    const pName = this.calculateName;
     this.translate
       .get("MESSAGE.Receiving_information")
       .subscribe((str: string) => {

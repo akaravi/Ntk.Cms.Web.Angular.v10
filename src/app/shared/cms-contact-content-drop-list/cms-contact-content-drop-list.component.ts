@@ -284,7 +284,7 @@ export class CmsContactContentDropListComponent implements OnInit {
 
   DataGetAll(): void {
     const filteModelContent = new FilterModel();
-    filteModelContent.rowPerPage = 50;
+    filteModelContent.rowPerPage = 100;
     filteModelContent.accessLoad = true;
 
     const pName = this.constructor.name + "main";
