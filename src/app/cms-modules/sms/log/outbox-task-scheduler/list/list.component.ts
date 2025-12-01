@@ -94,6 +94,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
   tabledisplayedColumnsSource: string[] = [
     "id",
     "recordStatus",
+    "createdBy",
     "scheduleCron",
     "scheduleSendStart",
     "scheduleSendExpire",
@@ -105,6 +106,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
   tabledisplayedColumnsMobileSource: string[] = [
     "id",
     "recordStatus",
+    "createdBy",
     "scheduleCron",
     "scheduleSendStart",
     "scheduleSendExpire",

@@ -171,7 +171,15 @@
           ></select>
         </mat-cell>
       </ng-container>
-
+      <!-- createdBy Column -->
+      <ng-container matColumnDef="createdBy">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ fieldsInfo["createdBy"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.createdBy | cmsuserinfo | async }}
+        </mat-cell>
+      </ng-container>
       <!-- ScheduleCron Column -->
       <ng-container matColumnDef="scheduleCron">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -222,7 +230,7 @@
           {{ fieldsInfo["updatedDate"]?.fieldTitle }}
         </mat-header-cell>
         <mat-cell *matCellDef="let row" style="direction: ltr">
-          {{ row.updatedDate | localeDate }}
+          {{ row.updatedDate | localeDateTime }}
           {{ publicHelper.getTime(row.updatedDate) }}
         </mat-cell>
       </ng-container>
@@ -250,7 +258,12 @@
         <mat-cell *matCellDef="let row">
           <div>
             <span [innerHTML]="row.message | prettyLine"> </span>
-            <br />
+            <hr />
+            @if (row.updatedBy) {
+              {{ fieldsInfo["updatedBy"]?.fieldTitle }} :
+              {{ row.updatedBy | cmsuserinfo | async }}
+              <br />
+            }
             @if (row.linkApiPathId) {
               {{ fieldsInfo["linkApiPathId"]?.fieldTitle }} :
 
@@ -262,90 +275,102 @@
               {{ row.scheduleLockerId }}
               <br />
             }
-          <!-- linkFromNumber -->
-          @if (row.linkFromNumber) {
-            {{ fieldsInfo["linkFromNumber"]?.fieldTitle }} :
-            {{ row.linkFromNumber }}
-            <br />
-          }
-          <!-- toNumbers -->
-          @if (row.toNumbers) {
-            {{ fieldsInfo["toNumbers"]?.fieldTitle }} :
-            {{ row.toNumbers }}
-            <br />
-          }
-          <!-- toContactCategories -->
-          @if (row.toContactCategories?.length) {
-            {{ fieldsInfo["toContactCategories"]?.fieldTitle }} :
-            {{ row.toContactCategories.join(', ') }}
-            <br />
-          }
-          <!-- toContactContents -->
-          @if (row.toContactContents?.length) {
-            {{ fieldsInfo["toContactContents"]?.fieldTitle }} :
-            {{ row.toContactContents.join(', ') }}
-            <br />
-          }
-          <!-- sendByQueue -->
-          @if (row.sendByQueue !== undefined) {
-            {{ fieldsInfo["sendByQueue"]?.fieldTitle }} :
-            {{ row.sendByQueue ? ('MESSAGE.Yes' | translate) : ('MESSAGE.No' | translate) }}
-            <br />
-          }
-          <!-- isFlash -->
-          @if (row.isFlash !== undefined) {
-            {{ fieldsInfo["isFlash"]?.fieldTitle }} :
-            {{ row.isFlash ? ('MESSAGE.Yes' | translate) : ('MESSAGE.No' | translate) }}
-            <br />
-          }
-          <!-- scheduleSendStart -->
-          @if (row.scheduleSendStart) {
-            {{ fieldsInfo["scheduleSendStart"]?.fieldTitle }} :
-            {{ row.scheduleSendStart | date: 'short' }}
-            <br />
-          }
-          <!-- scheduleSendExpire -->
-          @if (row.scheduleSendExpire) {
-            {{ fieldsInfo["scheduleSendExpire"]?.fieldTitle }} :
-            {{ row.scheduleSendExpire | date: 'short' }}
-            <br />
-          }
-          <!-- scheduleSendAllowNextRun -->
-          @if (row.scheduleSendAllowNextRun) {
-            {{ fieldsInfo["scheduleSendAllowNextRun"]?.fieldTitle }} :
-            {{ row.scheduleSendAllowNextRun | date: 'short' }}
-            <br />
-          }
-          <!-- scheduleLockerExpire -->
-          @if (row.scheduleLockerExpire) {
-            {{ fieldsInfo["scheduleLockerExpire"]?.fieldTitle }} :
-            {{ row.scheduleLockerExpire | date: 'short' }}
-            <br />
-          }
-          <!-- ScheduleLockedRun -->
-          @if (row.ScheduleLockedRun) {
-            {{ fieldsInfo["ScheduleLockedRun"]?.fieldTitle }} :
-            {{ row.ScheduleLockedRun | date: 'short' }}
-            <br />
-          }
-          <!-- scheduleCron -->
-          @if (row.scheduleCron) {
-            {{ fieldsInfo["scheduleCron"]?.fieldTitle }} :
-            {{ row.scheduleCron }}
-            <br />
-          }
-          <!-- scheduleCountRun -->
-          @if (row.scheduleCountRun !== undefined) {
-            {{ fieldsInfo["scheduleCountRun"]?.fieldTitle }} :
-            {{ row.scheduleCountRun }}
-            <br />
-          }
-          <!-- scheduleLockedRunIsSuccess -->
-          @if (row.scheduleLockedRunIsSuccess !== undefined) {
-            {{ fieldsInfo["scheduleLockedRunIsSuccess"]?.fieldTitle }} :
-            {{ row.scheduleLockedRunIsSuccess ? ('MESSAGE.Yes' | translate) : ('MESSAGE.No' | translate) }}
-            <br />
-          }
+            <!-- linkFromNumber -->
+            @if (row.linkFromNumber) {
+              {{ fieldsInfo["linkFromNumber"]?.fieldTitle }} :
+              {{ row.linkFromNumber }}
+              <br />
+            }
+            <!-- toNumbers -->
+            @if (row.toNumbers) {
+              {{ fieldsInfo["toNumbers"]?.fieldTitle }} :
+              {{ row.toNumbers }}
+              <br />
+            }
+            <!-- toContactCategories -->
+            @if (row.toContactCategories?.length) {
+              {{ fieldsInfo["toContactCategories"]?.fieldTitle }} :
+              {{ row.toContactCategories.join(", ") }}
+              <br />
+            }
+            <!-- toContactContents -->
+            @if (row.toContactContents?.length) {
+              {{ fieldsInfo["toContactContents"]?.fieldTitle }} :
+              {{ row.toContactContents.join(", ") }}
+              <br />
+            }
+            <!-- sendByQueue -->
+            @if (row.sendByQueue) {
+              {{ fieldsInfo["sendByQueue"]?.fieldTitle }} :
+              {{
+                row.sendByQueue
+                  ? ("MESSAGE.Yes" | translate)
+                  : ("MESSAGE.No" | translate)
+              }}
+              <br />
+            }
+            <!-- isFlash -->
+            @if (row.isFlash) {
+              {{ fieldsInfo["isFlash"]?.fieldTitle }} :
+              {{
+                row.isFlash
+                  ? ("MESSAGE.Yes" | translate)
+                  : ("MESSAGE.No" | translate)
+              }}
+              <br />
+            }
+            <!-- scheduleSendStart -->
+            @if (row.scheduleSendStart) {
+              {{ fieldsInfo["scheduleSendStart"]?.fieldTitle }} :
+              {{ row.scheduleSendStart | localeDateTime }}
+              <br />
+            }
+            <!-- scheduleSendExpire -->
+            @if (row.scheduleSendExpire) {
+              {{ fieldsInfo["scheduleSendExpire"]?.fieldTitle }} :
+              {{ row.scheduleSendExpire | localeDateTime }}
+              <br />
+            }
+            <!-- scheduleSendAllowNextRun -->
+            @if (row.scheduleSendAllowNextRun) {
+              {{ fieldsInfo["scheduleSendAllowNextRun"]?.fieldTitle }} :
+              {{ row.scheduleSendAllowNextRun | localeDateTime }}
+              <br />
+            }
+            <!-- scheduleLockerExpire -->
+            @if (row.scheduleLockerExpire) {
+              {{ fieldsInfo["scheduleLockerExpire"]?.fieldTitle }} :
+              {{ row.scheduleLockerExpire | localeDateTime }}
+              <br />
+            }
+            <!-- ScheduleLockedRun -->
+            @if (row.ScheduleLockedRun) {
+              {{ fieldsInfo["ScheduleLockedRun"]?.fieldTitle }} :
+              {{ row.ScheduleLockedRun | localeDateTime }}
+              <br />
+            }
+            <!-- scheduleCron -->
+            @if (row.scheduleCron) {
+              {{ fieldsInfo["scheduleCron"]?.fieldTitle }} :
+              {{ row.scheduleCron }}
+              <br />
+            }
+            <!-- scheduleCountRun -->
+            @if (row.scheduleCountRun) {
+              {{ fieldsInfo["scheduleCountRun"]?.fieldTitle }} :
+              {{ row.scheduleCountRun }}
+              <br />
+            }
+            <!-- scheduleLockedRunIsSuccess -->
+            @if (row.scheduleLockedRunIsSuccess) {
+              {{ fieldsInfo["scheduleLockedRunIsSuccess"]?.fieldTitle }} :
+              {{
+                row.scheduleLockedRunIsSuccess
+                  ? ("MESSAGE.Yes" | translate)
+                  : ("MESSAGE.No" | translate)
+              }}
+              <br />
+            }
           </div>
         </mat-cell>
       </ng-container>

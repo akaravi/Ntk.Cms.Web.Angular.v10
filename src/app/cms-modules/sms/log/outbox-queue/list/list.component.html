@@ -159,7 +159,11 @@
           [ngClass]="row.recordStatus | statusCellClass"
         >
           <i [ngClass]="row.recordStatus | statusIconClass"></i>
-          @if (!fieldsInfo["recordStatus"]?.accessEditField) {
+          @if (
+            fieldsInfo["recordStatus"]?.accessEditField &&
+            !row.queueCompleted &&
+            !row.queueLockedRun
+          ) {
             <select
               matNativeControl
               cmsRecordStatusSelfSave
@@ -174,6 +178,7 @@
           }
         </mat-cell>
       </ng-container>
+
       <!-- mainAdminRecordStatus Column -->
       <ng-container matColumnDef="mainAdminRecordStatus">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -181,11 +186,14 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let row">
           <i [ngClass]="row.mainAdminRecordStatus | adminStatusIconClass"></i>
-          @if (!fieldsInfo["mainAdminRecordStatus"]?.accessEditField) {
+          @if (
+            fieldsInfo["mainAdminRecordStatus"]?.accessEditField &&
+            !row.queueCompleted &&
+            !row.queueLockedRun
+          ) {
             <select
               matNativeControl
               cmsRecordAdminStatusSelfSave
-              *ngIf="dataModelResult?.access?.accessEditRow"
               [contentService]="contentService"
               [row]="row"
               style="background: none; border: none"
@@ -194,6 +202,15 @@
               }"
             ></select>
           }
+        </mat-cell>
+      </ng-container>
+       <!-- createdBy Column -->
+      <ng-container matColumnDef="createdBy">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ fieldsInfo["createdBy"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.createdBy | cmsuserinfo | async }}
         </mat-cell>
       </ng-container>
       <!-- scheduleSendStart Column -->
@@ -258,7 +275,7 @@
           {{ fieldsInfo["updatedDate"]?.fieldTitle }}
         </mat-header-cell>
         <mat-cell *matCellDef="let row" style="direction: ltr">
-          {{ row.updatedDate | localeDate }}
+          {{ row.updatedDate | localeDateTime }}
           {{ publicHelper.getTime(row.updatedDate) }}
         </mat-cell>
       </ng-container>
@@ -286,18 +303,39 @@
         <mat-cell *matCellDef="let row">
           <div>
             <span [innerHTML]="row.message | prettyLine"> </span>
-            <br />
-            @if (row.statusTextFiltering) {
-              {{ fieldsInfo["numberFilteringChar"]?.fieldTitle }} :
-
-              {{ row.numberFilteringChar }}
+            <hr />
+            @if (row.updatedBy) {
+              {{ fieldsInfo["updatedBy"]?.fieldTitle }} :
+              {{ row.updatedBy | cmsuserinfo | async }}
               <br />
             }
+            <!-- statusTextFiltering -->
+            @if (row.statusTextFiltering) {
+              {{ fieldsInfo["statusTextFiltering"]?.fieldTitle }} :
+              {{
+                row.statusTextFiltering
+                  ? ("MESSAGE.Yes" | translate)
+                  : ("MESSAGE.No" | translate)
+              }}
+              <br />
+            }
+                  <!-- statusNumberFiltering -->
             @if (row.statusNumberFiltering) {
               {{ fieldsInfo["statusNumberFiltering"]?.fieldTitle }} :
-              {{ row.statusNumberFiltering }}
+              {{
+                row.statusNumberFiltering
+                  ? ("MESSAGE.Yes" | translate)
+                  : ("MESSAGE.No" | translate)
+              }}
               <br />
             }
+             <!-- textFilteringChar -->
+            @if (row.textFilteringChar) {
+              {{ fieldsInfo["textFilteringChar"]?.fieldTitle }} :
+              {{ row.textFilteringChar }}
+              <br />
+            }
+
             @if (row.queueLockerId) {
               {{ fieldsInfo["queueLockerId"]?.fieldTitle }} :
               {{ row.queueLockerId }}
@@ -314,7 +352,7 @@
               <br />
             }
             <!-- isFlash -->
-            @if (row.isFlash !== undefined) {
+            @if (row.isFlash) {
               {{ fieldsInfo["isFlash"]?.fieldTitle }} :
               {{
                 row.isFlash
@@ -338,13 +376,13 @@
             <!-- scheduleSendStart -->
             @if (row.scheduleSendStart) {
               {{ fieldsInfo["scheduleSendStart"]?.fieldTitle }} :
-              {{ row.scheduleSendStart | date: "short" }}
+              {{ row.scheduleSendStart | localeDateTime }}
               <br />
             }
             <!-- scheduleSendExpire -->
             @if (row.scheduleSendExpire) {
               {{ fieldsInfo["scheduleSendExpire"]?.fieldTitle }} :
-              {{ row.scheduleSendExpire | date: "short" }}
+              {{ row.scheduleSendExpire | localeDateTime }}
               <br />
             }
             <!-- toNumbers -->
@@ -353,28 +391,10 @@
               {{ row.toNumbers }}
               <br />
             }
-            <!-- statusNumberFiltering -->
-            @if (row.statusNumberFiltering !== undefined) {
-              {{ fieldsInfo["statusNumberFiltering"]?.fieldTitle }} :
-              {{
-                row.statusNumberFiltering
-                  ? ("MESSAGE.Yes" | translate)
-                  : ("MESSAGE.No" | translate)
-              }}
-              <br />
-            }
-            <!-- statusTextFiltering -->
-            @if (row.statusTextFiltering !== undefined) {
-              {{ fieldsInfo["statusTextFiltering"]?.fieldTitle }} :
-              {{
-                row.statusTextFiltering
-                  ? ("MESSAGE.Yes" | translate)
-                  : ("MESSAGE.No" | translate)
-              }}
-              <br />
-            }
+
+
             <!-- statusNotStableApi -->
-            @if (row.statusNotStableApi !== undefined) {
+            @if (row.statusNotStableApi) {
               {{ fieldsInfo["statusNotStableApi"]?.fieldTitle }} :
               {{
                 row.statusNotStableApi
@@ -384,7 +404,7 @@
               <br />
             }
             <!-- statusOutOfServiceApi -->
-            @if (row.statusOutOfServiceApi !== undefined) {
+            @if (row.statusOutOfServiceApi) {
               {{ fieldsInfo["statusOutOfServiceApi"]?.fieldTitle }} :
               {{
                 row.statusOutOfServiceApi
@@ -399,14 +419,9 @@
               {{ row.numberFilteringChar }}
               <br />
             }
-            <!-- textFilteringChar -->
-            @if (row.textFilteringChar) {
-              {{ fieldsInfo["textFilteringChar"]?.fieldTitle }} :
-              {{ row.textFilteringChar }}
-              <br />
-            }
+
             <!-- queueCountRun -->
-            @if (row.queueCountRun !== undefined) {
+            @if (row.queueCountRun) {
               {{ fieldsInfo["queueCountRun"]?.fieldTitle }} :
               {{ row.queueCountRun }}
               <br />
@@ -415,23 +430,18 @@
             <!-- queueLockedRun -->
             @if (row.queueLockedRun) {
               {{ fieldsInfo["queueLockedRun"]?.fieldTitle }} :
-              {{ row.queueLockedRun | date: "short" }}
+              {{ row.queueLockedRun | localeDateTime }}
               <br />
             }
             <!-- queueLockerExpire -->
             @if (row.queueLockerExpire) {
               {{ fieldsInfo["queueLockerExpire"]?.fieldTitle }} :
-              {{ row.queueLockerExpire | date: "short" }}
+              {{ row.queueLockerExpire | localeDateTime }}
               <br />
             }
-            <!-- queueLockerId -->
-            @if (row.queueLockerId) {
-              {{ fieldsInfo["queueLockerId"]?.fieldTitle }} :
-              {{ row.queueLockerId }}
-              <br />
-            }
+
             <!-- queueCompleted -->
-            @if (row.queueCompleted !== undefined) {
+            @if (row.queueCompleted) {
               {{ fieldsInfo["queueCompleted"]?.fieldTitle }} :
               {{
                 row.queueCompleted
@@ -443,7 +453,7 @@
             <!-- queueCompleteDate -->
             @if (row.queueCompleteDate) {
               {{ fieldsInfo["queueCompleteDate"]?.fieldTitle }} :
-              {{ row.queueCompleteDate | date: "short" }}
+              {{ row.queueCompleteDate | localeDateTime }}
               <br />
             }
             <!-- queueLockerMicroservice -->

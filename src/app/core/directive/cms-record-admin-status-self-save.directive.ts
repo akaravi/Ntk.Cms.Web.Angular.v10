@@ -81,7 +81,7 @@ export class CmsRecordAdminStatusSelfSaveDirective {
     this.addLoader(element);
     this.contentService.setAccessDataType(ManageUserAccessDataTypesEnum.Editor);
     this.contentService
-      .ServiceSetMainAdminRecordStatus(this.row.id, mainAdminRecordStatus)
+      .ServiceSetAdminStatus(this.row.id, mainAdminRecordStatus)
       .subscribe({
         next: (ret) => {
           if (ret.isSuccess) {

@@ -27,7 +27,8 @@ export class PersianDateFull {
         return "";
       }
       const d = new Date(value);
-      if (!d) {
+      const now = new Date();
+      if (!d || d.getFullYear() < now.getFullYear() - 1000) {
         return "";
       }
       return (

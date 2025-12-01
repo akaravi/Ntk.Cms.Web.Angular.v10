@@ -15,7 +15,7 @@
       <app-cms-enum-record-status-selector
         *ngIf="fieldsInfo['recordStatus']?.accessWatchField"
         [(model)]="dataModel.recordStatus"
-        [optionDisabled]="!fieldsInfo['recordStatus']?.accessEditField "
+        [optionDisabled]="!fieldsInfo['recordStatus']?.accessEditField"
         [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
         [optionRequired]="true"
         [optionSelectFirstItem]="true"
@@ -25,7 +25,7 @@
       <app-cms-enum-record-admin-status-selector
         *ngIf="fieldsInfo['mainAdminRecordStatus']?.accessWatchField"
         [(model)]="dataModel.mainAdminRecordStatus"
-        [optionDisabled]="!fieldsInfo['mainAdminRecordStatus']?.accessEditField "
+        [optionDisabled]="!fieldsInfo['mainAdminRecordStatus']?.accessEditField"
         [optionLabel]="fieldsInfo['mainAdminRecordStatus']?.fieldTitle"
         [optionRequired]="true"
         [optionSelectFirstItem]="true"
@@ -45,7 +45,7 @@
           [(ngModel)]="dataModel.scheduleSendStart"
           name="dataModel.scheduleSendStart"
           placeholder="{{ fieldsInfo['scheduleSendStart']?.fieldTitle }}"
-          disabled="{{ !fieldsInfo['scheduleSendStart']?.accessEditField }}"
+          [readonly]="!fieldsInfo['scheduleSendStart']?.accessEditField"
           class="form-control validate-name"
           id="dataModel.scheduleSendStart"
         />
@@ -70,7 +70,7 @@
           name="dataModel.toNumbers"
           #ToNumbers
           placeholder="123"
-          disabled="{{ !fieldsInfo['toNumbers']?.accessEditField }}"
+          [readonly]="!fieldsInfo['toNumbers']?.accessEditField"
           class="form-control validate-name"
           id="dataModel.toNumbers"
         />
@@ -84,18 +84,19 @@
         <label for="dataModel.message" class="color-highlight">{{
           fieldsInfo["message"]?.fieldTitle
         }}</label>
-        <input
+        <textarea
           matInput
+          rows="20"
           type="text"
           [(ngModel)]="dataModel.message"
           #Message
           name="dataModel.message"
           placeholder="123"
-          disabled="{{ !fieldsInfo['message']?.accessEditField }}"
+          [readonly]="!fieldsInfo['message']?.accessEditField"
           class="form-control validate-name"
           id="dataModel.message"
-        />
-        <em style="text-align: right">{{ Message.value.length }} / 100</em>
+        ></textarea>
+        <em style="text-align: right">{{ Message.value.length }} </em>
       </div>
       <div class="form-actions" *ngIf="formInfo.submitButtonEnabled">
         <button
