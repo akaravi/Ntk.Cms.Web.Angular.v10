@@ -8,10 +8,13 @@ import {
   Input,
   Renderer2,
 } from "@angular/core";
-import { ManageUserAccessDataTypesEnum, RecordAdminStatusEnum, RecordStatusEnum } from "ntk-cms-api";
+import {
+  ManageUserAccessDataTypesEnum,
+  RecordAdminStatusEnum,
+} from "ntk-cms-api";
 import { PublicHelper } from "../helpers/publicHelper";
 import { CmsToastrService } from "../services/cmsToastr.service";
-import { iconAdminStatus } from "../pipe/recordAdminStatusIconClass.pipe";
+
 const SUCCESS_ICON =
   "https://i.pinimg.com/originals/7b/dd/1b/7bdd1bc7db7fd48025d4e39a0e2f0fd8.jpg";
 const ERROR_ICON =
@@ -52,7 +55,7 @@ export class CmsRecordAdminStatusSelfSaveDirective {
         co.title +
         " " +
         '<i Class="' +
-        iconAdminStatus(co.value) +
+        this.iconAdminStatus(co.value) +
         '"></i>';
       option.value = co.value.toString();
       this.elRef.nativeElement.add(option);
@@ -77,33 +80,35 @@ export class CmsRecordAdminStatusSelfSaveDirective {
     const mainAdminRecordStatus = element["value"] as RecordAdminStatusEnum;
     this.addLoader(element);
     this.contentService.setAccessDataType(ManageUserAccessDataTypesEnum.Editor);
-    this.contentService.ServiceSetMainAdminRecordStatus(this.row.id, mainAdminRecordStatus).subscribe({
-      next: (ret) => {
-        if (ret.isSuccess) {
-          this.handleSuccessCase(element);
-          this.cmsToastrService.typeSuccessSetStatus(ret.errorMessage);
-          this.row.mainAdminRecordStatus = mainAdminRecordStatus | 0;
-          this.cdr.markForCheck();
-        } else {
+    this.contentService
+      .ServiceSetMainAdminRecordStatus(this.row.id, mainAdminRecordStatus)
+      .subscribe({
+        next: (ret) => {
+          if (ret.isSuccess) {
+            this.handleSuccessCase(element);
+            this.cmsToastrService.typeSuccessSetStatus(ret.errorMessage);
+            this.row.mainAdminRecordStatus = mainAdminRecordStatus | 0;
+            this.cdr.markForCheck();
+          } else {
+            this.renderer.setProperty(
+              this.elRef.nativeElement,
+              "value",
+              this.row.mainAdminRecordStatus,
+            );
+            this.cmsToastrService.typeErrorSetStatus(ret.errorMessage);
+            this.handleErrorCase(element);
+          }
+        },
+        error: (err) => {
           this.renderer.setProperty(
             this.elRef.nativeElement,
             "value",
             this.row.mainAdminRecordStatus,
           );
-          this.cmsToastrService.typeErrorSetStatus(ret.errorMessage);
+          this.cmsToastrService.typeError(err);
           this.handleErrorCase(element);
-        }
-      },
-      error: (err) => {
-        this.renderer.setProperty(
-          this.elRef.nativeElement,
-          "value",
-          this.row.mainAdminRecordStatus,
-        );
-        this.cmsToastrService.typeError(err);
-        this.handleErrorCase(element);
-      },
-    });
+        },
+      });
   }
 
   handleSuccessCase(element: HTMLElement) {
@@ -145,7 +150,26 @@ export class CmsRecordAdminStatusSelfSaveDirective {
   removeBackground(element: HTMLElement) {
     element.style.background = "none";
   }
-
+  iconAdminStatus(value: RecordAdminStatusEnum): string {
+    let ret = "";
+    switch (value) {
+      case RecordAdminStatusEnum.Pending:
+        ret = "fa fa-hourglass-half";
+        break;
+      case RecordAdminStatusEnum.Accept:
+        ret = "fa fa-check";
+        break;
+      case RecordAdminStatusEnum.Denied:
+        ret = "fa fa-eye-slash";
+        break;
+      case RecordAdminStatusEnum.NeedToCheck:
+        ret = "fa fa-times";
+        break;
+      default:
+        ret = "fa fa-hourglass-half";
+    }
+    return ret;
+  }
 }
 // <select selfSave [observableFn]="post()">
 //   <option value="One">One</option>
