@@ -79,8 +79,8 @@ export class BlogContentListComponent
     "id",
     "recordStatus",
     // 'Title',
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     "LinkTo",
     "action_menu",
   ];
@@ -90,8 +90,8 @@ export class BlogContentListComponent
     "id",
     "recordStatus",
     // 'Title',
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     "LinkTo",
     "action_menu",
   ];

@@ -91,16 +91,16 @@ export class TicketingTaskListComponent
   tabledisplayedColumnsSource: string[] = [
     "Title",
     "LinkMemberId",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     "TicketStatus",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "Title",
     "LinkMemberId",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     "TicketStatus",
     // 'Action'
   ];
@@ -123,13 +123,15 @@ export class TicketingTaskListComponent
       this.DataGetAll();
     }
 
-    this.unsubscribe.push( this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.getEnumTicketStatus();
-        this.tokenInfo = value;
-        this.DataGetAll();
-      }));
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.getEnumTicketStatus();
+          this.tokenInfo = value;
+          this.DataGetAll();
+        }),
+    );
     this.getEnumTicketStatus();
   }
   ngOnDestroy(): void {

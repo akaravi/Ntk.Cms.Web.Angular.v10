@@ -95,16 +95,16 @@ export class TicketingTaskContactUsListComponent
     "id",
     "recordStatus",
     // 'Title',
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "id",
     "recordStatus",
     // 'Title',
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
 

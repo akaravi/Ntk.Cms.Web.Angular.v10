@@ -96,16 +96,16 @@ export class PollingVoteListComponent
     "id",
     "recordStatus",
     "LinkMemberId",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "id",
     "recordStatus",
     "LinkMemberId",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
   expandedElement: PollingVoteModel | null;

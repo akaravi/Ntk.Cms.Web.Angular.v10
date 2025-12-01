@@ -259,7 +259,7 @@
           {{ fieldsInfo["mainAdminRecordStatus"]?.fieldTitle }}
         </mat-header-cell>
         <mat-cell *matCellDef="let row">
-          <i [ngClass]="row.mainAdminRecordStatus | statusIconClass"></i>
+          <i [ngClass]="row.mainAdminRecordStatus | adminStatusIconClass"></i>
         </mat-cell>
       </ng-container>
       <!-- Title Column -->

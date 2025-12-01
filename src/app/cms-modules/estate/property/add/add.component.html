@@ -500,14 +500,14 @@
           </div>
 
           <!-- MainAdminRecordStatus Field -->
-          <app-cms-enum-record-status-selector
+          <app-cms-enum-record-admin-status-selector
             *ngIf="fieldsInfo['mainAdminRecordStatus']?.accessWatchField"
             [(model)]="dataModel.mainAdminRecordStatus"
             [optionDisabled]="false"
             [optionLabel]="fieldsInfo['mainAdminRecordStatus']?.fieldTitle"
             [optionRequired]="false"
             [optionSelectFirstItem]="true"
-          ></app-cms-enum-record-status-selector>
+          ></app-cms-enum-record-admin-status-selector>
 
           <!-- score Field -->
           <div

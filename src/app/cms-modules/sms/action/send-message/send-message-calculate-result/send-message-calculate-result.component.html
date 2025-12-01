@@ -61,14 +61,6 @@
       <span>{{ "TITLE.Service_Credit_Sum" | translate }}</span>
       <strong>{{ data.item.serviceCreditSum || 0 }}</strong>
     </div>
-    <div class="meta-card">
-      <span>{{ "TITLE.Message_Is_Unicode" | translate }}</span>
-      <strong>{{
-        data.item.messageIsUnicode
-          ? ("TITLE.Yes" | translate)
-          : ("TITLE.No" | translate)
-      }}</strong>
-    </div>
   </div>
 
   <div class="receiver-panel" *ngIf="receivers.length > 0">

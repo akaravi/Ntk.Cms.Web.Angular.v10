@@ -98,8 +98,8 @@ export class CoreModuleSaleHeaderGroupListComponent
     "TitleML",
     "LinkUserGroupId",
     "LinkCmsSiteCategoryId",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
@@ -110,8 +110,8 @@ export class CoreModuleSaleHeaderGroupListComponent
     "TitleML",
     "LinkUserGroupId",
     "LinkCmsSiteCategoryId",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
 

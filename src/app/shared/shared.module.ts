@@ -205,6 +205,9 @@ import { PasswordStrengthComponent } from "./password-strength/password-strength
 import { ProgressSpinnerComponent } from "./progress-spinner/progress-spinner.component";
 import { CmsFormResultMessageComponent } from "./cms-form-result-message/cms-form-result-message.component";
 import { CmsContactContentDropListComponent } from "./cms-contact-content-drop-list/cms-contact-content-drop-list.component";
+import { CmsEnumRecordAdminStatusSelectorComponent } from "./cms-enum-record-admin-status-selector/cms-enum-record-admin-status-selector.component";
+import { RecordAdminStatusIconClassPipe } from "../core/pipe/recordAdminStatusIconClass.pipe";
+import { CmsRecordAdminStatusSelfSaveDirective } from "../core/directive/cms-record-admin-status-self-save.directive";
 
 @NgModule({
   declarations: [
@@ -227,6 +230,7 @@ import { CmsContactContentDropListComponent } from "./cms-contact-content-drop-l
     LocaleTime,
     PrettyLinePipe,
     RecordStatusIconClassPipe,
+    RecordAdminStatusIconClassPipe,
     RecordStatusCellClassPipe,
     SortTypeIconClassPipe,
     ReplaceTextPipe,
@@ -242,6 +246,7 @@ import { CmsContactContentDropListComponent } from "./cms-contact-content-drop-l
     CmsSiteSelectorComponent,
     CmsCurrencySelectorComponent,
     CmsEnumRecordStatusSelectorComponent,
+    CmsEnumRecordAdminStatusSelectorComponent,
     CmsEnumXSelectorComponent,
     CmsEnumXSelectionListComponent,
     CmsLocationSelectorComponent,
@@ -318,6 +323,7 @@ import { CmsContactContentDropListComponent } from "./cms-contact-content-drop-l
     MatVerticalStepperScrollerDirective,
     SelfSaveDirective,
     CmsRecordStatusSelfSaveDirective,
+    CmsRecordAdminStatusSelfSaveDirective,
     ClipboardIfSupportedDirective,
     ClipboardDirective,
     InlineSVGDirective,
@@ -489,6 +495,7 @@ import { CmsContactContentDropListComponent } from "./cms-contact-content-drop-l
     LocaleTime,
     PrettyLinePipe,
     RecordStatusIconClassPipe,
+    RecordAdminStatusIconClassPipe,
     RecordStatusCellClassPipe,
     SortTypeIconClassPipe,
     ReplaceTextPipe,
@@ -502,6 +509,7 @@ import { CmsContactContentDropListComponent } from "./cms-contact-content-drop-l
     CmsSiteSelectorComponent,
     CmsCurrencySelectorComponent,
     CmsEnumRecordStatusSelectorComponent,
+    CmsEnumRecordAdminStatusSelectorComponent,
     CmsEnumXSelectorComponent,
     CmsEnumXSelectionListComponent,
     CmsLocationSelectorComponent,
@@ -578,6 +586,7 @@ import { CmsContactContentDropListComponent } from "./cms-contact-content-drop-l
     MatVerticalStepperScrollerDirective,
     SelfSaveDirective,
     CmsRecordStatusSelfSaveDirective,
+    CmsRecordAdminStatusSelfSaveDirective,
     ClipboardIfSupportedDirective,
     ClipboardDirective,
     InlineSVGDirective,

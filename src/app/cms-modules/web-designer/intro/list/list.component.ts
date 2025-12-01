@@ -82,8 +82,8 @@ export class WebDesignerMainIntroListComponent
     "recordStatus",
     // 'Title',
     "LinkPageId",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
@@ -92,8 +92,8 @@ export class WebDesignerMainIntroListComponent
     "recordStatus",
     // 'Title',
     "LinkPageId",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
   expandedElement: WebDesignerMainIntroModel | null;

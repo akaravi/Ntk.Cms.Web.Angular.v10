@@ -15,12 +15,21 @@
       <app-cms-enum-record-status-selector
         *ngIf="fieldsInfo['recordStatus']?.accessWatchField"
         [(model)]="dataModel.recordStatus"
-        [optionDisabled]="false"
+        [optionDisabled]="!fieldsInfo['recordStatus']?.accessEditField "
         [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
         [optionRequired]="true"
         [optionSelectFirstItem]="true"
       ></app-cms-enum-record-status-selector>
+      <!-- MainAdminRecordStatus Field -->
 
+      <app-cms-enum-record-admin-status-selector
+        *ngIf="fieldsInfo['mainAdminRecordStatus']?.accessWatchField"
+        [(model)]="dataModel.mainAdminRecordStatus"
+        [optionDisabled]="!fieldsInfo['mainAdminRecordStatus']?.accessEditField "
+        [optionLabel]="fieldsInfo['mainAdminRecordStatus']?.fieldTitle"
+        [optionRequired]="true"
+        [optionSelectFirstItem]="true"
+      ></app-cms-enum-record-admin-status-selector>
       <!-- ScheduleSendStart Field -->
       <div
         *ngIf="fieldsInfo['scheduleSendStart']?.accessWatchField"

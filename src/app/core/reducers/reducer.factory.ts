@@ -22,6 +22,7 @@ export interface ReducerCmsStoreModel {
   coreModuleResultStore: ErrorExceptionResult<CoreModuleModel>;
   coreCpMainResultStore: ErrorExceptionResult<CoreCpMainMenuModel>;
   enumRecordStatusResultStore: ErrorExceptionResult<InfoEnumModel>;
+  enumRecordAdminStatusResultStore: ErrorExceptionResult<InfoEnumModel>;
   currencyResultStore: ErrorExceptionResult<CoreCurrencyModel>;
   connectionStatusStore: ConnectionStatusModel;
   themeStore: ThemeStoreModel;
@@ -36,6 +37,7 @@ export const initialState: ReducerCmsStoreModel = {
   coreModuleResultStore: new ErrorExceptionResult<CoreModuleModel>(),
   coreCpMainResultStore: new ErrorExceptionResult<CoreCpMainMenuModel>(),
   enumRecordStatusResultStore: new ErrorExceptionResult<InfoEnumModel>(),
+  enumRecordAdminStatusResultStore: new ErrorExceptionResult<InfoEnumModel>(),
   currencyResultStore: new ErrorExceptionResult<CoreCurrencyModel>(),
   connectionStatusStore: new ConnectionStatusModel(),
   themeStore: new ThemeStoreModel(),
@@ -77,6 +79,8 @@ export function stateReducer(
       return { ...state, currencyResultStore: action.payload };
     case SET_Info_Enum:
       return { ...state, enumRecordStatusResultStore: action.payload };
+    case SET_Info_Enum_Admin:
+      return { ...state, enumRecordAdminStatusResultStore: action.payload };
     case SET_Connection_STATE:
       return { ...state, connectionStatusStore: action.payload };
     case SET_Theme_STATE:
@@ -101,6 +105,7 @@ export const SET_Core_Module = "SET_Core_Module";
 export const SET_CpMain_Menu = "SET_CpMain_Menu";
 export const SET_Core_Currency = "SET_Core_Currency";
 export const SET_Info_Enum = "SET_Info_Enum";
+export const SET_Info_Enum_Admin = "SET_Info_Enum_Admin";
 export const SET_Connection_STATE = "SET_Connection_STATE";
 export const SET_Theme_STATE = "SET_Theme_STATE";
 
@@ -137,6 +142,10 @@ export class SetInfoEnum implements ActionInterface {
   readonly type = SET_Info_Enum;
   payload: ErrorExceptionResult<InfoEnumModel>;
 }
+export class SetInfoEnumAdmin implements ActionInterface {
+  readonly type = SET_Info_Enum_Admin;
+  payload: ErrorExceptionResult<InfoEnumModel>;
+}
 export class SetCoreCurrency implements ActionInterface {
   readonly type = SET_Core_Currency;
   payload: ErrorExceptionResult<CoreCurrencyModel>;
@@ -159,6 +168,7 @@ export type Actions =
   | SetCoreModule
   | SetCpMainMenu
   | SetInfoEnum
+  | SetInfoEnumAdmin
   | SetCoreCurrency
   | SetConnectionState
   | SetThemeState;

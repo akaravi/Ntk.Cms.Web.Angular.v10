@@ -93,8 +93,8 @@ export class TicketingAnswerListComponent
     "Id",
     "LinkTaskId",
     "LinkMemberId",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     "AnswerStatus",
     // 'Action'
   ];
@@ -102,8 +102,8 @@ export class TicketingAnswerListComponent
     "Id",
     "LinkTaskId",
     "LinkMemberId",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     "AnswerStatus",
     // 'Action'
   ];

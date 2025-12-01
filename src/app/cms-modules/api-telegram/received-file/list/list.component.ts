@@ -85,8 +85,8 @@ export class ApiTelegramReceivedFileListComponent
     // 'Title',
     "Username",
     "StatusWebhook",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action',
   ];
   tabledisplayedColumnsMobileSource: string[] = [
@@ -95,8 +95,8 @@ export class ApiTelegramReceivedFileListComponent
     // 'Title',
     "Username",
     "StatusWebhook",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action',
   ];
 

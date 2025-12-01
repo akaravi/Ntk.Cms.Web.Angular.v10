@@ -103,8 +103,8 @@ export class CoreModuleSaleHeaderListComponent
     "HasDemo",
     "FromDate",
     "ExpireDate",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
@@ -116,8 +116,8 @@ export class CoreModuleSaleHeaderListComponent
     //'HasDemo',
     "FromDate",
     "ExpireDate",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
 

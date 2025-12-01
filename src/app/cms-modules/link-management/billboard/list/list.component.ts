@@ -100,8 +100,8 @@ export class LinkManagementBillboardListComponent
     "id",
     "recordStatus",
     // 'Title',
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
@@ -109,8 +109,8 @@ export class LinkManagementBillboardListComponent
     "id",
     "recordStatus",
     // 'Title',
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
 

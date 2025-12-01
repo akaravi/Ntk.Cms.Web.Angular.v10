@@ -86,8 +86,8 @@ export class ApiTelegramLogInputListComponent
     "Username",
     "ChatId",
     "StatusWebhook",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action',
   ];
   tabledisplayedColumnsMobileSource: string[] = [
@@ -97,8 +97,8 @@ export class ApiTelegramLogInputListComponent
     "Username",
     "ChatId",
     "StatusWebhook",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action',
   ];
 

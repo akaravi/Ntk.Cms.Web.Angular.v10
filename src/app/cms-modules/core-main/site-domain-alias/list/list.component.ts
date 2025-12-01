@@ -98,8 +98,8 @@ export class CoreSiteDomainAliasListComponent
     "SubDomain",
     "Domain",
     "Redirect",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
 
@@ -110,8 +110,8 @@ export class CoreSiteDomainAliasListComponent
     "SubDomain",
     "Domain",
     "Redirect",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
 

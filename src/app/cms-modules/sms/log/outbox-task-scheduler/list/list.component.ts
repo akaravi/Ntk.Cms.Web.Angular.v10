@@ -98,8 +98,8 @@ export class SmsLogOutBoxTaskSchedulerListComponent
     "scheduleSendStart",
     "scheduleSendExpire",
     "scheduleSendAllowNextRun",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
@@ -109,8 +109,8 @@ export class SmsLogOutBoxTaskSchedulerListComponent
     "scheduleSendStart",
     "scheduleSendExpire",
     "scheduleSendAllowNextRun",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
 

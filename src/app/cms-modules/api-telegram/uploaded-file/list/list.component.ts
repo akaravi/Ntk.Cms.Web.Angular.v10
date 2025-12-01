@@ -85,8 +85,8 @@ export class ApiTelegramUploadedFileListComponent
     // 'Title',
     "Username",
     "StatusWebhook",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action',
   ];
 
@@ -96,8 +96,8 @@ export class ApiTelegramUploadedFileListComponent
     // 'Title',
     "Username",
     "StatusWebhook",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action',
   ];
   expandedElement: ApiTelegramUploadedFileModel | null;

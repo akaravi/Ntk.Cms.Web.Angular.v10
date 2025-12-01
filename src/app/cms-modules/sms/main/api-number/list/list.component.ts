@@ -95,8 +95,8 @@ export class SmsMainApiNumberListComponent
     "isPublic",
     "SaleStatus",
 
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
     "position",
   ];
@@ -108,8 +108,8 @@ export class SmsMainApiNumberListComponent
     "isPublic",
     "lastUseOfDate",
     "SaleStatus",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
     "position",
   ];

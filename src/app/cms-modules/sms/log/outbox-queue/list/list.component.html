@@ -159,20 +159,43 @@
           [ngClass]="row.recordStatus | statusCellClass"
         >
           <i [ngClass]="row.recordStatus | statusIconClass"></i>
-          <select
-            matNativeControl
-            cmsRecordStatusSelfSave
-            *ngIf="dataModelResult?.access?.accessEditRow"
-            [contentService]="contentService"
-            [row]="row"
-            style="background: none; border: none"
-            [ngStyle]="{
-              display: row.id === tableRowSelected?.id ? '' : 'none',
-            }"
-          ></select>
+          @if (!fieldsInfo["recordStatus"]?.accessEditField) {
+            <select
+              matNativeControl
+              cmsRecordStatusSelfSave
+              *ngIf="dataModelResult?.access?.accessEditRow"
+              [contentService]="contentService"
+              [row]="row"
+              style="background: none; border: none"
+              [ngStyle]="{
+                display: row.id === tableRowSelected?.id ? '' : 'none',
+              }"
+            ></select>
+          }
         </mat-cell>
       </ng-container>
-
+      <!-- mainAdminRecordStatus Column -->
+      <ng-container matColumnDef="mainAdminRecordStatus">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ fieldsInfo["mainAdminRecordStatus"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <i [ngClass]="row.mainAdminRecordStatus | adminStatusIconClass"></i>
+          @if (!fieldsInfo["mainAdminRecordStatus"]?.accessEditField) {
+            <select
+              matNativeControl
+              cmsRecordAdminStatusSelfSave
+              *ngIf="dataModelResult?.access?.accessEditRow"
+              [contentService]="contentService"
+              [row]="row"
+              style="background: none; border: none"
+              [ngStyle]="{
+                display: row.id === tableRowSelected?.id ? '' : 'none',
+              }"
+            ></select>
+          }
+        </mat-cell>
+      </ng-container>
       <!-- scheduleSendStart Column -->
       <ng-container matColumnDef="scheduleSendStart">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -296,6 +319,150 @@
             @if (row.queueAllowNextRun) {
               {{ fieldsInfo["queueAllowNextRun"]?.fieldTitle }} :
               {{ row.queueAllowNextRun }}
+              <br />
+            }
+            <!-- isFlash -->
+            @if (row.isFlash !== undefined) {
+              {{ fieldsInfo["isFlash"]?.fieldTitle }} :
+              {{
+                row.isFlash
+                  ? ("MESSAGE.Yes" | translate)
+                  : ("MESSAGE.No" | translate)
+              }}
+              <br />
+            }
+            <!-- linkApiPathId -->
+            @if (row.linkApiPathId) {
+              {{ fieldsInfo["linkApiPathId"]?.fieldTitle }} :
+              {{ row.linkApiPathId }}
+              <br />
+            }
+            <!-- linkFromNumber -->
+            @if (row.linkFromNumber) {
+              {{ fieldsInfo["linkFromNumber"]?.fieldTitle }} :
+              {{ row.linkFromNumber }}
+              <br />
+            }
+            <!-- scheduleSendStart -->
+            @if (row.scheduleSendStart) {
+              {{ fieldsInfo["scheduleSendStart"]?.fieldTitle }} :
+              {{ row.scheduleSendStart | date: "short" }}
+              <br />
+            }
+            <!-- scheduleSendExpire -->
+            @if (row.scheduleSendExpire) {
+              {{ fieldsInfo["scheduleSendExpire"]?.fieldTitle }} :
+              {{ row.scheduleSendExpire | date: "short" }}
+              <br />
+            }
+            <!-- toNumbers -->
+            @if (row.toNumbers) {
+              {{ fieldsInfo["toNumbers"]?.fieldTitle }} :
+              {{ row.toNumbers }}
+              <br />
+            }
+            <!-- statusNumberFiltering -->
+            @if (row.statusNumberFiltering !== undefined) {
+              {{ fieldsInfo["statusNumberFiltering"]?.fieldTitle }} :
+              {{
+                row.statusNumberFiltering
+                  ? ("MESSAGE.Yes" | translate)
+                  : ("MESSAGE.No" | translate)
+              }}
+              <br />
+            }
+            <!-- statusTextFiltering -->
+            @if (row.statusTextFiltering !== undefined) {
+              {{ fieldsInfo["statusTextFiltering"]?.fieldTitle }} :
+              {{
+                row.statusTextFiltering
+                  ? ("MESSAGE.Yes" | translate)
+                  : ("MESSAGE.No" | translate)
+              }}
+              <br />
+            }
+            <!-- statusNotStableApi -->
+            @if (row.statusNotStableApi !== undefined) {
+              {{ fieldsInfo["statusNotStableApi"]?.fieldTitle }} :
+              {{
+                row.statusNotStableApi
+                  ? ("MESSAGE.Yes" | translate)
+                  : ("MESSAGE.No" | translate)
+              }}
+              <br />
+            }
+            <!-- statusOutOfServiceApi -->
+            @if (row.statusOutOfServiceApi !== undefined) {
+              {{ fieldsInfo["statusOutOfServiceApi"]?.fieldTitle }} :
+              {{
+                row.statusOutOfServiceApi
+                  ? ("MESSAGE.Yes" | translate)
+                  : ("MESSAGE.No" | translate)
+              }}
+              <br />
+            }
+            <!-- numberFilteringChar -->
+            @if (row.numberFilteringChar) {
+              {{ fieldsInfo["numberFilteringChar"]?.fieldTitle }} :
+              {{ row.numberFilteringChar }}
+              <br />
+            }
+            <!-- textFilteringChar -->
+            @if (row.textFilteringChar) {
+              {{ fieldsInfo["textFilteringChar"]?.fieldTitle }} :
+              {{ row.textFilteringChar }}
+              <br />
+            }
+            <!-- queueCountRun -->
+            @if (row.queueCountRun !== undefined) {
+              {{ fieldsInfo["queueCountRun"]?.fieldTitle }} :
+              {{ row.queueCountRun }}
+              <br />
+            }
+            <!-- queueAllowNextRun -->
+            @if (row.queueAllowNextRun) {
+              {{ fieldsInfo["queueAllowNextRun"]?.fieldTitle }} :
+              {{ row.queueAllowNextRun | date: "short" }}
+              <br />
+            }
+            <!-- queueLockedRun -->
+            @if (row.queueLockedRun) {
+              {{ fieldsInfo["queueLockedRun"]?.fieldTitle }} :
+              {{ row.queueLockedRun | date: "short" }}
+              <br />
+            }
+            <!-- queueLockerExpire -->
+            @if (row.queueLockerExpire) {
+              {{ fieldsInfo["queueLockerExpire"]?.fieldTitle }} :
+              {{ row.queueLockerExpire | date: "short" }}
+              <br />
+            }
+            <!-- queueLockerId -->
+            @if (row.queueLockerId) {
+              {{ fieldsInfo["queueLockerId"]?.fieldTitle }} :
+              {{ row.queueLockerId }}
+              <br />
+            }
+            <!-- queueCompleted -->
+            @if (row.queueCompleted !== undefined) {
+              {{ fieldsInfo["queueCompleted"]?.fieldTitle }} :
+              {{
+                row.queueCompleted
+                  ? ("MESSAGE.Yes" | translate)
+                  : ("MESSAGE.No" | translate)
+              }}
+              <br />
+            }
+            <!-- queueCompleteDate -->
+            @if (row.queueCompleteDate) {
+              {{ fieldsInfo["queueCompleteDate"]?.fieldTitle }} :
+              {{ row.queueCompleteDate | date: "short" }}
+              <br />
+            }
+            <!-- queueLockerMicroservice -->
+            @if (row.queueLockerMicroservice) {
+              {{ fieldsInfo["queueLockerMicroservice"]?.fieldTitle }} :
+              {{ row.queueLockerMicroservice }}
               <br />
             }
           </div>

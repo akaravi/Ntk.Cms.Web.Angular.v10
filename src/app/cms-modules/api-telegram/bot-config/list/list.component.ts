@@ -90,8 +90,8 @@ export class ApiTelegramBotConfigListComponent
     // 'Title',
     "Username",
     "StatusWebhook",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action',
     "LinkTo",
   ];
@@ -101,8 +101,8 @@ export class ApiTelegramBotConfigListComponent
     // 'Title',
     "Username",
     "StatusWebhook",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action',
     "LinkTo",
   ];

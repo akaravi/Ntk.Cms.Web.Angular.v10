@@ -82,8 +82,8 @@ export class LinkManagementBillboardPatternListComponent
     "recordStatus",
     // 'Title',
     "settingType",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
@@ -92,8 +92,8 @@ export class LinkManagementBillboardPatternListComponent
     "recordStatus",
     // 'Title',
     "settingType",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
 

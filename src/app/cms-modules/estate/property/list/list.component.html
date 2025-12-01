@@ -1058,12 +1058,12 @@
         </mat-cell>
       </ng-container>
       <!-- MainAdminRecordStatus Column -->
-      <ng-container matColumnDef="MainAdminRecordStatus">
+      <ng-container matColumnDef="mainAdminRecordStatus">
         <mat-header-cell *matHeaderCellDef mat-sort-header class="form-label">
           {{ fieldsInfo["mainAdminRecordStatus"]?.fieldTitle }}
         </mat-header-cell>
         <mat-cell *matCellDef="let row">
-          <i [ngClass]="row.mainAdminRecordStatus | statusIconClass"></i>
+          <i [ngClass]="row.mainAdminRecordStatus | adminStatusIconClass"></i>
         </mat-cell>
       </ng-container>
       <!-- IsSoldIt Column -->

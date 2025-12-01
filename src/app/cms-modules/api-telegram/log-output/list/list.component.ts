@@ -87,8 +87,8 @@ export class ApiTelegramLogOutputListComponent
     "Username",
     "ChatId",
     "StatusWebhook",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action',
   ];
 
@@ -99,8 +99,8 @@ export class ApiTelegramLogOutputListComponent
     "Username",
     "ChatId",
     "StatusWebhook",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action',
   ];
   expandedElement: ApiTelegramLogOutputModel | null;

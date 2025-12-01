@@ -73,8 +73,8 @@ export class FileContentListComponent
     "recordStatus",
     "fileName",
     "Extension",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
@@ -82,8 +82,8 @@ export class FileContentListComponent
     "recordStatus",
     "fileName",
     "Extension",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
   private unsubscribe: Subscription[] = [];

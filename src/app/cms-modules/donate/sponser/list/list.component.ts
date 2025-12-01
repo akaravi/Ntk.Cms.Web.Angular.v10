@@ -79,8 +79,8 @@ export class DonateSponserListComponent
     // 'Title',
     "LinkCmsUserId",
     "LinkTargetCategoryId",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
@@ -89,8 +89,8 @@ export class DonateSponserListComponent
     // 'Title',
     "LinkCmsUserId",
     "LinkTargetCategoryId",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
 

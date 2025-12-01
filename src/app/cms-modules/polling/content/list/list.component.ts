@@ -74,8 +74,8 @@ export class PollingContentListComponent
     // 'Id',
     "RecordStatus",
     // 'Title',
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
@@ -83,8 +83,8 @@ export class PollingContentListComponent
     // 'Id',
     "RecordStatus",
     // 'Title',
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     "action_menu",
   ];
 

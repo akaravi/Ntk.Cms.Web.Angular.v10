@@ -106,8 +106,8 @@ export class ArticleCommentListComponent
     "id",
     "recordStatus",
     "Writer",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action',
     "LinkTo",
   ];

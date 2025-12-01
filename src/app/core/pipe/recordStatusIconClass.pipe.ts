@@ -12,22 +12,48 @@ export class RecordStatusIconClassPipe implements PipeTransform {
   transform(value: RecordStatusEnum, editable = false): SafeHtml {
     let ret = "";
     switch (value) {
-      case 1:
+      case RecordStatusEnum.Available:
         ret = "fa fa-check";
         break;
-      case 2:
-        ret = "fa fa-times";
+      case RecordStatusEnum.Disable:
+        ret = "fa fa-eye-slash";
         break;
-      case 3:
+      case RecordStatusEnum.Deleted:
         ret = "fa fa-trash";
         break;
-      case 4:
+      case RecordStatusEnum.Pending:
         ret = "fa fa-hourglass-half";
         break;
-      case 5:
-        ret = "far fa-thumbs-down";
+      case RecordStatusEnum.DeniedConfirmed:
+        ret = "fa fa-times";
         break;
-      case 6:
+      case RecordStatusEnum.Archive:
+        ret = "fa fa-archive";
+        break;
+      default:
+        ret = "fa fa-check";
+    }
+    return ret;
+  }
+  iconStatus(value: RecordStatusEnum): string {
+    let ret = "";
+    switch (value) {
+      case RecordStatusEnum.Available:
+        ret = "fa fa-check";
+        break;
+      case RecordStatusEnum.Disable:
+        ret = "fa fa-eye-slash";
+        break;
+      case RecordStatusEnum.Deleted:
+        ret = "fa fa-trash";
+        break;
+      case RecordStatusEnum.Pending:
+        ret = "fa fa-hourglass-half";
+        break;
+      case RecordStatusEnum.DeniedConfirmed:
+        ret = "fa fa-times";
+        break;
+      case RecordStatusEnum.Archive:
         ret = "fa fa-archive";
         break;
       default:

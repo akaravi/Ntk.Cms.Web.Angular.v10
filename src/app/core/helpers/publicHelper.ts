@@ -426,6 +426,7 @@ export class PublicHelper {
     return str;
   }
   getEnumRecordStatusActionIndo = false;
+  getEnumRecordAdminStatusActionIndo = false;
   async getEnumRecordStatus(): Promise<ErrorExceptionResult<InfoEnumModel>> {
     var i = 0;
     while (this.getEnumRecordStatusActionIndo) {
@@ -445,6 +446,39 @@ export class PublicHelper {
     )
       .then((response) => {
         this.getEnumRecordStatusActionIndo = false;
+        this.cmsStoreService.setState({
+          type: SET_Info_Enum,
+          payload: response,
+        });
+        return response;
+      })
+      .catch(() => {
+        return new ErrorExceptionResult<InfoEnumModel>();
+      });
+  }
+  async getEnumRecordAdminStatus(): Promise<
+    ErrorExceptionResult<InfoEnumModel>
+  > {
+    var i = 0;
+    while (this.getEnumRecordAdminStatusActionIndo) {
+      //**indo */
+      setTimeout(() => {}, 100000);
+      i++;
+      if (i == 100) this.getEnumRecordAdminStatusActionIndo = false;
+    }
+    const storeSnapshot = this.cmsStoreService.getStateSnapshot();
+    if (
+      storeSnapshot?.enumRecordAdminStatusResultStore?.listItems?.length > 0
+    ) {
+      return storeSnapshot.enumRecordAdminStatusResultStore;
+    }
+
+    this.getEnumRecordAdminStatusActionIndo = true;
+    return await firstValueFrom(
+      this.coreEnumService.ServiceRecordAdminStatusEnum(1000000),
+    )
+      .then((response) => {
+        this.getEnumRecordAdminStatusActionIndo = false;
         this.cmsStoreService.setState({
           type: SET_Info_Enum,
           payload: response,

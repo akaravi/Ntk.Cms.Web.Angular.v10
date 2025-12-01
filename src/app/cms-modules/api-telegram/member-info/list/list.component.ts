@@ -86,8 +86,8 @@ export class ApiTelegramMemberInfoListComponent
     // 'Title',
     "Username",
     "StatusWebhook",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action',
   ];
   tabledisplayedColumnsMobileSource: string[] = [
@@ -96,8 +96,8 @@ export class ApiTelegramMemberInfoListComponent
     // 'Title',
     "Username",
     "StatusWebhook",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action',
   ];
 

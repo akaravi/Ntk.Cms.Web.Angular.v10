@@ -88,8 +88,8 @@ export class ApplicationLogNotificationListComponent
     // 'LinkApplicationMemberId',
     // 'Title',
     "ContentType",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
@@ -99,8 +99,8 @@ export class ApplicationLogNotificationListComponent
     // 'LinkApplicationMemberId',
     // 'Title',
     "ContentType",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
   expandedElement: ApplicationLogNotificationModel | null;

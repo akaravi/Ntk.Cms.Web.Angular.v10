@@ -84,8 +84,8 @@ export class CoreModuleListComponent
     // 'Title',
     "ClassName",
     "ShowInOrder",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     "ExpireDate",
     "position",
     // 'Action'
@@ -97,8 +97,8 @@ export class CoreModuleListComponent
     // 'Title',
     "ClassName",
     "ShowInOrder",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     "ExpireDate",
     "position",
     // 'Action'

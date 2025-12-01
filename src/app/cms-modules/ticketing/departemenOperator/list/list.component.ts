@@ -83,8 +83,8 @@ export class TicketingDepartemenOperatorListComponent
     "recordStatus",
     // 'Title',
     "LinkSourceId",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
@@ -92,8 +92,8 @@ export class TicketingDepartemenOperatorListComponent
     "recordStatus",
     // 'Title',
     "LinkSourceId",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
 

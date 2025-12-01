@@ -89,8 +89,8 @@ export class SmsMainMessageContentListComponent
     // 'Id',
     "RecordStatus",
     "Title",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
 
@@ -98,8 +98,8 @@ export class SmsMainMessageContentListComponent
     // 'Id',
     "RecordStatus",
     "Title",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action'
   ];
   private unsubscribe: Subscription[] = [];

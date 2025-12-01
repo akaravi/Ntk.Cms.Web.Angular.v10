@@ -30,14 +30,14 @@
           ></app-cms-enum-record-status-selector>
 
           <!-- MainAdminRecordStatus Field -->
-          <app-cms-enum-record-status-selector
+          <app-cms-enum-record-admin-status-selector
             *ngIf="fieldsInfo['mainAdminRecordStatus']?.accessWatchField"
             [(model)]="dataModel.mainAdminRecordStatus"
             [optionDisabled]="false"
             [optionLabel]="fieldsInfo['mainAdminRecordStatus']?.fieldTitle"
             [optionRequired]="true"
             [optionSelectFirstItem]="true"
-          ></app-cms-enum-record-status-selector>
+          ></app-cms-enum-record-admin-status-selector>
 
           <!-- Title Field -->
           <div

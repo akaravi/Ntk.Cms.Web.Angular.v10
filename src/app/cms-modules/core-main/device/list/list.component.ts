@@ -103,8 +103,8 @@ export class CoreDeviceListComponent
     "DeviceType",
     "PackageName",
     "LinkApplicationId",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     "ExpireDate",
     // 'Action'
   ];
@@ -117,8 +117,8 @@ export class CoreDeviceListComponent
     "DeviceType",
     "PackageName",
     "LinkApplicationId",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     "ExpireDate",
     // 'Action'
   ];

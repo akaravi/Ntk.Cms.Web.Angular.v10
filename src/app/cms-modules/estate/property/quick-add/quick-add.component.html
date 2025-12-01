@@ -433,7 +433,7 @@
           </div>
           <!-- MainAdminRecordStatus Field -->
 
-          <app-cms-enum-record-status-selector
+          <app-cms-enum-record-admin-status-selector
             *ngIf="fieldsInfo['mainAdminRecordStatus']?.accessWatchField"
             [(model)]="dataModel.mainAdminRecordStatus"
             [optionDisabled]="false"
@@ -441,7 +441,7 @@
             [optionRequired]="true"
             [optionSelectFirstItem]="true"
           >
-          </app-cms-enum-record-status-selector>
+          </app-cms-enum-record-admin-status-selector>
 
           <div *ngIf="formInfo.submitButtonEnabled" class="form-actions">
             <button
