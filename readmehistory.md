@@ -1,5 +1,71 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-11-30 10:05:00
+
+### افزودن نمایش فیلدهای مهم فیلتر و ممنوعیت در کامپوننت‌های نتایج ارسال پیامک
+
+**تغییرات:**
+
+- افزودن ستون‌های جدید در جدول receivers برای نمایش فیلدهای مهم:
+  - `messageTextForbid` - ممنوعیت متن پیام
+  - `messageTextFiltering` - فیلتر متن پیام (با نمایش کاراکترهای فیلتر شده)
+  - `messageNumberForbid` - ممنوعیت شماره
+  - `messageNumberFiltering` - فیلتر شماره (با نمایش کاراکترهای فیلتر شده)
+- افزودن هشدارهای بصری (رنگ قرمز برای ممنوعیت و رنگ زرد برای فیلتر) در جدول
+- افزودن کلاس `warning-row` برای ردیف‌هایی که دارای هشدار هستند
+- نمایش کاراکترهای فیلتر شده در صورت وجود
+- افزودن کلیدهای ترجمه جدید به فایل‌های چندزبانه (fa.json و en.json)
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/cms-modules/sms/action/send-message/send-message-calculate-result/send-message-calculate-result.component.html`
+- `src/app/cms-modules/sms/action/send-message/send-message-result/send-message-result.component.html`
+- `src/assets/i18n/fa.json`
+- `src/assets/i18n/en.json`
+- `readmehistory.md`
+
+---
+
+## 2025-11-30 09:55:57
+
+### بهبود نمایش نتایج ارسال پیامک در SmsActionSendMessageResultComponent
+
+**تغییرات:**
+
+- اصلاح دسترسی به فیلدهای مدل از `data` به `data.item` برای دسترسی صحیح به `SmsApiSendResultModel`
+- افزودن بخش نمایش خطاها (`errorMessage` و `errors`) از `ErrorExceptionResult`
+- افزودن بخش نمایش هشدارها (`warnings`) از `ErrorExceptionResult`
+- نمایش `toNumbers` از طریق getter `receivers` که از `data.item.toNumbers` استفاده می‌کند
+- اصلاح فیلد نمایش شماره گیرنده از `receiver.toNumber` به `receiver.number` برای هماهنگی با ساختار `NumberReceverInfoModel`
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/cms-modules/sms/action/send-message/send-message-result/send-message-result.component.html`
+- `readmehistory.md`
+
+---
+
+## 2025-11-30 09:46:04
+
+### بهبود نمایش نتایج محاسبه ارسال پیامک در SmsActionSendMessageCalculateResultComponent
+
+**تغییرات:**
+
+- اصلاح دسترسی به فیلدهای مدل از `data` به `data.item` برای دسترسی صحیح به `SmsApiSendOrderCalculateResultModel`
+- افزودن بخش نمایش خطاها (`errorMessage` و `errors`) از `ErrorExceptionResult`
+- افزودن بخش نمایش هشدارها (`warnings`) از `ErrorExceptionResult`
+- نمایش `toNumbers` از طریق getter `receivers` که از `data.item.toNumbers` استفاده می‌کند
+- افزودن کلیدهای ترجمه `MESSAGE.Error` و `MESSAGE.Warning` به فایل‌های چندزبانه (fa.json و en.json)
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/cms-modules/sms/action/send-message/send-message-calculate-result/send-message-calculate-result.component.html`
+- `src/assets/i18n/fa.json`
+- `src/assets/i18n/en.json`
+- `readmehistory.md`
+
+---
+
 ## 2025-01-28 12:00:00
 
 ### افزودن مسیر Import و دکمه Import در ContactContentListComponent

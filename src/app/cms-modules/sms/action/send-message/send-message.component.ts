@@ -9,6 +9,7 @@ import { FormGroup } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
+import { NgxMaterialTimepickerComponent } from "ngx-material-timepicker";
 import { CronOptionModel, TranslateUiService } from "ngx-ntk-cron-editor";
 import {
   ContactContentModel,
@@ -213,14 +214,25 @@ export class SmsActionSendMessageComponent implements OnInit {
     this.DataCheckCredit();
     this.DataMessagePlaceholders();
   }
+  @ViewChild("scheduleSendStartClock")
+  scheduleSendStartClock: NgxMaterialTimepickerComponent;
+  @ViewChild("scheduleSendExpireClock")
+  scheduleSendExpireClock: NgxMaterialTimepickerComponent;
+
   ManageUserAccessDataTypesEnum = ManageUserAccessDataTypesEnum;
+  onActionScheduleSendStartDateFocus(): void {
+    const now = new Date();
+    this.scheduleSendStartClock.min = DateTime.fromJSDate(now);
+    now.setMinutes(now.getMinutes() + 60 * 3);
+    this.scheduleSendExpireClock.min = DateTime.fromJSDate(now);
+  }
   onActionScheduleSendNow() {
     const now = new Date();
     this.dataModel.scheduleSendStart = now;
     this.dataModelDateByClockStart.clock =
       now.getHours() + ":" + now.getMinutes();
     this.dataModelDateByClockStart.date = now;
-
+    now.setMinutes(now.getMinutes() + 60 * 3);
     this.dataModel.scheduleSendExpire = now;
     this.dataModelDateByClockExpire.clock =
       now.getHours() + ":" + now.getMinutes();
@@ -666,7 +678,7 @@ export class SmsActionSendMessageComponent implements OnInit {
               this.cmsToastrService.typeSuccessMessage(str);
             });
 
-          this.openResultDialog(ret.item);
+          this.openResultDialog(ret);
         } else {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
@@ -739,7 +751,7 @@ export class SmsActionSendMessageComponent implements OnInit {
                 this.cmsToastrService.typeSuccessMessage(str);
               });
 
-            this.openCalculateResultDialog(ret.item);
+            this.openCalculateResultDialog(ret);
           } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
@@ -945,7 +957,9 @@ export class SmsActionSendMessageComponent implements OnInit {
     );
   }
 
-  private openResultDialog(result: SmsApiSendResultModel): void {
+  private openResultDialog(
+    result: ErrorExceptionResult<SmsApiSendResultModel>,
+  ): void {
     if (!result) {
       return;
     }
@@ -959,7 +973,7 @@ export class SmsActionSendMessageComponent implements OnInit {
   }
 
   private openCalculateResultDialog(
-    result: SmsApiSendOrderCalculateResultModel,
+    result: ErrorExceptionResult<SmsApiSendOrderCalculateResultModel>,
   ): void {
     if (!result) {
       return;

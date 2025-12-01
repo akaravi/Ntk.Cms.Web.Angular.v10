@@ -8,47 +8,71 @@
     </button>
   </div>
 
-  <div class="meta-grid">
+  <!-- نمایش خطاها -->
+  <div
+    class="error-panel"
+    *ngIf="data.errorMessage || (data.errors && data.errors.length > 0)"
+  >
+    <div class="alert alert-danger" role="alert">
+      <strong>{{ "MESSAGE.Error" | translate }}:</strong>
+      <div *ngIf="data.errorMessage">{{ data.errorMessage }}</div>
+      <ul *ngIf="data.errors && data.errors.length > 0">
+        <li *ngFor="let error of data.errors">{{ error }}</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- نمایش هشدارها -->
+  <div class="warning-panel" *ngIf="data.warnings && data.warnings.length > 0">
+    <div class="alert alert-warning" role="alert">
+      <strong>{{ "MESSAGE.Warning" | translate }}:</strong>
+      <ul>
+        <li *ngFor="let warning of data.warnings">{{ warning }}</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="meta-grid" *ngIf="data.item">
     <div class="meta-card">
       <span>{{ "TITLE.Send_Id" | translate }}</span>
-      <strong>{{ data.sendId || "---" }}</strong>
+      <strong>{{ data.item.sendId || "---" }}</strong>
     </div>
     <div class="meta-card">
       <span>{{ "TITLE.LogOut_Id" | translate }}</span>
-      <strong>{{ data.logOutId || "---" }}</strong>
+      <strong>{{ data.item.logOutId || "---" }}</strong>
     </div>
     <div class="meta-card">
       <span>{{ "TITLE.Selected_Api_Number" | translate }}</span>
-      <strong>{{ data.linkApiNumberId || "---" }}</strong>
+      <strong>{{ data.item.linkApiNumberId || "---" }}</strong>
     </div>
     <div class="meta-card">
       <span>{{ "TITLE.Selected_Route" | translate }}</span>
-      <strong>{{ data.linkApiPathId || "---" }}</strong>
+      <strong>{{ data.item.linkApiPathId || "---" }}</strong>
     </div>
     <div class="meta-card">
       <span>{{ "TITLE.Sender_Number" | translate }}</span>
-      <strong>{{ data.fromNumber || "---" }}</strong>
+      <strong>{{ data.item.fromNumber || "---" }}</strong>
     </div>
     <div class="meta-card">
       <span>{{ "TITLE.Receiver_number" | translate }}</span>
-      <strong>{{ data.receiverNumberCount || 0 }}</strong>
+      <strong>{{ data.item.receiverNumberCount || 0 }}</strong>
     </div>
     <div class="meta-card">
       <span>{{ "TITLE.End_User_Credit_Before" | translate }}</span>
-      <strong>{{ data.endUserCreditBefore || 0 }}</strong>
+      <strong>{{ data.item.endUserCreditBefore || 0 }}</strong>
     </div>
     <div class="meta-card">
       <span>{{ "TITLE.End_User_Credit_Sum" | translate }}</span>
-      <strong>{{ data.endUserCreditSum || 0 }}</strong>
+      <strong>{{ data.item.endUserCreditSum || 0 }}</strong>
     </div>
     <div class="meta-card">
       <span>{{ "TITLE.Service_Credit_Sum" | translate }}</span>
-      <strong>{{ data.serviceCreditSum || 0 }}</strong>
+      <strong>{{ data.item.serviceCreditSum || 0 }}</strong>
     </div>
     <div class="meta-card">
       <span>{{ "TITLE.Message_Is_Unicode" | translate }}</span>
       <strong>{{
-        data.messageIsUnicode
+        data.item.messageIsUnicode
           ? ("TITLE.Yes" | translate)
           : ("TITLE.No" | translate)
       }}</strong>
@@ -70,11 +94,23 @@
             <th>{{ "TITLE.Service_Credit" | translate }}</th>
             <th>{{ "TITLE.Page_Count" | translate }}</th>
             <th>{{ "TITLE.Number_Hidden" | translate }}</th>
+            <th>{{ "TITLE.Message_Text_Forbid" | translate }}</th>
+            <th>{{ "TITLE.Message_Text_Filtering" | translate }}</th>
+            <th>{{ "TITLE.Message_Number_Forbid" | translate }}</th>
+            <th>{{ "TITLE.Message_Number_Filtering" | translate }}</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let receiver of receivers">
-            <td>{{ receiver.toNumber || "---" }}</td>
+          <tr
+            *ngFor="let receiver of receivers"
+            [class.warning-row]="
+              receiver.messageTextForbid ||
+              receiver.messageNumberForbid ||
+              receiver.messageTextFiltering ||
+              receiver.messageNumberFiltering
+            "
+          >
+            <td>{{ receiver.number || "---" }}</td>
             <td>{{ receiver.credit || 0 }}</td>
             <td>{{ receiver.serviceCredit || 0 }}</td>
             <td>{{ receiver.pageCount || 0 }}</td>
@@ -84,6 +120,52 @@
                   ? ("TITLE.Yes" | translate)
                   : ("TITLE.No" | translate)
               }}
+            </td>
+            <td [class.text-danger]="receiver.messageTextForbid">
+              {{
+                receiver.messageTextForbid
+                  ? ("TITLE.Yes" | translate)
+                  : ("TITLE.No" | translate)
+              }}
+            </td>
+            <td [class.text-warning]="receiver.messageTextFiltering">
+              {{
+                receiver.messageTextFiltering
+                  ? ("TITLE.Yes" | translate)
+                  : ("TITLE.No" | translate)
+              }}
+              <span
+                *ngIf="
+                  receiver.messageTextFiltering &&
+                  receiver.messageTextFilteringChar
+                "
+                class="filtering-chars"
+              >
+                ({{ receiver.messageTextFilteringChar }})
+              </span>
+            </td>
+            <td [class.text-danger]="receiver.messageNumberForbid">
+              {{
+                receiver.messageNumberForbid
+                  ? ("TITLE.Yes" | translate)
+                  : ("TITLE.No" | translate)
+              }}
+            </td>
+            <td [class.text-warning]="receiver.messageNumberFiltering">
+              {{
+                receiver.messageNumberFiltering
+                  ? ("TITLE.Yes" | translate)
+                  : ("TITLE.No" | translate)
+              }}
+              <span
+                *ngIf="
+                  receiver.messageNumberFiltering &&
+                  receiver.messageNumberFilteringChar
+                "
+                class="filtering-chars"
+              >
+                ({{ receiver.messageNumberFilteringChar }})
+              </span>
             </td>
           </tr>
         </tbody>

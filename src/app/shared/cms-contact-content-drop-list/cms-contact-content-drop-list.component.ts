@@ -301,13 +301,6 @@ export class CmsContactContentDropListComponent implements OnInit {
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(filteModelContent));
     /*filter CLone*/
-    if (this.linkCategoryId?.length > 0) {
-      const filter = new FilterDataModel();
-      filter.propertyName = "ContentCategores";
-      filter.propertyAnyName = "LinkCategoryId";
-      filter.value = this.linkCategoryId;
-      filterModel.filters.push(filter);
-    }
     if (this.dataIdsSelect?.length > 0) {
       const filter = new FilterDataModel();
       filter.propertyName = "Id";
@@ -315,52 +308,105 @@ export class CmsContactContentDropListComponent implements OnInit {
       filter.clauseType = ClauseTypeEnum.Or;
       filterModel.filters.push(filter);
     }
-    this.categoryService.ServiceGetAll(filterModel).subscribe({
-      next: (ret) => {
-        if (ret.isSuccess) {
-          this.dataModelResult = ret;
-          // Reset تمام لیست‌ها
-          this.dataModelSelect = [];
-          this.basket = [];
-          this.allListItems = [];
-          this.allBasketItems = [];
-          this.fieldsStatus.clear();
+    if (this.linkCategoryId?.length > 0) {
+      this.categoryService
+        .ServiceGetAllWithHierarchyCategoryId(this.linkCategoryId, filterModel)
+        .subscribe({
+          next: (ret) => {
+            if (ret.isSuccess) {
+              this.dataModelResult = ret;
+              // Reset تمام لیست‌ها
+              this.dataModelSelect = [];
+              this.basket = [];
+              this.allListItems = [];
+              this.allBasketItems = [];
+              this.fieldsStatus.clear();
 
-          // تنظیم fieldsStatus برای همه آیتم‌ها
-          this.dataModelResult.listItems.forEach((el) =>
-            this.fieldsStatus.set(el.id, false),
-          );
-          this.dataIdsSelect.forEach((el) => this.fieldsStatus.set(el, true));
+              // تنظیم fieldsStatus برای همه آیتم‌ها
+              this.dataModelResult.listItems.forEach((el) =>
+                this.fieldsStatus.set(el.id, false),
+              );
+              this.dataIdsSelect.forEach((el) =>
+                this.fieldsStatus.set(el, true),
+              );
 
-          // اضافه کردن آیتم‌های انتخاب شده به dataModelSelect
-          this.dataModelResult.listItems.forEach((el) => {
-            if (this.fieldsStatus.get(el.id)) {
-              this.dataModelSelect.push(el);
+              // اضافه کردن آیتم‌های انتخاب شده به dataModelSelect
+              this.dataModelResult.listItems.forEach((el) => {
+                if (this.fieldsStatus.get(el.id)) {
+                  this.dataModelSelect.push(el);
+                }
+              });
+
+              // همگام‌سازی basket با dataModelSelect
+              this.basket = [...this.dataModelSelect];
+
+              // حذف آیتم‌های انتخاب شده از لیست اولیه
+              this.dataModelResult.listItems =
+                this.dataModelResult.listItems.filter(
+                  (el) => !this.fieldsStatus.get(el.id),
+                );
+
+              // به‌روزرسانی لیست‌های اصلی برای جستجو
+              this.allListItems = [...this.dataModelResult.listItems];
+              this.allBasketItems = [...this.basket];
+            } else {
+              this.cmsToastrService.typeErrorMessage(ret.errorMessage);
             }
-          });
+            this.publicHelper.processService.processStop(pName);
+          },
+          error: (er) => {
+            this.cmsToastrService.typeError(er);
+            this.publicHelper.processService.processStop(pName, false);
+          },
+        });
+    } else {
+      this.categoryService.ServiceGetAll(filterModel).subscribe({
+        next: (ret) => {
+          if (ret.isSuccess) {
+            this.dataModelResult = ret;
+            // Reset تمام لیست‌ها
+            this.dataModelSelect = [];
+            this.basket = [];
+            this.allListItems = [];
+            this.allBasketItems = [];
+            this.fieldsStatus.clear();
 
-          // همگام‌سازی basket با dataModelSelect
-          this.basket = [...this.dataModelSelect];
-
-          // حذف آیتم‌های انتخاب شده از لیست اولیه
-          this.dataModelResult.listItems =
-            this.dataModelResult.listItems.filter(
-              (el) => !this.fieldsStatus.get(el.id),
+            // تنظیم fieldsStatus برای همه آیتم‌ها
+            this.dataModelResult.listItems.forEach((el) =>
+              this.fieldsStatus.set(el.id, false),
             );
+            this.dataIdsSelect.forEach((el) => this.fieldsStatus.set(el, true));
 
-          // به‌روزرسانی لیست‌های اصلی برای جستجو
-          this.allListItems = [...this.dataModelResult.listItems];
-          this.allBasketItems = [...this.basket];
-        } else {
-          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-        }
-        this.publicHelper.processService.processStop(pName);
-      },
-      error: (er) => {
-        this.cmsToastrService.typeError(er);
-        this.publicHelper.processService.processStop(pName, false);
-      },
-    });
+            // اضافه کردن آیتم‌های انتخاب شده به dataModelSelect
+            this.dataModelResult.listItems.forEach((el) => {
+              if (this.fieldsStatus.get(el.id)) {
+                this.dataModelSelect.push(el);
+              }
+            });
+
+            // همگام‌سازی basket با dataModelSelect
+            this.basket = [...this.dataModelSelect];
+
+            // حذف آیتم‌های انتخاب شده از لیست اولیه
+            this.dataModelResult.listItems =
+              this.dataModelResult.listItems.filter(
+                (el) => !this.fieldsStatus.get(el.id),
+              );
+
+            // به‌روزرسانی لیست‌های اصلی برای جستجو
+            this.allListItems = [...this.dataModelResult.listItems];
+            this.allBasketItems = [...this.basket];
+          } else {
+            this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+          }
+          this.publicHelper.processService.processStop(pName);
+        },
+        error: (er) => {
+          this.cmsToastrService.typeError(er);
+          this.publicHelper.processService.processStop(pName, false);
+        },
+      });
+    }
   }
   onActionSelect(value: ContactContentModel): void {
     if (this.fieldsStatus.get(value.id)) {

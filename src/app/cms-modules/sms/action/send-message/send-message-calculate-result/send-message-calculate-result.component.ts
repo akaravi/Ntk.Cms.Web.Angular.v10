@@ -2,7 +2,8 @@ import { Component, Inject } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import {
   SmsApiSendOrderCalculateResultModel,
-  SmsSendMessageNumberInfoModel,
+  NumberReceverInfoModel,
+  ErrorExceptionResult,
 } from "ntk-cms-api";
 
 @Component({
@@ -14,11 +15,11 @@ import {
 export class SmsActionSendMessageCalculateResultComponent {
   constructor(
     private dialogRef: MatDialogRef<SmsActionSendMessageCalculateResultComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: SmsApiSendOrderCalculateResultModel,
+    @Inject(MAT_DIALOG_DATA) public data: ErrorExceptionResult<SmsApiSendOrderCalculateResultModel>,
   ) {}
 
-  get receivers(): SmsSendMessageNumberInfoModel[] {
-    return this.data?.toNumbers ?? [];
+  get receivers(): NumberReceverInfoModel[] {
+    return this.data?.item?.toNumbers ?? [];
   }
 
   onClose(): void {

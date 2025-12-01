@@ -94,7 +94,6 @@ export class SmsLogOutBoxQueueListComponent
   tabledisplayedColumnsSource: string[] = [
     "Id",
     "RecordStatus",
-    "IsFlash",
     //'Message',
     "QueueCompleted",
     "QueueCompleteDate",
@@ -106,7 +105,6 @@ export class SmsLogOutBoxQueueListComponent
   tabledisplayedColumnsMobileSource: string[] = [
     "Id",
     "RecordStatus",
-    "IsFlash",
     //'Message',
     "QueueCompleted",
     "QueueCompleteDate",

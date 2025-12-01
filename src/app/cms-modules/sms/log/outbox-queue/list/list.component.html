@@ -179,7 +179,7 @@
           {{ fieldsInfo["isFlash"]?.fieldTitle }}
         </mat-header-cell>
         <mat-cell *matCellDef="let row">
-          <i [ngClass]="row.isFlash | statusIconClass"></i>
+          <i [ngClass]="row.isFlash | boolclass"></i>
         </mat-cell>
       </ng-container>
 
@@ -189,7 +189,7 @@
           {{ fieldsInfo["queueCompleted"]?.fieldTitle }}
         </mat-header-cell>
         <mat-cell *matCellDef="let row">
-          <i [ngClass]="row.queueCompleted | statusIconClass"></i>
+          <i [ngClass]="row.queueCompleted | boolclass"></i>
         </mat-cell>
       </ng-container>
       <!-- QueueCompleteDate Column -->
@@ -258,7 +258,36 @@
       <!--expandedTitle-->
       <ng-container matColumnDef="expandedTitle">
         <mat-cell *matCellDef="let row">
-          <div [innerHTML]="row.message | prettyLine"></div>
+          <div>
+            <span [innerHTML]="row.message | prettyLine"> </span>
+            <br />
+            @if (row.statusTextFiltering) {
+              {{ fieldsInfo["numberFilteringChar"]?.fieldTitle }} :
+
+              {{ row.numberFilteringChar }}
+              <br />
+            }
+            @if (row.statusNumberFiltering) {
+              {{ fieldsInfo["statusNumberFiltering"]?.fieldTitle }} :
+              {{ row.statusNumberFiltering }}
+              <br />
+            }
+            @if (row.queueLockerId) {
+              {{ fieldsInfo["queueLockerId"]?.fieldTitle }} :
+              {{ row.queueLockerId }}
+              <br />
+            }
+            @if (row.queueLockerMicroservice) {
+              {{ fieldsInfo["queueLockerMicroservice"]?.fieldTitle }} :
+              {{ row.queueLockerMicroservice }}
+              <br />
+            }
+            @if (row.queueAllowNextRun) {
+              {{ fieldsInfo["queueAllowNextRun"]?.fieldTitle }} :
+              {{ row.queueAllowNextRun }}
+              <br />
+            }
+          </div>
         </mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="tabledisplayedColumns"></mat-header-row>

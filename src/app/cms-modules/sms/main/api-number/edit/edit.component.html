@@ -261,6 +261,126 @@
         ></mat-datepicker-toggle>
         <mat-datepicker touchUi #ExpireDate></mat-datepicker>
       </div>
+       <!-- apiSendMessageAddTextFirst Field -->
+          <div
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+          >
+            <label
+              for="dataModel.apiSendMessageAddTextFirst"
+              class="color-highlight"
+              >{{ fieldsInfo["apiSendMessageAddTextFirst"]?.fieldTitle }}</label
+            >
+            <textarea
+              matInput
+              [(ngModel)]="dataModel.apiSendMessageAddTextFirst"
+              name="dataModel.apiSendMessageAddTextFirst"
+              #apiSendMessageAddTextFirst
+              type="text"
+              placeholder="{{
+                fieldsInfo['apiSendMessageAddTextFirst']?.fieldTitle
+              }}"
+              minlength="1"
+              maxlength="500"
+              rows="5"
+              id="dataModel.apiSendMessageAddTextFirst"
+              class="form-control validate-name"
+            ></textarea>
+            <em>{{ apiSendMessageAddTextFirst.value.length }} / 500</em>
+            <mat-error *ngIf="apiSendMessageAddTextFirst.errors?.required">
+              apiSendMessageAddTextFirst is
+              <strong>{{ "MESSAGE.required" | translate }}</strong>
+            </mat-error>
+          </div>
+          <!-- apiSendMessageAddTextEnd Field -->
+          <div
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+          >
+            <label
+              for="dataModel.apiSendMessageAddTextEnd"
+              class="color-highlight"
+              >{{ fieldsInfo["apiSendMessageAddTextEnd"]?.fieldTitle }}</label
+            >
+            <textarea
+              matInput
+              [(ngModel)]="dataModel.apiSendMessageAddTextEnd"
+              name="dataModel.apiSendMessageAddTextEnd"
+              #apiSendMessageAddTextEnd
+              type="text"
+              placeholder="{{
+                fieldsInfo['apiSendMessageAddTextEnd']?.fieldTitle
+              }}"
+              minlength="1"
+              maxlength="500"
+              rows="5"
+              id="dataModel.apiSendMessageAddTextEnd"
+              class="form-control validate-name"
+            ></textarea>
+            <em>{{ apiSendMessageAddTextEnd.value.length }} / 500</em>
+            <mat-error *ngIf="apiSendMessageAddTextEnd.errors?.required">
+              apiSendMessageAddTextEnd is
+              <strong>{{ "MESSAGE.required" | translate }}</strong>
+            </mat-error>
+          </div>
+          <!-- sendMessageAddTextFirst Field -->
+          <div
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+          >
+            <label
+              for="dataModel.sendMessageAddTextFirst"
+              class="color-highlight"
+              >{{ fieldsInfo["sendMessageAddTextFirst"]?.fieldTitle }}</label
+            >
+            <textarea
+              matInput
+              [(ngModel)]="dataModel.sendMessageAddTextFirst"
+              name="dataModel.sendMessageAddTextFirst"
+              #sendMessageAddTextFirst
+              type="text"
+              placeholder="{{
+                fieldsInfo['sendMessageAddTextFirst']?.fieldTitle
+              }}"
+              minlength="1"
+              maxlength="500"
+              rows="5"
+              id="dataModel.sendMessageAddTextFirst"
+              class="form-control validate-name"
+            ></textarea>
+            <em>{{ sendMessageAddTextFirst.value.length }} / 500</em>
+            <mat-error *ngIf="sendMessageAddTextFirst.errors?.required">
+              sendMessageAddTextFirst is
+              <strong>{{ "MESSAGE.required" | translate }}</strong>
+            </mat-error>
+          </div>
+          <!-- sendMessageAddTextEnd Field -->
+          <div
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+          >
+            <label
+              for="dataModel.sendMessageAddTextEnd"
+              class="color-highlight"
+              >{{ fieldsInfo["sendMessageAddTextEnd"]?.fieldTitle }}</label
+            >
+            <textarea
+              matInput
+              [(ngModel)]="dataModel.sendMessageAddTextEnd"
+              name="dataModel.sendMessageAddTextEnd"
+              #sendMessageAddTextEnd
+              type="text"
+              placeholder="{{
+                fieldsInfo['sendMessageAddTextEnd']?.fieldTitle
+              }}"
+              minlength="1"
+              maxlength="500"
+              rows="5"
+              id="dataModel.sendMessageAddTextEnd"
+              class="form-control validate-name"
+            ></textarea>
+            <em>{{ sendMessageAddTextEnd.value.length }} / 500</em>
+            <mat-error *ngIf="sendMessageAddTextEnd.errors?.required">
+              sendMessageAddTextEnd is
+              <strong>{{ "MESSAGE.required" | translate }}</strong>
+            </mat-error>
+          </div>
       <!-- ActionMemo Field -->
       <div
         *ngIf="fieldsInfo['actionMemo']?.accessWatchField"
