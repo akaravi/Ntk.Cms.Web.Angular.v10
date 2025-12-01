@@ -741,6 +741,8 @@
   "MESSAGE.Warning_ClockStart_Bigger_Than_ClockExpire": "Warning ClockStart Bigger Than ClockExpire",
   "MESSAGE.Error": "Error",
   "MESSAGE.Warning": "Warning",
+  "MESSAGE.Yes": "Yes",
+  "MESSAGE.No": "No",
   "MESSAGE.Website_ID_is_not_specified": "Website ID is not specified",
   "MESSAGE.Would_you_like_to_buy_this_content": "Would you like to buy this content ",
   "MESSAGE.Your_password_was_changed_successfully": "Your password was changed successfully.",

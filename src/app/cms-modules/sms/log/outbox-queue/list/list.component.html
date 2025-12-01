@@ -223,15 +223,7 @@
           {{ row.queueAllowNextRun | localeDateTime }}</mat-cell
         >
       </ng-container>
-      <!-- queueAllowNextRun Column -->
-      <ng-container matColumnDef="queueAllowNextRun">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-          {{ fieldsInfo["queueAllowNextRun"]?.fieldTitle }}
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row" style="direction: ltr">
-          {{ row.queueAllowNextRun | localeDateTime }}</mat-cell
-        >
-      </ng-container>
+
       <!-- QueueCompleted Column -->
       <ng-container matColumnDef="queueCompleted">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -419,12 +411,7 @@
               {{ row.queueCountRun }}
               <br />
             }
-            <!-- queueAllowNextRun -->
-            @if (row.queueAllowNextRun) {
-              {{ fieldsInfo["queueAllowNextRun"]?.fieldTitle }} :
-              {{ row.queueAllowNextRun | date: "short" }}
-              <br />
-            }
+
             <!-- queueLockedRun -->
             @if (row.queueLockedRun) {
               {{ fieldsInfo["queueLockedRun"]?.fieldTitle }} :

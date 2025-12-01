@@ -1,5 +1,29 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-12-01 11:00:00
+
+### افزودن کلیدهای چندزبانه MESSAGE.Yes و MESSAGE.No برای کامپوننت‌های لاگ پیامک
+
+**تغییرات:**
+
+- افزودن کلیدهای ترجمه `MESSAGE.Yes` و `MESSAGE.No` برای نمایش مقادیر بولی (بله/خیر) در صفحات لاگ ارسال پیامک و سایر لیست‌ها
+- هماهنگ‌سازی این کلیدها در همه زبان‌های فعال پروژه (fa, en, ar, de, es, fr, tr, zh, ja)
+
+**فایل‌های تغییر یافته:**
+
+- `src/assets/i18n/fa.json`
+- `src/assets/i18n/en.json`
+- `src/assets/i18n/ar.json`
+- `src/assets/i18n/de.json`
+- `src/assets/i18n/es.json`
+- `src/assets/i18n/fr.json`
+- `src/assets/i18n/tr.json`
+- `src/assets/i18n/zh.json`
+- `src/assets/i18n/ja.json`
+- `readmehistory.md`
+
+---
+
 ## 2025-11-30 10:05:00
 
 ### افزودن نمایش فیلدهای مهم فیلتر و ممنوعیت در کامپوننت‌های نتایج ارسال پیامک

@@ -738,6 +738,8 @@
   "MESSAGE.Type_of_User_account_is_not_known": "User account information is unknown",
   "MESSAGE.Type_of_property_transaction_is_not_known": "Type of property transaction is not known",
   "MESSAGE.Warning_ClockStart_Bigger_Than_ClockExpire": "Warning ClockStart Bigger Than ClockExpire",
+  "MESSAGE.Yes": "Oui",
+  "MESSAGE.No": "Non",
   "MESSAGE.Website_ID_is_not_specified": "Website ID is not specified",
   "MESSAGE.Would_you_like_to_buy_this_content": "Would you like to buy this content ",
   "MESSAGE.Your_password_was_changed_successfully": "Your password was changed successfully.",

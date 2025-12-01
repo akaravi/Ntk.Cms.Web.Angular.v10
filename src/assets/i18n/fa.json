@@ -749,6 +749,8 @@
   "MESSAGE.Warning_ClockStart_Bigger_Than_ClockExpire": "هشدار زمان شروع از زمان پایان بزرگتر است",
   "MESSAGE.Error": "خطا",
   "MESSAGE.Warning": "هشدار",
+  "MESSAGE.Yes": "بله",
+  "MESSAGE.No": "خیر",
   "MESSAGE.Website_ID_is_not_specified": "شناسه وب سایت مشخص نشده است",
   "MESSAGE.Would_you_like_to_buy_this_content": "آیا مایل به خرید این محتوا می باشید ",
   "MESSAGE.Your_password_was_changed_successfully": "کلمه عبور شما با موفقیت تغییر داده شد.",
