@@ -88,8 +88,8 @@ export class LinkManagementTargetListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "IsPublic",
     // 'CurrentViewCount',
     // 'CurrentClickCount',
@@ -99,8 +99,8 @@ export class LinkManagementTargetListComponent
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "IsPublic",
     // 'CurrentViewCount',
     // 'CurrentClickCount',

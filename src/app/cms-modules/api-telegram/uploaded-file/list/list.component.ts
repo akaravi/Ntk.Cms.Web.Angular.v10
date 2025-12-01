@@ -80,8 +80,8 @@ export class ApiTelegramUploadedFileListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "Username",
     "StatusWebhook",
@@ -91,8 +91,8 @@ export class ApiTelegramUploadedFileListComponent
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "Username",
     "StatusWebhook",

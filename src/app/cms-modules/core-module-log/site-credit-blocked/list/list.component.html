@@ -133,7 +133,7 @@
         {{ "ACTION.SITE" | translate }}
       </p>
     </div>
-  <div
+    <div
       *ngIf="tableRowSelected?.linkModuleBankPaymentTransactionId > 0"
       class="col-4"
     >
@@ -169,14 +169,14 @@
       (matSortChange)="onTableSortData(tableSort)"
     >
       <!-- ID Column -->
-      <ng-container matColumnDef="Id">
+      <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["id"]?.fieldTitle }}
         </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
       </ng-container>
       <!-- RecordStatus Column -->
-      <ng-container matColumnDef="RecordStatus">
+      <ng-container matColumnDef="recordStatus">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["recordStatus"]?.fieldTitle }}
         </mat-header-cell>
@@ -225,7 +225,7 @@
           {{ row.transactionCredit | number }}
         </mat-cell>
       </ng-container>
-       <!-- linkModuleBankPaymentTransactionId Column -->
+      <!-- linkModuleBankPaymentTransactionId Column -->
       <ng-container matColumnDef="linkModuleBankPaymentTransactionId">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["linkModuleBankPaymentTransactionId"]?.fieldTitle }}
@@ -235,7 +235,7 @@
         </mat-cell>
       </ng-container>
       <!-- CreatedDate Column -->
-      <ng-container matColumnDef="CreatedDate">
+      <ng-container matColumnDef="createdDate">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["createdDate"]?.fieldTitle }}
         </mat-header-cell>

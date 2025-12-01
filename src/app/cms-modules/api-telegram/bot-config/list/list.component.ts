@@ -85,8 +85,8 @@ export class ApiTelegramBotConfigListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "Username",
     "StatusWebhook",
@@ -96,8 +96,8 @@ export class ApiTelegramBotConfigListComponent
     "LinkTo",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "Username",
     "StatusWebhook",

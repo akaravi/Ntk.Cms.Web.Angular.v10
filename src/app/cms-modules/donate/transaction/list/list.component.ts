@@ -76,8 +76,8 @@ export class DonateTransactionListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "Sponsor",
     "TargetPeriod",
@@ -88,8 +88,8 @@ export class DonateTransactionListComponent
 
   tabledisplayedColumnsMobileSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "Sponsor",
     "TargetPeriod",

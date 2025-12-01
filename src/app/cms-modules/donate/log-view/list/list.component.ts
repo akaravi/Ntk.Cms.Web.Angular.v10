@@ -69,8 +69,8 @@ export class DonateLogViewListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "DonateTargetId",
     "DeviceId",
     "VisitDate",
@@ -79,8 +79,8 @@ export class DonateLogViewListComponent
 
   tabledisplayedColumnsMobileSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "DonateTargetId",
     "DeviceId",
     "VisitDate",

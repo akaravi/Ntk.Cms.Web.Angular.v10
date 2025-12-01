@@ -125,8 +125,8 @@ export class WebDesignerMainPageListGridComponent
     new ErrorExceptionResult<CoreSiteCategoryModel>();
   tabledisplayedColumns: string[] = [
     "ThumbnailImageSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "Title",
     // 'LinkPageParentGuId',
     // 'LinkPageDependencyGuId',

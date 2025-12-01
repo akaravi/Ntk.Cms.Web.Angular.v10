@@ -75,8 +75,8 @@ export class DataProviderPlanPriceListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "Description",
     "PeriodDay",
@@ -85,8 +85,8 @@ export class DataProviderPlanPriceListComponent
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "Description",
     "PeriodDay",

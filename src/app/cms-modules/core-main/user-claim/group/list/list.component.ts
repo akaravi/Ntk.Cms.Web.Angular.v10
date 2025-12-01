@@ -91,16 +91,16 @@ export class CoreUserClaimGroupListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "Title",
     "LinkModuleId",
     "LinkSiteCategoryId",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "Title",
     "LinkModuleId",
     "LinkSiteCategoryId",
@@ -463,10 +463,7 @@ export class CoreUserClaimGroupListComponent
     }
     this.onActionTableRowSelect(model);
 
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null
-    ) {
+    if (this.dataModelResult == null || this.dataModelResult.access == null) {
       this.cmsToastrService.typeErrorSelected();
       return;
     }

@@ -103,8 +103,8 @@ export class NewsCommentListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "Writer",
     "CreatedDate",
     "UpdatedDate",

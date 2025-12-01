@@ -102,8 +102,8 @@ export class ChartCommentListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "Writer",
     "CreatedDate",
     "UpdatedDate",
@@ -111,8 +111,8 @@ export class ChartCommentListComponent
     "LinkTo",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "Writer",
     "CreatedDate",
     "UpdatedDate",

@@ -86,8 +86,8 @@ export class BankPaymentPublicConfigListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "LinkModuleFileLogoIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "ClassName",
     "LinkCurrencyId",
@@ -96,8 +96,8 @@ export class BankPaymentPublicConfigListComponent
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "LinkModuleFileLogoIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "ClassName",
     "LinkCurrencyId",

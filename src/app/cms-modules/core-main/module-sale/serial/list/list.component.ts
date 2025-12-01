@@ -85,8 +85,8 @@ export class CoreModuleSaleSerialListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "MainImageSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "SerialNumber",
     "HasUsed",
     "HasDemo",
@@ -100,8 +100,8 @@ export class CoreModuleSaleSerialListComponent
 
   tabledisplayedColumnsMobileSource: string[] = [
     "MainImageSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "SerialNumber",
     "HasUsed",
     "HasDemo",

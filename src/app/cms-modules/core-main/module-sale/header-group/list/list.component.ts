@@ -92,8 +92,8 @@ export class CoreModuleSaleHeaderGroupListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "TitleML",
     "LinkUserGroupId",
@@ -104,8 +104,8 @@ export class CoreModuleSaleHeaderGroupListComponent
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "TitleML",
     "LinkUserGroupId",

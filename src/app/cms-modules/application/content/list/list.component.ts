@@ -85,8 +85,8 @@ export class ApplicationAppListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "Title",
     "AppVersion",
     "LinkSourceId",
@@ -98,8 +98,8 @@ export class ApplicationAppListComponent
 
   tabledisplayedColumnsMobileSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "Title",
     "AppVersion",
     "LinkSourceId",

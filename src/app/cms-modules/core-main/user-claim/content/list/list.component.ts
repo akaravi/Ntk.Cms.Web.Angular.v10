@@ -120,8 +120,8 @@ export class CoreUserClaimContentListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "LinkFileContentId",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     // 'LinkSiteId',
     // 'LinkUserId',
@@ -134,8 +134,8 @@ export class CoreUserClaimContentListComponent
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "LinkFileContentId",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     // 'LinkSiteId',
     // 'LinkUserId',

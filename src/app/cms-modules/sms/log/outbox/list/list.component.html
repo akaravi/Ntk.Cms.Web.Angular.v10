@@ -197,7 +197,7 @@
       >
       </mat-row>
       <!-- ID Column -->
-      <ng-container matColumnDef="Id">
+      <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["id"]?.fieldTitle }}
         </mat-header-cell>
@@ -232,7 +232,7 @@
       </ng-container>
 
       <!-- CreatedDate Column -->
-      <ng-container matColumnDef="CreatedDate">
+      <ng-container matColumnDef="createdDate">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["createdDate"]?.fieldTitle }}
         </mat-header-cell>
@@ -250,7 +250,7 @@
         </mat-cell>
       </ng-container>
       <!-- UpdatedDate Column -->
-      <ng-container matColumnDef="UpdatedDate">
+      <ng-container matColumnDef="updatedDate">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["updatedDate"]?.fieldTitle }}
         </mat-header-cell>
@@ -294,24 +294,26 @@
             <br />
             {{ fieldsInfo["countRow"]?.fieldTitle }} : {{ row.countRow }}
             <br />
-            {{ fieldsInfo["countSent"]?.fieldTitle }} : {{ row.countSent|number }}
+            {{ fieldsInfo["countSent"]?.fieldTitle }} :
+            {{ row.countSent | number }}
             <br />
             {{ fieldsInfo["countDelivery"]?.fieldTitle }} :
-            {{ row.countDelivery|number }}
+            {{ row.countDelivery | number }}
             <br />
             {{ fieldsInfo["countCreditBacked"]?.fieldTitle }} :
-            {{ row.countCreditBacked|number }}
+            {{ row.countCreditBacked | number }}
             <br />
-            {{ fieldsInfo["sumCredit"]?.fieldTitle }} : {{ row.sumCredit|number }}
+            {{ fieldsInfo["sumCredit"]?.fieldTitle }} :
+            {{ row.sumCredit | number }}
             <br />
             {{ fieldsInfo["sumCreditBacked"]?.fieldTitle }} :
-            {{ row.sumCreditBacked|number }}
+            {{ row.sumCreditBacked | number }}
             <br />
             {{ fieldsInfo["creditOverPlus"]?.fieldTitle }} :
-            {{ row.creditOverPlus|number }}
+            {{ row.creditOverPlus | number }}
             <br />
             {{ fieldsInfo["creditUserBefor"]?.fieldTitle }} :
-            {{ row.creditUserBefor|number }}
+            {{ row.creditUserBefor | number }}
           </div>
           <div
             class="col-sm-12 col-md-6"

@@ -93,8 +93,8 @@ export class EstatePropertyHistoryResponsibleUserListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "Name",
     "LastName",
     "CompanyName",
@@ -103,8 +103,8 @@ export class EstatePropertyHistoryResponsibleUserListComponent
     "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "Name",
     "LastName",
     "action_menu",

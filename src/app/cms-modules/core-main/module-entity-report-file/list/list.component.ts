@@ -103,8 +103,8 @@ export class CoreModuleEntityReportFileListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "LinkModuleEntityId",
     // 'Title',
     "Description",
@@ -113,8 +113,8 @@ export class CoreModuleEntityReportFileListComponent
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "LinkModuleEntityId",
     // 'Title',
     "Description",

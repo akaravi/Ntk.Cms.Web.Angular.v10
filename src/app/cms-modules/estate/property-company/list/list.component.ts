@@ -85,8 +85,8 @@ export class EstatePropertyCompanyListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "mainAdminRecordStatus",
     // 'Title',
     // 'CreatedDate',
@@ -95,8 +95,8 @@ export class EstatePropertyCompanyListComponent
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "mainAdminRecordStatus",
     // 'Title',
     // 'CreatedDate',

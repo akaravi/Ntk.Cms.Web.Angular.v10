@@ -81,8 +81,8 @@ export class ApiTelegramMemberInfoListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "Username",
     "StatusWebhook",
@@ -91,8 +91,8 @@ export class ApiTelegramMemberInfoListComponent
     // 'Action',
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "Username",
     "StatusWebhook",

@@ -200,7 +200,7 @@
       (matSortChange)="onTableSortData(tableSort)"
     >
       <!-- ID Column -->
-      <ng-container matColumnDef="Id">
+      <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["id"]?.fieldTitle }}
         </mat-header-cell>
@@ -230,7 +230,7 @@
         <mat-cell *matCellDef="let row"> {{ row.title }} </mat-cell>
       </ng-container>
       <!-- CreatedDate Column -->
-      <ng-container matColumnDef="CreatedDate">
+      <ng-container matColumnDef="createdDate">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["createdDate"]?.fieldTitle }}
         </mat-header-cell>
@@ -239,7 +239,7 @@
         </mat-cell>
       </ng-container>
       <!-- UpdatedDate Column -->
-      <ng-container matColumnDef="UpdatedDate">
+      <ng-container matColumnDef="updatedDate">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["updatedDate"]?.fieldTitle }}
         </mat-header-cell>

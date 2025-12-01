@@ -76,8 +76,8 @@ export class CoreCurrencyListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "TitleML",
     "IsDefault",
@@ -90,8 +90,8 @@ export class CoreCurrencyListComponent
 
   tabledisplayedColumnsMobileSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "TitleML",
     "IsDefault",

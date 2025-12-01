@@ -99,8 +99,8 @@ export class CoreUserListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "Name",
     "LastName",
     "CompanyName",
@@ -112,8 +112,8 @@ export class CoreUserListComponent
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     // 'LinkMainImageIdSrc',
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "Name",
     "LastName",
     "mobile",

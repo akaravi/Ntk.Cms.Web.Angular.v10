@@ -84,15 +84,15 @@ export class LinkManagementAccountingDetailListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "CreatedDate",
     "UpdatedDate",
     "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "CreatedDate",
     "UpdatedDate",
     "action_menu",

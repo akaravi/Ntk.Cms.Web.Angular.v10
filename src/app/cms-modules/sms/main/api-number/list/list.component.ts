@@ -86,8 +86,8 @@ export class SmsMainApiNumberListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "NumberChar",
     "accessUseStartDate",
     "expireDate",
@@ -101,8 +101,8 @@ export class SmsMainApiNumberListComponent
     "position",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "NumberChar",
     "accessUseStartDate",
     "isPublic",

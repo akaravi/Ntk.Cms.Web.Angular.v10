@@ -82,15 +82,15 @@ export class DonateTargetPeriodSponserListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "CreatedDate",
     "UpdatedDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "CreatedDate",
     "UpdatedDate",
     // 'Action'

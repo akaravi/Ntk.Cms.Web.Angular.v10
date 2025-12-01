@@ -75,8 +75,8 @@ export class CoreUserGroupListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "TitleML",
     "TitleResourceLanguage",
@@ -85,8 +85,8 @@ export class CoreUserGroupListComponent
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "TitleML",
     "TitleResourceLanguage",

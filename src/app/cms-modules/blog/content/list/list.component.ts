@@ -76,8 +76,8 @@ export class BlogContentListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "CreatedDate",
     "UpdatedDate",
@@ -87,8 +87,8 @@ export class BlogContentListComponent
 
   tabledisplayedColumnsMobileSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "CreatedDate",
     "UpdatedDate",

@@ -81,8 +81,8 @@ export class WebDesignerLogMemberInfoListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "LinkUserId",
     "LinkMemberId",
     "DeviceStatus",
@@ -96,8 +96,8 @@ export class WebDesignerLogMemberInfoListComponent
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "LinkUserId",
     "LinkMemberId",
     "DeviceStatus",

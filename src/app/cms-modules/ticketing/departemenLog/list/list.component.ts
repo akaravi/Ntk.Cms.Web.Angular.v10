@@ -87,8 +87,8 @@ export class TicketingDepartemenLogListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "LinkSourceId",
     "CreatedDate",
@@ -96,8 +96,8 @@ export class TicketingDepartemenLogListComponent
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "LinkSourceId",
     "CreatedDate",

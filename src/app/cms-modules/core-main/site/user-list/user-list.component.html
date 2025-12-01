@@ -301,9 +301,7 @@
   </ng-container>
   <ng-container cms-action-area>
     <!--begin:::::::::::::::::::::::::::::::::::::::::cms-action-area-->
-    <app-cms-search-list [(options)]="optionsSearch">
-
-    </app-cms-search-list>
+    <app-cms-search-list [(options)]="optionsSearch"> </app-cms-search-list>
 
     <app-cms-statist-list [(options)]="optionsStatist"></app-cms-statist-list>
 
@@ -395,7 +393,7 @@
         <mat-cell *matCellDef="let row"> {{ row.linkUserGroupId }} </mat-cell>
       </ng-container>
       <!-- RecordStatus Column -->
-      <ng-container matColumnDef="RecordStatus">
+      <ng-container matColumnDef="recordStatus">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["recordStatus"]?.fieldTitle }}
         </mat-header-cell>
@@ -472,7 +470,7 @@
         </mat-cell>
       </ng-container>
       <!-- CreatedDate Column -->
-      <ng-container matColumnDef="CreatedDate">
+      <ng-container matColumnDef="createdDate">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["createdDate"]?.fieldTitle }}
         </mat-header-cell>
@@ -481,7 +479,7 @@
         </mat-cell>
       </ng-container>
       <!-- UpdatedDate Column -->
-      <ng-container matColumnDef="UpdatedDate">
+      <ng-container matColumnDef="updatedDate">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["updatedDate"]?.fieldTitle }}
         </mat-header-cell>

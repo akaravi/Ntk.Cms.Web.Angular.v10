@@ -106,8 +106,8 @@ export class CoreModuleSaleItemListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "LinkModuleSaleHeader",
     "LinkModuleId",
     "MonthLength",
@@ -116,8 +116,8 @@ export class CoreModuleSaleItemListComponent
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "LinkModuleSaleHeader",
     "LinkModuleId",
     "MonthLength",

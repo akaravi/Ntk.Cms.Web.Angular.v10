@@ -93,16 +93,16 @@ export class PollingVoteListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "LinkMemberId",
     "CreatedDate",
     "UpdatedDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "LinkMemberId",
     "CreatedDate",
     "UpdatedDate",

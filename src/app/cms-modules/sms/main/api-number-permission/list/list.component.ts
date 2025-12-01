@@ -101,8 +101,8 @@ export class SmsMainApiNumberPermissionListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "linkApiNumberId",
     "hasAccess",
     "hasInherits",
@@ -113,8 +113,8 @@ export class SmsMainApiNumberPermissionListComponent
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "linkApiNumberId",
     "hasAccess",
     "hasInherits",
@@ -126,7 +126,6 @@ export class SmsMainApiNumberPermissionListComponent
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
-
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();

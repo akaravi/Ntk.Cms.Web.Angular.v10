@@ -80,8 +80,8 @@ export class DonateTargetPeriodListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "Description",
     "LinkTargeId",
@@ -95,8 +95,8 @@ export class DonateTargetPeriodListComponent
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "Description",
     "LinkTargeId",

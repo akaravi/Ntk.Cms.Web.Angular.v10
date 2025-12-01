@@ -148,7 +148,7 @@
         </mat-cell>
       </ng-container>
       <!-- ID Column -->
-      <ng-container matColumnDef="Id">
+      <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["id"]?.fieldTitle }}
         </mat-header-cell>
@@ -164,7 +164,7 @@
         </mat-cell>
       </ng-container>
       <!-- RecordStatus Column -->
-      <ng-container matColumnDef="RecordStatus">
+      <ng-container matColumnDef="recordStatus">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["recordStatus"]?.fieldTitle }}
         </mat-header-cell>
@@ -228,7 +228,9 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["amountPure"]?.fieldTitle }}
         </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.amountPure | number }} </mat-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.amountPure | number }}
+        </mat-cell>
       </ng-container>
       <!-- FeeTransport Column -->
       <ng-container matColumnDef="FeeTransport">
@@ -253,7 +255,7 @@
       </ng-container>
 
       <!-- CreatedDate Column -->
-      <ng-container matColumnDef="CreatedDate">
+      <ng-container matColumnDef="createdDate">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["createdDate"]?.fieldTitle }}
         </mat-header-cell>

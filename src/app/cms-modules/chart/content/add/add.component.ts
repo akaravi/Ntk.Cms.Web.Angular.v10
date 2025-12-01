@@ -95,8 +95,8 @@ export class ChartContentAddComponent
   otherInfoTabledisplayedColumns = ["Title", "TypeId", "Action"];
   similarTabledisplayedColumns = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "Title",
     "Action",
   ];

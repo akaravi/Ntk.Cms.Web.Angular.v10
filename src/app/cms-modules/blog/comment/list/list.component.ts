@@ -102,8 +102,8 @@ export class BlogCommentListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "Writer",
     "CreatedDate",
     "UpdatedDate",
@@ -111,8 +111,8 @@ export class BlogCommentListComponent
     "LinkTo",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "Writer",
     "CreatedDate",
     "UpdatedDate",

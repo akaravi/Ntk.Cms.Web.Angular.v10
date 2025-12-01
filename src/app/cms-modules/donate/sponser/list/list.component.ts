@@ -74,8 +74,8 @@ export class DonateSponserListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "LinkCmsUserId",
     "LinkTargetCategoryId",
@@ -84,8 +84,8 @@ export class DonateSponserListComponent
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "LinkCmsUserId",
     "LinkTargetCategoryId",

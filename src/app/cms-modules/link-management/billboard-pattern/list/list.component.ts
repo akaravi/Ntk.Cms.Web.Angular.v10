@@ -78,8 +78,8 @@ export class LinkManagementBillboardPatternListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "settingType",
     "CreatedDate",
@@ -88,8 +88,8 @@ export class LinkManagementBillboardPatternListComponent
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "settingType",
     "CreatedDate",

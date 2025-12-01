@@ -81,8 +81,8 @@ export class ApplicationIntroListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "Title",
     "LinkApplicationId",
     // 'CreatedDate',
@@ -91,8 +91,8 @@ export class ApplicationIntroListComponent
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "Title",
     "LinkApplicationId",
     // 'CreatedDate',

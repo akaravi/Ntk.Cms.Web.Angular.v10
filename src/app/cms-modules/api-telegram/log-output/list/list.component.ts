@@ -81,8 +81,8 @@ export class ApiTelegramLogOutputListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "LinkBotConfigId",
     "Username",
     "ChatId",
@@ -93,8 +93,8 @@ export class ApiTelegramLogOutputListComponent
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "LinkBotConfigId",
     "Username",
     "ChatId",

@@ -236,8 +236,8 @@ export class EstatePropertyQuickListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "MainAdminRecordStatus",
     "IsSoldIt",
     "ViewConfigHiddenInList",
@@ -384,9 +384,7 @@ export class EstatePropertyQuickListComponent
           },
         });
       // ** */
-    } else if (
-      this.requestLinkCustomerOrderId?.length > 0
-    ) {
+    } else if (this.requestLinkCustomerOrderId?.length > 0) {
       // ** */
       this.contentService
         .ServiceGetAllWithCoverCustomerOrderId(

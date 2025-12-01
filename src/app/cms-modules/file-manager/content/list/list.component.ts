@@ -69,8 +69,8 @@ export class FileContentListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "fileName",
     "Extension",
     "CreatedDate",
@@ -78,8 +78,8 @@ export class FileContentListComponent
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "fileName",
     "Extension",
     "CreatedDate",

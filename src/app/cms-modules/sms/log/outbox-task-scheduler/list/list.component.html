@@ -138,6 +138,7 @@
       matSort
       #tableSort="matSort"
       (matSortChange)="onTableSortData(tableSort)"
+      multiTemplateDataRows
     >
       <!-- ID Column -->
       <ng-container matColumnDef="Id">
@@ -148,7 +149,7 @@
       </ng-container>
 
       <!-- RecordStatus Column -->
-      <ng-container matColumnDef="RecordStatus">
+      <ng-container matColumnDef="recordStatus">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["recordStatus"]?.fieldTitle }}
         </mat-header-cell>
@@ -171,32 +172,18 @@
         </mat-cell>
       </ng-container>
 
-      <!-- IsFlash Column -->
-      <ng-container matColumnDef="IsFlash">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-          {{ fieldsInfo["isFlash"]?.fieldTitle }}
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row">
-          <i [ngClass]="row.isFlash | statusIconClass"></i>
-        </mat-cell>
-      </ng-container>
+
       <!-- ScheduleCron Column -->
-      <ng-container matColumnDef="ScheduleCron">
+      <ng-container matColumnDef="scheduleCron">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["scheduleCron"]?.fieldTitle }}
         </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{ row.scheduleCron }} </mat-cell>
       </ng-container>
-      <!-- Message Column -->
-      <ng-container matColumnDef="Message">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-          {{ fieldsInfo["message"]?.fieldTitle }}
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.message }} </mat-cell>
-      </ng-container>
+
 
       <!-- ScheduleSendStart Column -->
-      <ng-container matColumnDef="ScheduleSendStart">
+      <ng-container matColumnDef="scheduleSendStart">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["scheduleSendStart"]?.fieldTitle }}
         </mat-header-cell>
@@ -204,8 +191,8 @@
           {{ row.scheduleSendStart | localeDateTime }}</mat-cell
         >
       </ng-container>
-      <!-- ScheduleSendExpire Column -->
-      <ng-container matColumnDef="ScheduleSendExpire">
+      <!-- scheduleSendExpire Column -->
+      <ng-container matColumnDef="scheduleSendExpire">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["scheduleSendExpire"]?.fieldTitle }}
         </mat-header-cell>
@@ -213,8 +200,8 @@
           {{ row.scheduleSendExpire | localeDateTime }}</mat-cell
         >
       </ng-container>
-      <!-- ScheduleSendAllowNextRun Column -->
-      <ng-container matColumnDef="ScheduleSendAllowNextRun">
+      <!-- scheduleSendAllowNextRun Column -->
+      <ng-container matColumnDef="scheduleSendAllowNextRun">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["scheduleSendAllowNextRun"]?.fieldTitle }}
         </mat-header-cell>
@@ -223,7 +210,7 @@
         >
       </ng-container>
       <!-- CreatedDate Column -->
-      <ng-container matColumnDef="CreatedDate">
+      <ng-container matColumnDef="createdDate">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["createdDate"]?.fieldTitle }}
         </mat-header-cell>
@@ -232,7 +219,7 @@
         >
       </ng-container>
       <!-- UpdatedDate Column -->
-      <ng-container matColumnDef="UpdatedDate">
+      <ng-container matColumnDef="updatedDate">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["updatedDate"]?.fieldTitle }}
         </mat-header-cell>
@@ -258,6 +245,41 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #actionMenu="matMenu"> </mat-menu>
+        </mat-cell>
+      </ng-container>
+        <!--expandedTitle-->
+      <ng-container matColumnDef="expandedTitle">
+        <mat-cell *matCellDef="let row">
+          <div>
+            <span [innerHTML]="row.message | prettyLine"> </span>
+            <br />
+            @if (row.statusTextFiltering) {
+              {{ fieldsInfo["numberFilteringChar"]?.fieldTitle }} :
+
+              {{ row.numberFilteringChar }}
+              <br />
+            }
+            @if (row.statusNumberFiltering) {
+              {{ fieldsInfo["statusNumberFiltering"]?.fieldTitle }} :
+              {{ row.statusNumberFiltering }}
+              <br />
+            }
+            @if (row.queueLockerId) {
+              {{ fieldsInfo["queueLockerId"]?.fieldTitle }} :
+              {{ row.queueLockerId }}
+              <br />
+            }
+            @if (row.queueLockerMicroservice) {
+              {{ fieldsInfo["queueLockerMicroservice"]?.fieldTitle }} :
+              {{ row.queueLockerMicroservice }}
+              <br />
+            }
+            @if (row.queueAllowNextRun) {
+              {{ fieldsInfo["queueAllowNextRun"]?.fieldTitle }} :
+              {{ row.queueAllowNextRun }}
+              <br />
+            }
+          </div>
         </mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="tabledisplayedColumns"></mat-header-row>

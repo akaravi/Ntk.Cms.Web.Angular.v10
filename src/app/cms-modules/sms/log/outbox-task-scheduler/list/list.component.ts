@@ -92,27 +92,23 @@ export class SmsLogOutBoxTaskSchedulerListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
-    "IsFlash",
-    "ScheduleCron",
-    "Message",
-    "ScheduleSendStart",
-    "ScheduleSendExpire",
-    "ScheduleSendAllowNextRun",
+    "id",
+    "recordStatus",
+    "scheduleCron",
+    "scheduleSendStart",
+    "scheduleSendExpire",
+    "scheduleSendAllowNextRun",
     "CreatedDate",
     "UpdatedDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
-    "IsFlash",
-    "ScheduleCron",
-    "Message",
-    "ScheduleSendStart",
-    "ScheduleSendExpire",
-    "ScheduleSendAllowNextRun",
+    "id",
+    "recordStatus",
+    "scheduleCron",
+    "scheduleSendStart",
+    "scheduleSendExpire",
+    "scheduleSendAllowNextRun",
     "CreatedDate",
     "UpdatedDate",
     // 'Action'

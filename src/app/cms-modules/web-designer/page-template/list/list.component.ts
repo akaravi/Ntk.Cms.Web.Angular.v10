@@ -84,16 +84,16 @@ export class WebDesignerMainPageTemplateListComponent
     new ErrorExceptionResult<CoreModuleModel>();
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "Folder",
     "IndexFile",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "Folder",
     "IndexFile",

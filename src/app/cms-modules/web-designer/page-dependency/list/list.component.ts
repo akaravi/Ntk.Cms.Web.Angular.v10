@@ -96,8 +96,8 @@ export class WebDesignerMainPageDependencyListComponent
   categoryModelSelected = new CoreModuleModel();
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "TitleML",
     "LinkModuleId",
@@ -107,8 +107,8 @@ export class WebDesignerMainPageDependencyListComponent
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "TitleML",
     "LinkModuleId",

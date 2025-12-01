@@ -80,16 +80,16 @@ export class CoreSiteCategoryListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "MainImageSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "Title",
     "Domains",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "MainImageSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "Title",
     "Domains",
     // 'Action'

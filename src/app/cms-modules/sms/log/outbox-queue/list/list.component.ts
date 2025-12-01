@@ -92,23 +92,26 @@ export class SmsLogOutBoxQueueListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
-    //'Message',
-    "QueueCompleted",
-    "QueueCompleteDate",
-    "ScheduleSendStart",
+    "id",
+    "recordStatus",
+    "scheduleSendStart",
+    "scheduleSendExpire",
+    "queueAllowNextRun",
+    "queueCompleted",
+    "queueCompleteDate",
     "CreatedDate",
     "UpdatedDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
-    //'Message',
-    "QueueCompleted",
-    "QueueCompleteDate",
-    "ScheduleSendStart",
+    "id",
+    "recordStatus",
+    "scheduleSendStart",
+    "scheduleSendExpire",
+    "queueAllowNextRun",
+    "queueCompleted",
+    "queueCompleteDate",
+
     "CreatedDate",
     "UpdatedDate",
     // 'Action'

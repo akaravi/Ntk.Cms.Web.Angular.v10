@@ -84,8 +84,8 @@ export class CoreLocationListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "LinkImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "title",
     "titleML",
     "LocationType",
@@ -93,8 +93,8 @@ export class CoreLocationListComponent
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "LinkImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "title",
     "titleML",
     "LocationType",

@@ -79,8 +79,8 @@ export class CoreGuideListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "Key",
     "TitleFa",
     "ShowInMenuOrder",
@@ -88,8 +88,8 @@ export class CoreGuideListComponent
     "position",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "Key",
     "TitleFa",
     "ShowInMenuOrder",

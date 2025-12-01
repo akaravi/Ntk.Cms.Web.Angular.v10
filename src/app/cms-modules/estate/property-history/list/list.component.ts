@@ -178,8 +178,8 @@ export class EstatePropertyHistoryListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "CreatedDate",
     "AppointmentDateFrom",
@@ -190,8 +190,8 @@ export class EstatePropertyHistoryListComponent
     "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "CreatedDate",
     // 'AppointmentDateFrom',
@@ -334,9 +334,7 @@ export class EstatePropertyHistoryListComponent
       filter.value = this.requestLinkEstateExpertId;
       filterModel.filters.push(filter);
     }
-    if (
-      this.requestLinkCustomerOrderId?.length > 0
-    ) {
+    if (this.requestLinkCustomerOrderId?.length > 0) {
       const filter = new FilterDataModel();
       filter.propertyName = "linkCustomerOrderId";
       filter.value = this.requestLinkCustomerOrderId;

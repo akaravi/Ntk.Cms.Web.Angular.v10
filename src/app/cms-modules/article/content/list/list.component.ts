@@ -74,8 +74,8 @@ export class ArticleContentListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "ViewCount",
     // 'Title',
     "CreatedDate",

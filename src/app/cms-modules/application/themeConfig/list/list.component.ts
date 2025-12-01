@@ -84,8 +84,8 @@ export class ApplicationThemeConfigListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "TitleML",
     "LinkSourceId",
     "TypeId",
@@ -95,8 +95,8 @@ export class ApplicationThemeConfigListComponent
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "TitleML",
     "LinkSourceId",
     "TypeId",

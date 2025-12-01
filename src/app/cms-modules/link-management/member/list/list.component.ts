@@ -72,8 +72,8 @@ export class LinkManagementMemberListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'CreatedDate',
     // 'UpdatedDate',
     "CurrentDebtor",
@@ -81,8 +81,8 @@ export class LinkManagementMemberListComponent
     "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'CreatedDate',
     // 'UpdatedDate',
     "CurrentDebtor",

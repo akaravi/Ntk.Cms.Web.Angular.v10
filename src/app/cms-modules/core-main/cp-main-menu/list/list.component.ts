@@ -82,8 +82,8 @@ export class CoreCpMainMenuListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "Icon",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "TitleML",
     "ShowInMenu",
@@ -95,8 +95,8 @@ export class CoreCpMainMenuListComponent
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "Icon",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "TitleML",
     "ShowInMenu",

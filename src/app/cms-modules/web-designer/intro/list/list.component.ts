@@ -78,8 +78,8 @@ export class WebDesignerMainIntroListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "LinkPageId",
     "CreatedDate",
@@ -88,8 +88,8 @@ export class WebDesignerMainIntroListComponent
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     // 'Title',
     "LinkPageId",
     "CreatedDate",

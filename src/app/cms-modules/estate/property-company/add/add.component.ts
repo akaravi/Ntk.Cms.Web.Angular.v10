@@ -83,8 +83,8 @@ export class EstatePropertyCompanyAddComponent
   otherInfoTabledisplayedColumns = ["Title", "TypeId", "Action"];
   similarTabledisplayedColumns = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "Title",
     "Action",
   ];

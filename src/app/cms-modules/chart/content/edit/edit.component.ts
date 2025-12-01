@@ -90,8 +90,8 @@ export class ChartContentEditComponent
   otherInfoTabledisplayedColumns = ["Id", "Title", "TypeId", "Action"];
   similarTabledisplayedColumns = [
     "LinkMainImageIdSrc",
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "Title",
     "Action",
   ];

@@ -98,16 +98,16 @@ export class CoreModuleEntityListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "LinkModuleId",
     "ModuleName",
     "ModuleEntityName",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
+    "id",
+    "recordStatus",
     "LinkModuleId",
     "ModuleName",
     "ModuleEntityName",
