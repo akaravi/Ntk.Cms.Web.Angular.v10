@@ -75,8 +75,8 @@ export class ChartContentListComponent
     "id",
     "recordStatus",
     // 'Title',
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     "LinkTo",
     "action_menu",
   ];
@@ -85,8 +85,8 @@ export class ChartContentListComponent
     "id",
     "recordStatus",
     // 'Title',
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     "LinkTo",
     "action_menu",
   ];

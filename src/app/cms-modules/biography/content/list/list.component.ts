@@ -79,8 +79,8 @@ export class BiographyContentListComponent
     "id",
     "recordStatus",
     // 'Title',
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     "LinkTo",
     "action_menu",
   ];
@@ -89,8 +89,8 @@ export class BiographyContentListComponent
     "id",
     "recordStatus",
     // 'Title',
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     "LinkTo",
     "action_menu",
   ];

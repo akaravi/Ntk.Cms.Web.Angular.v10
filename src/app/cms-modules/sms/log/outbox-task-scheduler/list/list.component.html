@@ -141,7 +141,7 @@
       multiTemplateDataRows
     >
       <!-- ID Column -->
-      <ng-container matColumnDef="Id">
+      <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["id"]?.fieldTitle }}
         </mat-header-cell>
@@ -172,7 +172,6 @@
         </mat-cell>
       </ng-container>
 
-
       <!-- ScheduleCron Column -->
       <ng-container matColumnDef="scheduleCron">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -180,7 +179,6 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{ row.scheduleCron }} </mat-cell>
       </ng-container>
-
 
       <!-- ScheduleSendStart Column -->
       <ng-container matColumnDef="scheduleSendStart">
@@ -247,7 +245,7 @@
           <mat-menu #actionMenu="matMenu"> </mat-menu>
         </mat-cell>
       </ng-container>
-        <!--expandedTitle-->
+      <!--expandedTitle-->
       <ng-container matColumnDef="expandedTitle">
         <mat-cell *matCellDef="let row">
           <div>

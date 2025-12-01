@@ -105,8 +105,8 @@ export class ChartCommentListComponent
     "id",
     "recordStatus",
     "Writer",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action',
     "LinkTo",
   ];
@@ -114,8 +114,8 @@ export class ChartCommentListComponent
     "id",
     "recordStatus",
     "Writer",
-    "CreatedDate",
-    "UpdatedDate",
+    "createdDate",
+    "updatedDate",
     // 'Action',
     "LinkTo",
   ];
