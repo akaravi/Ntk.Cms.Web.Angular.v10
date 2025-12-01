@@ -9,6 +9,7 @@ import { FormGroup } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
+import { DateTime } from "luxon";
 import { NgxMaterialTimepickerComponent } from "ngx-material-timepicker";
 import { CronOptionModel, TranslateUiService } from "ngx-ntk-cron-editor";
 import {
@@ -214,18 +215,9 @@ export class SmsActionSendMessageComponent implements OnInit {
     this.DataCheckCredit();
     this.DataMessagePlaceholders();
   }
-  @ViewChild("scheduleSendStartClock")
-  scheduleSendStartClock: NgxMaterialTimepickerComponent;
-  @ViewChild("scheduleSendExpireClock")
-  scheduleSendExpireClock: NgxMaterialTimepickerComponent;
 
   ManageUserAccessDataTypesEnum = ManageUserAccessDataTypesEnum;
-  onActionScheduleSendStartDateFocus(): void {
-    const now = new Date();
-    this.scheduleSendStartClock.min = DateTime.fromJSDate(now);
-    now.setMinutes(now.getMinutes() + 60 * 3);
-    this.scheduleSendExpireClock.min = DateTime.fromJSDate(now);
-  }
+
   onActionScheduleSendNow() {
     const now = new Date();
     this.dataModel.scheduleSendStart = now;
