@@ -68,13 +68,13 @@ export class CoreModuleLogFavoriteListComponent
     this.publicHelper.processService.cdr = this.cdr;
 
     this.requestLinkSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
     );
     this.requestLinkUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkUserId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
     );
     this.requestlinkMemberId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkMemberId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkMemberId"),
     );
 
     if (this.requestLinkSiteId > 0) {

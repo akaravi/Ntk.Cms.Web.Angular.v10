@@ -71,7 +71,7 @@ export class CoreDeviceListComponent
     this.filteModelContent.sortType = SortTypeEnum.Descending;
 
     this.requestLinkSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
     );
     if (this.requestLinkSiteId > 0) {
       const filter = new FilterDataModel();

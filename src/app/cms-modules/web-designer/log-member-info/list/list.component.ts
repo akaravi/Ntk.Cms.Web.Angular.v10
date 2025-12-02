@@ -114,7 +114,7 @@ export class WebDesignerLogMemberInfoListComponent
   private unsubscribe: Subscription[] = [];
   ngOnInit(): void {
     this.requestLinkMemberId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkMemberId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkMemberId"),
     );
     const filter = new FilterDataModel();
 

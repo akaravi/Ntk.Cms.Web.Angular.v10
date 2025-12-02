@@ -71,10 +71,10 @@ export class CoreLogReportDataListComponent
     this.publicHelper.processService.cdr = this.cdr;
 
     this.requestLinkSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
     );
     this.requestLinkUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkUserId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
     );
     this.requestLinkModuleEntityId = +Number(
       this.activatedRoute.snapshot.paramMap.get("LinkModuleEntityId"),

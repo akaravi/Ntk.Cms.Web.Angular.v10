@@ -37,7 +37,7 @@ export class BiographyConfigCheckUserComponent implements OnInit, OnDestroy {
     this.publicHelper.processService.cdr = this.cdr;
 
     this.requestLinkUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkUserId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
     );
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {

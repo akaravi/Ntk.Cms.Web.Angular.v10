@@ -52,7 +52,7 @@ export class CoreConfigSiteComponent implements OnInit, OnDestroy {
 
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
     this.requestLinkSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
     );
   }
   dataSiteStorageModel = new CoreModuleSiteStorageValuesModel();
@@ -82,7 +82,7 @@ export class CoreConfigSiteComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.requestLinkSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
     );
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {

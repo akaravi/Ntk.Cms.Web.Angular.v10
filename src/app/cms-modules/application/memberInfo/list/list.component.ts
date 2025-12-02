@@ -116,7 +116,7 @@ export class ApplicationMemberInfoListComponent
       this.activatedRoute.snapshot.paramMap.get("LinkApplicationId"),
     );
     this.requestLinkMemberId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkMemberId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkMemberId"),
     );
     const filter = new FilterDataModel();
     if (this.requestLinkApplicationId > 0) {

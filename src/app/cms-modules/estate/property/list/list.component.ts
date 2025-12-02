@@ -116,7 +116,7 @@ export class EstatePropertyListComponent
     this.requestLinkEstateAgencyId =
       this.activatedRoute.snapshot.paramMap.get("LinkEstateAgencyId");
     this.requestLinkUserId =
-      +this.activatedRoute.snapshot.paramMap.get("linkUserId") | 0;
+      +this.activatedRoute.snapshot.paramMap.get("LinkUserId") | 0;
     this.requestAction = this.activatedRoute.snapshot.paramMap.get("Action");
     if (this.activatedRoute.snapshot.paramMap.get("InChecking")) {
       this.searchInCheckingChecked =

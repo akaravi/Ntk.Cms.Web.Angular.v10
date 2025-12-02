@@ -113,7 +113,7 @@ export class EstatePropertyQuickListComponent
     this.requestLinkProjectId =
       this.activatedRoute.snapshot.paramMap.get("LinkProjectId");
     this.requestLinkUserId =
-      +this.activatedRoute.snapshot.paramMap.get("linkUserId") | 0;
+      +this.activatedRoute.snapshot.paramMap.get("LinkUserId") | 0;
     if (this.activatedRoute.snapshot.paramMap.get("InChecking")) {
       this.searchInCheckingChecked =
         this.activatedRoute.snapshot.paramMap.get("InChecking") === "true";

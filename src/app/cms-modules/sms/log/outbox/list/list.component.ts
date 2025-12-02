@@ -115,9 +115,9 @@ export class SmsLogOutBoxListComponent
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
-    if (this.activatedRoute.snapshot.paramMap.get("linkSiteId")) {
+    if (this.activatedRoute.snapshot.paramMap.get("LinkSiteId")) {
       this.requestLinkSiteId =
-        +this.activatedRoute.snapshot.paramMap.get("linkSiteId") || 0;
+        +this.activatedRoute.snapshot.paramMap.get("LinkSiteId") || 0;
     }
     if (this.activatedRoute.snapshot.paramMap.get("LinkApiPathId")) {
       this.requestLinkApiPathId =

@@ -70,10 +70,10 @@ export class CoreModuleSiteUserCreditListComponent
     this.publicHelper.processService.cdr = this.cdr;
 
     this.requestLinkUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkUserId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
     );
     this.requestLinkSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
     );
     if (this.requestLinkUserId > 0) {
       const filter = new FilterDataModel();

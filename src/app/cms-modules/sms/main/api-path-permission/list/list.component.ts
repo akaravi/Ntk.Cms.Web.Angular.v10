@@ -68,10 +68,10 @@ export class SmsMainApiPathPermissionListComponent
       onSubmit: (model) => this.onSubmitOptionsSearch(model),
     };
     this.requestLinkCoreUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkUserId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
     );
     this.requestLinkCoreSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
     );
     this.requestLinkApiPathId =
       this.activatedRoute.snapshot.paramMap.get("LinkApiPathId");

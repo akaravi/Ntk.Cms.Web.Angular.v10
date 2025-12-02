@@ -71,7 +71,7 @@ export class CoreSiteModuleListComponent
     this.publicHelper.processService.cdr = this.cdr;
 
     this.requestLinkSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
     );
     this.requestLinkModuleId = +Number(
       this.activatedRoute.snapshot.paramMap.get("LinkModuleId"),

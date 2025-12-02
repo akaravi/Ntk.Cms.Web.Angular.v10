@@ -37,7 +37,7 @@ export class DonateConfigCheckSiteComponent implements OnInit, OnDestroy {
   ) {
     this.publicHelper.processService.cdr = this.cdr;
     this.requestLinkSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
     );
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {

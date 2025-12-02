@@ -55,10 +55,10 @@ export class CoreUserClaimContentCheckListComponent
     this.publicHelper.processService.cdr = this.cdr;
 
     this.requestLinkUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkUserId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
     );
     this.requestLinkSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
     );
   }
   comment: string;

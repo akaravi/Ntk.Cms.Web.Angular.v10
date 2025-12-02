@@ -69,7 +69,7 @@ export class CoreSiteListComponent
     this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     this.requestLinkUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkUserId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
     );
     this.requestLinkSiteCategoryId = +Number(
       this.activatedRoute.snapshot.paramMap.get("LinkSiteCategoryId"),

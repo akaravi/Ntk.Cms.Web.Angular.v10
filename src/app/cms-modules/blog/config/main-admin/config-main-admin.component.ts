@@ -80,7 +80,7 @@ export class BlogConfigMainAdminComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.requestLinkSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
     );
 
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;

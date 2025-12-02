@@ -65,7 +65,7 @@ export class CoreLogAvoidDuplicateDataEntryListComponent
     this.publicHelper.processService.cdr = this.cdr;
 
     this.requestLinkUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkUserId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
     );
     if (this.requestLinkUserId > 0) {
       const filter = new FilterDataModel();

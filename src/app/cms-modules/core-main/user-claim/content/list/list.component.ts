@@ -72,10 +72,10 @@ export class CoreUserClaimContentListComponent
       this.activatedRoute.snapshot.paramMap.get("LinkUserClaimTypeId"),
     );
     this.requestLinkSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
     );
     this.requestLinkUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkUserId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
     );
 
     this.optionsSearch.parentMethods = {

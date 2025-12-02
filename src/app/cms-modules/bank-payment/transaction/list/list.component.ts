@@ -144,7 +144,7 @@ export class BankPaymentTransactionListComponent
       this.activatedRoute.snapshot.paramMap.get("LinkPrivateSiteConfigId"),
     );
     this.requestLinkUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkUserId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
     );
     this.requestLinkTransactionId = +Number(
       this.activatedRoute.snapshot.paramMap.get("LinkTransactionId"),

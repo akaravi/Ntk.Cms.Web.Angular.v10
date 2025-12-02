@@ -129,9 +129,9 @@ export class SmsMainApiPathListComponent
       this.requestLinkCompanyId =
         this.activatedRoute.snapshot.paramMap.get("LinkCompanyId");
     }
-    if (this.activatedRoute.snapshot.paramMap.get("linkSiteId")) {
+    if (this.activatedRoute.snapshot.paramMap.get("LinkSiteId")) {
       this.requestLinkSiteId =
-        +this.activatedRoute.snapshot.paramMap.get("linkSiteId") || 0;
+        +this.activatedRoute.snapshot.paramMap.get("LinkSiteId") || 0;
     }
     if (this.activatedRoute.snapshot.paramMap.get("LinkPublicConfigId")) {
       this.requestLinkPublicConfigId =

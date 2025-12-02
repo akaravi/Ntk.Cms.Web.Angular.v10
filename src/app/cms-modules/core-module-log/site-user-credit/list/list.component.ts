@@ -73,16 +73,16 @@ export class CoreModuleLogSiteUserCreditListComponent
     this.publicHelper.processService.cdr = this.cdr;
 
     this.requestLinkSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
     );
     this.requestLinkModuleId = +Number(
       this.activatedRoute.snapshot.paramMap.get("LinkModuleId"),
     );
     this.requestLinkUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkUserId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
     );
     this.requestlinkMemberUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("linkMemberUserId"),
+      this.activatedRoute.snapshot.paramMap.get("LinkMemberUserId"),
     );
 
     if (this.requestLinkSiteId > 0) {
