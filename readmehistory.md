@@ -1,5 +1,59 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-12-02 16:00:00
+
+### تکمیل کلیدهای چندزبانه TITLE.ServiceMaxPage و TITLE.endUserMaxPage
+
+**تغییرات:**
+
+- افزودن کلیدهای ترجمه `TITLE.ServiceMaxPage` و `TITLE.endUserMaxPage` به تمام زبان‌های پروژه که قبلاً فقط در فارسی و انگلیسی موجود بودند
+- هماهنگ‌سازی این کلیدها در زبان‌های: عربی (ar), آلمانی (de), اسپانیایی (es), فرانسوی (fr), ژاپنی (ja), ترکی (tr), چینی (zh)
+- ترجمه‌های اضافه شده:
+  - عربی: "End user max page count" و "Service max page count"
+  - آلمانی: "Endbenutzer maximale Seitenanzahl" و "Service maximale Seitenanzahl"
+  - اسپانیایی: "Recuento máximo de páginas de usuario final" و "Recuento máximo de páginas de servicio"
+  - فرانسوی: "Nombre maximum de pages utilisateur final" و "Nombre maximum de pages de service"
+  - ژاپنی: "エンドユーザー最大ページ数" و "サービス最大ページ数"
+  - ترکی: "Son kullanıcı maksimum sayfa sayısı" و "Servis maksimum sayfa sayısı"
+  - چینی: "最终用户最大页数" و "服务最大页数"
+
+**فایل‌های تغییر یافته:**
+
+- `src/assets/i18n/ar.json`
+- `src/assets/i18n/de.json`
+- `src/assets/i18n/es.json`
+- `src/assets/i18n/fr.json`
+- `src/assets/i18n/ja.json`
+- `src/assets/i18n/tr.json`
+- `src/assets/i18n/zh.json`
+- `readmehistory.md`
+
+---
+
+## 2025-12-02 15:30:00
+
+### افزودن دریافت زمان سیستم و عنوان Commit در GitHub Actions Workflow
+
+**تغییرات:**
+
+- افزودن step جدید با نام "Get System Time" در فایل workflow برای دریافت زمان سیستم و عنوان commit
+- ذخیره زمان سیستم با فرمت `YYYY-MM-DD HH:MM:SS` در متغیر محیطی `SYSTEM_TIME`
+- ذخیره عنوان commit در متغیر محیطی `commitTitle` از `github.event.head_commit.message`
+- نمایش زمان سیستم و عنوان commit در لاگ‌های GitHub Actions برای بررسی و مانیتورینگ
+- قرار دادن step جدید قبل از ارسال پیامک نهایی برای امکان استفاده از زمان و عنوان commit در پیام‌ها
+- استفاده از `${{ env.SYSTEM_TIME }}` در پیام SMS نهایی برای نمایش زمان publish
+
+**فایل‌های تغییر یافته:**
+
+- `.github/workflows/node.js.yml`
+- `readmehistory.md`
+
+**نحوه استفاده از متغیرها:**
+
+در stepهای بعدی می‌توان از `${{ env.SYSTEM_TIME }}` برای دسترسی به زمان سیستم و از `${{ env.commitTitle }}` برای دسترسی به عنوان commit استفاده کرد.
+
+---
+
 ## 2025-12-01 11:00:00
 
 ### افزودن کلیدهای چندزبانه MESSAGE.Yes و MESSAGE.No برای کامپوننت‌های لاگ پیامک

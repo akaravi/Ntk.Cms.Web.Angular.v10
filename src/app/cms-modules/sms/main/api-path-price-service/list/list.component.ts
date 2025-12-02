@@ -99,6 +99,8 @@ export class SmsMainApiPathPriceServiceListComponent
     "title",
     "LinkApiPathId",
     "messageType",
+    "serviceMaxPage",
+    "endUserMaxPage",
     "servicePricePerPage",
     "endUserPricePerPage",
 

@@ -202,6 +202,24 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{ row.regulatorNumber }} </mat-cell>
       </ng-container>
+      <!-- serviceMaxPage Column -->
+      <ng-container matColumnDef="serviceMaxPage">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "TITLE.ServiceMaxPage" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.serviceMessageLengthPaginationList?.length }}
+        </mat-cell>
+      </ng-container>
+      <!-- endUserMaxPage Column -->
+      <ng-container matColumnDef="endUserMaxPage">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ "TITLE.endUserMaxPage" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.endUserMessageLengthPaginationList?.length }}
+        </mat-cell>
+      </ng-container>
       <!-- servicePricePerPage Column -->
       <ng-container matColumnDef="servicePricePerPage">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
