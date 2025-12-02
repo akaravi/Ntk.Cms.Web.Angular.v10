@@ -51,10 +51,18 @@ jobs:
           commit-message: See $GITHUB_REF
           target-branch: main
 
+      - name: Get System Time
+        id: time1
+        run: |
+          echo "SYSTEM_TIME=$(date +'%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
+          echo "commitTitle=${{ github.event.head_commit.message }}" >> $GITHUB_ENV
+          echo "System time: $(date +'%Y-%m-%d %H:%M:%S')"
+          echo "Commit title: ${{ github.event.head_commit.message }}"
+
       - name: Webhook Sms
         uses: joelwmale/webhook-action@master
         with:
-          url: "https://smsban.com/api/?action=SMS_SEND&username=${{ vars.SMS_USERNAME }}&password=${{ secrets.SMS_PASSWORD }}&api=${{ vars.SMS_API }}&from=${{ vars.SMS_FROM }}&API_CHANGE_ALLOW=true&to=${{ vars.SMS_TO }}&text=${{ github.repository }} status is ${{ job.status }} لغو ۱۱"
+          url: "https://smsban.com/api/?action=SMS_SEND&username=${{ vars.SMS_USERNAME }}&password=${{ secrets.SMS_PASSWORD }}&api=${{ vars.SMS_API }}&from=${{ vars.SMS_FROM }}&API_CHANGE_ALLOW=true&to=${{ vars.SMS_TO }}&text=${{ github.repository }} status is ${{ job.status }}  commit: ${{ env.commitTitle }} \n ${{ env.SYSTEM_TIME }}   لفو۱۱"
           #headers: '{"repository": "joelwmale/webhook-action"}'
           #body: '{"event": "deployment", "repository": "joelwmale/webhook-action"}'
       - name: Webhook Plesk
@@ -70,7 +78,7 @@ jobs:
           url: "${{vars.PLESK_WEBHOOK_adminpanel_ir}}"
 
       - name: Get System Time
-        id: time
+        id: time2
         run: |
           echo "SYSTEM_TIME=$(date +'%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
           echo "commitTitle=${{ github.event.head_commit.message }}" >> $GITHUB_ENV
@@ -80,7 +88,7 @@ jobs:
       - name: Webhook Sms
         uses: joelwmale/webhook-action@master
         with:
-          url: "https://smsban.com/api/?action=SMS_SEND&username=${{ vars.SMS_USERNAME }}&password=${{ secrets.SMS_PASSWORD }}&api=${{ vars.SMS_API }}&from=${{ vars.SMS_FROM }}&API_CHANGE_ALLOW=true&to=${{ vars.SMS_TO }}&text=${{ github.repository }} status is ${{ job.status }} and Published to plesk \n commit: ${{ env.commitTitle }} \n ${{ env.SYSTEM_TIME }}   لفو۱۱"
+          url: "https://smsban.com/api/?action=SMS_SEND&username=${{ vars.SMS_USERNAME }}&password=${{ secrets.SMS_PASSWORD }}&api=${{ vars.SMS_API }}&from=${{ vars.SMS_FROM }}&API_CHANGE_ALLOW=true&to=${{ vars.SMS_TO }}&text=${{ github.repository }}  Published to plesk \n commit: ${{ env.commitTitle }} \n ${{ env.SYSTEM_TIME }}   لفو۱۱"
           #headers: '{"repository": "joelwmale/webhook-action"}'
           #body: '{"event": "deployment", "repository": "joelwmale/webhook-action"}'
 
