@@ -20,6 +20,7 @@ import {
   EstatePropertyHistoryService,
   EstatePropertyService,
   NewsContentService,
+  SmsLogOutBoxQueueService,
   TicketingTaskService,
   WebDesignerLogMemberInfoService,
 } from "ntk-cms-api";
@@ -42,6 +43,7 @@ import { EstateCustomerOrderWidgetComponent } from "src/app/cms-modules/estate/c
 import { EstatePropertyHistoryWidgetComponent } from "src/app/cms-modules/estate/property-history/widget/widget.component";
 import { EstatePropertyWidgetComponent } from "src/app/cms-modules/estate/property/widget/widget.component";
 import { NewsContentWidgetComponent } from "src/app/cms-modules/news/content/widget/widget.component";
+import { SmsLogOutBoxQueueWidgetComponent } from "src/app/cms-modules/sms/log/outbox-queue/widget/widget.component";
 import { WebDesignerLogMemberInfoWidgetComponent } from "src/app/cms-modules/web-designer/log-member-info/widget/widget.component";
 import { ComponentsModule } from "src/app/components/components.module";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
@@ -75,6 +77,7 @@ import { RouterModule } from "@angular/router";
     CoreModuleLogReportAbuseWidgetComponent,
     CoreModuleSiteCreditWidgetCreditComponent,
     CoreModuleSiteUserCreditWidgetCreditComponent,
+    SmsLogOutBoxQueueWidgetComponent,
     /*widget*/
   ],
   imports: [
@@ -107,6 +110,7 @@ import { RouterModule } from "@angular/router";
     CoreModuleLogReportAbuseWidgetComponent,
     CoreModuleSiteCreditWidgetCreditComponent,
     CoreModuleSiteUserCreditWidgetCreditComponent,
+    SmsLogOutBoxQueueWidgetComponent,
     /*widget*/
   ],
   providers: [
@@ -132,6 +136,7 @@ import { RouterModule } from "@angular/router";
     CoreModuleLogReportAbuseService,
     CoreModuleSiteCreditService,
     EstatePropertyHistoryService,
+    SmsLogOutBoxQueueService,
   ],
 })
 export class CmsModulesWidgetModule {}

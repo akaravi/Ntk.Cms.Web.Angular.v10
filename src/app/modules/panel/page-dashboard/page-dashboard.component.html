@@ -101,6 +101,12 @@
     <div class="col-12 col-sm-12 col-md-12 col-lg-6">
       <app-ticketing-task-widget> </app-ticketing-task-widget>
     </div>
+    <div
+      class="col-12 col-sm-12 col-md-12 col-lg-6"
+      *ngIf="checkModuleExist['sms']"
+    >
+      <app-sms-log-outbox-queue-widget> </app-sms-log-outbox-queue-widget>
+    </div>
     <div class="col-12 col-sm-12 col-md-12 col-lg-6">
       <app-core-site-widget-count></app-core-site-widget-count>
     </div>

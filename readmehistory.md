@@ -1,5 +1,64 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-12-02 13:43:27
+
+### افزودن ویجت SMS OutBox Queue به داشبورد
+
+**تغییرات:**
+
+- ایجاد کامپوننت ویجت جدید برای نمایش وضعیت صف خروجی پیامک (`SmsLogOutBoxQueueWidgetComponent`)
+- نمایش آمار و وضعیت صف‌های خروجی پیامک در داشبورد اصلی شامل:
+  - آیتم‌های فعال (Available)
+  - آیتم‌های در انتظار تایید مدیر (Pending Admin Approval)
+  - آیتم‌های نیاز به بررسی (Need To Check)
+  - صف‌های کامل شده (Completed Queue)
+- افزودن نمودار دایره‌ای (Pie Chart) برای نمایش توزیع وضعیت‌های مختلف
+- ثبت ویجت در `CmsModulesWidgetModule` برای استفاده در سراسر برنامه
+- افزودن ویجت به صفحه dashboard اصلی (`page-dashboard.component.html`)
+- پشتیبانی از فیلتر `MainAdminRecordStatus` برای نمایش وضعیت تایید مدیر اصلی
+- افزودن کلیدهای چندزبانه جدید به تمام زبان‌های پروژه:
+  - `TITLE.OutBox_Queue`: صف خروجی پیامک
+  - `TITLE.SMS_OutBox_Queue_Status`: وضعیت صف خروجی پیامک
+  - `TITLE.Number_OutBox_Queue`: تعداد صف خروجی
+  - `TITLE.Pending_Admin_Approval`: در انتظار تایید مدیر
+  - `TITLE.Need_To_Check`: نیاز به بررسی
+  - `TITLE.Completed_Queue`: صف کامل شده
+  - `TITLE.View_Queue_List`: مشاهده لیست صف
+  - `MESSAGE.outbox_queue_list`: لیست صف خروجی پیامک
+- ترجمه تمام کلیدها به زبان‌های: فارسی، انگلیسی، عربی، آلمانی، اسپانیایی، فرانسوی، ژاپنی، ترکی، چینی
+
+**فایل‌های ایجاد شده:**
+
+- `src/app/cms-modules/sms/log/outbox-queue/widget/widget.component.ts`
+- `src/app/cms-modules/sms/log/outbox-queue/widget/widget.component.html`
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/cms-modules/cmsModulesWidget.module.ts`
+- `src/app/modules/panel/page-dashboard/page-dashboard.component.html`
+- `src/assets/i18n/fa.json`
+- `src/assets/i18n/en.json`
+- `src/assets/i18n/ar.json`
+- `src/assets/i18n/de.json`
+- `src/assets/i18n/es.json`
+- `src/assets/i18n/fr.json`
+- `src/assets/i18n/ja.json`
+- `src/assets/i18n/tr.json`
+- `src/assets/i18n/zh.json`
+- `readmehistory.md`
+
+**ویژگی‌های ویجت:**
+
+- نمایش تعداد صف‌های با وضعیت‌های مختلف
+- لینک مستقیم به صفحه لیست صف خروجی پیامک
+- نمایش نمودار تحلیلی وضعیت‌ها
+- بروزرسانی خودکار با تغییر وضعیت توکن کاربر
+- دکمه بازخوانی اطلاعات
+- پشتیبانی کامل از چندزبانه
+- طراحی واکنش‌گرا (Responsive) برای نمایش در موبایل و دسکتاپ
+
+---
+
 ## 2025-12-02 16:00:00
 
 ### تکمیل کلیدهای چندزبانه TITLE.ServiceMaxPage و TITLE.endUserMaxPage
