@@ -82,8 +82,6 @@ jobs:
         run: |
           echo "SYSTEM_TIME=$(date +'%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
           echo "commitTitle=${{ github.event.head_commit.message }}" >> $GITHUB_ENV
-          echo "System time: $(date +'%Y-%m-%d %H:%M:%S')"
-          echo "Commit title: ${{ github.event.head_commit.message }}"
 
       - name: Webhook Sms
         uses: joelwmale/webhook-action@master
