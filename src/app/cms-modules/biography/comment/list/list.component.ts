@@ -191,7 +191,7 @@ export class BiographyCommentListComponent
     }
     if (this.searchInCheckingChecked) {
       const filter = new FilterDataModel();
-      filter.propertyName = "RecordStatus";
+      filter.propertyName = "recordStatus";
       filter.value = RecordStatusEnum.Available;
       filter.searchType = FilterDataModelSearchTypesEnum.NotEqual;
       filterModel.filters.push(filter);
@@ -427,7 +427,7 @@ export class BiographyCommentListComponent
     });
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = "RecordStatus";
+    fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({

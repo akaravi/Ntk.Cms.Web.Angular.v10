@@ -94,7 +94,7 @@ export class CoreSiteDomainAliasListComponent
   tabledisplayedColumnsSource: string[] = [
     "id",
     "LinkCmsSiteId",
-    "RecordStatus",
+    "recordStatus",
     "SubDomain",
     "Domain",
     "Redirect",
@@ -106,7 +106,7 @@ export class CoreSiteDomainAliasListComponent
   tabledisplayedColumnsMobileSource: string[] = [
     "id",
     "LinkCmsSiteId",
-    "RecordStatus",
+    "recordStatus",
     "SubDomain",
     "Domain",
     "Redirect",
@@ -402,7 +402,7 @@ export class CoreSiteDomainAliasListComponent
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = "RecordStatus";
+    fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.coreSiteService.ServiceGetCount(filterStatist1).subscribe({

@@ -114,7 +114,7 @@ export class CoreModuleSiteUserCreditListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "RecordStatus",
+    "recordStatus",
     "linkSiteId",
     // 'LinkUserId',
     "LinkModuleId",
@@ -126,7 +126,7 @@ export class CoreModuleSiteUserCreditListComponent
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "RecordStatus",
+    "recordStatus",
     "linkSiteId",
     // 'LinkUserId',
     "LinkModuleId",
@@ -217,7 +217,7 @@ export class CoreModuleSiteUserCreditListComponent
     /**filterActionSearch */
     if (this.filteModelContent.filterActionSearchRecordStatus > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "RecordStatus";
+      filter.propertyName = "recordStatus";
       filter.value = this.filteModelContent.filterActionSearchRecordStatus;
       filterModel.filters.push(filter);
     }
@@ -446,7 +446,7 @@ export class CoreModuleSiteUserCreditListComponent
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = "RecordStatus";
+    fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({

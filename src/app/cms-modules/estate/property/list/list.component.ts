@@ -129,12 +129,12 @@ export class EstatePropertyListComponent
       +this.activatedRoute.snapshot.paramMap.get("ResponsibleUserId");
     this.requestRecordStatus =
       RecordStatusEnum[
-        this.activatedRoute.snapshot.paramMap.get("RecordStatus") + ""
+        this.activatedRoute.snapshot.paramMap.get("recordStatus") + ""
       ];
     if (this.requestRecordStatus) {
       this.optionsSearch.data.show = true;
       this.optionsSearch.data.defaultQuery =
-        '{"condition":"and","rules":[{"field":"RecordStatus","type":"select","operator":"equal","value":"' +
+        '{"condition":"and","rules":[{"field":"recordStatus","type":"select","operator":"equal","value":"' +
         this.requestRecordStatus +
         '"}]}';
       this.requestRecordStatus = null;
@@ -268,7 +268,7 @@ export class EstatePropertyListComponent
   tabledisplayedColumnsMobileSource: string[] = [
     "linkMainImageIdSrc",
     // "id",
-    // "RecordStatus",
+    // "recordStatus",
     // "mainAdminRecordStatus",
     "IsSoldIt",
     // "ViewConfigHiddenInList",
@@ -435,7 +435,7 @@ export class EstatePropertyListComponent
     }
     if (this.searchInCheckingChecked) {
       const filter1 = new FilterDataModel();
-      filter1.propertyName = "RecordStatus";
+      filter1.propertyName = "recordStatus";
       filter1.value = RecordStatusEnum.Pending;
       filterModel.filters.push(filter1);
     }
@@ -1071,21 +1071,21 @@ export class EstatePropertyListComponent
     //*filter */
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter1 = new FilterDataModel();
-    fastfilter1.propertyName = "RecordStatus";
+    fastfilter1.propertyName = "recordStatus";
     fastfilter1.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter1);
     const s1 = this.contentService.ServiceGetCount(filterStatist1);
     //*filter */
     const filterStatist2 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter2 = new FilterDataModel();
-    fastfilter2.propertyName = "RecordStatus";
+    fastfilter2.propertyName = "recordStatus";
     fastfilter2.value = RecordStatusEnum.Disable;
     filterStatist2.filters.push(fastfilter2);
     const s2 = this.contentService.ServiceGetCount(filterStatist2);
     //*filter */
     const filterStatist3 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter3 = new FilterDataModel();
-    fastfilter3.propertyName = "RecordStatus";
+    fastfilter3.propertyName = "recordStatus";
     fastfilter3.value = RecordStatusEnum.Pending;
     filterStatist3.filters.push(fastfilter3);
     const s3 = this.contentService.ServiceGetCount(filterStatist3);

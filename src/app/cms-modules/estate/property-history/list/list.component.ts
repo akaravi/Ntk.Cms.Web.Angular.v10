@@ -105,14 +105,14 @@ export class EstatePropertyHistoryListComponent
     /**recordStatus */
     this.requestRecordStatus =
       RecordStatusEnum[
-        this.activatedRoute.snapshot.paramMap.get("RecordStatus") + ""
+        this.activatedRoute.snapshot.paramMap.get("recordStatus") + ""
       ];
     this.responsibleUserId =
       +this.activatedRoute.snapshot.paramMap.get("ResponsibleUserId");
     if (this.requestRecordStatus) {
       this.optionsSearch.data.show = true;
       this.optionsSearch.data.defaultQuery =
-        '{"condition":"and","rules":[{"field":"RecordStatus","type":"select","operator":"equal","value":"' +
+        '{"condition":"and","rules":[{"field":"recordStatus","type":"select","operator":"equal","value":"' +
         this.requestRecordStatus +
         '"}]}';
       this.requestRecordStatus = null;
@@ -702,7 +702,7 @@ export class EstatePropertyHistoryListComponent
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = "RecordStatus";
+    fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({

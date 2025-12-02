@@ -92,7 +92,7 @@ export class CoreLogCurrencyListComponent
   tabledisplayedColumnsSource: string[] = [
     "id",
     "MainId",
-    "RecordStatus",
+    "recordStatus",
     // 'Title',
     "Symbol",
     "ExchangeBuyRatio",
@@ -104,7 +104,7 @@ export class CoreLogCurrencyListComponent
   tabledisplayedColumnsMobileSource: string[] = [
     "id",
     "MainId",
-    "RecordStatus",
+    "recordStatus",
     // 'Title',
     "Symbol",
     "ExchangeBuyRatio",
@@ -374,7 +374,7 @@ export class CoreLogCurrencyListComponent
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = "RecordStatus";
+    fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({

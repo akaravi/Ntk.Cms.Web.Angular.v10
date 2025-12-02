@@ -20,7 +20,7 @@ import {
   SmsMainApiNumberModel,
   SmsMainApiNumberService,
 } from "ntk-cms-api";
-import { firstValueFrom, Observable } from "rxjs";
+import { Observable, firstValueFrom } from "rxjs";
 import {
   debounceTime,
   distinctUntilChanged,
@@ -135,7 +135,7 @@ export class SmsMainApiNumberSelectorComponent implements OnInit {
     }
     if (this.optionSelectForSendMessage) {
       filter = new FilterDataModel();
-      filter.propertyName = "RecordStatus";
+      filter.propertyName = "recordStatus";
       filter.value = RecordStatusEnum.Available;
       filter.searchType = FilterDataModelSearchTypesEnum.Equal;
       filterModel.filters.push(filter);

@@ -118,7 +118,7 @@ export class CoreUserSupportAccessListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "RecordStatus",
+    "recordStatus",
     "linkUserId",
     "linkSiteId",
     "ModuleName",
@@ -131,7 +131,7 @@ export class CoreUserSupportAccessListComponent
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "RecordStatus",
+    "recordStatus",
     "linkUserId",
     "linkSiteId",
     "ModuleName",
@@ -199,7 +199,7 @@ export class CoreUserSupportAccessListComponent
     /**filterActionSearch */
     if (this.filteModelContent.filterActionSearchRecordStatus > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "RecordStatus";
+      filter.propertyName = "recordStatus";
       filter.value = this.filteModelContent.filterActionSearchRecordStatus;
       filterModel.filters.push(filter);
     }
@@ -487,7 +487,7 @@ export class CoreUserSupportAccessListComponent
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = "RecordStatus";
+    fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({

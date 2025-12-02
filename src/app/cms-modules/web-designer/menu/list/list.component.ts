@@ -87,7 +87,7 @@ export class WebDesignerMainMenuListComponent
   tabledisplayedColumnsSource: string[] = [
     "Icon",
     // 'Id',
-    "RecordStatus",
+    "recordStatus",
     // 'Title',
     "ShowInAccessAdminAllowToProfessionalData",
     "MenuPlaceType",
@@ -98,7 +98,7 @@ export class WebDesignerMainMenuListComponent
   tabledisplayedColumnsMobileSource: string[] = [
     "Icon",
     // 'Id',
-    "RecordStatus",
+    "recordStatus",
     // 'Title',
     "ShowInAccessAdminAllowToProfessionalData",
     "MenuPlaceType",
@@ -427,7 +427,7 @@ export class WebDesignerMainMenuListComponent
     });
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = "RecordStatus";
+    fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({

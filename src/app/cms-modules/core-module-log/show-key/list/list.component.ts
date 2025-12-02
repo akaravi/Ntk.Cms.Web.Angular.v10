@@ -94,7 +94,7 @@ export class CoreModuleLogShowKeyListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "RecordStatus",
+    "recordStatus",
     "ModuleName",
     "ModuleEntityName",
     "ModuleEntityId",
@@ -103,7 +103,7 @@ export class CoreModuleLogShowKeyListComponent
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "RecordStatus",
+    "recordStatus",
     "ModuleName",
     "ModuleEntityName",
     "ModuleEntityId",
@@ -429,7 +429,7 @@ export class CoreModuleLogShowKeyListComponent
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = "RecordStatus";
+    fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.Filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({

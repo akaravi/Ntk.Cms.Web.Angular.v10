@@ -118,21 +118,21 @@ export class EstatePropertyWidgetComponent implements OnInit, OnDestroy {
     //*filter */
     const filterStatist0 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter0 = new FilterDataModel();
-    fastfilter0.propertyName = "RecordStatus";
+    fastfilter0.propertyName = "recordStatus";
     fastfilter0.value = RecordStatusEnum.Available;
     filterStatist0.filters.push(fastfilter0);
     const s0 = this.service.ServiceGetCount(filterStatist0);
     //*filter */
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter1 = new FilterDataModel();
-    fastfilter1.propertyName = "RecordStatus";
+    fastfilter1.propertyName = "recordStatus";
     fastfilter1.value = RecordStatusEnum.Disable;
     filterStatist1.filters.push(fastfilter1);
     const s1 = this.service.ServiceGetCount(filterStatist1);
     //*filter */
     const filterStatist2 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter2 = new FilterDataModel();
-    fastfilter2.propertyName = "RecordStatus";
+    fastfilter2.propertyName = "recordStatus";
     fastfilter2.value = RecordStatusEnum.Pending;
     filterStatist2.filters.push(fastfilter2);
     const s2 = this.service.ServiceGetCount(filterStatist2);

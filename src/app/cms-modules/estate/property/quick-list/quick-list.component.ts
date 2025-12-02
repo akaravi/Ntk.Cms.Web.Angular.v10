@@ -254,7 +254,7 @@ export class EstatePropertyQuickListComponent
   tabledisplayedColumnsMobileSource: string[] = [
     "linkMainImageIdSrc",
     // "id",
-    // "RecordStatus",
+    // "recordStatus",
     // "mainAdminRecordStatus",
     "IsSoldIt",
     // "ViewConfigHiddenInList",
@@ -343,12 +343,12 @@ export class EstatePropertyQuickListComponent
     }
     if (this.searchInCheckingChecked) {
       const filter1 = new FilterDataModel();
-      filter1.propertyName = "RecordStatus";
+      filter1.propertyName = "recordStatus";
       filter1.value = RecordStatusEnum.Available;
       filter1.searchType = FilterDataModelSearchTypesEnum.NotEqual;
       filterModel.filters.push(filter1);
       const filter2 = new FilterDataModel();
-      filter2.propertyName = "RecordStatus";
+      filter2.propertyName = "recordStatus";
       filter2.value = RecordStatusEnum.DeniedConfirmed;
       filter2.searchType = FilterDataModelSearchTypesEnum.NotEqual;
       filterModel.filters.push(filter2);
@@ -741,7 +741,7 @@ export class EstatePropertyQuickListComponent
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = "RecordStatus";
+    fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({

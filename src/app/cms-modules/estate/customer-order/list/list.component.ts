@@ -95,12 +95,12 @@ export class EstateCustomerOrderListComponent
       +this.activatedRoute.snapshot.paramMap.get("ResponsibleUserId");
     this.requestRecordStatus =
       RecordStatusEnum[
-        this.activatedRoute.snapshot.paramMap.get("RecordStatus") + ""
+        this.activatedRoute.snapshot.paramMap.get("recordStatus") + ""
       ];
     if (this.requestRecordStatus) {
       this.optionsSearch.data.show = true;
       this.optionsSearch.data.defaultQuery =
-        '{"condition":"and","rules":[{"field":"RecordStatus","type":"select","operator":"equal","value":"' +
+        '{"condition":"and","rules":[{"field":"recordStatus","type":"select","operator":"equal","value":"' +
         this.requestRecordStatus +
         '"}]}';
       this.requestRecordStatus = null;
@@ -131,7 +131,7 @@ export class EstateCustomerOrderListComponent
   tabledisplayedColumnsSource: string[] = [
     "id",
     "linkSiteId",
-    "RecordStatus",
+    "recordStatus",
     // 'Title',
     "createdDate",
     "updatedDate",
@@ -147,7 +147,7 @@ export class EstateCustomerOrderListComponent
   tabledisplayedColumnsMobileSource: string[] = [
     // 'Id',
     // 'LinkSiteId',
-    "RecordStatus",
+    "recordStatus",
     "title",
     // 'CreatedDate',
     // 'UpdatedDate',
@@ -705,21 +705,21 @@ export class EstateCustomerOrderListComponent
     //*filter */
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter1 = new FilterDataModel();
-    fastfilter1.propertyName = "RecordStatus";
+    fastfilter1.propertyName = "recordStatus";
     fastfilter1.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter1);
     const s1 = this.contentService.ServiceGetCount(filterStatist1);
     //*filter */
     const filterStatist2 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter2 = new FilterDataModel();
-    fastfilter2.propertyName = "RecordStatus";
+    fastfilter2.propertyName = "recordStatus";
     fastfilter2.value = RecordStatusEnum.Archive;
     filterStatist2.filters.push(fastfilter2);
     const s2 = this.contentService.ServiceGetCount(filterStatist2);
     //*filter */
     const filterStatist3 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter3 = new FilterDataModel();
-    fastfilter3.propertyName = "RecordStatus";
+    fastfilter3.propertyName = "recordStatus";
     fastfilter3.value = RecordStatusEnum.Pending;
     filterStatist3.filters.push(fastfilter3);
     const s3 = this.contentService.ServiceGetCount(filterStatist3);
@@ -727,7 +727,7 @@ export class EstateCustomerOrderListComponent
     //*filter */
     const filterStatist4 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter4 = new FilterDataModel();
-    fastfilter4.propertyName = "RecordStatus";
+    fastfilter4.propertyName = "recordStatus";
     fastfilter4.value = RecordStatusEnum.Disable;
     filterStatist4.filters.push(fastfilter4);
     const s4 = this.contentService.ServiceGetCount(filterStatist4);

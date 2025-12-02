@@ -122,7 +122,7 @@ export class SmsMainApiPathSelectorComponent implements OnInit {
     }
     if (this.optionSelectForSendMessage) {
       filter = new FilterDataModel();
-      filter.propertyName = "RecordStatus";
+      filter.propertyName = "recordStatus";
       filter.value = RecordStatusEnum.Available;
       filter.searchType = FilterDataModelSearchTypesEnum.Equal;
       filterModel.filters.push(filter);

@@ -77,7 +77,7 @@ export class DataProviderTransactionListComponent
   tabledisplayedColumnsSource: string[] = [
     "id",
     "linkSiteId",
-    "RecordStatus",
+    "recordStatus",
     "LinkClientId",
     "LinkPlanId",
     "LinkPlanPriceId",
@@ -93,7 +93,7 @@ export class DataProviderTransactionListComponent
   tabledisplayedColumnsMobileSource: string[] = [
     "id",
     "linkSiteId",
-    "RecordStatus",
+    "recordStatus",
     "LinkClientId",
     "LinkPlanId",
     "LinkPlanPriceId",
@@ -321,7 +321,7 @@ export class DataProviderTransactionListComponent
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = "RecordStatus";
+    fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({

@@ -118,7 +118,7 @@ export class CoreSiteModuleListComponent
   tabledisplayedColumnsSource: string[] = [
     "linkSiteId",
     "LinkModuleId",
-    "RecordStatus",
+    "recordStatus",
     //'virtual_CmsSite.title',
     //'virtual_CmsModule.title',
     "createdDate",
@@ -131,7 +131,7 @@ export class CoreSiteModuleListComponent
   tabledisplayedColumnsMobileSource: string[] = [
     // 'LinkSiteId',
     // 'LinkModuleId',
-    "RecordStatus",
+    "recordStatus",
     //'virtual_CmsSite.title',
     //'virtual_CmsModule.title',
     "createdDate",
@@ -468,7 +468,7 @@ export class CoreSiteModuleListComponent
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = "RecordStatus";
+    fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({

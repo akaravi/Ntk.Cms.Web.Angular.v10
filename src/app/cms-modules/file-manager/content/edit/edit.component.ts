@@ -59,7 +59,7 @@ export class FileContentEditComponent
   similarDataModel = new Array<FileContentModel>();
   contentSimilarSelected: FileContentModel = new FileContentModel();
   otherInfoTabledisplayedColumns = ["id", "title", "TypeId", "Action"];
-  similarTabledisplayedColumns = ["id", "RecordStatus", "title", "Action"];
+  similarTabledisplayedColumns = ["id", "recordStatus", "title", "Action"];
   similarTabledataSource = new MatTableDataSource<FileContentModel>();
 
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];

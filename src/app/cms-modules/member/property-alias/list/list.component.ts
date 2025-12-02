@@ -75,7 +75,7 @@ export class MemberPropertyAliasListComponent
     "id",
     "linkSiteId",
     "LinkCmsUserId",
-    "RecordStatus",
+    "recordStatus",
     // 'Title',
     "Description",
     "Address",
@@ -87,7 +87,7 @@ export class MemberPropertyAliasListComponent
     "id",
     "linkSiteId",
     "LinkCmsUserId",
-    "RecordStatus",
+    "recordStatus",
     // 'Title',
     "Description",
     "Address",
@@ -335,7 +335,7 @@ export class MemberPropertyAliasListComponent
     });
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = "RecordStatus";
+    fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({

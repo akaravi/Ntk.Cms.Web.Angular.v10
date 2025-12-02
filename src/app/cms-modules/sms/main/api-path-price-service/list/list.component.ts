@@ -95,7 +95,7 @@ export class SmsMainApiPathPriceServiceListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     //  'Id',
-    "RecordStatus",
+    "recordStatus",
     "title",
     "LinkApiPathId",
     "messageType",
@@ -106,7 +106,7 @@ export class SmsMainApiPathPriceServiceListComponent
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     //  'Id',
-    "RecordStatus",
+    "recordStatus",
     "title",
     "LinkApiPathId",
     "messageType",
@@ -487,7 +487,7 @@ export class SmsMainApiPathPriceServiceListComponent
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = "RecordStatus";
+    fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({

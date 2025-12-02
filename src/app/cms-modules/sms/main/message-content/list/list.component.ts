@@ -87,7 +87,7 @@ export class SmsMainMessageContentListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     // 'Id',
-    "RecordStatus",
+    "recordStatus",
     "title",
     "createdDate",
     "updatedDate",
@@ -96,7 +96,7 @@ export class SmsMainMessageContentListComponent
 
   tabledisplayedColumnsMobileSource: string[] = [
     // 'Id',
-    "RecordStatus",
+    "recordStatus",
     "title",
     "createdDate",
     "updatedDate",
@@ -388,7 +388,7 @@ export class SmsMainMessageContentListComponent
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = "RecordStatus";
+    fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({

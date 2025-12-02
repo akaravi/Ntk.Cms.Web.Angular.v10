@@ -115,7 +115,7 @@ export class CoreUserClaimGroupDetailListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "RecordStatus",
+    "recordStatus",
     "LinkUserClaimGroupId",
     "LinkUserClaimTypeId",
     "IsRequired",
@@ -123,7 +123,7 @@ export class CoreUserClaimGroupDetailListComponent
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
-    "RecordStatus",
+    "recordStatus",
     "LinkUserClaimGroupId",
     "LinkUserClaimTypeId",
     "IsRequired",
@@ -463,7 +463,7 @@ export class CoreUserClaimGroupDetailListComponent
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = "RecordStatus";
+    fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({

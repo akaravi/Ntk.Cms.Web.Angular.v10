@@ -50,16 +50,18 @@ export class ChartContentWidgetComponent implements OnInit, OnDestroy {
       this.onActionStatist();
     }, 1000);
 
-    this.unsubscribe.push( this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.translate
-          .get("TITLE.Registered_Chart")
-          .subscribe((str: string) => {
-            this.widgetInfoModel.title = str;
-          });
-        this.onActionStatist();
-      }));
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.translate
+            .get("TITLE.Registered_Chart")
+            .subscribe((str: string) => {
+              this.widgetInfoModel.title = str;
+            });
+          this.onActionStatist();
+        }),
+    );
   }
 
   onActionButtonReload(): void {
@@ -118,7 +120,7 @@ export class ChartContentWidgetComponent implements OnInit, OnDestroy {
     });
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = "RecordStatus";
+    fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.service.ServiceGetCount(filterStatist1).subscribe({

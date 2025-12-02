@@ -143,7 +143,7 @@ export class CoreSiteUserListComponent
     "linkSiteId",
     "linkUserId",
     "LinkUserGroupId",
-    "RecordStatus",
+    "recordStatus",
     "createdDate",
     // 'virtual_CmsUser.name',
     // 'virtual_CmsUser.lastName',
@@ -157,7 +157,7 @@ export class CoreSiteUserListComponent
     // 'LinkSiteId',
     // 'LinkUserId',
     // 'LinkUserGroupId',
-    "RecordStatus",
+    "recordStatus",
     "createdDate",
     // 'virtual_CmsUser.name',
     // 'virtual_CmsUser.lastName',
@@ -225,7 +225,7 @@ export class CoreSiteUserListComponent
     /**filterActionSearch */
     if (this.filteModelContent.filterActionSearchRecordStatus > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "RecordStatus";
+      filter.propertyName = "recordStatus";
       filter.value = this.filteModelContent.filterActionSearchRecordStatus;
       filterModel.filters.push(filter);
     }
@@ -689,7 +689,7 @@ export class CoreSiteUserListComponent
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = "RecordStatus";
+    fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({

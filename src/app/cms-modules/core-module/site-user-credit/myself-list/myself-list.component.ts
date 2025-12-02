@@ -75,7 +75,7 @@ export class CoreModuleSiteUserCreditMyselfListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "RecordStatus",
+    "recordStatus",
     "linkSiteId",
     // 'LinkUserId',
     "LinkModuleId",
@@ -87,7 +87,7 @@ export class CoreModuleSiteUserCreditMyselfListComponent
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "RecordStatus",
+    "recordStatus",
     "linkSiteId",
     // 'LinkUserId',
     "LinkModuleId",

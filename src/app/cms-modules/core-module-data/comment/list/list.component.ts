@@ -105,7 +105,7 @@ export class CoreModuleDataCommentListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "RecordStatus",
+    "recordStatus",
     "ModuleName",
     "ModuleEntityName",
     "ModuleEntityId",
@@ -115,7 +115,7 @@ export class CoreModuleDataCommentListComponent
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
-    "RecordStatus",
+    "recordStatus",
     "ModuleName",
     "ModuleEntityName",
     "ModuleEntityId",
@@ -182,7 +182,7 @@ export class CoreModuleDataCommentListComponent
     /**filterActionSearch */
     if (this.filteModelContent.filterActionSearchRecordStatus > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "RecordStatus";
+      filter.propertyName = "recordStatus";
       filter.value = this.filteModelContent.filterActionSearchRecordStatus;
       filterModel.filters.push(filter);
     }
@@ -462,7 +462,7 @@ export class CoreModuleDataCommentListComponent
 
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
-    fastfilter.propertyName = "RecordStatus";
+    fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.Filters.push(fastfilter);
     this.contentService.ServiceGetCount(filterStatist1).subscribe({
