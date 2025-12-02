@@ -105,7 +105,7 @@ export class EstatePropertyExpertPriceListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
     "ExpertPriceType",
@@ -119,7 +119,7 @@ export class EstatePropertyExpertPriceListComponent
     "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
     // 'ExpertPriceType',

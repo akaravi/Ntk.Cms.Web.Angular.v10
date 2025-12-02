@@ -63,7 +63,7 @@ export class WebDesignerMainIntroListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
 
@@ -77,7 +77,7 @@ export class WebDesignerMainIntroListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
     // 'Title',
@@ -87,7 +87,7 @@ export class WebDesignerMainIntroListComponent
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
     // 'Title',

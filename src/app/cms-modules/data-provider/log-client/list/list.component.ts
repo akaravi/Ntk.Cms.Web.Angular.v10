@@ -64,7 +64,7 @@ export class DataProviderLogClientListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   filteModelContent = new FilterModel();
@@ -72,15 +72,15 @@ export class DataProviderLogClientListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
+    "id",
     "LinkClientId",
-    "CreatedDate",
+    "createdDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
+    "id",
     "LinkClientId",
-    "CreatedDate",
+    "createdDate",
     // 'Action'
   ];
 

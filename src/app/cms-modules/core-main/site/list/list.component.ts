@@ -66,17 +66,17 @@ export class CoreSiteListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     this.requestLinkUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
+      this.activatedRoute.snapshot.paramMap.get("linkUserId"),
     );
     this.requestLinkSiteCategoryId = +Number(
       this.activatedRoute.snapshot.paramMap.get("LinkSiteCategoryId"),
     );
     if (this.requestLinkUserId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyAnyName = "LinkUserId";
+      filter.propertyAnyName = "linkUserId";
       filter.propertyName = "SiteUsers";
       filter.value = this.requestLinkUserId;
       this.filteModelContent.filters.push(filter);
@@ -111,8 +111,8 @@ export class CoreSiteListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "MainImageSrc",
-    "Title",
-    "Id",
+    "title",
+    "id",
     "linkCreatedBySiteId",
     "RecordStatus",
     // 'SubDomain',
@@ -124,8 +124,8 @@ export class CoreSiteListComponent
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "MainImageSrc",
-    "Title",
-    "Id",
+    "title",
+    "id",
     "linkCreatedBySiteId",
     "RecordStatus",
     // 'SubDomain',
@@ -196,13 +196,13 @@ export class CoreSiteListComponent
     }
     if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "Id";
+      filter.propertyName = "id";
       filter.value = this.filteModelContent.filterActionSearchLinkSiteId;
       filterModel.filters.push(filter);
     }
     if (this.filteModelContent.filterActionSearchLinkUserId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyAnyName = "LinkUserId";
+      filter.propertyAnyName = "linkUserId";
       filter.propertyName = "SiteUsers";
       filter.value = this.filteModelContent.filterActionSearchLinkUserId;
       filterModel.filters.push(filter);

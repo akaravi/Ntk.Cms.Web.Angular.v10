@@ -12,8 +12,8 @@ import {
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-news-config-checkuser",
@@ -37,7 +37,7 @@ export class NewsConfigCheckUserComponent implements OnInit, OnDestroy {
     this.publicHelper.processService.cdr = this.cdr;
 
     this.requestLinkUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
+      this.activatedRoute.snapshot.paramMap.get("linkUserId"),
     );
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
@@ -62,7 +62,7 @@ export class NewsConfigCheckUserComponent implements OnInit, OnDestroy {
     new BaseModuleSiteCheckUserModel();
   tableSource: MatTableDataSource<BaseModuleSiteCheckUserModel> =
     new MatTableDataSource<BaseModuleSiteCheckUserModel>();
-  tabledisplayedColumns: string[] = ["Accepted", "Title", "Description"];
+  tabledisplayedColumns: string[] = ["Accepted", "title", "Description"];
   ngOnInit(): void {}
   ngOnDestroy(): void {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());

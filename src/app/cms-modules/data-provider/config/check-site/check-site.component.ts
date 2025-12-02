@@ -12,8 +12,8 @@ import {
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-donate-config-checksite",
@@ -37,7 +37,7 @@ export class DataProviderConfigCheckSiteComponent implements OnInit, OnDestroy {
   ) {
     this.publicHelper.processService.cdr = this.cdr;
     this.requestLinkSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
     );
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
@@ -64,7 +64,7 @@ export class DataProviderConfigCheckSiteComponent implements OnInit, OnDestroy {
   tableSource: MatTableDataSource<BaseModuleSiteCheckSiteModel> =
     new MatTableDataSource<BaseModuleSiteCheckSiteModel>();
 
-  tabledisplayedColumns: string[] = ["Accepted", "Title", "Description"];
+  tabledisplayedColumns: string[] = ["Accepted", "title", "Description"];
   ngOnInit(): void {}
   ngOnDestroy(): void {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());

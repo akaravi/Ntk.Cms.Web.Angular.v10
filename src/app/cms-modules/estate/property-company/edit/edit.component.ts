@@ -74,12 +74,12 @@ export class EstatePropertyCompanyEditComponent
   similarDataModel = new Array<EstatePropertyCompanyModel>();
   contentSimilarSelected: EstatePropertyCompanyModel =
     new EstatePropertyCompanyModel();
-  otherInfoTabledisplayedColumns = ["Id", "Title", "TypeId", "Action"];
+  otherInfoTabledisplayedColumns = ["id", "title", "TypeId", "Action"];
   similarTabledisplayedColumns = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
-    "Title",
+    "title",
     "Action",
   ];
   similarTabledataSource = new MatTableDataSource<EstatePropertyCompanyModel>();
@@ -263,7 +263,7 @@ export class EstatePropertyCompanyEditComponent
     ids.forEach((item) => {
       if (item > 0) {
         const filter = new FilterDataModel();
-        filter.propertyName = "Id";
+        filter.propertyName = "id";
         filter.value = item;
         filter.clauseType = ClauseTypeEnum.Or;
         filterModel.filters.push(filter);

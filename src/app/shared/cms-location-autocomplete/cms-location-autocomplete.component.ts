@@ -128,7 +128,7 @@ export class CmsLocationCompleteComponent implements OnInit {
     filterModel.accessLoad = true;
     /*Filters */
     let filter = new FilterDataModel();
-    filter.propertyName = "Title";
+    filter.propertyName = "title";
     filter.value = text;
     filter.searchType = FilterDataModelSearchTypesEnum.Contains;
     filter.clauseType = ClauseTypeEnum.Or;
@@ -142,7 +142,7 @@ export class CmsLocationCompleteComponent implements OnInit {
     filterModel.filters.push(filter);
     /*Filters */
     filter = new FilterDataModel();
-    filter.propertyName = "Id";
+    filter.propertyName = "id";
     filter.value = text;
     filter.searchType = FilterDataModelSearchTypesEnum.Equal;
     filter.clauseType = ClauseTypeEnum.Or;
@@ -243,7 +243,7 @@ export class CmsLocationCompleteComponent implements OnInit {
     ids.forEach((item) => {
       if (item > 0) {
         const filter = new FilterDataModel();
-        filter.propertyName = "Id";
+        filter.propertyName = "id";
         filter.value = item;
         filter.clauseType = ClauseTypeEnum.Or;
         filterModel.filters.push(filter);

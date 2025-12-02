@@ -68,10 +68,10 @@ export class CoreTokenMicroServiceListComponent
     this.publicHelper.processService.cdr = this.cdr;
 
     this.requestLinkSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
     );
     this.requestLinkUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
+      this.activatedRoute.snapshot.paramMap.get("linkUserId"),
     );
     this.requestLinkDeviceId = +Number(
       this.activatedRoute.snapshot.paramMap.get("LinkDeviceId"),
@@ -85,7 +85,7 @@ export class CoreTokenMicroServiceListComponent
     }
     if (this.requestLinkUserId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "LinkUserId";
+      filter.propertyName = "linkUserId";
       filter.value = this.requestLinkUserId;
       this.filteModelContent.filters.push(filter);
     }
@@ -100,7 +100,7 @@ export class CoreTokenMicroServiceListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "CreatedDate";
+    this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     /**filterActionSearch */
     this.optionsSearch.data.filterModelContent = this.filteModelContent;
@@ -125,30 +125,30 @@ export class CoreTokenMicroServiceListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "LinkSiteId",
-    "LinkUserId",
+    "id",
+    "linkSiteId",
+    "linkUserId",
     "LinkMemberUserId",
     "UserAccessAreaType",
     "UserType",
     "UserAccessAdminAllowToAllData",
     "UserAccessAdminAllowToProfessionalData",
     "RememberOnDevice",
-    "CreatedDate",
+    "createdDate",
     "ExpireDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "LinkSiteId",
-    "LinkUserId",
+    "id",
+    "linkSiteId",
+    "linkUserId",
     "LinkMemberUserId",
     "UserAccessAreaType",
     "UserType",
     "UserAccessAdminAllowToAllData",
     "UserAccessAdminAllowToProfessionalData",
     "RememberOnDevice",
-    "CreatedDate",
+    "createdDate",
     "ExpireDate",
     // 'Action'
   ];
@@ -161,7 +161,7 @@ export class CoreTokenMicroServiceListComponent
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
-    this.filteModelContent.sortColumn = "CreatedDate";
+    this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
@@ -234,14 +234,14 @@ export class CoreTokenMicroServiceListComponent
     }
     if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyAnyName = "LinkSiteId";
+      filter.propertyAnyName = "linkSiteId";
       filter.propertyName = "SiteUsers";
       filter.value = this.filteModelContent.filterActionSearchLinkSiteId;
       filterModel.filters.push(filter);
     }
     if (this.filteModelContent.filterActionSearchLinkUserId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyAnyName = "LinkUserId";
+      filter.propertyAnyName = "linkUserId";
       filter.value = this.filteModelContent.filterActionSearchLinkUserId;
       filterModel.filters.push(filter);
     }

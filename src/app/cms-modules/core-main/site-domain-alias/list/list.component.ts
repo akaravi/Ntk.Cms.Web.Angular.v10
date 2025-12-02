@@ -65,7 +65,7 @@ export class CoreSiteDomainAliasListComponent
     );
     this.publicHelper.processService.cdr = this.cdr;
 
-    this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("Id"));
+    this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("id"));
 
     if (this.requestId > 0) {
       const filter = new FilterDataModel();
@@ -78,7 +78,7 @@ export class CoreSiteDomainAliasListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   comment: string;
@@ -92,7 +92,7 @@ export class CoreSiteDomainAliasListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
+    "id",
     "LinkCmsSiteId",
     "RecordStatus",
     "SubDomain",
@@ -104,7 +104,7 @@ export class CoreSiteDomainAliasListComponent
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
+    "id",
     "LinkCmsSiteId",
     "RecordStatus",
     "SubDomain",
@@ -119,7 +119,7 @@ export class CoreSiteDomainAliasListComponent
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {

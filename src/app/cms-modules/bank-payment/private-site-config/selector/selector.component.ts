@@ -107,14 +107,14 @@ export class BankPaymentPrivateSiteConfigSelectorComponent implements OnInit {
     filterModel.accessLoad = true;
     const filters = new Array<FilterDataModel>();
     let filter = new FilterDataModel();
-    filter.propertyName = "Title";
+    filter.propertyName = "title";
     filter.value = text;
     filter.searchType = FilterDataModelSearchTypesEnum.Contains;
     filter.clauseType = ClauseTypeEnum.Or;
     filterModel.filters.push(filter);
     if (text && typeof +text === "number" && +text > 0) {
       filter = new FilterDataModel();
-      filter.propertyName = "Id";
+      filter.propertyName = "id";
       filter.value = text;
       filter.searchType = FilterDataModelSearchTypesEnum.Equal;
       filter.clauseType = ClauseTypeEnum.Or;

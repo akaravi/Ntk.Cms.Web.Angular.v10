@@ -88,12 +88,12 @@ export class EstatePropertyProjectAddComponent
   keywordDataModel = [];
   tagDataModel = [];
   similarDataModel = new Array<EstatePropertyProjectModel>();
-  otherInfoTabledisplayedColumns = ["Title", "TypeId", "Action"];
+  otherInfoTabledisplayedColumns = ["title", "TypeId", "Action"];
   similarTabledisplayedColumns = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
-    "Title",
+    "title",
     "Action",
   ];
   similarTabledataSource = new MatTableDataSource<EstatePropertyProjectModel>();

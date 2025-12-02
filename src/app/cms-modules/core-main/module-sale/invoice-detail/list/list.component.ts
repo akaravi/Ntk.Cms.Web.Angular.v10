@@ -77,7 +77,7 @@ export class CoreModuleSaleInvoiceDetailListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     if (this.requestLinkInvoiceId > 0) {
       const filter = new FilterDataModel();
@@ -102,14 +102,14 @@ export class CoreModuleSaleInvoiceDetailListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
+    "id",
     "LinkModuleId",
     "EnumCmsModuleSaleItemType",
     "FromDate",
     "ExpireDate",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
+    "id",
     "LinkModuleId",
     "EnumCmsModuleSaleItemType",
     "FromDate",

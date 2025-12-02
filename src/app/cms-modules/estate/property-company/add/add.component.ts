@@ -80,12 +80,12 @@ export class EstatePropertyCompanyAddComponent
   keywordDataModel = [];
   tagDataModel = [];
   similarDataModel = new Array<EstatePropertyCompanyModel>();
-  otherInfoTabledisplayedColumns = ["Title", "TypeId", "Action"];
+  otherInfoTabledisplayedColumns = ["title", "TypeId", "Action"];
   similarTabledisplayedColumns = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
-    "Title",
+    "title",
     "Action",
   ];
   similarTabledataSource = new MatTableDataSource<EstatePropertyCompanyModel>();

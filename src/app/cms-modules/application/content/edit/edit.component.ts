@@ -78,7 +78,7 @@ export class ApplicationAppEditComponent
   private mapMarkerPoints: Array<PoinModel> = [];
   mapOptonCenter = new PoinModel();
   ngOnInit(): void {
-    this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("Id"));
+    this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("id"));
     if (!this.requestId || this.requestId === 0) {
       this.cmsToastrService.typeErrorAddRowParentIsNull();
       return;

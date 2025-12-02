@@ -66,7 +66,7 @@ export class CoreModuleLogShowKeyListComponent
     this.publicHelper.processService.cdr = this.cdr;
 
     this.requestLinkSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
     );
 
     if (this.requestLinkSiteId > 0) {
@@ -80,7 +80,7 @@ export class CoreModuleLogShowKeyListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "CreatedDate";
+    this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   comment: string;
@@ -99,7 +99,7 @@ export class CoreModuleLogShowKeyListComponent
     "ModuleEntityName",
     "ModuleEntityId",
     "showKey",
-    "CreatedDate",
+    "createdDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
@@ -108,7 +108,7 @@ export class CoreModuleLogShowKeyListComponent
     "ModuleEntityName",
     "ModuleEntityId",
     "showKey",
-    "CreatedDate",
+    "createdDate",
     // 'Action'
   ];
 
@@ -116,7 +116,7 @@ export class CoreModuleLogShowKeyListComponent
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
-    this.filteModelContent.sortColumn = "CreatedDate";
+    this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {

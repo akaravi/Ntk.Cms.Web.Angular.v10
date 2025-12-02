@@ -66,7 +66,7 @@ export class EstateCategoryZoneListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Title";
+    this.filteModelContent.sortColumn = "title";
     this.filteModelContent.sortType = SortTypeEnum.Ascending;
   }
   link: string;
@@ -81,7 +81,7 @@ export class EstateCategoryZoneListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "IconFont",
     // 'Title',
     "Description",
@@ -89,7 +89,7 @@ export class EstateCategoryZoneListComponent
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "IconFont",
     // 'Title',
     "Description",

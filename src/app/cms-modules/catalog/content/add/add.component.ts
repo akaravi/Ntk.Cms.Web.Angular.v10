@@ -82,7 +82,7 @@ export class CatalogContentAddComponent
   contentSimilarSelected: CatalogContentModel = new CatalogContentModel();
   contentOtherInfoSelected: CatalogContentOtherInfoModel =
     new CatalogContentOtherInfoModel();
-  otherInfoTabledisplayedColumns = ["Title", "TypeId", "Action"];
+  otherInfoTabledisplayedColumns = ["title", "TypeId", "Action"];
   otherInfoTabledataSource =
     new MatTableDataSource<CatalogContentOtherInfoModel>();
 

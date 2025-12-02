@@ -80,7 +80,7 @@ export class LinkManagementBillboardAddComponent
 
   optionActionButtomEnable = true;
   optionTabledisplayedColumns = [
-    "Id",
+    "id",
     "Option",
     "OptionAnswer",
     "IsCorrectAnswer",

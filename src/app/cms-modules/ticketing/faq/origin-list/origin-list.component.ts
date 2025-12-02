@@ -44,7 +44,7 @@ export class TicketingFaqOriginListComponent implements OnInit, OnDestroy {
   ) {
     this.publicHelper.processService.cdr = this.cdr;
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Ascending;
   }
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
@@ -88,13 +88,14 @@ export class TicketingFaqOriginListComponent implements OnInit, OnDestroy {
       this.DataGetAll();
     }
 
-    this.unsubscribe.push( this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.DataDepartemenGetAll();
-        this.tokenInfo = value;
-        this.DataGetAll();
-      }),
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.DataDepartemenGetAll();
+          this.tokenInfo = value;
+          this.DataGetAll();
+        }),
     );
   }
   ngOnDestroy(): void {

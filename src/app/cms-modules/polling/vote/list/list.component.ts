@@ -79,7 +79,7 @@ export class PollingVoteListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   SortTypeEnum;
@@ -95,7 +95,7 @@ export class PollingVoteListComponent
   tabledisplayedColumnsSource: string[] = [
     "id",
     "recordStatus",
-    "LinkMemberId",
+    "linkMemberId",
     "createdDate",
     "updatedDate",
     // 'Action'
@@ -103,7 +103,7 @@ export class PollingVoteListComponent
   tabledisplayedColumnsMobileSource: string[] = [
     "id",
     "recordStatus",
-    "LinkMemberId",
+    "linkMemberId",
     "createdDate",
     "updatedDate",
     // 'Action'

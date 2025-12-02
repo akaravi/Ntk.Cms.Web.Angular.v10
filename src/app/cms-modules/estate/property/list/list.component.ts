@@ -116,7 +116,7 @@ export class EstatePropertyListComponent
     this.requestLinkEstateAgencyId =
       this.activatedRoute.snapshot.paramMap.get("LinkEstateAgencyId");
     this.requestLinkUserId =
-      +this.activatedRoute.snapshot.paramMap.get("LinkUserId") | 0;
+      +this.activatedRoute.snapshot.paramMap.get("linkUserId") | 0;
     this.requestAction = this.activatedRoute.snapshot.paramMap.get("Action");
     if (this.activatedRoute.snapshot.paramMap.get("InChecking")) {
       this.searchInCheckingChecked =
@@ -140,7 +140,7 @@ export class EstatePropertyListComponent
       this.requestRecordStatus = null;
     }
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "CreatedDate";
+    this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     if (
       this.requestLinkPropertyTypeLanduseId &&
@@ -246,13 +246,13 @@ export class EstatePropertyListComponent
   categoryModelSelected: EstatePropertyTypeLanduseModel;
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
     "mainAdminRecordStatus",
     "IsSoldIt",
     "ViewConfigHiddenInList",
-    "LinkSiteId",
+    "linkSiteId",
     "AdsActive",
     "ViewCount",
     "caseCode",
@@ -266,21 +266,21 @@ export class EstatePropertyListComponent
     "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
-    // "Id",
+    "linkMainImageIdSrc",
+    // "id",
     // "RecordStatus",
     // "mainAdminRecordStatus",
     "IsSoldIt",
     // "ViewConfigHiddenInList",
-    // "LinkSiteId",
+    // "linkSiteId",
     // "AdsActive",
     // "ViewCount",
     "caseCode",
     // "scoreEstateLocation",
     // "scoreEstateBuild",
     // "scoreEstatePrice",
-    // "CreatedDate",
-    // "UpdatedDate",
+    // "createdDate",
+    // "updatedDate",
     "LinkTo",
     "QuickView",
     "action_menu",

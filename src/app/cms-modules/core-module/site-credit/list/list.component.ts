@@ -20,6 +20,7 @@ import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
+import { CmsBankpaymentTransactionInfoComponent } from "src/app/shared/cms-bankpayment-transaction-info/cms-bankpayment-transaction-info.component";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { environment } from "src/environments/environment";
 import { PublicHelper } from "../../../../core/helpers/publicHelper";
@@ -27,7 +28,6 @@ import { CmsToastrService } from "../../../../core/services/cmsToastr.service";
 import { CoreModuleSiteCreditChargeDirectComponent } from "../charge-direct/charge-direct.component";
 import { CoreModuleSiteCreditChargeOnlineComponent } from "../charge-online/charge-online.component";
 import { CoreModuleSiteCreditEditComponent } from "../edit/edit.component";
-import { CmsBankpaymentTransactionInfoComponent } from "src/app/shared/cms-bankpayment-transaction-info/cms-bankpayment-transaction-info.component";
 @Component({
   selector: "app-coremodule-site-credit-list",
   templateUrl: "./list.component.html",
@@ -70,7 +70,7 @@ export class CoreModuleSiteCreditListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     /**filterActionSearch */
     this.optionsSearch.data.filterModelContent = this.filteModelContent;
@@ -196,14 +196,14 @@ export class CoreModuleSiteCreditListComponent
     }
     if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyAnyName = "LinkSiteId";
+      filter.propertyAnyName = "linkSiteId";
       filter.propertyName = "SiteUsers";
       filter.value = this.filteModelContent.filterActionSearchLinkSiteId;
       filterModel.filters.push(filter);
     }
     if (this.filteModelContent.filterActionSearchLinkUserId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyAnyName = "LinkUserId";
+      filter.propertyAnyName = "linkUserId";
       filter.value = this.filteModelContent.filterActionSearchLinkUserId;
       filterModel.filters.push(filter);
     }

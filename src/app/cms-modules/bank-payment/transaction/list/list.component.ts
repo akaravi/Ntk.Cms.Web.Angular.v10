@@ -82,7 +82,7 @@ export class BankPaymentTransactionListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     /**filterActionSearch */
     this.optionsSearch.data.filterModelContent = this.filteModelContent;
@@ -144,14 +144,14 @@ export class BankPaymentTransactionListComponent
       this.activatedRoute.snapshot.paramMap.get("LinkPrivateSiteConfigId"),
     );
     this.requestLinkUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
+      this.activatedRoute.snapshot.paramMap.get("linkUserId"),
     );
     this.requestLinkTransactionId = +Number(
       this.activatedRoute.snapshot.paramMap.get("LinkTransactionId"),
     );
     if (this.requestLinkTransactionId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "Id";
+      filter.propertyName = "id";
       filter.value = this.requestLinkTransactionId;
       this.filteModelContent.filters.push(filter);
     }
@@ -163,7 +163,7 @@ export class BankPaymentTransactionListComponent
     }
     if (this.requestLinkUserId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "LinkUserId";
+      filter.propertyName = "linkUserId";
       filter.value = this.requestLinkUserId;
       this.filteModelContent.filters.push(filter);
     }
@@ -239,14 +239,14 @@ export class BankPaymentTransactionListComponent
     }
     if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyAnyName = "LinkSiteId";
+      filter.propertyAnyName = "linkSiteId";
       filter.propertyName = "SiteUsers";
       filter.value = this.filteModelContent.filterActionSearchLinkSiteId;
       filterModel.filters.push(filter);
     }
     if (this.filteModelContent.filterActionSearchLinkUserId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyAnyName = "LinkUserId";
+      filter.propertyAnyName = "linkUserId";
       filter.value = this.filteModelContent.filterActionSearchLinkUserId;
       filterModel.filters.push(filter);
     }

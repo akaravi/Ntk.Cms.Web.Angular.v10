@@ -64,7 +64,7 @@ export class CoreModuleListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Ascending;
   }
   comment: string;
@@ -78,7 +78,7 @@ export class CoreModuleListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
     // 'Title',
@@ -91,7 +91,7 @@ export class CoreModuleListComponent
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
     // 'Title',

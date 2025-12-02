@@ -65,7 +65,7 @@ export class ContactContentListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     if (this.requestLinkCategoryId && this.requestLinkCategoryId.length > 0) {
       const filter = new FilterDataModel();
@@ -82,7 +82,7 @@ export class ContactContentListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
+    "id",
     "title",
     "firstName",
     "lastName",
@@ -91,7 +91,7 @@ export class ContactContentListComponent
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
+    "id",
     "title",
     "firstName",
     "lastName",
@@ -161,7 +161,7 @@ export class ContactContentListComponent
       filterModel.filters = [...this.filterDataModelQueryBuilder];
     }
     /*filter add search*/
-    debugger
+    debugger;
     if (
       this.categoryModelSelected &&
       this.categoryModelSelected.id?.length > 0

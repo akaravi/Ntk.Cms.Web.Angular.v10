@@ -74,7 +74,7 @@ export class CoreModuleEntityListComponent
     );
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Ascending;
     if (this.requestLinkModuleId > 0) {
       const filter = new FilterDataModel();

@@ -112,12 +112,12 @@ export class CoreSiteUserEditComponent
 
     /*make filter*/
     let filter = new FilterDataModel();
-    filter.propertyName = "LinkUserId";
+    filter.propertyName = "linkUserId";
     filter.value = this.requestLinkUserId;
     filteModelContent.filters.push(filter);
     /*make filter*/
     filter = new FilterDataModel();
-    filter.propertyName = "LinkSiteId";
+    filter.propertyName = "linkSiteId";
     filter.value = this.requestLinkSiteId;
     filteModelContent.filters.push(filter);
 

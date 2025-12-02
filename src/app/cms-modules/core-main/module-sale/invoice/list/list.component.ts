@@ -66,7 +66,7 @@ export class CoreModuleSaleInvoiceListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   comment: string;
@@ -84,7 +84,7 @@ export class CoreModuleSaleInvoiceListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "MainImageSrc",
-    "Id",
+    "id",
     "LinkSiteIdBuyer",
     "RecordStatus",
     "Price",
@@ -94,7 +94,7 @@ export class CoreModuleSaleInvoiceListComponent
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "MainImageSrc",
-    "Id",
+    "id",
     "LinkSiteIdBuyer",
     "RecordStatus",
     "Price",

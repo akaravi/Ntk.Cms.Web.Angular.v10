@@ -72,7 +72,7 @@ export class CoreModuleSaleHeaderGroupListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   comment: string;
@@ -91,7 +91,7 @@ export class CoreModuleSaleHeaderGroupListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
     // 'Title',
@@ -103,7 +103,7 @@ export class CoreModuleSaleHeaderGroupListComponent
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
     // 'Title',

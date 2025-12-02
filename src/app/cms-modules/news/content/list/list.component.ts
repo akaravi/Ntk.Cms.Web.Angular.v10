@@ -71,7 +71,7 @@ export class NewsContentListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
 
     /**filterActionSearch */
@@ -95,17 +95,17 @@ export class NewsContentListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
     "ViewCount",
     //'Title',
-    "CreatedDate",
+    "createdDate",
     "LinkTo",
     "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "RecordStatus",
     //'Title',
     "LinkTo",
@@ -158,13 +158,13 @@ export class NewsContentListComponent
     }
     if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyAnyName = "LinkSiteId";
+      filter.propertyAnyName = "linkSiteId";
       filter.value = this.filteModelContent.filterActionSearchLinkSiteId;
       filterModel.filters.push(filter);
     }
     if (this.filteModelContent.filterActionSearchLinkUserId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "LinkUserId";
+      filter.propertyName = "linkUserId";
       filter.value = this.filteModelContent.filterActionSearchLinkUserId;
       filterModel.filters.push(filter);
     }

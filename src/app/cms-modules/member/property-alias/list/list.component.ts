@@ -64,7 +64,7 @@ export class MemberPropertyAliasListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   filteModelContent = new FilterModel();
@@ -72,27 +72,27 @@ export class MemberPropertyAliasListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "LinkSiteId",
+    "id",
+    "linkSiteId",
     "LinkCmsUserId",
     "RecordStatus",
     // 'Title',
     "Description",
     "Address",
     "ViewCount",
-    "CreatedDate",
+    "createdDate",
     "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "LinkSiteId",
+    "id",
+    "linkSiteId",
     "LinkCmsUserId",
     "RecordStatus",
     // 'Title',
     "Description",
     "Address",
     "ViewCount",
-    "CreatedDate",
+    "createdDate",
     "action_menu",
   ];
   private unsubscribe: Subscription[] = [];

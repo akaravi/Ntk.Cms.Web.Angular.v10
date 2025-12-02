@@ -69,7 +69,7 @@ export class ApiTelegramBotConfigListComponent
       onSubmit: (model) => this.onSubmitOptionsSearch(model),
     };
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Ascending;
   }
   comment: string;

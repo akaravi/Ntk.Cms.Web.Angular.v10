@@ -73,7 +73,7 @@ export class EstateCustomerOrderResultListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "CreatedDate";
+    this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
 
     if (

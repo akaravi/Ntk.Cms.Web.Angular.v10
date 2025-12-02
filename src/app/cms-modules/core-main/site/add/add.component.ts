@@ -88,7 +88,7 @@ export class CoreSiteAddComponent
   mapOptonCenter = new PoinModel();
   keywordDataModel = [];
   ngOnInit(): void {
-    this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("Id"));
+    this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("id"));
     if (this.requestId > 0) {
       this.dataModel.linkCreatedBySiteId = this.requestId;
     }

@@ -64,7 +64,7 @@ export class EstatePropertyTypeUsageListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Title";
+    this.filteModelContent.sortColumn = "title";
     this.filteModelContent.sortType = SortTypeEnum.Ascending;
   }
   comment: string;
@@ -78,16 +78,16 @@ export class EstatePropertyTypeUsageListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "IconFont",
-    "Title",
+    "title",
     "Description",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "IconFont",
-    "Title",
+    "title",
     "Description",
     // 'Action'
   ];

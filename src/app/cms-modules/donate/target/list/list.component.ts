@@ -64,7 +64,7 @@ export class DonateTargetListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   filteModelContent = new FilterModel();
@@ -74,19 +74,19 @@ export class DonateTargetListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
     // 'Title',
-    "CreatedDate",
+    "createdDate",
     "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
     // 'Title',
-    "CreatedDate",
+    "createdDate",
     "action_menu",
   ];
 

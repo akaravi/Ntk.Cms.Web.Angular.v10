@@ -61,7 +61,7 @@ export class ArticleContentListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   link: string;
@@ -73,17 +73,17 @@ export class ArticleContentListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
     "ViewCount",
     // 'Title',
-    "CreatedDate",
+    "createdDate",
     "LinkTo",
     "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     // 'Id',
     // 'RecordStatus',
     "ViewCount",

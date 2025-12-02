@@ -91,7 +91,7 @@ export class Cms360TourListComponent implements OnInit, AfterViewInit {
 
   tabledataSource = new MatTableDataSource<File360TourScenesModel>();
   tableHotSpotdataSource = new MatTableDataSource<File360TourHotSpotModel>();
-  tabledisplayedColumns = ["linkFileId", "panorama", "Title", "Action"];
+  tabledisplayedColumns = ["linkFileId", "panorama", "title", "Action"];
   tableHotspotDisplayedColumns = [
     "type",
     "sceneIdSelector",

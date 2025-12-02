@@ -113,7 +113,7 @@ export class EstatePropertyQuickListComponent
     this.requestLinkProjectId =
       this.activatedRoute.snapshot.paramMap.get("LinkProjectId");
     this.requestLinkUserId =
-      +this.activatedRoute.snapshot.paramMap.get("LinkUserId") | 0;
+      +this.activatedRoute.snapshot.paramMap.get("linkUserId") | 0;
     if (this.activatedRoute.snapshot.paramMap.get("InChecking")) {
       this.searchInCheckingChecked =
         this.activatedRoute.snapshot.paramMap.get("InChecking") === "true";
@@ -123,7 +123,7 @@ export class EstatePropertyQuickListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "CreatedDate";
+    this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     if (
       this.requestLinkPropertyTypeLanduseId &&
@@ -167,7 +167,7 @@ export class EstatePropertyQuickListComponent
     }
     if (this.requestSearchTitle && this.requestSearchTitle.length > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "Title";
+      filter.propertyName = "title";
       filter.value = this.requestSearchTitle;
       filter.searchType = FilterDataModelSearchTypesEnum.Contains;
       this.filteModelContent.filters.push(filter);
@@ -235,13 +235,13 @@ export class EstatePropertyQuickListComponent
   categoryModelSelected: EstatePropertyTypeLanduseModel;
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
     "mainAdminRecordStatus",
     "IsSoldIt",
     "ViewConfigHiddenInList",
-    "LinkSiteId",
+    "linkSiteId",
     "AdsActive",
     "ViewCount",
     "CaseCode",
@@ -252,18 +252,18 @@ export class EstatePropertyQuickListComponent
     "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
-    // "Id",
+    "linkMainImageIdSrc",
+    // "id",
     // "RecordStatus",
     // "mainAdminRecordStatus",
     "IsSoldIt",
     // "ViewConfigHiddenInList",
-    // "LinkSiteId",
+    // "linkSiteId",
     // "AdsActive",
     // "ViewCount",
     "CaseCode",
-    // "CreatedDate",
-    // "UpdatedDate",
+    // "createdDate",
+    // "updatedDate",
     "LinkTo",
     "QuickView",
     "action_menu",

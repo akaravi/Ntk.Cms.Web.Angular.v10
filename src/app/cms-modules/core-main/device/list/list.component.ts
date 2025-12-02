@@ -67,15 +67,15 @@ export class CoreDeviceListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
 
     this.requestLinkSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
     );
     if (this.requestLinkSiteId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "LinkSiteId";
+      filter.propertyName = "linkSiteId";
       filter.value = this.requestLinkSiteId;
       this.filteModelContent.filters.push(filter);
     }
@@ -96,8 +96,8 @@ export class CoreDeviceListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "LinkSiteId",
+    "id",
+    "linkSiteId",
     "RecordStatus",
     "osType",
     "DeviceType",
@@ -110,8 +110,8 @@ export class CoreDeviceListComponent
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "LinkSiteId",
+    "id",
+    "linkSiteId",
     "RecordStatus",
     "osType",
     "DeviceType",
@@ -127,7 +127,7 @@ export class CoreDeviceListComponent
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();

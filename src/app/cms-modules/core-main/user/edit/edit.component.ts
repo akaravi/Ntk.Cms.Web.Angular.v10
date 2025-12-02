@@ -57,7 +57,7 @@ export class CoreUserEditComponent
     super(coreUserService, new CoreUserModel(), publicHelper, translate);
     this.publicHelper.processService.cdr = this.cdr;
 
-    this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("Id"));
+    this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("id"));
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
 

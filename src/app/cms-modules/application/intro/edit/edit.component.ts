@@ -49,7 +49,7 @@ export class ApplicationIntroEditComponent
     this.publicHelper.processService.cdr = this.cdr;
 
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
-    this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("Id"));
+    this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("id"));
   }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
   formInfo: FormInfoModel = new FormInfoModel();

@@ -89,7 +89,7 @@ export class WebDesignerMainPageListGridComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "CreatedDate";
+    this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     if (this.requestLinkPageTemplateGuId.length > 0) {
       const filter = new FilterDataModel();
@@ -127,7 +127,7 @@ export class WebDesignerMainPageListGridComponent
     "ThumbnailImageSrc",
     "id",
     "recordStatus",
-    "Title",
+    "title",
     // 'LinkPageParentGuId',
     // 'LinkPageDependencyGuId',
     "LinkPageTemplateGuId",

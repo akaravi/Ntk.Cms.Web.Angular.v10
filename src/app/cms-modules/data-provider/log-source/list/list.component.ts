@@ -64,7 +64,7 @@ export class DataProviderLogSourceListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   filteModelContent = new FilterModel();
@@ -72,16 +72,16 @@ export class DataProviderLogSourceListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
+    "id",
     "LinkSourceId",
-    "CreatedDate",
+    "createdDate",
     // 'Action'
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
+    "id",
     "LinkSourceId",
-    "CreatedDate",
+    "createdDate",
     // 'Action'
   ];
   private unsubscribe: Subscription[] = [];

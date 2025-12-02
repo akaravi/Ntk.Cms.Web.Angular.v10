@@ -109,7 +109,7 @@ export class SmsMainMessageContentSelectorComponent implements OnInit {
 
     let filter = new FilterDataModel();
     if (text && text.length > 0) {
-      filter.propertyName = "Title";
+      filter.propertyName = "title";
       filter.value = text;
       filter.searchType = FilterDataModelSearchTypesEnum.Contains;
       filter.clauseType = ClauseTypeEnum.Or;
@@ -117,7 +117,7 @@ export class SmsMainMessageContentSelectorComponent implements OnInit {
     }
     if (text && typeof text === "string" && text.length > 10) {
       filter = new FilterDataModel();
-      filter.propertyName = "Id";
+      filter.propertyName = "id";
       filter.value = text;
       filter.searchType = FilterDataModelSearchTypesEnum.Equal;
       filter.clauseType = ClauseTypeEnum.Or;

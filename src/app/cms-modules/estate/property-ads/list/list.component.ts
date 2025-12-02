@@ -70,7 +70,7 @@ export class EstatePropertyAdsListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     if (this.requestLinkPropertyId && this.requestLinkPropertyId.length > 0) {
       const filter = new FilterDataModel();

@@ -66,10 +66,10 @@ export class CoreLogSmsListComponent
     this.publicHelper.processService.cdr = this.cdr;
 
     this.requestLinkSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
     );
     this.requestLinkUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
+      this.activatedRoute.snapshot.paramMap.get("linkUserId"),
     );
     this.requestLinkDeviceId = +Number(
       this.activatedRoute.snapshot.paramMap.get("LinkDeviceId"),
@@ -83,7 +83,7 @@ export class CoreLogSmsListComponent
     }
     if (this.requestLinkUserId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "LinkUserId";
+      filter.propertyName = "linkUserId";
       filter.value = this.requestLinkUserId;
       this.filteModelContent.filters.push(filter);
     }
@@ -98,7 +98,7 @@ export class CoreLogSmsListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "CreatedDate";
+    this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     /**filterActionSearch */
     this.optionsSearch.data.filterModelContent = this.filteModelContent;
@@ -123,27 +123,27 @@ export class CoreLogSmsListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "LinkUserId",
-    "LinkSiteId",
-    "LinkMemberId",
+    "id",
+    "linkUserId",
+    "linkSiteId",
+    "linkMemberId",
     "SendStatusType",
     "FromNumber",
     "ToNumber",
     "ApiNumber",
-    "CreatedDate",
+    "createdDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "LinkUserId",
-    "LinkSiteId",
-    "LinkMemberId",
+    "id",
+    "linkUserId",
+    "linkSiteId",
+    "linkMemberId",
     "SendStatusType",
     "FromNumber",
     "ToNumber",
     "ApiNumber",
-    "CreatedDate",
+    "createdDate",
     // 'Action'
   ];
   dataModelEnumSendSmsStatusTypeResult: ErrorExceptionResult<InfoEnumModel> =
@@ -153,7 +153,7 @@ export class CoreLogSmsListComponent
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
-    this.filteModelContent.sortColumn = "CreatedDate";
+    this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {

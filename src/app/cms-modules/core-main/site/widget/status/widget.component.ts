@@ -61,12 +61,14 @@ export class CoreSiteWidgetStatusComponent implements OnInit, OnDestroy {
       this.onActionStatist();
     }, 1000);
 
-    this.unsubscribe.push( this.cmsStoreService
-      .getState((state) => state.tokenInfoStore)
-      .subscribe(async (value) => {
-        this.tokenInfoModel = value;
-        this.onActionStatist();
-      }));
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfoModel = value;
+          this.onActionStatist();
+        }),
+    );
   }
 
   onActionButtonReload(): void {
@@ -88,7 +90,7 @@ export class CoreSiteWidgetStatusComponent implements OnInit, OnDestroy {
       "/core/site/edit/" + this.tokenInfoModel.access.siteId;
     this.widgetInfoModel.setItem(
       new WidgetContentInfoModel(
-        "Id",
+        "id",
         0,
         0,
         "",
@@ -97,7 +99,7 @@ export class CoreSiteWidgetStatusComponent implements OnInit, OnDestroy {
       ),
     );
     this.widgetInfoModel.setItem(
-      new WidgetContentInfoModel("Title", 1, 0, "", "", "..."),
+      new WidgetContentInfoModel("title", 1, 0, "", "", "..."),
     );
     this.widgetInfoModel.setItem(
       new WidgetContentInfoModel("Domain", 2, 0, "", "", "..."),
@@ -117,7 +119,7 @@ export class CoreSiteWidgetStatusComponent implements OnInit, OnDestroy {
         next: (ret) => {
           if (ret.isSuccess) {
             this.widgetInfoModel.setItem(
-              new WidgetContentInfoModel("Title", 1, 0, "", "", ret.item.title),
+              new WidgetContentInfoModel("title", 1, 0, "", "", ret.item.title),
             );
             this.widgetInfoModel.setItem(
               new WidgetContentInfoModel(

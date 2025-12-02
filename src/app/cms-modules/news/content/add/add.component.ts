@@ -86,12 +86,12 @@ export class NewsContentAddComponent
   contentSimilarSelected: NewsContentModel = new NewsContentModel();
   contentOtherInfoSelected: NewsContentOtherInfoModel =
     new NewsContentOtherInfoModel();
-  otherInfoTabledisplayedColumns = ["Title", "TypeId", "Action"];
+  otherInfoTabledisplayedColumns = ["title", "TypeId", "Action"];
   similarTabledisplayedColumns = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
-    "Title",
+    "title",
     "Action",
   ];
   similarTabledataSource = new MatTableDataSource<NewsContentModel>();

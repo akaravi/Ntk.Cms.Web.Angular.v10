@@ -38,7 +38,7 @@ export class EstateConfigCheckSiteComponent implements OnInit, OnDestroy {
     this.publicHelper.processService.cdr = this.cdr;
 
     this.requestLinkSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
     );
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
@@ -65,7 +65,7 @@ export class EstateConfigCheckSiteComponent implements OnInit, OnDestroy {
   tableSource: MatTableDataSource<BaseModuleSiteCheckSiteModel> =
     new MatTableDataSource<BaseModuleSiteCheckSiteModel>();
 
-  tabledisplayedColumns: string[] = ["Accepted", "Title", "Description"];
+  tabledisplayedColumns: string[] = ["Accepted", "title", "Description"];
   ngOnInit(): void {}
   ngOnDestroy(): void {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());

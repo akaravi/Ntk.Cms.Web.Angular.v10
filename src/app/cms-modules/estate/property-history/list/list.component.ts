@@ -139,7 +139,7 @@ export class EstatePropertyHistoryListComponent
     }
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "CreatedDate";
+    this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   @Input() optionloadComponent = true;
@@ -181,7 +181,7 @@ export class EstatePropertyHistoryListComponent
     "id",
     "recordStatus",
     // 'Title',
-    "CreatedDate",
+    "createdDate",
     "AppointmentDateFrom",
     "AppointmentDateTo",
     "LinkActivityTypeId",
@@ -193,7 +193,7 @@ export class EstatePropertyHistoryListComponent
     "id",
     "recordStatus",
     // 'Title',
-    "CreatedDate",
+    "createdDate",
     // 'AppointmentDateFrom',
     // 'AppointmentDateTo',
     // 'LinkActivityTypeId',
@@ -209,7 +209,7 @@ export class EstatePropertyHistoryListComponent
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
-    this.filteModelContent.sortColumn = "CreatedDate";
+    this.filteModelContent.sortColumn = "createdDate";
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();

@@ -69,7 +69,7 @@ export class SmsLogInBoxListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "CreatedDate";
+    this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   comment: string;
@@ -114,9 +114,9 @@ export class SmsLogInBoxListComponent
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
-    if (this.activatedRoute.snapshot.paramMap.get("LinkSiteId")) {
+    if (this.activatedRoute.snapshot.paramMap.get("linkSiteId")) {
       this.requestLinkSiteId =
-        +this.activatedRoute.snapshot.paramMap.get("LinkSiteId") || 0;
+        +this.activatedRoute.snapshot.paramMap.get("linkSiteId") || 0;
     }
     if (this.activatedRoute.snapshot.paramMap.get("LinkPrivateConfigId")) {
       this.requestLinkPrivateConfigId =
@@ -140,7 +140,7 @@ export class SmsLogInBoxListComponent
 
     if (this.requestLinkSiteId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "LinkSiteId";
+      filter.propertyName = "linkSiteId";
       filter.value = this.requestLinkSiteId;
       this.filteModelContent.filters.push(filter);
     }

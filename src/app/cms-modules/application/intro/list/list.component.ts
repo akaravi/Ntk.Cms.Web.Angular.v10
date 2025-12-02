@@ -65,7 +65,7 @@ export class ApplicationIntroListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   comment: string;
@@ -80,20 +80,20 @@ export class ApplicationIntroListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
-    "Title",
+    "title",
     "LinkApplicationId",
     // 'CreatedDate',
     // 'UpdatedDate',
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
-    "Title",
+    "title",
     "LinkApplicationId",
     // 'CreatedDate',
     // 'UpdatedDate',

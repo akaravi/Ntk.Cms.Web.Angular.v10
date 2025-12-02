@@ -68,7 +68,7 @@ export class EstatePropertyCompanyListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   link: string;
@@ -84,7 +84,7 @@ export class EstatePropertyCompanyListComponent
   categoryModelSelected: EstatePropertyCompanyModel;
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
     "mainAdminRecordStatus",
@@ -94,7 +94,7 @@ export class EstatePropertyCompanyListComponent
     "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
     "mainAdminRecordStatus",

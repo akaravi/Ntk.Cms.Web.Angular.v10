@@ -72,10 +72,10 @@ export class CoreModuleLogSiteCreditBlockedListComponent
     this.publicHelper.processService.cdr = this.cdr;
 
     this.requestLinkSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
     );
     this.requestLinkUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
+      this.activatedRoute.snapshot.paramMap.get("linkUserId"),
     );
     this.requestlinkMemberUserId = +Number(
       this.activatedRoute.snapshot.paramMap.get("linkMemberUserId"),
@@ -89,7 +89,7 @@ export class CoreModuleLogSiteCreditBlockedListComponent
     }
     if (this.requestLinkUserId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "LinkUserId";
+      filter.propertyName = "linkUserId";
       filter.value = this.requestLinkUserId;
       this.filteModelContent.filters.push(filter);
     }
@@ -104,7 +104,7 @@ export class CoreModuleLogSiteCreditBlockedListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "CreatedDate";
+    this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   comment: string;
@@ -118,21 +118,21 @@ export class CoreModuleLogSiteCreditBlockedListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "LinkSiteId",
+    "id",
+    "linkSiteId",
     "linkModuleId",
     "transactionCredit",
     "linkModuleBankPaymentTransactionId",
-    "CreatedDate",
+    "createdDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "LinkSiteId",
+    "id",
+    "linkSiteId",
     "linkModuleId",
     "transactionCredit",
 
-    "CreatedDate",
+    "createdDate",
     // 'Action'
   ];
 
@@ -142,7 +142,7 @@ export class CoreModuleLogSiteCreditBlockedListComponent
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
-    this.filteModelContent.sortColumn = "CreatedDate";
+    this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {

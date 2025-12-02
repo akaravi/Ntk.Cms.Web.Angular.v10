@@ -92,12 +92,12 @@ export class ChartContentAddComponent
   contentSimilarSelected: ChartContentModel = new ChartContentModel();
   contentOtherInfoSelected: ChartContentOtherInfoModel =
     new ChartContentOtherInfoModel();
-  otherInfoTabledisplayedColumns = ["Title", "TypeId", "Action"];
+  otherInfoTabledisplayedColumns = ["title", "TypeId", "Action"];
   similarTabledisplayedColumns = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
-    "Title",
+    "title",
     "Action",
   ];
   similarTabledataSource = new MatTableDataSource<ChartContentModel>();

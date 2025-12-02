@@ -76,7 +76,7 @@ export class CoreLogCurrencyListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "CreatedDate";
+    this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   comment: string;
@@ -90,7 +90,7 @@ export class CoreLogCurrencyListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
+    "id",
     "MainId",
     "RecordStatus",
     // 'Title',
@@ -98,11 +98,11 @@ export class CoreLogCurrencyListComponent
     "ExchangeBuyRatio",
     "ExchangeSaleRatio",
     "MasterCurrency",
-    "CreatedDate",
+    "createdDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
+    "id",
     "MainId",
     "RecordStatus",
     // 'Title',
@@ -110,7 +110,7 @@ export class CoreLogCurrencyListComponent
     "ExchangeBuyRatio",
     "ExchangeSaleRatio",
     "MasterCurrency",
-    "CreatedDate",
+    "createdDate",
     // 'Action'
   ];
 
@@ -118,7 +118,7 @@ export class CoreLogCurrencyListComponent
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
-    this.filteModelContent.sortColumn = "CreatedDate";
+    this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {

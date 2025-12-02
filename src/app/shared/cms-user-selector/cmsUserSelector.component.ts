@@ -151,7 +151,7 @@ export class CmsUserSelectorComponent implements OnInit {
 
       /*Filters */
       filter = new FilterDataModel();
-      filter.propertyName = "Id";
+      filter.propertyName = "id";
       filter.value = text;
       filter.searchType = FilterDataModelSearchTypesEnum.Equal;
       filter.clauseType = ClauseTypeEnum.Or;

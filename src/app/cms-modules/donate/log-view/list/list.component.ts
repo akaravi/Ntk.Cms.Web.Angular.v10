@@ -60,7 +60,7 @@ export class DonateLogViewListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   filteModelContent = new FilterModel();
@@ -68,7 +68,7 @@ export class DonateLogViewListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
     "DonateTargetId",
@@ -78,7 +78,7 @@ export class DonateLogViewListComponent
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
     "DonateTargetId",
@@ -88,7 +88,7 @@ export class DonateLogViewListComponent
   ];
   private unsubscribe: Subscription[] = [];
   ngOnInit(): void {
-    this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("Id"));
+    this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("id"));
     if (this.requestId && this.requestId > 0) {
       const filter = new FilterDataModel();
       filter.propertyName = "DonateTargetId";

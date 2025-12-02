@@ -79,7 +79,7 @@ export class CoreModuleSaleItemListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     if (this.requestLinkModuleSaleHeader > 0) {
       const filter = new FilterDataModel();

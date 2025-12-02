@@ -305,7 +305,7 @@
             </mat-cell>
           </ng-container>
           <!-- LinkMainImageIdSrc Column -->
-          <ng-container matColumnDef="LinkMainImageIdSrc">
+          <ng-container matColumnDef="linkMainImageIdSrc">
             <mat-header-cell *matHeaderCellDef mat-sort-header>
               {{ "TITLE.PICTURE" | translate }}
             </mat-header-cell>
@@ -329,7 +329,7 @@
             <mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
           </ng-container>
           <!-- LinkSiteId Column -->
-          <ng-container matColumnDef="LinkSiteId">
+          <ng-container matColumnDef="linkSiteId">
             <mat-header-cell *matHeaderCellDef mat-sort-header>
               {{ fieldsInfo["linkSiteId"]?.fieldTitle }}
             </mat-header-cell>
@@ -366,7 +366,9 @@
               {{ fieldsInfo["mainAdminRecordStatus"]?.fieldTitle }}
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <i [ngClass]="row.mainAdminRecordStatus | adminStatusIconClass"></i>
+              <i
+                [ngClass]="row.mainAdminRecordStatus | adminStatusIconClass"
+              ></i>
             </mat-cell>
           </ng-container>
           <!-- IsSoldIt Column -->

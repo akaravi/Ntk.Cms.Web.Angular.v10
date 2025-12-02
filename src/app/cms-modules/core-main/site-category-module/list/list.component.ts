@@ -68,7 +68,7 @@ export class CoreSiteCategoryCmsModuleListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     this.requestLinkCmsModuleId = +Number(
       this.activatedRoute.snapshot.paramMap.get("LinkCmsModuleId"),

@@ -113,14 +113,14 @@ export class WebDesignerLogMemberInfoSelectorComponent implements OnInit {
       filterModel.filters.push(filter);
       /*filter*/
       filter = new FilterDataModel();
-      filter.propertyName = "Title";
+      filter.propertyName = "title";
       filter.value = text;
       filter.searchType = FilterDataModelSearchTypesEnum.Contains;
       filter.clauseType = ClauseTypeEnum.Or;
       filterModel.filters.push(filter);
       /*filter*/
       filter = new FilterDataModel();
-      filter.propertyName = "Id";
+      filter.propertyName = "id";
       filter.value = text;
       filter.searchType = FilterDataModelSearchTypesEnum.Contains;
       filter.clauseType = ClauseTypeEnum.Or;
@@ -129,14 +129,14 @@ export class WebDesignerLogMemberInfoSelectorComponent implements OnInit {
     if (text && typeof +text === "number" && +text > 0) {
       let filter = new FilterDataModel();
       filter = new FilterDataModel();
-      filter.propertyName = "LinkUserId";
+      filter.propertyName = "linkUserId";
       filter.value = text;
       filter.searchType = FilterDataModelSearchTypesEnum.Equal;
       filter.clauseType = ClauseTypeEnum.Or;
       filterModel.filters.push(filter);
       /*filter*/
       filter = new FilterDataModel();
-      filter.propertyName = "LinkMemberId";
+      filter.propertyName = "linkMemberId";
       filter.value = text;
       filter.searchType = FilterDataModelSearchTypesEnum.Equal;
       filter.clauseType = ClauseTypeEnum.Or;

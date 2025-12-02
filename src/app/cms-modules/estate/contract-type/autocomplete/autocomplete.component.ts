@@ -75,14 +75,14 @@ export class EstateContractTypeCompleteComponent implements OnInit {
     filterModel.rowPerPage = 20;
     filterModel.accessLoad = true;
     let filter = new FilterDataModel();
-    filter.propertyName = "Title";
+    filter.propertyName = "title";
     filter.value = text;
     filter.searchType = FilterDataModelSearchTypesEnum.Contains;
     filter.clauseType = ClauseTypeEnum.Or;
     filterModel.filters.push(filter);
     if (text && typeof +text === "number" && +text > 0) {
       filter = new FilterDataModel();
-      filter.propertyName = "Id";
+      filter.propertyName = "id";
       filter.value = text;
       filter.searchType = FilterDataModelSearchTypesEnum.Equal;
       filter.clauseType = ClauseTypeEnum.Or;
@@ -171,7 +171,7 @@ export class EstateContractTypeCompleteComponent implements OnInit {
     ids.forEach((item) => {
       if (item.length > 0) {
         const filter = new FilterDataModel();
-        filter.propertyName = "Id";
+        filter.propertyName = "id";
         filter.value = item;
         filter.clauseType = ClauseTypeEnum.Or;
         filterModel.filters.push(filter);

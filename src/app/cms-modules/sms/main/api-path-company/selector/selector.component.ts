@@ -103,29 +103,29 @@ export class SmsMainApiPathCompanySelectorComponent implements OnInit {
     filterModel.rowPerPage = 20;
     filterModel.accessLoad = true;
     let filter = new FilterDataModel();
-    filter.propertyName = "Title";
+    filter.propertyName = "title";
     filter.value = text;
     filter.searchType = FilterDataModelSearchTypesEnum.Contains;
     filter.clauseType = ClauseTypeEnum.Or;
     filterModel.filters.push(filter);
     if (text && typeof +text === "number" && +text > 0) {
       filter = new FilterDataModel();
-      filter.propertyName = "Id";
+      filter.propertyName = "id";
       filter.value = text;
       filter.searchType = FilterDataModelSearchTypesEnum.Equal;
       filter.clauseType = ClauseTypeEnum.Or;
       filterModel.filters.push(filter);
     }
-  const pName = this.constructor.name + "main";
-  this.translate
-    .get("MESSAGE.get_information_list")
-    .subscribe((str: string) => {
-      this.publicHelper.processService.processStart(
-        pName,
-        str,
-        this.constructorInfoAreaId,
-      );
-    });
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.get_information_list")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     return await firstValueFrom(
       this.categoryService.ServiceGetAll(filterModel),
     ).then((response) => {

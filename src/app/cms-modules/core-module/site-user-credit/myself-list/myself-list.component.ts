@@ -64,7 +64,7 @@ export class CoreModuleSiteUserCreditMyselfListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   filteModelContent = new FilterModel();
@@ -76,7 +76,7 @@ export class CoreModuleSiteUserCreditMyselfListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "RecordStatus",
-    "LinkSiteId",
+    "linkSiteId",
     // 'LinkUserId',
     "LinkModuleId",
     "Credit",
@@ -88,7 +88,7 @@ export class CoreModuleSiteUserCreditMyselfListComponent
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "RecordStatus",
-    "LinkSiteId",
+    "linkSiteId",
     // 'LinkUserId',
     "LinkModuleId",
     "Credit",
@@ -158,7 +158,7 @@ export class CoreModuleSiteUserCreditMyselfListComponent
     /*filter add search*/
     if (this.searchonCheckMyAccount) {
       filterModel.filters.push({
-        propertyName: "LinkUserId",
+        propertyName: "linkUserId",
         value: this.tokenInfo.user.id,
       });
     }

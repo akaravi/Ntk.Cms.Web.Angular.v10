@@ -70,7 +70,7 @@ export class LinkManagementBillboardListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     if (this.requestLinkBillboardPatternId > 0) {
       const fastfilter = new FilterDataModel();
@@ -96,7 +96,7 @@ export class LinkManagementBillboardListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
     // 'Title',
@@ -105,7 +105,7 @@ export class LinkManagementBillboardListComponent
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
     // 'Title',
@@ -173,14 +173,14 @@ export class LinkManagementBillboardListComponent
     }
     if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyAnyName = "LinkSiteId";
+      filter.propertyAnyName = "linkSiteId";
       filter.propertyName = "SiteUsers";
       filter.value = this.filteModelContent.filterActionSearchLinkSiteId;
       filterModel.filters.push(filter);
     }
     if (this.filteModelContent.filterActionSearchLinkUserId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyAnyName = "LinkUserId";
+      filter.propertyAnyName = "linkUserId";
       filter.value = this.filteModelContent.filterActionSearchLinkUserId;
       filterModel.filters.push(filter);
     }

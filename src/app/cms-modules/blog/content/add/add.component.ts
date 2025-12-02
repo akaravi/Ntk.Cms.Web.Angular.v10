@@ -92,12 +92,12 @@ export class BlogContentAddComponent
   contentSimilarSelected: BlogContentModel = new BlogContentModel();
   contentOtherInfoSelected: BlogContentOtherInfoModel =
     new BlogContentOtherInfoModel();
-  otherInfoTabledisplayedColumns = ["Title", "TypeId", "Action"];
+  otherInfoTabledisplayedColumns = ["title", "TypeId", "Action"];
   similarTabledisplayedColumns = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
-    "Title",
+    "title",
     "Action",
   ];
   similarTabledataSource = new MatTableDataSource<BlogContentModel>();

@@ -72,7 +72,7 @@ export class CoreModuleSaleHeaderListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     if (this.requestHeaderGroupId > 0) {
       const filter = new FilterDataModel();
@@ -95,10 +95,10 @@ export class CoreModuleSaleHeaderListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
-    "Title",
+    "title",
     "SalePrice",
     "HasDemo",
     "FromDate",
@@ -108,10 +108,10 @@ export class CoreModuleSaleHeaderListComponent
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     //'Id',
     "RecordStatus",
-    "Title",
+    "title",
     "SalePrice",
     //'HasDemo',
     "FromDate",

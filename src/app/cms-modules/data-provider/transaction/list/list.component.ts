@@ -67,7 +67,7 @@ export class DataProviderTransactionListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   filteModelContent = new FilterModel();
@@ -75,8 +75,8 @@ export class DataProviderTransactionListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "LinkSiteId",
+    "id",
+    "linkSiteId",
     "RecordStatus",
     "LinkClientId",
     "LinkPlanId",
@@ -87,12 +87,12 @@ export class DataProviderTransactionListComponent
     "FeeTransport",
     "FeeTax",
     "Amount",
-    "CreatedDate",
+    "createdDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "LinkSiteId",
+    "id",
+    "linkSiteId",
     "RecordStatus",
     "LinkClientId",
     "LinkPlanId",
@@ -103,7 +103,7 @@ export class DataProviderTransactionListComponent
     "FeeTransport",
     "FeeTax",
     "Amount",
-    "CreatedDate",
+    "createdDate",
     // 'Action'
   ];
 

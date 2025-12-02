@@ -71,7 +71,7 @@ export class CatalogContentEditComponent
   contentSimilarSelected: CatalogContentModel = new CatalogContentModel();
   contentOtherInfoSelected: CatalogContentOtherInfoModel =
     new CatalogContentOtherInfoModel();
-  otherInfoTabledisplayedColumns = ["Id", "Title", "TypeId", "Action"];
+  otherInfoTabledisplayedColumns = ["id", "title", "TypeId", "Action"];
 
   otherInfoTabledataSource =
     new MatTableDataSource<CatalogContentOtherInfoModel>();
@@ -96,7 +96,7 @@ export class CatalogContentEditComponent
   mapOptonCenter = new PoinModel();
 
   ngOnInit(): void {
-    this.requestId = this.activatedRoute.snapshot.paramMap.get("Id");
+    this.requestId = this.activatedRoute.snapshot.paramMap.get("id");
     if (!this.requestId || this.requestId.length === 0) {
       this.cmsToastrService.typeErrorAddRowParentIsNull();
       return;

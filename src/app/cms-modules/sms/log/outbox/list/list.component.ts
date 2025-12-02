@@ -69,7 +69,7 @@ export class SmsLogOutBoxListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "CreatedDate";
+    this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   comment: string;
@@ -94,9 +94,9 @@ export class SmsLogOutBoxListComponent
     "IsAccepted",
     "LinkApiPathId",
     // 'Message',
-    "CreatedDate",
+    "createdDate",
     "SendDate",
-    "UpdatedDate",
+    "updatedDate",
     // 'Action'
   ];
 
@@ -105,9 +105,9 @@ export class SmsLogOutBoxListComponent
     "IsAccepted",
     // 'LinkApiPathId',
     // 'Message',
-    "CreatedDate",
+    "createdDate",
     "SendDate",
-    "UpdatedDate",
+    "updatedDate",
     // 'Action'
   ];
 
@@ -115,9 +115,9 @@ export class SmsLogOutBoxListComponent
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
-    if (this.activatedRoute.snapshot.paramMap.get("LinkSiteId")) {
+    if (this.activatedRoute.snapshot.paramMap.get("linkSiteId")) {
       this.requestLinkSiteId =
-        +this.activatedRoute.snapshot.paramMap.get("LinkSiteId") || 0;
+        +this.activatedRoute.snapshot.paramMap.get("linkSiteId") || 0;
     }
     if (this.activatedRoute.snapshot.paramMap.get("LinkApiPathId")) {
       this.requestLinkApiPathId =
@@ -141,7 +141,7 @@ export class SmsLogOutBoxListComponent
 
     if (this.requestLinkSiteId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "LinkSiteId";
+      filter.propertyName = "linkSiteId";
       filter.value = this.requestLinkSiteId;
       this.filteModelContent.filters.push(filter);
     }

@@ -86,12 +86,12 @@ export class NewsContentEditComponent
   contentSimilarSelected: NewsContentModel = new NewsContentModel();
   contentOtherInfoSelected: NewsContentOtherInfoModel =
     new NewsContentOtherInfoModel();
-  otherInfoTabledisplayedColumns = ["Id", "Title", "TypeId", "Action"];
+  otherInfoTabledisplayedColumns = ["id", "title", "TypeId", "Action"];
   similarTabledisplayedColumns = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
-    "Title",
+    "title",
     "Action",
   ];
   similarTabledataSource = new MatTableDataSource<NewsContentModel>();
@@ -116,7 +116,7 @@ export class NewsContentEditComponent
   private mapMarkerPoints: Array<PoinModel> = [];
   mapOptonCenter = new PoinModel();
   ngOnInit(): void {
-    this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("Id"));
+    this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("id"));
     if (this.requestId === 0) {
       this.cmsToastrService.typeErrorAddRowParentIsNull();
       return;
@@ -392,7 +392,7 @@ export class NewsContentEditComponent
     ids.forEach((item) => {
       if (item > 0) {
         const filter = new FilterDataModel();
-        filter.propertyName = "Id";
+        filter.propertyName = "id";
         filter.value = item;
         filter.clauseType = ClauseTypeEnum.Or;
         filterModel.filters.push(filter);

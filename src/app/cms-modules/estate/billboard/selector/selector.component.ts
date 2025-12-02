@@ -100,13 +100,13 @@ export class EstateBillboardSelectorComponent implements OnInit {
 
     let filter = new FilterDataModel();
     if (text && text.length > 0) {
-      filter.propertyName = "Title";
+      filter.propertyName = "title";
       filter.value = text;
       filter.searchType = FilterDataModelSearchTypesEnum.Contains;
       filterModel.filters.push(filter);
       /* */
       filter = new FilterDataModel();
-      filter.propertyName = "Id";
+      filter.propertyName = "id";
       filter.value = text;
       filter.searchType = FilterDataModelSearchTypesEnum.Equal;
       filter.clauseType = ClauseTypeEnum.Or;

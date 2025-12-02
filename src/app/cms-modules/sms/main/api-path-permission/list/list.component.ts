@@ -68,10 +68,10 @@ export class SmsMainApiPathPermissionListComponent
       onSubmit: (model) => this.onSubmitOptionsSearch(model),
     };
     this.requestLinkCoreUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
+      this.activatedRoute.snapshot.paramMap.get("linkUserId"),
     );
     this.requestLinkCoreSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
     );
     this.requestLinkApiPathId =
       this.activatedRoute.snapshot.paramMap.get("LinkApiPathId");
@@ -89,7 +89,7 @@ export class SmsMainApiPathPermissionListComponent
     }
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   comment: string;

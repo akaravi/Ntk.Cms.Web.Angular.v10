@@ -59,7 +59,7 @@ export class PollingContentListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     SortTypeEnum;
   }
@@ -70,7 +70,7 @@ export class PollingContentListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     // 'Id',
     "RecordStatus",
     // 'Title',
@@ -79,7 +79,7 @@ export class PollingContentListComponent
     "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     // 'Id',
     "RecordStatus",
     // 'Title',

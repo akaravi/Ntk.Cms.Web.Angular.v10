@@ -108,7 +108,7 @@ export class MemberPropertyDetailSelectorComponent implements OnInit {
       filterModel.filters.push(filter);
       /* */
       filter = new FilterDataModel();
-      filter.propertyName = "Id";
+      filter.propertyName = "id";
       filter.value = text;
       filter.searchType = FilterDataModelSearchTypesEnum.Equal;
       filter.clauseType = ClauseTypeEnum.Or;

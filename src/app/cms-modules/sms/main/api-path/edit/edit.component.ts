@@ -50,8 +50,8 @@ export class SmsMainApiPathEditComponent
     );
 
     this.publicHelper.processService.cdr = this.cdr;
-    if (this.activatedRoute.snapshot.paramMap.get("Id")) {
-      this.requestId = this.activatedRoute.snapshot.paramMap.get("Id");
+    if (this.activatedRoute.snapshot.paramMap.get("id")) {
+      this.requestId = this.activatedRoute.snapshot.paramMap.get("id");
     }
 
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();

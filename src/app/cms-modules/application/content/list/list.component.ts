@@ -69,7 +69,7 @@ export class ApplicationAppListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   comment: string;
@@ -84,10 +84,10 @@ export class ApplicationAppListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
-    "Title",
+    "title",
     "AppVersion",
     "LinkSourceId",
     // 'CreatedDate',
@@ -97,10 +97,10 @@ export class ApplicationAppListComponent
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
-    "Title",
+    "title",
     "AppVersion",
     "LinkSourceId",
     // 'CreatedDate',

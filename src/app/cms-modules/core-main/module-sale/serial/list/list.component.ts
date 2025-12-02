@@ -67,7 +67,7 @@ export class CoreModuleSaleSerialListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   comment: string;
@@ -93,7 +93,7 @@ export class CoreModuleSaleSerialListComponent
     "NumberOfMaxUse",
     "NumberOfRegistered",
     "DatePeriodStart",
-    "UpdatedDate",
+    "updatedDate",
     "DatePeriodEnd",
     // 'Action'
   ];
@@ -108,7 +108,7 @@ export class CoreModuleSaleSerialListComponent
     "NumberOfMaxUse",
     "NumberOfRegistered",
     "DatePeriodStart",
-    "UpdatedDate",
+    "updatedDate",
     "DatePeriodEnd",
     // 'Action'
   ];

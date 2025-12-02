@@ -15,20 +15,20 @@
     <div
       class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
     >
-      <label for="Title" class="color-highlight">{{
+      <label for="title" class="color-highlight">{{
         fieldsInfo["title"]?.fieldTitle
       }}</label>
       <input
         matInput
         [(ngModel)]="dataModelResultContent.item.title"
-        name="Title"
+        name="title"
         #Title
         type="text"
         placeholder="{{ fieldsInfo['title']?.fieldTitle }}"
         required
         readonly
         class="form-control validate-name"
-        id="Title"
+        id="title"
       />
     </div>
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->

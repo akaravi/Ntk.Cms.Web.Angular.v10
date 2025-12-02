@@ -74,7 +74,7 @@ export class SmsLogOutBoxDetailListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "CreatedDate";
+    this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     const filter = new FilterDataModel();
     if (this.requestLinkOutBoxId && this.requestLinkOutBoxId.length > 0) {
@@ -100,8 +100,8 @@ export class SmsLogOutBoxDetailListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "CreatedDate",
+    "id",
+    "createdDate",
     "SenderNumber",
     "ReceiverNumber",
     "IsSent",
@@ -110,8 +110,8 @@ export class SmsLogOutBoxDetailListComponent
     "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "CreatedDate",
+    "id",
+    "createdDate",
     "SenderNumber",
     "ReceiverNumber",
     "IsSent",

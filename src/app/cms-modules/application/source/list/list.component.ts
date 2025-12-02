@@ -62,7 +62,7 @@ export class ApplicationSourceListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   comment: string;
@@ -76,7 +76,7 @@ export class ApplicationSourceListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     // 'Id',
     "RecordStatus",
     // 'TitleML',
@@ -87,7 +87,7 @@ export class ApplicationSourceListComponent
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     // 'Id',
     "RecordStatus",
     // 'TitleML',

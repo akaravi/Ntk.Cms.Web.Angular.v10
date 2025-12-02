@@ -91,12 +91,12 @@ export class BiographyContentEditComponent
   contentSimilarSelected: BiographyContentModel = new BiographyContentModel();
   contentOtherInfoSelected: BiographyContentOtherInfoModel =
     new BiographyContentOtherInfoModel();
-  otherInfoTabledisplayedColumns = ["Id", "Title", "TypeId", "Action"];
+  otherInfoTabledisplayedColumns = ["id", "title", "TypeId", "Action"];
   similarTabledisplayedColumns = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
-    "Title",
+    "title",
     "Action",
   ];
   similarTabledataSource = new MatTableDataSource<BiographyContentModel>();
@@ -121,7 +121,7 @@ export class BiographyContentEditComponent
   private mapMarkerPoints: Array<PoinModel> = [];
   mapOptonCenter = new PoinModel();
   ngOnInit(): void {
-    this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("Id"));
+    this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("id"));
     if (this.requestId === 0) {
       this.cmsToastrService.typeErrorAddRowParentIsNull();
       return;
@@ -394,7 +394,7 @@ export class BiographyContentEditComponent
     const filterModel = new FilterModel();
     ids.forEach((item) => {
       const aaa3 = {
-        PropertyName: "Id",
+        PropertyName: "id",
         Value: item + "",
         ClauseType: 1,
       };

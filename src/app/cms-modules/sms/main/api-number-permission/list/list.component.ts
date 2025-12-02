@@ -67,10 +67,10 @@ export class SmsMainApiNumberPermissionListComponent
       onSubmit: (model) => this.onSubmitOptionsSearch(model),
     };
     this.requestLinkCoreUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
+      this.activatedRoute.snapshot.paramMap.get("linkUserId"),
     );
     this.requestLinkCoreSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
     );
     this.requestLinkApiNumberId =
       this.activatedRoute.snapshot.paramMap.get("LinkApiNumberId");
@@ -87,7 +87,7 @@ export class SmsMainApiNumberPermissionListComponent
       this.filteModelContent.filters.push(filter);
     }
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   comment: string;
@@ -108,8 +108,8 @@ export class SmsMainApiNumberPermissionListComponent
     "hasInherits",
     "fromDate",
     "expireDate",
-    // "CreatedDate",
-    // "UpdatedDate",
+    // "createdDate",
+    // "updatedDate",
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [

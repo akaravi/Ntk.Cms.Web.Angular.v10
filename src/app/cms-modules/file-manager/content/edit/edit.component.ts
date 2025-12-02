@@ -58,8 +58,8 @@ export class FileContentEditComponent
 
   similarDataModel = new Array<FileContentModel>();
   contentSimilarSelected: FileContentModel = new FileContentModel();
-  otherInfoTabledisplayedColumns = ["Id", "Title", "TypeId", "Action"];
-  similarTabledisplayedColumns = ["Id", "RecordStatus", "Title", "Action"];
+  otherInfoTabledisplayedColumns = ["id", "title", "TypeId", "Action"];
+  similarTabledisplayedColumns = ["id", "RecordStatus", "title", "Action"];
   similarTabledataSource = new MatTableDataSource<FileContentModel>();
 
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
@@ -82,7 +82,7 @@ export class FileContentEditComponent
   private mapMarkerPoints: Array<PoinModel> = [];
   mapOptonCenter = new PoinModel();
   ngOnInit(): void {
-    this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("Id"));
+    this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("id"));
     if (this.requestId === 0) {
       this.cmsToastrService.typeErrorAddRowParentIsNull();
       return;

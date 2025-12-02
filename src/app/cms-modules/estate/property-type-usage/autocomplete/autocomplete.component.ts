@@ -76,7 +76,7 @@ export class EstatePropertyTypeUsageCompleteComponent implements OnInit {
     filterModel.accessLoad = true;
     let filter = new FilterDataModel();
     if (text && text.length > 0) {
-      filter.propertyName = "Title";
+      filter.propertyName = "title";
       filter.value = text;
       filter.searchType = FilterDataModelSearchTypesEnum.Contains;
       filter.clauseType = ClauseTypeEnum.Or;
@@ -84,7 +84,7 @@ export class EstatePropertyTypeUsageCompleteComponent implements OnInit {
     }
     if (text && typeof text === "string" && text.length > 10) {
       filter = new FilterDataModel();
-      filter.propertyName = "Id";
+      filter.propertyName = "id";
       filter.value = text;
       filter.searchType = FilterDataModelSearchTypesEnum.Equal;
       filter.clauseType = ClauseTypeEnum.Or;
@@ -173,7 +173,7 @@ export class EstatePropertyTypeUsageCompleteComponent implements OnInit {
     ids.forEach((item) => {
       if (item.length > 0) {
         const filter = new FilterDataModel();
-        filter.propertyName = "Id";
+        filter.propertyName = "id";
         filter.value = item;
         filter.clauseType = ClauseTypeEnum.Or;
         filterModel.filters.push(filter);

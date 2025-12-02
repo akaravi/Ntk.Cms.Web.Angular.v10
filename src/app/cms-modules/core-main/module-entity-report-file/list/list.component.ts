@@ -78,7 +78,7 @@ export class CoreModuleEntityReportFileListComponent
     );
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Ascending;
     if (this.requestLinkModuleEntityId > 0) {
       const filter = new FilterDataModel();

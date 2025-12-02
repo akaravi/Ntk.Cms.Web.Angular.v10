@@ -67,7 +67,7 @@ export class EstateCategoryRackListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   link: string;
@@ -82,7 +82,7 @@ export class EstateCategoryRackListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "IconFont",
     // 'Title',
     "Description",
@@ -90,7 +90,7 @@ export class EstateCategoryRackListComponent
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "IconFont",
     // 'Title',
     "Description",

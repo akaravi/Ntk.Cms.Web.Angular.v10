@@ -72,7 +72,7 @@ export class LinkManagementTargetListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     if (this.requestLinkBillboardPatternId > 0) {
       const fastfilter = new FilterDataModel();
@@ -87,7 +87,7 @@ export class LinkManagementTargetListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
     "IsPublic",
@@ -98,7 +98,7 @@ export class LinkManagementTargetListComponent
     "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
     "IsPublic",

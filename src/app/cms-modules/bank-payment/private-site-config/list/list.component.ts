@@ -76,7 +76,7 @@ export class BankPaymentPrivateSiteConfigListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   comment: string;
@@ -96,21 +96,21 @@ export class BankPaymentPrivateSiteConfigListComponent
   private unsubscribe: Subscription[] = [];
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
-    "Title",
+    "title",
     "LinkPublicConfigId",
-    "UpdatedDate",
+    "updatedDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
-    "Title",
+    "title",
     "LinkPublicConfigId",
-    "UpdatedDate",
+    "updatedDate",
     // 'Action'
   ];
   ngOnInit(): void {

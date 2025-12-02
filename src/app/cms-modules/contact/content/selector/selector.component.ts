@@ -89,10 +89,18 @@ export class ContactContentSelectorComponent implements OnInit {
   }
 
   displayFn(model?: ContactContentModel): string | undefined {
-    return model ?(model.title + " " + model.firstName + " " + model.lastName).replace("  ", " ").trim() : undefined;
+    return model
+      ? (model.title + " " + model.firstName + " " + model.lastName)
+          .replace("  ", " ")
+          .trim()
+      : undefined;
   }
   displayOption(model?: ContactContentModel): string | undefined {
-    return model ? (model.title + " " + model.firstName + " " + model.lastName).replace("  ", " ").trim() : undefined;
+    return model
+      ? (model.title + " " + model.firstName + " " + model.lastName)
+          .replace("  ", " ")
+          .trim()
+      : undefined;
   }
   async DataGetAll(
     text: string | number | any,
@@ -102,14 +110,14 @@ export class ContactContentSelectorComponent implements OnInit {
     filterModel.accessLoad = true;
 
     let filter = new FilterDataModel();
-    filter.propertyName = "Title";
+    filter.propertyName = "title";
     filter.value = text;
     filter.searchType = FilterDataModelSearchTypesEnum.Contains;
     filter.clauseType = ClauseTypeEnum.Or;
     filterModel.filters.push(filter);
     if (text && typeof +text === "number" && +text > 0) {
       filter = new FilterDataModel();
-      filter.propertyName = "Id";
+      filter.propertyName = "id";
       filter.value = text;
       filter.searchType = FilterDataModelSearchTypesEnum.Equal;
       filter.clauseType = ClauseTypeEnum.Or;

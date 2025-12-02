@@ -303,7 +303,7 @@ export class CmsContactContentDropListComponent implements OnInit {
     /*filter CLone*/
     if (this.dataIdsSelect?.length > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "Id";
+      filter.propertyName = "id";
       filter.values = this.dataIdsSelect;
       filter.clauseType = ClauseTypeEnum.Or;
       filterModel.filters.push(filter);

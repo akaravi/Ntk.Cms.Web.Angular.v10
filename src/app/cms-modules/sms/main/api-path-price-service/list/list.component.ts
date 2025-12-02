@@ -96,7 +96,7 @@ export class SmsMainApiPathPriceServiceListComponent
   tabledisplayedColumnsSource: string[] = [
     //  'Id',
     "RecordStatus",
-    "Title",
+    "title",
     "LinkApiPathId",
     "messageType",
     "servicePricePerPage",
@@ -107,7 +107,7 @@ export class SmsMainApiPathPriceServiceListComponent
   tabledisplayedColumnsMobileSource: string[] = [
     //  'Id',
     "RecordStatus",
-    "Title",
+    "title",
     "LinkApiPathId",
     "messageType",
     "servicePricePerPage",

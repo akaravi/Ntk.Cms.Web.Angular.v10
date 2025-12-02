@@ -209,14 +209,14 @@
         <mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
       </ng-container>
       <!-- Title Column -->
-      <ng-container matColumnDef="Title">
+      <ng-container matColumnDef="title">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["title"]?.fieldTitle }}
         </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{ row.title }} </mat-cell>
       </ng-container>
       <!-- LinkSiteId Column -->
-      <ng-container matColumnDef="LinkSiteId">
+      <ng-container matColumnDef="linkSiteId">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["linkSiteId"]?.fieldTitle }}
         </mat-header-cell>
@@ -225,7 +225,7 @@
         </mat-cell>
       </ng-container>
       <!-- LinkUserId Column -->
-      <ng-container matColumnDef="LinkUserId">
+      <ng-container matColumnDef="linkUserId">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["linkUserId"]?.fieldTitle }}
         </mat-header-cell>

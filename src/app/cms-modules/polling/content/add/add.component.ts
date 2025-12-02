@@ -81,7 +81,7 @@ export class PollingContentAddComponent
   optionActionTitle = "";
   optionActionButtomEnable = true;
   optionTabledisplayedColumns = [
-    "Id",
+    "id",
     "Option",
     "OptionAnswer",
     "IsCorrectAnswer",

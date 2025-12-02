@@ -65,7 +65,7 @@ export class EstateBillboardListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   link: string;
@@ -80,9 +80,9 @@ export class EstateBillboardListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
-    "Id",
-    "LinkSiteId",
+    "linkMainImageIdSrc",
+    "id",
+    "linkSiteId",
     "RecordStatus",
     // 'Title',
     "SpeedView",
@@ -91,7 +91,7 @@ export class EstateBillboardListComponent
     "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     // 'Id',
     // 'LinkSiteId',
     // 'RecordStatus',

@@ -71,7 +71,7 @@ export class TicketingTaskListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
 
@@ -89,16 +89,16 @@ export class TicketingTaskListComponent
     new ErrorExceptionResult<InfoEnumModel>();
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Title",
-    "LinkMemberId",
+    "title",
+    "linkMemberId",
     "createdDate",
     "updatedDate",
     "TicketStatus",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Title",
-    "LinkMemberId",
+    "title",
+    "linkMemberId",
     "createdDate",
     "updatedDate",
     "TicketStatus",

@@ -48,7 +48,7 @@ export class CoreUserResellerChartComponent implements OnInit, OnDestroy {
     this.publicHelper.processService.cdr = this.cdr;
 
     this.requestLinkUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
+      this.activatedRoute.snapshot.paramMap.get("linkUserId"),
     );
   }
 

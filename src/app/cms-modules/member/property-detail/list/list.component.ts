@@ -75,7 +75,7 @@ export class MemberPropertyDetailListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     const filter = new FilterDataModel();
     if (this.requestLinkPropertyTypeId && this.requestLinkPropertyTypeId > 0) {

@@ -72,10 +72,10 @@ export class CoreUserClaimContentListComponent
       this.activatedRoute.snapshot.paramMap.get("LinkUserClaimTypeId"),
     );
     this.requestLinkSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
     );
     this.requestLinkUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
+      this.activatedRoute.snapshot.paramMap.get("linkUserId"),
     );
 
     this.optionsSearch.parentMethods = {
@@ -83,7 +83,7 @@ export class CoreUserClaimContentListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     if (this.requestLinkUserClaimTypeId > 0) {
       const fastfilter = new FilterDataModel();
@@ -93,13 +93,13 @@ export class CoreUserClaimContentListComponent
     }
     if (this.requestLinkSiteId > 0) {
       const fastfilter = new FilterDataModel();
-      fastfilter.propertyName = "LinkSiteId";
+      fastfilter.propertyName = "linkSiteId";
       fastfilter.value = this.requestLinkSiteId;
       this.filteModelContent.filters.push(fastfilter);
     }
     if (this.requestLinkUserId > 0) {
       const fastfilter = new FilterDataModel();
-      fastfilter.propertyName = "LinkUserId";
+      fastfilter.propertyName = "linkUserId";
       fastfilter.value = this.requestLinkUserId;
       this.filteModelContent.filters.push(fastfilter);
     }

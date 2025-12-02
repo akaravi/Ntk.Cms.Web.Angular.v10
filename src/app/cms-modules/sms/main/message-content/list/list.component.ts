@@ -69,7 +69,7 @@ export class SmsMainMessageContentListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     if (this.requestLinkCategoryId && this.requestLinkCategoryId.length > 0) {
       const filter = new FilterDataModel();
@@ -88,7 +88,7 @@ export class SmsMainMessageContentListComponent
   tabledisplayedColumnsSource: string[] = [
     // 'Id',
     "RecordStatus",
-    "Title",
+    "title",
     "createdDate",
     "updatedDate",
     // 'Action'
@@ -97,7 +97,7 @@ export class SmsMainMessageContentListComponent
   tabledisplayedColumnsMobileSource: string[] = [
     // 'Id',
     "RecordStatus",
-    "Title",
+    "title",
     "createdDate",
     "updatedDate",
     // 'Action'

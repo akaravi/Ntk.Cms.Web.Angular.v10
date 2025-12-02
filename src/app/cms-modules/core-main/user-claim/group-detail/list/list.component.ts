@@ -82,7 +82,7 @@ export class CoreUserClaimGroupDetailListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     if (this.requestLinkUserClaimTypeId > 0) {
       const fastfilter = new FilterDataModel();

@@ -158,7 +158,7 @@ export class CoreModuleSaleItemListViewComponent
       fastfilter.value = this.LinkHeaderId;
       filterModel.filters.push(fastfilter);
     }
-    filterModel.sortColumn = "Id";
+    filterModel.sortColumn = "id";
     this.coreModuleSaleItemService.ServiceGetAll(filterModel).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);

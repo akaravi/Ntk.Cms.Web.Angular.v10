@@ -134,7 +134,7 @@ export class CmsCurrencySelectorComponent implements OnInit {
       filterModel.filters.push(filter);
       /*Filters */
       filter = new FilterDataModel();
-      filter.propertyName = "Title";
+      filter.propertyName = "title";
       filter.value = text;
       filter.searchType = FilterDataModelSearchTypesEnum.Contains;
       filter.clauseType = ClauseTypeEnum.Or;
@@ -143,7 +143,7 @@ export class CmsCurrencySelectorComponent implements OnInit {
       if (text && typeof +text === "number" && +text > 0) {
         /*Filters */
         filter = new FilterDataModel();
-        filter.propertyName = "Id";
+        filter.propertyName = "id";
         filter.value = text;
         filter.searchType = FilterDataModelSearchTypesEnum.Equal;
         filter.clauseType = ClauseTypeEnum.Or;

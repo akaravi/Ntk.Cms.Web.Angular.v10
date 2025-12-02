@@ -98,22 +98,22 @@ export class SmsMainApiPathListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     //'Id',
     "RecordStatus",
-    "Title",
+    "title",
     "LinkApiPathCompanyId",
     "LinkPublicConfigId",
-    "UpdatedDate",
+    "updatedDate",
     // 'Action'
     "position",
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     //'Id',
     "RecordStatus",
-    "Title",
+    "title",
     "LinkApiPathCompanyId",
     "LinkPublicConfigId",
     //'UpdatedDate',
@@ -129,9 +129,9 @@ export class SmsMainApiPathListComponent
       this.requestLinkCompanyId =
         this.activatedRoute.snapshot.paramMap.get("LinkCompanyId");
     }
-    if (this.activatedRoute.snapshot.paramMap.get("LinkSiteId")) {
+    if (this.activatedRoute.snapshot.paramMap.get("linkSiteId")) {
       this.requestLinkSiteId =
-        +this.activatedRoute.snapshot.paramMap.get("LinkSiteId") || 0;
+        +this.activatedRoute.snapshot.paramMap.get("linkSiteId") || 0;
     }
     if (this.activatedRoute.snapshot.paramMap.get("LinkPublicConfigId")) {
       this.requestLinkPublicConfigId =
@@ -151,7 +151,7 @@ export class SmsMainApiPathListComponent
     }
     if (this.requestLinkSiteId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "LinkSiteId";
+      filter.propertyName = "linkSiteId";
       filter.value = this.requestLinkSiteId;
       this.filteModelContent.filters.push(filter);
     }

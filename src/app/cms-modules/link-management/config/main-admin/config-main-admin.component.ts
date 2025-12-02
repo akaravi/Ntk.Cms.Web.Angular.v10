@@ -82,7 +82,7 @@ export class LinkManagementConfigMainAdminComponent
 
   ngOnInit(): void {
     this.requestLinkSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
     );
 
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;

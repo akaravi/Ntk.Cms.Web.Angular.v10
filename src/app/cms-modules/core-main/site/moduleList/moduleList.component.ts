@@ -71,14 +71,14 @@ export class CoreSiteModuleListComponent
     this.publicHelper.processService.cdr = this.cdr;
 
     this.requestLinkSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
     );
     this.requestLinkModuleId = +Number(
       this.activatedRoute.snapshot.paramMap.get("LinkModuleId"),
     );
     if (this.requestLinkSiteId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "LinkSiteId";
+      filter.propertyName = "linkSiteId";
       filter.value = this.requestLinkSiteId;
       this.filteModelContent.filters.push(filter);
     }
@@ -116,12 +116,12 @@ export class CoreSiteModuleListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkSiteId",
+    "linkSiteId",
     "LinkModuleId",
     "RecordStatus",
     //'virtual_CmsSite.title',
     //'virtual_CmsModule.title',
-    "CreatedDate",
+    "createdDate",
     // 'UpdatedDate',
     "RenewDate",
     "HasBuyed",
@@ -134,7 +134,7 @@ export class CoreSiteModuleListComponent
     "RecordStatus",
     //'virtual_CmsSite.title',
     //'virtual_CmsModule.title',
-    "CreatedDate",
+    "createdDate",
     // 'UpdatedDate',
     "RenewDate",
     "HasBuyed",

@@ -72,7 +72,7 @@ export class TicketingAnswerListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Ascending;
   }
 
@@ -90,18 +90,18 @@ export class TicketingAnswerListComponent
     new ErrorExceptionResult<InfoEnumModel>();
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
+    "id",
     "LinkTaskId",
-    "LinkMemberId",
+    "linkMemberId",
     "createdDate",
     "updatedDate",
     "AnswerStatus",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
+    "id",
     "LinkTaskId",
-    "LinkMemberId",
+    "linkMemberId",
     "createdDate",
     "updatedDate",
     "AnswerStatus",

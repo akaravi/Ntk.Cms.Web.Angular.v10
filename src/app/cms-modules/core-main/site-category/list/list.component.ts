@@ -65,7 +65,7 @@ export class CoreSiteCategoryListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   comment: string;
@@ -82,7 +82,7 @@ export class CoreSiteCategoryListComponent
     "MainImageSrc",
     "id",
     "recordStatus",
-    "Title",
+    "title",
     "Domains",
     // 'Action'
   ];
@@ -90,7 +90,7 @@ export class CoreSiteCategoryListComponent
     "MainImageSrc",
     "id",
     "recordStatus",
-    "Title",
+    "title",
     "Domains",
     // 'Action'
   ];

@@ -86,7 +86,7 @@ export class LinkManagementTargetEditComponent
   optionActionTitle = "";
   optionActionButtomEnable = true;
   optionTabledisplayedColumns = [
-    "Id",
+    "id",
     "Option",
     "OptionAnswer",
     "IsCorrectAnswer",
@@ -115,7 +115,7 @@ export class LinkManagementTargetEditComponent
   mapOptonCenter = new PoinModel();
 
   ngOnInit(): void {
-    this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("Id"));
+    this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("id"));
     if (this.requestId === 0) {
       this.cmsToastrService.typeErrorEditRowIsNull();
       return;

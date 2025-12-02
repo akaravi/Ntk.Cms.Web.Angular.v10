@@ -64,7 +64,7 @@ export class SmsMainApiPathCompanyListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   comment: string;
@@ -78,18 +78,18 @@ export class SmsMainApiPathCompanyListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     //'Id',
     "RecordStatus",
-    "Title",
+    "title",
     // 'Action'
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     //'Id',
     "RecordStatus",
-    "Title",
+    "title",
     // 'Action'
   ];
 
@@ -415,10 +415,11 @@ export class SmsMainApiPathCompanyListComponent
       return;
     }
     if (event?.ctrlKey) {
-      const link = "/#/sms/main/api-path/list/LinkCompanyId/" + this.tableRowSelected.id;
+      const link =
+        "/#/sms/main/api-path/list/LinkCompanyId/" + this.tableRowSelected.id;
       window.open(link, "_blank");
     } else {
-        this.router.navigate([
+      this.router.navigate([
         "/sms/main/api-path/list/LinkCompanyId",
         this.tableRowSelected.id,
       ]);

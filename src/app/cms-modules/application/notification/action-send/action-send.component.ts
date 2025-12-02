@@ -46,7 +46,7 @@ export class ApplicationLogNotificationActionSendComponent implements OnInit {
       this.requestLinkApplicationMemberId = data.linkApplicationMemberId + "";
     }
     if (this.requestLinkApplicationMemberId?.length > 0) {
-      this.LinkMemberId = this.requestLinkApplicationMemberId;
+      this.linkMemberIds = this.requestLinkApplicationMemberId;
     }
     if (this.requestLinkApplicationId > 0) {
       this.dataModel.appId = this.requestLinkApplicationId;
@@ -56,7 +56,7 @@ export class ApplicationLogNotificationActionSendComponent implements OnInit {
   requestLinkApplicationId = 0;
   requestLinkApplicationMemberId = "";
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
-  LinkMemberId = "";
+  linkMemberIds = "";
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   fileManagerTree: TreeModel;
   appLanguage = "fa";
@@ -177,19 +177,19 @@ export class ApplicationLogNotificationActionSendComponent implements OnInit {
       return;
     }
     this.applicationMemberInfoModel = model;
-    this.LinkMemberId = model.id;
+    this.linkMemberIds = model.id;
   }
   onFormSubmit(): void {
     if (!this.formGroup.valid) {
       return;
     }
-    if (this.LinkMemberId?.length > 0) {
+    if (this.linkMemberIds?.length > 0) {
       this.dataModel.linkMemberIds = [];
-      this.dataModel.linkMemberIds.push(this.LinkMemberId);
+      this.dataModel.linkMemberIds.push(this.linkMemberIds);
       this.dataModel.appId = this.applicationMemberInfoModel.linkApplicationId;
     }
     if (
-      (this.LinkMemberId || this.LinkMemberId.length === 0) &&
+      (this.linkMemberIds || this.linkMemberIds.length === 0) &&
       this.dataModel.appId <= 0
     ) {
       this.translate

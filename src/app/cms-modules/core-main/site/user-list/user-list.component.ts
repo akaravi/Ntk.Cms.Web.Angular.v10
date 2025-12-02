@@ -70,10 +70,10 @@ export class CoreSiteUserListComponent
     this.publicHelper.processService.cdr = this.cdr;
 
     this.requestLinkSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
     );
     this.requestLinkUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
+      this.activatedRoute.snapshot.paramMap.get("linkUserId"),
     );
     this.requestLinkUserGroupId = +Number(
       this.activatedRoute.snapshot.paramMap.get("LinkUserGroupId"),
@@ -84,18 +84,18 @@ export class CoreSiteUserListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "LinkUserId";
+    this.filteModelContent.sortColumn = "linkUserId";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
 
     if (this.requestLinkSiteId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "LinkSiteId";
+      filter.propertyName = "linkSiteId";
       filter.value = this.requestLinkSiteId;
       this.filteModelContent.filters.push(filter);
     }
     if (this.requestLinkUserId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "LinkUserId";
+      filter.propertyName = "linkUserId";
       filter.value = this.requestLinkUserId;
       this.filteModelContent.filters.push(filter);
     }
@@ -140,11 +140,11 @@ export class CoreSiteUserListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkSiteId",
-    "LinkUserId",
+    "linkSiteId",
+    "linkUserId",
     "LinkUserGroupId",
     "RecordStatus",
-    "CreatedDate",
+    "createdDate",
     // 'virtual_CmsUser.name',
     // 'virtual_CmsUser.lastName',
     "virtual_CmsUserGroup.title",
@@ -158,7 +158,7 @@ export class CoreSiteUserListComponent
     // 'LinkUserId',
     // 'LinkUserGroupId',
     "RecordStatus",
-    "CreatedDate",
+    "createdDate",
     // 'virtual_CmsUser.name',
     // 'virtual_CmsUser.lastName',
     "virtual_CmsUserGroup.title",
@@ -231,14 +231,14 @@ export class CoreSiteUserListComponent
     }
     if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyAnyName = "LinkSiteId";
+      filter.propertyAnyName = "linkSiteId";
       filter.propertyName = "SiteUsers";
       filter.value = this.filteModelContent.filterActionSearchLinkSiteId;
       filterModel.filters.push(filter);
     }
     if (this.filteModelContent.filterActionSearchLinkUserId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyAnyName = "LinkUserId";
+      filter.propertyAnyName = "linkUserId";
       filter.propertyName = "SiteUsers";
       filter.value = this.filteModelContent.filterActionSearchLinkUserId;
       filterModel.filters.push(filter);
@@ -644,7 +644,7 @@ export class CoreSiteUserListComponent
       this.router.navigate([
         "/core/user-support-access/list/LinkSiteId/",
         row.linkSiteId,
-        "LinkUserId",
+        "linkUserId",
         row.linkUserId,
       ]);
     }

@@ -106,7 +106,7 @@ export class EstateCustomerOrderListComponent
       this.requestRecordStatus = null;
     }
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "CreatedDate";
+    this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
 
@@ -129,8 +129,8 @@ export class EstateCustomerOrderListComponent
   categoryModelSelected: EstateCustomerOrderModel;
   step = 0;
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "LinkSiteId",
+    "id",
+    "linkSiteId",
     "RecordStatus",
     // 'Title',
     "createdDate",
@@ -148,7 +148,7 @@ export class EstateCustomerOrderListComponent
     // 'Id',
     // 'LinkSiteId',
     "RecordStatus",
-    "Title",
+    "title",
     // 'CreatedDate',
     // 'UpdatedDate',
     // 'scoreRushToBuy',

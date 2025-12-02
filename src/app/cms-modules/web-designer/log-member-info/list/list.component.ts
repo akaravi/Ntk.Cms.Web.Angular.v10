@@ -68,7 +68,7 @@ export class WebDesignerLogMemberInfoListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "CreatedDate";
+    this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   comment: string;
@@ -83,8 +83,8 @@ export class WebDesignerLogMemberInfoListComponent
   tabledisplayedColumnsSource: string[] = [
     "id",
     "recordStatus",
-    "LinkUserId",
-    "LinkMemberId",
+    "linkUserId",
+    "linkMemberId",
     "DeviceStatus",
     "DeviceId",
     "DeviceBrand",
@@ -92,14 +92,14 @@ export class WebDesignerLogMemberInfoListComponent
     "AppBuildVer",
     "AppSourceVer",
     "ScorePercent",
-    "CreatedDate",
+    "createdDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "id",
     "recordStatus",
-    "LinkUserId",
-    "LinkMemberId",
+    "linkUserId",
+    "linkMemberId",
     "DeviceStatus",
     "DeviceId",
     "DeviceBrand",
@@ -107,19 +107,19 @@ export class WebDesignerLogMemberInfoListComponent
     "AppBuildVer",
     "AppSourceVer",
     "ScorePercent",
-    "CreatedDate",
+    "createdDate",
     // 'Action'
   ];
   expandedElement: WebDesignerLogMemberInfoModel | null;
   private unsubscribe: Subscription[] = [];
   ngOnInit(): void {
     this.requestLinkMemberId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkMemberId"),
+      this.activatedRoute.snapshot.paramMap.get("linkMemberId"),
     );
     const filter = new FilterDataModel();
 
     if (this.requestLinkMemberId > 0) {
-      filter.propertyName = "LinkMemberId";
+      filter.propertyName = "linkMemberId";
       filter.value = this.requestLinkMemberId;
       this.filteModelContent.filters.push(filter);
     }

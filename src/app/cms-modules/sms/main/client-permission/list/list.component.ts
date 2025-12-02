@@ -65,7 +65,7 @@ export class SmsMainClientPermissionListComponent
       onSubmit: (model) => this.onSubmitOptionsSearch(model),
     };
     this.requestLinkUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
+      this.activatedRoute.snapshot.paramMap.get("linkUserId"),
     );
     if (this.requestLinkUserId > 0) {
       const filter = new FilterDataModel();
@@ -75,7 +75,7 @@ export class SmsMainClientPermissionListComponent
     }
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   comment: string;
@@ -148,7 +148,6 @@ export class SmsMainClientPermissionListComponent
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
     /*filter CLone*/
-   
 
     this.contentService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {
@@ -408,5 +407,4 @@ export class SmsMainClientPermissionListComponent
     }
     this.DataGetAll();
   }
-
 }

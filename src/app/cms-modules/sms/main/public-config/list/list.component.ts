@@ -68,7 +68,7 @@ export class SmsMainApiPathPublicConfigListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   comment: string;
@@ -85,21 +85,21 @@ export class SmsMainApiPathPublicConfigListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     // 'Id',
     "RecordStatus",
     // 'Title',
     "ClassName",
-    "UpdatedDate",
+    "updatedDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     // 'Id',
     "RecordStatus",
     // 'Title',
     "ClassName",
-    "UpdatedDate",
+    "updatedDate",
     // 'Action'
   ];
 

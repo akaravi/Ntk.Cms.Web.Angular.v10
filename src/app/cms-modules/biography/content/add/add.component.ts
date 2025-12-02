@@ -98,12 +98,12 @@ export class BiographyContentAddComponent
   contentSimilarSelected: BiographyContentModel = new BiographyContentModel();
   contentOtherInfoSelected: BiographyContentOtherInfoModel =
     new BiographyContentOtherInfoModel();
-  otherInfoTabledisplayedColumns = ["Title", "TypeId", "Action"];
+  otherInfoTabledisplayedColumns = ["title", "TypeId", "Action"];
   similarTabledisplayedColumns = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
-    "Title",
+    "title",
     "Action",
   ];
   similarTabledataSource = new MatTableDataSource<BiographyContentModel>();

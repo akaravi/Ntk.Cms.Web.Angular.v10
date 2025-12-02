@@ -14,14 +14,14 @@
       <!-- AppId Field -->
       <app-application-app-selector
         (optionChange)="onActionSelectApp($event)"
-        *ngIf="LinkMemberId.length === 0"
+        *ngIf="linkMemberIds.length === 0"
         [optionSelectForce]="dataModel.appId"
         [optionPlaceholder]="'TITLE.Application' | translate"
       ></app-application-app-selector>
       <!-- AppId Field -->
       <app-application-memberinfo-selector
         (optionChange)="onActionSelectMemberInfo($event)"
-        [optionSelectForce]="LinkMemberId"
+        [optionSelectForce]="linkMemberIds"
         [optionPlaceholder]="'TITLE.Member' | translate"
       ></app-application-memberinfo-selector>
       <!-- Title Field -->

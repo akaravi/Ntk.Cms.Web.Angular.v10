@@ -70,20 +70,20 @@ export class CoreModuleSiteUserCreditListComponent
     this.publicHelper.processService.cdr = this.cdr;
 
     this.requestLinkUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
+      this.activatedRoute.snapshot.paramMap.get("linkUserId"),
     );
     this.requestLinkSiteId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkSiteId"),
+      this.activatedRoute.snapshot.paramMap.get("linkSiteId"),
     );
     if (this.requestLinkUserId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "LinkUserId";
+      filter.propertyName = "linkUserId";
       filter.value = this.requestLinkUserId;
       this.filteModelContent.filters.push(filter);
     }
     if (this.requestLinkSiteId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "LinkSiteId";
+      filter.propertyName = "linkSiteId";
       filter.value = this.requestLinkSiteId;
       this.filteModelContent.filters.push(filter);
     }
@@ -92,7 +92,7 @@ export class CoreModuleSiteUserCreditListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     /**filterActionSearch */
     this.optionsSearch.data.filterModelContent = this.filteModelContent;
@@ -115,7 +115,7 @@ export class CoreModuleSiteUserCreditListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "RecordStatus",
-    "LinkSiteId",
+    "linkSiteId",
     // 'LinkUserId',
     "LinkModuleId",
     "Credit",
@@ -127,7 +127,7 @@ export class CoreModuleSiteUserCreditListComponent
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "RecordStatus",
-    "LinkSiteId",
+    "linkSiteId",
     // 'LinkUserId',
     "LinkModuleId",
     "Credit",
@@ -223,21 +223,21 @@ export class CoreModuleSiteUserCreditListComponent
     }
     if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyAnyName = "LinkSiteId";
+      filter.propertyAnyName = "linkSiteId";
       filter.propertyName = "SiteUsers";
       filter.value = this.filteModelContent.filterActionSearchLinkSiteId;
       filterModel.filters.push(filter);
     }
     if (this.filteModelContent.filterActionSearchLinkUserId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyAnyName = "LinkUserId";
+      filter.propertyAnyName = "linkUserId";
       filter.value = this.filteModelContent.filterActionSearchLinkUserId;
       filterModel.filters.push(filter);
     }
     /**filterActionSearch */
     if (this.searchonCheckMyAccount) {
       filterModel.filters.push({
-        propertyName: "LinkUserId",
+        propertyName: "linkUserId",
         value: this.tokenInfo.user.id,
       });
     }

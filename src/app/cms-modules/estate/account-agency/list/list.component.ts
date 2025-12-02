@@ -78,7 +78,7 @@ export class EstateAccountAgencyListComponent
       this.activatedRoute.snapshot.paramMap.get("LinkAccountUserId");
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   @Input() optionloadComponent = true;
@@ -118,16 +118,16 @@ export class EstateAccountAgencyListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
-    "Title",
+    "linkMainImageIdSrc",
+    "title",
     // 'LinkCmsUserId',
     "Description",
     "action_menu",
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
-    "Title",
+    "linkMainImageIdSrc",
+    "title",
     // 'LinkCmsUserId',
     "Description",
     "action_menu",

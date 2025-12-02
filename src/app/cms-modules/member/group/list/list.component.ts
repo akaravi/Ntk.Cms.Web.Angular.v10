@@ -60,7 +60,7 @@ export class MemberGroupListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   filteModelContent = new FilterModel();
@@ -71,14 +71,14 @@ export class MemberGroupListComponent
     "id",
     "recordStatus",
     // 'Title',
-    "CreatedDate",
+    "createdDate",
     "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "id",
     "recordStatus",
     // 'Title',
-    "CreatedDate",
+    "createdDate",
     "action_menu",
   ];
   private unsubscribe: Subscription[] = [];

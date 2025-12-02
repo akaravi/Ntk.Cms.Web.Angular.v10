@@ -75,7 +75,7 @@ export class EstatePropertySupplierListComponent
       this.filteModelContent.filters.push(filter);
     }
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   link: string;
@@ -86,7 +86,7 @@ export class EstatePropertySupplierListComponent
   categoryModelSelected: EstatePropertySupplierCategoryModel;
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
     "mainAdminRecordStatus",
@@ -96,7 +96,7 @@ export class EstatePropertySupplierListComponent
     "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
     "mainAdminRecordStatus",

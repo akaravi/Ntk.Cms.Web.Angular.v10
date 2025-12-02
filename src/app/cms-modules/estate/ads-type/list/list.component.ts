@@ -64,7 +64,7 @@ export class EstateAdsTypeListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   link: string;
@@ -79,7 +79,7 @@ export class EstateAdsTypeListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     // 'Title',
     "StationLevel",
     "ViewLevel",
@@ -89,7 +89,7 @@ export class EstateAdsTypeListComponent
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     // 'Title',
     "StationLevel",
     // 'ViewLevel',

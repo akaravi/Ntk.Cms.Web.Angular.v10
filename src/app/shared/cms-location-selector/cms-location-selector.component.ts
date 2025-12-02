@@ -189,7 +189,7 @@ export class CmsLocationSelectorComponent implements OnInit {
       filterModel.filters.push(filter);
       /*Filters */
       filter = new FilterDataModel();
-      filter.propertyName = "Title";
+      filter.propertyName = "title";
       filter.value = text;
       filter.searchType = FilterDataModelSearchTypesEnum.Contains;
       filter.clauseType = ClauseTypeEnum.Or;
@@ -205,7 +205,7 @@ export class CmsLocationSelectorComponent implements OnInit {
 
       /*Filters */
       filter = new FilterDataModel();
-      filter.propertyName = "Id";
+      filter.propertyName = "id";
       filter.value = text;
       filter.searchType = FilterDataModelSearchTypesEnum.Equal;
       filter.clauseType = ClauseTypeEnum.Or;

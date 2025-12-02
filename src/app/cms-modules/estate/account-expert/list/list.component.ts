@@ -79,7 +79,7 @@ export class EstateAccountExpertListComponent
     );
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   @Input() optionloadComponent = true;
@@ -119,16 +119,16 @@ export class EstateAccountExpertListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
-    "Title",
+    "linkMainImageIdSrc",
+    "title",
     // 'LinkCmsUserId',
     "Description",
     "action_menu",
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
-    "Title",
+    "linkMainImageIdSrc",
+    "title",
     // 'LinkCmsUserId',
     "Description",
     "action_menu",

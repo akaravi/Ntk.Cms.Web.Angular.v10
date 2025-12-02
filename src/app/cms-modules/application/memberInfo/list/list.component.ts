@@ -69,7 +69,7 @@ export class ApplicationMemberInfoListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "CreatedDate";
+    this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   comment: string;
@@ -116,7 +116,7 @@ export class ApplicationMemberInfoListComponent
       this.activatedRoute.snapshot.paramMap.get("LinkApplicationId"),
     );
     this.requestLinkMemberId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkMemberId"),
+      this.activatedRoute.snapshot.paramMap.get("linkMemberId"),
     );
     const filter = new FilterDataModel();
     if (this.requestLinkApplicationId > 0) {
@@ -125,7 +125,7 @@ export class ApplicationMemberInfoListComponent
       this.filteModelContent.filters.push(filter);
     }
     if (this.requestLinkMemberId > 0) {
-      filter.propertyName = "LinkMemberId";
+      filter.propertyName = "linkMemberId";
       filter.value = this.requestLinkMemberId;
       this.filteModelContent.filters.push(filter);
     }

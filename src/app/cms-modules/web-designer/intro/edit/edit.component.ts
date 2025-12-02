@@ -49,8 +49,8 @@ export class WebDesignerMainIntroEditComponent
 
     this.publicHelper.processService.cdr = this.cdr;
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
-    if (this.activatedRoute.snapshot.paramMap.get("Id")) {
-      this.requestId = this.activatedRoute.snapshot.paramMap.get("Id");
+    if (this.activatedRoute.snapshot.paramMap.get("id")) {
+      this.requestId = this.activatedRoute.snapshot.paramMap.get("id");
     }
   }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;

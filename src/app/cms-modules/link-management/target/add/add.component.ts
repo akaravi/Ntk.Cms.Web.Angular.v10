@@ -86,7 +86,7 @@ export class LinkManagementTargetAddComponent
   optionActionButtomEnable = true;
   dataProfessional = true;
   optionTabledisplayedColumns = [
-    "Id",
+    "id",
     "Option",
     "OptionAnswer",
     "IsCorrectAnswer",

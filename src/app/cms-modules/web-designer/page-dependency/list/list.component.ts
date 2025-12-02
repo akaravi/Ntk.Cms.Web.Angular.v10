@@ -150,7 +150,7 @@ export class WebDesignerMainPageDependencyListComponent
     this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
       this.tabledisplayedColumnsSource,
       this.tabledisplayedColumnsMobileSource,
-      ["Id", "RecordStatus", "Title", "CmsModuleClassName", "ClassActionName"],
+      ["id", "RecordStatus", "title", "CmsModuleClassName", "ClassActionName"],
       this.tokenInfo,
     );
     this.tableRowsSelected = [];

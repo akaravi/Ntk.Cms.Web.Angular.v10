@@ -67,10 +67,10 @@ export class SmsLogApiPathListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "CreatedDate";
+    this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     const filter = new FilterDataModel();
-    if ( this.requestLinkApiPathId?.length > 0) {
+    if (this.requestLinkApiPathId?.length > 0) {
       filter.propertyName = "LinkApiPathId";
       filter.value = this.requestLinkApiPathId;
       this.filteModelContent.filters.push(filter);
@@ -95,8 +95,8 @@ export class SmsLogApiPathListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "CreatedDate",
+    "id",
+    "createdDate",
     "StatusInfo",
     "StatusOutOfServiceActive",
     "StatusOutOfServiceExpire",
@@ -106,8 +106,8 @@ export class SmsLogApiPathListComponent
     "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "CreatedDate",
+    "id",
+    "createdDate",
     "StatusInfo",
     "StatusOutOfServiceActive",
     "StatusOutOfServiceExpire",

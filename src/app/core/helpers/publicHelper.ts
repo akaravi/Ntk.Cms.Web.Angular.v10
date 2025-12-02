@@ -565,9 +565,9 @@ export class PublicHelper {
     }
 
     if (cloumnAdminAccessDispaly.length == 0) {
-      if (cloumn.indexOf("Id") >= 0) cloumnAdminAccessDispaly.push("Id");
-      if (cloumn.indexOf("LinkSiteId") >= 0)
-        cloumnAdminAccessDispaly.push("LinkSiteId");
+      if (cloumn.indexOf("id") >= 0) cloumnAdminAccessDispaly.push("id");
+      if (cloumn.indexOf("linkSiteId") >= 0)
+        cloumnAdminAccessDispaly.push("linkSiteId");
     }
     if (
       token.access &&

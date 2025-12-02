@@ -37,7 +37,7 @@ export class ContactConfigCheckUserComponent implements OnInit, OnDestroy {
   ) {
     this.publicHelper.processService.cdr = this.cdr;
     this.requestLinkUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
+      this.activatedRoute.snapshot.paramMap.get("linkUserId"),
     );
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
@@ -63,7 +63,7 @@ export class ContactConfigCheckUserComponent implements OnInit, OnDestroy {
   tableSource: MatTableDataSource<BaseModuleSiteCheckUserModel> =
     new MatTableDataSource<BaseModuleSiteCheckUserModel>();
 
-  tabledisplayedColumns: string[] = ["Accepted", "Title", "Description"];
+  tabledisplayedColumns: string[] = ["Accepted", "title", "Description"];
   ngOnInit(): void {}
   ngOnDestroy(): void {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());

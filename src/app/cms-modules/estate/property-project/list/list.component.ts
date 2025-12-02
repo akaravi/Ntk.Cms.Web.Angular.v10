@@ -64,7 +64,7 @@ export class EstatePropertyProjectListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "Id";
+    this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   link: string;
@@ -75,7 +75,7 @@ export class EstatePropertyProjectListComponent
   categoryModelSelected: EstatePropertyProjectModel;
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
     "mainAdminRecordStatus",
@@ -85,7 +85,7 @@ export class EstatePropertyProjectListComponent
     "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "LinkMainImageIdSrc",
+    "linkMainImageIdSrc",
     "id",
     "recordStatus",
     "mainAdminRecordStatus",

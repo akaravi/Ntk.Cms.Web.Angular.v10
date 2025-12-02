@@ -119,7 +119,7 @@ export class CoreSiteModuleEditComponent
     filteModelContent.filters.push(filter);
     /*make filter*/
     filter = new FilterDataModel();
-    filter.propertyName = "LinkSiteId";
+    filter.propertyName = "linkSiteId";
     filter.value = this.requestLinkSiteId;
     filteModelContent.filters.push(filter);
 

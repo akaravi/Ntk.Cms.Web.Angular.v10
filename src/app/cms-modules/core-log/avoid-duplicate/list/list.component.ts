@@ -65,11 +65,11 @@ export class CoreLogAvoidDuplicateDataEntryListComponent
     this.publicHelper.processService.cdr = this.cdr;
 
     this.requestLinkUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkUserId"),
+      this.activatedRoute.snapshot.paramMap.get("linkUserId"),
     );
     if (this.requestLinkUserId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "LinkUserId";
+      filter.propertyName = "linkUserId";
       filter.value = this.requestLinkUserId;
       this.filteModelContent.filters.push(filter);
     }
@@ -78,7 +78,7 @@ export class CoreLogAvoidDuplicateDataEntryListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "CreatedDate";
+    this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
   comment: string;
@@ -92,23 +92,23 @@ export class CoreLogAvoidDuplicateDataEntryListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
+    "id",
     "ModuleName",
     "ModuleEntityName",
-    "LinkUserId",
+    "linkUserId",
     "LinkMemberUserId",
     "ModuleEntityId",
-    "CreatedDate",
+    "createdDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
+    "id",
     "ModuleName",
     "ModuleEntityName",
-    "LinkUserId",
+    "linkUserId",
     "LinkMemberUserId",
     "ModuleEntityId",
-    "CreatedDate",
+    "createdDate",
     // 'Action'
   ];
   dataModelEnumManageUserAccessAreaTypesResult: ErrorExceptionResult<InfoEnumModel> =
@@ -119,7 +119,7 @@ export class CoreLogAvoidDuplicateDataEntryListComponent
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
-    this.filteModelContent.sortColumn = "CreatedDate";
+    this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
