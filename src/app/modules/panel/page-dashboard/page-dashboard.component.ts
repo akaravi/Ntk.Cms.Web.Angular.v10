@@ -1,3 +1,4 @@
+import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
@@ -17,6 +18,15 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { ThemeService } from "src/app/core/services/theme.service";
 import { environment } from "src/environments/environment";
+
+// مدل ویجت داشبورد
+export interface DashboardWidgetModel {
+  id: string;
+  selector: string;
+  moduleCondition?: string;
+  customCondition?: () => boolean;
+  colClass: string;
+}
 
 @Component({
   selector: "app-page-dashboard",
@@ -54,6 +64,130 @@ export class PageDashboardComponent implements OnInit {
     string,
     CoreModuleModel
   >();
+
+  // لیست ویجت‌های داشبورد
+  dashboardWidgets: DashboardWidgetModel[] = [
+    {
+      id: "estate-customer-order",
+      selector: "app-estate-customer-order-widget",
+      moduleCondition: "estate",
+      colClass: "col-12 col-sm-12 col-md-12 col-lg-6",
+    },
+    {
+      id: "estate-property",
+      selector: "app-estate-property-widget",
+      moduleCondition: "estate",
+      colClass: "col-12 col-sm-12 col-md-12 col-lg-6",
+    },
+    {
+      id: "estate-property-history",
+      selector: "app-estate-property-history-widget",
+      moduleCondition: "estate",
+      colClass: "col-12 col-sm-12 col-md-12 col-lg-6",
+    },
+    {
+      id: "site-credit",
+      selector: "app-coremodule-site-credit-widget-credit",
+      customCondition: () => this.tokenHelper.isAdminSite,
+      colClass: "col-12 col-sm-12 col-md-12 col-lg-6",
+    },
+    {
+      id: "site-user-credit",
+      selector: "app-coremodule-site-user-credit-widget-credit",
+      colClass: "col-12 col-sm-12 col-md-12 col-lg-6",
+    },
+    {
+      id: "user-claim-content",
+      selector: "app-core-userclaimcontent-widget-status",
+      colClass: "col-12 col-sm-12 col-md-12 col-lg-6",
+    },
+    {
+      id: "ticketing-task",
+      selector: "app-ticketing-task-widget",
+      colClass: "col-12 col-sm-12 col-md-12 col-lg-6",
+    },
+    {
+      id: "sms-outbox-queue",
+      selector: "app-sms-log-outbox-queue-widget",
+      moduleCondition: "sms",
+      colClass: "col-12 col-sm-12 col-md-12 col-lg-6",
+    },
+    {
+      id: "sms-outbox-task-scheduler",
+      selector: "app-sms-log-outbox-task-scheduler-widget",
+      moduleCondition: "sms",
+      colClass: "col-12 col-sm-12 col-md-12 col-lg-6",
+    },
+    {
+      id: "sms-outbox",
+      selector: "app-sms-log-outbox-widget",
+      moduleCondition: "sms",
+      colClass: "col-12 col-sm-12 col-md-12 col-lg-6",
+    },
+    {
+      id: "sms-inbox",
+      selector: "app-sms-log-inbox-widget",
+      moduleCondition: "sms",
+      colClass: "col-12 col-sm-12 col-md-12 col-lg-6",
+    },
+    {
+      id: "core-site",
+      selector: "app-core-site-widget-count",
+      colClass: "col-12 col-sm-12 col-md-12 col-lg-6",
+    },
+    {
+      id: "application-member-info",
+      selector: "app-application-memberinfo-widget",
+      moduleCondition: "application",
+      colClass: "col-12 col-sm-12 col-md-12 col-lg-6",
+    },
+    {
+      id: "report-abuse",
+      selector: "app-report-abuse-widget",
+      moduleCondition: "core",
+      customCondition: () => this.tokenHelper.isAdminSite,
+      colClass: "col-12 col-sm-12 col-md-12 col-lg-6",
+    },
+    {
+      id: "chart-content",
+      selector: "app-chart-content-widget",
+      moduleCondition: "chart",
+      colClass: "col-12 col-sm-12 col-md-12 col-lg-6",
+    },
+    {
+      id: "article-content",
+      selector: "app-article-content-widget",
+      moduleCondition: "article",
+      colClass: "col-12 col-sm-12 col-md-12 col-lg-6",
+    },
+    {
+      id: "blog-content",
+      selector: "app-blog-content-widget",
+      moduleCondition: "blog",
+      colClass: "col-12 col-sm-12 col-md-12 col-lg-6",
+    },
+    {
+      id: "biography-content",
+      selector: "app-biography-content-widget",
+      moduleCondition: "biography",
+      colClass: "col-12 col-sm-12 col-md-12 col-lg-6",
+    },
+    {
+      id: "news-content",
+      selector: "app-news-content-widget",
+      moduleCondition: "news",
+      colClass: "col-12 col-sm-12 col-md-12 col-lg-6",
+    },
+    {
+      id: "application-app",
+      selector: "app-application-app-widget",
+      moduleCondition: "application",
+      colClass: "col-12 col-sm-12 col-md-12 col-lg-6",
+    },
+  ];
+
+  private readonly WIDGET_ORDER_STORAGE_KEY = "dashboard_widget_order";
+
   ngOnInit(): void {
     this.tokenInfo = this.cmsStoreService.getStateSnapshot().tokenInfoStore;
     this.dataCoreModuleModelResult =
@@ -109,7 +243,84 @@ export class PageDashboardComponent implements OnInit {
           this.loadData();
         }),
     );
+
+    // بارگذاری ترتیب ویجت‌ها
+    this.loadWidgetOrder();
   }
+
+  /**
+   * بارگذاری ترتیب ویجت‌ها از localStorage
+   */
+  loadWidgetOrder(): void {
+    const savedOrder = localStorage.getItem(this.WIDGET_ORDER_STORAGE_KEY);
+    if (savedOrder) {
+      try {
+        const orderArray: string[] = JSON.parse(savedOrder);
+        const orderedWidgets: DashboardWidgetModel[] = [];
+
+        orderArray.forEach((id) => {
+          const widget = this.dashboardWidgets.find((w) => w.id === id);
+          if (widget) {
+            orderedWidgets.push(widget);
+          }
+        });
+
+        // اضافه کردن ویجت‌های جدید
+        this.dashboardWidgets.forEach((widget) => {
+          if (!orderedWidgets.find((w) => w.id === widget.id)) {
+            orderedWidgets.push(widget);
+          }
+        });
+
+        this.dashboardWidgets = orderedWidgets;
+      } catch (e) {
+        console.error("خطا در بارگذاری ترتیب ویجت‌ها:", e);
+      }
+    }
+  }
+
+  /**
+   * ذخیره ترتیب ویجت‌ها در localStorage
+   */
+  saveWidgetOrder(): void {
+    const orderArray = this.dashboardWidgets.map((w) => w.id);
+    localStorage.setItem(
+      this.WIDGET_ORDER_STORAGE_KEY,
+      JSON.stringify(orderArray),
+    );
+  }
+
+  /**
+   * مدیریت رویداد Drag & Drop
+   */
+  onWidgetDrop(event: CdkDragDrop<DashboardWidgetModel[]>): void {
+    const previousIndex = this.dashboardWidgets.findIndex(
+      (widget) => widget === event.item.data,
+    );
+
+    moveItemInArray(this.dashboardWidgets, previousIndex, event.currentIndex);
+    this.dashboardWidgets = this.dashboardWidgets.slice();
+
+    this.saveWidgetOrder();
+    this.cdr.detectChanges();
+  }
+
+  /**
+   * بررسی شرایط نمایش ویجت
+   */
+  shouldShowWidget(widget: DashboardWidgetModel): boolean {
+    if (
+      widget.moduleCondition &&
+      !this.checkModuleExist[widget.moduleCondition]
+    ) {
+      return false;
+    }
+    if (widget.customCondition && !widget.customCondition()) {
+      return false;
+    }
+    return true;
+  }
+
   async getCurrentSiteModule(): Promise<void> {
     this.checkModuleExist = new Map<string, CoreModuleModel>();
     if (

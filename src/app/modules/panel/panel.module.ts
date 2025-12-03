@@ -1,3 +1,4 @@
+import { DragDropModule } from "@angular/cdk/drag-drop";
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
@@ -43,6 +44,7 @@ import { CoreSharedModule } from "src/app/cms-modules/core-main/core.shared.modu
   ],
   imports: [
     CommonModule,
+    DragDropModule,
     RouterModule.forChild(PanelRouting.concat(CmsModulesRoutes)),
     SharedModule,
     ComponentsModule,

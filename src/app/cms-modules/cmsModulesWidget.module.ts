@@ -21,6 +21,9 @@ import {
   EstatePropertyService,
   NewsContentService,
   SmsLogOutBoxQueueService,
+  SmsLogOutBoxTaskSchedulerService,
+  SmsLogOutBoxService,
+  SmsLogInBoxService,
   TicketingTaskService,
   WebDesignerLogMemberInfoService,
 } from "ntk-cms-api";
@@ -44,6 +47,9 @@ import { EstatePropertyHistoryWidgetComponent } from "src/app/cms-modules/estate
 import { EstatePropertyWidgetComponent } from "src/app/cms-modules/estate/property/widget/widget.component";
 import { NewsContentWidgetComponent } from "src/app/cms-modules/news/content/widget/widget.component";
 import { SmsLogOutBoxQueueWidgetComponent } from "src/app/cms-modules/sms/log/outbox-queue/widget/widget.component";
+import { SmsLogOutBoxTaskSchedulerWidgetComponent } from "src/app/cms-modules/sms/log/outbox-task-scheduler/widget/widget.component";
+import { SmsLogOutBoxWidgetComponent } from "src/app/cms-modules/sms/log/outbox/widget/widget.component";
+import { SmsLogInBoxWidgetComponent } from "src/app/cms-modules/sms/log/inbox/widget/widget.component";
 import { WebDesignerLogMemberInfoWidgetComponent } from "src/app/cms-modules/web-designer/log-member-info/widget/widget.component";
 import { ComponentsModule } from "src/app/components/components.module";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
@@ -78,6 +84,9 @@ import { RouterModule } from "@angular/router";
     CoreModuleSiteCreditWidgetCreditComponent,
     CoreModuleSiteUserCreditWidgetCreditComponent,
     SmsLogOutBoxQueueWidgetComponent,
+    SmsLogOutBoxTaskSchedulerWidgetComponent,
+    SmsLogOutBoxWidgetComponent,
+    SmsLogInBoxWidgetComponent,
     /*widget*/
   ],
   imports: [
@@ -111,6 +120,9 @@ import { RouterModule } from "@angular/router";
     CoreModuleSiteCreditWidgetCreditComponent,
     CoreModuleSiteUserCreditWidgetCreditComponent,
     SmsLogOutBoxQueueWidgetComponent,
+    SmsLogOutBoxTaskSchedulerWidgetComponent,
+    SmsLogOutBoxWidgetComponent,
+    SmsLogInBoxWidgetComponent,
     /*widget*/
   ],
   providers: [
@@ -137,6 +149,9 @@ import { RouterModule } from "@angular/router";
     CoreModuleSiteCreditService,
     EstatePropertyHistoryService,
     SmsLogOutBoxQueueService,
+    SmsLogOutBoxTaskSchedulerService,
+    SmsLogOutBoxService,
+    SmsLogInBoxService,
   ],
 })
 export class CmsModulesWidgetModule {}

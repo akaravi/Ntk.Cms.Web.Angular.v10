@@ -1,5 +1,227 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-12-03 (پیاده‌سازی حرفه‌ای Drag & Drop با حل مشکل ارتفاع‌های مختلف ویجت‌ها)
+
+### پیاده‌سازی Drag & Drop حرفه‌ای با راه‌حل مشکل ارتفاع‌ها
+
+**چالش اصلی:**
+- ویجت‌ها ارتفاع‌های مختلف داشتند که ظاهر را زشت می‌کرد
+- نیاز به حرکت عمودی و افقی همزمان
+- نیاز به placeholder واضح و کاربردی
+
+**راه‌حل پیاده‌سازی شده:**
+
+1. **Drag Handle مخفی با نمایش در Hover:**
+   ```scss
+   .drag-handle {
+     opacity: 0; // مخفی به صورت پیش‌فرض
+     transform: scale(0.8);
+     transition: all 0.3s ease;
+   }
+   
+   .widget-item:hover .drag-handle {
+     opacity: 1; // نمایش در hover
+     transform: scale(1);
+   }
+   ```
+   - آیکون فقط وقتی روی ویجت hover می‌کنید نمایش داده می‌شود
+   - با انیمیشن smooth ظاهر می‌شود (fade in + scale)
+   - UI تمیزتر و حرفه‌ای‌تر
+
+2. **حل مشکل ارتفاع‌های مختلف:**
+   ```scss
+   .widget-wrapper {
+     min-height: 400px; // ارتفاع یکسان برای همه
+     display: flex;
+     flex-direction: column;
+     height: 100%;
+   }
+   ```
+   - تمام ویجت‌ها حداقل 400px ارتفاع دارند (desktop)
+   - در تبلت: 350px
+   - در موبایل: 300px
+
+2. **Drag Handle ساده و کاربردی:**
+   - آیکون Material: `reorder`
+   - موقعیت: بالا سمت راست (RTL: بالا سمت چپ)
+   - Cursor: `grab` در عادی، `grabbing` در active
+   - Hover: background تیره‌تر + رنگ icon تیره‌تر
+   - Active: scale کوچک‌تر (0.95)
+
+3. **Placeholder واضح:**
+   - Background: `rgba(0, 0, 0, 0.06)` شفاف
+   - Border: `2px solid rgba(0, 0, 0, 0.12)` ساده
+   - ارتفاع: همان minimum ویجت‌ها (400/350/300px)
+   - متن: "رها کنید"
+
+4. **حالت Dragging:**
+   - Opacity: 0.7
+   - Shadow: `0 8px 20px rgba(0, 0, 0, 0.25)`
+   - z-index: 1000
+   - Handle مخفی می‌شود
+
+5. **Transitions smooth:**
+   - انیمیشن: `300ms cubic-bezier(0.4, 0, 0.2, 1)`
+   - نرم و طبیعی
+
+6. **پشتیبانی کامل از عمودی و افقی:**
+   - بدون محدودیت orientation
+   - `flex-wrap: wrap` در row
+   - جابجایی در تمام جهات
+
+**کلاس‌های استفاده شده:**
+- `.widget-item`: کانتینر اصلی ویجت
+- `.drag-handle`: دسته کشیدن
+- `.widget-wrapper`: wrapper با ارتفاع ثابت
+- `.drag-placeholder`: جای خالی
+
+**فایل SCSS: 157 خط تمیز و کاربردی**
+
+**مزایای پیاده‌سازی جدید:**
+
+1. **سازگاری بیشتر**: استفاده از Material Design Icons و رنگ‌های استاندارد
+2. **Change Detection بهتر**: استفاده از `slice()` برای اطمینان از بروزرسانی view
+3. **کد تمیزتر**: پیدا کردن index با `findIndex` به جای استفاده مستقیم از event indices
+4. **یکپارچگی**: استفاده از کلاس‌های استاندارد ntk و استایل‌های global
+5. **UX بهتر**: افکت‌های بصری حرفه‌ای‌تر (scale، rotate، shadow، ripple)
+6. **Performance**: بهینه‌سازی برای موبایل با کاهش shadow و transition
+
+---
+
+## 2025-12-03 (اضافه کردن قابلیت Drag & Drop به داشبورد و ایجاد ویجت‌های SMS جدید)
+
+### افزودن قابلیت Drag & Drop حرفه‌ای به داشبورد
+
+**تغییرات:**
+
+- پیاده‌سازی سیستم Drag & Drop حرفه‌ای برای تمام ویجت‌های داشبورد با استفاده از Angular CDK
+- اضافه کردن `DragDropModule` از `@angular/cdk/drag-drop` به `panel.module.ts`
+- ایجاد مدل داده `DashboardWidgetModel` برای مدیریت ویجت‌های داشبورد با پشتیبانی از:
+  - شناسه منحصر به فرد (id)
+  - selector کامپوننت
+  - شرط نمایش بر اساس ماژول (moduleCondition)
+  - شرط نمایش سفارشی (customCondition)
+  - کلاس‌های CSS برای ابعاد مختلف (colClass)
+- پیاده‌سازی متد `onWidgetDrop` برای مدیریت رویداد جابجایی ویجت‌ها
+- ذخیره و بازیابی ترتیب ویجت‌ها در localStorage با کلید `dashboard_widget_order`
+- افزودن Drag Handle به هر ویجت با آیکون `fa-grip-vertical`
+- اضافه کردن Placeholder زیبا در حین Drag
+- پشتیبانی کامل از RTL و حالت Responsive
+- تمام ویجت‌های موجود در داشبورد اکنون قابلیت جابجایی دارند:
+  - ویجت‌های Estate (Customer Order، Property، Property History)
+  - ویجت‌های Core (Site Credit، User Credit، User Claim، Site Count)
+  - ویجت‌های SMS (OutBox Queue، OutBox Task Scheduler، OutBox، InBox)
+  - ویجت‌های محتوایی (Article، Blog، Biography، News، Chart)
+  - ویجت‌های دیگر (Application، Ticketing، Report Abuse)
+
+**استایل‌های CSS اضافه شده:**
+
+- `.dashboard-widget-container`: کانتینر اصلی هر ویجت با padding مناسب برای Drag Handle
+- `.widget-drag-handle`: دسته‌گیره برای کشیدن ویجت با افکت hover و active
+- `.widget-drag-placeholder`: نمایشگر موقعیت قرارگیری ویجت در حین Drag
+- `.cdk-drag-animating`: انیمیشن‌های روان برای جابجایی
+- Responsive Design برای صفحه‌نمایش‌های کوچک (Mobile)
+
+### ایجاد ویجت‌های جدید SMS
+
+**1. ویجت SMS OutBox Task Scheduler:**
+
+- نمایش وضعیت زمان‌بندهای ارسال پیامک
+- فیلترهای پشتیبانی شده:
+  - آیتم‌های فعال (Available)
+  - در انتظار تایید مدیر (Pending Admin Approval)
+  - نیاز به بررسی (Need To Check)
+  - مجاز به اجرای بعدی (Allow Next Run با `scheduleSendAllowNextRun = true`)
+- نمودار دایره‌ای برای نمایش توزیع وضعیت‌ها
+- لینک مستقیم به صفحه لیست `/sms/log/outbox-task-scheduler`
+
+**2. ویجت SMS OutBox:**
+
+- نمایش وضعیت صندوق خروجی پیامک
+- فیلترهای پشتیبانی شده:
+  - آیتم‌های فعال (Available)
+  - در انتظار تایید مدیر (Pending Admin Approval)
+  - نیاز به بررسی (Need To Check)
+  - ارسال موفق (Sent Successfully با `sendResultIsSuccess = true`)
+- نمودار دایره‌ای برای نمایش توزیع وضعیت‌ها
+- لینک مستقیم به صفحه لیست `/sms/log/outbox`
+
+**3. ویجت SMS InBox:**
+
+- نمایش وضعیت صندوق دریافتی پیامک
+- فیلترهای پشتیبانی شده:
+  - آیتم‌های فعال (Available)
+  - در انتظار تایید مدیر (Pending Admin Approval)
+  - نیاز به بررسی (Need To Check)
+  - پیام‌های خوانده نشده (Unread Messages با `seen = false`)
+- نمودار دایره‌ای برای نمایش توزیع وضعیت‌ها
+- لینک مستقیم به صفحه لیست `/sms/log/inbox`
+
+**کلیدهای ترجمه اضافه شده:**
+
+TITLE:
+
+- `OutBox_Task_Scheduler`: زمان‌بند ارسال پیامک
+- `SMS_OutBox_Task_Scheduler_Status`: وضعیت زمان‌بند ارسال پیامک
+- `Number_OutBox_Task_Scheduler`: تعداد زمان‌بند ارسال
+- `Allow_Next_Run`: مجاز به اجرای بعدی
+- `View_Task_Scheduler_List`: مشاهده لیست زمان‌بند
+- `OutBox`: صندوق خروجی پیامک
+- `SMS_OutBox_Status`: وضعیت صندوق خروجی پیامک
+- `Number_OutBox`: تعداد پیامک خروجی
+- `Sent_Successfully`: ارسال موفق
+- `View_OutBox_List`: مشاهده لیست صندوق خروجی
+- `InBox`: صندوق دریافتی پیامک
+- `SMS_InBox_Status`: وضعیت صندوق دریافتی پیامک
+- `Number_InBox`: تعداد پیامک دریافتی
+- `Unread_Messages`: پیام‌های خوانده نشده
+- `View_InBox_List`: مشاهده لیست صندوق دریافتی
+
+MESSAGE:
+
+- `outbox_task_scheduler_list`: لیست زمان‌بند ارسال پیامک
+- `outbox_list`: لیست صندوق خروجی پیامک
+- `inbox_list`: لیست صندوق دریافتی پیامک
+
+**فایل‌های ایجاد شده:**
+
+- `src/app/cms-modules/sms/log/outbox-task-scheduler/widget/widget.component.ts`
+- `src/app/cms-modules/sms/log/outbox-task-scheduler/widget/widget.component.html`
+- `src/app/cms-modules/sms/log/outbox/widget/widget.component.ts`
+- `src/app/cms-modules/sms/log/outbox/widget/widget.component.html`
+- `src/app/cms-modules/sms/log/inbox/widget/widget.component.ts`
+- `src/app/cms-modules/sms/log/inbox/widget/widget.component.html`
+- `src/app/modules/panel/page-dashboard/page-dashboard.component.scss`
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/modules/panel/panel.module.ts` (اضافه شدن DragDropModule)
+- `src/app/modules/panel/page-dashboard/page-dashboard.component.ts` (پیاده‌سازی Drag & Drop)
+- `src/app/modules/panel/page-dashboard/page-dashboard.component.html` (بازسازی ساختار با cdkDropList و cdkDrag)
+- `src/app/cms-modules/cmsModulesWidget.module.ts` (ثبت ویجت‌های جدید)
+- `src/assets/i18n/fa.json`
+- `src/assets/i18n/en.json`
+- `src/assets/i18n/ar.json`
+- `src/assets/i18n/de.json`
+- `src/assets/i18n/es.json` (برنامه‌ریزی شده برای بروزرسانی)
+- `src/assets/i18n/fr.json` (برنامه‌ریزی شده برای بروزرسانی)
+- `src/assets/i18n/ja.json` (برنامه‌ریزی شده برای بروزرسانی)
+- `src/assets/i18n/tr.json` (برنامه‌ریزی شده برای بروزرسانی)
+- `src/assets/i18n/zh.json` (برنامه‌ریزی شده برای بروزرسانی)
+- `readmehistory.md`
+
+**نکات فنی:**
+
+- از `moveItemInArray` از `@angular/cdk/drag-drop` برای جابجایی ویجت‌ها استفاده شده است
+- ترتیب ویجت‌ها در localStorage ذخیره می‌شود و پس از رفرش صفحه حفظ می‌ماند
+- Drag Handle در موقعیت مناسب و با cursor مناسب (grab/grabbing) قرار گرفته است
+- ویجت‌ها به صورت هوشمند بر اساس وجود ماژول و شرایط سفارشی نمایش داده می‌شوند
+- استایل‌های CSS به صورت Responsive طراحی شده‌اند و در تمام اندازه‌های صفحه به خوبی کار می‌کنند
+- از `cdkDragPlaceholder` برای نمایش موقعیت قرارگیری ویجت استفاده شده است
+- تمام سرویس‌های API (SmsLogOutBoxTaskSchedulerService، SmsLogOutBoxService، SmsLogInBoxService) به providers اضافه شده‌اند
+
+---
+
 ## 2025-12-02 13:43:27
 
 ### افزودن ویجت SMS OutBox Queue به داشبورد

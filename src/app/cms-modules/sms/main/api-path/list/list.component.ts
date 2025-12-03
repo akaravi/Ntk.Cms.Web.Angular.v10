@@ -198,7 +198,7 @@ export class SmsMainApiPathListComponent
     this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
       this.tabledisplayedColumnsSource,
       this.tabledisplayedColumnsMobileSource,
-      [],
+      ["position"],
       this.tokenInfo,
     );
     this.tableRowsSelected = [];
