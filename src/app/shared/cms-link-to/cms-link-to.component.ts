@@ -117,8 +117,8 @@ export class CmsLinkToComponent implements OnInit, OnDestroy {
     if (model && model.id?.length > 0) {
       this.dataModel.linkApiPathId = model.id;
       this.sendByShow = false;
-      if (model.apiAbilitySendByDirect) this.dataModel.sendByQueue = false;
-      if (model.apiAbilitySendByQueue) this.dataModel.sendByQueue = true;
+      if (model.apiAbilitySendByDirect) this.dataModel.optionSendByQueue = false;
+      if (model.apiAbilitySendByQueue) this.dataModel.optionSendByQueue = true;
       if (model.apiAbilitySendByQueue && model.apiAbilitySendByDirect)
         this.sendByShow = true;
     }

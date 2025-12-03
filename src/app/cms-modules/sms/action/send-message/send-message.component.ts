@@ -9,8 +9,6 @@ import { FormGroup } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import { DateTime } from "luxon";
-import { NgxMaterialTimepickerComponent } from "ngx-material-timepicker";
 import { CronOptionModel, TranslateUiService } from "ngx-ntk-cron-editor";
 import {
   ContactContentModel,
@@ -336,13 +334,13 @@ export class SmsActionSendMessageComponent implements OnInit {
         model.apiAbilitySendByQueue == true &&
         model.apiAbilitySendByDirect == true
       ) {
-        this.dataModel.sendByQueue = true;
+        this.dataModel.optionSendByQueue = true;
         this.dataModel["sendByQueueDisabled"] = false;
       } else if (model.apiAbilitySendByQueue == true) {
-        this.dataModel.sendByQueue = true;
+        this.dataModel.optionSendByQueue = true;
         this.dataModel["sendByQueueDisabled"] = true;
       } else if (model.apiAbilitySendByDirect == true) {
-        this.dataModel.sendByQueue = false;
+        this.dataModel.optionSendByQueue = false;
         this.dataModel["sendByQueueDisabled"] = true;
       }
       const messageAddTextFirst = this.formInfo.validationList.find(
@@ -483,6 +481,14 @@ export class SmsActionSendMessageComponent implements OnInit {
     }
     this.cdr.detectChanges();
   }
+  onActionFlaseChange(event: any) {
+    if(event.checked) {
+      this.dataModel.optionTypes = "Flash";
+    } else {
+      this.dataModel.optionTypes = "";
+    }
+
+  }
   onActionValidationStatusCheckProcessesChange() {
     var model = this.formInfo.validationList.find(
       (x) => x.key === "checkProcesses",
@@ -493,7 +499,7 @@ export class SmsActionSendMessageComponent implements OnInit {
         1,
       );
     }
-    if (this.dataModel.checkProcesses) {
+    if (this.dataModel.optionCheckProcesses) {
       this.formInfo.validationList.push({
         key: "checkProcesses",
         title: "ارسال در حال شبیه سازی  می باشد",

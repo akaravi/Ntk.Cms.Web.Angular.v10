@@ -510,11 +510,40 @@
                   </mat-panel-description>
                 </mat-expansion-panel-header>
 
-                <!-- checkProcesses Field -->
+                <!-- optionDuplicateRemovalToNumbers Field -->
+                                 <div class="d-flex mb-3">
+                  <div class="pt-1">
+                    <h5
+                      data-trigger-switch="dataModel.optionDuplicateRemovalToNumbers"
+                      class="font-600 font-14"
+                    >
+                      {{ "TITLE.Duplicate_removal_to_numbers" | translate }}
+                    </h5>
+                  </div>
+                  <div class="ms-auto me-3 pe-2">
+                    <div class="custom-control ios-switch small-switch">
+                      <input
+                        type="checkbox"
+                        class="ios-input"
+                        id="dataModel.optionDuplicateRemovalToNumbers"
+                        [(ngModel)]="dataModel.optionDuplicateRemovalToNumbers"
+
+                        name="dataModel.optionDuplicateRemovalToNumbers"
+                      />
+                      <label
+                        class="custom-control-label"
+                        for="dataModel.optionDuplicateRemovalToNumbers"
+                      ></label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- optionCheckProcesses Field -->
+                 @if(this.tokenHelper.isAdminSite || this.tokenHelper.isSupportSite) {
                 <div class="d-flex mb-3">
                   <div class="pt-1">
                     <h5
-                      data-trigger-switch="dataModel.checkProcesses"
+                      data-trigger-switch="dataModel.optionCheckProcesses"
                       class="font-600 font-14"
                     >
                       {{ "TITLE.Send_as_checkProcesses" | translate }}
@@ -525,20 +554,21 @@
                       <input
                         type="checkbox"
                         class="ios-input"
-                        id="dataModel.checkProcesses"
-                        [(ngModel)]="dataModel.checkProcesses"
+                        id="dataModel.optionCheckProcesses"
+                        [(ngModel)]="dataModel.optionCheckProcesses"
                         (ngModelChange)="
                           onActionValidationStatusCheckProcessesChange()
                         "
-                        name="dataModel.checkProcesses"
+                        name="dataModel.optionCheckProcesses"
                       />
                       <label
                         class="custom-control-label"
-                        for="dataModel.checkProcesses"
+                        for="dataModel.optionCheckProcesses"
                       ></label>
                     </div>
                   </div>
                 </div>
+              }
                 <!-- IsFlash Field -->
                 <div class="d-flex mb-3">
                   <div class="pt-1">
@@ -555,7 +585,7 @@
                         type="checkbox"
                         class="ios-input"
                         id="dataModel.isFlash"
-                        [(ngModel)]="dataModel.isFlash"
+                          (ngModelChange)="                          onActionFlaseChange($event)                      "
                         name="dataModel.isFlash"
                       />
                       <label
@@ -565,11 +595,11 @@
                     </div>
                   </div>
                 </div>
-                <!-- SendByQueue Field -->
+                <!-- optionSendByQueue Field -->
                 <div class="d-flex mb-3">
                   <div class="pt-1">
                     <h5
-                      data-trigger-switch="dataModel.sendByQueue"
+                      data-trigger-switch="dataModel.optionSendByQueue"
                       class="font-600 font-14"
                     >
                       {{ "TITLE.Send_in_queue" | translate }}
@@ -580,14 +610,14 @@
                       <input
                         type="checkbox"
                         class="ios-input"
-                        id="dataModel.sendByQueue"
+                        id="dataModel.optionSendByQueue"
                         [disabled]="dataModel['sendByQueueDisabled']"
-                        [(ngModel)]="dataModel.sendByQueue"
-                        name="dataModel.sendByQueue"
+                        [(ngModel)]="dataModel.optionSendByQueue"
+                        name="dataModel.optionSendByQueue"
                       />
                       <label
                         class="custom-control-label"
-                        for="dataModel.sendByQueue"
+                        for="dataModel.optionSendByQueue"
                       ></label>
                     </div>
                   </div>
