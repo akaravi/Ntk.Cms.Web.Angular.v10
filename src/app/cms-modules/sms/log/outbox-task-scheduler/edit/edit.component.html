@@ -36,7 +36,7 @@
           [(ngModel)]="dataModel.scheduleSendStart"
           name="dataModel.scheduleSendStart"
           placeholder="{{ fieldsInfo['scheduleSendStart']?.fieldTitle }}"
-          disabled="{{ !fieldsInfo['scheduleSendStart']?.accessEditField }}"
+          [readonly]="!fieldsInfo['scheduleSendStart']?.accessEditField"
           class="form-control validate-name"
           id="dataModel.scheduleSendStart"
         />
@@ -61,7 +61,7 @@
           name="dataModel.toNumbers"
           #ToNumbers
           placeholder="123"
-          disabled="{{ !fieldsInfo['toNumbers']?.accessEditField }}"
+          [readonly]="!fieldsInfo['toNumbers']?.accessEditField"
           class="form-control validate-name"
           id="dataModel.toNumbers"
         />
@@ -82,7 +82,7 @@
           #Message
           name="dataModel.message"
           placeholder="123"
-          disabled="{{ !fieldsInfo['message']?.accessEditField }}"
+          [readonly]="!fieldsInfo['message']?.accessEditField"
           class="form-control validate-name"
           id="dataModel.message"
         />
