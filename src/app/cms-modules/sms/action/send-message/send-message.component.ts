@@ -482,12 +482,11 @@ export class SmsActionSendMessageComponent implements OnInit {
     this.cdr.detectChanges();
   }
   onActionFlaseChange(event: any) {
-    if(event.checked) {
+    if (event.checked) {
       this.dataModel.optionTypes = "Flash";
     } else {
       this.dataModel.optionTypes = "";
     }
-
   }
   onActionValidationStatusCheckProcessesChange() {
     var model = this.formInfo.validationList.find(
@@ -659,7 +658,7 @@ export class SmsActionSendMessageComponent implements OnInit {
       });
 
     this.formInfo.submitResultMessage = "";
-
+    this.dataModel.clientDateTime = new Date();
     this.smsActionService.ServiceSendMessage(this.dataModel).subscribe({
       next: (ret) => {
         this.formInfo.submitButtonEnabled = true;
