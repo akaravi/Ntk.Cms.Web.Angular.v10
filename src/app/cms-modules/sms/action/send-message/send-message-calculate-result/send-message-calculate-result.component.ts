@@ -1,10 +1,11 @@
 import { Component, Inject } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import {
-  SmsApiSendOrderCalculateResultModel,
-  NumberReceverInfoModel,
   ErrorExceptionResult,
+  NumberReceverInfoModel,
+  SmsApiSendOrderCalculateResultModel,
 } from "ntk-cms-api";
+import { FormInfoModel } from "src/app/core/models/formInfoModel";
 
 @Component({
   selector: "app-sms-action-send-message-calculate-result",
@@ -15,13 +16,15 @@ import {
 export class SmsActionSendMessageCalculateResultComponent {
   constructor(
     private dialogRef: MatDialogRef<SmsActionSendMessageCalculateResultComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ErrorExceptionResult<SmsApiSendOrderCalculateResultModel>,
+    @Inject(MAT_DIALOG_DATA)
+    public data: {result: ErrorExceptionResult<SmsApiSendOrderCalculateResultModel>, formInfo: FormInfoModel},
+
   ) {}
 
   get receivers(): NumberReceverInfoModel[] {
-    return this.data?.item?.toNumbers ?? [];
+    return this.data?.result?.item?.toNumbers ?? [];
   }
-
+  formInfo: FormInfoModel = new FormInfoModel();
   onClose(): void {
     this.dialogRef.close();
   }

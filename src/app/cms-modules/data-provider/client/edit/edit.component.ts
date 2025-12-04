@@ -10,8 +10,7 @@ import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  CoreEnumService,
+import {CoreEnumService,
   DataProviderClientModel,
   DataProviderClientService,
   DataProviderPlanClientModel,
@@ -19,11 +18,7 @@ import {
   DataProviderPlanModel,
   ErrorExceptionResultBase,
   FilterDataModel,
-  FilterModel,
-  FormInfoModel,
-  FormSubmitedStatusEnum,
-  ManageUserAccessDataTypesEnum,
-} from "ntk-cms-api";
+  FilterModel,ManageUserAccessDataTypesEnum} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { Subscription } from "rxjs";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
@@ -32,6 +27,9 @@ import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-data-provider-client-edit",

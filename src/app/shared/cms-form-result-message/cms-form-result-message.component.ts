@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { FormInfoModel, ValidationStatusEnum } from "ntk-cms-api";
+
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
+
+import { FormInfoModel } from "../../core/models/formInfoModel";
+import { FormValidationStatusEnum } from "src/app/core/models/formValidationStatusEnum";
 
 @Component({
   selector: "app-cms-form-result-message",
@@ -12,6 +15,6 @@ export class CmsFormResultMessageComponent implements OnInit {
   id = ++CmsFormResultMessageComponent.nextId;
   constructor(public publicHelper: PublicHelper) {}
   @Input() formInfo: FormInfoModel = new FormInfoModel();
-  ValidationStatusEnum = ValidationStatusEnum;
+  ValidationStatusEnum = FormValidationStatusEnum;
   ngOnInit(): void {}
 }

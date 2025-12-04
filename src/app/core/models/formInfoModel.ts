@@ -1,3 +1,4 @@
+import { ErrorExceptionResultBase } from "ntk-cms-api";
 import { FormSubmitedStatusEnum } from "./formSubmitedStatusEnum";
 import { FormValidationStatusEnum } from "./formValidationStatusEnum";
 
@@ -7,6 +8,8 @@ export class FormInfoModel {
   submitButtonEnabled = true;
   submitResultMessage = "";
   submitResultMessageType: FormSubmitedStatusEnum = FormSubmitedStatusEnum.none;
+  submitResultErrors: string[];
+  submitResultWarnings: string[];
   get submitResult(): string {
     if (this.submitResultMessageType === FormSubmitedStatusEnum.Success) {
       return "success";
@@ -20,7 +23,19 @@ export class FormInfoModel {
       return "none";
     }
   }
+
   validationList: ValidationModel[] = [];
+  set setErrorExceptionResult(model: ErrorExceptionResultBase) {
+    if (model.isSuccess) {
+      this.submitResultMessage = model.errorMessage;
+      this.submitResultMessageType = FormSubmitedStatusEnum.Success;
+    } else {
+      this.submitResultMessage = model.errorMessage;
+      this.submitResultMessageType = FormSubmitedStatusEnum.Error;
+    }
+    this.submitResultErrors = model.errors;
+    this.submitResultWarnings = model.warnings;
+  }
 }
 
 export class ValidationModel {

@@ -8,19 +8,17 @@ import {
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  CoreEnumService,
-  ErrorExceptionResultBase,
-  FormInfoModel,
-  FormSubmitedStatusEnum,
-  ManageUserAccessDataTypesEnum,
+import {CoreEnumService,
+  ErrorExceptionResultBase,ManageUserAccessDataTypesEnum,
   PollingVoteModel,
-  PollingVoteService,
-} from "ntk-cms-api";
+  PollingVoteService} from "ntk-cms-api";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { ComponentActionEnum } from "src/app/core/models/component-action-enum";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-polling-vote-edit",

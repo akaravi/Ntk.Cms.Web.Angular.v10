@@ -13,6 +13,13 @@
         <i class="fa fa-exclamation-circle me-2"></i>
         <strong>{{ "MESSAGE.Error" | translate }}:</strong>
         {{ formInfo.submitResultMessage }}
+        @if (formInfo?.submitResultErrors?.length > 0) {
+          <ul class="mt-2 mb-0">
+            @for (error of formInfo.submitResultErrors; track $index) {
+              <li>{{ error }}</li>
+            }
+          </ul>
+        }
       </div>
     }
     @case ("warning") {
@@ -20,6 +27,13 @@
         <i class="fa fa-exclamation-triangle me-2"></i>
         <strong>{{ "MESSAGE.Warning" | translate }}:</strong>
         {{ formInfo.submitResultMessage }}
+        @if (formInfo?.submitResultWarnings?.length > 0) {
+          <ul class="mt-2 mb-0">
+            @for (warning of formInfo.submitResultWarnings; track $index) {
+              <li>{{ warning }}</li>
+            }
+          </ul>
+        }
       </div>
     }
     @default {
@@ -30,5 +44,34 @@
       </div>
     }
   }
+}
+
+<!-- نمایش Errors جداگانه -->
+@if (
+  formInfo?.submitResultErrors?.length > 0 &&
+  formInfo?.submitResultMessage?.length === 0
+) {
+  <div class="alert alert-danger" role="alert">
+    <i class="fa fa-exclamation-circle me-2"></i>
+    <strong>{{ "MESSAGE.Error" | translate }}:</strong>
+    <ul class="mt-2 mb-0">
+      @for (error of formInfo.submitResultErrors; track $index) {
+        <li>{{ error }}</li>
+      }
+    </ul>
+  </div>
+}
+
+<!-- نمایش Warnings جداگانه -->
+@if (formInfo?.submitResultWarnings?.length > 0) {
+  <div class="alert alert-warning" role="alert">
+    <i class="fa fa-exclamation-triangle me-2"></i>
+    <strong>{{ "MESSAGE.Warning" | translate }}:</strong>
+    <ul class="mt-2 mb-0">
+      @for (warning of formInfo.submitResultWarnings; track $index) {
+        <li>{{ warning }}</li>
+      }
+    </ul>
+  </div>
 }
 <!--end:::::::::::::::::::::::::::::::::::::::::cms-form-result-message -->

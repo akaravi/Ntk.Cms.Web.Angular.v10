@@ -16,7 +16,6 @@ import {
   CoreModuleSiteUserCreditModel,
   CoreModuleSiteUserCreditService,
   ErrorExceptionResult,
-  FormInfoModel,
   ManageUserAccessDataTypesEnum,
   MessagePlaceholderModel,
   SmsActionService,
@@ -31,7 +30,6 @@ import {
   SmsMainMessageCategoryModel,
   SmsMainMessageContentModel,
   TokenInfoModelV3,
-  ValidationStatusEnum,
 } from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
@@ -39,6 +37,8 @@ import { SmsMessagePaginationModel } from "src/app/core/models/smsMessagePaginat
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { environment } from "src/environments/environment";
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
+import { FormValidationStatusEnum } from "../../../../core/models/formValidationStatusEnum";
 import { SmsActionSendMessageCalculateResultComponent } from "./send-message-calculate-result/send-message-calculate-result.component";
 import { SmsActionSendMessageResultComponent } from "./send-message-result/send-message-result.component";
 export class DateByClock {
@@ -110,14 +110,14 @@ export class SmsActionSendMessageComponent implements OnInit {
     this.formInfo.validationList.push({
       key: "checkCredit",
       title: "اعتبار بررسی شود",
-      status: ValidationStatusEnum.Warning,
+      status: FormValidationStatusEnum.Warning,
       description: "",
       linkSrc: "",
     });
     this.formInfo.validationList.push({
       key: "message",
       title: "متن پیام وارد شود",
-      status: ValidationStatusEnum.Warning,
+      status: FormValidationStatusEnum.Warning,
       description: "",
       linkSrc: "",
     });
@@ -125,21 +125,21 @@ export class SmsActionSendMessageComponent implements OnInit {
     this.formInfo.validationList.push({
       key: "linkApiPathId",
       title: "مسیر ارسال انتخاب شود",
-      status: ValidationStatusEnum.Warning,
+      status: FormValidationStatusEnum.Warning,
       description: "",
       linkSrc: "",
     });
     this.formInfo.validationList.push({
       key: "linkFromNumber",
       title: "شماره فرستنده انتخاب شود",
-      status: ValidationStatusEnum.Error,
+      status: FormValidationStatusEnum.Error,
       description: "",
       linkSrc: "",
     });
     this.formInfo.validationList.push({
       key: "toNumbers",
       title: "شماره گیرنده انتخاب شود",
-      status: ValidationStatusEnum.Error,
+      status: FormValidationStatusEnum.Error,
       description: "",
       linkSrc: "",
     });
@@ -365,7 +365,7 @@ export class SmsActionSendMessageComponent implements OnInit {
         this.formInfo.validationList.push({
           key: "sendMessageAddTextFirst",
           title: "در ابتدای پیام اضافه شده",
-          status: ValidationStatusEnum.info,
+          status: FormValidationStatusEnum.info,
           description: model.sendMessageAddTextFirst,
           linkSrc: "",
         });
@@ -374,7 +374,7 @@ export class SmsActionSendMessageComponent implements OnInit {
         this.formInfo.validationList.push({
           key: "sendMessageAddTextEnd",
           title: "در انتهای پیام اضافه شده",
-          status: ValidationStatusEnum.info,
+          status: FormValidationStatusEnum.info,
           description: model.sendMessageAddTextEnd,
           linkSrc: "",
         });
@@ -389,14 +389,14 @@ export class SmsActionSendMessageComponent implements OnInit {
     if (this.dataModel.linkApiPathId?.length > 0) {
       this.formInfo.validationList.find(
         (x) => x.key === "linkApiPathId",
-      ).status = ValidationStatusEnum.Success;
+      ).status = FormValidationStatusEnum.Success;
       this.formInfo.validationList.find(
         (x) => x.key === "linkApiPathId",
       ).description = model.title;
     } else {
       this.formInfo.validationList.find(
         (x) => x.key === "linkApiPathId",
-      ).status = ValidationStatusEnum.Error;
+      ).status = FormValidationStatusEnum.Error;
       this.formInfo.validationList.find(
         (x) => x.key === "linkApiPathId",
       ).description = "";
@@ -426,7 +426,7 @@ export class SmsActionSendMessageComponent implements OnInit {
     this.dataModelMessagePagination.message = this.dataModel.message;
     if (this.dataModelMessagePagination.messageLength > 0) {
       this.formInfo.validationList.find((x) => x.key === "message").status =
-        ValidationStatusEnum.Success;
+        FormValidationStatusEnum.Success;
       this.formInfo.validationList.find(
         (x) => x.key === "message",
       ).description =
@@ -443,7 +443,7 @@ export class SmsActionSendMessageComponent implements OnInit {
         (x) => x.key === "message",
       ).description = "";
       this.formInfo.validationList.find((x) => x.key === "message").status =
-        ValidationStatusEnum.Error;
+        FormValidationStatusEnum.Error;
     }
     this.cdr.detectChanges();
   }
@@ -453,13 +453,13 @@ export class SmsActionSendMessageComponent implements OnInit {
       this.dataModel.toContactContents?.length > 0
     ) {
       this.formInfo.validationList.find((x) => x.key === "toNumbers").status =
-        ValidationStatusEnum.Success;
+        FormValidationStatusEnum.Success;
     } else if (this.dataModel.toNumbers?.length > 0) {
       this.formInfo.validationList.find((x) => x.key === "toNumbers").status =
-        ValidationStatusEnum.Success;
+        FormValidationStatusEnum.Success;
     } else {
       this.formInfo.validationList.find((x) => x.key === "toNumbers").status =
-        ValidationStatusEnum.Error;
+        FormValidationStatusEnum.Error;
     }
     this.cdr.detectChanges();
   }
@@ -467,14 +467,14 @@ export class SmsActionSendMessageComponent implements OnInit {
     if (this.dataModel.linkFromNumber?.length > 0) {
       this.formInfo.validationList.find(
         (x) => x.key === "linkFromNumber",
-      ).status = ValidationStatusEnum.Success;
+      ).status = FormValidationStatusEnum.Success;
       this.formInfo.validationList.find(
         (x) => x.key === "linkFromNumber",
       ).description = model.numberChar;
     } else {
       this.formInfo.validationList.find(
         (x) => x.key === "linkFromNumber",
-      ).status = ValidationStatusEnum.Error;
+      ).status = FormValidationStatusEnum.Error;
       this.formInfo.validationList.find(
         (x) => x.key === "linkFromNumber",
       ).description = "";
@@ -502,7 +502,7 @@ export class SmsActionSendMessageComponent implements OnInit {
       this.formInfo.validationList.push({
         key: "checkProcesses",
         title: "ارسال در حال شبیه سازی  می باشد",
-        status: ValidationStatusEnum.info,
+        status: FormValidationStatusEnum.info,
         description: "ارسال در حال شبیه سازی  می باشد",
         linkSrc: "",
       });
@@ -510,7 +510,7 @@ export class SmsActionSendMessageComponent implements OnInit {
       this.formInfo.validationList.push({
         key: "checkProcesses",
         title: "ارسال در حالت معمول می باشد",
-        status: ValidationStatusEnum.Success,
+        status: FormValidationStatusEnum.Success,
         description: "ارسال در حالت معمول می باشد",
         linkSrc: "",
       });
@@ -528,7 +528,7 @@ export class SmsActionSendMessageComponent implements OnInit {
         (x) => x.key === "checkCredit",
       ).description = this.dataModelCreditResult.item.credit + "";
       this.formInfo.validationList.find((x) => x.key === "checkCredit").status =
-        ValidationStatusEnum.info;
+        FormValidationStatusEnum.info;
     } else {
       this.formInfo.validationList.find((x) => x.key === "checkCredit").title =
         "اعتبار بررسی شود";
@@ -539,7 +539,7 @@ export class SmsActionSendMessageComponent implements OnInit {
         (x) => x.key === "checkCredit",
       ).linkSrc = "/coremodule/site-user-credit";
       this.formInfo.validationList.find((x) => x.key === "checkCredit").status =
-        ValidationStatusEnum.Error;
+        FormValidationStatusEnum.Error;
     }
     this.cdr.detectChanges();
   }
@@ -558,7 +558,7 @@ export class SmsActionSendMessageComponent implements OnInit {
       this.formInfo.validationList.push({
         key: "scheduleCron",
         title: "زمانبندی ارسال فعال است",
-        status: ValidationStatusEnum.info,
+        status: FormValidationStatusEnum.info,
         description: "زمانبندی ارسال فعال است",
 
         linkSrc: "",
@@ -567,7 +567,7 @@ export class SmsActionSendMessageComponent implements OnInit {
       this.formInfo.validationList.push({
         key: "scheduleCron",
         title: "زمانبندی ارسال غیر فعال است",
-        status: ValidationStatusEnum.Success,
+        status: FormValidationStatusEnum.Success,
         description: "زمانبندی ارسال غیر فعال است",
         linkSrc: "",
       });
@@ -668,27 +668,48 @@ export class SmsActionSendMessageComponent implements OnInit {
             .get("MESSAGE.Submit_request_was_successfully_registered")
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
             });
           this.formInfo.submitResultMessageType =
             FormSubmitedStatusEnum.Success;
@@ -760,19 +781,15 @@ export class SmsActionSendMessageComponent implements OnInit {
         next: (ret) => {
           this.formInfo.submitButtonEnabled = true;
           this.dataModelOrderCalculateResult = ret;
+          this.formInfo.setErrorExceptionResult = ret;
           if (ret.isSuccess) {
-            this.translate
-              .get("MESSAGE.Submit_request_was_successfully_registered")
-              .subscribe((str: string) => {
-                this.formInfo.submitResultMessage = str;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-              });
             this.formInfo.submitResultMessageType =
               FormSubmitedStatusEnum.Success;
             this.translate
               .get("MESSAGE.Send_request_was_successfully_registered")
               .subscribe((str: string) => {
-                this.cmsToastrService.typeSuccessMessage(str);
+                debugger;
+                this.cmsToastrService.typeSuccessMessage(ret.errorMessage, str);
               });
 
             this.openCalculateResultDialog(ret);
@@ -978,7 +995,7 @@ export class SmsActionSendMessageComponent implements OnInit {
   hasValidationStatusError(): boolean {
     return (
       this.formInfo.validationList.find(
-        (x) => x.status === ValidationStatusEnum.Error,
+        (x) => x.status === FormValidationStatusEnum.Error,
       ) !== undefined
     );
   }
@@ -992,7 +1009,7 @@ export class SmsActionSendMessageComponent implements OnInit {
 
     this.dialog.open(SmsActionSendMessageResultComponent, {
       panelClass: "sms-send-result-dialog",
-      data: result,
+      data: {result: result, formInfo: this.formInfo},
       width: "960px",
       disableClose: false,
     });
@@ -1007,7 +1024,7 @@ export class SmsActionSendMessageComponent implements OnInit {
 
     this.dialog.open(SmsActionSendMessageCalculateResultComponent, {
       panelClass: "sms-send-calculate-result-dialog",
-      data: result,
+      data: {result: result, formInfo: this.formInfo},
       width: "960px",
       disableClose: false,
     });

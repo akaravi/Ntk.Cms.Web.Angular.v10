@@ -1,3 +1,4 @@
+import { FormInfoModel } from "../../core/models/formInfoModel";
 import {
   AfterViewInit,
   Component,
@@ -12,14 +13,11 @@ import { MatTableDataSource } from "@angular/material/table";
 import { TranslateService } from "@ngx-translate/core";
 import "ngx-ntk-pannellum/src/js/libpannellum";
 import "ngx-ntk-pannellum/src/js/pannellum";
-import {
-  File360TourDefaultModel,
+import {File360TourDefaultModel,
   File360TourHotSpotModel,
   File360TourModel,
   File360TourScenesModel,
-  File360ViewModel,
-  FormInfoModel,
-} from "ntk-cms-api";
+  File360ViewModel} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";

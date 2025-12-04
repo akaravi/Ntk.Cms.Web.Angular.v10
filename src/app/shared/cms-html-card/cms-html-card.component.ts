@@ -1,6 +1,5 @@
+import { FormInfoModel } from "../../core/models/formInfoModel";
 import { Component, Input, OnInit } from "@angular/core";
-import { FormInfoModel } from "ntk-cms-api";
-
 @Component({
   selector: "app-cms-html-card",
   templateUrl: "./cms-html-card.component.html",

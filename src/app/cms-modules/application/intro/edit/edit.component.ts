@@ -1,19 +1,16 @@
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
 import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  AccessModel,
+import {AccessModel,
   ApplicationEnumService,
   ApplicationIntroModel,
   ApplicationIntroService,
   ApplicationSourceModel,
   CoreEnumService,
-  ErrorExceptionResultBase,
-  FormInfoModel,
-  ManageUserAccessDataTypesEnum,
-} from "ntk-cms-api";
+  ErrorExceptionResultBase,ManageUserAccessDataTypesEnum} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";

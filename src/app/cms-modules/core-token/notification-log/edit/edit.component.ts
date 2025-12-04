@@ -9,22 +9,20 @@ import {
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  CoreEnumService,
+import {CoreEnumService,
   CoreLogTokenConnectionModel,
   CoreLogTokenConnectionService,
-  ErrorExceptionResult,
-  FormInfoModel,
-  FormSubmitedStatusEnum,
-  InfoEnumModel,
-  ManageUserAccessDataTypesEnum,
-} from "ntk-cms-api";
+  ErrorExceptionResult,InfoEnumModel,
+  ManageUserAccessDataTypesEnum} from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-coretoken-notificationlog-edit",

@@ -1,3 +1,4 @@
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
 import { ENTER } from "@angular/cdk/keycodes";
 import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
@@ -9,8 +10,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import * as Leaflet from "leaflet";
 import { Map as leafletMap } from "leaflet";
-import {
-  AccessModel,
+import {AccessModel,
   BiographyCategoryModel,
   BiographyContentModel,
   BiographyContentOtherInfoModel,
@@ -23,9 +23,7 @@ import {
   CoreEnumService,
   CoreLocationModel,
   DataFieldInfoModel,
-  ErrorExceptionResult,
-  FormInfoModel,
-} from "ntk-cms-api";
+  ErrorExceptionResult} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { firstValueFrom, of } from "rxjs";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";

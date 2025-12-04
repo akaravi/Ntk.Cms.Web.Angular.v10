@@ -7,17 +7,16 @@ import {
 } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  CoreModuleModel,
+import {CoreModuleModel,
   CoreModuleService,
   CoreModuleSiteCreditCalculateDtoModel,
   CoreModuleSiteCreditPaymentDtoModel,
   CoreSiteService,
   ErrorExceptionResult,
-  FilterModel,
-  FormInfoModel,
-} from "ntk-cms-api";
+  FilterModel} from "ntk-cms-api";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 import { CoreModuleSiteCreditChargeOnlineCalculateComponent } from "../charge-online-calculate/charge-online-calculate.component";
 

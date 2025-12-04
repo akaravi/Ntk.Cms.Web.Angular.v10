@@ -9,17 +9,13 @@ import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import * as Leaflet from "leaflet";
 import { Map as leafletMap } from "leaflet";
-import {
-  CoreEnumService,
+import {CoreEnumService,
   CoreLocationModel,
   DataFieldInfoModel,
   ErrorExceptionResult,
   EstatePropertyCompanyModel,
   EstatePropertyProjectModel,
-  EstatePropertyProjectService,
-  FormInfoModel,
-  TokenInfoModelV3,
-} from "ntk-cms-api";
+  EstatePropertyProjectService,TokenInfoModelV3} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -27,6 +23,8 @@ import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { PoinModel } from "src/app/core/models/pointModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-estate-property-project-add",

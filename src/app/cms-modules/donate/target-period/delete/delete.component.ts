@@ -8,17 +8,15 @@ import {
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  DataFieldInfoModel,
+import {DataFieldInfoModel,
   DonateTargetPeriodModel,
   DonateTargetPeriodService,
-  ErrorExceptionResult,
-  FormInfoModel,
-  FormSubmitedStatusEnum,
-  ManageUserAccessDataTypesEnum,
-} from "ntk-cms-api";
+  ErrorExceptionResult,ManageUserAccessDataTypesEnum} from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-donate-target-period-delete",

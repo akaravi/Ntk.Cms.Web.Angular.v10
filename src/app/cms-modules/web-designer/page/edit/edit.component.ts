@@ -1,3 +1,5 @@
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
 import { ENTER } from "@angular/cdk/keycodes";
 import {
   ChangeDetectorRef,
@@ -10,19 +12,14 @@ import { FormGroup } from "@angular/forms";
 import { MatChipInputEvent } from "@angular/material/chips";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  CoreSiteCategoryModel,
-  ErrorExceptionResult,
-  FormInfoModel,
-  FormSubmitedStatusEnum,
-  InfoEnumModel,
+import {CoreSiteCategoryModel,
+  ErrorExceptionResult,InfoEnumModel,
   ManageUserAccessDataTypesEnum,
   WebDesignerEnumService,
   WebDesignerMainPageDependencyModel,
   WebDesignerMainPageModel,
   WebDesignerMainPageService,
-  WebDesignerMainPageTemplateModel,
-} from "ntk-cms-api";
+  WebDesignerMainPageTemplateModel} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";

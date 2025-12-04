@@ -7,67 +7,46 @@
       {{ "ACTION.CLOSE" | translate }}
     </button>
   </div>
+<app-cms-form-result-message
+      [formInfo]="data.formInfo"
+    ></app-cms-form-result-message>
 
-  <!-- نمایش خطاها -->
-  <div
-    class="error-panel"
-    *ngIf="data.errorMessage || (data.errors && data.errors.length > 0)"
-  >
-    <div class="alert alert-danger" role="alert">
-      <strong>{{ "MESSAGE.Error" | translate }}:</strong>
-      <div *ngIf="data.errorMessage">{{ data.errorMessage }}</div>
-      <ul *ngIf="data.errors && data.errors.length > 0">
-        <li *ngFor="let error of data.errors">{{ error }}</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- نمایش هشدارها -->
-  <div class="warning-panel" *ngIf="data.warnings && data.warnings.length > 0">
-    <div class="alert alert-warning" role="alert">
-      <strong>{{ "MESSAGE.Warning" | translate }}:</strong>
-      <ul>
-        <li *ngFor="let warning of data.warnings">{{ warning }}</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="meta-grid" *ngIf="data.item">
+  <div class="meta-grid" *ngIf="data.result?.item">
     <div class="meta-card">
       <span>{{ "TITLE.Send_Id" | translate }}</span>
-      <strong>{{ data.item.sendId || "---" }}</strong>
+      <strong>{{ data.result?.item?.sendId || "---" }}</strong>
     </div>
     <div class="meta-card">
       <span>{{ "TITLE.LogOut_Id" | translate }}</span>
-      <strong>{{ data.item.logOutId || "---" }}</strong>
+      <strong>{{ data.result?.item?.logOutId || "---" }}</strong>
     </div>
     <div class="meta-card">
       <span>{{ "TITLE.Selected_Api_Number" | translate }}</span>
-      <strong>{{ data.item.linkApiNumberId || "---" }}</strong>
+      <strong>{{ data.result?.item?.linkApiNumberId || "---" }}</strong>
     </div>
     <div class="meta-card">
       <span>{{ "TITLE.Selected_Route" | translate }}</span>
-      <strong>{{ data.item.linkApiPathId || "---" }}</strong>
+      <strong>{{ data.result?.item?.linkApiPathId || "---" }}</strong>
     </div>
     <div class="meta-card">
       <span>{{ "TITLE.Sender_Number" | translate }}</span>
-      <strong>{{ data.item.fromNumber || "---" }}</strong>
+      <strong>{{ data.result?.item?.fromNumber || "---" }}</strong>
     </div>
     <div class="meta-card">
       <span>{{ "TITLE.Receiver_number" | translate }}</span>
-      <strong>{{ data.item.receiverNumberCount || 0 }}</strong>
+      <strong>{{ data.result?.item?.receiverNumberCount || 0 }}</strong>
     </div>
     <div class="meta-card">
       <span>{{ "TITLE.End_User_Credit_Before" | translate }}</span>
-      <strong>{{ data.item.endUserCreditBefore || 0 }}</strong>
+      <strong>{{ data.result?.item?.endUserCreditBefore || 0 }}</strong>
     </div>
     <div class="meta-card">
       <span>{{ "TITLE.End_User_Credit_Sum" | translate }}</span>
-      <strong>{{ data.item.endUserCreditSum || 0 }}</strong>
+      <strong>{{ data.result?.item?.endUserCreditSum || 0 }}</strong>
     </div>
     <div class="meta-card">
       <span>{{ "TITLE.Service_Credit_Sum" | translate }}</span>
-      <strong>{{ data.item.serviceCreditSum || 0 }}</strong>
+      <strong>{{ data.result?.item?.serviceCreditSum || 0 }}</strong>
     </div>
   </div>
 

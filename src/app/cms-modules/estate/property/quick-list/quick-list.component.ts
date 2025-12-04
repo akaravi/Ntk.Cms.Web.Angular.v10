@@ -15,21 +15,17 @@ import { PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  ClauseTypeEnum,
+import {ClauseTypeEnum,
   DataFieldInfoModel,
   EstatePropertyModel,
   EstatePropertyService,
   EstatePropertyTypeLanduseModel,
   FilterDataModel,
   FilterDataModelSearchTypesEnum,
-  FilterModel,
-  FormInfoModel,
-  ManageUserAccessDataTypesEnum,
+  FilterModel,ManageUserAccessDataTypesEnum,
   RecordStatusEnum,
   SortTypeEnum,
-  TokenInfoModelV3,
-} from "ntk-cms-api";
+  TokenInfoModelV3} from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ComponentOptionSearchModel } from "src/app/core/cmsComponent/base/componentOptionSearchModel";
 import { ComponentOptionStatistModel } from "src/app/core/cmsComponent/base/componentOptionStatistModel";
@@ -44,6 +40,8 @@ import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-di
 import { CmsLinkToComponent } from "src/app/shared/cms-link-to/cms-link-to.component";
 import { environment } from "src/environments/environment";
 import { EstatePropertyQuickViewComponent } from "../quick-view/quick-view.component";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-estate-property-quick-list",

@@ -14,16 +14,12 @@ import { PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  CoreUserModel,
+import {CoreUserModel,
   DataFieldInfoModel,
   EstateCustomerOrderService,
   FilterDataModel,
-  FilterModel,
-  FormInfoModel,
-  SortTypeEnum,
-  TokenInfoModelV3,
-} from "ntk-cms-api";
+  FilterModel,SortTypeEnum,
+  TokenInfoModelV3} from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ComponentOptionSearchModel } from "src/app/core/cmsComponent/base/componentOptionSearchModel";
 import { ComponentOptionStatistModel } from "src/app/core/cmsComponent/base/componentOptionStatistModel";
@@ -33,6 +29,8 @@ import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-estate-customer-order-responsible-user-list",

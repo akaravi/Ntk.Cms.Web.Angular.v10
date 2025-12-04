@@ -4,8 +4,7 @@ import { FormGroup } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  CoreCurrencyModel,
+import {CoreCurrencyModel,
   CoreEnumService,
   CoreUserModel,
   DataFieldInfoModel,
@@ -23,15 +22,11 @@ import {
   EstatePropertyTypeLanduseModel,
   EstatePropertyTypeUsageModel,
   FilterDataModel,
-  FilterModel,
-  FormInfoModel,
-  FormSubmitedStatusEnum,
-  InputDataTypeEnum,
+  FilterModel,InputDataTypeEnum,
   ManageUserAccessDataTypesEnum,
   ManageUserAccessUserTypesEnum,
   RecordStatusEnum,
-  SortTypeEnum,
-} from "ntk-cms-api";
+  SortTypeEnum} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -46,6 +41,9 @@ import { EstatePropertyHistoryAddComponent } from "../../property-history/add/ad
 import { EstatePropertyHistoryListComponent } from "../../property-history/list/list.component";
 import { EstatePropertyListComponent } from "../../property/list/list.component";
 import { EstateCustomerOrderActionComponent } from "../action/action.component";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-estate-customer-order-edit",

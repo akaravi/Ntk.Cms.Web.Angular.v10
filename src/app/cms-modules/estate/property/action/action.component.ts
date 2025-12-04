@@ -8,16 +8,15 @@ import {
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  DataFieldInfoModel,
+import {DataFieldInfoModel,
   EstatePropertyActionSendSmsDtoModel,
   EstatePropertyModel,
-  EstatePropertyService,
-  FormInfoModel,
-  FormSubmitedStatusEnum,
-} from "ntk-cms-api";
+  EstatePropertyService} from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-estate-property-action",

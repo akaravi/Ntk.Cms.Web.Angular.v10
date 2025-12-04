@@ -10,15 +10,13 @@ import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatStepper } from "@angular/material/stepper";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  CoreEnumService,
+import {CoreEnumService,
   CoreSiteService,
-  ErrorExceptionResult,
-  FormInfoModel,
-  ProcessModuleSiteDataInfoOutputModel,
-} from "ntk-cms-api";
+  ErrorExceptionResult,ProcessModuleSiteDataInfoOutputModel} from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-core-site-module-site-info",

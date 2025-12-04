@@ -1,3 +1,4 @@
+import { FormInfoModel } from "../../../core/models/formInfoModel";
 import {
   ChangeDetectorRef,
   Component,
@@ -8,12 +9,9 @@ import {
 } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  AuthUserSignInModel,
+import {AuthUserSignInModel,
   CaptchaModel,
-  CoreAuthV3Service,
-  FormInfoModel,
-} from "ntk-cms-api";
+  CoreAuthV3Service} from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";

@@ -2,21 +2,19 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  CoreCurrencyModel,
+import {CoreCurrencyModel,
   CoreEnumService,
   DataFieldInfoModel,
   EstateBillboardModel,
-  EstateBillboardService,
-  FormInfoModel,
-  FormSubmitedStatusEnum,
-  SortTypeEnum,
-} from "ntk-cms-api";
+  EstateBillboardService,SortTypeEnum} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { EstatePropertyListComponent } from "../../property/list/list.component";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-estate-billboard-add",

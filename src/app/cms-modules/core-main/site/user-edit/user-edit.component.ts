@@ -8,8 +8,7 @@ import {
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  AccessModel,
+import {AccessModel,
   CoreEnumService,
   CoreSiteModel,
   CoreSiteUserModel,
@@ -19,13 +18,13 @@ import {
   DataFieldInfoModel,
   ErrorExceptionResultBase,
   FilterDataModel,
-  FilterModel,
-  FormInfoModel,
-  FormSubmitedStatusEnum,
-} from "ntk-cms-api";
+  FilterModel} from "ntk-cms-api";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-core-site-user-edit",

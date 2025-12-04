@@ -1,3 +1,5 @@
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
 import {
   ChangeDetectorRef,
   Component,
@@ -8,18 +10,13 @@ import {
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  AccessModel,
+import {AccessModel,
   BankPaymentPrivateSiteConfigAliasJsonModel,
   BankPaymentPrivateSiteConfigModel,
   BankPaymentPrivateSiteConfigService,
   BankPaymentPublicConfigModel,
   CoreEnumService,
-  ErrorExceptionResultBase,
-  FormInfoModel,
-  FormSubmitedStatusEnum,
-  ManageUserAccessDataTypesEnum,
-} from "ntk-cms-api";
+  ErrorExceptionResultBase,ManageUserAccessDataTypesEnum} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";

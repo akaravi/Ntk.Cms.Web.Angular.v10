@@ -8,16 +8,14 @@ import {
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  DataFieldInfoModel,
+import {DataFieldInfoModel,
   DataProviderPlanClientModel,
   DataProviderPlanClientService,
-  ErrorExceptionResult,
-  FormInfoModel,
-  ManageUserAccessDataTypesEnum,
-} from "ntk-cms-api";
+  ErrorExceptionResult,ManageUserAccessDataTypesEnum} from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-data-provider-plan-client-delete",

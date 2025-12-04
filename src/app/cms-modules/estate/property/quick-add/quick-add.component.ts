@@ -12,8 +12,10 @@ import { MatStepper } from "@angular/material/stepper";
 import { MatTableDataSource } from "@angular/material/table";
 import { TranslateService } from "@ngx-translate/core";
 
-import {
-  CoreCurrencyModel,
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
+
+import {CoreCurrencyModel,
   CoreEnumService,
   CoreLocationModel,
   CoreUserModel,
@@ -35,12 +37,8 @@ import {
   EstatePropertyTypeService,
   EstatePropertyTypeUsageModel,
   FilterDataModel,
-  FilterModel,
-  FormInfoModel,
-  FormSubmitedStatusEnum,
-  InputDataTypeEnum,
-  TokenInfoModelV3,
-} from "ntk-cms-api";
+  FilterModel,InputDataTypeEnum,
+  TokenInfoModelV3} from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";

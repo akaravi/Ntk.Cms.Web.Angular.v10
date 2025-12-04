@@ -12,20 +12,18 @@ import {
   MatDialogRef,
 } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  ApiTelegramBotConfigModel,
+import {ApiTelegramBotConfigModel,
   ApiTelegramBotConfigService,
   CoreEnumService,
-  ErrorExceptionResultBase,
-  FormInfoModel,
-  FormSubmitedStatusEnum,
-  ManageUserAccessDataTypesEnum,
-} from "ntk-cms-api";
+  ErrorExceptionResultBase,ManageUserAccessDataTypesEnum} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { CmsViewComponent } from "src/app/shared/cms-view/cms-view.component";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-core-module-edit",

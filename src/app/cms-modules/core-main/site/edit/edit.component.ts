@@ -14,19 +14,15 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import * as Leaflet from "leaflet";
 import { Map as leafletMap } from "leaflet";
-import {
-  AccessModel,
+import {AccessModel,
   CoreEnumService,
   CoreSiteCategoryModel,
   CoreSiteModel,
   CoreSiteService,
   CoreUserModel,
   ErrorExceptionResult,
-  ErrorExceptionResultBase,
-  FormInfoModel,
-  InfoEnumModel,
-  ManageUserAccessDataTypesEnum,
-} from "ntk-cms-api";
+  ErrorExceptionResultBase,InfoEnumModel,
+  ManageUserAccessDataTypesEnum} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { Subscription } from "rxjs";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
@@ -35,6 +31,8 @@ import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { PoinModel } from "src/app/core/models/pointModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-core-site-edit",

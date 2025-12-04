@@ -1,23 +1,22 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  CoreModuleModel,
+import {CoreModuleModel,
   CoreModuleService,
   CoreModuleSiteCreditModel,
   CoreModuleSiteCreditService,
   DataFieldInfoModel,
   ErrorExceptionResult,
   FilterDataModel,
-  FilterModel,
-  FormInfoModel,
-} from "ntk-cms-api";
+  FilterModel} from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { WidgetInfoModel } from "src/app/core/models/widget-info-model";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-coremodule-site-credit-widget-credit",

@@ -11,17 +11,12 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatStepper } from "@angular/material/stepper";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  AccessModel,
+import {AccessModel,
   CoreEnumService,
   CoreSiteModel,
   CoreUserModel,
   CoreUserService,
-  ErrorExceptionResultBase,
-  FormInfoModel,
-  FormSubmitedStatusEnum,
-  ManageUserAccessDataTypesEnum,
-} from "ntk-cms-api";
+  ErrorExceptionResultBase,ManageUserAccessDataTypesEnum} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { Subscription } from "rxjs";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
@@ -30,6 +25,9 @@ import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { CoreUserChangePasswordComponent } from "../changePassword/changePassword.component";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-core-user-edit",

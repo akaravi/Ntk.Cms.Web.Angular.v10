@@ -378,12 +378,12 @@ export class CmsToastrService {
     });
   }
 
-  typeSuccessMessage(message: string): void {
+  typeSuccessMessage(message: string, title: string = "Success!"): void {
     this.showToast({
       messageKeys: [],
       type: ToastType.SUCCESS,
       customMessage: message,
-      customTitle: "Success!",
+      customTitle: title,
     });
   }
 

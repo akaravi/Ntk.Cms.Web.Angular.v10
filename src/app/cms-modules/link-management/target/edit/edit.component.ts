@@ -5,23 +5,18 @@ import { MatStepper } from "@angular/material/stepper";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { Map as leafletMap } from "leaflet";
-import {
-  AccessModel,
+import {AccessModel,
   CoreEnumService,
   CoreSiteModel,
   ErrorExceptionResult,
-  ErrorExceptionResultBase,
-  FormInfoModel,
-  FormSubmitedStatusEnum,
-  InfoEnumModel,
+  ErrorExceptionResultBase,InfoEnumModel,
   LinkManagementBillboardPatternModel,
   LinkManagementEnumService,
   LinkManagementTargetCategoryModel,
   LinkManagementTargetCategoryService,
   LinkManagementTargetModel,
   LinkManagementTargetService,
-  ManageUserAccessDataTypesEnum,
-} from "ntk-cms-api";
+  ManageUserAccessDataTypesEnum} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -29,6 +24,9 @@ import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { PoinModel } from "src/app/core/models/pointModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-linkmanagement-target-edit",

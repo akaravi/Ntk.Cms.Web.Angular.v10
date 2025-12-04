@@ -9,21 +9,19 @@ import {
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  CoreEnumService,
+import {CoreEnumService,
   DataFieldInfoModel,
   ErrorExceptionResult,
   EstateCustomerOrderResultModel,
-  EstateCustomerOrderResultService,
-  FormInfoModel,
-  FormSubmitedStatusEnum,
-  TokenInfoModelV3,
-} from "ntk-cms-api";
+  EstateCustomerOrderResultService,TokenInfoModelV3} from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-estate-customer-order-result-view",

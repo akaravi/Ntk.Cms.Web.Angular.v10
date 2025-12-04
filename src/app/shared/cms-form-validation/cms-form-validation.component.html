@@ -1,17 +1,16 @@
-
 <ul class="icon-list ps-3">
   <li *ngFor="let item of formInfo.validationList">
     @switch (item.status) {
-      @case (ValidationStatusEnum.info) {
+      @case (FormValidationStatusEnum.info) {
         <i class="fa fa-info color-blue-dark"></i>
       }
-      @case (ValidationStatusEnum.Success) {
+      @case (FormValidationStatusEnum.Success) {
         <i class="fa fa-check color-green-dark"></i>
       }
-      @case (ValidationStatusEnum.Warning) {
+      @case (FormValidationStatusEnum.Warning) {
         <i class="fa fa-exclamation-triangle color-yellow-dark"></i>
       }
-      @case (ValidationStatusEnum.Error) {
+      @case (FormValidationStatusEnum.Error) {
         <i class="fa fa-times color-red-dark"></i>
       }
     }

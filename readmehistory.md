@@ -1,5 +1,156 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-12-04 19:10 (نمایش لیست submitResultErrors و submitResultWarnings در cms-form-result-message)
+
+### تغییرات اعمال شده:
+
+**هدف:** نمایش لیست خطاها و هشدارهای دریافتی از سرویس‌ها در کامپوننت نمایش پیام‌های نتیجه فرم
+
+**تغییرات در HTML:**
+
+1. **نمایش Errors همراه با پیام اصلی در حالت error:**
+   - افزودن بلوک `@if` برای بررسی وجود `formInfo.submitResultErrors`
+   - نمایش لیست errors در صورت وجود با استفاده از `@for`
+   - استفاده از تگ `<ul>` و `<li>` برای نمایش ساختاریافته
+
+2. **نمایش Warnings همراه با پیام اصلی در حالت warning:**
+   - افزودن بلوک `@if` برای بررسی وجود `formInfo.submitResultWarnings`
+   - نمایش لیست warnings در صورت وجود با استفاده از `@for`
+   - استفاده از تگ `<ul>` و `<li>` برای نمایش ساختاریافته
+
+3. **نمایش مستقل Errors و Warnings:**
+   - افزودن دو بلوک جداگانه برای نمایش errors و warnings در صورتی که `submitResultMessage` خالی باشد
+   - اطمینان از نمایش خطاها و هشدارها حتی بدون پیام اصلی
+
+**ساختار کد:**
+
+```html
+@case ("error") {
+  <div class="alert alert-danger" role="alert">
+    <i class="fa fa-exclamation-circle me-2"></i>
+    <strong>{{ "MESSAGE.Error" | translate }}:</strong>
+    {{ formInfo.submitResultMessage }}
+    @if (formInfo?.submitResultErrors?.length > 0) {
+      <ul class="mt-2 mb-0">
+        @for (error of formInfo.submitResultErrors; track $index) {
+          <li>{{ error }}</li>
+        }
+      </ul>
+    }
+  </div>
+}
+
+@case ("warning") {
+  <div class="alert alert-warning" role="alert">
+    <i class="fa fa-exclamation-triangle me-2"></i>
+    <strong>{{ "MESSAGE.Warning" | translate }}:</strong>
+    {{ formInfo.submitResultMessage }}
+    @if (formInfo?.submitResultWarnings?.length > 0) {
+      <ul class="mt-2 mb-0">
+        @for (warning of formInfo.submitResultWarnings; track $index) {
+          <li>{{ warning }}</li>
+        }
+      </ul>
+    }
+  </div>
+}
+
+<!-- نمایش Errors جداگانه -->
+@if (formInfo?.submitResultErrors?.length > 0 && formInfo?.submitResultMessage?.length === 0) {
+  <div class="alert alert-danger" role="alert">
+    <i class="fa fa-exclamation-circle me-2"></i>
+    <strong>{{ "MESSAGE.Error" | translate }}:</strong>
+    <ul class="mt-2 mb-0">
+      @for (error of formInfo.submitResultErrors; track $index) {
+        <li>{{ error }}</li>
+      }
+    </ul>
+  </div>
+}
+
+<!-- نمایش Warnings جداگانه -->
+@if (formInfo?.submitResultWarnings?.length > 0 && formInfo?.submitResultMessage?.length === 0) {
+  <div class="alert alert-warning" role="alert">
+    <i class="fa fa-exclamation-triangle me-2"></i>
+    <strong>{{ "MESSAGE.Warning" | translate }}:</strong>
+    <ul class="mt-2 mb-0">
+      @for (warning of formInfo.submitResultWarnings; track $index) {
+        <li>{{ warning }}</li>
+      }
+    </ul>
+  </div>
+}
+```
+
+**فایل‌های تغییر یافته:**
+
+- `src/app/shared/cms-form-result-message/cms-form-result-message.component.html`
+- `readmehistory.md`
+
+**ویژگی‌های پیاده‌سازی شده:**
+
+- نمایش لیست کامل خطاها در کنار پیام اصلی error
+- نمایش لیست کامل هشدارها در کنار پیام اصلی warning
+- نمایش مستقل errors و warnings در صورت نبودن پیام اصلی
+- استفاده از Bootstrap classes (mt-2, mb-0) برای فاصله‌گذاری مناسب
+- استفاده از syntax جدید Angular (@if, @for) برای شرط و حلقه
+- Safe navigation operator (?.) برای جلوگیری از خطای null/undefined
+
+**تاثیر:**
+
+از این به بعد، تمام فرم‌هایی که از `app-cms-form-result-message` استفاده می‌کنند، علاوه بر پیام اصلی، لیست کامل خطاها و هشدارهای دریافتی از API را هم به کاربر نمایش خواهند داد، که به درک بهتر مشکلات کمک می‌کند.
+
+---
+
+## 2025-12-04 18:45 (Migration کامل Core Models از ntk-cms-api)
+
+### تغییرات اعمال شده:
+
+**هدف:** انتقال FormInfoModel، FormSubmitedStatusEnum و FormValidationStatusEnum از ntk-cms-api به src/app/core/models
+
+**نتایج:**
+- ✅ **499 فایل** TypeScript اصلاح شد
+- ✅ **0 فایل** با import قدیمی باقی ماند
+- ✅ **552 import** جدید از core/models
+- ✅ Backup کامل: `backup-imports-20251204-182435`
+
+**تغییرات در imports:**
+
+**قبل:**
+```typescript
+import {
+  FormInfoModel,
+  FormSubmitedStatusEnum,
+  FormValidationStatusEnum,
+  ...
+} from "ntk-cms-api";
+```
+
+**بعد:**
+```typescript
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
+import { FormValidationStatusEnum } from "../../../../core/models/formValidationStatusEnum";
+import {
+  ...  // بقیه imports از ntk-cms-api
+} from "ntk-cms-api";
+```
+
+**فایل‌های Core Models:**
+1. `src/app/core/models/formInfoModel.ts`
+2. `src/app/core/models/formSubmitedStatusEnum.ts`
+3. `src/app/core/models/formValidationStatusEnum.ts`
+
+**اصلاحات خاص:**
+- اصلاح ValidationStatusEnum به FormValidationStatusEnum در کل پروژه
+- اصلاح مسیرهای نسبی برای هر فایل بر اساس موقعیتش
+- حذف imports غیرضروری از ntk-cms-api
+
+**تاثیر:**
+پروژه حالا مستقل از ntk-cms-api برای این سه مدل است و می‌تواند آنها را به صورت محلی مدیریت کند.
+
+---
+
 ## 2025-12-04 18:30 (اصلاح کامل سیستم نمایش پیام‌های نتیجه فرم در کل پروژه)
 
 ### تغییرات عظیم اعمال شده (680+ فایل):

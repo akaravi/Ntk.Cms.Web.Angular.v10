@@ -14,8 +14,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import * as Leaflet from "leaflet";
 import { Map as leafletMap } from "leaflet";
-import {
-  CoreCurrencyModel,
+import {CoreCurrencyModel,
   CoreEnumService,
   CoreLocationModel,
   CoreUserModel,
@@ -38,14 +37,10 @@ import {
   EstatePropertyTypeService,
   EstatePropertyTypeUsageModel,
   FilterDataModel,
-  FilterModel,
-  FormInfoModel,
-  FormSubmitedStatusEnum,
-  InputDataTypeEnum,
+  FilterModel,InputDataTypeEnum,
   ManageUserAccessUserTypesEnum,
   RecordStatusEnum,
-  TokenInfoModelV3,
-} from "ntk-cms-api";
+  TokenInfoModelV3} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { Subscription } from "rxjs";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
@@ -62,6 +57,9 @@ import { environment } from "src/environments/environment";
 import { EstatePropertyExpertPriceInquiryListComponent } from "../../property-expert-price/inquiry-list/inquiry-list.component";
 import { EstatePropertyActionComponent } from "../action/action.component";
 import { EstatePropertyQuickListComponent } from "../quick-list/quick-list.component";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-estate-property-add-mobile",

@@ -14,20 +14,15 @@ import {
 } from "@angular/material/dialog";
 import { MatTableDataSource } from "@angular/material/table";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  CoreEnumService,
+import {CoreEnumService,
   DataFieldInfoModel,
   ErrorExceptionResult,
   EstateContractModel,
   EstateContractTypeModel,
   EstatePropertyHistoryModel,
-  EstatePropertyHistoryService,
-  FormInfoModel,
-  FormSubmitedStatusEnum,
-  InputDataTypeEnum,
+  EstatePropertyHistoryService,InputDataTypeEnum,
   ManageUserAccessDataTypesEnum,
-  TokenInfoModelV3,
-} from "ntk-cms-api";
+  TokenInfoModelV3} from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
@@ -36,6 +31,9 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { environment } from "src/environments/environment";
 import { EstateCustomerOrderQuickViewComponent } from "../../customer-order/quick-view/quick-view.component";
 import { EstatePropertyQuickViewComponent } from "../../property/quick-view/quick-view.component";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-estate-property-history-quick-view",

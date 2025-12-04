@@ -7,14 +7,11 @@ import {
 } from "@angular/core";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  AuthRefreshTokenModel,
+import {AuthRefreshTokenModel,
   CoreSiteUserModel,
   CoreSiteUserService,
   ErrorExceptionResult,
-  FilterModel,
-  FormInfoModel,
-} from "ntk-cms-api";
+  FilterModel} from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsTranslationService } from "src/app/core/i18n/cmsTranslation.service";
@@ -22,6 +19,8 @@ import { SELECT_SITE_LOCAL_STORAGE_KEY } from "src/app/core/models/constModel";
 import { CmsImageThumbnailPipe } from "src/app/core/pipe/cms-image-thumbnail.pipe";
 import { CmsAuthService } from "src/app/core/services/cmsAuth.service";
 import { CmsToastrService } from "../../../../core/services/cmsToastr.service";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-site-select",

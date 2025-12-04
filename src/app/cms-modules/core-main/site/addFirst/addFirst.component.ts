@@ -4,19 +4,18 @@ import { FormGroup } from "@angular/forms";
 import { MatStepper } from "@angular/material/stepper";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  AuthRefreshTokenModel,
+import {AuthRefreshTokenModel,
   CoreAuthV3Service,
   CoreSiteAddFirstSiteDtoModel,
   CoreSiteCategoryModel,
   CoreSiteService,
   DataFieldInfoModel,
   ErrorExceptionResult,
-  FilterModel,
-  FormInfoModel,
-} from "ntk-cms-api";
+  FilterModel} from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "../../../../core/services/cmsToastr.service";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-core-site-add-first",

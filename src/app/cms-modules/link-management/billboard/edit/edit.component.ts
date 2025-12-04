@@ -2,26 +2,24 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Map as leafletMap } from "leaflet";
-import {
-  AccessModel,
+import {AccessModel,
   ClauseTypeEnum,
   ErrorExceptionResult,
   ErrorExceptionResultBase,
   FilterDataModel,
-  FilterModel,
-  FormInfoModel,
-  FormSubmitedStatusEnum,
-  InfoEnumModel,
+  FilterModel,InfoEnumModel,
   LinkManagementBillboardCategoryModel,
   LinkManagementBillboardCategoryService,
   LinkManagementBillboardModel,
   LinkManagementBillboardPatternModel,
   LinkManagementBillboardService,
   LinkManagementMemberModel,
-  ManageUserAccessDataTypesEnum,
-} from "ntk-cms-api";
+  ManageUserAccessDataTypesEnum} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
 
 import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import { MatStepper } from "@angular/material/stepper";

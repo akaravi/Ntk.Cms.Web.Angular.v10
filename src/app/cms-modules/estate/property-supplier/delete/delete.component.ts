@@ -1,3 +1,5 @@
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
 import {
   ChangeDetectorRef,
   Component,
@@ -8,15 +10,10 @@ import {
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  DataFieldInfoModel,
+import {DataFieldInfoModel,
   ErrorExceptionResult,
   EstatePropertySupplierModel,
-  EstatePropertySupplierService,
-  FormInfoModel,
-  FormSubmitedStatusEnum,
-  ManageUserAccessDataTypesEnum,
-} from "ntk-cms-api";
+  EstatePropertySupplierService,ManageUserAccessDataTypesEnum} from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 @Component({

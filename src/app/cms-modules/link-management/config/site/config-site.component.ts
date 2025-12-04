@@ -9,17 +9,13 @@ import {
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  AccessModel,
+import {AccessModel,
   CoreEnumService,
-  DataFieldInfoModel,
-  FormInfoModel,
-  LinkManagementConfigurationService,
+  DataFieldInfoModel,LinkManagementConfigurationService,
   LinkManagementModuleConfigSiteAccessValuesModel,
   LinkManagementModuleConfigSiteValuesModel,
   LinkManagementModuleSiteStorageValuesModel,
-  TokenInfoModelV3,
-} from "ntk-cms-api";
+  TokenInfoModelV3} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -27,6 +23,8 @@ import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { PoinModel } from "src/app/core/models/pointModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-linkmanagement-config-site",

@@ -1,3 +1,4 @@
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
 import {
   ChangeDetectorRef,
   Component,
@@ -8,15 +9,11 @@ import {
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  ChartCategoryModel,
+import {ChartCategoryModel,
   ChartCategoryService,
   DataFieldInfoModel,
   ErrorExceptionResult,
-  FilterModel,
-  FormInfoModel,
-  ManageUserAccessDataTypesEnum,
-} from "ntk-cms-api";
+  FilterModel,ManageUserAccessDataTypesEnum} from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 @Component({

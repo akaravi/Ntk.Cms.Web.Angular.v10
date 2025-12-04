@@ -1,3 +1,5 @@
+import { FormInfoModel } from "../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../core/models/formSubmitedStatusEnum";
 import {
   ChangeDetectorRef,
   Component,
@@ -9,14 +11,10 @@ import { FormGroup } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {
-  AuthUserSignInModel,
+import {AuthUserSignInModel,
   AuthUserSignUpModel,
   CaptchaModel,
-  CoreAuthV3Service,
-  FormInfoModel,
-  FormSubmitedStatusEnum,
-} from "ntk-cms-api";
+  CoreAuthV3Service} from "ntk-cms-api";
 import { Observable, Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import {
