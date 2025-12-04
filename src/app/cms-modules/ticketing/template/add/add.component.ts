@@ -13,6 +13,7 @@ import {
   DataFieldInfoModel,
   ErrorExceptionResult,
   FormInfoModel,
+  FormSubmitedStatusEnum,
   TicketingDepartemenModel,
   TicketingTemplateModel,
   TicketingTemplateService,
@@ -109,6 +110,46 @@ export class TicketingTemplateAddComponent
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
             });
           this.cmsToastrService.typeSuccessAdd();
           this.dialogRef.close({ dialogChangedDate: true });
@@ -119,6 +160,7 @@ export class TicketingTemplateAddComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
@@ -130,39 +172,6 @@ export class TicketingTemplateAddComponent
       },
     });
   }
-  // DataEditContent(): void {
-  //   this.translate.get('MESSAGE.sending_information_to_the_server').subscribe((str: string) => {this.formInfo.submitResultMessage = str;});
-  //   this.formInfo.submitResultMessage = '';
-  //   const pName = this.constructor.name + 'main';
-  // this.translate.get('MESSAGE.Receiving_information').subscribe((str: string) => {
-  //   this.publicHelper.processService.processStart(pName, str, this.constructorInfoAreaId);
-  // });
-
-  //   this.ticketingTemplateService.ServiceEdit(this.dataModel).subscribe(
-  //     next:(ret) => {
-  //       this.formInfo.submitButtonEnabled = true;
-  //       this.dataModelResult = ret;
-  //       if (ret.isSuccess) {
-  //         this.translate.get('MESSAGE.registration_completed_successfully').subscribe((str: string) => {this.formInfo.submitResultMessage = str;});
-  //         this.cmsToastrService.typeSuccessEdit();
-  //         this.dialogRef.close({ dialogChangedDate: true });
-
-  //       } else {
-  //         this.translate.get('ERRORMESSAGE.MESSAGE.typeError').subscribe((str: string) => {this.formInfo.submitResultMessage = str;});
-  //         this.formInfo.submitResultMessage = ret.errorMessage;
-  //         this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-  //       }
-  //       this.publicHelper.processService.processStop(pName);
-
-  //     },
-  //     error:(err) => {
-  //       this.formInfo.submitButtonEnabled = true;
-  //       this.cmsToastrService.typeError(err);
-  //       this.publicHelper.processService.processStop(pName);
-
-  //     }
-  //   );
-  // }
   onActionSelectorSelect(model: TicketingDepartemenModel | null): void {
     if (!model || model.id <= 0) {
       this.translate

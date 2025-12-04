@@ -1,0 +1,108 @@
+<div class="card border-0 shadow-sm rounded-m">
+  <div class="card-header bg-gradient-highlight text-white">
+    <h5 class="mb-0">
+      <i class="fa-solid fa-list-check me-2"></i>
+      {{ "TITLE.Schedule_Run_Infos" | translate }}
+    </h5>
+    <p class="mb-0 font-12 opacity-80">
+      {{ "TITLE.Task_Scheduler_ID" | translate }}: {{ taskSchedulerId }}
+    </p>
+  </div>
+  <div class="card-body p-0">
+    @if (scheduleRunInfos && scheduleRunInfos.length > 0) {
+      <div class="table-responsive">
+        <table class="table table-hover table-striped mb-0">
+          <thead class="table-light">
+            <tr>
+              <th scope="col" class="text-center">#</th>
+              <th scope="col">
+                {{ "TITLE.Schedule_Locker_Id" | translate }}
+              </th>
+              <th scope="col">
+                {{ "TITLE.Schedule_Locked_Run" | translate }}
+              </th>
+              <th scope="col">
+                {{ "TITLE.Schedule_Locked_End" | translate }}
+              </th>
+              <th scope="col">
+                {{ "TITLE.Schedule_Locker_Microservice" | translate }}
+              </th>
+              <th scope="col" class="text-center">
+                {{ "TITLE.Status" | translate }}
+              </th>
+              <th scope="col">
+                {{ "TITLE.Error_Message" | translate }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of scheduleRunInfos; track $index) {
+              <tr>
+                <td class="text-center">{{ $index + 1 }}</td>
+                <td>
+                  <span class="font-12 text-muted">{{
+                    item.scheduleLockerId
+                  }}</span>
+                </td>
+                <td>
+                  <span class="font-12" style="direction: ltr; display: block">
+                    {{ item.scheduleLockedRun | localeDateTime }}
+                  </span>
+                </td>
+                <td>
+                  <span class="font-12" style="direction: ltr; display: block">
+                    {{ item.scheduleLockedEnd | localeDateTime }}
+                  </span>
+                </td>
+                <td>
+                  <span class="badge bg-info text-white">{{
+                    item.scheduleLockerMicroservice
+                  }}</span>
+                </td>
+                <td class="text-center">
+                  @if (item.isSuccess) {
+                    <i
+                      class="fa-solid fa-circle-check text-success font-18"
+                      [title]="'MESSAGE.Success' | translate"
+                    ></i>
+                  } @else {
+                    <i
+                      class="fa-solid fa-circle-xmark text-danger font-18"
+                      [title]="'MESSAGE.Failed' | translate"
+                    ></i>
+                  }
+                </td>
+                <td>
+                  @if (!item.isSuccess && item.errorMessage) {
+                    <span class="text-danger font-12">{{
+                      item.errorMessage
+                    }}</span>
+                  } @else {
+                    <span class="text-muted font-12">-</span>
+                  }
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @else {
+      <div class="text-center p-5">
+        <i class="fa-solid fa-inbox font-48 text-muted mb-3"></i>
+        <p class="text-muted">
+          {{ "MESSAGE.No_Schedule_Run_Infos" | translate }}
+        </p>
+      </div>
+    }
+  </div>
+  <div class="card-footer bg-light text-end">
+    <button
+      type="button"
+      class="btn btn-secondary btn-sm rounded-s shadow-sm"
+      (click)="onClose()"
+    >
+      <i class="fa-solid fa-times me-1"></i>
+      {{ "ACTION.CLOSE" | translate }}
+    </button>
+  </div>
+</div>

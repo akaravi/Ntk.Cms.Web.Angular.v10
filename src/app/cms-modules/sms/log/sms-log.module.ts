@@ -42,6 +42,7 @@ import { SmsLogOutBoxQueueListComponent } from "./outbox-queue/list/list.compone
 import { SmsLogOutBoxQueueViewComponent } from "./outbox-queue/view/view.component";
 import { SmsLogOutBoxTaskSchedulerEditComponent } from "./outbox-task-scheduler/edit/edit.component";
 import { SmsLogOutBoxTaskSchedulerListComponent } from "./outbox-task-scheduler/list/list.component";
+import { ScheduleRunInfoListComponent } from "./outbox-task-scheduler/schedule-run-info-list/schedule-run-info-list.component";
 import { SmsLogOutBoxTaskSchedulerViewComponent } from "./outbox-task-scheduler/view/view.component";
 import { SmsLogOutBoxEditComponent } from "./outbox/edit/edit.component";
 import { SmsLogOutBoxHeaderComponent } from "./outbox/header/header.component";
@@ -65,6 +66,7 @@ import { SmsSharedModule } from "../shared/sms.shared.module";
     SmsLogOutBoxTaskSchedulerListComponent,
     SmsLogOutBoxTaskSchedulerEditComponent,
     SmsLogOutBoxTaskSchedulerViewComponent,
+    ScheduleRunInfoListComponent,
     SmsLogOutBoxDetailListComponent,
     SmsLogOutBoxDetailViewComponent,
     SmsLogApiPathListComponent,

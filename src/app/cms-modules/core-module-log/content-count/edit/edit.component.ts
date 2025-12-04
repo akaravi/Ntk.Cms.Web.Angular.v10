@@ -15,6 +15,7 @@ import {
   CoreModuleLogContentCountService,
   ErrorExceptionResultBase,
   FormInfoModel,
+  FormSubmitedStatusEnum,
   ManageUserAccessDataTypesEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
@@ -143,6 +144,26 @@ export class CoreModuleLogContentCountEditComponent
             this.formInfo.formTitle =
               this.formInfo.formTitle + " " + ret.item.id;
             this.formInfo.submitResultMessage = "";
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
           } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
@@ -150,6 +171,7 @@ export class CoreModuleLogContentCountEditComponent
                 this.formInfo.submitResultMessage = str;
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -189,6 +211,7 @@ export class CoreModuleLogContentCountEditComponent
               .get("MESSAGE.registration_completed_successfully")
               .subscribe((str: string) => {
                 this.formInfo.submitResultMessage = str;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
               });
             this.cmsToastrService.typeSuccessEdit();
             this.dialogRef.close({ dialogChangedDate: true });
@@ -199,6 +222,7 @@ export class CoreModuleLogContentCountEditComponent
                 this.formInfo.submitResultMessage = str;
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);

@@ -22,6 +22,7 @@ import {
   SmsMainApiPathAndApiNumberModel,
   SmsMainApiPathAndApiNumberService,
   SmsMainApiPathModel,
+  FormSubmitedStatusEnum,
 } from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
@@ -137,6 +138,27 @@ export class SmsMainApiNumberEditComponent
           this.DataGetAllMenuCoreUserGroup();
           this.formInfo.formTitle = this.formInfo.formTitle;
           this.formInfo.submitResultMessage = "";
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
         } else {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
@@ -144,6 +166,7 @@ export class SmsMainApiNumberEditComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
@@ -196,6 +219,7 @@ export class SmsMainApiNumberEditComponent
           this.dataCoreCpMainMenuIds = listG;
           if (ret.isSuccess) {
             this.formInfo.submitResultMessage = "";
+            this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
           } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
@@ -203,6 +227,7 @@ export class SmsMainApiNumberEditComponent
                 this.formInfo.submitResultMessage = str;
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
+            this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -240,6 +265,7 @@ export class SmsMainApiNumberEditComponent
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
             });
           this.cmsToastrService.typeSuccessEdit();
           this.dialogRef.close({ dialogChangedDate: true });
@@ -250,6 +276,7 @@ export class SmsMainApiNumberEditComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
@@ -292,6 +319,7 @@ export class SmsMainApiNumberEditComponent
             .get("MESSAGE.registration_in_this_group_was_successful")
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
             });
           this.cmsToastrService.typeSuccessEdit();
         } else {
@@ -301,6 +329,7 @@ export class SmsMainApiNumberEditComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
       },
@@ -333,6 +362,7 @@ export class SmsMainApiNumberEditComponent
                 this.formInfo.submitResultMessage = str;
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
         },

@@ -14,6 +14,7 @@ import {
   CoreUserModel,
   ErrorExceptionResultBase,
   FormInfoModel,
+  FormSubmitedStatusEnum,
   ManageUserAccessDataTypesEnum,
   SmsEnumService,
   SmsMainClientPermissionModel,
@@ -128,6 +129,27 @@ export class SmsMainClientPermissionEditComponent
           if (ret.isSuccess) {
             this.formInfo.formTitle = this.formInfo.formTitle;
             this.formInfo.submitResultMessage = "";
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
           } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
@@ -135,6 +157,7 @@ export class SmsMainClientPermissionEditComponent
                 this.formInfo.submitResultMessage = str;
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
+            this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -173,7 +196,9 @@ export class SmsMainClientPermissionEditComponent
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
             });
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
           this.cmsToastrService.typeSuccessEdit();
           this.dialogRef.close({ dialogChangedDate: true });
         } else {
@@ -183,6 +208,7 @@ export class SmsMainClientPermissionEditComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);

@@ -21,6 +21,7 @@ import {
   FilterDataModel,
   FilterModel,
   FormInfoModel,
+  FormSubmitedStatusEnum,
   InfoEnumModel,
   ManageUserAccessDataTypesEnum,
 } from "ntk-cms-api";
@@ -150,6 +151,26 @@ export class CoreUserClaimTypeEditComponent
           this.formInfo.formTitle =
             this.formInfo.formTitle + " " + ret.item.title;
           this.formInfo.submitResultMessage = "";
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
         } else {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
@@ -157,6 +178,7 @@ export class CoreUserClaimTypeEditComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
@@ -208,6 +230,7 @@ export class CoreUserClaimTypeEditComponent
           this.dataCoreClaimGroupIds = listG;
           if (ret.isSuccess) {
             this.formInfo.submitResultMessage = "";
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
           } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
@@ -215,6 +238,7 @@ export class CoreUserClaimTypeEditComponent
                 this.formInfo.submitResultMessage = str;
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -262,6 +286,7 @@ export class CoreUserClaimTypeEditComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
@@ -323,6 +348,7 @@ export class CoreUserClaimTypeEditComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
       },
@@ -355,6 +381,7 @@ export class CoreUserClaimTypeEditComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
       },

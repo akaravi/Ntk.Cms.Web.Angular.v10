@@ -168,7 +168,9 @@ export class CmsDataMemoComponent implements OnInit {
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
             });
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
           this.cmsToastrService.typeSuccessAdd();
           this.DataGetAll();
         } else {
@@ -178,6 +180,7 @@ export class CmsDataMemoComponent implements OnInit {
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
@@ -216,7 +219,9 @@ export class CmsDataMemoComponent implements OnInit {
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
             });
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
           this.cmsToastrService.typeSuccessRemove();
           this.DataGetAll();
           //this.dialogRef.close({ dialogChangedDate: true });
@@ -227,6 +232,7 @@ export class CmsDataMemoComponent implements OnInit {
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);

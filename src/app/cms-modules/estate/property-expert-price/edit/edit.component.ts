@@ -20,6 +20,7 @@ import {
   EstatePropertyTypeLanduseModel,
   EstatePropertyTypeUsageModel,
   FormInfoModel,
+  FormSubmitedStatusEnum,
   InfoEnumModel,
   ManageUserAccessDataTypesEnum,
 } from "ntk-cms-api";
@@ -153,6 +154,27 @@ export class EstatePropertyExpertPriceEditComponent
           if (ret.isSuccess) {
             this.formInfo.formTitle = this.formInfo.formTitle;
             this.formInfo.submitResultMessage = "";
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
           } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
@@ -160,6 +182,7 @@ export class EstatePropertyExpertPriceEditComponent
                 this.formInfo.submitResultMessage = str;
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -200,6 +223,7 @@ export class EstatePropertyExpertPriceEditComponent
               .get("MESSAGE.registration_completed_successfully")
               .subscribe((str: string) => {
                 this.formInfo.submitResultMessage = str;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
               });
             this.cmsToastrService.typeSuccessEdit();
             this.dialogRef.close({ dialogChangedDate: true });
@@ -210,6 +234,7 @@ export class EstatePropertyExpertPriceEditComponent
                 this.formInfo.submitResultMessage = str;
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);

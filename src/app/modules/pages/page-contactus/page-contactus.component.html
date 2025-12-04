@@ -21,6 +21,9 @@
           formInfo?.submitResultMessageType !== enumFormSubmitedStatus.Success
         "
       >
+        <app-cms-form-result-message
+          [formInfo]="formInfo"
+        ></app-cms-form-result-message>
         <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
           <fieldset>
             <div class="form-field form-name">

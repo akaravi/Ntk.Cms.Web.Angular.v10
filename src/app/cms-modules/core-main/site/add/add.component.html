@@ -9,6 +9,9 @@
       {{ "TITLE.In_this_section_you_can_create_a_new_site" | translate }}
     </p>
     <!--Content-->
+    <app-cms-form-result-message
+      [formInfo]="formInfo"
+    ></app-cms-form-result-message>
     <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
       <mat-vertical-stepper
         (selectionChange)="onStepClick($event, stepper)"

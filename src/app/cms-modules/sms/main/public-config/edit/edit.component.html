@@ -11,6 +11,9 @@
       {{ "TITLE.BASIC_SERVICE_SETTINGS_DESCRIPTION" | translate }}
     </p>
     <!--content-->
+    <app-cms-form-result-message
+      [formInfo]="formInfo"
+    ></app-cms-form-result-message>
     <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
       <!-- RecordStatus Field -->
       <app-cms-enum-record-status-selector

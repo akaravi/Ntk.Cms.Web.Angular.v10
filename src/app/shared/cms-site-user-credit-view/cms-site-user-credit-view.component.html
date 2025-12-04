@@ -28,47 +28,10 @@
     </p>
     <!--Content-->
 
+    <app-cms-form-result-message
+      [formInfo]="formInfo"
+    ></app-cms-form-result-message>
     <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
-      <div class="ntk-cms-html-card-message">
-        <!--begin:::::::::::::::::::::::::::::::::::::::::cms-message -->
-        @if (formInfo?.submitResultMessage?.length > 0) {
-          @switch (formInfo.submitResult) {
-            @case ("success") {
-              <div class="chip chip-s bg-green-dark">
-                <i class="fa fa-check color-white bg-green-light"></i>
-                <span class="color-white">{{
-                  formInfo.submitResultMessage
-                }}</span>
-              </div>
-            }
-            @case ("error") {
-              <div class="chip chip-s bg-red-dark">
-                <i class="fa fa-check color-white bg-red-light"></i>
-                <span class="color-white">{{
-                  formInfo.submitResultMessage
-                }}</span>
-              </div>
-            }
-            @case ("warning") {
-              <div class="chip chip-s bg-yellow-dark">
-                <i class="fa fa-check color-white bg-yellow-light"></i>
-                <span class="color-white">{{
-                  formInfo.submitResultMessage
-                }}</span>
-              </div>
-            }
-            @default {
-              <div class="chip chip-s bg-gray-dark">
-                <i class="fa fa-check color-white bg-gray-light"></i>
-                <span class="color-white">{{
-                  formInfo.submitResultMessage
-                }}</span>
-              </div>
-            }
-          }
-        }
-        <!--end:::::::::::::::::::::::::::::::::::::::::cms-message -->
-      </div>
       <div class="ntk-cms-html-card-footer">
         <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
         <div class="form-actions" *ngIf="formInfo.submitButtonEnabled">

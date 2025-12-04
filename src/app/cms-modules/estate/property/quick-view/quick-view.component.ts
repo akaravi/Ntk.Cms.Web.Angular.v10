@@ -21,6 +21,7 @@ import {
   EstatePropertyModel,
   EstatePropertyService,
   FormInfoModel,
+  FormSubmitedStatusEnum,
   InputDataTypeEnum,
   ManageUserAccessDataTypesEnum,
   TokenInfoModelV3,
@@ -180,6 +181,27 @@ export class EstatePropertyQuickViewComponent implements OnInit, OnDestroy {
 
           this.formInfo.formTitle = this.formInfo.formTitle;
           this.formInfo.submitResultMessage = "";
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
           /** load Value */
           if (this.dataModel.propertyDetailGroups)
             this.dataModel.propertyDetailGroups.forEach((itemGroup) => {
@@ -196,6 +218,7 @@ export class EstatePropertyQuickViewComponent implements OnInit, OnDestroy {
                 }
               });
             });
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
           /** load Value */
         } else {
           this.translate
@@ -204,6 +227,7 @@ export class EstatePropertyQuickViewComponent implements OnInit, OnDestroy {
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
           this.errorMessage =
             ret.errorMessage + "<br> ( " + ret.errorTypeTitle + " ) ";
           this.cmsToastrService.typeErrorMessage(this.errorMessage);

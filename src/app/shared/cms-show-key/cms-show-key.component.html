@@ -48,6 +48,9 @@
         </ng-container>
       </tbody>
     </table>
+    <app-cms-form-result-message
+      [formInfo]="formInfo"
+    ></app-cms-form-result-message>
     <form (ngSubmit)="onFormSubmit()" *ngIf="showFormAdd" #vform="ngForm">
       <!-- SubjectTitle Field -->
       <div

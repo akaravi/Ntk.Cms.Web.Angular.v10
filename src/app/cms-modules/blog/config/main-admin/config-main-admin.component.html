@@ -11,7 +11,10 @@
     </p>
     <!--Content-->
   </div>
-  <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
+  <app-cms-form-result-message
+      [formInfo]="formInfo"
+    ></app-cms-form-result-message>
+    <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
     <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
     <mat-vertical-stepper
       (selectionChange)="onStepClick($event, stepper)"

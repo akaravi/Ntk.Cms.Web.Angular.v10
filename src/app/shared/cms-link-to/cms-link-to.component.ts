@@ -14,6 +14,7 @@ import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
   FormInfoModel,
+  FormSubmitedStatusEnum,
   SmsActionService,
   SmsApiSendMessageDtoModel,
   SmsMainApiNumberModel,
@@ -186,7 +187,9 @@ export class CmsLinkToComponent implements OnInit, OnDestroy {
             .get("MESSAGE.Submit_request_was_successfully_registered")
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
             });
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
           this.translate
             .get("MESSAGE.Send_request_was_successfully_registered")
             .subscribe((str: string) => {
@@ -199,6 +202,7 @@ export class CmsLinkToComponent implements OnInit, OnDestroy {
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);

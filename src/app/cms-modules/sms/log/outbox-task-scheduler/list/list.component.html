@@ -235,6 +235,31 @@
         </mat-cell>
       </ng-container>
 
+      <!-- ScheduleRunInfos Column -->
+      <ng-container matColumnDef="scheduleRunInfos">
+        <mat-header-cell *matHeaderCellDef>
+          {{ "TITLE.Schedule_Run_Infos" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" class="text-center">
+          @if (row.scheduleRunInfos && row.scheduleRunInfos.length > 0) {
+            <button
+              type="button"
+              mat-icon-button
+              class="btn-icon-action"
+              (click)="onActionButtonScheduleRunInfos(row); $event.stopPropagation()"
+              [title]="'ACTION.View_Schedule_Run_Infos' | translate"
+            >
+              <i class="fa-solid fa-list-check text-primary font-18"></i>
+              <span class="badge bg-primary rounded-circle ms-1">{{
+                row.scheduleRunInfos.length
+              }}</span>
+            </button>
+          } @else {
+            <span class="text-muted font-12">-</span>
+          }
+        </mat-cell>
+      </ng-container>
+
       <!-- Action Column -->
       <ng-container matColumnDef="Action">
         <mat-header-cell *matHeaderCellDef>

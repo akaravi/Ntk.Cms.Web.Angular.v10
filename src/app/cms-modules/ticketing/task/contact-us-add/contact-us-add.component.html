@@ -58,7 +58,10 @@
           formInfo?.submitResultMessageType !== enumFormSubmitedStatus.Success
         "
       >
-        <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
+        <app-cms-form-result-message
+      [formInfo]="formInfo"
+    ></app-cms-form-result-message>
+    <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
           <fieldset>
             <div class="form-field form-name">
               <label class="contactNameField color-theme" for="contactNameField"

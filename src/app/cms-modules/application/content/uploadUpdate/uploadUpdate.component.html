@@ -10,7 +10,10 @@
     >
     </app-cms-file-uploader>
   </div>
-  <form
+  <app-cms-form-result-message
+      [formInfo]="formInfo"
+    ></app-cms-form-result-message>
+    <form
     (ngSubmit)="onFormSubmit()"
     #vform="ngForm"
     class="form form-horizontal"

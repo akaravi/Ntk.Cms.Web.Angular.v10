@@ -1,8 +1,34 @@
-<div
-  *ngIf="formInfo.submitResultMessage?.length > 0"
-  class="alert alert-danger"
-  role="alert"
->
-  <strong>{{ "MESSAGE.Error" | translate }}:</strong>
-  {{ formInfo.submitResultMessage }}
-</div>
+<!--begin:::::::::::::::::::::::::::::::::::::::::cms-form-result-message -->
+@if (formInfo?.submitResultMessage?.length > 0) {
+  @switch (formInfo.submitResult) {
+    @case ("success") {
+      <div class="alert alert-success" role="alert">
+        <i class="fa fa-check-circle me-2"></i>
+        <strong>{{ "MESSAGE.Success" | translate }}:</strong>
+        {{ formInfo.submitResultMessage }}
+      </div>
+    }
+    @case ("error") {
+      <div class="alert alert-danger" role="alert">
+        <i class="fa fa-exclamation-circle me-2"></i>
+        <strong>{{ "MESSAGE.Error" | translate }}:</strong>
+        {{ formInfo.submitResultMessage }}
+      </div>
+    }
+    @case ("warning") {
+      <div class="alert alert-warning" role="alert">
+        <i class="fa fa-exclamation-triangle me-2"></i>
+        <strong>{{ "MESSAGE.Warning" | translate }}:</strong>
+        {{ formInfo.submitResultMessage }}
+      </div>
+    }
+    @default {
+      <div class="alert alert-info" role="alert">
+        <i class="fa fa-info-circle me-2"></i>
+        <strong>{{ "MESSAGE.Info" | translate }}:</strong>
+        {{ formInfo.submitResultMessage }}
+      </div>
+    }
+  }
+}
+<!--end:::::::::::::::::::::::::::::::::::::::::cms-form-result-message -->

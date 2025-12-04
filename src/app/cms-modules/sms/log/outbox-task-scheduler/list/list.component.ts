@@ -26,6 +26,7 @@ import { PageInfoService } from "src/app/core/services/page-info.service";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { environment } from "src/environments/environment";
 import { SmsLogOutBoxTaskSchedulerEditComponent } from "../edit/edit.component";
+import { ScheduleRunInfoListComponent } from "../schedule-run-info-list/schedule-run-info-list.component";
 import { SmsLogOutBoxTaskSchedulerViewComponent } from "../view/view.component";
 
 @Component({
@@ -99,6 +100,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
     "scheduleSendStart",
     "scheduleSendExpire",
     "scheduleSendAllowNextRun",
+    "scheduleRunInfos",
     "createdDate",
     "updatedDate",
     // 'Action'
@@ -111,6 +113,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
     "scheduleSendStart",
     "scheduleSendExpire",
     "scheduleSendAllowNextRun",
+    "scheduleRunInfos",
     "createdDate",
     "updatedDate",
     // 'Action'
@@ -619,5 +622,40 @@ export class SmsLogOutBoxTaskSchedulerListComponent
 
   onActionBackToParent(): void {
     // this.router.navigate(['/sms/main/api-path-company']);
+  }
+
+  onActionButtonScheduleRunInfos(
+    model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
+  ): void {
+    if (!model || !model.id || model.id.length === 0) {
+      this.cmsToastrService.typeErrorSelectedRow();
+      return;
+    }
+    if (!model.scheduleRunInfos || model.scheduleRunInfos.length === 0) {
+      this.translate
+        .get("MESSAGE.No_Schedule_Run_Infos")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeWarning(str);
+        });
+      return;
+    }
+    this.onActionTableRowSelect(model);
+
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
+    const dialogRef = this.dialog.open(ScheduleRunInfoListComponent, {
+      height: "90%",
+      panelClass: panelClass,
+      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
+      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+      data: {
+        scheduleRunInfos: model.scheduleRunInfos,
+        taskSchedulerId: model.id,
+      },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      // No need to refresh data
+    });
   }
 }

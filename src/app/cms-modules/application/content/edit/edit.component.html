@@ -9,6 +9,9 @@
       {{ "TITLE.In_This_Section_You_Can_Edit_Your_Application" | translate }}
     </p>
     <!--Content-->
+    <app-cms-form-result-message
+      [formInfo]="formInfo"
+    ></app-cms-form-result-message>
     <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
       <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
       <mat-vertical-stepper

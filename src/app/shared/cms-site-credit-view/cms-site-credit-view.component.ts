@@ -18,6 +18,7 @@ import {
   DataFieldInfoModel,
   ErrorExceptionResult,
   FormInfoModel,
+  FormSubmitedStatusEnum,
   TokenInfoModelV3,
 } from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -118,6 +119,7 @@ export class CmsSiteCreditViewComponent implements OnInit {
             this.formInfo.formTitle =
               this.formInfo.formTitle + " " + ret.item.linkSiteId;
             this.formInfo.submitResultMessage = "";
+            this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
           } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
@@ -125,6 +127,7 @@ export class CmsSiteCreditViewComponent implements OnInit {
                 this.formInfo.submitResultMessage = str;
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
+            this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -164,6 +167,7 @@ export class CmsSiteCreditViewComponent implements OnInit {
             this.formInfo.formTitle =
               this.formInfo.formTitle + " " + ret.item.title;
             this.formInfo.submitResultMessage = "";
+            this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
           } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
@@ -171,6 +175,7 @@ export class CmsSiteCreditViewComponent implements OnInit {
                 this.formInfo.submitResultMessage = str;
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
+            this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
