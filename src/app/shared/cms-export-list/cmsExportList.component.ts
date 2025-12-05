@@ -181,6 +181,7 @@ export class CmsExportListComponent implements OnInit {
   recieveMethodListItems: Array<InfoEnumModel> = new Array<InfoEnumModel>();
 
   onFormSubmit(): void {
+    this.formInfo.clearSubmitResult();
     this.dataModelSubmitResult = new ErrorExceptionResultExportFile();
     const pName = this.constructor.name + "main";
     this.translate

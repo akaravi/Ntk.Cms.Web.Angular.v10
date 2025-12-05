@@ -659,6 +659,7 @@ export class SmsActionSendMessageComponent implements OnInit {
 
     this.formInfo.submitResultMessage = "";
     this.dataModel.clientDateTime = new Date();
+    this.formInfo.clearSubmitResult();
     this.smsActionService.ServiceSendMessage(this.dataModel).subscribe({
       next: (ret) => {
         this.formInfo.submitButtonEnabled = true;
@@ -775,6 +776,7 @@ export class SmsActionSendMessageComponent implements OnInit {
     this.formInfo.submitResultMessage = "";
     this.dataModelOrderCalculate = this
       .dataModel as unknown as SmsApiSendMessageOrderCalculateDtoModel;
+    this.formInfo.clearSubmitResult();
     this.smsActionService
       .ServiceOrderCalculate(this.dataModelOrderCalculate)
       .subscribe({
@@ -857,7 +859,7 @@ export class SmsActionSendMessageComponent implements OnInit {
           this.constructorInfoAreaId,
         );
       });
-
+    this.formInfo.clearSubmitResult();
     this.smsActionService.ServiceGetMessagePlaceholders().subscribe({
       next: (ret) => {
         this.dataModelMessagePlaceholdersResult = ret;
@@ -1009,7 +1011,7 @@ export class SmsActionSendMessageComponent implements OnInit {
 
     this.dialog.open(SmsActionSendMessageResultComponent, {
       panelClass: "sms-send-result-dialog",
-      data: {result: result, formInfo: this.formInfo},
+      data: { result: result, formInfo: this.formInfo },
       width: "960px",
       disableClose: false,
     });
@@ -1024,7 +1026,7 @@ export class SmsActionSendMessageComponent implements OnInit {
 
     this.dialog.open(SmsActionSendMessageCalculateResultComponent, {
       panelClass: "sms-send-calculate-result-dialog",
-      data: {result: result, formInfo: this.formInfo},
+      data: { result: result, formInfo: this.formInfo },
       width: "960px",
       disableClose: false,
     });

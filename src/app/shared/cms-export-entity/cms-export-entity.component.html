@@ -63,6 +63,7 @@
               name="dataModel.fileType"
               #RecordStatus="ngModel"
               class="form-control validate-name"
+              (change)="this.formInfo.clearSubmitResult()"
             >
               <option
                 *ngFor="let item of fileTypeListItems; index as i"

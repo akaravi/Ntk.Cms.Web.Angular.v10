@@ -185,6 +185,7 @@ export class CmsExportEntityComponent implements OnInit, OnDestroy {
     this.dataModelSubmitResult = new ErrorExceptionResultExportFile();
   }
   onFormSubmit(): void {
+    this.formInfo.clearSubmitResult();
     this.dataModelSubmitResult = new ErrorExceptionResultExportFile();
     const pName = this.constructor.name + "main";
     this.translate

@@ -24,6 +24,13 @@ export class FormInfoModel {
     }
   }
 
+  clearSubmitResult(): void {
+    this.submitResultMessage = "";
+    this.submitResultMessageType = FormSubmitedStatusEnum.none;
+    this.submitResultErrors = [];
+    this.submitResultWarnings = [];
+  }
+
   validationList: ValidationModel[] = [];
   set setErrorExceptionResult(model: ErrorExceptionResultBase) {
     if (model.isSuccess) {
