@@ -1,5 +1,118 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-12-05 (انتخاب خودکار اولین آیتم در Export List)
+
+### تغییرات اعمال شده:
+
+**هدف:** انتخاب خودکار اولین نوع فایل (Excel) در dropdown فرمت فایل هنگام باز شدن دیالوگ Export
+
+**تغییرات:**
+
+- تغییر مقدار پیش‌فرض `filterModel.exportFile.fileType` از `Report` (مقدار ثابت) به اولین آیتم در `fileTypeListItems`
+- افزودن بررسی `if (this.fileTypeListItems.length > 0)` برای اطمینان از وجود آیتم در لیست
+- حالا به جای انتخاب "Report" به صورت پیش‌فرض، اولین آیتم که "Excel" است انتخاب می‌شود
+
+**قبل:**
+```typescript
+ngOnInit(): void {
+  this.DataGetAll();
+  this.translate.get("TITLE.EXPORTFILE").subscribe((str: string) => {
+    this.formInfo.formTitle = str + " : " + this.requestTitle;
+  });
+  this.filterModel.exportFile.fileType = this.EnumExportFileTypeReport; // Report
+  this.filterModel.exportFile.recieveMethod = this.EnumExportReceiveMethodNow;
+}
+```
+
+**بعد:**
+```typescript
+ngOnInit(): void {
+  this.DataGetAll();
+  this.translate.get("TITLE.EXPORTFILE").subscribe((str: string) => {
+    this.formInfo.formTitle = str + " : " + this.requestTitle;
+  });
+  // انتخاب خودکار اولین آیتم در لیست
+  if (this.fileTypeListItems.length > 0) {
+    this.filterModel.exportFile.fileType = this.fileTypeListItems[0].value; // Excel
+  }
+  this.filterModel.exportFile.recieveMethod = this.EnumExportReceiveMethodNow;
+}
+```
+
+**ترتیب آیتم‌های fileTypeListItems:**
+1. Excel (value: 1) ← **انتخاب شده به صورت پیش‌فرض**
+2. Json (value: 3)
+3. Report (value: 4)
+
+**فایل‌های تغییر یافته:**
+- `src/app/shared/cms-export-list/cmsExportList.component.ts`
+- `readmehistory.md`
+
+**تاثیر:**
+- کاربر دیگر نیازی ندارد دستی Excel را انتخاب کند، به صورت خودکار انتخاب می‌شود
+- UX بهتر: رایج‌ترین فرمت (Excel) به صورت پیش‌فرض انتخاب شده است
+
+---
+
+## 2025-12-05 (بهبود Async در Pipe های cmssiteinfo)
+
+### تغییرات اعمال شده:
+
+**هدف:** اطمینان از async بودن کامل `cmssiteinfo` pipe و تمام استفاده‌های آن
+
+**بررسی و نتایج:**
+
+1. **بررسی خود Pipe:**
+   - ✅ Pipe به درستی `Observable<string>` برمی‌گرداند
+   - ✅ استفاده از `CoreSiteService.ServiceGetOneById` که Observable است
+   - ✅ استفاده از `pipe` و `map` برای پردازش async
+
+2. **بررسی استفاده‌ها:**
+   - ✅ **126 مورد** استفاده در کل پروژه
+   - ✅ **همه موارد** از `| async` استفاده می‌کنند
+   - ✅ هیچ استفاده‌ای بدون `async` پیدا نشد
+
+3. **بهبود اعمال شده:**
+   - 🔧 تغییر `return new Observable<string>();` به `return of('');` در خط 13
+   - این تغییر باعث می‌شود Observable خالی به جای یک Observable بدون emit، یک Observable با مقدار رشته خالی برگرداند
+   - افزودن `of` به imports از `rxjs`
+
+**قبل:**
+```typescript
+import { Observable, map } from "rxjs";
+// ...
+if (!value || value <= 0) {
+  return new Observable<string>();
+}
+```
+
+**بعد:**
+```typescript
+import { Observable, map, of } from "rxjs";
+// ...
+if (!value || value <= 0) {
+  return of('');
+}
+```
+
+**فایل‌های تغییر یافته:**
+- `src/app/core/pipe/core/cms-site-info.pipe.ts`
+- `readmehistory.md`
+
+**نمونه‌هایی از استفاده صحیح در پروژه:**
+```html
+{{ row.linkSiteId | cmssiteinfo | async }}
+{{ dataModel.linkSiteId | cmssiteinfo | async }}
+{{ dataModelCalculate.linkSiteId | cmssiteinfo | async }}
+```
+
+**تاثیر:**
+- بهبود performance در مواردی که value نامعتبر است
+- سازگاری بهتر با async pipe در Angular
+- جلوگیری از مشکلات احتمالی subscription
+
+---
+
 ## 2025-12-04 19:10 (نمایش لیست submitResultErrors و submitResultWarnings در cms-form-result-message)
 
 ### تغییرات اعمال شده:

@@ -25,29 +25,6 @@
       #vform="ngForm"
       [ngStyle]="{ direction: tokenInfo?.access?.direction }"
     >
-      <!-- FileType Field -->
-      <div
-        class="input-style has-borders input-style-always-active validate-field no-icon mb-4"
-      >
-        <select
-          id="filterModel.exportFile.fileType"
-          [(ngModel)]="filterModel.exportFile.fileType"
-          name="filterModel.exportFile.fileType"
-          #RecordStatus="ngModel"
-          class="form-control validate-name"
-        >
-          <option
-            *ngFor="let item of fileTypeListItems; index as i"
-            [value]="item.value"
-          >
-            {{ item.description }}
-          </option>
-        </select>
-        <em>{{ "TITLE.Select_the_file_format" | translate }}</em>
-        <mat-error *ngIf="RecordStatus.errors?.required">
-          RecordStatus is <strong>{{ "MESSAGE.required" | translate }}</strong>
-        </mat-error>
-      </div>
       <!-- RecieveMethod Field -->
       <div
         class="input-style has-borders input-style-always-active validate-field no-icon mb-4"
@@ -73,99 +50,222 @@
           RecordStatus is <strong>{{ "MESSAGE.required" | translate }}</strong>
         </mat-error>
       </div>
-      <!-- ReportFormatFileId Field -->
+      <!-- FileType Field -->
       <div
         class="input-style has-borders input-style-always-active validate-field no-icon mb-4"
       >
-        <label
-          for="filterModel.exportFile.reportFormatFileId"
-          class="color-highlight"
-          >{{ "TITLE.Report_Format" | translate }}</label
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="flex-grow-1" style="margin-left: 10px">
+            <select
+              id="filterModel.exportFile.fileType"
+              [(ngModel)]="filterModel.exportFile.fileType"
+              name="filterModel.exportFile.fileType"
+              #RecordStatus="ngModel"
+              class="form-control validate-name"
+            >
+              <option
+                *ngFor="let item of fileTypeListItems; index as i"
+                [value]="item.value"
+              >
+                {{ item.description }}
+              </option>
+            </select>
+            <em>{{ "TITLE.Select_the_file_format" | translate }}</em>
+            <mat-error *ngIf="RecordStatus.errors?.required">
+              RecordStatus is
+              <strong>{{ "MESSAGE.required" | translate }}</strong>
+            </mat-error>
+          </div>
+          @if (
+            filterModel.exportFile.fileType == EnumExportFileTypeExcel ||
+            filterModel.exportFile.fileType == EnumExportFileTypePDF
+          ) {
+            <!-- Data Row Orientation Icons -->
+            <div
+              class="d-flex gap-2 align-items-center"
+              style="margin-right: 10px"
+            >
+              <button
+                type="button"
+                class="btn btn-sm p-2"
+                [ngStyle]="{
+                  background:
+                    filterModel.exportFile.dataRowOrientation ===
+                    EnumExportFileDataRowOrientationVertical
+                      ? '#4CAF50'
+                      : '#e0e0e0',
+                  border: 'none',
+                  'border-radius': '8px',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer',
+                }"
+                (click)="
+                  filterModel.exportFile.dataRowOrientation =
+                    EnumExportFileDataRowOrientationVertical
+                "
+                [title]="'TITLE.Vertical' | translate"
+              >
+                <i
+                  class="fa-solid fa-arrows-up-down"
+                  [ngStyle]="{
+                    color:
+                      filterModel.exportFile.dataRowOrientation ===
+                      EnumExportFileDataRowOrientationVertical
+                        ? 'white'
+                        : '#757575',
+                    'font-size': '18px',
+                  }"
+                ></i>
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm p-2"
+                [ngStyle]="{
+                  background:
+                    filterModel.exportFile.dataRowOrientation ===
+                    EnumExportFileDataRowOrientationHorizontal
+                      ? '#2196F3'
+                      : '#e0e0e0',
+                  border: 'none',
+                  'border-radius': '8px',
+                  transition: 'all 0.3s ease',
+                  cursor: 'pointer',
+                }"
+                (click)="
+                  filterModel.exportFile.dataRowOrientation =
+                    EnumExportFileDataRowOrientationHorizontal
+                "
+                [title]="'TITLE.Horizontal' | translate"
+              >
+                <i
+                  class="fa-solid fa-arrows-left-right"
+                  [ngStyle]="{
+                    color:
+                      filterModel.exportFile.dataRowOrientation ===
+                      EnumExportFileDataRowOrientationHorizontal
+                        ? 'white'
+                        : '#757575',
+                    'font-size': '18px',
+                  }"
+                ></i>
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+      @if (filterModel.exportFile.fileType == EnumExportFileTypeReport) {
+        <!-- ReportFormatFileId Field -->
+        <div
+          class="input-style has-borders input-style-always-active validate-field no-icon mb-4"
         >
-        <select
-          id="filterModel.exportFile.reportFormatFileId"
-          [(ngModel)]="filterModel.exportFile.reportFormatFileId"
-          name="filterModel.exportFile.reportFormatFileId"
-          #RecordStatus="ngModel"
-          class="form-control validate-name"
-        >
-          <option
-            *ngFor="let item of dataModelReportFileResult.listItems; index as i"
-            [value]="item.id"
-            (onSelectionChange)="onActionFileSelect(item)"
+          <label
+            for="filterModel.exportFile.reportFormatFileId"
+            class="color-highlight"
+            >{{ "TITLE.Report_Format" | translate }}</label
           >
-            {{ item.title }}
-          </option>
-        </select>
-        <em>{{ "TITLE.Report_Format_Select" | translate }}</em>
-        <mat-error *ngIf="RecordStatus.errors?.required">
-          RecordStatus is <strong>{{ "MESSAGE.required" | translate }}</strong>
-        </mat-error>
-      </div>
-      <!-- CurrentPageNumber Field -->
-      <div
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-      >
-        <label for="filterModel.currentPageNumber" class="color-highlight">{{
-          "TITLE.from_page" | translate
-        }}</label>
-        <input
-          type="number"
-          [(ngModel)]="filterModel.currentPageNumber"
-          name="filterModel.currentPageNumber"
-          #CurrentPageNumber
-          class="form-control validate-name"
-          id="filterModel.currentPageNumber"
-          placeholder="{{ 'TITLE.page_number' | translate }}"
-          required
-        />
-        <mat-error *ngIf="CurrentPageNumber.errors?.required">
-          Current Page Number is
-          <strong>{{ "MESSAGE.required" | translate }}</strong>
-        </mat-error>
-      </div>
-      <!-- RowPerPage Field -->
-      <div
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-      >
-        <label for="filterModel.rowPerPage" class="color-highlight">{{
-          "TITLE.page_number" | translate
-        }}</label>
-        <input
-          type="number"
-          [(ngModel)]="filterModel.rowPerPage"
-          name="filterModel.rowPerPage"
-          #RowPerPage
-          id="filterModel.rowPerPage"
-          class="form-control validate-name"
-          placeholder="{{ 'TITLE.number_of_output_file_rows' | translate }}"
-          required
-        />
-        <mat-error *ngIf="RowPerPage.errors?.required">
-          Row Per Page is <strong>{{ "MESSAGE.required" | translate }}</strong>
-        </mat-error>
-      </div>
-      <!-- SkipRowData Field -->
-      <div
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-      >
-        <label for="filterModel.skipRowData" class="color-highlight">{{
-          "TITLE.Over_the_number_of_rows" | translate
-        }}</label>
-        <input
-          matInput
-          type="number"
-          [(ngModel)]="filterModel.skipRowData"
-          name="filterModel.skipRowData"
-          #SkipRowData
-          id="filterModel.skipRowData"
-          class="form-control validate-name"
-          placeholder="{{ 'TITLE.Number_of_rows_row_rowss' | translate }}"
-          required
-        />
-        <mat-error *ngIf="SkipRowData.errors?.required">
-          Skip Row Data is <strong>{{ "MESSAGE.required" | translate }}</strong>
-        </mat-error>
+          <select
+            id="filterModel.exportFile.reportFormatFileId"
+            [(ngModel)]="filterModel.exportFile.reportFormatFileId"
+            name="filterModel.exportFile.reportFormatFileId"
+            #RecordStatus="ngModel"
+            class="form-control validate-name"
+          >
+            <option
+              *ngFor="
+                let item of dataModelReportFileResult.listItems;
+                index as i
+              "
+              [value]="item.id"
+              (onSelectionChange)="onActionFileSelect(item)"
+            >
+              {{ item.title }}
+            </option>
+          </select>
+          <em>{{ "TITLE.Report_Format_Select" | translate }}</em>
+          <mat-error *ngIf="RecordStatus.errors?.required">
+            RecordStatus is
+            <strong>{{ "MESSAGE.required" | translate }}</strong>
+          </mat-error>
+        </div>
+      }
+
+      <!-- Three Fields in One Row -->
+      <div class="row">
+        <!-- CurrentPageNumber Field -->
+        <div class="col-md-4">
+          <div
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+          >
+            <label
+              for="filterModel.currentPageNumber"
+              class="color-highlight"
+              >{{ "TITLE.from_page" | translate }}</label
+            >
+            <input
+              type="number"
+              [(ngModel)]="filterModel.currentPageNumber"
+              name="filterModel.currentPageNumber"
+              #CurrentPageNumber
+              class="form-control validate-name"
+              id="filterModel.currentPageNumber"
+              placeholder="{{ 'TITLE.page_number' | translate }}"
+              required
+            />
+            <mat-error *ngIf="CurrentPageNumber.errors?.required">
+              Current Page Number is
+              <strong>{{ "MESSAGE.required" | translate }}</strong>
+            </mat-error>
+          </div>
+        </div>
+        <!-- RowPerPage Field -->
+        <div class="col-md-4">
+          <div
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+          >
+            <label for="filterModel.rowPerPage" class="color-highlight">{{
+              "TITLE.page_number" | translate
+            }}</label>
+            <input
+              type="number"
+              [(ngModel)]="filterModel.rowPerPage"
+              name="filterModel.rowPerPage"
+              #RowPerPage
+              id="filterModel.rowPerPage"
+              class="form-control validate-name"
+              placeholder="{{ 'TITLE.number_of_output_file_rows' | translate }}"
+              required
+            />
+            <mat-error *ngIf="RowPerPage.errors?.required">
+              Row Per Page is
+              <strong>{{ "MESSAGE.required" | translate }}</strong>
+            </mat-error>
+          </div>
+        </div>
+        <!-- SkipRowData Field -->
+        <div class="col-md-4">
+          <div
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+          >
+            <label for="filterModel.skipRowData" class="color-highlight">{{
+              "TITLE.Over_the_number_of_rows" | translate
+            }}</label>
+            <input
+              matInput
+              type="number"
+              [(ngModel)]="filterModel.skipRowData"
+              name="filterModel.skipRowData"
+              #SkipRowData
+              id="filterModel.skipRowData"
+              class="form-control validate-name"
+              placeholder="{{ 'TITLE.Number_of_rows_row_rowss' | translate }}"
+              required
+            />
+            <mat-error *ngIf="SkipRowData.errors?.required">
+              Skip Row Data is
+              <strong>{{ "MESSAGE.required" | translate }}</strong>
+            </mat-error>
+          </div>
+        </div>
       </div>
       <div class="form-actions">
         <button

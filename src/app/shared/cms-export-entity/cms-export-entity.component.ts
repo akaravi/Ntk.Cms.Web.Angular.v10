@@ -2,15 +2,19 @@ import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreModuleEntityReportFileModel,
+import {
+  CoreModuleEntityReportFileModel,
   ErrorExceptionResult,
   ErrorExceptionResultExportFile,
+  ExportFileDataRowOrientationEnum,
   ExportFileModel,
   ExportFileTypeEnum,
-  ExportReceiveMethodEnum,IApiCmsServerBase,
+  ExportReceiveMethodEnum,
+  IApiCmsServerBase,
   InfoEnumModel,
   ReportFileTypeEnum,
-  TokenInfoModelV3} from "ntk-cms-api";
+  TokenInfoModelV3,
+} from "ntk-cms-api";
 import { Observable } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
@@ -57,6 +61,12 @@ export class CmsExportEntityComponent implements OnInit, OnDestroy {
     this.fileTypeListItems.push(eum);
 
     eum = new InfoEnumModel();
+    eum.value = 2;
+    eum.key = "PDF";
+    eum.description = "PDF";
+    this.fileTypeListItems.push(eum);
+
+    eum = new InfoEnumModel();
     eum.value = 3;
     eum.key = "Json";
     eum.description = "Json";
@@ -73,21 +83,22 @@ export class CmsExportEntityComponent implements OnInit, OnDestroy {
     eum.key = "Now";
     eum.description = "Now";
     this.recieveMethodListItems.push(eum);
+    if (this.forNext) {
+      eum = new InfoEnumModel();
+      eum.value = 1;
+      eum.key = "Email";
+      eum.description = "Email";
+      this.recieveMethodListItems.push(eum);
 
-    eum = new InfoEnumModel();
-    eum.value = 1;
-    eum.key = "Email";
-    eum.description = "Email";
-    this.recieveMethodListItems.push(eum);
-
-    eum = new InfoEnumModel();
-    eum.value = 2;
-    eum.key = "FileManager";
-    eum.description = "FileManager";
-    this.recieveMethodListItems.push(eum);
-
+      eum = new InfoEnumModel();
+      eum.value = 2;
+      eum.key = "FileManager";
+      eum.description = "FileManager";
+      this.recieveMethodListItems.push(eum);
+    }
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
   }
+  forNext = false;
   dataModelReportFileResult: ErrorExceptionResult<CoreModuleEntityReportFileModel> =
     new ErrorExceptionResult<CoreModuleEntityReportFileModel>();
   dataModelSubmitResult: ErrorExceptionResultExportFile =
@@ -102,7 +113,13 @@ export class CmsExportEntityComponent implements OnInit, OnDestroy {
     new CoreModuleEntityReportFileModel();
   dataModel: ExportFileModel = new ExportFileModel();
   EnumExportFileTypeReport = ExportFileTypeEnum.Report;
+  EnumExportFileTypeExcel = ExportFileTypeEnum.Excel;
+  EnumExportFileTypePDF = ExportFileTypeEnum.PDF;
   EnumExportReceiveMethodNow = ExportReceiveMethodEnum.Now;
+  EnumExportFileDataRowOrientationVertical =
+    ExportFileDataRowOrientationEnum.Vertical;
+  EnumExportFileDataRowOrientationHorizontal =
+    ExportFileDataRowOrientationEnum.Horizontal;
 
   formInfo: FormInfoModel = new FormInfoModel();
 
@@ -113,6 +130,8 @@ export class CmsExportEntityComponent implements OnInit, OnDestroy {
     });
     this.dataModel.fileType = this.EnumExportFileTypeReport;
     this.dataModel.recieveMethod = this.EnumExportReceiveMethodNow;
+    this.dataModel.dataRowOrientation =
+      this.EnumExportFileDataRowOrientationVertical;
   }
 
   ngOnDestroy(): void {}
@@ -138,6 +157,14 @@ export class CmsExportEntityComponent implements OnInit, OnDestroy {
             this.dataModelReportFileResult.listItems.filter(
               (x) => x.reportFileType == ReportFileTypeEnum.Item,
             );
+          if (this.dataModelReportFileResult.listItems.length == 0) {
+            this.fileTypeListItems.slice(
+              this.fileTypeListItems.findIndex((x) => x.key == "Report"),
+            );
+          } else {
+            this.dataModel.reportFormatFileId =
+              this.dataModelReportFileResult.listItems[0].id;
+          }
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -181,9 +208,11 @@ export class CmsExportEntityComponent implements OnInit, OnDestroy {
               .get("MESSAGE.registration_completed_successfully")
               .subscribe((str: string) => {
                 this.formInfo.submitResultMessage = str;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+                this.formInfo.submitResultMessageType =
+                  FormSubmitedStatusEnum.Success;
               });
-            this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
           } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
@@ -191,7 +220,8 @@ export class CmsExportEntityComponent implements OnInit, OnDestroy {
                 this.formInfo.submitResultMessage = str;
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
-            this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
