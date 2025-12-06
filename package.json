@@ -103,7 +103,7 @@
     "@angular-eslint/schematics": "^20.1.1",
     "@angular-eslint/template-parser": "^20.1.1",
     "@angular/build": "^20.1.0",
-    "@angular/cli": "^20.1.0",
+    "@angular/cli": "^20.3.13",
     "@angular/compiler-cli": "^20.1.0",
     "@types/jasmine": "~5.1.0",
     "eslint": "^9.33.0",
