@@ -9,9 +9,13 @@
           type="text"
           class="search-input"
           [(ngModel)]="searchTermList"
+          (ngModelChange)="onSearchTermListChange()"
           [placeholder]="'ACTION.SEARCH' | translate"
         />
         <i class="fa-solid fa-search search-icon"></i>
+        @if (isSearchingServer) {
+          <i class="fa-solid fa-spinner fa-spin search-icon" style="margin-left: 5px;"></i>
+        }
       </div>
       <div
         cdkDropList

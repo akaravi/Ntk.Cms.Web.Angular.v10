@@ -8,6 +8,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
 } from "@angular/core";
@@ -20,8 +21,18 @@ import {
   CoreEnumService,
   ErrorExceptionResult,
   FilterDataModel,
+  FilterDataModelSearchTypesEnum,
   FilterModel,
 } from "ntk-cms-api";
+import { Observable, Subject, Subscription } from "rxjs";
+import {
+  debounceTime,
+  distinctUntilChanged,
+  switchMap,
+  map,
+  catchError,
+} from "rxjs/operators";
+import { of } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
@@ -31,7 +42,7 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
   styleUrls: ["./cms-contact-content-drop-list.component.scss"],
   standalone: false,
 })
-export class CmsContactContentDropListComponent implements OnInit {
+export class CmsContactContentDropListComponent implements OnInit, OnDestroy {
   static nextId = 0;
   id = ++CmsContactContentDropListComponent.nextId;
   constructorInfoAreaId = this.constructor.name;
@@ -52,14 +63,20 @@ export class CmsContactContentDropListComponent implements OnInit {
   allBasketItems: ContactContentModel[] = []; // تمام آیتم‌های basket (بدون فیلتر)
   searchTermList: string = ""; // جستجو برای لیست اولیه
   searchTermBasket: string = ""; // جستجو برای لیست انتخاب شده
+  serverSearchResults: ContactContentModel[] = []; // نتایج جستجوی سرور
+  searchTermListSubject = new Subject<string>(); // Subject برای جستجوی همزمان سرور
+  isSearchingServer = false; // وضعیت جستجوی سرور
+  private searchSubscription?: Subscription; // Subscription برای cleanup
 
-  // لیست‌های فیلتر شده بر اساس جستجو
+  // لیست‌های فیلتر شده بر اساس جستجو (محلی + سرور)
   get filteredListItems(): ContactContentModel[] {
     if (!this.searchTermList || this.searchTermList.trim() === "") {
       return this.allListItems;
     }
     const term = this.searchTermList.toLowerCase().trim();
-    return this.allListItems.filter((item) => {
+
+    // فیلتر محلی
+    const localFiltered = this.allListItems.filter((item) => {
       const title = (item.title ?? "").toLowerCase();
       const firstName = (item.firstName ?? "").toLowerCase();
       const lastName = (item.lastName ?? "").toLowerCase();
@@ -69,6 +86,14 @@ export class CmsContactContentDropListComponent implements OnInit {
         lastName.includes(term)
       );
     });
+
+    // ادغام با نتایج سرور (بدون تکرار)
+    const existingIds = new Set(localFiltered.map(item => item.id));
+    const serverFiltered = this.serverSearchResults.filter(
+      item => !existingIds.has(item.id) && !this.allBasketItems.some(basketItem => basketItem.id === item.id)
+    );
+
+    return [...localFiltered, ...serverFiltered];
   }
 
   get filteredBasketItems(): ContactContentModel[] {
@@ -117,6 +142,11 @@ export class CmsContactContentDropListComponent implements OnInit {
     return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   }
 
+  // متد برای فعال‌سازی جستجوی همزمان سرور
+  onSearchTermListChange(): void {
+    this.searchTermListSubject.next(this.searchTermList);
+  }
+
   // متد برای گرفتن متن کامل یک آیتم
   getItemFullText(item: ContactContentModel): string {
     return (
@@ -132,11 +162,22 @@ export class CmsContactContentDropListComponent implements OnInit {
 
   drop(event: CdkDragDrop<ContactContentModel[]>) {
     if (event.previousContainer === event.container) {
-      moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
+      // اگر در همان لیست جابجا می‌شود
+      const isBasket = event.container === event.container;
+      if (event.container.id === 'basket-list') {
+        // اگر در لیست basket است، باید به allBasketItems اعمال شود
+        moveItemInArray(
+          this.allBasketItems,
+          event.previousIndex,
+          event.currentIndex,
+        );
+      } else {
+        moveItemInArray(
+          event.container.data,
+          event.previousIndex,
+          event.currentIndex,
+        );
+      }
     } else {
       const item = event.previousContainer.data[
         event.previousIndex
@@ -149,30 +190,55 @@ export class CmsContactContentDropListComponent implements OnInit {
       const wasInAllBasketItems = this.allBasketItems.some(
         (el) => el.id === item.id,
       );
-
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
+      const wasInServerResults = this.serverSearchResults.some(
+        (el) => el.id === item.id,
       );
 
-      // همگام‌سازی با allListItems و allBasketItems
-      if (wasInAllListItems && !wasInAllBasketItems) {
-        // انتقال از لیست اولیه به basket
-        const indexInAll = this.allListItems.findIndex(
-          (el) => el.id === item.id,
-        );
-        if (indexInAll !== -1) {
-          this.allListItems.splice(indexInAll, 1);
-          this.allBasketItems.push(item);
-          if (!this.basket.some((el) => el.id === item.id)) {
-            this.basket.push(item);
-          }
-          this.dataModelResult.listItems = this.allListItems.filter(
-            (el) => !this.fieldsStatus.get(el.id),
+      // تشخیص اینکه به کدام لیست منتقل می‌شود
+      const isMovingToBasket = event.container.id === 'basket-list' ||
+        (event.container.data === this.filteredBasketItems ||
+         event.container.data === this.allBasketItems ||
+         event.container.data === this.basket);
+      const isMovingFromBasket = event.previousContainer.id === 'basket-list' ||
+        (event.previousContainer.data === this.filteredBasketItems ||
+         event.previousContainer.data === this.allBasketItems ||
+         event.previousContainer.data === this.basket);
+
+      // همگام‌سازی با allListItems و allBasketItems قبل از transferArrayItem
+      if (isMovingToBasket && !wasInAllBasketItems) {
+        // انتقال به basket
+        if (wasInAllListItems) {
+          // حذف از لیست اولیه
+          const indexInAll = this.allListItems.findIndex(
+            (el) => el.id === item.id,
           );
+          if (indexInAll !== -1) {
+            this.allListItems.splice(indexInAll, 1);
+          }
+        } else if (wasInServerResults) {
+          // حذف از نتایج جستجوی سرور
+          const serverIndex = this.serverSearchResults.findIndex(
+            (el) => el.id === item.id,
+          );
+          if (serverIndex !== -1) {
+            this.serverSearchResults.splice(serverIndex, 1);
+          }
         }
+
+        // اضافه کردن به basket
+        if (!this.allBasketItems.some((el) => el.id === item.id)) {
+          this.allBasketItems.push(item);
+        }
+        if (!this.basket.some((el) => el.id === item.id)) {
+          this.basket.push(item);
+        }
+
+        // به‌روزرسانی dataModelResult
+        this.dataModelResult.listItems = this.allListItems.filter(
+          (el) => !this.fieldsStatus.get(el.id),
+        );
+
+        // به‌روزرسانی fieldsStatus و dataModelSelect
         if (!this.fieldsStatus.get(item.id)) {
           this.fieldsStatus.set(item.id, true);
           if (!this.dataModelSelect.some((el) => el.id === item.id)) {
@@ -181,7 +247,7 @@ export class CmsContactContentDropListComponent implements OnInit {
           this.optionSelectAdded.emit(item);
           this.optionChange.emit(this.dataModelSelect);
         }
-      } else if (wasInAllBasketItems && !wasInAllListItems) {
+      } else if (isMovingFromBasket && wasInAllBasketItems) {
         // انتقال از basket به لیست اولیه
         const indexInAll = this.allBasketItems.findIndex(
           (el) => el.id === item.id,
@@ -209,11 +275,55 @@ export class CmsContactContentDropListComponent implements OnInit {
           this.optionChange.emit(this.dataModelSelect);
         }
       }
+
+      // اعمال transferArrayItem به آرایه‌های اصلی
+      if (isMovingToBasket) {
+        // انتقال به basket - استفاده از allBasketItems
+        const prevData = wasInAllListItems ? this.allListItems :
+                        wasInServerResults ? this.serverSearchResults :
+                        event.previousContainer.data;
+        const prevIndex = wasInAllListItems ?
+          this.allListItems.findIndex(el => el.id === item.id) :
+          wasInServerResults ?
+          this.serverSearchResults.findIndex(el => el.id === item.id) :
+          event.previousIndex;
+
+        if (prevIndex !== -1 && prevIndex < prevData.length) {
+          transferArrayItem(
+            prevData,
+            this.allBasketItems,
+            prevIndex,
+            this.allBasketItems.length - 1,
+          );
+        }
+      } else if (isMovingFromBasket) {
+        // انتقال از basket - استفاده از allBasketItems
+        const basketIndex = this.allBasketItems.findIndex(el => el.id === item.id);
+        if (basketIndex !== -1) {
+          transferArrayItem(
+            this.allBasketItems,
+            this.allListItems,
+            basketIndex,
+            this.allListItems.length,
+          );
+        }
+      } else {
+        // حالت پیش‌فرض
+        transferArrayItem(
+          event.previousContainer.data,
+          event.container.data,
+          event.previousIndex,
+          event.currentIndex,
+        );
+      }
     }
   }
 
   addToBasket(item: ContactContentModel): void {
     const index = this.allListItems.indexOf(item);
+    const serverIndex = this.serverSearchResults.findIndex(el => el.id === item.id);
+
+    // اگر آیتم در لیست اولیه است
     if (index !== -1) {
       // اضافه کردن به basket
       this.basket.push(item);
@@ -226,6 +336,26 @@ export class CmsContactContentDropListComponent implements OnInit {
       // همگام‌سازی با dataModelSelect
       this.fieldsStatus.set(item.id, true);
       this.dataModelSelect.push(item);
+      // emit events
+      this.optionSelectAdded.emit(item);
+      this.optionChange.emit(this.dataModelSelect);
+    }
+    // اگر آیتم از نتایج جستجوی سرور است
+    else if (serverIndex !== -1) {
+      // اضافه کردن به basket
+      if (!this.basket.some(el => el.id === item.id)) {
+        this.basket.push(item);
+      }
+      if (!this.allBasketItems.some(el => el.id === item.id)) {
+        this.allBasketItems.push(item);
+      }
+      // حذف از نتایج جستجوی سرور
+      this.serverSearchResults.splice(serverIndex, 1);
+      // همگام‌سازی با dataModelSelect
+      this.fieldsStatus.set(item.id, true);
+      if (!this.dataModelSelect.some(el => el.id === item.id)) {
+        this.dataModelSelect.push(item);
+      }
       // emit events
       this.optionSelectAdded.emit(item);
       this.optionChange.emit(this.dataModelSelect);
@@ -280,6 +410,104 @@ export class CmsContactContentDropListComponent implements OnInit {
 
   ngOnInit(): void {
     this.DataGetAll();
+    this.setupServerSearch();
+  }
+
+  // تنظیم جستجوی همزمان سرور
+  setupServerSearch(): void {
+    this.searchSubscription = this.searchTermListSubject
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        switchMap((searchTerm: string) => {
+          if (!searchTerm || searchTerm.trim() === "") {
+            this.serverSearchResults = [];
+            this.isSearchingServer = false;
+            return of([]);
+          }
+          return this.searchServer(searchTerm.trim());
+        }),
+      )
+      .subscribe({
+        next: (results: ContactContentModel[]) => {
+          this.serverSearchResults = results || [];
+          this.isSearchingServer = false;
+          this.cdr.detectChanges();
+        },
+        error: (er) => {
+          this.cmsToastrService.typeError(er);
+          this.serverSearchResults = [];
+          this.isSearchingServer = false;
+        },
+      });
+  }
+
+  // جستجو در سرور
+  searchServer(searchTerm: string): Observable<ContactContentModel[]> {
+    this.isSearchingServer = true;
+    const filteModelContent = new FilterModel();
+    filteModelContent.rowPerPage = 50;
+    filteModelContent.accessLoad = true;
+
+    const filterModel = JSON.parse(JSON.stringify(filteModelContent));
+
+    // فیلتر جستجو برای title
+    let filter = new FilterDataModel();
+    filter.propertyName = "Title";
+    filter.value = searchTerm;
+    filter.searchType = FilterDataModelSearchTypesEnum.Contains;
+    filter.clauseType = ClauseTypeEnum.Or;
+    filterModel.filters.push(filter);
+
+    // فیلتر جستجو برای firstName
+    filter = new FilterDataModel();
+    filter.propertyName = "FirstName";
+    filter.value = searchTerm;
+    filter.searchType = FilterDataModelSearchTypesEnum.Contains;
+    filter.clauseType = ClauseTypeEnum.Or;
+    filterModel.filters.push(filter);
+
+    // فیلتر جستجو برای lastName
+    filter = new FilterDataModel();
+    filter.propertyName = "LastName";
+    filter.value = searchTerm;
+    filter.searchType = FilterDataModelSearchTypesEnum.Contains;
+    filter.clauseType = ClauseTypeEnum.Or;
+    filterModel.filters.push(filter);
+
+    // فیلتر برای linkCategoryId در صورت وجود
+    const searchObservable = this.linkCategoryId?.length > 0
+      ? this.categoryService.ServiceGetAllWithHierarchyCategoryId(this.linkCategoryId, filterModel)
+      : this.categoryService.ServiceGetAll(filterModel);
+
+    return searchObservable.pipe(
+      map((ret) => {
+        if (ret.isSuccess) {
+          // فیلتر کردن آیتم‌هایی که قبلاً در allListItems یا allBasketItems هستند
+          const existingIds = new Set([
+            ...this.allListItems.map(item => item.id),
+            ...this.allBasketItems.map(item => item.id)
+          ]);
+          const newResults = ret.listItems.filter(
+            item => !existingIds.has(item.id)
+          );
+          return newResults;
+        } else {
+          return [];
+        }
+      }),
+      catchError((er) => {
+        this.cmsToastrService.typeError(er);
+        return of([]);
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    if (this.searchSubscription) {
+      this.searchSubscription.unsubscribe();
+    }
+    this.searchTermListSubject.complete();
   }
 
   DataGetAll(): void {
@@ -320,6 +548,7 @@ export class CmsContactContentDropListComponent implements OnInit {
               this.basket = [];
               this.allListItems = [];
               this.allBasketItems = [];
+              this.serverSearchResults = [];
               this.fieldsStatus.clear();
 
               // تنظیم fieldsStatus برای همه آیتم‌ها

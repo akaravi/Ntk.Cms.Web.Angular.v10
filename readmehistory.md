@@ -1,5 +1,53 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-12-06 19:55 (پیاده‌سازی جستجوی همزمان سرور در CmsContactContentDropListComponent)
+
+### تغییرات اعمال شده:
+
+**هدف:** پیاده‌سازی جستجوی همزمان سرور در کامپوننت `CmsContactContentDropListComponent` مشابه نمونه موجود در `CmsContactContentSelectionListComponent`
+
+**تغییرات:**
+
+- افزودن جستجوی همزمان سرور هنگام تایپ در فیلد جستجوی لیست منابع
+- استفاده از RxJS operators (`debounceTime`, `distinctUntilChanged`, `switchMap`) برای بهینه‌سازی جستجو
+- ادغام نتایج جستجوی محلی با نتایج جستجوی سرور
+- جلوگیری از نمایش آیتم‌های تکراری در نتایج
+- افزودن نشانگر بارگذاری (loading indicator) هنگام جستجوی سرور
+- مدیریت صحیح آیتم‌های حاصل از جستجوی سرور هنگام اضافه شدن به basket
+- پاک‌سازی subscription در `ngOnDestroy` برای جلوگیری از memory leak
+
+**جزئیات فنی:**
+
+1. **Import های جدید:**
+   - `Observable`, `Subject`, `Subscription` از `rxjs`
+   - `debounceTime`, `distinctUntilChanged`, `switchMap`, `map`, `catchError` از `rxjs/operators`
+   - `FilterDataModelSearchTypesEnum` از `ntk-cms-api`
+
+2. **متغیرهای جدید:**
+   - `serverSearchResults`: ذخیره نتایج جستجوی سرور
+   - `searchTermListSubject`: Subject برای مدیریت جستجوی همزمان
+   - `isSearchingServer`: وضعیت جستجوی سرور
+   - `searchSubscription`: Subscription برای cleanup
+
+3. **متدهای جدید:**
+   - `setupServerSearch()`: تنظیم subscription برای جستجوی همزمان
+   - `searchServer(searchTerm: string)`: جستجو در سرور با فیلترهای title، firstName و lastName
+   - `onSearchTermListChange()`: فعال‌سازی جستجو هنگام تغییر متن
+   - `ngOnDestroy()`: پاک‌سازی subscription
+
+4. **به‌روزرسانی متدهای موجود:**
+   - `filteredListItems`: ادغام نتایج محلی و سرور
+   - `addToBasket()`: مدیریت آیتم‌های حاصل از جستجوی سرور
+   - `drop()`: مدیریت drag & drop برای آیتم‌های حاصل از جستجوی سرور
+   - `DataGetAll()`: ریست کردن نتایج جستجوی سرور
+
+**فایل‌های تغییر یافته:**
+- `src/app/shared/cms-contact-content-drop-list/cms-contact-content-drop-list.component.ts`
+- `src/app/shared/cms-contact-content-drop-list/cms-contact-content-drop-list.component.html`
+- `readmehistory.md`
+
+---
+
 ## 2025-12-05 (انتخاب خودکار اولین آیتم در Export List)
 
 ### تغییرات اعمال شده:
