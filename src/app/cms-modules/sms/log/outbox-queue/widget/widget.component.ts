@@ -7,12 +7,12 @@ import {
 } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  SmsLogOutBoxQueueService,
   FilterDataModel,
   FilterModel,
   ManageUserAccessDataTypesEnum,
-  RecordStatusEnum,
   RecordAdminStatusEnum,
+  RecordStatusEnum,
+  SmsLogOutBoxQueueService,
 } from "ntk-cms-api";
 import { Subscription, forkJoin } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -128,7 +128,7 @@ export class SmsLogOutBoxQueueWidgetComponent implements OnInit, OnDestroy {
     //*filter - Pending Admin Approval */
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter1 = new FilterDataModel();
-    fastfilter1.propertyName = "mainAdminRecordStatus";
+    fastfilter1.propertyName = "adminRecordStatus";
     fastfilter1.value = RecordAdminStatusEnum.Pending;
     filterStatist1.filters.push(fastfilter1);
     const s1 = this.service.ServiceGetCount(filterStatist1);
@@ -136,7 +136,7 @@ export class SmsLogOutBoxQueueWidgetComponent implements OnInit, OnDestroy {
     //*filter - Need To Check */
     const filterStatist2 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter2 = new FilterDataModel();
-    fastfilter2.propertyName = "mainAdminRecordStatus";
+    fastfilter2.propertyName = "adminRecordStatus";
     fastfilter2.value = RecordAdminStatusEnum.NeedToCheck;
     filterStatist2.filters.push(fastfilter2);
     const s2 = this.service.ServiceGetCount(filterStatist2);
@@ -183,9 +183,11 @@ export class SmsLogOutBoxQueueWidgetComponent implements OnInit, OnDestroy {
       //*results - Pending Admin Approval */
       ret = results[1];
       series[1] = ret.totalRowCount;
-      this.translate.get("TITLE.Pending_Admin_Approval").subscribe((str: string) => {
-        labels[1] = str;
-      });
+      this.translate
+        .get("TITLE.Pending_Admin_Approval")
+        .subscribe((str: string) => {
+          labels[1] = str;
+        });
       if (ret.isSuccess) {
         this.widgetInfoModel.setItem(
           new WidgetContentInfoModel(

@@ -179,15 +179,15 @@
         </mat-cell>
       </ng-container>
 
-      <!-- mainAdminRecordStatus Column -->
-      <ng-container matColumnDef="mainAdminRecordStatus">
+      <!-- adminRecordStatus Column -->
+      <ng-container matColumnDef="adminRecordStatus">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
-          {{ fieldsInfo["mainAdminRecordStatus"]?.fieldTitle }}
+          {{ fieldsInfo["adminRecordStatus"]?.fieldTitle }}
         </mat-header-cell>
         <mat-cell *matCellDef="let row">
-          <i [ngClass]="row.mainAdminRecordStatus | adminStatusIconClass"></i>
+          <i [ngClass]="row.adminRecordStatus | adminStatusIconClass"></i>
           @if (
-            fieldsInfo["mainAdminRecordStatus"]?.accessEditField &&
+            fieldsInfo["adminRecordStatus"]?.accessEditField &&
             !row.queueCompleted &&
             !row.queueLockedRun
           ) {
@@ -204,7 +204,7 @@
           }
         </mat-cell>
       </ng-container>
-       <!-- createdBy Column -->
+      <!-- createdBy Column -->
       <ng-container matColumnDef="createdBy">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["createdBy"]?.fieldTitle }}
@@ -319,7 +319,7 @@
               }}
               <br />
             }
-                  <!-- statusNumberFiltering -->
+            <!-- statusNumberFiltering -->
             @if (row.statusNumberFiltering) {
               {{ fieldsInfo["statusNumberFiltering"]?.fieldTitle }} :
               {{
@@ -329,7 +329,7 @@
               }}
               <br />
             }
-             <!-- textFilteringChar -->
+            <!-- textFilteringChar -->
             @if (row.textFilteringChar) {
               {{ fieldsInfo["textFilteringChar"]?.fieldTitle }} :
               {{ row.textFilteringChar }}
@@ -391,7 +391,6 @@
               {{ row.toNumbers }}
               <br />
             }
-
 
             <!-- statusNotStableApi -->
             @if (row.statusNotStableApi) {

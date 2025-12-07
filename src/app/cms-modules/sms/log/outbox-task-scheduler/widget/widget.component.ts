@@ -7,12 +7,12 @@ import {
 } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  SmsLogOutBoxTaskSchedulerService,
   FilterDataModel,
   FilterModel,
   ManageUserAccessDataTypesEnum,
-  RecordStatusEnum,
   RecordAdminStatusEnum,
+  RecordStatusEnum,
+  SmsLogOutBoxTaskSchedulerService,
 } from "ntk-cms-api";
 import { Subscription, forkJoin } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -29,7 +29,9 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
   templateUrl: "./widget.component.html",
   standalone: false,
 })
-export class SmsLogOutBoxTaskSchedulerWidgetComponent implements OnInit, OnDestroy {
+export class SmsLogOutBoxTaskSchedulerWidgetComponent
+  implements OnInit, OnDestroy
+{
   @Input() cssClass = "";
 
   constructorInfoAreaId = this.constructor.name;
@@ -77,9 +79,11 @@ export class SmsLogOutBoxTaskSchedulerWidgetComponent implements OnInit, OnDestr
 
   rowExist = false;
   ngOnInit() {
-    this.translate.get("TITLE.OutBox_Task_Scheduler").subscribe((str: string) => {
-      this.widgetInfoModel.title = str;
-    });
+    this.translate
+      .get("TITLE.OutBox_Task_Scheduler")
+      .subscribe((str: string) => {
+        this.widgetInfoModel.title = str;
+      });
     this.translate
       .get("TITLE.SMS_OutBox_Task_Scheduler_Status")
       .subscribe((str: string) => {
@@ -108,13 +112,15 @@ export class SmsLogOutBoxTaskSchedulerWidgetComponent implements OnInit, OnDestr
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   async onActionStatist() {
-    this.translate.get("MESSAGE.outbox_task_scheduler_list").subscribe((str: string) => {
-      this.publicHelper.processService.processStart(
-        this.constructor.name + "All",
-        str,
-        this.constructorInfoAreaId,
-      );
-    });
+    this.translate
+      .get("MESSAGE.outbox_task_scheduler_list")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          this.constructor.name + "All",
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
     this.service.setAccessDataType(ManageUserAccessDataTypesEnum.Editor);
 
     //*filter - Active Records */
@@ -128,7 +134,7 @@ export class SmsLogOutBoxTaskSchedulerWidgetComponent implements OnInit, OnDestr
     //*filter - Pending Admin Approval */
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter1 = new FilterDataModel();
-    fastfilter1.propertyName = "mainAdminRecordStatus";
+    fastfilter1.propertyName = "adminRecordStatus";
     fastfilter1.value = RecordAdminStatusEnum.Pending;
     filterStatist1.filters.push(fastfilter1);
     const s1 = this.service.ServiceGetCount(filterStatist1);
@@ -136,7 +142,7 @@ export class SmsLogOutBoxTaskSchedulerWidgetComponent implements OnInit, OnDestr
     //*filter - Need To Check */
     const filterStatist2 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter2 = new FilterDataModel();
-    fastfilter2.propertyName = "mainAdminRecordStatus";
+    fastfilter2.propertyName = "adminRecordStatus";
     fastfilter2.value = RecordAdminStatusEnum.NeedToCheck;
     filterStatist2.filters.push(fastfilter2);
     const s2 = this.service.ServiceGetCount(filterStatist2);
@@ -183,9 +189,11 @@ export class SmsLogOutBoxTaskSchedulerWidgetComponent implements OnInit, OnDestr
       //*results - Pending Admin Approval */
       ret = results[1];
       series[1] = ret.totalRowCount;
-      this.translate.get("TITLE.Pending_Admin_Approval").subscribe((str: string) => {
-        labels[1] = str;
-      });
+      this.translate
+        .get("TITLE.Pending_Admin_Approval")
+        .subscribe((str: string) => {
+          labels[1] = str;
+        });
       if (ret.isSuccess) {
         this.widgetInfoModel.setItem(
           new WidgetContentInfoModel(

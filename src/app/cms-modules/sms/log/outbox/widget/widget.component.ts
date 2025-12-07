@@ -7,12 +7,12 @@ import {
 } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  SmsLogOutBoxService,
   FilterDataModel,
   FilterModel,
   ManageUserAccessDataTypesEnum,
-  RecordStatusEnum,
   RecordAdminStatusEnum,
+  RecordStatusEnum,
+  SmsLogOutBoxService,
 } from "ntk-cms-api";
 import { Subscription, forkJoin } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -80,11 +80,9 @@ export class SmsLogOutBoxWidgetComponent implements OnInit, OnDestroy {
     this.translate.get("TITLE.OutBox").subscribe((str: string) => {
       this.widgetInfoModel.title = str;
     });
-    this.translate
-      .get("TITLE.SMS_OutBox_Status")
-      .subscribe((str: string) => {
-        this.widgetInfoModel.description = str;
-      });
+    this.translate.get("TITLE.SMS_OutBox_Status").subscribe((str: string) => {
+      this.widgetInfoModel.description = str;
+    });
     this.widgetInfoModel.link = "/sms/log/outbox";
 
     setTimeout(() => {
@@ -128,7 +126,7 @@ export class SmsLogOutBoxWidgetComponent implements OnInit, OnDestroy {
     //*filter - Pending Admin Approval */
     const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter1 = new FilterDataModel();
-    fastfilter1.propertyName = "mainAdminRecordStatus";
+    fastfilter1.propertyName = "adminRecordStatus";
     fastfilter1.value = RecordAdminStatusEnum.Pending;
     filterStatist1.filters.push(fastfilter1);
     const s1 = this.service.ServiceGetCount(filterStatist1);
@@ -136,7 +134,7 @@ export class SmsLogOutBoxWidgetComponent implements OnInit, OnDestroy {
     //*filter - Need To Check */
     const filterStatist2 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter2 = new FilterDataModel();
-    fastfilter2.propertyName = "mainAdminRecordStatus";
+    fastfilter2.propertyName = "adminRecordStatus";
     fastfilter2.value = RecordAdminStatusEnum.NeedToCheck;
     filterStatist2.filters.push(fastfilter2);
     const s2 = this.service.ServiceGetCount(filterStatist2);
@@ -160,11 +158,9 @@ export class SmsLogOutBoxWidgetComponent implements OnInit, OnDestroy {
       });
       if (ret.isSuccess) {
         this.rowExist = true;
-        this.translate
-          .get("TITLE.Number_OutBox")
-          .subscribe((str: string) => {
-            this.widgetInfoModel.description = str + " : " + ret.totalRowCount;
-          });
+        this.translate.get("TITLE.Number_OutBox").subscribe((str: string) => {
+          this.widgetInfoModel.description = str + " : " + ret.totalRowCount;
+        });
       }
 
       if (ret.isSuccess) {
@@ -183,9 +179,11 @@ export class SmsLogOutBoxWidgetComponent implements OnInit, OnDestroy {
       //*results - Pending Admin Approval */
       ret = results[1];
       series[1] = ret.totalRowCount;
-      this.translate.get("TITLE.Pending_Admin_Approval").subscribe((str: string) => {
-        labels[1] = str;
-      });
+      this.translate
+        .get("TITLE.Pending_Admin_Approval")
+        .subscribe((str: string) => {
+          labels[1] = str;
+        });
       if (ret.isSuccess) {
         this.widgetInfoModel.setItem(
           new WidgetContentInfoModel(

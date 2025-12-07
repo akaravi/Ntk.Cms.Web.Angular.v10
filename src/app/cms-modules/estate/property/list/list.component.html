@@ -1063,7 +1063,8 @@
           {{ fieldsInfo["mainAdminRecordStatus"]?.fieldTitle }}
         </mat-header-cell>
         <mat-cell *matCellDef="let row">
-          <i [ngClass]="row.mainAdminRecordStatus | adminStatusIconClass"></i>
+          <i [ngClass]="row.mainAdminRecordStatus | adminStatusIconClass"></i
+          >{{ row.mainAdminRecordStatus }}
         </mat-cell>
       </ng-container>
       <!-- IsSoldIt Column -->

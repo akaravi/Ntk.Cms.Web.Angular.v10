@@ -94,7 +94,7 @@ export class SmsLogOutBoxQueueListComponent
   tabledisplayedColumnsSource: string[] = [
     "id",
     "recordStatus",
-    "mainAdminRecordStatus",
+    "adminRecordStatus",
     "createdBy",
     "scheduleSendStart",
     "scheduleSendExpire",
@@ -108,7 +108,7 @@ export class SmsLogOutBoxQueueListComponent
   tabledisplayedColumnsMobileSource: string[] = [
     "id",
     "recordStatus",
-    "mainAdminRecordStatus",
+    "adminRecordStatus",
     "createdBy",
     "scheduleSendStart",
     "scheduleSendExpire",

@@ -23,13 +23,13 @@
         [optionRequired]="true"
         [optionSelectFirstItem]="true"
       ></app-cms-enum-record-status-selector>
-      <!-- MainAdminRecordStatus Field -->
+      <!-- adminRecordStatus Field -->
 
       <app-cms-enum-record-admin-status-selector
-        *ngIf="fieldsInfo['mainAdminRecordStatus']?.accessWatchField"
-        [(model)]="dataModel.mainAdminRecordStatus"
-        [optionDisabled]="!fieldsInfo['mainAdminRecordStatus']?.accessEditField"
-        [optionLabel]="fieldsInfo['mainAdminRecordStatus']?.fieldTitle"
+        *ngIf="fieldsInfo['adminRecordStatus']?.accessWatchField"
+        [(model)]="dataModel.adminRecordStatus"
+        [optionDisabled]="!fieldsInfo['adminRecordStatus']?.accessEditField"
+        [optionLabel]="fieldsInfo['adminRecordStatus']?.fieldTitle"
         [optionRequired]="true"
         [optionSelectFirstItem]="true"
       ></app-cms-enum-record-admin-status-selector>
