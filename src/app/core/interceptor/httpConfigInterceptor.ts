@@ -73,6 +73,7 @@ export class HttpConfigInterceptor implements HttpInterceptor {
           //Error 401
           const isRefreshingToken = localStorage.getItem("isRefreshingToken");
           if (isRefreshingToken === "true") {
+            this.coreAuthService.removeToken();
             localStorage.removeItem("isRefreshingToken");
             this.cmsAuthService.logout();
             this.router.navigate([ROUTE_SIGNOUT], {

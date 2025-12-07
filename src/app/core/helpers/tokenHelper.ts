@@ -56,16 +56,58 @@ export class TokenHelper implements OnDestroy {
     tokenInfo = this.cmsStoreService.getStateSnapshot().tokenInfoStore;
     if (tokenInfo && tokenInfo?.access) return new Observable<void>();
     //step 3
+    var retServiceRefreshToken: ErrorExceptionResult<TokenJWTModel>;
     if (
       this.coreAuthService.getJWT()?.tokenExpireDate &&
       new Date(this.coreAuthService.getJWT()?.tokenExpireDate) &&
       this.coreAuthService.getJWT()?.refreshToken?.length > 0
     ) {
-      const value = await firstValueFrom(
+      await firstValueFrom(
         this.coreAuthService.ServiceRefreshToken().pipe(
           map((ret: ErrorExceptionResult<TokenJWTModel>) => {
             if (environment.consoleLog)
               console.log("ServiceRefreshToken_getJWT_TOKEN_INFO");
+
+            if (ret.isSuccess) {
+              /** set token info */
+              return firstValueFrom(
+                this.coreAuthService.ServiceCurrentToken().pipe(
+                  map((ret: ErrorExceptionResult<TokenInfoModelV3>) => {
+                    tokenInfo = ret.item;
+                    this.cmsStoreService.setState({
+                      type: SET_TOKEN_INFO,
+                      payload: ret.item,
+                    });
+                    return;
+                  }),
+                  catchError((err) => {
+                    if (environment.consoleLog) console.log("Error_TOKEN_INFO");
+                    return of(undefined);
+                  }),
+                  finalize(() => {}),
+                ),
+              );
+              /** set token info */
+            }
+            return new Observable<void>();
+          }),
+          catchError((err) => {
+            if (environment.consoleLog) console.log("Error_TOKEN_INFO");
+            return of(undefined);
+          }),
+          finalize(() => {}),
+        ),
+      );
+    } else {
+      /** set token info */
+      const value = await firstValueFrom(
+        this.coreAuthService.ServiceCurrentToken().pipe(
+          map((ret: ErrorExceptionResult<TokenInfoModelV3>) => {
+            tokenInfo = ret.item;
+            this.cmsStoreService.setState({
+              type: SET_TOKEN_INFO,
+              payload: ret.item,
+            });
             return;
           }),
           catchError((err) => {
@@ -75,24 +117,8 @@ export class TokenHelper implements OnDestroy {
           finalize(() => {}),
         ),
       );
+      /** set token info */
     }
-    const value = await firstValueFrom(
-      this.coreAuthService.ServiceCurrentToken().pipe(
-        map((ret: ErrorExceptionResult<TokenInfoModelV3>) => {
-          tokenInfo = ret.item;
-          this.cmsStoreService.setState({
-            type: SET_TOKEN_INFO,
-            payload: ret.item,
-          });
-          return;
-        }),
-        catchError((err) => {
-          if (environment.consoleLog) console.log("Error_TOKEN_INFO");
-          return of(undefined);
-        }),
-        finalize(() => {}),
-      ),
-    );
     return new Observable<void>();
   }
 

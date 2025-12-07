@@ -790,7 +790,6 @@ export class SmsActionSendMessageComponent implements OnInit {
             this.translate
               .get("MESSAGE.Send_request_was_successfully_registered")
               .subscribe((str: string) => {
-                debugger;
                 this.cmsToastrService.typeSuccessMessage(ret.errorMessage, str);
               });
 

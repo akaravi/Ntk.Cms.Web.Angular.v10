@@ -161,7 +161,6 @@ export class ContactContentListComponent
       filterModel.filters = [...this.filterDataModelQueryBuilder];
     }
     /*filter add search*/
-    debugger;
     if (
       this.categoryModelSelected &&
       this.categoryModelSelected.id?.length > 0
