@@ -158,9 +158,13 @@ export class CmsExportEntityComponent implements OnInit, OnDestroy {
               (x) => x.reportFileType == ReportFileTypeEnum.Item,
             );
           if (this.dataModelReportFileResult.listItems.length == 0) {
-            this.fileTypeListItems.slice(
-              this.fileTypeListItems.findIndex((x) => x.key == "Report"),
+            const reportIndex = this.fileTypeListItems.findIndex(
+              (x) => x.key == "Report",
             );
+            if (reportIndex !== -1) {
+              this.fileTypeListItems.splice(reportIndex, 1);
+              this.dataModel.fileType = this.fileTypeListItems[0]?.value;
+            }
           } else {
             this.dataModel.reportFormatFileId =
               this.dataModelReportFileResult.listItems[0].id;
