@@ -82,7 +82,7 @@ export class SmsMainApiNumberPermissionListComponent
     }
     if (this.requestLinkApiNumberId?.length > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "LinkApiPathId";
+      filter.propertyName = "LinkApiNumberId";
       filter.value = this.requestLinkApiNumberId;
       this.filteModelContent.filters.push(filter);
     }

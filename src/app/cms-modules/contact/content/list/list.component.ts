@@ -31,8 +31,7 @@ import { ContactContentEditComponent } from "../edit/edit.component";
 })
 export class ContactContentListComponent
   extends ListBaseComponent<ContactContentService, ContactContentModel, string>
-  implements OnInit, OnDestroy
-{
+  implements OnInit, OnDestroy {
   requestLinkCategoryId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
@@ -123,6 +122,20 @@ export class ContactContentListComponent
   ngOnDestroy(): void {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
+  filterModelCompiler(model: FilterModel): FilterModel {
+    /*filter CLone*/
+    const filterModel = JSON.parse(JSON.stringify(model));
+    /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
+    return filterModel;
+  }
   DataGetAll(): void {
     this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
       this.tabledisplayedColumnsSource,
@@ -150,17 +163,8 @@ export class ContactContentListComponent
         );
       });
     this.filteModelContent.accessLoad = true;
-    /*filter CLone*/
-    const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
-    /*filter CLone*/
-    /*filter add search*/
-    if (
-      this.filterDataModelQueryBuilder &&
-      this.filterDataModelQueryBuilder.length > 0
-    ) {
-      filterModel.filters = [...this.filterDataModelQueryBuilder];
-    }
-    /*filter add search*/
+
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
     if (
       this.categoryModelSelected &&
       this.categoryModelSelected.id?.length > 0
@@ -414,7 +418,19 @@ export class ContactContentListComponent
         this.constructorInfoAreaId,
       );
     });
-    this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
+    var filterModel = this.filterModelCompiler(this.filteModelContent);
+    if (
+      this.categoryModelSelected &&
+      this.categoryModelSelected.id?.length > 0
+    ) {
+
+      const fastfilter = new FilterDataModel();
+      fastfilter.propertyName = "ContentCategores";
+      fastfilter.propertyAnyName = "LinkCategoryId";
+      fastfilter.value = this.categoryModelSelected.id;
+      filterModel.filters.push(fastfilter);
+    }
+    this.contentService.ServiceGetCount(filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.translate.get("MESSAGE.All").subscribe((str: string) => {
@@ -432,11 +448,22 @@ export class ContactContentListComponent
       },
     });
 
-    const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
+    const filterStatist1 = this.filterModelCompiler(this.filteModelContent);
     const fastfilter = new FilterDataModel();
     fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter);
+    if (
+      this.categoryModelSelected &&
+      this.categoryModelSelected.id?.length > 0
+    ) {
+
+      const fastfilter = new FilterDataModel();
+      fastfilter.propertyName = "ContentCategores";
+      fastfilter.propertyAnyName = "LinkCategoryId";
+      fastfilter.value = this.categoryModelSelected.id;
+      filterStatist1.filters.push(fastfilter);
+    }
     this.contentService.ServiceGetCount(filterStatist1).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
