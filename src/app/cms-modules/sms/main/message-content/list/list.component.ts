@@ -121,6 +121,19 @@ export class SmsMainMessageContentListComponent
   ngOnDestroy(): void {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
+  filterModelCompiler(model: FilterModel): FilterModel {
+    /*filter CLone*/
+    const filterModel = JSON.parse(JSON.stringify(model));
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
+    return filterModel;
+  }
   DataGetAll(): void {
     this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
       this.tabledisplayedColumnsSource,
@@ -141,17 +154,7 @@ export class SmsMainMessageContentListComponent
         );
       });
     this.filteModelContent.accessLoad = true;
-    /*filter CLone*/
-    const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
-    /*filter CLone*/
-    /*filter add search*/
-    if (
-      this.filterDataModelQueryBuilder &&
-      this.filterDataModelQueryBuilder.length > 0
-    ) {
-      filterModel.filters = [...this.filterDataModelQueryBuilder];
-    }
-    /*filter add search*/
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
     if (
       this.categoryModelSelected &&
       this.categoryModelSelected.id?.length > 0
@@ -368,7 +371,14 @@ export class SmsMainMessageContentListComponent
         this.constructorInfoAreaId,
       );
     });
-    this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
+    if (this.categoryModelSelected && this.categoryModelSelected.id.length > 0) {
+      const fastfilter = new FilterDataModel();
+      fastfilter.propertyName = "LinkCategoryId";
+      fastfilter.value = this.categoryModelSelected.id;
+      filterModel.filters.push(fastfilter);
+    }
+    this.contentService.ServiceGetCount(filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.translate.get("MESSAGE.All").subscribe((str: string) => {
@@ -386,7 +396,13 @@ export class SmsMainMessageContentListComponent
       },
     });
 
-    const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
+    const filterStatist1 = this.filterModelCompiler(this.filteModelContent);
+    if (this.categoryModelSelected && this.categoryModelSelected.id.length > 0) {
+      const fastfilter = new FilterDataModel();
+      fastfilter.propertyName = "LinkCategoryId";
+      fastfilter.value = this.categoryModelSelected.id;
+      filterStatist1.filters.push(fastfilter);
+    }
     const fastfilter = new FilterDataModel();
     fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;

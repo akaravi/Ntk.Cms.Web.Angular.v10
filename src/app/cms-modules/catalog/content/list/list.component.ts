@@ -5,14 +5,14 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CatalogCategoryModel,
-  CatalogContentModel,
-  CatalogContentService,
-  ClauseTypeEnum,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    CatalogCategoryModel,
+    CatalogContentModel,
+    CatalogContentService,
+    ClauseTypeEnum,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -115,6 +115,19 @@ export class CatalogContentListComponent
   ngOnDestroy(): void {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
+  filterModelCompiler(model: FilterModel): FilterModel {
+    /*filter CLone*/
+    const filterModel = JSON.parse(JSON.stringify(model));
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
+    return filterModel;
+  }
   DataGetAll(): void {
     this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
       this.tabledisplayedColumnsSource,
@@ -135,17 +148,7 @@ export class CatalogContentListComponent
         );
       });
     this.filteModelContent.accessLoad = true;
-    /*filter CLone*/
-    const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
-    /*filter CLone*/
-    /*filter add search*/
-    if (
-      this.filterDataModelQueryBuilder &&
-      this.filterDataModelQueryBuilder.length > 0
-    ) {
-      filterModel.filters = [...this.filterDataModelQueryBuilder];
-    }
-    /*filter add search*/
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
 
     {
       /** Normal */
@@ -332,7 +335,26 @@ export class CatalogContentListComponent
         this.constructorInfoAreaId,
       );
     });
-    this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
+    if (
+      this.categoryModelSelected &&
+      this.categoryModelSelected.id?.length > 0
+    ) {
+      const filterChild = new FilterDataModel();
+      let fastfilter = new FilterDataModel();
+      fastfilter.propertyName = "LinkCategoryId";
+      fastfilter.value = this.categoryModelSelected.id;
+      fastfilter.clauseType = ClauseTypeEnum.Or;
+      filterChild.filters.push(fastfilter);
+      fastfilter = new FilterDataModel();
+      fastfilter.propertyName = "ContentCategores";
+      fastfilter.propertyAnyName = "LinkCategoryId";
+      fastfilter.value = this.categoryModelSelected.id;
+      fastfilter.clauseType = ClauseTypeEnum.Or;
+      filterChild.filters.push(fastfilter);
+      filterModel.filters.push(filterChild);
+    }
+    this.contentService.ServiceGetCount(filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.translate.get("MESSAGE.All").subscribe((str: string) => {
@@ -350,7 +372,25 @@ export class CatalogContentListComponent
       },
     });
 
-    const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
+    const filterStatist1 = this.filterModelCompiler(this.filteModelContent);
+    if (
+      this.categoryModelSelected &&
+      this.categoryModelSelected.id?.length > 0
+    ) {
+      const filterChild = new FilterDataModel();
+      let fastfilter = new FilterDataModel();
+      fastfilter.propertyName = "LinkCategoryId";
+      fastfilter.value = this.categoryModelSelected.id;
+      fastfilter.clauseType = ClauseTypeEnum.Or;
+      filterChild.filters.push(fastfilter);
+      fastfilter = new FilterDataModel();
+      fastfilter.propertyName = "ContentCategores";
+      fastfilter.propertyAnyName = "LinkCategoryId";
+      fastfilter.value = this.categoryModelSelected.id;
+      fastfilter.clauseType = ClauseTypeEnum.Or;
+      filterChild.filters.push(fastfilter);
+      filterStatist1.filters.push(filterChild);
+    }
     const fastfilter = new FilterDataModel();
     fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;

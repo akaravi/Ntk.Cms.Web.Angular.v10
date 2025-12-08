@@ -1,5 +1,33 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-12-08 12:00 (یکپارچه‌سازی filterModelCompiler برای ServiceGetCount)
+
+### تغییرات اعمال شده:
+
+- تعریف متد `filterModelCompiler` در لیست‌ها/ویجت‌های دارای جستجوی پیشرفته برای اطمینان از همسان بودن فیلترهای ارسال‌شده به ServiceGetCount با ServiceGetAll/Editor
+- جایگزینی کلون دستی فیلترها با `filterModelCompiler` در درخواست‌های لیست و آمار
+- الحاق فیلترهای انتخاب دسته (Category/Module) و وضعیت رکورد به شمارنده‌ها تا نتایج آمار با نتایج لیست مطابقت داشته باشد
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/core-module-log/content-count/list/list.component.ts`
+- `src/app/cms-modules/hyper-shop/content/list/list.component.ts`
+- `src/app/cms-modules/core-main/module-entity/list/list.component.ts`
+- `src/app/cms-modules/catalog/content/list/list.component.ts`
+- `src/app/cms-modules/article/content/list/list.component.ts`
+- `src/app/cms-modules/file-manager/content/list/list.component.ts`
+- `src/app/cms-modules/news/content/list/list.component.ts`
+- `src/app/cms-modules/blog/content/list/list.component.ts`
+- `src/app/cms-modules/chart/content/list/list.component.ts`
+- `src/app/cms-modules/sms/main/message-content/list/list.component.ts`
+- `src/app/cms-modules/core-main/user-claim/content/list/list.component.ts`
+- `src/app/cms-modules/biography/content/list/list.component.ts`
+- `src/app/cms-modules/polling/content/list/list.component.ts`
+- `readmehistory.md`
+
+> یادداشت: تغییرات قبلی روی ویجت `core-main/site/widget/count` بنا به درخواست حذف شد و فایل به حالت قبل بازگردانده شد.
+
+---
+
 ## 2025-12-06 19:55 (پیاده‌سازی جستجوی همزمان سرور در CmsContactContentDropListComponent)
 
 ### تغییرات اعمال شده:

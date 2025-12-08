@@ -137,6 +137,20 @@ export class CoreModuleEntityListComponent
   ngOnDestroy(): void {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
+  filterModelCompiler(model: FilterModel): FilterModel {
+    /*filter CLone*/
+    const filterModel = JSON.parse(JSON.stringify(model));
+    /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
+    return filterModel;
+  }
   getModuleList(): void {
     const filter = new FilterModel();
     filter.rowPerPage = 100;
@@ -168,17 +182,7 @@ export class CoreModuleEntityListComponent
     this.filteModelContent.accessLoad = true;
     const filter = new FilterDataModel();
 
-    /*filter CLone*/
-    const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
-    /*filter CLone*/
-    /*filter add search*/
-    if (
-      this.filterDataModelQueryBuilder &&
-      this.filterDataModelQueryBuilder.length > 0
-    ) {
-      filterModel.filters = [...this.filterDataModelQueryBuilder];
-    }
-    /*filter add search*/
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
     if (this.categoryModelSelected && this.categoryModelSelected.id > 0) {
       filter.propertyName = "LinkModuleId";
       filter.value = this.categoryModelSelected.id;
@@ -440,7 +444,14 @@ export class CoreModuleEntityListComponent
         this.constructorInfoAreaId,
       );
     });
-    this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
+    if (this.categoryModelSelected && this.categoryModelSelected.id > 0) {
+      const fastfilter = new FilterDataModel();
+      fastfilter.propertyName = "LinkModuleId";
+      fastfilter.value = this.categoryModelSelected.id;
+      filterModel.filters.push(fastfilter);
+    }
+    this.contentService.ServiceGetCount(filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.translate.get("MESSAGE.All").subscribe((str: string) => {
@@ -456,7 +467,13 @@ export class CoreModuleEntityListComponent
       },
     });
 
-    const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
+    const filterStatist1 = this.filterModelCompiler(this.filteModelContent);
+    if (this.categoryModelSelected && this.categoryModelSelected.id > 0) {
+      const fastfilter = new FilterDataModel();
+      fastfilter.propertyName = "LinkModuleId";
+      fastfilter.value = this.categoryModelSelected.id;
+      filterStatist1.filters.push(fastfilter);
+    }
     const fastfilter = new FilterDataModel();
     fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
