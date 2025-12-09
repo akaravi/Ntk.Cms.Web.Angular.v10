@@ -46,7 +46,7 @@ const routes: Routes = [
         data: { title: "ROUTE.LINKMANAGMENT.TARGET" },
       },
       {
-        path: "target/edit/:Id",
+        path: "target/edit/:id",
         component: LinkManagementTargetEditComponent,
         data: { title: "ROUTE.LINKMANAGMENT.TARGET" },
       },
@@ -66,7 +66,7 @@ const routes: Routes = [
         data: { title: "ROUTE.LINKMANAGMENT.BILLBOARD" },
       },
       {
-        path: "billboard/edit/:Id",
+        path: "billboard/edit/:id",
         component: LinkManagementBillboardEditComponent,
         data: { title: "ROUTE.LINKMANAGMENT.BILLBOARD" },
       },

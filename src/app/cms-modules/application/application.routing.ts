@@ -42,7 +42,7 @@ const routes: Routes = [
         data: { title: "ROUTE.APPLICATION.SOURCE" },
       },
       {
-        path: "source/edit/:Id",
+        path: "source/edit/:id",
         component: ApplicationSourceEditComponent,
         data: { title: "ROUTE.APPLICATION.SOURCE" },
       },
@@ -72,7 +72,7 @@ const routes: Routes = [
         data: { title: "ROUTE.APPLICATION.APP" },
       },
       {
-        path: "app/edit/:Id",
+        path: "app/edit/:id",
         component: ApplicationAppEditComponent,
         data: { title: "ROUTE.APPLICATION.APP" },
       },
@@ -93,7 +93,7 @@ const routes: Routes = [
         data: { title: "ROUTE.APPLICATION.INTRO" },
       },
       {
-        path: "intro/edit/:Id",
+        path: "intro/edit/:id",
         component: ApplicationIntroEditComponent,
         data: { title: "ROUTE.APPLICATION.INTRO" },
       },

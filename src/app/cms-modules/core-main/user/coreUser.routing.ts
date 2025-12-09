@@ -22,7 +22,7 @@ const routes: Routes = [
         data: { title: "ROUTE.CORE.USER" },
       },
       {
-        path: "edit/:Id",
+        path: "edit/:id",
         component: CoreUserEditComponent,
         data: { title: "ROUTE.CORE.USER" },
       },

@@ -36,7 +36,7 @@ const routes: Routes = [
         data: { title: "ROUTE.POLLING.CONTENT" },
       },
       {
-        path: "content/edit/:Id",
+        path: "content/edit/:id",
         component: PollingContentEditComponent,
         data: { title: "ROUTE.POLLING.CONTENT" },
       },

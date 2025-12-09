@@ -34,7 +34,7 @@ const routes: Routes = [
         data: { title: "ROUTE.CONTACT" },
       },
       {
-        path: "content/edit/:Id",
+        path: "content/edit/:id",
         component: ContactContentEditComponent,
         data: { title: "ROUTE.CONTACT" },
       },

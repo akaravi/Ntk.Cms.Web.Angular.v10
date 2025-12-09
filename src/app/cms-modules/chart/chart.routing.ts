@@ -36,7 +36,7 @@ const routes: Routes = [
         data: { title: "ROUTE.CHART" },
       },
       {
-        path: "content/edit/:Id",
+        path: "content/edit/:id",
         component: ChartContentEditComponent,
         data: { title: "ROUTE.CHART" },
       },

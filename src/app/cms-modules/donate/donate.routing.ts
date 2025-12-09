@@ -41,12 +41,12 @@ const routes: Routes = [
         data: { title: "ROUTE.DONATE.TARGET" },
       },
       {
-        path: "target/edit/:Id",
+        path: "target/edit/:id",
         component: DonateTargetEditComponent,
         data: { title: "ROUTE.DONATE.TARGET" },
       },
       {
-        path: "target/Delete/:Id",
+        path: "target/Delete/:id",
         component: DonateTargetDeleteComponent,
         data: { title: "ROUTE.DONATE.TARGET" },
       },
@@ -56,7 +56,7 @@ const routes: Routes = [
         data: { title: "ROUTE.DONATE.LOGVIEW" },
       },
       {
-        path: "log-view/:Id",
+        path: "log-view/:id",
         component: DonateLogViewListComponent,
         data: { title: "ROUTE.DONATE.LOGVIEW" },
       },

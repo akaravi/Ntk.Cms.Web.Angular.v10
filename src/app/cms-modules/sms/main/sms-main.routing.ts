@@ -54,7 +54,7 @@ const routes: Routes = [
         data: { title: "ROUTE.SMS.MAIN" },
       },
       {
-        path: "api-path/edit/:Id",
+        path: "api-path/edit/:id",
         component: SmsMainApiPathEditComponent,
         data: { title: "ROUTE.SMS.MAIN" },
       },

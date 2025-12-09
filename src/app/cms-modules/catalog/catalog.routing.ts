@@ -35,7 +35,7 @@ const routes: Routes = [
         data: { title: "ROUTE.CATALOG" },
       },
       {
-        path: "content/edit/:Id",
+        path: "content/edit/:id",
         component: CatalogContentEditComponent,
         data: { title: "ROUTE.CATALOG" },
       },

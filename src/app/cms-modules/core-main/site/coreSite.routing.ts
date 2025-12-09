@@ -58,7 +58,7 @@ const routes: Routes = [
         data: { title: "ROUTE.CORE.SITE" },
       },
       {
-        path: "edit/:Id",
+        path: "edit/:id",
         canActivate: [CmsAuthSiteGuard],
         component: CoreSiteEditComponent,
         data: { title: "ROUTE.CORE.SITE" },

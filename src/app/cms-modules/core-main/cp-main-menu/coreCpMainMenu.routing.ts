@@ -16,7 +16,7 @@ const routes: Routes = [
         data: { title: "ROUTE.CORE.CPMAINMENU" },
       },
       {
-        path: "edit/:Id",
+        path: "edit/:id",
         component: CoreCpMainMenuEditComponent,
         data: { title: "ROUTE.CORE.CPMAINMENU" },
       },

@@ -48,7 +48,7 @@ const routes: Routes = [
         data: { title: "ROUTE.NEWS.CONTENT" },
       },
       {
-        path: "content/edit/:Id",
+        path: "content/edit/:id",
         component: NewsContentEditComponent,
         data: { title: "ROUTE.NEWS.CONTENT" },
       },

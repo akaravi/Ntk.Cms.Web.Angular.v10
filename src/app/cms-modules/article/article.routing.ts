@@ -35,7 +35,7 @@ const routes: Routes = [
         data: { title: "ROUTE.ARTICLE" },
       },
       {
-        path: "content/edit/:Id",
+        path: "content/edit/:id",
         component: ArticleContentEditComponent,
         data: { title: "ROUTE.ARTICLE" },
       },

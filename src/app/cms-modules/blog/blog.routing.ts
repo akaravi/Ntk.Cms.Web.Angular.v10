@@ -33,7 +33,7 @@ const routes: Routes = [
         data: { title: "ROUTE.BLOG" },
       },
       {
-        path: "content/edit/:Id",
+        path: "content/edit/:id",
         component: BlogContentEditComponent,
         data: { title: "ROUTE.BLOG" },
       },

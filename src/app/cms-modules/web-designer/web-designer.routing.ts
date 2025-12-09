@@ -49,7 +49,7 @@ const routes: Routes = [
         data: { title: "ROUTE.WEBDESIGNER.INTRO" },
       },
       {
-        path: "intro/edit/:Id",
+        path: "intro/edit/:id",
         component: WebDesignerMainIntroEditComponent,
         data: { title: "ROUTE.WEBDESIGNER.INTRO" },
       },

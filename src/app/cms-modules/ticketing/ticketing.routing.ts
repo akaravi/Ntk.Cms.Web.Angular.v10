@@ -40,7 +40,7 @@ const routes: Routes = [
         data: { title: "ROUTE.TICKETING.DEPARTMENT" },
       },
       {
-        path: "departemen/edit/:Id",
+        path: "departemen/edit/:id",
         component: TicketingDepartemenEditComponent,
         data: { title: "ROUTE.TICKETING.DEPARTMENT" },
       },
