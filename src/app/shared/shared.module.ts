@@ -76,6 +76,7 @@ import {
   CoreUserGroupService,
   CoreUserService,
   MemberUserService,
+  ContactContentService,
   SmsActionService,
   SmsMainApiNumberService,
   SmsMainApiPathService,
@@ -141,6 +142,7 @@ import { SortTypeIconClassPipe } from "../core/pipe/sortTypeIconClass.pipe";
 import { TruncatePipe } from "../core/pipe/truncate.pipe";
 import { ValueArrayPipe } from "../core/pipe/valueArray.pipe";
 import { NgxQueryBuilderComponent } from "../core/query-builder/ngx-ntk-query-builder.component";
+import { ContactContentByNumberPipe } from "../core/pipe/contact/contact-content-by-number.pipe";
 import { CmsToastrService } from "../core/services/cmsToastr.service";
 import { ThemeService } from "../core/services/theme.service";
 import { Cms360ImageListComponent } from "./cms-360-image-list/cms-360-image-list.component";
@@ -237,6 +239,7 @@ import { CmsRecordAdminStatusSelfSaveDirective } from "../core/directive/cms-rec
     BoolStatusClassPipe,
     ValueArrayPipe,
     FirstLetterPipe,
+    ContactContentByNumberPipe,
     SafePipe,
     /** Component */
 
@@ -371,6 +374,7 @@ import { CmsRecordAdminStatusSelfSaveDirective } from "../core/directive/cms-rec
     SmsMainApiPathService,
     SmsMainApiNumberService,
     SmsActionService,
+    ContactContentService,
   ],
 
   imports: [
@@ -501,6 +505,7 @@ import { CmsRecordAdminStatusSelfSaveDirective } from "../core/directive/cms-rec
     ReplaceTextPipe,
     BoolStatusClassPipe,
     ValueArrayPipe,
+    ContactContentByNumberPipe,
     /** Component */
 
     CmsSearchListComponent,

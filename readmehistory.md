@@ -1,5 +1,70 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-12-09 15:13 (نمایش اطلاعات مخاطب با دبل‌کلیک روی شماره)
+
+### تغییرات اعمال شده:
+
+- افزودن حالت نمایش مخاطب به ستون شماره فرستنده در `SmsLogInBoxListComponent` با دبل‌کلیک و استفاده از `contactContentByNumber` برای واکشی نام از دفترچه تلفن
+
+---
+
+## 2025-12-09 16:19 (بهبود نمایش نام در contactContentByNumber)
+
+### تغییرات اعمال شده:
+
+- اولویت نمایش: ابتدا `firstName + lastName`، در صورت نبود نام، `title` دفترچه تلفن و در نهایت fallback به شماره ورودی
+- حذف نمایش شماره/سازمان در خروجی pipe برای نمایش خالص نام دفترچه تلفن
+
+---
+
+## 2025-12-09 16:21 (پشتیبانی از listItems در contactContentByNumber)
+
+### تغییرات اعمال شده:
+
+- در پاسخ `ServiceFindByNumber` در صورت نبود `item`، از اولین عضو `listItems` استفاده می‌شود تا نام مخاطب برگردد
+- همچنان اولویت نمایش: fullname سپس title و در نهایت شماره ورودی
+
+---
+
+## 2025-12-09 16:25 (ترکیب تمام listItems در contactContentByNumber)
+
+### تغییرات اعمال شده:
+
+- جمع‌آوری همه نتایج (`item` و `listItems`) و ساخت فهرست نام‌ها بر اساس `firstName + lastName` یا `title`
+- نمایش خروجی به صورت فهرست جداشده با `|`؛ در صورت نبود نام، بازگشت به شماره ورودی
+
+### فایل‌های تغییر یافته:
+- `src/app/core/pipe/contact/contact-content-by-number.pipe.ts`
+- `readmehistory.md`
+
+### فایل‌های تغییر یافته:
+- `src/app/core/pipe/contact/contact-content-by-number.pipe.ts`
+- `readmehistory.md`
+
+### فایل‌های تغییر یافته:
+- `src/app/core/pipe/contact/contact-content-by-number.pipe.ts`
+- `readmehistory.md`
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/sms/log/inbox/list/list.component.ts`
+- `src/app/cms-modules/sms/log/inbox/list/list.component.html`
+- `readmehistory.md`
+
+---
+
+## 2025-12-09 14:54 (افزودن pipe جستجوی شماره تماس)
+
+### تغییرات اعمال شده:
+
+- ثبت `ContactContentByNumberPipe` در `SharedModule` برای دسترسی سراسری و استفاده از API `ContactContentService.ServiceFindByNumber`
+- افزودن `ContactContentService` به `providers` برای پشتیبانی از pipe و جلوگیری از خطای تزریق
+
+### فایل‌های تغییر یافته:
+- `src/app/shared/shared.module.ts`
+- `readmehistory.md`
+
+---
+
 ## 2025-12-08 12:00 (یکپارچه‌سازی filterModelCompiler برای ServiceGetCount)
 
 ### تغییرات اعمال شده:

@@ -85,6 +85,7 @@ export class SmsLogInBoxListComponent
     new ErrorExceptionResult<CoreCurrencyModel>();
   dataModelPrivateResult: ErrorExceptionResult<SmsMainApiPathModel> =
     new ErrorExceptionResult<SmsMainApiPathModel>();
+  senderDisplayMode: Record<string, boolean> = {};
 
   categoryModelSelected: SmsMainApiPathModel;
 
@@ -174,6 +175,13 @@ export class SmsLogInBoxListComponent
 
   ngOnDestroy(): void {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
+  }
+
+  onSenderDoubleClick(row: SmsLogInBoxModel): void {
+    if (!row?.id) {
+      return;
+    }
+    this.senderDisplayMode[row.id] = true;
   }
   DataGetAll(): void {
     this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(

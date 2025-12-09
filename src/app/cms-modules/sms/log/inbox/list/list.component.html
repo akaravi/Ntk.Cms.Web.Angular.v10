@@ -288,7 +288,16 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header
           >{{ fieldsInfo["senderNumber"]?.fieldTitle }}
         </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.senderNumber }} </mat-cell>
+        <mat-cell
+          *matCellDef="let row"
+          (dblclick)="onSenderDoubleClick(row)"
+          class="cursor-pointer"
+        >
+          <ng-container *ngIf="senderDisplayMode[row.id]; else senderRaw">
+            {{ row.senderNumber | contactContentByNumber | async }}
+          </ng-container>
+          <ng-template #senderRaw> {{ row.senderNumber }} </ng-template>
+        </mat-cell>
       </ng-container>
       <!-- ReceiverNumber Column -->
       <ng-container matColumnDef="ReceiverNumber">

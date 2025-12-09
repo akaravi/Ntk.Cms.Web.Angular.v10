@@ -4,13 +4,16 @@ import { FormGroup } from "@angular/forms";
 import { MatStepper } from "@angular/material/stepper";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreEnumService,
-  ErrorExceptionResultBase,ManageUserAccessDataTypesEnum,
+import {
+  CoreEnumService,
+  ErrorExceptionResultBase,
+  ManageUserAccessDataTypesEnum,
   SmsMainApiPathAliasJsonModel,
   SmsMainApiPathCompanyModel,
   SmsMainApiPathModel,
   SmsMainApiPathPublicConfigModel,
-  SmsMainApiPathService} from "ntk-cms-api";
+  SmsMainApiPathService,
+} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -142,27 +145,48 @@ export class SmsMainApiPathEditComponent
             this.formInfo.formTitle =
               this.formInfo.formTitle + " " + ret.item.title;
             this.formInfo.submitResultMessage = "";
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-            this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
           } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
@@ -170,7 +194,8 @@ export class SmsMainApiPathEditComponent
                 this.formInfo.submitResultMessage = str;
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
-            this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -209,9 +234,11 @@ export class SmsMainApiPathEditComponent
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
             });
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
           this.cmsToastrService.typeSuccessEdit();
           //setTimeout(() => this.router.navigate(['/sms/main/api-path/list']), 1000);
         } else {

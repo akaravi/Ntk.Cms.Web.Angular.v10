@@ -905,7 +905,7 @@ export class CmsToastrService {
   typeError(model: any, strMessage: string = ""): void {
     console.log("Error", model);
 
-    if (!model || model == undefined || model == null) {
+    if (model) {
       this.showToast({
         messageKeys: ["ERRORMESSAGE.MESSAGE.typeError"],
         titleKeys: ["ERRORMESSAGE.TITLE.typeError"],
