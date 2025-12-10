@@ -200,7 +200,12 @@
           {{ fieldsInfo["receiverNumber"]?.fieldTitle }}
         </mat-header-cell>
         <mat-cell *matCellDef="let row" class="input-ltr-center">
-          {{ row.receiverNumber }}
+          <span
+            [contactContentByNumberTooltip]="row.receiverNumber"
+            [tooltipPosition]="'above'"
+          >
+            {{ row.receiverNumber }}
+          </span>
         </mat-cell>
       </ng-container>
       <!-- isSent Column -->

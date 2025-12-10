@@ -53,8 +53,12 @@ export class DateByClock {
   standalone: false,
 })
 export class SmsActionSendMessageComponent implements OnInit {
+  requestMessage = "";
   requestLinkApiPathId = "";
   requestLinkApiNumberId = "";
+  requestReceiverNumber: string = "";
+  requestSenderNumber: string = "";
+
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public coreEnumService: CoreEnumService,
@@ -74,32 +78,46 @@ export class SmsActionSendMessageComponent implements OnInit {
   ) {
     this.publicHelper.processService.cdr = this.cdr;
 
-    this.requestLinkApiPathId =
-      this.activatedRoute.snapshot.paramMap.get("LinkApiPathId");
-    if (this.requestLinkApiPathId?.length > 0) {
-      this.dataModel.linkApiPathId = this.requestLinkApiPathId;
-    }
-    this.requestLinkApiNumberId =
-      this.activatedRoute.snapshot.paramMap.get("LinkApiNumberId");
-    if (this.requestLinkApiNumberId?.length > 0) {
-      this.dataModel.linkFromNumber = this.requestLinkApiNumberId;
-    }
+    this.requestLinkApiPathId =      this.activatedRoute.snapshot.paramMap.get("LinkApiPathId");
+    this.requestLinkApiNumberId =      this.activatedRoute.snapshot.paramMap.get("LinkApiNumberId");
+    this.requestMessage = this.activatedRoute.snapshot.paramMap.get("Message");
     this.dataModel.scheduleCron = "";
 
-    if (
-      this.router &&
-      this.router.getCurrentNavigation() &&
-      this.router.getCurrentNavigation().extras.state != null
-    ) {
-      this.receiverNumber =
-        this.router.getCurrentNavigation().extras.state.ReceiverNumber;
-      this.senderNumber =
-        this.router.getCurrentNavigation().extras.state.SenderNumber;
-      this.linkApiPathId =
-        this.router.getCurrentNavigation().extras.state.LinkApiPathId;
-      this.linkNumberId =
-        this.router.getCurrentNavigation().extras.state.LinkNumberId;
+    // دریافت state از navigation extras
+    // استفاده از history.state که همیشه در دسترس است
+    const navigationState = history.state;
+    if (navigationState) {
+      if (navigationState.ReceiverNumber) {
+        this.requestReceiverNumber = navigationState.ReceiverNumber;
+      }
+      if (navigationState.SenderNumber) {
+        this.requestSenderNumber = navigationState.SenderNumber;
+      }
+      if (navigationState.LinkApiPathId) {
+        this.requestLinkApiPathId = navigationState.LinkApiPathId;
+      }
+      if (navigationState.LinkNumberId) {
+        this.requestLinkApiNumberId = navigationState.LinkNumberId;
+      }
+      if (navigationState.Message) {
+        this.requestMessage = navigationState.Message;
+      }
     }
+        if (this.requestLinkApiPathId?.length > 0) {
+          this.dataModel.linkApiPathId = this.requestLinkApiPathId;
+        }
+
+        if (this.requestLinkApiNumberId?.length > 0) {
+          this.dataModel.linkFromNumber = this.requestLinkApiNumberId;
+        }
+
+        if (this.requestMessage?.length > 0) {
+          this.dataModel.message = this.requestMessage;
+        }
+        if (this.requestReceiverNumber?.length > 0) {
+          this.dataModel.toNumbers = this.requestReceiverNumber;
+        }
+
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.language = this.tokenInfo.access.language;
@@ -150,11 +168,6 @@ export class SmsActionSendMessageComponent implements OnInit {
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
   @ViewChild("Message") message: ElementRef;
 
-  receiverNumber: string = "";
-  senderNumber: string = "";
-  linkApiPathId: string = "";
-  linkNumberId: string = "";
-
   dataModel: SmsApiSendMessageDtoModel = new SmsApiSendMessageDtoModel();
   dataModelOrderCalculate: SmsApiSendMessageOrderCalculateDtoModel =
     new SmsApiSendMessageOrderCalculateDtoModel();
@@ -204,12 +217,6 @@ export class SmsActionSendMessageComponent implements OnInit {
     //this.readClipboardFromDevTools().then((r) => this.clipboardText = r as string);
     this.onActionScheduleSendNow();
 
-    if (this.linkApiPathId && this.linkApiPathId?.length > 0)
-      this.dataModel.linkApiPathId = this.linkApiPathId;
-    if (this.receiverNumber && this.receiverNumber?.length > 0)
-      this.dataModel.toNumbers = this.receiverNumber;
-    if (this.senderNumber && this.senderNumber?.length > 0)
-      this.dataModel.linkFromNumber = this.senderNumber;
     this.DataCheckCredit();
     this.DataMessagePlaceholders();
   }

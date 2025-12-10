@@ -61,6 +61,7 @@ import {
   BankPaymentEnumService,
   BankPaymentPrivateSiteConfigService,
   BankPaymentTransactionService,
+  ContactContentService,
   CoreCurrencyService,
   CoreGuideService,
   CoreLocationService,
@@ -76,7 +77,6 @@ import {
   CoreUserGroupService,
   CoreUserService,
   MemberUserService,
-  ContactContentService,
   SmsActionService,
   SmsMainApiNumberService,
   SmsMainApiPathService,
@@ -90,6 +90,10 @@ import {
   CmsHtmlTreeHeaderDirective,
 } from "../core/directive/cms-html-tree.directive";
 import { CmsRecordStatusSelfSaveDirective } from "../core/directive/cms-record-status-self-save.directive";
+import { ContactContentByNumberTooltipDirective } from "../core/directive/contact/contact-content-by-number-tooltip.directive";
+import { CmsModuleInfoTooltipDirective } from "../core/directive/core/cms-module-info-tooltip.directive";
+import { CmsSiteInfoTooltipDirective } from "../core/directive/core/cms-site-info-tooltip.directive";
+import { CmsUserInfoTooltipDirective } from "../core/directive/core/cms-user-info-tooltip.directive";
 import { DirDirective } from "../core/directive/dir.directive";
 import { InlineSVGComponent } from "../core/directive/inline-svg.component";
 import { InlineSVGDirective } from "../core/directive/inline-svg.directive";
@@ -112,6 +116,7 @@ import { StringComponent } from "../core/dynamic-input-builder/string/string.com
 import { TextAreaComponent } from "../core/dynamic-input-builder/text-area/text-area.component";
 
 import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
+import { CmsRecordAdminStatusSelfSaveDirective } from "../core/directive/cms-record-admin-status-self-save.directive";
 import { DomChangeDirective } from "../core/directive/domChange.directive";
 import { RightClickDirective } from "../core/directive/rtclick.directive";
 import { TokenHelper } from "../core/helpers/tokenHelper";
@@ -120,6 +125,8 @@ import { HttpConfigInterceptor } from "../core/interceptor/httpConfigInterceptor
 import { BoolStatusClassPipe } from "../core/pipe/boolStatusClass.pipe";
 import { CmsImageThumbnailPipe } from "../core/pipe/cms-image-thumbnail.pipe";
 import { CmsTitlePipe } from "../core/pipe/cms-title.pipe";
+
+import { ContactContentByNumberPipe } from "../core/pipe/contact/contact-content-by-number.pipe";
 import { CmsModuleInfoPipe } from "../core/pipe/core/cms-module-info.pipe";
 import { CmsSiteInfoPipe } from "../core/pipe/core/cms-site-info.pipe";
 import { CmsUserInfoPipe } from "../core/pipe/core/cms-user-info.pipe";
@@ -133,6 +140,7 @@ import { PersianDateFull } from "../core/pipe/persian-date/persian-date-full.pip
 import { PersianDate } from "../core/pipe/persian-date/persian-date.pipe";
 import { PrettyLinePipe } from "../core/pipe/prettyLine.pipe";
 import { PrettyjsonPipe } from "../core/pipe/prettyjson.pipe";
+import { RecordAdminStatusIconClassPipe } from "../core/pipe/recordAdminStatusIconClass.pipe";
 import { RecordStatusCellClassPipe } from "../core/pipe/recordStatusCellClass.pipe";
 import { RecordStatusIconClassPipe } from "../core/pipe/recordStatusIconClass.pipe";
 import { ReplaceTextPipe } from "../core/pipe/repalaceTest.pip";
@@ -142,7 +150,6 @@ import { SortTypeIconClassPipe } from "../core/pipe/sortTypeIconClass.pipe";
 import { TruncatePipe } from "../core/pipe/truncate.pipe";
 import { ValueArrayPipe } from "../core/pipe/valueArray.pipe";
 import { NgxQueryBuilderComponent } from "../core/query-builder/ngx-ntk-query-builder.component";
-import { ContactContentByNumberPipe } from "../core/pipe/contact/contact-content-by-number.pipe";
 import { CmsToastrService } from "../core/services/cmsToastr.service";
 import { ThemeService } from "../core/services/theme.service";
 import { Cms360ImageListComponent } from "./cms-360-image-list/cms-360-image-list.component";
@@ -153,12 +160,14 @@ import { CmsApplicationSelectorComponent } from "./cms-application-selector/cms-
 import { CmsBankpaymentGridComponent } from "./cms-bankpayment-grid/cms-bankpayment-grid.component";
 import { CmsBankpaymentTransactionInfoComponent } from "./cms-bankpayment-transaction-info/cms-bankpayment-transaction-info.component";
 import { CmsContactCategoryTreeSelectorComponent } from "./cms-contact-category-tree-selector/cms-contact-category-tree-selector.component";
+import { CmsContactContentDropListComponent } from "./cms-contact-content-drop-list/cms-contact-content-drop-list.component";
 import { CmsContactContentSelectionListComponent } from "./cms-contact-content-selection-list/cms-contact-content-selection-list.component";
 import { CmsCurrencySelectorComponent } from "./cms-currency-selector/cms-currency-selector.component";
 import { CmsDataCommentComponent } from "./cms-data-comment/cms-data-comment.component";
 import { CmsDataMemoComponent } from "./cms-data-memo/cms-data-memo.component";
 import { CmsDataPinComponent } from "./cms-data-pin/cms-data-pin.component";
 import { CmsDataTaskComponent } from "./cms-data-task/cms-data-task.component";
+import { CmsEnumRecordAdminStatusSelectorComponent } from "./cms-enum-record-admin-status-selector/cms-enum-record-admin-status-selector.component";
 import { CmsEnumRecordStatusSelectorComponent } from "./cms-enum-record-status-selector/cms-enum-record-status-selector.component";
 import { CmsEnumXSelectionListComponent } from "./cms-enum-x-selectionlist/cms-enum-x-selectionlist.component";
 import { CmsEnumXSelectorComponent } from "./cms-enum-x-selector/cms-enum-x-selector.component";
@@ -166,6 +175,7 @@ import { CmsExportEntityComponent } from "./cms-export-entity/cms-export-entity.
 import { CmsExportListComponent } from "./cms-export-list/cmsExportList.component";
 import { CmsFilesSelectorComponent } from "./cms-files-selector/cms-files-selector.component";
 import { CmsFormBuilderPropertiesComponent } from "./cms-form-builder-properties/cms-form-builder-properties.component";
+import { CmsFormResultMessageComponent } from "./cms-form-result-message/cms-form-result-message.component";
 import { CmsFormValidationComponent } from "./cms-form-validation/cms-form-validation.component";
 import { CmsGuideinfoComponent } from "./cms-guide-info/cms-guide-info.component";
 import { CmsGuideNoticeComponent } from "./cms-guide-notice/cms-guide-notice.component";
@@ -205,11 +215,6 @@ import {
 import { OverlayService } from "./overlay/overlay.service";
 import { PasswordStrengthComponent } from "./password-strength/password-strength.component";
 import { ProgressSpinnerComponent } from "./progress-spinner/progress-spinner.component";
-import { CmsFormResultMessageComponent } from "./cms-form-result-message/cms-form-result-message.component";
-import { CmsContactContentDropListComponent } from "./cms-contact-content-drop-list/cms-contact-content-drop-list.component";
-import { CmsEnumRecordAdminStatusSelectorComponent } from "./cms-enum-record-admin-status-selector/cms-enum-record-admin-status-selector.component";
-import { RecordAdminStatusIconClassPipe } from "../core/pipe/recordAdminStatusIconClass.pipe";
-import { CmsRecordAdminStatusSelfSaveDirective } from "../core/directive/cms-record-admin-status-self-save.directive";
 
 @NgModule({
   declarations: [
@@ -312,6 +317,10 @@ import { CmsRecordAdminStatusSelfSaveDirective } from "../core/directive/cms-rec
     /** Directive */
     TooltipGuideDirective,
     TooltipDirective,
+    ContactContentByNumberTooltipDirective,
+    CmsUserInfoTooltipDirective,
+    CmsSiteInfoTooltipDirective,
+    CmsModuleInfoTooltipDirective,
     DirDirective,
     DomChangeDirective,
     RightClickDirective,
@@ -577,10 +586,13 @@ import { CmsRecordAdminStatusSelfSaveDirective } from "../core/directive/cms-rec
     /** Directive */
     TooltipGuideDirective,
     TooltipDirective,
+    ContactContentByNumberTooltipDirective,
+    CmsUserInfoTooltipDirective,
+    CmsSiteInfoTooltipDirective,
+    CmsModuleInfoTooltipDirective,
     DirDirective,
     DomChangeDirective,
     RightClickDirective,
-    //DomClassCardDirective,
     PhoneDirective,
     RunScriptsDirective,
     CmsHtmlTreeHeaderDirective,

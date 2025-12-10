@@ -31,6 +31,7 @@ import {
 } from "ntk-cms-api";
 import { DynamicFormBuilderModule } from "src/app/core/dynamic-form-builder/dynamic-form-builder.module";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { SmsSharedModule } from "../shared/sms.shared.module";
 import { SmsLogApiPathListComponent } from "./api-path/list/list.component";
 import { SmsLogInBoxEditComponent } from "./inbox/edit/edit.component";
 import { SmsLogInBoxListComponent } from "./inbox/list/list.component";
@@ -48,7 +49,6 @@ import { SmsLogOutBoxEditComponent } from "./outbox/edit/edit.component";
 import { SmsLogOutBoxHeaderComponent } from "./outbox/header/header.component";
 import { SmsLogOutBoxListComponent } from "./outbox/list/list.component";
 import { SmsLogOutBoxViewComponent } from "./outbox/view/view.component";
-import { SmsSharedModule } from "../shared/sms.shared.module";
 
 @NgModule({
   declarations: [

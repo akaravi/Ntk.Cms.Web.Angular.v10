@@ -85,8 +85,6 @@ export class SmsLogInBoxListComponent
     new ErrorExceptionResult<CoreCurrencyModel>();
   dataModelPrivateResult: ErrorExceptionResult<SmsMainApiPathModel> =
     new ErrorExceptionResult<SmsMainApiPathModel>();
-  senderDisplayMode: Record<string, boolean> = {};
-
   categoryModelSelected: SmsMainApiPathModel;
 
   tabledisplayedColumns: string[] = [];
@@ -177,12 +175,6 @@ export class SmsLogInBoxListComponent
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 
-  onSenderDoubleClick(row: SmsLogInBoxModel): void {
-    if (!row?.id) {
-      return;
-    }
-    this.senderDisplayMode[row.id] = true;
-  }
   DataGetAll(): void {
     this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
       this.tabledisplayedColumnsSource,
@@ -493,136 +485,6 @@ export class SmsLogInBoxListComponent
       },
     });
   }
-  onActionButtonSupersedesList(
-    model: SmsLogInBoxModel = this.tableRowSelected,
-  ): void {
-    if (!model || !model.id || model.id.length === 0) {
-      this.translate
-        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
-        .subscribe((str: string) => {
-          this.cmsToastrService.typeErrorSelected(str);
-        });
-      return;
-    }
-    this.onActionTableRowSelect(model);
-
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessWatchRow
-    ) {
-      this.cmsToastrService.typeErrorSelected();
-      return;
-    }
-    this.router.navigate([
-      "/bankpayment/privatesiteconfig/LinkPrivateConfigId",
-      this.tableRowSelected.id,
-    ]);
-  }
-  onActionButtonMustSupersedesList(
-    model: SmsLogInBoxModel = this.tableRowSelected,
-  ): void {
-    if (!model || !model.id || model.id.length === 0) {
-      this.translate
-        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
-        .subscribe((str: string) => {
-          this.cmsToastrService.typeErrorSelected(str);
-        });
-      return;
-    }
-    this.onActionTableRowSelect(model);
-
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessWatchRow
-    ) {
-      this.cmsToastrService.typeErrorSelected();
-      return;
-    }
-    this.router.navigate([
-      "/bankpayment/privatesiteconfig/LinkPrivateConfigId",
-      this.tableRowSelected.id,
-    ]);
-  }
-  onActionButtonNumbersList(
-    model: SmsLogInBoxModel = this.tableRowSelected,
-  ): void {
-    if (!model || !model.id || model.id.length === 0) {
-      this.translate
-        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
-        .subscribe((str: string) => {
-          this.cmsToastrService.typeErrorSelected(str);
-        });
-      return;
-    }
-    this.onActionTableRowSelect(model);
-
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessWatchRow
-    ) {
-      this.cmsToastrService.typeErrorSelected();
-      return;
-    }
-    this.router.navigate([
-      "/bankpayment/privatesiteconfig/LinkPrivateConfigId",
-      this.tableRowSelected.id,
-    ]);
-  }
-  onActionButtonPermitionList(
-    model: SmsLogInBoxModel = this.tableRowSelected,
-  ): void {
-    if (!model || !model.id || model.id.length === 0) {
-      this.translate
-        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
-        .subscribe((str: string) => {
-          this.cmsToastrService.typeErrorSelected(str);
-        });
-      return;
-    }
-    this.onActionTableRowSelect(model);
-
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessWatchRow
-    ) {
-      this.cmsToastrService.typeErrorSelected();
-      return;
-    }
-    this.router.navigate([
-      "/sms/main/api-path-permission/LinkApiPathId",
-      this.tableRowSelected.id,
-    ]);
-  }
-  onActionButtonPriceServicesList(
-    model: SmsLogInBoxModel = this.tableRowSelected,
-  ): void {
-    if (!model || !model.id || model.id.length === 0) {
-      this.translate
-        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
-        .subscribe((str: string) => {
-          this.cmsToastrService.typeErrorSelected(str);
-        });
-      return;
-    }
-    this.onActionTableRowSelect(model);
-
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessWatchRow
-    ) {
-      this.cmsToastrService.typeErrorSelected();
-      return;
-    }
-    this.router.navigate([
-      "/sms/main/api-path-price-service/LinkApiPathId",
-      this.tableRowSelected.id,
-    ]);
-  }
 
   onActionButtonSendMessage(
     model: SmsLogInBoxModel = this.tableRowSelected,
@@ -651,12 +513,10 @@ export class SmsLogInBoxListComponent
         LinkNumberId: model.linkApiNumberId,
         ReceiverNumber: model.senderNumber,
         SenderNumber: model.receiverNumber,
+        Message: model.message,
       },
     };
-    this.router.navigate(
-      ["/sms/action/send-message/inbox-extras"],
-      navigationExtras,
-    );
+    this.router.navigate(["/sms/action/send-message"], navigationExtras);
   }
   onActionButtonReload(): void {
     this.DataGetAll();

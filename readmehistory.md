@@ -1,5 +1,240 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-12-10 08:49 (افزودن قابلیت click به directive های tooltip)
+
+### تغییرات اعمال شده:
+
+- افزودن قابلیت نمایش tooltip با click به تمام directive های tooltip
+- استخراج منطق نمایش tooltip به متد `loadAndShowTooltip` در هر directive
+- استفاده از `loadAndShowTooltip` در هر دو event handler: `mouseenter` و `click`
+- تغییر `onClick` از پنهان کردن tooltip به نمایش tooltip
+
+### directive های تغییر یافته:
+- `ContactContentByNumberTooltipDirective`
+- `CmsUserInfoTooltipDirective`
+- `CmsSiteInfoTooltipDirective`
+- `CmsModuleInfoTooltipDirective`
+
+### فایل‌های تغییر یافته:
+- `src/app/core/directive/contact/contact-content-by-number-tooltip.directive.ts`
+- `src/app/core/directive/core/cms-user-info-tooltip.directive.ts`
+- `src/app/core/directive/core/cms-site-info-tooltip.directive.ts`
+- `src/app/core/directive/core/cms-module-info-tooltip.directive.ts`
+- `readmehistory.md`
+
+---
+
+## 2025-12-10 08:47 (ایجاد directive های tooltip برای CmsUserInfo, CmsSiteInfo و CmsModuleInfo)
+
+### تغییرات اعمال شده:
+
+- ایجاد directive جدید `CmsUserInfoTooltipDirective` برای نمایش tooltip اطلاعات کاربر
+- ایجاد directive جدید `CmsSiteInfoTooltipDirective` برای نمایش tooltip اطلاعات سایت
+- ایجاد directive جدید `CmsModuleInfoTooltipDirective` برای نمایش tooltip اطلاعات ماژول
+- هر directive منطق pipe مربوطه را در خودش دارد و مستقل عمل می‌کند
+- استفاده از cache استاتیک برای جلوگیری از درخواست‌های تکراری
+- افزودن تمام directive ها به `SharedModule` در declarations و exports
+
+### نحوه استفاده:
+```html
+<!-- برای User Info -->
+<span [cmsUserInfoTooltip]="userId" [tooltipPosition]="'above'">
+  {{ userId }}
+</span>
+
+<!-- برای Site Info -->
+<span [cmsSiteInfoTooltip]="siteId" [tooltipPosition]="'above'">
+  {{ siteId }}
+</span>
+
+<!-- برای Module Info -->
+<span [cmsModuleInfoTooltip]="moduleId" [tooltipPosition]="'above'">
+  {{ moduleId }}
+</span>
+```
+
+### فایل‌های تغییر یافته:
+- `src/app/core/directive/core/cms-user-info-tooltip.directive.ts` (جدید)
+- `src/app/core/directive/core/cms-site-info-tooltip.directive.ts` (جدید)
+- `src/app/core/directive/core/cms-module-info-tooltip.directive.ts` (جدید)
+- `src/app/shared/shared.module.ts`
+- `readmehistory.md`
+
+---
+
+## 2025-12-10 08:41 (استقلال directive: پیاده‌سازی منطق pipe در ContactContentByNumberTooltipDirective)
+
+### تغییرات اعمال شده:
+
+- انتقال منطق `ContactContentByNumberPipe` به داخل `ContactContentByNumberTooltipDirective`
+- حذف وابستگی directive به pipe
+- استفاده مستقیم از `ContactContentService` در directive
+- افزودن cache استاتیک برای جلوگیری از درخواست‌های تکراری
+- حذف `ContactContentByNumberPipe` از providers در `SharedModule` (چون دیگر directive از آن استفاده نمی‌کند)
+- pipe همچنان در exports باقی می‌ماند برای استفاده در template ها
+
+### مزایا:
+- استقلال directive: دیگر نیازی به pipe ندارد
+- کاهش وابستگی‌ها: directive مستقل از pipe عمل می‌کند
+- بهبود performance: cache برای جلوگیری از درخواست‌های تکراری
+
+### فایل‌های تغییر یافته:
+- `src/app/core/directive/contact/contact-content-by-number-tooltip.directive.ts`
+- `src/app/shared/shared.module.ts`
+- `readmehistory.md`
+
+---
+
+## 2025-12-10 08:38 (بهینه‌سازی: انتقال ContactContentByNumberPipe به providers در SharedModule)
+
+### تغییرات اعمال شده:
+
+- انتقال `ContactContentByNumberPipe` از providers در `SmsLogModule` به providers در `SharedModule`
+- حذف import اضافی از `SmsLogModule` (چون از `SharedModule` استفاده می‌کند)
+- اطمینان از دسترسی pipe در همه جا از طریق `SharedModule`
+- بهینه‌سازی: یک بار import و یک بار provider در `SharedModule`
+
+### فایل‌های تغییر یافته:
+- `src/app/shared/shared.module.ts`
+- `src/app/cms-modules/sms/log/sms-log.module.ts`
+- `readmehistory.md`
+
+---
+
+## 2025-12-10 08:35 (رفع خطای NG0201: افزودن ContactContentByNumberPipe به providers)
+
+### دلیل خطا:
+- directive `ContactContentByNumberTooltipDirective` از `ContactContentByNumberPipe` استفاده می‌کند
+- اما این pipe در providers در `SmsLogModule` قرار نداشت
+- Angular نمی‌توانست pipe را inject کند و خطای `NG0201: No provider found` رخ می‌داد
+
+### تغییرات اعمال شده:
+- افزودن `ContactContentByNumberPipe` به providers در `SmsLogModule`
+- اطمینان از دسترسی directive به pipe مورد نیاز
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/sms/log/sms-log.module.ts`
+- `readmehistory.md`
+
+---
+
+## 2025-12-10 08:27 (حذف ContactContentByNumberTooltipPipe از exports در SharedModule)
+
+### تغییرات اعمال شده:
+
+- حذف `ContactContentByNumberTooltipPipe` از exports در `SharedModule`
+- pipe فقط توسط directive استفاده می‌شود و مستقیماً در template استفاده نمی‌شود
+- pipe همچنان در declarations باقی می‌ماند تا directive بتواند از آن استفاده کند
+- pipe در providers در `SmsLogModule` باقی می‌ماند
+
+### فایل‌های تغییر یافته:
+- `src/app/shared/shared.module.ts`
+- `readmehistory.md`
+
+---
+
+## 2025-12-10 08:23 (رفع خطای NG0201: افزودن providers برای ContactContentByNumberTooltipPipe)
+
+### تغییرات اعمال شده:
+
+- افزودن `ContactContentService` و `ContactContentByNumberTooltipPipe` به providers در `SmsLogModule`
+- رفع خطای `NG0201: No provider found for ContactContentByNumberTooltipPipe`
+- اطمینان از دسترسی directive به pipe و service مورد نیاز
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/sms/log/sms-log.module.ts`
+- `readmehistory.md`
+
+---
+
+## 2025-12-10 08:20 (افزودن directive برای tooltip و mouseover در contactContentByNumberTooltip)
+
+### تغییرات اعمال شده:
+
+- ایجاد directive جدید `ContactContentByNumberTooltipDirective` که tooltip و mouseover را مدیریت می‌کند
+- directive از pipe `contactContentByNumberTooltip` استفاده می‌کند و tooltip را خودکار نمایش می‌دهد
+- حذف نیاز به استفاده از `matTooltip` و `async` pipe در template
+- ساده‌سازی template: فقط استفاده از directive کافی است
+
+### نحوه استفاده:
+```html
+<span
+  [contactContentByNumberTooltip]="row.senderNumber"
+  [tooltipPosition]="'above'"
+>
+  {{ row.senderNumber }}
+</span>
+```
+
+### فایل‌های تغییر یافته:
+- `src/app/core/directive/contact-content-by-number-tooltip.directive.ts` (جدید)
+- `src/app/shared/shared.module.ts`
+- `src/app/cms-modules/sms/log/inbox/list/list.component.html`
+- `readmehistory.md`
+
+---
+
+## 2025-12-10 08:17 (ایجاد pipe جدید contactContentByNumberTooltip)
+
+### تغییرات اعمال شده:
+
+- ایجاد pipe جدید `contactContentByNumberTooltip` که تمام منطق loading و دریافت داده از سرور را خودش انجام می‌دهد
+- استفاده از `shareReplay(1)` برای cache کردن نتیجه و جلوگیری از درخواست‌های تکراری
+- استفاده از `startWith("در حال بارگذاری...")` برای نمایش loading در ابتدا
+- حذف تمام کدهای مربوط به `onSenderMouseEnter` و `getContactTooltip` از کامپوننت
+- حذف `ContactContentService` از کامپوننت و module (pipe خودش از service استفاده می‌کند)
+- ساده‌سازی template: فقط استفاده از pipe و async pipe کافی است
+
+### مزایا:
+- کد تمیزتر و ساده‌تر: فقط استفاده از pipe در template
+- قابلیت استفاده مجدد: pipe را می‌توان در هر جایی از پروژه استفاده کرد
+- مدیریت خودکار cache: pipe خودش cache را مدیریت می‌کند
+
+### فایل‌های تغییر یافته:
+- `src/app/core/pipe/contact/contact-content-by-number-tooltip.pipe.ts` (جدید)
+- `src/app/shared/shared.module.ts`
+- `src/app/cms-modules/sms/log/inbox/list/list.component.ts`
+- `src/app/cms-modules/sms/log/inbox/list/list.component.html`
+- `src/app/cms-modules/sms/log/sms-log.module.ts`
+- `readmehistory.md`
+
+---
+
+## 2025-12-10 08:12 (افزودن loading در tooltip و دریافت داده از سرور)
+
+### تغییرات اعمال شده:
+
+- افزودن `ContactContentService` به کامپوننت و module برای دریافت مستقیم داده از سرور
+- پیاده‌سازی Map برای ذخیره وضعیت loading و نتیجه tooltip برای هر شماره
+- افزودن متد `onSenderMouseEnter` که در mouseenter صدا زده می‌شود و داده را از سرور دریافت می‌کند
+- افزودن متد `getContactTooltip` که وضعیت loading یا نتیجه را برمی‌گرداند
+- نمایش "در حال بارگذاری..." در tooltip تا زمانی که داده از سرور دریافت شود
+- بهینه‌سازی: جلوگیری از درخواست‌های تکراری برای شماره‌های قبلاً دریافت شده
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/sms/log/inbox/list/list.component.ts`
+- `src/app/cms-modules/sms/log/inbox/list/list.component.html`
+- `src/app/cms-modules/sms/log/sms-log.module.ts`
+- `readmehistory.md`
+
+---
+
+## 2025-12-10 08:07 (تغییر دبل کلیک به mouseover و افزودن tooltip برای contactContentByNumber)
+
+### تغییرات اعمال شده:
+
+- حذف متد `onSenderDoubleClick` و متغیر `senderDisplayMode` از کامپوننت
+- تغییر از دبل کلیک به mouseover برای نمایش اطلاعات دفترچه تلفن
+- افزودن tooltip با استفاده از `matTooltip` که نتیجه `contactContentByNumber` pipe را نمایش می‌دهد
+- نمایش شماره در سلول و اطلاعات دفترچه تلفن در tooltip هنگام hover
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/sms/log/inbox/list/list.component.ts`
+- `src/app/cms-modules/sms/log/inbox/list/list.component.html`
+- `readmehistory.md`
+
+---
+
 ## 2025-12-09 15:13 (نمایش اطلاعات مخاطب با دبل‌کلیک روی شماره)
 
 ### تغییرات اعمال شده:
