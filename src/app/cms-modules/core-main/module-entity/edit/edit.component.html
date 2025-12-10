@@ -14,113 +14,125 @@
       [formInfo]="formInfo"
     ></app-cms-form-result-message>
     <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
-      <app-cms-enum-record-status-selector
-        *ngIf="fieldsInfo['recordStatus']?.accessWatchField"
-        [(model)]="dataModel.recordStatus"
-        [optionDisabled]="false"
-        [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
-        [optionRequired]="true"
-        [optionSelectFirstItem]="true"
-      >
-      </app-cms-enum-record-status-selector>
+      @if (fieldsInfo['recordStatus']?.accessWatchField) {
+        <app-cms-enum-record-status-selector
+          [(model)]="dataModel.recordStatus"
+          [optionDisabled]="false"
+          [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
+          [optionRequired]="true"
+          [optionSelectFirstItem]="true"
+          >
+        </app-cms-enum-record-status-selector>
+      }
       <!-- moduleName Field -->
-      <div
-        *ngIf="fieldsInfo['moduleName']?.accessWatchField"
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-      >
-        <label for="dataModel.moduleName" class="color-highlight">{{
-          fieldsInfo["moduleName"]?.fieldTitle
-        }}</label>
-        <input
-          matInput
-          type="text"
-          [(ngModel)]="dataModel.moduleName"
-          name="dataModel.moduleName"
-          #ModuleName
-          disabled="{{ !fieldsInfo['moduleName']?.accessEditField }}"
-          placeholder="{{ fieldsInfo['moduleName']?.fieldTitle }}"
-          minlength="3"
-          maxlength="100"
-          class="form-control validate-name"
-          id="dataModel.moduleName"
-        />
-        <em>{{ ModuleName.value.length }} / 100</em>
-        <mat-error *ngIf="ModuleName.errors?.required">
-          {{ fieldsInfo["moduleName"]?.fieldTitle }}
-          <strong>{{ "MESSAGE.required" | translate }}</strong>
-        </mat-error>
+      @if (fieldsInfo['moduleName']?.accessWatchField) {
+        <div
+          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+          >
+          <label for="dataModel.moduleName" class="color-highlight">{{
+            fieldsInfo["moduleName"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="dataModel.moduleName"
+            name="dataModel.moduleName"
+            #ModuleName
+            disabled="{{ !fieldsInfo['moduleName']?.accessEditField }}"
+            placeholder="{{ fieldsInfo['moduleName']?.fieldTitle }}"
+            minlength="3"
+            maxlength="100"
+            class="form-control validate-name"
+            id="dataModel.moduleName"
+            />
+            <em>{{ ModuleName.value.length }} / 100</em>
+            @if (ModuleName.errors?.required) {
+              <mat-error>
+                {{ fieldsInfo["moduleName"]?.fieldTitle }}
+                <strong>{{ "MESSAGE.required" | translate }}</strong>
+              </mat-error>
+            }
+          </div>
+        }
+        <!-- moduleEntityName Field -->
+        @if (fieldsInfo['moduleEntityName']?.accessWatchField) {
+          <div
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            >
+            <label for="dataModel.moduleEntityName" class="color-highlight">{{
+              fieldsInfo["moduleEntityName"]?.fieldTitle
+            }}</label>
+            <input
+              matInput
+              type="text"
+              [(ngModel)]="dataModel.moduleEntityName"
+              name="dataModel.moduleEntityName"
+              #ModuleEntityName
+              disabled="{{ !fieldsInfo['moduleEntityName']?.accessEditField }}"
+              placeholder="{{ fieldsInfo['moduleEntityName']?.fieldTitle }}"
+              minlength="3"
+              maxlength="100"
+              class="form-control validate-name"
+              id="dataModel.moduleName"
+              />
+              <em>{{ ModuleEntityName.value.length }} / 100</em>
+              @if (ModuleEntityName.errors?.required) {
+                <mat-error>
+                  {{ fieldsInfo["moduleEntityName"]?.fieldTitle }}
+                  <strong>{{ "MESSAGE.required" | translate }}</strong>
+                </mat-error>
+              }
+            </div>
+          }
+          <!-- Description Field -->
+          @if (fieldsInfo['description']?.accessWatchField) {
+            <div
+              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+              >
+              <label for="dataModel.description" class="color-highlight">{{
+                fieldsInfo["description"]?.fieldTitle
+              }}</label>
+              <textarea
+                matInput
+                [(ngModel)]="dataModel.description"
+                name="dataModel.description"
+                #Description
+                type="text"
+                placeholder="{{ fieldsInfo['description']?.fieldTitle }}"
+                minlength="1"
+                maxlength="500"
+                rows="5"
+                id="dataModel.description"
+                class="form-control validate-name"
+                >
+              </textarea>
+              <em>{{ Description.value.length }} / 500</em>
+              @if (Description.errors?.required) {
+                <mat-error>
+                  Description is <strong>{{ "MESSAGE.required" | translate }}</strong>
+                </mat-error>
+              }
+            </div>
+          }
+          @if (formInfo.submitButtonEnabled) {
+            <div class="form-actions">
+              <button
+                type="button"
+                (click)="onFormCancel()"
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+                >
+                <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
+              </button>
+              <button
+                type="submit"
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
+                [disabled]="!vform.form.valid"
+                >
+                <i class="fa fa-check-square-o"></i> {{ "ACTION.SAVE" | translate }}
+              </button>
+            </div>
+          }
+        </form>
+        <!--Content-->
       </div>
-      <!-- moduleEntityName Field -->
-      <div
-        *ngIf="fieldsInfo['moduleEntityName']?.accessWatchField"
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-      >
-        <label for="dataModel.moduleEntityName" class="color-highlight">{{
-          fieldsInfo["moduleEntityName"]?.fieldTitle
-        }}</label>
-        <input
-          matInput
-          type="text"
-          [(ngModel)]="dataModel.moduleEntityName"
-          name="dataModel.moduleEntityName"
-          #ModuleEntityName
-          disabled="{{ !fieldsInfo['moduleEntityName']?.accessEditField }}"
-          placeholder="{{ fieldsInfo['moduleEntityName']?.fieldTitle }}"
-          minlength="3"
-          maxlength="100"
-          class="form-control validate-name"
-          id="dataModel.moduleName"
-        />
-        <em>{{ ModuleEntityName.value.length }} / 100</em>
-        <mat-error *ngIf="ModuleEntityName.errors?.required">
-          {{ fieldsInfo["moduleEntityName"]?.fieldTitle }}
-          <strong>{{ "MESSAGE.required" | translate }}</strong>
-        </mat-error>
-      </div>
-      <!-- Description Field -->
-      <div
-        *ngIf="fieldsInfo['description']?.accessWatchField"
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-      >
-        <label for="dataModel.description" class="color-highlight">{{
-          fieldsInfo["description"]?.fieldTitle
-        }}</label>
-        <textarea
-          matInput
-          [(ngModel)]="dataModel.description"
-          name="dataModel.description"
-          #Description
-          type="text"
-          placeholder="{{ fieldsInfo['description']?.fieldTitle }}"
-          minlength="1"
-          maxlength="500"
-          rows="5"
-          id="dataModel.description"
-          class="form-control validate-name"
-        >
-        </textarea>
-        <em>{{ Description.value.length }} / 500</em>
-        <mat-error *ngIf="Description.errors?.required">
-          Description is <strong>{{ "MESSAGE.required" | translate }}</strong>
-        </mat-error>
-      </div>
-      <div class="form-actions" *ngIf="formInfo.submitButtonEnabled">
-        <button
-          type="button"
-          (click)="onFormCancel()"
-          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-        >
-          <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
-        </button>
-        <button
-          type="submit"
-          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
-          [disabled]="!vform.form.valid"
-        >
-          <i class="fa fa-check-square-o"></i> {{ "ACTION.SAVE" | translate }}
-        </button>
-      </div>
-    </form>
-    <!--Content-->
-  </div>
-</div>
+    </div>

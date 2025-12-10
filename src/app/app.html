@@ -3,13 +3,15 @@
   [ngClass]="
     this.themeService.themeStore.mainPagePreloaderShow ? '' : 'preloader-hide'
   "
->
+  >
   <div class="spinner-border color-highlight" role="status"></div>
 </div>
 <div id="page">
   <app-progress-spinner></app-progress-spinner>
   <app-header-bar></app-header-bar>
-  <app-footer-bar *ngIf="this.publicHelper.isMobile"></app-footer-bar>
+  @if (this.publicHelper.isMobile) {
+    <app-footer-bar></app-footer-bar>
+  }
   <div class="page-title-clear"></div>
   <router-outlet></router-outlet>
   <!-- All Menus, Action Sheets, Modals, Notifications, Toasts, Snackbars get Placed outside the <div class="page-content"> -->
@@ -24,13 +26,16 @@
 <app-menu-colors></app-menu-colors>
 <app-menu-language></app-menu-language>
 <app-scroll-top></app-scroll-top>
-<app-menu-profile *ngIf="this.tokenInfo?.access?.userId > 0"></app-menu-profile>
-<div
-  *ngIf="
-    dataSupportModelResult &&
-    dataSupportModelResult.isSuccess &&
-    dataSupportModelResult.item.supportHtmlBody?.length > 0
-  "
-  [innerHtml]="dataSupportModelResult.item.supportHtmlBody | safeHtml"
-  runScripts
-></div>
+@if (this.tokenInfo?.access?.userId > 0) {
+  <app-menu-profile></app-menu-profile>
+}
+@if (
+  dataSupportModelResult &&
+  dataSupportModelResult.isSuccess &&
+  dataSupportModelResult.item.supportHtmlBody?.length > 0
+  ) {
+  <div
+    [innerHtml]="dataSupportModelResult.item.supportHtmlBody | safeHtml"
+    runScripts
+  ></div>
+}

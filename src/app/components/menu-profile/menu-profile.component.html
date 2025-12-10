@@ -6,7 +6,7 @@
       ? '480px'
       : this.themeStore.innerHeight - 50 + 'px'
   "
->
+  >
   <div class="menu-title">
     <p class="color-highlight">{{ "TITLE.User_Profile" | translate }}</p>
     <h1 class="font-800">
@@ -30,7 +30,7 @@
           "
           class="rounded-sm"
           width="80"
-        />
+          />
       </div>
       <div class="w-100 ms-3 pt-1">
         <h6 class="font-500 font-14 pb-2">
@@ -38,7 +38,7 @@
         </h6>
         <a
           routerLink="{{ '/core/user/edit/' + this.tokenInfo.access?.userId }}"
-        >
+          >
           <h5>
             {{ "TITLE.User_Id" | translate }} :
             {{ this.tokenInfo?.access?.userId }}
@@ -46,7 +46,7 @@
         </a>
         <a
           routerLink="{{ '/core/site/edit/' + this.tokenInfo.access?.siteId }}"
-        >
+          >
           <h5>
             {{ "TITLE.Site_Id" | translate }} :
             {{ this.tokenInfo?.access?.siteId }}
@@ -60,22 +60,20 @@
     </div>
     <div class="divider"></div>
 
-    <ng-container
-      *ngIf="
-        tokenInfo &&
-        tokenInfo.access &&
-        (tokenInfo.access.userAccessUserType === 1 ||
-          tokenInfo.access.userAccessUserType === 2 ||
-          tokenInfo.access.userAccessUserType === 3)
-      "
-    >
+    @if (
+      tokenInfo &&
+      tokenInfo.access &&
+      (tokenInfo.access.userAccessUserType === 1 ||
+      tokenInfo.access.userAccessUserType === 2 ||
+      tokenInfo.access.userAccessUserType === 3)
+      ) {
       <!-- userAccessAdminAllowToAllData Field -->
       <div class="d-flex mb-0 ps-3 pe-3">
         <div class="pt-1">
           <h5
             data-trigger-switch="dataModel.userAccessAdminAllowToAllData"
             class="font-600 font-14"
-          >
+            >
             {{ "TITLE.Show_all_information" | translate }}
           </h5>
         </div>
@@ -88,7 +86,7 @@
               (click)="onActionButtonUserAccessAdminAllowToAllData()"
               [(ngModel)]="tokenInfo.access.userAccessAdminAllowToAllData"
               name="dataModel.userAccessAdminAllowToAllData"
-            />
+              />
             <label
               class="custom-control-label"
               for="dataModel.userAccessAdminAllowToAllData"
@@ -102,7 +100,7 @@
           <h5
             data-trigger-switch="dataModel.userAccessAdminAllowToProfessionalData"
             class="font-600 font-14"
-          >
+            >
             {{ "TITLE.Display_specialized_information" | translate }}
           </h5>
         </div>
@@ -117,7 +115,7 @@
                 tokenInfo.access.userAccessAdminAllowToProfessionalData
               "
               name="dataModel.userAccessAdminAllowToProfessionalData"
-            />
+              />
             <label
               class="custom-control-label"
               for="dataModel.userAccessAdminAllowToProfessionalData"
@@ -135,21 +133,19 @@
         ></app-cms-site-selector>
       </div>
       <div class="divider"></div>
-    </ng-container>
+    }
 
     <div class="row mb-0 ps-3 pe-3">
-      <ng-container
-        *ngIf="
-          tokenInfo &&
-          tokenInfo.access &&
-          (tokenInfo.access.userAccessUserType === 1 ||
-            tokenInfo.access.userAccessUserType === 2 ||
-            tokenInfo.access.userAccessUserType === 3)
-        "
-      >
+      @if (
+        tokenInfo &&
+        tokenInfo.access &&
+        (tokenInfo.access.userAccessUserType === 1 ||
+        tokenInfo.access.userAccessUserType === 2 ||
+        tokenInfo.access.userAccessUserType === 3)
+        ) {
         <h6 class="font-500 font-14 pb-2">
           {{
-            "TITLE.FastTransferToYourUserAccountOrOtherPeoplesSite" | translate
+          "TITLE.FastTransferToYourUserAccountOrOtherPeoplesSite" | translate
           }}
         </h6>
         <br />
@@ -161,7 +157,7 @@
               class="form-control"
               id="inputUserId"
               placeholder="{{ this.tokenInfo?.access?.userId }}"
-            />
+              />
             <label for="inputUserId" class="color-highlight">{{
               "TITLE.User_Id" | translate
             }}</label>
@@ -172,11 +168,10 @@
             [disabled]="!inputUserId || inputUserId === 0"
             style="width: 100%"
             class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
-          >
+            >
             {{ "ACTION.GO" | translate }}
           </button>
         </div>
-
         <div class="col-6">
           <div class="input-style input-style-always-active has-borders mb-0">
             <input
@@ -185,7 +180,7 @@
               class="form-control"
               id="inputSiteId"
               placeholder="{{ this.tokenInfo?.access?.siteId }}"
-            />
+              />
             <label for="inputSiteId" class="color-highlight">{{
               "TITLE.Site_Id" | translate
             }}</label>
@@ -196,18 +191,18 @@
             [disabled]="!inputSiteId || inputSiteId === 0"
             style="width: 100%"
             class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
-          >
+            >
             {{ "ACTION.GO" | translate }}
           </button>
         </div>
-      </ng-container>
+      }
       <br />
       <div class="col-12">
         <a
           (click)="onActionLogout()"
           style="width: 100%"
           class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 bg-red-dark"
-        >
+          >
           <span class="ms-n2">{{ "TITLE.Sign_Out" | translate }}</span>
           <span class="float-end">Exit</span>
         </a>

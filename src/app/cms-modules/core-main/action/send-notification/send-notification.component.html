@@ -24,14 +24,14 @@
                 [expanded]="step === 0"
                 (opened)="setStep(0)"
                 hideToggle
-              >
+                >
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     {{ "TITLE.Direction" | translate }}
                   </mat-panel-title>
                   <mat-panel-description>
                     {{
-                      "TITLE.Select_the_path_to_send_the_message" | translate
+                    "TITLE.Select_the_path_to_send_the_message" | translate
                     }}
                     <mat-icon>account_circle</mat-icon>
                   </mat-panel-description>
@@ -42,7 +42,7 @@
                     type="button"
                     class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
                     (click)="nextStep()"
-                  >
+                    >
                     {{ "ACTION.NEXT" | translate }}
                   </button>
                 </mat-action-row>
@@ -52,63 +52,66 @@
                 [expanded]="step === 1"
                 (opened)="setStep(1)"
                 hideToggle
-              >
+                >
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     {{ "TITLE.Message_Text" | translate }}
                   </mat-panel-title>
                   <mat-panel-description>
                     {{
-                      "TITLE.Select_the_text_of_the_default_messages"
-                        | translate
+                    "TITLE.Select_the_text_of_the_default_messages"
+                    | translate
                     }}
                     <mat-icon>map</mat-icon>
                   </mat-panel-description>
                 </mat-expansion-panel-header>
 
-                <textarea
-                  matInput
-                  [(ngModel)]="dataMessageContentModel.messageBody"
-                  name="dataMessageContentModel.messageBody"
-                  type="text"
-                  *ngIf="dataMessageContentModel?.messageBody?.length > 0"
-                  rows="10"
-                  id="dataMessageContentModel.messageBody"
-                >
-                </textarea>
-                <button
-                  type="button"
-                  (click)="onActionMessageContentAdd()"
-                  class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-                  *ngIf="
-                    dataMessageContentModel?.messageBody?.length > 0 &&
-                    dataModel.content?.length > 0
-                  "
-                >
-                  <i class="ft-x"></i>
-                  {{ "TITLE.Added_to_the_text" | translate }}
-                </button>
-                <button
-                  type="button"
-                  (click)="onActionMessageContentNew()"
-                  class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-                  *ngIf="dataMessageContentModel?.messageBody?.length > 0"
-                >
-                  <i class="ft-x"></i> {{ "TITLE.Message_Text" | translate }}
-                </button>
+                @if (dataMessageContentModel?.messageBody?.length > 0) {
+                  <textarea
+                    matInput
+                    [(ngModel)]="dataMessageContentModel.messageBody"
+                    name="dataMessageContentModel.messageBody"
+                    type="text"
+                    rows="10"
+                    id="dataMessageContentModel.messageBody"
+                    >
+                  </textarea>
+                }
+                @if (
+                  dataMessageContentModel?.messageBody?.length > 0 &&
+                  dataModel.content?.length > 0
+                  ) {
+                  <button
+                    type="button"
+                    (click)="onActionMessageContentAdd()"
+                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+                    >
+                    <i class="ft-x"></i>
+                    {{ "TITLE.Added_to_the_text" | translate }}
+                  </button>
+                }
+                @if (dataMessageContentModel?.messageBody?.length > 0) {
+                  <button
+                    type="button"
+                    (click)="onActionMessageContentNew()"
+                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+                    >
+                    <i class="ft-x"></i> {{ "TITLE.Message_Text" | translate }}
+                  </button>
+                }
                 <mat-action-row>
                   <button
                     type="button"
                     class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
                     (click)="prevStep()"
-                  >
+                    >
                     {{ "ACTION.BACK" | translate }}
                   </button>
                   <button
                     type="button"
                     class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
                     (click)="nextStep()"
-                  >
+                    >
                     {{ "ACTION.NEXT" | translate }}
                   </button>
                 </mat-action-row>
@@ -118,7 +121,7 @@
                 [expanded]="step === 2"
                 (opened)="setStep(2)"
                 hideToggle
-              >
+                >
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     {{ "TITLE.Phonebook" | translate }}
@@ -134,14 +137,14 @@
                     type="button"
                     class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
                     (click)="prevStep()"
-                  >
+                    >
                     {{ "ACTION.BACK" | translate }}
                   </button>
                   <button
                     type="button"
                     class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
                     (click)="nextStep()"
-                  >
+                    >
                     {{ "ACTION.NEXT" | translate }}
                   </button>
                 </mat-action-row>
@@ -151,7 +154,7 @@
                 [expanded]="step === 3"
                 (opened)="setStep(3)"
                 hideToggle
-              >
+                >
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     {{ "TITLE.Shipping_time" | translate }}
@@ -169,14 +172,14 @@
                     type="button"
                     class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
                     (click)="prevStep()"
-                  >
+                    >
                     {{ "ACTION.BACK" | translate }}
                   </button>
                   <button
                     type="button"
                     class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
                     (click)="nextStep()"
-                  >
+                    >
                     {{ "ACTION.NEXT" | translate }}
                   </button>
                 </mat-action-row>
@@ -185,7 +188,7 @@
                 [expanded]="step === 4"
                 (opened)="setStep(4)"
                 hideToggle
-              >
+                >
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     {{ "TITLE.Timing" | translate }}
@@ -201,14 +204,14 @@
                     type="button"
                     class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
                     (click)="prevStep()"
-                  >
+                    >
                     {{ "ACTION.BACK" | translate }}
                   </button>
                   <button
                     type="button"
                     class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
                     (click)="nextStep()"
-                  >
+                    >
                     {{ "ACTION.NEXT" | translate }}
                   </button>
                 </mat-action-row>
@@ -217,7 +220,7 @@
                 [expanded]="step === 5"
                 (opened)="setStep(5)"
                 hideToggle
-              >
+                >
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     {{ "TITLE.Settings" | translate }}
@@ -234,7 +237,7 @@
                     <h5
                       data-trigger-switch="dataModel.sendToAll"
                       class="font-600 font-14"
-                    >
+                      >
                       {{ "TITLE.Send_To_All" | translate }}
                     </h5>
                   </div>
@@ -246,86 +249,90 @@
                         id="dataModel.sendToAll"
                         [(ngModel)]="dataModel.sendToAll"
                         name="dataModel.sendToAll"
-                      />
-                      <label
-                        class="custom-control-label"
-                        for="dataModel.sendToAll"
-                      ></label>
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="dataModel.sendToAll"
+                        ></label>
+                      </div>
                     </div>
                   </div>
+                  <mat-action-row>
+                    <button
+                      type="button"
+                      class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
+                      (click)="prevStep()"
+                      >
+                      {{ "ACTION.BACK" | translate }}
+                    </button>
+                    <button
+                      type="button"
+                      class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
+                      (click)="nextStep()"
+                      >
+                      {{ "ACTION.END" | translate }}
+                    </button>
+                  </mat-action-row>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </div>
+            <div class="col-6">
+              <div class="message-box">
+                <div class="row" style="height: 300px">
+                  <!-- content Field -->
+                  <div
+                    class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                    >
+                    <label for="dataModel.content" class="color-highlight">{{
+                      "TITLE.Message_Text" | translate
+                    }}</label>
+                    <textarea
+                      matInput
+                      [(ngModel)]="dataModel.content"
+                      name="dataModel.content"
+                      #content
+                      type="text"
+                      placeholder="..."
+                      minlength="1"
+                      maxlength="500"
+                      rows="9"
+                      class="form-control validate-name"
+                      id="dataModel.content"
+                    ></textarea>
+                    <em>{{ content.value.length }} / 500</em>
+                    @if (content.errors?.required) {
+                      <mat-error>
+                        {{ "TITLE.Message_Text" | translate }}
+                        <strong>{{ "content.required" | translate }}</strong>
+                      </mat-error>
+                    }
+                  </div>
                 </div>
-                <mat-action-row>
-                  <button
-                    type="button"
-                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
-                    (click)="prevStep()"
-                  >
-                    {{ "ACTION.BACK" | translate }}
-                  </button>
-                  <button
-                    type="button"
-                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
-                    (click)="nextStep()"
-                  >
-                    {{ "ACTION.END" | translate }}
-                  </button>
-                </mat-action-row>
-              </mat-expansion-panel>
-            </mat-accordion>
-          </div>
-          <div class="col-6">
-            <div class="message-box">
-              <div class="row" style="height: 300px">
-                <!-- content Field -->
-                <div
-                  class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-                >
-                  <label for="dataModel.content" class="color-highlight">{{
-                    "TITLE.Message_Text" | translate
-                  }}</label>
-                  <textarea
-                    matInput
-                    [(ngModel)]="dataModel.content"
-                    name="dataModel.content"
-                    #content
-                    type="text"
-                    placeholder="..."
-                    minlength="1"
-                    maxlength="500"
-                    rows="9"
-                    class="form-control validate-name"
-                    id="dataModel.content"
-                  ></textarea>
-                  <em>{{ content.value.length }} / 500</em>
-                  <mat-error *ngIf="content.errors?.required">
-                    {{ "TITLE.Message_Text" | translate }}
-                    <strong>{{ "content.required" | translate }}</strong>
-                  </mat-error>
-                </div>
-              </div>
-              <div
-                class="row"
-                *ngIf="formInfo.submitButtonEnabled"
-                style="height: 140px; bottom: 4vh; justify-content: center"
-              >
-                <button
-                  type="submit"
-                  class="message-box-button"
-                  [disabled]="!vform.valid"
-                  *ngIf="!this.publicHelper.processService.process.inRunAll"
-                  class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-                >
-                  <i class="fa fa-check-square-o"></i>
-                  {{ "ACTION.Send_Message" | translate }}
-                </button>
+                @if (formInfo.submitButtonEnabled) {
+                  <div
+                    class="row"
+                    style="height: 140px; bottom: 4vh; justify-content: center"
+                    >
+                    @if (!this.publicHelper.processService.process.inRunAll) {
+                      <button
+                        type="submit"
+                        class="message-box-button"
+                        [disabled]="!vform.valid"
+                        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
+                        >
+                        <i class="fa fa-check-square-o"></i>
+                        {{ "ACTION.Send_Message" | translate }}
+                      </button>
+                    }
+                  </div>
+                }
               </div>
             </div>
           </div>
-        </div>
 
-        <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
-      </div>
-    </form>
-    <!--Content-->
+          <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
+        </div>
+      </form>
+      <!--Content-->
+    </div>
   </div>
-</div>

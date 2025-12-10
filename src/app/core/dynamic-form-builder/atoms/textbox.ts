@@ -5,24 +5,26 @@ import { FormControl } from "@angular/forms";
 @Component({
   selector: "textbox",
   template: `
-    <input
-      *ngIf="!field.multiline"
-      [attr.type]="field.type"
-      class="form-control input-ltr"
-      [id]="field.name"
-      [name]="field.name"
-      [formControl]="optionFormControl"
-    />
-    <textarea
-      *ngIf="field.multiline"
-      [class.is-invalid]="isDirty && !isValid"
-      [formControl]="optionFormControl"
-      [id]="field.name"
-      rows="9"
-      class="form-control input-ltr"
-      [placeholder]="field.placeholder"
-    ></textarea>
-  `,
+    @if (!field.multiline) {
+      <input
+        [attr.type]="field.type"
+        class="form-control input-ltr"
+        [id]="field.name"
+        [name]="field.name"
+        [formControl]="optionFormControl"
+        />
+    }
+    @if (field.multiline) {
+      <textarea
+        [class.is-invalid]="isDirty && !isValid"
+        [formControl]="optionFormControl"
+        [id]="field.name"
+        rows="9"
+        class="form-control input-ltr"
+        [placeholder]="field.placeholder"
+      ></textarea>
+    }
+    `,
   standalone: false,
 })
 export class TextBoxComponent {

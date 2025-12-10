@@ -15,172 +15,185 @@
     ></app-cms-form-result-message>
     <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
       {{ formInfo.formTitle }}
-      <div *ngIf="!dataModelResultGotoBank">
-        <!-- LinkPrivateSiteConfigId Field -->
-        <app-bankpayment-privatesiteconfig-selector
-          (optionChange)="onActionSelectPrivateSiteConfig($event)"
-          [optionSelectForce]="dataModel.bankPaymentPrivateId"
-          [optionPlaceholder]="'TITLE.Account' | translate"
-        >
-        </app-bankpayment-privatesiteconfig-selector>
-        <!-- RecordStatus Field -->
-        <div
-          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-        >
-          <label for="dataModel.amount" class="color-highlight">
-            {{ "TITLE.Amount" | translate }}
-          </label>
-          <input
-            matInput
-            [(ngModel)]="dataModel.amount"
-            name="dataModel.amount"
-            #Amount
-            type="number"
-            placeholder="{{ 'TITLE.preacher' | translate }}"
-            class="form-control validate-name"
-            id="dataModel.amount"
-            required
-          />
-          <mat-error *ngIf="Amount.errors?.required">
-            Amount is <strong>{{ "MESSAGE.required" | translate }}</strong>
-          </mat-error>
-        </div>
-        <!-- RecordStatus Field -->
-        <div
-          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-        >
-          <label for="dataModel.feeTransport" class="color-highlight">{{
-            "TITLE.Wage" | translate
-          }}</label>
-          <input
-            matInput
-            [(ngModel)]="dataModel.feeTransport"
-            name="dataModel.feeTransport"
-            #FeeTransport
-            type="number"
-            placeholder="{{ 'TITLE.Wage' | translate }}"
-            id="dataModel.feeTransport"
-            required
-          />
-          <mat-error *ngIf="FeeTransport.errors?.required">
-            FeeTransport is
-            <strong>{{ "MESSAGE.required" | translate }}</strong>
-          </mat-error>
-        </div>
-        <!-- ModuleName Field -->
-        <div
-          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-        >
-          <label for="dataModel.moduleName" class="color-highlight"
-            >ModuleName</label
-          >
-          <input
-            matInput
-            [(ngModel)]="dataModel.moduleName"
-            name="dataModel.moduleName"
-            #ModuleName
-            type="text"
-            placeholder="ModuleName"
-            class="form-control validate-name"
-            id="dataModel.moduleName"
-          />
-        </div>
-        <!-- ModuleEntityName Field -->
-        <div
-          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-        >
-          <label for="dataModel.moduleEntityName" class="color-highlight"
-            >ModuleEntityName</label
-          >
-          <input
-            matInput
-            [(ngModel)]="dataModel.moduleEntityName"
-            name="dataModel.moduleEntityName"
-            #ModuleEntityName
-            type="text"
-            placeholder="ModuleEntityName"
-            class="form-control validate-name"
-            id="dataModel.moduleEntityName"
-          />
-        </div>
-        <!-- ModuleEntityId Field -->
-        <div
-          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-        >
-          <label for="dataModel.moduleEntityId" class="color-highlight"
-            >ModuleEntityId</label
-          >
-          <input
-            matInput
-            [(ngModel)]="dataModel.moduleEntityId"
-            name="dataModel.moduleEntityId"
-            #ModuleEntityId
-            type="text"
-            placeholder="ModuleEntityId"
-            class="form-control validate-name"
-            id="dataModel.moduleEntityId"
-          />
-        </div>
-        <!-- LastUrlAddressInUse Field -->
-        <div
-          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-        >
-          <label for="dataModel.lastUrlAddressInUse" class="color-highlight">{{
-            "TITLE.Return_Address_from_Payment" | translate
-          }}</label>
-          <input
-            matInput
-            [(ngModel)]="dataModel.lastUrlAddressInUse"
-            name="dataModel.lastUrlAddressInUse"
-            #LastUrlAddressInUse
-            type="text"
-            class="form-control validate-name"
-            placeholder="LastUrlAddressInUse"
-            minlength="3"
-            maxlength="500"
-            id="dataModel.lastUrlAddressInUse"
-            required
-          />
-          <em>{{ LastUrlAddressInUse.value.length }} / 100</em>
-          <mat-error *ngIf="LastUrlAddressInUse.errors?.required">
-            LastUrlAddressInUse is
-            <strong>{{ "MESSAGE.required" | translate }}</strong>
-          </mat-error>
-        </div>
-        <app-cms-json-list
-          [(ngModel)]="dataModelResult.item"
-          [optionMethod]="1"
-          *ngIf="dataModelResultGotoBank"
-        >
-        </app-cms-json-list>
-      </div>
-      <div class="form-actions" *ngIf="formInfo.submitButtonEnabled">
-        <button
-          type="button"
-          (click)="onFormCancel()"
-          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-        >
-          <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
-        </button>
-        <button
-          type="submit"
-          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
-          *ngIf="!dataModelResultGotoBank"
-          [disabled]="!vform.valid"
-        >
-          <i class="fa fa-check-square-o"></i>
-          {{ "ACTION.PAYMENT" | translate }}
-        </button>
-        <button
-          type="button"
-          (click)="onGotoBank()"
-          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-          *ngIf="dataModelResultGotoBank"
-        >
-          <i class="ft-x"></i> {{ "ACTION.TRANSFER_TO_PORT" | translate }}
-        </button>
-      </div>
-    </form>
-    <!--Content-->
-  </div>
-</div>
+      @if (!dataModelResultGotoBank) {
+        <div>
+          <!-- LinkPrivateSiteConfigId Field -->
+          <app-bankpayment-privatesiteconfig-selector
+            (optionChange)="onActionSelectPrivateSiteConfig($event)"
+            [optionSelectForce]="dataModel.bankPaymentPrivateId"
+            [optionPlaceholder]="'TITLE.Account' | translate"
+            >
+          </app-bankpayment-privatesiteconfig-selector>
+          <!-- RecordStatus Field -->
+          <div
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            >
+            <label for="dataModel.amount" class="color-highlight">
+              {{ "TITLE.Amount" | translate }}
+            </label>
+            <input
+              matInput
+              [(ngModel)]="dataModel.amount"
+              name="dataModel.amount"
+              #Amount
+              type="number"
+              placeholder="{{ 'TITLE.preacher' | translate }}"
+              class="form-control validate-name"
+              id="dataModel.amount"
+              required
+              />
+              @if (Amount.errors?.required) {
+                <mat-error>
+                  Amount is <strong>{{ "MESSAGE.required" | translate }}</strong>
+                </mat-error>
+              }
+            </div>
+            <!-- RecordStatus Field -->
+            <div
+              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+              >
+              <label for="dataModel.feeTransport" class="color-highlight">{{
+                "TITLE.Wage" | translate
+              }}</label>
+              <input
+                matInput
+                [(ngModel)]="dataModel.feeTransport"
+                name="dataModel.feeTransport"
+                #FeeTransport
+                type="number"
+                placeholder="{{ 'TITLE.Wage' | translate }}"
+                id="dataModel.feeTransport"
+                required
+                />
+                @if (FeeTransport.errors?.required) {
+                  <mat-error>
+                    FeeTransport is
+                    <strong>{{ "MESSAGE.required" | translate }}</strong>
+                  </mat-error>
+                }
+              </div>
+              <!-- ModuleName Field -->
+              <div
+                class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                >
+                <label for="dataModel.moduleName" class="color-highlight"
+                  >ModuleName</label
+                  >
+                  <input
+                    matInput
+                    [(ngModel)]="dataModel.moduleName"
+                    name="dataModel.moduleName"
+                    #ModuleName
+                    type="text"
+                    placeholder="ModuleName"
+                    class="form-control validate-name"
+                    id="dataModel.moduleName"
+                    />
+                  </div>
+                  <!-- ModuleEntityName Field -->
+                  <div
+                    class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                    >
+                    <label for="dataModel.moduleEntityName" class="color-highlight"
+                      >ModuleEntityName</label
+                      >
+                      <input
+                        matInput
+                        [(ngModel)]="dataModel.moduleEntityName"
+                        name="dataModel.moduleEntityName"
+                        #ModuleEntityName
+                        type="text"
+                        placeholder="ModuleEntityName"
+                        class="form-control validate-name"
+                        id="dataModel.moduleEntityName"
+                        />
+                      </div>
+                      <!-- ModuleEntityId Field -->
+                      <div
+                        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                        >
+                        <label for="dataModel.moduleEntityId" class="color-highlight"
+                          >ModuleEntityId</label
+                          >
+                          <input
+                            matInput
+                            [(ngModel)]="dataModel.moduleEntityId"
+                            name="dataModel.moduleEntityId"
+                            #ModuleEntityId
+                            type="text"
+                            placeholder="ModuleEntityId"
+                            class="form-control validate-name"
+                            id="dataModel.moduleEntityId"
+                            />
+                          </div>
+                          <!-- LastUrlAddressInUse Field -->
+                          <div
+                            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                            >
+                            <label for="dataModel.lastUrlAddressInUse" class="color-highlight">{{
+                              "TITLE.Return_Address_from_Payment" | translate
+                            }}</label>
+                            <input
+                              matInput
+                              [(ngModel)]="dataModel.lastUrlAddressInUse"
+                              name="dataModel.lastUrlAddressInUse"
+                              #LastUrlAddressInUse
+                              type="text"
+                              class="form-control validate-name"
+                              placeholder="LastUrlAddressInUse"
+                              minlength="3"
+                              maxlength="500"
+                              id="dataModel.lastUrlAddressInUse"
+                              required
+                              />
+                              <em>{{ LastUrlAddressInUse.value.length }} / 100</em>
+                              @if (LastUrlAddressInUse.errors?.required) {
+                                <mat-error>
+                                  LastUrlAddressInUse is
+                                  <strong>{{ "MESSAGE.required" | translate }}</strong>
+                                </mat-error>
+                              }
+                            </div>
+                            @if (dataModelResultGotoBank) {
+                              <app-cms-json-list
+                                [(ngModel)]="dataModelResult.item"
+                                [optionMethod]="1"
+                                >
+                              </app-cms-json-list>
+                            }
+                          </div>
+                        }
+                        @if (formInfo.submitButtonEnabled) {
+                          <div class="form-actions">
+                            <button
+                              type="button"
+                              (click)="onFormCancel()"
+                              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+                              >
+                              <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
+                            </button>
+                            @if (!dataModelResultGotoBank) {
+                              <button
+                                type="submit"
+                                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
+                                [disabled]="!vform.valid"
+                                >
+                                <i class="fa fa-check-square-o"></i>
+                                {{ "ACTION.PAYMENT" | translate }}
+                              </button>
+                            }
+                            @if (dataModelResultGotoBank) {
+                              <button
+                                type="button"
+                                (click)="onGotoBank()"
+                                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
+                                >
+                                <i class="ft-x"></i> {{ "ACTION.TRANSFER_TO_PORT" | translate }}
+                              </button>
+                            }
+                          </div>
+                        }
+                      </form>
+                      <!--Content-->
+                    </div>
+                  </div>

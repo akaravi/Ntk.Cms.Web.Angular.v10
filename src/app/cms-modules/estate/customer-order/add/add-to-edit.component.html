@@ -19,13 +19,13 @@
         (optionChange)="onActionSelectorSelect($event)"
         [optionSelectForce]="dataModel.linkEstateCustomerCategoryId"
         [optionPlaceholder]="'TITLE.Category' | translate"
-      >
+        >
       </app-estate-customer-category-selector>
 
       <!-- Title Field -->
       <div
         class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-      >
+        >
         <label for="dataModel.title" class="color-highlight">{{
           fieldsInfo["title"]?.fieldTitle
         }}</label>
@@ -42,283 +42,308 @@
           required
           class="form-control validate-name"
           id="dataModel.title"
-        />
-        <i *ngIf="!Title.value" class="fa fa-times invalid color-red-dark"></i>
-        <i *ngIf="Title.value" class="fa fa-check valid color-green-dark"></i>
-        <em></em>
-        <mat-error *ngIf="Title.errors?.required">
-          {{ fieldsInfo["title"]?.fieldTitle }}
-          <strong>{{ "MESSAGE.required" | translate }}</strong>
-        </mat-error>
-      </div>
+          />
+          @if (!Title.value) {
+            <i class="fa fa-times invalid color-red-dark"></i>
+          }
+          @if (Title.value) {
+            <i class="fa fa-check valid color-green-dark"></i>
+          }
+          <em></em>
+          @if (Title.errors?.required) {
+            <mat-error>
+              {{ fieldsInfo["title"]?.fieldTitle }}
+              <strong>{{ "MESSAGE.required" | translate }}</strong>
+            </mat-error>
+          }
+        </div>
 
-      <!-- Description Field -->
-      <div
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-      >
-        <label for="dataModel.description" class="color-highlight">{{
-          fieldsInfo["description"]?.fieldTitle
-        }}</label>
-        <textarea
-          matInput
-          [(ngModel)]="dataModel.description"
-          name="dataModel.description"
-          #Description
-          type="text"
-          placeholder="{{ fieldsInfo['description']?.fieldTitle }}"
-          minlength="0"
-          maxlength="500"
-          rows="5"
-          id="dataModel.description"
-          class="form-control validate-name"
-        ></textarea>
-        <em>{{ Description.value.length }} / 500</em>
-      </div>
+        <!-- Description Field -->
+        <div
+          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+          >
+          <label for="dataModel.description" class="color-highlight">{{
+            fieldsInfo["description"]?.fieldTitle
+          }}</label>
+          <textarea
+            matInput
+            [(ngModel)]="dataModel.description"
+            name="dataModel.description"
+            #Description
+            type="text"
+            placeholder="{{ fieldsInfo['description']?.fieldTitle }}"
+            minlength="0"
+            maxlength="500"
+            rows="5"
+            id="dataModel.description"
+            class="form-control validate-name"
+          ></textarea>
+          <em>{{ Description.value.length }} / 500</em>
+        </div>
 
-      <!-- DescriptionHidden Field -->
-      <div
-        *ngIf="fieldsInfo['descriptionHidden']?.accessWatchField"
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-      >
-        <label for="dataModel.descriptionHidden" class="color-highlight">{{
-          "TITLE.Description_Hidden" | translate
-        }}</label>
-        <textarea
-          matInput
-          [(ngModel)]="dataModel.descriptionHidden"
-          name="dataModel.descriptionHidden"
-          #DescriptionHidden
-          type="text"
-          placeholder="{{ fieldsInfo['descriptionHidden']?.fieldTitle }}"
-          minlength="0"
-          maxlength="500"
-          rows="5"
-          id="dataModel.descriptionHidden"
-          class="form-control validate-name"
-        ></textarea>
-        <em>{{ DescriptionHidden.value.length }} / 500</em>
-      </div>
-
-      <hr />
-
-      <!-- linkEstateAgencyId Field -->
-      <app-estate-account-agency-selector
-        *ngIf="tokenHelper.isAdminSite"
-        (optionChange)="onActionSelectorEstateAgency($event)"
-        [optionDisabled]="!fieldsInfo['linkEstateAgencyId']?.accessAddField"
-        [optionSelectForce]="dataModel.linkEstateAgencyId"
-        [optionSelectUserId]="tokenInfo.access.userId"
-        [optionPlaceholder]="'TITLE.Property_agency' | translate"
-      >
-      </app-estate-account-agency-selector>
-
-      <!-- LinkEstateExpertId Field -->
-      <app-estate-account-expert-selector
-        (optionChange)="onActionSelectorEstateUser($event)"
-        [optionDisabled]="!fieldsInfo['linkEstateExpertId']?.accessAddField"
-        [optionSelectForce]="dataModel.linkEstateExpertId"
-        [optionPlaceholder]="'TITLE.Real_estate_customer_personnel' | translate"
-      >
-      </app-estate-account-expert-selector>
-
-      <!-- ContactMobiles Field -->
-      <div
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-      >
-        <label for="dataModel.contactMobiles" class="color-highlight">{{
-          "TITLE.Mobile_customer" | translate
-        }}</label>
-        <textarea
-          matInput
-          [(ngModel)]="dataModel.contactMobiles"
-          name="dataModel.contactMobiles"
-          #ContactMobiles
-          type="text"
-          placeholder="{{ 'TITLE.Mobile_customer' | translate }}"
-          minlength="0"
-          maxlength="100"
-          rows="5"
-          id="dataModel.contactMobiles"
-          class="form-control validate-name"
-        ></textarea>
-        <em>{{ ContactMobiles.value.length }} / 100</em>
-        <mat-error *ngIf="ContactMobiles.errors?.required">
-          ContactMobiles is
-          <strong>{{ "MESSAGE.required" | translate }}</strong>
-        </mat-error>
-      </div>
-
-      <!-- actionCreateNewCmsUser Field  -->
-      <div
-        *ngIf="fieldsInfo['actionCreateNewCmsUser']?.accessWatchField"
-        class="blockquote"
-      >
-        <div class="d-flex mb-3">
-          <div class="pt-1">
-            <h5
-              data-trigger-switch="dataModel.actionCreateNewCmsUser"
-              class="font-600 font-14"
+        <!-- DescriptionHidden Field -->
+        @if (fieldsInfo['descriptionHidden']?.accessWatchField) {
+          <div
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
             >
-              {{ "TITLE.CREATE_NEW_USER" | translate }}
-            </h5>
+            <label for="dataModel.descriptionHidden" class="color-highlight">{{
+              "TITLE.Description_Hidden" | translate
+            }}</label>
+            <textarea
+              matInput
+              [(ngModel)]="dataModel.descriptionHidden"
+              name="dataModel.descriptionHidden"
+              #DescriptionHidden
+              type="text"
+              placeholder="{{ fieldsInfo['descriptionHidden']?.fieldTitle }}"
+              minlength="0"
+              maxlength="500"
+              rows="5"
+              id="dataModel.descriptionHidden"
+              class="form-control validate-name"
+            ></textarea>
+            <em>{{ DescriptionHidden.value.length }} / 500</em>
           </div>
-          <div class="ms-auto me-3 pe-2">
-            <div class="custom-control ios-switch small-switch">
-              <input
-                type="checkbox"
-                class="ios-input"
-                id="dataModel.actionCreateNewCmsUser"
-                [(ngModel)]="dataModel.actionCreateNewCmsUser"
-                name="dataModel.actionCreateNewCmsUser"
-              />
-              <label
-                class="custom-control-label"
-                for="dataModel.actionCreateNewCmsUser"
-              ></label>
-            </div>
-          </div>
-        </div>
+        }
 
-        <!-- LinkCmsUserId Field -->
-        <app-cms-user-selector
-          *ngIf="!dataModel.actionCreateNewCmsUser"
-          (optionChange)="onActionSelectorCmsUser($event)"
-          [optionDisabled]="!fieldsInfo['linkCmsUserId']?.accessAddField"
-          [optionSelectForce]="dataModel.linkCmsUserId"
-          [optionPlaceholder]="'TITLE.user' | translate"
-        >
-        </app-cms-user-selector>
+        <hr />
 
-        <!-- actionCreateNewCmsUserFirstName Field -->
-        <div
-          *ngIf="dataModel.actionCreateNewCmsUser"
-          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-        >
-          <label
-            for="dataModel.actionCreateNewCmsUserFirstName"
-            class="color-highlight"
-            >{{ "TITLE.FIRST_NAME" | translate }}</label
+        <!-- linkEstateAgencyId Field -->
+        @if (tokenHelper.isAdminSite) {
+          <app-estate-account-agency-selector
+            (optionChange)="onActionSelectorEstateAgency($event)"
+            [optionDisabled]="!fieldsInfo['linkEstateAgencyId']?.accessAddField"
+            [optionSelectForce]="dataModel.linkEstateAgencyId"
+            [optionSelectUserId]="tokenInfo.access.userId"
+            [optionPlaceholder]="'TITLE.Property_agency' | translate"
+            >
+          </app-estate-account-agency-selector>
+        }
+
+        <!-- LinkEstateExpertId Field -->
+        <app-estate-account-expert-selector
+          (optionChange)="onActionSelectorEstateUser($event)"
+          [optionDisabled]="!fieldsInfo['linkEstateExpertId']?.accessAddField"
+          [optionSelectForce]="dataModel.linkEstateExpertId"
+          [optionPlaceholder]="'TITLE.Real_estate_customer_personnel' | translate"
           >
-          <input
-            matInput
-            type="text"
-            [(ngModel)]="dataModel.actionCreateNewCmsUserFirstName"
-            name="dataModel.actionCreateNewCmsUserFirstName"
-            #actionCreateNewCmsUserFirstName
-            type="text"
-            placeholder="{{ 'TITLE.FIRST_NAME' | translate }}"
-            minlength="3"
-            maxlength="50"
-            class="form-control validate-name"
-            id="dataModel.actionCreateNewCmsUserFirstName"
-          />
-          <i
-            *ngIf="!actionCreateNewCmsUserFirstName.value"
-            class="fa fa-times invalid color-red-dark"
-          ></i>
-          <i
-            *ngIf="actionCreateNewCmsUserFirstName.value"
-            class="fa fa-check valid color-green-dark"
-          ></i>
-          <em>{{ actionCreateNewCmsUserFirstName.value.length }} / 50</em>
-          <mat-error *ngIf="actionCreateNewCmsUserFirstName.errors?.required">
-            <strong>{{ "MESSAGE.required" | translate }}</strong>
-          </mat-error>
-        </div>
+        </app-estate-account-expert-selector>
 
-        <!-- actionCreateNewCmsUserLastName Field -->
+        <!-- ContactMobiles Field -->
         <div
-          *ngIf="dataModel.actionCreateNewCmsUser"
           class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-        >
-          <label
-            for="dataModel.actionCreateNewCmsUserLastName"
-            class="color-highlight"
-            >{{ "TITLE.LAST_NAME" | translate }}</label
           >
-          <input
+          <label for="dataModel.contactMobiles" class="color-highlight">{{
+            "TITLE.Mobile_customer" | translate
+          }}</label>
+          <textarea
             matInput
+            [(ngModel)]="dataModel.contactMobiles"
+            name="dataModel.contactMobiles"
+            #ContactMobiles
             type="text"
-            [(ngModel)]="dataModel.actionCreateNewCmsUserLastName"
-            name="dataModel.actionCreateNewCmsUserLastName"
-            #actionCreateNewCmsUserLastName
-            type="text"
-            placeholder="{{ 'TITLE.LAST_NAME' | translate }}"
-            minlength="3"
-            maxlength="50"
+            placeholder="{{ 'TITLE.Mobile_customer' | translate }}"
+            minlength="0"
+            maxlength="100"
+            rows="5"
+            id="dataModel.contactMobiles"
             class="form-control validate-name"
-            id="dataModel.actionCreateNewCmsUserLastName"
-          />
-          <i
-            *ngIf="!actionCreateNewCmsUserLastName.value"
-            class="fa fa-times invalid color-red-dark"
-          ></i>
-          <i
-            *ngIf="actionCreateNewCmsUserLastName.value"
-            class="fa fa-check valid color-green-dark"
-          ></i>
-          <em>{{ actionCreateNewCmsUserLastName.value.length }} / 50</em>
-          <mat-error *ngIf="actionCreateNewCmsUserLastName.errors?.required">
-            <strong>{{ "MESSAGE.required" | translate }}</strong>
-          </mat-error>
+          ></textarea>
+          <em>{{ ContactMobiles.value.length }} / 100</em>
+          @if (ContactMobiles.errors?.required) {
+            <mat-error>
+              ContactMobiles is
+              <strong>{{ "MESSAGE.required" | translate }}</strong>
+            </mat-error>
+          }
         </div>
 
-        <!-- actionCreateNewCmsUserMobile Field -->
-        <div
-          *ngIf="dataModel.actionCreateNewCmsUser"
-          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-        >
-          <label
-            for="dataModel.actionCreateNewCmsUserMobile"
-            class="color-highlight"
-            >{{ "TITLE.MOBILE_NUMBER" | translate }}</label
-          >
-          <input
-            matInput
-            type="text"
-            [(ngModel)]="dataModel.actionCreateNewCmsUserMobile"
-            name="dataModel.actionCreateNewCmsUserMobile"
-            #actionCreateNewCmsUserMobile
-            type="text"
-            placeholder="0912"
-            minlength="3"
-            maxlength="20"
-            class="form-control validate-name"
-            id="dataModel.actionCreateNewCmsUserMobile"
-          />
-          <i
-            *ngIf="!actionCreateNewCmsUserMobile.value"
-            class="fa fa-times invalid color-red-dark"
-          ></i>
-          <i
-            *ngIf="actionCreateNewCmsUserMobile.value"
-            class="fa fa-check valid color-green-dark"
-          ></i>
-          <em>{{ actionCreateNewCmsUserMobile.value.length }} / 20</em>
-          <mat-error *ngIf="actionCreateNewCmsUserMobile.errors?.required">
-            <strong>{{ "MESSAGE.required" | translate }}</strong>
-          </mat-error>
-        </div>
-      </div>
+        <!-- actionCreateNewCmsUser Field  -->
+        @if (fieldsInfo['actionCreateNewCmsUser']?.accessWatchField) {
+          <div
+            class="blockquote"
+            >
+            <div class="d-flex mb-3">
+              <div class="pt-1">
+                <h5
+                  data-trigger-switch="dataModel.actionCreateNewCmsUser"
+                  class="font-600 font-14"
+                  >
+                  {{ "TITLE.CREATE_NEW_USER" | translate }}
+                </h5>
+              </div>
+              <div class="ms-auto me-3 pe-2">
+                <div class="custom-control ios-switch small-switch">
+                  <input
+                    type="checkbox"
+                    class="ios-input"
+                    id="dataModel.actionCreateNewCmsUser"
+                    [(ngModel)]="dataModel.actionCreateNewCmsUser"
+                    name="dataModel.actionCreateNewCmsUser"
+                    />
+                    <label
+                      class="custom-control-label"
+                      for="dataModel.actionCreateNewCmsUser"
+                    ></label>
+                  </div>
+                </div>
+              </div>
+              <!-- LinkCmsUserId Field -->
+              @if (!dataModel.actionCreateNewCmsUser) {
+                <app-cms-user-selector
+                  (optionChange)="onActionSelectorCmsUser($event)"
+                  [optionDisabled]="!fieldsInfo['linkCmsUserId']?.accessAddField"
+                  [optionSelectForce]="dataModel.linkCmsUserId"
+                  [optionPlaceholder]="'TITLE.user' | translate"
+                  >
+                </app-cms-user-selector>
+              }
+              <!-- actionCreateNewCmsUserFirstName Field -->
+              @if (dataModel.actionCreateNewCmsUser) {
+                <div
+                  class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                  >
+                  <label
+                    for="dataModel.actionCreateNewCmsUserFirstName"
+                    class="color-highlight"
+                    >{{ "TITLE.FIRST_NAME" | translate }}</label
+                    >
+                    <input
+                      matInput
+                      type="text"
+                      [(ngModel)]="dataModel.actionCreateNewCmsUserFirstName"
+                      name="dataModel.actionCreateNewCmsUserFirstName"
+                      #actionCreateNewCmsUserFirstName
+                      type="text"
+                      placeholder="{{ 'TITLE.FIRST_NAME' | translate }}"
+                      minlength="3"
+                      maxlength="50"
+                      class="form-control validate-name"
+                      id="dataModel.actionCreateNewCmsUserFirstName"
+                      />
+                      @if (!actionCreateNewCmsUserFirstName.value) {
+                        <i
+                          class="fa fa-times invalid color-red-dark"
+                        ></i>
+                      }
+                      @if (actionCreateNewCmsUserFirstName.value) {
+                        <i
+                          class="fa fa-check valid color-green-dark"
+                        ></i>
+                      }
+                      <em>{{ actionCreateNewCmsUserFirstName.value.length }} / 50</em>
+                      @if (actionCreateNewCmsUserFirstName.errors?.required) {
+                        <mat-error>
+                          <strong>{{ "MESSAGE.required" | translate }}</strong>
+                        </mat-error>
+                      }
+                    </div>
+                  }
+                  <!-- actionCreateNewCmsUserLastName Field -->
+                  @if (dataModel.actionCreateNewCmsUser) {
+                    <div
+                      class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                      >
+                      <label
+                        for="dataModel.actionCreateNewCmsUserLastName"
+                        class="color-highlight"
+                        >{{ "TITLE.LAST_NAME" | translate }}</label
+                        >
+                        <input
+                          matInput
+                          type="text"
+                          [(ngModel)]="dataModel.actionCreateNewCmsUserLastName"
+                          name="dataModel.actionCreateNewCmsUserLastName"
+                          #actionCreateNewCmsUserLastName
+                          type="text"
+                          placeholder="{{ 'TITLE.LAST_NAME' | translate }}"
+                          minlength="3"
+                          maxlength="50"
+                          class="form-control validate-name"
+                          id="dataModel.actionCreateNewCmsUserLastName"
+                          />
+                          @if (!actionCreateNewCmsUserLastName.value) {
+                            <i
+                              class="fa fa-times invalid color-red-dark"
+                            ></i>
+                          }
+                          @if (actionCreateNewCmsUserLastName.value) {
+                            <i
+                              class="fa fa-check valid color-green-dark"
+                            ></i>
+                          }
+                          <em>{{ actionCreateNewCmsUserLastName.value.length }} / 50</em>
+                          @if (actionCreateNewCmsUserLastName.errors?.required) {
+                            <mat-error>
+                              <strong>{{ "MESSAGE.required" | translate }}</strong>
+                            </mat-error>
+                          }
+                        </div>
+                      }
+                      <!-- actionCreateNewCmsUserMobile Field -->
+                      @if (dataModel.actionCreateNewCmsUser) {
+                        <div
+                          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                          >
+                          <label
+                            for="dataModel.actionCreateNewCmsUserMobile"
+                            class="color-highlight"
+                            >{{ "TITLE.MOBILE_NUMBER" | translate }}</label
+                            >
+                            <input
+                              matInput
+                              type="text"
+                              [(ngModel)]="dataModel.actionCreateNewCmsUserMobile"
+                              name="dataModel.actionCreateNewCmsUserMobile"
+                              #actionCreateNewCmsUserMobile
+                              type="text"
+                              placeholder="0912"
+                              minlength="3"
+                              maxlength="20"
+                              class="form-control validate-name"
+                              id="dataModel.actionCreateNewCmsUserMobile"
+                              />
+                              @if (!actionCreateNewCmsUserMobile.value) {
+                                <i
+                                  class="fa fa-times invalid color-red-dark"
+                                ></i>
+                              }
+                              @if (actionCreateNewCmsUserMobile.value) {
+                                <i
+                                  class="fa fa-check valid color-green-dark"
+                                ></i>
+                              }
+                              <em>{{ actionCreateNewCmsUserMobile.value.length }} / 20</em>
+                              @if (actionCreateNewCmsUserMobile.errors?.required) {
+                                <mat-error>
+                                  <strong>{{ "MESSAGE.required" | translate }}</strong>
+                                </mat-error>
+                              }
+                            </div>
+                          }
+                        </div>
+                      }
 
-      <div class="form-actions" *ngIf="formInfo.submitButtonEnabled">
-        <button
-          type="button"
-          (click)="onFormCancel()"
-          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-        >
-          <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
-        </button>
-        <button
-          type="submit"
-          [disabled]="!vform.form.valid"
-          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
-        >
-          <i class="fa fa-check-square-o"></i>
-          {{ "ACTION.SAVE" | translate }}
-        </button>
-      </div>
-    </form>
-    <!--content-->
-  </div>
-</div>
+                      @if (formInfo.submitButtonEnabled) {
+                        <div class="form-actions">
+                          <button
+                            type="button"
+                            (click)="onFormCancel()"
+                            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+                            >
+                            <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
+                          </button>
+                          <button
+                            type="submit"
+                            [disabled]="!vform.form.valid"
+                            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
+                            >
+                            <i class="fa fa-check-square-o"></i>
+                            {{ "ACTION.SAVE" | translate }}
+                          </button>
+                        </div>
+                      }
+                    </form>
+                    <!--content-->
+                  </div>
+                </div>

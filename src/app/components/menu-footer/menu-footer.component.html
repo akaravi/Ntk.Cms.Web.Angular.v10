@@ -1,7 +1,7 @@
 <div class="card card-style">
   <h4
     class="font-28 text-center color-theme gradient-highlight gradient-highlight gradient-highlight font-800 pt-3 mt-3"
-  >
+    >
     اپکیت
   </h4>
   <p class="boxed-text-l mb-4">
@@ -18,12 +18,13 @@
     <a class="icon icon-xs rounded-sm shadow-l mr-1 bg-phone"
       ><i class="fa fa-phone"></i
     ></a>
-    <a
-      *ngIf="publicHelper.env.loadDemoTheme"
-      data-menu="menu-share"
-      class="icon icon-xs rounded-sm mr-1 shadow-l bg-red-dark"
-      ><i class="fa fa-share-alt"></i
-    ></a>
+    @if (publicHelper.env.loadDemoTheme) {
+      <a
+        data-menu="menu-share"
+        class="icon icon-xs rounded-sm mr-1 shadow-l bg-red-dark"
+        ><i class="fa fa-share-alt"></i
+      ></a>
+    }
     <a
       class="back-to-top icon icon-xs rounded-sm shadow-l bg-highlight color-white"
       ><i class="fa fa-arrow-up"></i

@@ -9,16 +9,17 @@
   <div class="tr">
     <div class="td">{{ fieldsInfo["linkMainImageId"]?.fieldTitle }} :</div>
     <div class="td">
-      <img
-        *ngIf="dataModelResult?.item?.linkModuleFileLogoIdSrc?.length > 0"
-        style="vertical-align: middle"
-        class="ntk-hover-zoom"
-        aria-hidden
-        src="{{ dataModelResult?.item?.linkModuleFileLogoIdSrc }}"
-        height="40"
-        width="40"
-        id="LinkModuleFileLogoIdSrc"
-      />
+      @if (dataModelResult?.item?.linkModuleFileLogoIdSrc?.length > 0) {
+        <img
+          style="vertical-align: middle"
+          class="ntk-hover-zoom"
+          aria-hidden
+          src="{{ dataModelResult?.item?.linkModuleFileLogoIdSrc }}"
+          height="40"
+          width="40"
+          id="LinkModuleFileLogoIdSrc"
+          />
+      }
     </div>
     <div class="td"></div>
     <div class="td"></div>

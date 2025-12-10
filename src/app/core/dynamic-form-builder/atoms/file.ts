@@ -6,35 +6,38 @@ import { FormGroup } from "@angular/forms";
   selector: "file",
   template: `
     <div [formGroup]="optionFormControl">
-      <div
-        *ngIf="!field.value"
-        class="drop-container dropzone"
-        dropZone
-        (hovered)="toggleHover($event)"
-        (dropped)="field.onUpload($event)"
-        [class.hovering]="isHovering"
-      >
-        <p class="m-0">
-          Drag a file here or
-          <label class="upload-button">
-            <input
-              type="file"
-              multiple=""
-              (change)="field.onUpload($event.target.files)"
-            />
-            browse
-          </label>
-          to upload.
-        </p>
-      </div>
-      <div *ngIf="field.value">
-        <!-- <button type="button" >Change</button> -->
-        <div class="card">
-          <img class="card-img-top" [src]="field.value" />
+      @if (!field.value) {
+        <div
+          class="drop-container dropzone"
+          dropZone
+          (hovered)="toggleHover($event)"
+          (dropped)="field.onUpload($event)"
+          [class.hovering]="isHovering"
+          >
+          <p class="m-0">
+            Drag a file here or
+            <label class="upload-button">
+              <input
+                type="file"
+                multiple=""
+                (change)="field.onUpload($event.target.files)"
+                />
+              browse
+            </label>
+            to upload.
+          </p>
         </div>
-      </div>
+      }
+      @if (field.value) {
+        <div>
+          <!-- <button type="button" >Change</button> -->
+          <div class="card">
+            <img class="card-img-top" [src]="field.value" />
+          </div>
+        </div>
+      }
     </div>
-  `,
+    `,
   styles: [
     `
       .drop-container {

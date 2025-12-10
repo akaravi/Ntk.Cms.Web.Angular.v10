@@ -14,50 +14,53 @@
           ? 'url(' + this.tokenInfo?.user?.linkMainImageIdSrc + ')'
           : 'url(/assets/images/pictures/17.jpg)',
     }"
-  >
+    >
     <div class="card-top">
       <a
         (click)="themeStore.dataMenu = ''"
         class="close-menu float-end me-2 text-center mt-3 icon-40 notch-clear"
         ><i
-          class="fa fa-times color-white"
-          style="cursor: pointer; background-color: red"
+        class="fa fa-times color-white"
+        style="cursor: pointer; background-color: red"
         ></i
       ></a>
     </div>
-    <div *ngIf="tokenInfo?.access?.userId > 0" class="card-bottom">
-      <a
+    @if (tokenInfo?.access?.userId > 0) {
+      <div class="card-bottom">
+        <a
         (click)="
           themeStore?.dataMenu !== 'menu-profile'
             ? (themeStore.dataMenu = 'menu-profile')
             : (themeStore.dataMenu = '')
         "
-      >
-        <h1 class="color-white ps-3 mb-0 font-28">
-          {{ tokenInfo?.user?.name }} {{ tokenInfo?.user?.lastName }}
-        </h1>
-        <p class="mb-2 ps-3 font-12 color-white opacity-50">
-          {{ tokenInfo?.access?.userAccessUserTypeTitle }}
-        </p>
-      </a>
-    </div>
-    <div
-      *ngIf="
-        !this.tokenInfo ||
-        !this.tokenInfo?.access?.userId ||
-        this.tokenInfo?.access?.userId <= 0
-      "
-      class="card-bottom"
-    >
-      <a (click)="onActionCleanDataMenu('/auth/')">
-        <h1 class="color-white ps-3 mb-0 font-28">
-          {{ "ACTION.LOGIN" | translate }}
-        </h1>
-        <p class="mb-2 ps-3 font-12 color-white opacity-50">
-          {{ "TITLE.WelcomeToTheFuture" | translate }}
-        </p>
-      </a>
-    </div>
+          >
+          <h1 class="color-white ps-3 mb-0 font-28">
+            {{ tokenInfo?.user?.name }} {{ tokenInfo?.user?.lastName }}
+          </h1>
+          <p class="mb-2 ps-3 font-12 color-white opacity-50">
+            {{ tokenInfo?.access?.userAccessUserTypeTitle }}
+          </p>
+        </a>
+      </div>
+    }
+    @if (
+      !this.tokenInfo ||
+      !this.tokenInfo?.access?.userId ||
+      this.tokenInfo?.access?.userId <= 0
+      ) {
+      <div
+        class="card-bottom"
+        >
+        <a (click)="onActionCleanDataMenu('/auth/')">
+          <h1 class="color-white ps-3 mb-0 font-28">
+            {{ "ACTION.LOGIN" | translate }}
+          </h1>
+          <p class="mb-2 ps-3 font-12 color-white opacity-50">
+            {{ "TITLE.WelcomeToTheFuture" | translate }}
+          </p>
+        </a>
+      </div>
+    }
     <div class="card-overlay bg-gradient"></div>
   </div>
   <div class="mt-4"></div>
@@ -68,56 +71,60 @@
       <span>{{ "TITLE.House" | translate }}</span>
     </a>
 
-    <a
-      *ngIf="tokenInfo?.access?.userId > 0"
-      id="nav-homepages"
-      (click)="onActionCleanDataMenu(ROUTE_DASHBOARD)"
-      style="cursor: pointer"
-    >
-      <i class="fa fa-home gradient-green color-white"></i>
-      <span>{{ "MENU.DASHBOARD" | translate }}</span>
-    </a>
-    <a
-      *ngIf="tokenInfo?.access?.userId > 0"
-      id="nav-components"
-      (click)="onActionCleanDataMenu(ROUTE_SELECT_SITE)"
-      style="cursor: pointer"
-    >
-      <i class="fa fa-cog gradient-blue color-white"></i>
-      <span>{{ "TITLE.Select_Site" | translate }}</span>
-    </a>
-    <a
-      *ngIf="
-        !this.tokenInfo ||
-        !this.tokenInfo?.access?.userId ||
-        this.tokenInfo?.access?.userId <= 0
-      "
-      id="nav-components"
-      (click)="onActionCleanDataMenu('/auth/')"
-      style="cursor: pointer"
-    >
-      <i class="fa fa-cog gradient-blue color-white"></i>
-      <span>{{ "ACTION.LOGIN" | translate }}</span>
-    </a>
+    @if (tokenInfo?.access?.userId > 0) {
+      <a
+        id="nav-homepages"
+        (click)="onActionCleanDataMenu(ROUTE_DASHBOARD)"
+        style="cursor: pointer"
+        >
+        <i class="fa fa-home gradient-green color-white"></i>
+        <span>{{ "MENU.DASHBOARD" | translate }}</span>
+      </a>
+    }
+    @if (tokenInfo?.access?.userId > 0) {
+      <a
+        id="nav-components"
+        (click)="onActionCleanDataMenu(ROUTE_SELECT_SITE)"
+        style="cursor: pointer"
+        >
+        <i class="fa fa-cog gradient-blue color-white"></i>
+        <span>{{ "TITLE.Select_Site" | translate }}</span>
+      </a>
+    }
+    @if (
+      !this.tokenInfo ||
+      !this.tokenInfo?.access?.userId ||
+      this.tokenInfo?.access?.userId <= 0
+      ) {
+      <a
+        id="nav-components"
+        (click)="onActionCleanDataMenu('/auth/')"
+        style="cursor: pointer"
+        >
+        <i class="fa fa-cog gradient-blue color-white"></i>
+        <span>{{ "ACTION.LOGIN" | translate }}</span>
+      </a>
+    }
 
-    <a
-      *ngFor="let item of dataModelResult.listItems"
-      (click)="onActionClickMenu(item, $event)"
-      style="cursor: pointer"
-    >
-      <i
-        class="{{ item.icon }} "
-        [style.color]="item.color?.length > 0 ? item.color : 'color-white'"
-      ></i>
-      <span>{{ item.titleML }}</span>
-      <i [ngClass]="faAngleleftClass"></i>
-    </a>
+    @for (item of dataModelResult.listItems; track item) {
+      <a
+        (click)="onActionClickMenu(item, $event)"
+        style="cursor: pointer"
+        >
+        <i
+          class="{{ item.icon }} "
+          [style.color]="item.color?.length > 0 ? item.color : 'color-white'"
+        ></i>
+        <span>{{ item.titleML }}</span>
+        <i [ngClass]="faAngleleftClass"></i>
+      </a>
+    }
 
     <a
       id="nav-contact"
       (click)="onActionCleanDataMenu('/page/aboutus')"
       style="cursor: pointer"
-    >
+      >
       <i class="fa fa-envelope gradient-teal color-white"></i>
       <span>{{ "ACTION.ABOUT" | translate }}</span>
     </a>
@@ -125,7 +132,7 @@
       id="nav-contact"
       (click)="onActionCleanDataMenu('/page/contactus')"
       style="cursor: pointer"
-    >
+      >
       <i class="fa fa-envelope gradient-teal color-white"></i>
       <span>{{ "ACTION.GETINTOUCH" | translate }}</span>
     </a>
@@ -136,19 +143,19 @@
       <a
         (click)="themeService.updateThemeFontSize('default')"
         style="cursor: pointer"
-      >
+        >
         <i class="fa fa-sync-alt gradient-green color-white"></i>
       </a>
       <a
         (click)="themeService.updateThemeFontSize('increase')"
         style="cursor: pointer"
-      >
+        >
         <i class="fa fa-font gradient-green color-white font-18"></i>
       </a>
       <a
         (click)="themeService.updateThemeFontSize('decrease')"
         style="cursor: pointer"
-      >
+        >
         <i class="fa fa-font gradient-green color-white"></i>
       </a>
     </div>
@@ -159,7 +166,7 @@
           : (themeStore.dataMenu = '')
       "
       style="cursor: pointer"
-    >
+      >
       <i class="fa fa-brush gradient-highlight color-white"></i>
       <span>{{ "TITLE.coloring" | translate }}</span>
       <i [ngClass]="faAngleleftClass"></i>
@@ -171,7 +178,7 @@
           : (themeStore.dataMenu = '')
       "
       style="cursor: pointer"
-    >
+      >
       <i class="fa fa-globe gradient-highlight color-white"></i>
       <span>{{ "TITLE.Language" | translate }}</span>
       <i [ngClass]="faAngleleftClass"></i>
@@ -191,48 +198,52 @@
               : onActionThemeSwitch('dark')
           "
           id="toggle-dark-menu"
-        />
-        <label class="custom-control-label" for="toggle-dark-menu"></label>
-      </div>
-    </a>
+          />
+          <label class="custom-control-label" for="toggle-dark-menu"></label>
+        </div>
+      </a>
 
-    <a
-      *ngIf="tokenInfo?.access?.userId > 0"
-      id="nav-components"
-      (click)="onActionLogout()"
-      style="cursor: pointer"
-    >
-      <i class="fa fa-cog gradient-blue color-red"></i>
-      <span>{{ "TITLE.Sign_Out" | translate }}</span>
-    </a>
-  </div>
-  <h6 class="menu-divider mt-4" *ngIf="env.loadDemoTheme">مخاطبین</h6>
-  <div
-    class="theme-ltr list-group list-custom-small list-menu ps-2"
-    *ngIf="env.loadDemoTheme"
-  >
-    <a>
-      <img src="assets/images/pictures/1s.jpg" />
-      <span>زانیار مدنی</span>
-      <i [ngClass]="faAngleleftClass"></i>
-    </a>
-    <a>
-      <img src="assets/images/pictures/5s.jpg" />
-      <span>مالیا دانی</span>
-      <i [ngClass]="faAngleleftClass"></i>
-    </a>
-    <a>
-      <img src="assets/images/pictures/6s.jpg" />
-      <span>اکرم محمدی</span>
-      <i [ngClass]="faAngleleftClass"></i>
-    </a>
-  </div>
-  <h6
-    class="menu-divider font-10 mt-4"
-    style="direction: ltr; text-align: center"
-  >
-    client ver: {{ this.publicHelper.appClientVersion }} / server ver:{{
+      @if (tokenInfo?.access?.userId > 0) {
+        <a
+          id="nav-components"
+          (click)="onActionLogout()"
+          style="cursor: pointer"
+          >
+          <i class="fa fa-cog gradient-blue color-red"></i>
+          <span>{{ "TITLE.Sign_Out" | translate }}</span>
+        </a>
+      }
+    </div>
+    @if (env.loadDemoTheme) {
+      <h6 class="menu-divider mt-4">مخاطبین</h6>
+    }
+    @if (env.loadDemoTheme) {
+      <div
+        class="theme-ltr list-group list-custom-small list-menu ps-2"
+        >
+        <a>
+          <img src="assets/images/pictures/1s.jpg" />
+          <span>زانیار مدنی</span>
+          <i [ngClass]="faAngleleftClass"></i>
+        </a>
+        <a>
+          <img src="assets/images/pictures/5s.jpg" />
+          <span>مالیا دانی</span>
+          <i [ngClass]="faAngleleftClass"></i>
+        </a>
+        <a>
+          <img src="assets/images/pictures/6s.jpg" />
+          <span>اکرم محمدی</span>
+          <i [ngClass]="faAngleleftClass"></i>
+        </a>
+      </div>
+    }
+    <h6
+      class="menu-divider font-10 mt-4"
+      style="direction: ltr; text-align: center"
+      >
+      client ver: {{ this.publicHelper.appClientVersion }} / server ver:{{
       this.publicHelper.appServerVersion
-    }}
-  </h6>
-</div>
+      }}
+    </h6>
+  </div>

@@ -6,19 +6,21 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
   selector: "dynamic-form-builder",
   template: `
     <!-- <form [formGroup]="formGroup" class="form-horizontal"> -->
-    <div *ngFor="let field of fields">
-      <field-builder [field]="field" [formGroup]="formGroup"></field-builder>
-    </div>
-    <!-- <div class="form-row"></div>
-      <div class="form-group row">
-        <div class="col-md-3"></div>
-        <div class="col-md-9">
-          <button type="submit" [disabled]="!formGroup.valid" >Save</button>
-          <strong >Saved all values</strong>
-        </div>
+    @for (field of fields; track field) {
+      <div>
+        <field-builder [field]="field" [formGroup]="formGroup"></field-builder>
       </div>
+    }
+    <!-- <div class="form-row"></div>
+    <div class="form-group row">
+      <div class="col-md-3"></div>
+      <div class="col-md-9">
+        <button type="submit" [disabled]="!formGroup.valid" >Save</button>
+        <strong >Saved all values</strong>
+      </div>
+    </div>
     </form> -->
-  `,
+    `,
   standalone: false,
 })
 export class DynamicFormBuilderComponent implements OnInit {

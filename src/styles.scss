@@ -106,6 +106,42 @@
   box-shadow: none !important;
 }
 
+.widget-refreshable {
+  position: relative;
+}
+
+.widget-refresh-btn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 5;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.widget-refreshable:hover .widget-refresh-btn,
+.widget-refreshable:focus-within .widget-refresh-btn {
+  opacity: 1;
+}
+
+.widget-refresh-btn:hover {
+  transform: scale(1.05);
+}
+
+.widget-refresh-btn i {
+  font-size: 14px;
+}
+
 @keyframes jump {
   0% {
     transform: translate3d(0, 0, 0) scale3d(1, 1, 1);

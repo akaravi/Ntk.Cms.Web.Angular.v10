@@ -1,8 +1,9 @@
-<app-donate-target-period-header
-  *ngIf="requestLinkTargetPeriodId > 0"
-  [optionId]="requestLinkTargetPeriodId"
->
-</app-donate-target-period-header>
+@if (requestLinkTargetPeriodId > 0) {
+  <app-donate-target-period-header
+    [optionId]="requestLinkTargetPeriodId"
+    >
+  </app-donate-target-period-header>
+}
 <div class="row">
   <div Class="col-xl-12">
     <div class="row">
@@ -28,41 +29,42 @@
                   #Credit
                   type="number"
                   placeholder="0"
-                />
-                <mat-icon
-                  matSuffix
-                  *ngIf="dataModelCalculate.supportPayment"
-                  matSuffix
-                  mat-icon-button
-                  aria-label="Clear"
-                  (click)="dataModelCalculate.supportPayment = 0"
-                  >close</mat-icon
+                  />
+                @if (dataModelCalculate.supportPayment) {
+                  <mat-icon
+                    matSuffix
+                    matSuffix
+                    mat-icon-button
+                    aria-label="Clear"
+                    (click)="dataModelCalculate.supportPayment = 0"
+                    >close</mat-icon
+                    >
+                  }
+                  <mat-icon matSuffix>mode_edit</mat-icon>
+                </mat-form-field>
+                {{ price }}
+                {{ currency }}
+              </p>
+            </mat-card-content>
+            <mat-card-actions>
+              <button
+                type="button"
+                class="btn btn-success"
+                (click)="onActionButtonBuy()"
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
                 >
-                <mat-icon matSuffix>mode_edit</mat-icon>
-              </mat-form-field>
-              {{ price }}
-              {{ currency }}
-            </p>
-          </mat-card-content>
-          <mat-card-actions>
-            <button
-              type="button"
-              class="btn btn-success"
-              (click)="onActionButtonBuy()"
-              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
-            >
-              {{ "ACTION.BUY" | translate }}
-            </button>
-            <button
-              type="button"
-              (click)="onActionBackToParent()"
-              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-            >
-              <i class="ft-x"></i> {{ "ACTION.BACK" | translate }}
-            </button>
-          </mat-card-actions>
-        </mat-card>
+                {{ "ACTION.BUY" | translate }}
+              </button>
+              <button
+                type="button"
+                (click)="onActionBackToParent()"
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+                >
+                <i class="ft-x"></i> {{ "ACTION.BACK" | translate }}
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
       </div>
     </div>
   </div>
-</div>

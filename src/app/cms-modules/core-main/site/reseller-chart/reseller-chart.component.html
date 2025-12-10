@@ -8,7 +8,7 @@
     (click)="onActionButtonReload()"
     type="button"
     class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-  >
+    >
     <mat-icon title="{{ 'ACTION.RELOAD' | translate }}">refresh</mat-icon>
   </button>
   <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-->
@@ -23,7 +23,7 @@
         #treeTagControl
         [dataSource]="dataSource"
         [childrenAccessor]="childrenAccessor"
-      >
+        >
         <mat-tree-node
           *matTreeNodeDef="let node"
           matTreeNodePadding
@@ -31,75 +31,79 @@
             dataModelSelect.linkSiteId > 0 &&
             dataModelSelect.linkSiteId === node.linkSiteId
           "
-        >
+          >
           <button matIconButton disabled></button>
           <span (click)="onActionSelect(node)"
             ><i [ngClass]="node.icon" aria-hidden="true"></i>
             &nbsp;&nbsp;&nbsp;&nbsp;
             {{ node.site.id }} / {{ node.site.title }}</span
-          >
-        </mat-tree-node>
-        <mat-tree-node
-          *matTreeNodeDef="let node; when: hasChild"
-          matTreeNodePadding
-          matTreeNodeToggle
-          [cdkTreeNodeTypeaheadLabel]="node.title"
-          isExpandable
-          [isExpanded]="node.isExpanded ?? false"
+            >
+          </mat-tree-node>
+          <mat-tree-node
+            *matTreeNodeDef="let node; when: hasChild"
+            matTreeNodePadding
+            matTreeNodeToggle
+            [cdkTreeNodeTypeaheadLabel]="node.title"
+            isExpandable
+            [isExpanded]="node.isExpanded ?? false"
           [class.ntk-tree-selected]="
             dataModelSelect.linkSiteId > 0 &&
             dataModelSelect.linkSiteId === node.linkSiteId
           "
-        >
-          <button
-            matIconButton
-            matTreeNodeToggle
-            [attr.type]="'button'"
-            [attr.aria-label]="'Toggle ' + node.title"
-          >
-            <mat-icon class="mat-icon-rtl-mirror">
-              {{
+            >
+            <button
+              matIconButton
+              matTreeNodeToggle
+              [attr.type]="'button'"
+              [attr.aria-label]="'Toggle ' + node.title"
+              >
+              <mat-icon class="mat-icon-rtl-mirror">
+                {{
                 treeTagControl.isExpanded(node)
-                  ? "expand_more"
-                  : "chevron_right"
-              }}
-            </mat-icon>
-          </button>
-          <span (click)="onActionSelect(node)"
-            ><i [ngClass]="node.icon" aria-hidden="true"></i>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            {{ node.site.id }} / {{ node.site.title }}</span
-          >
-        </mat-tree-node>
-      </mat-tree>
-    </div>
-  </div>
-  <div class="col-lg-6 col-sm-12">
-    <div class="ntk-cms-html-tree-body">
-      <div class="table" *ngIf="dataModelSelect?.userChilds?.length > 0">
-        <div class="th">
-          <div class="td">{{ "TITLE.user_name" | translate }}</div>
-          <div class="td">{{ "TITLE.Name" | translate }}</div>
-          <div class="td">{{ "TITLE.last_name" | translate }}</div>
-          <div class="td">{{ "TITLE.Company_Name" | translate }}</div>
-          <div class="td">{{ "TITLE.production_date" | translate }}</div>
-          <div class="clear"></div>
-        </div>
-        <div class="tr" *ngFor="let item of dataModelSelect.userChilds">
-          <div class="td">{{ item.user?.id }}</div>
-          <div class="td">{{ item.user?.name }}</div>
-          <div class="td">{{ item.user?.lastName }}</div>
-          <div class="td">{{ item.user?.companyName }}</div>
-          <div class="td">{{ item.user?.createdDate | persianDate }}</div>
-          <div style="clear: both"></div>
+                ? "expand_more"
+                : "chevron_right"
+                }}
+              </mat-icon>
+            </button>
+            <span (click)="onActionSelect(node)"
+              ><i [ngClass]="node.icon" aria-hidden="true"></i>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              {{ node.site.id }} / {{ node.site.title }}</span
+              >
+            </mat-tree-node>
+          </mat-tree>
         </div>
       </div>
+      <div class="col-lg-6 col-sm-12">
+        <div class="ntk-cms-html-tree-body">
+          @if (dataModelSelect?.userChilds?.length > 0) {
+            <div class="table">
+              <div class="th">
+                <div class="td">{{ "TITLE.user_name" | translate }}</div>
+                <div class="td">{{ "TITLE.Name" | translate }}</div>
+                <div class="td">{{ "TITLE.last_name" | translate }}</div>
+                <div class="td">{{ "TITLE.Company_Name" | translate }}</div>
+                <div class="td">{{ "TITLE.production_date" | translate }}</div>
+                <div class="clear"></div>
+              </div>
+              @for (item of dataModelSelect.userChilds; track item) {
+                <div class="tr">
+                  <div class="td">{{ item.user?.id }}</div>
+                  <div class="td">{{ item.user?.name }}</div>
+                  <div class="td">{{ item.user?.lastName }}</div>
+                  <div class="td">{{ item.user?.companyName }}</div>
+                  <div class="td">{{ item.user?.createdDate | persianDate }}</div>
+                  <div style="clear: both"></div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+      <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
     </div>
-  </div>
-  <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
-</div>
-<div class="ntk-cms-html-tree-footer">
-  <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
+    <div class="ntk-cms-html-tree-footer">
+      <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
 
-  <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
-</div>
+      <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
+    </div>

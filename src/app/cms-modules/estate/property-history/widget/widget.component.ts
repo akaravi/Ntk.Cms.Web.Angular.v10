@@ -81,18 +81,28 @@ export class EstatePropertyHistoryWidgetComponent implements OnInit, OnDestroy {
   onActionStatist(): void {
     this.publicHelper.processService.processStart(
       this.constructor.name + "InChecking",
+      "",
+      this.constructorInfoAreaId,
     );
     this.publicHelper.processService.processStart(
       this.constructor.name + "Available",
+      "",
+      this.constructorInfoAreaId,
     );
     this.publicHelper.processService.processStart(
       this.constructor.name + "All",
+      "",
+      this.constructorInfoAreaId,
     );
     this.publicHelper.processService.processStart(
       this.constructor.name + "Planned",
+      "",
+      this.constructorInfoAreaId,
     );
     this.publicHelper.processService.processStart(
       this.constructor.name + "PlannedToDay",
+      "",
+      this.constructorInfoAreaId,
     );
 
     this.widgetInfoModel.setItem(

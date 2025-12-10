@@ -14,10 +14,12 @@ import { debounceTime } from "rxjs/operators";
   // tslint:disable-next-line: component-selector
   selector: "dynamic-form-builder-cms",
   template: `
-    <div *ngFor="let field of fields">
-      <field-builder [field]="field" [formGroup]="formGroup"></field-builder>
-    </div>
-  `,
+    @for (field of fields; track field) {
+      <div>
+        <field-builder [field]="field" [formGroup]="formGroup"></field-builder>
+      </div>
+    }
+    `,
   standalone: false,
 })
 export class DynamicFormBuilderCmsComponent implements OnInit, AfterViewInit {

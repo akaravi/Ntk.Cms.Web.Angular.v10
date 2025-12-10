@@ -1,5 +1,43 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-12-10 10:15 (افزودن دکمه رفرش روی هاور برای تمام ویجت‌ها)
+
+### تغییرات اعمال شده:
+
+- افزودن استایل عمومی `widget-refreshable` و `widget-refresh-btn` در `styles.scss` برای نمایش دکمه رفرش در بالا-چپ کارت هنگام هاور یا فوکوس.
+- افزودن دکمه رفرش با آیکن `fa-rotate-right` به همه `widget.component.html`ها و اتصال آن به متد `onActionButtonReload`.
+- افزودن متد `onActionButtonReload` در `application/content/widget.component.ts` (سایر ویجت‌ها از قبل متد را داشتند).
+
+### فایل‌های تغییر یافته:
+- `src/styles.scss`
+- تمام فایل‌های `widget.component.html` در مسیرهای:
+  - `estate/property`, `estate/property-history`, `estate/customer-order`
+  - `core-module-log/report-abuse`
+  - `core-main/site/widget/module`, `core-main/site/widget/count`, `core-main/site/widget/status`, `core-main/user/widget`
+  - `application/content`, `application/memberInfo`
+  - `news/content`, `blog/content`, `catalog/content`, `chart/content`, `biography/content`, `article/content`
+  - `ticketing/task`, `web-designer/log-member-info`
+  - `sms/log/outbox`, `sms/log/outbox-task-scheduler`, `sms/log/outbox-queue`, `sms/log/inbox`
+- `src/app/cms-modules/application/content/widget/widget.component.ts`
+
+---
+
+## 2025-12-10 10:35 (هماهنگی infoAreaId در processStart و نمایش آن در ویجت‌ها)
+
+### تغییرات اعمال شده:
+
+- افزودن `infoAreaId` (با استفاده از `constructorInfoAreaId`) به تمام فراخوانی‌های `processStart` در ویجت‌های فاقد آن: `application/content`, `estate/property-history`, `core-main/site/widget/module`, `core-main/user`.
+- افزودن `app-progress-spinner` با `optionsInfoAreaId="constructorInfoAreaId"` به ویجت کاربر (`core-main/user/widget`) و تبدیل ریشه به `loader-container` برای هم‌راستایی با process overlay.
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/application/content/widget/widget.component.ts`
+- `src/app/cms-modules/estate/property-history/widget/widget.component.ts`
+- `src/app/cms-modules/core-main/site/widget/module/widget.component.ts`
+- `src/app/cms-modules/core-main/user/widget/widget.component.ts`
+- `src/app/cms-modules/core-main/user/widget/widget.component.html`
+
+---
+
 ## 2025-12-10 08:49 (افزودن قابلیت click به directive های tooltip)
 
 ### تغییرات اعمال شده:

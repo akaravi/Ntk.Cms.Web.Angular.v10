@@ -63,6 +63,10 @@ export class ApplicationAppWidgetComponent implements OnInit, OnDestroy {
     );
   }
 
+  onActionButtonReload(): void {
+    this.onActionStatist();
+  }
+
   ngOnDestroy(): void {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
@@ -76,10 +80,12 @@ export class ApplicationAppWidgetComponent implements OnInit, OnDestroy {
         this.publicHelper.processService.processStart(
           this.constructor.name + "Active",
           str["MESSAGE.Get_active_application_statistics"],
+          this.constructorInfoAreaId,
         );
         this.publicHelper.processService.processStart(
           this.constructor.name + "All",
           str["MESSAGE.Get_statistics_on_all_applications"],
+          this.constructorInfoAreaId,
         );
       });
 

@@ -1,32 +1,33 @@
 <ul class="icon-list ps-3">
-  <li *ngFor="let item of formInfo.validationList">
-    @switch (item.status) {
-      @case (FormValidationStatusEnum.info) {
-        <i class="fa fa-info color-blue-dark"></i>
+  @for (item of formInfo.validationList; track item) {
+    <li>
+      @switch (item.status) {
+        @case (FormValidationStatusEnum.info) {
+          <i class="fa fa-info color-blue-dark"></i>
+        }
+        @case (FormValidationStatusEnum.Success) {
+          <i class="fa fa-check color-green-dark"></i>
+        }
+        @case (FormValidationStatusEnum.Warning) {
+          <i class="fa fa-exclamation-triangle color-yellow-dark"></i>
+        }
+        @case (FormValidationStatusEnum.Error) {
+          <i class="fa fa-times color-red-dark"></i>
+        }
       }
-      @case (FormValidationStatusEnum.Success) {
-        <i class="fa fa-check color-green-dark"></i>
-      }
-      @case (FormValidationStatusEnum.Warning) {
-        <i class="fa fa-exclamation-triangle color-yellow-dark"></i>
-      }
-      @case (FormValidationStatusEnum.Error) {
-        <i class="fa fa-times color-red-dark"></i>
-      }
-    }
-
-    @if (item.linkSrc?.length > 0) {
-      <a [routerLink]="[item.linkSrc]">
+      @if (item.linkSrc?.length > 0) {
+        <a [routerLink]="[item.linkSrc]">
+          <span>{{ item.title }}</span>
+          @if (item.description?.length > 0) {
+            <span> ( {{ item.description }} ) </span>
+          }
+        </a>
+      } @else {
         <span>{{ item.title }}</span>
         @if (item.description?.length > 0) {
           <span> ( {{ item.description }} ) </span>
         }
-      </a>
-    } @else {
-      <span>{{ item.title }}</span>
-      @if (item.description?.length > 0) {
-        <span> ( {{ item.description }} ) </span>
       }
-    }
-  </li>
+    </li>
+  }
 </ul>

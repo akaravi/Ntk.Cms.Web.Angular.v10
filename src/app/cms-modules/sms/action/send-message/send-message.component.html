@@ -22,7 +22,7 @@
                 [expanded]="step === 0"
                 (opened)="setStep(0)"
                 hideToggle
-              >
+                >
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     <mat-icon>info</mat-icon>
@@ -44,14 +44,14 @@
                     type="button"
                     class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
                     (click)="onActionOrderCalculate()"
-                  >
+                    >
                     {{ "ACTION.ORDER_CALCULATE" | translate }}
                   </button>
                   <button
                     type="button"
                     class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
                     (click)="nextStep()"
-                  >
+                    >
                     {{ "ACTION.NEXT" | translate }}
                   </button>
                 </mat-action-row>
@@ -60,7 +60,7 @@
                 [expanded]="step === 1"
                 (opened)="setStep(1)"
                 hideToggle
-              >
+                >
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     <mat-icon>account_circle</mat-icon>
@@ -68,7 +68,7 @@
                   </mat-panel-title>
                   <mat-panel-description>
                     {{
-                      "TITLE.Select_the_path_to_send_the_message" | translate
+                    "TITLE.Select_the_path_to_send_the_message" | translate
                     }}
                   </mat-panel-description>
                 </mat-expansion-panel-header>
@@ -81,26 +81,27 @@
                   [optionSelectFirstItem]="true"
                   [optionSelectForSendMessage]="true"
                   [optionAccessDataType]="ManageUserAccessDataTypesEnum.Action"
-                >
+                  >
                 </app-sms-apipath-selector>
-                <app-sms-api-number-selector
-                  *ngIf="dataModel.linkApiPathId?.length > 0"
-                  (optionChange)="onActionSelectApiNumber($event)"
-                  [optionSelectForce]=""
-                  [optionLinkApiPathId]="dataModel.linkApiPathId"
-                  [optionPlaceholder]="'TITLE.sender_number' | translate"
-                  [optionSelectFirstItem]="true"
-                  [optionSelectForSendMessage]="true"
-                  [optionSelectFirstItemOnChangeApi]="true"
-                  [optionAccessDataType]="ManageUserAccessDataTypesEnum.Action"
-                >
-                </app-sms-api-number-selector>
+                @if (dataModel.linkApiPathId?.length > 0) {
+                  <app-sms-api-number-selector
+                    (optionChange)="onActionSelectApiNumber($event)"
+                    [optionSelectForce]=""
+                    [optionLinkApiPathId]="dataModel.linkApiPathId"
+                    [optionPlaceholder]="'TITLE.sender_number' | translate"
+                    [optionSelectFirstItem]="true"
+                    [optionSelectForSendMessage]="true"
+                    [optionSelectFirstItemOnChangeApi]="true"
+                    [optionAccessDataType]="ManageUserAccessDataTypesEnum.Action"
+                    >
+                  </app-sms-api-number-selector>
+                }
                 <mat-action-row>
                   <button
                     type="button"
                     class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
                     (click)="nextStep()"
-                  >
+                    >
                     {{ "ACTION.NEXT" | translate }}
                   </button>
                 </mat-action-row>
@@ -110,7 +111,7 @@
                 [expanded]="step === 2"
                 (opened)="setStep(2)"
                 hideToggle
-              >
+                >
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     <mat-icon>account_circle</mat-icon>
@@ -120,30 +121,32 @@
                     {{ "TITLE.Message_Placeholders" | translate }}
                   </mat-panel-description>
                 </mat-expansion-panel-header>
-                <div *ngFor="let item of dataModelMessagePlaceholdersResult">
-                  ({{ item.charValue }}) :
-                  {{
+                @for (item of dataModelMessagePlaceholdersResult; track item) {
+                  <div>
+                    ({{ item.charValue }}) :
+                    {{
                     "TITLE.Message_Placeholders_Description_" +
-                      item.charValue.replace("$", "") | translate
-                  }}
-                  <button
-                    type="button"
+                    item.charValue.replace("$", "") | translate
+                    }}
+                    <button
+                      type="button"
                     (click)="
                       onActionMessageContentAddPlaceholder(item.charValue)
                     "
-                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-                  >
-                    <i class="ft-x"></i>
-                    {{ "TITLE.Added_to_the_text" | translate }}
-                  </button>
-                </div>
+                      class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+                      >
+                      <i class="ft-x"></i>
+                      {{ "TITLE.Added_to_the_text" | translate }}
+                    </button>
+                  </div>
+                }
 
                 <mat-action-row>
                   <button
                     type="button"
                     class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
                     (click)="nextStep()"
-                  >
+                    >
                     {{ "ACTION.NEXT" | translate }}
                   </button>
                 </mat-action-row>
@@ -153,7 +156,7 @@
                 [expanded]="step === 3"
                 (opened)="setStep(3)"
                 hideToggle
-              >
+                >
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     <mat-icon>message</mat-icon>
@@ -161,62 +164,65 @@
                   </mat-panel-title>
                   <mat-panel-description>
                     {{
-                      "TITLE.Select_the_text_of_the_default_messages"
-                        | translate
+                    "TITLE.Select_the_text_of_the_default_messages"
+                    | translate
                     }}
                   </mat-panel-description>
                 </mat-expansion-panel-header>
 
                 <app-sms-main-message-category-selector
                   (optionChange)="onActionSelectMessageCategory($event)"
-                >
+                  >
                 </app-sms-main-message-category-selector>
                 <app-sms-main-message-content-selector
                   (optionChange)="onActionSelectMessageContent($event)"
                   [optionLinkCategryId]="dataMessageCategoryModel.id"
                 ></app-sms-main-message-content-selector>
 
-                <textarea
-                  matInput
-                  [(ngModel)]="dataMessageContentModel.messageBody"
-                  name="dataMessageContentModel.messageBody"
-                  type="text"
-                  *ngIf="dataMessageContentModel?.messageBody?.length > 0"
-                  rows="10"
-                ></textarea>
-                <button
-                  type="button"
-                  (click)="onActionMessageContentAdd()"
-                  class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-                  *ngIf="
-                    dataMessageContentModel?.messageBody?.length > 0 &&
-                    dataModel.message?.length > 0
-                  "
-                >
-                  <i class="ft-x"></i>
-                  {{ "TITLE.Added_to_the_text" | translate }}
-                </button>
-                <button
-                  type="button"
-                  (click)="onActionMessageContentNew()"
-                  class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-                  *ngIf="dataMessageContentModel?.messageBody?.length > 0"
-                >
-                  <i class="ft-x"></i> {{ "TITLE.Message_Text" | translate }}
-                </button>
+                @if (dataMessageContentModel?.messageBody?.length > 0) {
+                  <textarea
+                    matInput
+                    [(ngModel)]="dataMessageContentModel.messageBody"
+                    name="dataMessageContentModel.messageBody"
+                    type="text"
+                    rows="10"
+                  ></textarea>
+                }
+                @if (
+                  dataMessageContentModel?.messageBody?.length > 0 &&
+                  dataModel.message?.length > 0
+                  ) {
+                  <button
+                    type="button"
+                    (click)="onActionMessageContentAdd()"
+                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+                    >
+                    <i class="ft-x"></i>
+                    {{ "TITLE.Added_to_the_text" | translate }}
+                  </button>
+                }
+                @if (dataMessageContentModel?.messageBody?.length > 0) {
+                  <button
+                    type="button"
+                    (click)="onActionMessageContentNew()"
+                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+                    >
+                    <i class="ft-x"></i> {{ "TITLE.Message_Text" | translate }}
+                  </button>
+                }
                 <mat-action-row>
                   <button
                     type="button"
                     class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
                     (click)="prevStep()"
-                  >
+                    >
                     {{ "ACTION.BACK" | translate }}
                   </button>
                   <button
                     type="button"
                     class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
                     (click)="nextStep()"
-                  >
+                    >
                     {{ "ACTION.NEXT" | translate }}
                   </button>
                 </mat-action-row>
@@ -226,7 +232,7 @@
                 [expanded]="step === 4"
                 (opened)="setStep(4)"
                 hideToggle
-              >
+                >
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     <mat-icon>phonebook</mat-icon>
@@ -245,7 +251,7 @@
                     onActionContactCategorySelectDisChecked($event)
                   "
                   (optionNodeClicked)="optionrLinkCategoryId = $event"
-                >
+                  >
                 </app-cms-contact-category-tree-selector>
                 <b>انتخاب از دفترچه تلفن به عنوان مخاطب</b>
                 <app-cms-contact-content-drop-list
@@ -262,14 +268,14 @@
                     type="button"
                     class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
                     (click)="prevStep()"
-                  >
+                    >
                     {{ "ACTION.BACK" | translate }}
                   </button>
                   <button
                     type="button"
                     class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
                     (click)="nextStep()"
-                  >
+                    >
                     {{ "ACTION.NEXT" | translate }}
                   </button>
                 </mat-action-row>
@@ -279,7 +285,7 @@
                 [expanded]="step === 5"
                 (opened)="setStep(5)"
                 hideToggle
-              >
+                >
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     <mat-icon>access_time</mat-icon>
@@ -294,514 +300,518 @@
                     <!-- scheduleSendStart Field -->
                     <div
                       class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
-                    >
+                      >
                       <label
                         for="dataModelDateByClockStart.date"
                         class="color-highlight"
-                      >
+                        >
                         {{ "TITLE.postage_date" | translate }}</label
-                      >
-                      <input
-                        matInput
-                        [matDatepicker]="scheduleSendStartDate"
-                        [(ngModel)]="dataModelDateByClockStart.date"
-                        name="scheduleSendStartDate"
-                        class="form-control validate-name"
-                        id="dataModelDateByClockStart.date"
+                        >
+                        <input
+                          matInput
+                          [matDatepicker]="scheduleSendStartDate"
+                          [(ngModel)]="dataModelDateByClockStart.date"
+                          name="scheduleSendStartDate"
+                          class="form-control validate-name"
+                          id="dataModelDateByClockStart.date"
 
-                      />
-                      <mat-datepicker-toggle
-                        matSuffix
-                        [for]="scheduleSendStartDate"
-                      ></mat-datepicker-toggle>
-                      <mat-datepicker
-                        touchUi
-                        #scheduleSendStartDate
-                        (closed)="onActionScheduleSendCheck()"
-                      >
-                      </mat-datepicker>
-                    </div>
-                  </div>
-                  <div class="col-6">
-                    <!-- scheduleSendStartClock Field -->
-                    <div
-                      class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
-                    >
-                      <label
-                        for="dataModelDateByClockStart.clock"
-                        class="color-highlight"
-                      >
-                        {{ "TITLE.Shipping_time" | translate }}</label
-                      >
-                      <input
-                        matInput
-                        [ngxTimepicker]="scheduleSendStartClock"
-                        [(ngModel)]="dataModelDateByClockStart.clock"
-                        [format]="24"
-                        name="scheduleSendStartClock"
-                        class="form-control validate-name"
-                        id="dataModelDateByClockStart.clock"
-                      />
-                      <ngx-material-timepicker-toggle
-                        matSuffix
-                        [for]="scheduleSendStartClock"
-                      >
-                      </ngx-material-timepicker-toggle>
-                      <ngx-material-timepicker
-                        touchUi
-                        #scheduleSendStartClock
-                        (closed)="onActionScheduleSendCheck()"
-                        class="timepicker"
-                      >
-                      </ngx-material-timepicker>
-                    </div>
-                  </div>
-                  <div class="col-6">
-                    <!-- scheduleSendExpire Field -->
-                    <div
-                      class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
-                    >
-                      <label
-                        for="dataModelDateByClockExpire.date"
-                        class="color-highlight"
-                        >{{ "TITLE.Delivery_end_date" | translate }}</label
-                      >
-                      <input
-                        matInput
-                        [matDatepicker]="scheduleSendExpireDate"
-                        [(ngModel)]="dataModelDateByClockExpire.date"
-                        name="scheduleSendExpireDate"
-                        class="form-control validate-name"
-                        id="dataModelDateByClockExpire.date"
-                      />
-                      <mat-datepicker-toggle
-                        matSuffix
-                        [for]="scheduleSendExpireDate"
-                      ></mat-datepicker-toggle>
-                      <mat-datepicker
-                        touchUi
-                        #scheduleSendExpireDate
-                        (closed)="onActionScheduleSendCheck()"
-                      >
-                      </mat-datepicker>
-                    </div>
-                  </div>
-                  <div class="col-6">
-                    <!-- scheduleSendExpireClock Field -->
-                    <div
-                      class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
-                    >
-                      <label
-                        for="dataModelDateByClockExpire.clock"
-                        class="color-highlight"
-                        >{{ "TITLE.Send_end_time" | translate }}</label
-                      >
-                      <input
-                        matInput
-                        [ngxTimepicker]="scheduleSendExpireClock"
-                        [(ngModel)]="dataModelDateByClockExpire.clock"
-                        [format]="24"
-                        name="dataModelDateByClockExpire"
-                        class="form-control validate-name"
-                        id="dataModelDateByClockExpire.clock"
-                      />
-                      <ngx-material-timepicker-toggle
-                        matSuffix
-                        [for]="scheduleSendExpireClock"
-                      >
-                      </ngx-material-timepicker-toggle>
-                      <ngx-material-timepicker
-                        touchUi
-                        #scheduleSendExpireClock
-                        (closed)="onActionScheduleSendCheck()"
-                        class="timepicker"
-                      >
-                      </ngx-material-timepicker>
-                    </div>
-                  </div>
-                </div>
-                <hr />
-                <!-- {{this.dataModel.scheduleSendStart}} >>> {{this.dataModel.scheduleSendExpire}} -->
-                <mat-action-row>
-                  <button
-                    type="button"
-                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
-                    (click)="prevStep()"
-                  >
-                    {{ "ACTION.BACK" | translate }}
-                  </button>
-                  <button
-                    type="button"
-                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
-                    (click)="nextStep()"
-                  >
-                    {{ "ACTION.NEXT" | translate }}
-                  </button>
-                </mat-action-row>
-              </mat-expansion-panel>
-              <mat-expansion-panel
-                [expanded]="step === 6"
-                (opened)="setStep(6)"
-                hideToggle
-              >
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <mat-icon>date_range</mat-icon>
-                    {{ "TITLE.Timing" | translate }}
-                  </mat-panel-title>
-                  <mat-panel-description>
-                    {{ "TITLE.Retry_schedule" | translate }}
-                  </mat-panel-description>
-                </mat-expansion-panel-header>
+                          />
+                          <mat-datepicker-toggle
+                            matSuffix
+                            [for]="scheduleSendStartDate"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker
+                            touchUi
+                            #scheduleSendStartDate
+                            (closed)="onActionScheduleSendCheck()"
+                            >
+                          </mat-datepicker>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <!-- scheduleSendStartClock Field -->
+                        <div
+                          class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
+                          >
+                          <label
+                            for="dataModelDateByClockStart.clock"
+                            class="color-highlight"
+                            >
+                            {{ "TITLE.Shipping_time" | translate }}</label
+                            >
+                            <input
+                              matInput
+                              [ngxTimepicker]="scheduleSendStartClock"
+                              [(ngModel)]="dataModelDateByClockStart.clock"
+                              [format]="24"
+                              name="scheduleSendStartClock"
+                              class="form-control validate-name"
+                              id="dataModelDateByClockStart.clock"
+                              />
+                              <ngx-material-timepicker-toggle
+                                matSuffix
+                                [for]="scheduleSendStartClock"
+                                >
+                              </ngx-material-timepicker-toggle>
+                              <ngx-material-timepicker
+                                touchUi
+                                #scheduleSendStartClock
+                                (closed)="onActionScheduleSendCheck()"
+                                class="timepicker"
+                                >
+                              </ngx-material-timepicker>
+                            </div>
+                          </div>
+                          <div class="col-6">
+                            <!-- scheduleSendExpire Field -->
+                            <div
+                              class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
+                              >
+                              <label
+                                for="dataModelDateByClockExpire.date"
+                                class="color-highlight"
+                                >{{ "TITLE.Delivery_end_date" | translate }}</label
+                                >
+                                <input
+                                  matInput
+                                  [matDatepicker]="scheduleSendExpireDate"
+                                  [(ngModel)]="dataModelDateByClockExpire.date"
+                                  name="scheduleSendExpireDate"
+                                  class="form-control validate-name"
+                                  id="dataModelDateByClockExpire.date"
+                                  />
+                                  <mat-datepicker-toggle
+                                    matSuffix
+                                    [for]="scheduleSendExpireDate"
+                                  ></mat-datepicker-toggle>
+                                  <mat-datepicker
+                                    touchUi
+                                    #scheduleSendExpireDate
+                                    (closed)="onActionScheduleSendCheck()"
+                                    >
+                                  </mat-datepicker>
+                                </div>
+                              </div>
+                              <div class="col-6">
+                                <!-- scheduleSendExpireClock Field -->
+                                <div
+                                  class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
+                                  >
+                                  <label
+                                    for="dataModelDateByClockExpire.clock"
+                                    class="color-highlight"
+                                    >{{ "TITLE.Send_end_time" | translate }}</label
+                                    >
+                                    <input
+                                      matInput
+                                      [ngxTimepicker]="scheduleSendExpireClock"
+                                      [(ngModel)]="dataModelDateByClockExpire.clock"
+                                      [format]="24"
+                                      name="dataModelDateByClockExpire"
+                                      class="form-control validate-name"
+                                      id="dataModelDateByClockExpire.clock"
+                                      />
+                                      <ngx-material-timepicker-toggle
+                                        matSuffix
+                                        [for]="scheduleSendExpireClock"
+                                        >
+                                      </ngx-material-timepicker-toggle>
+                                      <ngx-material-timepicker
+                                        touchUi
+                                        #scheduleSendExpireClock
+                                        (closed)="onActionScheduleSendCheck()"
+                                        class="timepicker"
+                                        >
+                                      </ngx-material-timepicker>
+                                    </div>
+                                  </div>
+                                </div>
+                                <hr />
+                                <!-- {{this.dataModel.scheduleSendStart}} >>> {{this.dataModel.scheduleSendExpire}} -->
+                                <mat-action-row>
+                                  <button
+                                    type="button"
+                                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
+                                    (click)="prevStep()"
+                                    >
+                                    {{ "ACTION.BACK" | translate }}
+                                  </button>
+                                  <button
+                                    type="button"
+                                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
+                                    (click)="nextStep()"
+                                    >
+                                    {{ "ACTION.NEXT" | translate }}
+                                  </button>
+                                </mat-action-row>
+                              </mat-expansion-panel>
+                              <mat-expansion-panel
+                                [expanded]="step === 6"
+                                (opened)="setStep(6)"
+                                hideToggle
+                                >
+                                <mat-expansion-panel-header>
+                                  <mat-panel-title>
+                                    <mat-icon>date_range</mat-icon>
+                                    {{ "TITLE.Timing" | translate }}
+                                  </mat-panel-title>
+                                  <mat-panel-description>
+                                    {{ "TITLE.Retry_schedule" | translate }}
+                                  </mat-panel-description>
+                                </mat-expansion-panel-header>
 
-                <cron-editor
-                  [(cron)]="dataModel.scheduleCron"
-                  [disabled]="isCronDisabled"
-                  [options]="cronOptions"
-                  [language]="language"
-                  (cronChange)="onActionValidationStatusCronChange($event)"
-                >
-                </cron-editor>
+                                <cron-editor
+                                  [(cron)]="dataModel.scheduleCron"
+                                  [disabled]="isCronDisabled"
+                                  [options]="cronOptions"
+                                  [language]="language"
+                                  (cronChange)="onActionValidationStatusCronChange($event)"
+                                  >
+                                </cron-editor>
 
-                <h2 style="direction: ltr">
-                  Resulting Cron: {{ dataModel.scheduleCron }}
-                </h2>
+                                <h2 style="direction: ltr">
+                                  Resulting Cron: {{ dataModel.scheduleCron }}
+                                </h2>
 
-                <mat-action-row>
-                  <button
-                    type="button"
-                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-red"
+                                <mat-action-row>
+                                  <button
+                                    type="button"
+                                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-red"
                     (click)="
                       dataModel.scheduleCron = '';
                       onActionValidationStatusCronChange('')
                     "
-                  >
-                    {{ "ACTION.REMOVE_CRON" | translate }}
-                  </button>
-                  <button
-                    type="button"
-                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
-                    (click)="prevStep()"
-                  >
-                    {{ "ACTION.BACK" | translate }}
-                  </button>
+                                    >
+                                    {{ "ACTION.REMOVE_CRON" | translate }}
+                                  </button>
+                                  <button
+                                    type="button"
+                                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
+                                    (click)="prevStep()"
+                                    >
+                                    {{ "ACTION.BACK" | translate }}
+                                  </button>
 
-                  <button
-                    type="button"
-                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
-                    (click)="nextStep()"
-                  >
-                    {{ "ACTION.NEXT" | translate }}
-                  </button>
-                </mat-action-row>
-              </mat-expansion-panel>
-              <mat-expansion-panel
-                [expanded]="step === 7"
-                (opened)="setStep(7)"
-                hideToggle
-              >
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    <mat-icon>date_range</mat-icon>
-                    {{ "TITLE.Settings" | translate }}
-                  </mat-panel-title>
-                  <mat-panel-description>
-                    {{ "TITLE.Send_settings" | translate }}
-                  </mat-panel-description>
-                </mat-expansion-panel-header>
+                                  <button
+                                    type="button"
+                                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
+                                    (click)="nextStep()"
+                                    >
+                                    {{ "ACTION.NEXT" | translate }}
+                                  </button>
+                                </mat-action-row>
+                              </mat-expansion-panel>
+                              <mat-expansion-panel
+                                [expanded]="step === 7"
+                                (opened)="setStep(7)"
+                                hideToggle
+                                >
+                                <mat-expansion-panel-header>
+                                  <mat-panel-title>
+                                    <mat-icon>date_range</mat-icon>
+                                    {{ "TITLE.Settings" | translate }}
+                                  </mat-panel-title>
+                                  <mat-panel-description>
+                                    {{ "TITLE.Send_settings" | translate }}
+                                  </mat-panel-description>
+                                </mat-expansion-panel-header>
 
-                <!-- optionDuplicateRemovalToNumbers Field -->
-                                 <div class="d-flex mb-3">
-                  <div class="pt-1">
-                    <h5
-                      data-trigger-switch="dataModel.optionDuplicateRemovalToNumbers"
-                      class="font-600 font-14"
-                    >
-                      {{ "TITLE.Duplicate_removal_to_numbers" | translate }}
-                    </h5>
-                  </div>
-                  <div class="ms-auto me-3 pe-2">
-                    <div class="custom-control ios-switch small-switch">
-                      <input
-                        type="checkbox"
-                        class="ios-input"
-                        id="dataModel.optionDuplicateRemovalToNumbers"
-                        [(ngModel)]="dataModel.optionDuplicateRemovalToNumbers"
+                                <!-- optionDuplicateRemovalToNumbers Field -->
+                                <div class="d-flex mb-3">
+                                  <div class="pt-1">
+                                    <h5
+                                      data-trigger-switch="dataModel.optionDuplicateRemovalToNumbers"
+                                      class="font-600 font-14"
+                                      >
+                                      {{ "TITLE.Duplicate_removal_to_numbers" | translate }}
+                                    </h5>
+                                  </div>
+                                  <div class="ms-auto me-3 pe-2">
+                                    <div class="custom-control ios-switch small-switch">
+                                      <input
+                                        type="checkbox"
+                                        class="ios-input"
+                                        id="dataModel.optionDuplicateRemovalToNumbers"
+                                        [(ngModel)]="dataModel.optionDuplicateRemovalToNumbers"
 
-                        name="dataModel.optionDuplicateRemovalToNumbers"
-                      />
-                      <label
-                        class="custom-control-label"
-                        for="dataModel.optionDuplicateRemovalToNumbers"
-                      ></label>
-                    </div>
-                  </div>
-                </div>
+                                        name="dataModel.optionDuplicateRemovalToNumbers"
+                                        />
+                                        <label
+                                          class="custom-control-label"
+                                          for="dataModel.optionDuplicateRemovalToNumbers"
+                                        ></label>
+                                      </div>
+                                    </div>
+                                  </div>
 
-                <!-- optionCheckProcesses Field -->
-                 @if(this.tokenHelper.isAdminSite || this.tokenHelper.isSupportSite) {
-                <div class="d-flex mb-3">
-                  <div class="pt-1">
-                    <h5
-                      data-trigger-switch="dataModel.optionCheckProcesses"
-                      class="font-600 font-14"
-                    >
-                      {{ "TITLE.Send_as_checkProcesses" | translate }}
-                    </h5>
-                  </div>
-                  <div class="ms-auto me-3 pe-2">
-                    <div class="custom-control ios-switch small-switch">
-                      <input
-                        type="checkbox"
-                        class="ios-input"
-                        id="dataModel.optionCheckProcesses"
-                        [(ngModel)]="dataModel.optionCheckProcesses"
+                                  <!-- optionCheckProcesses Field -->
+                                  @if(this.tokenHelper.isAdminSite || this.tokenHelper.isSupportSite) {
+                                    <div class="d-flex mb-3">
+                                      <div class="pt-1">
+                                        <h5
+                                          data-trigger-switch="dataModel.optionCheckProcesses"
+                                          class="font-600 font-14"
+                                          >
+                                          {{ "TITLE.Send_as_checkProcesses" | translate }}
+                                        </h5>
+                                      </div>
+                                      <div class="ms-auto me-3 pe-2">
+                                        <div class="custom-control ios-switch small-switch">
+                                          <input
+                                            type="checkbox"
+                                            class="ios-input"
+                                            id="dataModel.optionCheckProcesses"
+                                            [(ngModel)]="dataModel.optionCheckProcesses"
                         (ngModelChange)="
                           onActionValidationStatusCheckProcessesChange()
                         "
-                        name="dataModel.optionCheckProcesses"
-                      />
-                      <label
-                        class="custom-control-label"
-                        for="dataModel.optionCheckProcesses"
-                      ></label>
-                    </div>
-                  </div>
-                </div>
-              }
-                <!-- IsFlash Field -->
-                <div class="d-flex mb-3">
-                  <div class="pt-1">
-                    <h5
-                      data-trigger-switch="dataModel.isFlash"
-                      class="font-600 font-14"
-                    >
-                      {{ "TITLE.Send_as_flash" | translate }}
-                    </h5>
-                  </div>
-                  <div class="ms-auto me-3 pe-2">
-                    <div class="custom-control ios-switch small-switch">
-                      <input
-                        type="checkbox"
-                        class="ios-input"
-                        id="dataModel.isFlash"
-                          (ngModelChange)="                          onActionFlaseChange($event)                      "
-                        name="dataModel.isFlash"
-                      />
-                      <label
-                        class="custom-control-label"
-                        for="dataModel.isFlash"
-                      ></label>
-                    </div>
-                  </div>
-                </div>
-                <!-- optionSendByQueue Field -->
-                <div class="d-flex mb-3">
-                  <div class="pt-1">
-                    <h5
-                      data-trigger-switch="dataModel.optionSendByQueue"
-                      class="font-600 font-14"
-                    >
-                      {{ "TITLE.Send_in_queue" | translate }}
-                    </h5>
-                  </div>
-                  <div class="ms-auto me-3 pe-2">
-                    <div class="custom-control ios-switch small-switch">
-                      <input
-                        type="checkbox"
-                        class="ios-input"
-                        id="dataModel.optionSendByQueue"
-                        [disabled]="dataModel['sendByQueueDisabled']"
-                        [(ngModel)]="dataModel.optionSendByQueue"
-                        name="dataModel.optionSendByQueue"
-                      />
-                      <label
-                        class="custom-control-label"
-                        for="dataModel.optionSendByQueue"
-                      ></label>
-                    </div>
-                  </div>
-                </div>
-                <mat-action-row>
-                  <button
-                    type="button"
-                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
-                    (click)="prevStep()"
-                  >
-                    {{ "ACTION.BACK" | translate }}
-                  </button>
-                  <button
-                    type="button"
-                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
-                    (click)="nextStep()"
-                  >
-                    {{ "ACTION.END" | translate }}
-                  </button>
-                </mat-action-row>
-              </mat-expansion-panel>
-            </mat-accordion>
-          </div>
-          <div class="col-sm-12 col-md-6">
-            <div class="message-box">
-              <div
-                class="row"
-                style="margin-bottom: 0px !important; height: 90px"
-              ></div>
-              <div
-                class="row"
-                style="margin-bottom: 0px !important; height: 283px"
-              >
-                <!-- Message Field -->
-                <div
-                  class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-                >
-                  <label for="dataModel.message" class="color-highlight">{{
-                    "TITLE.Message_Text" | translate
-                  }}</label>
-                  <textarea
-                    matInput
-                    [(ngModel)]="dataModel.message"
+                                            name="dataModel.optionCheckProcesses"
+                                            />
+                                            <label
+                                              class="custom-control-label"
+                                              for="dataModel.optionCheckProcesses"
+                                            ></label>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    }
+                                    <!-- IsFlash Field -->
+                                    <div class="d-flex mb-3">
+                                      <div class="pt-1">
+                                        <h5
+                                          data-trigger-switch="dataModel.isFlash"
+                                          class="font-600 font-14"
+                                          >
+                                          {{ "TITLE.Send_as_flash" | translate }}
+                                        </h5>
+                                      </div>
+                                      <div class="ms-auto me-3 pe-2">
+                                        <div class="custom-control ios-switch small-switch">
+                                          <input
+                                            type="checkbox"
+                                            class="ios-input"
+                                            id="dataModel.isFlash"
+                                            (ngModelChange)="                          onActionFlaseChange($event)                      "
+                                            name="dataModel.isFlash"
+                                            />
+                                            <label
+                                              class="custom-control-label"
+                                              for="dataModel.isFlash"
+                                            ></label>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!-- optionSendByQueue Field -->
+                                      <div class="d-flex mb-3">
+                                        <div class="pt-1">
+                                          <h5
+                                            data-trigger-switch="dataModel.optionSendByQueue"
+                                            class="font-600 font-14"
+                                            >
+                                            {{ "TITLE.Send_in_queue" | translate }}
+                                          </h5>
+                                        </div>
+                                        <div class="ms-auto me-3 pe-2">
+                                          <div class="custom-control ios-switch small-switch">
+                                            <input
+                                              type="checkbox"
+                                              class="ios-input"
+                                              id="dataModel.optionSendByQueue"
+                                              [disabled]="dataModel['sendByQueueDisabled']"
+                                              [(ngModel)]="dataModel.optionSendByQueue"
+                                              name="dataModel.optionSendByQueue"
+                                              />
+                                              <label
+                                                class="custom-control-label"
+                                                for="dataModel.optionSendByQueue"
+                                              ></label>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <mat-action-row>
+                                          <button
+                                            type="button"
+                                            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
+                                            (click)="prevStep()"
+                                            >
+                                            {{ "ACTION.BACK" | translate }}
+                                          </button>
+                                          <button
+                                            type="button"
+                                            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
+                                            (click)="nextStep()"
+                                            >
+                                            {{ "ACTION.END" | translate }}
+                                          </button>
+                                        </mat-action-row>
+                                      </mat-expansion-panel>
+                                    </mat-accordion>
+                                  </div>
+                                  <div class="col-sm-12 col-md-6">
+                                    <div class="message-box">
+                                      <div
+                                        class="row"
+                                        style="margin-bottom: 0px !important; height: 90px"
+                                      ></div>
+                                      <div
+                                        class="row"
+                                        style="margin-bottom: 0px !important; height: 283px"
+                                        >
+                                        <!-- Message Field -->
+                                        <div
+                                          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                          >
+                                          <label for="dataModel.message" class="color-highlight">{{
+                                            "TITLE.Message_Text" | translate
+                                          }}</label>
+                                          <textarea
+                                            matInput
+                                            [(ngModel)]="dataModel.message"
                     (ngModelChange)="
                       onActionValidationStatusMessageBodyChange()
                     "
-                    name="dataModel.message"
-                    #Message
-                    type="text"
-                    placeholder="..."
-                    class="form-control validate-name"
-                    id="dataModel.message"
-                    minlength="1"
+                                            name="dataModel.message"
+                                            #Message
+                                            type="text"
+                                            placeholder="..."
+                                            class="form-control validate-name"
+                                            id="dataModel.message"
+                                            minlength="1"
                     [maxlength]="
                       dataModelMessagePagination?.messageMaxLength ?? 0
                     "
-                    rows="9"
-                    style="height: 276px"
-                  ></textarea>
-                  <em class="sms-message-box">
-                    character:
-                    {{ dataModelMessagePagination?.messageLength }} /
-                    {{ dataModelMessagePagination?.messageMaxLength }}
-                    page: {{ dataModelMessagePagination?.messagePage }}/{{
-                      dataModelMessagePagination?.messageMaxPage
-                    }}
-                  </em>
+                                            rows="9"
+                                            style="height: 276px"
+                                          ></textarea>
+                                          <em class="sms-message-box">
+                                            character:
+                                            {{ dataModelMessagePagination?.messageLength }} /
+                                            {{ dataModelMessagePagination?.messageMaxLength }}
+                                            page: {{ dataModelMessagePagination?.messagePage }}/{{
+                                            dataModelMessagePagination?.messageMaxPage
+                                            }}
+                                          </em>
 
-                  <mat-error *ngIf="Message.errors?.required">
-                    {{ "TITLE.Message_Text" | translate }}
-                    <strong>{{ "MESSAGE.required" | translate }}</strong>
-                  </mat-error>
-                </div>
-              </div>
-              <div
-                class="row"
+                                          @if (Message.errors?.required) {
+                                            <mat-error>
+                                              {{ "TITLE.Message_Text" | translate }}
+                                              <strong>{{ "MESSAGE.required" | translate }}</strong>
+                                            </mat-error>
+                                          }
+                                        </div>
+                                      </div>
+                                      <div
+                                        class="row"
                 style="
                   margin-bottom: 0px !important;
                   height: 140px;
                   margin-top: 11px;
                 "
-              >
-                <!-- ToNumbers Field -->
-                <div
-                  *ngIf="
-                    (!this.dataModel.toContactCategories ||
-                      this.dataModel.toContactCategories?.length === 0) &&
-                    (!this.dataModel.toContactContents ||
-                      this.dataModel.toContactContents?.length === 0)
-                  "
-                  class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-                >
-                  <label for="dataModel.toNumbers" class="color-highlight">{{
-                    "TITLE.Receiver_number" | translate
-                  }}</label>
-                  <textarea
-                    matInput
-                    [(ngModel)]="dataModel.toNumbers"
-                    (ngModelChange)="onActionValidationStatusToNumbersChange()"
-                    name="dataModel.toNumbers"
-                    id="dataModel.toNumbers"
-                    #ToNumbers
-                    type="text"
-                    placeholder="0912"
-                    rows="2"
-                    style="height: 138px"
-                  ></textarea>
-                  <em class="sms-number-box">
-                    <strong class="info-field-text">{{
-                      "TITLE.You_can_separate_the_number_of_the_recipient_of_the_message_with_an_inter"
-                        | translate
-                    }}</strong>
-                  </em>
-                </div>
-              </div>
+                                        >
+                                        <!-- ToNumbers Field -->
+                                        @if (
+                                          (!this.dataModel.toContactCategories ||
+                                          this.dataModel.toContactCategories?.length === 0) &&
+                                          (!this.dataModel.toContactContents ||
+                                          this.dataModel.toContactContents?.length === 0)
+                                          ) {
+                                          <div
+                                            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                            >
+                                            <label for="dataModel.toNumbers" class="color-highlight">{{
+                                              "TITLE.Receiver_number" | translate
+                                            }}</label>
+                                            <textarea
+                                              matInput
+                                              [(ngModel)]="dataModel.toNumbers"
+                                              (ngModelChange)="onActionValidationStatusToNumbersChange()"
+                                              name="dataModel.toNumbers"
+                                              id="dataModel.toNumbers"
+                                              #ToNumbers
+                                              type="text"
+                                              placeholder="0912"
+                                              rows="2"
+                                              style="height: 138px"
+                                            ></textarea>
+                                            <em class="sms-number-box">
+                                              <strong class="info-field-text">{{
+                                                "TITLE.You_can_separate_the_number_of_the_recipient_of_the_message_with_an_inter"
+                                                | translate
+                                              }}</strong>
+                                            </em>
+                                          </div>
+                                        }
+                                      </div>
 
-              <div
-                class="row"
-                *ngIf="
-                  formInfo.submitButtonEnabled &&
-                  !this.publicHelper.processService.process.inRunAll
-                "
+                                      @if (
+                                        formInfo.submitButtonEnabled &&
+                                        !this.publicHelper.processService.process.inRunAll
+                                        ) {
+                                        <div
+                                          class="row"
                 style="
                   margin-bottom: 0px !important;
                   height: 40px;
                   bottom: 4vh;
                   justify-content: center;
                 "
-              >
-                <button
-                  type="submit"
-                  [disabled]="!vform.valid || hasValidationStatusError()"
-                >
-                  <i class="fa fa-check-square-o"></i>
-                  {{ "ACTION.Send_Message" | translate }}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      @if (this.publicHelper.getKeyboardEventF9()) {
-        @if (dataModelResult?.item && this.tokenHelper.isAdminSite) {
-          <b>نتیجه ارسال</b>
-          <app-cms-json-list
-            [dataModel]="dataModelResult.item"
-            [optionMethod]="1"
-          >
-          </app-cms-json-list>
-        }
+                                          >
+                                          <button
+                                            type="submit"
+                                            [disabled]="!vform.valid || hasValidationStatusError()"
+                                            >
+                                            <i class="fa fa-check-square-o"></i>
+                                            {{ "ACTION.Send_Message" | translate }}
+                                          </button>
+                                        </div>
+                                      }
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              @if (this.publicHelper.getKeyboardEventF9()) {
+                                @if (dataModelResult?.item && this.tokenHelper.isAdminSite) {
+                                  <b>نتیجه ارسال</b>
+                                  <app-cms-json-list
+                                    [dataModel]="dataModelResult.item"
+                                    [optionMethod]="1"
+                                    >
+                                  </app-cms-json-list>
+                                }
 
-        <b>محاسبه متن و صفحه بندی </b>
-        <app-cms-json-list
-          [dataModel]="dataModelMessagePagination"
-          [optionMethod]="1"
-        >
-        </app-cms-json-list>
-        @if (dataModelOrderCalculateResult?.item) {
-          <b>محاسبه سفارش</b>
-          <app-cms-json-list
-            [dataModel]="dataModelOrderCalculateResult.item"
-            [optionMethod]="1"
-          >
-          </app-cms-json-list>
-        }
-        <hr />
-        @if (dataModelApiPathPriceServiceEstimateResult?.listItems) {
-          <b>پیش بینی قیمت مسیر</b>
-          <app-cms-json-list
-            [dataModel]="dataModelApiPathPriceServiceEstimateResult.listItems"
-            [optionMethod]="2"
-            [optionTitleLocation]="'top'"
-          >
-          </app-cms-json-list>
-        }
-      }
-    </form>
-    <!--Content-->
-  </div>
-</div>
+                                <b>محاسبه متن و صفحه بندی </b>
+                                <app-cms-json-list
+                                  [dataModel]="dataModelMessagePagination"
+                                  [optionMethod]="1"
+                                  >
+                                </app-cms-json-list>
+                                @if (dataModelOrderCalculateResult?.item) {
+                                  <b>محاسبه سفارش</b>
+                                  <app-cms-json-list
+                                    [dataModel]="dataModelOrderCalculateResult.item"
+                                    [optionMethod]="1"
+                                    >
+                                  </app-cms-json-list>
+                                }
+                                <hr />
+                                @if (dataModelApiPathPriceServiceEstimateResult?.listItems) {
+                                  <b>پیش بینی قیمت مسیر</b>
+                                  <app-cms-json-list
+                                    [dataModel]="dataModelApiPathPriceServiceEstimateResult.listItems"
+                                    [optionMethod]="2"
+                                    [optionTitleLocation]="'top'"
+                                    >
+                                  </app-cms-json-list>
+                                }
+                              }
+                            </form>
+                            <!--Content-->
+                          </div>
+                        </div>
 
-<!--begin:cms-action-reload-button-->
-<div
-  class="content"
+                        <!--begin:cms-action-reload-button-->
+                        <div
+                          class="content"
   style="
     position: fixed;
     left: 1px;
@@ -810,37 +820,38 @@
     height: 30px;
     margin: 0px;
   "
-  [style.bottom]="this.publicHelper.isMobile ? ' 120px' : ' 80px'"
->
-  <div class="row">
-    <div class="col-12">
-      <a
-        *ngIf="!this.publicHelper.isMobile"
-        (click)="onActionOrderCalculate()"
-        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight jump"
-        title="{{ 'ACTION.ORDER_CALCULATE' | translate }}"
-      >
-        <strong class="color-black font-400">{{
-          "ACTION.ORDER_CALCULATE" | translate
-        }}</strong>
-      </a>
-      <a
-        (click)="onActionOrderCalculate()"
-        title="{{ 'ACTION.ORDER_CALCULATE' | translate }}"
-        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-      >
-        <i
-          class="fa fa-calculator font-18"
-          style="color: #ffffff"
+                          [style.bottom]="this.publicHelper.isMobile ? ' 120px' : ' 80px'"
+                          >
+                          <div class="row">
+                            <div class="col-12">
+                              @if (!this.publicHelper.isMobile) {
+                                <a
+                                  (click)="onActionOrderCalculate()"
+                                  class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight jump"
+                                  title="{{ 'ACTION.ORDER_CALCULATE' | translate }}"
+                                  >
+                                  <strong class="color-black font-400">{{
+                                    "ACTION.ORDER_CALCULATE" | translate
+                                  }}</strong>
+                                </a>
+                              }
+                              <a
+                                (click)="onActionOrderCalculate()"
+                                title="{{ 'ACTION.ORDER_CALCULATE' | translate }}"
+                                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
+                                >
+                                <i
+                                  class="fa fa-calculator font-18"
+                                  style="color: #ffffff"
           [class.rotation360]="
             publicHelper.processService.process.infoAll.get(calculateName)
               ?.isComplate === false
               ? true
               : false
           "
-        ></i>
-      </a>
-    </div>
-  </div>
-</div>
-<!--end::cms-action-reload-button-->
+                                ></i>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                        <!--end::cms-action-reload-button-->

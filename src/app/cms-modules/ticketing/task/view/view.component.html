@@ -1,7 +1,7 @@
 <div
   class="card card-style loader-container"
   style="height: 100vh; overflow-y: auto"
->
+  >
   <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
   </app-progress-spinner>
   <div class="menu-title">
@@ -16,7 +16,7 @@
       {{ formInfo.formDescription }}
     </p>
     <!--Content-->
-    <ng-container *ngIf="!this.publicHelper.processService.process.inRunAll">
+    @if (!this.publicHelper.processService.process.inRunAll) {
       <div class="ntk-cms-html-card-header">
         <!--begin:::::::::::::::::::::::::::::::::::::::::cms-header-->
         <!--Table-->
@@ -43,8 +43,8 @@
               <td>{{ fieldsInfo["ticketStatus"]?.fieldTitle }}</td>
               <td>
                 {{
-                  dataModel.ticketStatus
-                    | enums: dataModelEnumTicketStatusResult.listItems
+                dataModel.ticketStatus
+                | enums: dataModelEnumTicketStatusResult.listItems
                 }}
               </td>
             </tr>
@@ -93,7 +93,7 @@
             <tr>
               <td>
                 {{
-                  fieldsInfo["ticketingDepartemenDefaultAnswerBody"]?.fieldTitle
+                fieldsInfo["ticketingDepartemenDefaultAnswerBody"]?.fieldTitle
                 }}
               </td>
               <td>{{ dataModel.ticketingDepartemenDefaultAnswerBody }}</td>
@@ -102,12 +102,10 @@
           <!--Table body-->
         </table>
         <hr />
-
         <!--end:::::::::::::::::::::::::::::::::::::::::cms-header-->
       </div>
       <div class="ntk-cms-html-card-body ntk-allow-text-selection" dir="rtl">
         <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
-
         <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
       </div>
       <div class="ntk-cms-html-card-message">
@@ -119,24 +117,25 @@
       </div>
       <div class="ntk-cms-html-card-footer">
         <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
-        <div
-          class="form-actions"
-          *ngIf="
-            formInfo.submitButtonEnabled &&
-            !this.publicHelper.processService.process.inRunAll
-          "
-        >
-          <button
-            type="button"
-            (click)="onFormCancel()"
-            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-          >
-            <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
-          </button>
-        </div>
+        @if (
+          formInfo.submitButtonEnabled &&
+          !this.publicHelper.processService.process.inRunAll
+          ) {
+          <div
+            class="form-actions"
+            >
+            <button
+              type="button"
+              (click)="onFormCancel()"
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+              >
+              <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
+            </button>
+          </div>
+        }
         <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
       </div>
-    </ng-container>
+    }
     <!--Content-->
   </div>
 </div>

@@ -15,354 +15,375 @@
     ></app-cms-form-result-message>
     <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
       <!-- RecordStatus Field -->
-      <app-cms-enum-record-status-selector
-        *ngIf="fieldsInfo['recordStatus']?.accessWatchField"
-        [(model)]="dataModel.recordStatus"
-        [optionDisabled]="false"
-        [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
-        [optionRequired]="true"
-        [optionSelectFirstItem]="true"
-      ></app-cms-enum-record-status-selector>
+      @if (fieldsInfo['recordStatus']?.accessWatchField) {
+        <app-cms-enum-record-status-selector
+          [(model)]="dataModel.recordStatus"
+          [optionDisabled]="false"
+          [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
+          [optionRequired]="true"
+          [optionSelectFirstItem]="true"
+        ></app-cms-enum-record-status-selector>
+      }
 
       <!-- Title Field -->
-      <div
-        *ngIf="fieldsInfo['title']?.accessWatchField"
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-      >
-        <label for="dataModel.title" class="color-highlight">{{
-          fieldsInfo["title"]?.fieldTitle
-        }}</label>
-        <input
-          matInput
-          type="text"
-          [(ngModel)]="dataModel.title"
-          name="dataModel.title"
-          #Title
-          type="text"
-          placeholder="{{ fieldsInfo['title']?.fieldTitle }}"
-          [disabled]="!fieldsInfo['title']?.accessEditField"
-          minlength="3"
-          maxlength="100"
-          required
-          class="form-control validate-name"
-          id="dataModel.title"
-        />
-        <i *ngIf="!Title.value" class="fa fa-times invalid color-red-dark"></i>
-        <i *ngIf="Title.value" class="fa fa-check valid color-green-dark"></i>
-        <em>{{ Title.value.length }} / 100</em>
-        <mat-error *ngIf="Title.errors?.required">
-          Title is <strong>{{ "MESSAGE.required" | translate }}</strong>
-        </mat-error>
-      </div>
+      @if (fieldsInfo['title']?.accessWatchField) {
+        <div
+          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+          >
+          <label for="dataModel.title" class="color-highlight">{{
+            fieldsInfo["title"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="dataModel.title"
+            name="dataModel.title"
+            #Title
+            type="text"
+            placeholder="{{ fieldsInfo['title']?.fieldTitle }}"
+            [disabled]="!fieldsInfo['title']?.accessEditField"
+            minlength="3"
+            maxlength="100"
+            required
+            class="form-control validate-name"
+            id="dataModel.title"
+            />
+            @if (!Title.value) {
+              <i class="fa fa-times invalid color-red-dark"></i>
+            }
+            @if (Title.value) {
+              <i class="fa fa-check valid color-green-dark"></i>
+            }
+            <em>{{ Title.value.length }} / 100</em>
+            @if (Title.errors?.required) {
+              <mat-error>
+                Title is <strong>{{ "MESSAGE.required" | translate }}</strong>
+              </mat-error>
+            }
+          </div>
+        }
 
-      <!-- LinkApiPathId Field -->
-      <app-sms-apipath-selector
-        (optionChange)="onActionSelectorSelectLinkApiPathId($event)"
-        [optionSelectForce]="dataModel.linkApiPathId"
-        [optionPlaceholder]="'TITLE.Direction' | translate"
-      >
-      </app-sms-apipath-selector>
+        <!-- LinkApiPathId Field -->
+        <app-sms-apipath-selector
+          (optionChange)="onActionSelectorSelectLinkApiPathId($event)"
+          [optionSelectForce]="dataModel.linkApiPathId"
+          [optionPlaceholder]="'TITLE.Direction' | translate"
+          >
+        </app-sms-apipath-selector>
         <!-- MessageType Field -->
-      <app-cms-enum-x-selector
-        *ngIf="fieldsInfo['messageType']?.accessWatchField"
-        [optionDataListResult]="dataModelSmsMessageTypeEnumResult"
-        [(model)]="dataModel.messageType"
-        [optionDisabled]="false"
-        [optionLabel]="fieldsInfo['messageType']?.fieldTitle"
-        [optionRequired]="true"
-        [optionSelectFirstItem]="true"
-      ></app-cms-enum-x-selector>
-      <!-- LinkCoreUserId Field -->
-      <app-cms-user-selector
-        (optionChange)="onActionSelectorCmsUser($event)"
-        [optionDisabled]="!fieldsInfo['linkCoreUserId']?.accessAddField"
-        [optionSelectForce]="dataModel.linkCoreUserId"
-        [optionPlaceholder]="'TITLE.USER' | translate"
-      >
-      </app-cms-user-selector>
-      <!-- LinkCoreSiteId Field -->
-      <app-cms-site-selector
-        (optionChange)="onActionSelectorCmsSite($event)"
-        [optionDisabled]="!fieldsInfo['linkCoreSiteId']?.accessAddField"
-        [optionSelectForce]="dataModel.linkCoreSiteId"
-        [optionPlaceholder]="'TITLE.SITE' | translate"
-      >
-      </app-cms-site-selector>
-      <!-- LinkCoreUserGroupId Field -->
-      <app-cms-usergroup-selector
-        (optionChange)="onActionSelectorCoreUserGroup($event)"
-        [optionDisabled]="!fieldsInfo['linkCoreUserGroupId']?.accessAddField"
-        [optionSelectForce]="dataModel.linkCoreUserGroupId"
-        [optionPlaceholder]="'TITLE.Type_Usage' | translate"
-      >
-      </app-cms-usergroup-selector>
-      <!-- LinkCoreSiteCategoryId Field -->
-      <app-cms-sitecategory-selector
-        (optionChange)="onActionSelectorCoreSiteCategory($event)"
-        [optionDisabled]="!fieldsInfo['linkCoreSiteCategoryId']?.accessAddField"
-        [optionSelectForce]="dataModel.linkCoreSiteCategoryId"
-        [optionPlaceholder]="'TITLE.Site_Type' | translate"
-      >
-      </app-cms-sitecategory-selector>
-      <div class="divider mt-3 mb-3"></div>
-      <!-- serviceDeliveryCostBase Field -->
-      <div
-        *ngIf="fieldsInfo['serviceDeliveryCostBase']?.accessWatchField"
-        class="d-flex mb-3"
-      >
-        <div class="pt-1">
-          <h5
-            data-trigger-switch="dataModel.serviceDeliveryCostBase"
-            class="font-600 font-14"
+        @if (fieldsInfo['messageType']?.accessWatchField) {
+          <app-cms-enum-x-selector
+            [optionDataListResult]="dataModelSmsMessageTypeEnumResult"
+            [(model)]="dataModel.messageType"
+            [optionDisabled]="false"
+            [optionLabel]="fieldsInfo['messageType']?.fieldTitle"
+            [optionRequired]="true"
+            [optionSelectFirstItem]="true"
+          ></app-cms-enum-x-selector>
+        }
+        <!-- LinkCoreUserId Field -->
+        <app-cms-user-selector
+          (optionChange)="onActionSelectorCmsUser($event)"
+          [optionDisabled]="!fieldsInfo['linkCoreUserId']?.accessAddField"
+          [optionSelectForce]="dataModel.linkCoreUserId"
+          [optionPlaceholder]="'TITLE.USER' | translate"
           >
-            {{ fieldsInfo["serviceDeliveryCostBase"]?.fieldTitle }}
-          </h5>
-        </div>
-        <div class="ms-auto me-3 pe-2">
-          <div class="custom-control ios-switch small-switch">
-            <input
-              type="checkbox"
-              class="ios-input"
-              id="dataModel.serviceDeliveryCostBase"
-              [(ngModel)]="dataModel.serviceDeliveryCostBase"
-              name="dataModel.serviceDeliveryCostBase"
-            />
-            <label
-              class="custom-control-label"
-              for="dataModel.serviceDeliveryCostBase"
-            ></label>
-          </div>
-        </div>
-      </div>
-
-      <!-- endUserDeliveryCostBase Field -->
-      <div
-        *ngIf="fieldsInfo['endUserDeliveryCostBase']?.accessWatchField"
-        class="d-flex mb-3"
-      >
-        <div class="pt-1">
-          <h5
-            data-trigger-switch="dataModel.endUserDeliveryCostBase"
-            class="font-600 font-14"
+        </app-cms-user-selector>
+        <!-- LinkCoreSiteId Field -->
+        <app-cms-site-selector
+          (optionChange)="onActionSelectorCmsSite($event)"
+          [optionDisabled]="!fieldsInfo['linkCoreSiteId']?.accessAddField"
+          [optionSelectForce]="dataModel.linkCoreSiteId"
+          [optionPlaceholder]="'TITLE.SITE' | translate"
           >
-            {{ fieldsInfo["endUserDeliveryCostBase"]?.fieldTitle }}
-          </h5>
-        </div>
-        <div class="ms-auto me-3 pe-2">
-          <div class="custom-control ios-switch small-switch">
-            <input
-              type="checkbox"
-              class="ios-input"
-              id="dataModel.endUserDeliveryCostBase"
-              [(ngModel)]="dataModel.endUserDeliveryCostBase"
-              name="dataModel.endUserDeliveryCostBase"
-            />
-            <label
-              class="custom-control-label"
-              for="dataModel.endUserDeliveryCostBase"
-            ></label>
-          </div>
-        </div>
-      </div>
-      <div class="divider mt-3 mb-3"></div>
-      <!-- servicePricePerPage Field -->
-      <div
-        *ngIf="fieldsInfo['servicePricePerPage']?.accessWatchField"
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-      >
-        <label for="dataModel.servicePricePerPage" class="color-highlight">{{
-          fieldsInfo["servicePricePerPage"]?.fieldTitle
-        }}</label>
-        <input
-          matInput
-          type="number"
-          [(ngModel)]="dataModel.servicePricePerPage"
-          name="dataModel.servicePricePerPage"
-          #servicePricePerPage
-          placeholder="0"
-          [disabled]="!fieldsInfo['servicePricePerPage']?.accessEditField"
-          class="form-control validate-name"
-          id="dataModel.servicePricePerPage"
-        />
-      </div>
-      <!-- endUserPricePerPage Field -->
-      <div
-        *ngIf="fieldsInfo['endUserPricePerPage']?.accessWatchField"
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-      >
-        <label for="dataModel.endUserPricePerPage" class="color-highlight">{{
-          fieldsInfo["endUserPricePerPage"]?.fieldTitle
-        }}</label>
-        <input
-          matInput
-          type="number"
-          [(ngModel)]="dataModel.endUserPricePerPage"
-          name="dataModel.endUserPricePerPage"
-          #endUserPricePerPage
-          placeholder="0"
-          [disabled]="!fieldsInfo['endUserPricePerPage']?.accessEditField"
-          class="form-control validate-name"
-          id="dataModel.endUserPricePerPage"
-        />
-      </div>
-      <br />
-      <!-- regulatorNumberList Field -->
-      <b>{{ "TITLE.ACCEPTABLE_PREFIXES" | translate }}</b>
-      <mat-form-field style="width: 100%" appearance="fill">
-        <mat-label>{{ "TITLE.ACCEPTABLE_PREFIXES" | translate }}</mat-label>
-        <mat-chip-grid
-          #chipListRegulatorNumberList
-          aria-label="'TITLE.Number'|translate"
-        >
-          <mat-chip
-            *ngFor="let item of dataModel.regulatorNumberList"
-            (removed)="removeTagRegulatorNumberList(item)"
+        </app-cms-site-selector>
+        <!-- LinkCoreUserGroupId Field -->
+        <app-cms-usergroup-selector
+          (optionChange)="onActionSelectorCoreUserGroup($event)"
+          [optionDisabled]="!fieldsInfo['linkCoreUserGroupId']?.accessAddField"
+          [optionSelectForce]="dataModel.linkCoreUserGroupId"
+          [optionPlaceholder]="'TITLE.Type_Usage' | translate"
           >
-            <div class="input-ltr">{{ item }}</div>
-            <button
-              type="button"
-              matChipRemove
-              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+        </app-cms-usergroup-selector>
+        <!-- LinkCoreSiteCategoryId Field -->
+        <app-cms-sitecategory-selector
+          (optionChange)="onActionSelectorCoreSiteCategory($event)"
+          [optionDisabled]="!fieldsInfo['linkCoreSiteCategoryId']?.accessAddField"
+          [optionSelectForce]="dataModel.linkCoreSiteCategoryId"
+          [optionPlaceholder]="'TITLE.Site_Type' | translate"
+          >
+        </app-cms-sitecategory-selector>
+        <div class="divider mt-3 mb-3"></div>
+        <!-- serviceDeliveryCostBase Field -->
+        @if (fieldsInfo['serviceDeliveryCostBase']?.accessWatchField) {
+          <div
+            class="d-flex mb-3"
             >
-              <mat-icon>cancel</mat-icon>
-            </button>
-          </mat-chip>
-          <input
-            [placeholder]="'TITLE.key_word' | translate"
-            #tagInput
-            [matChipInputAddOnBlur]="addOnBlurTag"
-            [matChipInputFor]="chipListRegulatorNumberList"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-            (matChipInputTokenEnd)="addTagRegulatorNumberList($event)"
-            class="input-ltr"
-          />
-        </mat-chip-grid>
-      </mat-form-field>
-      <div>
-        {{ "TITLE.ACCEPTABLE_PREFIXES" | translate }}
-        <br />
-        <div *ngFor="let itemPage of dataModel.regulatorNumberList; index as i">
-          {{ itemPage }}
-        </div>
-      </div>
-      <br />
-      <!-- serviceMessageLengthPaginationList Field -->
-      <b>{{ "TITLE.PROVIDER_PAGINATION" | translate }}</b>
-      <mat-form-field style="width: 100%" appearance="fill">
-        <mat-label>{{ "TITLE.PROVIDER_PAGINATION" | translate }}</mat-label>
-        <mat-chip-grid
-          #chipListServicePagination
-          aria-label="'TITLE.Number'|translate"
-        >
-          <mat-chip
-            *ngFor="let item of dataModel.serviceMessageLengthPaginationList"
-            (removed)="removeTagServicePagination(item)"
-          >
-            {{ item }}
-            <button
-              type="button"
-              matChipRemove
-              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-            >
-              <mat-icon>cancel</mat-icon>
-            </button>
-          </mat-chip>
-          <input
-            [placeholder]="'TITLE.key_word' | translate"
-            #tagInput
-            [matChipInputAddOnBlur]="addOnBlurTag"
-            [matChipInputFor]="chipListServicePagination"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-            (matChipInputTokenEnd)="addTagServicePagination($event)"
-          />
-        </mat-chip-grid>
-      </mat-form-field>
-      <div>
-        {{ "TITLE.PROVIDER_PAGINATION" | translate }}
-        <br />
-        <div
-          *ngFor="
-            let itemPage of dataModel.serviceMessageLengthPaginationList;
-            index as i
-          "
-        >
-          {{ i + 1 }} - {{ itemPage }}
-        </div>
-      </div>
-      <br />
-      <!-- endUserMessageLengthPaginationList Field -->
-      <b>{{ "TITLE.RECIPIENT_PAGINATION" | translate }}</b>
-      <mat-form-field style="width: 100%" appearance="fill">
-        <mat-label>{{ "TITLE.RECIPIENT_PAGINATION" | translate }}</mat-label>
-        <mat-chip-grid
-          #chipListEndUserPagination
-          aria-label="'TITLE.Number'|translate"
-        >
-          <mat-chip
-            *ngFor="let item of dataModel.endUserMessageLengthPaginationList"
-            (removed)="removeTagEndUserPagination(item)"
-          >
-            {{ item }}
-            <button
-              type="button"
-              matChipRemove
-              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-            >
-              <mat-icon>cancel</mat-icon>
-            </button>
-          </mat-chip>
-          <input
-            [placeholder]="'TITLE.key_word' | translate"
-            #tagInput
-            [matChipInputAddOnBlur]="addOnBlurTag"
-            [matChipInputFor]="chipListEndUserPagination"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-            (matChipInputTokenEnd)="addTagEndUserPagination($event)"
-          />
-        </mat-chip-grid>
-      </mat-form-field>
-      <div>
-        {{ "TITLE.RECIPIENT_PAGINATION" | translate }}
-        <br />
-        <div
-          *ngFor="
-            let itemPage of dataModel.endUserMessageLengthPaginationList;
-            index as i
-          "
-        >
-          {{ i + 1 }} - {{ itemPage }}
-        </div>
-      </div>
-      <br />
+            <div class="pt-1">
+              <h5
+                data-trigger-switch="dataModel.serviceDeliveryCostBase"
+                class="font-600 font-14"
+                >
+                {{ fieldsInfo["serviceDeliveryCostBase"]?.fieldTitle }}
+              </h5>
+            </div>
+            <div class="ms-auto me-3 pe-2">
+              <div class="custom-control ios-switch small-switch">
+                <input
+                  type="checkbox"
+                  class="ios-input"
+                  id="dataModel.serviceDeliveryCostBase"
+                  [(ngModel)]="dataModel.serviceDeliveryCostBase"
+                  name="dataModel.serviceDeliveryCostBase"
+                  />
+                  <label
+                    class="custom-control-label"
+                    for="dataModel.serviceDeliveryCostBase"
+                  ></label>
+                </div>
+              </div>
+            </div>
+          }
+
+          <!-- endUserDeliveryCostBase Field -->
+          @if (fieldsInfo['endUserDeliveryCostBase']?.accessWatchField) {
+            <div
+              class="d-flex mb-3"
+              >
+              <div class="pt-1">
+                <h5
+                  data-trigger-switch="dataModel.endUserDeliveryCostBase"
+                  class="font-600 font-14"
+                  >
+                  {{ fieldsInfo["endUserDeliveryCostBase"]?.fieldTitle }}
+                </h5>
+              </div>
+              <div class="ms-auto me-3 pe-2">
+                <div class="custom-control ios-switch small-switch">
+                  <input
+                    type="checkbox"
+                    class="ios-input"
+                    id="dataModel.endUserDeliveryCostBase"
+                    [(ngModel)]="dataModel.endUserDeliveryCostBase"
+                    name="dataModel.endUserDeliveryCostBase"
+                    />
+                    <label
+                      class="custom-control-label"
+                      for="dataModel.endUserDeliveryCostBase"
+                    ></label>
+                  </div>
+                </div>
+              </div>
+            }
+            <div class="divider mt-3 mb-3"></div>
+            <!-- servicePricePerPage Field -->
+            @if (fieldsInfo['servicePricePerPage']?.accessWatchField) {
+              <div
+                class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                >
+                <label for="dataModel.servicePricePerPage" class="color-highlight">{{
+                  fieldsInfo["servicePricePerPage"]?.fieldTitle
+                }}</label>
+                <input
+                  matInput
+                  type="number"
+                  [(ngModel)]="dataModel.servicePricePerPage"
+                  name="dataModel.servicePricePerPage"
+                  #servicePricePerPage
+                  placeholder="0"
+                  [disabled]="!fieldsInfo['servicePricePerPage']?.accessEditField"
+                  class="form-control validate-name"
+                  id="dataModel.servicePricePerPage"
+                  />
+                </div>
+              }
+              <!-- endUserPricePerPage Field -->
+              @if (fieldsInfo['endUserPricePerPage']?.accessWatchField) {
+                <div
+                  class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                  >
+                  <label for="dataModel.endUserPricePerPage" class="color-highlight">{{
+                    fieldsInfo["endUserPricePerPage"]?.fieldTitle
+                  }}</label>
+                  <input
+                    matInput
+                    type="number"
+                    [(ngModel)]="dataModel.endUserPricePerPage"
+                    name="dataModel.endUserPricePerPage"
+                    #endUserPricePerPage
+                    placeholder="0"
+                    [disabled]="!fieldsInfo['endUserPricePerPage']?.accessEditField"
+                    class="form-control validate-name"
+                    id="dataModel.endUserPricePerPage"
+                    />
+                  </div>
+                }
+                <br />
+                <!-- regulatorNumberList Field -->
+                <b>{{ "TITLE.ACCEPTABLE_PREFIXES" | translate }}</b>
+                <mat-form-field style="width: 100%" appearance="fill">
+                  <mat-label>{{ "TITLE.ACCEPTABLE_PREFIXES" | translate }}</mat-label>
+                  <mat-chip-grid
+                    #chipListRegulatorNumberList
+                    aria-label="'TITLE.Number'|translate"
+                    >
+                    @for (item of dataModel.regulatorNumberList; track item) {
+                      <mat-chip
+                        (removed)="removeTagRegulatorNumberList(item)"
+                        >
+                        <div class="input-ltr">{{ item }}</div>
+                        <button
+                          type="button"
+                          matChipRemove
+                          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+                          >
+                          <mat-icon>cancel</mat-icon>
+                        </button>
+                      </mat-chip>
+                    }
+                    <input
+                      [placeholder]="'TITLE.key_word' | translate"
+                      #tagInput
+                      [matChipInputAddOnBlur]="addOnBlurTag"
+                      [matChipInputFor]="chipListRegulatorNumberList"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                      (matChipInputTokenEnd)="addTagRegulatorNumberList($event)"
+                      class="input-ltr"
+                      />
+                    </mat-chip-grid>
+                  </mat-form-field>
+                  <div>
+                    {{ "TITLE.ACCEPTABLE_PREFIXES" | translate }}
+                    <br />
+                    @for (itemPage of dataModel.regulatorNumberList; track itemPage; let i = $index) {
+                      <div>
+                        {{ itemPage }}
+                      </div>
+                    }
+                  </div>
+                  <br />
+                  <!-- serviceMessageLengthPaginationList Field -->
+                  <b>{{ "TITLE.PROVIDER_PAGINATION" | translate }}</b>
+                  <mat-form-field style="width: 100%" appearance="fill">
+                    <mat-label>{{ "TITLE.PROVIDER_PAGINATION" | translate }}</mat-label>
+                    <mat-chip-grid
+                      #chipListServicePagination
+                      aria-label="'TITLE.Number'|translate"
+                      >
+                      @for (item of dataModel.serviceMessageLengthPaginationList; track item) {
+                        <mat-chip
+                          (removed)="removeTagServicePagination(item)"
+                          >
+                          {{ item }}
+                          <button
+                            type="button"
+                            matChipRemove
+                            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+                            >
+                            <mat-icon>cancel</mat-icon>
+                          </button>
+                        </mat-chip>
+                      }
+                      <input
+                        [placeholder]="'TITLE.key_word' | translate"
+                        #tagInput
+                        [matChipInputAddOnBlur]="addOnBlurTag"
+                        [matChipInputFor]="chipListServicePagination"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        (matChipInputTokenEnd)="addTagServicePagination($event)"
+                        />
+                      </mat-chip-grid>
+                    </mat-form-field>
+                    <div>
+                      {{ "TITLE.PROVIDER_PAGINATION" | translate }}
+                      <br />
+                      @for (
+                        itemPage of dataModel.serviceMessageLengthPaginationList; track
+                        itemPage; let i = $index) {
+                        <div
+                          >
+                          {{ i + 1 }} - {{ itemPage }}
+                        </div>
+                      }
+                    </div>
+                    <br />
+                    <!-- endUserMessageLengthPaginationList Field -->
+                    <b>{{ "TITLE.RECIPIENT_PAGINATION" | translate }}</b>
+                    <mat-form-field style="width: 100%" appearance="fill">
+                      <mat-label>{{ "TITLE.RECIPIENT_PAGINATION" | translate }}</mat-label>
+                      <mat-chip-grid
+                        #chipListEndUserPagination
+                        aria-label="'TITLE.Number'|translate"
+                        >
+                        @for (item of dataModel.endUserMessageLengthPaginationList; track item) {
+                          <mat-chip
+                            (removed)="removeTagEndUserPagination(item)"
+                            >
+                            {{ item }}
+                            <button
+                              type="button"
+                              matChipRemove
+                              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+                              >
+                              <mat-icon>cancel</mat-icon>
+                            </button>
+                          </mat-chip>
+                        }
+                        <input
+                          [placeholder]="'TITLE.key_word' | translate"
+                          #tagInput
+                          [matChipInputAddOnBlur]="addOnBlurTag"
+                          [matChipInputFor]="chipListEndUserPagination"
+                          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                          (matChipInputTokenEnd)="addTagEndUserPagination($event)"
+                          />
+                        </mat-chip-grid>
+                      </mat-form-field>
+                      <div>
+                        {{ "TITLE.RECIPIENT_PAGINATION" | translate }}
+                        <br />
+                        @for (
+                          itemPage of dataModel.endUserMessageLengthPaginationList; track
+                          itemPage; let i = $index) {
+                          <div
+                            >
+                            {{ i + 1 }} - {{ itemPage }}
+                          </div>
+                        }
+                      </div>
+                      <br />
 
 
-      <!-- outBoxTypeList Field -->
-      <app-cms-enum-x-selectionlist
-        *ngIf="fieldsInfo['outBoxTypeJson']?.accessWatchField"
-        [optionDataListResult]="dataModelSmsOutBoxTypeEnumResult"
-        [(model)]="dataModel.outBoxTypeList"
-        [optionDisabled]="false"
-        [optionLabel]="fieldsInfo['outBoxTypeJson']?.fieldTitle"
-        [optionRequired]="true"
-      ></app-cms-enum-x-selectionlist>
+                      <!-- outBoxTypeList Field -->
+                      @if (fieldsInfo['outBoxTypeJson']?.accessWatchField) {
+                        <app-cms-enum-x-selectionlist
+                          [optionDataListResult]="dataModelSmsOutBoxTypeEnumResult"
+                          [(model)]="dataModel.outBoxTypeList"
+                          [optionDisabled]="false"
+                          [optionLabel]="fieldsInfo['outBoxTypeJson']?.fieldTitle"
+                          [optionRequired]="true"
+                        ></app-cms-enum-x-selectionlist>
+                      }
 
-      <div class="form-actions" *ngIf="formInfo.submitButtonEnabled">
-        <button
-          type="button"
-          (click)="onFormCancel()"
-          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-        >
-          <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
-        </button>
-        <button
-          type="submit"
-          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
-          [disabled]="!vform.form.valid"
-        >
-          <i class="fa fa-check-square-o"></i> {{ "ACTION.SAVE" | translate }}
-        </button>
-      </div>
-    </form>
-    <!--content-->
-  </div>
-</div>
+                      @if (formInfo.submitButtonEnabled) {
+                        <div class="form-actions">
+                          <button
+                            type="button"
+                            (click)="onFormCancel()"
+                            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+                            >
+                            <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
+                          </button>
+                          <button
+                            type="submit"
+                            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
+                            [disabled]="!vform.form.valid"
+                            >
+                            <i class="fa fa-check-square-o"></i> {{ "ACTION.SAVE" | translate }}
+                          </button>
+                        </div>
+                      }
+                    </form>
+                    <!--content-->
+                  </div>
+                </div>

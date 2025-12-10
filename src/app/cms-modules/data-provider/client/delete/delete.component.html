@@ -14,7 +14,7 @@
     <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
     <div
       class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-    >
+      >
       <label for="title" class="color-highlight">{{
         fieldsInfo["title"]?.fieldTitle
       }}</label>
@@ -29,27 +29,29 @@
         readonly
         class="form-control validate-name"
         id="title"
-      />
+        />
+      </div>
+      <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
+      @if (formInfo.submitButtonEnabled) {
+        <div class="form-actions">
+          <button
+            type="button"
+            (click)="onFormDelete()"
+            [disabled]="!formInfo.submitButtonEnabled"
+            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-red"
+            >
+            <i class="fa fa-check-square-o"></i> {{ "ACTION.DELETE" | translate }}
+          </button>
+          <button
+            type="button"
+            (click)="onFormCancel()"
+            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+            >
+            <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
+          </button>
+        </div>
+      }
+      <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
+      <!--Content-->
     </div>
-    <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
-    <div class="form-actions" *ngIf="formInfo.submitButtonEnabled">
-      <button
-        type="button"
-        (click)="onFormDelete()"
-        [disabled]="!formInfo.submitButtonEnabled"
-        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-red"
-      >
-        <i class="fa fa-check-square-o"></i> {{ "ACTION.DELETE" | translate }}
-      </button>
-      <button
-        type="button"
-        (click)="onFormCancel()"
-        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-      >
-        <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
-      </button>
-    </div>
-    <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
-    <!--Content-->
   </div>
-</div>

@@ -2,7 +2,7 @@
   [optionHeaderDisplay]="true"
   [optionActionMainDisplay]="true"
   [optionFooterDisplay]="false"
->
+  >
   <ng-container cms-tree-header>
     {{ "TABLE." + dataModelResult?.access?.moduleEntityName | translate }}
   </ng-container>
@@ -11,42 +11,46 @@
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-header-->
 
     <!--begin:::::::::::::::::::::::::::::::::::::::::cms-action-->
-    <button
-      type="button"
-      *ngIf="dataModelResult?.access?.accessAddRow"
-      (click)="onActionAdd()"
-      class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
-    >
-      {{ "ACTION.ADD" | translate }}
-    </button>
-    <button
-      type="button"
-      *ngIf="dataModelResult?.access?.accessEditRow && dataModelSelect?.id > 0"
-      (click)="onActionEdit()"
-      class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-magenta"
-    >
-      {{ "ACTION.EDIT" | translate }}
-    </button>
-    <button
-      type="button"
-      *ngIf="
-        dataModelResult?.access?.accessDeleteRow &&
-        dataModelSelect.id &&
-        dataModelSelect?.id?.length > 0
-      "
-      (click)="onActionDelete()"
-      class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-red"
-    >
-      {{ "ACTION.DELETE" | translate }}
-    </button>
-    <button
-      type="button"
-      *ngIf="dataModelResult?.access?.accessWatchRow"
-      (click)="onActionButtonReload()"
-      class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-    >
-      <mat-icon title="{{ 'ACTION.RELOAD' | translate }}">refresh</mat-icon>
-    </button>
+    @if (dataModelResult?.access?.accessAddRow) {
+      <button
+        type="button"
+        (click)="onActionAdd()"
+        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
+        >
+        {{ "ACTION.ADD" | translate }}
+      </button>
+    }
+    @if (dataModelResult?.access?.accessEditRow && dataModelSelect?.id > 0) {
+      <button
+        type="button"
+        (click)="onActionEdit()"
+        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-magenta"
+        >
+        {{ "ACTION.EDIT" | translate }}
+      </button>
+    }
+    @if (
+      dataModelResult?.access?.accessDeleteRow &&
+      dataModelSelect.id &&
+      dataModelSelect?.id?.length > 0
+      ) {
+      <button
+        type="button"
+        (click)="onActionDelete()"
+        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-red"
+        >
+        {{ "ACTION.DELETE" | translate }}
+      </button>
+    }
+    @if (dataModelResult?.access?.accessWatchRow) {
+      <button
+        type="button"
+        (click)="onActionButtonReload()"
+        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
+        >
+        <mat-icon title="{{ 'ACTION.RELOAD' | translate }}">refresh</mat-icon>
+      </button>
+    }
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-->
   </ng-container>
   <ng-container cms-tree-body class="loader-container">
@@ -58,14 +62,14 @@
       #treeTagControl
       [dataSource]="dataSource"
       [childrenAccessor]="childrenAccessor"
-    >
+      >
       <mat-tree-node
         *matTreeNodeDef="let node"
         matTreeNodePadding
         [class.ntk-tree-selected]="
           dataModelSelect.id?.length > 0 && dataModelSelect.id === node.id
         "
-      >
+        >
         <button matIconButton disabled></button>
         <span (click)="onActionSelect(node)">{{ node.title }}</span>
       </mat-tree-node>
@@ -79,16 +83,16 @@
         [class.ntk-tree-selected]="
           dataModelSelect.id?.length > 0 && dataModelSelect.id === node.id
         "
-      >
+        >
         <button
           matIconButton
           matTreeNodeToggle
           [attr.type]="'button'"
           [attr.aria-label]="'Toggle ' + node.title"
-        >
+          >
           <mat-icon class="mat-icon-rtl-mirror">
             {{
-              treeTagControl.isExpanded(node) ? "expand_more" : "chevron_right"
+            treeTagControl.isExpanded(node) ? "expand_more" : "chevron_right"
             }}
           </mat-icon>
         </button>

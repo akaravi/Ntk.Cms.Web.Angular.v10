@@ -13,7 +13,9 @@
         <div class="td large-width">
           <h5>{{ "TITLE.The_type_of_contract_selected" | translate }}</h5>
         </div>
-        <div class="td" *ngIf="dataModelResult?.item?.id"></div>
+        @if (dataModelResult?.item?.id) {
+          <div class="td"></div>
+        }
       </div>
       <div class="tr">
         <div class="td small-width">{{ fieldsInfo["id"]?.fieldTitle }} :</div>

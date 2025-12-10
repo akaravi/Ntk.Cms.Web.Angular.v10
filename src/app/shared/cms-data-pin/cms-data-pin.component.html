@@ -14,100 +14,102 @@
     </p>
     <!--Content-->
     <div class="ntk-cms-html-card-header" class="theme-rtl">
-      <button
-        type="button"
-        *ngIf="!showFormAdd"
-        (click)="onActionAdd()"
-        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
-      >
-        {{ "ACTION.ADD" | translate }}
-      </button>
+      @if (!showFormAdd) {
+        <button
+          type="button"
+          (click)="onActionAdd()"
+          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
+          >
+          {{ "ACTION.ADD" | translate }}
+        </button>
+      }
     </div>
     <div
       class="ntk-cms-html-card-body ntk-allow-text-selection"
       class="theme-rtl"
-    >
-      <table class="table table-hover" *ngIf="!showFormAdd">
-        <thead>
-          <tr>
-            <th scope="col"></th>
-            <th scope="col">{{ "TITLE.createdBy" | translate }}</th>
-            <th scope="col">{{ "TITLE.createdDate" | translate }}</th>
-            <th scope="col">{{ "TITLE.subjectTitle" | translate }}</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <ng-container
-            *ngFor="let item of dataModelResult.listItems; let i = index"
-          >
-            <tr class="myDIV">
-              <th scope="row">{{ i + 1 }}</th>
-              <td>{{ item.createdBy | cmsuserinfo | async }}</td>
-              <td>{{ item.createdDate | localeDateTime }}</td>
-
-              <td>
-                <small>
-                  <mat-icon
-                    matTooltip="{{ 'ACTION.DELETE' | translate }}"
-                    matTooltipPosition="before"
-                    (click)="DataDeleteContent(item.id)"
-                    aria-hidden="false"
-                    style="color: red"
-                    >delete</mat-icon
-                  >
-                </small>
-              </td>
+      >
+      @if (!showFormAdd) {
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">{{ "TITLE.createdBy" | translate }}</th>
+              <th scope="col">{{ "TITLE.createdDate" | translate }}</th>
+              <th scope="col">{{ "TITLE.subjectTitle" | translate }}</th>
+              <th></th>
             </tr>
-            <tr class="hide">
-              <td></td>
-            </tr>
-          </ng-container>
-        </tbody>
-      </table>
-      <app-cms-form-result-message
-        [formInfo]="formInfo"
-      ></app-cms-form-result-message>
-      <form (ngSubmit)="onFormSubmit()" *ngIf="showFormAdd" #vform="ngForm">
-        <div class="ntk-cms-html-card-body ntk-allow-text-selection">
-          <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
-
-          <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
-        </div>
-        <div class="ntk-cms-html-card-message">
-          <!--begin:::::::::::::::::::::::::::::::::::::::::cms-message -->
+          </thead>
+          <tbody>
+            @for (item of dataModelResult.listItems; track item; let i = $index) {
+              <tr class="myDIV">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ item.createdBy | cmsuserinfo | async }}</td>
+                <td>{{ item.createdDate | localeDateTime }}</td>
+                <td>
+                  <small>
+                    <mat-icon
+                      matTooltip="{{ 'ACTION.DELETE' | translate }}"
+                      matTooltipPosition="before"
+                      (click)="DataDeleteContent(item.id)"
+                      aria-hidden="false"
+                      style="color: red"
+                      >delete</mat-icon
+                      >
+                    </small>
+                  </td>
+                </tr>
+                <tr class="hide">
+                  <td></td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        }
         <app-cms-form-result-message
-      [formInfo]="formInfo"
-    ></app-cms-form-result-message>
-          <!--end:::::::::::::::::::::::::::::::::::::::::cms-message -->
-        </div>
+          [formInfo]="formInfo"
+        ></app-cms-form-result-message>
+        @if (showFormAdd) {
+          <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
+            <div class="ntk-cms-html-card-body ntk-allow-text-selection">
+              <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
+              <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
+            </div>
+            <div class="ntk-cms-html-card-message">
+              <!--begin:::::::::::::::::::::::::::::::::::::::::cms-message -->
+              <app-cms-form-result-message
+                [formInfo]="formInfo"
+              ></app-cms-form-result-message>
+              <!--end:::::::::::::::::::::::::::::::::::::::::cms-message -->
+            </div>
+            <br />
+            @if (formInfo.submitButtonEnabled) {
+              <div class="form-actions">
+                @if (showFormAdd) {
+                  <button
+                    type="submit"
+                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
+                    [disabled]="!vform.form.valid"
+                    >
+                    <i class="fa fa-check-square-o"></i> {{ "ACTION.SAVE" | translate }}
+                  </button>
+                }
+                <button
+                  type="button"
+                  (click)="onFormCancel()"
+                  class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+                  >
+                  <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
+                </button>
+              </div>
+            }
+          </form>
+        }
+      </div>
+      <div class="ntk-cms-html-card-footer">
+        <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
 
-        <br />
-        <div class="form-actions" *ngIf="formInfo.submitButtonEnabled">
-          <button
-            type="submit"
-            *ngIf="showFormAdd"
-            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
-            [disabled]="!vform.form.valid"
-          >
-            <i class="fa fa-check-square-o"></i> {{ "ACTION.SAVE" | translate }}
-          </button>
-
-          <button
-            type="button"
-            (click)="onFormCancel()"
-            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-          >
-            <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
-          </button>
-        </div>
-      </form>
+        <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
+      </div>
+      <!--Content-->
     </div>
-    <div class="ntk-cms-html-card-footer">
-      <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
-
-      <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
-    </div>
-    <!--Content-->
   </div>
-</div>

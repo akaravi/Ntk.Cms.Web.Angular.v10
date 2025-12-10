@@ -18,41 +18,51 @@
       <app-cms-bankpayment-grid
         [optionMasterItem]="true"
         (optionChange)="onActionSelectCalculate($event)"
-      >
+        >
       </app-cms-bankpayment-grid>
-      <div *ngIf="viewCalculate">
-        <div *ngIf="dataModelCalculateResult.item?.feeTax > 0">
-          {{ "TITLE.FEETAX" | translate }}:
-          {{
-            dataModelCalculateResult.item?.feeTax
+      @if (viewCalculate) {
+        <div>
+          @if (dataModelCalculateResult.item?.feeTax > 0) {
+            <div>
+              {{ "TITLE.FEETAX" | translate }}:
+              {{
+              dataModelCalculateResult.item?.feeTax
               | currency: " " + dataModelCalculateResult.item?.currency + " "
-          }}
-        </div>
-        <br />
-        <div *ngIf="dataModelCalculateResult.item?.amountPure > 0">
-          {{ "TITLE.Amount_pure" | translate }}:
-          {{
-            dataModelCalculateResult.item?.amountPure
+              }}
+            </div>
+          }
+          <br />
+          @if (dataModelCalculateResult.item?.amountPure > 0) {
+            <div>
+              {{ "TITLE.Amount_pure" | translate }}:
+              {{
+              dataModelCalculateResult.item?.amountPure
               | currency: " " + dataModelCalculateResult.item?.currency + " "
-          }}
-        </div>
-        <br />
-        <div *ngIf="dataModelCalculateResult.item?.feeTransport > 0">
-          {{ "TITLE.Fee_transport" | translate }}:
-          {{
-            dataModelCalculateResult.item?.feeTransport
+              }}
+            </div>
+          }
+          <br />
+          @if (dataModelCalculateResult.item?.feeTransport > 0) {
+            <div>
+              {{ "TITLE.Fee_transport" | translate }}:
+              {{
+              dataModelCalculateResult.item?.feeTransport
               | currency: " " + dataModelCalculateResult.item?.currency + " "
-          }}
-        </div>
-        <hr />
-        <div *ngIf="dataModelCalculateResult.item?.amount > 0">
-          {{ "TITLE.Final_Amount" | translate }}:
-          {{
-            dataModelCalculateResult.item?.amount
+              }}
+            </div>
+          }
+          <hr />
+          @if (dataModelCalculateResult.item?.amount > 0) {
+            <div>
+              {{ "TITLE.Final_Amount" | translate }}:
+              {{
+              dataModelCalculateResult.item?.amount
               | currency: " " + dataModelCalculateResult.item?.currency + " "
-          }}
+              }}
+            </div>
+          }
         </div>
-      </div>
+      }
     </mat-dialog-content>
     <mat-dialog-actions style="text-align: left">
       <div class="ntk-cms-html-card-message">
@@ -62,29 +72,30 @@
         ></app-cms-form-result-message>
         <!--end:::::::::::::::::::::::::::::::::::::::::cms-message -->
       </div>
-      <div
-        class="form-actions"
-        *ngIf="!this.publicHelper.processService.process.inRunAll"
-      >
-        <button
-          type="button"
-          (click)="onFormCancel()"
-          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-        >
-          <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
-        </button>
-
-        <button
-          type="submit"
-          *ngIf="formInfo.submitButtonEnabled"
-          (click)="onActionSelectBankPayment()"
-          [disabled]="!viewCalculate"
-          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
-        >
-          <i class="fa fa-check-square-o"></i>
-          {{ "ACTION.PAYMENT" | translate }}
-        </button>
-      </div>
+      @if (!this.publicHelper.processService.process.inRunAll) {
+        <div
+          class="form-actions"
+          >
+          <button
+            type="button"
+            (click)="onFormCancel()"
+            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+            >
+            <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
+          </button>
+          @if (formInfo.submitButtonEnabled) {
+            <button
+              type="submit"
+              (click)="onActionSelectBankPayment()"
+              [disabled]="!viewCalculate"
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
+              >
+              <i class="fa fa-check-square-o"></i>
+              {{ "ACTION.PAYMENT" | translate }}
+            </button>
+          }
+        </div>
+      }
     </mat-dialog-actions>
     <!--Content-->
   </div>

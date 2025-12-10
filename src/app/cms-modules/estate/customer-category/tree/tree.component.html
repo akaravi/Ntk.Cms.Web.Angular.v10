@@ -2,7 +2,7 @@
   [optionHeaderDisplay]="true"
   [optionActionMainDisplay]="true"
   [optionFooterDisplay]="false"
->
+  >
   <ng-container cms-tree-header>
     {{ "TABLE." + dataModelResult?.access?.moduleEntityName | translate }}
   </ng-container>
@@ -11,45 +11,48 @@
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-header-->
 
     <!--begin:::::::::::::::::::::::::::::::::::::::::cms-action-->
-    <button
-      type="button"
-      *ngIf="dataModelResult?.access?.accessAddRow"
-      (click)="onActionAdd()"
-      class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
-    >
-      {{ "ACTION.ADD" | translate }}
-    </button>
-    <button
-      type="button"
-      *ngIf="
-        dataModelResult?.access?.accessEditRow &&
-        dataModelSelect.id &&
-        dataModelSelect?.id?.length > 0
-      "
-      (click)="onActionEdit()"
-      class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-magenta"
-    >
-      {{ "ACTION.EDIT" | translate }}
-    </button>
-    <button
-      type="button"
-      *ngIf="
-        dataModelResult?.access?.accessDeleteRow &&
-        dataModelSelect.id &&
-        dataModelSelect?.id?.length > 0
-      "
-      (click)="onActionDelete()"
-      class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-red"
-    >
-      {{ "ACTION.DELETE" | translate }}
-    </button>
+    @if (dataModelResult?.access?.accessAddRow) {
+      <button
+        type="button"
+        (click)="onActionAdd()"
+        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
+        >
+        {{ "ACTION.ADD" | translate }}
+      </button>
+    }
+    @if (
+      dataModelResult?.access?.accessEditRow &&
+      dataModelSelect.id &&
+      dataModelSelect?.id?.length > 0
+      ) {
+      <button
+        type="button"
+        (click)="onActionEdit()"
+        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-magenta"
+        >
+        {{ "ACTION.EDIT" | translate }}
+      </button>
+    }
+    @if (
+      dataModelResult?.access?.accessDeleteRow &&
+      dataModelSelect.id &&
+      dataModelSelect?.id?.length > 0
+      ) {
+      <button
+        type="button"
+        (click)="onActionDelete()"
+        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-red"
+        >
+        {{ "ACTION.DELETE" | translate }}
+      </button>
+    }
 
     <a
       type="button"
       class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
       (click)="onActionButtonReload()"
       target="_blank"
-    >
+      >
       <i
         class="fa-solid fa-rotate-right font-18"
         style="color: #ffffff"
@@ -69,14 +72,14 @@
       #treeTagControl
       [dataSource]="dataSource"
       [childrenAccessor]="childrenAccessor"
-    >
+      >
       <mat-tree-node
         *matTreeNodeDef="let node"
         matTreeNodePadding
         [class.ntk-tree-selected]="
           dataModelSelect.id?.length > 0 && dataModelSelect.id === node.id
         "
-      >
+        >
         <button matIconButton disabled></button>
         <span (click)="onActionSelect(node)">
           <img
@@ -86,61 +89,61 @@
             src="{{ node.linkMainImageIdSrc }}"
             height="40"
             width="40"
-          />
-          <i
-            [ngClass]="node.iconFont"
-            [style.color]="node.iconColor"
-            aria-hidden="true"
-          ></i
-          >&nbsp;{{ node.title }}</span
-        >
-      </mat-tree-node>
-      <mat-tree-node
-        *matTreeNodeDef="let node; when: hasChild"
-        matTreeNodePadding
-        matTreeNodeToggle
-        [cdkTreeNodeTypeaheadLabel]="node.title"
-        isExpandable
-        [isExpanded]="node.isExpanded ?? false"
+            />
+            <i
+              [ngClass]="node.iconFont"
+              [style.color]="node.iconColor"
+              aria-hidden="true"
+              ></i
+              >&nbsp;{{ node.title }}</span
+              >
+            </mat-tree-node>
+            <mat-tree-node
+              *matTreeNodeDef="let node; when: hasChild"
+              matTreeNodePadding
+              matTreeNodeToggle
+              [cdkTreeNodeTypeaheadLabel]="node.title"
+              isExpandable
+              [isExpanded]="node.isExpanded ?? false"
         [class.ntk-tree-selected]="
           dataModelSelect.id?.length > 0 && dataModelSelect.id === node.id
         "
-      >
-        <button
-          matIconButton
-          matTreeNodeToggle
-          [attr.type]="'button'"
-          [attr.aria-label]="'Toggle ' + node.title"
-        >
-          <mat-icon class="mat-icon-rtl-mirror">
-            {{
-              treeTagControl.isExpanded(node) ? "expand_more" : "chevron_right"
-            }}
-          </mat-icon>
-        </button>
-        <span (click)="onActionSelect(node)">
-          <img
-            style="vertical-align: middle"
-            class="ntk-hover-zoom"
-            aria-hidden
-            src="{{ node.linkMainImageIdSrc }}"
-            height="40"
-            width="40"
-          />
-          <i
-            [ngClass]="node.iconFont"
-            [style.color]="node.iconColor"
-            aria-hidden="true"
-          ></i
-          >&nbsp;{{ node.title }}</span
-        >
-      </mat-tree-node>
-    </mat-tree>
+              >
+              <button
+                matIconButton
+                matTreeNodeToggle
+                [attr.type]="'button'"
+                [attr.aria-label]="'Toggle ' + node.title"
+                >
+                <mat-icon class="mat-icon-rtl-mirror">
+                  {{
+                  treeTagControl.isExpanded(node) ? "expand_more" : "chevron_right"
+                  }}
+                </mat-icon>
+              </button>
+              <span (click)="onActionSelect(node)">
+                <img
+                  style="vertical-align: middle"
+                  class="ntk-hover-zoom"
+                  aria-hidden
+                  src="{{ node.linkMainImageIdSrc }}"
+                  height="40"
+                  width="40"
+                  />
+                  <i
+                    [ngClass]="node.iconFont"
+                    [style.color]="node.iconColor"
+                    aria-hidden="true"
+                    ></i
+                    >&nbsp;{{ node.title }}</span
+                    >
+                  </mat-tree-node>
+                </mat-tree>
 
-    <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
-  </ng-container>
-  <ng-container cms-tree-footer>
-    <!--begin:::::::::::::::::::::::::::::::::::::::::cms-tree-footer-->
-    <!--end:::::::::::::::::::::::::::::::::::::::::cms-tree-footer-->
-  </ng-container>
-</app-cms-html-tree>
+                <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
+              </ng-container>
+              <ng-container cms-tree-footer>
+                <!--begin:::::::::::::::::::::::::::::::::::::::::cms-tree-footer-->
+                <!--end:::::::::::::::::::::::::::::::::::::::::cms-tree-footer-->
+              </ng-container>
+            </app-cms-html-tree>

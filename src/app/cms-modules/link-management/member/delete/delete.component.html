@@ -11,11 +11,11 @@
     </p>
     <!--Content-->
     {{ formInfo.formTitle }}
-    <ng-container *ngIf="dataModelResultContent?.item">
+    @if (dataModelResultContent?.item) {
       <!-- Id Field -->
       <div
         class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-      >
+        >
         <label for="dataModelResultContent.item.id" class="color-highlight">{{
           fieldsInfo["id"]?.fieldTitle
         }}</label>
@@ -30,27 +30,29 @@
           class="form-control validate-name"
           id="dataModelResultContent.item.id"
           readonly
-        />
-      </div>
-    </ng-container>
-    <div class="form-actions" *ngIf="formInfo.submitButtonEnabled">
-      <button
-        type="button"
-        (click)="onFormCancel()"
-        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-      >
-        <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
-      </button>
-      <button
-        type="button"
-        (click)="onFormDelete()"
-        [disabled]="!formInfo.submitButtonEnabled"
-        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-red"
-      >
-        <i class="fa fa-check-square-o"></i> {{ "ACTION.DELETE" | translate }}
-      </button>
-    </div>
+          />
+        </div>
+      }
+      @if (formInfo.submitButtonEnabled) {
+        <div class="form-actions">
+          <button
+            type="button"
+            (click)="onFormCancel()"
+            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+            >
+            <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
+          </button>
+          <button
+            type="button"
+            (click)="onFormDelete()"
+            [disabled]="!formInfo.submitButtonEnabled"
+            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-red"
+            >
+            <i class="fa fa-check-square-o"></i> {{ "ACTION.DELETE" | translate }}
+          </button>
+        </div>
+      }
 
-    <!--Content-->
+      <!--Content-->
+    </div>
   </div>
-</div>

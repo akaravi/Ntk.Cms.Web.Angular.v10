@@ -1,7 +1,7 @@
 <div
   class="card card-style loader-container"
   style="height: 100vh; overflow-y: auto"
->
+  >
   <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
   </app-progress-spinner>
   <div class="menu-title">
@@ -16,41 +16,44 @@
       {{ formInfo.formDescription }}
     </p>
     <!--Content-->
-    <ng-container *ngIf="!this.publicHelper.processService.process.inRunAll">
+    @if (!this.publicHelper.processService.process.inRunAll) {
       <div class="ntk-cms-html-card-header">
         <!--begin:::::::::::::::::::::::::::::::::::::::::cms-header-->
-        <div class="form-actions" *ngIf="formInfo.submitButtonEnabled">
-          <button
-            type="button"
-            (click)="onFormCancel()"
-            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-          >
-            <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
-          </button>
-          <button
-            type="button"
-            (click)="onActionNext()"
-            *ngIf="requestNextItem && requestNextItem?.id?.length > 0"
-            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-          >
-            <i class="ft-x"></i>
-            <
-          </button>
-          <button
-            type="button"
-            (click)="onActionPervious()"
-            *ngIf="requestPerviousItem && requestPerviousItem?.id?.length > 0"
-            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-          >
-            <i class="ft-x"></i>
-            >
-          </button>
-        </div>
+        @if (formInfo.submitButtonEnabled) {
+          <div class="form-actions">
+            <button
+              type="button"
+              (click)="onFormCancel()"
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+              >
+              <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
+            </button>
+            @if (requestNextItem && requestNextItem?.id?.length > 0) {
+              <button
+                type="button"
+                (click)="onActionNext()"
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+                >
+                <i class="ft-x"></i>
+                <
+              </button>
+            }
+            @if (requestPerviousItem && requestPerviousItem?.id?.length > 0) {
+              <button
+                type="button"
+                (click)="onActionPervious()"
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+                >
+                <i class="ft-x"></i>
+                >
+              </button>
+            }
+          </div>
+        }
         <!--end:::::::::::::::::::::::::::::::::::::::::cms-header-->
       </div>
       <div class="ntk-cms-html-card-body ntk-allow-text-selection" dir="rtl">
         <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
-
         <table class="table table-striped">
           <tbody>
             <tr>
@@ -71,91 +74,106 @@
                 <b>{{ dataModel.linkActivityTypeId }}</b>
               </td>
             </tr>
-
-            <tr *ngIf="dataModel.appointmentDateFrom">
-              <td>{{ fieldsInfo["appointmentDateFrom"]?.fieldTitle }}:</td>
-              <td>{{ dataModel.appointmentDateFrom | localeDateTime }}</td>
-            </tr>
-            <tr *ngIf="dataModel.appointmentDateTo">
-              <td>{{ fieldsInfo["appointmentDateTo"]?.fieldTitle }}:</td>
-              <td>{{ dataModel.appointmentDateTo | localeDateTime }}</td>
-            </tr>
+            @if (dataModel.appointmentDateFrom) {
+              <tr>
+                <td>{{ fieldsInfo["appointmentDateFrom"]?.fieldTitle }}:</td>
+                <td>{{ dataModel.appointmentDateFrom | localeDateTime }}</td>
+              </tr>
+            }
+            @if (dataModel.appointmentDateTo) {
+              <tr>
+                <td>{{ fieldsInfo["appointmentDateTo"]?.fieldTitle }}:</td>
+                <td>{{ dataModel.appointmentDateTo | localeDateTime }}</td>
+              </tr>
+            }
             <tr>
               <td>{{ fieldsInfo["createdBy"]?.fieldTitle }}:</td>
               <td class="input-ltr-right">
                 {{ dataModel.createdBy | cmsuserinfo | async }}
               </td>
             </tr>
-            <tr *ngIf="dataModel.updatedBy">
-              <td>{{ fieldsInfo["updatedBy"]?.fieldTitle }}:</td>
-              <td class="input-ltr-right">
-                {{ dataModel.updatedBy | cmsuserinfo | async }}
-              </td>
-            </tr>
-            <tr *ngIf="dataModel.linkEstateExpertId?.length > 0">
-              <td>{{ fieldsInfo["linkEstateExpertId"]?.fieldTitle }}:</td>
-              <td class="input-ltr-right">
-                {{
+            @if (dataModel.updatedBy) {
+              <tr>
+                <td>{{ fieldsInfo["updatedBy"]?.fieldTitle }}:</td>
+                <td class="input-ltr-right">
+                  {{ dataModel.updatedBy | cmsuserinfo | async }}
+                </td>
+              </tr>
+            }
+            @if (dataModel.linkEstateExpertId?.length > 0) {
+              <tr>
+                <td>{{ fieldsInfo["linkEstateExpertId"]?.fieldTitle }}:</td>
+                <td class="input-ltr-right">
+                  {{
                   dataModel.linkEstateExpertId | estateAccountExpertInfo | async
-                }}
-              </td>
-            </tr>
-            <tr *ngIf="dataModel.linkEstateAgencyId?.length > 0">
-              <td>{{ fieldsInfo["linkEstateAgencyId"]?.fieldTitle }}:</td>
-              <td class="input-ltr-right">
-                {{
+                  }}
+                </td>
+              </tr>
+            }
+            @if (dataModel.linkEstateAgencyId?.length > 0) {
+              <tr>
+                <td>{{ fieldsInfo["linkEstateAgencyId"]?.fieldTitle }}:</td>
+                <td class="input-ltr-right">
+                  {{
                   dataModel.linkEstateAgencyId | estateAccountAgencyInfo | async
-                }}
-              </td>
-            </tr>
-            <tr *ngIf="dataModel.linkPropertyId?.length > 0">
-              <td>{{ fieldsInfo["linkPropertyId"]?.fieldTitle }}:</td>
-              <td>
-                {{ dataModel.linkPropertyId | estatePropertyInfo | async }}
-                <button
-                  type="button"
-                  mat-icon-button
+                  }}
+                </td>
+              </tr>
+            }
+            @if (dataModel.linkPropertyId?.length > 0) {
+              <tr>
+                <td>{{ fieldsInfo["linkPropertyId"]?.fieldTitle }}:</td>
+                <td>
+                  {{ dataModel.linkPropertyId | estatePropertyInfo | async }}
+                  <button
+                    type="button"
+                    mat-icon-button
                   (click)="
                     onActionButtonPropertyQuickViewRow(dataModel.linkPropertyId)
                   "
-                >
-                  <mat-icon>visibility</mat-icon>
-                </button>
-              </td>
-            </tr>
-            <tr *ngIf="dataModel.linkCustomerOrderId?.length > 0">
-              <td>{{ fieldsInfo["linkCustomerOrderId"]?.fieldTitle }}:</td>
-              <td>
-                {{
+                    >
+                    <mat-icon>visibility</mat-icon>
+                  </button>
+                </td>
+              </tr>
+            }
+            @if (dataModel.linkCustomerOrderId?.length > 0) {
+              <tr>
+                <td>{{ fieldsInfo["linkCustomerOrderId"]?.fieldTitle }}:</td>
+                <td>
+                  {{
                   dataModel.linkCustomerOrderId
-                    | estateCustomerOrderInfo
-                    | async
-                }}
-
-                <button
-                  type="button"
-                  mat-icon-button
+                  | estateCustomerOrderInfo
+                  | async
+                  }}
+                  <button
+                    type="button"
+                    mat-icon-button
                   (click)="
                     onActionButtonCustomerOrderQuickViewRow(
                       dataModel.linkCustomerOrderId
                     )
                   "
-                >
-                  <mat-icon>visibility</mat-icon>
-                </button>
-              </td>
-            </tr>
-            <tr *ngIf="dataModel.description?.length > 0">
-              <td>{{ "TITLE.General_Description" | translate }}:</td>
-              <td>{{ dataModel.description }}</td>
-            </tr>
-            <tr *ngIf="fieldsInfo['descriptionHidden']?.accessWatchField">
-              <td>{{ "TITLE.Description_Hidden" | translate }}:</td>
-              <td>{{ dataModel.descriptionHidden }}</td>
-            </tr>
+                    >
+                    <mat-icon>visibility</mat-icon>
+                  </button>
+                </td>
+              </tr>
+            }
+            @if (dataModel.description?.length > 0) {
+              <tr>
+                <td>{{ "TITLE.General_Description" | translate }}:</td>
+                <td>{{ dataModel.description }}</td>
+              </tr>
+            }
+            @if (fieldsInfo['descriptionHidden']?.accessWatchField) {
+              <tr>
+                <td>{{ "TITLE.Description_Hidden" | translate }}:</td>
+                <td>{{ dataModel.descriptionHidden }}</td>
+              </tr>
+            }
           </tbody>
         </table>
-
         <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
       </div>
       <div class="ntk-cms-html-card-message">
@@ -167,37 +185,40 @@
       </div>
       <div class="ntk-cms-html-card-footer">
         <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
-
-        <div class="form-actions" *ngIf="formInfo.submitButtonEnabled">
-          <button
-            type="button"
-            (click)="onFormCancel()"
-            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-          >
-            <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
-          </button>
-          <button
-            type="button"
-            (click)="onActionNext()"
-            *ngIf="requestNextItem && requestNextItem?.id?.length > 0"
-            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-          >
-            <i class="ft-x"></i>
-            <
-          </button>
-          <button
-            type="button"
-            (click)="onActionPervious()"
-            *ngIf="requestPerviousItem && requestPerviousItem?.id?.length > 0"
-            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-          >
-            <i class="ft-x"></i>
-            >
-          </button>
-        </div>
+        @if (formInfo.submitButtonEnabled) {
+          <div class="form-actions">
+            <button
+              type="button"
+              (click)="onFormCancel()"
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+              >
+              <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
+            </button>
+            @if (requestNextItem && requestNextItem?.id?.length > 0) {
+              <button
+                type="button"
+                (click)="onActionNext()"
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+                >
+                <i class="ft-x"></i>
+                <
+              </button>
+            }
+            @if (requestPerviousItem && requestPerviousItem?.id?.length > 0) {
+              <button
+                type="button"
+                (click)="onActionPervious()"
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+                >
+                <i class="ft-x"></i>
+                >
+              </button>
+            }
+          </div>
+        }
         <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
       </div>
-    </ng-container>
+    }
     <!--Content-->
   </div>
 </div>

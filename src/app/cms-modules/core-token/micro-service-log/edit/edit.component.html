@@ -12,15 +12,16 @@
     <!--Content-->
     <!-- RecordStatus Field -->
 
-    <app-cms-enum-record-status-selector
-      *ngIf="fieldsInfo['recordStatus']?.accessWatchField"
-      [(model)]="dataModel.recordStatus"
-      [optionDisabled]="false"
-      [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
-      [optionRequired]="true"
-      [optionSelectFirstItem]="true"
-    >
-    </app-cms-enum-record-status-selector>
+    @if (fieldsInfo['recordStatus']?.accessWatchField) {
+      <app-cms-enum-record-status-selector
+        [(model)]="dataModel.recordStatus"
+        [optionDisabled]="false"
+        [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
+        [optionRequired]="true"
+        [optionSelectFirstItem]="true"
+        >
+      </app-cms-enum-record-status-selector>
+    }
     <!-- LinkSiteId Field -->
     <app-cms-site-selector
       [optionDisabled]="true"
@@ -33,18 +34,20 @@
       [optionDisabled]="true"
       [optionSelectForce]="dataModel.linkUserId"
       [optionPlaceholder]="'TITLE.USER' | translate"
-    >
+      >
     </app-cms-user-selector>
 
-    <div class="form-actions" *ngIf="formInfo.submitButtonEnabled">
-      <button
-        type="button"
-        (click)="onFormCancel()"
-        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-      >
-        <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
-      </button>
-    </div>
+    @if (formInfo.submitButtonEnabled) {
+      <div class="form-actions">
+        <button
+          type="button"
+          (click)="onFormCancel()"
+          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+          >
+          <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
+        </button>
+      </div>
+    }
 
     <!--Content-->
   </div>

@@ -1,20 +1,21 @@
 <div
   class="input-style has-borders has-icon input-style-always-active validate-field mb-4 loader-container"
->
+  >
   <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
   </app-progress-spinner>
   <span matPrefix
-    ><img
+    >@if (dataModelSelect && dataModelSelect?.linkMainImageIdSrc) {
+    <img
       class="ntk-hover-zoom"
-      *ngIf="dataModelSelect && dataModelSelect?.linkMainImageIdSrc"
       style="vertical-align: middle"
       class="ntk-hover-zoom"
       aria-hidden
       src="{{ dataModelSelect?.linkMainImageIdSrc | cmsthumbnail }}"
       height="25"
       width="25"
-    />
-    &nbsp;</span
+      />
+  }
+  &nbsp;</span
   >
 
   <input
@@ -26,57 +27,64 @@
     [formControl]="formControl"
     [matAutocomplete]="matauto"
     [required]="optionRequired"
-  />
-  <label for="forminput" class="color-highlight">{{ optionLabel }}</label>
-  <mat-autocomplete
-    #matauto="matAutocomplete"
-    [displayWith]="displayFn"
-    (optionSelected)="onActionSelect($event.option.value)"
-  >
-    <mat-option
-      *ngFor="let state of filteredOptions | async"
-      [value]="state"
-      [disabled]="optionDisabled"
-    >
-      <img
-        *ngIf="state.linkMainImageIdSrc"
-        style="vertical-align: middle"
-        class="ntk-hover-zoom"
-        aria-hidden
-        src="{{ state.linkMainImageIdSrc | cmsthumbnail }}"
-        height="25"
-        width="25"
-      />
-      <span>{{ displayOption(state) }}</span>
-    </mat-option>
-  </mat-autocomplete>
-  <i *ngIf="!formControl.valid" class="fa fa-info invalid color-red-dark"></i>
-  <i
-    *ngIf="optionRequired && formControl.valid"
-    class="fa fa-check valid color-green-dark"
-  ></i>
-  <i
-    *ngIf="dataModelSelect?.id?.length > 0"
-    class="fa fa-times action color-red-dark"
-    (click)="onActionSelectClear()"
-  ></i>
-  <i
-    class="fa fa-rotate-right action color-green-dark"
-    style="margin-left: 20px"
-    title="{{ 'ACTION.RELOAD' | translate }}"
+    />
+    <label for="forminput" class="color-highlight">{{ optionLabel }}</label>
+    <mat-autocomplete
+      #matauto="matAutocomplete"
+      [displayWith]="displayFn"
+      (optionSelected)="onActionSelect($event.option.value)"
+      >
+      @for (state of filteredOptions | async; track state) {
+        <mat-option
+          [value]="state"
+          [disabled]="optionDisabled"
+          >
+          @if (state.linkMainImageIdSrc) {
+            <img
+              style="vertical-align: middle"
+              class="ntk-hover-zoom"
+              aria-hidden
+              src="{{ state.linkMainImageIdSrc | cmsthumbnail }}"
+              height="25"
+              width="25"
+              />
+          }
+          <span>{{ displayOption(state) }}</span>
+        </mat-option>
+      }
+    </mat-autocomplete>
+    @if (!formControl.valid) {
+      <i class="fa fa-info invalid color-red-dark"></i>
+    }
+    @if (optionRequired && formControl.valid) {
+      <i
+        class="fa fa-check valid color-green-dark"
+      ></i>
+    }
+    @if (dataModelSelect?.id?.length > 0) {
+      <i
+        class="fa fa-times action color-red-dark"
+        (click)="onActionSelectClear()"
+      ></i>
+    }
+    <i
+      class="fa fa-rotate-right action color-green-dark"
+      style="margin-left: 20px"
+      title="{{ 'ACTION.RELOAD' | translate }}"
     [class.rotation360]="
       publicHelper.processService.process.inRunArea[constructorInfoAreaId]
     "
-    (click)="onActionButtonReload()"
-  ></i>
-  <em
-    *ngIf="
+      (click)="onActionButtonReload()"
+    ></i>
+    @if (
       optionRequired &&
       (!dataModelSelect ||
-        !dataModelSelect.id ||
-        dataModelSelect.id.length <= 0)
-    "
-    >({{ "TITLE.Necessary" | translate }})</em
-  >
-  <ng-content></ng-content>
-</div>
+      !dataModelSelect.id ||
+      dataModelSelect.id.length <= 0)
+      ) {
+      <em
+        >({{ "TITLE.Necessary" | translate }})</em
+        >
+      }
+      <ng-content></ng-content>
+    </div>

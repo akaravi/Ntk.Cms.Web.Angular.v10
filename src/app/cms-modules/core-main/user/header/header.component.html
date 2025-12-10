@@ -10,8 +10,9 @@
             <b>{{ "TITLE.Selected_User" | translate }}</b>
           </h5>
         </div>
-        <div class="td" *ngIf="dataModelResult?.item?.id">
-          <img
+        @if (dataModelResult?.item?.id) {
+          <div class="td">
+            <img
             [src]="
               dataModelResult &&
               dataModelResult?.item?.linkMainImageIdSrc &&
@@ -19,10 +20,11 @@
                 ? dataModelResult?.item?.linkMainImageIdSrc
                 : './assets/media/avatars/300-1.jpg'
             "
-            class="rounded-sm"
-            width="80"
-          />
-        </div>
+              class="rounded-sm"
+              width="80"
+              />
+          </div>
+        }
       </div>
       <div class="tr">
         <div class="td">

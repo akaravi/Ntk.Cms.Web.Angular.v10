@@ -1,6 +1,6 @@
 <div
   class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
->
+  >
   <label for="float-{{ id }}" class="color-highlight">{{ optionLabel }}</label>
   <input
     matInput
@@ -15,9 +15,13 @@
     [disabled]="optionDisabled"
     [ngModelOptions]="{ standalone: true }"
     [required]="optionRequired"
-  />
-  <em *ngIf="optionRequired">({{ "TITLE.Necessary" | translate }})</em>
-  <mat-error *ngIf="number.errors?.required">
-    {{ optionLabel }} <strong>{{ "MESSAGE.required" | translate }}</strong>
-  </mat-error>
+    />
+  @if (optionRequired) {
+    <em>({{ "TITLE.Necessary" | translate }})</em>
+  }
+  @if (number.errors?.required) {
+    <mat-error>
+      {{ optionLabel }} <strong>{{ "MESSAGE.required" | translate }}</strong>
+    </mat-error>
+  }
 </div>

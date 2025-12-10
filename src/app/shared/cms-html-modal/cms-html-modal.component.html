@@ -4,15 +4,18 @@
   </app-progress-spinner>
   <div class="content mb-0">
     <!--begin::Header-->
-    <p
-      *ngIf="formInfo.formTitle?.length > 0"
-      class="mb-0 color-highlight font-600 font-12"
-    >
-      {{ formInfo.formTitle }}
-    </p>
-    <p *ngIf="formInfo.formDescription?.length > 0">
-      {{ formInfo.formDescription }}
-    </p>
+    @if (formInfo.formTitle?.length > 0) {
+      <p
+        class="mb-0 color-highlight font-600 font-12"
+        >
+        {{ formInfo.formTitle }}
+      </p>
+    }
+    @if (formInfo.formDescription?.length > 0) {
+      <p>
+        {{ formInfo.formDescription }}
+      </p>
+    }
     <br />
     <ng-content select="[cms-message]"></ng-content>
     <!--end::Header-->

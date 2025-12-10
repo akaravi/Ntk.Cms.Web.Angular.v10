@@ -1,24 +1,30 @@
 <div class="card card-style">
   <div class="row justify-content-center tree-parent">
     <!--begin::cms-tree-header-->
-    <div *ngIf="optionHeaderDisplay" class="font-14 opacity-50">
-      <p class="text-center mb-2 mt-2 color-highlight font-600">
-        <ng-content select="[cms-tree-header]"></ng-content>
-      </p>
-    </div>
-    <div *ngIf="optionHeaderDisplay" class="divider mb-1"></div>
+    @if (optionHeaderDisplay) {
+      <div class="font-14 opacity-50">
+        <p class="text-center mb-2 mt-2 color-highlight font-600">
+          <ng-content select="[cms-tree-header]"></ng-content>
+        </p>
+      </div>
+    }
+    @if (optionHeaderDisplay) {
+      <div class="divider mb-1"></div>
+    }
     <!--end::cms-tree-header-->
     <!--begin::cms-tree-action-->
-    <div
-      *ngIf="optionActionMainDisplay"
-      class="col-12 ps-0 pe-0 tree-child-hidden"
-    >
-      <ng-content select="[cms-tree-action]"></ng-content>
-    </div>
-    <div
-      *ngIf="optionActionMainDisplay"
-      class="divider mb-1 tree-child-hidden"
-    ></div>
+    @if (optionActionMainDisplay) {
+      <div
+        class="col-12 ps-0 pe-0 tree-child-hidden"
+        >
+        <ng-content select="[cms-tree-action]"></ng-content>
+      </div>
+    }
+    @if (optionActionMainDisplay) {
+      <div
+        class="divider mb-1 tree-child-hidden"
+      ></div>
+    }
     <!--end::cms-tree-action-->
     <!--begin::cms-tree-body-->
     <div class="col-12 ps-0 pe-0">
@@ -26,12 +32,16 @@
     </div>
     <!--end::cms-tree-body-->
     <!--begin::cms-tree-footer-->
-    <div *ngIf="optionFooterDisplay" class="divider mb-1"></div>
-    <div class="col-12" *ngIf="optionFooterDisplay">
-      <p class="text-center">
-        <ng-content select="[cms-tree-footer]"></ng-content>
-      </p>
-    </div>
+    @if (optionFooterDisplay) {
+      <div class="divider mb-1"></div>
+    }
+    @if (optionFooterDisplay) {
+      <div class="col-12">
+        <p class="text-center">
+          <ng-content select="[cms-tree-footer]"></ng-content>
+        </p>
+      </div>
+    }
     <!--end::cms-tree-footer-->
   </div>
 </div>

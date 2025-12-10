@@ -15,26 +15,27 @@
     ></app-cms-form-result-message>
     <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
       <!-- RecordStatus Field -->
-      <app-cms-enum-record-status-selector
-        *ngIf="fieldsInfo['recordStatus']?.accessWatchField"
-        [(model)]="dataModel.recordStatus"
-        [optionDisabled]="false"
-        [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
-        [optionRequired]="true"
-        [optionSelectFirstItem]="true"
-      >
-      </app-cms-enum-record-status-selector>
+      @if (fieldsInfo['recordStatus']?.accessWatchField) {
+        <app-cms-enum-record-status-selector
+          [(model)]="dataModel.recordStatus"
+          [optionDisabled]="false"
+          [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
+          [optionRequired]="true"
+          [optionSelectFirstItem]="true"
+          >
+        </app-cms-enum-record-status-selector>
+      }
       <!-- LinkTargeId Field -->
       <app-donate-target-selector
         (optionChange)="onActionSelectorSelect($event)"
         [optionSelectForce]="dataModel.linkTargeId"
         [optionPlaceholder]="'TITLE.Category' | translate"
-      >
+        >
       </app-donate-target-selector>
       <!-- Title Field -->
       <div
         class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-      >
+        >
         <label for="dataModel.title" class="color-highlight">{{
           fieldsInfo["title"]?.fieldTitle
         }}</label>
@@ -50,55 +51,61 @@
           maxlength="100"
           class="form-control validate-name"
           id="dataModel.title"
-        />
-        <em>{{ Title.value.length }} / 100</em>
-        <mat-error *ngIf="Title.errors?.required">
-          Title is <strong>{{ "MESSAGE.required" | translate }}</strong>
-        </mat-error>
-      </div>
-      <!-- Description Field -->
-      <div
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-      >
-        <label for="dataModel.description" class="color-highlight">{{
-          fieldsInfo["description"]?.fieldTitle
-        }}</label>
-        <textarea
-          matInput
-          [(ngModel)]="dataModel.description"
-          name="dataModel.description"
-          #Description
-          type="text"
-          placeholder="{{ fieldsInfo['description']?.fieldTitle }}"
-          minlength="1"
-          maxlength="500"
-          rows="5"
-          id="dataModel.description"
-          class="form-control validate-name"
-        >
-        </textarea>
-        <em>{{ Description.value.length }} / 500</em>
-        <mat-error *ngIf="Description.errors?.required">
-          Description is <strong>{{ "MESSAGE.required" | translate }}</strong>
-        </mat-error>
-      </div>
-      <div class="form-actions" *ngIf="formInfo.submitButtonEnabled">
-        <button
-          type="button"
-          (click)="onFormCancel()"
-          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-        >
-          <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
-        </button>
-        <button
-          type="submit"
-          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
-          [disabled]="!vform.form.valid"
-        >
-          <i class="fa fa-check-square-o"></i> {{ "ACTION.SAVE" | translate }}
-        </button>
-      </div>
-    </form>
-    <!--Content-->
+          />
+          <em>{{ Title.value.length }} / 100</em>
+          @if (Title.errors?.required) {
+            <mat-error>
+              Title is <strong>{{ "MESSAGE.required" | translate }}</strong>
+            </mat-error>
+          }
+        </div>
+        <!-- Description Field -->
+        <div
+          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+          >
+          <label for="dataModel.description" class="color-highlight">{{
+            fieldsInfo["description"]?.fieldTitle
+          }}</label>
+          <textarea
+            matInput
+            [(ngModel)]="dataModel.description"
+            name="dataModel.description"
+            #Description
+            type="text"
+            placeholder="{{ fieldsInfo['description']?.fieldTitle }}"
+            minlength="1"
+            maxlength="500"
+            rows="5"
+            id="dataModel.description"
+            class="form-control validate-name"
+            >
+          </textarea>
+          <em>{{ Description.value.length }} / 500</em>
+          @if (Description.errors?.required) {
+            <mat-error>
+              Description is <strong>{{ "MESSAGE.required" | translate }}</strong>
+            </mat-error>
+          }
+        </div>
+        @if (formInfo.submitButtonEnabled) {
+          <div class="form-actions">
+            <button
+              type="button"
+              (click)="onFormCancel()"
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+              >
+              <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
+            </button>
+            <button
+              type="submit"
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
+              [disabled]="!vform.form.valid"
+              >
+              <i class="fa fa-check-square-o"></i> {{ "ACTION.SAVE" | translate }}
+            </button>
+          </div>
+        }
+      </form>
+      <!--Content-->
+    </div>
   </div>
-</div>

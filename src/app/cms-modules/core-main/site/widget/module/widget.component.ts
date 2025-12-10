@@ -78,9 +78,13 @@ export class CoreSiteWidgetModuleComponent implements OnInit, OnDestroy {
   onActionStatist(): void {
     this.publicHelper.processService.processStart(
       this.constructor.name + "Active",
+      "",
+      this.constructorInfoAreaId,
     );
     this.publicHelper.processService.processStart(
       this.constructor.name + "All",
+      "",
+      this.constructorInfoAreaId,
     );
     this.widgetInfoModel.setItem(
       new WidgetContentInfoModel("Active", 0, 0, ""),

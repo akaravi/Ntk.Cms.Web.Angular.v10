@@ -24,7 +24,7 @@
       <!-- Title Field -->
       <div
         class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-      >
+        >
         <label for="dataModel.title" class="color-highlight">{{
           fieldsInfo["title"]?.fieldTitle
         }}</label>
@@ -39,210 +39,227 @@
           maxlength="100"
           class="form-control validate-name"
           id="dataModel.title"
-        />
-        <em>{{ Title.value.length }} / 100</em>
-        <mat-error *ngIf="Title.errors?.required">
-          {{ fieldsInfo["title"]?.fieldTitle }} is
-          <strong>{{ "MESSAGE.required" | translate }}</strong>
-        </mat-error>
-      </div>
-      <!-- firstName Field -->
-      <div
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-      >
-        <label for="dataModel.firstName" class="color-highlight">{{
-          fieldsInfo["firstName"]?.fieldTitle
-        }}</label>
-        <input
-          matInput
-          type="text"
-          [(ngModel)]="dataModel.firstName"
-          name="dataModel.firstName"
-          #FirstName
-          placeholder="{{ fieldsInfo['firstName']?.fieldTitle }}"
-          minlength="3"
-          maxlength="100"
-          class="form-control validate-name"
-          id="dataModel.firstName"
-        />
-        <em>{{ FirstName.value.length }} / 100</em>
-        <mat-error *ngIf="FirstName.errors?.required">
-          {{ fieldsInfo["firstName"]?.fieldTitle }} is
-          <strong>{{ "MESSAGE.required" | translate }}</strong>
-        </mat-error>
-      </div>
-      <!-- lastName Field -->
-      <div
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-      >
-        <label for="dataModel.lastName" class="color-highlight">{{
-          fieldsInfo["lastName"]?.fieldTitle
-        }}</label>
-        <input
-          matInput
-          type="text"
-          [(ngModel)]="dataModel.lastName"
-          name="dataModel.lastName"
-          #LastName
-          placeholder="{{ fieldsInfo['lastName']?.fieldTitle }}"
-          minlength="3"
-          maxlength="100"
-          class="form-control validate-name"
-          id="dataModel.lastName"
-        />
-        <em>{{ LastName.value.length }} / 100</em>
-        <mat-error *ngIf="LastName.errors?.required">
-          {{ fieldsInfo["lastName"]?.fieldTitle }} is
-          <strong>{{ "MESSAGE.required" | translate }}</strong>
-        </mat-error>
-      </div>
-      <!-- Numbers Field -->
-      <div
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-      >
-        <label for="dataModel.numbers" class="color-highlight">{{
-          fieldsInfo["numbers"]?.fieldTitle
-        }}</label>
-        <textarea
-          matInput
-          [(ngModel)]="dataModel.numbers"
-          name="dataModel.numbers"
-          #Numbers
-          type="text"
-          placeholder="{{ fieldsInfo['numbers']?.fieldTitle }}"
-          minlength="1"
-          maxlength="5000"
-          rows="5"
-          id="dataModel.numbers"
-          class="form-control validate-name"
-        >
-        </textarea>
-        <em>{{ Numbers.value.length }} / 5000</em>
-        <mat-error *ngIf="Numbers.errors?.required">
-          Numbers is <strong>{{ "MESSAGE.required" | translate }}</strong>
-        </mat-error>
-      </div>
-      <!-- numberHidden Field -->
-      <div
-        *ngIf="fieldsInfo['numberHidden']?.accessWatchField"
-        class="d-flex mb-3"
-      >
-        <div class="pt-1">
-          <h5
-            data-trigger-switch="dataModel.numberHidden"
-            class="font-600 font-14"
+          />
+          <em>{{ Title.value.length }} / 100</em>
+          @if (Title.errors?.required) {
+            <mat-error>
+              {{ fieldsInfo["title"]?.fieldTitle }} is
+              <strong>{{ "MESSAGE.required" | translate }}</strong>
+            </mat-error>
+          }
+        </div>
+        <!-- firstName Field -->
+        <div
+          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
           >
-            {{ fieldsInfo["numberHidden"]?.fieldTitle }}
-          </h5>
-        </div>
-        <div class="ms-auto me-3 pe-2">
-          <div class="custom-control ios-switch small-switch">
-            <input
-              type="checkbox"
-              class="ios-input"
-              id="dataModel.numberHidden"
-              [(ngModel)]="dataModel.numberHidden"
-              name="dataModel.numberHidden"
+          <label for="dataModel.firstName" class="color-highlight">{{
+            fieldsInfo["firstName"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="dataModel.firstName"
+            name="dataModel.firstName"
+            #FirstName
+            placeholder="{{ fieldsInfo['firstName']?.fieldTitle }}"
+            minlength="3"
+            maxlength="100"
+            class="form-control validate-name"
+            id="dataModel.firstName"
             />
-            <label
-              class="custom-control-label"
-              for="dataModel.numberHidden"
-            ></label>
+            <em>{{ FirstName.value.length }} / 100</em>
+            @if (FirstName.errors?.required) {
+              <mat-error>
+                {{ fieldsInfo["firstName"]?.fieldTitle }} is
+                <strong>{{ "MESSAGE.required" | translate }}</strong>
+              </mat-error>
+            }
           </div>
-        </div>
-      </div>
-      <!-- email Field -->
-      <div
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-      >
-        <label for="dataModel.email" class="color-highlight">{{
-          fieldsInfo["email"]?.fieldTitle
-        }}</label>
-        <input
-          matInput
-          type="text"
-          [(ngModel)]="dataModel.email"
-          name="dataModel.email"
-          #Email
-          placeholder="{{ fieldsInfo['email']?.fieldTitle }}"
-          minlength="3"
-          maxlength="100"
-          class="form-control validate-name"
-          id="dataModel.email"
-        />
-        <em>{{ Email.value.length }} / 100</em>
-        <mat-error *ngIf="Email.errors?.required">
-          {{ fieldsInfo["email"]?.fieldTitle }} is
-          <strong>{{ "MESSAGE.required" | translate }}</strong>
-        </mat-error>
-      </div>
-      <!-- organization Field -->
-      <div
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-      >
-        <label for="dataModel.email" class="color-highlight">{{
-          fieldsInfo["organization"]?.fieldTitle
-        }}</label>
-        <input
-          matInput
-          type="text"
-          [(ngModel)]="dataModel.organization"
-          name="dataModel.organization"
-          #Organization
-          placeholder="{{ fieldsInfo['organization']?.fieldTitle }}"
-          minlength="3"
-          maxlength="100"
-          class="form-control validate-name"
-          id="dataModel.organization"
-        />
-        <em>{{ Organization.value.length }} / 100</em>
-        <mat-error *ngIf="Organization.errors?.required">
-          {{ fieldsInfo["organization"]?.fieldTitle }} is
-          <strong>{{ "MESSAGE.required" | translate }}</strong>
-        </mat-error>
-      </div>
-      <!-- jobTitle Field -->
-      <div
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-      >
-        <label for="dataModel.email" class="color-highlight">{{
-          fieldsInfo["jobTitle"]?.fieldTitle
-        }}</label>
-        <input
-          matInput
-          type="text"
-          [(ngModel)]="dataModel.jobTitle"
-          name="dataModel.jobTitle"
-          #JobTitle
-          placeholder="{{ fieldsInfo['jobTitle']?.fieldTitle }}"
-          minlength="3"
-          maxlength="100"
-          class="form-control validate-name"
-          id="dataModel.jobTitle"
-        />
-        <em>{{ JobTitle.value.length }} / 100</em>
-        <mat-error *ngIf="JobTitle.errors?.required">
-          {{ fieldsInfo["jobTitle"]?.fieldTitle }} is
-          <strong>{{ "MESSAGE.required" | translate }}</strong>
-        </mat-error>
-      </div>
-      <div class="form-actions" *ngIf="formInfo.submitButtonEnabled">
-        <button
-          type="button"
-          (click)="onFormCancel()"
-          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-        >
-          <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
-        </button>
-        <button
-          type="submit"
-          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
-          [disabled]="!vform.form.valid"
-        >
-          <i class="fa fa-check-square-o"></i> {{ "ACTION.SAVE" | translate }}
-        </button>
-      </div>
-    </form>
-    <!--Content-->
-  </div>
-</div>
+          <!-- lastName Field -->
+          <div
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            >
+            <label for="dataModel.lastName" class="color-highlight">{{
+              fieldsInfo["lastName"]?.fieldTitle
+            }}</label>
+            <input
+              matInput
+              type="text"
+              [(ngModel)]="dataModel.lastName"
+              name="dataModel.lastName"
+              #LastName
+              placeholder="{{ fieldsInfo['lastName']?.fieldTitle }}"
+              minlength="3"
+              maxlength="100"
+              class="form-control validate-name"
+              id="dataModel.lastName"
+              />
+              <em>{{ LastName.value.length }} / 100</em>
+              @if (LastName.errors?.required) {
+                <mat-error>
+                  {{ fieldsInfo["lastName"]?.fieldTitle }} is
+                  <strong>{{ "MESSAGE.required" | translate }}</strong>
+                </mat-error>
+              }
+            </div>
+            <!-- Numbers Field -->
+            <div
+              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+              >
+              <label for="dataModel.numbers" class="color-highlight">{{
+                fieldsInfo["numbers"]?.fieldTitle
+              }}</label>
+              <textarea
+                matInput
+                [(ngModel)]="dataModel.numbers"
+                name="dataModel.numbers"
+                #Numbers
+                type="text"
+                placeholder="{{ fieldsInfo['numbers']?.fieldTitle }}"
+                minlength="1"
+                maxlength="5000"
+                rows="5"
+                id="dataModel.numbers"
+                class="form-control validate-name"
+                >
+              </textarea>
+              <em>{{ Numbers.value.length }} / 5000</em>
+              @if (Numbers.errors?.required) {
+                <mat-error>
+                  Numbers is <strong>{{ "MESSAGE.required" | translate }}</strong>
+                </mat-error>
+              }
+            </div>
+            <!-- numberHidden Field -->
+            @if (fieldsInfo['numberHidden']?.accessWatchField) {
+              <div
+                class="d-flex mb-3"
+                >
+                <div class="pt-1">
+                  <h5
+                    data-trigger-switch="dataModel.numberHidden"
+                    class="font-600 font-14"
+                    >
+                    {{ fieldsInfo["numberHidden"]?.fieldTitle }}
+                  </h5>
+                </div>
+                <div class="ms-auto me-3 pe-2">
+                  <div class="custom-control ios-switch small-switch">
+                    <input
+                      type="checkbox"
+                      class="ios-input"
+                      id="dataModel.numberHidden"
+                      [(ngModel)]="dataModel.numberHidden"
+                      name="dataModel.numberHidden"
+                      />
+                      <label
+                        class="custom-control-label"
+                        for="dataModel.numberHidden"
+                      ></label>
+                    </div>
+                  </div>
+                </div>
+              }
+              <!-- email Field -->
+              <div
+                class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                >
+                <label for="dataModel.email" class="color-highlight">{{
+                  fieldsInfo["email"]?.fieldTitle
+                }}</label>
+                <input
+                  matInput
+                  type="text"
+                  [(ngModel)]="dataModel.email"
+                  name="dataModel.email"
+                  #Email
+                  placeholder="{{ fieldsInfo['email']?.fieldTitle }}"
+                  minlength="3"
+                  maxlength="100"
+                  class="form-control validate-name"
+                  id="dataModel.email"
+                  />
+                  <em>{{ Email.value.length }} / 100</em>
+                  @if (Email.errors?.required) {
+                    <mat-error>
+                      {{ fieldsInfo["email"]?.fieldTitle }} is
+                      <strong>{{ "MESSAGE.required" | translate }}</strong>
+                    </mat-error>
+                  }
+                </div>
+                <!-- organization Field -->
+                <div
+                  class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                  >
+                  <label for="dataModel.email" class="color-highlight">{{
+                    fieldsInfo["organization"]?.fieldTitle
+                  }}</label>
+                  <input
+                    matInput
+                    type="text"
+                    [(ngModel)]="dataModel.organization"
+                    name="dataModel.organization"
+                    #Organization
+                    placeholder="{{ fieldsInfo['organization']?.fieldTitle }}"
+                    minlength="3"
+                    maxlength="100"
+                    class="form-control validate-name"
+                    id="dataModel.organization"
+                    />
+                    <em>{{ Organization.value.length }} / 100</em>
+                    @if (Organization.errors?.required) {
+                      <mat-error>
+                        {{ fieldsInfo["organization"]?.fieldTitle }} is
+                        <strong>{{ "MESSAGE.required" | translate }}</strong>
+                      </mat-error>
+                    }
+                  </div>
+                  <!-- jobTitle Field -->
+                  <div
+                    class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                    >
+                    <label for="dataModel.email" class="color-highlight">{{
+                      fieldsInfo["jobTitle"]?.fieldTitle
+                    }}</label>
+                    <input
+                      matInput
+                      type="text"
+                      [(ngModel)]="dataModel.jobTitle"
+                      name="dataModel.jobTitle"
+                      #JobTitle
+                      placeholder="{{ fieldsInfo['jobTitle']?.fieldTitle }}"
+                      minlength="3"
+                      maxlength="100"
+                      class="form-control validate-name"
+                      id="dataModel.jobTitle"
+                      />
+                      <em>{{ JobTitle.value.length }} / 100</em>
+                      @if (JobTitle.errors?.required) {
+                        <mat-error>
+                          {{ fieldsInfo["jobTitle"]?.fieldTitle }} is
+                          <strong>{{ "MESSAGE.required" | translate }}</strong>
+                        </mat-error>
+                      }
+                    </div>
+                    @if (formInfo.submitButtonEnabled) {
+                      <div class="form-actions">
+                        <button
+                          type="button"
+                          (click)="onFormCancel()"
+                          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+                          >
+                          <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
+                        </button>
+                        <button
+                          type="submit"
+                          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
+                          [disabled]="!vform.form.valid"
+                          >
+                          <i class="fa fa-check-square-o"></i> {{ "ACTION.SAVE" | translate }}
+                        </button>
+                      </div>
+                    }
+                  </form>
+                  <!--Content-->
+                </div>
+              </div>

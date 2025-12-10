@@ -6,12 +6,14 @@
 <div class="ntk-cms-html-card-body ntk-allow-text-selection">
   <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
 
-  <div *ngIf="optionItem">
-    <app-cms-json-list
-      [dataModel]="optionItem"
-      [optionMethod]="1"
-    ></app-cms-json-list>
-  </div>
+  @if (optionItem) {
+    <div>
+      <app-cms-json-list
+        [dataModel]="optionItem"
+        [optionMethod]="1"
+      ></app-cms-json-list>
+    </div>
+  }
   <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
 </div>
 <div class="ntk-cms-html-card-message">

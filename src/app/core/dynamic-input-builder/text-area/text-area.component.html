@@ -1,6 +1,6 @@
 <div
   class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
->
+  >
   <label for="textarea-{{ id }}" class="color-highlight">{{
     optionLabel
   }}</label>
@@ -17,8 +17,12 @@
     rows="5"
     class="form-control validate-name"
   ></textarea>
-  <em *ngIf="optionRequired">({{ "TITLE.Necessary" | translate }})</em>
-  <mat-error *ngIf="string.errors?.required">
-    {{ optionLabel }} <strong>{{ "MESSAGE.required" | translate }}</strong>
-  </mat-error>
+  @if (optionRequired) {
+    <em>({{ "TITLE.Necessary" | translate }})</em>
+  }
+  @if (string.errors?.required) {
+    <mat-error>
+      {{ optionLabel }} <strong>{{ "MESSAGE.required" | translate }}</strong>
+    </mat-error>
+  }
 </div>

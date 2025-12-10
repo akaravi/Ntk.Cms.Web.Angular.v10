@@ -1,139 +1,144 @@
-<div class="send-result-dialog" *ngIf="data">
-  <div class="dialog-header">
-    <div class="title">
-      {{ "TITLE.Send_Message_Calculate_Result" | translate }}
+@if (data) {
+  <div class="send-result-dialog">
+    <div class="dialog-header">
+      <div class="title">
+        {{ "TITLE.Send_Message_Calculate_Result" | translate }}
+      </div>
+      <button class="close-btn" type="button" (click)="onClose()">
+        {{ "ACTION.CLOSE" | translate }}
+      </button>
     </div>
-    <button class="close-btn" type="button" (click)="onClose()">
-      {{ "ACTION.CLOSE" | translate }}
-    </button>
-  </div>
-<app-cms-form-result-message
+    <app-cms-form-result-message
       [formInfo]="data.formInfo"
     ></app-cms-form-result-message>
-
-
-  <div class="meta-grid" *ngIf="data.result.item">
-    <div class="meta-card">
-      <span>{{ "TITLE.Selected_Api_Number" | translate }}</span>
-      <strong>{{ data.result?.item?.linkApiNumberId || "---" }}</strong>
-    </div>
-    <div class="meta-card">
-      <span>{{ "TITLE.Selected_Route" | translate }}</span>
-      <strong>{{ data.result?.item?.linkApiPathId || "---" }}</strong>
-    </div>
-    <div class="meta-card">
-      <span>{{ "TITLE.Sender_Number" | translate }}</span>
-      <strong>{{ data.result?.item?.fromNumber || "---" }}</strong>
-    </div>
-    <div class="meta-card">
-      <span>{{ "TITLE.Receiver_number" | translate }}</span>
-      <strong>{{ data.result?.item?.receiverNumberCount || 0 }}</strong>
-    </div>
-    <div class="meta-card">
-      <span>{{ "TITLE.End_User_Credit_Before" | translate }}</span>
-      <strong>{{ data.result?.item?.endUserCreditBefore || 0 }}</strong>
-    </div>
-    <div class="meta-card">
-      <span>{{ "TITLE.End_User_Credit_Sum" | translate }}</span>
-      <strong>{{ data.result?.item?.endUserCreditSum || 0 }}</strong>
-    </div>
-    <div class="meta-card">
-      <span>{{ "TITLE.Service_Credit_Sum" | translate }}</span>
-      <strong>{{ data.result?.item?.serviceCreditSum || 0 }}</strong>
-    </div>
-  </div>
-
-  <div class="receiver-panel" *ngIf="receivers.length > 0">
-    <div class="panel-title">
-      {{ "TITLE.Receivers" | translate }}
-      <span>{{ receivers.length }}</span>
-    </div>
-
-    <div class="receiver-table-wrapper">
-      <table class="receiver-table">
-        <thead>
-          <tr>
-            <th>{{ "TITLE.Receiver_number" | translate }}</th>
-            <th>{{ "TITLE.Credit" | translate }}</th>
-            <th>{{ "TITLE.Service_Credit" | translate }}</th>
-            <th>{{ "TITLE.Page_Count" | translate }}</th>
-            <th>{{ "TITLE.Number_Hidden" | translate }}</th>
-            <th>{{ "TITLE.Message_Text_Forbid" | translate }}</th>
-            <th>{{ "TITLE.Message_Text_Filtering" | translate }}</th>
-            <th>{{ "TITLE.Message_Number_Forbid" | translate }}</th>
-            <th>{{ "TITLE.Message_Number_Filtering" | translate }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            *ngFor="let receiver of receivers"
+    @if (data.result.item) {
+      <div class="meta-grid">
+        <div class="meta-card">
+          <span>{{ "TITLE.Selected_Api_Number" | translate }}</span>
+          <strong>{{ data.result?.item?.linkApiNumberId || "---" }}</strong>
+        </div>
+        <div class="meta-card">
+          <span>{{ "TITLE.Selected_Route" | translate }}</span>
+          <strong>{{ data.result?.item?.linkApiPathId || "---" }}</strong>
+        </div>
+        <div class="meta-card">
+          <span>{{ "TITLE.Sender_Number" | translate }}</span>
+          <strong>{{ data.result?.item?.fromNumber || "---" }}</strong>
+        </div>
+        <div class="meta-card">
+          <span>{{ "TITLE.Receiver_number" | translate }}</span>
+          <strong>{{ data.result?.item?.receiverNumberCount || 0 }}</strong>
+        </div>
+        <div class="meta-card">
+          <span>{{ "TITLE.End_User_Credit_Before" | translate }}</span>
+          <strong>{{ data.result?.item?.endUserCreditBefore || 0 }}</strong>
+        </div>
+        <div class="meta-card">
+          <span>{{ "TITLE.End_User_Credit_Sum" | translate }}</span>
+          <strong>{{ data.result?.item?.endUserCreditSum || 0 }}</strong>
+        </div>
+        <div class="meta-card">
+          <span>{{ "TITLE.Service_Credit_Sum" | translate }}</span>
+          <strong>{{ data.result?.item?.serviceCreditSum || 0 }}</strong>
+        </div>
+      </div>
+    }
+    @if (receivers.length > 0) {
+      <div class="receiver-panel">
+        <div class="panel-title">
+          {{ "TITLE.Receivers" | translate }}
+          <span>{{ receivers.length }}</span>
+        </div>
+        <div class="receiver-table-wrapper">
+          <table class="receiver-table">
+            <thead>
+              <tr>
+                <th>{{ "TITLE.Receiver_number" | translate }}</th>
+                <th>{{ "TITLE.Credit" | translate }}</th>
+                <th>{{ "TITLE.Service_Credit" | translate }}</th>
+                <th>{{ "TITLE.Page_Count" | translate }}</th>
+                <th>{{ "TITLE.Number_Hidden" | translate }}</th>
+                <th>{{ "TITLE.Message_Text_Forbid" | translate }}</th>
+                <th>{{ "TITLE.Message_Text_Filtering" | translate }}</th>
+                <th>{{ "TITLE.Message_Number_Forbid" | translate }}</th>
+                <th>{{ "TITLE.Message_Number_Filtering" | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (receiver of receivers; track receiver) {
+                <tr
             [class.warning-row]="
               receiver.messageTextForbid ||
               receiver.messageNumberForbid ||
               receiver.messageTextFiltering ||
               receiver.messageNumberFiltering
             "
-          >
-            <td>{{ receiver.number || "---" }}</td>
-            <td>{{ receiver.credit || 0 }}</td>
-            <td>{{ receiver.serviceCredit || 0 }}</td>
-            <td>{{ receiver.pageCount || 0 }}</td>
-            <td>
-              {{
-                receiver.receiverNumberHidden
-                  ? ("TITLE.Yes" | translate)
-                  : ("TITLE.No" | translate)
-              }}
-            </td>
-            <td [class.text-danger]="receiver.messageTextForbid">
-              {{
-                receiver.messageTextForbid
-                  ? ("TITLE.Yes" | translate)
-                  : ("TITLE.No" | translate)
-              }}
-            </td>
-            <td [class.text-warning]="receiver.messageTextFiltering">
-              {{
-                receiver.messageTextFiltering
-                  ? ("TITLE.Yes" | translate)
-                  : ("TITLE.No" | translate)
-              }}
-              <span
-                *ngIf="
-                  receiver.messageTextFiltering &&
-                  receiver.messageTextFilteringChar
-                "
-                class="filtering-chars"
-              >
-                ({{ receiver.messageTextFilteringChar }})
-              </span>
-            </td>
-            <td [class.text-danger]="receiver.messageNumberForbid">
-              {{
-                receiver.messageNumberForbid
-                  ? ("TITLE.Yes" | translate)
-                  : ("TITLE.No" | translate)
-              }}
-            </td>
-            <td [class.text-warning]="receiver.messageNumberFiltering">
-              {{
-                receiver.messageNumberFiltering
-                  ? ("TITLE.Yes" | translate)
-                  : ("TITLE.No" | translate)
-              }}
-              <span
-                *ngIf="
-                  receiver.messageNumberFiltering &&
-                  receiver.messageNumberFilteringChar
-                "
-                class="filtering-chars"
-              >
-                ({{ receiver.messageNumberFilteringChar }})
-              </span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+                  >
+                  <td>{{ receiver.number || "---" }}</td>
+                  <td>{{ receiver.credit || 0 }}</td>
+                  <td>{{ receiver.serviceCredit || 0 }}</td>
+                  <td>{{ receiver.pageCount || 0 }}</td>
+                  <td>
+                    {{
+                    receiver.receiverNumberHidden
+                    ? ("TITLE.Yes" | translate)
+                    : ("TITLE.No" | translate)
+                    }}
+                  </td>
+                  <td [class.text-danger]="receiver.messageTextForbid">
+                    {{
+                    receiver.messageTextForbid
+                    ? ("TITLE.Yes" | translate)
+                    : ("TITLE.No" | translate)
+                    }}
+                  </td>
+                  <td [class.text-warning]="receiver.messageTextFiltering">
+                    {{
+                    receiver.messageTextFiltering
+                    ? ("TITLE.Yes" | translate)
+                    : ("TITLE.No" | translate)
+                    }}
+                    @if (
+                      receiver.messageTextFiltering &&
+                      receiver.messageTextFilteringChar
+                      ) {
+                      <span
+                        class="filtering-chars"
+                        >
+                        ({{ receiver.messageTextFilteringChar }})
+                      </span>
+                    }
+                  </td>
+                  <td [class.text-danger]="receiver.messageNumberForbid">
+                    {{
+                    receiver.messageNumberForbid
+                    ? ("TITLE.Yes" | translate)
+                    : ("TITLE.No" | translate)
+                    }}
+                  </td>
+                  <td [class.text-warning]="receiver.messageNumberFiltering">
+                    {{
+                    receiver.messageNumberFiltering
+                    ? ("TITLE.Yes" | translate)
+                    : ("TITLE.No" | translate)
+                    }}
+                    @if (
+                      receiver.messageNumberFiltering &&
+                      receiver.messageNumberFilteringChar
+                      ) {
+                      <span
+                        class="filtering-chars"
+                        >
+                        ({{ receiver.messageNumberFilteringChar }})
+                      </span>
+                    }
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    }
   </div>
-</div>
+}

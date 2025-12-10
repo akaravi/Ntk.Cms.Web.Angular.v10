@@ -21,7 +21,7 @@
           [optionSelectForce]="dataModel.linkLocationId"
           [optionPlaceholder]="'TITLE.Geographical_Region' | translate"
           [optionDisabled]="false"
-        >
+          >
           <br />
         </app-cms-location-selector>
         <!-- linkCoreCurrencyId Field -->
@@ -32,13 +32,13 @@
           [optionPlaceholder]="
             'TITLE.Specify_the_transaction_currency' | translate
           "
-        >
+          >
         </app-cms-currency-selector>
         <br />
         <!-- createdYaer Field -->
         <div
           class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-        >
+          >
           <label for="dataModel.createdYaer" class="color-highlight">{{
             "TITLE.CreatedYaer" | translate
           }}</label>
@@ -51,111 +51,118 @@
             placeholder="0"
             class="form-control validate-name"
             id="dataModel.createdYaer"
-          />
-        </div>
-        <br />
-        <!-- LinkContractTypeIds Field -->
-        <app-estate-contract-type-selector
-          (optionChange)="onActionSelectorContarctType($event)"
-          [optionTypeView]="1"
-          *ngIf="
+            />
+          </div>
+          <br />
+          <!-- LinkContractTypeIds Field -->
+          @if (
             dataModel.linkCoreCurrencyId && dataModel.linkCoreCurrencyId > 0
-          "
-          [optionDisabled]="false"
-          [optionSelectForce]="dataModel.linkContractTypeId"
-          [optionPlaceholder]="'TITLE.Transaction_type' | translate"
-        >
-          <mat-icon
-            matSuffix
-            *ngIf="
-              dataModel.linkContractTypeId &&
-              dataModel.linkContractTypeId?.length > 0
-            "
-            matSuffix
-            mat-icon-button
-            aria-label="Clear"
-            (click)="dataModel.linkContractTypeId = null"
-            >close
-          </mat-icon>
-        </app-estate-contract-type-selector>
+            ) {
+            <app-estate-contract-type-selector
+              (optionChange)="onActionSelectorContarctType($event)"
+              [optionTypeView]="1"
+              [optionDisabled]="false"
+              [optionSelectForce]="dataModel.linkContractTypeId"
+              [optionPlaceholder]="'TITLE.Transaction_type' | translate"
+              >
+              @if (
+                dataModel.linkContractTypeId &&
+                dataModel.linkContractTypeId?.length > 0
+                ) {
+                <mat-icon
+                  matSuffix
+                  matSuffix
+                  mat-icon-button
+                  aria-label="Clear"
+                  (click)="dataModel.linkContractTypeId = null"
+                  >close
+                </mat-icon>
+              }
+            </app-estate-contract-type-selector>
+          }
 
-        <br />
-        <!-- LinkPropertyTypeUsageId Field -->
-        <app-estate-property-type-usage-selector
-          (optionChange)="onActionSelectorSelectUsage($event)"
-          *ngIf="
+          <br />
+          <!-- LinkPropertyTypeUsageId Field -->
+          @if (
             dataModel.linkCoreCurrencyId && dataModel.linkCoreCurrencyId > 0
-          "
-          [optionDisabled]="false"
-          [optionTypeView]="1"
-          [optionSelectForce]="dataModel.linkPropertyTypeUsageId"
-          [optionPlaceholder]="'TITLE.Type_Usage' | translate"
-        >
-          <mat-icon
-            matSuffix
-            *ngIf="
-              dataModel.linkPropertyTypeUsageId &&
-              dataModel.linkPropertyTypeUsageId?.length > 0
-            "
-            matSuffix
-            mat-icon-button
-            aria-label="Clear"
-            (click)="dataModel.linkPropertyTypeUsageId = null"
-            >close
-          </mat-icon>
-        </app-estate-property-type-usage-selector>
-        <br />
-        <!-- LinkPropertyTypeLanduseId Field -->
-        <app-estate-property-type-landuse-selector
-          (optionChange)="onActionSelectorSelectLanduse($event)"
-          [optionDisabled]="false"
-          [optionTypeView]="1"
-          [optionSelectForce]="dataModel.linkPropertyTypeLanduseId"
-          [optionPlaceholder]="'TITLE.Property_Type' | translate"
-        >
-          <mat-icon
-            matSuffix
-            *ngIf="
+            ) {
+            <app-estate-property-type-usage-selector
+              (optionChange)="onActionSelectorSelectUsage($event)"
+              [optionDisabled]="false"
+              [optionTypeView]="1"
+              [optionSelectForce]="dataModel.linkPropertyTypeUsageId"
+              [optionPlaceholder]="'TITLE.Type_Usage' | translate"
+              >
+              @if (
+                dataModel.linkPropertyTypeUsageId &&
+                dataModel.linkPropertyTypeUsageId?.length > 0
+                ) {
+                <mat-icon
+                  matSuffix
+                  matSuffix
+                  mat-icon-button
+                  aria-label="Clear"
+                  (click)="dataModel.linkPropertyTypeUsageId = null"
+                  >close
+                </mat-icon>
+              }
+            </app-estate-property-type-usage-selector>
+          }
+          <br />
+          <!-- LinkPropertyTypeLanduseId Field -->
+          <app-estate-property-type-landuse-selector
+            (optionChange)="onActionSelectorSelectLanduse($event)"
+            [optionDisabled]="false"
+            [optionTypeView]="1"
+            [optionSelectForce]="dataModel.linkPropertyTypeLanduseId"
+            [optionPlaceholder]="'TITLE.Property_Type' | translate"
+            >
+            @if (
               dataModel.linkPropertyTypeLanduseId &&
               dataModel.linkPropertyTypeLanduseId?.length > 0
-            "
-            matSuffix
-            mat-icon-button
-            aria-label="Clear"
-            (click)="onActionSelectorSelectLanduse(null)"
-            >close
-          </mat-icon>
-        </app-estate-property-type-landuse-selector>
-        <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
-      </div>
-      <div class="ntk-cms-html-card-message">
-        <!--begin:::::::::::::::::::::::::::::::::::::::::cms-message -->
-        <app-cms-form-result-message
-          [formInfo]="formInfo"
-        ></app-cms-form-result-message>
-        <!--end:::::::::::::::::::::::::::::::::::::::::cms-message -->
-      </div>
-      <div class="ntk-cms-html-card-footer">
-        <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
-        <div class="form-actions" *ngIf="formInfo.submitButtonEnabled">
-          <button
-            type="button"
-            (click)="onFormCancel()"
-            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-          >
-            <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
-          </button>
-          <button
-            type="submit"
-            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
-            [disabled]="!vform.form.valid"
-          >
-            <i class="fa fa-check-square-o"></i> {{ "ACTION.SAVE" | translate }}
-          </button>
+              ) {
+              <mat-icon
+                matSuffix
+                matSuffix
+                mat-icon-button
+                aria-label="Clear"
+                (click)="onActionSelectorSelectLanduse(null)"
+                >close
+              </mat-icon>
+            }
+          </app-estate-property-type-landuse-selector>
+          <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
         </div>
-        <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
-      </div>
-    </form>
-    <!--Content-->
+        <div class="ntk-cms-html-card-message">
+          <!--begin:::::::::::::::::::::::::::::::::::::::::cms-message -->
+          <app-cms-form-result-message
+            [formInfo]="formInfo"
+          ></app-cms-form-result-message>
+          <!--end:::::::::::::::::::::::::::::::::::::::::cms-message -->
+        </div>
+        <div class="ntk-cms-html-card-footer">
+          <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
+          @if (formInfo.submitButtonEnabled) {
+            <div class="form-actions">
+              <button
+                type="button"
+                (click)="onFormCancel()"
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+                >
+                <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
+              </button>
+              <button
+                type="submit"
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
+                [disabled]="!vform.form.valid"
+                >
+                <i class="fa fa-check-square-o"></i> {{ "ACTION.SAVE" | translate }}
+              </button>
+            </div>
+          }
+          <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
+        </div>
+      </form>
+      <!--Content-->
+    </div>
   </div>
-</div>

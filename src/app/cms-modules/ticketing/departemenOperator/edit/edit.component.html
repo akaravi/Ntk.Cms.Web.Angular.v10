@@ -17,58 +17,63 @@
       <mat-horizontal-stepper
         (selectionChange)="onStepClick($event, stepper)"
         #stepper
-      >
+        >
         <mat-step
           label="{{ 'TITLE.REQUIRED_INFORMATION' | translate }}"
           state="main"
-        >
+          >
           <!-- RecordStatus Field -->
-          <app-cms-enum-record-status-selector
-            *ngIf="fieldsInfo['recordStatus']?.accessWatchField"
-            [(model)]="dataModel.recordStatus"
-            [optionDisabled]="false"
-            [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
-            [optionRequired]="true"
-            [optionSelectFirstItem]="true"
-          ></app-cms-enum-record-status-selector>
+          @if (fieldsInfo['recordStatus']?.accessWatchField) {
+            <app-cms-enum-record-status-selector
+              [(model)]="dataModel.recordStatus"
+              [optionDisabled]="false"
+              [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
+              [optionRequired]="true"
+              [optionSelectFirstItem]="true"
+            ></app-cms-enum-record-status-selector>
+          }
 
-          <div *ngIf="formInfo.submitButtonEnabled" class="form-actions">
-            <button
-              type="button"
-              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-              (click)="onActionBackToParent()"
-            >
-              {{ "ACTION.BACK" | translate }}
-            </button>
-            <button
-              type="button"
-              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
-              [disabled]="!vform.form.valid"
-              matStepperNext
-            >
-              {{ "ACTION.NEXT" | translate }}
-            </button>
-          </div>
+          @if (formInfo.submitButtonEnabled) {
+            <div class="form-actions">
+              <button
+                type="button"
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+                (click)="onActionBackToParent()"
+                >
+                {{ "ACTION.BACK" | translate }}
+              </button>
+              <button
+                type="button"
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
+                [disabled]="!vform.form.valid"
+                matStepperNext
+                >
+                {{ "ACTION.NEXT" | translate }}
+              </button>
+            </div>
+          }
         </mat-step>
 
         <mat-step label="{{ 'ACTION.ABOUT' | translate }}" state="seo">
           <p>{{ "TITLE.Content_Of_The_About_Us_App" | translate }}</p>
-          <div *ngIf="formInfo.submitButtonEnabled" class="form-actions">
-            <button
-              type="button"
-              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
-              matStepperPrevious
-            >
-              {{ "ACTION.BEFOR" | translate }}
-            </button>
-            <button
-              type="submit"
-              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
-              [disabled]="!vform.form.valid"
-            >
-              {{ "ACTION.SAVE" | translate }}
-            </button>
-          </div>
+          @if (formInfo.submitButtonEnabled) {
+            <div class="form-actions">
+              <button
+                type="button"
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue"
+                matStepperPrevious
+                >
+                {{ "ACTION.BEFOR" | translate }}
+              </button>
+              <button
+                type="submit"
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
+                [disabled]="!vform.form.valid"
+                >
+                {{ "ACTION.SAVE" | translate }}
+              </button>
+            </div>
+          }
         </mat-step>
       </mat-horizontal-stepper>
     </form>

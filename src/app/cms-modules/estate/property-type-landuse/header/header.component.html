@@ -15,7 +15,9 @@
             <b>{{ "TITLE.Property_Type_Selected" | translate }}</b>
           </h5>
         </div>
-        <div class="td" *ngIf="dataModelResult?.item?.id"></div>
+        @if (dataModelResult?.item?.id) {
+          <div class="td"></div>
+        }
       </div>
       <div class="tr">
         <div class="td small-width">

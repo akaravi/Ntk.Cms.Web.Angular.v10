@@ -74,6 +74,8 @@ export class CoreUserWidgetComponent implements OnInit, OnDestroy {
     }
     this.publicHelper.processService.processStart(
       this.constructor.name + "All",
+      "",
+      this.constructorInfoAreaId,
     );
     this.widgetInfoModel.link =
       "/core/user/edit/" + this.tokenInfo.access.userId;

@@ -1,7 +1,7 @@
-<ng-container *ngIf="!optionDefaultValue || optionDefaultValue.length === 0">
+@if (!optionDefaultValue || optionDefaultValue.length === 0) {
   <div
     class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-  >
+    >
     <label for="string-{{ id }}" class="color-highlight">{{
       optionLabel
     }}</label>
@@ -16,56 +16,62 @@
       [ngModelOptions]="{ standalone: true }"
       [required]="optionRequired"
       class="form-control validate-name"
-    />
-    <em *ngIf="optionRequired">({{ "TITLE.Necessary" | translate }})</em>
-    <mat-error *ngIf="string.errors?.required">
-      {{ optionLabel }} <strong>{{ "MESSAGE.required" | translate }}</strong>
-    </mat-error>
+      />
+    @if (optionRequired) {
+      <em>({{ "TITLE.Necessary" | translate }})</em>
+    }
+    @if (string.errors?.required) {
+      <mat-error>
+        {{ optionLabel }} <strong>{{ "MESSAGE.required" | translate }}</strong>
+      </mat-error>
+    }
   </div>
-</ng-container>
+}
 
-<ng-container *ngIf="optionDefaultValue && optionDefaultValue.length > 0">
+@if (optionDefaultValue && optionDefaultValue.length > 0) {
   <label style="color:'{{ optionIconColor }}';">{{ optionLabel }} :</label>
   <br />
-  <ng-container *ngIf="!optionMultipleChoice">
-    <div
-      class="form-check icon-check"
-      *ngFor="let item of optionDefaultValue; index as i"
-    >
-      <input
-        class="form-check-input"
-        type="radio"
-        name="inlineRadioOptions"
-        [value]="item"
-        id="string-{{ id }}-{{ i }}"
-      />
-      <label class="form-check-label" for="string-{{ id }}-{{ i }}">{{
-        item
-      }}</label>
-      <i class="icon-check-1 far fa-circle color-gray-dark font-16"></i>
-      <i class="icon-check-2 far fa-check-circle font-16 color-highlight"></i>
-    </div>
-  </ng-container>
-  <ng-container *ngIf="optionMultipleChoice">
-    <ng-container *ngFor="let item of optionDefaultValue; index as i">
+  @if (!optionMultipleChoice) {
+    @for (item of optionDefaultValue; track item; let i = $index) {
       <div
-        *ngIf="!optionDisplayOnlyValid || itemSelected[item]"
-        (change)="onActionSelect(item)"
         class="form-check icon-check"
-      >
+        >
         <input
-          [disabled]="optionDisabled"
-          [(ngModel)]="itemSelected[item]"
           class="form-check-input"
-          type="checkbox"
+          type="radio"
+          name="inlineRadioOptions"
+          [value]="item"
           id="string-{{ id }}-{{ i }}"
-        />
+          />
         <label class="form-check-label" for="string-{{ id }}-{{ i }}">{{
           item
         }}</label>
-        <i class="icon-check-1 far fa-square color-gray-dark font-16"></i>
-        <i class="icon-check-2 far fa-check-square font-16 color-highlight"></i>
+        <i class="icon-check-1 far fa-circle color-gray-dark font-16"></i>
+        <i class="icon-check-2 far fa-check-circle font-16 color-highlight"></i>
       </div>
-    </ng-container>
-  </ng-container>
-</ng-container>
+    }
+  }
+  @if (optionMultipleChoice) {
+    @for (item of optionDefaultValue; track item; let i = $index) {
+      @if (!optionDisplayOnlyValid || itemSelected[item]) {
+        <div
+          (change)="onActionSelect(item)"
+          class="form-check icon-check"
+          >
+          <input
+            [disabled]="optionDisabled"
+            [(ngModel)]="itemSelected[item]"
+            class="form-check-input"
+            type="checkbox"
+            id="string-{{ id }}-{{ i }}"
+            />
+          <label class="form-check-label" for="string-{{ id }}-{{ i }}">{{
+            item
+          }}</label>
+          <i class="icon-check-1 far fa-square color-gray-dark font-16"></i>
+          <i class="icon-check-2 far fa-check-square font-16 color-highlight"></i>
+        </div>
+      }
+    }
+  }
+}

@@ -40,17 +40,16 @@
             [optionPlaceholder]="'TITLE.Type_Usage' | translate"
           >
           </app-estate-property-type-usage-selector>
-
-          <p
-            *ngIf="
-              dataModel.linkPropertyTypeUsageId &&
-              dataModel.linkPropertyTypeUsageId.length > 0 &&
-              listTypeLanduse &&
-              listTypeLanduse.length > 0
-            "
-          >
-            {{ "TITLE.Property_Type" | translate }}
-          </p>
+          @if (
+            dataModel.linkPropertyTypeUsageId &&
+            dataModel.linkPropertyTypeUsageId.length > 0 &&
+            listTypeLanduse &&
+            listTypeLanduse.length > 0
+          ) {
+            <p>
+              {{ "TITLE.Property_Type" | translate }}
+            </p>
+          }
           <!-- LinkPropertyTypeLanduseId Field -->
           <div
             *ngIf="
@@ -1034,7 +1033,6 @@
                       >{{ itemDetail.title }}
                     </app-input-boolean>
                   </div>
-                  <br />
                   <!-- ngSwitchCase-->
                   <div
                     *ngSwitchCase="enumInputDataType.Float"

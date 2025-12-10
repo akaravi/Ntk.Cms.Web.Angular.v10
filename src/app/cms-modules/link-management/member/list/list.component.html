@@ -11,7 +11,7 @@
   [optionActionRowDisplayMenu]="tableRowSelect2Click"
   [optionActionRowDisplayMenuAct]="tableRowSelectActionMenuClick"
   [optionSelectRowItemTitle]="tableRowSelected?.id"
->
+  >
   <ng-container cms-tree>
     <!--begin:::::::::::::::::::::::::::::::::::::::::cms-tree-->
     ----------------------
@@ -33,7 +33,7 @@
       class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
       (click)="viewGuideNotice = !viewGuideNotice"
       target="_blank"
-    >
+      >
       <i class="fa-solid fa-info font-18" style="color: #ffffff"></i>
     </a>
     <a
@@ -41,7 +41,7 @@
       class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
       (click)="onActionButtonReload()"
       target="_blank"
-    >
+      >
       <i
         class="fa-solid fa-rotate-right font-18"
         style="color: #ffffff"
@@ -57,292 +57,302 @@
     <a
       (click)="optionsSearch.data.show = !optionsSearch.data.show"
       class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-    >
+      >
       <mat-slide-toggle [checked]="optionsSearch.data.show"></mat-slide-toggle
-      >{{ "ACTION.SEARCH" | translate }}
-    </a>
-    <a
-      (click)="onActionButtonStatist()"
-      class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-    >
-      <mat-slide-toggle [checked]="optionsStatist.data.show"> </mat-slide-toggle
-      >{{ "ACTION.STATIST" | translate }}
-    </a>
-    <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-header-end-->
-  </ng-container>
-  <ng-container cms-action-main>
-    <!--begin:::::::::::::::::::::::::::::::::::::::::cms-action-->
-    <div *ngIf="dataModelResult?.access?.accessAddRow" class="col-4">
-      <a
-        (click)="onActionButtonNewRow()"
-        type="button"
-        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
-        target="_blank"
-        ><i class="fa-solid fa-plus font-18" style="color: #ffffff"></i> <br
-      /></a>
-      <p class="font-11 text-center opacity-70">
-        {{ "ACTION.ADD" | translate }}
-      </p>
-    </div>
-
-    <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-->
-  </ng-container>
-  <ng-container cms-action-row>
-    <!--begin:::::::::::::::::::::::::::::::::::::::::cms-action-row-->
-    <div *ngIf="dataModelResult?.access?.accessEditRow" class="col-4">
-      <a
-        (click)="onActionButtonEditRow(tableRowSelected)"
-        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-magenta"
-        target="_blank"
-        ><i class="fa-solid fa-pen font-18" style="color: #ffffff"></i><br />
+        >{{ "ACTION.SEARCH" | translate }}
       </a>
-      <p class="font-11 text-center opacity-70">
-        {{ "ACTION.EDIT" | translate }}
-      </p>
-    </div>
-    <div *ngIf="dataModelResult?.access?.accessDeleteRow" class="col-4">
       <a
-        (click)="onActionButtonDeleteRow(tableRowSelected)"
-        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-red"
-        target="_blank"
-        ><i class="fa-solid fa-trash font-18" style="color: #ffffff"></i><br />
-      </a>
-      <p class="font-11 text-center opacity-70">
-        {{ "ACTION.DELETE" | translate }}
-      </p>
-    </div>
+        (click)="onActionButtonStatist()"
+        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
+        >
+        <mat-slide-toggle [checked]="optionsStatist.data.show"> </mat-slide-toggle
+          >{{ "ACTION.STATIST" | translate }}
+        </a>
+        <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-header-end-->
+      </ng-container>
+      <ng-container cms-action-main>
+        <!--begin:::::::::::::::::::::::::::::::::::::::::cms-action-->
+        @if (dataModelResult?.access?.accessAddRow) {
+          <div class="col-4">
+            <a
+              (click)="onActionButtonNewRow()"
+              type="button"
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
+              target="_blank"
+              ><i class="fa-solid fa-plus font-18" style="color: #ffffff"></i> <br
+            /></a>
+            <p class="font-11 text-center opacity-70">
+              {{ "ACTION.ADD" | translate }}
+            </p>
+          </div>
+        }
 
-    <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-row-->
-  </ng-container>
-  <ng-container cms-action-area>
-    <!--begin:::::::::::::::::::::::::::::::::::::::::cms-action-area-->
-    <app-cms-search-list [(options)]="optionsSearch"></app-cms-search-list>
+        <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-->
+      </ng-container>
+      <ng-container cms-action-row>
+        <!--begin:::::::::::::::::::::::::::::::::::::::::cms-action-row-->
+        @if (dataModelResult?.access?.accessEditRow) {
+          <div class="col-4">
+            <a
+              (click)="onActionButtonEditRow(tableRowSelected)"
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-magenta"
+              target="_blank"
+              ><i class="fa-solid fa-pen font-18" style="color: #ffffff"></i><br />
+            </a>
+            <p class="font-11 text-center opacity-70">
+              {{ "ACTION.EDIT" | translate }}
+            </p>
+          </div>
+        }
+        @if (dataModelResult?.access?.accessDeleteRow) {
+          <div class="col-4">
+            <a
+              (click)="onActionButtonDeleteRow(tableRowSelected)"
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-red"
+              target="_blank"
+              ><i class="fa-solid fa-trash font-18" style="color: #ffffff"></i><br />
+            </a>
+            <p class="font-11 text-center opacity-70">
+              {{ "ACTION.DELETE" | translate }}
+            </p>
+          </div>
+        }
 
-    <app-cms-statist-list [(options)]="optionsStatist"></app-cms-statist-list>
+        <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-row-->
+      </ng-container>
+      <ng-container cms-action-area>
+        <!--begin:::::::::::::::::::::::::::::::::::::::::cms-action-area-->
+        <app-cms-search-list [(options)]="optionsSearch"></app-cms-search-list>
 
-    <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-area-->
-  </ng-container>
-  <ng-container cms-body>
-    <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
-    <mat-table
-      [dataSource]="tableSource"
-      matSort
-      #tableSort="matSort"
-      (matSortChange)="onTableSortData(tableSort)"
-      multiTemplateDataRows
-    >
-      <!-- action_menu Column -->
-      <ng-container matColumnDef="action_menu">
-        <mat-header-cell *matHeaderCellDef>
-          {{ "TITLE.MENU" | translate }}
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row">
-          <button
-            type="button"
-            mat-icon-button
-            aria-label="Action Menu"
-            (click)="onActionTableRowSelectActionMenu(row)"
+        <app-cms-statist-list [(options)]="optionsStatist"></app-cms-statist-list>
+
+        <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-area-->
+      </ng-container>
+      <ng-container cms-body>
+        <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
+        <mat-table
+          [dataSource]="tableSource"
+          matSort
+          #tableSort="matSort"
+          (matSortChange)="onTableSortData(tableSort)"
+          multiTemplateDataRows
           >
-            <i class="fa fa-bars font-18"></i>
-          </button>
-        </mat-cell>
-      </ng-container>
+          <!-- action_menu Column -->
+          <ng-container matColumnDef="action_menu">
+            <mat-header-cell *matHeaderCellDef>
+              {{ "TITLE.MENU" | translate }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button
+                type="button"
+                mat-icon-button
+                aria-label="Action Menu"
+                (click)="onActionTableRowSelectActionMenu(row)"
+                >
+                <i class="fa fa-bars font-18"></i>
+              </button>
+            </mat-cell>
+          </ng-container>
 
-      <!-- ID Column -->
-      <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-          {{ fieldsInfo["id"]?.fieldTitle }}
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
-      </ng-container>
-      <!-- LinkSiteId Column -->
-      <ng-container matColumnDef="linkSiteId">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-          {{ fieldsInfo["linkSiteId"]?.fieldTitle }}
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row">
-          {{ row.linkSiteId | cmssiteinfo | async }}
-        </mat-cell>
-      </ng-container>
-      <!-- RecordStatus Column -->
-      <ng-container matColumnDef="recordStatus">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-          {{ fieldsInfo["recordStatus"]?.fieldTitle }}
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row">
-          <i [ngClass]="row.recordStatus | statusIconClass"></i>
-          <select
-            matNativeControl
-            cmsRecordStatusSelfSave
-            *ngIf="dataModelResult?.access?.accessEditRow"
-            [contentService]="contentService"
-            [row]="row"
-            style="background: none; border: none"
+          <!-- ID Column -->
+          <ng-container matColumnDef="id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{ fieldsInfo["id"]?.fieldTitle }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
+          </ng-container>
+          <!-- LinkSiteId Column -->
+          <ng-container matColumnDef="linkSiteId">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{ fieldsInfo["linkSiteId"]?.fieldTitle }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              {{ row.linkSiteId | cmssiteinfo | async }}
+            </mat-cell>
+          </ng-container>
+          <!-- RecordStatus Column -->
+          <ng-container matColumnDef="recordStatus">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{ fieldsInfo["recordStatus"]?.fieldTitle }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <i [ngClass]="row.recordStatus | statusIconClass"></i>
+              @if (dataModelResult?.access?.accessEditRow) {
+                <select
+                  matNativeControl
+                  cmsRecordStatusSelfSave
+                  [contentService]="contentService"
+                  [row]="row"
+                  style="background: none; border: none"
             [ngStyle]="{
               display: row.id === tableRowSelected?.id ? '' : 'none',
             }"
-          ></select>
-        </mat-cell>
-      </ng-container>
-      <!-- IsInBlackList Column -->
-      <ng-container matColumnDef="IsInBlackList">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-          {{ fieldsInfo["isInBlackList"]?.fieldTitle }}
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row">
-          <i [ngClass]="row.isInBlackList | boolclass"></i
-        ></mat-cell>
-      </ng-container>
-      <!-- CreatedDate Column -->
-      <ng-container matColumnDef="createdDate">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-          {{ fieldsInfo["createdDate"]?.fieldTitle }}
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row">
-          {{ row.createdDate | localeDate }}
-        </mat-cell>
-      </ng-container>
-      <!-- UpdatedDate Column -->
-      <ng-container matColumnDef="updatedDate">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-          {{ fieldsInfo["updatedDate"]?.fieldTitle }}
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row">
-          {{ row.updatedDate | localeDate }}
-        </mat-cell>
-      </ng-container>
-      <!-- CurrentDebtor Column -->
-      <ng-container matColumnDef="CurrentDebtor">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-          {{ fieldsInfo["currentDebtor"]?.fieldTitle }}
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.currentDebtor }} </mat-cell>
-      </ng-container>
-      <!-- CurrentCreditor Column -->
-      <ng-container matColumnDef="CurrentCreditor">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
-          {{ fieldsInfo["currentCreditor"]?.fieldTitle }}
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.currentCreditor }} </mat-cell>
-      </ng-container>
-      <!-- Action Column -->
-      <ng-container matColumnDef="Action">
-        <mat-header-cell *matHeaderCellDef>
-          {{ "TITLE.OPTION" | translate }}
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row" class="Action">
-          <!-- Action Menu -->
-          <button
-            type="button"
-            mat-icon-button
-            [matMenuTriggerFor]="actionMenu"
-            aria-label="Action Menu"
-          >
-            <mat-icon>more_vert</mat-icon>
-          </button>
-          <mat-menu #actionMenu="matMenu"> </mat-menu>
-        </mat-cell>
-      </ng-container>
-      <!--expandedTitle-->
-      <ng-container matColumnDef="expandedTitle">
-        <mat-cell *matCellDef="let row">
-          {{ "TITLE.CreationDate" | translate }} :
-          {{ row.createdDate | localeDate }}
-          <br />
-          {{ "TITLE.DateOfUpdate" | translate }} :
-          {{ row.updatedDate | localeDate }}
-        </mat-cell>
-      </ng-container>
-      <!--expandedDetail-->
-      <ng-container matColumnDef="expandedDetail">
-        <mat-cell *matCellDef="let row">
-          <div>
-            <table>
-              <tr>
-                <th>
-                  <img
-                    *ngIf="row?.linkMainImageIdSrc?.length > 0"
-                    style="vertical-align: middle"
-                    class="ntk-hover-zoom"
-                    aria-hidden
-                    src="{{ row.linkMainImageIdSrc | cmsthumbnail }}"
-                    height="80"
-                    width="80"
-                  />
-                </th>
-                <th>
-                  <span
-                    class="navi-icon pointer"
-                    [cdkCopyToClipboard]="row.id"
-                    (click)="onActionCopied()"
+                ></select>
+              }
+            </mat-cell>
+          </ng-container>
+          <!-- IsInBlackList Column -->
+          <ng-container matColumnDef="IsInBlackList">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{ fieldsInfo["isInBlackList"]?.fieldTitle }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <i [ngClass]="row.isInBlackList | boolclass"></i
+              ></mat-cell>
+            </ng-container>
+            <!-- CreatedDate Column -->
+            <ng-container matColumnDef="createdDate">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                {{ fieldsInfo["createdDate"]?.fieldTitle }}
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                {{ row.createdDate | localeDate }}
+              </mat-cell>
+            </ng-container>
+            <!-- UpdatedDate Column -->
+            <ng-container matColumnDef="updatedDate">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                {{ fieldsInfo["updatedDate"]?.fieldTitle }}
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                {{ row.updatedDate | localeDate }}
+              </mat-cell>
+            </ng-container>
+            <!-- CurrentDebtor Column -->
+            <ng-container matColumnDef="CurrentDebtor">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                {{ fieldsInfo["currentDebtor"]?.fieldTitle }}
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{ row.currentDebtor }} </mat-cell>
+            </ng-container>
+            <!-- CurrentCreditor Column -->
+            <ng-container matColumnDef="CurrentCreditor">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>
+                {{ fieldsInfo["currentCreditor"]?.fieldTitle }}
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row"> {{ row.currentCreditor }} </mat-cell>
+            </ng-container>
+            <!-- Action Column -->
+            <ng-container matColumnDef="Action">
+              <mat-header-cell *matHeaderCellDef>
+                {{ "TITLE.OPTION" | translate }}
+              </mat-header-cell>
+              <mat-cell *matCellDef="let row" class="Action">
+                <!-- Action Menu -->
+                <button
+                  type="button"
+                  mat-icon-button
+                  [matMenuTriggerFor]="actionMenu"
+                  aria-label="Action Menu"
                   >
-                    <i class="flaticon2-copy"></i
-                  ></span>
-                  {{ row.id }}
-                </th>
-              </tr>
-              <tr *ngIf="row.description">
-                <td></td>
-                <td>
-                  {{ fieldsInfo["description"]?.fieldTitle }} :
-                  {{ row.description }}
-                </td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-              </tr>
-            </table>
-          </div>
-        </mat-cell>
-      </ng-container>
-      <mat-header-row *matHeaderRowDef="tabledisplayedColumns"></mat-header-row>
-      <mat-row
-        *matRowDef="let row; columns: ['expandedTitle']; let i = dataIndex"
-        class="ntk-row-expandedTitle"
-        (click)="onActionTableRowSelect(row, $event)"
-        (rtclick)="onActionTableRowSelect(row, $event)"
-        (mouseenter)="onActionTableRowMouseEnter(row)"
-        (mouseleave)="onActionTableRowMouseLeave(row)"
-        [class.ntk-row-selected]="row.id === tableRowSelected?.id"
-      >
-      </mat-row>
-      <mat-row
-        *matRowDef="let row; columns: tabledisplayedColumns; let i = dataIndex"
-        class="ntk-row-mainfild"
-        (click)="onActionTableRowSelect(row, $event)"
-        (rtclick)="onActionTableRowSelect(row, $event)"
-        (mouseenter)="onActionTableRowMouseEnter(row)"
-        (mouseleave)="onActionTableRowMouseLeave(row)"
-        [class.ntk-row-selected]="row.id === tableRowSelected?.id"
-      >
-      </mat-row>
-      <mat-row
-        *matRowDef="let row; columns: ['expandedDetail']; let i = dataIndex"
-        class="ntk-row-expandedDetail"
-        (click)="onActionTableRowSelect(row, $event)"
-        (rtclick)="onActionTableRowSelect(row, $event)"
-        (mouseenter)="onActionTableRowMouseEnter(row)"
-        (mouseleave)="onActionTableRowMouseLeave(row)"
-        [class.ntk-row-selected]="row.id === tableRowSelected?.id"
-        [ngStyle]="{ display: row.expanded === true ? '' : 'none' }"
-      >
-      </mat-row>
-    </mat-table>
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #actionMenu="matMenu"> </mat-menu>
+              </mat-cell>
+            </ng-container>
+            <!--expandedTitle-->
+            <ng-container matColumnDef="expandedTitle">
+              <mat-cell *matCellDef="let row">
+                {{ "TITLE.CreationDate" | translate }} :
+                {{ row.createdDate | localeDate }}
+                <br />
+                {{ "TITLE.DateOfUpdate" | translate }} :
+                {{ row.updatedDate | localeDate }}
+              </mat-cell>
+            </ng-container>
+            <!--expandedDetail-->
+            <ng-container matColumnDef="expandedDetail">
+              <mat-cell *matCellDef="let row">
+                <div>
+                  <table>
+                    <tr>
+                      <th>
+                        @if (row?.linkMainImageIdSrc?.length > 0) {
+                          <img
+                            style="vertical-align: middle"
+                            class="ntk-hover-zoom"
+                            aria-hidden
+                            src="{{ row.linkMainImageIdSrc | cmsthumbnail }}"
+                            height="80"
+                            width="80"
+                            />
+                        }
+                      </th>
+                      <th>
+                        <span
+                          class="navi-icon pointer"
+                          [cdkCopyToClipboard]="row.id"
+                          (click)="onActionCopied()"
+                          >
+                          <i class="flaticon2-copy"></i
+                          ></span>
+                          {{ row.id }}
+                        </th>
+                      </tr>
+                      @if (row.description) {
+                        <tr>
+                          <td></td>
+                          <td>
+                            {{ fieldsInfo["description"]?.fieldTitle }} :
+                            {{ row.description }}
+                          </td>
+                        </tr>
+                      }
+                      <tr>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                    </table>
+                  </div>
+                </mat-cell>
+              </ng-container>
+              <mat-header-row *matHeaderRowDef="tabledisplayedColumns"></mat-header-row>
+              <mat-row
+                *matRowDef="let row; columns: ['expandedTitle']; let i = dataIndex"
+                class="ntk-row-expandedTitle"
+                (click)="onActionTableRowSelect(row, $event)"
+                (rtclick)="onActionTableRowSelect(row, $event)"
+                (mouseenter)="onActionTableRowMouseEnter(row)"
+                (mouseleave)="onActionTableRowMouseLeave(row)"
+                [class.ntk-row-selected]="row.id === tableRowSelected?.id"
+                >
+              </mat-row>
+              <mat-row
+                *matRowDef="let row; columns: tabledisplayedColumns; let i = dataIndex"
+                class="ntk-row-mainfild"
+                (click)="onActionTableRowSelect(row, $event)"
+                (rtclick)="onActionTableRowSelect(row, $event)"
+                (mouseenter)="onActionTableRowMouseEnter(row)"
+                (mouseleave)="onActionTableRowMouseLeave(row)"
+                [class.ntk-row-selected]="row.id === tableRowSelected?.id"
+                >
+              </mat-row>
+              <mat-row
+                *matRowDef="let row; columns: ['expandedDetail']; let i = dataIndex"
+                class="ntk-row-expandedDetail"
+                (click)="onActionTableRowSelect(row, $event)"
+                (rtclick)="onActionTableRowSelect(row, $event)"
+                (mouseenter)="onActionTableRowMouseEnter(row)"
+                (mouseleave)="onActionTableRowMouseLeave(row)"
+                [class.ntk-row-selected]="row.id === tableRowSelected?.id"
+                [ngStyle]="{ display: row.expanded === true ? '' : 'none' }"
+                >
+              </mat-row>
+            </mat-table>
 
-    <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
-  </ng-container>
-  <ng-container cms-footer>
-    <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
-    <mat-paginator
-      #paginator
-      [length]="dataModelResult.totalRowCount"
-      [pageIndex]="dataModelResult.currentPageNumber - 1"
-      [pageSize]="dataModelResult.rowPerPage"
-      [pageSizeOptions]="[5, 10, 20, 100]"
-      (page)="onTablePageingData($event)"
-    ></mat-paginator>
+            <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
+          </ng-container>
+          <ng-container cms-footer>
+            <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
+            <mat-paginator
+              #paginator
+              [length]="dataModelResult.totalRowCount"
+              [pageIndex]="dataModelResult.currentPageNumber - 1"
+              [pageSize]="dataModelResult.rowPerPage"
+              [pageSizeOptions]="[5, 10, 20, 100]"
+              (page)="onTablePageingData($event)"
+            ></mat-paginator>
 
-    <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
-  </ng-container>
-</app-cms-html-list>
+            <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
+          </ng-container>
+        </app-cms-html-list>

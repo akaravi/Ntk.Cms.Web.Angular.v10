@@ -22,7 +22,7 @@
         class="upload-area"
         [class.upload-area--active]="!!selectedFile"
         [class.upload-area--loading]="isPreviewLoading"
-      >
+        >
         <input
           #fileInput
           class="upload-input"
@@ -30,287 +30,308 @@
           [accept]="fileAccept"
           (change)="onFileSelected($event)"
           [disabled]="isPreviewLoading"
-        />
-        <div class="upload-copy">
-          <mat-icon>cloud_upload</mat-icon>
-          <p>{{ "CONTACT.IMPORT.UPLOAD_PLACEHOLDER" | translate }}</p>
-          <small>{{
-            "CONTACT.IMPORT.SUPPORTED_FORMATS_HINT" | translate
-          }}</small>
-        </div>
-      </div>
-      <div *ngIf="selectedFile" class="selected-file">
-        <div>
-          <p class="selected-file__name">{{ selectedFile.name }}</p>
-          <span class="selected-file__meta">
-            {{ "CONTACT.IMPORT.FILE_SIZE" | translate }}:
-            {{ formatFileSize(selectedFile) }}
-          </span>
-        </div>
-        <button
-          mat-stroked-button
-          color="warn"
-          type="button"
-          (click)="onRemoveFile()"
-          [disabled]="isPreviewLoading"
-        >
-          {{ "CONTACT.IMPORT.CLEAR_BUTTON" | translate }}
-        </button>
-      </div>
-      <div class="supported-list">
-        <strong>{{ "CONTACT.IMPORT.SUPPORTED_FORMATS" | translate }}:</strong>
-        <span>
-          {{ "CONTACT.IMPORT.FILE_TYPE.GOOGLE" | translate }} ·
-          {{ "CONTACT.IMPORT.FILE_TYPE.OUTLOOK" | translate }} ·
-          {{ "CONTACT.IMPORT.FILE_TYPE.VCARD" | translate }} ·
-          {{ "CONTACT.IMPORT.FILE_TYPE.EXCEL" | translate }}
-        </span>
-      </div>
-      <mat-progress-bar
-        *ngIf="isPreviewLoading"
-        mode="indeterminate"
-      ></mat-progress-bar>
-      <p class="error-panel" *ngIf="lastPreviewError">
-        {{ lastPreviewError }}
-      </p>
-    </mat-card-content>
-  </mat-card>
-
-  <ng-container *ngIf="previewResponse">
-    <mat-card class="preview-card">
-      <mat-card-header>
-        <mat-card-title>
-          {{ "CONTACT.IMPORT.PREVIEW_SUMMARY_TITLE" | translate }}
-        </mat-card-title>
-        <mat-card-subtitle>
-          {{ "CONTACT.IMPORT.PREVIEW_SUMMARY_SUBTITLE" | translate }}
-        </mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <div class="preview-grid">
-          <div class="preview-grid__item">
-            <span>{{ "CONTACT.IMPORT.SESSION_LABEL" | translate }}</span>
-            <strong>{{ previewResponse?.sessionId }}</strong>
-          </div>
-          <div class="preview-grid__item">
-            <span>{{ "CONTACT.IMPORT.FILE_TYPE_LABEL" | translate }}</span>
-            <strong>{{
-              fileTypeTranslationMap[previewResponse?.fileType || 0] | translate
-            }}</strong>
-          </div>
-          <div class="preview-grid__item">
-            <span>{{ "CONTACT.IMPORT.ROW_COUNT" | translate }}</span>
-            <strong>{{ previewResponse?.rowCount | number }}</strong>
-          </div>
-          <div class="preview-grid__item">
-            <span>{{ "CONTACT.IMPORT.HEADERS_FOUND" | translate }}</span>
-            <strong>{{ sourceHeaders.length }}</strong>
+          />
+          <div class="upload-copy">
+            <mat-icon>cloud_upload</mat-icon>
+            <p>{{ "CONTACT.IMPORT.UPLOAD_PLACEHOLDER" | translate }}</p>
+            <small>{{
+              "CONTACT.IMPORT.SUPPORTED_FORMATS_HINT" | translate
+            }}</small>
           </div>
         </div>
-        <div class="chip-groups" *ngIf="sourceHeaders.length">
-          <label>{{ "CONTACT.IMPORT.SOURCE_HEADERS_TITLE" | translate }}</label>
-          <mat-chip-set>
-            <mat-chip
-              *ngFor="let header of sourceHeaders; trackBy: trackByHeader"
-              color="primary"
-              selected
-            >
-              {{ header }}
-            </mat-chip>
-          </mat-chip-set>
-        </div>
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card class="mapping-card">
-      <mat-card-header>
-        <mat-card-title>
-          {{ "CONTACT.IMPORT.MAPPING_TITLE" | translate }}
-        </mat-card-title>
-        <mat-card-subtitle>
-          {{ "CONTACT.IMPORT.MAPPING_SUBTITLE" | translate }}
-        </mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content>
-        <br />
-        <app-contact-category-selector
-          [optionSelectFirstItem]="true"
-          [optionRequired]="true"
-          [optionLabel]="'TITLE.Category' | translate"
-          (optionChange)=" modelCategory = $event"
-        ></app-contact-category-selector>
-        <br />
-        <div class="mapping-grid">
-          <div
-            class="mapping-row"
-            *ngFor="let destination of destinationHeaders"
-          >
-            <div class="mapping-row__header">
-              <div>
-                <p>{{ destination.title || destination.key }}</p>
-                <small>{{ destination.key }}</small>
-              </div>
-              <span *ngIf="destination.required" class="required-badge">
-                {{ "CONTACT.IMPORT.REQUIRED_BADGE" | translate }}
+        @if (selectedFile) {
+          <div class="selected-file">
+            <div>
+              <p class="selected-file__name">{{ selectedFile.name }}</p>
+              <span class="selected-file__meta">
+                {{ "CONTACT.IMPORT.FILE_SIZE" | translate }}:
+                {{ formatFileSize(selectedFile) }}
               </span>
             </div>
-            <mat-form-field appearance="outline">
-              <mat-label>
-                {{ "CONTACT.IMPORT.SELECT_SOURCE_HEADER_LABEL" | translate }}
-              </mat-label>
-              <mat-select
-                [(ngModel)]="mappingSelections[destination.key]"
-                (selectionChange)="onMappingChange()"
+            <button
+              mat-stroked-button
+              color="warn"
+              type="button"
+              (click)="onRemoveFile()"
+              [disabled]="isPreviewLoading"
               >
-                <mat-option value="">
-                  {{ "CONTACT.IMPORT.OPTION_SKIP" | translate }}
-                </mat-option>
-                <mat-option
-                  *ngFor="let header of sourceHeaders; trackBy: trackByHeader"
-                  [value]="header"
-                >
-                  {{ header }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+              {{ "CONTACT.IMPORT.CLEAR_BUTTON" | translate }}
+            </button>
           </div>
+        }
+        <div class="supported-list">
+          <strong>{{ "CONTACT.IMPORT.SUPPORTED_FORMATS" | translate }}:</strong>
+          <span>
+            {{ "CONTACT.IMPORT.FILE_TYPE.GOOGLE" | translate }} ·
+            {{ "CONTACT.IMPORT.FILE_TYPE.OUTLOOK" | translate }} ·
+            {{ "CONTACT.IMPORT.FILE_TYPE.VCARD" | translate }} ·
+            {{ "CONTACT.IMPORT.FILE_TYPE.EXCEL" | translate }}
+          </span>
         </div>
-        <p class="error-panel" *ngIf="missingRequiredHeaders.length">
-          {{ "CONTACT.IMPORT.MISSING_REQUIRED" | translate }}
-        </p>
-        <div class="action-bar">
-          <button
-            mat-stroked-button
-            type="button"
-            color="primary"
-            (click)="onResetImport()"
-            [disabled]="isPreviewLoading || !selectedFile"
-          >
-            {{ "CONTACT.IMPORT.RESET_BUTTON" | translate }}
-          </button>
-          <button
-            mat-flat-button
-            type="button"
-            color="accent"
-            class="apply-button"
-            [disabled]="isApplyDisabled"
-            (click)="onApplyImport()"
-          >
-            <mat-progress-spinner
-              *ngIf="isApplyLoading"
-              [diameter]="18"
-              [strokeWidth]="3"
-              mode="indeterminate"
-            ></mat-progress-spinner>
-            <span>{{ "CONTACT.IMPORT.APPLY_BUTTON" | translate }}</span>
-          </button>
-        </div>
-        <p class="error-panel" *ngIf="lastApplyError">
-          {{ lastApplyError }}
-        </p>
+        @if (isPreviewLoading) {
+          <mat-progress-bar
+            mode="indeterminate"
+          ></mat-progress-bar>
+        }
+        @if (lastPreviewError) {
+          <p class="error-panel">
+            {{ lastPreviewError }}
+          </p>
+        }
       </mat-card-content>
     </mat-card>
 
-    <mat-card class="sample-card">
-      <mat-card-header>
-        <mat-card-title>
-          {{ "CONTACT.IMPORT.SAMPLE_ROWS_TITLE" | translate }}
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <div *ngIf="sampleRows?.length; else noSampleRows">
-          <div
-            class="sample-table"
-            [style.--columns-count]="sourceHeaders.length"
-          >
-            <div class="sample-table__row sample-table__row--head">
+    @if (previewResponse) {
+      <mat-card class="preview-card">
+        <mat-card-header>
+          <mat-card-title>
+            {{ "CONTACT.IMPORT.PREVIEW_SUMMARY_TITLE" | translate }}
+          </mat-card-title>
+          <mat-card-subtitle>
+            {{ "CONTACT.IMPORT.PREVIEW_SUMMARY_SUBTITLE" | translate }}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="preview-grid">
+            <div class="preview-grid__item">
+              <span>{{ "CONTACT.IMPORT.SESSION_LABEL" | translate }}</span>
+              <strong>{{ previewResponse?.sessionId }}</strong>
+            </div>
+            <div class="preview-grid__item">
+              <span>{{ "CONTACT.IMPORT.FILE_TYPE_LABEL" | translate }}</span>
+              <strong>{{
+                fileTypeTranslationMap[previewResponse?.fileType || 0] | translate
+              }}</strong>
+            </div>
+            <div class="preview-grid__item">
+              <span>{{ "CONTACT.IMPORT.ROW_COUNT" | translate }}</span>
+              <strong>{{ previewResponse?.rowCount | number }}</strong>
+            </div>
+            <div class="preview-grid__item">
+              <span>{{ "CONTACT.IMPORT.HEADERS_FOUND" | translate }}</span>
+              <strong>{{ sourceHeaders.length }}</strong>
+            </div>
+          </div>
+          @if (sourceHeaders.length) {
+            <div class="chip-groups">
+              <label>{{ "CONTACT.IMPORT.SOURCE_HEADERS_TITLE" | translate }}</label>
+              <mat-chip-set>
+                @for (header of sourceHeaders; track trackByHeader($index, header)) {
+                  <mat-chip
+                    color="primary"
+                    selected
+                    >
+                    {{ header }}
+                  </mat-chip>
+                }
+              </mat-chip-set>
+            </div>
+          }
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="mapping-card">
+        <mat-card-header>
+          <mat-card-title>
+            {{ "CONTACT.IMPORT.MAPPING_TITLE" | translate }}
+          </mat-card-title>
+          <mat-card-subtitle>
+            {{ "CONTACT.IMPORT.MAPPING_SUBTITLE" | translate }}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <br />
+          <app-contact-category-selector
+            [optionSelectFirstItem]="true"
+            [optionRequired]="true"
+            [optionLabel]="'TITLE.Category' | translate"
+            (optionChange)=" modelCategory = $event"
+          ></app-contact-category-selector>
+          <br />
+          <div class="mapping-grid">
+            @for (destination of destinationHeaders; track destination) {
               <div
-                class="sample-table__header-cell"
-                *ngFor="let header of sourceHeaders; trackBy: trackByHeader"
+                class="mapping-row"
+                >
+                <div class="mapping-row__header">
+                  <div>
+                    <p>{{ destination.title || destination.key }}</p>
+                    <small>{{ destination.key }}</small>
+                  </div>
+                  @if (destination.required) {
+                    <span class="required-badge">
+                      {{ "CONTACT.IMPORT.REQUIRED_BADGE" | translate }}
+                    </span>
+                  }
+                </div>
+                <mat-form-field appearance="outline">
+                  <mat-label>
+                    {{ "CONTACT.IMPORT.SELECT_SOURCE_HEADER_LABEL" | translate }}
+                  </mat-label>
+                  <mat-select
+                    [(ngModel)]="mappingSelections[destination.key]"
+                    (selectionChange)="onMappingChange()"
+                    >
+                    <mat-option value="">
+                      {{ "CONTACT.IMPORT.OPTION_SKIP" | translate }}
+                    </mat-option>
+                    @for (header of sourceHeaders; track trackByHeader($index, header)) {
+                      <mat-option
+                        [value]="header"
+                        >
+                        {{ header }}
+                      </mat-option>
+                    }
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            }
+          </div>
+          @if (missingRequiredHeaders.length) {
+            <p class="error-panel">
+              {{ "CONTACT.IMPORT.MISSING_REQUIRED" | translate }}
+            </p>
+          }
+          <div class="action-bar">
+            <button
+              mat-stroked-button
+              type="button"
+              color="primary"
+              (click)="onResetImport()"
+              [disabled]="isPreviewLoading || !selectedFile"
               >
-                <div class="header-cell-content">
-                  <span class="header-name">{{ header }}</span>
-                  <mat-form-field
-                    appearance="outline"
-                    class="header-mapping-dropdown"
-                  >
-                    <mat-label>
-                      {{
-                        "CONTACT.IMPORT.SELECT_DESTINATION_LABEL" | translate
-                      }}
-                    </mat-label>
-                    <mat-select
-                      [value]="getDestinationForSource(header)"
+              {{ "CONTACT.IMPORT.RESET_BUTTON" | translate }}
+            </button>
+            <button
+              mat-flat-button
+              type="button"
+              color="accent"
+              class="apply-button"
+              [disabled]="isApplyDisabled"
+              (click)="onApplyImport()"
+              >
+              @if (isApplyLoading) {
+                <mat-progress-spinner
+                  [diameter]="18"
+                  [strokeWidth]="3"
+                  mode="indeterminate"
+                ></mat-progress-spinner>
+              }
+              <span>{{ "CONTACT.IMPORT.APPLY_BUTTON" | translate }}</span>
+            </button>
+          </div>
+          @if (lastApplyError) {
+            <p class="error-panel">
+              {{ lastApplyError }}
+            </p>
+          }
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="sample-card">
+        <mat-card-header>
+          <mat-card-title>
+            {{ "CONTACT.IMPORT.SAMPLE_ROWS_TITLE" | translate }}
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          @if (sampleRows?.length) {
+            <div>
+              <div
+                class="sample-table"
+                [style.--columns-count]="sourceHeaders.length"
+                >
+                <div class="sample-table__row sample-table__row--head">
+                  @for (header of sourceHeaders; track trackByHeader($index, header)) {
+                    <div
+                      class="sample-table__header-cell"
+                      >
+                      <div class="header-cell-content">
+                        <span class="header-name">{{ header }}</span>
+                        <mat-form-field
+                          appearance="outline"
+                          class="header-mapping-dropdown"
+                          >
+                          <mat-label>
+                            {{
+                            "CONTACT.IMPORT.SELECT_DESTINATION_LABEL" | translate
+                            }}
+                          </mat-label>
+                          <mat-select
+                            [value]="getDestinationForSource(header)"
                       (selectionChange)="
                         onSourceHeaderMappingChange(header, $event.value)
                       "
-                    >
-                      <mat-option value="">
-                        {{ "CONTACT.IMPORT.OPTION_SKIP" | translate }}
-                      </mat-option>
-                      <mat-option
-                        *ngFor="
-                          let destination of destinationHeaders;
-                          trackBy: trackByDestination
-                        "
-                        [value]="destination.key"
-                        [disabled]="isDestinationUsed(destination.key, header)"
-                      >
-                        {{ destination.title || destination.key }}
-                        <span
-                          *ngIf="destination.required"
-                          class="required-indicator"
-                        >
-                          *
-                        </span>
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
+                            >
+                            <mat-option value="">
+                              {{ "CONTACT.IMPORT.OPTION_SKIP" | translate }}
+                            </mat-option>
+                            @for (
+                              destination of destinationHeaders; track trackByDestination($index,
+                              destination)) {
+                              <mat-option
+                                [value]="destination.key"
+                                [disabled]="isDestinationUsed(destination.key, header)"
+                                >
+                                {{ destination.title || destination.key }}
+                                @if (destination.required) {
+                                  <span
+                                    class="required-indicator"
+                                    >
+                                    *
+                                  </span>
+                                }
+                              </mat-option>
+                            }
+                          </mat-select>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  }
                 </div>
+                @for (row of sampleRows; track row; let idx = $index) {
+                  <div
+                    class="sample-table__row"
+                    >
+                    @for (header of sourceHeaders; track trackByHeader($index, header)) {
+                      <div
+                        class="sample-table__cell"
+                        >
+                        {{ row[header] || "-" }}
+                      </div>
+                    }
+                  </div>
+                }
               </div>
             </div>
-            <div
-              class="sample-table__row"
-              *ngFor="let row of sampleRows; let idx = index"
-            >
-              <div
-                class="sample-table__cell"
-                *ngFor="let header of sourceHeaders; trackBy: trackByHeader"
-              >
-                {{ row[header] || "-" }}
+          } @else {
+            <p class="muted">
+              {{ "CONTACT.IMPORT.NO_SAMPLE_ROWS" | translate }}
+            </p>
+          }
+        </mat-card-content>
+      </mat-card>
+      @if (applyResult) {
+        <mat-card class="result-card">
+          <mat-card-header>
+            <mat-card-title>
+              {{ "CONTACT.IMPORT.RESULT_TITLE" | translate }}
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="result-stats">
+              <div>
+                <span>{{ "CONTACT.IMPORT.RESULT_IMPORTED" | translate }}</span>
+                <strong>{{ applyResult?.importedCount }}</strong>
+              </div>
+              <div>
+                <span>{{ "CONTACT.IMPORT.RESULT_SKIPPED" | translate }}</span>
+                <strong>{{ applyResult?.skippedCount }}</strong>
               </div>
             </div>
-          </div>
-        </div>
-        <ng-template #noSampleRows>
-          <p class="muted">
-            {{ "CONTACT.IMPORT.NO_SAMPLE_ROWS" | translate }}
-          </p>
-        </ng-template>
-      </mat-card-content>
-    </mat-card>
-
-    <mat-card class="result-card" *ngIf="applyResult">
-      <mat-card-header>
-        <mat-card-title>
-          {{ "CONTACT.IMPORT.RESULT_TITLE" | translate }}
-        </mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <div class="result-stats">
-          <div>
-            <span>{{ "CONTACT.IMPORT.RESULT_IMPORTED" | translate }}</span>
-            <strong>{{ applyResult?.importedCount }}</strong>
-          </div>
-          <div>
-            <span>{{ "CONTACT.IMPORT.RESULT_SKIPPED" | translate }}</span>
-            <strong>{{ applyResult?.skippedCount }}</strong>
-          </div>
-        </div>
-        <p class="muted">
-          {{ "CONTACT.IMPORT.RESULT_NO_ERRORS" | translate }}
-        </p>
-      </mat-card-content>
-    </mat-card>
-  </ng-container>
-</div>
+            <p class="muted">
+              {{ "CONTACT.IMPORT.RESULT_NO_ERRORS" | translate }}
+            </p>
+          </mat-card-content>
+        </mat-card>
+      }
+    }
+  </div>

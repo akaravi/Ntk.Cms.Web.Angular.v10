@@ -16,14 +16,15 @@
         <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
         <!-- RecordStatus Field -->
 
-        <app-cms-enum-record-status-selector
-          *ngIf="fieldsInfo['recordStatus']?.accessWatchField"
-          [(model)]="dataModel.recordStatus"
-          [optionDisabled]="false"
-          [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
-          [optionRequired]="true"
-          [optionSelectFirstItem]="true"
-        ></app-cms-enum-record-status-selector>
+        @if (fieldsInfo['recordStatus']?.accessWatchField) {
+          <app-cms-enum-record-status-selector
+            [(model)]="dataModel.recordStatus"
+            [optionDisabled]="false"
+            [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
+            [optionRequired]="true"
+            [optionSelectFirstItem]="true"
+          ></app-cms-enum-record-status-selector>
+        }
 
         <!-- LinkUserClaimGroupId Field -->
         <app-core-userclaimgroup-selector
@@ -33,7 +34,7 @@
           [optionDisabled]="
             !fieldsInfo['linkUserClaimGroupId']?.accessEditField
           "
-        >
+          >
         </app-core-userclaimgroup-selector>
 
         <!-- LinkUserClaimTypeId Field -->
@@ -42,19 +43,20 @@
           [optionSelectForce]="dataModel.linkUserClaimTypeId"
           [optionPlaceholder]="'TITLE.DOCUMENT_CATEGORY' | translate"
           [optionDisabled]="!fieldsInfo['linkUserClaimTypeId']?.accessEditField"
-        >
+          >
         </app-core-userclaimtype-selector>
 
         <!-- IsRequired Field -->
         <div class="ntk-full-width">
-          <mat-slide-toggle
-            [(ngModel)]="dataModel.isRequired"
-            *ngIf="fieldsInfo['isRequired']?.accessWatchField"
-            [disabled]="!fieldsInfo['isRequired']?.accessEditField"
-            name="dataModel.isRequired"
-          >
-            {{ fieldsInfo["isRequired"]?.fieldTitle }}
-          </mat-slide-toggle>
+          @if (fieldsInfo['isRequired']?.accessWatchField) {
+            <mat-slide-toggle
+              [(ngModel)]="dataModel.isRequired"
+              [disabled]="!fieldsInfo['isRequired']?.accessEditField"
+              name="dataModel.isRequired"
+              >
+              {{ fieldsInfo["isRequired"]?.fieldTitle }}
+            </mat-slide-toggle>
+          }
         </div>
         <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
       </div>
@@ -67,22 +69,24 @@
       </div>
       <div class="ntk-cms-html-card-footer">
         <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
-        <div class="form-actions" *ngIf="formInfo.submitButtonEnabled">
-          <button
-            type="button"
-            (click)="onFormCancel()"
-            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-          >
-            <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
-          </button>
-          <button
-            type="submit"
-            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
-            [disabled]="!vform.form.valid"
-          >
-            <i class="fa fa-check-square-o"></i> {{ "ACTION.SAVE" | translate }}
-          </button>
-        </div>
+        @if (formInfo.submitButtonEnabled) {
+          <div class="form-actions">
+            <button
+              type="button"
+              (click)="onFormCancel()"
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+              >
+              <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
+            </button>
+            <button
+              type="submit"
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
+              [disabled]="!vform.form.valid"
+              >
+              <i class="fa fa-check-square-o"></i> {{ "ACTION.SAVE" | translate }}
+            </button>
+          </div>
+        }
         <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
       </div>
     </form>

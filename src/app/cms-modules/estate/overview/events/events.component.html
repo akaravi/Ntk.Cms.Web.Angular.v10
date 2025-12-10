@@ -13,182 +13,193 @@
           <mat-date-range-input
             [formGroup]="checkingOnDayRange"
             [rangePicker]="picker"
-          >
+            >
             <input
               matStartDate
               formControlName="start"
               placeholder="{{ 'TITLE.Start_Date' | translate }}"
-            />
+              />
             <input
               matEndDate
               formControlName="end"
               placeholder="{{ 'TITLE.Start_Date' | translate }}"
-            />
+              />
           </mat-date-range-input>
           <mat-datepicker-toggle
             matIconSuffix
             [for]="picker"
           ></mat-datepicker-toggle>
           <mat-date-range-picker #picker></mat-date-range-picker>
-          <mat-error
-            *ngIf="
-              checkingOnDayRange.controls.start.hasError('matStartDateInvalid')
-            "
-            >{{ "MESSAGE.InvalidStartDate" | translate }}</mat-error
-          >
-          <mat-error
-            *ngIf="
-              checkingOnDayRange.controls.end.hasError('matEndDateInvalid')
-            "
-            >{{ "MESSAGE.InvalidEndDate" | translate }}</mat-error
-          >
-        </mat-form-field>
-      </div>
-      <div class="col-12 col-sm-12 col-md-6 col-lg-6 loader-container">
-        <button
-          type="button"
-          (click)="onActionNext()"
-          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-          *ngIf="!this.publicHelper.processService.process.inRunAll"
-        >
-          <i class="ft-x"></i>
-          <
-        </button>
-        <button
-          type="button"
-          (click)="onActionPervious()"
-          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-          *ngIf="!this.publicHelper.processService.process.inRunAll"
-        >
-          <i class="ft-x"></i>
-          >
-        </button>
-
-        <button
-          type="button"
-          (click)="onActionToDay()"
-          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-          *ngIf="!this.publicHelper.processService.process.inRunAll"
-        >
-          <i class="ft-x"></i>
-          {{ "TITLE.Today" | translate }}
-        </button>
-      </div>
-      <div class="col-12 col-sm-12 col-md-6 col-lg-6 loader-container">
-        <!-- LinkCmsUserId Field -->
-        <app-cms-user-selector
-          (optionChange)="onActionSelectorUser($event)"
-          [optionSelectForce]="linkCmsUserId"
-          *ngIf="tokenHelper.isAdminSite"
-          [optionPlaceholder]="'TITLE.USER' | translate"
-        >
-        </app-cms-user-selector>
-      </div>
-      <div class="col-12 col-sm-12 col-md-6 col-lg-6 loader-container">
-        <a
-          href="javascript:void(0)"
-          (click)="onActionButtonOnDateSearch()"
-          *ngIf="!this.publicHelper.processService.process.inRunAll"
-          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-          >{{ "ACTION.SEARCH" | translate }}</a
-        >
-      </div>
-    </div>
-
-    <div
-      class="col-12 col-sm-12 col-md-6 col-lg-6 loader-container"
-      *ngIf="checkingOnDayRange?.controls?.start?.value"
-    >
-      {{ "TITLE.From_Date" | translate }}
-      {{ this.checkingOnDayRange.controls.start.value | localeDateTime }}
-      -
-      {{ "TITLE.To_Date" | translate }}
-
-      {{ this.checkingOnDayRange.controls.end.value | localeDateTime }}
-    </div>
-    <div
-      class="col-12 col-sm-12 col-md-6 col-lg-6 loader-container"
-      *ngIf="linkCmsUserId > 0"
-    >
-      {{ this.linkCmsUserId | cmsuserinfo | async }}
-    </div>
-  </div>
-</div>
-
-<div
-  class="row"
-  *ngIf="
-    dataModelPropertyProjectResult.totalRowCount > 0 ||
-      dataModelPropertySupplierResult.totalRowCount > 0 ||
-      dataModelPropertyCompanyResult.totalRowCount > 0 ||
-      dataModelAccountUserResult.totalRowCount > 0 ||
-      dataModelAccountAgencyResult.totalRowCount > 0 ||
-      dataModelHistoryResult.totalRowCount > 0 ||
-      dataModelCustomerOrderResultNotAvailable.totalRowCount > 0 ||
-      dataModelCustomerOrderResultAvailable.totalRowCount > 0 ||
-      dataModelCustomerOrderResult.totalRowCount > 0 ||
-      dataModelPropertyResultNotAvailable.totalRowCount > 0 ||
-      dataModelPropertyResultAvailable.totalRowCount > 0 ||
-      dataModelPropertyResult.totalRowCount > 0;
-    else other_content
-  "
->
-  <div
-    class="col-12 col-sm-12 col-md-6 col-lg-6"
-    *ngIf="dataModelPropertyResult.totalRowCount > 0"
-  >
-    <!-- begin::Row -->
-    <div class="card card-style loader-container">
-      <app-progress-spinner [optionsInfoAreaId]="'dataModelPropertyResult'">
-      </app-progress-spinner>
-      <div class="content">
-        <!-- begin::accordion-->
-        <div class="accordion" id="accordion-1A">
-          <div class="mb-2">
-            <!-- begin::Header-->
-            <button
-              type="button"
-              class="btn accordion-btn no-effect color-theme"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapse1A"
-            >
-              <i class="fa fa-cloud color-blue-dark me-2"></i>
-              {{ "TITLE.Property" | translate }}
-              <span class="text-muted fw-bold fs-7">{{
-                dataModelPropertyResult.totalRowCount
-              }}</span>
-              {{ "TITLE.Number" | translate }}
-              <i
-                class="fa fa-arrow-down font-10 accordion-icon"
-                *ngIf="dataModelPropertyResult.totalRowCount > 0"
-              ></i>
-            </button>
-            <!-- end::Header-->
-            <!-- begin::List-->
-            <div id="collapse1A" class="collapse" data-bs-parent="#accordion-1">
-              <ng-container
-                *ngFor="let item of dataModelPropertyResult.listItems"
+          @if (
+            checkingOnDayRange.controls.start.hasError('matStartDateInvalid')
+            ) {
+            <mat-error
+              >{{ "MESSAGE.InvalidStartDate" | translate }}</mat-error
               >
-                <div class="divider divider-margins bg-highlight"></div>
-                <p
-                  *ngIf="!item.updatedBy || item.updatedBy <= 0"
-                  class="mb-0 color-highlight font-600 font-12"
+            }
+            @if (
+              checkingOnDayRange.controls.end.hasError('matEndDateInvalid')
+              ) {
+              <mat-error
+                >{{ "MESSAGE.InvalidEndDate" | translate }}</mat-error
                 >
-                  {{ "TITLE.ADD" | translate }}:<b *ngIf="!viewOnlyTime"
-                    >{{ publicHelper.LocaleDate(item.createdDate) }}
-                  </b>
-                  {{ publicHelper.getTime(item.createdDate) }}
-                </p>
-                <p
-                  *ngIf="item.updatedBy > 0"
-                  class="mb-0 color-highlight font-600 font-12"
+              }
+            </mat-form-field>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 loader-container">
+            @if (!this.publicHelper.processService.process.inRunAll) {
+              <button
+                type="button"
+                (click)="onActionNext()"
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
                 >
-                  {{ "TITLE.Edit" | translate }}:<b *ngIf="!viewOnlyTime"
-                    >{{ publicHelper.LocaleDate(item.updatedDate) }}
-                  </b>
-                  {{ publicHelper.getTime(item.updatedDate) }}
-                </p>
-                <h4
+                <i class="ft-x"></i>
+                <
+              </button>
+            }
+            @if (!this.publicHelper.processService.process.inRunAll) {
+              <button
+                type="button"
+                (click)="onActionPervious()"
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+                >
+                <i class="ft-x"></i>
+                >
+              </button>
+            }
+
+            @if (!this.publicHelper.processService.process.inRunAll) {
+              <button
+                type="button"
+                (click)="onActionToDay()"
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+                >
+                <i class="ft-x"></i>
+                {{ "TITLE.Today" | translate }}
+              </button>
+            }
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 loader-container">
+            <!-- LinkCmsUserId Field -->
+            @if (tokenHelper.isAdminSite) {
+              <app-cms-user-selector
+                (optionChange)="onActionSelectorUser($event)"
+                [optionSelectForce]="linkCmsUserId"
+                [optionPlaceholder]="'TITLE.USER' | translate"
+                >
+              </app-cms-user-selector>
+            }
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 loader-container">
+            @if (!this.publicHelper.processService.process.inRunAll) {
+              <a
+                href="javascript:void(0)"
+                (click)="onActionButtonOnDateSearch()"
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
+                >{{ "ACTION.SEARCH" | translate }}</a
+                >
+              }
+            </div>
+          </div>
+
+          @if (checkingOnDayRange?.controls?.start?.value) {
+            <div
+              class="col-12 col-sm-12 col-md-6 col-lg-6 loader-container"
+              >
+              {{ "TITLE.From_Date" | translate }}
+              {{ this.checkingOnDayRange.controls.start.value | localeDateTime }}
+              -
+              {{ "TITLE.To_Date" | translate }}
+              {{ this.checkingOnDayRange.controls.end.value | localeDateTime }}
+            </div>
+          }
+          @if (linkCmsUserId > 0) {
+            <div
+              class="col-12 col-sm-12 col-md-6 col-lg-6 loader-container"
+              >
+              {{ this.linkCmsUserId | cmsuserinfo | async }}
+            </div>
+          }
+        </div>
+      </div>
+
+      @if (
+        dataModelPropertyProjectResult.totalRowCount > 0 ||
+        dataModelPropertySupplierResult.totalRowCount > 0 ||
+        dataModelPropertyCompanyResult.totalRowCount > 0 ||
+        dataModelAccountUserResult.totalRowCount > 0 ||
+        dataModelAccountAgencyResult.totalRowCount > 0 ||
+        dataModelHistoryResult.totalRowCount > 0 ||
+        dataModelCustomerOrderResultNotAvailable.totalRowCount > 0 ||
+        dataModelCustomerOrderResultAvailable.totalRowCount > 0 ||
+        dataModelCustomerOrderResult.totalRowCount > 0 ||
+        dataModelPropertyResultNotAvailable.totalRowCount > 0 ||
+        dataModelPropertyResultAvailable.totalRowCount > 0 ||
+        dataModelPropertyResult.totalRowCount > 0) {
+        <div
+          class="row"
+          >
+          @if (dataModelPropertyResult.totalRowCount > 0) {
+            <div
+              class="col-12 col-sm-12 col-md-6 col-lg-6"
+              >
+              <!-- begin::Row -->
+              <div class="card card-style loader-container">
+                <app-progress-spinner [optionsInfoAreaId]="'dataModelPropertyResult'">
+                </app-progress-spinner>
+                <div class="content">
+                  <!-- begin::accordion-->
+                  <div class="accordion" id="accordion-1A">
+                    <div class="mb-2">
+                      <!-- begin::Header-->
+                      <button
+                        type="button"
+                        class="btn accordion-btn no-effect color-theme"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapse1A"
+                        >
+                        <i class="fa fa-cloud color-blue-dark me-2"></i>
+                        {{ "TITLE.Property" | translate }}
+                        <span class="text-muted fw-bold fs-7">{{
+                          dataModelPropertyResult.totalRowCount
+                        }}</span>
+                        {{ "TITLE.Number" | translate }}
+                        @if (dataModelPropertyResult.totalRowCount > 0) {
+                          <i
+                            class="fa fa-arrow-down font-10 accordion-icon"
+                          ></i>
+                        }
+                      </button>
+                      <!-- end::Header-->
+                      <!-- begin::List-->
+                      <div id="collapse1A" class="collapse" data-bs-parent="#accordion-1">
+                        @for (item of dataModelPropertyResult.listItems; track item) {
+                          <div class="divider divider-margins bg-highlight"></div>
+                          @if (!item.updatedBy || item.updatedBy <= 0) {
+                            <p
+                              class="mb-0 color-highlight font-600 font-12"
+                              >
+                              {{ "TITLE.ADD" | translate }}:@if (!viewOnlyTime) {
+                              <b
+                                >{{ publicHelper.LocaleDate(item.createdDate) }}
+                              </b>
+                            }
+                            {{ publicHelper.getTime(item.createdDate) }}
+                          </p>
+                        }
+                        @if (item.updatedBy > 0) {
+                          <p
+                            class="mb-0 color-highlight font-600 font-12"
+                            >
+                            {{ "TITLE.Edit" | translate }}:@if (!viewOnlyTime) {
+                            <b
+                              >{{ publicHelper.LocaleDate(item.updatedDate) }}
+                            </b>
+                          }
+                          {{ publicHelper.getTime(item.updatedDate) }}
+                        </p>
+                      }
+                      <h4
                   (click)="
                     onActionButtonProperty(
                       item,
@@ -196,11 +207,11 @@
                       $event
                     )
                   "
-                  style="cursor: pointer"
-                >
-                  {{ item.title
-                  }}<i
-                    [ngClass]="item.recordStatus | statusIconClass"
+                        style="cursor: pointer"
+                        >
+                        {{ item.title
+                        }}<i
+                        [ngClass]="item.recordStatus | statusIconClass"
                     (click)="
                       onActionButtonProperty(
                         item,
@@ -208,96 +219,102 @@
                         $event
                       )
                     "
-                    class="float-end"
-                  ></i>
-                </h4>
-                <p>
-                  {{ item.description }}
-                </p>
-                <p>
-                  {{ "TITLE.USER" | translate }}:
-                  <b dir="ltr">
-                    {{ item.createdBy | cmsuserinfo | async }}
-                  </b>
-                </p>
-                <p
-                  *ngIf="
-                    item.updatedBy > 0 && item.createdBy !== item.updatedBy
-                  "
-                >
-                  {{ "TITLE.Edit" | translate }}:
-                  <b dir="ltr">
-                    {{ item.updatedBy | cmsuserinfo | async }}
-                  </b>
-                </p>
-              </ng-container>
+                        class="float-end"
+                      ></i>
+                    </h4>
+                    <p>
+                      {{ item.description }}
+                    </p>
+                    <p>
+                      {{ "TITLE.USER" | translate }}:
+                      <b dir="ltr">
+                        {{ item.createdBy | cmsuserinfo | async }}
+                      </b>
+                    </p>
+                    @if (
+                      item.updatedBy > 0 && item.createdBy !== item.updatedBy
+                      ) {
+                      <p
+                        >
+                        {{ "TITLE.Edit" | translate }}:
+                        <b dir="ltr">
+                          {{ item.updatedBy | cmsuserinfo | async }}
+                        </b>
+                      </p>
+                    }
+                  }
+                </div>
+                <!-- end::List-->
+              </div>
             </div>
-            <!-- end::List-->
+            <!-- end::accordion-->
           </div>
         </div>
-        <!-- end::accordion-->
+        <!-- end::Row -->
       </div>
-    </div>
-    <!-- end::Row -->
-  </div>
-
-  <div
-    class="col-12 col-sm-12 col-md-6 col-lg-6"
-    *ngIf="dataModelPropertyResultAvailable.totalRowCount > 0"
-  >
-    <!-- begin::Row -->
-    <div class="card card-style loader-container">
-      <app-progress-spinner
-        [optionsInfoAreaId]="'dataModelPropertyResultAvailable'"
-      >
-      </app-progress-spinner>
-      <div class="content">
-        <!-- begin::accordion-->
-        <div class="accordion" id="accordion-1B">
-          <div class="mb-2">
-            <!-- begin::Header-->
-            <button
-              type="button"
-              class="btn accordion-btn no-effect color-theme"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapse1B"
+    }
+    @if (dataModelPropertyResultAvailable.totalRowCount > 0) {
+      <div
+        class="col-12 col-sm-12 col-md-6 col-lg-6"
+        >
+        <!-- begin::Row -->
+        <div class="card card-style loader-container">
+          <app-progress-spinner
+            [optionsInfoAreaId]="'dataModelPropertyResultAvailable'"
             >
-              <i class="fa fa-cloud color-blue-dark me-2"></i>
-              {{ "TITLE.Property_Available" | translate }}
-              <span class="text-muted fw-bold fs-7">{{
-                dataModelPropertyResultAvailable.totalRowCount
-              }}</span>
-              {{ "TITLE.Number" | translate }}
-              <i
-                class="fa fa-arrow-down font-10 accordion-icon"
-                *ngIf="dataModelPropertyResultAvailable.totalRowCount > 0"
-              ></i>
-            </button>
-            <!-- end::Header-->
-            <!-- begin::List-->
-            <div id="collapse1B" class="collapse" data-bs-parent="#accordion-1">
-              <ng-container
-                *ngFor="let item of dataModelPropertyResultAvailable.listItems"
-              >
-                <div class="divider divider-margins bg-highlight"></div>
-                <p
-                  *ngIf="!item.updatedBy || item.updatedBy <= 0"
-                  class="mb-0 color-highlight font-600 font-12"
-                >
-                  {{ "TITLE.ADD" | translate }}:<b *ngIf="!viewOnlyTime"
-                    >{{ publicHelper.LocaleDate(item.createdDate) }}
-                  </b>
-                  {{ publicHelper.getTime(item.createdDate) }}
-                </p>
-                <p
-                  *ngIf="item.updatedBy > 0"
-                  class="mb-0 color-highlight font-600 font-12"
-                >
-                  {{ "TITLE.Edit" | translate }}:<b *ngIf="!viewOnlyTime"
-                    >{{ publicHelper.LocaleDate(item.updatedDate) }}
-                  </b>
-                  {{ publicHelper.getTime(item.updatedDate) }}
-                </p>
+          </app-progress-spinner>
+          <div class="content">
+            <!-- begin::accordion-->
+            <div class="accordion" id="accordion-1B">
+              <div class="mb-2">
+                <!-- begin::Header-->
+                <button
+                  type="button"
+                  class="btn accordion-btn no-effect color-theme"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapse1B"
+                  >
+                  <i class="fa fa-cloud color-blue-dark me-2"></i>
+                  {{ "TITLE.Property_Available" | translate }}
+                  <span class="text-muted fw-bold fs-7">{{
+                    dataModelPropertyResultAvailable.totalRowCount
+                  }}</span>
+                  {{ "TITLE.Number" | translate }}
+                  @if (dataModelPropertyResultAvailable.totalRowCount > 0) {
+                    <i
+                      class="fa fa-arrow-down font-10 accordion-icon"
+                    ></i>
+                  }
+                </button>
+                <!-- end::Header-->
+                <!-- begin::List-->
+                <div id="collapse1B" class="collapse" data-bs-parent="#accordion-1">
+                  @for (item of dataModelPropertyResultAvailable.listItems; track item) {
+                    <div class="divider divider-margins bg-highlight"></div>
+                    @if (!item.updatedBy || item.updatedBy <= 0) {
+                      <p
+                        class="mb-0 color-highlight font-600 font-12"
+                        >
+                        {{ "TITLE.ADD" | translate }}:@if (!viewOnlyTime) {
+                        <b
+                          >{{ publicHelper.LocaleDate(item.createdDate) }}
+                        </b>
+                      }
+                      {{ publicHelper.getTime(item.createdDate) }}
+                    </p>
+                  }
+                  @if (item.updatedBy > 0) {
+                    <p
+                      class="mb-0 color-highlight font-600 font-12"
+                      >
+                      {{ "TITLE.Edit" | translate }}:@if (!viewOnlyTime) {
+                      <b
+                        >{{ publicHelper.LocaleDate(item.updatedDate) }}
+                      </b>
+                    }
+                    {{ publicHelper.getTime(item.updatedDate) }}
+                  </p>
+                }
                 <h4
                   (click)="
                     onActionButtonProperty(
@@ -307,10 +324,10 @@
                     )
                   "
                   style="cursor: pointer"
-                >
+                  >
                   {{ item.title
                   }}<i
-                    [ngClass]="item.recordStatus | statusIconClass"
+                  [ngClass]="item.recordStatus | statusIconClass"
                     (click)="
                       onActionButtonProperty(
                         item,
@@ -318,48 +335,49 @@
                         $event
                       )
                     "
-                    class="float-end"
-                  ></i>
-                </h4>
-                <p>
-                  {{ item.description }}
-                </p>
-                <p>
-                  {{ "TITLE.USER" | translate }}:
-                  <b dir="ltr">
-                    {{ item.createdBy | cmsuserinfo | async }}
-                  </b>
-                </p>
+                  class="float-end"
+                ></i>
+              </h4>
+              <p>
+                {{ item.description }}
+              </p>
+              <p>
+                {{ "TITLE.USER" | translate }}:
+                <b dir="ltr">
+                  {{ item.createdBy | cmsuserinfo | async }}
+                </b>
+              </p>
+              @if (
+                item.updatedBy > 0 && item.createdBy !== item.updatedBy
+                ) {
                 <p
-                  *ngIf="
-                    item.updatedBy > 0 && item.createdBy !== item.updatedBy
-                  "
-                >
+                  >
                   {{ "TITLE.Edit" | translate }}:
                   <b dir="ltr">
                     {{ item.updatedBy | cmsuserinfo | async }}
                   </b>
                 </p>
-              </ng-container>
-            </div>
-            <!-- end::List-->
+              }
+            }
           </div>
+          <!-- end::List-->
         </div>
-        <!-- end::accordion-->
       </div>
+      <!-- end::accordion-->
     </div>
-    <!-- end::Row -->
   </div>
-
+  <!-- end::Row -->
+</div>
+}
+@if (dataModelPropertyResultNotAvailable.totalRowCount > 0) {
   <div
     class="col-12 col-sm-12 col-md-6 col-lg-6"
-    *ngIf="dataModelPropertyResultNotAvailable.totalRowCount > 0"
-  >
+    >
     <!-- begin::Row -->
     <div class="card card-style loader-container">
       <app-progress-spinner
         [optionsInfoAreaId]="'dataModelPropertyResultNotAvailable'"
-      >
+        >
       </app-progress-spinner>
       <div class="content">
         <!-- begin::accordion-->
@@ -371,46 +389,52 @@
               class="btn accordion-btn no-effect color-theme"
               data-bs-toggle="collapse"
               data-bs-target="#collapse1C"
-            >
+              >
               <i class="fa fa-cloud color-blue-dark me-2"></i>
               {{ "TITLE.Property_NotAvailable" | translate }}
               <span class="text-muted fw-bold fs-7">{{
                 dataModelPropertyResultNotAvailable.totalRowCount
               }}</span>
               {{ "TITLE.Number" | translate }}
-              <i
-                class="fa fa-arrow-down font-10 accordion-icon"
-                *ngIf="dataModelPropertyResultNotAvailable.totalRowCount > 0"
-              ></i>
+              @if (dataModelPropertyResultNotAvailable.totalRowCount > 0) {
+                <i
+                  class="fa fa-arrow-down font-10 accordion-icon"
+                ></i>
+              }
             </button>
             <!-- end::Header-->
             <!-- begin::List-->
             <div id="collapse1C" class="collapse" data-bs-parent="#accordion-1">
-              <ng-container
-                *ngFor="
-                  let item of dataModelPropertyResultNotAvailable.listItems
-                "
-              >
+              @for (
+                item of dataModelPropertyResultNotAvailable.listItems
+                ; track
+                item) {
                 <div class="divider divider-margins bg-highlight"></div>
-                <p
-                  *ngIf="!item.updatedBy || item.updatedBy <= 0"
-                  class="mb-0 color-highlight font-600 font-12"
-                >
-                  {{ "TITLE.ADD" | translate }}:<b *ngIf="!viewOnlyTime"
-                    >{{ publicHelper.LocaleDate(item.createdDate) }}
-                  </b>
+                @if (!item.updatedBy || item.updatedBy <= 0) {
+                  <p
+                    class="mb-0 color-highlight font-600 font-12"
+                    >
+                    {{ "TITLE.ADD" | translate }}:@if (!viewOnlyTime) {
+                    <b
+                      >{{ publicHelper.LocaleDate(item.createdDate) }}
+                    </b>
+                  }
                   {{ publicHelper.getTime(item.createdDate) }}
                 </p>
+              }
+              @if (item.updatedBy > 0) {
                 <p
-                  *ngIf="item.updatedBy > 0"
                   class="mb-0 color-highlight font-600 font-12"
-                >
-                  {{ "TITLE.Edit" | translate }}:<b *ngIf="!viewOnlyTime"
+                  >
+                  {{ "TITLE.Edit" | translate }}:@if (!viewOnlyTime) {
+                  <b
                     >{{ publicHelper.LocaleDate(item.updatedDate) }}
                   </b>
-                  {{ publicHelper.getTime(item.updatedDate) }}
-                </p>
-                <h4
+                }
+                {{ publicHelper.getTime(item.updatedDate) }}
+              </p>
+            }
+            <h4
                   (click)="
                     onActionButtonProperty(
                       item,
@@ -418,11 +442,11 @@
                       $event
                     )
                   "
-                  style="cursor: pointer"
-                >
-                  {{ item.title
-                  }}<i
-                    [ngClass]="item.recordStatus | statusIconClass"
+              style="cursor: pointer"
+              >
+              {{ item.title
+              }}<i
+              [ngClass]="item.recordStatus | statusIconClass"
                     (click)="
                       onActionButtonProperty(
                         item,
@@ -430,48 +454,49 @@
                         $event
                       )
                     "
-                    class="float-end"
-                  ></i>
-                </h4>
-                <p>
-                  {{ item.description }}
-                </p>
-                <p>
-                  {{ "TITLE.USER" | translate }}:
-                  <b dir="ltr">
-                    {{ item.createdBy | cmsuserinfo | async }}
-                  </b>
-                </p>
-                <p
-                  *ngIf="
-                    item.updatedBy > 0 && item.createdBy !== item.updatedBy
-                  "
-                >
-                  {{ "TITLE.Edit" | translate }}:
-                  <b dir="ltr">
-                    {{ item.updatedBy | cmsuserinfo | async }}
-                  </b>
-                </p>
-              </ng-container>
-            </div>
-            <!-- end::List-->
-          </div>
-        </div>
-        <!-- end::accordion-->
+              class="float-end"
+            ></i>
+          </h4>
+          <p>
+            {{ item.description }}
+          </p>
+          <p>
+            {{ "TITLE.USER" | translate }}:
+            <b dir="ltr">
+              {{ item.createdBy | cmsuserinfo | async }}
+            </b>
+          </p>
+          @if (
+            item.updatedBy > 0 && item.createdBy !== item.updatedBy
+            ) {
+            <p
+              >
+              {{ "TITLE.Edit" | translate }}:
+              <b dir="ltr">
+                {{ item.updatedBy | cmsuserinfo | async }}
+              </b>
+            </p>
+          }
+        }
       </div>
+      <!-- end::List-->
     </div>
-    <!-- end::Row -->
   </div>
-
+  <!-- end::accordion-->
+</div>
+</div>
+<!-- end::Row -->
+</div>
+}
+@if (dataModelCustomerOrderResult.totalRowCount > 0) {
   <div
     class="col-12 col-sm-12 col-md-6 col-lg-6"
-    *ngIf="dataModelCustomerOrderResult.totalRowCount > 0"
-  >
+    >
     <!-- begin::Row -->
     <div class="card card-style loader-container">
       <app-progress-spinner
         [optionsInfoAreaId]="'dataModelCustomerOrderResult'"
-      >
+        >
       </app-progress-spinner>
       <div class="content">
         <!-- begin::accordion-->
@@ -483,45 +508,49 @@
               class="btn accordion-btn no-effect color-theme"
               data-bs-toggle="collapse"
               data-bs-target="#collapse2A"
-            >
+              >
               <i class="fa fa-cloud color-blue-dark me-2"></i>
               {{ "TITLE.Customer_Order" | translate }}
               <span class="text-muted fw-bold fs-7">{{
                 dataModelCustomerOrderResult.totalRowCount
               }}</span>
               {{ "TITLE.Number" | translate }}
-              <i
-                class="fa fa-arrow-down font-10 accordion-icon"
-                *ngIf="dataModelCustomerOrderResult.totalRowCount > 0"
-              ></i>
+              @if (dataModelCustomerOrderResult.totalRowCount > 0) {
+                <i
+                  class="fa fa-arrow-down font-10 accordion-icon"
+                ></i>
+              }
             </button>
             <!-- end::Header-->
             <!-- begin::List-->
             <div id="collapse2A" class="collapse" data-bs-parent="#accordion-2">
-              <ng-container
-                *ngFor="let item of dataModelCustomerOrderResult.listItems"
-              >
+              @for (item of dataModelCustomerOrderResult.listItems; track item) {
                 <div class="divider divider-margins bg-highlight"></div>
-                <p
-                  *ngIf="!item.updatedBy || item.updatedBy <= 0"
-                  class="mb-0 color-highlight font-600 font-12"
-                >
-                  {{ "TITLE.ADD" | translate }}:<b *ngIf="!viewOnlyTime"
-                    >{{ publicHelper.LocaleDate(item.createdDate) }}
-                  </b>
+                @if (!item.updatedBy || item.updatedBy <= 0) {
+                  <p
+                    class="mb-0 color-highlight font-600 font-12"
+                    >
+                    {{ "TITLE.ADD" | translate }}:@if (!viewOnlyTime) {
+                    <b
+                      >{{ publicHelper.LocaleDate(item.createdDate) }}
+                    </b>
+                  }
                   {{ publicHelper.getTime(item.createdDate) }}
                 </p>
+              }
+              @if (item.updatedBy > 0) {
                 <p
-                  *ngIf="item.updatedBy > 0"
                   class="mb-0 color-highlight font-600 font-12"
-                >
-                  {{ "TITLE.Edit" | translate }}:<b *ngIf="!viewOnlyTime"
+                  >
+                  {{ "TITLE.Edit" | translate }}:@if (!viewOnlyTime) {
+                  <b
                     >{{ publicHelper.LocaleDate(item.updatedDate) }}
                   </b>
-                  {{ publicHelper.getTime(item.updatedDate) }}
-                </p>
-
-                <h4
+                }
+                {{ publicHelper.getTime(item.updatedDate) }}
+              </p>
+            }
+            <h4
                   (click)="
                     onActionButtonCustomerOrder(
                       item,
@@ -529,11 +558,11 @@
                       $event
                     )
                   "
-                  style="cursor: pointer"
-                >
-                  {{ item.title
-                  }}<i
-                    [ngClass]="item.recordStatus | statusIconClass"
+              style="cursor: pointer"
+              >
+              {{ item.title
+              }}<i
+              [ngClass]="item.recordStatus | statusIconClass"
                     (click)="
                       onActionButtonCustomerOrder(
                         item,
@@ -541,48 +570,49 @@
                         $event
                       )
                     "
-                    class="float-end"
-                  ></i>
-                </h4>
-                <p>
-                  {{ item.description }}
-                </p>
-                <p>
-                  {{ "TITLE.USER" | translate }}:
-                  <b dir="ltr">
-                    {{ item.createdBy | cmsuserinfo | async }}
-                  </b>
-                </p>
-                <p
-                  *ngIf="
-                    item.updatedBy > 0 && item.createdBy !== item.updatedBy
-                  "
-                >
-                  {{ "TITLE.Edit" | translate }}:
-                  <b dir="ltr">
-                    {{ item.updatedBy | cmsuserinfo | async }}
-                  </b>
-                </p>
-              </ng-container>
-            </div>
-            <!-- end::List-->
-          </div>
-        </div>
-        <!-- end::accordion-->
+              class="float-end"
+            ></i>
+          </h4>
+          <p>
+            {{ item.description }}
+          </p>
+          <p>
+            {{ "TITLE.USER" | translate }}:
+            <b dir="ltr">
+              {{ item.createdBy | cmsuserinfo | async }}
+            </b>
+          </p>
+          @if (
+            item.updatedBy > 0 && item.createdBy !== item.updatedBy
+            ) {
+            <p
+              >
+              {{ "TITLE.Edit" | translate }}:
+              <b dir="ltr">
+                {{ item.updatedBy | cmsuserinfo | async }}
+              </b>
+            </p>
+          }
+        }
       </div>
+      <!-- end::List-->
     </div>
-    <!-- end::Row -->
   </div>
-
+  <!-- end::accordion-->
+</div>
+</div>
+<!-- end::Row -->
+</div>
+}
+@if (dataModelCustomerOrderResultAvailable.totalRowCount > 0) {
   <div
     class="col-12 col-sm-12 col-md-6 col-lg-6"
-    *ngIf="dataModelCustomerOrderResultAvailable.totalRowCount > 0"
-  >
+    >
     <!-- begin::Row -->
     <div class="card card-style loader-container">
       <app-progress-spinner
         [optionsInfoAreaId]="'dataModelCustomerOrderResultAvailable'"
-      >
+        >
       </app-progress-spinner>
       <div class="content">
         <!-- begin::accordion-->
@@ -594,47 +624,52 @@
               class="btn accordion-btn no-effect color-theme"
               data-bs-toggle="collapse"
               data-bs-target="#collapse2B"
-            >
+              >
               <i class="fa fa-cloud color-blue-dark me-2"></i>
               {{ "TITLE.Customer_Order_Available" | translate }}
               <span class="text-muted fw-bold fs-7">{{
                 dataModelCustomerOrderResultAvailable.totalRowCount
               }}</span>
               {{ "TITLE.Number" | translate }}
-              <i
-                class="fa fa-arrow-down font-10 accordion-icon"
-                *ngIf="dataModelCustomerOrderResultAvailable.totalRowCount > 0"
-              ></i>
+              @if (dataModelCustomerOrderResultAvailable.totalRowCount > 0) {
+                <i
+                  class="fa fa-arrow-down font-10 accordion-icon"
+                ></i>
+              }
             </button>
             <!-- end::Header-->
             <!-- begin::List-->
             <div id="collapse2B" class="collapse" data-bs-parent="#accordion-2">
-              <ng-container
-                *ngFor="
-                  let item of dataModelCustomerOrderResultAvailable.listItems
-                "
-              >
+              @for (
+                item of dataModelCustomerOrderResultAvailable.listItems
+                ; track
+                item) {
                 <div class="divider divider-margins bg-highlight"></div>
-                <p
-                  *ngIf="!item.updatedBy || item.updatedBy <= 0"
-                  class="mb-0 color-highlight font-600 font-12"
-                >
-                  {{ "TITLE.ADD" | translate }}:<b *ngIf="!viewOnlyTime"
-                    >{{ publicHelper.LocaleDate(item.createdDate) }}
-                  </b>
+                @if (!item.updatedBy || item.updatedBy <= 0) {
+                  <p
+                    class="mb-0 color-highlight font-600 font-12"
+                    >
+                    {{ "TITLE.ADD" | translate }}:@if (!viewOnlyTime) {
+                    <b
+                      >{{ publicHelper.LocaleDate(item.createdDate) }}
+                    </b>
+                  }
                   {{ publicHelper.getTime(item.createdDate) }}
                 </p>
+              }
+              @if (item.updatedBy > 0) {
                 <p
-                  *ngIf="item.updatedBy > 0"
                   class="mb-0 color-highlight font-600 font-12"
-                >
-                  {{ "TITLE.Edit" | translate }}:<b *ngIf="!viewOnlyTime"
+                  >
+                  {{ "TITLE.Edit" | translate }}:@if (!viewOnlyTime) {
+                  <b
                     >{{ publicHelper.LocaleDate(item.updatedDate) }}
                   </b>
-                  {{ publicHelper.getTime(item.updatedDate) }}
-                </p>
-
-                <h4
+                }
+                {{ publicHelper.getTime(item.updatedDate) }}
+              </p>
+            }
+            <h4
                   (click)="
                     onActionButtonCustomerOrder(
                       item,
@@ -642,11 +677,11 @@
                       $event
                     )
                   "
-                  style="cursor: pointer"
-                >
-                  {{ item.title
-                  }}<i
-                    [ngClass]="item.recordStatus | statusIconClass"
+              style="cursor: pointer"
+              >
+              {{ item.title
+              }}<i
+              [ngClass]="item.recordStatus | statusIconClass"
                     (click)="
                       onActionButtonCustomerOrder(
                         item,
@@ -654,48 +689,49 @@
                         $event
                       )
                     "
-                    class="float-end"
-                  ></i>
-                </h4>
-                <p>
-                  {{ item.description }}
-                </p>
-                <p>
-                  {{ "TITLE.USER" | translate }}:
-                  <b dir="ltr">
-                    {{ item.createdBy | cmsuserinfo | async }}
-                  </b>
-                </p>
-                <p
-                  *ngIf="
-                    item.updatedBy > 0 && item.createdBy !== item.updatedBy
-                  "
-                >
-                  {{ "TITLE.Edit" | translate }}:
-                  <b dir="ltr">
-                    {{ item.updatedBy | cmsuserinfo | async }}
-                  </b>
-                </p>
-              </ng-container>
-            </div>
-            <!-- end::List-->
-          </div>
-        </div>
-        <!-- end::accordion-->
+              class="float-end"
+            ></i>
+          </h4>
+          <p>
+            {{ item.description }}
+          </p>
+          <p>
+            {{ "TITLE.USER" | translate }}:
+            <b dir="ltr">
+              {{ item.createdBy | cmsuserinfo | async }}
+            </b>
+          </p>
+          @if (
+            item.updatedBy > 0 && item.createdBy !== item.updatedBy
+            ) {
+            <p
+              >
+              {{ "TITLE.Edit" | translate }}:
+              <b dir="ltr">
+                {{ item.updatedBy | cmsuserinfo | async }}
+              </b>
+            </p>
+          }
+        }
       </div>
+      <!-- end::List-->
     </div>
-    <!-- end::Row -->
   </div>
-
+  <!-- end::accordion-->
+</div>
+</div>
+<!-- end::Row -->
+</div>
+}
+@if (dataModelCustomerOrderResultNotAvailable.totalRowCount > 0) {
   <div
     class="col-12 col-sm-12 col-md-6 col-lg-6"
-    *ngIf="dataModelCustomerOrderResultNotAvailable.totalRowCount > 0"
-  >
+    >
     <!-- begin::Row -->
     <div class="card card-style loader-container">
       <app-progress-spinner
         [optionsInfoAreaId]="'dataModelCustomerOrderResultNotAvailable'"
-      >
+        >
       </app-progress-spinner>
       <div class="content">
         <!-- begin::accordion-->
@@ -707,49 +743,54 @@
               class="btn accordion-btn no-effect color-theme"
               data-bs-toggle="collapse"
               data-bs-target="#collapse2C"
-            >
+              >
               <i class="fa fa-cloud color-blue-dark me-2"></i>
               {{ "TITLE.Customer_Order_NotAvailable" | translate }}
               <span class="text-muted fw-bold fs-7">{{
                 dataModelCustomerOrderResultNotAvailable.totalRowCount
               }}</span>
               {{ "TITLE.Number" | translate }}
-              <i
-                class="fa fa-arrow-down font-10 accordion-icon"
-                *ngIf="
-                  dataModelCustomerOrderResultNotAvailable.totalRowCount > 0
-                "
-              ></i>
+              @if (
+                dataModelCustomerOrderResultNotAvailable.totalRowCount > 0
+                ) {
+                <i
+                  class="fa fa-arrow-down font-10 accordion-icon"
+                ></i>
+              }
             </button>
             <!-- end::Header-->
             <!-- begin::List-->
             <div id="collapse2C" class="collapse" data-bs-parent="#accordion-2">
-              <ng-container
-                *ngFor="
-                  let item of dataModelCustomerOrderResultNotAvailable.listItems
-                "
-              >
+              @for (
+                item of dataModelCustomerOrderResultNotAvailable.listItems
+                ; track
+                item) {
                 <div class="divider divider-margins bg-highlight"></div>
-                <p
-                  *ngIf="!item.updatedBy || item.updatedBy <= 0"
-                  class="mb-0 color-highlight font-600 font-12"
-                >
-                  {{ "TITLE.ADD" | translate }}:<b *ngIf="!viewOnlyTime"
-                    >{{ publicHelper.LocaleDate(item.createdDate) }}
-                  </b>
+                @if (!item.updatedBy || item.updatedBy <= 0) {
+                  <p
+                    class="mb-0 color-highlight font-600 font-12"
+                    >
+                    {{ "TITLE.ADD" | translate }}:@if (!viewOnlyTime) {
+                    <b
+                      >{{ publicHelper.LocaleDate(item.createdDate) }}
+                    </b>
+                  }
                   {{ publicHelper.getTime(item.createdDate) }}
                 </p>
+              }
+              @if (item.updatedBy > 0) {
                 <p
-                  *ngIf="item.updatedBy > 0"
                   class="mb-0 color-highlight font-600 font-12"
-                >
-                  {{ "TITLE.Edit" | translate }}:<b *ngIf="!viewOnlyTime"
+                  >
+                  {{ "TITLE.Edit" | translate }}:@if (!viewOnlyTime) {
+                  <b
                     >{{ publicHelper.LocaleDate(item.updatedDate) }}
                   </b>
-                  {{ publicHelper.getTime(item.updatedDate) }}
-                </p>
-
-                <h4
+                }
+                {{ publicHelper.getTime(item.updatedDate) }}
+              </p>
+            }
+            <h4
                   (click)="
                     onActionButtonCustomerOrder(
                       item,
@@ -757,11 +798,11 @@
                       $event
                     )
                   "
-                  style="cursor: pointer"
-                >
-                  {{ item.title
-                  }}<i
-                    [ngClass]="item.recordStatus | statusIconClass"
+              style="cursor: pointer"
+              >
+              {{ item.title
+              }}<i
+              [ngClass]="item.recordStatus | statusIconClass"
                     (click)="
                       onActionButtonCustomerOrder(
                         item,
@@ -769,43 +810,44 @@
                         $event
                       )
                     "
-                    class="float-end"
-                  ></i>
-                </h4>
-                <p>
-                  {{ item.description }}
-                </p>
-                <p>
-                  {{ "TITLE.USER" | translate }}:
-                  <b dir="ltr">
-                    {{ item.createdBy | cmsuserinfo | async }}
-                  </b>
-                </p>
-                <p
-                  *ngIf="
-                    item.updatedBy > 0 && item.createdBy !== item.updatedBy
-                  "
-                >
-                  {{ "TITLE.Edit" | translate }}:
-                  <b dir="ltr">
-                    {{ item.updatedBy | cmsuserinfo | async }}
-                  </b>
-                </p>
-              </ng-container>
-            </div>
-            <!-- end::List-->
-          </div>
-        </div>
-        <!-- end::accordion-->
+              class="float-end"
+            ></i>
+          </h4>
+          <p>
+            {{ item.description }}
+          </p>
+          <p>
+            {{ "TITLE.USER" | translate }}:
+            <b dir="ltr">
+              {{ item.createdBy | cmsuserinfo | async }}
+            </b>
+          </p>
+          @if (
+            item.updatedBy > 0 && item.createdBy !== item.updatedBy
+            ) {
+            <p
+              >
+              {{ "TITLE.Edit" | translate }}:
+              <b dir="ltr">
+                {{ item.updatedBy | cmsuserinfo | async }}
+              </b>
+            </p>
+          }
+        }
       </div>
+      <!-- end::List-->
     </div>
-    <!-- end::Row -->
   </div>
-
+  <!-- end::accordion-->
+</div>
+</div>
+<!-- end::Row -->
+</div>
+}
+@if (dataModelHistoryResult.totalRowCount > 0) {
   <div
     class="col-12 col-sm-12 col-md-6 col-lg-6"
-    *ngIf="dataModelHistoryResult.totalRowCount > 0"
-  >
+    >
     <!-- begin::Row -->
     <div class="card card-style loader-container">
       <app-progress-spinner [optionsInfoAreaId]="'dataModelHistoryResult'">
@@ -820,94 +862,99 @@
               class="btn accordion-btn no-effect color-theme"
               data-bs-toggle="collapse"
               data-bs-target="#collapse3"
-            >
+              >
               <i class="fa fa-cloud color-blue-dark me-2"></i>
               {{ "TITLE.History" | translate }}
               <span class="text-muted fw-bold fs-7">{{
                 dataModelHistoryResult.totalRowCount
               }}</span>
               {{ "TITLE.Number" | translate }}
-              <i
-                class="fa fa-arrow-down font-10 accordion-icon"
-                *ngIf="dataModelHistoryResult.totalRowCount > 0"
-              ></i>
+              @if (dataModelHistoryResult.totalRowCount > 0) {
+                <i
+                  class="fa fa-arrow-down font-10 accordion-icon"
+                ></i>
+              }
             </button>
             <!-- end::Header-->
             <!-- begin::List-->
             <div id="collapse3" class="collapse" data-bs-parent="#accordion-3">
-              <ng-container
-                *ngFor="let item of dataModelHistoryResult.listItems"
-              >
+              @for (item of dataModelHistoryResult.listItems; track item) {
                 <div class="divider divider-margins bg-highlight"></div>
-                <p
-                  *ngIf="!item.updatedBy || item.updatedBy <= 0"
-                  class="mb-0 color-highlight font-600 font-12"
-                >
-                  {{ "TITLE.ADD" | translate }}:<b *ngIf="!viewOnlyTime"
-                    >{{ publicHelper.LocaleDate(item.createdDate) }}
-                  </b>
+                @if (!item.updatedBy || item.updatedBy <= 0) {
+                  <p
+                    class="mb-0 color-highlight font-600 font-12"
+                    >
+                    {{ "TITLE.ADD" | translate }}:@if (!viewOnlyTime) {
+                    <b
+                      >{{ publicHelper.LocaleDate(item.createdDate) }}
+                    </b>
+                  }
                   {{ publicHelper.getTime(item.createdDate) }}
                 </p>
+              }
+              @if (item.updatedBy > 0) {
                 <p
-                  *ngIf="item.updatedBy > 0"
                   class="mb-0 color-highlight font-600 font-12"
-                >
-                  {{ "TITLE.Edit" | translate }}:<b *ngIf="!viewOnlyTime"
+                  >
+                  {{ "TITLE.Edit" | translate }}:@if (!viewOnlyTime) {
+                  <b
                     >{{ publicHelper.LocaleDate(item.updatedDate) }}
                   </b>
-                  {{ publicHelper.getTime(item.updatedDate) }}
-                </p>
-
-                <h4
-                  (click)="onActionButtonHistory(item, $event)"
-                  style="cursor: pointer"
-                >
-                  {{ item.title
-                  }}<i
-                    [ngClass]="item.recordStatus | statusIconClass"
-                    (click)="onActionButtonHistory(item, $event)"
-                    class="float-end"
-                  ></i>
-                </h4>
-                <p>
-                  {{ item.description }}
-                </p>
-                <p>
-                  {{ "TITLE.USER" | translate }}:
-                  <b dir="ltr">
-                    {{ item.createdBy | cmsuserinfo | async }}
-                  </b>
-                </p>
-                <p
-                  *ngIf="
-                    item.updatedBy > 0 && item.createdBy !== item.updatedBy
-                  "
-                >
-                  {{ "TITLE.Edit" | translate }}:
-                  <b dir="ltr">
-                    {{ item.updatedBy | cmsuserinfo | async }}
-                  </b>
-                </p>
-              </ng-container>
-            </div>
-            <!-- end::List-->
-          </div>
-        </div>
-        <!-- end::accordion-->
+                }
+                {{ publicHelper.getTime(item.updatedDate) }}
+              </p>
+            }
+            <h4
+              (click)="onActionButtonHistory(item, $event)"
+              style="cursor: pointer"
+              >
+              {{ item.title
+              }}<i
+              [ngClass]="item.recordStatus | statusIconClass"
+              (click)="onActionButtonHistory(item, $event)"
+              class="float-end"
+            ></i>
+          </h4>
+          <p>
+            {{ item.description }}
+          </p>
+          <p>
+            {{ "TITLE.USER" | translate }}:
+            <b dir="ltr">
+              {{ item.createdBy | cmsuserinfo | async }}
+            </b>
+          </p>
+          @if (
+            item.updatedBy > 0 && item.createdBy !== item.updatedBy
+            ) {
+            <p
+              >
+              {{ "TITLE.Edit" | translate }}:
+              <b dir="ltr">
+                {{ item.updatedBy | cmsuserinfo | async }}
+              </b>
+            </p>
+          }
+        }
       </div>
+      <!-- end::List-->
     </div>
-    <!-- end::Row -->
   </div>
-
+  <!-- end::accordion-->
+</div>
+</div>
+<!-- end::Row -->
+</div>
+}
+@if (dataModelAccountAgencyResult.totalRowCount > 0) {
   <div
     class="col-12 col-sm-12 col-md-6 col-lg-6"
-    *ngIf="dataModelAccountAgencyResult.totalRowCount > 0"
-  >
+    >
     <!-- begin::Row -->
     <div class="card card-style loader-container">
       <app-progress-spinner
         [optionsInfoAreaId]="'dataModelAccountAgencyResult'"
-      >
+        >
       </app-progress-spinner>
       <div class="content">
         <!-- begin::accordion-->
@@ -919,89 +966,94 @@
               class="btn accordion-btn no-effect color-theme"
               data-bs-toggle="collapse"
               data-bs-target="#collapse4"
-            >
+              >
               <i class="fa fa-cloud color-blue-dark me-2"></i>
               {{ "TITLE.Property_agency" | translate }}
               <span class="text-muted fw-bold fs-7">{{
                 dataModelAccountAgencyResult.totalRowCount
               }}</span>
               {{ "TITLE.Number" | translate }}
-              <i
-                class="fa fa-arrow-down font-10 accordion-icon"
-                *ngIf="dataModelAccountAgencyResult.totalRowCount > 0"
-              ></i>
+              @if (dataModelAccountAgencyResult.totalRowCount > 0) {
+                <i
+                  class="fa fa-arrow-down font-10 accordion-icon"
+                ></i>
+              }
             </button>
             <!-- end::Header-->
             <!-- begin::List-->
             <div id="collapse4" class="collapse" data-bs-parent="#accordion-4">
-              <ng-container
-                *ngFor="let item of dataModelAccountAgencyResult.listItems"
-              >
+              @for (item of dataModelAccountAgencyResult.listItems; track item) {
                 <div class="divider divider-margins bg-highlight"></div>
-                <p
-                  *ngIf="!item.updatedBy || item.updatedBy <= 0"
-                  class="mb-0 color-highlight font-600 font-12"
-                >
-                  {{ "TITLE.ADD" | translate }}:<b *ngIf="!viewOnlyTime"
-                    >{{ publicHelper.LocaleDate(item.createdDate) }}
-                  </b>
+                @if (!item.updatedBy || item.updatedBy <= 0) {
+                  <p
+                    class="mb-0 color-highlight font-600 font-12"
+                    >
+                    {{ "TITLE.ADD" | translate }}:@if (!viewOnlyTime) {
+                    <b
+                      >{{ publicHelper.LocaleDate(item.createdDate) }}
+                    </b>
+                  }
                   {{ publicHelper.getTime(item.createdDate) }}
                 </p>
+              }
+              @if (item.updatedBy > 0) {
                 <p
-                  *ngIf="item.updatedBy > 0"
                   class="mb-0 color-highlight font-600 font-12"
-                >
-                  {{ "TITLE.Edit" | translate }}:<b *ngIf="!viewOnlyTime"
+                  >
+                  {{ "TITLE.Edit" | translate }}:@if (!viewOnlyTime) {
+                  <b
                     >{{ publicHelper.LocaleDate(item.updatedDate) }}
                   </b>
-                  {{ publicHelper.getTime(item.updatedDate) }}
-                </p>
-
-                <h4
-                  (click)="onActionButtonAccountAgency(item, $event)"
-                  style="cursor: pointer"
-                >
-                  {{ item.title
-                  }}<i
-                    [ngClass]="item.recordStatus | statusIconClass"
-                    (click)="onActionButtonAccountAgency(item, $event)"
-                    class="float-end"
-                  ></i>
-                </h4>
-                <p>
-                  {{ item.description }}
-                </p>
-                <p>
-                  {{ "TITLE.USER" | translate }}:
-                  <b dir="ltr">
-                    {{ item.createdBy | cmsuserinfo | async }}
-                  </b>
-                </p>
-                <p
-                  *ngIf="
-                    item.updatedBy > 0 && item.createdBy !== item.updatedBy
-                  "
-                >
-                  {{ "TITLE.Edit" | translate }}:
-                  <b dir="ltr">
-                    {{ item.updatedBy | cmsuserinfo | async }}
-                  </b>
-                </p>
-              </ng-container>
-            </div>
-            <!-- end::List-->
-          </div>
-        </div>
-        <!-- end::accordion-->
+                }
+                {{ publicHelper.getTime(item.updatedDate) }}
+              </p>
+            }
+            <h4
+              (click)="onActionButtonAccountAgency(item, $event)"
+              style="cursor: pointer"
+              >
+              {{ item.title
+              }}<i
+              [ngClass]="item.recordStatus | statusIconClass"
+              (click)="onActionButtonAccountAgency(item, $event)"
+              class="float-end"
+            ></i>
+          </h4>
+          <p>
+            {{ item.description }}
+          </p>
+          <p>
+            {{ "TITLE.USER" | translate }}:
+            <b dir="ltr">
+              {{ item.createdBy | cmsuserinfo | async }}
+            </b>
+          </p>
+          @if (
+            item.updatedBy > 0 && item.createdBy !== item.updatedBy
+            ) {
+            <p
+              >
+              {{ "TITLE.Edit" | translate }}:
+              <b dir="ltr">
+                {{ item.updatedBy | cmsuserinfo | async }}
+              </b>
+            </p>
+          }
+        }
       </div>
+      <!-- end::List-->
     </div>
-    <!-- end::Row -->
   </div>
-
+  <!-- end::accordion-->
+</div>
+</div>
+<!-- end::Row -->
+</div>
+}
+@if (dataModelAccountUserResult.totalRowCount > 0) {
   <div
     class="col-12 col-sm-12 col-md-6 col-lg-6"
-    *ngIf="dataModelAccountUserResult.totalRowCount > 0"
-  >
+    >
     <!-- begin::Row -->
     <div class="card card-style loader-container">
       <app-progress-spinner [optionsInfoAreaId]="'dataModelAccountUserResult'">
@@ -1016,94 +1068,99 @@
               class="btn accordion-btn no-effect color-theme"
               data-bs-toggle="collapse"
               data-bs-target="#collapse5"
-            >
+              >
               <i class="fa fa-cloud color-blue-dark me-2"></i>
               {{ "TITLE.Property_expert" | translate }}
               <span class="text-muted fw-bold fs-7">{{
                 dataModelAccountUserResult.totalRowCount
               }}</span>
               {{ "TITLE.Number" | translate }}
-              <i
-                class="fa fa-arrow-down font-10 accordion-icon"
-                *ngIf="dataModelAccountUserResult.totalRowCount > 0"
-              ></i>
+              @if (dataModelAccountUserResult.totalRowCount > 0) {
+                <i
+                  class="fa fa-arrow-down font-10 accordion-icon"
+                ></i>
+              }
             </button>
             <!-- end::Header-->
             <!-- begin::List-->
             <div id="collapse5" class="collapse" data-bs-parent="#accordion-5">
-              <ng-container
-                *ngFor="let item of dataModelAccountUserResult.listItems"
-              >
+              @for (item of dataModelAccountUserResult.listItems; track item) {
                 <div class="divider divider-margins bg-highlight"></div>
-                <p
-                  *ngIf="!item.updatedBy || item.updatedBy <= 0"
-                  class="mb-0 color-highlight font-600 font-12"
-                >
-                  {{ "TITLE.ADD" | translate }}:<b *ngIf="!viewOnlyTime"
-                    >{{ publicHelper.LocaleDate(item.createdDate) }}
-                  </b>
+                @if (!item.updatedBy || item.updatedBy <= 0) {
+                  <p
+                    class="mb-0 color-highlight font-600 font-12"
+                    >
+                    {{ "TITLE.ADD" | translate }}:@if (!viewOnlyTime) {
+                    <b
+                      >{{ publicHelper.LocaleDate(item.createdDate) }}
+                    </b>
+                  }
                   {{ publicHelper.getTime(item.createdDate) }}
                 </p>
+              }
+              @if (item.updatedBy > 0) {
                 <p
-                  *ngIf="item.updatedBy > 0"
                   class="mb-0 color-highlight font-600 font-12"
-                >
-                  {{ "TITLE.Edit" | translate }}:<b *ngIf="!viewOnlyTime"
+                  >
+                  {{ "TITLE.Edit" | translate }}:@if (!viewOnlyTime) {
+                  <b
                     >{{ publicHelper.LocaleDate(item.updatedDate) }}
                   </b>
-                  {{ publicHelper.getTime(item.updatedDate) }}
-                </p>
-
-                <h4
-                  (click)="onActionButtonAccountUser(item, $event)"
-                  style="cursor: pointer"
-                >
-                  {{ item.title
-                  }}<i
-                    [ngClass]="item.recordStatus | statusIconClass"
-                    (click)="onActionButtonAccountUser(item, $event)"
-                    class="float-end"
-                  ></i>
-                </h4>
-                <p>
-                  {{ item.description }}
-                </p>
-                <p>
-                  {{ "TITLE.USER" | translate }}:
-                  <b dir="ltr">
-                    {{ item.createdBy | cmsuserinfo | async }}
-                  </b>
-                </p>
-                <p
-                  *ngIf="
-                    item.updatedBy > 0 && item.createdBy !== item.updatedBy
-                  "
-                >
-                  {{ "TITLE.Edit" | translate }}:
-                  <b dir="ltr">
-                    {{ item.updatedBy | cmsuserinfo | async }}
-                  </b>
-                </p>
-              </ng-container>
-            </div>
-            <!-- end::List-->
-          </div>
-        </div>
-        <!-- end::accordion-->
+                }
+                {{ publicHelper.getTime(item.updatedDate) }}
+              </p>
+            }
+            <h4
+              (click)="onActionButtonAccountUser(item, $event)"
+              style="cursor: pointer"
+              >
+              {{ item.title
+              }}<i
+              [ngClass]="item.recordStatus | statusIconClass"
+              (click)="onActionButtonAccountUser(item, $event)"
+              class="float-end"
+            ></i>
+          </h4>
+          <p>
+            {{ item.description }}
+          </p>
+          <p>
+            {{ "TITLE.USER" | translate }}:
+            <b dir="ltr">
+              {{ item.createdBy | cmsuserinfo | async }}
+            </b>
+          </p>
+          @if (
+            item.updatedBy > 0 && item.createdBy !== item.updatedBy
+            ) {
+            <p
+              >
+              {{ "TITLE.Edit" | translate }}:
+              <b dir="ltr">
+                {{ item.updatedBy | cmsuserinfo | async }}
+              </b>
+            </p>
+          }
+        }
       </div>
+      <!-- end::List-->
     </div>
-    <!-- end::Row -->
   </div>
-
+  <!-- end::accordion-->
+</div>
+</div>
+<!-- end::Row -->
+</div>
+}
+@if (dataModelPropertyCompanyResult.totalRowCount > 0) {
   <div
     class="col-12 col-sm-12 col-md-6 col-lg-6"
-    *ngIf="dataModelPropertyCompanyResult.totalRowCount > 0"
-  >
+    >
     <!-- begin::Row -->
     <div class="card card-style loader-container">
       <app-progress-spinner
         [optionsInfoAreaId]="'dataModelPropertyCompanyResult'"
-      >
+        >
       </app-progress-spinner>
       <div class="content">
         <!-- begin::accordion-->
@@ -1115,94 +1172,99 @@
               class="btn accordion-btn no-effect color-theme"
               data-bs-toggle="collapse"
               data-bs-target="#collapse6"
-            >
+              >
               <i class="fa fa-cloud color-blue-dark me-2"></i>
               {{ "TITLE.Property_Company" | translate }}
               <span class="text-muted fw-bold fs-7">{{
                 dataModelPropertyCompanyResult.totalRowCount
               }}</span>
               {{ "TITLE.Number" | translate }}
-              <i
-                class="fa fa-arrow-down font-10 accordion-icon"
-                *ngIf="dataModelPropertyCompanyResult.totalRowCount > 0"
-              ></i>
+              @if (dataModelPropertyCompanyResult.totalRowCount > 0) {
+                <i
+                  class="fa fa-arrow-down font-10 accordion-icon"
+                ></i>
+              }
             </button>
             <!-- end::Header-->
             <!-- begin::List-->
             <div id="collapse6" class="collapse" data-bs-parent="#accordion-6">
-              <ng-container
-                *ngFor="let item of dataModelPropertyCompanyResult.listItems"
-              >
+              @for (item of dataModelPropertyCompanyResult.listItems; track item) {
                 <div class="divider divider-margins bg-highlight"></div>
-                <p
-                  *ngIf="!item.updatedBy || item.updatedBy <= 0"
-                  class="mb-0 color-highlight font-600 font-12"
-                >
-                  {{ "TITLE.ADD" | translate }}:<b *ngIf="!viewOnlyTime"
-                    >{{ publicHelper.LocaleDate(item.createdDate) }}
-                  </b>
+                @if (!item.updatedBy || item.updatedBy <= 0) {
+                  <p
+                    class="mb-0 color-highlight font-600 font-12"
+                    >
+                    {{ "TITLE.ADD" | translate }}:@if (!viewOnlyTime) {
+                    <b
+                      >{{ publicHelper.LocaleDate(item.createdDate) }}
+                    </b>
+                  }
                   {{ publicHelper.getTime(item.createdDate) }}
                 </p>
+              }
+              @if (item.updatedBy > 0) {
                 <p
-                  *ngIf="item.updatedBy > 0"
                   class="mb-0 color-highlight font-600 font-12"
-                >
-                  {{ "TITLE.Edit" | translate }}:<b *ngIf="!viewOnlyTime"
+                  >
+                  {{ "TITLE.Edit" | translate }}:@if (!viewOnlyTime) {
+                  <b
                     >{{ publicHelper.LocaleDate(item.updatedDate) }}
                   </b>
-                  {{ publicHelper.getTime(item.updatedDate) }}
-                </p>
-
-                <h4
-                  (click)="onActionButtonPropertyCompany(item, $event)"
-                  style="cursor: pointer"
-                >
-                  {{ item.title
-                  }}<i
-                    [ngClass]="item.recordStatus | statusIconClass"
-                    (click)="onActionButtonPropertyCompany(item, $event)"
-                    class="float-end"
-                  ></i>
-                </h4>
-                <p>
-                  {{ item.description }}
-                </p>
-                <p>
-                  {{ "TITLE.USER" | translate }}:
-                  <b dir="ltr">
-                    {{ item.createdBy | cmsuserinfo | async }}
-                  </b>
-                </p>
-                <p
-                  *ngIf="
-                    item.updatedBy > 0 && item.createdBy !== item.updatedBy
-                  "
-                >
-                  {{ "TITLE.Edit" | translate }}:
-                  <b dir="ltr">
-                    {{ item.updatedBy | cmsuserinfo | async }}
-                  </b>
-                </p>
-              </ng-container>
-            </div>
-            <!-- end::List-->
-          </div>
-        </div>
-        <!-- end::accordion-->
+                }
+                {{ publicHelper.getTime(item.updatedDate) }}
+              </p>
+            }
+            <h4
+              (click)="onActionButtonPropertyCompany(item, $event)"
+              style="cursor: pointer"
+              >
+              {{ item.title
+              }}<i
+              [ngClass]="item.recordStatus | statusIconClass"
+              (click)="onActionButtonPropertyCompany(item, $event)"
+              class="float-end"
+            ></i>
+          </h4>
+          <p>
+            {{ item.description }}
+          </p>
+          <p>
+            {{ "TITLE.USER" | translate }}:
+            <b dir="ltr">
+              {{ item.createdBy | cmsuserinfo | async }}
+            </b>
+          </p>
+          @if (
+            item.updatedBy > 0 && item.createdBy !== item.updatedBy
+            ) {
+            <p
+              >
+              {{ "TITLE.Edit" | translate }}:
+              <b dir="ltr">
+                {{ item.updatedBy | cmsuserinfo | async }}
+              </b>
+            </p>
+          }
+        }
       </div>
+      <!-- end::List-->
     </div>
-    <!-- end::Row -->
   </div>
-
+  <!-- end::accordion-->
+</div>
+</div>
+<!-- end::Row -->
+</div>
+}
+@if (dataModelPropertySupplierResult.totalRowCount > 0) {
   <div
     class="col-12 col-sm-12 col-md-6 col-lg-6"
-    *ngIf="dataModelPropertySupplierResult.totalRowCount > 0"
-  >
+    >
     <!-- begin::Row -->
     <div class="card card-style loader-container">
       <app-progress-spinner
         [optionsInfoAreaId]="'dataModelPropertySupplierResult'"
-      >
+        >
       </app-progress-spinner>
       <div class="content">
         <!-- begin::accordion-->
@@ -1214,94 +1276,99 @@
               class="btn accordion-btn no-effect color-theme"
               data-bs-toggle="collapse"
               data-bs-target="#collapse7"
-            >
+              >
               <i class="fa fa-cloud color-blue-dark me-2"></i>
               {{ "TITLE.Property_Supplier" | translate }}
               <span class="text-muted fw-bold fs-7">{{
                 dataModelPropertySupplierResult.totalRowCount
               }}</span>
               {{ "TITLE.Number" | translate }}
-              <i
-                class="fa fa-arrow-down font-10 accordion-icon"
-                *ngIf="dataModelPropertySupplierResult.totalRowCount > 0"
-              ></i>
+              @if (dataModelPropertySupplierResult.totalRowCount > 0) {
+                <i
+                  class="fa fa-arrow-down font-10 accordion-icon"
+                ></i>
+              }
             </button>
             <!-- end::Header-->
             <!-- begin::List-->
             <div id="collapse7" class="collapse" data-bs-parent="#accordion-7">
-              <ng-container
-                *ngFor="let item of dataModelPropertySupplierResult.listItems"
-              >
+              @for (item of dataModelPropertySupplierResult.listItems; track item) {
                 <div class="divider divider-margins bg-highlight"></div>
-                <p
-                  *ngIf="!item.updatedBy || item.updatedBy <= 0"
-                  class="mb-0 color-highlight font-600 font-12"
-                >
-                  {{ "TITLE.ADD" | translate }}:<b *ngIf="!viewOnlyTime"
-                    >{{ publicHelper.LocaleDate(item.createdDate) }}
-                  </b>
+                @if (!item.updatedBy || item.updatedBy <= 0) {
+                  <p
+                    class="mb-0 color-highlight font-600 font-12"
+                    >
+                    {{ "TITLE.ADD" | translate }}:@if (!viewOnlyTime) {
+                    <b
+                      >{{ publicHelper.LocaleDate(item.createdDate) }}
+                    </b>
+                  }
                   {{ publicHelper.getTime(item.createdDate) }}
                 </p>
+              }
+              @if (item.updatedBy > 0) {
                 <p
-                  *ngIf="item.updatedBy > 0"
                   class="mb-0 color-highlight font-600 font-12"
-                >
-                  {{ "TITLE.Edit" | translate }}:<b *ngIf="!viewOnlyTime"
+                  >
+                  {{ "TITLE.Edit" | translate }}:@if (!viewOnlyTime) {
+                  <b
                     >{{ publicHelper.LocaleDate(item.updatedDate) }}
                   </b>
-                  {{ publicHelper.getTime(item.updatedDate) }}
-                </p>
-
-                <h4
-                  (click)="onActionButtonPropertySupplier(item, $event)"
-                  style="cursor: pointer"
-                >
-                  {{ item.title
-                  }}<i
-                    [ngClass]="item.recordStatus | statusIconClass"
-                    (click)="onActionButtonPropertySupplier(item, $event)"
-                    class="float-end"
-                  ></i>
-                </h4>
-                <p>
-                  {{ item.description }}
-                </p>
-                <p>
-                  {{ "TITLE.USER" | translate }}:
-                  <b dir="ltr">
-                    {{ item.createdBy | cmsuserinfo | async }}
-                  </b>
-                </p>
-                <p
-                  *ngIf="
-                    item.updatedBy > 0 && item.createdBy !== item.updatedBy
-                  "
-                >
-                  {{ "TITLE.Edit" | translate }}:
-                  <b dir="ltr">
-                    {{ item.updatedBy | cmsuserinfo | async }}
-                  </b>
-                </p>
-              </ng-container>
-            </div>
-            <!-- end::List-->
-          </div>
-        </div>
-        <!-- end::accordion-->
+                }
+                {{ publicHelper.getTime(item.updatedDate) }}
+              </p>
+            }
+            <h4
+              (click)="onActionButtonPropertySupplier(item, $event)"
+              style="cursor: pointer"
+              >
+              {{ item.title
+              }}<i
+              [ngClass]="item.recordStatus | statusIconClass"
+              (click)="onActionButtonPropertySupplier(item, $event)"
+              class="float-end"
+            ></i>
+          </h4>
+          <p>
+            {{ item.description }}
+          </p>
+          <p>
+            {{ "TITLE.USER" | translate }}:
+            <b dir="ltr">
+              {{ item.createdBy | cmsuserinfo | async }}
+            </b>
+          </p>
+          @if (
+            item.updatedBy > 0 && item.createdBy !== item.updatedBy
+            ) {
+            <p
+              >
+              {{ "TITLE.Edit" | translate }}:
+              <b dir="ltr">
+                {{ item.updatedBy | cmsuserinfo | async }}
+              </b>
+            </p>
+          }
+        }
       </div>
+      <!-- end::List-->
     </div>
-    <!-- end::Row -->
   </div>
-
+  <!-- end::accordion-->
+</div>
+</div>
+<!-- end::Row -->
+</div>
+}
+@if (dataModelPropertyProjectResult.totalRowCount > 0) {
   <div
     class="col-12 col-sm-12 col-md-6 col-lg-6"
-    *ngIf="dataModelPropertyProjectResult.totalRowCount > 0"
-  >
+    >
     <!-- begin::Row -->
     <div class="card card-style loader-container">
       <app-progress-spinner
         [optionsInfoAreaId]="'dataModelPropertyProjectResult'"
-      >
+        >
       </app-progress-spinner>
       <div class="content">
         <!-- begin::accordion-->
@@ -1313,93 +1380,99 @@
               class="btn accordion-btn no-effect color-theme"
               data-bs-toggle="collapse"
               data-bs-target="#collapse8"
-            >
+              >
               <i class="fa fa-cloud color-blue-dark me-2"></i>
               {{ "TITLE.Property_Project" | translate }}
               <span class="text-muted fw-bold fs-7">{{
                 dataModelPropertyProjectResult.totalRowCount
               }}</span>
               {{ "TITLE.Number" | translate }}
-              <i
-                class="fa fa-arrow-down font-10 accordion-icon"
-                *ngIf="dataModelPropertyProjectResult.totalRowCount > 0"
-              ></i>
+              @if (dataModelPropertyProjectResult.totalRowCount > 0) {
+                <i
+                  class="fa fa-arrow-down font-10 accordion-icon"
+                ></i>
+              }
             </button>
             <!-- end::Header-->
             <!-- begin::List-->
             <div id="collapse8" class="collapse" data-bs-parent="#accordion-8">
-              <ng-container
-                *ngFor="let item of dataModelPropertyProjectResult.listItems"
-              >
+              @for (item of dataModelPropertyProjectResult.listItems; track item) {
                 <div class="divider divider-margins bg-highlight"></div>
-                <p
-                  *ngIf="!item.updatedBy || item.updatedBy <= 0"
-                  class="mb-0 color-highlight font-600 font-12"
-                >
-                  {{ "TITLE.ADD" | translate }}:<b *ngIf="!viewOnlyTime"
-                    >{{ publicHelper.LocaleDate(item.createdDate) }}
-                  </b>
+                @if (!item.updatedBy || item.updatedBy <= 0) {
+                  <p
+                    class="mb-0 color-highlight font-600 font-12"
+                    >
+                    {{ "TITLE.ADD" | translate }}:@if (!viewOnlyTime) {
+                    <b
+                      >{{ publicHelper.LocaleDate(item.createdDate) }}
+                    </b>
+                  }
                   {{ publicHelper.getTime(item.createdDate) }}
                 </p>
+              }
+              @if (item.updatedBy > 0) {
                 <p
-                  *ngIf="item.updatedBy > 0"
                   class="mb-0 color-highlight font-600 font-12"
-                >
-                  {{ "TITLE.Edit" | translate }}:<b *ngIf="!viewOnlyTime"
+                  >
+                  {{ "TITLE.Edit" | translate }}:@if (!viewOnlyTime) {
+                  <b
                     >{{ publicHelper.LocaleDate(item.updatedDate) }}
                   </b>
-                  {{ publicHelper.getTime(item.updatedDate) }}
-                </p>
-
-                <h4
-                  (click)="onActionButtonPropertyProject(item, $event)"
-                  style="cursor: pointer"
-                >
-                  {{ item.title
-                  }}<i
-                    [ngClass]="item.recordStatus | statusIconClass"
-                    (click)="onActionButtonPropertyProject(item, $event)"
-                    class="float-end"
-                  ></i>
-                </h4>
-                <p>
-                  {{ item.description }}
-                </p>
-                <p>
-                  {{ "TITLE.USER" | translate }}:
-                  <b dir="ltr">
-                    {{ item.createdBy | cmsuserinfo | async }}
-                  </b>
-                </p>
-                <p
-                  *ngIf="
-                    item.updatedBy > 0 && item.createdBy !== item.updatedBy
-                  "
-                >
-                  {{ "TITLE.Edit" | translate }}:
-                  <b dir="ltr">
-                    {{ item.updatedBy | cmsuserinfo | async }}
-                  </b>
-                </p>
-              </ng-container>
-            </div>
-            <!-- end::List-->
-          </div>
-        </div>
-        <!-- end::accordion-->
+                }
+                {{ publicHelper.getTime(item.updatedDate) }}
+              </p>
+            }
+            <h4
+              (click)="onActionButtonPropertyProject(item, $event)"
+              style="cursor: pointer"
+              >
+              {{ item.title
+              }}<i
+              [ngClass]="item.recordStatus | statusIconClass"
+              (click)="onActionButtonPropertyProject(item, $event)"
+              class="float-end"
+            ></i>
+          </h4>
+          <p>
+            {{ item.description }}
+          </p>
+          <p>
+            {{ "TITLE.USER" | translate }}:
+            <b dir="ltr">
+              {{ item.createdBy | cmsuserinfo | async }}
+            </b>
+          </p>
+          @if (
+            item.updatedBy > 0 && item.createdBy !== item.updatedBy
+            ) {
+            <p
+              >
+              {{ "TITLE.Edit" | translate }}:
+              <b dir="ltr">
+                {{ item.updatedBy | cmsuserinfo | async }}
+              </b>
+            </p>
+          }
+        }
       </div>
+      <!-- end::List-->
     </div>
-    <!-- end::Row -->
   </div>
+  <!-- end::accordion-->
 </div>
-<ng-template #other_content>
+</div>
+<!-- end::Row -->
+</div>
+}
+</div>
+} @else {
   <div class="row">
     <div class="col-12 col-sm-12">
       <!-- begin::Row -->
       <div class="card card-style loader-container">
         <app-progress-spinner
           [optionsInfoAreaId]="'dataModelPropertyResultNotAvailable'"
-        >
+          >
         </app-progress-spinner>
         <div class="content">
           <!-- begin::accordion-->
@@ -1414,4 +1487,4 @@
       <!-- end::Row -->
     </div>
   </div>
-</ng-template>
+}

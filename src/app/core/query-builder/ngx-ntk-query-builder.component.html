@@ -9,259 +9,249 @@
           [(ngModel)]="data.condition"
           value="and"
           #andOption
-        />
+          />
         <label
           (click)="changeCondition(andOption.value)"
           class="ngx-ntk-query-control ngx-switch-label"
-        >
+          >
           {{ "querybuilder.And" | translate }}</label
-        >
-      </div>
-      <div>
-        <input
-          name="{{ 'condition' + index }}"
-          type="radio"
-          class="ngx-switch-radio"
-          [(ngModel)]="data.condition"
-          value="or"
-          #orOption
-        />
-        <label
-          (click)="changeCondition(orOption.value)"
-          class="ngx-ntk-query-control ngx-switch-label"
-          >{{ "querybuilder.Or" | translate }}</label
-        >
-      </div>
-    </div>
-    <div class="ngx-actions">
-      <button
-        type="button"
-        class="ngx-ntk-query-control ngx-ntk-query-btn ngx-ntk-query-btn-add"
-        (click)="addRule()"
-      >
-        {{ "querybuilder.AddRule" | translate }}
-      </button>
-      <button
-        type="button"
-        class="ngx-ntk-query-control ngx-ntk-query-btn ngx-ntk-query-btn-add"
-        (click)="addRuleSet()"
-      >
-        {{ "querybuilder.AddGroup" | translate }}
-      </button>
-      <ng-container *ngIf="hasParentRuleSet()">
-        <button
-          type="button"
-          class="ngx-ntk-query-control ngx-ntk-query-btn ngx-ntk-query-btn-remove"
-          (click)="removeRuleSet(index)"
-        >
-          {{ "querybuilder.Remove" | translate }}
-        </button>
-      </ng-container>
-    </div>
-  </div>
-  <div class="ngx-ntk-query-conditions">
-    <ul *ngIf="data.rules && data.rules.length > 0">
-      <li *ngFor="let child of data.rules; let i = index" class="ngx-connector">
-        <!-- rule -->
-        <ng-container *ngIf="!child['rules']">
-          <div class="ngx-rule-wrap">
-            <div class="ngx-rule">
-              <div class="ngx-field">
-                <select
-                  class="ngx-ntk-query-control ngx-ntk-query-select"
-                  [(ngModel)]="child['field']"
-                  (change)="changeField(convertToRule(child), i)"
-                  [disabled]="disabled"
-                >
-                  <option
-                    *ngFor="let field of getFields()"
-                    [value]="field.value"
-                  >
-                    {{ field.name }}
-                  </option>
-                </select>
-              </div>
-              <div class="ngx-operator">
-                <select
-                  class="ngx-ntk-query-control ngx-ntk-query-select"
-                  [(ngModel)]="child['operator']"
-                  [disabled]="disabled"
-                >
-                  <option
-                    *ngFor="
-                      let operator of operatorsService.getOperators(
-                        convertToRule(child),
-                        fieldMap
-                      )
-                    "
-                    [value]="operator"
-                  >
-                    {{
-                      translate.get(
-                        operatorsService.getOperatorDisplayName(operator)
-                      ) | async
-                    }}
-                  </option>
-                </select>
-              </div>
-              <div
-                class="ngx-value"
-                [ngSwitch]="getInputType(convertToRule(child))"
+          >
+        </div>
+        <div>
+          <input
+            name="{{ 'condition' + index }}"
+            type="radio"
+            class="ngx-switch-radio"
+            [(ngModel)]="data.condition"
+            value="or"
+            #orOption
+            />
+          <label
+            (click)="changeCondition(orOption.value)"
+            class="ngx-ntk-query-control ngx-switch-label"
+            >{{ "querybuilder.Or" | translate }}</label
+            >
+          </div>
+        </div>
+        <div class="ngx-actions">
+          <button
+            type="button"
+            class="ngx-ntk-query-control ngx-ntk-query-btn ngx-ntk-query-btn-add"
+            (click)="addRule()"
+            >
+            {{ "querybuilder.AddRule" | translate }}
+          </button>
+          <button
+            type="button"
+            class="ngx-ntk-query-control ngx-ntk-query-btn ngx-ntk-query-btn-add"
+            (click)="addRuleSet()"
+            >
+            {{ "querybuilder.AddGroup" | translate }}
+          </button>
+          @if (hasParentRuleSet()) {
+            <button
+              type="button"
+              class="ngx-ntk-query-control ngx-ntk-query-btn ngx-ntk-query-btn-remove"
+              (click)="removeRuleSet(index)"
               >
-                <!-- STING -->
-                <ng-container
-                  *ngSwitchCase="operatorsService.INPUT_TYPE_STRING"
-                >
-                  <input
-                    class="ngx-ntk-query-control ngx-ntk-query-input"
-                    type="text"
-                    [(ngModel)]="child['value']"
-                    [disabled]="disabled"
-                  />
-                </ng-container>
-
-                <!-- INTEGER -->
-                <ng-container
-                  *ngSwitchCase="operatorsService.INPUT_TYPE_INTEGER"
-                >
-                  <input
-                    class="ngx-ntk-query-control ngx-ntk-query-input"
-                    type="number"
-                    [(ngModel)]="child['value']"
-                    [disabled]="disabled"
-                  />
-                </ng-container>
-
-                <!-- DOUBLE -->
-                <ng-container
-                  *ngSwitchCase="operatorsService.INPUT_TYPE_DOUBLE"
-                >
-                  <input
-                    class="ngx-ntk-query-control ngx-ntk-query-input"
-                    type="number"
-                    [(ngModel)]="child['value']"
-                    [disabled]="disabled"
-                  />
-                </ng-container>
-
-                <!-- DATE -->
-                <ng-container *ngSwitchCase="operatorsService.INPUT_TYPE_DATE">
-                  <input
-                    class="ngx-ntk-query-control ngx-ntk-query-input"
-                    type="date"
-                    [(ngModel)]="child['value']"
-                    [disabled]="disabled"
-                  />
-                </ng-container>
-
-                <!-- TIME -->
-                <ng-container *ngSwitchCase="operatorsService.INPUT_TYPE_TIME">
-                  <input
-                    class="ngx-ntk-query-control ngx-ntk-query-input"
-                    type="time"
-                    [(ngModel)]="child['value']"
-                    [disabled]="disabled"
-                  />
-                </ng-container>
-
-                <!-- BOOLEAN -->
-                <ng-container
-                  *ngSwitchCase="operatorsService.INPUT_TYPE_BOOLEAN"
-                >
-                  <div class="ngx-ntk-query-boolean-wrap">
-                    <div class="ngx-boolean">
-                      <input
-                        id="{{ 'booleanYes' + i }}"
-                        name="{{ 'boolean' + i }}"
-                        type="radio"
-                        class="ngx-radio-btn"
-                        [(ngModel)]="child['value']"
-                        [value]="true"
-                        [disabled]="disabled"
-                      />
-                      <label for="{{ 'booleanYes' + i }}" class="ngx-label">{{
-                        "querybuilder.Yes" | translate
-                      }}</label>
+              {{ "querybuilder.Remove" | translate }}
+            </button>
+          }
+        </div>
+      </div>
+      <div class="ngx-ntk-query-conditions">
+        @if (data.rules && data.rules.length > 0) {
+          <ul>
+            @for (child of data.rules; track child; let i = $index) {
+              <li class="ngx-connector">
+                <!-- rule -->
+                @if (!child['rules']) {
+                  <div class="ngx-rule-wrap">
+                    <div class="ngx-rule">
+                      <div class="ngx-field">
+                        <select
+                          class="ngx-ntk-query-control ngx-ntk-query-select"
+                          [(ngModel)]="child['field']"
+                          (change)="changeField(convertToRule(child), i)"
+                          [disabled]="disabled"
+                          >
+                          @for (field of getFields(); track field) {
+                            <option
+                              [value]="field.value"
+                              >
+                              {{ field.name }}
+                            </option>
+                          }
+                        </select>
+                      </div>
+                      <div class="ngx-operator">
+                        <select
+                          class="ngx-ntk-query-control ngx-ntk-query-select"
+                          [(ngModel)]="child['operator']"
+                          [disabled]="disabled"
+                          >
+                          @for (
+                            operator of operatorsService.getOperators(
+                            convertToRule(child),
+                            fieldMap
+                            )
+                            ; track
+                            operator) {
+                            <option
+                              [value]="operator"
+                              >
+                              {{
+                              translate.get(
+                              operatorsService.getOperatorDisplayName(operator)
+                              ) | async
+                              }}
+                            </option>
+                          }
+                        </select>
+                      </div>
+                      <div
+                        class="ngx-value"
+                        >
+                        @switch (getInputType(convertToRule(child))) {
+                          <!-- STING -->
+                          @case (operatorsService.INPUT_TYPE_STRING) {
+                            <input
+                              class="ngx-ntk-query-control ngx-ntk-query-input"
+                              type="text"
+                              [(ngModel)]="child['value']"
+                              [disabled]="disabled"
+                              />
+                          }
+                          <!-- INTEGER -->
+                          @case (operatorsService.INPUT_TYPE_INTEGER) {
+                            <input
+                              class="ngx-ntk-query-control ngx-ntk-query-input"
+                              type="number"
+                              [(ngModel)]="child['value']"
+                              [disabled]="disabled"
+                              />
+                          }
+                          <!-- DOUBLE -->
+                          @case (operatorsService.INPUT_TYPE_DOUBLE) {
+                            <input
+                              class="ngx-ntk-query-control ngx-ntk-query-input"
+                              type="number"
+                              [(ngModel)]="child['value']"
+                              [disabled]="disabled"
+                              />
+                          }
+                          <!-- DATE -->
+                          @case (operatorsService.INPUT_TYPE_DATE) {
+                            <input
+                              class="ngx-ntk-query-control ngx-ntk-query-input"
+                              type="date"
+                              [(ngModel)]="child['value']"
+                              [disabled]="disabled"
+                              />
+                          }
+                          <!-- TIME -->
+                          @case (operatorsService.INPUT_TYPE_TIME) {
+                            <input
+                              class="ngx-ntk-query-control ngx-ntk-query-input"
+                              type="time"
+                              [(ngModel)]="child['value']"
+                              [disabled]="disabled"
+                              />
+                          }
+                          <!-- BOOLEAN -->
+                          @case (operatorsService.INPUT_TYPE_BOOLEAN) {
+                            <div class="ngx-ntk-query-boolean-wrap">
+                              <div class="ngx-boolean">
+                                <input
+                                  id="{{ 'booleanYes' + i }}"
+                                  name="{{ 'boolean' + i }}"
+                                  type="radio"
+                                  class="ngx-radio-btn"
+                                  [(ngModel)]="child['value']"
+                                  [value]="true"
+                                  [disabled]="disabled"
+                                  />
+                                <label for="{{ 'booleanYes' + i }}" class="ngx-label">{{
+                                  "querybuilder.Yes" | translate
+                                }}</label>
+                              </div>
+                              <div class="ngx-boolean">
+                                <input
+                                  id="{{ 'booleanNo' + i }}"
+                                  name="{{ 'boolean' + i }}"
+                                  type="radio"
+                                  class="ngx-radio-btn"
+                                  [(ngModel)]="child['value']"
+                                  [value]="false"
+                                  [disabled]="disabled"
+                                  />
+                                <label for="{{ 'booleanNo' + i }}" class="ngx-label">{{
+                                  "querybuilder.No" | translate
+                                }}</label>
+                              </div>
+                            </div>
+                          }
+                          <!-- SELECT -->
+                          @case (operatorsService.INPUT_TYPE_SELECT) {
+                            <select
+                              class="ngx-ntk-query-control ngx-ntk-query-select"
+                              [(ngModel)]="child['value']"
+                              [disabled]="disabled"
+                              >
+                              @for (opt of getRuleOptions(convertToRule(child)); track opt) {
+                                <option
+                                  [value]="opt.value"
+                                  >
+                                  {{ opt.name }}
+                                </option>
+                              }
+                            </select>
+                          }
+                          <!-- MULTI_SELECT -->
+                          @case (operatorsService.INPUT_TYPE_MULTI_SELECT) {
+                            <select
+                              class="ngx-ntk-query-control ngx-ntk-query-multi-select"
+                              [(ngModel)]="child['value']"
+                              [disabled]="disabled"
+                              multiple
+                              >
+                              @for (opt of getRuleOptions(convertToRule(child)); track opt) {
+                                <option
+                                  [ngValue]="opt.value"
+                                  >
+                                  {{ opt.name }}
+                                </option>
+                              }
+                            </select>
+                          }
+                        }
+                      </div>
                     </div>
-                    <div class="ngx-boolean">
-                      <input
-                        id="{{ 'booleanNo' + i }}"
-                        name="{{ 'boolean' + i }}"
-                        type="radio"
-                        class="ngx-radio-btn"
-                        [(ngModel)]="child['value']"
-                        [value]="false"
-                        [disabled]="disabled"
-                      />
-                      <label for="{{ 'booleanNo' + i }}" class="ngx-label">{{
-                        "querybuilder.No" | translate
-                      }}</label>
+                    <div class="ngx-rule-controls">
+                      <button
+                        type="button"
+                        class="ngx-ntk-query-control ngx-ntk-query-btn ngx-ntk-query-btn-remove"
+                        (click)="removeRule(i)"
+                        >
+                        {{ "querybuilder.Remove" | translate }}
+                      </button>
                     </div>
                   </div>
-                </ng-container>
-
-                <!-- SELECT -->
-                <ng-container
-                  *ngSwitchCase="operatorsService.INPUT_TYPE_SELECT"
-                >
-                  <select
-                    class="ngx-ntk-query-control ngx-ntk-query-select"
-                    [(ngModel)]="child['value']"
+                }
+                <!-- rule set -->
+                @if (child['rules']) {
+                  <ngx-ntk-query-builder
+                    [data]="convertToRuleSet(child)"
+                    [fieldMap]="fieldMap"
+                    [parent]="data"
                     [disabled]="disabled"
-                  >
-                    <option
-                      *ngFor="let opt of getRuleOptions(convertToRule(child))"
-                      [value]="opt.value"
+                    [index]="i"
                     >
-                      {{ opt.name }}
-                    </option>
-                  </select>
-                </ng-container>
-
-                <!-- MULTI_SELECT -->
-                <ng-container
-                  *ngSwitchCase="operatorsService.INPUT_TYPE_MULTI_SELECT"
-                >
-                  <select
-                    class="ngx-ntk-query-control ngx-ntk-query-multi-select"
-                    [(ngModel)]="child['value']"
-                    [disabled]="disabled"
-                    multiple
-                  >
-                    <option
-                      *ngFor="let opt of getRuleOptions(convertToRule(child))"
-                      [ngValue]="opt.value"
-                    >
-                      {{ opt.name }}
-                    </option>
-                  </select>
-                </ng-container>
-              </div>
-            </div>
-            <div class="ngx-rule-controls">
-              <button
-                type="button"
-                class="ngx-ntk-query-control ngx-ntk-query-btn ngx-ntk-query-btn-remove"
-                (click)="removeRule(i)"
-              >
-                {{ "querybuilder.Remove" | translate }}
-              </button>
-            </div>
-          </div>
-        </ng-container>
-
-        <!-- rule set -->
-        <ng-container *ngIf="child['rules']">
-          <ngx-ntk-query-builder
-            [data]="convertToRuleSet(child)"
-            [fieldMap]="fieldMap"
-            [parent]="data"
-            [disabled]="disabled"
-            [index]="i"
-          >
-          </ngx-ntk-query-builder>
-        </ng-container>
-      </li>
-    </ul>
-  </div>
-</div>
+                  </ngx-ntk-query-builder>
+                }
+              </li>
+            }
+          </ul>
+        }
+      </div>
+    </div>

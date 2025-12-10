@@ -12,58 +12,61 @@
               <div class="clear"></div>
             </div>
           }
-          <div
-            class="tr"
-            *ngFor="let head of dataModelPrivate | listkeys: optionFields"
-          >
-            @if (optionViewHead || !isArray(dataModelPrivate)) {
-              <div class="td">
-                {{
+          @for (head of dataModelPrivate | listkeys: optionFields; track head) {
+            <div
+              class="tr"
+              >
+              @if (optionViewHead || !isArray(dataModelPrivate)) {
+                <div class="td">
+                  {{
                   optionFields && optionFields.size > 0
-                    ? optionFields.get(head)
-                    : head
-                }}
-              </div>
-            }
-            <div class="td">
-              <ng-container
+                  ? optionFields.get(head)
+                  : head
+                  }}
+                </div>
+              }
+              <div class="td">
+                <ng-container
                 *ngTemplateOutlet="
                   templateItem;
                   context: { $implicit: dataModelPrivate[head] }
                 "
-              ></ng-container>
+                ></ng-container>
+              </div>
+              <div style="clear: both"></div>
             </div>
-            <div style="clear: both"></div>
-          </div>
+          }
         }
         @if (optionTitleLocation === "top") {
           @if (optionViewHead) {
             <div class="th">
-              <div
-                class="td"
-                *ngFor="let head of dataModelPrivate | listkeys: optionFields"
-              >
-                {{
+              @for (head of dataModelPrivate | listkeys: optionFields; track head) {
+                <div
+                  class="td"
+                  >
+                  {{
                   optionFields && optionFields.size > 0
-                    ? optionFields.get(head)
-                    : head
-                }}
-              </div>
+                  ? optionFields.get(head)
+                  : head
+                  }}
+                </div>
+              }
               <div class="clear"></div>
             </div>
           }
           <div class="tr">
-            <div
-              class="td"
-              *ngFor="let list of dataModelPrivate | listkeys: optionFields"
-            >
-              <ng-container
+            @for (list of dataModelPrivate | listkeys: optionFields; track list) {
+              <div
+                class="td"
+                >
+                <ng-container
                 *ngTemplateOutlet="
                   templateItem;
                   context: { $implicit: dataModelPrivate[list] }
                 "
-              ></ng-container>
-            </div>
+                ></ng-container>
+              </div>
+            }
             <div style="clear: both"></div>
           </div>
         }
@@ -77,73 +80,82 @@
           @if (optionViewHead) {
             <div class="th">
               <div class="td">{{ "TITLE.parameter" | translate }}</div>
-              <div
-                class="td"
-                *ngFor="
-                  let head of dataModelPrivate[0] | listkeys: optionFields
-                "
-              >
-                {{
+              @for (
+                head of dataModelPrivate[0] | listkeys: optionFields
+                ; track
+                head) {
+                <div
+                  class="td"
+                  >
+                  {{
                   optionFields && optionFields.size > 0
-                    ? optionFields.get(head)
-                    : head
-                }}
-              </div>
+                  ? optionFields.get(head)
+                  : head
+                  }}
+                </div>
+              }
               <div class="clear"></div>
             </div>
           }
-          <div class="tr" *ngFor="let item of dataModelPrivate">
-            <div class="td" *ngIf="optionViewHead"></div>
-            <div class="td" *ngFor="let list of item | listkeys: optionFields">
-              <ng-container
+          @for (item of dataModelPrivate; track item) {
+            <div class="tr">
+              @if (optionViewHead) {
+                <div class="td"></div>
+              }
+              @for (list of item | listkeys: optionFields; track list) {
+                <div class="td">
+                  <ng-container
                 *ngTemplateOutlet="
                   templateItem;
                   context: { $implicit: item[list] }
                 "
-              ></ng-container>
+                  ></ng-container>
+                </div>
+              }
+              <div style="clear: both"></div>
             </div>
-            <div style="clear: both"></div>
-          </div>
+          }
         }
         @if (optionTitleLocation === "top") {
           @if (optionViewHead) {
             <div class="th">
               <div class="td">{{ "TITLE.parameter" | translate }}</div>
-              <div
-                class="td"
-                *ngFor="let head of dataModelPrivate | listkeys: optionFields"
-              >
-                {{
+              @for (head of dataModelPrivate | listkeys: optionFields; track head) {
+                <div
+                  class="td"
+                  >
+                  {{
                   optionFields && optionFields.size > 0
-                    ? optionFields.get(head)
-                    : head
-                }}
-              </div>
+                  ? optionFields.get(head)
+                  : head
+                  }}
+                </div>
+              }
               <div class="clear"></div>
             </div>
           }
-          <ng-container
-            *ngFor="let key of dataModelPrivate[0] | listkeys: optionFields"
-          >
+          @for (key of dataModelPrivate[0] | listkeys: optionFields; track key) {
             <div class="tr">
               <div class="td">
                 {{
-                  optionFields && optionFields.size > 0
-                    ? optionFields.get(key)
-                    : key
+                optionFields && optionFields.size > 0
+                ? optionFields.get(key)
+                : key
                 }}
               </div>
-              <div class="td" *ngFor="let item of dataModelPrivate">
-                <ng-container
+              @for (item of dataModelPrivate; track item) {
+                <div class="td">
+                  <ng-container
                   *ngTemplateOutlet="
                     templateItem;
                     context: { $implicit: item[key] }
                   "
-                ></ng-container>
-              </div>
+                  ></ng-container>
+                </div>
+              }
               <div style="clear: both"></div>
             </div>
-          </ng-container>
+          }
         }
       </div>
     }
@@ -163,7 +175,7 @@
         [optionFields]="optionFields"
         [optionViewHead]="optionViewHead"
         [optionIsChild]="true"
-      >
+        >
       </app-cms-json-list>
     } @else if (isMap(item)) {
       <app-cms-json-list
@@ -174,7 +186,7 @@
         [optionFields]="optionFields"
         [optionViewHead]="optionViewHead"
         [optionIsChild]="true"
-      >
+        >
       </app-cms-json-list>
     } @else if (isArray(item)) {
       <app-cms-json-list
@@ -185,7 +197,7 @@
         [optionFields]="optionFields"
         [optionViewHead]="false"
         [optionIsChild]="true"
-      >
+        >
       </app-cms-json-list>
     } @else {
       {{ item }}

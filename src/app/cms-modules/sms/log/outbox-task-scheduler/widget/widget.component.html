@@ -1,4 +1,13 @@
-<div class="card card-style loader-container">
+<div class="card card-style loader-container widget-refreshable">
+  <button
+    type="button"
+    class="widget-refresh-btn"
+    aria-label="{{ 'ACTION.RELOAD' | translate }}"
+    title="{{ 'ACTION.RELOAD' | translate }}"
+    (click)="onActionButtonReload()"
+  >
+    <i class="fa fa-rotate-right"></i>
+  </button>
   <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
   </app-progress-spinner>
   <div class="content">
