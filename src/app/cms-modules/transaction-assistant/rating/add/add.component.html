@@ -1,0 +1,55 @@
+<app-cms-html-form
+  [formInfo]="formInfo"
+  [dataModel]="dataModel"
+  [fieldsInfo]="fieldsInfo"
+  [optionLoadForm]="true"
+  [optionShowFormTitle]="true"
+  [optionShowFormSubmitButton]="true"
+  [optionShowFormCancelButton]="true"
+  (optionFormSubmit)="onFormSubmit()"
+  (optionFormCancel)="onFormCancel()"
+  >
+  <ng-container cms-form-body>
+    <!--begin:::::::::::::::::::::::::::::::::::::::::cms-form-body-->
+    <div class="row">
+      <div class="col-12">
+        <mat-form-field appearance="outline" class="col-12">
+          <mat-label>{{ fieldsInfo["linkOrderId"]?.fieldTitle }}</mat-label>
+          <input
+            matInput
+            [(ngModel)]="dataModel.linkOrderId"
+            [name]="'linkOrderId'"
+            #linkOrderIdInput="ngModel"
+            />
+        </mat-form-field>
+      </div>
+      <div class="col-12">
+        <mat-form-field appearance="outline" class="col-12">
+          <mat-label>{{ fieldsInfo["score"]?.fieldTitle }}</mat-label>
+          <input
+            matInput
+            type="number"
+            min="1"
+            max="5"
+            [(ngModel)]="dataModel.score"
+            [name]="'score'"
+            #scoreInput="ngModel"
+            />
+        </mat-form-field>
+      </div>
+      <div class="col-12">
+        <mat-form-field appearance="outline" class="col-12">
+          <mat-label>{{ fieldsInfo["comment"]?.fieldTitle }}</mat-label>
+          <textarea
+            matInput
+            [(ngModel)]="dataModel.comment"
+            [name]="'comment'"
+            rows="3"
+            ></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+    <!--end:::::::::::::::::::::::::::::::::::::::::cms-form-body-->
+  </ng-container>
+</app-cms-html-form>
+

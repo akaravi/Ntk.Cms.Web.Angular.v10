@@ -55,6 +55,13 @@ const CmsModulesRoutes: Routes = [
       import("./estate/estate.module").then((m) => m.EstateModule),
     data: { title: "ROUTE.ESTATE" },
   },
+  {
+    path: "transactionassistant",
+    canActivate: [CmsAuthSiteGuard],
+    loadChildren: () =>
+      import("./transaction-assistant/transaction-assistant.module").then((m) => m.TransactionAssistantModule),
+    data: { title: "ROUTE.TRANSACTIONASSISTANT" },
+  },
 
   {
     path: "member",

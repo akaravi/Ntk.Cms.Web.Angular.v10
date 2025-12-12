@@ -1,0 +1,34 @@
+<div class="card card-style loader-container" *ngIf="optionLoadForm">
+  <div class="content mb-0">
+    @if (optionShowFormTitle && formInfo?.formTitle?.length) {
+      <p class="mb-2 color-highlight font-600 font-12">
+        {{ formInfo.formTitle }}
+      </p>
+    }
+
+    <ng-content select="[cms-form-body]"></ng-content>
+
+    @if (optionShowFormSubmitButton || optionShowFormCancelButton) {
+      <div class="d-flex justify-content-end gap-2 mt-3">
+        @if (optionShowFormCancelButton) {
+          <button
+            type="button"
+            class="btn btn-light btn-sm"
+            (click)="onCancel()"
+            >
+            {{ "ACTION.CANCEL" | translate }}
+          </button>
+        }
+        @if (optionShowFormSubmitButton) {
+          <button
+            type="button"
+            class="btn btn-primary btn-sm"
+            (click)="onSubmit()"
+            >
+            {{ "ACTION.SAVE" | translate }}
+          </button>
+        }
+      </div>
+    }
+  </div>
+</div>
