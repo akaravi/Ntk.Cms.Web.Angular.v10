@@ -13,7 +13,7 @@ import {
   DataFieldInfoModel,
   ErrorExceptionResult,
   TransactionAssistantRatingService,
-  transactionAssistantRatingModel,
+  TransactionAssistantRatingModel,
 } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
@@ -31,7 +31,7 @@ import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStat
 export class TransactionAssistantRatingAddComponent
   extends AddBaseComponent<
     TransactionAssistantRatingService,
-    transactionAssistantRatingModel,
+    TransactionAssistantRatingModel,
     string
   >
   implements OnInit
@@ -49,7 +49,7 @@ export class TransactionAssistantRatingAddComponent
   ) {
     super(
       transactionAssistantRatingService,
-      new transactionAssistantRatingModel(),
+      new TransactionAssistantRatingModel(),
       publicHelper,
       translate,
     );
@@ -66,10 +66,10 @@ export class TransactionAssistantRatingAddComponent
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   fileManagerTree: TreeModel;
   appLanguage = "fa";
-  dataModelResult: ErrorExceptionResult<transactionAssistantRatingModel> =
-    new ErrorExceptionResult<transactionAssistantRatingModel>();
-  dataModel: transactionAssistantRatingModel =
-    new transactionAssistantRatingModel();
+  dataModelResult: ErrorExceptionResult<TransactionAssistantRatingModel> =
+    new ErrorExceptionResult<TransactionAssistantRatingModel>();
+  dataModel: TransactionAssistantRatingModel =
+    new TransactionAssistantRatingModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
   fileManagerOpenForm = false;

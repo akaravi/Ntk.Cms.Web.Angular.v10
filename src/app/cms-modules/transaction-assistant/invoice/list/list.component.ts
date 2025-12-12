@@ -9,8 +9,8 @@ import {
   FilterModel,
   RecordStatusEnum,
   SortTypeEnum,
+  TransactionAssistantInvoiceModel,
   TransactionAssistantInvoiceService,
-  transactionAssistantInvoiceModel,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -34,7 +34,7 @@ import { TransactionAssistantInvoiceEditComponent } from "../edit/edit.component
 export class TransactionAssistantInvoiceListComponent
   extends ListBaseComponent<
     TransactionAssistantInvoiceService,
-    transactionAssistantInvoiceModel,
+    TransactionAssistantInvoiceModel,
     string
   >
   implements OnInit, OnDestroy
@@ -56,7 +56,7 @@ export class TransactionAssistantInvoiceListComponent
   ) {
     super(
       contentService,
-      new transactionAssistantInvoiceModel(),
+      new TransactionAssistantInvoiceModel(),
       publicHelper,
       tokenHelper,
       translate,
@@ -97,7 +97,7 @@ export class TransactionAssistantInvoiceListComponent
     "totalAmount",
   ];
 
-  expandedElement: transactionAssistantInvoiceModel | null;
+  expandedElement: TransactionAssistantInvoiceModel | null;
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
@@ -126,7 +126,7 @@ export class TransactionAssistantInvoiceListComponent
       this.tokenInfo,
     );
     this.tableRowsSelected = [];
-    this.onActionTableRowSelect(new transactionAssistantInvoiceModel());
+    this.onActionTableRowSelect(new TransactionAssistantInvoiceModel());
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.get_information_list")
@@ -233,7 +233,7 @@ export class TransactionAssistantInvoiceListComponent
   }
 
   onActionButtonEditRow(
-    model: transactionAssistantInvoiceModel = this.tableRowSelected,
+    model: TransactionAssistantInvoiceModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -269,7 +269,7 @@ export class TransactionAssistantInvoiceListComponent
     });
   }
   onActionButtonDeleteRow(
-    model: transactionAssistantInvoiceModel = this.tableRowSelected,
+    model: TransactionAssistantInvoiceModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.translate

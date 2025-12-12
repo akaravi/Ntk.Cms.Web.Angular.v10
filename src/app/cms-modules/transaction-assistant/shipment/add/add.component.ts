@@ -12,8 +12,8 @@ import {
   CoreEnumService,
   DataFieldInfoModel,
   ErrorExceptionResult,
+  TransactionAssistantOrderShipmentModel,
   TransactionAssistantShipmentService,
-  transactionAssistantOrderShipmentModel,
 } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
@@ -31,7 +31,7 @@ import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStat
 export class TransactionAssistantShipmentAddComponent
   extends AddBaseComponent<
     TransactionAssistantShipmentService,
-    transactionAssistantOrderShipmentModel,
+    TransactionAssistantOrderShipmentModel,
     string
   >
   implements OnInit
@@ -49,7 +49,7 @@ export class TransactionAssistantShipmentAddComponent
   ) {
     super(
       transactionAssistantShipmentService,
-      new transactionAssistantOrderShipmentModel(),
+      new TransactionAssistantOrderShipmentModel(),
       publicHelper,
       translate,
     );
@@ -66,10 +66,10 @@ export class TransactionAssistantShipmentAddComponent
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   fileManagerTree: TreeModel;
   appLanguage = "fa";
-  dataModelResult: ErrorExceptionResult<transactionAssistantOrderShipmentModel> =
-    new ErrorExceptionResult<transactionAssistantOrderShipmentModel>();
-  dataModel: transactionAssistantOrderShipmentModel =
-    new transactionAssistantOrderShipmentModel();
+  dataModelResult: ErrorExceptionResult<TransactionAssistantOrderShipmentModel> =
+    new ErrorExceptionResult<TransactionAssistantOrderShipmentModel>();
+  dataModel: TransactionAssistantOrderShipmentModel =
+    new TransactionAssistantOrderShipmentModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
   fileManagerOpenForm = false;

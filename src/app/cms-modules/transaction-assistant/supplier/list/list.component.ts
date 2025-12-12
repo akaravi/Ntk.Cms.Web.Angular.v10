@@ -9,8 +9,8 @@ import {
   FilterModel,
   RecordStatusEnum,
   SortTypeEnum,
+  TransactionAssistantSupplierModel,
   TransactionAssistantSupplierService,
-  transactionAssistantSupplierModel,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -34,7 +34,7 @@ import { TransactionAssistantSupplierEditComponent } from "../edit/edit.componen
 export class TransactionAssistantSupplierListComponent
   extends ListBaseComponent<
     TransactionAssistantSupplierService,
-    transactionAssistantSupplierModel,
+    TransactionAssistantSupplierModel,
     string
   >
   implements OnInit, OnDestroy
@@ -56,7 +56,7 @@ export class TransactionAssistantSupplierListComponent
   ) {
     super(
       contentService,
-      new transactionAssistantSupplierModel(),
+      new TransactionAssistantSupplierModel(),
       publicHelper,
       tokenHelper,
       translate,
@@ -92,7 +92,7 @@ export class TransactionAssistantSupplierListComponent
   ];
   tabledisplayedColumnsMobileSource: string[] = ["id", "name", "active"];
 
-  expandedElement: transactionAssistantSupplierModel | null;
+  expandedElement: TransactionAssistantSupplierModel | null;
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
@@ -121,7 +121,7 @@ export class TransactionAssistantSupplierListComponent
       this.tokenInfo,
     );
     this.tableRowsSelected = [];
-    this.onActionTableRowSelect(new transactionAssistantSupplierModel());
+    this.onActionTableRowSelect(new TransactionAssistantSupplierModel());
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.get_information_list")
@@ -228,7 +228,7 @@ export class TransactionAssistantSupplierListComponent
   }
 
   onActionButtonEditRow(
-    model: transactionAssistantSupplierModel = this.tableRowSelected,
+    model: TransactionAssistantSupplierModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -264,7 +264,7 @@ export class TransactionAssistantSupplierListComponent
     });
   }
   onActionButtonDeleteRow(
-    model: transactionAssistantSupplierModel = this.tableRowSelected,
+    model: TransactionAssistantSupplierModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.translate

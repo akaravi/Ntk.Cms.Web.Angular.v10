@@ -12,8 +12,8 @@ import {
   CoreEnumService,
   ErrorExceptionResultBase,
   ManageUserAccessDataTypesEnum,
+  TransactionAssistantOrderModel,
   TransactionAssistantOrderService,
-  transactionAssistantOrderModel,
 } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
@@ -31,7 +31,7 @@ import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStat
 export class TransactionAssistantOrderEditComponent
   extends EditBaseComponent<
     TransactionAssistantOrderService,
-    transactionAssistantOrderModel,
+    TransactionAssistantOrderModel,
     string
   >
   implements OnInit
@@ -50,7 +50,7 @@ export class TransactionAssistantOrderEditComponent
   ) {
     super(
       transactionAssistantOrderService,
-      new transactionAssistantOrderModel(),
+      new TransactionAssistantOrderModel(),
       publicHelper,
       translate,
     );
@@ -68,8 +68,8 @@ export class TransactionAssistantOrderEditComponent
   appLanguage = "fa";
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
-  dataModel: transactionAssistantOrderModel =
-    new transactionAssistantOrderModel();
+  dataModel: TransactionAssistantOrderModel =
+    new TransactionAssistantOrderModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
   fileManagerOpenForm = false;

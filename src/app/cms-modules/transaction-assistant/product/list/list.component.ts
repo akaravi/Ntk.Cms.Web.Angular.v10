@@ -10,7 +10,7 @@ import {
   RecordStatusEnum,
   SortTypeEnum,
   TransactionAssistantProductService,
-  transactionAssistantProductModel,
+  TransactionAssistantProductModel,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -34,7 +34,7 @@ import { TransactionAssistantProductEditComponent } from "../edit/edit.component
 export class TransactionAssistantProductListComponent
   extends ListBaseComponent<
     TransactionAssistantProductService,
-    transactionAssistantProductModel,
+    TransactionAssistantProductModel,
     string
   >
   implements OnInit, OnDestroy
@@ -56,7 +56,7 @@ export class TransactionAssistantProductListComponent
   ) {
     super(
       contentService,
-      new transactionAssistantProductModel(),
+      new TransactionAssistantProductModel(),
       publicHelper,
       tokenHelper,
       translate,
@@ -96,7 +96,7 @@ export class TransactionAssistantProductListComponent
     "price",
   ];
 
-  expandedElement: transactionAssistantProductModel | null;
+  expandedElement: TransactionAssistantProductModel | null;
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
@@ -125,7 +125,7 @@ export class TransactionAssistantProductListComponent
       this.tokenInfo,
     );
     this.tableRowsSelected = [];
-    this.onActionTableRowSelect(new transactionAssistantProductModel());
+    this.onActionTableRowSelect(new TransactionAssistantProductModel());
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.get_information_list")
@@ -232,7 +232,7 @@ export class TransactionAssistantProductListComponent
   }
 
   onActionButtonEditRow(
-    model: transactionAssistantProductModel = this.tableRowSelected,
+    model: TransactionAssistantProductModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -268,7 +268,7 @@ export class TransactionAssistantProductListComponent
     });
   }
   onActionButtonDeleteRow(
-    model: transactionAssistantProductModel = this.tableRowSelected,
+    model: TransactionAssistantProductModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.translate

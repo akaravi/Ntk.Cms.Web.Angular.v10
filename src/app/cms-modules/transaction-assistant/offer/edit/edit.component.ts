@@ -13,7 +13,7 @@ import {
   ErrorExceptionResultBase,
   ManageUserAccessDataTypesEnum,
   TransactionAssistantOfferService,
-  transactionAssistantSupplierOfferModel,
+  TransactionAssistantSupplierOfferModel,
 } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
@@ -31,7 +31,7 @@ import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStat
 export class TransactionAssistantOfferEditComponent
   extends EditBaseComponent<
     TransactionAssistantOfferService,
-    transactionAssistantSupplierOfferModel,
+    TransactionAssistantSupplierOfferModel,
     string
   >
   implements OnInit
@@ -50,7 +50,7 @@ export class TransactionAssistantOfferEditComponent
   ) {
     super(
       transactionAssistantOfferService,
-      new transactionAssistantSupplierOfferModel(),
+      new TransactionAssistantSupplierOfferModel(),
       publicHelper,
       translate,
     );
@@ -68,8 +68,8 @@ export class TransactionAssistantOfferEditComponent
   appLanguage = "fa";
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
-  dataModel: transactionAssistantSupplierOfferModel =
-    new transactionAssistantSupplierOfferModel();
+  dataModel: TransactionAssistantSupplierOfferModel =
+    new TransactionAssistantSupplierOfferModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
   fileManagerOpenForm = false;

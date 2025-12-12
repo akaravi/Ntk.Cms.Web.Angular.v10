@@ -9,8 +9,8 @@ import {
   FilterModel,
   RecordStatusEnum,
   SortTypeEnum,
+  TransactionAssistantRatingModel,
   TransactionAssistantRatingService,
-  transactionAssistantRatingModel,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -34,7 +34,7 @@ import { TransactionAssistantRatingEditComponent } from "../edit/edit.component"
 export class TransactionAssistantRatingListComponent
   extends ListBaseComponent<
     TransactionAssistantRatingService,
-    transactionAssistantRatingModel,
+    TransactionAssistantRatingModel,
     string
   >
   implements OnInit, OnDestroy
@@ -56,7 +56,7 @@ export class TransactionAssistantRatingListComponent
   ) {
     super(
       contentService,
-      new transactionAssistantRatingModel(),
+      new TransactionAssistantRatingModel(),
       publicHelper,
       tokenHelper,
       translate,
@@ -91,7 +91,7 @@ export class TransactionAssistantRatingListComponent
   ];
   tabledisplayedColumnsMobileSource: string[] = ["id", "score", "comment"];
 
-  expandedElement: transactionAssistantRatingModel | null;
+  expandedElement: TransactionAssistantRatingModel | null;
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
@@ -120,7 +120,7 @@ export class TransactionAssistantRatingListComponent
       this.tokenInfo,
     );
     this.tableRowsSelected = [];
-    this.onActionTableRowSelect(new transactionAssistantRatingModel());
+    this.onActionTableRowSelect(new TransactionAssistantRatingModel());
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.get_information_list")
@@ -223,7 +223,7 @@ export class TransactionAssistantRatingListComponent
   }
 
   onActionButtonEditRow(
-    model: transactionAssistantRatingModel = this.tableRowSelected,
+    model: TransactionAssistantRatingModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -259,7 +259,7 @@ export class TransactionAssistantRatingListComponent
     });
   }
   onActionButtonDeleteRow(
-    model: transactionAssistantRatingModel = this.tableRowSelected,
+    model: TransactionAssistantRatingModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.translate

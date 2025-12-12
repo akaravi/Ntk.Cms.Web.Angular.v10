@@ -42,6 +42,7 @@ import { TransactionAssistantTagEditComponent } from "./tag/edit/edit.component"
 import { TransactionAssistantCategoryListComponent } from "./category/list/list.component";
 import { TransactionAssistantCategoryAddComponent } from "./category/add/add.component";
 import { TransactionAssistantCategoryEditComponent } from "./category/edit/edit.component";
+import { TransactionAssistantDashboardComponent } from "./dashboard/dashboard.component";
 
 export const routesNormal: Routes = [
   {
@@ -49,6 +50,19 @@ export const routesNormal: Routes = [
     component: TransactionAssistantComponent,
     data: { title: "ROUTE.TRANSACTIONASSISTANT" },
     children: [
+      /* Dashboard */
+      {
+        path: "",
+        pathMatch: "full",
+        component: TransactionAssistantDashboardComponent,
+        data: { title: "ROUTE.TRANSACTIONASSISTANT" },
+      },
+      {
+        path: "dashboard",
+        component: TransactionAssistantDashboardComponent,
+        data: { title: "ROUTE.TRANSACTIONASSISTANT" },
+      },
+      /* Dashboard */
       /* Config */
       {
         path: "config",

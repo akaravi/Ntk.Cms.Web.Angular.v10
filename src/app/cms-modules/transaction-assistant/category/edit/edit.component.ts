@@ -12,8 +12,8 @@ import {
   CoreEnumService,
   ErrorExceptionResultBase,
   ManageUserAccessDataTypesEnum,
+  TransactionAssistantProductCategoryModel,
   TransactionAssistantProductCategoryService,
-  transactionAssistantProductCategoryModel,
 } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
@@ -31,7 +31,7 @@ import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStat
 export class TransactionAssistantCategoryEditComponent
   extends EditBaseComponent<
     TransactionAssistantProductCategoryService,
-    transactionAssistantProductCategoryModel,
+    TransactionAssistantProductCategoryModel,
     string
   >
   implements OnInit
@@ -50,7 +50,7 @@ export class TransactionAssistantCategoryEditComponent
   ) {
     super(
       transactionAssistantProductCategoryService,
-      new transactionAssistantProductCategoryModel(),
+      new TransactionAssistantProductCategoryModel(),
       publicHelper,
       translate,
     );
@@ -68,8 +68,8 @@ export class TransactionAssistantCategoryEditComponent
   appLanguage = "fa";
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
-  dataModel: transactionAssistantProductCategoryModel =
-    new transactionAssistantProductCategoryModel();
+  dataModel: TransactionAssistantProductCategoryModel =
+    new TransactionAssistantProductCategoryModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
   fileManagerOpenForm = false;

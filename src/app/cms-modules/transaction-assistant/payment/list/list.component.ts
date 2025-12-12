@@ -9,8 +9,8 @@ import {
   FilterModel,
   RecordStatusEnum,
   SortTypeEnum,
+  TransactionAssistantPaymentModel,
   TransactionAssistantPaymentService,
-  transactionAssistantPaymentModel,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -34,7 +34,7 @@ import { TransactionAssistantPaymentEditComponent } from "../edit/edit.component
 export class TransactionAssistantPaymentListComponent
   extends ListBaseComponent<
     TransactionAssistantPaymentService,
-    transactionAssistantPaymentModel,
+    TransactionAssistantPaymentModel,
     string
   >
   implements OnInit, OnDestroy
@@ -56,7 +56,7 @@ export class TransactionAssistantPaymentListComponent
   ) {
     super(
       contentService,
-      new transactionAssistantPaymentModel(),
+      new TransactionAssistantPaymentModel(),
       publicHelper,
       tokenHelper,
       translate,
@@ -93,7 +93,7 @@ export class TransactionAssistantPaymentListComponent
   ];
   tabledisplayedColumnsMobileSource: string[] = ["id", "status", "amount"];
 
-  expandedElement: transactionAssistantPaymentModel | null;
+  expandedElement: TransactionAssistantPaymentModel | null;
   private unsubscribe: Subscription[] = [];
 
   /**
@@ -134,7 +134,7 @@ export class TransactionAssistantPaymentListComponent
       this.tokenInfo,
     );
     this.tableRowsSelected = [];
-    this.onActionTableRowSelect(new transactionAssistantPaymentModel());
+    this.onActionTableRowSelect(new TransactionAssistantPaymentModel());
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.get_information_list")
@@ -257,7 +257,7 @@ export class TransactionAssistantPaymentListComponent
    * @param model - مدل Payment برای ویرایش (پیش‌فرض: رکورد انتخاب شده در جدول)
    */
   onActionButtonEditRow(
-    model: transactionAssistantPaymentModel = this.tableRowSelected,
+    model: TransactionAssistantPaymentModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -298,7 +298,7 @@ export class TransactionAssistantPaymentListComponent
    * @param model - مدل Payment برای حذف (پیش‌فرض: رکورد انتخاب شده در جدول)
    */
   onActionButtonDeleteRow(
-    model: transactionAssistantPaymentModel = this.tableRowSelected,
+    model: TransactionAssistantPaymentModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.translate

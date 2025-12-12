@@ -9,8 +9,8 @@ import {
   FilterModel,
   RecordStatusEnum,
   SortTypeEnum,
+  TransactionAssistantOrderModel,
   TransactionAssistantOrderService,
-  transactionAssistantOrderModel,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -34,7 +34,7 @@ import { TransactionAssistantOrderEditComponent } from "../edit/edit.component";
 export class TransactionAssistantOrderListComponent
   extends ListBaseComponent<
     TransactionAssistantOrderService,
-    transactionAssistantOrderModel,
+    TransactionAssistantOrderModel,
     string
   >
   implements OnInit, OnDestroy
@@ -56,7 +56,7 @@ export class TransactionAssistantOrderListComponent
   ) {
     super(
       contentService,
-      new transactionAssistantOrderModel(),
+      new TransactionAssistantOrderModel(),
       publicHelper,
       tokenHelper,
       translate,
@@ -98,7 +98,7 @@ export class TransactionAssistantOrderListComponent
     "paymentStatus",
   ];
 
-  expandedElement: transactionAssistantOrderModel | null;
+  expandedElement: TransactionAssistantOrderModel | null;
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
@@ -127,7 +127,7 @@ export class TransactionAssistantOrderListComponent
       this.tokenInfo,
     );
     this.tableRowsSelected = [];
-    this.onActionTableRowSelect(new transactionAssistantOrderModel());
+    this.onActionTableRowSelect(new TransactionAssistantOrderModel());
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.get_information_list")
@@ -230,7 +230,7 @@ export class TransactionAssistantOrderListComponent
   }
 
   onActionButtonEditRow(
-    model: transactionAssistantOrderModel = this.tableRowSelected,
+    model: TransactionAssistantOrderModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -262,7 +262,7 @@ export class TransactionAssistantOrderListComponent
     });
   }
   onActionButtonDeleteRow(
-    model: transactionAssistantOrderModel = this.tableRowSelected,
+    model: TransactionAssistantOrderModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.translate

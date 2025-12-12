@@ -9,8 +9,8 @@ import {
   FilterModel,
   RecordStatusEnum,
   SortTypeEnum,
+  TransactionAssistantTagModel,
   TransactionAssistantTagService,
-  transactionAssistantTagModel,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -34,7 +34,7 @@ import { TransactionAssistantTagEditComponent } from "../edit/edit.component";
 export class TransactionAssistantTagListComponent
   extends ListBaseComponent<
     TransactionAssistantTagService,
-    transactionAssistantTagModel,
+    TransactionAssistantTagModel,
     string
   >
   implements OnInit, OnDestroy
@@ -56,7 +56,7 @@ export class TransactionAssistantTagListComponent
   ) {
     super(
       contentService,
-      new transactionAssistantTagModel(),
+      new TransactionAssistantTagModel(),
       publicHelper,
       tokenHelper,
       translate,
@@ -90,7 +90,7 @@ export class TransactionAssistantTagListComponent
   ];
   tabledisplayedColumnsMobileSource: string[] = ["id", "title"];
 
-  expandedElement: transactionAssistantTagModel | null;
+  expandedElement: TransactionAssistantTagModel | null;
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
@@ -119,7 +119,7 @@ export class TransactionAssistantTagListComponent
       this.tokenInfo,
     );
     this.tableRowsSelected = [];
-    this.onActionTableRowSelect(new transactionAssistantTagModel());
+    this.onActionTableRowSelect(new TransactionAssistantTagModel());
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.get_information_list")
@@ -222,7 +222,7 @@ export class TransactionAssistantTagListComponent
   }
 
   onActionButtonEditRow(
-    model: transactionAssistantTagModel = this.tableRowSelected,
+    model: TransactionAssistantTagModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -254,7 +254,7 @@ export class TransactionAssistantTagListComponent
     });
   }
   onActionButtonDeleteRow(
-    model: transactionAssistantTagModel = this.tableRowSelected,
+    model: TransactionAssistantTagModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.translate

@@ -1,0 +1,132 @@
+<div class="ta-dashboard">
+  <div class="hero card shadow-sm border-0 mb-4">
+    <div class="row g-3 align-items-center">
+      <div class="col-12 col-md-4 text-center">
+        <div class="hero-icon">
+          <i class="fa-solid fa-diagram-project"></i>
+        </div>
+      </div>
+      <div class="col-12 col-md-8">
+        <div class="hero-title">داشبورد تراکنش و تامین</div>
+        <div class="hero-subtitle">
+          مسیر سریع برای ایجاد سفارش، پیگیری پرداخت، ارسال، و مدیریت درخواست/پیشنهاد.
+        </div>
+        <div class="d-flex flex-wrap gap-2 mt-3">
+          <a routerLink="order/add" class="btn btn-primary btn-sm fw-bold">+ سفارش جدید</a>
+          <a routerLink="request/add" class="btn btn-outline-primary btn-sm fw-bold">+ درخواست تامین</a>
+          <a routerLink="inventory" class="btn btn-light btn-sm fw-bold">موجودی و قیمت</a>
+          <a routerLink="shipment" class="btn btn-light btn-sm fw-bold">ارسال و گمرک</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-md-3" *ngFor="let card of [
+      { title: 'سفارش‌های امروز', value: kpi.ordersToday, icon: 'order-list', route: 'order' },
+      { title: 'پرداخت موفق', value: kpi.paymentsSuccess, icon: 'payment-list', route: 'payment' },
+      { title: 'ارسال در جریان', value: kpi.shipmentsInTransit, icon: 'shipment-customs', route: 'shipment' },
+      { title: 'پیشنهادهای در انتظار', value: kpi.offersPending, icon: 'request-offer', route: 'offer' }
+    ]">
+      <a class="card kpi-card h-100 shadow-sm border-0" [routerLink]="card.route">
+        <div class="d-flex align-items-center p-3">
+          <div class="kpi-icon">
+            <i
+              [class]="'fa-solid ' + card.icon"
+              aria-hidden="true"
+            ></i>
+          </div>
+          <div class="ms-3">
+            <div class="kpi-title">{{ card.title }}</div>
+            <div class="kpi-value">{{ card.value | number }}</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-lg-6">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body">
+          <div class="card-title d-flex align-items-center mb-3">
+            <i class="fa-solid fa-route section-icon"></i>
+            <span class="ms-2 fw-bold">جریان سفارش تا ارسال</span>
+          </div>
+          <div class="flow-steps">
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">ثبت سفارش / سبد</div>
+                <div class="text-muted small">Order / Cart</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">پرداخت و تایید</div>
+                <div class="text-muted small">Payment / Invoice</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">ارسال و گمرک</div>
+                <div class="text-muted small">Shipment / Customs</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">تحویل و رضایت</div>
+                <div class="text-muted small">Rating</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body">
+          <div class="card-title d-flex align-items-center mb-3">
+            <i class="fa-solid fa-sitemap section-icon"></i>
+            <span class="ms-2 fw-bold">درخواست تا پیشنهاد تامین‌کننده</span>
+          </div>
+          <div class="flow-steps">
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">درخواست تامین</div>
+                <div class="text-muted small">Request</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">تطبیق برچسب/دسته</div>
+                <div class="text-muted small">Tag / Category</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">پیشنهاد تامین‌کننده</div>
+                <div class="text-muted small">Offer</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">ثبت موجودی/قیمت</div>
+                <div class="text-muted small">Inventory</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

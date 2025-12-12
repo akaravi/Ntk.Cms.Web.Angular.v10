@@ -9,8 +9,8 @@ import {
   FilterModel,
   RecordStatusEnum,
   SortTypeEnum,
+  TransactionAssistantOrderShipmentModel,
   TransactionAssistantShipmentService,
-  transactionAssistantOrderShipmentModel,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -34,7 +34,7 @@ import { TransactionAssistantShipmentEditComponent } from "../edit/edit.componen
 export class TransactionAssistantShipmentListComponent
   extends ListBaseComponent<
     TransactionAssistantShipmentService,
-    transactionAssistantOrderShipmentModel,
+    TransactionAssistantOrderShipmentModel,
     string
   >
   implements OnInit, OnDestroy
@@ -56,7 +56,7 @@ export class TransactionAssistantShipmentListComponent
   ) {
     super(
       contentService,
-      new transactionAssistantOrderShipmentModel(),
+      new TransactionAssistantOrderShipmentModel(),
       publicHelper,
       tokenHelper,
       translate,
@@ -97,7 +97,7 @@ export class TransactionAssistantShipmentListComponent
     "status",
   ];
 
-  expandedElement: transactionAssistantOrderShipmentModel | null;
+  expandedElement: TransactionAssistantOrderShipmentModel | null;
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
@@ -126,7 +126,7 @@ export class TransactionAssistantShipmentListComponent
       this.tokenInfo,
     );
     this.tableRowsSelected = [];
-    this.onActionTableRowSelect(new transactionAssistantOrderShipmentModel());
+    this.onActionTableRowSelect(new TransactionAssistantOrderShipmentModel());
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.get_information_list")
@@ -233,7 +233,7 @@ export class TransactionAssistantShipmentListComponent
   }
 
   onActionButtonEditRow(
-    model: transactionAssistantOrderShipmentModel = this.tableRowSelected,
+    model: TransactionAssistantOrderShipmentModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -269,7 +269,7 @@ export class TransactionAssistantShipmentListComponent
     });
   }
   onActionButtonDeleteRow(
-    model: transactionAssistantOrderShipmentModel = this.tableRowSelected,
+    model: TransactionAssistantOrderShipmentModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.translate

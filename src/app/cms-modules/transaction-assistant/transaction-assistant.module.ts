@@ -1,5 +1,9 @@
 import { CommonModule, NgOptimizedImage } from "@angular/common";
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  NO_ERRORS_SCHEMA,
+  NgModule,
+} from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
@@ -115,6 +119,7 @@ import { TransactionAssistantTagListComponent } from "./tag/list/list.component"
 import { TransactionAssistantCategoryAddComponent } from "./category/add/add.component";
 import { TransactionAssistantCategoryEditComponent } from "./category/edit/edit.component";
 import { TransactionAssistantCategoryListComponent } from "./category/list/list.component";
+import { TransactionAssistantDashboardComponent } from "./dashboard/dashboard.component";
 
 @NgModule({
   declarations: [
@@ -189,6 +194,9 @@ import { TransactionAssistantCategoryListComponent } from "./category/list/list.
     TransactionAssistantCategoryAddComponent,
     TransactionAssistantCategoryEditComponent,
     /* Category */
+    /* Dashboard */
+    TransactionAssistantDashboardComponent,
+    /* Dashboard */
   ],
   imports: [
     CommonModule,
@@ -242,7 +250,7 @@ import { TransactionAssistantCategoryListComponent } from "./category/list/list.
     CoreModuleTagService,
     BankPaymentTransactionService,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   exports: [],
 })
 export class TransactionAssistantModule {}

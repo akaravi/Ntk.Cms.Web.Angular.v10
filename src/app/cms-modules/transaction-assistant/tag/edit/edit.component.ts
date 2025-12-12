@@ -12,8 +12,8 @@ import {
   CoreEnumService,
   ErrorExceptionResultBase,
   ManageUserAccessDataTypesEnum,
+  TransactionAssistantTagModel,
   TransactionAssistantTagService,
-  transactionAssistantTagModel,
 } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
@@ -31,7 +31,7 @@ import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStat
 export class TransactionAssistantTagEditComponent
   extends EditBaseComponent<
     TransactionAssistantTagService,
-    transactionAssistantTagModel,
+    TransactionAssistantTagModel,
     string
   >
   implements OnInit
@@ -50,7 +50,7 @@ export class TransactionAssistantTagEditComponent
   ) {
     super(
       transactionAssistantTagService,
-      new transactionAssistantTagModel(),
+      new TransactionAssistantTagModel(),
       publicHelper,
       translate,
     );
@@ -68,7 +68,7 @@ export class TransactionAssistantTagEditComponent
   appLanguage = "fa";
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
-  dataModel: transactionAssistantTagModel = new transactionAssistantTagModel();
+  dataModel: TransactionAssistantTagModel = new TransactionAssistantTagModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
   fileManagerOpenForm = false;

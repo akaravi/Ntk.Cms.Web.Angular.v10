@@ -9,8 +9,8 @@ import {
   FilterModel,
   RecordStatusEnum,
   SortTypeEnum,
+  TransactionAssistantProductCategoryModel,
   TransactionAssistantProductCategoryService,
-  transactionAssistantProductCategoryModel,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -34,7 +34,7 @@ import { TransactionAssistantCategoryEditComponent } from "../edit/edit.componen
 export class TransactionAssistantCategoryListComponent
   extends ListBaseComponent<
     TransactionAssistantProductCategoryService,
-    transactionAssistantProductCategoryModel,
+    TransactionAssistantProductCategoryModel,
     string
   >
   implements OnInit, OnDestroy
@@ -56,7 +56,7 @@ export class TransactionAssistantCategoryListComponent
   ) {
     super(
       contentService,
-      new transactionAssistantProductCategoryModel(),
+      new TransactionAssistantProductCategoryModel(),
       publicHelper,
       tokenHelper,
       translate,
@@ -91,7 +91,7 @@ export class TransactionAssistantCategoryListComponent
   ];
   tabledisplayedColumnsMobileSource: string[] = ["id", "title"];
 
-  expandedElement: transactionAssistantProductCategoryModel | null;
+  expandedElement: TransactionAssistantProductCategoryModel | null;
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
@@ -120,7 +120,7 @@ export class TransactionAssistantCategoryListComponent
       this.tokenInfo,
     );
     this.tableRowsSelected = [];
-    this.onActionTableRowSelect(new transactionAssistantProductCategoryModel());
+    this.onActionTableRowSelect(new TransactionAssistantProductCategoryModel());
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.get_information_list")
@@ -227,7 +227,7 @@ export class TransactionAssistantCategoryListComponent
   }
 
   onActionButtonEditRow(
-    model: transactionAssistantProductCategoryModel = this.tableRowSelected,
+    model: TransactionAssistantProductCategoryModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -263,7 +263,7 @@ export class TransactionAssistantCategoryListComponent
     });
   }
   onActionButtonDeleteRow(
-    model: transactionAssistantProductCategoryModel = this.tableRowSelected,
+    model: TransactionAssistantProductCategoryModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.translate

@@ -12,8 +12,8 @@ import {
   CoreEnumService,
   DataFieldInfoModel,
   ErrorExceptionResult,
+  TransactionAssistantInvoiceModel,
   TransactionAssistantInvoiceService,
-  transactionAssistantInvoiceModel,
 } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
@@ -31,7 +31,7 @@ import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStat
 export class TransactionAssistantInvoiceAddComponent
   extends AddBaseComponent<
     TransactionAssistantInvoiceService,
-    transactionAssistantInvoiceModel,
+    TransactionAssistantInvoiceModel,
     string
   >
   implements OnInit
@@ -49,7 +49,7 @@ export class TransactionAssistantInvoiceAddComponent
   ) {
     super(
       transactionAssistantInvoiceService,
-      new transactionAssistantInvoiceModel(),
+      new TransactionAssistantInvoiceModel(),
       publicHelper,
       translate,
     );
@@ -66,10 +66,10 @@ export class TransactionAssistantInvoiceAddComponent
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   fileManagerTree: TreeModel;
   appLanguage = "fa";
-  dataModelResult: ErrorExceptionResult<transactionAssistantInvoiceModel> =
-    new ErrorExceptionResult<transactionAssistantInvoiceModel>();
-  dataModel: transactionAssistantInvoiceModel =
-    new transactionAssistantInvoiceModel();
+  dataModelResult: ErrorExceptionResult<TransactionAssistantInvoiceModel> =
+    new ErrorExceptionResult<TransactionAssistantInvoiceModel>();
+  dataModel: TransactionAssistantInvoiceModel =
+    new TransactionAssistantInvoiceModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
   fileManagerOpenForm = false;

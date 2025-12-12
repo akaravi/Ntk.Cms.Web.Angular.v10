@@ -9,8 +9,8 @@ import {
   FilterModel,
   RecordStatusEnum,
   SortTypeEnum,
+  TransactionAssistantAddressModel,
   TransactionAssistantAddressService,
-  transactionAssistantAddressModel,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -34,7 +34,7 @@ import { TransactionAssistantAddressEditComponent } from "../edit/edit.component
 export class TransactionAssistantAddressListComponent
   extends ListBaseComponent<
     TransactionAssistantAddressService,
-    transactionAssistantAddressModel,
+    TransactionAssistantAddressModel,
     string
   >
   implements OnInit, OnDestroy
@@ -56,7 +56,7 @@ export class TransactionAssistantAddressListComponent
   ) {
     super(
       contentService,
-      new transactionAssistantAddressModel(),
+      new TransactionAssistantAddressModel(),
       publicHelper,
       tokenHelper,
       translate,
@@ -99,7 +99,7 @@ export class TransactionAssistantAddressListComponent
     "contactPhone",
   ];
 
-  expandedElement: transactionAssistantAddressModel | null;
+  expandedElement: TransactionAssistantAddressModel | null;
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
@@ -128,7 +128,7 @@ export class TransactionAssistantAddressListComponent
       this.tokenInfo,
     );
     this.tableRowsSelected = [];
-    this.onActionTableRowSelect(new transactionAssistantAddressModel());
+    this.onActionTableRowSelect(new TransactionAssistantAddressModel());
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.get_information_list")
@@ -235,7 +235,7 @@ export class TransactionAssistantAddressListComponent
   }
 
   onActionButtonEditRow(
-    model: transactionAssistantAddressModel = this.tableRowSelected,
+    model: TransactionAssistantAddressModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -271,7 +271,7 @@ export class TransactionAssistantAddressListComponent
     });
   }
   onActionButtonDeleteRow(
-    model: transactionAssistantAddressModel = this.tableRowSelected,
+    model: TransactionAssistantAddressModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.translate

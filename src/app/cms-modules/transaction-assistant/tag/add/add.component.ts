@@ -12,8 +12,8 @@ import {
   CoreEnumService,
   DataFieldInfoModel,
   ErrorExceptionResult,
+  TransactionAssistantTagModel,
   TransactionAssistantTagService,
-  transactionAssistantTagModel,
 } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
@@ -31,7 +31,7 @@ import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStat
 export class TransactionAssistantTagAddComponent
   extends AddBaseComponent<
     TransactionAssistantTagService,
-    transactionAssistantTagModel,
+    TransactionAssistantTagModel,
     string
   >
   implements OnInit
@@ -49,7 +49,7 @@ export class TransactionAssistantTagAddComponent
   ) {
     super(
       transactionAssistantTagService,
-      new transactionAssistantTagModel(),
+      new TransactionAssistantTagModel(),
       publicHelper,
       translate,
     );
@@ -66,9 +66,9 @@ export class TransactionAssistantTagAddComponent
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   fileManagerTree: TreeModel;
   appLanguage = "fa";
-  dataModelResult: ErrorExceptionResult<transactionAssistantTagModel> =
-    new ErrorExceptionResult<transactionAssistantTagModel>();
-  dataModel: transactionAssistantTagModel = new transactionAssistantTagModel();
+  dataModelResult: ErrorExceptionResult<TransactionAssistantTagModel> =
+    new ErrorExceptionResult<TransactionAssistantTagModel>();
+  dataModel: TransactionAssistantTagModel = new TransactionAssistantTagModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
   fileManagerOpenForm = false;

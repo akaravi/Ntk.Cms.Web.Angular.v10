@@ -13,7 +13,7 @@ import {
   ErrorExceptionResultBase,
   ManageUserAccessDataTypesEnum,
   TransactionAssistantProductService,
-  transactionAssistantProductModel,
+  TransactionAssistantProductModel,
 } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
@@ -31,7 +31,7 @@ import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStat
 export class TransactionAssistantProductEditComponent
   extends EditBaseComponent<
     TransactionAssistantProductService,
-    transactionAssistantProductModel,
+    TransactionAssistantProductModel,
     string
   >
   implements OnInit
@@ -50,7 +50,7 @@ export class TransactionAssistantProductEditComponent
   ) {
     super(
       transactionAssistantProductService,
-      new transactionAssistantProductModel(),
+      new TransactionAssistantProductModel(),
       publicHelper,
       translate,
     );
@@ -68,8 +68,8 @@ export class TransactionAssistantProductEditComponent
   appLanguage = "fa";
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
-  dataModel: transactionAssistantProductModel =
-    new transactionAssistantProductModel();
+  dataModel: TransactionAssistantProductModel =
+    new TransactionAssistantProductModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
   fileManagerOpenForm = false;

@@ -9,8 +9,8 @@ import {
   FilterModel,
   RecordStatusEnum,
   SortTypeEnum,
+  TransactionAssistantCartModel,
   TransactionAssistantCartService,
-  transactionAssistantCartModel,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -34,7 +34,7 @@ import { TransactionAssistantCartEditComponent } from "../edit/edit.component";
 export class TransactionAssistantCartListComponent
   extends ListBaseComponent<
     TransactionAssistantCartService,
-    transactionAssistantCartModel,
+    TransactionAssistantCartModel,
     string
   >
   implements OnInit, OnDestroy
@@ -56,7 +56,7 @@ export class TransactionAssistantCartListComponent
   ) {
     super(
       contentService,
-      new transactionAssistantCartModel(),
+      new TransactionAssistantCartModel(),
       publicHelper,
       tokenHelper,
       translate,
@@ -91,7 +91,7 @@ export class TransactionAssistantCartListComponent
   ];
   tabledisplayedColumnsMobileSource: string[] = ["id", "status", "closeDate"];
 
-  expandedElement: transactionAssistantCartModel | null;
+  expandedElement: TransactionAssistantCartModel | null;
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
@@ -120,7 +120,7 @@ export class TransactionAssistantCartListComponent
       this.tokenInfo,
     );
     this.tableRowsSelected = [];
-    this.onActionTableRowSelect(new transactionAssistantCartModel());
+    this.onActionTableRowSelect(new TransactionAssistantCartModel());
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.get_information_list")
@@ -223,7 +223,7 @@ export class TransactionAssistantCartListComponent
   }
 
   onActionButtonEditRow(
-    model: transactionAssistantCartModel = this.tableRowSelected,
+    model: TransactionAssistantCartModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -255,7 +255,7 @@ export class TransactionAssistantCartListComponent
     });
   }
   onActionButtonDeleteRow(
-    model: transactionAssistantCartModel = this.tableRowSelected,
+    model: TransactionAssistantCartModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.translate

@@ -13,7 +13,7 @@ import {
   ErrorExceptionResultBase,
   ManageUserAccessDataTypesEnum,
   TransactionAssistantRatingService,
-  transactionAssistantRatingModel,
+  TransactionAssistantRatingModel,
 } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
@@ -31,7 +31,7 @@ import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStat
 export class TransactionAssistantRatingEditComponent
   extends EditBaseComponent<
     TransactionAssistantRatingService,
-    transactionAssistantRatingModel,
+    TransactionAssistantRatingModel,
     string
   >
   implements OnInit
@@ -50,7 +50,7 @@ export class TransactionAssistantRatingEditComponent
   ) {
     super(
       transactionAssistantRatingService,
-      new transactionAssistantRatingModel(),
+      new TransactionAssistantRatingModel(),
       publicHelper,
       translate,
     );
@@ -68,8 +68,8 @@ export class TransactionAssistantRatingEditComponent
   appLanguage = "fa";
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
-  dataModel: transactionAssistantRatingModel =
-    new transactionAssistantRatingModel();
+  dataModel: TransactionAssistantRatingModel =
+    new TransactionAssistantRatingModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
   fileManagerOpenForm = false;

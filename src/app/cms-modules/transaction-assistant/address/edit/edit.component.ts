@@ -12,8 +12,8 @@ import {
   CoreEnumService,
   ErrorExceptionResultBase,
   ManageUserAccessDataTypesEnum,
+  TransactionAssistantAddressModel,
   TransactionAssistantAddressService,
-  transactionAssistantAddressModel,
 } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
@@ -31,7 +31,7 @@ import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStat
 export class TransactionAssistantAddressEditComponent
   extends EditBaseComponent<
     TransactionAssistantAddressService,
-    transactionAssistantAddressModel,
+    TransactionAssistantAddressModel,
     string
   >
   implements OnInit
@@ -50,7 +50,7 @@ export class TransactionAssistantAddressEditComponent
   ) {
     super(
       transactionAssistantAddressService,
-      new transactionAssistantAddressModel(),
+      new TransactionAssistantAddressModel(),
       publicHelper,
       translate,
     );
@@ -68,8 +68,8 @@ export class TransactionAssistantAddressEditComponent
   appLanguage = "fa";
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
-  dataModel: transactionAssistantAddressModel =
-    new transactionAssistantAddressModel();
+  dataModel: TransactionAssistantAddressModel =
+    new TransactionAssistantAddressModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
   fileManagerOpenForm = false;

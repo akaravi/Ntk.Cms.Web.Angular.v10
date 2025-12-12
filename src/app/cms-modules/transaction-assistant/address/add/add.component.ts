@@ -12,8 +12,8 @@ import {
   CoreEnumService,
   DataFieldInfoModel,
   ErrorExceptionResult,
+  TransactionAssistantAddressModel,
   TransactionAssistantAddressService,
-  transactionAssistantAddressModel,
 } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
@@ -31,7 +31,7 @@ import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStat
 export class TransactionAssistantAddressAddComponent
   extends AddBaseComponent<
     TransactionAssistantAddressService,
-    transactionAssistantAddressModel,
+    TransactionAssistantAddressModel,
     string
   >
   implements OnInit
@@ -49,7 +49,7 @@ export class TransactionAssistantAddressAddComponent
   ) {
     super(
       transactionAssistantAddressService,
-      new transactionAssistantAddressModel(),
+      new TransactionAssistantAddressModel(),
       publicHelper,
       translate,
     );
@@ -66,10 +66,10 @@ export class TransactionAssistantAddressAddComponent
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   fileManagerTree: TreeModel;
   appLanguage = "fa";
-  dataModelResult: ErrorExceptionResult<transactionAssistantAddressModel> =
-    new ErrorExceptionResult<transactionAssistantAddressModel>();
-  dataModel: transactionAssistantAddressModel =
-    new transactionAssistantAddressModel();
+  dataModelResult: ErrorExceptionResult<TransactionAssistantAddressModel> =
+    new ErrorExceptionResult<TransactionAssistantAddressModel>();
+  dataModel: TransactionAssistantAddressModel =
+    new TransactionAssistantAddressModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
   fileManagerOpenForm = false;
