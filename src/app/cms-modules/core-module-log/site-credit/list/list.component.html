@@ -214,6 +214,15 @@
               {{ row.linkSiteId | cmssiteinfo | async }}
             </mat-cell>
           </ng-container>
+             <!-- CreatedBy Column -->
+          <ng-container matColumnDef="createdBy">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{ fieldsInfo["createdBy"]?.fieldTitle }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              {{ row.createdBy | cmsuserinfo | async }}
+            </mat-cell>
+          </ng-container>
           <!-- linkModuleId Column -->
           <ng-container matColumnDef="linkModuleId">
             <mat-header-cell *matHeaderCellDef mat-sort-header>

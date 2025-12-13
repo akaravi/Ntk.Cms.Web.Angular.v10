@@ -119,6 +119,7 @@ export class CoreModuleLogSiteCreditListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "id",
+    "createdBy",
     "linkSiteId",
     "linkModuleId",
     "transactionCredit",

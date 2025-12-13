@@ -140,12 +140,14 @@ export class CoreModuleLogSiteUserCreditListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "id",
+    "createdBy",
     "linkUserId",
     "linkSiteId",
     "linkModuleId",
     "transactionCredit",
     "linkModuleBankPaymentTransactionId",
     "createdDate",
+
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
@@ -155,6 +157,7 @@ export class CoreModuleLogSiteUserCreditListComponent
     "linkModuleId",
     "transactionCredit",
     "createdDate",
+
     // 'Action'
   ];
 

@@ -230,6 +230,15 @@
               }
             </mat-cell>
           </ng-container>
+             <!-- CreatedBy Column -->
+          <ng-container matColumnDef="createdBy">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              {{ fieldsInfo["createdBy"]?.fieldTitle }}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              {{ row.createdBy | cmsuserinfo | async }}
+            </mat-cell>
+          </ng-container>
           <!-- LinkSiteId Column -->
           <ng-container matColumnDef="linkSiteId">
             <mat-header-cell *matHeaderCellDef mat-sort-header>
