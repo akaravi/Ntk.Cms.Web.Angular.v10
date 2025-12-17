@@ -55,8 +55,7 @@ export class WebDesignerMainPageDependencyTreeComponent
   ) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: WebDesignerMainPageDependencyModel =
-    new WebDesignerMainPageDependencyModel();
+  dataModelSelect: WebDesignerMainPageDependencyModel | null = new WebDesignerMainPageDependencyModel();
   dataModelResult: ErrorExceptionResult<WebDesignerMainPageDependencyModel> =
     new ErrorExceptionResult<WebDesignerMainPageDependencyModel>();
   filterModel = new FilterModel();
@@ -109,8 +108,13 @@ export class WebDesignerMainPageDependencyTreeComponent
     });
   }
   onActionSelect(model: WebDesignerMainPageDependencyModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

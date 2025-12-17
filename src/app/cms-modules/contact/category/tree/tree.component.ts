@@ -53,7 +53,7 @@ export class ContactCategoryTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: string | ContactCategoryModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: ContactCategoryModel = new ContactCategoryModel();
+  dataModelSelect: ContactCategoryModel | null = new ContactCategoryModel();
   dataModelResult: ErrorExceptionResult<ContactCategoryModel> =
     new ErrorExceptionResult<ContactCategoryModel>();
   filterModel = new FilterModel();
@@ -110,9 +110,14 @@ export class ContactCategoryTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: ContactCategoryModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: ContactCategoryModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

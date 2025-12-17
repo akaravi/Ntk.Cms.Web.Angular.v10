@@ -46,7 +46,7 @@ export class ApplicationSourceTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | ApplicationSourceModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: ApplicationSourceModel = new ApplicationSourceModel();
+  dataModelSelect: ApplicationSourceModel | null = new ApplicationSourceModel();
   dataModelResult: ErrorExceptionResult<ApplicationSourceModel> =
     new ErrorExceptionResult<ApplicationSourceModel>();
   filterModel = new FilterModel();
@@ -102,9 +102,14 @@ export class ApplicationSourceTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: ApplicationSourceModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: ApplicationSourceModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

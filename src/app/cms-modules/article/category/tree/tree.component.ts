@@ -49,7 +49,7 @@ export class ArticleCategoryTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | ArticleCategoryModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: ArticleCategoryModel = new ArticleCategoryModel();
+  dataModelSelect: ArticleCategoryModel | null = new ArticleCategoryModel();
   dataModelResult: ErrorExceptionResult<ArticleCategoryModel> =
     new ErrorExceptionResult<ArticleCategoryModel>();
   filterModel = new FilterModel();
@@ -102,9 +102,14 @@ export class ArticleCategoryTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: ArticleCategoryModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: ArticleCategoryModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

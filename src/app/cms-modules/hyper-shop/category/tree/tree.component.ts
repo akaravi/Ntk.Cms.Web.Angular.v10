@@ -51,7 +51,7 @@ export class HyperShopCategoryTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | HyperShopCategoryModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: HyperShopCategoryModel = new HyperShopCategoryModel();
+  dataModelSelect: HyperShopCategoryModel | null = new HyperShopCategoryModel();
   dataModelResult: ErrorExceptionResult<HyperShopCategoryModel> =
     new ErrorExceptionResult<HyperShopCategoryModel>();
   filterModel = new FilterModel();
@@ -107,9 +107,14 @@ export class HyperShopCategoryTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: HyperShopCategoryModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: HyperShopCategoryModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

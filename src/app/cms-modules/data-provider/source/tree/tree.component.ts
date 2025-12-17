@@ -50,7 +50,7 @@ export class DataProviderSourceTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | DataProviderSourceModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: DataProviderSourceModel = new DataProviderSourceModel();
+  dataModelSelect: DataProviderSourceModel | null = new DataProviderSourceModel();
   dataModelResult: ErrorExceptionResult<DataProviderSourceModel> =
     new ErrorExceptionResult<DataProviderSourceModel>();
   filterModel = new FilterModel();
@@ -104,9 +104,14 @@ export class DataProviderSourceTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: DataProviderSourceModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: DataProviderSourceModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

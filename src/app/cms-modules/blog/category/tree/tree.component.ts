@@ -50,7 +50,7 @@ export class BlogCategoryTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | BlogCategoryModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: BlogCategoryModel = new BlogCategoryModel();
+  dataModelSelect: BlogCategoryModel | null = new BlogCategoryModel();
   dataModelResult: ErrorExceptionResult<BlogCategoryModel> =
     new ErrorExceptionResult<BlogCategoryModel>();
   filterModel = new FilterModel();
@@ -107,9 +107,14 @@ export class BlogCategoryTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: BlogCategoryModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: BlogCategoryModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

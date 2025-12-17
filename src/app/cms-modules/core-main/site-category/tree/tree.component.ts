@@ -49,7 +49,7 @@ export class CoreSiteCategoryTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | CoreSiteCategoryModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: CoreSiteCategoryModel = new CoreSiteCategoryModel();
+  dataModelSelect: CoreSiteCategoryModel | null = new CoreSiteCategoryModel();
   dataModelResult: ErrorExceptionResult<CoreSiteCategoryModel> =
     new ErrorExceptionResult<CoreSiteCategoryModel>();
   filterModel = new FilterModel();
@@ -105,9 +105,14 @@ export class CoreSiteCategoryTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: CoreSiteCategoryModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: CoreSiteCategoryModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

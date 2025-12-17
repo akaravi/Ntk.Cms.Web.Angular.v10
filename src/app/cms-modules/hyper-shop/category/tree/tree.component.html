@@ -77,7 +77,7 @@
           *matTreeNodeDef="let node"
           matTreeNodePadding
         [class.ntk-tree-selected]="
-          dataModelSelect.id?.length > 0 && dataModelSelect.id === node.id
+          dataModelSelect?.id?.length > 0 && dataModelSelect?.id === node.id
         "
           >
           <button matIconButton disabled></button>
@@ -89,7 +89,7 @@
           matTreeNodeToggle
           [cdkTreeNodeTypeaheadLabel]="node.name"
         [class.ntk-tree-selected]="
-          dataModelSelect.id?.length > 0 && dataModelSelect.id === node.id
+          dataModelSelect?.id?.length > 0 && dataModelSelect?.id === node.id
         "
           >
           <button

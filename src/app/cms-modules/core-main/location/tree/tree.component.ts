@@ -50,7 +50,7 @@ export class CoreLocationTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | CoreLocationModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: CoreLocationModel = new CoreLocationModel();
+  dataModelSelect: CoreLocationModel | null = new CoreLocationModel();
   dataModelResult: ErrorExceptionResult<CoreLocationModel> =
     new ErrorExceptionResult<CoreLocationModel>();
   filterModel = new FilterModel();
@@ -150,15 +150,20 @@ export class CoreLocationTreeComponent implements OnInit, OnDestroy {
     });
   }
   onActionSelect(model: CoreLocationModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
-    if (
-      this.dataModelSelect &&
-      this.dataModelSelect.id > 0 &&
-      (this.dataModelSelect.children == null ||
-        this.dataModelSelect.children?.length == 0)
-    ) {
-      this.DataGetAllChild(this.dataModelSelect);
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+      if (
+        this.dataModelSelect &&
+        this.dataModelSelect.id > 0 &&
+        (this.dataModelSelect.children == null ||
+          this.dataModelSelect.children?.length == 0)
+      ) {
+        this.DataGetAllChild(this.dataModelSelect);
+      }
     }
   }
   onActionButtonReload(): void {

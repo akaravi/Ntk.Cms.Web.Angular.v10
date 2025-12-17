@@ -50,7 +50,7 @@ export class TicketingDepartemenTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | TicketingDepartemenModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: TicketingDepartemenModel = new TicketingDepartemenModel();
+  dataModelSelect: TicketingDepartemenModel | null = new TicketingDepartemenModel();
   dataModelResult: ErrorExceptionResult<TicketingDepartemenModel> =
     new ErrorExceptionResult<TicketingDepartemenModel>();
   filterModel = new FilterModel();
@@ -105,8 +105,13 @@ export class TicketingDepartemenTreeComponent implements OnInit, OnDestroy {
     });
   }
   onActionSelect(model: TicketingDepartemenModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

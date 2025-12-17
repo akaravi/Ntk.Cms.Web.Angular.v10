@@ -51,8 +51,7 @@ export class EstatePropertyCompanyTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | EstatePropertyCompanyModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: EstatePropertyCompanyModel =
-    new EstatePropertyCompanyModel();
+  dataModelSelect: EstatePropertyCompanyModel | null = new EstatePropertyCompanyModel();
   dataModelResult: ErrorExceptionResult<EstatePropertyCompanyModel> =
     new ErrorExceptionResult<EstatePropertyCompanyModel>();
   filterModel = new EstatePropertyCompanyFilterModel();
@@ -108,9 +107,14 @@ export class EstatePropertyCompanyTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: EstatePropertyCompanyModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: EstatePropertyCompanyModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

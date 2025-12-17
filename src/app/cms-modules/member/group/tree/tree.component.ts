@@ -51,7 +51,7 @@ export class MemberGroupTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | MemberGroupModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: MemberGroupModel = new MemberGroupModel();
+  dataModelSelect: MemberGroupModel | null = new MemberGroupModel();
   dataModelResult: ErrorExceptionResult<MemberGroupModel> =
     new ErrorExceptionResult<MemberGroupModel>();
   filterModel = new FilterModel();
@@ -107,9 +107,14 @@ export class MemberGroupTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: MemberGroupModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: MemberGroupModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

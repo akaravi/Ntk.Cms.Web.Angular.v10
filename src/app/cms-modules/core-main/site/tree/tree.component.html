@@ -73,7 +73,7 @@
           *matTreeNodeDef="let node"
           matTreeNodePadding
         [class.ntk-tree-selected]="
-          dataModelSelect.id > 0 && dataModelSelect.id === node.id
+          dataModelSelect?.id > 0 && dataModelSelect?.id === node.id
         "
           >
           <button matIconButton disabled></button>
@@ -87,7 +87,7 @@
           isExpandable
           [isExpanded]="node.isExpanded ?? false"
         [class.ntk-tree-selected]="
-          dataModelSelect.id > 0 && dataModelSelect.id === node.id
+          dataModelSelect?.id > 0 && dataModelSelect?.id === node.id
         "
           >
           <button

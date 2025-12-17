@@ -52,8 +52,7 @@ export class CoreModuleSaleHeaderGroupTreeComponent
   @Input() set optionSelectForce(x: number | CoreModuleSaleHeaderGroupModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: CoreModuleSaleHeaderGroupModel =
-    new CoreModuleSaleHeaderGroupModel();
+  dataModelSelect: CoreModuleSaleHeaderGroupModel | null = new CoreModuleSaleHeaderGroupModel();
   dataModelResult: ErrorExceptionResult<CoreModuleSaleHeaderGroupModel> =
     new ErrorExceptionResult<CoreModuleSaleHeaderGroupModel>();
   filterModel = new FilterModel();
@@ -107,9 +106,14 @@ export class CoreModuleSaleHeaderGroupTreeComponent
       },
     });
   }
-  onActionSelect(model: CoreModuleSaleHeaderGroupModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: CoreModuleSaleHeaderGroupModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

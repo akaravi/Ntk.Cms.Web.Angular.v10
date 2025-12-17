@@ -50,7 +50,7 @@ export class CoreSiteTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | CoreSiteModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: CoreSiteModel = new CoreSiteModel();
+  dataModelSelect: CoreSiteModel | null = new CoreSiteModel();
   dataModelResult: ErrorExceptionResult<CoreSiteModel> =
     new ErrorExceptionResult<CoreSiteModel>();
   filterModel = new FilterModel();
@@ -104,9 +104,14 @@ export class CoreSiteTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: CoreSiteModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: CoreSiteModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

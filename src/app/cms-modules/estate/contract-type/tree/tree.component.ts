@@ -53,7 +53,7 @@ export class EstateContractTypeTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | EstateContractTypeModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: EstateContractTypeModel = new EstateContractTypeModel();
+  dataModelSelect: EstateContractTypeModel | null = new EstateContractTypeModel();
   dataModelResult: ErrorExceptionResult<EstateContractTypeModel> =
     new ErrorExceptionResult<EstateContractTypeModel>();
   filterModel = new FilterModel();
@@ -109,9 +109,14 @@ export class EstateContractTypeTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: EstateContractTypeModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: EstateContractTypeModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

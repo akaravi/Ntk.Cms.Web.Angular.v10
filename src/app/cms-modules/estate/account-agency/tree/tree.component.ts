@@ -53,7 +53,7 @@ export class EstateAccountAgencyTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | EstateAccountAgencyModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: EstateAccountAgencyModel = new EstateAccountAgencyModel();
+  dataModelSelect: EstateAccountAgencyModel | null = new EstateAccountAgencyModel();
   dataModelResult: ErrorExceptionResult<EstateAccountAgencyModel> =
     new ErrorExceptionResult<EstateAccountAgencyModel>();
   filterModel = new EstateAccountAgencyFilterModel();
@@ -104,9 +104,14 @@ export class EstateAccountAgencyTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: EstateAccountAgencyModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: EstateAccountAgencyModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

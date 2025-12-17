@@ -52,8 +52,7 @@ export class DataProviderPlanCategoryTreeComponent
   @Input() set optionSelectForce(x: number | DataProviderPlanCategoryModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: DataProviderPlanCategoryModel =
-    new DataProviderPlanCategoryModel();
+  dataModelSelect: DataProviderPlanCategoryModel | null = new DataProviderPlanCategoryModel();
   dataModelResult: ErrorExceptionResult<DataProviderPlanCategoryModel> =
     new ErrorExceptionResult<DataProviderPlanCategoryModel>();
   filterModel = new FilterModel();
@@ -111,9 +110,14 @@ export class DataProviderPlanCategoryTreeComponent
       },
     });
   }
-  onActionSelect(model: DataProviderPlanCategoryModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: DataProviderPlanCategoryModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

@@ -55,8 +55,7 @@ export class EstatePropertySupplierCategoryTreeComponent
   ) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: EstatePropertySupplierCategoryModel =
-    new EstatePropertySupplierCategoryModel();
+  dataModelSelect: EstatePropertySupplierCategoryModel | null = new EstatePropertySupplierCategoryModel();
   dataModelResult: ErrorExceptionResult<EstatePropertySupplierCategoryModel> =
     new ErrorExceptionResult<EstatePropertySupplierCategoryModel>();
   filterModel = new FilterModel();
@@ -114,9 +113,14 @@ export class EstatePropertySupplierCategoryTreeComponent
       },
     });
   }
-  onActionSelect(model: EstatePropertySupplierCategoryModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: EstatePropertySupplierCategoryModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

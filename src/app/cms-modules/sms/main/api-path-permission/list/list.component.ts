@@ -107,6 +107,8 @@ export class SmsMainApiPathPermissionListComponent
   tabledisplayedColumnsSource: string[] = [
     "recordStatus",
     "linkApiPathId",
+    "linkCoreUserId",
+    "linkCoreUserGroupId",
     "hasAccess",
     "hasInherits",
     "fromDate",
@@ -116,6 +118,8 @@ export class SmsMainApiPathPermissionListComponent
   tabledisplayedColumnsMobileSource: string[] = [
     "recordStatus",
     "linkApiPathId",
+    "linkCoreUserId",
+    "linkCoreUserGroupId",
     "hasAccess",
     "hasInherits",
     "fromDate",

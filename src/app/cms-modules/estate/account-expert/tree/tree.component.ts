@@ -53,7 +53,7 @@ export class EstateAccountExpertTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | EstateAccountExpertModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: EstateAccountExpertModel = new EstateAccountExpertModel();
+  dataModelSelect: EstateAccountExpertModel | null = new EstateAccountExpertModel();
   dataModelResult: ErrorExceptionResult<EstateAccountExpertModel> =
     new ErrorExceptionResult<EstateAccountExpertModel>();
   filterModel = new EstateAccountExpertFilterModel();
@@ -109,9 +109,14 @@ export class EstateAccountExpertTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: EstateAccountExpertModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: EstateAccountExpertModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

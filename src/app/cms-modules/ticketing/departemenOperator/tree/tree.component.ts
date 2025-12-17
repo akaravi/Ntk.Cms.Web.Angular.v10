@@ -49,8 +49,7 @@ export class TicketingDepartemenOperatorTreeComponent
   @Input() set optionSelectForce(x: number | TicketingDepartemenOperatorModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: TicketingDepartemenOperatorModel =
-    new TicketingDepartemenOperatorModel();
+  dataModelSelect: TicketingDepartemenOperatorModel | null = new TicketingDepartemenOperatorModel();
   dataModelResult: ErrorExceptionResult<TicketingDepartemenOperatorModel> =
     new ErrorExceptionResult<TicketingDepartemenOperatorModel>();
   filterModel = new FilterModel();
@@ -105,8 +104,13 @@ export class TicketingDepartemenOperatorTreeComponent
     });
   }
   onActionSelect(model: TicketingDepartemenOperatorModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

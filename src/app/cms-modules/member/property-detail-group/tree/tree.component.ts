@@ -55,8 +55,7 @@ export class MemberPropertyDetailGroupTreeComponent
   @Input() set optionSelectForce(x: number | MemberPropertyDetailGroupModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: MemberPropertyDetailGroupModel =
-    new MemberPropertyDetailGroupModel();
+  dataModelSelect: MemberPropertyDetailGroupModel | null = new MemberPropertyDetailGroupModel();
   dataModelResult: ErrorExceptionResult<MemberPropertyDetailGroupModel> =
     new ErrorExceptionResult<MemberPropertyDetailGroupModel>();
   filterModel = new FilterModel();
@@ -122,9 +121,14 @@ export class MemberPropertyDetailGroupTreeComponent
       },
     });
   }
-  onActionSelect(model: MemberPropertyDetailGroupModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: MemberPropertyDetailGroupModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

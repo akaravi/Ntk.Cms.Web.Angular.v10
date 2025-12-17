@@ -51,8 +51,7 @@ export class EstatePropertyTypeUsageTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | EstatePropertyTypeUsageModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: EstatePropertyTypeUsageModel =
-    new EstatePropertyTypeUsageModel();
+  dataModelSelect: EstatePropertyTypeUsageModel | null = new EstatePropertyTypeUsageModel();
   dataModelResult: ErrorExceptionResult<EstatePropertyTypeUsageModel> =
     new ErrorExceptionResult<EstatePropertyTypeUsageModel>();
   filterModel = new FilterModel();
@@ -108,9 +107,14 @@ export class EstatePropertyTypeUsageTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: EstatePropertyTypeUsageModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: EstatePropertyTypeUsageModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

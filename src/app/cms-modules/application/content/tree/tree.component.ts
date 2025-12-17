@@ -46,7 +46,7 @@ export class ApplicationAppTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | ApplicationAppModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: ApplicationAppModel = new ApplicationAppModel();
+  dataModelSelect: ApplicationAppModel | null = new ApplicationAppModel();
   dataModelResult: ErrorExceptionResult<ApplicationAppModel> =
     new ErrorExceptionResult<ApplicationAppModel>();
   filterModel = new FilterModel();
@@ -98,9 +98,14 @@ export class ApplicationAppTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: ApplicationAppModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: ApplicationAppModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

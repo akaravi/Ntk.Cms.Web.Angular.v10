@@ -49,7 +49,7 @@ export class CoreUserGroupTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | CoreUserGroupModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: CoreUserGroupModel = new CoreUserGroupModel();
+  dataModelSelect: CoreUserGroupModel | null = new CoreUserGroupModel();
   dataModelResult: ErrorExceptionResult<CoreUserGroupModel> =
     new ErrorExceptionResult<CoreUserGroupModel>();
   filterModel = new FilterModel();
@@ -105,9 +105,14 @@ export class CoreUserGroupTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: CoreUserGroupModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: CoreUserGroupModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

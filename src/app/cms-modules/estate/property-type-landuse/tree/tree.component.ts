@@ -54,8 +54,7 @@ export class EstatePropertyTypeLanduseTreeComponent
   @Input() set optionSelectForce(x: number | EstatePropertyTypeLanduseModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: EstatePropertyTypeLanduseModel =
-    new EstatePropertyTypeLanduseModel();
+  dataModelSelect: EstatePropertyTypeLanduseModel | null = new EstatePropertyTypeLanduseModel();
   dataModelResult: ErrorExceptionResult<EstatePropertyTypeLanduseModel> =
     new ErrorExceptionResult<EstatePropertyTypeLanduseModel>();
   filterModel = new FilterModel();
@@ -111,9 +110,14 @@ export class EstatePropertyTypeLanduseTreeComponent
       },
     });
   }
-  onActionSelect(model: EstatePropertyTypeLanduseModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: EstatePropertyTypeLanduseModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

@@ -22,9 +22,6 @@ import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
-import { environment } from "src/environments/environment";
-import { SmsMainApiPathAddComponent } from "../add/add.component";
-import { SmsMainApiPathEditComponent } from "../edit/edit.component";
 
 @Component({
   selector: "app-sms-apipath-tree",
@@ -49,7 +46,7 @@ export class SmsMainApiPathTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | SmsMainApiPathModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: SmsMainApiPathModel = new SmsMainApiPathModel();
+  dataModelSelect: SmsMainApiPathModel | null = new SmsMainApiPathModel();
   dataModelResult: ErrorExceptionResult<SmsMainApiPathModel> =
     new ErrorExceptionResult<SmsMainApiPathModel>();
   filterModel = new FilterModel();
@@ -104,8 +101,13 @@ export class SmsMainApiPathTreeComponent implements OnInit, OnDestroy {
     });
   }
   onActionSelect(model: SmsMainApiPathModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);
@@ -113,52 +115,4 @@ export class SmsMainApiPathTreeComponent implements OnInit, OnDestroy {
     this.DataGetAll();
   }
   onActionSelectForce(id: number | SmsMainApiPathModel): void {}
-
-  onActionAdd(): void {
-    var panelClass = "";
-    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
-    else panelClass = "dialog-min";
-    const dialogRef = this.dialog.open(SmsMainApiPathAddComponent, {
-      height: "90%",
-      panelClass: panelClass,
-      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
-      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: {},
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result && result.dialogChangedDate) {
-        this.DataGetAll();
-      }
-    });
-  }
-
-  onActionEdit(): void {
-    let id = "";
-    if (this.dataModelSelect && this.dataModelSelect?.id?.length > 0) {
-      id = this.dataModelSelect.id;
-    }
-    if (id.length === 0) {
-      this.translate
-        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
-        .subscribe((str: string) => {
-          this.cmsToastrService.typeErrorSelected(str);
-        });
-      return;
-    }
-    var panelClass = "";
-    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
-    else panelClass = "dialog-min";
-    const dialogRef = this.dialog.open(SmsMainApiPathEditComponent, {
-      height: "90%",
-      panelClass: panelClass,
-      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
-      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id },
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result && result.dialogChangedDate) {
-        this.DataGetAll();
-      }
-    });
-  }
 }

@@ -50,7 +50,7 @@ export class ChartCategoryTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | ChartCategoryModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: ChartCategoryModel = new ChartCategoryModel();
+  dataModelSelect: ChartCategoryModel | null = new ChartCategoryModel();
   dataModelResult: ErrorExceptionResult<ChartCategoryModel> =
     new ErrorExceptionResult<ChartCategoryModel>();
   filterModel = new FilterModel();
@@ -107,9 +107,14 @@ export class ChartCategoryTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: ChartCategoryModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: ChartCategoryModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

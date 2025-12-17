@@ -19,7 +19,7 @@
         {{ "ACTION.ADD" | translate }}
       </button>
     }
-    @if (dataModelResult?.access?.accessEditRow && dataModelSelect.id > 0) {
+    @if (dataModelResult?.access?.accessEditRow && dataModelSelect?.id > 0) {
       <button
         type="button"
         (click)="onActionEdit()"
@@ -28,7 +28,7 @@
         {{ "ACTION.EDIT" | translate }}
       </button>
     }
-    @if (dataModelResult?.access?.accessDeleteRow && dataModelSelect.id > 0) {
+    @if (dataModelResult?.access?.accessDeleteRow && dataModelSelect?.id > 0) {
       <button
         type="button"
         (click)="onActionDelete()"
@@ -69,7 +69,7 @@
           *matTreeNodeDef="let node"
           matTreeNodePadding
         [class.ntk-tree-selected]="
-          dataModelSelect.id > 0 && dataModelSelect.id === node.id
+          dataModelSelect?.id > 0 && dataModelSelect?.id === node.id
         "
           >
           <button matIconButton disabled></button>
@@ -90,7 +90,7 @@
             isExpandable
             [isExpanded]="node.isExpanded ?? false"
         [class.ntk-tree-selected]="
-          dataModelSelect.id > 0 && dataModelSelect.id === node.id
+          dataModelSelect?.id > 0 && dataModelSelect?.id === node.id
         "
             >
             <button

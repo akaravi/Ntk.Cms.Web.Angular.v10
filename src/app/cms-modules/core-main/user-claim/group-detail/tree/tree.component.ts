@@ -51,8 +51,7 @@ export class CoreUserClaimGroupDetailTreeComponent
   @Input() set optionSelectForce(x: number | CoreUserClaimGroupDetailModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: CoreUserClaimGroupDetailModel =
-    new CoreUserClaimGroupDetailModel();
+  dataModelSelect: CoreUserClaimGroupDetailModel | null = new CoreUserClaimGroupDetailModel();
   dataModelResult: ErrorExceptionResult<CoreUserClaimGroupDetailModel> =
     new ErrorExceptionResult<CoreUserClaimGroupDetailModel>();
   filterModel = new FilterModel();
@@ -108,9 +107,14 @@ export class CoreUserClaimGroupDetailTreeComponent
       },
     });
   }
-  onActionSelect(model: CoreUserClaimGroupDetailModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: CoreUserClaimGroupDetailModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

@@ -52,8 +52,7 @@ export class DonateTargetPeriodSponserTreeComponent
   @Input() set optionSelectForce(x: number | DonateTargetPeriodSponsorModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: DonateTargetPeriodSponsorModel =
-    new DonateTargetPeriodSponsorModel();
+  dataModelSelect: DonateTargetPeriodSponsorModel | null = new DonateTargetPeriodSponsorModel();
   dataModelResult: ErrorExceptionResult<DonateTargetPeriodSponsorModel> =
     new ErrorExceptionResult<DonateTargetPeriodSponsorModel>();
   filterModel = new FilterModel();
@@ -109,9 +108,14 @@ export class DonateTargetPeriodSponserTreeComponent
       },
     });
   }
-  onActionSelect(model: DonateTargetPeriodSponsorModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: DonateTargetPeriodSponsorModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

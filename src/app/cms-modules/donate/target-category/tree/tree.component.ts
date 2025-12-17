@@ -50,7 +50,7 @@ export class DonateTargetCategoryTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | DonateTargetCategoryModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: DonateTargetCategoryModel = new DonateTargetCategoryModel();
+  dataModelSelect: DonateTargetCategoryModel | null = new DonateTargetCategoryModel();
   dataModelResult: ErrorExceptionResult<DonateTargetCategoryModel> =
     new ErrorExceptionResult<DonateTargetCategoryModel>();
   filterModel = new FilterModel();
@@ -107,9 +107,14 @@ export class DonateTargetCategoryTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: DonateTargetCategoryModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: DonateTargetCategoryModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

@@ -52,8 +52,7 @@ export class SmsMainMessageCategoryTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: string | SmsMainMessageCategoryModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: SmsMainMessageCategoryModel =
-    new SmsMainMessageCategoryModel();
+  dataModelSelect: SmsMainMessageCategoryModel | null = new SmsMainMessageCategoryModel();
   dataModelResult: ErrorExceptionResult<SmsMainMessageCategoryModel> =
     new ErrorExceptionResult<SmsMainMessageCategoryModel>();
   filterModel = new FilterModel();
@@ -111,8 +110,13 @@ export class SmsMainMessageCategoryTreeComponent implements OnInit, OnDestroy {
     });
   }
   onActionSelect(model: SmsMainMessageCategoryModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

@@ -55,8 +55,7 @@ export class EstatePropertyDetailGroupTreeComponent
   @Input() set optionSelectForce(x: number | EstatePropertyDetailGroupModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: EstatePropertyDetailGroupModel =
-    new EstatePropertyDetailGroupModel();
+  dataModelSelect: EstatePropertyDetailGroupModel | null = new EstatePropertyDetailGroupModel();
   dataModelResult: ErrorExceptionResult<EstatePropertyDetailGroupModel> =
     new ErrorExceptionResult<EstatePropertyDetailGroupModel>();
   filterModel = new FilterModel();
@@ -122,9 +121,14 @@ export class EstatePropertyDetailGroupTreeComponent
       },
     });
   }
-  onActionSelect(model: EstatePropertyDetailGroupModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: EstatePropertyDetailGroupModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

@@ -49,7 +49,7 @@ export class CoreModuleSaleHeaderTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | CoreModuleSaleHeaderModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: CoreModuleSaleHeaderModel = new CoreModuleSaleHeaderModel();
+  dataModelSelect: CoreModuleSaleHeaderModel | null = new CoreModuleSaleHeaderModel();
   dataModelResult: ErrorExceptionResult<CoreModuleSaleHeaderModel> =
     new ErrorExceptionResult<CoreModuleSaleHeaderModel>();
   filterModel = new FilterModel();
@@ -105,9 +105,14 @@ export class CoreModuleSaleHeaderTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: CoreModuleSaleHeaderModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: CoreModuleSaleHeaderModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

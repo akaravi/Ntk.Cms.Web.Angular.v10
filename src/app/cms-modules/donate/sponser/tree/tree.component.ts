@@ -50,7 +50,7 @@ export class DonateSponserTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | DonateSponsorModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: DonateSponsorModel = new DonateSponsorModel();
+  dataModelSelect: DonateSponsorModel | null = new DonateSponsorModel();
   dataModelResult: ErrorExceptionResult<DonateSponsorModel> =
     new ErrorExceptionResult<DonateSponsorModel>();
   filterModel = new FilterModel();
@@ -106,9 +106,14 @@ export class DonateSponserTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: DonateSponsorModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: DonateSponsorModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

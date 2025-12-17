@@ -50,7 +50,7 @@ export class BiographyCategoryTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | BiographyCategoryModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: BiographyCategoryModel = new BiographyCategoryModel();
+  dataModelSelect: BiographyCategoryModel | null = new BiographyCategoryModel();
   dataModelResult: ErrorExceptionResult<BiographyCategoryModel> =
     new ErrorExceptionResult<BiographyCategoryModel>();
   filterModel = new FilterModel();
@@ -103,9 +103,14 @@ export class BiographyCategoryTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: BiographyCategoryModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: BiographyCategoryModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

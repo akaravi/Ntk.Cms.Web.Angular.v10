@@ -49,7 +49,7 @@ export class FileCategoryTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | FileCategoryModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: FileCategoryModel = new FileCategoryModel();
+  dataModelSelect: FileCategoryModel | null = new FileCategoryModel();
   dataModelResult: ErrorExceptionResult<FileCategoryModel> =
     new ErrorExceptionResult<FileCategoryModel>();
   filterModel = new FilterModel();
@@ -106,9 +106,14 @@ export class FileCategoryTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: FileCategoryModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: FileCategoryModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

@@ -54,7 +54,7 @@ export class WebDesignerMainMenuTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | WebDesignerMainMenuModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: WebDesignerMainMenuModel = new WebDesignerMainMenuModel();
+  dataModelSelect: WebDesignerMainMenuModel | null = new WebDesignerMainMenuModel();
   dataModelResult: ErrorExceptionResult<WebDesignerMainMenuModel> =
     new ErrorExceptionResult<WebDesignerMainMenuModel>();
   filterModel = new FilterModel();
@@ -107,8 +107,13 @@ export class WebDesignerMainMenuTreeComponent implements OnInit, OnDestroy {
     });
   }
   onActionSelect(model: WebDesignerMainMenuModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

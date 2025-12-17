@@ -51,7 +51,7 @@ export class MemberPropertyAliasTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | MemberPropertyAliasModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: MemberPropertyAliasModel = new MemberPropertyAliasModel();
+  dataModelSelect: MemberPropertyAliasModel | null = new MemberPropertyAliasModel();
   dataModelResult: ErrorExceptionResult<MemberPropertyAliasModel> =
     new ErrorExceptionResult<MemberPropertyAliasModel>();
   filterModel = new FilterModel();
@@ -107,9 +107,14 @@ export class MemberPropertyAliasTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: MemberPropertyAliasModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: MemberPropertyAliasModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

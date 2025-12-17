@@ -50,7 +50,7 @@ export class NewsCategoryTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | NewsCategoryModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: NewsCategoryModel = new NewsCategoryModel();
+  dataModelSelect: NewsCategoryModel | null = new NewsCategoryModel();
   dataModelResult: ErrorExceptionResult<NewsCategoryModel> =
     new ErrorExceptionResult<NewsCategoryModel>();
   filterModel = new FilterModel();
@@ -102,8 +102,13 @@ export class NewsCategoryTreeComponent implements OnInit, OnDestroy {
     });
   }
   onActionSelect(model: NewsCategoryModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

@@ -54,8 +54,7 @@ export class LinkManagementBillboardPatternTreeComponent
   ) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: LinkManagementBillboardPatternModel =
-    new LinkManagementBillboardPatternModel();
+  dataModelSelect: LinkManagementBillboardPatternModel | null = new LinkManagementBillboardPatternModel();
   dataModelResult: ErrorExceptionResult<LinkManagementBillboardPatternModel> =
     new ErrorExceptionResult<LinkManagementBillboardPatternModel>();
   filterModel = new FilterModel();
@@ -113,9 +112,14 @@ export class LinkManagementBillboardPatternTreeComponent
       },
     });
   }
-  onActionSelect(model: LinkManagementBillboardPatternModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: LinkManagementBillboardPatternModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

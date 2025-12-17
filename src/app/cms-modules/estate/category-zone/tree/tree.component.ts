@@ -53,7 +53,7 @@ export class EstateCategoryZoneTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | EstateCategoryZoneModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: EstateCategoryZoneModel = new EstateCategoryZoneModel();
+  dataModelSelect: EstateCategoryZoneModel | null = new EstateCategoryZoneModel();
   dataModelResult: ErrorExceptionResult<EstateCategoryZoneModel> =
     new ErrorExceptionResult<EstateCategoryZoneModel>();
   filterModel = new FilterModel();
@@ -109,9 +109,14 @@ export class EstateCategoryZoneTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: EstateCategoryZoneModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: EstateCategoryZoneModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

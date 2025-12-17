@@ -53,7 +53,7 @@ export class CoreCpMainMenuTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | CoreCpMainMenuModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: CoreCpMainMenuModel = new CoreCpMainMenuModel();
+  dataModelSelect: CoreCpMainMenuModel | null = new CoreCpMainMenuModel();
   dataModelResult: ErrorExceptionResult<CoreCpMainMenuModel> =
     new ErrorExceptionResult<CoreCpMainMenuModel>();
   filterModel = new FilterModel();
@@ -110,9 +110,14 @@ export class CoreCpMainMenuTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: CoreCpMainMenuModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: CoreCpMainMenuModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

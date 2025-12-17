@@ -53,7 +53,7 @@ export class EstateCategoryRackTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | EstateCategoryRackModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: EstateCategoryRackModel = new EstateCategoryRackModel();
+  dataModelSelect: EstateCategoryRackModel | null = new EstateCategoryRackModel();
   dataModelResult: ErrorExceptionResult<EstateCategoryRackModel> =
     new ErrorExceptionResult<EstateCategoryRackModel>();
   filterModel = new FilterModel();
@@ -109,9 +109,14 @@ export class EstateCategoryRackTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: EstateCategoryRackModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: EstateCategoryRackModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

@@ -53,8 +53,7 @@ export class EstateCustomerCategoryTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | EstateCustomerCategoryModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: EstateCustomerCategoryModel =
-    new EstateCustomerCategoryModel();
+  dataModelSelect: EstateCustomerCategoryModel | null = new EstateCustomerCategoryModel();
   dataModelResult: ErrorExceptionResult<EstateCustomerCategoryModel> =
     new ErrorExceptionResult<EstateCustomerCategoryModel>();
   filterModel = new FilterModel();
@@ -110,9 +109,14 @@ export class EstateCustomerCategoryTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: EstateCustomerCategoryModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: EstateCustomerCategoryModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

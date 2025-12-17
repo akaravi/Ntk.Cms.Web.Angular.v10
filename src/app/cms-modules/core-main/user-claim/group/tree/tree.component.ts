@@ -49,7 +49,7 @@ export class CoreUserClaimGroupTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | CoreUserClaimGroupModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: CoreUserClaimGroupModel = new CoreUserClaimGroupModel();
+  dataModelSelect: CoreUserClaimGroupModel | null = new CoreUserClaimGroupModel();
   dataModelResult: ErrorExceptionResult<CoreUserClaimGroupModel> =
     new ErrorExceptionResult<CoreUserClaimGroupModel>();
   filterModel = new FilterModel();
@@ -105,9 +105,14 @@ export class CoreUserClaimGroupTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: CoreUserClaimGroupModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: CoreUserClaimGroupModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

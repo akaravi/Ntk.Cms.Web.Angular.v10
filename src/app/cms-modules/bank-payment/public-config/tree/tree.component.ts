@@ -49,8 +49,7 @@ export class BankPaymentPublicConfigTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | BankPaymentPublicConfigModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: BankPaymentPublicConfigModel =
-    new BankPaymentPublicConfigModel();
+  dataModelSelect: BankPaymentPublicConfigModel | null = new BankPaymentPublicConfigModel();
   dataModelResult: ErrorExceptionResult<BankPaymentPublicConfigModel> =
     new ErrorExceptionResult<BankPaymentPublicConfigModel>();
   filterModel = new FilterModel();
@@ -102,9 +101,14 @@ export class BankPaymentPublicConfigTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: BankPaymentPublicConfigModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: BankPaymentPublicConfigModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

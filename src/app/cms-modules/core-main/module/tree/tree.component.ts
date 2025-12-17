@@ -49,7 +49,7 @@ export class CoreModuleTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | CoreModuleModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: CoreModuleModel = new CoreModuleModel();
+  dataModelSelect: CoreModuleModel | null = new CoreModuleModel();
   dataModelResult: ErrorExceptionResult<CoreModuleModel> =
     new ErrorExceptionResult<CoreModuleModel>();
   filterModel = new FilterModel();
@@ -106,8 +106,13 @@ export class CoreModuleTreeComponent implements OnInit, OnDestroy {
     });
   }
   onActionSelect(model: CoreModuleModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

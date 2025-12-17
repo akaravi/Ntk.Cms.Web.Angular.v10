@@ -53,8 +53,7 @@ export class WebDesignerMainPageTemplateTreeComponent
   @Input() set optionSelectForce(x: number | WebDesignerMainPageTemplateModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: WebDesignerMainPageTemplateModel =
-    new WebDesignerMainPageTemplateModel();
+  dataModelSelect: WebDesignerMainPageTemplateModel | null = new WebDesignerMainPageTemplateModel();
   dataModelResult: ErrorExceptionResult<WebDesignerMainPageTemplateModel> =
     new ErrorExceptionResult<WebDesignerMainPageTemplateModel>();
   filterModel = new FilterModel();
@@ -105,8 +104,13 @@ export class WebDesignerMainPageTemplateTreeComponent
     });
   }
   onActionSelect(model: WebDesignerMainPageTemplateModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

@@ -51,7 +51,7 @@ export class MemberPropertyDetailTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | MemberPropertyDetailModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: MemberPropertyDetailModel = new MemberPropertyDetailModel();
+  dataModelSelect: MemberPropertyDetailModel | null = new MemberPropertyDetailModel();
   dataModelResult: ErrorExceptionResult<MemberPropertyDetailModel> =
     new ErrorExceptionResult<MemberPropertyDetailModel>();
   filterModel = new FilterModel();
@@ -107,9 +107,14 @@ export class MemberPropertyDetailTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: MemberPropertyDetailModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: MemberPropertyDetailModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

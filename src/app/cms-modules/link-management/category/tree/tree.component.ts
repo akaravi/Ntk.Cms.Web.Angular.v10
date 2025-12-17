@@ -51,8 +51,7 @@ export class LinkManagementCategoryTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | LinkManagementCategoryModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: LinkManagementCategoryModel =
-    new LinkManagementCategoryModel();
+  dataModelSelect: LinkManagementCategoryModel | null = new LinkManagementCategoryModel();
   dataModelResult: ErrorExceptionResult<LinkManagementCategoryModel> =
     new ErrorExceptionResult<LinkManagementCategoryModel>();
   filterModel = new FilterModel();
@@ -109,9 +108,14 @@ export class LinkManagementCategoryTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: LinkManagementCategoryModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: LinkManagementCategoryModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);

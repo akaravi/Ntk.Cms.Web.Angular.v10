@@ -50,7 +50,7 @@ export class CatalogCategoryTreeComponent implements OnInit, OnDestroy {
   @Input() set optionSelectForce(x: number | CatalogCategoryModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: CatalogCategoryModel = new CatalogCategoryModel();
+  dataModelSelect: CatalogCategoryModel | null = new CatalogCategoryModel();
   dataModelResult: ErrorExceptionResult<CatalogCategoryModel> =
     new ErrorExceptionResult<CatalogCategoryModel>();
   filterModel = new FilterModel();
@@ -107,9 +107,14 @@ export class CatalogCategoryTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-  onActionSelect(model: CatalogCategoryModel): void {
-    this.dataModelSelect = model;
-    this.optionChange.emit(this.dataModelSelect);
+    onActionSelect(model: CatalogCategoryModel): void {
+    if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
+      this.dataModelSelect = null;
+      this.optionChange.emit(null);
+    } else {
+      this.dataModelSelect = model;
+      this.optionChange.emit(this.dataModelSelect);
+    }
   }
   onActionButtonReload(): void {
     this.onActionSelect(null);
