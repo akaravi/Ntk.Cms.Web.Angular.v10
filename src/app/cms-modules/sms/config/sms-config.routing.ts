@@ -1,58 +1,15 @@
 import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { SmsConfigCheckSiteComponent } from "./check-site/check-site.component";
-import { SmsConfigCheckUserComponent } from "./check-user/check-user.component";
-import { SmsConfigMainAdminComponent } from "./main-admin/config-main-admin.component";
-import { SmsConfigSiteComponent } from "./site/config-site.component";
+import { RouterModule } from "@angular/router";
 
-const routes: Routes = [
-  {
-    path: "",
-    data: { title: "ROUTE.SMS" },
-    children: [
-      /*Config*/
-      {
-        path: "mainadmin",
-        component: SmsConfigMainAdminComponent,
-        data: { title: "ROUTE.SMS" },
-      },
-      {
-        path: "site",
-        component: SmsConfigSiteComponent,
-        data: { title: "ROUTE.SMS" },
-      },
-      {
-        path: "site/:LinkSiteId",
-        component: SmsConfigSiteComponent,
-        data: { title: "ROUTE.SMS" },
-      },
-      {
-        path: "checkuser",
-        component: SmsConfigCheckUserComponent,
-        data: { title: "ROUTE.SMS" },
-      },
-      {
-        path: "checkuser/:LinkUserId",
-        component: SmsConfigCheckUserComponent,
-        data: { title: "ROUTE.SMS" },
-      },
-      {
-        path: "checksite",
-        component: SmsConfigCheckSiteComponent,
-        data: { title: "ROUTE.SMS" },
-      },
-      {
-        path: "checksite/:LinkSiteId",
-        component: SmsConfigCheckSiteComponent,
-        data: { title: "ROUTE.SMS" },
-      },
-      /*Config*/
-    ],
-  },
-];
+import { routesMobile } from "./routes.mobile";
+import { routesNormal } from "./routes.normal";
+/**توجه این روت دو بخش داد باید در هر دو بخش روت ها اضفا شود */
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [
+    RouterModule.forChild(window.innerWidth < 1000 ? routesMobile : routesNormal),
+    //RouterModule.forChild(routesNormal),
+  ],
   exports: [RouterModule],
 })
 export class SmsConfigRouting {}

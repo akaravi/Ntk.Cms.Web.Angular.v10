@@ -1,41 +1,15 @@
 import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { SmsActionSendMessageApiComponent } from "./send-message-api/send-message-api.component";
-import { SmsActionSendMessageComponent } from "./send-message/send-message.component";
-import { SmsActionComponent } from "./sms-action.component";
+import { RouterModule } from "@angular/router";
 
-const routes: Routes = [
-  {
-    path: "",
-    component: SmsActionComponent,
-    data: { title: "ROUTE.SMS.ACTION" },
-    children: [
-      {
-        path: "send-message",
-        component: SmsActionSendMessageComponent,
-        data: { title: "ROUTE.SMS.ACTION" },
-      },
-      {
-        path: "send-message/LinkApiPathId/:LinkApiPathId",
-        component: SmsActionSendMessageComponent,
-        data: { title: "ROUTE.SMS.ACTION" },
-      },
-      {
-        path: "send-message/LinkApiNumberId/:LinkApiNumberId",
-        component: SmsActionSendMessageComponent,
-        data: { title: "ROUTE.SMS.ACTION" },
-      },
-      {
-        path: "send-api",
-        component: SmsActionSendMessageApiComponent,
-        data: { title: "ROUTE.SMS.ACTION" },
-      },
-    ],
-  },
-];
+import { routesNormal } from "./routes.normal";
+import { routesMobile } from "./routes.mobile";
+/**توجه این روت دو بخش داد باید در هر دو بخش روت ها اضفا شود */
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [
+    RouterModule.forChild(window.innerWidth < 1000 ? routesMobile : routesNormal),
+    //RouterModule.forChild(routesNormal),
+  ],
   exports: [RouterModule],
 })
 export class SmsActionRoutes {}

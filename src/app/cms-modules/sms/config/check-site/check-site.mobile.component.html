@@ -1,0 +1,76 @@
+<div class="cms-m-body loader-container">
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
+
+  <!-- Header با Safe Area برای iPhone -->
+  <div class="cms-m-header safe-area-top">
+    <div class="cms-m-header-content">
+      <h1 class="cms-m-header-title">
+        {{ "TITLE.Check_website" | translate }}
+      </h1>
+      <div class="cms-m-header-spacer"></div>
+    </div>
+  </div>
+
+  <!-- Notice -->
+  <div class="cms-m-notice safe-area-content">
+    <app-cms-html-notice [svg]="'assets/media/svg/icons/Tools/Compass.svg'">
+      {{
+        "TITLE.This_section_guides_you_in_completing_and_correcting_information"
+          | translate
+      }}
+    </app-cms-html-notice>
+  </div>
+
+  <!-- Content Area -->
+  <div class="cms-m-content safe-area-content">
+    @if (dataModelResult?.listItems && dataModelResult.listItems.length > 0) {
+      <div class="cms-m-list">
+        @for (row of dataModelResult.listItems; track row.title) {
+          <div
+            class="cms-m-list-item"
+            [class.accepted]="row.accepted"
+            [class.not-accepted]="!row.accepted"
+            role="article"
+            [attr.aria-label]="row.title"
+          >
+            <div class="cms-m-list-item-status-icon">
+              @if (row.accepted) {
+                <i
+                  class="fa-solid fa-check-circle"
+                  style="color: #34c759"
+                  aria-hidden="true"
+                ></i>
+              } @else {
+                <i
+                  class="fa-solid fa-times-circle"
+                  style="color: #ff3b30"
+                  aria-hidden="true"
+                ></i>
+              }
+            </div>
+            <div class="cms-m-list-item-content">
+              <div class="cms-m-list-item-title">
+                {{ row.title }}
+              </div>
+              @if (row.description) {
+                <div class="cms-m-list-item-description">
+                  {{ row.description }}
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="cms-m-empty-state">
+        <div class="cms-m-empty-state-icon">
+          <i class="fa-solid fa-check-circle" aria-hidden="true"></i>
+        </div>
+        <div class="cms-m-empty-state-text">
+          {{ "MESSAGE.no_information" | translate }}
+        </div>
+      </div>
+    }
+  </div>
+</div>

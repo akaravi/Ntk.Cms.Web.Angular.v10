@@ -91,7 +91,6 @@ export class SmsLogOutBoxListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     // 'Id',
-    "IsAccepted",
     "LinkApiPathId",
     // 'Message',
     "createdDate",
@@ -102,7 +101,6 @@ export class SmsLogOutBoxListComponent
 
   tabledisplayedColumnsMobileSource: string[] = [
     // 'Id',
-    "IsAccepted",
     // 'LinkApiPathId',
     // 'Message',
     "createdDate",

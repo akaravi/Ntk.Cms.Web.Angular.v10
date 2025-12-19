@@ -33,43 +33,55 @@ import { DynamicFormBuilderModule } from "src/app/core/dynamic-form-builder/dyna
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { SmsSharedModule } from "../shared/sms.shared.module";
 import { SmsLogApiPathListComponent } from "./api-path/list/list.component";
+import { SmsLogApiPathListMobileComponent } from "./api-path/list/list.mobile.component";
 import { SmsLogInBoxEditComponent } from "./inbox/edit/edit.component";
 import { SmsLogInBoxListComponent } from "./inbox/list/list.component";
+import { SmsLogInBoxListMobileComponent } from "./inbox/list/list.mobile.component";
 import { SmsLogInBoxViewComponent } from "./inbox/view/view.component";
 import { SmsLogOutBoxDetailListComponent } from "./outbox-detail/list/list.component";
+import { SmsLogOutBoxDetailListMobileComponent } from "./outbox-detail/list/list.mobile.component";
 import { SmsLogOutBoxDetailViewComponent } from "./outbox-detail/view/view.component";
 import { SmsLogOutBoxQueueEditComponent } from "./outbox-queue/edit/edit.component";
 import { SmsLogOutBoxQueueListComponent } from "./outbox-queue/list/list.component";
+import { SmsLogOutBoxQueueListMobileComponent } from "./outbox-queue/list/list.mobile.component";
 import { SmsLogOutBoxQueueViewComponent } from "./outbox-queue/view/view.component";
 import { SmsLogOutBoxTaskSchedulerEditComponent } from "./outbox-task-scheduler/edit/edit.component";
 import { SmsLogOutBoxTaskSchedulerListComponent } from "./outbox-task-scheduler/list/list.component";
+import { SmsLogOutBoxTaskSchedulerListMobileComponent } from "./outbox-task-scheduler/list/list.mobile.component";
 import { ScheduleRunInfoListComponent } from "./outbox-task-scheduler/schedule-run-info-list/schedule-run-info-list.component";
 import { SmsLogOutBoxTaskSchedulerViewComponent } from "./outbox-task-scheduler/view/view.component";
 import { SmsLogOutBoxEditComponent } from "./outbox/edit/edit.component";
 import { SmsLogOutBoxHeaderComponent } from "./outbox/header/header.component";
 import { SmsLogOutBoxListComponent } from "./outbox/list/list.component";
+import { SmsLogOutBoxListMobileComponent } from "./outbox/list/list.mobile.component";
 import { SmsLogOutBoxViewComponent } from "./outbox/view/view.component";
 
 @NgModule({
   declarations: [
     SmsLogComponent,
     SmsLogInBoxListComponent,
+    SmsLogInBoxListMobileComponent,
     SmsLogInBoxEditComponent,
     SmsLogInBoxViewComponent,
     SmsLogOutBoxListComponent,
+    SmsLogOutBoxListMobileComponent,
     SmsLogOutBoxEditComponent,
     SmsLogOutBoxHeaderComponent,
     SmsLogOutBoxViewComponent,
     SmsLogOutBoxQueueListComponent,
+    SmsLogOutBoxQueueListMobileComponent,
     SmsLogOutBoxQueueEditComponent,
     SmsLogOutBoxQueueViewComponent,
     SmsLogOutBoxTaskSchedulerListComponent,
+    SmsLogOutBoxTaskSchedulerListMobileComponent,
     SmsLogOutBoxTaskSchedulerEditComponent,
     SmsLogOutBoxTaskSchedulerViewComponent,
     ScheduleRunInfoListComponent,
     SmsLogOutBoxDetailListComponent,
+    SmsLogOutBoxDetailListMobileComponent,
     SmsLogOutBoxDetailViewComponent,
     SmsLogApiPathListComponent,
+    SmsLogApiPathListMobileComponent,
   ],
   imports: [
     CommonModule,

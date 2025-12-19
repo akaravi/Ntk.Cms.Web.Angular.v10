@@ -1,0 +1,99 @@
+<div class="cms-m-form-container">
+  <!-- API Path Selector -->
+  <div class="cms-m-form-field">
+    <label
+      for="app-sms-action-send-message-api-path-{{ id }}"
+      class="cms-m-form-label"
+      >
+      {{ "TITLE.sending_route" | translate }}
+    </label>
+    <div class="cms-m-autocomplete-wrapper">
+      <input
+        type="text"
+        class="cms-m-form-input"
+        id="app-sms-action-send-message-api-path-{{ id }}"
+        [attr.disabled]="optionDisabled ? true : null"
+        [attr.aria-label]="'TITLE.sending_route' | translate"
+        [formControl]="formPathControl"
+        [matAutocomplete]="matautoPath"
+        placeholder="{{ 'TITLE.sending_route' | translate }}"
+        />
+      <mat-autocomplete
+        #matautoPath="matAutocomplete"
+        [displayWith]="displayPathFn"
+        (optionSelected)="onActionSelectPath($event.option.value)"
+        class="cms-m-autocomplete"
+        >
+        @for (state of filteredPathOptions | async; track state.id) {
+          <mat-option
+            [value]="state"
+            [disabled]="optionDisabled"
+            class="cms-m-autocomplete-option"
+            >
+            <span>{{ displayPathOption(state) }}</span>
+          </mat-option>
+        }
+      </mat-autocomplete>
+      @if (dataPathModelSelect?.id) {
+        <button
+          type="button"
+          class="cms-m-form-clear-btn"
+          (click)="onActionSelectClearPath()"
+          [attr.aria-label]="'ACTION.CLEAR' | translate"
+          >
+          <i class="fa-solid fa-times" aria-hidden="true"></i>
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- API Number Selector -->
+  <div class="cms-m-form-field">
+    <label
+      for="app-sms-action-send-message-api-number-{{ id }}"
+      class="cms-m-form-label"
+      >
+      {{ "TITLE.No" | translate }}
+    </label>
+    <div class="cms-m-autocomplete-wrapper">
+      <input
+        type="text"
+        class="cms-m-form-input"
+        id="app-sms-action-send-message-api-number-{{ id }}"
+        [attr.disabled]="optionDisabled ? true : null"
+        [attr.aria-label]="'TITLE.No' | translate"
+        [formControl]="formNumberControl"
+        [matAutocomplete]="matautoNumber"
+        placeholder="{{ 'TITLE.No' | translate }}"
+        />
+      <mat-autocomplete
+        #matautoNumber="matAutocomplete"
+        [displayWith]="displayNumberFn"
+        (optionSelected)="onActionSelectNumber($event.option.value)"
+        class="cms-m-autocomplete"
+        >
+        @for (state of filteredNumberOptions | async; track state.id) {
+          <mat-option
+            [value]="state"
+            [disabled]="optionDisabled"
+            class="cms-m-autocomplete-option"
+            >
+            <span>{{ displayNumberOption(state) }}</span>
+          </mat-option>
+        }
+      </mat-autocomplete>
+      @if (dataNumberModelSelect?.id) {
+        <button
+          type="button"
+          class="cms-m-form-clear-btn"
+          (click)="onActionSelectClearNumber()"
+          [attr.aria-label]="'ACTION.CLEAR' | translate"
+          >
+          <i class="fa-solid fa-times" aria-hidden="true"></i>
+        </button>
+      }
+    </div>
+  </div>
+
+  <ng-content></ng-content>
+</div>

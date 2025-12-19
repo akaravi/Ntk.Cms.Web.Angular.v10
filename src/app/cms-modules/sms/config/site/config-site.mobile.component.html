@@ -1,0 +1,472 @@
+<div class="cms-m-body loader-container">
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
+
+  <!-- Header با Safe Area برای iPhone -->
+  <div class="cms-m-header safe-area-top">
+    <div class="cms-m-header-content">
+      <button
+        type="button"
+        class="cms-m-back-btn"
+        (click)="onActionBackToParent()"
+        aria-label="{{ 'ACTION.BACK' | translate }}"
+      >
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </button>
+      <h1 class="cms-m-header-title">
+        {{ formInfo.formTitle || ("ROUTE.SMS" | translate) }}
+      </h1>
+      <div class="cms-m-header-spacer"></div>
+    </div>
+  </div>
+
+  <!-- Content Area -->
+  <div class="cms-m-content safe-area-content">
+    <app-cms-form-result-message [formInfo]="formInfo">
+    </app-cms-form-result-message>
+
+    <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
+      <!-- Material Stepper برای موبایل -->
+      <mat-stepper
+        [linear]="false"
+        #stepper
+        orientation="vertical"
+        class="cms-m-stepper"
+        (selectionChange)="onStepClick($event, stepper)"
+      >
+        <!-- Step 1: Config Module -->
+        <mat-step [completed]="false">
+          <ng-template matStepLabel>
+            <div class="cms-m-step-label">
+              <i class="fa-solid fa-cog" aria-hidden="true"></i>
+              <span>{{ "TITLE.Config_Module" | translate }}</span>
+            </div>
+          </ng-template>
+          <div class="cms-m-step-content">
+            <p class="cms-m-step-description">
+              {{
+                "TITLE.Settings_that_the_module_applies_to_the_site" | translate
+              }}
+            </p>
+
+            <!-- StatusRenderUser -->
+            <div class="cms-m-form-field">
+              <label class="cms-m-form-label">StatusRenderUser</label>
+              <div class="cms-m-switch-wrapper">
+                <label class="cms-m-switch">
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="dataConfigSiteValuesModel.statusRenderUser"
+                    name="dataConfigSiteValuesModel.statusRenderUser"
+                  />
+                  <span class="cms-m-switch-slider"></span>
+                </label>
+              </div>
+            </div>
+
+            <!-- UseDataDefaulteSite -->
+            <div class="cms-m-form-field">
+              <label class="cms-m-form-label">
+                {{
+                  "TITLE.Display_the_default_site_information_on_the_site"
+                    | translate
+                }}
+              </label>
+              <div class="cms-m-switch-wrapper">
+                <label class="cms-m-switch">
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="dataConfigSiteValuesModel.useDataDefaulteSite"
+                    name="dataConfigSiteValuesModel.useDataDefaulteSite"
+                  />
+                  <span class="cms-m-switch-slider"></span>
+                </label>
+              </div>
+            </div>
+
+            <!-- userFreePanelDay -->
+            <div class="cms-m-form-field">
+              <label class="cms-m-form-label">userFreePanelDay</label>
+              <input
+                matInput
+                type="number"
+                [(ngModel)]="dataConfigSiteValuesModel.userFreePanelDay"
+                name="dataConfigSiteValuesModel.userFreePanelDay"
+                class="cms-m-input"
+                placeholder="0"
+              />
+            </div>
+
+            <!-- userFreePanelCredit -->
+            <div class="cms-m-form-field">
+              <label class="cms-m-form-label">userFreePanelCredit</label>
+              <input
+                matInput
+                type="number"
+                [(ngModel)]="dataConfigSiteValuesModel.userFreePanelCredit"
+                name="dataConfigSiteValuesModel.userFreePanelCredit"
+                class="cms-m-input"
+                placeholder="0"
+              />
+            </div>
+
+            <!-- messageTextFilteringCheck -->
+            <div class="cms-m-form-field">
+              <label class="cms-m-form-label">messageTextFilteringCheck</label>
+              <div class="cms-m-switch-wrapper">
+                <label class="cms-m-switch">
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="
+                      dataConfigSiteValuesModel.messageTextFilteringCheck
+                    "
+                    name="dataConfigSiteValuesModel.messageTextFilteringCheck"
+                  />
+                  <span class="cms-m-switch-slider"></span>
+                </label>
+              </div>
+            </div>
+
+            @if (dataConfigSiteValuesModel.messageTextFilteringCheck) {
+              <div class="cms-m-form-field">
+                <label class="cms-m-form-label">messageTextFiltering</label>
+                <textarea
+                  matInput
+                  [(ngModel)]="dataConfigSiteValuesModel.messageTextFiltering"
+                  name="dataConfigSiteValuesModel.messageTextFiltering"
+                  #messageTextFiltering
+                  class="cms-m-textarea"
+                  placeholder="..."
+                  minlength="1"
+                  maxlength="2000"
+                  rows="5"
+                ></textarea>
+                <em class="cms-m-char-count"
+                  >{{ messageTextFiltering.value.length }} / 2000</em
+                >
+              </div>
+            }
+
+            <!-- messageTextForbiddenCheck -->
+            <div class="cms-m-form-field">
+              <label class="cms-m-form-label">messageTextForbiddenCheck</label>
+              <div class="cms-m-switch-wrapper">
+                <label class="cms-m-switch">
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="
+                      dataConfigSiteValuesModel.messageTextForbiddenCheck
+                    "
+                    name="dataConfigSiteValuesModel.messageTextForbiddenCheck"
+                  />
+                  <span class="cms-m-switch-slider"></span>
+                </label>
+              </div>
+            </div>
+
+            @if (dataConfigSiteValuesModel.messageTextForbiddenCheck) {
+              <div class="cms-m-form-field">
+                <label class="cms-m-form-label">messageTextForbidden</label>
+                <textarea
+                  matInput
+                  [(ngModel)]="dataConfigSiteValuesModel.messageTextForbidden"
+                  name="dataConfigSiteValuesModel.messageTextForbidden"
+                  #messageTextForbidden
+                  class="cms-m-textarea"
+                  placeholder="..."
+                  minlength="1"
+                  maxlength="2000"
+                  rows="5"
+                ></textarea>
+                <em class="cms-m-char-count"
+                  >{{ messageTextForbidden.value.length }} / 2000</em
+                >
+              </div>
+            }
+
+            <!-- messageNumberFilteringCheck -->
+            <div class="cms-m-form-field">
+              <label class="cms-m-form-label"
+                >messageNumberFilteringCheck</label
+              >
+              <div class="cms-m-switch-wrapper">
+                <label class="cms-m-switch">
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="
+                      dataConfigSiteValuesModel.messageNumberFilteringCheck
+                    "
+                    name="dataConfigSiteValuesModel.messageNumberFilteringCheck"
+                  />
+                  <span class="cms-m-switch-slider"></span>
+                </label>
+              </div>
+            </div>
+
+            @if (dataConfigSiteValuesModel.messageNumberFilteringCheck) {
+              <div class="cms-m-form-field">
+                <label class="cms-m-form-label">messageNumberFiltering</label>
+                <textarea
+                  matInput
+                  [(ngModel)]="dataConfigSiteValuesModel.messageNumberFiltering"
+                  name="dataConfigSiteValuesModel.messageNumberFiltering"
+                  #messageNumberFiltering
+                  class="cms-m-textarea"
+                  placeholder="..."
+                  minlength="1"
+                  maxlength="2000"
+                  rows="5"
+                ></textarea>
+                <em class="cms-m-char-count"
+                  >{{ messageNumberFiltering.value.length }} / 2000</em
+                >
+              </div>
+            }
+
+            <!-- messageNumberForbiddenCheck -->
+            <div class="cms-m-form-field">
+              <label class="cms-m-form-label"
+                >messageNumberForbiddenCheck</label
+              >
+              <div class="cms-m-switch-wrapper">
+                <label class="cms-m-switch">
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="
+                      dataConfigSiteValuesModel.messageNumberForbiddenCheck
+                    "
+                    name="dataConfigSiteValuesModel.messageNumberForbiddenCheck"
+                  />
+                  <span class="cms-m-switch-slider"></span>
+                </label>
+              </div>
+            </div>
+
+            @if (dataConfigSiteValuesModel.messageNumberForbiddenCheck) {
+              <div class="cms-m-form-field">
+                <label class="cms-m-form-label">messageNumberForbidden</label>
+                <textarea
+                  matInput
+                  [(ngModel)]="dataConfigSiteValuesModel.messageNumberForbidden"
+                  name="dataConfigSiteValuesModel.messageNumberForbidden"
+                  #messageNumberForbidden
+                  class="cms-m-textarea"
+                  placeholder="..."
+                  minlength="1"
+                  maxlength="2000"
+                  rows="5"
+                ></textarea>
+                <em class="cms-m-char-count"
+                  >{{ messageNumberForbidden.value.length }} / 2000</em
+                >
+              </div>
+            }
+
+            @if (formInfo.submitButtonEnabled) {
+              <div class="cms-m-step-actions">
+                <button
+                  type="button"
+                  class="cms-m-btn cms-m-btn-secondary"
+                  (click)="onActionBackToParent()"
+                >
+                  <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                  {{ "ACTION.BACK" | translate }}
+                </button>
+                <button
+                  type="button"
+                  class="cms-m-btn cms-m-btn-primary"
+                  [disabled]="!vform.form.valid"
+                  matStepperNext
+                >
+                  {{ "ACTION.NEXT" | translate }}
+                  <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                </button>
+                <button
+                  type="submit"
+                  class="cms-m-btn cms-m-btn-success"
+                  [disabled]="!vform.form.valid"
+                >
+                  <i class="fa-solid fa-save" aria-hidden="true"></i>
+                  {{ "ACTION.SAVE" | translate }}
+                </button>
+              </div>
+            }
+          </div>
+        </mat-step>
+
+        <!-- Step 2: Saved Value -->
+        <mat-step [completed]="false">
+          <ng-template matStepLabel>
+            <div class="cms-m-step-label">
+              <i class="fa-solid fa-database" aria-hidden="true"></i>
+              <span>{{ "TITLE.Saved_Value" | translate }}</span>
+            </div>
+          </ng-template>
+          <div class="cms-m-step-content">
+            <p class="cms-m-step-description">
+              {{ "TITLE.Values_saved_by_the_system" | translate }}
+            </p>
+
+            <!-- RowCount -->
+            <div class="cms-m-form-field">
+              <label class="cms-m-form-label">RowCount</label>
+              <div class="cms-m-switch-wrapper">
+                <label class="cms-m-switch">
+                  <input
+                    type="checkbox"
+                    [(ngModel)]="dataSiteStorageModel.rowCount"
+                    name="dataSiteStorageModel.rowCount"
+                  />
+                  <span class="cms-m-switch-slider"></span>
+                </label>
+              </div>
+            </div>
+
+            <!-- MainDataContentRowCount -->
+            <div class="cms-m-form-field">
+              <label class="cms-m-form-label">MainDataContentRowCount</label>
+              <input
+                matInput
+                type="number"
+                [(ngModel)]="dataSiteStorageModel.mainDataContentRowCount"
+                name="dataSiteStorageModel.mainDataContentRowCount"
+                class="cms-m-input"
+                placeholder="0"
+              />
+            </div>
+
+            <!-- UpdatedContent -->
+            <div class="cms-m-form-field">
+              <label class="cms-m-form-label">UpdatedContent</label>
+              <input
+                matInput
+                [matDatepicker]="dataSiteStorageModel_UpdatedContent"
+                [(ngModel)]="dataSiteStorageModel.updatedContent"
+                name="dataSiteStorageModel.updatedContent"
+                class="cms-m-input"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="dataSiteStorageModel_UpdatedContent"
+              ></mat-datepicker-toggle>
+              <mat-datepicker
+                touchUi
+                #dataSiteStorageModel_UpdatedContent
+              ></mat-datepicker>
+            </div>
+
+            @if (formInfo.submitButtonEnabled) {
+              <div class="cms-m-step-actions">
+                <button
+                  type="button"
+                  class="cms-m-btn cms-m-btn-secondary"
+                  matStepperPrevious
+                >
+                  <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                  {{ "ACTION.BEFOR" | translate }}
+                </button>
+                <button
+                  type="button"
+                  class="cms-m-btn cms-m-btn-primary"
+                  [disabled]="!vform.form.valid"
+                  matStepperNext
+                >
+                  {{ "ACTION.NEXT" | translate }}
+                  <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                </button>
+                <button
+                  type="submit"
+                  class="cms-m-btn cms-m-btn-success"
+                  [disabled]="!vform.form.valid"
+                >
+                  <i class="fa-solid fa-save" aria-hidden="true"></i>
+                  {{ "ACTION.SAVE" | translate }}
+                </button>
+              </div>
+            }
+          </div>
+        </mat-step>
+
+        <!-- Step 3: Accessibility -->
+        <mat-step [completed]="false">
+          <ng-template matStepLabel>
+            <div class="cms-m-step-label">
+              <i class="fa-solid fa-key" aria-hidden="true"></i>
+              <span>{{ "TITLE.Accessibility" | translate }}</span>
+            </div>
+          </ng-template>
+          <div class="cms-m-step-content">
+            <p class="cms-m-step-description">
+              {{ "TITLE.This_website_accesses_this_module" | translate }}
+            </p>
+
+            <!-- MainDataContentRowCount -->
+            <div class="cms-m-form-field">
+              <label class="cms-m-form-label">MainDataContentRowCount</label>
+              <input
+                matInput
+                type="number"
+                [(ngModel)]="
+                  dataConfigSiteAccessValuesModel.mainDataContentRowCount
+                "
+                name="dataConfigSiteAccessValuesModel.mainDataContentRowCount"
+                #dataConfigSiteAccessValuesModel_MainDataContentRowCount
+                class="cms-m-input"
+                placeholder="0"
+                required
+              />
+              @if (
+                dataConfigSiteAccessValuesModel_MainDataContentRowCount.errors
+                  ?.required
+              ) {
+                <mat-error>
+                  MainDataContentRowCount is
+                  <strong>{{ "MESSAGE.required" | translate }}</strong>
+                </mat-error>
+              }
+            </div>
+
+            <!-- UseDataDefaulteSiteId -->
+            <div class="cms-m-form-field">
+              <label class="cms-m-form-label">
+                {{ "TITLE.Default_information_site_ID" | translate }}
+              </label>
+              <input
+                matInput
+                [(ngModel)]="
+                  dataConfigSiteAccessValuesModel.useDataDefaulteSiteId
+                "
+                name="dataConfigSiteAccessValuesModel.useDataDefaulteSiteId"
+                #dataConfigSiteAccessValuesModel_UseDataDefaulteSiteId
+                type="number"
+                placeholder="0"
+                class="cms-m-input"
+              />
+            </div>
+
+            @if (formInfo.submitButtonEnabled) {
+              <div class="cms-m-step-actions">
+                <button
+                  type="button"
+                  class="cms-m-btn cms-m-btn-secondary"
+                  matStepperPrevious
+                >
+                  <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                  {{ "ACTION.BEFOR" | translate }}
+                </button>
+                <button
+                  type="submit"
+                  class="cms-m-btn cms-m-btn-success"
+                  [disabled]="!vform.form.valid"
+                >
+                  <i class="fa-solid fa-save" aria-hidden="true"></i>
+                  {{ "ACTION.SAVE" | translate }}
+                </button>
+              </div>
+            }
+          </div>
+        </mat-step>
+      </mat-stepper>
+    </form>
+  </div>
+</div>

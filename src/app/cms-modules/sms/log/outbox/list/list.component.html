@@ -221,15 +221,7 @@
             </mat-cell>
           </ng-container>
 
-          <!-- IsAccepted Column -->
-          <ng-container matColumnDef="IsAccepted">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-              {{ "TITLE.Accepted" | translate }}
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              <i [ngClass]="row.isAccepted | statusIconClass"></i>
-            </mat-cell>
-          </ng-container>
+
           <!-- Message Column -->
           <ng-container matColumnDef="Message">
             <mat-header-cell *matHeaderCellDef mat-sort-header>

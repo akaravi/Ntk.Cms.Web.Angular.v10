@@ -1,0 +1,635 @@
+<div class="cms-m-body loader-container">
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
+
+  <!-- Header با Safe Area برای iPhone -->
+  <div class="cms-m-header safe-area-top">
+    <div class="cms-m-header-content">
+      <h1 class="cms-m-header-title">
+        {{ formInfo.formTitle || ("ROUTE.SMS.ACTION" | translate) }}
+      </h1>
+      <div class="cms-m-header-spacer"></div>
+    </div>
+  </div>
+
+  <!-- Content Area -->
+  <div class="cms-m-content safe-area-content">
+    <app-cms-form-result-message
+      [formInfo]="formInfo"
+    ></app-cms-form-result-message>
+
+    <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
+      <!-- Material Stepper برای موبایل -->
+      <mat-stepper
+        [linear]="false"
+        #stepper
+        orientation="vertical"
+        class="cms-m-stepper"
+      >
+        <!-- Step 0: Info -->
+        <mat-step [completed]="step > 0">
+          <ng-template matStepLabel>
+            <div class="cms-m-step-label">
+              <i class="fa-solid fa-info-circle" aria-hidden="true"></i>
+              <span>{{ "TITLE.Info" | translate }}</span>
+            </div>
+          </ng-template>
+          <div class="cms-m-step-content">
+            <app-cms-form-validation
+              [formInfo]="formInfo"
+            ></app-cms-form-validation>
+            <div class="cms-m-step-actions">
+              <button
+                type="button"
+                class="cms-m-btn cms-m-btn-secondary"
+                (click)="onActionOrderCalculate()"
+              >
+                <i class="fa-solid fa-calculator" aria-hidden="true"></i>
+                {{ "ACTION.ORDER_CALCULATE" | translate }}
+              </button>
+              <button
+                type="button"
+                class="cms-m-btn cms-m-btn-primary"
+                (click)="nextStep(); stepper.next()"
+              >
+                {{ "ACTION.NEXT" | translate }}
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </mat-step>
+
+        <!-- Step 1: Direction -->
+        <mat-step [completed]="step > 1">
+          <ng-template matStepLabel>
+            <div class="cms-m-step-label">
+              <i class="fa-solid fa-route" aria-hidden="true"></i>
+              <span>{{ "TITLE.Direction" | translate }}</span>
+            </div>
+          </ng-template>
+          <div class="cms-m-step-content">
+            <app-sms-apipath-selector
+              (optionChange)="onActionSelectApiPath($event)"
+              [optionSelectForce]="dataModel.linkApiPathId"
+              [optionPlaceholder]="'TITLE.Direction' | translate"
+              [optionSelectFirstItem]="true"
+              [optionSelectForSendMessage]="true"
+              [optionAccessDataType]="ManageUserAccessDataTypesEnum.Action"
+            >
+            </app-sms-apipath-selector>
+            @if (dataModel.linkApiPathId?.length > 0) {
+              <app-sms-api-number-selector
+                (optionChange)="onActionSelectApiNumber($event)"
+                [optionSelectForce]=""
+                [optionLinkApiPathId]="dataModel.linkApiPathId"
+                [optionPlaceholder]="'TITLE.sender_number' | translate"
+                [optionSelectFirstItem]="true"
+                [optionSelectForSendMessage]="true"
+                [optionSelectFirstItemOnChangeApi]="true"
+                [optionAccessDataType]="ManageUserAccessDataTypesEnum.Action"
+              >
+              </app-sms-api-number-selector>
+            }
+            <div class="cms-m-step-actions">
+              <button
+                type="button"
+                class="cms-m-btn cms-m-btn-secondary"
+                (click)="prevStep(); stepper.previous()"
+              >
+                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                {{ "ACTION.BACK" | translate }}
+              </button>
+              <button
+                type="button"
+                class="cms-m-btn cms-m-btn-primary"
+                (click)="nextStep(); stepper.next()"
+              >
+                {{ "ACTION.NEXT" | translate }}
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </mat-step>
+
+        <!-- Step 2: Receiver Numbers -->
+        <mat-step [completed]="step > 2">
+          <ng-template matStepLabel>
+            <div class="cms-m-step-label">
+              <i class="fa-solid fa-phone" aria-hidden="true"></i>
+              <span>{{ "TITLE.Receiver_number" | translate }}</span>
+            </div>
+          </ng-template>
+          <div class="cms-m-step-content">
+            @if (
+              (!this.dataModel.toContactCategories ||
+                this.dataModel.toContactCategories?.length === 0) &&
+              (!this.dataModel.toContactContents ||
+                this.dataModel.toContactContents?.length === 0)
+            ) {
+              <div class="cms-m-form-field">
+                <label for="dataModel.toNumbers" class="cms-m-form-label">
+                  {{ "TITLE.Receiver_number" | translate }}
+                </label>
+                <textarea
+                  class="cms-m-form-textarea"
+                  [(ngModel)]="dataModel.toNumbers"
+                  (ngModelChange)="onActionValidationStatusToNumbersChange()"
+                  name="dataModel.toNumbers"
+                  id="dataModel.toNumbers"
+                  placeholder="0912"
+                  rows="4"
+                ></textarea>
+                <div class="cms-m-form-hint">
+                  {{
+                    "TITLE.You_can_separate_the_number_of_the_recipient_of_the_message_with_an_inter"
+                      | translate
+                  }}
+                </div>
+              </div>
+            }
+            <div class="cms-m-step-actions">
+              <button
+                type="button"
+                class="cms-m-btn cms-m-btn-secondary"
+                (click)="prevStep(); stepper.previous()"
+              >
+                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                {{ "ACTION.BACK" | translate }}
+              </button>
+              <button
+                type="button"
+                class="cms-m-btn cms-m-btn-primary"
+                (click)="nextStep(); stepper.next()"
+              >
+                {{ "ACTION.NEXT" | translate }}
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </mat-step>
+
+        <!-- Step 3: Message Text -->
+        <mat-step [completed]="step > 3">
+          <ng-template matStepLabel>
+            <div class="cms-m-step-label">
+              <i class="fa-solid fa-message" aria-hidden="true"></i>
+              <span>{{ "TITLE.Message_Text" | translate }}</span>
+            </div>
+          </ng-template>
+          <div class="cms-m-step-content">
+            <app-sms-main-message-category-selector
+              (optionChange)="onActionSelectMessageCategory($event)"
+            >
+            </app-sms-main-message-category-selector>
+            <app-sms-main-message-content-selector
+              (optionChange)="onActionSelectMessageContent($event)"
+              [optionLinkCategryId]="dataMessageCategoryModel.id"
+            ></app-sms-main-message-content-selector>
+
+            @if (dataMessageContentModel?.messageBody?.length > 0) {
+              <div class="cms-m-message-actions">
+                <button
+                  type="button"
+                  class="cms-m-btn-small"
+                  (click)="onActionMessageContentAdd()"
+                >
+                  <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                  {{ "TITLE.Added_to_the_text" | translate }}
+                </button>
+                <button
+                  type="button"
+                  class="cms-m-btn-small"
+                  (click)="onActionMessageContentNew()"
+                >
+                  <i class="fa-solid fa-file" aria-hidden="true"></i>
+                  {{ "TITLE.Message_Text" | translate }}
+                </button>
+              </div>
+            }
+
+            <div class="cms-m-form-field">
+              <label for="dataModel.message" class="cms-m-form-label">
+                {{ "TITLE.Message_Text" | translate }}
+              </label>
+              <textarea
+                class="cms-m-form-textarea cms-m-message-textarea"
+                [(ngModel)]="dataModel.message"
+                (ngModelChange)="onActionValidationStatusMessageBodyChange()"
+                name="dataModel.message"
+                #Message
+                placeholder="..."
+                id="dataModel.message"
+                minlength="1"
+                [maxlength]="dataModelMessagePagination?.messageMaxLength ?? 0"
+                rows="8"
+              ></textarea>
+              <div class="cms-m-message-info">
+                <span>
+                  character: {{ dataModelMessagePagination?.messageLength }} /
+                  {{ dataModelMessagePagination?.messageMaxLength }}
+                </span>
+                <span>
+                  page: {{ dataModelMessagePagination?.messagePage }}/{{
+                    dataModelMessagePagination?.messageMaxPage
+                  }}
+                </span>
+              </div>
+              @if (dataModelMessagePlaceholdersResult?.length > 0) {
+                <div class="cms-m-placeholders">
+                  <div class="cms-m-placeholders-label">
+                    {{ "TITLE.Placeholders" | translate }}
+                  </div>
+                  <div class="cms-m-placeholders-list">
+                    @for (
+                      item of dataModelMessagePlaceholdersResult;
+                      track item.charValue
+                    ) {
+                      <button
+                        type="button"
+                        class="cms-m-placeholder-btn"
+                        (click)="onActionMessageContentAddPlaceholder(item.charValue)"
+                      >
+                        {{ item.charValue }}
+                      </button>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+
+            <div class="cms-m-message-direction">
+              <button
+                type="button"
+                class="cms-m-btn-small"
+                (click)="onActionMessageLTR()"
+              >
+                <i class="fa-solid fa-align-left" aria-hidden="true"></i>
+                LTR
+              </button>
+              <button
+                type="button"
+                class="cms-m-btn-small"
+                (click)="onActionMessageRTL()"
+              >
+                <i class="fa-solid fa-align-right" aria-hidden="true"></i>
+                RTL
+              </button>
+            </div>
+
+            <div class="cms-m-step-actions">
+              <button
+                type="button"
+                class="cms-m-btn cms-m-btn-secondary"
+                (click)="prevStep(); stepper.previous()"
+              >
+                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                {{ "ACTION.BACK" | translate }}
+              </button>
+              <button
+                type="button"
+                class="cms-m-btn cms-m-btn-primary"
+                (click)="nextStep(); stepper.next()"
+              >
+                {{ "ACTION.NEXT" | translate }}
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </mat-step>
+
+        <!-- Step 4: Phonebook -->
+        <mat-step [completed]="step > 4">
+          <ng-template matStepLabel>
+            <div class="cms-m-step-label">
+              <i class="fa-solid fa-address-book" aria-hidden="true"></i>
+              <span>{{ "TITLE.Phonebook" | translate }}</span>
+            </div>
+          </ng-template>
+          <div class="cms-m-step-content">
+            <div class="cms-m-section-title">
+              {{ "TITLE.Select_from_phonebook_category" | translate }}
+            </div>
+            <app-cms-contact-category-tree-selector
+              (optionSelectChecked)="
+                onActionContactCategorySelectChecked($event)
+              "
+              (optionSelectDisChecked)="
+                onActionContactCategorySelectDisChecked($event)
+              "
+              (optionNodeClicked)="optionrLinkCategoryId = $event"
+            >
+            </app-cms-contact-category-tree-selector>
+            <div class="cms-m-section-title">
+              {{ "TITLE.Select_from_phonebook" | translate }}
+            </div>
+            <app-cms-contact-content-drop-list
+              [optionrLinkCategoryId]="optionrLinkCategoryId"
+              (optionSelectAdded)="onActionContactContentSelectChecked($event)"
+              (optionSelectRemoved)="
+                onActionContactContentSelectDisChecked($event)
+              "
+            ></app-cms-contact-content-drop-list>
+            <div class="cms-m-step-actions">
+              <button
+                type="button"
+                class="cms-m-btn cms-m-btn-secondary"
+                (click)="prevStep(); stepper.previous()"
+              >
+                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                {{ "ACTION.BACK" | translate }}
+              </button>
+              <button
+                type="button"
+                class="cms-m-btn cms-m-btn-primary"
+                (click)="nextStep(); stepper.next()"
+              >
+                {{ "ACTION.NEXT" | translate }}
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </mat-step>
+
+        <!-- Step 5: Shipping Time -->
+        <mat-step [completed]="step > 5">
+          <ng-template matStepLabel>
+            <div class="cms-m-step-label">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              <span>{{ "TITLE.Shipping_time" | translate }}</span>
+            </div>
+          </ng-template>
+          <div class="cms-m-step-content">
+            <div class="cms-m-time-grid">
+              <div class="cms-m-form-field">
+                <label for="scheduleSendStartDate" class="cms-m-form-label">
+                  {{ "TITLE.postage_date" | translate }}
+                </label>
+                <input
+                  matInput
+                  [matDatepicker]="scheduleSendStartDate"
+                  [(ngModel)]="dataModelDateByClockStart.date"
+                  name="scheduleSendStartDate"
+                  class="cms-m-form-input"
+                  id="scheduleSendStartDate"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="scheduleSendStartDate"
+                ></mat-datepicker-toggle>
+                <mat-datepicker
+                  touchUi
+                  #scheduleSendStartDate
+                  (closed)="onActionScheduleSendCheck()"
+                ></mat-datepicker>
+              </div>
+              <div class="cms-m-form-field">
+                <label for="scheduleSendStartClock" class="cms-m-form-label">
+                  {{ "TITLE.Shipping_time" | translate }}
+                </label>
+                <input
+                  matInput
+                  [ngxTimepicker]="scheduleSendStartClock"
+                  [(ngModel)]="dataModelDateByClockStart.clock"
+                  [format]="24"
+                  name="scheduleSendStartClock"
+                  class="cms-m-form-input"
+                  id="scheduleSendStartClock"
+                />
+                <ngx-material-timepicker-toggle
+                  matSuffix
+                  [for]="scheduleSendStartClock"
+                ></ngx-material-timepicker-toggle>
+                <ngx-material-timepicker
+                  touchUi
+                  #scheduleSendStartClock
+                  (closed)="onActionScheduleSendCheck()"
+                  class="timepicker"
+                ></ngx-material-timepicker>
+              </div>
+              <div class="cms-m-form-field">
+                <label for="scheduleSendExpireDate" class="cms-m-form-label">
+                  {{ "TITLE.Delivery_end_date" | translate }}
+                </label>
+                <input
+                  matInput
+                  [matDatepicker]="scheduleSendExpireDate"
+                  [(ngModel)]="dataModelDateByClockExpire.date"
+                  name="scheduleSendExpireDate"
+                  class="cms-m-form-input"
+                  id="scheduleSendExpireDate"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="scheduleSendExpireDate"
+                ></mat-datepicker-toggle>
+                <mat-datepicker
+                  touchUi
+                  #scheduleSendExpireDate
+                  (closed)="onActionScheduleSendCheck()"
+                ></mat-datepicker>
+              </div>
+              <div class="cms-m-form-field">
+                <label for="scheduleSendExpireClock" class="cms-m-form-label">
+                  {{ "TITLE.Send_end_time" | translate }}
+                </label>
+                <input
+                  matInput
+                  [ngxTimepicker]="scheduleSendExpireClock"
+                  [(ngModel)]="dataModelDateByClockExpire.clock"
+                  [format]="24"
+                  name="scheduleSendExpireClock"
+                  class="cms-m-form-input"
+                  id="scheduleSendExpireClock"
+                />
+                <ngx-material-timepicker-toggle
+                  matSuffix
+                  [for]="scheduleSendExpireClock"
+                ></ngx-material-timepicker-toggle>
+                <ngx-material-timepicker
+                  touchUi
+                  #scheduleSendExpireClock
+                  (closed)="onActionScheduleSendCheck()"
+                  class="timepicker"
+                ></ngx-material-timepicker>
+              </div>
+            </div>
+            <div class="cms-m-step-actions">
+              <button
+                type="button"
+                class="cms-m-btn cms-m-btn-secondary"
+                (click)="prevStep(); stepper.previous()"
+              >
+                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                {{ "ACTION.BACK" | translate }}
+              </button>
+              <button
+                type="button"
+                class="cms-m-btn cms-m-btn-primary"
+                (click)="nextStep(); stepper.next()"
+              >
+                {{ "ACTION.NEXT" | translate }}
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </mat-step>
+
+        <!-- Step 6: Timing (Cron) -->
+        <mat-step [completed]="step > 6">
+          <ng-template matStepLabel>
+            <div class="cms-m-step-label">
+              <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+              <span>{{ "TITLE.Timing" | translate }}</span>
+            </div>
+          </ng-template>
+          <div class="cms-m-step-content">
+            <cron-editor
+              [(cron)]="dataModel.scheduleCron"
+              [disabled]="isCronDisabled"
+              [options]="cronOptions"
+              [language]="language"
+              (cronChange)="onActionValidationStatusCronChange($event)"
+            ></cron-editor>
+            <div class="cms-m-cron-result">
+              <strong>{{ "TITLE.Resulting_Cron" | translate }}:</strong>
+              <code>{{ dataModel.scheduleCron }}</code>
+            </div>
+            <div class="cms-m-step-actions">
+              <button
+                type="button"
+                class="cms-m-btn cms-m-btn-danger"
+                (click)="
+                  dataModel.scheduleCron = '';
+                  onActionValidationStatusCronChange('')
+                "
+              >
+                <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                {{ "ACTION.REMOVE_CRON" | translate }}
+              </button>
+              <button
+                type="button"
+                class="cms-m-btn cms-m-btn-secondary"
+                (click)="prevStep(); stepper.previous()"
+              >
+                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                {{ "ACTION.BACK" | translate }}
+              </button>
+              <button
+                type="button"
+                class="cms-m-btn cms-m-btn-primary"
+                (click)="nextStep(); stepper.next()"
+              >
+                {{ "ACTION.NEXT" | translate }}
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </mat-step>
+
+        <!-- Step 7: Settings -->
+        <mat-step>
+          <ng-template matStepLabel>
+            <div class="cms-m-step-label">
+              <i class="fa-solid fa-gear" aria-hidden="true"></i>
+              <span>{{ "TITLE.Settings" | translate }}</span>
+            </div>
+          </ng-template>
+          <div class="cms-m-step-content">
+            <div class="cms-m-settings-list">
+              <!-- optionDuplicateRemovalToNumbers -->
+              <div class="cms-m-setting-item">
+                <div class="cms-m-setting-label">
+                  {{ "TITLE.Duplicate_removal_to_numbers" | translate }}
+                </div>
+                <mat-slide-toggle
+                  [(ngModel)]="dataModel.optionDuplicateRemovalToNumbers"
+                  name="optionDuplicateRemovalToNumbers"
+                ></mat-slide-toggle>
+              </div>
+
+              <!-- optionCheckProcesses -->
+              @if (
+                this.tokenHelper.isAdminSite || this.tokenHelper.isSupportSite
+              ) {
+                <div class="cms-m-setting-item">
+                  <div class="cms-m-setting-label">
+                    {{ "TITLE.Send_as_checkProcesses" | translate }}
+                  </div>
+                  <mat-slide-toggle
+                    [(ngModel)]="dataModel.optionCheckProcesses"
+                    (ngModelChange)="
+                      onActionValidationStatusCheckProcessesChange()
+                    "
+                    name="optionCheckProcesses"
+                  ></mat-slide-toggle>
+                </div>
+              }
+
+              <!-- optionSendByQueue -->
+              <div class="cms-m-setting-item">
+                <div class="cms-m-setting-label">
+                  {{ "TITLE.Send_in_queue" | translate }}
+                </div>
+                <mat-slide-toggle
+                  [(ngModel)]="dataModel.optionSendByQueue"
+                  [disabled]="dataModel['sendByQueueDisabled']"
+                  name="optionSendByQueue"
+                ></mat-slide-toggle>
+              </div>
+            </div>
+
+            <div class="cms-m-step-actions">
+              <button
+                type="button"
+                class="cms-m-btn cms-m-btn-secondary"
+                (click)="prevStep(); stepper.previous()"
+              >
+                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                {{ "ACTION.BACK" | translate }}
+              </button>
+            </div>
+          </div>
+        </mat-step>
+      </mat-stepper>
+    </form>
+  </div>
+
+  <!-- Footer با Safe Area برای iPhone -->
+  <div class="cms-m-footer safe-area-bottom">
+    <div class="cms-m-footer-actions">
+      <button
+        type="button"
+        class="cms-m-btn cms-m-btn-secondary cms-m-btn-icon"
+        (click)="onActionOrderCalculate()"
+        [attr.aria-label]="'ACTION.ORDER_CALCULATE' | translate"
+        [disabled]="
+          !formInfo.submitButtonEnabled ||
+          publicHelper.processService.process.inRunAll
+        "
+      >
+        <i
+          class="fa-solid fa-calculator"
+          [class.fa-spin]="
+            publicHelper.processService.process.infoAll.get(calculateName)
+              ?.isComplate === false
+          "
+          aria-hidden="true"
+        ></i>
+      </button>
+      <button
+        type="submit"
+        class="cms-m-btn cms-m-btn-primary cms-m-btn-submit"
+        [disabled]="
+          !vform.valid ||
+          hasValidationStatusError() ||
+          !formInfo.submitButtonEnabled ||
+          publicHelper.processService.process.inRunAll
+        "
+        (click)="onFormSubmit()"
+      >
+        <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+        {{ "ACTION.Send_Message" | translate }}
+      </button>
+    </div>
+  </div>
+</div>

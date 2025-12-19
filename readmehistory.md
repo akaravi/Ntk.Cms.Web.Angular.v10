@@ -1471,6 +1471,43 @@ MESSAGE:
 - `src/assets/i18n/ja.json`
 - `src/assets/i18n/tr.json`
 - `src/assets/i18n/zh.json`
+- `readmehistory.md`
+
+---
+
+## 2025-12-19 10:00:00
+
+### افزودن Pull-to-Refresh و Swipe Actions به لیست‌های موبایل ماژول SMS
+
+**تغییرات:**
+
+- پیاده‌سازی کامل Pull-to-Refresh مطابق الگوی iOS/Android در تمامی لیست‌های موبایل ماژول SMS (هدر ثابت، نشانگر کشیدن برای رفرش، متن چندزبانه `ACTION.RELOADING` و `ACTION.PULL_TO_REFRESH`)
+- پیاده‌سازی Swipe Actions فقط برای عملیات حذف (Delete) با حفظ دکمه‌های ویرایش/نمایش روی کارت اصلی، هماهنگ با UX موبایل
+- رعایت Safe Area، RTL، Dark Mode، Touch Target مناسب و بهینه‌سازی‌های عملکردی (will-change، touch-action و ...)
+- رفع خطاهای linter مرتبط با متدها و stateهای Pull-to-Refresh و Swipe در `SmsLogApiPathListMobileComponent`
+
+**فایل‌های تغییر یافته (خلاصه):**
+
+- لیست‌های موبایل ماژول SMS:
+  - `src/app/cms-modules/sms/main/api-path-company/list/list.mobile.component.*`
+  - `src/app/cms-modules/sms/main/api-number/list/list.mobile.component.*`
+  - `src/app/cms-modules/sms/main/api-number-permission/list/list.mobile.component.*`
+  - `src/app/cms-modules/sms/main/api-path-permission/list/list.mobile.component.*`
+  - `src/app/cms-modules/sms/main/api-path-price-service/list/list.mobile.component.*`
+  - `src/app/cms-modules/sms/main/client-permission/list/list.mobile.component.*`
+  - `src/app/cms-modules/sms/main/message-content/list/list.mobile.component.*`
+  - `src/app/cms-modules/sms/main/public-config/list/list.mobile.component.*`
+  - `src/app/cms-modules/sms/log/inbox/list/list.mobile.component.*`
+  - `src/app/cms-modules/sms/log/outbox/list/list.mobile.component.*`
+  - `src/app/cms-modules/sms/log/outbox-queue/list/list.mobile.component.*`
+  - `src/app/cms-modules/sms/log/outbox-task-scheduler/list/list.mobile.component.*`
+  - `src/app/cms-modules/sms/log/outbox-detail/list/list.mobile.component.*`
+  - `src/app/cms-modules/sms/log/api-path/list/list.mobile.component.*`
+- به‌روزرسانی ترجمه‌ها:
+  - `src/assets/i18n/*.json` (افزودن کلیدهای `ACTION.RELOADING` و `ACTION.PULL_TO_REFRESH`)
+- رفع خطای Pull-to-Refresh / Swipe:
+  - `src/app/cms-modules/sms/log/api-path/list/list.mobile.component.ts`
+- `readmehistory.md`
 
 ---
 

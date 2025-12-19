@@ -25,24 +25,30 @@ import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-di
 import { SmsMainModule } from "../main/sms-main.module";
 
 import { SmsActionSendMessageApiComponent } from "./send-message-api/send-message-api.component";
+import { SmsActionSendMessageApiMobileComponent } from "./send-message-api/send-message-api.mobile.component";
 import { SmsActionSendMessageCalculateResultComponent } from "./send-message/send-message-calculate-result/send-message-calculate-result.component";
 import { SmsActionSendMessageResultComponent } from "./send-message/send-message-result/send-message-result.component";
 import { SmsActionSendMessageComponent } from "./send-message/send-message.component";
+import { SmsActionSendMessageMobileComponent } from "./send-message/send-message.mobile.component";
 
 @NgModule({
   declarations: [
     SmsActionComponent,
     SmsActionSendMessageComponent,
     SmsActionSendMessageApiComponent,
+    SmsActionSendMessageApiMobileComponent,
     SmsActionSendMessageResultComponent,
     SmsActionSendMessageCalculateResultComponent,
+    SmsActionSendMessageMobileComponent,
   ],
   exports: [
     SmsActionComponent,
     SmsActionSendMessageComponent,
     SmsActionSendMessageApiComponent,
+    SmsActionSendMessageApiMobileComponent,
     SmsActionSendMessageResultComponent,
     SmsActionSendMessageCalculateResultComponent,
+    SmsActionSendMessageMobileComponent,
   ],
   imports: [
     CommonModule,

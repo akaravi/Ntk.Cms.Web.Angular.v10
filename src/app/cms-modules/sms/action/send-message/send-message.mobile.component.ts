@@ -1,0 +1,1001 @@
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MatDialog } from "@angular/material/dialog";
+import { ActivatedRoute, Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
+import { CronOptionModel, TranslateUiService } from "ngx-ntk-cron-editor";
+import {
+  ContactContentModel,
+  CoreEnumService,
+  CoreModuleSiteUserCreditModel,
+  CoreModuleSiteUserCreditService,
+  ErrorExceptionResult,
+  ManageUserAccessDataTypesEnum,
+  MessagePlaceholderModel,
+  SmsActionService,
+  SmsApiSendMessageDtoModel,
+  SmsApiSendMessageOrderCalculateDtoModel,
+  SmsApiSendOrderCalculateResultModel,
+  SmsApiSendResultModel,
+  SmsMainApiNumberModel,
+  SmsMainApiPathModel,
+  SmsMainApiPathPriceServiceEstimateModel,
+  SmsMainApiPathPriceServiceService,
+  SmsMainMessageCategoryModel,
+  SmsMainMessageContentModel,
+  TokenInfoModelV3,
+} from "ntk-cms-api";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { SmsMessagePaginationModel } from "src/app/core/models/smsMessagePaginationModel";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { environment } from "src/environments/environment";
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
+import { FormValidationStatusEnum } from "../../../../core/models/formValidationStatusEnum";
+import { SmsActionSendMessageCalculateResultComponent } from "./send-message-calculate-result/send-message-calculate-result.component";
+import { SmsActionSendMessageResultComponent } from "./send-message-result/send-message-result.component";
+export class DateByClock {
+  date: Date;
+  clock: string;
+}
+
+@Component({
+  selector: "app-sms-action-send-message-mobile",
+  templateUrl: "./send-message.mobile.component.html",
+  styleUrls: ["./send-message.mobile.component.scss"],
+  standalone: false,
+})
+export class SmsActionSendMessageMobileComponent implements OnInit {
+  requestMessage = "";
+  requestLinkApiPathId = "";
+  requestLinkApiNumberId = "";
+  requestReceiverNumber: string = "";
+  requestSenderNumber: string = "";
+
+  constructorInfoAreaId = this.constructor.name;
+  constructor(
+    public coreEnumService: CoreEnumService,
+    public smsActionService: SmsActionService,
+    private service: CoreModuleSiteUserCreditService,
+    private activatedRoute: ActivatedRoute,
+    public smsMainApiPathPriceServiceService: SmsMainApiPathPriceServiceService,
+    private cmsToastrService: CmsToastrService,
+    private cdr: ChangeDetectorRef,
+    public publicHelper: PublicHelper,
+    public translate: TranslateService,
+    private router: Router,
+    public tokenHelper: TokenHelper,
+    private cmsStoreService: CmsStoreService,
+    private translateUiService: TranslateUiService,
+    private dialog: MatDialog,
+  ) {
+    this.publicHelper.processService.cdr = this.cdr;
+
+    this.requestLinkApiPathId =      this.activatedRoute.snapshot.paramMap.get("LinkApiPathId");
+    this.requestLinkApiNumberId =      this.activatedRoute.snapshot.paramMap.get("LinkApiNumberId");
+    this.requestMessage = this.activatedRoute.snapshot.paramMap.get("Message");
+    this.dataModel.scheduleCron = "";
+
+    // دریافت state از navigation extras
+    // استفاده از history.state که همیشه در دسترس است
+    const navigationState = history.state;
+    if (navigationState) {
+      if (navigationState.ReceiverNumber) {
+        this.requestReceiverNumber = navigationState.ReceiverNumber;
+      }
+      if (navigationState.SenderNumber) {
+        this.requestSenderNumber = navigationState.SenderNumber;
+      }
+      if (navigationState.LinkApiPathId) {
+        this.requestLinkApiPathId = navigationState.LinkApiPathId;
+      }
+      if (navigationState.LinkNumberId) {
+        this.requestLinkApiNumberId = navigationState.LinkNumberId;
+      }
+      if (navigationState.Message) {
+        this.requestMessage = navigationState.Message;
+      }
+    }
+        if (this.requestLinkApiPathId?.length > 0) {
+          this.dataModel.linkApiPathId = this.requestLinkApiPathId;
+        }
+
+        if (this.requestLinkApiNumberId?.length > 0) {
+          this.dataModel.linkFromNumber = this.requestLinkApiNumberId;
+        }
+
+        if (this.requestMessage?.length > 0) {
+          this.dataModel.message = this.requestMessage;
+        }
+        if (this.requestReceiverNumber?.length > 0) {
+          this.dataModel.toNumbers = this.requestReceiverNumber;
+        }
+
+    this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
+    if (this.tokenInfo) {
+      this.language = this.tokenInfo.access.language;
+    }
+
+    let dateTime = new Date();
+    this.timezoneOffset = dateTime.getTimezoneOffset();
+    this.formInfo.validationList.push({
+      key: "checkCredit",
+      title: "اعتبار بررسی شود",
+      status: FormValidationStatusEnum.Warning,
+      description: "",
+      linkSrc: "",
+    });
+    this.formInfo.validationList.push({
+      key: "message",
+      title: "متن پیام وارد شود",
+      status: FormValidationStatusEnum.Warning,
+      description: "",
+      linkSrc: "",
+    });
+
+    this.formInfo.validationList.push({
+      key: "linkApiPathId",
+      title: "مسیر ارسال انتخاب شود",
+      status: FormValidationStatusEnum.Warning,
+      description: "",
+      linkSrc: "",
+    });
+    this.formInfo.validationList.push({
+      key: "linkFromNumber",
+      title: "شماره فرستنده انتخاب شود",
+      status: FormValidationStatusEnum.Error,
+      description: "",
+      linkSrc: "",
+    });
+    this.formInfo.validationList.push({
+      key: "toNumbers",
+      title: "شماره گیرنده انتخاب شود",
+      status: FormValidationStatusEnum.Error,
+      description: "",
+      linkSrc: "",
+    });
+  }
+  timezoneOffset = 0;
+  tokenInfo = new TokenInfoModelV3();
+  language = environment.languagesDefault;
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
+  @ViewChild("Message") message: ElementRef;
+
+  dataModel: SmsApiSendMessageDtoModel = new SmsApiSendMessageDtoModel();
+  dataModelOrderCalculate: SmsApiSendMessageOrderCalculateDtoModel =
+    new SmsApiSendMessageOrderCalculateDtoModel();
+  dataModelResult: ErrorExceptionResult<SmsApiSendResultModel> =
+    new ErrorExceptionResult<SmsApiSendResultModel>();
+  dataModelOrderCalculateResult: ErrorExceptionResult<SmsApiSendOrderCalculateResultModel> =
+    new ErrorExceptionResult<SmsApiSendOrderCalculateResultModel>();
+  dataModelCreditResult: ErrorExceptionResult<CoreModuleSiteUserCreditModel> =
+    new ErrorExceptionResult<CoreModuleSiteUserCreditModel>();
+  dataModelMessagePlaceholdersResult: MessagePlaceholderModel[] = [];
+  dataModelApiPathPriceServiceEstimateResult: ErrorExceptionResult<SmsMainApiPathPriceServiceEstimateModel> =
+    new ErrorExceptionResult<SmsMainApiPathPriceServiceEstimateModel>();
+
+  dataModelDateByClockStart: DateByClock = new DateByClock();
+  dataModelDateByClockExpire: DateByClock = new DateByClock();
+  formInfo: FormInfoModel = new FormInfoModel();
+  clipboardText = "";
+  dataModelMessagePagination: SmsMessagePaginationModel =
+    new SmsMessagePaginationModel();
+  // Hangfire 1.7+ compatible expression: '3 2 12 1/1 ?'
+  // Quartz compatible expression: '4 3 2 12 1/1 ? *'
+  //public cronExpression = '0 12 1W 1/1 ?';
+  public isCronDisabled = false;
+  public cronOptions: CronOptionModel = {
+    formInputClass: "form-control cron-editor-input",
+    formSelectClass: "form-control cron-editor-select",
+    formRadioClass: "cron-editor-radio",
+    formCheckboxClass: "cron-editor-checkbox",
+
+    defaultTime: "10:00:00",
+    use24HourTime: true,
+
+    hideMinutesTab: false,
+    hideHourlyTab: false,
+    hideDailyTab: false,
+    hideWeeklyTab: false,
+    hideMonthlyTab: false,
+    hideYearlyTab: false,
+    hideAdvancedTab: false,
+
+    hideSeconds: true,
+    removeSeconds: true,
+    removeYears: true,
+  };
+
+  ngOnInit(): void {
+    //this.readClipboardFromDevTools().then((r) => this.clipboardText = r as string);
+    this.onActionScheduleSendNow();
+
+    this.DataCheckCredit();
+    this.DataMessagePlaceholders();
+  }
+
+  ManageUserAccessDataTypesEnum = ManageUserAccessDataTypesEnum;
+
+  onActionScheduleSendNow() {
+    const now = new Date();
+    this.dataModel.scheduleSendStart = now;
+    this.dataModelDateByClockStart.clock =
+      now.getHours() + ":" + now.getMinutes();
+    this.dataModelDateByClockStart.date = now;
+    now.setMinutes(now.getMinutes() + 60 * 3);
+    this.dataModel.scheduleSendExpire = now;
+    this.dataModelDateByClockExpire.clock =
+      now.getHours() + ":" + now.getMinutes();
+    this.dataModelDateByClockExpire.date = now;
+  }
+  onActionScheduleSendCheck() {
+    /**Start */
+    var now = new Date();
+    if (!this.dataModelDateByClockStart.date)
+      this.dataModelDateByClockStart.date = now;
+    if (!this.dataModelDateByClockStart.clock)
+      this.dataModelDateByClockStart.clock =
+        now.getHours() + ":" + now.getMinutes();
+
+    this.dataModelDateByClockStart.date = new Date(
+      this.dataModelDateByClockStart.date,
+    );
+    this.dataModelDateByClockStart.date.setHours(
+      +this.dataModelDateByClockStart.clock.split(":")[0] | 0,
+      +this.dataModelDateByClockStart.clock.split(":")[1] | 0,
+    );
+
+    this.dataModel.scheduleSendStart = this.dataModelDateByClockStart.date;
+    if (this.dataModel.scheduleSendStart > this.dataModel.scheduleSendExpire)
+      now = this.dataModel.scheduleSendStart;
+    /**Expire */
+
+    now.setMinutes(now.getMinutes() + 60 * 3);
+    if (
+      !this.dataModelDateByClockExpire.date ||
+      this.dataModel.scheduleSendStart > this.dataModel.scheduleSendExpire
+    )
+      this.dataModelDateByClockExpire.date = now;
+    if (
+      !this.dataModelDateByClockExpire.clock ||
+      this.dataModel.scheduleSendStart > this.dataModel.scheduleSendExpire
+    )
+      this.dataModelDateByClockExpire.clock =
+        now.getHours() + ":" + now.getMinutes();
+
+    this.dataModelDateByClockExpire.date = new Date(
+      this.dataModelDateByClockExpire.date,
+    );
+    this.dataModelDateByClockExpire.date.setHours(
+      +this.dataModelDateByClockExpire.clock.split(":")[0] | 0,
+      +this.dataModelDateByClockExpire.clock.split(":")[1] | 0,
+    );
+
+    this.dataModel.scheduleSendExpire = this.dataModelDateByClockExpire.date;
+
+    if (this.dataModel.scheduleSendStart > this.dataModel.scheduleSendExpire) {
+      now = this.dataModel.scheduleSendStart;
+      now.setMinutes(now.getMinutes() + 60 * 3);
+      this.dataModelDateByClockExpire.date = now;
+      this.dataModelDateByClockExpire.clock =
+        now.getHours() + ":" + now.getMinutes();
+      this.dataModelDateByClockExpire.date = new Date(
+        this.dataModelDateByClockExpire.date,
+      );
+      this.dataModelDateByClockExpire.date.setHours(
+        +this.dataModelDateByClockExpire.clock.split(":")[0] | 0,
+        +this.dataModelDateByClockExpire.clock.split(":")[1] | 0,
+      );
+      this.dataModel.scheduleSendExpire = this.dataModelDateByClockExpire.date;
+      this.translate
+        .get("MESSAGE.Warning_ClockStart_Bigger_Than_ClockExpire")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeWarningMessage(str);
+        });
+    }
+  }
+  readClipboardFromDevTools() {
+    return new Promise((resolve, reject) => {
+      const _asyncCopyFn = async () => {
+        try {
+          const value = await navigator.clipboard.readText();
+          //console.log(`${value} is read!`);
+          resolve(value);
+        } catch (e) {
+          reject(e);
+        }
+        window.removeEventListener("focus", _asyncCopyFn);
+      };
+
+      window.addEventListener("focus", _asyncCopyFn);
+      console.log(
+        "Hit <Tab> to give focus back to document (or we will face a DOMException);",
+      );
+    });
+  }
+
+  onActionMessageLTR() {
+    this.message.nativeElement.style.direction = "ltr";
+    this.message.nativeElement.style.textAlign = "left";
+  }
+
+  onActionMessageRTL() {
+    this.message.nativeElement.style.direction = "rtl";
+    this.message.nativeElement.style.textAlign = "right";
+  }
+  onActionSelectApiPath(model: SmsMainApiPathModel): void {
+    this.dataModel.linkApiPathId = null;
+    this.dataModel.linkFromNumber = null;
+    if (model && model.id?.length > 0) {
+      this.dataModel.linkApiPathId = model.id;
+      this.dataModel.linkFromNumber = null;
+      this.dataModel["sendByQueueDisabled"] = false;
+      if (
+        model.apiAbilitySendByQueue == true &&
+        model.apiAbilitySendByDirect == true
+      ) {
+        this.dataModel.optionSendByQueue = true;
+        this.dataModel["sendByQueueDisabled"] = false;
+      } else if (model.apiAbilitySendByQueue == true) {
+        this.dataModel.optionSendByQueue = true;
+        this.dataModel["sendByQueueDisabled"] = true;
+      } else if (model.apiAbilitySendByDirect == true) {
+        this.dataModel.optionSendByQueue = false;
+        this.dataModel["sendByQueueDisabled"] = true;
+      }
+      const messageAddTextFirst = this.formInfo.validationList.find(
+        (x) => x.key === "sendMessageAddTextFirst",
+      );
+      if (messageAddTextFirst) {
+        this.formInfo.validationList.splice(
+          this.formInfo.validationList.indexOf(messageAddTextFirst),
+          1,
+        );
+      }
+      const messageAddTextEnd = this.formInfo.validationList.find(
+        (x) => x.key === "sendMessageAddTextEnd",
+      );
+      if (messageAddTextEnd) {
+        this.formInfo.validationList.splice(
+          this.formInfo.validationList.indexOf(messageAddTextEnd),
+          1,
+        );
+      }
+      if (model.sendMessageAddTextFirst?.length > 0) {
+        this.formInfo.validationList.push({
+          key: "sendMessageAddTextFirst",
+          title: "در ابتدای پیام اضافه شده",
+          status: FormValidationStatusEnum.info,
+          description: model.sendMessageAddTextFirst,
+          linkSrc: "",
+        });
+      }
+      if (model.sendMessageAddTextEnd?.length > 0) {
+        this.formInfo.validationList.push({
+          key: "sendMessageAddTextEnd",
+          title: "در انتهای پیام اضافه شده",
+          status: FormValidationStatusEnum.info,
+          description: model.sendMessageAddTextEnd,
+          linkSrc: "",
+        });
+      }
+    } else {
+      if (this.requestLinkApiPathId?.length > 0) {
+        this.dataModel.linkApiPathId = this.requestLinkApiPathId;
+      } else {
+        this.dataModel.linkApiPathId = null;
+      }
+    }
+    if (this.dataModel.linkApiPathId?.length > 0) {
+      this.formInfo.validationList.find(
+        (x) => x.key === "linkApiPathId",
+      ).status = FormValidationStatusEnum.Success;
+      this.formInfo.validationList.find(
+        (x) => x.key === "linkApiPathId",
+      ).description = model.title;
+    } else {
+      this.formInfo.validationList.find(
+        (x) => x.key === "linkApiPathId",
+      ).status = FormValidationStatusEnum.Error;
+      this.formInfo.validationList.find(
+        (x) => x.key === "linkApiPathId",
+      ).description = "";
+    }
+    this.dataModelApiPathPriceServiceEstimateResult =
+      new ErrorExceptionResult<SmsMainApiPathPriceServiceEstimateModel>();
+    if (this.dataModel.linkApiPathId?.length > 0) {
+      this.smsMainApiPathPriceServiceService
+        .ServiceGetApiPriceEstimate(this.dataModel.linkApiPathId)
+        .subscribe({
+          next: (ret) => {
+            this.dataModelApiPathPriceServiceEstimateResult = ret;
+            this.dataModelMessagePagination.serverList = ret.listItems;
+            this.dataModelMessagePagination.messageAddTextFirst =
+              model.sendMessageAddTextFirst;
+            this.dataModelMessagePagination.messageAddTextEnd =
+              model.sendMessageAddTextEnd;
+          },
+        });
+    }
+  }
+
+  /**
+   * onActionValidationStatus
+   */
+  onActionValidationStatusMessageBodyChange() {
+    this.dataModelMessagePagination.message = this.dataModel.message;
+    if (this.dataModelMessagePagination.messageLength > 0) {
+      this.formInfo.validationList.find((x) => x.key === "message").status =
+        FormValidationStatusEnum.Success;
+      this.formInfo.validationList.find(
+        (x) => x.key === "message",
+      ).description =
+        "character: " +
+        this.dataModelMessagePagination.messageLength +
+        "/" +
+        this.dataModelMessagePagination.messageMaxLength +
+        " page: " +
+        this.dataModelMessagePagination.messagePage +
+        "/" +
+        this.dataModelMessagePagination.messageMaxPage;
+    } else {
+      this.formInfo.validationList.find(
+        (x) => x.key === "message",
+      ).description = "";
+      this.formInfo.validationList.find((x) => x.key === "message").status =
+        FormValidationStatusEnum.Error;
+    }
+    this.cdr.detectChanges();
+  }
+  onActionValidationStatusToNumbersChange() {
+    if (
+      this.dataModel.toContactCategories?.length > 0 ||
+      this.dataModel.toContactContents?.length > 0
+    ) {
+      this.formInfo.validationList.find((x) => x.key === "toNumbers").status =
+        FormValidationStatusEnum.Success;
+    } else if (this.dataModel.toNumbers?.length > 0) {
+      this.formInfo.validationList.find((x) => x.key === "toNumbers").status =
+        FormValidationStatusEnum.Success;
+    } else {
+      this.formInfo.validationList.find((x) => x.key === "toNumbers").status =
+        FormValidationStatusEnum.Error;
+    }
+    this.cdr.detectChanges();
+  }
+  onActionValidationStatusFromNumbersChange(model: SmsMainApiNumberModel) {
+    if (this.dataModel.linkFromNumber?.length > 0) {
+      this.formInfo.validationList.find(
+        (x) => x.key === "linkFromNumber",
+      ).status = FormValidationStatusEnum.Success;
+      this.formInfo.validationList.find(
+        (x) => x.key === "linkFromNumber",
+      ).description = model.numberChar;
+    } else {
+      this.formInfo.validationList.find(
+        (x) => x.key === "linkFromNumber",
+      ).status = FormValidationStatusEnum.Error;
+      this.formInfo.validationList.find(
+        (x) => x.key === "linkFromNumber",
+      ).description = "";
+    }
+    this.cdr.detectChanges();
+  }
+  onActionFlaseChange(event: any) {
+    if (event.checked) {
+      this.dataModel.optionTypes = "Flash";
+    } else {
+      this.dataModel.optionTypes = "";
+    }
+  }
+  onActionValidationStatusCheckProcessesChange() {
+    var model = this.formInfo.validationList.find(
+      (x) => x.key === "checkProcesses",
+    );
+    if (model) {
+      this.formInfo.validationList.splice(
+        this.formInfo.validationList.indexOf(model),
+        1,
+      );
+    }
+    if (this.dataModel.optionCheckProcesses) {
+      this.formInfo.validationList.push({
+        key: "checkProcesses",
+        title: "ارسال در حال شبیه سازی  می باشد",
+        status: FormValidationStatusEnum.info,
+        description: "ارسال در حال شبیه سازی  می باشد",
+        linkSrc: "",
+      });
+    } else {
+      this.formInfo.validationList.push({
+        key: "checkProcesses",
+        title: "ارسال در حالت معمول می باشد",
+        status: FormValidationStatusEnum.Success,
+        description: "ارسال در حالت معمول می باشد",
+        linkSrc: "",
+      });
+    }
+    this.cdr.detectChanges();
+  }
+  onActionValidationStatusCheckCredit() {
+    if (
+      this.dataModelCreditResult.isSuccess &&
+      this.dataModelCreditResult.item.credit > 0
+    ) {
+      this.formInfo.validationList.find((x) => x.key === "checkCredit").title =
+        "حداقل اعتبار برای ارسال پیام بررسی شد : ";
+      this.formInfo.validationList.find(
+        (x) => x.key === "checkCredit",
+      ).description = this.dataModelCreditResult.item.credit + "";
+      this.formInfo.validationList.find((x) => x.key === "checkCredit").status =
+        FormValidationStatusEnum.info;
+    } else {
+      this.formInfo.validationList.find((x) => x.key === "checkCredit").title =
+        "اعتبار بررسی شود";
+      this.formInfo.validationList.find(
+        (x) => x.key === "checkCredit",
+      ).description = " برای شارژ اعتبار کلیک کنید";
+      this.formInfo.validationList.find(
+        (x) => x.key === "checkCredit",
+      ).linkSrc = "/coremodule/site-user-credit";
+      this.formInfo.validationList.find((x) => x.key === "checkCredit").status =
+        FormValidationStatusEnum.Error;
+    }
+    this.cdr.detectChanges();
+  }
+  onActionValidationStatusCronChange(event: any) {
+    this.dataModel.scheduleCron = event;
+    var model = this.formInfo.validationList.find(
+      (x) => x.key === "scheduleCron",
+    );
+    if (model) {
+      this.formInfo.validationList.splice(
+        this.formInfo.validationList.indexOf(model),
+        1,
+      );
+    }
+    if (this.dataModel.scheduleCron) {
+      this.formInfo.validationList.push({
+        key: "scheduleCron",
+        title: "زمانبندی ارسال فعال است",
+        status: FormValidationStatusEnum.info,
+        description: "زمانبندی ارسال فعال است",
+
+        linkSrc: "",
+      });
+    } else {
+      this.formInfo.validationList.push({
+        key: "scheduleCron",
+        title: "زمانبندی ارسال غیر فعال است",
+        status: FormValidationStatusEnum.Success,
+        description: "زمانبندی ارسال غیر فعال است",
+        linkSrc: "",
+      });
+    }
+    this.cdr.detectChanges();
+  }
+  /**
+   * onActionSelectApiNumber
+   */
+  onActionSelectApiNumber(model: SmsMainApiNumberModel): void {
+    if (model && model.id?.length > 0) {
+      this.dataModel.linkFromNumber = model.id;
+    } else {
+      this.dataModel.linkFromNumber = null;
+    }
+    this.onActionValidationStatusFromNumbersChange(model);
+  }
+
+  dataMessageCategoryModel: SmsMainMessageCategoryModel =
+    new SmsMainMessageCategoryModel();
+  onActionSelectMessageCategory(model: SmsMainMessageCategoryModel): void {
+    if (model && model.id?.length > 0) {
+      this.dataMessageCategoryModel = model;
+    } else {
+      this.dataMessageCategoryModel = new SmsMainMessageCategoryModel();
+    }
+  }
+  dataMessageContentModel: SmsMainMessageContentModel =
+    new SmsMainMessageContentModel();
+  onActionSelectMessageContent(model: SmsMainMessageContentModel): void {
+    if (model && model.id?.length > 0) {
+      this.dataMessageContentModel = model;
+    } else {
+      this.dataMessageContentModel = new SmsMainMessageContentModel();
+    }
+  }
+
+  onActionMessageContentAddPlaceholder(item: string) {
+    if (item?.length > 0) {
+      if (this.dataModel.message?.length > 0) {
+        this.dataModel.message = this.dataModel.message + " " + item;
+      } else {
+        this.dataModel.message = item;
+      }
+    }
+    this.onActionValidationStatusMessageBodyChange();
+  }
+  onActionMessageContentAdd() {
+    if (this.dataMessageContentModel?.messageBody?.length > 0) {
+      if (this.dataModel.message?.length > 0)
+        this.dataModel.message =
+          this.dataModel.message +
+          " " +
+          this.dataMessageContentModel.messageBody;
+      else this.dataModel.message = this.dataMessageContentModel.messageBody;
+    }
+    this.onActionValidationStatusMessageBodyChange();
+  }
+  onActionMessageContentNew() {
+    if (this.dataMessageContentModel?.messageBody?.length > 0) {
+      this.dataModel.message = this.dataMessageContentModel.messageBody;
+    }
+    this.onActionValidationStatusMessageBodyChange();
+  }
+
+  onFormSubmit(): void {
+    if (!this.formGroup.valid) {
+      return;
+    }
+    if (
+      !this.dataModel.linkApiPathId ||
+      this.dataModel.linkApiPathId.length <= 0
+    ) {
+      this.cmsToastrService.typeErrorFormInvalid();
+    }
+    this.onActionScheduleSendCheck();
+
+    this.formInfo.submitButtonEnabled = false;
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
+
+    this.formInfo.submitResultMessage = "";
+    this.dataModel.clientDateTime = new Date();
+    this.formInfo.clearSubmitResult();
+    this.smsActionService.ServiceSendMessage(this.dataModel).subscribe({
+      next: (ret) => {
+        this.formInfo.submitButtonEnabled = true;
+        this.dataModelResult = ret;
+        if (ret.isSuccess) {
+          this.translate
+            .get("MESSAGE.Submit_request_was_successfully_registered")
+            .subscribe((str: string) => {
+              this.formInfo.submitResultMessage = str;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+            });
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.translate
+            .get("MESSAGE.Send_request_was_successfully_registered")
+            .subscribe((str: string) => {
+              this.cmsToastrService.typeSuccessMessage(str);
+            });
+
+          this.openResultDialog(ret);
+        } else {
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.submitResultMessage = str;
+            });
+          this.formInfo.submitResultMessage = ret.errorMessage;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+        }
+        this.publicHelper.processService.processStop(pName);
+      },
+      error: (e) => {
+        this.formInfo.submitButtonEnabled = true;
+        this.cmsToastrService.typeError(e);
+        this.publicHelper.processService.processStop(pName, false);
+      },
+      complete: () => {
+        console.info;
+      },
+    });
+  }
+  calculateName = this.constructor.name + "Calculate";
+  onActionOrderCalculate(): void {
+    if (
+      !this.formInfo.submitButtonEnabled ||
+      this.publicHelper.processService.process.inRunAll
+    )
+      return;
+
+    if (!this.formGroup.valid) {
+      return;
+    }
+    if (
+      !this.dataModel.linkApiPathId ||
+      this.dataModel.linkApiPathId.length <= 0
+    ) {
+      this.cmsToastrService.typeErrorFormInvalid();
+    }
+    this.onActionScheduleSendCheck();
+
+    this.formInfo.submitButtonEnabled = false;
+    const pName = this.calculateName;
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
+    this.formInfo.submitResultMessage = "";
+    this.dataModelOrderCalculate = this
+      .dataModel as unknown as SmsApiSendMessageOrderCalculateDtoModel;
+    this.formInfo.clearSubmitResult();
+    this.smsActionService
+      .ServiceOrderCalculate(this.dataModelOrderCalculate)
+      .subscribe({
+        next: (ret) => {
+          this.formInfo.submitButtonEnabled = true;
+          this.dataModelOrderCalculateResult = ret;
+          this.formInfo.setErrorExceptionResult = ret;
+          if (ret.isSuccess) {
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.translate
+              .get("MESSAGE.Send_request_was_successfully_registered")
+              .subscribe((str: string) => {
+                this.cmsToastrService.typeSuccessMessage(ret.errorMessage, str);
+              });
+
+            this.openCalculateResultDialog(ret);
+          } else {
+            this.translate
+              .get("ERRORMESSAGE.MESSAGE.typeError")
+              .subscribe((str: string) => {
+                this.formInfo.submitResultMessage = str;
+              });
+            this.formInfo.submitResultMessage = ret.errorMessage;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Error;
+            this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+          }
+          this.publicHelper.processService.processStop(pName);
+        },
+        error: (e) => {
+          this.formInfo.submitButtonEnabled = true;
+          this.cmsToastrService.typeError(e);
+          this.publicHelper.processService.processStop(pName, false);
+        },
+        complete: () => {
+          console.info;
+        },
+      });
+  }
+
+  DataCheckCredit(): void {
+    const pName = this.constructor.name + "CheckCredit";
+    this.translate
+      .get("MESSAGE.get_information_list")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
+
+    this.service.ServiceGetCredit("sms").subscribe({
+      next: (ret) => {
+        if (ret.isSuccess) {
+          this.dataModelCreditResult = ret;
+        } else {
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+        }
+        this.onActionValidationStatusCheckCredit();
+        this.publicHelper.processService.processStop(pName);
+      },
+      error: (er) => {
+        this.cmsToastrService.typeError(er);
+
+        this.publicHelper.processService.processStop(pName, false);
+      },
+    });
+  }
+  DataMessagePlaceholders(): void {
+    const pName = this.constructor.name + "DataMessagePlaceholders";
+    this.translate
+      .get("MESSAGE.get_information_list")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
+    this.formInfo.clearSubmitResult();
+    this.smsActionService.ServiceGetMessagePlaceholders().subscribe({
+      next: (ret) => {
+        this.dataModelMessagePlaceholdersResult = ret;
+        this.publicHelper.processService.processStop(pName);
+      },
+      error: (er) => {
+        this.cmsToastrService.typeError(er);
+
+        this.publicHelper.processService.processStop(pName, false);
+      },
+    });
+  }
+  optionrLinkCategoryId: string = "";
+
+  onActionContactCategorySelectChecked(model: string): void {
+    if (!model || model.length <= 0) {
+      this.translate
+        .get("MESSAGE.category_of_information_is_not_clear")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      this.onActionValidationStatusToNumbersChange();
+      return;
+    }
+    if (!this.dataModel.toContactCategories)
+      this.dataModel.toContactCategories = [];
+    if (!this.dataModel.toContactContents)
+      this.dataModel.toContactContents = [];
+    this.publicHelper.listAddIfNotExist(
+      this.dataModel.toContactCategories,
+      model,
+      0,
+    );
+    if (
+      this.dataModel.toContactCategories?.length > 0 ||
+      this.dataModel.toContactContents?.length > 0
+    ) {
+      this.dataModel.toNumbers = "";
+    }
+    this.onActionValidationStatusToNumbersChange();
+  }
+  onActionContactCategorySelectDisChecked(model: string): void {
+    if (!model || model.length <= 0) {
+      this.translate
+        .get("MESSAGE.category_of_information_is_not_clear")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      this.onActionValidationStatusToNumbersChange();
+      return;
+    }
+    if (!this.dataModel.toContactCategories)
+      this.dataModel.toContactCategories = [];
+    if (!this.dataModel.toContactContents)
+      this.dataModel.toContactContents = [];
+    this.publicHelper.listRemoveIfExist(
+      this.dataModel.toContactCategories,
+      model,
+    );
+    if (
+      this.dataModel.toContactCategories?.length > 0 ||
+      this.dataModel.toContactContents?.length > 0
+    ) {
+      this.dataModel.toNumbers = "";
+    }
+    this.onActionValidationStatusToNumbersChange();
+  }
+  onActionContactContentSelectChecked(model: ContactContentModel): void {
+    if (!model || model.id?.length <= 0) {
+      this.translate
+        .get("MESSAGE.category_of_information_is_not_clear")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      this.onActionValidationStatusToNumbersChange();
+      return;
+    }
+    if (!this.dataModel.toContactContents)
+      this.dataModel.toContactContents = [];
+    if (!this.dataModel.toContactContents)
+      this.dataModel.toContactContents = [];
+    this.publicHelper.listAddIfNotExist(
+      this.dataModel.toContactContents,
+      model.id,
+      0,
+    );
+    if (
+      this.dataModel.toContactCategories?.length > 0 ||
+      this.dataModel.toContactContents?.length > 0
+    ) {
+      this.dataModel.toNumbers = "";
+    }
+    this.onActionValidationStatusToNumbersChange();
+  }
+  onActionContactContentSelectDisChecked(model: ContactContentModel): void {
+    if (!model || model.id?.length <= 0) {
+      this.translate
+        .get("MESSAGE.category_of_information_is_not_clear")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      this.onActionValidationStatusToNumbersChange();
+      return;
+    }
+    if (!this.dataModel.toContactCategories)
+      this.dataModel.toContactCategories = [];
+    if (!this.dataModel.toContactContents)
+      this.dataModel.toContactContents = [];
+    this.publicHelper.listRemoveIfExist(
+      this.dataModel.toContactContents,
+      model.id,
+    );
+    if (
+      this.dataModel.toContactCategories?.length > 0 ||
+      this.dataModel.toContactContents?.length > 0
+    ) {
+      this.dataModel.toNumbers = "";
+    }
+    this.onActionValidationStatusToNumbersChange();
+  }
+  step = 0;
+
+  setStep(index: number) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
+  }
+
+  hasValidationStatusError(): boolean {
+    return (
+      this.formInfo.validationList.find(
+        (x) => x.status === FormValidationStatusEnum.Error,
+      ) !== undefined
+    );
+  }
+
+  private openResultDialog(
+    result: ErrorExceptionResult<SmsApiSendResultModel>,
+  ): void {
+    if (!result) {
+      return;
+    }
+
+    this.dialog.open(SmsActionSendMessageResultComponent, {
+      panelClass: "sms-send-result-dialog",
+      data: { result: result, formInfo: this.formInfo },
+      width: "960px",
+      disableClose: false,
+    });
+  }
+
+  private openCalculateResultDialog(
+    result: ErrorExceptionResult<SmsApiSendOrderCalculateResultModel>,
+  ): void {
+    if (!result) {
+      return;
+    }
+
+    this.dialog.open(SmsActionSendMessageCalculateResultComponent, {
+      panelClass: "sms-send-calculate-result-dialog",
+      data: { result: result, formInfo: this.formInfo },
+      width: "960px",
+      disableClose: false,
+    });
+  }
+}

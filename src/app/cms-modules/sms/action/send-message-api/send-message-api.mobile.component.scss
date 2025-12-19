@@ -1,0 +1,211 @@
+/* ============================================
+   Mobile Form Component Styles - iOS & Android Optimized
+   Following Material Design & iOS HIG Guidelines
+   ============================================ */
+
+.cms-m-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 16px;
+  width: 100%;
+}
+
+/* ============================================
+   Form Field
+   ============================================ */
+.cms-m-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.cms-m-form-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cms-m-text-primary, #000000);
+  line-height: 20px;
+  letter-spacing: -0.24px;
+}
+
+/* ============================================
+   Autocomplete Wrapper
+   ============================================ */
+.cms-m-autocomplete-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.cms-m-form-input {
+  width: 100%;
+  min-height: 44px; /* iOS minimum touch target */
+  padding: 12px 44px 12px 16px;
+  font-size: 16px; /* Prevent zoom on iOS */
+  line-height: 22px;
+  color: var(--cms-m-text-primary, #000000);
+  background-color: var(--cms-m-input-bg, #ffffff);
+  border: 1px solid var(--cms-m-border-color, rgba(0, 0, 0, 0.2));
+  border-radius: 10px; /* iOS rounded corners */
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-appearance: none;
+  appearance: none;
+  touch-action: manipulation;
+
+  &:focus {
+    outline: none;
+    border-color: var(--cms-m-primary-color, #007aff);
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+  }
+
+  &:disabled {
+    background-color: var(--cms-m-disabled-bg, #f5f5f7);
+    color: var(--cms-m-text-secondary, #8e8e93);
+    cursor: not-allowed;
+  }
+
+  &::placeholder {
+    color: var(--cms-m-text-secondary, #8e8e93);
+    opacity: 0.6;
+  }
+}
+
+.cms-m-form-clear-btn {
+  position: absolute;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  border: none;
+  background-color: transparent;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  z-index: 10;
+
+  i {
+    font-size: 14px;
+    color: var(--cms-m-text-secondary, #8e8e93);
+  }
+
+  &:active {
+    background-color: var(--cms-m-press-color, rgba(0, 0, 0, 0.1));
+    transform: scale(0.95);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--cms-m-primary-color, #007aff);
+    outline-offset: 2px;
+  }
+}
+
+/* ============================================
+   Autocomplete Dropdown
+   ============================================ */
+::ng-deep {
+  .cms-m-autocomplete {
+    .mat-mdc-autocomplete-panel {
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      border: 0.5px solid var(--cms-m-border-color, rgba(0, 0, 0, 0.1));
+      background-color: var(--cms-m-card-bg, #ffffff);
+      max-height: 300px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .cms-m-autocomplete-option {
+      min-height: 44px; /* iOS minimum touch target */
+      padding: 12px 16px;
+      font-size: 16px;
+      line-height: 22px;
+      color: var(--cms-m-text-primary, #000000);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+      &:hover,
+      &.mdc-list-item--selected {
+        background-color: var(--cms-m-press-color, rgba(0, 122, 255, 0.1));
+      }
+
+      &:active {
+        background-color: var(--cms-m-press-color, rgba(0, 122, 255, 0.15));
+      }
+    }
+  }
+}
+
+/* ============================================
+   Dark Mode Support
+   ============================================ */
+@media (prefers-color-scheme: dark) {
+  .cms-m-form-container {
+    --cms-m-text-primary: #ffffff;
+    --cms-m-text-secondary: #8e8e93;
+    --cms-m-input-bg: #1c1c1e;
+    --cms-m-card-bg: #1c1c1e;
+    --cms-m-border-color: rgba(255, 255, 255, 0.2);
+    --cms-m-press-color: rgba(255, 255, 255, 0.1);
+    --cms-m-disabled-bg: #2c2c2e;
+  }
+}
+
+/* ============================================
+   RTL Support
+   ============================================ */
+[dir="rtl"] {
+  .cms-m-form-input {
+    padding: 12px 16px 12px 44px;
+  }
+
+  .cms-m-form-clear-btn {
+    right: auto;
+    left: 8px;
+  }
+}
+
+/* ============================================
+   Responsive Breakpoints
+   ============================================ */
+@media (max-width: 375px) {
+  .cms-m-form-container {
+    padding: 12px;
+    gap: 16px;
+  }
+
+  .cms-m-form-input {
+    padding: 10px 40px 10px 14px;
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+}
+
+/* ============================================
+   Accessibility
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================
+   iOS Specific Optimizations
+   ============================================ */
+@supports (-webkit-touch-callout: none) {
+  .cms-m-form-input {
+    -webkit-touch-callout: none;
+  }
+
+  .cms-m-form-clear-btn {
+    -webkit-touch-callout: none;
+  }
+}
