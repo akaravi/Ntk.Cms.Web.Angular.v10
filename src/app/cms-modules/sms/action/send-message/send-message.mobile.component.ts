@@ -489,6 +489,19 @@ export class SmsActionSendMessageMobileComponent implements OnInit {
     }
     this.cdr.detectChanges();
   }
+  // Local property for isFlash toggle
+  get isFlash(): boolean {
+    return this.dataModel.optionTypes === "Flash";
+  }
+
+  set isFlash(value: boolean) {
+    if (value) {
+      this.dataModel.optionTypes = "Flash";
+    } else {
+      this.dataModel.optionTypes = "";
+    }
+  }
+
   onActionFlaseChange(event: any) {
     if (event.checked) {
       this.dataModel.optionTypes = "Flash";
