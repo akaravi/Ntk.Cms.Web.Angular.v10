@@ -1,5 +1,96 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-12-19 15:45 (بازنویسی کامل کامپوننت موبایل ارسال پیام کوتاه)
+
+### تغییرات اعمال شده:
+
+- **بازنویسی کامل `SmsActionSendMessageMobileComponent`** با محوریت ارسال پیام کوتاه:
+  - افزودن **Step جداگانه برای Message Placeholders** (Step 2) با UI/UX زیبا و کارت‌های تعاملی
+  - بازسازی ترتیب مراحل:
+    - Step 0: Info
+    - Step 1: Direction (مسیر ارسال)
+    - **Step 2: Message Placeholders** (جدید - با کارت‌های زیبا)
+    - Step 3: Message Text (متن پیام)
+    - Step 4: Receiver Numbers (شماره گیرنده)
+    - Step 5: Phonebook (دفترچه تلفن)
+    - Step 6: Shipping Time (زمان ارسال)
+    - Step 7: Timing/Cron (زمانبندی)
+    - Step 8: Settings (تنظیمات)
+  - افزودن تنظیم **isFlash** در Settings (ارسال به صورت Flash)
+  - بهبود UI/UX:
+    - طراحی کارت‌های زیبا برای Placeholders با نمایش کد و توضیحات
+    - استایل‌های جدید برای Empty State
+    - بهبود استایل Step Description
+    - طراحی بهتر برای دکمه‌های Placeholder
+  - حفظ تمام قابلیت‌های کامپوننت اصلی:
+    - تمام متدهای validation
+    - تمام متدهای مدیریت فرم
+    - تمام متدهای مدیریت زمان
+    - تمام متدهای مدیریت مخاطبین
+    - دکمه ارسال در Footer با Safe Area Support
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/sms/action/send-message/send-message.mobile.component.html` (بازنویسی کامل)
+- `src/app/cms-modules/sms/action/send-message/send-message.mobile.component.scss` (افزودن استایل‌های جدید)
+
+### بهبودهای UI/UX:
+- طراحی کارت‌های Placeholder با نمایش کد و توضیحات
+- استایل Empty State برای زمانی که Placeholder وجود ندارد
+- بهبود استایل Step Description
+- طراحی بهتر برای دکمه‌های تعاملی
+- حفظ تمام استانداردهای iOS و Material Design
+
+## 2025-12-19 13:34 (تقسیم ماژول estate به زیرماژول‌های main، action، log و config مشابه ماژول sms)
+
+### تغییرات اعمال شده:
+
+- تقسیم ماژول بزرگ `estate` به ۴ زیرماژول مشابه ساختار `sms`:
+  - **`estate/main`** (`EstateMainModule`): شامل کامپوننت‌های اصلی مانند property، project، company، supplier، overview، account-agency، account-expert، activity-type، ads-type، billboard، contract-type، category-zone، category-rack، property-detail، property-detail-group، property-ads
+  - **`estate/action`** (`EstateActionModule`): شامل کامپوننت‌های عملیاتی مانند customer-order
+  - **`estate/log`** (`EstateLogModule`): شامل کامپوننت‌های لاگ و گزارش مانند property-history، customer-order-result، expert-price
+  - **`estate/config`** (`EstateConfigModule`): ماژول تنظیمات (از قبل وجود داشت)
+- تغییر ساختار روتینگ: `estate.routing.ts` حالا از lazy loading استفاده می‌کند و زیرماژول‌ها را با `loadChildren` بارگذاری می‌کند
+- ایجاد کامپوننت‌های اصلی برای هر زیرماژول: `EstateMainComponent`، `EstateActionComponent`، `EstateLogComponent`
+- ایجاد فایل‌های روتینگ برای هر زیرماژول: `routes.mobile.ts` و `routes.normal.ts` برای هر زیرماژول
+- ایجاد routing modules برای هر زیرماژول: `estate-main.routing.ts`، `estate-action.routing.ts`، `estate-log.routing.ts`
+- انتقال کامپوننت‌ها از `EstateModule` به زیرماژول‌های مناسب
+- ساده‌سازی `EstateModule`: حالا فقط `EstateComponent` را declare می‌کند
+- حذف فایل‌های قدیمی `routes.mobile.ts` و `routes.normal.ts` از ریشه `estate`
+
+### تغییرات URL:
+- URLها تغییر کرده‌اند و حالا شامل prefix زیرماژول هستند:
+  - `estate/property` → `estate/main/property`
+  - `estate/customer-order` → `estate/action/customer-order`
+  - `estate/property-history` → `estate/log/property-history`
+  - `estate/config` → بدون تغییر (همچنان `estate/config`)
+
+### فایل‌های ایجاد شده:
+- `src/app/cms-modules/estate/main/estate-main.component.ts`
+- `src/app/cms-modules/estate/main/estate-main.module.ts`
+- `src/app/cms-modules/estate/main/estate-main.routing.ts`
+- `src/app/cms-modules/estate/main/routes.mobile.ts`
+- `src/app/cms-modules/estate/main/routes.normal.ts`
+- `src/app/cms-modules/estate/action/estate-action.component.ts`
+- `src/app/cms-modules/estate/action/estate-action.module.ts`
+- `src/app/cms-modules/estate/action/estate-action.routing.ts`
+- `src/app/cms-modules/estate/action/routes.mobile.ts`
+- `src/app/cms-modules/estate/action/routes.normal.ts`
+- `src/app/cms-modules/estate/log/estate-log.component.ts`
+- `src/app/cms-modules/estate/log/estate-log.module.ts`
+- `src/app/cms-modules/estate/log/estate-log.routing.ts`
+- `src/app/cms-modules/estate/log/routes.mobile.ts`
+- `src/app/cms-modules/estate/log/routes.normal.ts`
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/estate/estate.module.ts` (ساده‌سازی شد)
+- `src/app/cms-modules/estate/estate.routing.ts` (تغییر به lazy loading)
+
+### فایل‌های حذف شده:
+- `src/app/cms-modules/estate/routes.mobile.ts`
+- `src/app/cms-modules/estate/routes.normal.ts`
+
+---
+
 ## 2025-12-10 10:15 (افزودن دکمه رفرش روی هاور برای تمام ویجت‌ها)
 
 ### تغییرات اعمال شده:
