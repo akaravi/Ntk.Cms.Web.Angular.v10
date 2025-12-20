@@ -24,23 +24,19 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
 
 import { IconPickerModule } from "ngx-ntk-icon-picker";
 
-import { estateCustomerOrderInfoPipe } from "src/app/core/pipe/esate/estate-customer-order-info.pipe";
+import { EstateCustomerOrderActionComponent } from "../customer-order/action/action.component";
 import { EstateCustomerOrderAddToEditComponent } from "../customer-order/add/add-to-edit.component";
 import { EstateCustomerOrderAddMobileComponent } from "../customer-order/add/add.mobile.component";
 import { EstateCustomerOrderEditComponent } from "../customer-order/edit/edit.component";
 import { EstateCustomerOrderEditMobileComponent } from "../customer-order/edit/edit.mobile.component";
-import { EstateCustomerOrderListComponent } from "../customer-order/list/list.component";
-import { EstateCustomerOrderSelectorComponent } from "../customer-order/selector/selector.component";
-import { EstateCustomerOrderHeaderComponent } from "../customer-order/header/header.component";
-import { EstateCustomerOrderActionComponent } from "../customer-order/action/action.component";
 import { EstateCustomerOrderQuickViewComponent } from "../customer-order/quick-view/quick-view.component";
 import { EstateCustomerOrderResponsibleUserListComponent } from "../customer-order/responsible-user-list/responsible-user-list.component";
+import { EstateSharedModule } from "../shared/estate-shared.module";
 
 import { CurrencyMaskModule } from "ng2-currency-mask";
 import { CmsFileManagerModule } from "ntk-cms-filemanager";
 
 import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
-import { EstateMainModule } from "../main/estate-main.module";
 
 @NgModule({
   declarations: [
@@ -49,13 +45,9 @@ import { EstateMainModule } from "../main/estate-main.module";
     EstateCustomerOrderAddMobileComponent,
     EstateCustomerOrderEditComponent,
     EstateCustomerOrderEditMobileComponent,
-    EstateCustomerOrderListComponent,
-    EstateCustomerOrderSelectorComponent,
-    EstateCustomerOrderHeaderComponent,
     EstateCustomerOrderActionComponent,
     EstateCustomerOrderQuickViewComponent,
     EstateCustomerOrderResponsibleUserListComponent,
-    estateCustomerOrderInfoPipe,
   ],
   imports: [
     CommonModule,
@@ -63,7 +55,7 @@ import { EstateMainModule } from "../main/estate-main.module";
     EstateActionRoutes,
     FormsModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
-    EstateMainModule,
+    EstateSharedModule,
     AngularEditorModule,
     CurrencyMaskModule,
     MatIconModule,
@@ -86,9 +78,6 @@ import { EstateMainModule } from "../main/estate-main.module";
     EstateEnumService,
     FileCategoryService,
   ],
-  exports: [
-    EstateActionComponent,
-    estateCustomerOrderInfoPipe,
-  ],
+  exports: [EstateActionComponent],
 })
 export class EstateActionModule {}

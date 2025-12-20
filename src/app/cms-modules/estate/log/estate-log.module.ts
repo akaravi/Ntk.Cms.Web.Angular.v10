@@ -31,14 +31,12 @@ import { EstateCustomerOrderResultViewComponent } from "../customer-order-result
 import { EstatePropertyExpertPriceAddComponent } from "../property-expert-price/add/add.component";
 import { EstatePropertyExpertPriceEditComponent } from "../property-expert-price/edit/edit.component";
 import { EstatePropertyExpertPriceHeaderComponent } from "../property-expert-price/header/header.component";
-import { EstatePropertyExpertPriceListComponent } from "../property-expert-price/list/list.component";
 import { EstatePropertyExpertPriceInquiryCalculateComponent } from "../property-expert-price/inquiry-calculate/inquiry-calculate.component";
 import { EstatePropertyExpertPriceInquiryListComponent } from "../property-expert-price/inquiry-list/inquiry-list.component";
-import { EstatePropertyHistoryAddComponent } from "../property-history/add/add.component";
+import { EstatePropertyExpertPriceListComponent } from "../property-expert-price/list/list.component";
 import { EstatePropertyHistoryAddMobileComponent } from "../property-history/add/add.mobile.component";
 import { EstatePropertyHistoryEditComponent } from "../property-history/edit/edit.component";
 import { EstatePropertyHistoryEditMobileComponent } from "../property-history/edit/edit.mobile.component";
-import { EstatePropertyHistoryListComponent } from "../property-history/list/list.component";
 import { EstatePropertyHistoryQuickViewComponent } from "../property-history/quick-view/quick-view.component";
 import { EstatePropertyHistoryResponsibleUserListComponent } from "../property-history/responsible-user-list/responsible-user-list.component";
 
@@ -46,16 +44,14 @@ import { CurrencyMaskModule } from "ng2-currency-mask";
 import { CmsFileManagerModule } from "ntk-cms-filemanager";
 
 import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
-import { EstateMainModule } from "../main/estate-main.module";
+import { EstateSharedModule } from "../shared/estate-shared.module";
 
 @NgModule({
   declarations: [
     EstateLogComponent,
-    EstatePropertyHistoryAddComponent,
     EstatePropertyHistoryAddMobileComponent,
     EstatePropertyHistoryEditComponent,
     EstatePropertyHistoryEditMobileComponent,
-    EstatePropertyHistoryListComponent,
     EstatePropertyHistoryQuickViewComponent,
     EstatePropertyHistoryResponsibleUserListComponent,
     /* */
@@ -77,6 +73,7 @@ import { EstateMainModule } from "../main/estate-main.module";
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     SharedModule,
     CoreSharedModule,
+    EstateSharedModule,
     AngularEditorModule,
     CurrencyMaskModule,
     MatIconModule,
@@ -87,7 +84,6 @@ import { EstateMainModule } from "../main/estate-main.module";
     NgxMatColorPickerModule,
     NgOptimizedImage,
     CmsFileManagerModule,
-    EstateMainModule,
   ],
   providers: [
     CoreModuleService,
@@ -101,8 +97,6 @@ import { EstateMainModule } from "../main/estate-main.module";
     EstateEnumService,
     FileCategoryService,
   ],
-  exports: [
-    EstateLogComponent,
-  ],
+  exports: [EstateLogComponent],
 })
 export class EstateLogModule {}

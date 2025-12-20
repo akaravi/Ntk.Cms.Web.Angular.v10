@@ -1,19 +1,13 @@
 @if (requestLinkPropertyId?.length > 0) {
-  <app-estate-property-header
-    [optionId]="requestLinkPropertyId"
-    >
+  <app-estate-property-header [optionId]="requestLinkPropertyId">
   </app-estate-property-header>
 }
 @if (requestLinkCustomerOrderId?.length > 0) {
-  <app-estate-customer-order-header
-    [optionId]="requestLinkCustomerOrderId"
-    >
+  <app-estate-customer-order-header [optionId]="requestLinkCustomerOrderId">
   </app-estate-customer-order-header>
 }
 @if (requestLinkEstateExpertId?.length > 0) {
-  <app-estate-account-expert-header
-    [optionId]="requestLinkEstateExpertId"
-    >
+  <app-estate-account-expert-header [optionId]="requestLinkEstateExpertId">
   </app-estate-account-expert-header>
 }
 <app-cms-html-list
@@ -29,12 +23,12 @@
   [optionActionRowDisplayMenu]="tableRowSelect2Click"
   [optionActionRowDisplayMenuAct]="tableRowSelectActionMenuClick"
   [optionSelectRowItemTitle]="tableRowSelected?.title"
-  >
+>
   <ng-container cms-tree>
     <!--begin:::::::::::::::::::::::::::::::::::::::::cms-tree-->
     <app-estate-activity-type-tree
       (optionChange)="onActionSelectorSelect($event)"
-      >
+    >
     </app-estate-activity-type-tree>
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-tree-->
   </ng-container>
@@ -54,7 +48,7 @@
       class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
       (click)="viewGuideNotice = !viewGuideNotice"
       target="_blank"
-      >
+    >
       <i class="fa-solid fa-info font-18" style="color: #ffffff"></i>
     </a>
     <a
@@ -62,7 +56,7 @@
       class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
       (click)="onActionButtonReload()"
       target="_blank"
-      >
+    >
       <i
         class="fa-solid fa-rotate-right font-18"
         style="color: #ffffff"
@@ -75,14 +69,14 @@
       (click)="onActionGridExpandRows(true)"
       target="_blank"
       class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-      >
+    >
       <i class="fa-solid fa-maximize font-18" style="color: #ffffff"></i>
     </a>
     <a
       (click)="onActionGridExpandRows(false)"
       target="_blank"
       class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-      >
+    >
       <i class="fa-solid fa-minimize font-18" style="color: #ffffff"></i>
     </a>
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-header-start-->
@@ -92,532 +86,526 @@
     <a
       class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
       target="_blank"
-      >
+    >
       <mat-slide-toggle
         (click)="onActionButtonInCheckingOnDate(!searchInCheckingOnDay)"
         [checked]="searchInCheckingOnDayChecked"
-        >
+      >
         {{ "ACTION.SearchOnDay" | translate }}
       </mat-slide-toggle>
     </a>
     <a
       class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
       target="_blank"
-      >
+    >
       <mat-slide-toggle
         (click)="onActionButtonInCheckingPlaned(!searchInCheckingPlanedToDay)"
         [checked]="searchInCheckingPlanedToDayChecked"
-        >
+      >
         {{ "ACTION.Planned" | translate }}
       </mat-slide-toggle>
     </a>
     <a
       (click)="optionsSearch.data.show = !optionsSearch.data.show"
       class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-      >
+    >
       <mat-slide-toggle [checked]="optionsSearch.data.show"></mat-slide-toggle
-        >{{ "ACTION.SEARCH" | translate }}
-      </a>
-      <a
-        (click)="onActionButtonStatist()"
-        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-        >
-        <mat-slide-toggle [checked]="optionsStatist.data.show"> </mat-slide-toggle
-          >{{ "ACTION.STATIST" | translate }}
-        </a>
+      >{{ "ACTION.SEARCH" | translate }}
+    </a>
+    <a
+      (click)="onActionButtonStatist()"
+      class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
+    >
+      <mat-slide-toggle [checked]="optionsStatist.data.show"> </mat-slide-toggle
+      >{{ "ACTION.STATIST" | translate }}
+    </a>
+    <a
+      (click)="onActionButtonInResponsible(!searchInResponsibleChecked)"
+      class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
+    >
+      <mat-slide-toggle [checked]="searchInResponsibleChecked">
+      </mat-slide-toggle>
+      {{ "ACTION.InResponsible" | translate }}
+    </a>
+    <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-header-end-->
+  </ng-container>
+  <ng-container cms-action-main>
+    <!--begin:::::::::::::::::::::::::::::::::::::::::cms-action-->
+    @if (optionloadByRoute && dataModelResult.access.accessAddRow) {
+      <div class="col-4">
         <a
-          (click)="onActionButtonInResponsible(!searchInResponsibleChecked)"
-          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-          >
-          <mat-slide-toggle [checked]="searchInResponsibleChecked">
-          </mat-slide-toggle>
-          {{ "ACTION.InResponsible" | translate }}
+          (click)="onActionButtonNewRow()"
+          type="button"
+          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
+          target="_blank"
+          ><i class="fa-solid fa-plus font-18" style="color: #ffffff"></i> <br
+        /></a>
+        <p class="font-11 text-center opacity-70">
+          {{ "ACTION.ADD" | translate }}
+        </p>
+      </div>
+    }
+
+    <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-->
+  </ng-container>
+  <ng-container cms-action-row>
+    <!--begin:::::::::::::::::::::::::::::::::::::::::cms-action-row-->
+    @if (dataModelResult?.access?.accessEditRow) {
+      <div class="col-4">
+        <a
+          (click)="onActionButtonEditRow(tableRowSelected)"
+          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-magenta"
+          ><i class="fa-solid fa-pen font-18" style="color: #ffffff"></i><br />
         </a>
-        <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-header-end-->
-      </ng-container>
-      <ng-container cms-action-main>
-        <!--begin:::::::::::::::::::::::::::::::::::::::::cms-action-->
-        @if (optionloadByRoute && dataModelResult.access.accessAddRow) {
-          <div
-            class="col-4"
-            >
-            <a
-              (click)="onActionButtonNewRow()"
-              type="button"
-              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
-              target="_blank"
-              ><i class="fa-solid fa-plus font-18" style="color: #ffffff"></i> <br
-            /></a>
-            <p class="font-11 text-center opacity-70">
-              {{ "ACTION.ADD" | translate }}
-            </p>
-          </div>
-        }
-
-        <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-->
-      </ng-container>
-      <ng-container cms-action-row>
-        <!--begin:::::::::::::::::::::::::::::::::::::::::cms-action-row-->
-        @if (dataModelResult?.access?.accessEditRow) {
-          <div class="col-4">
-            <a
-              (click)="onActionButtonEditRow(tableRowSelected)"
-              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-magenta"
-              ><i class="fa-solid fa-pen font-18" style="color: #ffffff"></i><br />
-            </a>
-            <p class="font-11 text-center opacity-70">
-              {{ "ACTION.EDIT" | translate }}
-            </p>
-          </div>
-        }
-        @if (dataModelResult?.access?.accessDeleteRow) {
-          <div class="col-4">
-            <a
-              (click)="onActionButtonDeleteRow(tableRowSelected)"
-              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-red"
-              ><i class="fa-solid fa-trash font-18" style="color: #ffffff"></i><br />
-            </a>
-            <p class="font-11 text-center opacity-70">
-              {{ "ACTION.DELETE" | translate }}
-            </p>
-          </div>
-        }
-        <div class="col-4">
-          <a
-            type="button"
-            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-            (click)="onActionButtonResponsibleUserlistView(tableRowSelected)"
-            target="_blank"
-            ><i class="fa-solid fa-share font-18" style="color: #ffffff"></i><br />
-          </a>
-          <p class="font-11 text-center opacity-70">
-            {{ "TITLE.ResponsibleUsers" | translate }}
-          </p>
+        <p class="font-11 text-center opacity-70">
+          {{ "ACTION.EDIT" | translate }}
+        </p>
+      </div>
+    }
+    @if (dataModelResult?.access?.accessDeleteRow) {
+      <div class="col-4">
+        <a
+          (click)="onActionButtonDeleteRow(tableRowSelected)"
+          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-red"
+          ><i class="fa-solid fa-trash font-18" style="color: #ffffff"></i
+          ><br />
+        </a>
+        <p class="font-11 text-center opacity-70">
+          {{ "ACTION.DELETE" | translate }}
+        </p>
+      </div>
+    }
+    <div class="col-4">
+      <a
+        type="button"
+        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
+        (click)="onActionButtonResponsibleUserlistView(tableRowSelected)"
+        target="_blank"
+        ><i class="fa-solid fa-share font-18" style="color: #ffffff"></i><br />
+      </a>
+      <p class="font-11 text-center opacity-70">
+        {{ "TITLE.ResponsibleUsers" | translate }}
+      </p>
+    </div>
+    <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-row-->
+  </ng-container>
+  <ng-container cms-action-area>
+    <!--begin:::::::::::::::::::::::::::::::::::::::::cms-action-area-->
+    @if (searchInCheckingOnDay) {
+      <div class="alert alert-info">
+        <div style="font-size: 30px">
+          {{ "TITLE.SearchInCheckingOnDay" | translate }}
         </div>
-        <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-row-->
+        <mat-form-field appearance="fill">
+          <mat-label>{{ "TITLE.Enter_a_date_range" | translate }}</mat-label>
+          <mat-date-range-input
+            [formGroup]="checkingOnDayRange"
+            [rangePicker]="picker"
+          >
+            <input
+              matStartDate
+              formControlName="start"
+              placeholder="{{ 'TITLE.Start_Date' | translate }}"
+            />
+            <input
+              matEndDate
+              formControlName="end"
+              placeholder="{{ 'TITLE.Start_Date' | translate }}"
+            />
+          </mat-date-range-input>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+          @if (
+            checkingOnDayRange.controls.start.hasError("matStartDateInvalid")
+          ) {
+            <mat-error>{{ "MESSAGE.InvalidStartDate" | translate }}</mat-error>
+          }
+          @if (checkingOnDayRange.controls.end.hasError("matEndDateInvalid")) {
+            <mat-error>{{ "MESSAGE.InvalidEndDate" | translate }}</mat-error>
+          }
+        </mat-form-field>
+        <button
+          type="button"
+          (click)="onActionNext()"
+          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+        >
+          <i class="ft-x"></i>
+        </button>
+        <button
+          type="button"
+          (click)="onActionPervious()"
+          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+        >
+          <i class="ft-x"></i>
+          >
+        </button>
+        <br />
+        <a
+          href="javascript:void(0)"
+          (click)="onActionButtonInCheckingOnDateSearch()"
+          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
+          >{{ "ACTION.SEARCH" | translate }}</a
+        >
+      </div>
+    }
+    <app-cms-search-list [(options)]="optionsSearch"></app-cms-search-list>
+    <app-cms-statist-list [(options)]="optionsStatist"></app-cms-statist-list>
+    <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-area-->
+  </ng-container>
+  <ng-container cms-body>
+    <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
+    <mat-table
+      [dataSource]="tableSource"
+      matSort
+      #tableSort="matSort"
+      (matSortChange)="onTableSortData(tableSort)"
+      multiTemplateDataRows
+    >
+      <!-- action_menu Column -->
+      <ng-container matColumnDef="action_menu">
+        <mat-header-cell *matHeaderCellDef>
+          {{ "TITLE.MENU" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <button
+            type="button"
+            mat-icon-button
+            aria-label="Action Menu"
+            (click)="onActionTableRowSelectActionMenu(row)"
+          >
+            <i class="fa fa-bars font-18"></i>
+          </button>
+        </mat-cell>
       </ng-container>
-      <ng-container cms-action-area>
-        <!--begin:::::::::::::::::::::::::::::::::::::::::cms-action-area-->
-        @if (searchInCheckingOnDay) {
-          <div class="alert alert-info">
-            <div style="font-size: 30px">
-              {{ "TITLE.SearchInCheckingOnDay" | translate }}
-            </div>
-            <mat-form-field appearance="fill">
-              <mat-label>{{ "TITLE.Enter_a_date_range" | translate }}</mat-label>
-              <mat-date-range-input
-                [formGroup]="checkingOnDayRange"
-                [rangePicker]="picker"
-                >
-                <input
-                  matStartDate
-                  formControlName="start"
-                  placeholder="{{ 'TITLE.Start_Date' | translate }}"
-                  />
-                  <input
-                    matEndDate
-                    formControlName="end"
-                    placeholder="{{ 'TITLE.Start_Date' | translate }}"
-                    />
-                  </mat-date-range-input>
-                  <mat-datepicker-toggle
-                    matIconSuffix
-                    [for]="picker"
-                  ></mat-datepicker-toggle>
-                  <mat-date-range-picker #picker></mat-date-range-picker>
-                  @if (
-                    checkingOnDayRange.controls.start.hasError('matStartDateInvalid')
-                    ) {
-                    <mat-error
-                      >{{ "MESSAGE.InvalidStartDate" | translate }}</mat-error
-                      >
-                  }
-                  @if (checkingOnDayRange.controls.end.hasError('matEndDateInvalid')) {
-                    <mat-error
-                      >{{ "MESSAGE.InvalidEndDate" | translate }}</mat-error
-                      >
-                    }
-                  </mat-form-field>
-                  <button
-                    type="button"
-                    (click)="onActionNext()"
-                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-                    >
-                    <i class="ft-x"></i>
-                  </button>
-                  <button
-                    type="button"
-                    (click)="onActionPervious()"
-                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-                    >
-                    <i class="ft-x"></i>
-                    >
-                  </button>
-                  <br />
-                  <a
-                    href="javascript:void(0)"
-                    (click)="onActionButtonInCheckingOnDateSearch()"
-                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-                    >{{ "ACTION.SEARCH" | translate }}</a
-                    >
-                  </div>
-                }
-                <app-cms-search-list [(options)]="optionsSearch"></app-cms-search-list>
-                <app-cms-statist-list [(options)]="optionsStatist"></app-cms-statist-list>
-                <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-area-->
-              </ng-container>
-              <ng-container cms-body>
-                <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
-                <mat-table
-                  [dataSource]="tableSource"
-                  matSort
-                  #tableSort="matSort"
-                  (matSortChange)="onTableSortData(tableSort)"
-                  multiTemplateDataRows
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ fieldsInfo["id"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
+      </ng-container>
+      <!-- RecordStatus Column -->
+      <ng-container matColumnDef="recordStatus">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ fieldsInfo["recordStatus"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell
+          *matCellDef="let row"
+          [ngClass]="row.recordStatus | statusCellClass"
+        >
+          <i [ngClass]="row.recordStatus | statusIconClass"></i>
+          @if (dataModelResult?.access?.accessEditRow) {
+            <select
+              matNativeControl
+              cmsRecordStatusSelfSave
+              [contentService]="contentService"
+              [row]="row"
+              style="background: none; border: none"
+              [ngStyle]="{
+                display: row.id === tableRowSelected?.id ? '' : 'none',
+              }"
+            ></select>
+          }
+        </mat-cell>
+      </ng-container>
+      <!-- Title Column -->
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ fieldsInfo["title"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.title }} </mat-cell>
+      </ng-container>
+      <!-- CreatedDate Column -->
+      <ng-container matColumnDef="createdDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ fieldsInfo["createdDate"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell
+          *matCellDef="let row"
+          style="direction: ltr; justify-content: center; text-align: center"
+        >
+          {{ row.createdDate | localeDateTime }}
+        </mat-cell>
+      </ng-container>
+      <!-- AppointmentDateFrom Column -->
+      <ng-container matColumnDef="AppointmentDateFrom">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ fieldsInfo["appointmentDateFrom"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.appointmentDateFrom | localeDate }}
+          {{ publicHelper.getTime(row.appointmentDateFrom) }}</mat-cell
+        >
+      </ng-container>
+      <!-- AppointmentDateTo Column -->
+      <ng-container matColumnDef="AppointmentDateTo">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ fieldsInfo["appointmentDateTo"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.appointmentDateTo | localeDate }}
+          {{ publicHelper.getTime(row.appointmentDateTo) }}
+        </mat-cell>
+      </ng-container>
+      <!-- LinkActivityTypeId Column -->
+      <ng-container matColumnDef="LinkActivityTypeId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ fieldsInfo["linkActivityTypeId"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{
+            row.linkActivityTypeId
+              | cmstitle: dataModelActivityTypeResult.listItems
+          }}
+        </mat-cell>
+      </ng-container>
+      <!-- ActivityStatus Column -->
+      <ng-container matColumnDef="ActivityStatus">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ fieldsInfo["activityStatus"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{
+            row.activityStatus
+              | enums: dataModelEstateActivityStatusEnumResult.listItems
+          }}
+        </mat-cell>
+      </ng-container>
+      <!-- Action Column -->
+      <ng-container matColumnDef="Action">
+        <mat-header-cell *matHeaderCellDef>
+          {{ "TITLE.OPTION" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" class="Action">
+          <!-- Action Menu -->
+          <button
+            type="button"
+            mat-icon-button
+            [matMenuTriggerFor]="actionMenu"
+            aria-label="Action Menu"
+          >
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #actionMenu="matMenu"> </mat-menu>
+        </mat-cell>
+      </ng-container>
+      <!-- QuickView Column -->
+      <ng-container matColumnDef="QuickView">
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="form-label">
+          {{ "TITLE.QUICK_VIEW" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <button
+            type="button"
+            mat-icon-button
+            class="text-dark"
+            (click)="onActionButtonQuickViewRow(row)"
+          >
+            <mat-icon style="color: #ff671f">visibility</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+      <!--expandedTitle-->
+      <ng-container matColumnDef="expandedTitle">
+        <mat-cell *matCellDef="let row">
+          {{ row.title }}
+        </mat-cell>
+      </ng-container>
+      <!--expandedDetail-->
+      <ng-container matColumnDef="expandedDetail">
+        <mat-cell *matCellDef="let row">
+          <div>
+            <table>
+              <tr>
+                <td>{{ "TITLE.Id" | translate }}:</td>
+                <td>
+                  <span
+                    class="navi-icon pointer"
+                    [cdkCopyToClipboard]="row.id"
+                    (click)="onActionCopied()"
                   >
-                  <!-- action_menu Column -->
-                  <ng-container matColumnDef="action_menu">
-                    <mat-header-cell *matHeaderCellDef>
-                      {{ "TITLE.MENU" | translate }}
-                    </mat-header-cell>
-                    <mat-cell *matCellDef="let row">
-                      <button
-                        type="button"
-                        mat-icon-button
-                        aria-label="Action Menu"
-                        (click)="onActionTableRowSelectActionMenu(row)"
-                        >
-                        <i class="fa fa-bars font-18"></i>
-                      </button>
-                    </mat-cell>
-                  </ng-container>
-
-                  <!-- ID Column -->
-                  <ng-container matColumnDef="id">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>
-                      {{ fieldsInfo["id"]?.fieldTitle }}
-                    </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
-                  </ng-container>
-                  <!-- RecordStatus Column -->
-                  <ng-container matColumnDef="recordStatus">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>
-                      {{ fieldsInfo["recordStatus"]?.fieldTitle }}
-                    </mat-header-cell>
-                    <mat-cell
-                      *matCellDef="let row"
-                      [ngClass]="row.recordStatus | statusCellClass"
-                      >
-                      <i [ngClass]="row.recordStatus | statusIconClass"></i>
-                      @if (dataModelResult?.access?.accessEditRow) {
-                        <select
-                          matNativeControl
-                          cmsRecordStatusSelfSave
-                          [contentService]="contentService"
-                          [row]="row"
-                          style="background: none; border: none"
-            [ngStyle]="{
-              display: row.id === tableRowSelected?.id ? '' : 'none',
-            }"
-                        ></select>
-                      }
-                    </mat-cell>
-                  </ng-container>
-                  <!-- Title Column -->
-                  <ng-container matColumnDef="title">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>
-                      {{ fieldsInfo["title"]?.fieldTitle }}
-                    </mat-header-cell>
-                    <mat-cell *matCellDef="let row"> {{ row.title }} </mat-cell>
-                  </ng-container>
-                  <!-- CreatedDate Column -->
-                  <ng-container matColumnDef="createdDate">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>
-                      {{ fieldsInfo["createdDate"]?.fieldTitle }}
-                    </mat-header-cell>
-                    <mat-cell
-                      *matCellDef="let row"
-                      style="direction: ltr; justify-content: center; text-align: center"
-                      >
-                      {{ row.createdDate | localeDateTime }}
-                    </mat-cell>
-                  </ng-container>
-                  <!-- AppointmentDateFrom Column -->
-                  <ng-container matColumnDef="AppointmentDateFrom">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>
-                      {{ fieldsInfo["appointmentDateFrom"]?.fieldTitle }}
-                    </mat-header-cell>
-                    <mat-cell *matCellDef="let row">
-                      {{ row.appointmentDateFrom | localeDate }}
-                      {{ publicHelper.getTime(row.appointmentDateFrom) }}</mat-cell
-                      >
-                    </ng-container>
-                    <!-- AppointmentDateTo Column -->
-                    <ng-container matColumnDef="AppointmentDateTo">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>
-                        {{ fieldsInfo["appointmentDateTo"]?.fieldTitle }}
-                      </mat-header-cell>
-                      <mat-cell *matCellDef="let row">
-                        {{ row.appointmentDateTo | localeDate }}
-                        {{ publicHelper.getTime(row.appointmentDateTo) }}
-                      </mat-cell>
-                    </ng-container>
-                    <!-- LinkActivityTypeId Column -->
-                    <ng-container matColumnDef="LinkActivityTypeId">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>
-                        {{ fieldsInfo["linkActivityTypeId"]?.fieldTitle }}
-                      </mat-header-cell>
-                      <mat-cell *matCellDef="let row">
-                        {{
-                        row.linkActivityTypeId
-                        | cmstitle: dataModelActivityTypeResult.listItems
-                        }}
-                      </mat-cell>
-                    </ng-container>
-                    <!-- ActivityStatus Column -->
-                    <ng-container matColumnDef="ActivityStatus">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>
-                        {{ fieldsInfo["activityStatus"]?.fieldTitle }}
-                      </mat-header-cell>
-                      <mat-cell *matCellDef="let row">
-                        {{
-                        row.activityStatus
-                        | enums: dataModelEstateActivityStatusEnumResult.listItems
-                        }}
-                      </mat-cell>
-                    </ng-container>
-                    <!-- Action Column -->
-                    <ng-container matColumnDef="Action">
-                      <mat-header-cell *matHeaderCellDef>
-                        {{ "TITLE.OPTION" | translate }}
-                      </mat-header-cell>
-                      <mat-cell *matCellDef="let row" class="Action">
-                        <!-- Action Menu -->
-                        <button
-                          type="button"
-                          mat-icon-button
-                          [matMenuTriggerFor]="actionMenu"
-                          aria-label="Action Menu"
-                          >
-                          <mat-icon>more_vert</mat-icon>
-                        </button>
-                        <mat-menu #actionMenu="matMenu"> </mat-menu>
-                      </mat-cell>
-                    </ng-container>
-                    <!-- QuickView Column -->
-                    <ng-container matColumnDef="QuickView">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header class="form-label">
-                        {{ "TITLE.QUICK_VIEW" | translate }}
-                      </mat-header-cell>
-                      <mat-cell *matCellDef="let row">
-                        <button
-                          type="button"
-                          mat-icon-button
-                          class="text-dark"
-                          (click)="onActionButtonQuickViewRow(row)"
-                          >
-                          <mat-icon style="color: #ff671f">visibility</mat-icon>
-                        </button>
-                      </mat-cell>
-                    </ng-container>
-                    <!--expandedTitle-->
-                    <ng-container matColumnDef="expandedTitle">
-                      <mat-cell *matCellDef="let row">
-                        {{ row.title }}
-                      </mat-cell>
-                    </ng-container>
-                    <!--expandedDetail-->
-                    <ng-container matColumnDef="expandedDetail">
-                      <mat-cell *matCellDef="let row">
-                        <div>
-                          <table>
-                            <tr>
-                              <td>{{ "TITLE.Id" | translate }}:</td>
-                              <td>
-                                <span
-                                  class="navi-icon pointer"
-                                  [cdkCopyToClipboard]="row.id"
-                                  (click)="onActionCopied()"
-                                  >
-                                  &nbsp;
-                                  <i class="flaticon2-copy brown-color"></i></span
-                                  >{{ row.id }}
-                                </td>
-                              </tr>
-                              @if (row.linkPropertyId && row.linkPropertyId.length > 0) {
-                                <tr>
-                                  <td>{{ "TITLE.Property_Id" | translate }}:</td>
-                                  <td>
-                                    <span
-                                      class="navi-icon pointer"
-                                      [cdkCopyToClipboard]="row.linkPropertyId"
-                                      (click)="onActionCopied()"
-                                      >
-                                      {{ row.linkPropertyId | estatePropertyInfo | async }}
-                                      &nbsp;
-                                      <i
-                                        class="flaticon2-copy brown-color"
-                                        style="color: brown"
-                                        ></i
-                                      ></span>
-                                      <button
-                                        type="button"
-                                        mat-icon-button
-                    (click)="
-                      onActionButtonPropertyQuickViewRow(row.linkPropertyId)
-                    "
-                                        >
-                                        <mat-icon>visibility</mat-icon>
-                                      </button>
-                                    </td>
-                                  </tr>
-                                }
-                                @if (
-                                  row.linkCustomerOrderId && row.linkCustomerOrderId.length > 0
-                                  ) {
-                                  <tr
-                                    >
-                                    <td>{{ "TITLE.Customer_Order_Id" | translate }}:</td>
-                                    <td>
-                                      <span
-                                        class="navi-icon pointer"
-                                        [cdkCopyToClipboard]="row.linkCustomerOrderId"
-                                        (click)="onActionCopied()"
-                                        >
-                                        {{
-                                        row.linkCustomerOrderId | estateCustomerOrderInfo | async
-                                        }}
-                                        &nbsp;
-                                        <i class="flaticon2-copy brown-color"></i
-                                        ></span>
-                                        <button
-                                          type="button"
-                                          mat-icon-button
-                    (click)="
-                      onActionButtonCustomerOrderQuickViewRow(
+                    &nbsp;
+                    <i class="flaticon2-copy brown-color"></i></span
+                  >{{ row.id }}
+                </td>
+              </tr>
+              @if (row.linkPropertyId && row.linkPropertyId.length > 0) {
+                <tr>
+                  <td>{{ "TITLE.Property_Id" | translate }}:</td>
+                  <td>
+                    <span
+                      class="navi-icon pointer"
+                      [cdkCopyToClipboard]="row.linkPropertyId"
+                      (click)="onActionCopied()"
+                    >
+                      {{ row.linkPropertyId | estatePropertyInfo | async }}
+                      &nbsp;
+                      <i
+                        class="flaticon2-copy brown-color"
+                        style="color: brown"
+                      ></i
+                    ></span>
+                    <button
+                      type="button"
+                      mat-icon-button
+                      (click)="
+                        onActionButtonPropertyQuickViewRow(row.linkPropertyId)
+                      "
+                    >
+                      <mat-icon>visibility</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+              }
+              @if (
+                row.linkCustomerOrderId && row.linkCustomerOrderId.length > 0
+              ) {
+                <tr>
+                  <td>{{ "TITLE.Customer_Order_Id" | translate }}:</td>
+                  <td>
+                    <span
+                      class="navi-icon pointer"
+                      [cdkCopyToClipboard]="row.linkCustomerOrderId"
+                      (click)="onActionCopied()"
+                    >
+                      {{
                         row.linkCustomerOrderId
-                      )
-                    "
-                                          >
-                                          <mat-icon>visibility</mat-icon>
-                                        </button>
-                                      </td>
-                                    </tr>
-                                  }
-                                  @if (
-                                    row.linkEstateExpertId && row.linkEstateExpertId.length > 0
-                                    ) {
-                                    <tr
-                                      >
-                                      <td>{{ "TITLE.Expert_Id" | translate }}:</td>
-                                      <td>
-                                        <span
-                                          class="navi-icon pointer"
-                                          [cdkCopyToClipboard]="row.linkCustomerOrderId"
-                                          (click)="onActionCopied()"
-                                          >
-                                          {{
-                                          row.linkEstateExpertId | estateAccountExpertInfo | async
-                                          }}
-                                          &nbsp;
-                                          <i class="flaticon2-copy brown-color"></i
-                                          ></span>
-                                        </td>
-                                      </tr>
-                                    }
-                                    @if (
-                                      row.linkEstateAgencyId && row.linkEstateAgencyId.length > 0
-                                      ) {
-                                      <tr
-                                        >
-                                        <td>{{ "TITLE.Agency_Id" | translate }}:</td>
-                                        <td>
-                                          <span
-                                            class="navi-icon pointer"
-                                            [cdkCopyToClipboard]="row.linkCustomerOrderId"
-                                            (click)="onActionCopied()"
-                                            >
-                                            {{
-                                            row.linkEstateAgencyId | estateAccountAgencyInfo | async
-                                            }}
-                                            &nbsp;
-                                            <i class="flaticon2-copy brown-color"></i
-                                            ></span>
-                                          </td>
-                                        </tr>
-                                      }
-                                      @if (row.title && row.title.length > 0) {
-                                        <tr>
-                                          <td>{{ fieldsInfo["title"]?.fieldTitle }}:</td>
-                                          <td>{{ row.title }}</td>
-                                        </tr>
-                                      }
-                                      @if (row.description && row.description.length > 0) {
-                                        <tr>
-                                          <td>{{ fieldsInfo["description"]?.fieldTitle }}:</td>
-                                          <td>{{ row.description }}</td>
-                                        </tr>
-                                      }
-                                      <tr>
-                                        <td></td>
-                                        <td>{{ row.createdBy | cmsuserinfo | async }}</td>
-                                      </tr>
-                                      <tr>
-                                        <td></td>
-                                        <td></td>
-                                      </tr>
-                                    </table>
-                                  </div>
-                                </mat-cell>
-                              </ng-container>
+                          | estateCustomerOrderInfo
+                          | async
+                      }}
+                      &nbsp;
+                      <i class="flaticon2-copy brown-color"></i
+                    ></span>
+                    <button
+                      type="button"
+                      mat-icon-button
+                      (click)="
+                        onActionButtonCustomerOrderQuickViewRow(
+                          row.linkCustomerOrderId
+                        )
+                      "
+                    >
+                      <mat-icon>visibility</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+              }
+              @if (
+                row.linkEstateExpertId && row.linkEstateExpertId.length > 0
+              ) {
+                <tr>
+                  <td>{{ "TITLE.Expert_Id" | translate }}:</td>
+                  <td>
+                    <span
+                      class="navi-icon pointer"
+                      [cdkCopyToClipboard]="row.linkCustomerOrderId"
+                      (click)="onActionCopied()"
+                    >
+                      {{
+                        row.linkEstateExpertId | estateAccountExpertInfo | async
+                      }}
+                      &nbsp;
+                      <i class="flaticon2-copy brown-color"></i
+                    ></span>
+                  </td>
+                </tr>
+              }
+              @if (
+                row.linkEstateAgencyId && row.linkEstateAgencyId.length > 0
+              ) {
+                <tr>
+                  <td>{{ "TITLE.Agency_Id" | translate }}:</td>
+                  <td>
+                    <span
+                      class="navi-icon pointer"
+                      [cdkCopyToClipboard]="row.linkCustomerOrderId"
+                      (click)="onActionCopied()"
+                    >
+                      {{
+                        row.linkEstateAgencyId | estateAccountAgencyInfo | async
+                      }}
+                      &nbsp;
+                      <i class="flaticon2-copy brown-color"></i
+                    ></span>
+                  </td>
+                </tr>
+              }
+              @if (row.title && row.title.length > 0) {
+                <tr>
+                  <td>{{ fieldsInfo["title"]?.fieldTitle }}:</td>
+                  <td>{{ row.title }}</td>
+                </tr>
+              }
+              @if (row.description && row.description.length > 0) {
+                <tr>
+                  <td>{{ fieldsInfo["description"]?.fieldTitle }}:</td>
+                  <td>{{ row.description }}</td>
+                </tr>
+              }
+              <tr>
+                <td></td>
+                <td>{{ row.createdBy | cmsuserinfo | async }}</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+        </mat-cell>
+      </ng-container>
 
-                              <mat-header-row *matHeaderRowDef="tabledisplayedColumns"></mat-header-row>
-                              <mat-row
-                                *matRowDef="let row; columns: ['expandedTitle']; let i = dataIndex"
-                                class="ntk-row-expandedTitle"
-                                (click)="onActionTableRowSelect(row, $event)"
-                                (rtclick)="onActionTableRowSelect(row, $event)"
-                                (mouseenter)="onActionTableRowMouseEnter(row)"
-                                (mouseleave)="onActionTableRowMouseLeave(row)"
-                                [class.ntk-row-selected]="row.id === tableRowSelected?.id"
-                                >
-                              </mat-row>
-                              <mat-row
-                                *matRowDef="let row; columns: tabledisplayedColumns; let i = dataIndex"
-                                class="ntk-row-mainfild"
-                                (click)="onActionTableRowSelect(row, $event)"
-                                (rtclick)="onActionTableRowSelect(row, $event)"
-                                (mouseenter)="onActionTableRowMouseEnter(row)"
-                                (mouseleave)="onActionTableRowMouseLeave(row)"
-                                [class.ntk-row-selected]="row.id === tableRowSelected?.id"
-                                >
-                              </mat-row>
-                              <mat-row
-                                *matRowDef="let row; columns: ['expandedDetail']; let i = dataIndex"
-                                class="ntk-row-expandedDetail"
-                                (click)="onActionTableRowSelect(row, $event)"
-                                (rtclick)="onActionTableRowSelect(row, $event)"
-                                (mouseenter)="onActionTableRowMouseEnter(row)"
-                                (mouseleave)="onActionTableRowMouseLeave(row)"
-                                [class.ntk-row-selected]="row.id === tableRowSelected?.id"
-                                [ngStyle]="{ display: row.expanded === true ? '' : 'none' }"
-                                >
-                              </mat-row>
-                            </mat-table>
+      <mat-header-row *matHeaderRowDef="tabledisplayedColumns"></mat-header-row>
+      <mat-row
+        *matRowDef="let row; columns: ['expandedTitle']; let i = dataIndex"
+        class="ntk-row-expandedTitle"
+        (click)="onActionTableRowSelect(row, $event)"
+        (rtclick)="onActionTableRowSelect(row, $event)"
+        (mouseenter)="onActionTableRowMouseEnter(row)"
+        (mouseleave)="onActionTableRowMouseLeave(row)"
+        [class.ntk-row-selected]="row.id === tableRowSelected?.id"
+      >
+      </mat-row>
+      <mat-row
+        *matRowDef="let row; columns: tabledisplayedColumns; let i = dataIndex"
+        class="ntk-row-mainfild"
+        (click)="onActionTableRowSelect(row, $event)"
+        (rtclick)="onActionTableRowSelect(row, $event)"
+        (mouseenter)="onActionTableRowMouseEnter(row)"
+        (mouseleave)="onActionTableRowMouseLeave(row)"
+        [class.ntk-row-selected]="row.id === tableRowSelected?.id"
+      >
+      </mat-row>
+      <mat-row
+        *matRowDef="let row; columns: ['expandedDetail']; let i = dataIndex"
+        class="ntk-row-expandedDetail"
+        (click)="onActionTableRowSelect(row, $event)"
+        (rtclick)="onActionTableRowSelect(row, $event)"
+        (mouseenter)="onActionTableRowMouseEnter(row)"
+        (mouseleave)="onActionTableRowMouseLeave(row)"
+        [class.ntk-row-selected]="row.id === tableRowSelected?.id"
+        [ngStyle]="{ display: row.expanded === true ? '' : 'none' }"
+      >
+      </mat-row>
+    </mat-table>
 
-                            <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
-                          </ng-container>
-                          <ng-container cms-footer>
-                            <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
-                            <mat-paginator
-                              #paginator
-                              [length]="dataModelResult.totalRowCount"
-                              [pageIndex]="dataModelResult.currentPageNumber - 1"
-                              [pageSize]="dataModelResult.rowPerPage"
-                              [pageSizeOptions]="[5, 10, 20, 100]"
-                              (page)="onTablePageingData($event)"
-                            ></mat-paginator>
+    <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
+  </ng-container>
+  <ng-container cms-footer>
+    <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
+    <mat-paginator
+      #paginator
+      [length]="dataModelResult.totalRowCount"
+      [pageIndex]="dataModelResult.currentPageNumber - 1"
+      [pageSize]="dataModelResult.rowPerPage"
+      [pageSizeOptions]="[5, 10, 20, 100]"
+      (page)="onTablePageingData($event)"
+    ></mat-paginator>
 
-                            <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
-                          </ng-container>
-                        </app-cms-html-list>
+    <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
+  </ng-container>
+</app-cms-html-list>

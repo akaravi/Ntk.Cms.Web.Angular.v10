@@ -1,5 +1,261 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-12-20 09:55 (حذف فایل‌های SCSS بدون استفاده در تمام ماژول‌های cms-modules)
+
+### تغییرات اعمال شده:
+
+- حذف 155 فایل SCSS بدون استفاده از تمام ماژول‌های موجود در `cms-modules`:
+  - ماژول‌های بررسی شده شامل: `api-telegram`, `application`, `article`, `auth`, `bank-payment`, `biography`, `blog`, `catalog`, `chart`, `contact`, `core-log`, `core-main`, `core-module`, `core-module-data`, `core-module-log`, `core-token`, `data-provider`, `donate`, `estate`, `file-manager`, `hyper-shop`, `link-management`, `member`, `news`, `polling`, `sms`, `ticketing`, `transaction-assistant`, `web-designer`, `web-designer-builder`
+  - تمام فایل‌های SCSS که در کامپوننت‌های TypeScript مربوطه از `styleUrls` یا `styles` استفاده نمی‌شدند حذف شدند
+
+### دلیل تغییرات:
+فایل‌های SCSS بدون استفاده باعث افزایش حجم پروژه و سردرگمی می‌شدند. حذف آن‌ها باعث تمیزتر شدن کد و کاهش حجم پروژه می‌شود.
+
+### نتیجه:
+- 155 فایل SCSS بدون استفاده حذف شد
+- هیچ خطای lint ایجاد نشد
+- حجم پروژه کاهش یافت
+
+---
+
+## 2025-12-20 09:50 (بررسی کامل کامپوننت‌های estate و رفع خطاها و حذف فایل‌های SCSS بدون استفاده)
+
+### تغییرات اعمال شده:
+
+- افزودن کامپوننت‌های `account-agency-work-area` به `EstateMainModule`:
+  - `EstateAccountAgencyWorkAreaAddComponent` (افزودن import و declaration)
+  - `EstateAccountAgencyWorkAreaListComponent` (افزودن import و declaration)
+  - `EstateAccountAgencyWorkAreaService` (افزودن به providers)
+- افزودن کامپوننت‌های `account-agency-expert` به `EstateMainModule`:
+  - `EstateAccountAgencyExpertAddComponent` (افزودن import و declaration)
+  - `EstateAccountAgencyExpertListComponent` (افزودن import و declaration)
+  - `EstateAccountAgencyExpertService` (افزودن به providers)
+- افزودن کامپوننت‌های `account-agency-ads` به `EstateMainModule`:
+  - `EstateAccountAgencyAdsAddComponent` (افزودن import و declaration)
+  - `EstateAccountAgencyAdsEditComponent` (افزودن import و declaration)
+  - `EstateAccountAgencyAdsListComponent` (افزودن import و declaration)
+  - `EstateAccountAgencyAdsSaleListComponent` (افزودن import و declaration)
+  - `EstateAccountAgencyAdsSalePaymentComponent` (افزودن import و declaration)
+  - `EstateAccountAgencyAdsService` (افزودن به providers)
+- حذف 47 فایل SCSS بدون استفاده که در کامپوننت‌ها فراخوانی نشده بودند
+
+### دلیل تغییرات:
+کامپوننت‌های `account-agency-work-area`، `account-agency-expert` و `account-agency-ads` در هیچ ماژولی declare نشده بودند و باعث خطا می‌شدند. همچنین فایل‌های SCSS بدون استفاده باید حذف می‌شدند.
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/estate/main/estate-main.module.ts` (افزودن کامپوننت‌ها و services)
+- حذف 47 فایل SCSS بدون استفاده
+
+---
+
+## 2025-12-20 09:44 (افزودن EstateAccountExpertWorkAreaListComponent و EstateAccountExpertWorkAreaAddComponent به EstateMainModule)
+
+### تغییرات اعمال شده:
+
+- افزودن کامپوننت‌های `account-expert-work-area` به `EstateMainModule`:
+  - `EstateAccountExpertWorkAreaAddComponent` (افزودن import و declaration)
+  - `EstateAccountExpertWorkAreaListComponent` (افزودن import و declaration)
+- افزودن `EstateAccountExpertWorkAreaService` به providers در `EstateMainModule`
+
+### دلیل تغییرات:
+این کامپوننت‌ها در هیچ ماژولی declare نشده بودند و باعث خطا می‌شدند. با توجه به اینکه مربوط به `account-expert` هستند که در `EstateMainModule` است، به این ماژول اضافه شدند.
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/estate/main/estate-main.module.ts` (افزودن کامپوننت‌ها و service)
+
+---
+
+## 2025-12-20 09:42 (افزودن EstateAccountAgencyHeaderComponent به EstateSharedModule برای رفع خطاهای EstateAccountExpertListComponent)
+
+### تغییرات اعمال شده:
+
+- افزودن `EstateAccountAgencyHeaderComponent` به `EstateSharedModule`:
+  - افزودن import `EstateAccountAgencyHeaderComponent` به `EstateSharedModule`
+  - افزودن `EstateAccountAgencyHeaderComponent` به declarations و exports در `EstateSharedModule`
+  - حذف import و declaration `EstateAccountAgencyHeaderComponent` از `EstateMainModule`
+
+### دلیل تغییرات:
+این کامپوننت در `EstateAccountExpertListComponent` (که در `EstateSharedModule` است) استفاده می‌شود اما در آن ماژول declare نشده بود. با انتقال به `EstateSharedModule`، حالا در همه ماژول‌ها قابل استفاده است.
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/estate/shared/estate-shared.module.ts` (افزودن EstateAccountAgencyHeaderComponent)
+- `src/app/cms-modules/estate/main/estate-main.module.ts` (حذف EstateAccountAgencyHeaderComponent)
+
+---
+
+## 2025-12-20 09:39 (انتقال EstatePropertyQuickListComponent به EstateSharedModule)
+
+### تغییرات اعمال شده:
+
+- انتقال `EstatePropertyQuickListComponent` از `EstateMainModule` به `EstateSharedModule`:
+  - افزودن import `EstatePropertyQuickListComponent` به `EstateSharedModule`
+  - افزودن `EstatePropertyQuickListComponent` به declarations و exports در `EstateSharedModule`
+  - حذف import و declaration `EstatePropertyQuickListComponent` از `EstateMainModule`
+
+### دلیل تغییرات:
+این کامپوننت در چند کامپوننت دیگر استفاده می‌شود و با انتقال به `EstateSharedModule`، در همه ماژول‌های estate قابل استفاده خواهد بود.
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/estate/shared/estate-shared.module.ts` (افزودن EstatePropertyQuickListComponent)
+- `src/app/cms-modules/estate/main/estate-main.module.ts` (حذف EstatePropertyQuickListComponent)
+
+---
+
+## 2025-12-20 09:36 (افزودن کامپوننت‌های مورد نیاز EstateCustomerOrderEditComponent به EstateSharedModule)
+
+### تغییرات اعمال شده:
+
+- افزودن کامپوننت‌های **Selector** و **Autocomplete** به `EstateSharedModule`:
+  - `EstateCustomerCategorySelectorComponent` (از `EstateMainModule` منتقل شد)
+  - `EstatePropertyCompleteComponent` (از `EstateMainModule` منتقل شد)
+- حذف این کامپوننت‌ها از `EstateMainModule`:
+  - `EstateCustomerCategorySelectorComponent`
+  - `EstatePropertyCompleteComponent`
+
+### دلیل تغییرات:
+این کامپوننت‌ها در `EstateCustomerOrderEditComponent` (که در `EstateActionModule` است) استفاده می‌شوند اما در آن ماژول declare نشده بودند. با انتقال به `EstateSharedModule`، حالا در همه ماژول‌ها قابل استفاده هستند.
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/estate/shared/estate-shared.module.ts` (افزودن Selector و Autocomplete components)
+- `src/app/cms-modules/estate/main/estate-main.module.ts` (حذف کامپوننت‌های منتقل شده)
+
+---
+
+## 2025-12-20 09:26 (افزودن کامپوننت‌های مورد نیاز EstatePropertyListComponent به EstateSharedModule)
+
+### تغییرات اعمال شده:
+
+- افزودن کامپوننت‌های **Header** اضافی به `EstateSharedModule`:
+  - `EstateBillboardHeaderComponent` (از `EstateMainModule` منتقل شد)
+  - `EstateContractTypeHeaderComponent` (از `EstateMainModule` منتقل شد)
+  - `EstatePropertyTypeLanduseHeaderComponent` (از `EstateMainModule` منتقل شد)
+  - `EstatePropertyTypeUsageHeaderComponent` (از `EstateMainModule` منتقل شد)
+  - `EstatePropertyProjectHeaderComponent` (از `EstateMainModule` منتقل شد)
+  - `EstatePropertyCompanyHeaderComponent` (از `EstateMainModule` منتقل شد)
+- افزودن کامپوننت **Tree** اضافی به `EstateSharedModule`:
+  - `EstatePropertyTypeLanduseTreeComponent` (از `EstateMainModule` منتقل شد)
+- افزودن کامپوننت‌های **Selector** اضافی به `EstateSharedModule`:
+  - `EstatePropertyTypeUsageSelectorComponent` (از `EstateMainModule` منتقل شد)
+  - `EstatePropertyTypeLanduseSelectorComponent` (از `EstateMainModule` منتقل شد)
+  - `EstateContractTypeSelectorComponent` (از `EstateMainModule` منتقل شد)
+- افزودن کامپوننت‌های **Quick** به `EstateSharedModule`:
+  - `EstatePropertyQuickViewComponent` (از `EstateMainModule` منتقل شد)
+  - `EstatePropertyQuickAddComponent` (از `EstateMainModule` منتقل شد)
+  - `EstatePropertyResponsibleUserListComponent` (از `EstateMainModule` منتقل شد)
+  - `EstatePropertyHistoryAddComponent` (از `EstateLogModule` منتقل شد)
+- افزودن `NgOptimizedImage` به imports `EstateSharedModule` برای پشتیبانی از `ngSrc`
+- حذف این کامپوننت‌ها از ماژول‌های اصلی:
+  - از `EstateMainModule`: تمام کامپوننت‌های Header، Tree، Selector و Quick که منتقل شدند
+  - از `EstateLogModule`: `EstatePropertyHistoryAddComponent`
+
+### دلیل تغییرات:
+این کامپوننت‌ها در `EstatePropertyListComponent` (که در `EstateSharedModule` است) استفاده می‌شوند و باید در همان ماژول یا ماژول‌های import شده موجود باشند.
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/estate/shared/estate-shared.module.ts` (افزودن کامپوننت‌های Header، Tree، Selector و Quick، افزودن NgOptimizedImage)
+- `src/app/cms-modules/estate/main/estate-main.module.ts` (حذف کامپوننت‌های منتقل شده)
+- `src/app/cms-modules/estate/log/estate-log.module.ts` (حذف EstatePropertyHistoryAddComponent)
+
+---
+
+## 2025-12-20 09:19 (افزودن کامپوننت‌های List مشترک به EstateSharedModule)
+
+### تغییرات اعمال شده:
+
+- افزودن کامپوننت‌های **List** به `EstateSharedModule`:
+  - `EstateCustomerOrderListComponent` (از `EstateActionModule` منتقل شد)
+  - `EstatePropertyHistoryListComponent` (از `EstateLogModule` منتقل شد)
+  - `EstatePropertyListComponent` (از `EstateMainModule` منتقل شد)
+  - `EstateAccountAgencyListComponent` (از `EstateMainModule` منتقل شد)
+  - `EstateAccountExpertListComponent` (از `EstateMainModule` منتقل شد)
+- حذف این کامپوننت‌ها از ماژول‌های اصلی:
+  - از `EstateActionModule`: `EstateCustomerOrderListComponent`
+  - از `EstateLogModule`: `EstatePropertyHistoryListComponent`
+  - از `EstateMainModule`: `EstatePropertyListComponent`، `EstateAccountAgencyListComponent`، `EstateAccountExpertListComponent`
+
+### دلیل تغییرات:
+این کامپوننت‌ها در چند ماژول استفاده می‌شوند:
+- `EstateCustomerOrderListComponent` در `property/edit` (که در `EstateMainModule` است) استفاده می‌شود
+- `EstatePropertyHistoryListComponent` در `property/edit` (که در `EstateMainModule` است) و `customer-order/edit` (که در `EstateActionModule` است) استفاده می‌شود
+- `EstatePropertyListComponent` در `customer-order/edit` (که در `EstateActionModule` است) و `billboard/edit` (که در `EstateMainModule` است) استفاده می‌شود
+- `EstateAccountAgencyListComponent` و `EstateAccountExpertListComponent` در `property/edit` (که در `EstateMainModule` است) و `customer-order/edit` (که در `EstateActionModule` است) استفاده می‌شوند
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/estate/shared/estate-shared.module.ts` (افزودن List components)
+- `src/app/cms-modules/estate/main/estate-main.module.ts` (حذف List components)
+- `src/app/cms-modules/estate/action/estate-action.module.ts` (حذف List component)
+- `src/app/cms-modules/estate/log/estate-log.module.ts` (حذف List component)
+
+---
+
+## 2025-12-20 09:17 (افزودن کامپوننت‌های Header و Tree به EstateSharedModule برای رفع خطاهای EstatePropertyHistoryListComponent)
+
+### تغییرات اعمال شده:
+
+- افزودن کامپوننت‌های **Header** به `EstateSharedModule`:
+  - `EstatePropertyHeaderComponent` (از `EstateMainModule` منتقل شد)
+  - `EstateCustomerOrderHeaderComponent` (از `EstateActionModule` منتقل شد)
+  - `EstateAccountExpertHeaderComponent` (از `EstateMainModule` منتقل شد)
+- افزودن کامپوننت **Tree** به `EstateSharedModule`:
+  - `EstateActivityTypeTreeComponent` (از `EstateMainModule` منتقل شد)
+- حذف این کامپوننت‌ها از ماژول‌های اصلی:
+  - از `EstateMainModule`: `EstatePropertyHeaderComponent`، `EstateAccountExpertHeaderComponent`، `EstateActivityTypeTreeComponent`
+  - از `EstateActionModule`: `EstateCustomerOrderHeaderComponent`
+- حذف import تکراری `EstateSharedModule` از `EstateLogModule`
+- حذف import تکراری `EstatePropertyTypeUsageHeaderComponent` از `EstateMainModule`
+
+### دلیل تغییرات:
+این کامپوننت‌ها در `EstatePropertyHistoryListComponent` (که در `EstateLogModule` است) استفاده می‌شوند اما در آن ماژول declare نشده بودند. با انتقال به `EstateSharedModule`، حالا در همه ماژول‌ها قابل استفاده هستند.
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/estate/shared/estate-shared.module.ts` (افزودن Header و Tree components)
+- `src/app/cms-modules/estate/main/estate-main.module.ts` (حذف Header و Tree components)
+- `src/app/cms-modules/estate/action/estate-action.module.ts` (حذف Header component)
+- `src/app/cms-modules/estate/log/estate-log.module.ts` (حذف import تکراری)
+
+---
+
+## 2025-12-20 09:12 (ایجاد ماژول مشترک EstateSharedModule برای کامپوننت‌های مشترک)
+
+### تغییرات اعمال شده:
+
+- ایجاد ماژول مشترک `EstateSharedModule` برای کامپوننت‌هایی که در چند زیرماژول estate استفاده می‌شوند
+- انتقال **Pipes مشترک** به `EstateSharedModule`:
+  - `estateAccountAgencyInfoPipe`
+  - `estateAccountExpertInfoPipe`
+  - `estateCustomerOrderInfoPipe`
+  - `estatePropertyInfoPipe`
+  - `estatePropertyProjectInfoPipe`
+  - `estatePropertyCompanyInfoPipe`
+  - `estatePropertySupplierInfoPipe`
+- انتقال **Selectorهای مشترک** به `EstateSharedModule`:
+  - `EstatePropertySelectorComponent`
+  - `EstatePropertyCompanySelectorComponent`
+  - `EstatePropertyProjectSelectorComponent`
+  - `EstateCustomerOrderSelectorComponent`
+  - `EstateAccountAgencySelectorComponent`
+  - `EstateAccountExpertSelectorComponent`
+- حذف کامپوننت‌های مشترک از `EstateMainModule` و اضافه کردن `EstateSharedModule` به imports
+- حذف کامپوننت‌های مشترک از `EstateActionModule` و اضافه کردن `EstateSharedModule` به imports
+- حذف کامپوننت‌های مشترک از `EstateLogModule` و اضافه کردن `EstateSharedModule` به imports
+- حذف وابستگی `EstateActionModule` و `EstateLogModule` به `EstateMainModule` (جایگزین با `EstateSharedModule`)
+
+### فایل‌های ایجاد شده:
+- `src/app/cms-modules/estate/shared/estate-shared.module.ts`
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/estate/main/estate-main.module.ts` (حذف pipes و selectorهای مشترک، اضافه کردن EstateSharedModule)
+- `src/app/cms-modules/estate/action/estate-action.module.ts` (حذف pipe و selector مشترک، اضافه کردن EstateSharedModule، حذف وابستگی به EstateMainModule)
+- `src/app/cms-modules/estate/log/estate-log.module.ts` (اضافه کردن EstateSharedModule، حذف وابستگی به EstateMainModule)
+
+### مزایا:
+- کاهش تکرار کد: کامپوننت‌های مشترک فقط یک بار declare می‌شوند
+- بهبود maintainability: تغییرات در کامپوننت‌های مشترک فقط در یک جا انجام می‌شود
+- کاهش وابستگی‌ها: زیرماژول‌ها دیگر به `EstateMainModule` وابسته نیستند، فقط به `EstateSharedModule`
+- ساختار مشابه `SmsSharedModule`: الگوی یکسانی با ماژول sms
+
+---
+
 ## 2025-12-19 15:45 (بازنویسی کامل کامپوننت موبایل ارسال پیام کوتاه)
 
 ### تغییرات اعمال شده:

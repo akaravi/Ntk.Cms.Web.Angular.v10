@@ -27,7 +27,6 @@ import { EstateAccountExpertWorkAreaAddComponent } from "../add/add.component";
 @Component({
   selector: "app-estate-account-expert-work-area-list",
   templateUrl: "./list.component.html",
-  styleUrls: ["./list.component.scss"],
   standalone: false,
 })
 export class EstateAccountExpertWorkAreaListComponent
