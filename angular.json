@@ -68,7 +68,8 @@
               "src/assets/styles/bootstrap.rtl.min.css",
               "src/assets/styles/style.css",
               "src/assets/fonts/css/all.min.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/styles.mobile.scss"
             ],
             "scripts": [
               "node_modules/apexcharts/dist/apexcharts.min.js",

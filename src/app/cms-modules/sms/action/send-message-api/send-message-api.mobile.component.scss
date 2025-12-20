@@ -1,6 +1,11 @@
 /* ============================================
-   Mobile Form Component Styles - iOS & Android Optimized
-   Following Material Design & iOS HIG Guidelines
+   Mobile Form Component Styles - SMS Send Message API
+   استایل‌های خاص این کامپوننت
+   استایل‌های مشترک در styles.mobile.scss موجود است
+   ============================================ */
+
+/* ============================================
+   Component Specific Styles
    ============================================ */
 
 .cms-m-form-container {
@@ -9,24 +14,6 @@
   gap: 20px;
   padding: 16px;
   width: 100%;
-}
-
-/* ============================================
-   Form Field
-   ============================================ */
-.cms-m-form-field {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
-}
-
-.cms-m-form-label {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--cms-m-text-primary, #000000);
-  line-height: 20px;
-  letter-spacing: -0.24px;
 }
 
 /* ============================================

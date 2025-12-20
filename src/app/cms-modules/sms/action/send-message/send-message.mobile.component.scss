@@ -1,318 +1,251 @@
 /* ============================================
-   Mobile Form Component Styles - iOS & Android Optimized
-   Following Material Design & iOS HIG Guidelines
+   Mobile Form Component Styles - SMS Send Message
+   استایل‌های خاص این کامپوننت
+   استایل‌های مشترک در styles.mobile.scss موجود است
    ============================================ */
 
-/* Safe Area Support for iPhone X and newer */
-:host {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
+/* ============================================
+   Component Specific Styles
+   ============================================ */
 
-.cms-m-body {
-  width: 100%;
-  min-height: 100vh;
-  min-height: 100dvh; /* Dynamic viewport height for mobile browsers */
+/* محتوای اصلی */
+.cms-m-main-content {
   display: flex;
   flex-direction: column;
-  background-color: var(--cms-m-bg-color, #f5f5f7);
-  position: relative;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-
-  /* اطمینان از اینکه محتوا در بالای loader قرار دارد */
-  > *:not(app-progress-spinner) {
-    position: relative;
-    z-index: 1;
-  }
+  gap: var(--cms-m-spacing-lg);
 }
 
-/* Override برای progressOverlay - فقط زمانی که spinner نمایش داده می‌شود background دارد */
-.loader-container ::ng-deep .preloader.progressOverlay {
-  background-color: rgba(255, 255, 255, 0.95) !important;
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
+/* بخش اطلاعات */
+.cms-m-info-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cms-m-spacing-md);
 }
 
-/* Safe Area Insets for iPhone X+ */
-.safe-area-top {
-  padding-top: env(safe-area-inset-top);
-  padding-top: constant(safe-area-inset-top); /* iOS 11.0-11.2 */
+/* بخش پیام */
+.cms-m-message-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cms-m-spacing-md);
 }
 
-.safe-area-bottom {
-  padding-bottom: env(safe-area-inset-bottom);
-  padding-bottom: constant(safe-area-inset-bottom); /* iOS 11.0-11.2 */
-}
-
-.safe-area-content {
-  padding-left: env(safe-area-inset-left);
-  padding-right: env(safe-area-inset-right);
-}
-
-/* ============================================
-   Header Section
-   ============================================ */
-.cms-m-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background-color: var(--cms-m-header-bg, #ffffff);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-bottom: 0.5px solid var(--cms-m-border-color, rgba(0, 0, 0, 0.1));
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.cms-m-header-content {
+/* اطلاعات گیرنده انتخاب شده */
+.cms-m-receiver-info {
   display: flex;
   align-items: center;
-  height: 56px; /* Material Design standard */
-  padding: 0 16px;
-  gap: 12px;
-}
-
-.cms-m-header-title {
-  flex: 1;
-  font-size: 17px; /* iOS standard */
-  font-weight: 600;
-  color: var(--cms-m-text-primary, #000000);
-  margin: 0;
-  line-height: 22px;
-  letter-spacing: -0.41px; /* iOS typography */
-}
-
-.cms-m-header-spacer {
-  width: 44px; /* Balance */
-}
-
-/* ============================================
-   Content Section
-   ============================================ */
-.cms-m-content {
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
-  padding: 16px;
-  padding-bottom: calc(16px + env(safe-area-inset-bottom));
-}
-
-/* ============================================
-   Material Stepper
-   ============================================ */
-.cms-m-stepper {
-  background-color: transparent;
-  width: 100%;
-
-  ::ng-deep {
-    .mat-step-header {
-      padding: 16px 0;
-      min-height: 72px; /* iOS minimum touch target */
-      border-radius: 12px;
-      margin-bottom: 8px;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
-
-      &:active {
-        background-color: var(--cms-m-press-color, rgba(0, 0, 0, 0.05));
-        transform: scale(0.98);
-      }
-
-      &.cdk-step-header-selected {
-        background-color: var(--cms-m-selected-bg, rgba(0, 122, 255, 0.1));
-      }
-    }
-
-    .mat-step-label {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--cms-m-text-primary, #000000);
-      line-height: 22px;
-    }
-
-    .mat-step-icon {
-      width: 32px;
-      height: 32px;
-      margin-right: 12px;
-    }
-
-    .mat-step-icon-selected {
-      background-color: var(--cms-m-primary-color, #007aff);
-      color: white;
-    }
-
-    .mat-vertical-content {
-      padding: 16px 0 24px 0;
-    }
-
-    .mat-vertical-stepper-content {
-      padding-left: 0;
-    }
-  }
-}
-
-.cms-m-step-label {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--cms-m-text-primary, #000000);
+  gap: var(--cms-m-spacing-sm);
+  padding: var(--cms-m-spacing-md);
+  background-color: var(--cms-m-success-color, #34c759);
+  color: white;
+  border-radius: var(--cms-m-radius-md);
+  font-size: var(--cms-m-font-size-sm);
+  font-weight: 500;
 
   i {
-    font-size: 20px;
-    color: var(--cms-m-primary-color, #007aff);
+    font-size: var(--cms-m-font-size-base);
   }
 }
 
-.cms-m-step-content {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 16px 0;
-}
-
-.cms-m-step-description {
-  font-size: 14px;
-  color: var(--cms-m-text-secondary, #8e8e93);
-  line-height: 20px;
-  margin-bottom: 8px;
-}
-
-.cms-m-step-actions {
-  display: flex;
-  gap: 12px;
-  justify-content: space-between;
-  margin-top: 8px;
-  padding-top: 16px;
-  border-top: 0.5px solid var(--cms-m-border-color, rgba(0, 0, 0, 0.1));
-}
-
-/* ============================================
-   Form Fields
-   ============================================ */
-.cms-m-form-field {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
-}
-
-.cms-m-form-label {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--cms-m-text-primary, #000000);
-  line-height: 20px;
-  letter-spacing: -0.24px;
-}
-
-.cms-m-form-input {
-  width: 100%;
-  min-height: 44px; /* iOS minimum touch target */
-  padding: 12px 16px;
-  font-size: 16px; /* Prevent zoom on iOS */
-  line-height: 22px;
-  color: var(--cms-m-text-primary, #000000);
-  background-color: var(--cms-m-input-bg, #ffffff);
-  border: 1px solid var(--cms-m-border-color, rgba(0, 0, 0, 0.2));
-  border-radius: 10px; /* iOS rounded corners */
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  -webkit-appearance: none;
-  appearance: none;
-  touch-action: manipulation;
-
-  &:focus {
-    outline: none;
-    border-color: var(--cms-m-primary-color, #007aff);
-    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
-  }
-
-  &:disabled {
-    background-color: var(--cms-m-disabled-bg, #f5f5f7);
-    color: var(--cms-m-text-secondary, #8e8e93);
-    cursor: not-allowed;
-  }
-
-  &::placeholder {
-    color: var(--cms-m-text-secondary, #8e8e93);
-    opacity: 0.6;
-  }
-}
-
-.cms-m-form-textarea {
-  width: 100%;
-  min-height: 120px;
-  padding: 12px 16px;
-  font-size: 16px; /* Prevent zoom on iOS */
-  line-height: 22px;
-  color: var(--cms-m-text-primary, #000000);
-  background-color: var(--cms-m-input-bg, #ffffff);
-  border: 1px solid var(--cms-m-border-color, rgba(0, 0, 0, 0.2));
-  border-radius: 10px;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  resize: vertical;
-  font-family: inherit;
-  touch-action: manipulation;
-
-  &:focus {
-    outline: none;
-    border-color: var(--cms-m-primary-color, #007aff);
-    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
-  }
-
-  &::placeholder {
-    color: var(--cms-m-text-secondary, #8e8e93);
-    opacity: 0.6;
-  }
-}
-
+/* Message Textarea - خاص این کامپوننت */
 .cms-m-message-textarea {
   min-height: 200px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-.cms-m-form-hint {
-  font-size: 12px;
-  color: var(--cms-m-text-secondary, #8e8e93);
-  line-height: 18px;
-  margin-top: 4px;
-}
-
+/* Message Info - خاص این کامپوننت */
 .cms-m-message-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 12px;
+  font-size: var(--cms-m-font-size-xs);
   color: var(--cms-m-text-secondary, #8e8e93);
-  margin-top: 8px;
-  padding: 8px 12px;
+  margin-top: var(--cms-m-spacing-sm);
+  padding: var(--cms-m-spacing-sm) var(--cms-m-spacing-md);
   background-color: var(--cms-m-info-bg, rgba(0, 122, 255, 0.05));
-  border-radius: 8px;
+  border-radius: var(--cms-m-radius-sm);
+}
+
+/* Message Actions - خاص این کامپوننت */
+.cms-m-message-actions {
+  display: flex;
+  gap: var(--cms-m-spacing-sm);
+  flex-wrap: wrap;
+}
+
+/* Message Direction - خاص این کامپوننت */
+.cms-m-message-direction {
+  display: flex;
+  gap: var(--cms-m-spacing-sm);
+  justify-content: flex-end;
+}
+
+/* دکمه‌های سریع برای پیام */
+.cms-m-message-quick-actions {
+  display: flex;
+  gap: var(--cms-m-spacing-sm);
+  flex-wrap: wrap;
+  margin-top: var(--cms-m-spacing-sm);
 }
 
 /* ============================================
-   Buttons
+   منوی تنظیمات (Drawer) در سمت چپ
    ============================================ */
-.cms-m-btn {
-  min-height: 44px; /* iOS minimum touch target */
-  padding: 12px 24px;
-  font-size: 16px;
+.cms-m-settings-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all var(--cms-m-transition-base);
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.cms-m-settings-drawer-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 85%;
+  max-width: 400px;
+  background-color: var(--cms-m-card-bg, #ffffff);
+  box-shadow: 2px 0 16px rgba(0, 0, 0, 0.2);
+  transform: translateX(-100%);
+  transition: transform var(--cms-m-transition-base);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  .cms-m-settings-drawer.open & {
+    transform: translateX(0);
+  }
+}
+
+.cms-m-settings-drawer.open .cms-m-settings-drawer-content {
+  transform: translateX(0);
+}
+
+.cms-m-settings-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--cms-m-spacing-md);
+  border-bottom: 0.5px solid var(--cms-m-border-color, rgba(0, 0, 0, 0.1));
+  background-color: var(--cms-m-header-bg, #ffffff);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+
+  h2 {
+    font-size: var(--cms-m-font-size-lg);
+    font-weight: 600;
+    color: var(--cms-m-text-primary, #000000);
+    margin: 0;
+  }
+}
+
+.cms-m-settings-close-btn {
+  min-width: var(--cms-m-touch-target-min);
+  min-height: var(--cms-m-touch-target-min);
+  width: var(--cms-m-touch-target-min);
+  height: var(--cms-m-touch-target-min);
+  border: none;
+  background-color: transparent;
+  border-radius: var(--cms-m-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--cms-m-transition-base);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+
+  i {
+    font-size: var(--cms-m-font-size-xl);
+    color: var(--cms-m-text-primary, #000000);
+  }
+
+  &:active {
+    background-color: var(--cms-m-press-color, rgba(0, 0, 0, 0.05));
+    transform: scale(0.95);
+  }
+}
+
+.cms-m-settings-drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  padding: var(--cms-m-spacing-md);
+  padding-bottom: calc(var(--cms-m-spacing-md) + env(safe-area-inset-bottom) + 80px);
+}
+
+.cms-m-settings-section {
+  margin-bottom: var(--cms-m-spacing-lg);
+  padding-bottom: var(--cms-m-spacing-lg);
+  border-bottom: 0.5px solid var(--cms-m-border-color, rgba(0, 0, 0, 0.1));
+
+  &:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+
+.cms-m-settings-section-title {
+  font-size: var(--cms-m-font-size-base);
+  font-weight: 600;
+  color: var(--cms-m-text-primary, #000000);
+  margin-bottom: var(--cms-m-spacing-md);
+  line-height: 22px;
+}
+
+/* ============================================
+   دکمه ارسال شناور در پایین
+   ============================================ */
+.cms-m-floating-send-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  display: flex;
+  gap: var(--cms-m-spacing-sm);
+  padding: var(--cms-m-spacing-md);
+  padding-bottom: calc(var(--cms-m-spacing-md) + env(safe-area-inset-bottom));
+  background-color: var(--cms-m-footer-bg, rgba(255, 255, 255, 0.95));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 0.5px solid var(--cms-m-border-color, rgba(0, 0, 0, 0.1));
+  box-shadow: 0 -2px 16px rgba(0, 0, 0, 0.1);
+}
+
+.cms-m-floating-btn {
+  min-height: var(--cms-m-touch-target-min);
+  padding: var(--cms-m-spacing-md) var(--cms-m-spacing-lg);
+  font-size: var(--cms-m-font-size-base);
   font-weight: 600;
   line-height: 22px;
   border: none;
-  border-radius: 12px;
+  border-radius: var(--cms-m-radius-lg);
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all var(--cms-m-transition-base);
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  flex: 1;
+  gap: var(--cms-m-spacing-sm);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 
   &:disabled {
     opacity: 0.5;
@@ -329,401 +262,66 @@
   }
 
   i {
-    font-size: 16px;
+    font-size: var(--cms-m-font-size-base);
   }
 }
 
-.cms-m-btn-primary {
+.cms-m-floating-btn-calculate {
+  width: var(--cms-m-touch-target-min);
+  min-width: var(--cms-m-touch-target-min);
+  padding: 0;
+  background-color: var(--cms-m-secondary-bg, #f0f0f0);
+  color: var(--cms-m-text-primary, #000000);
+  border: 1px solid var(--cms-m-border-color, rgba(0, 0, 0, 0.1));
+
+  &:active:not(:disabled) {
+    background-color: var(--cms-m-press-color, rgba(0, 0, 0, 0.05));
+  }
+}
+
+.cms-m-floating-btn-send {
+  flex: 1;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 
   &:active:not(:disabled) {
-    box-shadow: 0 1px 4px rgba(102, 126, 234, 0.2);
-  }
-}
-
-.cms-m-btn-secondary {
-  background-color: var(--cms-m-secondary-bg, #f0f0f0);
-  color: var(--cms-m-text-primary, #000000);
-  border: 1px solid var(--cms-m-border-color, rgba(0, 0, 0, 0.1));
-
-  &:active:not(:disabled) {
-    background-color: var(--cms-m-press-color, rgba(0, 0, 0, 0.05));
-  }
-}
-
-.cms-m-btn-danger {
-  background-color: var(--cms-m-delete-color, #ff3b30);
-  color: white;
-
-  &:active:not(:disabled) {
-    background-color: #d70015;
-  }
-}
-
-.cms-m-btn-small {
-  min-height: 36px;
-  padding: 8px 16px;
-  font-size: 14px;
-  font-weight: 500;
-  border-radius: 8px;
-  background-color: var(--cms-m-secondary-bg, #f0f0f0);
-  color: var(--cms-m-text-primary, #000000);
-  border: 1px solid var(--cms-m-border-color, rgba(0, 0, 0, 0.1));
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-
-  &:active {
-    transform: scale(0.95);
-    background-color: var(--cms-m-press-color, rgba(0, 0, 0, 0.05));
-  }
-
-  i {
-    font-size: 14px;
-  }
-}
-
-.cms-m-btn-icon {
-  min-width: 44px;
-  width: 44px;
-  padding: 0;
-  flex: 0 0 auto;
-}
-
-.cms-m-btn-submit {
-  flex: 1;
-  min-width: 0;
-}
-
-/* ============================================
-   Message Actions
-   ============================================ */
-.cms-m-message-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.cms-m-message-direction {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-}
-
-/* ============================================
-   Placeholders
-   ============================================ */
-.cms-m-placeholders-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-  margin-top: 16px;
-}
-
-.cms-m-placeholder-card {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 16px;
-  background-color: var(--cms-m-card-bg, #ffffff);
-  border-radius: 12px;
-  border: 0.5px solid var(--cms-m-border-color, rgba(0, 0, 0, 0.1));
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-
-  &:active {
-    transform: scale(0.98);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-  }
-}
-
-.cms-m-placeholder-code {
-  font-size: 18px;
-  font-weight: 700;
-  font-family: "Courier New", monospace;
-  color: var(--cms-m-primary-color, #007aff);
-  padding: 8px 12px;
-  background-color: var(--cms-m-info-bg, rgba(0, 122, 255, 0.05));
-  border-radius: 8px;
-  text-align: center;
-  letter-spacing: 1px;
-}
-
-.cms-m-placeholder-description {
-  font-size: 14px;
-  color: var(--cms-m-text-secondary, #8e8e93);
-  line-height: 20px;
-}
-
-.cms-m-placeholder-btn {
-  min-height: 40px;
-  padding: 10px 16px;
-  font-size: 14px;
-  font-weight: 600;
-  border-radius: 10px;
-  background-color: var(--cms-m-primary-color, #007aff);
-  color: white;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 4px;
-
-  &:active {
-    transform: scale(0.97);
-    background-color: #0051d5;
-  }
-
-  i {
-    font-size: 14px;
-  }
-}
-
-.cms-m-empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 48px 24px;
-  gap: 12px;
-  color: var(--cms-m-text-secondary, #8e8e93);
-
-  i {
-    font-size: 48px;
-    opacity: 0.5;
+    box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
   }
 
   span {
-    font-size: 14px;
-    text-align: center;
-  }
-}
-
-/* ============================================
-   Time Grid
-   ============================================ */
-.cms-m-time-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-@media (max-width: 375px) {
-  .cms-m-time-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ============================================
-   Settings
-   ============================================ */
-.cms-m-settings-list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.cms-m-setting-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px;
-  background-color: var(--cms-m-card-bg, #ffffff);
-  border-radius: 12px;
-  border: 0.5px solid var(--cms-m-border-color, rgba(0, 0, 0, 0.1));
-}
-
-.cms-m-setting-label {
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--cms-m-text-primary, #000000);
-  flex: 1;
-}
-
-.cms-m-section-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--cms-m-text-primary, #000000);
-  margin-bottom: 12px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--cms-m-border-color, rgba(0, 0, 0, 0.1));
-}
-
-/* ============================================
-   Cron Result
-   ============================================ */
-.cms-m-cron-result {
-  padding: 12px;
-  background-color: var(--cms-m-card-bg, #ffffff);
-  border-radius: 10px;
-  border: 1px solid var(--cms-m-border-color, rgba(0, 0, 0, 0.1));
-  margin-top: 16px;
-
-  strong {
-    display: block;
-    font-size: 14px;
     font-weight: 600;
-    color: var(--cms-m-text-primary, #000000);
-    margin-bottom: 8px;
-  }
-
-  code {
-    display: block;
-    font-size: 13px;
-    font-family: "Courier New", monospace;
-    color: var(--cms-m-text-secondary, #8e8e93);
-    background-color: var(--cms-m-code-bg, #f5f5f7);
-    padding: 8px;
-    border-radius: 6px;
-    word-break: break-all;
   }
 }
 
-/* ============================================
-   Footer Section
-   ============================================ */
-.cms-m-footer {
-  position: sticky;
-  bottom: 0;
-  z-index: 100;
-  background-color: var(--cms-m-footer-bg, rgba(255, 255, 255, 0.95));
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-top: 0.5px solid var(--cms-m-border-color, rgba(0, 0, 0, 0.1));
-  padding: 12px 16px;
-  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+/* تنظیم padding برای content با در نظر گیری floating bar */
+.cms-m-content {
+  padding-bottom: calc(var(--cms-m-spacing-md) + env(safe-area-inset-bottom) + 80px);
 }
 
-.cms-m-footer-actions {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-/* ============================================
-   Material Components Overrides
-   ============================================ */
-::ng-deep {
-  .mat-datepicker-toggle,
-  .ngx-material-timepicker-toggle {
-    button {
-      min-width: 44px;
-      min-height: 44px;
-      border-radius: 22px;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-
-      &:active {
-        transform: scale(0.95);
-      }
-    }
-  }
-
-  .mat-slide-toggle {
-    .mat-slide-toggle-bar {
-      width: 44px;
-      height: 24px;
-    }
-
-    .mat-slide-toggle-thumb {
-      width: 20px;
-      height: 20px;
-    }
-  }
-
-  .mat-datepicker-content,
-  .ngx-material-timepicker {
-    .mat-calendar,
-    .timepicker {
-      border-radius: 16px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    }
-  }
-}
-
-/* ============================================
-   Dark Mode Support
-   ============================================ */
-@media (prefers-color-scheme: dark) {
-  .cms-m-body {
-    --cms-m-bg-color: #000000;
-    --cms-m-header-bg: rgba(28, 28, 30, 0.95);
-    --cms-m-footer-bg: rgba(28, 28, 30, 0.95);
-    --cms-m-card-bg: #1c1c1e;
-    --cms-m-input-bg: #1c1c1e;
-    --cms-m-text-primary: #ffffff;
-    --cms-m-text-secondary: #8e8e93;
-    --cms-m-border-color: rgba(255, 255, 255, 0.1);
-    --cms-m-press-color: rgba(255, 255, 255, 0.1);
-    --cms-m-selected-bg: rgba(0, 122, 255, 0.2);
-    --cms-m-secondary-bg: #2c2c2e;
-    --cms-m-disabled-bg: #2c2c2e;
-    --cms-m-info-bg: rgba(0, 122, 255, 0.1);
-    --cms-m-code-bg: #2c2c2e;
-  }
-}
-
-/* ============================================
-   RTL Support
-   ============================================ */
+/* RTL Support */
 [dir="rtl"] {
-  .cms-m-step-label,
-  .cms-m-btn {
-    i {
-      transform: scaleX(-1);
-    }
+  .cms-m-settings-drawer-content {
+    left: auto;
+    right: 0;
+    transform: translateX(100%);
+    box-shadow: -2px 0 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .cms-m-settings-drawer.open .cms-m-settings-drawer-content {
+    transform: translateX(0);
   }
 }
 
-/* ============================================
-   Responsive Breakpoints
-   ============================================ */
+/* Responsive */
 @media (max-width: 375px) {
-  .cms-m-content {
-    padding: 12px;
+  .cms-m-settings-drawer-content {
+    width: 90%;
   }
 
-  .cms-m-step-content {
-    gap: 16px;
-  }
-
-  .cms-m-btn {
-    padding: 10px 20px;
-    font-size: 15px;
-  }
-}
-
-/* ============================================
-   Accessibility
-   ============================================ */
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* ============================================
-   iOS Specific Optimizations
-   ============================================ */
-@supports (-webkit-touch-callout: none) {
-  .cms-m-form-input,
-  .cms-m-form-textarea {
-    -webkit-touch-callout: none;
-  }
-
-  .cms-m-btn {
-    -webkit-touch-callout: none;
+  .cms-m-floating-btn-send {
+    span {
+      display: none;
+    }
   }
 }

@@ -79,8 +79,10 @@ export class SmsActionSendMessageMobileComponent implements OnInit {
   ) {
     this.publicHelper.processService.cdr = this.cdr;
 
-    this.requestLinkApiPathId =      this.activatedRoute.snapshot.paramMap.get("LinkApiPathId");
-    this.requestLinkApiNumberId =      this.activatedRoute.snapshot.paramMap.get("LinkApiNumberId");
+    this.requestLinkApiPathId =
+      this.activatedRoute.snapshot.paramMap.get("LinkApiPathId");
+    this.requestLinkApiNumberId =
+      this.activatedRoute.snapshot.paramMap.get("LinkApiNumberId");
     this.requestMessage = this.activatedRoute.snapshot.paramMap.get("Message");
     this.dataModel.scheduleCron = "";
 
@@ -104,20 +106,20 @@ export class SmsActionSendMessageMobileComponent implements OnInit {
         this.requestMessage = navigationState.Message;
       }
     }
-        if (this.requestLinkApiPathId?.length > 0) {
-          this.dataModel.linkApiPathId = this.requestLinkApiPathId;
-        }
+    if (this.requestLinkApiPathId?.length > 0) {
+      this.dataModel.linkApiPathId = this.requestLinkApiPathId;
+    }
 
-        if (this.requestLinkApiNumberId?.length > 0) {
-          this.dataModel.linkFromNumber = this.requestLinkApiNumberId;
-        }
+    if (this.requestLinkApiNumberId?.length > 0) {
+      this.dataModel.linkFromNumber = this.requestLinkApiNumberId;
+    }
 
-        if (this.requestMessage?.length > 0) {
-          this.dataModel.message = this.requestMessage;
-        }
-        if (this.requestReceiverNumber?.length > 0) {
-          this.dataModel.toNumbers = this.requestReceiverNumber;
-        }
+    if (this.requestMessage?.length > 0) {
+      this.dataModel.message = this.requestMessage;
+    }
+    if (this.requestReceiverNumber?.length > 0) {
+      this.dataModel.toNumbers = this.requestReceiverNumber;
+    }
 
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
@@ -168,6 +170,9 @@ export class SmsActionSendMessageMobileComponent implements OnInit {
   language = environment.languagesDefault;
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
   @ViewChild("Message") message: ElementRef;
+
+  // کنترل منوی تنظیمات
+  settingsMenuOpen = false;
 
   dataModel: SmsApiSendMessageDtoModel = new SmsApiSendMessageDtoModel();
   dataModelOrderCalculate: SmsApiSendMessageOrderCalculateDtoModel =
