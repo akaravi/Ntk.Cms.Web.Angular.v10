@@ -88,6 +88,7 @@ import { EstateContractTypeListComponent } from "../contract-type/list/list.comp
 import { EstateContractTypeTreeComponent } from "../contract-type/tree/tree.component";
 import { EstateOverviewEventsComponent } from "../overview/events/events.component";
 import { EstateOverviewSummaryComponent } from "../overview/summary/summary.component";
+import { EstateDashboardComponent } from "../dashboard/dashboard.component";
 import { EstatePropertyAdsAddComponent } from "../property-ads/add/add.component";
 import { EstatePropertyAdsEditComponent } from "../property-ads/edit/edit.component";
 import { EstatePropertyAdsListComponent } from "../property-ads/list/list.component";
@@ -172,6 +173,9 @@ import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
     EstateOverviewEventsComponent,
     EstateOverviewSummaryComponent,
     /* */
+    /* Dashboard */
+    EstateDashboardComponent,
+    /* Dashboard */
     EstatePropertyTypeLanduseAddComponent,
     EstatePropertyTypeLanduseEditComponent,
     EstatePropertyTypeLanduseListComponent,

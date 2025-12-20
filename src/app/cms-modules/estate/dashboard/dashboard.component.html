@@ -1,0 +1,153 @@
+<div class="estate-dashboard">
+  <div class="hero card shadow-sm border-0 mb-4">
+    <div class="row g-3 align-items-center">
+      <div class="col-12 col-md-4 text-center">
+        <div class="hero-icon">
+          <i class="fa-solid fa-building"></i>
+        </div>
+      </div>
+      <div class="col-12 col-md-8">
+        <div class="hero-title">داشبورد املاک</div>
+        <div class="hero-subtitle">
+          مدیریت املاک، آگهی‌ها، پروژه‌ها، شرکت‌ها و تامین‌کنندگان املاک.
+        </div>
+        <div class="d-flex flex-wrap gap-2 mt-3">
+          <a routerLink="property/add" class="btn btn-primary btn-sm fw-bold">+ ملک جدید</a>
+          <a routerLink="property-ads" class="btn btn-outline-primary btn-sm fw-bold">آگهی‌های املاک</a>
+          <a routerLink="property-project" class="btn btn-light btn-sm fw-bold">پروژه‌های املاک</a>
+          <a routerLink="property-company" class="btn btn-light btn-sm fw-bold">شرکت‌های املاک</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-md-3" *ngFor="let card of [
+      { title: 'کل املاک', value: kpi.properties.total, icon: 'fa-building', route: 'property' },
+      { title: 'آگهی‌های املاک', value: kpi.propertyAds.total, icon: 'fa-newspaper', route: 'property-ads' },
+      { title: 'آگهی‌های آژانس', value: kpi.agencyAds.total, icon: 'fa-briefcase', route: 'account-agency-ads' },
+      { title: 'پروژه‌های املاک', value: kpi.projects.total, icon: 'fa-diagram-project', route: 'property-project' }
+    ]">
+      <a class="card kpi-card h-100 shadow-sm border-0" [routerLink]="card.route">
+        <div class="d-flex align-items-center p-3">
+          <div class="kpi-icon">
+            <i
+              [class]="'fa-solid ' + card.icon"
+              aria-hidden="true"
+            ></i>
+          </div>
+          <div class="ms-3">
+            <div class="kpi-title">{{ card.title }}</div>
+            <div class="kpi-value">{{ card.value | number }}</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-12 col-md-6" *ngFor="let card of [
+      { title: 'شرکت‌های املاک', value: kpi.companies.total, icon: 'fa-building-columns', route: 'property-company' },
+      { title: 'تامین‌کنندگان', value: kpi.suppliers.total, icon: 'fa-truck', route: 'property-supplier' }
+    ]">
+      <a class="card kpi-card h-100 shadow-sm border-0" [routerLink]="card.route">
+        <div class="d-flex align-items-center p-3">
+          <div class="kpi-icon">
+            <i
+              [class]="'fa-solid ' + card.icon"
+              aria-hidden="true"
+            ></i>
+          </div>
+          <div class="ms-3">
+            <div class="kpi-title">{{ card.title }}</div>
+            <div class="kpi-value">{{ card.value | number }}</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-lg-6">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body">
+          <div class="card-title d-flex align-items-center mb-3">
+            <i class="fa-solid fa-route section-icon"></i>
+            <span class="ms-2 fw-bold">جریان ثبت ملک تا آگهی</span>
+          </div>
+          <div class="flow-steps">
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">ثبت ملک</div>
+                <div class="text-muted small">Property</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">تعیین نوع قرارداد</div>
+                <div class="text-muted small">Contract Type</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">ایجاد آگهی</div>
+                <div class="text-muted small">Property Ads</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">انتشار و نمایش</div>
+                <div class="text-muted small">Publish</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body">
+          <div class="card-title d-flex align-items-center mb-3">
+            <i class="fa-solid fa-sitemap section-icon"></i>
+            <span class="ms-2 fw-bold">ساختار مدیریت املاک</span>
+          </div>
+          <div class="flow-steps">
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">پروژه‌های املاک</div>
+                <div class="text-muted small">Property Projects</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">شرکت‌های املاک</div>
+                <div class="text-muted small">Property Companies</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">تامین‌کنندگان</div>
+                <div class="text-muted small">Suppliers</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">آژانس‌ها و کارشناسان</div>
+                <div class="text-muted small">Agencies & Experts</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,6 @@
 import { Routes } from "@angular/router";
 import { EstateAccountAgencyListComponent } from "../account-agency/list/list.component";
+import { EstateAccountAgencyAdsListComponent } from "../account-agency-ads/list/list.component";
 import { EstateAccountExpertListComponent } from "../account-expert/list/list.component";
 import { EstateActivityTypeListComponent } from "../activity-type/list/list.component";
 import { EstateAdsTypeListComponent } from "../ads-type/list/list.component";
@@ -30,6 +31,7 @@ import { EstatePropertyAddComponent } from "../property/add/add.component";
 import { EstatePropertyEditComponent } from "../property/edit/edit.component";
 import { EstatePropertyListComponent } from "../property/list/list.component";
 import { EstateMainComponent } from "./estate-main.component";
+import { EstateDashboardComponent } from "../dashboard/dashboard.component";
 
 export const routesNormal: Routes = [
   {
@@ -37,6 +39,19 @@ export const routesNormal: Routes = [
     component: EstateMainComponent,
     data: { title: "ROUTE.ESTATE.MAIN" },
     children: [
+      /* Dashboard */
+      {
+        path: "",
+        pathMatch: "full",
+        component: EstateDashboardComponent,
+        data: { title: "ROUTE.ESTATE.MAIN" },
+      },
+      {
+        path: "dashboard",
+        component: EstateDashboardComponent,
+        data: { title: "ROUTE.ESTATE.MAIN" },
+      },
+      /* Dashboard */
       /* View */
       {
         path: "overview-events",
@@ -237,6 +252,12 @@ export const routesNormal: Routes = [
         path: "account-user/LinkAccountAgencyId/:LinkAccountAgencyId",
         component: EstateAccountExpertListComponent,
         data: { title: "ROUTE.ESTATE.ACCOUNTUSER" },
+      },
+      /**/
+      {
+        path: "account-agency-ads",
+        component: EstateAccountAgencyAdsListComponent,
+        data: { title: "ROUTE.ESTATE.ACCOUNTAGENCYADS" },
       },
       /**/
       {
