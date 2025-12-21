@@ -10,15 +10,14 @@ import {
   CoreEnumService,
   CoreModuleService,
   CoreModuleTagService,
-  EstateCustomerOrderService,
   EstateEnumService,
   FileCategoryService,
 } from "ntk-cms-api";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { SharedModule } from "src/app/shared/shared.module";
 import { CoreSharedModule } from "../../core-main/core.shared.module";
-import { EstateActionComponent } from "./estate-action.component";
-import { EstateActionRoutes } from "./estate-action.routing";
+import { EstateDataRoutes } from "./estate-data.routing";
+import { EstateDataComponent } from "./estate-data.component";
 
 import { DragDropModule } from "@angular/cdk/drag-drop";
 
@@ -32,14 +31,11 @@ import { CmsFileManagerModule } from "ntk-cms-filemanager";
 import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
 
 @NgModule({
-  declarations: [
-    EstateActionComponent,
-
-  ],
+  declarations: [EstateDataComponent],
   imports: [
     CommonModule,
     SharedModule,
-    EstateActionRoutes,
+    EstateDataRoutes,
     FormsModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     EstateSharedModule,
@@ -65,6 +61,6 @@ import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
     EstateEnumService,
     FileCategoryService,
   ],
-  exports: [EstateActionComponent],
+  exports: [EstateDataComponent],
 })
-export class EstateActionModule {}
+export class EstateDataModule {}

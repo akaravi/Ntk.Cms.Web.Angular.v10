@@ -11,6 +11,7 @@ import {
   CoreModuleService,
   CoreModuleTagService,
   EstateCustomerOrderResultService,
+  EstateCustomerOrderService,
   EstateEnumService,
   EstatePropertyExpertPriceService,
   EstatePropertyHistoryService,
@@ -26,6 +27,13 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
 
 import { IconPickerModule } from "ngx-ntk-icon-picker";
 
+import { EstateCustomerOrderActionComponent } from "../customer-order/action/action.component";
+import { EstateCustomerOrderAddToEditComponent } from "../customer-order/add/add-to-edit.component";
+import { EstateCustomerOrderAddMobileComponent } from "../customer-order/add/add.mobile.component";
+import { EstateCustomerOrderEditComponent } from "../customer-order/edit/edit.component";
+import { EstateCustomerOrderEditMobileComponent } from "../customer-order/edit/edit.mobile.component";
+import { EstateCustomerOrderQuickViewComponent } from "../customer-order/quick-view/quick-view.component";
+import { EstateCustomerOrderResponsibleUserListComponent } from "../customer-order/responsible-user-list/responsible-user-list.component";
 import { EstateCustomerOrderResultListComponent } from "./customer-order-result/list/list.component";
 import { EstateCustomerOrderResultViewComponent } from "./customer-order-result/view/view.component";
 import { EstatePropertyExpertPriceAddComponent } from "./property-expert-price/add/add.component";
@@ -64,6 +72,13 @@ import { EstateSharedModule } from "../shared/estate-shared.module";
     /* */
     EstateCustomerOrderResultListComponent,
     EstateCustomerOrderResultViewComponent,
+    EstateCustomerOrderAddToEditComponent,
+    EstateCustomerOrderAddMobileComponent,
+    EstateCustomerOrderEditComponent,
+    EstateCustomerOrderEditMobileComponent,
+    EstateCustomerOrderActionComponent,
+    EstateCustomerOrderQuickViewComponent,
+    EstateCustomerOrderResponsibleUserListComponent,
     /* */
   ],
   imports: [
@@ -94,6 +109,7 @@ import { EstateSharedModule } from "../shared/estate-shared.module";
     EstatePropertyHistoryService,
     EstatePropertyExpertPriceService,
     EstateCustomerOrderResultService,
+    EstateCustomerOrderService,
     EstateEnumService,
     FileCategoryService,
   ],

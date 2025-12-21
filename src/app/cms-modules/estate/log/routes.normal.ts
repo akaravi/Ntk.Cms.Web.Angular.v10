@@ -3,6 +3,8 @@ import { EstateCustomerOrderResultListComponent } from "./customer-order-result/
 import { EstatePropertyExpertPriceListComponent } from "./property-expert-price/list/list.component";
 import { EstatePropertyHistoryListComponent } from "./property-history/list/list.component";
 import { EstateLogComponent } from "./estate-log.component";
+import { EstateCustomerOrderEditComponent } from "../customer-order/edit/edit.component";
+import { EstateCustomerOrderListComponent } from "../customer-order/list/list.component";
 
 export const routesNormal: Routes = [
   {
@@ -81,6 +83,31 @@ export const routesNormal: Routes = [
         path: "customer-order-result/LinkProperty/:LinkProperty",
         component: EstateCustomerOrderResultListComponent,
         data: { title: "ROUTE.ESTATE.CUSTOMER.ORDERRESULT" },
+      },
+      {
+        path: "customer-order",
+        component: EstateCustomerOrderListComponent,
+        data: { title: "ROUTE.ESTATE.CUSTOMER.ORDER" },
+      },
+      {
+        path: "customer-order/recordstatus/:RecordStatus",
+        component: EstateCustomerOrderListComponent,
+        data: { title: "ROUTE.ESTATE.CUSTOMER.ORDER" },
+      },
+      {
+        path: "customer-order/recordstatus/:RecordStatus/:ResponsibleUserId",
+        component: EstateCustomerOrderListComponent,
+        data: { title: "ROUTE.ESTATE.CUSTOMER.ORDER" },
+      },
+      {
+        path: "customer-order/responsibleUserId/:ResponsibleUserId",
+        component: EstateCustomerOrderListComponent,
+        data: { title: "ROUTE.ESTATE.CUSTOMER.ORDER" },
+      },
+      {
+        path: "customer-order/edit/:id",
+        component: EstateCustomerOrderEditComponent,
+        data: { title: "ROUTE.ESTATE.CUSTOMER.ORDER" },
       },
       /**/
     ],

@@ -15,14 +15,6 @@ import { estatePropertyProjectInfoPipe } from "src/app/core/pipe/esate/estate-pr
 import { estatePropertySupplierInfoPipe } from "src/app/core/pipe/esate/estate-property-supplier-info.pipe";
 import { SharedModule } from "src/app/shared/shared.module";
 import { CoreSharedModule } from "../../core-main/core.shared.module";
-import { EstateAccountAgencyHeaderComponent } from "../account-agency/header/header.component";
-import { EstateAccountAgencyListComponent } from "../account-agency/list/list.component";
-import { EstateAccountAgencySelectorComponent } from "../account-agency/selector/selector.component";
-import { EstateAccountExpertHeaderComponent } from "../account-expert/header/header.component";
-import { EstateAccountExpertListComponent } from "../account-expert/list/list.component";
-import { EstateAccountExpertSelectorComponent } from "../account-expert/selector/selector.component";
-import { EstateActivityTypeSelectorComponent } from "../activity-type/selector/selector.component";
-import { EstateActivityTypeTreeComponent } from "../activity-type/tree/tree.component";
 import { EstateBillboardHeaderComponent } from "../billboard/header/header.component";
 import { EstateContractTypeHeaderComponent } from "../contract-type/header/header.component";
 import { EstateContractTypeSelectorComponent } from "../contract-type/selector/selector.component";
@@ -31,10 +23,18 @@ import { EstateCustomerCategoryTreeComponent } from "../customer-category/tree/t
 import { EstateCustomerOrderHeaderComponent } from "../customer-order/header/header.component";
 import { EstateCustomerOrderListComponent } from "../customer-order/list/list.component";
 import { EstateCustomerOrderSelectorComponent } from "../customer-order/selector/selector.component";
-import { EstatePropertyCompanyHeaderComponent } from "../property-company/header/header.component";
-import { EstatePropertyCompanySelectorComponent } from "../property-company/selector/selector.component";
 import { EstatePropertyHistoryAddComponent } from "../log/property-history/add/add.component";
 import { EstatePropertyHistoryListComponent } from "../log/property-history/list/list.component";
+import { EstateAccountAgencyHeaderComponent } from "../main/account-agency/header/header.component";
+import { EstateAccountAgencyListComponent } from "../main/account-agency/list/list.component";
+import { EstateAccountAgencySelectorComponent } from "../main/account-agency/selector/selector.component";
+import { EstateAccountExpertHeaderComponent } from "../main/account-expert/header/header.component";
+import { EstateAccountExpertListComponent } from "../main/account-expert/list/list.component";
+import { EstateAccountExpertSelectorComponent } from "../main/account-expert/selector/selector.component";
+import { EstateActivityTypeSelectorComponent } from "../main/activity-type/selector/selector.component";
+import { EstateActivityTypeTreeComponent } from "../main/activity-type/tree/tree.component";
+import { EstatePropertyCompanyHeaderComponent } from "../property-company/header/header.component";
+import { EstatePropertyCompanySelectorComponent } from "../property-company/selector/selector.component";
 import { EstatePropertyProjectHeaderComponent } from "../property-project/header/header.component";
 import { EstatePropertyProjectSelectorComponent } from "../property-project/selector/selector.component";
 import { EstatePropertyTypeLanduseHeaderComponent } from "../property-type-landuse/header/header.component";
@@ -66,31 +66,31 @@ import { EstatePropertySelectorComponent } from "../property/selector/selector.c
     EstatePropertyCompanySelectorComponent,
     EstatePropertyProjectSelectorComponent,
     EstateCustomerOrderSelectorComponent,
-    EstateAccountAgencySelectorComponent,
-    EstateAccountExpertSelectorComponent,
-    EstateActivityTypeSelectorComponent,
     EstateCustomerCategorySelectorComponent,
     /* Autocomplete */
     EstatePropertyCompleteComponent,
     /* Headers */
     EstatePropertyHeaderComponent,
     EstateCustomerOrderHeaderComponent,
-    EstateAccountExpertHeaderComponent,
-    EstateAccountAgencyHeaderComponent,
     EstateBillboardHeaderComponent,
     EstateContractTypeHeaderComponent,
     EstatePropertyTypeLanduseHeaderComponent,
     EstatePropertyTypeUsageHeaderComponent,
     EstatePropertyProjectHeaderComponent,
     EstatePropertyCompanyHeaderComponent,
+    EstateAccountAgencyHeaderComponent,
+    EstateAccountExpertHeaderComponent,
     /* Trees */
-    EstateActivityTypeTreeComponent,
     EstatePropertyTypeLanduseTreeComponent,
     EstateCustomerCategoryTreeComponent,
+    EstateActivityTypeTreeComponent,
     /* Selectors - Additional */
     EstatePropertyTypeUsageSelectorComponent,
     EstatePropertyTypeLanduseSelectorComponent,
     EstateContractTypeSelectorComponent,
+    EstateAccountAgencySelectorComponent,
+    EstateAccountExpertSelectorComponent,
+    EstateActivityTypeSelectorComponent,
     /* Lists */
     EstateCustomerOrderListComponent,
     EstatePropertyHistoryListComponent,
@@ -118,28 +118,28 @@ import { EstatePropertySelectorComponent } from "../property/selector/selector.c
     EstatePropertyCompanySelectorComponent,
     EstatePropertyProjectSelectorComponent,
     EstateCustomerOrderSelectorComponent,
-    EstateAccountAgencySelectorComponent,
-    EstateAccountExpertSelectorComponent,
-    EstateActivityTypeSelectorComponent,
     EstateCustomerCategorySelectorComponent,
     EstatePropertyTypeUsageSelectorComponent,
     EstatePropertyTypeLanduseSelectorComponent,
     EstateContractTypeSelectorComponent,
+    EstateAccountAgencySelectorComponent,
+    EstateAccountExpertSelectorComponent,
+    EstateActivityTypeSelectorComponent,
     /* Headers */
     EstatePropertyHeaderComponent,
     EstateCustomerOrderHeaderComponent,
-    EstateAccountExpertHeaderComponent,
-    EstateAccountAgencyHeaderComponent,
     EstateBillboardHeaderComponent,
     EstateContractTypeHeaderComponent,
     EstatePropertyTypeLanduseHeaderComponent,
     EstatePropertyTypeUsageHeaderComponent,
     EstatePropertyProjectHeaderComponent,
     EstatePropertyCompanyHeaderComponent,
+    EstateAccountAgencyHeaderComponent,
+    EstateAccountExpertHeaderComponent,
     /* Trees */
-    EstateActivityTypeTreeComponent,
     EstatePropertyTypeLanduseTreeComponent,
     EstateCustomerCategoryTreeComponent,
+    EstateActivityTypeTreeComponent,
     /* Lists */
     EstateCustomerOrderListComponent,
     EstatePropertyHistoryListComponent,

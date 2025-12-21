@@ -54,12 +54,12 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { ThemeService } from "src/app/core/services/theme.service";
 import { CmsMapComponent } from "src/app/shared/cms-map/cms-map.component";
 import { environment } from "src/environments/environment";
-import { EstateAccountAgencyListComponent } from "../../account-agency/list/list.component";
-import { EstateAccountExpertListComponent } from "../../account-expert/list/list.component";
 import { EstateCustomerOrderListComponent } from "../../customer-order/list/list.component";
 import { EstatePropertyExpertPriceInquiryListComponent } from "../../log/property-expert-price/inquiry-list/inquiry-list.component";
 import { EstatePropertyHistoryAddComponent } from "../../log/property-history/add/add.component";
 import { EstatePropertyHistoryListComponent } from "../../log/property-history/list/list.component";
+import { EstateAccountAgencyListComponent } from "../../main/account-agency/list/list.component";
+import { EstateAccountExpertListComponent } from "../../main/account-expert/list/list.component";
 import { EstatePropertyActionComponent } from "../action/action.component";
 import { EstatePropertyQuickListComponent } from "../quick-list/quick-list.component";
 

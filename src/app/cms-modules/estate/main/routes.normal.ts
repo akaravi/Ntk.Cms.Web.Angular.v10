@@ -1,17 +1,11 @@
 import { Routes } from "@angular/router";
-import { EstateAccountAgencyListComponent } from "../account-agency/list/list.component";
-import { EstateAccountAgencyAdsListComponent } from "../account-agency-ads/list/list.component";
-import { EstateAccountExpertListComponent } from "../account-expert/list/list.component";
-import { EstateActivityTypeListComponent } from "../activity-type/list/list.component";
-import { EstateAdsTypeListComponent } from "../ads-type/list/list.component";
 import { EstateBillboardAddComponent } from "../billboard/add/add.component";
 import { EstateBillboardEditComponent } from "../billboard/edit/edit.component";
 import { EstateBillboardListComponent } from "../billboard/list/list.component";
 import { EstateCategoryRackListComponent } from "../category-rack/list/list.component";
 import { EstateCategoryZoneListComponent } from "../category-zone/list/list.component";
 import { EstateContractTypeListComponent } from "../contract-type/list/list.component";
-import { EstateOverviewEventsComponent } from "../overview/events/events.component";
-import { EstateOverviewSummaryComponent } from "../overview/summary/summary.component";
+import { EstateDashboardComponent } from "../dashboard/dashboard.component";
 import { EstatePropertyAdsListComponent } from "../property-ads/list/list.component";
 import { EstatePropertyAdsSaleListComponent } from "../property-ads/sale-list/sale-list.component";
 import { EstatePropertyCompanyAddComponent } from "../property-company/add/add.component";
@@ -30,8 +24,12 @@ import { EstatePropertyTypeUsageListComponent } from "../property-type-usage/lis
 import { EstatePropertyAddComponent } from "../property/add/add.component";
 import { EstatePropertyEditComponent } from "../property/edit/edit.component";
 import { EstatePropertyListComponent } from "../property/list/list.component";
+import { EstateAccountAgencyAdsListComponent } from "./account-agency-ads/list/list.component";
+import { EstateAccountAgencyListComponent } from "./account-agency/list/list.component";
+import { EstateAccountExpertListComponent } from "./account-expert/list/list.component";
+import { EstateActivityTypeListComponent } from "./activity-type/list/list.component";
+import { EstateAdsTypeListComponent } from "./ads-type/list/list.component";
 import { EstateMainComponent } from "./estate-main.component";
-import { EstateDashboardComponent } from "../dashboard/dashboard.component";
 
 export const routesNormal: Routes = [
   {
@@ -46,24 +44,7 @@ export const routesNormal: Routes = [
         component: EstateDashboardComponent,
         data: { title: "ROUTE.ESTATE.MAIN" },
       },
-      {
-        path: "dashboard",
-        component: EstateDashboardComponent,
-        data: { title: "ROUTE.ESTATE.MAIN" },
-      },
-      /* Dashboard */
-      /* View */
-      {
-        path: "overview-events",
-        component: EstateOverviewEventsComponent,
-        data: { title: "ROUTE.ESTATE.EVENTS" },
-      },
-      {
-        path: "overview-summary",
-        component: EstateOverviewSummaryComponent,
-        data: { title: "ROUTE.ESTATE.SUMMARY" },
-      },
-      /* View */
+
       {
         path: "property",
         component: EstatePropertyListComponent,
