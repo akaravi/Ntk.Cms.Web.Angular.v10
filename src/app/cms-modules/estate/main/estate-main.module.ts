@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatStepperModule } from "@angular/material/stepper";
+import { RouterModule } from "@angular/router";
 import { AngularEditorModule } from "@kolkov/angular-editor";
 import {
   CoreAuthV3Service,
@@ -54,37 +55,11 @@ import { EstateBillboardEditComponent } from "../billboard/edit/edit.component";
 import { EstateBillboardListComponent } from "../billboard/list/list.component";
 import { EstateBillboardSelectorComponent } from "../billboard/selector/selector.component";
 import { EstateBillboardTreeComponent } from "../billboard/tree/tree.component";
-import { EstateContractTypeAddComponent } from "../contract-type/add/add.component";
-import { EstateContractTypeCompleteComponent } from "../contract-type/autocomplete/autocomplete.component";
-import { EstateContractTypeEditComponent } from "../contract-type/edit/edit.component";
-import { EstateContractTypeListComponent } from "../contract-type/list/list.component";
-import { EstateContractTypeTreeComponent } from "../contract-type/tree/tree.component";
 import { EstatePropertyAdsAddComponent } from "../property-ads/add/add.component";
 import { EstatePropertyAdsEditComponent } from "../property-ads/edit/edit.component";
 import { EstatePropertyAdsListComponent } from "../property-ads/list/list.component";
 import { EstatePropertyAdsSaleListComponent } from "../property-ads/sale-list/sale-list.component";
 import { EstatePropertyAdsSalePaymentComponent } from "../property-ads/sale-payment/sale-payment.component";
-import { EstatePropertyDetailGroupAddComponent } from "../property-detail-group/add/add.component";
-import { EstatePropertyDetailGroupEditComponent } from "../property-detail-group/edit/edit.component";
-import { EstatePropertyDetailGroupListComponent } from "../property-detail-group/list/list.component";
-import { EstatePropertyDetailGroupSelectorComponent } from "../property-detail-group/selector/selector.component";
-import { EstatePropertyDetailGroupTreeComponent } from "../property-detail-group/tree/tree.component";
-import { EstatePropertyDetailAddComponent } from "../property-detail/add/add.component";
-import { EstatePropertyDetailEditComponent } from "../property-detail/edit/edit.component";
-import { EstatePropertyDetailListComponent } from "../property-detail/list/list.component";
-import { EstatePropertyDetailSelectorComponent } from "../property-detail/selector/selector.component";
-import { EstatePropertyDetailTreeComponent } from "../property-detail/tree/tree.component";
-import { EstatePropertyTypeLanduseAddComponent } from "../property-type-landuse/add/add.component";
-import { EstatePropertyTypeLanduseCompleteComponent } from "../property-type-landuse/autocomplete/autocomplete.component";
-import { EstatePropertyTypeLanduseEditComponent } from "../property-type-landuse/edit/edit.component";
-import { EstatePropertyTypeLanduseListComponent } from "../property-type-landuse/list/list.component";
-import { EstatePropertyTypeLanduseSelectionlistComponent } from "../property-type-landuse/selectionlist/selectionlist.component";
-import { EstatePropertyTypeUsageAddComponent } from "../property-type-usage/add/add.component";
-import { EstatePropertyTypeUsageCompleteComponent } from "../property-type-usage/autocomplete/autocomplete.component";
-import { EstatePropertyTypeUsageEditComponent } from "../property-type-usage/edit/edit.component";
-import { EstatePropertyTypeUsageListComponent } from "../property-type-usage/list/list.component";
-import { EstatePropertyTypeUsageSelectionlistComponent } from "../property-type-usage/selectionlist/selectionlist.component";
-import { EstatePropertyTypeUsageTreeComponent } from "../property-type-usage/tree/tree.component";
 import { EstatePropertyActionComponent } from "../property/action/action.component";
 import { EstatePropertyAddComponent } from "../property/add/add.component";
 import { EstatePropertyAddMobileComponent } from "../property/add/add.mobile.component";
@@ -117,6 +92,32 @@ import { EstateAdsTypeAddComponent } from "./ads-type/add/add.component";
 import { EstateAdsTypeEditComponent } from "./ads-type/edit/edit.component";
 import { EstateAdsTypeListComponent } from "./ads-type/list/list.component";
 import { EstateAdsTypeSelectorComponent } from "./ads-type/selector/selector.component";
+import { EstateContractTypeAddComponent } from "./contract-type/add/add.component";
+import { EstateContractTypeCompleteComponent } from "./contract-type/autocomplete/autocomplete.component";
+import { EstateContractTypeEditComponent } from "./contract-type/edit/edit.component";
+import { EstateContractTypeListComponent } from "./contract-type/list/list.component";
+import { EstateContractTypeTreeComponent } from "./contract-type/tree/tree.component";
+import { EstatePropertyDetailGroupAddComponent } from "./property-detail-group/add/add.component";
+import { EstatePropertyDetailGroupEditComponent } from "./property-detail-group/edit/edit.component";
+import { EstatePropertyDetailGroupListComponent } from "./property-detail-group/list/list.component";
+import { EstatePropertyDetailGroupSelectorComponent } from "./property-detail-group/selector/selector.component";
+import { EstatePropertyDetailGroupTreeComponent } from "./property-detail-group/tree/tree.component";
+import { EstatePropertyDetailAddComponent } from "./property-detail/add/add.component";
+import { EstatePropertyDetailEditComponent } from "./property-detail/edit/edit.component";
+import { EstatePropertyDetailListComponent } from "./property-detail/list/list.component";
+import { EstatePropertyDetailSelectorComponent } from "./property-detail/selector/selector.component";
+import { EstatePropertyDetailTreeComponent } from "./property-detail/tree/tree.component";
+import { EstatePropertyTypeLanduseAddComponent } from "./property-type-landuse/add/add.component";
+import { EstatePropertyTypeLanduseCompleteComponent } from "./property-type-landuse/autocomplete/autocomplete.component";
+import { EstatePropertyTypeLanduseEditComponent } from "./property-type-landuse/edit/edit.component";
+import { EstatePropertyTypeLanduseListComponent } from "./property-type-landuse/list/list.component";
+import { EstatePropertyTypeLanduseSelectionlistComponent } from "./property-type-landuse/selectionlist/selectionlist.component";
+import { EstatePropertyTypeUsageAddComponent } from "./property-type-usage/add/add.component";
+import { EstatePropertyTypeUsageCompleteComponent } from "./property-type-usage/autocomplete/autocomplete.component";
+import { EstatePropertyTypeUsageEditComponent } from "./property-type-usage/edit/edit.component";
+import { EstatePropertyTypeUsageListComponent } from "./property-type-usage/list/list.component";
+import { EstatePropertyTypeUsageSelectionlistComponent } from "./property-type-usage/selectionlist/selectionlist.component";
+import { EstatePropertyTypeUsageTreeComponent } from "./property-type-usage/tree/tree.component";
 
 import { CurrencyMaskModule } from "ng2-currency-mask";
 import { CmsFileManagerModule } from "ntk-cms-filemanager";
@@ -131,8 +132,6 @@ import { EstateCategoryZoneEditComponent } from "../category-zone/edit/edit.comp
 import { EstateCategoryZoneListComponent } from "../category-zone/list/list.component";
 import { EstateCategoryZoneSelectorComponent } from "../category-zone/selector/selector.component";
 import { EstateCategoryZoneTreeComponent } from "../category-zone/tree/tree.component";
-import { EstateCustomerCategoryAddComponent } from "../customer-category/add/add.component";
-import { EstateCustomerCategoryEditComponent } from "../customer-category/edit/edit.component";
 import { EstatePropertyCompanyAddComponent } from "../property-company/add/add.component";
 import { EstatePropertyCompanyDeleteComponent } from "../property-company/delete/delete.component";
 import { EstatePropertyCompanyEditComponent } from "../property-company/edit/edit.component";
@@ -145,11 +144,6 @@ import { EstatePropertyProjectEditComponent } from "../property-project/edit/edi
 import { EstatePropertyProjectListComponent } from "../property-project/list/list.component";
 import { EstatePropertyProjectQuickViewComponent } from "../property-project/quick-view/quick-view.component";
 import { EstatePropertyProjectTreeComponent } from "../property-project/tree/tree.component";
-import { EstatePropertySupplierCategoryAddComponent } from "../property-supplier-category/add/add.component";
-import { EstatePropertySupplierCategoryEditComponent } from "../property-supplier-category/edit/edit.component";
-import { EstatePropertySupplierCategorySelectorComponent } from "../property-supplier-category/selector/selector.component";
-import { EstatePropertySupplierCategoryTreeSelectorComponent } from "../property-supplier-category/tree-selector/tree-selector.component";
-import { EstatePropertySupplierCategoryTreeComponent } from "../property-supplier-category/tree/tree.component";
 import { EstatePropertySupplierAddComponent } from "../property-supplier/add/add.component";
 import { EstatePropertySupplierDeleteComponent } from "../property-supplier/delete/delete.component";
 import { EstatePropertySupplierEditComponent } from "../property-supplier/edit/edit.component";
@@ -160,6 +154,13 @@ import { EstatePropertySupplierSelectorComponent } from "../property-supplier/se
 import { EstatePropertySupplierTreeComponent } from "../property-supplier/tree/tree.component";
 import { EstateAccountAgencySelectionlistComponent } from "./account-agency/selectionlist/selectionlist.component";
 import { EstateAccountExpertSelectionlistComponent } from "./account-expert/selectionlist/selectionlist.component";
+import { EstateCustomerCategoryAddComponent } from "./customer-category/add/add.component";
+import { EstateCustomerCategoryEditComponent } from "./customer-category/edit/edit.component";
+import { EstatePropertySupplierCategoryAddComponent } from "./property-supplier-category/add/add.component";
+import { EstatePropertySupplierCategoryEditComponent } from "./property-supplier-category/edit/edit.component";
+import { EstatePropertySupplierCategorySelectorComponent } from "./property-supplier-category/selector/selector.component";
+import { EstatePropertySupplierCategoryTreeSelectorComponent } from "./property-supplier-category/tree-selector/tree-selector.component";
+import { EstatePropertySupplierCategoryTreeComponent } from "./property-supplier-category/tree/tree.component";
 
 import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
 
@@ -302,6 +303,7 @@ import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
   ],
   imports: [
     CommonModule,
+    RouterModule,
     EstateMainRoutes,
     FormsModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),

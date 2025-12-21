@@ -2881,3 +2881,61 @@ ngOnInit(): void {
 - بهبود تجربه کاربری موبایل
 - پشتیبانی از Safe Area برای iPhone
 - پشتیبانی از RTL
+
+---
+
+## تاریخ: 2025-01-27 - انتقال کامپوننت‌های contract-type و customer-category به فولدر main
+
+### تغییرات انجام شده:
+1. انتقال فولدر `contract-type` از `src/app/cms-modules/estate/contract-type` به `src/app/cms-modules/estate/main/contract-type`
+2. انتقال فولدر `customer-category` از `src/app/cms-modules/estate/customer-category` به `src/app/cms-modules/estate/main/customer-category`
+3. به‌روزرسانی importها در `estate-main.module.ts`
+4. به‌روزرسانی importها در `estate-shared.module.ts`
+5. به‌روزرسانی importها در `routes.mobile.ts` و `routes.normal.ts`
+
+### فایل‌های تغییر یافته:
+1. `src/app/cms-modules/estate/main/estate-main.module.ts` - به‌روزرسانی importها
+2. `src/app/cms-modules/estate/shared/estate-shared.module.ts` - به‌روزرسانی importها
+3. `src/app/cms-modules/estate/main/routes.mobile.ts` - به‌روزرسانی importها
+4. `src/app/cms-modules/estate/main/routes.normal.ts` - به‌روزرسانی importها
+
+### کامپوننت‌های منتقل شده:
+- **contract-type**: add, edit, list, tree, selector, autocomplete, header
+- **customer-category**: add, edit, tree, selector
+
+### مزایا:
+- سازماندهی بهتر کامپوننت‌ها در فولدر main
+- هماهنگی با ساختار سایر کامپوننت‌های main
+- بهبود ساختار پروژه
+
+---
+
+## تاریخ: 2025-01-27 - انتقال کامپوننت‌های property-type-landuse, property-type-usage, property-supplier-category, property-detail-group و property-detail به فولدر main
+
+### تغییرات انجام شده:
+1. انتقال فولدر `property-type-landuse` از `src/app/cms-modules/estate/property-type-landuse` به `src/app/cms-modules/estate/main/property-type-landuse`
+2. انتقال فولدر `property-type-usage` از `src/app/cms-modules/estate/property-type-usage` به `src/app/cms-modules/estate/main/property-type-usage`
+3. انتقال فولدر `property-supplier-category` از `src/app/cms-modules/estate/property-supplier-category` به `src/app/cms-modules/estate/main/property-supplier-category`
+4. انتقال فولدر `property-detail-group` از `src/app/cms-modules/estate/property-detail-group` به `src/app/cms-modules/estate/main/property-detail-group`
+5. انتقال فولدر `property-detail` از `src/app/cms-modules/estate/property-detail` به `src/app/cms-modules/estate/main/property-detail`
+6. به‌روزرسانی importها در `estate-main.module.ts`
+7. به‌روزرسانی importها در `estate-shared.module.ts`
+8. به‌روزرسانی importها در `routes.mobile.ts` و `routes.normal.ts`
+
+### فایل‌های تغییر یافته:
+1. `src/app/cms-modules/estate/main/estate-main.module.ts` - به‌روزرسانی importها
+2. `src/app/cms-modules/estate/shared/estate-shared.module.ts` - به‌روزرسانی importها
+3. `src/app/cms-modules/estate/main/routes.mobile.ts` - به‌روزرسانی importها
+4. `src/app/cms-modules/estate/main/routes.normal.ts` - به‌روزرسانی importها
+
+### کامپوننت‌های منتقل شده:
+- **property-type-landuse**: add, edit, list, tree, selector, autocomplete, header, selectionlist
+- **property-type-usage**: add, edit, list, tree, selector, autocomplete, header, selectionlist
+- **property-supplier-category**: add, edit, tree, selector, tree-selector
+- **property-detail-group**: add, edit, list, tree, selector
+- **property-detail**: add, edit, list, tree, selector
+
+### مزایا:
+- سازماندهی بهتر کامپوننت‌ها در فولدر main
+- هماهنگی با ساختار سایر کامپوننت‌های main
+- بهبود ساختار پروژه
