@@ -46,7 +46,7 @@ import { ThemeService } from "src/app/core/services/theme.service";
 import { environment } from "src/environments/environment";
 import { EstateCustomerOrderQuickViewComponent } from "../../customer-order/quick-view/quick-view.component";
 import { EstatePropertyCompanyQuickViewComponent } from "../../property-company/quick-view/quick-view.component";
-import { EstatePropertyHistoryQuickViewComponent } from "../../property-history/quick-view/quick-view.component";
+import { EstatePropertyHistoryQuickViewComponent } from "../../log/property-history/quick-view/quick-view.component";
 import { EstatePropertyProjectQuickViewComponent } from "../../property-project/quick-view/quick-view.component";
 import { EstatePropertySupplierQuickViewComponent } from "../../property-supplier/quick-view/quick-view.component";
 import { EstatePropertyQuickViewComponent } from "../../property/quick-view/quick-view.component";

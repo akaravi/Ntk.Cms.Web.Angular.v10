@@ -37,8 +37,8 @@ import { ThemeService } from "src/app/core/services/theme.service";
 import { environment } from "src/environments/environment";
 import { EstateAccountAgencyListComponent } from "../../account-agency/list/list.component";
 import { EstateAccountExpertListComponent } from "../../account-expert/list/list.component";
-import { EstatePropertyHistoryAddComponent } from "../../property-history/add/add.component";
-import { EstatePropertyHistoryListComponent } from "../../property-history/list/list.component";
+import { EstatePropertyHistoryAddComponent } from "../../log/property-history/add/add.component";
+import { EstatePropertyHistoryListComponent } from "../../log/property-history/list/list.component";
 import { EstatePropertyListComponent } from "../../property/list/list.component";
 import { EstateCustomerOrderActionComponent } from "../action/action.component";
 

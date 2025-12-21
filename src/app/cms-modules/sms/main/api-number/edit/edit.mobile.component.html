@@ -1,0 +1,396 @@
+<div class="cms-m-body loader-container">
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
+
+  <!-- Header با Safe Area برای iPhone -->
+  <div class="cms-m-header safe-area-top">
+    <div class="cms-m-header-content">
+      <button
+        type="button"
+        class="cms-m-back-btn"
+        (click)="onActionBackToParent()"
+        aria-label="{{ 'ACTION.BACK' | translate }}"
+      >
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </button>
+      <h1 class="cms-m-header-title">
+        {{ formInfo.formTitle || ("TITLE.Be_Careful_When_Entering_Information" | translate) }}
+      </h1>
+      <div class="cms-m-header-spacer"></div>
+    </div>
+  </div>
+
+  <!-- Content Area -->
+  <div class="cms-m-content safe-area-content">
+    <app-cms-form-result-message [formInfo]="formInfo">
+    </app-cms-form-result-message>
+
+    <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
+      <!-- RecordStatus Field -->
+      @if (fieldsInfo['recordStatus']?.accessWatchField) {
+        <app-cms-enum-record-status-selector
+          [(model)]="dataModel.recordStatus"
+          [optionDisabled]="false"
+          [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
+          [optionRequired]="true"
+          [optionSelectFirstItem]="true"
+        ></app-cms-enum-record-status-selector>
+      }
+
+      <!-- NumberChar Field -->
+      @if (fieldsInfo['numberChar']?.accessWatchField) {
+        <div class="cms-m-form-field">
+          <label class="cms-m-form-label">{{
+            fieldsInfo["numberChar"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="dataModel.numberChar"
+            name="dataModel.numberChar"
+            #NumberChar
+            placeholder="123"
+            [disabled]="!fieldsInfo['numberChar']?.accessEditField"
+            class="cms-m-form-input input-ltr"
+            id="dataModel.numberChar"
+          />
+          <em class="cms-m-char-count"
+            >{{ NumberChar.value.length }} / 100</em
+          >
+        </div>
+      }
+
+      <!-- IsPublic Field -->
+      @if (fieldsInfo['isPublic']?.accessWatchField) {
+        <div class="cms-m-form-field">
+          <label class="cms-m-form-label">{{
+            fieldsInfo["isPublic"]?.fieldTitle
+          }}</label>
+          <div class="cms-m-switch-wrapper">
+            <label class="cms-m-switch">
+              <input
+                type="checkbox"
+                class="ios-input"
+                id="dataModel.isPublic"
+                [(ngModel)]="dataModel.isPublic"
+                name="dataModel.isPublic"
+              />
+              <span class="cms-m-switch-slider"></span>
+            </label>
+          </div>
+        </div>
+      }
+
+      <!-- SaleStatus Field -->
+      @if (fieldsInfo['saleStatus']?.accessWatchField) {
+        <div class="cms-m-form-field">
+          <label class="cms-m-form-label">{{
+            fieldsInfo["saleStatus"]?.fieldTitle
+          }}</label>
+          <div class="cms-m-switch-wrapper">
+            <label class="cms-m-switch">
+              <input
+                type="checkbox"
+                class="ios-input"
+                id="dataModel.saleStatus"
+                [(ngModel)]="dataModel.saleStatus"
+                name="dataModel.saleStatus"
+              />
+              <span class="cms-m-switch-slider"></span>
+            </label>
+          </div>
+        </div>
+      }
+
+      <!-- Priority Field -->
+      @if (fieldsInfo['priority']?.accessWatchField) {
+        <div class="cms-m-form-field">
+          <label class="cms-m-form-label">{{
+            fieldsInfo["priority"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="number"
+            [(ngModel)]="dataModel.priority"
+            name="dataModel.priority"
+            #Priority
+            placeholder="1"
+            [disabled]="!fieldsInfo['priority']?.accessEditField"
+            class="cms-m-form-input"
+            id="dataModel.priority"
+          />
+        </div>
+      }
+
+      <!-- DeliveryRelayStatus Field -->
+      @if (fieldsInfo['deliveryRelayStatus']?.accessWatchField) {
+        <div class="cms-m-form-field">
+          <label class="cms-m-form-label">{{
+            fieldsInfo["deliveryRelayStatus"]?.fieldTitle
+          }}</label>
+          <div class="cms-m-switch-wrapper">
+            <label class="cms-m-switch">
+              <input
+                type="checkbox"
+                class="ios-input"
+                id="dataModel.deliveryRelayStatus"
+                [(ngModel)]="dataModel.deliveryRelayStatus"
+                name="dataModel.deliveryRelayStatus"
+              />
+              <span class="cms-m-switch-slider"></span>
+            </label>
+          </div>
+        </div>
+      }
+
+      <!-- DeliveryRelayUrl Field -->
+      @if (fieldsInfo['deliveryRelayUrl']?.accessWatchField) {
+        <div class="cms-m-form-field">
+          <label class="cms-m-form-label">{{
+            fieldsInfo["deliveryRelayUrl"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="dataModel.deliveryRelayUrl"
+            name="dataModel.deliveryRelayUrl"
+            #DeliveryRelayUrl
+            [readonly]="!dataModel.deliveryRelayStatus"
+            placeholder="1"
+            [disabled]="!fieldsInfo['deliveryRelayUrl']?.accessEditField"
+            class="cms-m-form-input"
+            id="dataModel.deliveryRelayUrl"
+          />
+        </div>
+      }
+
+      <!-- SmsRelayStatus Field -->
+      @if (fieldsInfo['smsRelayStatus']?.accessWatchField) {
+        <div class="cms-m-form-field">
+          <label class="cms-m-form-label">{{
+            fieldsInfo["smsRelayStatus"]?.fieldTitle
+          }}</label>
+          <div class="cms-m-switch-wrapper">
+            <label class="cms-m-switch">
+              <input
+                type="checkbox"
+                class="ios-input"
+                id="dataModel.smsRelayStatus"
+                [(ngModel)]="dataModel.smsRelayStatus"
+                name="dataModel.smsRelayStatus"
+              />
+              <span class="cms-m-switch-slider"></span>
+            </label>
+          </div>
+        </div>
+      }
+
+      <!-- SmsRelayUrl Field -->
+      @if (fieldsInfo['smsRelayUrl']?.accessWatchField) {
+        <div class="cms-m-form-field">
+          <label class="cms-m-form-label">{{
+            fieldsInfo["smsRelayUrl"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="dataModel.smsRelayUrl"
+            name="dataModel.smsRelayUrl"
+            #SmsRelayUrl
+            [readonly]="!dataModel.smsRelayStatus"
+            placeholder="1"
+            [disabled]="!fieldsInfo['smsRelayUrl']?.accessEditField"
+            class="cms-m-form-input"
+            id="dataModel.smsRelayUrl"
+          />
+        </div>
+      }
+
+      <!-- accessUseStartDate Field -->
+      <div class="cms-m-form-field">
+        <label class="cms-m-form-label">{{
+          fieldsInfo["accessUseStartDate"]?.fieldTitle
+        }}</label>
+        <input
+          matInput
+          [matDatepicker]="accessUseStartDate"
+          type="text"
+          [(ngModel)]="dataModel.accessUseStartDate"
+          name="dataModel.accessUseStartDate"
+          class="cms-m-form-input"
+          id="dataModel.accessUseStartDate"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="accessUseStartDate"
+        ></mat-datepicker-toggle>
+        <mat-datepicker touchUi #accessUseStartDate></mat-datepicker>
+      </div>
+
+      <!-- ExpireDate Field -->
+      @if (fieldsInfo['expireDate']?.accessWatchField) {
+        <div class="cms-m-form-field">
+          <label class="cms-m-form-label">{{
+            fieldsInfo["expireDate"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="dataModel.expireDate"
+            [matDatepicker]="ExpireDate"
+            name="dataModel.expireDate"
+            class="cms-m-form-input"
+            id="dataModel.expireDate"
+          />
+          <mat-datepicker-toggle matSuffix [for]="ExpireDate"></mat-datepicker-toggle>
+          <mat-datepicker touchUi #ExpireDate></mat-datepicker>
+        </div>
+      }
+
+      <!-- apiSendMessageAddTextFirst Field -->
+      <div class="cms-m-form-field">
+        <label class="cms-m-form-label">{{
+          fieldsInfo["apiSendMessageAddTextFirst"]?.fieldTitle
+        }}</label>
+        <textarea
+          matInput
+          [(ngModel)]="dataModel.apiSendMessageAddTextFirst"
+          name="dataModel.apiSendMessageAddTextFirst"
+          #apiSendMessageAddTextFirst
+          type="text"
+          placeholder="{{
+            fieldsInfo['apiSendMessageAddTextFirst']?.fieldTitle
+          }}"
+          minlength="1"
+          maxlength="500"
+          rows="5"
+          id="dataModel.apiSendMessageAddTextFirst"
+          class="cms-m-form-textarea"
+        ></textarea>
+        <em class="cms-m-char-count"
+          >{{ apiSendMessageAddTextFirst.value.length }} / 500</em
+        >
+      </div>
+
+      <!-- apiSendMessageAddTextEnd Field -->
+      <div class="cms-m-form-field">
+        <label class="cms-m-form-label">{{
+          fieldsInfo["apiSendMessageAddTextEnd"]?.fieldTitle
+        }}</label>
+        <textarea
+          matInput
+          [(ngModel)]="dataModel.apiSendMessageAddTextEnd"
+          name="dataModel.apiSendMessageAddTextEnd"
+          #apiSendMessageAddTextEnd
+          type="text"
+          placeholder="{{ fieldsInfo['apiSendMessageAddTextEnd']?.fieldTitle }}"
+          minlength="1"
+          maxlength="500"
+          rows="5"
+          id="dataModel.apiSendMessageAddTextEnd"
+          class="cms-m-form-textarea"
+        ></textarea>
+        <em class="cms-m-char-count"
+          >{{ apiSendMessageAddTextEnd.value.length }} / 500</em
+        >
+      </div>
+
+      <!-- sendMessageAddTextFirst Field -->
+      <div class="cms-m-form-field">
+        <label class="cms-m-form-label">{{
+          fieldsInfo["sendMessageAddTextFirst"]?.fieldTitle
+        }}</label>
+        <textarea
+          matInput
+          [(ngModel)]="dataModel.sendMessageAddTextFirst"
+          name="dataModel.sendMessageAddTextFirst"
+          #sendMessageAddTextFirst
+          type="text"
+          placeholder="{{ fieldsInfo['sendMessageAddTextFirst']?.fieldTitle }}"
+          minlength="1"
+          maxlength="500"
+          rows="5"
+          id="dataModel.sendMessageAddTextFirst"
+          class="cms-m-form-textarea"
+        ></textarea>
+        <em class="cms-m-char-count"
+          >{{ sendMessageAddTextFirst.value.length }} / 500</em
+        >
+      </div>
+
+      <!-- sendMessageAddTextEnd Field -->
+      <div class="cms-m-form-field">
+        <label class="cms-m-form-label">{{
+          fieldsInfo["sendMessageAddTextEnd"]?.fieldTitle
+        }}</label>
+        <textarea
+          matInput
+          [(ngModel)]="dataModel.sendMessageAddTextEnd"
+          name="dataModel.sendMessageAddTextEnd"
+          #sendMessageAddTextEnd
+          type="text"
+          placeholder="{{ fieldsInfo['sendMessageAddTextEnd']?.fieldTitle }}"
+          minlength="1"
+          maxlength="500"
+          rows="5"
+          id="dataModel.sendMessageAddTextEnd"
+          class="cms-m-form-textarea"
+        ></textarea>
+        <em class="cms-m-char-count"
+          >{{ sendMessageAddTextEnd.value.length }} / 500</em
+        >
+      </div>
+
+      <!-- ActionMemo Field -->
+      @if (fieldsInfo['actionMemo']?.accessWatchField) {
+        <div class="cms-m-form-field">
+          <label class="cms-m-form-label">{{
+            fieldsInfo["actionMemo"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="dataModel.actionMemo"
+            #ActionMemo
+            name="dataModel.actionMemo"
+            [disabled]="!fieldsInfo['actionMemo']?.accessEditField"
+            placeholder="1"
+            class="cms-m-form-input"
+            id="dataModel.actionMemo"
+          />
+        </div>
+      }
+
+      <!-- ApiPath Selection List -->
+      <app-sms-apipath-selectionlist
+        [optionSelectForce]="dataCoreCpMainMenuIds"
+        [optionDisabled]="false"
+        (optionChange)="onActionSelectorUserCategorySelect($event)"
+        (optionSelectAdded)="onActionSelectorUserCategorySelectAdded($event)"
+        (optionSelectRemoved)="onActionSelectorUserCategorySelectRemoved($event)"
+      >
+      </app-sms-apipath-selectionlist>
+
+      @if (formInfo.submitButtonEnabled) {
+        <div class="cms-m-footer safe-area-bottom">
+          <button
+            type="button"
+            class="cms-m-btn cms-m-btn-secondary"
+            (click)="onFormCancel()"
+          >
+            <i class="fa-solid fa-times" aria-hidden="true"></i>
+            {{ "ACTION.CANCEL" | translate }}
+          </button>
+          <button
+            type="submit"
+            class="cms-m-btn cms-m-btn-success"
+            [disabled]="!vform.form.valid"
+          >
+            <i class="fa-solid fa-save" aria-hidden="true"></i>
+            {{ "ACTION.SAVE" | translate }}
+          </button>
+        </div>
+      }
+    </form>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="cms-m-body loader-container">
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
+
+  <!-- Header با Safe Area برای iPhone -->
+  <div class="cms-m-header safe-area-top">
+    <div class="cms-m-header-content">
+      <button
+        type="button"
+        class="cms-m-back-btn"
+        (click)="onActionBackToParent()"
+        aria-label="{{ 'ACTION.BACK' | translate }}"
+      >
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </button>
+      <h1 class="cms-m-header-title">
+        {{ formInfo.formTitle }}
+      </h1>
+      <div class="cms-m-header-spacer"></div>
+    </div>
+  </div>
+
+  <!-- Content Area -->
+  <div class="cms-m-content safe-area-content">
+    <app-cms-form-result-message [formInfo]="formInfo">
+    </app-cms-form-result-message>
+
+    <app-cms-json-list
+      [dataModel]="dataModel"
+      [optionMethod]="1"
+    ></app-cms-json-list>
+
+    @if (formInfo.submitButtonEnabled) {
+      <div class="cms-m-footer safe-area-bottom">
+        <button
+          type="button"
+          class="cms-m-btn cms-m-btn-secondary"
+          (click)="onFormCancel()"
+        >
+          <i class="fa-solid fa-times" aria-hidden="true"></i>
+          {{ "ACTION.CANCEL" | translate }}
+        </button>
+      </div>
+    }
+  </div>
+</div>

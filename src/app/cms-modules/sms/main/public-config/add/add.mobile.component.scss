@@ -1,0 +1,9 @@
+// Mobile styles are imported globally from styles.mobile.scss
+// Additional component-specific styles if needed
+
+.cms-m-img-preview {
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: var(--cms-m-border-radius);
+  margin-bottom: var(--cms-m-spacing-sm);
+}

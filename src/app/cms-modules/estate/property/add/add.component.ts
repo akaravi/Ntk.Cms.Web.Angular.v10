@@ -53,7 +53,7 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { ThemeService } from "src/app/core/services/theme.service";
 import { CmsMapComponent } from "src/app/shared/cms-map/cms-map.component";
 import { environment } from "src/environments/environment";
-import { EstatePropertyExpertPriceInquiryListComponent } from "../../property-expert-price/inquiry-list/inquiry-list.component";
+import { EstatePropertyExpertPriceInquiryListComponent } from "../../log/property-expert-price/inquiry-list/inquiry-list.component";
 import { EstatePropertyActionComponent } from "../action/action.component";
 import { EstatePropertyQuickListComponent } from "../quick-list/quick-list.component";
 

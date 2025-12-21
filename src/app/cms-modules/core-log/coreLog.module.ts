@@ -38,6 +38,7 @@ import { CoreLogReportDataViewComponent } from "./report-data/view/view.componen
 import { CoreLogSmsEditComponent } from "./sms/edit/edit.component";
 import { CoreLogSmsListComponent } from "./sms/list/list.component";
 import { CoreLogSmsViewComponent } from "./sms/view/view.component";
+import { CoreLogSmsViewMobileComponent } from "./sms/view/view.mobile.component";
 import { CoreLogEmailEditComponent } from "./email/edit/edit.component";
 import { CoreLogEmailListComponent } from "./email/list/list.component";
 import { CoreLogEmailViewComponent } from "./email/view/view.component";
@@ -60,6 +61,7 @@ import { CoreLogEmailViewComponent } from "./email/view/view.component";
     CoreLogSmsListComponent,
     CoreLogSmsEditComponent,
     CoreLogSmsViewComponent,
+    CoreLogSmsViewMobileComponent,
     /** */
     CoreLogEmailListComponent,
     CoreLogEmailEditComponent,
@@ -92,6 +94,7 @@ import { CoreLogEmailViewComponent } from "./email/view/view.component";
     CoreLogSmsListComponent,
     CoreLogSmsEditComponent,
     CoreLogSmsViewComponent,
+    CoreLogSmsViewMobileComponent,
     /** */
     CoreLogEmailListComponent,
     CoreLogEmailEditComponent,

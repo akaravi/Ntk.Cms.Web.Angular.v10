@@ -20,10 +20,10 @@ import {
   EstatePropertyHistoryService,
   EstatePropertyService,
   NewsContentService,
-  SmsLogOutBoxQueueService,
-  SmsLogOutBoxTaskSchedulerService,
-  SmsLogOutBoxService,
   SmsLogInBoxService,
+  SmsLogOutBoxQueueService,
+  SmsLogOutBoxService,
+  SmsLogOutBoxTaskSchedulerService,
   TicketingTaskService,
   WebDesignerLogMemberInfoService,
 } from "ntk-cms-api";
@@ -43,20 +43,19 @@ import { CoreModuleLogReportAbuseWidgetComponent } from "src/app/cms-modules/cor
 import { CoreModuleSiteCreditWidgetCreditComponent } from "src/app/cms-modules/core-module/site-credit/widget/widget-credit.component";
 import { CoreModuleSiteUserCreditWidgetCreditComponent } from "src/app/cms-modules/core-module/site-user-credit/widget/widget-credit.component";
 import { EstateCustomerOrderWidgetComponent } from "src/app/cms-modules/estate/customer-order/widget/widget.component";
-import { EstatePropertyHistoryWidgetComponent } from "src/app/cms-modules/estate/property-history/widget/widget.component";
+import { EstatePropertyHistoryWidgetComponent } from "src/app/cms-modules/estate/log/property-history/widget/widget.component";
 import { EstatePropertyWidgetComponent } from "src/app/cms-modules/estate/property/widget/widget.component";
 import { NewsContentWidgetComponent } from "src/app/cms-modules/news/content/widget/widget.component";
+import { SmsLogInBoxWidgetComponent } from "src/app/cms-modules/sms/log/inbox/widget/widget.component";
 import { SmsLogOutBoxQueueWidgetComponent } from "src/app/cms-modules/sms/log/outbox-queue/widget/widget.component";
 import { SmsLogOutBoxTaskSchedulerWidgetComponent } from "src/app/cms-modules/sms/log/outbox-task-scheduler/widget/widget.component";
 import { SmsLogOutBoxWidgetComponent } from "src/app/cms-modules/sms/log/outbox/widget/widget.component";
-import { SmsLogInBoxWidgetComponent } from "src/app/cms-modules/sms/log/inbox/widget/widget.component";
 import { WebDesignerLogMemberInfoWidgetComponent } from "src/app/cms-modules/web-designer/log-member-info/widget/widget.component";
-import { ComponentsModule } from "src/app/components/components.module";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 
-import { SharedModule } from "src/app/shared/shared.module";
-import { TicketingTaskWidgetComponent } from "src/app/cms-modules/ticketing/task/widget/widget.component";
 import { RouterModule } from "@angular/router";
+import { TicketingTaskWidgetComponent } from "src/app/cms-modules/ticketing/task/widget/widget.component";
+import { SharedModule } from "src/app/shared/shared.module";
 
 @NgModule({
   declarations: [

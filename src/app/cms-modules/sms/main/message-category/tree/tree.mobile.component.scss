@@ -1,0 +1,45 @@
+// Mobile styles are imported globally from styles.mobile.scss
+// Additional component-specific styles if needed
+
+.cms-m-list-item-selected {
+  background-color: var(--cms-m-color-primary-light, rgba(25, 118, 210, 0.1));
+  border-color: var(--cms-m-color-primary, #1976d2);
+}
+
+.cms-m-tree-toggle {
+  background: none;
+  border: none;
+  padding: var(--cms-m-spacing-xs);
+  margin-right: var(--cms-m-spacing-xs);
+  color: var(--cms-m-color-text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  min-height: 32px;
+  border-radius: var(--cms-m-border-radius-sm);
+  transition: background-color var(--cms-m-transition-fast);
+
+  &:hover {
+    background-color: var(--cms-m-color-surface-hover);
+  }
+
+  i {
+    font-size: 14px;
+  }
+}
+
+.cms-m-tree-toggle-spacer {
+  width: 32px;
+  margin-right: var(--cms-m-spacing-xs);
+}
+
+.cms-m-tree-children {
+  padding-right: var(--cms-m-spacing-md);
+  margin-top: var(--cms-m-spacing-xs);
+}
+
+.cms-m-tree-child {
+  margin-right: var(--cms-m-spacing-md);
+}

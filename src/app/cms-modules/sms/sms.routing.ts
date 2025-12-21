@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { SmsComponent } from "./sms.component";
+import { SmsDashboardComponent } from "./dashboard/dashboard.component";
 
 const routes: Routes = [
   {
@@ -9,6 +10,19 @@ const routes: Routes = [
     data: { title: "ROUTE.SMS" },
 
     children: [
+      /* Dashboard */
+      {
+        path: "",
+        pathMatch: "full",
+        component: SmsDashboardComponent,
+        data: { title: "ROUTE.SMS" },
+      },
+      {
+        path: "dashboard",
+        component: SmsDashboardComponent,
+        data: { title: "ROUTE.SMS" },
+      },
+      /* Dashboard */
       {
         path: "main",
         loadChildren: () =>

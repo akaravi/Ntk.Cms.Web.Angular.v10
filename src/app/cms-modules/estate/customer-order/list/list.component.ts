@@ -40,7 +40,7 @@ import { ThemeService } from "src/app/core/services/theme.service";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { CmsLinkToComponent } from "src/app/shared/cms-link-to/cms-link-to.component";
 import { environment } from "src/environments/environment";
-import { EstatePropertyHistoryAddComponent } from "../../property-history/add/add.component";
+import { EstatePropertyHistoryAddComponent } from "../../log/property-history/add/add.component";
 import { EstateCustomerOrderAddToEditComponent } from "../add/add-to-edit.component";
 import { EstateCustomerOrderQuickViewComponent } from "../quick-view/quick-view.component";
 import { EstateCustomerOrderResponsibleUserListComponent } from "../responsible-user-list/responsible-user-list.component";

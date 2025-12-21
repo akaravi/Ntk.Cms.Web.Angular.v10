@@ -33,8 +33,8 @@ import { EstateCustomerOrderListComponent } from "../customer-order/list/list.co
 import { EstateCustomerOrderSelectorComponent } from "../customer-order/selector/selector.component";
 import { EstatePropertyCompanyHeaderComponent } from "../property-company/header/header.component";
 import { EstatePropertyCompanySelectorComponent } from "../property-company/selector/selector.component";
-import { EstatePropertyHistoryAddComponent } from "../property-history/add/add.component";
-import { EstatePropertyHistoryListComponent } from "../property-history/list/list.component";
+import { EstatePropertyHistoryAddComponent } from "../log/property-history/add/add.component";
+import { EstatePropertyHistoryListComponent } from "../log/property-history/list/list.component";
 import { EstatePropertyProjectHeaderComponent } from "../property-project/header/header.component";
 import { EstatePropertyProjectSelectorComponent } from "../property-project/selector/selector.component";
 import { EstatePropertyTypeLanduseHeaderComponent } from "../property-type-landuse/header/header.component";

@@ -1,0 +1,322 @@
+<div class="cms-m-body loader-container">
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
+
+  <!-- Header با Safe Area برای iPhone -->
+  <div class="cms-m-header safe-area-top">
+    <div class="cms-m-header-content">
+      <button
+        type="button"
+        class="cms-m-back-btn"
+        (click)="onActionBackToParent()"
+        aria-label="{{ 'ACTION.BACK' | translate }}"
+      >
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </button>
+      <h1 class="cms-m-header-title">
+        {{ formInfo.formTitle || ("TITLE.SERVICE_PROVIDER_COMPANIES" | translate) }}
+      </h1>
+      <div class="cms-m-header-spacer"></div>
+    </div>
+  </div>
+
+  <!-- Content Area -->
+  <div class="cms-m-content safe-area-content">
+    <app-cms-form-result-message [formInfo]="formInfo">
+    </app-cms-form-result-message>
+
+    <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
+      <!-- RecordStatus Field -->
+      @if (fieldsInfo['recordStatus']?.accessWatchField) {
+        <app-cms-enum-record-status-selector
+          [(model)]="dataModel.recordStatus"
+          [optionDisabled]="false"
+          [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
+          [optionRequired]="true"
+          [optionSelectFirstItem]="true"
+        ></app-cms-enum-record-status-selector>
+      }
+
+      <!-- Title Field -->
+      @if (fieldsInfo['title']?.accessWatchField) {
+        <div class="cms-m-form-field">
+          <label class="cms-m-form-label">{{
+            fieldsInfo["title"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="dataModel.title"
+            name="dataModel.title"
+            #Title
+            placeholder="{{ fieldsInfo['title']?.fieldTitle }}"
+            minlength="3"
+            maxlength="100"
+            required
+            class="cms-m-form-input"
+            id="dataModel.title"
+          />
+          <em class="cms-m-char-count"
+            >{{ Title.value.length }} / 100</em
+          >
+          @if (Title.errors?.required) {
+            <mat-error>
+              Title is <strong>{{ "MESSAGE.required" | translate }}</strong>
+            </mat-error>
+          }
+        </div>
+      }
+
+      <!-- CheckCredit Field -->
+      @if (fieldsInfo['checkCredit']?.accessWatchField) {
+        <div class="cms-m-form-field">
+          <label class="cms-m-form-label">{{
+            fieldsInfo["checkCredit"]?.fieldTitle
+          }}</label>
+          <div class="cms-m-switch-wrapper">
+            <label class="cms-m-switch">
+              <input
+                type="checkbox"
+                class="ios-input"
+                id="dataModel.checkCredit"
+                [(ngModel)]="dataModel.checkCredit"
+                name="dataModel.checkCredit"
+              />
+              <span class="cms-m-switch-slider"></span>
+            </label>
+          </div>
+        </div>
+      }
+
+      <!-- CalculateCredit Field -->
+      @if (fieldsInfo['calculateCredit']?.accessWatchField) {
+        <div class="cms-m-form-field">
+          <label class="cms-m-form-label">{{
+            fieldsInfo["calculateCredit"]?.fieldTitle
+          }}</label>
+          <div class="cms-m-switch-wrapper">
+            <label class="cms-m-switch">
+              <input
+                type="checkbox"
+                class="ios-input"
+                id="dataModel.calculateCredit"
+                [(ngModel)]="dataModel.calculateCredit"
+                name="dataModel.calculateCredit"
+              />
+              <span class="cms-m-switch-slider"></span>
+            </label>
+          </div>
+        </div>
+      }
+
+      <!-- ServiceAvailableCredit Field -->
+      @if (fieldsInfo['serviceAvailableCredit']?.accessWatchField) {
+        <div class="cms-m-form-field">
+          <label class="cms-m-form-label">{{
+            fieldsInfo["serviceAvailableCredit"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="dataModel.serviceAvailableCredit"
+            currencyMask
+            name="dataModel.serviceAvailableCredit"
+            #ServiceAvailableCredit
+            type="number"
+            placeholder="0"
+            [disabled]="!fieldsInfo['serviceAvailableCredit']?.accessAddField"
+            required
+            class="cms-m-form-input"
+            id="dataModel.serviceAvailableCredit"
+          />
+          @if (ServiceAvailableCredit.errors?.required) {
+            <mat-error>
+              {{ fieldsInfo["serviceAvailableCredit"]?.fieldTitle }} is
+              <strong>{{ "MESSAGE.required" | translate }}</strong>
+            </mat-error>
+          }
+        </div>
+      }
+
+      <!-- ServiceSumCredit Field -->
+      @if (fieldsInfo['serviceSumCredit']?.accessWatchField) {
+        <div class="cms-m-form-field">
+          <label class="cms-m-form-label">{{
+            fieldsInfo["serviceSumCredit"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="dataModel.serviceSumCredit"
+            name="dataModel.serviceSumCredit"
+            currencyMask
+            #ServiceSumCredit
+            type="number"
+            placeholder="0"
+            [disabled]="!fieldsInfo['serviceSumCredit']?.accessAddField"
+            required
+            class="cms-m-form-input"
+            id="dataModel.serviceSumCredit"
+          />
+          @if (ServiceSumCredit.errors?.required) {
+            <mat-error>
+              {{ fieldsInfo["serviceSumCredit"]?.fieldTitle }} is
+              <strong>{{ "MESSAGE.required" | translate }}</strong>
+            </mat-error>
+          }
+        </div>
+      }
+
+      <!-- UserAvailableCredit Field -->
+      @if (fieldsInfo['userAvailableCredit']?.accessWatchField) {
+        <div class="cms-m-form-field">
+          <label class="cms-m-form-label">{{
+            fieldsInfo["userAvailableCredit"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="dataModel.userAvailableCredit"
+            name="dataModel.userAvailableCredit"
+            currencyMask
+            #UserAvailableCredit
+            type="number"
+            placeholder="0"
+            [disabled]="!fieldsInfo['userAvailableCredit']?.accessAddField"
+            required
+            class="cms-m-form-input"
+            id="dataModel.userAvailableCredit"
+          />
+          @if (UserAvailableCredit.errors?.required) {
+            <mat-error>
+              {{ fieldsInfo["userAvailableCredit"]?.fieldTitle }} is
+              <strong>{{ "MESSAGE.required" | translate }}</strong>
+            </mat-error>
+          }
+        </div>
+      }
+
+      <!-- UserSumCredit Field -->
+      @if (fieldsInfo['userSumCredit']?.accessWatchField) {
+        <div class="cms-m-form-field">
+          <label class="cms-m-form-label">{{
+            fieldsInfo["userSumCredit"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="dataModel.userSumCredit"
+            name="dataModel.userSumCredit"
+            currencyMask
+            #UserSumCredit
+            type="number"
+            placeholder="0"
+            [disabled]="!fieldsInfo['userSumCredit']?.accessAddField"
+            required
+            class="cms-m-form-input"
+            id="dataModel.userSumCredit"
+          />
+          @if (UserSumCredit.errors?.required) {
+            <mat-error>
+              {{ fieldsInfo["userSumCredit"]?.fieldTitle }} is
+              <strong>{{ "MESSAGE.required" | translate }}</strong>
+            </mat-error>
+          }
+        </div>
+      }
+
+      <!-- Description Field -->
+      <div class="cms-m-form-field">
+        <label class="cms-m-form-label">{{
+          fieldsInfo["description"]?.fieldTitle
+        }}</label>
+        <textarea
+          matInput
+          [(ngModel)]="dataModel.description"
+          name="dataModel.description"
+          #Description
+          type="text"
+          placeholder="{{ fieldsInfo['description']?.fieldTitle }}"
+          minlength="1"
+          maxlength="500"
+          rows="5"
+          id="dataModel.description"
+          class="cms-m-form-textarea"
+        ></textarea>
+        <em class="cms-m-char-count"
+          >{{ Description.value.length }} / 500</em
+        >
+        @if (Description.errors?.required) {
+          <mat-error>
+            Description is
+            <strong>{{ "MESSAGE.required" | translate }}</strong>
+          </mat-error>
+        }
+      </div>
+
+      <!-- LinkMainImageId Field -->
+      <div class="cms-m-form-field">
+        <label class="cms-m-form-label">{{
+          "TITLE.Icon_File" | translate
+        }}</label>
+        @if (dataModel?.linkMainImageIdSrc?.length > 0) {
+          <a
+            href="{{ dataModel.linkMainImageIdSrc | cmsthumbnail }}"
+            target="_blank"
+          >
+            <img
+              class="cms-m-img-preview"
+              aria-hidden
+              src="{{ dataModel.linkMainImageIdSrc | cmsthumbnail }}"
+            />
+          </a>
+        }
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="dataModel.linkMainImageId"
+          name="dataModel.linkMainImageId"
+          #LinkMainImageId
+          placeholder="{{ 'TITLE.Original_File_ID' | translate }}"
+          autocomplete="off"
+          (click)="fileManagerOpenForm = true"
+          class="cms-m-form-input"
+          id="dataModel.linkMainImageId"
+        />
+        <cms-file-manager
+          (itemSelected)="onActionFileSelected($event)"
+          [language]="appLanguage"
+          [isPopup]="true"
+          [(openForm)]="fileManagerOpenForm"
+          [tree]="fileManagerTree"
+          [openFilemanagerButtonLabelKey]="'select'"
+          [openDirectUploadView]="true"
+          [selectFileType]="selectFileTypeMainImage"
+          [openFilemanagerButtonView]="false"
+        >
+        </cms-file-manager>
+      </div>
+
+      @if (formInfo.submitButtonEnabled) {
+        <div class="cms-m-footer safe-area-bottom">
+          <button
+            type="button"
+            class="cms-m-btn cms-m-btn-secondary"
+            (click)="onFormCancel()"
+          >
+            <i class="fa-solid fa-times" aria-hidden="true"></i>
+            {{ "ACTION.CANCEL" | translate }}
+          </button>
+          <button
+            type="submit"
+            class="cms-m-btn cms-m-btn-success"
+            [disabled]="!vform.form.valid"
+          >
+            <i class="fa-solid fa-save" aria-hidden="true"></i>
+            {{ "ACTION.SAVE" | translate }}
+          </button>
+        </div>
+      }
+    </form>
+  </div>
+</div>

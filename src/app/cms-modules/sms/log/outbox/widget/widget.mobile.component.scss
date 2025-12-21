@@ -1,0 +1,73 @@
+// Mobile styles are imported globally from styles.mobile.scss
+// Additional component-specific styles if needed
+
+.cms-m-widget-description {
+  padding: var(--cms-m-spacing-md);
+  text-align: center;
+  color: var(--cms-m-color-text-secondary);
+  font-size: var(--cms-m-font-size-sm);
+}
+
+.cms-m-widget-chart {
+  padding: var(--cms-m-spacing-md);
+  margin-bottom: var(--cms-m-spacing-md);
+}
+
+.cms-m-list-item-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--cms-m-border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: var(--cms-m-spacing-sm);
+  color: white;
+  font-size: 18px;
+
+  &.cms-m-icon-green {
+    background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+  }
+
+  &.cms-m-icon-orange {
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  }
+
+  &.cms-m-icon-yellow {
+    background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+  }
+
+  &.cms-m-icon-blue {
+    background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+  }
+}
+
+.cms-m-list-item-badge {
+  padding: 4px 12px;
+  border-radius: var(--cms-m-border-radius-full);
+  font-size: var(--cms-m-font-size-sm);
+  font-weight: 600;
+  color: white;
+  min-width: 32px;
+  text-align: center;
+
+  &.cms-m-badge-green {
+    background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+  }
+
+  &.cms-m-badge-orange {
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  }
+
+  &.cms-m-badge-yellow {
+    background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+  }
+
+  &.cms-m-badge-blue {
+    background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+  }
+}
+
+.cms-m-list-item-arrow {
+  color: var(--cms-m-color-text-secondary);
+  font-size: 14px;
+}

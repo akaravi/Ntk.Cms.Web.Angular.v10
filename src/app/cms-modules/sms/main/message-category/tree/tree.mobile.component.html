@@ -1,0 +1,132 @@
+<div class="cms-m-body loader-container">
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
+
+  <!-- Header -->
+  <div class="cms-m-header safe-area-top">
+    <div class="cms-m-header-content">
+      <h1 class="cms-m-header-title">
+        {{ "TABLE." + dataModelResult?.access?.moduleEntityName | translate }}
+      </h1>
+      <div class="cms-m-header-spacer"></div>
+      <div class="cms-m-header-actions">
+        @if (dataModelResult?.access?.accessAddRow) {
+          <button
+            type="button"
+            class="cms-m-header-action-btn"
+            (click)="onActionAdd()"
+            aria-label="{{ 'ACTION.ADD' | translate }}"
+          >
+            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+          </button>
+        }
+        @if (
+          dataModelResult?.access?.accessEditRow &&
+          dataModelSelect?.id?.length > 0
+        ) {
+          <button
+            type="button"
+            class="cms-m-header-action-btn"
+            (click)="onActionEdit()"
+            aria-label="{{ 'ACTION.EDIT' | translate }}"
+          >
+            <i class="fa-solid fa-edit" aria-hidden="true"></i>
+          </button>
+        }
+        @if (
+          dataModelResult?.access?.accessDeleteRow &&
+          dataModelSelect?.id?.length > 0
+        ) {
+          <button
+            type="button"
+            class="cms-m-header-action-btn"
+            (click)="onActionDelete()"
+            aria-label="{{ 'ACTION.DELETE' | translate }}"
+          >
+            <i class="fa-solid fa-trash" aria-hidden="true"></i>
+          </button>
+        }
+        @if (dataModelResult?.access?.accessWatchRow) {
+          <button
+            type="button"
+            class="cms-m-header-action-btn"
+            (click)="onActionButtonReload()"
+            [class.rotation360]="
+              publicHelper.processService.process.inRunArea[constructorInfoAreaId]
+            "
+            aria-label="{{ 'ACTION.RELOAD' | translate }}"
+          >
+            <i class="fa-solid fa-refresh" aria-hidden="true"></i>
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Area -->
+  <div class="cms-m-content safe-area-content">
+    <div class="cms-m-list">
+      @for (item of dataModelResult?.listItems; track item.id) {
+        <div
+          class="cms-m-list-item-wrapper"
+          [class.cms-m-list-item-selected]="
+            dataModelSelect?.id?.length > 0 && dataModelSelect?.id === item.id
+          "
+        >
+          <div class="cms-m-list-item" (click)="onActionSelect(item)">
+            @if (hasChild(item.id, item)) {
+              <button
+                type="button"
+                class="cms-m-tree-toggle"
+                (click)="toggleNode(item); $event.stopPropagation()"
+                aria-label="Toggle {{ item.title }}"
+              >
+                <i
+                  class="fa-solid"
+                  [class.fa-chevron-down]="isNodeExpanded(item)"
+                  [class.fa-chevron-right]="!isNodeExpanded(item)"
+                  aria-hidden="true"
+                ></i>
+              </button>
+            } @else {
+              <div class="cms-m-tree-toggle-spacer"></div>
+            }
+            <div class="cms-m-list-item-content">
+              <div class="cms-m-list-item-title">{{ item.title }}</div>
+            </div>
+          </div>
+          @if (hasChild(item.id, item) && isNodeExpanded(item)) {
+            <div class="cms-m-tree-children">
+              @for (child of childrenAccessor(item); track child.id) {
+                <div
+                  class="cms-m-list-item-wrapper cms-m-tree-child"
+                  [class.cms-m-list-item-selected]="
+                    dataModelSelect?.id?.length > 0 &&
+                    dataModelSelect?.id === child.id
+                  "
+                >
+                  <div class="cms-m-list-item" (click)="onActionSelect(child)">
+                    <div class="cms-m-tree-toggle-spacer"></div>
+                    <div class="cms-m-list-item-content">
+                      <div class="cms-m-list-item-title">{{ child.title }}</div>
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+      @if (!dataModelResult?.listItems || dataModelResult.listItems.length === 0) {
+        <div class="cms-m-empty-state">
+          <div class="cms-m-empty-state-icon">
+            <i class="fa-solid fa-inbox" aria-hidden="true"></i>
+          </div>
+          <div class="cms-m-empty-state-text">
+            {{ "MESSAGE.No_Data" | translate }}
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

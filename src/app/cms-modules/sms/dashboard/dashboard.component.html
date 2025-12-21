@@ -1,0 +1,168 @@
+<div class="sms-dashboard">
+  <div class="hero card shadow-sm border-0 mb-4">
+    <div class="row g-3 align-items-center">
+      <div class="col-12 col-md-4 text-center">
+        <div class="hero-icon">
+          <i class="fa-solid fa-message"></i>
+        </div>
+      </div>
+      <div class="col-12 col-md-8">
+        <div class="hero-title">داشبورد پیامک</div>
+        <div class="hero-subtitle">
+          مدیریت پیام‌های دریافتی و ارسالی، صف ارسال، زمان‌بندی و مسیرهای API.
+        </div>
+        <div class="d-flex flex-wrap gap-2 mt-3">
+          <a
+            routerLink="../action/send-message"
+            class="btn btn-primary btn-sm fw-bold"
+            >+ ارسال پیام جدید</a
+          >
+          <a
+            routerLink="../log/inbox"
+            class="btn btn-outline-primary btn-sm fw-bold"
+            >صندوق ورودی</a
+          >
+          <a routerLink="../log/outbox" class="btn btn-light btn-sm fw-bold"
+            >صندوق خروجی</a
+          >
+          <a routerLink="../main/api-path" class="btn btn-light btn-sm fw-bold"
+            >مسیرهای API</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div
+      class="col-12 col-md-3"
+      *ngFor="
+        let card of [
+          {
+            title: 'پیام‌های خوانده نشده',
+            value: kpi.inbox.unread,
+            icon: 'fa-inbox',
+            route: '../log/inbox',
+          },
+          {
+            title: 'پیام‌های ارسال شده',
+            value: kpi.outbox.sent,
+            icon: 'fa-paper-plane',
+            route: '../log/outbox',
+          },
+          {
+            title: 'پیام‌های در صف',
+            value: kpi.queue.total,
+            icon: 'fa-clock',
+            route: '../log/outbox-queue',
+          },
+          {
+            title: 'زمان‌بندی شده',
+            value: kpi.taskScheduler.total,
+            icon: 'fa-calendar-days',
+            route: '../log/outbox-task-scheduler',
+          },
+        ]
+      "
+    >
+      <a
+        class="card kpi-card h-100 shadow-sm border-0"
+        [routerLink]="card.route"
+      >
+        <div class="d-flex align-items-center p-3">
+          <div class="kpi-icon">
+            <i [class]="'fa-solid ' + card.icon" aria-hidden="true"></i>
+          </div>
+          <div class="ms-3">
+            <div class="kpi-title">{{ card.title }}</div>
+            <div class="kpi-value">{{ card.value | number }}</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-lg-6">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body">
+          <div class="card-title d-flex align-items-center mb-3">
+            <i class="fa-solid fa-route section-icon"></i>
+            <span class="ms-2 fw-bold">جریان ارسال پیام</span>
+          </div>
+          <div class="flow-steps">
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">ایجاد محتوای پیام</div>
+                <div class="text-muted small">Message Content</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">تنظیم مسیر API</div>
+                <div class="text-muted small">API Path</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">افزودن به صف</div>
+                <div class="text-muted small">Queue</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">ارسال و ثبت</div>
+                <div class="text-muted small">Outbox</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body">
+          <div class="card-title d-flex align-items-center mb-3">
+            <i class="fa-solid fa-sitemap section-icon"></i>
+            <span class="ms-2 fw-bold">مدیریت پیام‌ها</span>
+          </div>
+          <div class="flow-steps">
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">پیام‌های دریافتی</div>
+                <div class="text-muted small">Inbox</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">زمان‌بندی ارسال</div>
+                <div class="text-muted small">Task Scheduler</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">پیام‌های ارسالی</div>
+                <div class="text-muted small">Outbox</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">گزارش و آمار</div>
+                <div class="text-muted small">Statistics</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

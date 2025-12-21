@@ -1,5 +1,207 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-12-21 09:01 (رفع خطاهای کامپوننت‌های widget تکراری در SmsLogModule)
+
+### تغییرات اعمال شده:
+
+- **حذف کامپوننت‌های widget تکراری از SmsLogModule**: کامپوننت‌های widget که در `CmsModulesWidgetModule` تعریف شده بودند، از `SmsLogModule` حذف شدند:
+  - `SmsLogInBoxWidgetComponent` از declarations و exports حذف شد
+  - `SmsLogOutBoxWidgetComponent` از declarations و exports حذف شد
+  - `SmsLogOutBoxQueueWidgetComponent` از declarations و exports حذف شد
+  - `SmsLogOutBoxTaskSchedulerWidgetComponent` از declarations و exports حذف شد
+  - فقط کامپوننت‌های Mobile widget در `SmsLogModule` باقی ماندند
+
+### دلیل تغییرات:
+کامپوننت‌های widget باید فقط در یک ماژول تعریف شوند. چون این کامپوننت‌ها در `CmsModulesWidgetModule` تعریف شده بودند، از `SmsLogModule` حذف شدند تا خطای NG6007 رفع شود.
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/sms/log/sms-log.module.ts`
+
+### نتیجه:
+پروژه با موفقیت build شد و تمام خطاها رفع شدند. فقط چند warning مربوط به bundle size و budget باقی مانده که خطا نیستند.
+
+---
+
+## 2025-12-21 08:35 (رفع کامل خطاهای پروژه - بررسی و رفع یک به یک)
+
+### تغییرات اعمال شده:
+
+- **رفع مسیرهای import در property-expert-price/list/list.component.ts**: اصلاح مسیرهای import برای `PublicHelper` و `CmsToastrService` از `../../../../` به `../../../../../`
+
+- **رفع خطاهای کامپوننت‌های تکراری در SmsLogModule و CmsModulesWidgetModule**: حذف کامپوننت‌های widget از `SmsLogModule` declarations چون در `CmsModulesWidgetModule` هم تعریف شده بودند:
+  - `SmsLogInBoxWidgetComponent` از `SmsLogModule` حذف شد
+  - `SmsLogOutBoxWidgetComponent` از `SmsLogModule` حذف شد
+  - `SmsLogOutBoxQueueWidgetComponent` از `SmsLogModule` حذف شد
+  - `SmsLogOutBoxTaskSchedulerWidgetComponent` از `SmsLogModule` حذف شد
+
+- **رفع خطای SmsMainApiPathTreeComponent تکراری**: حذف `SmsMainApiPathTreeComponent` از `SmsMainModule` چون در `SmsSharedModule` تعریف شده بود
+
+- **افزودن SmsMainApiNumberEditMobileComponent به declarations**: این کامپوننت import شده بود اما در declarations نبود
+
+- **رفع خطای publicConfigJsonFormatter**: اضافه کردن type extension برای `dataModel` در `add.mobile.component.ts` تا `publicConfigJsonFormatter` به صورت optional تعریف شود
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/estate/log/property-expert-price/list/list.component.ts`
+- `src/app/cms-modules/sms/log/sms-log.module.ts`
+- `src/app/cms-modules/sms/main/sms-main.module.ts`
+- `src/app/cms-modules/sms/main/public-config/add/add.mobile.component.ts`
+- `src/app/cms-modules/sms/main/public-config/add/add.mobile.component.html`
+
+### نتیجه:
+پروژه با موفقیت build شد و تمام خطاها رفع شدند. فقط چند warning مربوط به CommonJS dependencies باقی مانده که خطا نیستند.
+
+---
+
+## 2025-12-21 08:20 (رفع خطاهای SmsMainModule - افزودن کامپوننت‌های موبایل به declarations)
+
+### تغییرات اعمال شده:
+
+- **رفع خطاهای NgModule در SmsMainModule**: افزودن کامپوننت‌های موبایل که در exports بودند اما در declarations نبودند:
+  - `SmsMainApiPathCompanyAddMobileComponent` به declarations اضافه شد
+  - `SmsMainApiPathPermissionAddMobileComponent` به declarations اضافه شد
+  - `SmsMainApiPathPriceServiceAddMobileComponent` به declarations اضافه شد
+  - `SmsMainApiNumberAddMobileComponent` به declarations اضافه شد
+  - `SmsMainApiNumberPermissionAddMobileComponent` به declarations اضافه شد
+  - `SmsMainMessageContentAddMobileComponent` به declarations اضافه شد
+
+### دلیل تغییرات:
+در Angular، کامپوننت‌هایی که در exports قرار می‌گیرند باید ابتدا در declarations تعریف شوند. این کامپوننت‌ها import شده بودند و در exports قرار داشتند اما در declarations نبودند که باعث خطای NG6004 می‌شد.
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/sms/main/sms-main.module.ts`
+
+---
+
+## 2025-12-21 08:03 (رفع خطاهای باقی‌مانده مسیرهای import)
+
+### تغییرات اعمال شده:
+
+- **رفع مسیرهای import در estate-log.module.ts**:
+  - تغییر مسیرهای `customer-order-result` و `property-expert-price` از `../` به `./` (چون این فولدرها در همان مسیر `log/` هستند)
+- **رفع مسیرهای import در routes.normal.ts**:
+  - تغییر مسیرهای `customer-order-result` و `property-expert-price` از `../` به `./`
+- **رفع مسیرهای import در property components**:
+  - تغییر مسیر `EstatePropertyExpertPriceInquiryListComponent` در `property/add/add.component.ts` از `../../property-expert-price/` به `../../log/property-expert-price/`
+  - تغییر مسیر `EstatePropertyExpertPriceInquiryListComponent` در `property/add/add.mobile.component.ts` از `../../property-expert-price/` به `../../log/property-expert-price/`
+  - تغییر مسیر `EstatePropertyExpertPriceInquiryListComponent` در `property/edit/edit.component.ts` از `../../property-expert-price/` به `../../log/property-expert-price/`
+- **رفع مسیرهای import در property-history/list/list.component.ts**:
+  - تغییر مسیر `EstateCustomerOrderQuickViewComponent` از `../../customer-order/` به `../../../customer-order/`
+  - تغییر مسیر `EstatePropertyQuickViewComponent` از `../../property/` به `../../../property/`
+
+### دلیل تغییرات:
+رفع خطاهای باقی‌مانده مسیرهای import که پس از انتقال فولدرها به `log/` ایجاد شده بودند.
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/estate/log/estate-log.module.ts`
+- `src/app/cms-modules/estate/log/routes.normal.ts`
+- `src/app/cms-modules/estate/property/add/add.component.ts`
+- `src/app/cms-modules/estate/property/add/add.mobile.component.ts`
+- `src/app/cms-modules/estate/property/edit/edit.component.ts`
+- `src/app/cms-modules/estate/log/property-history/list/list.component.ts`
+
+---
+
+## 2025-12-21 07:56 (رفع خطاهای پروژه)
+
+### تغییرات اعمال شده:
+
+- **رفع خطای tsconfig.json**: تغییر مقدار `module` از `"preserve"` به `"esnext"` برای رفع خطای TypeScript
+- **رفع مسیرهای import در quick-view.component.ts**:
+  - تغییر مسیر `EstateCustomerOrderQuickViewComponent` از `../../customer-order/quick-view/quick-view.component` به `../../../customer-order/quick-view/quick-view.component`
+  - تغییر مسیر `EstatePropertyQuickViewComponent` از `../../property/quick-view/quick-view.component` به `../../../property/quick-view/quick-view.component`
+  - تغییر مسیر `FormInfoModel` از `../../../../core/models/formInfoModel` به `../../../../../core/models/formInfoModel`
+  - تغییر مسیر `FormSubmitedStatusEnum` از `../../../../core/models/formSubmitedStatusEnum` به `../../../../../core/models/formSubmitedStatusEnum`
+- **حذف تکرارهای اضافی**: حذف 21 خط تکراری از `this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;` در فایل `quick-view.component.ts` (خطوط 152-172)
+- **رفع مسیرهای import در routes.mobile.ts**:
+  - تغییر مسیر `EstateCustomerOrderResultListComponent` از `../customer-order-result/list/list.component` به `./customer-order-result/list/list.component`
+  - تغییر مسیر `EstatePropertyExpertPriceListComponent` از `../property-expert-price/list/list.component` به `./property-expert-price/list/list.component`
+
+### دلیل تغییرات:
+رفع خطاهای TypeScript و مسیرهای import نادرست که باعث خطا در کامپایل می‌شدند.
+
+### فایل‌های تغییر یافته:
+- `tsconfig.json`
+- `src/app/cms-modules/estate/log/property-history/quick-view/quick-view.component.ts`
+- `src/app/cms-modules/estate/log/routes.mobile.ts`
+
+---
+
+## 2025-12-20 19:52 (انتقال کامپوننت‌های property-history به فولدر log)
+
+### تغییرات اعمال شده:
+
+- انتقال فولدر `property-history` از `estate/property-history` به `estate/log/property-history`
+- به‌روزرسانی imports در ماژول‌ها:
+  - `estate-log.module.ts`: تغییر مسیر از `../property-history` به `./property-history`
+  - `estate-shared.module.ts`: تغییر مسیر از `../property-history` به `../log/property-history`
+- به‌روزرسانی imports در routing:
+  - `routes.normal.ts`: تغییر مسیر از `../property-history` به `./property-history`
+  - `routes.mobile.ts`: تغییر مسیر از `../property-history` به `./property-history`
+- به‌روزرسانی imports در کامپوننت‌های دیگر:
+  - `property/edit/edit.component.ts`: تغییر مسیر از `../../property-history` به `../../log/property-history`
+  - `property/list/list.component.ts`: تغییر مسیر از `../../property-history` به `../../log/property-history`
+  - `customer-order/edit/edit.component.ts`: تغییر مسیر از `../../property-history` به `../../log/property-history`
+  - `customer-order/list/list.component.ts`: تغییر مسیر از `../../property-history` به `../../log/property-history`
+  - `overview/events/events.component.ts`: تغییر مسیر از `../../property-history` به `../../log/property-history`
+
+### دلیل تغییرات:
+کامپوننت‌های property-history مربوط به log هستند و باید در فولدر log قرار گیرند تا ساختار ماژول منطقی‌تر شود.
+
+### فایل‌های تغییر یافته:
+- انتقال فولدر: `estate/property-history` → `estate/log/property-history`
+- `src/app/cms-modules/estate/log/estate-log.module.ts`
+- `src/app/cms-modules/estate/shared/estate-shared.module.ts`
+- `src/app/cms-modules/estate/log/routes.normal.ts`
+- `src/app/cms-modules/estate/log/routes.mobile.ts`
+- `src/app/cms-modules/estate/property/edit/edit.component.ts`
+- `src/app/cms-modules/estate/property/list/list.component.ts`
+- `src/app/cms-modules/estate/customer-order/edit/edit.component.ts`
+- `src/app/cms-modules/estate/customer-order/list/list.component.ts`
+- `src/app/cms-modules/estate/overview/events/events.component.ts`
+
+---
+
+## 2025-12-20 19:52 (انتقال کامپوننت‌های property-history به فولدر log)
+
+### تغییرات اعمال شده:
+
+- انتقال فولدر `property-history` از `estate/property-history` به `estate/log/property-history`
+- به‌روزرسانی imports در ماژول‌ها:
+  - `estate-log.module.ts`: تغییر مسیر از `../property-history` به `./property-history`
+  - `estate-shared.module.ts`: تغییر مسیر از `../property-history` به `../log/property-history`
+- به‌روزرسانی imports در routing:
+  - `routes.normal.ts`: تغییر مسیر از `../property-history` به `./property-history`
+  - `routes.mobile.ts`: تغییر مسیر از `../property-history` به `./property-history`
+- به‌روزرسانی imports در کامپوننت‌های دیگر:
+  - `property/edit/edit.component.ts`: تغییر مسیر از `../../property-history` به `../../log/property-history`
+  - `property/list/list.component.ts`: تغییر مسیر از `../../property-history` به `../../log/property-history`
+  - `customer-order/edit/edit.component.ts`: تغییر مسیر از `../../property-history` به `../../log/property-history`
+  - `customer-order/list/list.component.ts`: تغییر مسیر از `../../property-history` به `../../log/property-history`
+  - `overview/events/events.component.ts`: تغییر مسیر از `../../property-history` به `../../log/property-history`
+
+### دلیل تغییرات:
+کامپوننت‌های property-history مربوط به log هستند و باید در فولدر log قرار گیرند تا ساختار ماژول منطقی‌تر شود.
+
+### فایل‌های تغییر یافته:
+- انتقال فولدر: `estate/property-history` → `estate/log/property-history`
+- `src/app/cms-modules/estate/log/estate-log.module.ts`
+- `src/app/cms-modules/estate/shared/estate-shared.module.ts`
+- `src/app/cms-modules/estate/log/routes.normal.ts`
+- `src/app/cms-modules/estate/log/routes.mobile.ts`
+- `src/app/cms-modules/estate/property/edit/edit.component.ts`
+- `src/app/cms-modules/estate/property/list/list.component.ts`
+- `src/app/cms-modules/estate/customer-order/edit/edit.component.ts`
+- `src/app/cms-modules/estate/customer-order/list/list.component.ts`
+- `src/app/cms-modules/estate/overview/events/events.component.ts`
+
+### نتیجه:
+- فولدر property-history با موفقیت به log منتقل شد
+- تمام imports به‌روزرسانی شدند
+- هیچ خطای lint ایجاد نشد
+- ساختار ماژول منطقی‌تر شد
+
+---
+
 ## 2025-01-27 (رفع خطای @extend در فایل‌های SCSS کامپوننت‌های SMS Config)
 
 ### تغییرات اعمال شده:
@@ -2480,6 +2682,137 @@ ngOnInit(): void {
 - کاهش حجم کد از حدود 550 خط به 128 خط در فایل‌های config
 - بهبود قابلیت نگهداری و یکنواختی
 - آماده برای استفاده در سایر ماژول‌ها
+
+---
+
+## تاریخ: 2025-01-27 - برنامه‌ریزی برای ایجاد Mobile Component برای تمام کامپوننت‌های SMS
+
+### خلاصه:
+بررسی و شناسایی کامپوننت‌های SMS که هنوز mobile component ندارند
+
+### کامپوننت‌های موجود با Mobile:
+✅ **Action:**
+- send-message ✅
+- send-message-api ✅
+
+✅ **Config:**
+- site ✅
+- main-admin ✅
+- check-site ✅
+- check-user ✅
+
+✅ **Log (List):**
+- inbox/list ✅
+- outbox/list ✅
+- outbox-queue/list ✅
+- outbox-task-scheduler/list ✅
+- outbox-detail/list ✅
+- api-path/list ✅
+
+✅ **Main (List):**
+- api-path/list ✅
+- api-path-company/list ✅
+- api-number/list ✅
+- api-number-permission/list ✅
+- api-path-permission/list ✅
+- api-path-price-service/list ✅
+- client-permission/list ✅
+- message-content/list ✅
+- public-config/list ✅
+
+### کامپوننت‌های بدون Mobile (نیاز به ایجاد):
+
+#### Main Module:
+- **Edit Components:**
+  - api-path/edit
+  - api-path-company/edit
+  - api-number/edit
+  - api-number-permission/edit
+  - api-path-permission/edit
+  - api-path-price-service/edit
+  - client-permission/edit
+  - message-content/edit
+  - public-config/edit
+
+- **Add Components:**
+  - api-path/add
+  - api-path-company/add
+  - api-number/add
+  - api-number-permission/add
+  - api-path-permission/add
+  - api-path-price-service/add
+  - client-permission/add
+  - message-content/add
+  - message-category/add
+
+- **Tree Components:**
+  - api-path/tree
+  - api-path-company/tree
+  - public-config/tree
+  - message-category/tree
+
+- **Other Components:**
+  - api-path/sendTest
+  - message-category/edit
+  - message-category/delete
+
+#### Log Module:
+- **View Components:**
+  - outbox/view
+  - outbox-queue/view
+  - outbox-task-scheduler/view
+  - outbox-detail/view
+  - inbox/view
+  - inbox/edit
+
+- **Edit Components:**
+  - outbox/edit
+  - outbox-queue/edit
+  - outbox-task-scheduler/edit
+
+- **Widget Components:**
+  - outbox/widget
+  - outbox-queue/widget
+  - outbox-task-scheduler/widget
+  - inbox/widget
+
+- **Other Components:**
+  - outbox-task-scheduler/schedule-run-info-list
+
+### الگوی مشترک برای Mobile Components:
+
+#### 1. Edit/Add Components:
+- استفاده از Material Stepper (vertical) برای موبایل
+- Header با دکمه Back
+- Content با safe area support
+- Footer با دکمه‌های Save و Cancel
+- استفاده از استایل‌های مشترک از `styles.mobile.scss`
+
+#### 2. View Components:
+- Header با دکمه Back
+- Content با نمایش اطلاعات
+- Footer با دکمه Close
+- استفاده از `app-cms-json-list` برای نمایش داده‌ها
+
+#### 3. Tree Components:
+- Header با دکمه Back
+- Content با tree view
+- استفاده از Material Tree یا custom tree component
+
+### مراحل پیاده‌سازی:
+1. ایجاد mobile component برای Edit/Add (اولویت اول)
+2. ایجاد mobile component برای View (اولویت دوم)
+3. ایجاد mobile component برای Tree (اولویت سوم)
+4. ایجاد mobile component برای Widget و سایر (اولویت چهارم)
+5. به‌روزرسانی routing files
+6. به‌روزرسانی module declarations
+
+### نکات مهم:
+- استفاده از الگوی مشترک از کامپوننت‌های config mobile
+- استفاده از استایل‌های مشترک از `styles.mobile.scss`
+- پشتیبانی از Safe Area برای iPhone
+- پشتیبانی از RTL
+- پشتیبانی از Dark Mode
 
 ### مزایا:
 - کاهش حجم کد تکراری

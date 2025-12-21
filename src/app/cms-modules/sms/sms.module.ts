@@ -1,5 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
+import { RouterModule } from "@angular/router";
 import { SmsComponent } from "./sms.component";
 import { SmsRoutes } from "./sms.routing";
 
@@ -18,12 +19,19 @@ import {
   CoreModuleTagService,
   SmsActionService,
   SmsEnumService,
+  SmsLogInBoxService,
+  SmsLogOutBoxService,
+  SmsLogOutBoxQueueService,
+  SmsLogOutBoxTaskSchedulerService,
   SmsMainApiPathPriceServiceService,
+  SmsMainApiPathService,
+  SmsMainMessageContentService,
 } from "ntk-cms-api";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { SmsDashboardComponent } from "./dashboard/dashboard.component";
 
 @NgModule({
-  declarations: [SmsComponent],
+  declarations: [SmsComponent, SmsDashboardComponent],
   imports: [
     CommonModule,
     SmsRoutes,
@@ -36,6 +44,7 @@ import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-di
     MatIconModule,
     MatFormFieldModule,
     MatStepperModule,
+    RouterModule,
   ],
   providers: [
     CoreModuleService,
@@ -49,6 +58,14 @@ import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-di
     SmsActionService,
     CoreModuleTagService,
     SmsMainApiPathPriceServiceService,
+    /*Dashboard*/
+    SmsLogInBoxService,
+    SmsLogOutBoxService,
+    SmsLogOutBoxQueueService,
+    SmsLogOutBoxTaskSchedulerService,
+    SmsMainApiPathService,
+    SmsMainMessageContentService,
+    /*Dashboard*/
   ],
 })
 export class SmsModule {}

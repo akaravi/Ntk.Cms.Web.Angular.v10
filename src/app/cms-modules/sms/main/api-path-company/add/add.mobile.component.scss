@@ -1,0 +1,11 @@
+// Mobile styles are imported globally from styles.mobile.scss
+// Additional component-specific styles if needed
+
+.cms-m-img-preview {
+  vertical-align: middle;
+  height: 50px;
+  width: 50px;
+  border-radius: var(--cms-m-radius-sm);
+  margin-bottom: var(--cms-m-spacing-sm);
+  object-fit: cover;
+}

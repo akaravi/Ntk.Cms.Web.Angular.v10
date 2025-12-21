@@ -1,0 +1,85 @@
+<div class="cms-m-body loader-container">
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
+
+  <!-- Header با Safe Area برای iPhone -->
+  <div class="cms-m-header safe-area-top">
+    <div class="cms-m-header-content">
+      <button
+        type="button"
+        class="cms-m-back-btn"
+        (click)="onActionBackToParent()"
+        aria-label="{{ 'ACTION.BACK' | translate }}"
+      >
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </button>
+      <h1 class="cms-m-header-title">
+        {{ formInfo.formTitle || ("TITLE.ADD" | translate) }}
+      </h1>
+      <div class="cms-m-header-spacer"></div>
+    </div>
+  </div>
+
+  <!-- Content Area -->
+  <div class="cms-m-content safe-area-content">
+    <app-cms-form-result-message [formInfo]="formInfo">
+    </app-cms-form-result-message>
+
+    <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
+      <!-- RecordStatus Field -->
+      @if (fieldsInfo['recordStatus']?.accessWatchField) {
+        <app-cms-enum-record-status-selector
+          [(model)]="dataModel.recordStatus"
+          [optionDisabled]="false"
+          [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
+          [optionRequired]="true"
+          [optionSelectFirstItem]="true"
+        ></app-cms-enum-record-status-selector>
+      }
+
+      <!-- NumberChar Field -->
+      @if (fieldsInfo['numberChar']?.accessWatchField) {
+        <div class="cms-m-form-field">
+          <label class="cms-m-form-label">{{
+            fieldsInfo["numberChar"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="dataModel.numberChar"
+            name="dataModel.numberChar"
+            #NumberChar
+            placeholder="123"
+            [disabled]="!fieldsInfo['numberChar']?.accessAddField"
+            class="cms-m-form-input input-ltr"
+            id="dataModel.numberChar"
+          />
+          <em class="cms-m-char-count"
+            >{{ NumberChar.value.length }} / 100</em
+          >
+        </div>
+      }
+
+      @if (formInfo.submitButtonEnabled) {
+        <div class="cms-m-footer safe-area-bottom">
+          <button
+            type="button"
+            class="cms-m-btn cms-m-btn-secondary"
+            (click)="onFormCancel()"
+          >
+            <i class="fa-solid fa-times" aria-hidden="true"></i>
+            {{ "ACTION.CANCEL" | translate }}
+          </button>
+          <button
+            type="submit"
+            class="cms-m-btn cms-m-btn-success"
+            [disabled]="!vform.form.valid"
+          >
+            <i class="fa-solid fa-save" aria-hidden="true"></i>
+            {{ "ACTION.SAVE" | translate }}
+          </button>
+        </div>
+      }
+    </form>
+  </div>
+</div>

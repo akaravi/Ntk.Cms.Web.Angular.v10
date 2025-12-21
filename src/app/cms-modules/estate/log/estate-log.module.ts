@@ -26,19 +26,19 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
 
 import { IconPickerModule } from "ngx-ntk-icon-picker";
 
-import { EstateCustomerOrderResultListComponent } from "../customer-order-result/list/list.component";
-import { EstateCustomerOrderResultViewComponent } from "../customer-order-result/view/view.component";
-import { EstatePropertyExpertPriceAddComponent } from "../property-expert-price/add/add.component";
-import { EstatePropertyExpertPriceEditComponent } from "../property-expert-price/edit/edit.component";
-import { EstatePropertyExpertPriceHeaderComponent } from "../property-expert-price/header/header.component";
-import { EstatePropertyExpertPriceInquiryCalculateComponent } from "../property-expert-price/inquiry-calculate/inquiry-calculate.component";
-import { EstatePropertyExpertPriceInquiryListComponent } from "../property-expert-price/inquiry-list/inquiry-list.component";
-import { EstatePropertyExpertPriceListComponent } from "../property-expert-price/list/list.component";
-import { EstatePropertyHistoryAddMobileComponent } from "../property-history/add/add.mobile.component";
-import { EstatePropertyHistoryEditComponent } from "../property-history/edit/edit.component";
-import { EstatePropertyHistoryEditMobileComponent } from "../property-history/edit/edit.mobile.component";
-import { EstatePropertyHistoryQuickViewComponent } from "../property-history/quick-view/quick-view.component";
-import { EstatePropertyHistoryResponsibleUserListComponent } from "../property-history/responsible-user-list/responsible-user-list.component";
+import { EstateCustomerOrderResultListComponent } from "./customer-order-result/list/list.component";
+import { EstateCustomerOrderResultViewComponent } from "./customer-order-result/view/view.component";
+import { EstatePropertyExpertPriceAddComponent } from "./property-expert-price/add/add.component";
+import { EstatePropertyExpertPriceEditComponent } from "./property-expert-price/edit/edit.component";
+import { EstatePropertyExpertPriceHeaderComponent } from "./property-expert-price/header/header.component";
+import { EstatePropertyExpertPriceInquiryCalculateComponent } from "./property-expert-price/inquiry-calculate/inquiry-calculate.component";
+import { EstatePropertyExpertPriceInquiryListComponent } from "./property-expert-price/inquiry-list/inquiry-list.component";
+import { EstatePropertyExpertPriceListComponent } from "./property-expert-price/list/list.component";
+import { EstatePropertyHistoryAddMobileComponent } from "./property-history/add/add.mobile.component";
+import { EstatePropertyHistoryEditComponent } from "./property-history/edit/edit.component";
+import { EstatePropertyHistoryEditMobileComponent } from "./property-history/edit/edit.mobile.component";
+import { EstatePropertyHistoryQuickViewComponent } from "./property-history/quick-view/quick-view.component";
+import { EstatePropertyHistoryResponsibleUserListComponent } from "./property-history/responsible-user-list/responsible-user-list.component";
 
 import { CurrencyMaskModule } from "ng2-currency-mask";
 import { CmsFileManagerModule } from "ntk-cms-filemanager";

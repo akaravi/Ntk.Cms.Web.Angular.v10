@@ -1,0 +1,147 @@
+<div class="cms-m-body loader-container">
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
+
+  <!-- Header -->
+  <div class="cms-m-header safe-area-top">
+    <div class="cms-m-header-content">
+      <h1 class="cms-m-header-title">
+        {{ widgetInfoModel.title }}
+      </h1>
+      <div class="cms-m-header-spacer"></div>
+      <button
+        type="button"
+        class="cms-m-header-action-btn"
+        (click)="onActionButtonReload()"
+        [class.rotation360]="
+          publicHelper.processService.process.inRunArea[constructorInfoAreaId]
+        "
+        aria-label="{{ 'ACTION.RELOAD' | translate }}"
+      >
+        <i class="fa-solid fa-refresh" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Content Area -->
+  <div class="cms-m-content safe-area-content">
+    <div class="cms-m-widget-description">
+      {{ widgetInfoModel.description }}
+    </div>
+
+    <!-- Chart -->
+    @if (rowExist) {
+      <div class="cms-m-widget-chart">
+        <apx-chart
+          [series]="chartOptions.series"
+          [chart]="chartOptions.chart"
+          [labels]="chartOptions.labels"
+          [responsive]="chartOptions.responsive"
+        ></apx-chart>
+      </div>
+    }
+
+    <!-- Statistics List -->
+    <div class="cms-m-list">
+      @if (widgetInfoModel?.items?.get("Completed")) {
+        <div
+          class="cms-m-list-item-wrapper"
+          (click)="onActionNavigate(widgetInfoModel?.items?.get('Completed')?.link || '/sms/log/outbox-queue')"
+        >
+          <div class="cms-m-list-item">
+            <div class="cms-m-list-item-icon cms-m-icon-green">
+              <i class="fa-solid fa-check-circle" aria-hidden="true"></i>
+            </div>
+            <div class="cms-m-list-item-content">
+              <div class="cms-m-list-item-title">
+                {{ "TITLE.Completed_Queue" | translate }}
+              </div>
+            </div>
+            <div class="cms-m-list-item-badge cms-m-badge-green">
+              {{ widgetInfoModel?.items?.get("Completed")?.count }}
+            </div>
+            <i class="fa-solid fa-chevron-left cms-m-list-item-arrow" aria-hidden="true"></i>
+          </div>
+        </div>
+      }
+
+      @if (widgetInfoModel?.items?.get("PendingAdmin")) {
+        <div
+          class="cms-m-list-item-wrapper"
+          (click)="onActionNavigate(widgetInfoModel?.items?.get('PendingAdmin')?.link || '/sms/log/outbox-queue')"
+        >
+          <div class="cms-m-list-item">
+            <div class="cms-m-list-item-icon cms-m-icon-orange">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+            </div>
+            <div class="cms-m-list-item-content">
+              <div class="cms-m-list-item-title">
+                {{ "TITLE.Pending_Admin_Approval" | translate }}
+              </div>
+            </div>
+            <div class="cms-m-list-item-badge cms-m-badge-orange">
+              {{ widgetInfoModel?.items?.get("PendingAdmin")?.count }}
+            </div>
+            <i class="fa-solid fa-chevron-left cms-m-list-item-arrow" aria-hidden="true"></i>
+          </div>
+        </div>
+      }
+
+      @if (widgetInfoModel?.items?.get("NeedToCheck")) {
+        <div
+          class="cms-m-list-item-wrapper"
+          (click)="onActionNavigate(widgetInfoModel?.items?.get('NeedToCheck')?.link || '/sms/log/outbox-queue')"
+        >
+          <div class="cms-m-list-item">
+            <div class="cms-m-list-item-icon cms-m-icon-yellow">
+              <i class="fa-solid fa-exclamation-triangle" aria-hidden="true"></i>
+            </div>
+            <div class="cms-m-list-item-content">
+              <div class="cms-m-list-item-title">
+                {{ "TITLE.Need_To_Check" | translate }}
+              </div>
+            </div>
+            <div class="cms-m-list-item-badge cms-m-badge-yellow">
+              {{ widgetInfoModel?.items?.get("NeedToCheck")?.count }}
+            </div>
+            <i class="fa-solid fa-chevron-left cms-m-list-item-arrow" aria-hidden="true"></i>
+          </div>
+        </div>
+      }
+
+      @if (widgetInfoModel?.items?.get("Available")) {
+        <div
+          class="cms-m-list-item-wrapper"
+          (click)="onActionNavigate(widgetInfoModel?.items?.get('Available')?.link || '/sms/log/outbox-queue')"
+        >
+          <div class="cms-m-list-item">
+            <div class="cms-m-list-item-icon cms-m-icon-blue">
+              <i class="fa-solid fa-list" aria-hidden="true"></i>
+            </div>
+            <div class="cms-m-list-item-content">
+              <div class="cms-m-list-item-title">
+                {{ "TITLE.Active" | translate }}
+              </div>
+            </div>
+            <div class="cms-m-list-item-badge cms-m-badge-blue">
+              {{ widgetInfoModel?.items?.get("Available")?.count }}
+            </div>
+            <i class="fa-solid fa-chevron-left cms-m-list-item-arrow" aria-hidden="true"></i>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- View All Button -->
+    <div class="cms-m-footer safe-area-bottom">
+      <button
+        type="button"
+        class="cms-m-btn cms-m-btn-primary"
+        (click)="onActionNavigate('/sms/log/outbox-queue')"
+      >
+        {{ "TITLE.View_OutBox_Queue_List" | translate }}
+        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</div>
