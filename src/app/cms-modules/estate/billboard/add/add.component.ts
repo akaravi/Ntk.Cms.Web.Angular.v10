@@ -11,7 +11,7 @@ import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
-import { EstatePropertyListComponent } from "../../property/list/list.component";
+import { EstatePropertyListComponent } from "../../data/property/list/list.component";
 
 import { FormInfoModel } from "../../../../core/models/formInfoModel";
 import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";

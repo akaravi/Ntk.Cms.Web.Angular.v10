@@ -43,8 +43,8 @@ import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { ThemeService } from "src/app/core/services/theme.service";
-import { EstatePropertyListComponent } from "../../property/list/list.component";
-import { EstatePropertyQuickViewComponent } from "../../property/quick-view/quick-view.component";
+import { EstatePropertyListComponent } from "../../data/property/list/list.component";
+import { EstatePropertyQuickViewComponent } from "../../data/property/quick-view/quick-view.component";
 
 @Component({
   selector: "app-estate-customer-order-edit-mobile",

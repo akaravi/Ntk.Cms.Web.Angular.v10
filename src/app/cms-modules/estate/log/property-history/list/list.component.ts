@@ -38,7 +38,7 @@ import { PageInfoService } from "src/app/core/services/page-info.service";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { environment } from "src/environments/environment";
 import { EstateCustomerOrderQuickViewComponent } from "../../../customer-order/quick-view/quick-view.component";
-import { EstatePropertyQuickViewComponent } from "../../../property/quick-view/quick-view.component";
+import { EstatePropertyQuickViewComponent } from "../../../data/property/quick-view/quick-view.component";
 import { EstatePropertyHistoryAddComponent } from "../add/add.component";
 import { EstatePropertyHistoryEditComponent } from "../edit/edit.component";
 import { EstatePropertyHistoryQuickViewComponent } from "../quick-view/quick-view.component";

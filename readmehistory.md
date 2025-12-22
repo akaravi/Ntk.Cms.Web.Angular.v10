@@ -1,5 +1,255 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-12-22 09:00 (انتقال widget module ها از shared/widget به shared)
+
+### تغییرات اعمال شده:
+
+- **انتقال تمام widget module ها از `shared/widget/` به `shared/`**:
+  - تمام 13 widget module ایجاد شده از فولدر `widget` به فولدر `shared` منتقل شدند
+  - مسیرهای import در widget module ها از `../../` به `../` تغییر کردند
+  - فولدرهای خالی `widget` حذف شدند
+
+- **به‌روزرسانی import ها**:
+  - به‌روزرسانی تمام import ها در `CmsModulesWidgetModule`
+  - به‌روزرسانی import ها در `EstateDataModule`
+  - به‌روزرسانی import ها در `SmsLogModule`
+
+- **رفع خطا در EstateSharedModule**:
+  - اضافه کردن import برای `EstatePropertySupplierHeaderComponent`
+
+### فایل‌های منتقل شده:
+- `application/shared/widget/application-widget.module.ts` → `application/shared/application-widget.module.ts`
+- `article/shared/widget/article-widget.module.ts` → `article/shared/article-widget.module.ts`
+- `biography/shared/widget/biography-widget.module.ts` → `biography/shared/biography-widget.module.ts`
+- `blog/shared/widget/blog-widget.module.ts` → `blog/shared/blog-widget.module.ts`
+- `catalog/shared/widget/catalog-widget.module.ts` → `catalog/shared/catalog-widget.module.ts`
+- `chart/shared/widget/chart-widget.module.ts` → `chart/shared/chart-widget.module.ts`
+- `news/shared/widget/news-widget.module.ts` → `news/shared/news-widget.module.ts`
+- `core-main/shared/widget/core-main-widget.module.ts` → `core-main/shared/core-main-widget.module.ts`
+- `core-module/shared/widget/core-module-widget.module.ts` → `core-module/shared/core-module-widget.module.ts`
+- `ticketing/shared/widget/ticketing-widget.module.ts` → `ticketing/shared/ticketing-widget.module.ts`
+- `web-designer/shared/widget/web-designer-widget.module.ts` → `web-designer/shared/web-designer-widget.module.ts`
+- `sms/shared/widget/sms-widget.module.ts` → `sms/shared/sms-widget.module.ts`
+- `estate/shared/widget/estate-widget.module.ts` → `estate/shared/estate-widget.module.ts`
+
+### فایل‌های تغییر یافته:
+- تمام widget module های منتقل شده (مسیرهای import داخلی به‌روزرسانی شدند)
+- `src/app/cms-modules/cmsModulesWidget.module.ts`
+- `src/app/cms-modules/estate/data/estate-data.module.ts`
+- `src/app/cms-modules/sms/log/sms-log.module.ts`
+- `src/app/cms-modules/estate/shared/estate-shared.module.ts`
+
+### نتیجه:
+تمام widget module ها به فولدر `shared` منتقل شدند و ساختار ساده‌تری پیدا کردند. این تغییر باعث بهبود ساختار پروژه و ساده‌تر شدن مسیرها می‌شود.
+
+---
+
+## 2025-12-22 08:57 (ایجاد widget module برای تمام ماژول‌های دارای widget component)
+
+### تغییرات اعمال شده:
+
+- **ایجاد widget module برای Application**:
+  - ایجاد فایل `src/app/cms-modules/application/shared/widget/application-widget.module.ts`
+  - اضافه کردن `ApplicationAppWidgetComponent` و `ApplicationMemberInfoWidgetComponent`
+  - اضافه کردن providers: `ApplicationAppService`, `ApplicationMemberInfoService`
+
+- **ایجاد widget module برای Content Modules**:
+  - `ArticleWidgetModule`: `src/app/cms-modules/article/shared/widget/article-widget.module.ts`
+  - `BiographyWidgetModule`: `src/app/cms-modules/biography/shared/widget/biography-widget.module.ts`
+  - `BlogWidgetModule`: `src/app/cms-modules/blog/shared/widget/blog-widget.module.ts`
+  - `CatalogWidgetModule`: `src/app/cms-modules/catalog/shared/widget/catalog-widget.module.ts`
+  - `ChartWidgetModule`: `src/app/cms-modules/chart/shared/widget/chart-widget.module.ts`
+  - `NewsWidgetModule`: `src/app/cms-modules/news/shared/widget/news-widget.module.ts`
+  - هر کدام شامل widget component مربوطه و service provider مربوطه
+
+- **ایجاد widget module برای Core-Main**:
+  - ایجاد فایل `src/app/cms-modules/core-main/shared/widget/core-main-widget.module.ts`
+  - اضافه کردن 5 widget component:
+    - `CoreSiteWidgetCountComponent`
+    - `CoreSiteWidgetStatusComponent`
+    - `CoreSiteWidgetModuleComponent`
+    - `CoreUserWidgetComponent`
+    - `CoreUserClaimContentWidgetStatusComponent`
+  - اضافه کردن providers: `CoreSiteService`, `CoreModuleSiteService`, `CoreUserService`, `CoreUserClaimContentService`
+
+- **ایجاد widget module برای Core-Module**:
+  - ایجاد فایل `src/app/cms-modules/core-module/shared/widget/core-module-widget.module.ts`
+  - اضافه کردن 3 widget component:
+    - `CoreModuleLogReportAbuseWidgetComponent`
+    - `CoreModuleSiteCreditWidgetCreditComponent`
+    - `CoreModuleSiteUserCreditWidgetCreditComponent`
+  - اضافه کردن providers: `CoreModuleLogReportAbuseService`, `CoreModuleSiteCreditService`, `CoreModuleSiteUserCreditService`
+
+- **ایجاد widget module برای Ticketing**:
+  - ایجاد فایل `src/app/cms-modules/ticketing/shared/widget/ticketing-widget.module.ts`
+  - اضافه کردن `TicketingTaskWidgetComponent`
+  - اضافه کردن provider: `TicketingTaskService`
+
+- **ایجاد widget module برای Web-Designer**:
+  - ایجاد فایل `src/app/cms-modules/web-designer/shared/widget/web-designer-widget.module.ts`
+  - اضافه کردن `WebDesignerLogMemberInfoWidgetComponent`
+  - اضافه کردن provider: `WebDesignerLogMemberInfoService`
+
+- **به‌روزرسانی CmsModulesWidgetModule**:
+  - حذف تمام import های مستقیم widget component ها
+  - حذف تمام widget component ها از declarations
+  - حذف تمام widget component ها از exports (جایگزین با widget module ها)
+  - اضافه کردن تمام widget module های جدید به imports
+  - اضافه کردن تمام widget module های جدید به exports
+  - حذف تمام service providers (چون در widget module های مربوطه هستند)
+  - فقط `CmsConfirmationDialogService`, `CoreCpMainMenuService`, `CoreConfigurationService` در providers باقی ماندند
+
+### فایل‌های ایجاد شده:
+- `src/app/cms-modules/application/shared/widget/application-widget.module.ts`
+- `src/app/cms-modules/article/shared/widget/article-widget.module.ts`
+- `src/app/cms-modules/biography/shared/widget/biography-widget.module.ts`
+- `src/app/cms-modules/blog/shared/widget/blog-widget.module.ts`
+- `src/app/cms-modules/catalog/shared/widget/catalog-widget.module.ts`
+- `src/app/cms-modules/chart/shared/widget/chart-widget.module.ts`
+- `src/app/cms-modules/news/shared/widget/news-widget.module.ts`
+- `src/app/cms-modules/core-main/shared/widget/core-main-widget.module.ts`
+- `src/app/cms-modules/core-module/shared/widget/core-module-widget.module.ts`
+- `src/app/cms-modules/ticketing/shared/widget/ticketing-widget.module.ts`
+- `src/app/cms-modules/web-designer/shared/widget/web-designer-widget.module.ts`
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/cmsModulesWidget.module.ts`
+
+### نتیجه:
+تمام widget component های موجود در `CmsModulesWidgetModule` در widget module های مربوط به خودشان سازماندهی شدند. این تغییر باعث بهبود قابل توجه ساختار کد، قابلیت استفاده مجدد، و نگهداری پروژه می‌شود.
+
+---
+
+## 2025-12-22 08:47 (ایجاد EstateWidgetModule در فولدر shared و استفاده از آن در ماژول‌های مرتبط)
+
+### تغییرات اعمال شده:
+
+- **ایجاد EstateWidgetModule**:
+  - ایجاد فایل `src/app/cms-modules/estate/shared/widget/estate-widget.module.ts` در فولدر shared
+  - اضافه کردن تمام widget component های Estate به declarations:
+    - `EstatePropertyWidgetComponent`
+    - `EstateCustomerOrderWidgetComponent`
+    - `EstatePropertyHistoryWidgetComponent`
+  - export کردن تمام widget component ها
+  - اضافه کردن providers مورد نیاز برای widget component ها:
+    - `EstatePropertyService`
+    - `EstateCustomerOrderService`
+    - `EstatePropertyHistoryService`
+
+- **به‌روزرسانی EstateDataModule**:
+  - حذف import مستقیم `EstatePropertyWidgetComponent` از estate-data.module.ts
+  - حذف `EstatePropertyWidgetComponent` از declarations
+  - اضافه کردن `EstateWidgetModule` به imports
+
+- **به‌روزرسانی CmsModulesWidgetModule**:
+  - حذف import مستقیم widget component های Estate
+  - حذف widget component های Estate از declarations و exports
+  - حذف Estate services از providers (چون در EstateWidgetModule هستند)
+  - اضافه کردن `EstateWidgetModule` به imports
+
+### دلیل تغییرات:
+برای سازماندهی بهتر کد و جلوگیری از تکرار، تمام widget component های Estate در یک ماژول مجزا (EstateWidgetModule) در فولدر shared قرار گرفتند و هر جایی که نیاز است از این ماژول استفاده می‌شود.
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/estate/shared/widget/estate-widget.module.ts` (جدید)
+- `src/app/cms-modules/estate/data/estate-data.module.ts`
+- `src/app/cms-modules/cmsModulesWidget.module.ts`
+
+### نتیجه:
+تمام widget component های Estate با موفقیت در EstateWidgetModule سازماندهی شدند و تمام ماژول‌های مرتبط به‌روزرسانی شدند. این تغییر باعث بهبود ساختار کد و قابلیت استفاده مجدد می‌شود.
+
+---
+
+## 2025-12-22 08:42 (ایجاد SmsWidgetModule در فولدر shared و استفاده از آن در ماژول‌های مرتبط)
+
+### تغییرات اعمال شده:
+
+- **ایجاد SmsWidgetModule**:
+  - ایجاد فایل `src/app/cms-modules/sms/shared/widget/sms-widget.module.ts` در فولدر shared
+  - اضافه کردن تمام widget component های SMS (معمولی و mobile) به declarations:
+    - `SmsLogInBoxWidgetComponent`
+    - `SmsLogInBoxWidgetMobileComponent`
+    - `SmsLogOutBoxWidgetComponent`
+    - `SmsLogOutBoxWidgetMobileComponent`
+    - `SmsLogOutBoxQueueWidgetComponent`
+    - `SmsLogOutBoxQueueWidgetMobileComponent`
+    - `SmsLogOutBoxTaskSchedulerWidgetComponent`
+    - `SmsLogOutBoxTaskSchedulerWidgetMobileComponent`
+  - export کردن تمام widget component ها
+  - اضافه کردن providers مورد نیاز برای widget component ها:
+    - `SmsLogInBoxService`
+    - `SmsLogOutBoxService`
+    - `SmsLogOutBoxQueueService`
+    - `SmsLogOutBoxTaskSchedulerService`
+
+- **به‌روزرسانی SmsLogModule**:
+  - حذف import مستقیم widget component های mobile از sms-log.module.ts
+  - حذف widget component های mobile از declarations
+  - اضافه کردن `SmsWidgetModule` به imports
+
+- **به‌روزرسانی CmsModulesWidgetModule**:
+  - حذف import مستقیم widget component های SMS
+  - حذف widget component های SMS از declarations و exports
+  - حذف SMS services از providers (چون در SmsWidgetModule هستند)
+  - اضافه کردن `SmsWidgetModule` به imports
+
+### دلیل تغییرات:
+برای سازماندهی بهتر کد و جلوگیری از تکرار، تمام widget component های SMS در یک ماژول مجزا (SmsWidgetModule) در فولدر shared قرار گرفتند و هر جایی که نیاز است از این ماژول استفاده می‌شود.
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/sms/shared/widget/sms-widget.module.ts` (جدید)
+- `src/app/cms-modules/sms/log/sms-log.module.ts`
+- `src/app/cms-modules/cmsModulesWidget.module.ts`
+
+### نتیجه:
+تمام widget component های SMS با موفقیت در SmsWidgetModule سازماندهی شدند و تمام ماژول‌های مرتبط به‌روزرسانی شدند. این تغییر باعث بهبود ساختار کد و قابلیت استفاده مجدد می‌شود.
+
+---
+
+## 2025-12-21 (انتقال کامپوننت‌های property, property-ads, property-company, property-project, property-supplier به EstateDataModule)
+
+### تغییرات اعمال شده:
+
+- **انتقال فولدرها**: تمام کامپوننت‌های فولدرهای `property`, `property-ads`, `property-company`, `property-project`, و `property-supplier` از فولدر `main` به فولدر `data` منتقل شدند.
+
+- **به‌روزرسانی EstateDataModule**:
+  - اضافه کردن تمام imports مربوط به کامپوننت‌های منتقل شده
+  - اضافه کردن تمام declarations مربوط به کامپوننت‌های منتقل شده
+  - اضافه کردن services مربوطه به providers
+  - اضافه کردن RouterModule به imports برای پشتیبانی از router-outlet
+
+- **به‌روزرسانی EstateMainModule**:
+  - حذف imports مربوط به کامپوننت‌های منتقل شده
+  - حذف declarations مربوط به کامپوننت‌های منتقل شده
+  - حذف services مربوطه از providers
+
+- **به‌روزرسانی EstateSharedModule**:
+  - حذف imports و declarations مربوط به کامپوننت‌های منتقل شده که دیگر در shared module نیستند
+
+- **به‌روزرسانی Routes**:
+  - اضافه کردن routes مربوط به property, property-ads, property-company, property-project, property-supplier به `estate-data/routes.mobile.ts` و `estate-data/routes.normal.ts`
+  - حذف routes مربوط به این کامپوننت‌ها از `estate-main/routes.mobile.ts` و `estate-main/routes.normal.ts`
+  - اضافه کردن route برای `data` در `estate.routing.ts` برای load کردن `EstateDataModule`
+
+- **به‌روزرسانی Import های دیگر**:
+  - به‌روزرسانی import های کامپوننت‌های دیگر که از این کامپوننت‌ها استفاده می‌کردند
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/estate/data/estate-data.module.ts`
+- `src/app/cms-modules/estate/main/estate-main.module.ts`
+- `src/app/cms-modules/estate/shared/estate-shared.module.ts`
+- `src/app/cms-modules/estate/data/routes.mobile.ts`
+- `src/app/cms-modules/estate/data/routes.normal.ts`
+- `src/app/cms-modules/estate/main/routes.mobile.ts`
+- `src/app/cms-modules/estate/main/routes.normal.ts`
+- `src/app/cms-modules/estate/estate.routing.ts`
+- و سایر فایل‌هایی که از این کامپوننت‌ها استفاده می‌کردند
+
+### نتیجه:
+تمام کامپوننت‌های property, property-ads, property-company, property-project, property-supplier با موفقیت به EstateDataModule و فولدر data منتقل شدند و تمام import ها و routes به‌روزرسانی شدند.
+
+---
+
 ## 2025-12-21 09:01 (رفع خطاهای کامپوننت‌های widget تکراری در SmsLogModule)
 
 ### تغییرات اعمال شده:
@@ -2939,3 +3189,56 @@ ngOnInit(): void {
 - سازماندهی بهتر کامپوننت‌ها در فولدر main
 - هماهنگی با ساختار سایر کامپوننت‌های main
 - بهبود ساختار پروژه
+
+---
+
+## تاریخ: 2025-01-27 - انتقال کامپوننت‌های property, property-ads, property-company, property-project و property-supplier به فولدر data
+
+### تغییرات انجام شده:
+1. انتقال فولدر `property` از `src/app/cms-modules/estate/property` به `src/app/cms-modules/estate/data/property`
+2. انتقال فولدر `property-ads` از `src/app/cms-modules/estate/property-ads` به `src/app/cms-modules/estate/data/property-ads`
+3. انتقال فولدر `property-company` از `src/app/cms-modules/estate/property-company` به `src/app/cms-modules/estate/data/property-company`
+4. انتقال فولدر `property-project` از `src/app/cms-modules/estate/property-project` به `src/app/cms-modules/estate/data/property-project`
+5. انتقال فولدر `property-supplier` از `src/app/cms-modules/estate/property-supplier` به `src/app/cms-modules/estate/data/property-supplier`
+6. به‌روزرسانی importها در `estate-main.module.ts` (حذف importها و declarations)
+7. به‌روزرسانی importها در `estate-data.module.ts` (اضافه کردن importها و declarations)
+8. به‌روزرسانی importها در `estate-shared.module.ts`
+9. به‌روزرسانی importها در `routes.mobile.ts` و `routes.normal.ts`
+10. به‌روزرسانی importها در فایل‌های دیگر (customer-order, overview, log, billboard)
+
+### فایل‌های تغییر یافته:
+1. `src/app/cms-modules/estate/main/estate-main.module.ts` - حذف importها و declarations
+2. `src/app/cms-modules/estate/data/estate-data.module.ts` - اضافه کردن importها و declarations
+3. `src/app/cms-modules/estate/shared/estate-shared.module.ts` - به‌روزرسانی importها
+4. `src/app/cms-modules/estate/main/routes.mobile.ts` - به‌روزرسانی importها
+5. `src/app/cms-modules/estate/main/routes.normal.ts` - به‌روزرسانی importها
+6. فایل‌های دیگر: customer-order, overview, log, billboard
+
+### کامپوننت‌های منتقل شده:
+- **property**: action, add, edit, list, autocomplete, header, quick-add, quick-list, quick-view, responsible-user-list, selector, widget
+- **property-ads**: add, edit, list, sale-list, sale-payment
+- **property-company**: add, edit, list, delete, tree, quick-view, header, selector
+- **property-project**: add, edit, list, delete, tree, quick-view, header, selector
+- **property-supplier**: add, edit, list, delete, tree, quick-view, header, selector
+
+### مزایا:
+- سازماندهی بهتر کامپوننت‌ها در فولدر data
+- جداسازی کامپوننت‌های data از main
+- بهبود ساختار پروژه
+
+---
+
+## 2025-12-22 08:52:20 - رفع خطاهای کامپایل Angular
+
+### تغییرات:
+- **فایل**: `src/app/cms-modules/cmsModulesWidget.module.ts`
+  - اضافه کردن `SmsWidgetModule` و `EstateWidgetModule` به بخش `exports`
+  - این تغییر باعث می‌شود کامپوننت‌های این ماژول‌ها در `PanelModule` قابل استفاده باشند
+
+### مشکلات برطرف شده:
+1. خطای `NG8001`: `'app-sms-log-inbox-widget' is not a known element` - برطرف شد
+2. خطای `NG6002`: `'CmsModulesWidgetModule' does not appear to be an NgModule class` - برطرف شد
+
+### توضیحات:
+- ماژول‌های `SmsWidgetModule` و `EstateWidgetModule` قبلاً در بخش `imports` قرار داشتند اما در بخش `exports` نبودند
+- با اضافه کردن آن‌ها به `exports`، کامپوننت‌های این ماژول‌ها (مانند `app-sms-log-inbox-widget`) در ماژول‌های دیگر که `CmsModulesWidgetModule` را import می‌کنند قابل استفاده می‌شوند

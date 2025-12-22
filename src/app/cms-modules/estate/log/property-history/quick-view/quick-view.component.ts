@@ -33,7 +33,7 @@ import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { environment } from "src/environments/environment";
 import { EstateCustomerOrderQuickViewComponent } from "../../../customer-order/quick-view/quick-view.component";
-import { EstatePropertyQuickViewComponent } from "../../../property/quick-view/quick-view.component";
+import { EstatePropertyQuickViewComponent } from "../../../data/property/quick-view/quick-view.component";
 
 import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 import { FormSubmitedStatusEnum } from "../../../../../core/models/formSubmitedStatusEnum";

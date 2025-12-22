@@ -27,14 +27,9 @@ import {
   EstateCustomerCategoryService,
   EstateEnumService,
   EstatePropertyAccountTypeUserService,
-  EstatePropertyAdsService,
-  EstatePropertyCompanyService,
   EstatePropertyDetailGroupService,
   EstatePropertyDetailService,
-  EstatePropertyProjectService,
-  EstatePropertyService,
   EstatePropertySupplierCategoryService,
-  EstatePropertySupplierService,
   EstatePropertyTypeLanduseService,
   EstatePropertyTypeService,
   EstatePropertyTypeUsageService,
@@ -55,15 +50,6 @@ import { EstateBillboardEditComponent } from "../billboard/edit/edit.component";
 import { EstateBillboardListComponent } from "../billboard/list/list.component";
 import { EstateBillboardSelectorComponent } from "../billboard/selector/selector.component";
 import { EstateBillboardTreeComponent } from "../billboard/tree/tree.component";
-import { EstatePropertyAdsAddComponent } from "../property-ads/add/add.component";
-import { EstatePropertyAdsEditComponent } from "../property-ads/edit/edit.component";
-import { EstatePropertyAdsListComponent } from "../property-ads/list/list.component";
-import { EstatePropertyAdsSaleListComponent } from "../property-ads/sale-list/sale-list.component";
-import { EstatePropertyAdsSalePaymentComponent } from "../property-ads/sale-payment/sale-payment.component";
-import { EstatePropertyActionComponent } from "../property/action/action.component";
-import { EstatePropertyAddComponent } from "../property/add/add.component";
-import { EstatePropertyAddMobileComponent } from "../property/add/add.mobile.component";
-import { EstatePropertyEditComponent } from "../property/edit/edit.component";
 import { EstateSharedModule } from "../shared/estate-shared.module";
 import { EstateAccountAgencyAdsAddComponent } from "./account-agency-ads/add/add.component";
 import { EstateAccountAgencyAdsEditComponent } from "./account-agency-ads/edit/edit.component";
@@ -91,7 +77,6 @@ import { EstateActivityTypeSelectionlistComponent } from "./activity-type/select
 import { EstateAdsTypeAddComponent } from "./ads-type/add/add.component";
 import { EstateAdsTypeEditComponent } from "./ads-type/edit/edit.component";
 import { EstateAdsTypeListComponent } from "./ads-type/list/list.component";
-import { EstateAdsTypeSelectorComponent } from "./ads-type/selector/selector.component";
 import { EstateContractTypeAddComponent } from "./contract-type/add/add.component";
 import { EstateContractTypeCompleteComponent } from "./contract-type/autocomplete/autocomplete.component";
 import { EstateContractTypeEditComponent } from "./contract-type/edit/edit.component";
@@ -132,26 +117,6 @@ import { EstateCategoryZoneEditComponent } from "../category-zone/edit/edit.comp
 import { EstateCategoryZoneListComponent } from "../category-zone/list/list.component";
 import { EstateCategoryZoneSelectorComponent } from "../category-zone/selector/selector.component";
 import { EstateCategoryZoneTreeComponent } from "../category-zone/tree/tree.component";
-import { EstatePropertyCompanyAddComponent } from "../property-company/add/add.component";
-import { EstatePropertyCompanyDeleteComponent } from "../property-company/delete/delete.component";
-import { EstatePropertyCompanyEditComponent } from "../property-company/edit/edit.component";
-import { EstatePropertyCompanyListComponent } from "../property-company/list/list.component";
-import { EstatePropertyCompanyQuickViewComponent } from "../property-company/quick-view/quick-view.component";
-import { EstatePropertyCompanyTreeComponent } from "../property-company/tree/tree.component";
-import { EstatePropertyProjectAddComponent } from "../property-project/add/add.component";
-import { EstatePropertyProjectDeleteComponent } from "../property-project/delete/delete.component";
-import { EstatePropertyProjectEditComponent } from "../property-project/edit/edit.component";
-import { EstatePropertyProjectListComponent } from "../property-project/list/list.component";
-import { EstatePropertyProjectQuickViewComponent } from "../property-project/quick-view/quick-view.component";
-import { EstatePropertyProjectTreeComponent } from "../property-project/tree/tree.component";
-import { EstatePropertySupplierAddComponent } from "../property-supplier/add/add.component";
-import { EstatePropertySupplierDeleteComponent } from "../property-supplier/delete/delete.component";
-import { EstatePropertySupplierEditComponent } from "../property-supplier/edit/edit.component";
-import { EstatePropertySupplierHeaderComponent } from "../property-supplier/header/header.component";
-import { EstatePropertySupplierListComponent } from "../property-supplier/list/list.component";
-import { EstatePropertySupplierQuickViewComponent } from "../property-supplier/quick-view/quick-view.component";
-import { EstatePropertySupplierSelectorComponent } from "../property-supplier/selector/selector.component";
-import { EstatePropertySupplierTreeComponent } from "../property-supplier/tree/tree.component";
 import { EstateAccountAgencySelectionlistComponent } from "./account-agency/selectionlist/selectionlist.component";
 import { EstateAccountExpertSelectionlistComponent } from "./account-expert/selectionlist/selectionlist.component";
 import { EstateCustomerCategoryAddComponent } from "./customer-category/add/add.component";
@@ -159,8 +124,6 @@ import { EstateCustomerCategoryEditComponent } from "./customer-category/edit/ed
 import { EstatePropertySupplierCategoryAddComponent } from "./property-supplier-category/add/add.component";
 import { EstatePropertySupplierCategoryEditComponent } from "./property-supplier-category/edit/edit.component";
 import { EstatePropertySupplierCategorySelectorComponent } from "./property-supplier-category/selector/selector.component";
-import { EstatePropertySupplierCategoryTreeSelectorComponent } from "./property-supplier-category/tree-selector/tree-selector.component";
-import { EstatePropertySupplierCategoryTreeComponent } from "./property-supplier-category/tree/tree.component";
 
 import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
 
@@ -182,34 +145,11 @@ import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
 
     EstateActivityTypeHeaderComponent,
     /* */
-    EstatePropertyProjectAddComponent,
-    EstatePropertyProjectEditComponent,
-    EstatePropertyProjectListComponent,
-    EstatePropertyProjectDeleteComponent,
-    EstatePropertyProjectTreeComponent,
-    EstatePropertyProjectQuickViewComponent,
-    /* */
-    EstatePropertyCompanyAddComponent,
-    EstatePropertyCompanyEditComponent,
-    EstatePropertyCompanyListComponent,
-    EstatePropertyCompanyDeleteComponent,
-    EstatePropertyCompanyTreeComponent,
-    EstatePropertyCompanyQuickViewComponent,
-    /* */
-    EstatePropertySupplierAddComponent,
-    EstatePropertySupplierEditComponent,
-    EstatePropertySupplierListComponent,
-    EstatePropertySupplierSelectorComponent,
-    EstatePropertySupplierDeleteComponent,
-    EstatePropertySupplierTreeComponent,
-    EstatePropertySupplierCategoryTreeSelectorComponent,
-    EstatePropertySupplierHeaderComponent,
-    EstatePropertySupplierQuickViewComponent,
+
     /* */
     EstatePropertySupplierCategoryAddComponent,
     EstatePropertySupplierCategoryEditComponent,
     EstatePropertySupplierCategorySelectorComponent,
-    EstatePropertySupplierCategoryTreeComponent,
     /* */
     EstatePropertyTypeUsageAddComponent,
     EstatePropertyTypeUsageEditComponent,
@@ -218,21 +158,10 @@ import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
     EstatePropertyTypeUsageSelectionlistComponent,
     EstatePropertyTypeUsageCompleteComponent,
     /* */
-    EstatePropertyAddComponent,
-    EstatePropertyAddMobileComponent,
-    EstatePropertyEditComponent,
-    EstatePropertyActionComponent,
-    /* */
-    EstatePropertyAdsAddComponent,
-    EstatePropertyAdsEditComponent,
-    EstatePropertyAdsListComponent,
-    EstatePropertyAdsSaleListComponent,
-    EstatePropertyAdsSalePaymentComponent,
-    /* */
     EstateAdsTypeAddComponent,
     EstateAdsTypeEditComponent,
     EstateAdsTypeListComponent,
-    EstateAdsTypeSelectorComponent,
+
     /* */
     EstateContractTypeAddComponent,
     EstateContractTypeEditComponent,
@@ -342,19 +271,14 @@ import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
     EstateCustomerCategoryService,
     EstateCategoryZoneService,
     EstateCategoryRackService,
-    EstatePropertyService,
     EstatePropertyAccountTypeUserService,
     EstatePropertyDetailGroupService,
     EstatePropertyDetailService,
-    EstatePropertyProjectService,
-    EstatePropertyCompanyService,
-    EstatePropertySupplierService,
     EstatePropertySupplierCategoryService,
     EstatePropertyTypeLanduseService,
     EstateActivityTypeService,
     EstatePropertyTypeUsageService,
     EstatePropertyTypeService,
-    EstatePropertyAdsService,
     EstateAdsTypeService,
     /** */
     CmsConfirmationDialogService,

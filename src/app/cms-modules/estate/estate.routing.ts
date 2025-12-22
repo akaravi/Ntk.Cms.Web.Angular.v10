@@ -37,6 +37,12 @@ const routes: Routes = [
         data: { title: "ROUTE.ESTATE.MAIN" },
       },
       {
+        path: "data",
+        loadChildren: () =>
+          import("./data/estate-data.module").then((m) => m.EstateDataModule),
+        data: { title: "ROUTE.ESTATE.DATA" },
+      },
+      {
         path: "action",
         loadChildren: () =>
           import("./action/estate-action.module").then(

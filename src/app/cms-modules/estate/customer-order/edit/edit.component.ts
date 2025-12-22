@@ -39,7 +39,7 @@ import { EstateAccountAgencyListComponent } from "../../main/account-agency/list
 import { EstateAccountExpertListComponent } from "../../main/account-expert/list/list.component";
 import { EstatePropertyHistoryAddComponent } from "../../log/property-history/add/add.component";
 import { EstatePropertyHistoryListComponent } from "../../log/property-history/list/list.component";
-import { EstatePropertyListComponent } from "../../property/list/list.component";
+import { EstatePropertyListComponent } from "../../data/property/list/list.component";
 import { EstateCustomerOrderActionComponent } from "../action/action.component";
 
 import { FormInfoModel } from "../../../../core/models/formInfoModel";

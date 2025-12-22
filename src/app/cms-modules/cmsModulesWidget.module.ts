@@ -1,156 +1,69 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import {
-  ApplicationAppService,
-  ApplicationMemberInfoService,
-  ArticleContentService,
-  BiographyContentService,
-  BlogContentService,
-  CatalogContentService,
-  ChartContentService,
-  CoreConfigurationService,
-  CoreCpMainMenuService,
-  CoreModuleLogReportAbuseService,
-  CoreModuleSiteCreditService,
-  CoreSiteService,
-  CoreUserClaimContentService,
-  CoreUserClaimTypeService,
-  CoreUserService,
-  EstateCustomerOrderService,
-  EstatePropertyHistoryService,
-  EstatePropertyService,
-  NewsContentService,
-  SmsLogInBoxService,
-  SmsLogOutBoxQueueService,
-  SmsLogOutBoxService,
-  SmsLogOutBoxTaskSchedulerService,
-  TicketingTaskService,
-  WebDesignerLogMemberInfoService,
-} from "ntk-cms-api";
-import { ApplicationAppWidgetComponent } from "src/app/cms-modules/application/content/widget/widget.component";
-import { ApplicationMemberInfoWidgetComponent } from "src/app/cms-modules/application/memberInfo/widget/widget.component";
-import { ArticleContentWidgetComponent } from "src/app/cms-modules/article/content/widget/widget.component";
-import { BiographyContentWidgetComponent } from "src/app/cms-modules/biography/content/widget/widget.component";
-import { BlogContentWidgetComponent } from "src/app/cms-modules/blog/content/widget/widget.component";
-import { CatalogContentWidgetComponent } from "src/app/cms-modules/catalog/content/widget/widget.component";
-import { ChartContentWidgetComponent } from "src/app/cms-modules/chart/content/widget/widget.component";
-import { CoreSiteWidgetCountComponent } from "src/app/cms-modules/core-main/site/widget/count/widget.component";
-import { CoreSiteWidgetModuleComponent } from "src/app/cms-modules/core-main/site/widget/module/widget.component";
-import { CoreSiteWidgetStatusComponent } from "src/app/cms-modules/core-main/site/widget/status/widget.component";
-import { CoreUserClaimContentWidgetStatusComponent } from "src/app/cms-modules/core-main/user-claim/content/widget/widget-status.component";
-import { CoreUserWidgetComponent } from "src/app/cms-modules/core-main/user/widget/widget.component";
-import { CoreModuleLogReportAbuseWidgetComponent } from "src/app/cms-modules/core-module-log/report-abuse/widget/widget.component";
-import { CoreModuleSiteCreditWidgetCreditComponent } from "src/app/cms-modules/core-module/site-credit/widget/widget-credit.component";
-import { CoreModuleSiteUserCreditWidgetCreditComponent } from "src/app/cms-modules/core-module/site-user-credit/widget/widget-credit.component";
-import { EstateCustomerOrderWidgetComponent } from "src/app/cms-modules/estate/customer-order/widget/widget.component";
-import { EstatePropertyHistoryWidgetComponent } from "src/app/cms-modules/estate/log/property-history/widget/widget.component";
-import { EstatePropertyWidgetComponent } from "src/app/cms-modules/estate/property/widget/widget.component";
-import { NewsContentWidgetComponent } from "src/app/cms-modules/news/content/widget/widget.component";
-import { SmsLogInBoxWidgetComponent } from "src/app/cms-modules/sms/log/inbox/widget/widget.component";
-import { SmsLogOutBoxQueueWidgetComponent } from "src/app/cms-modules/sms/log/outbox-queue/widget/widget.component";
-import { SmsLogOutBoxTaskSchedulerWidgetComponent } from "src/app/cms-modules/sms/log/outbox-task-scheduler/widget/widget.component";
-import { SmsLogOutBoxWidgetComponent } from "src/app/cms-modules/sms/log/outbox/widget/widget.component";
-import { WebDesignerLogMemberInfoWidgetComponent } from "src/app/cms-modules/web-designer/log-member-info/widget/widget.component";
+import { CoreConfigurationService, CoreCpMainMenuService } from "ntk-cms-api";
+import { ApplicationWidgetModule } from "src/app/cms-modules/application/shared/application-widget.module";
+import { ArticleWidgetModule } from "src/app/cms-modules/article/shared/article-widget.module";
+import { BiographyWidgetModule } from "src/app/cms-modules/biography/shared/biography-widget.module";
+import { BlogWidgetModule } from "src/app/cms-modules/blog/shared/blog-widget.module";
+import { CatalogWidgetModule } from "src/app/cms-modules/catalog/shared/catalog-widget.module";
+import { ChartWidgetModule } from "src/app/cms-modules/chart/shared/chart-widget.module";
+import { CoreMainWidgetModule } from "src/app/cms-modules/core-main/shared/core-main-widget.module";
+import { CoreModuleWidgetModule } from "src/app/cms-modules/core-module/shared/core-module-widget.module";
+import { EstateWidgetModule } from "src/app/cms-modules/estate/shared/estate-widget.module";
+import { NewsWidgetModule } from "src/app/cms-modules/news/shared/news-widget.module";
+import { SmsWidgetModule } from "src/app/cms-modules/sms/shared/sms-widget.module";
+import { TicketingWidgetModule } from "src/app/cms-modules/ticketing/shared/ticketing-widget.module";
+import { WebDesignerWidgetModule } from "src/app/cms-modules/web-designer/shared/web-designer-widget.module";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 
 import { RouterModule } from "@angular/router";
-import { TicketingTaskWidgetComponent } from "src/app/cms-modules/ticketing/task/widget/widget.component";
 import { SharedModule } from "src/app/shared/shared.module";
 
 @NgModule({
   declarations: [
     /*widget*/
-    TicketingTaskWidgetComponent,
-    WebDesignerLogMemberInfoWidgetComponent,
-    ApplicationAppWidgetComponent,
-    ApplicationMemberInfoWidgetComponent,
-    NewsContentWidgetComponent,
-    ChartContentWidgetComponent,
-    ArticleContentWidgetComponent,
-    BiographyContentWidgetComponent,
-    BlogContentWidgetComponent,
-    CatalogContentWidgetComponent,
-    CatalogContentWidgetComponent,
-    CoreSiteWidgetCountComponent,
-    CoreSiteWidgetStatusComponent,
-    CoreSiteWidgetModuleComponent,
-    CoreUserWidgetComponent,
-    CoreUserClaimContentWidgetStatusComponent,
-    EstatePropertyWidgetComponent,
-    EstateCustomerOrderWidgetComponent,
-    EstatePropertyHistoryWidgetComponent,
-    CoreModuleLogReportAbuseWidgetComponent,
-    CoreModuleSiteCreditWidgetCreditComponent,
-    CoreModuleSiteUserCreditWidgetCreditComponent,
-    SmsLogOutBoxQueueWidgetComponent,
-    SmsLogOutBoxTaskSchedulerWidgetComponent,
-    SmsLogOutBoxWidgetComponent,
-    SmsLogInBoxWidgetComponent,
     /*widget*/
   ],
   imports: [
     CommonModule,
     RouterModule,
     SharedModule,
+    SmsWidgetModule,
+    EstateWidgetModule,
+    ApplicationWidgetModule,
+    ArticleWidgetModule,
+    BiographyWidgetModule,
+    BlogWidgetModule,
+    CatalogWidgetModule,
+    ChartWidgetModule,
+    NewsWidgetModule,
+    CoreMainWidgetModule,
+    CoreModuleWidgetModule,
+    TicketingWidgetModule,
+    WebDesignerWidgetModule,
     // ComponentsModule,
   ],
   exports: [
     /*widget*/
-    TicketingTaskWidgetComponent,
-    WebDesignerLogMemberInfoWidgetComponent,
-    ApplicationAppWidgetComponent,
-    ApplicationMemberInfoWidgetComponent,
-    NewsContentWidgetComponent,
-    ChartContentWidgetComponent,
-    ArticleContentWidgetComponent,
-    BiographyContentWidgetComponent,
-    BlogContentWidgetComponent,
-    CatalogContentWidgetComponent,
-    CatalogContentWidgetComponent,
-    CoreSiteWidgetCountComponent,
-    CoreSiteWidgetStatusComponent,
-    CoreSiteWidgetModuleComponent,
-    CoreUserWidgetComponent,
-    CoreUserClaimContentWidgetStatusComponent,
-    EstatePropertyWidgetComponent,
-    EstateCustomerOrderWidgetComponent,
-    EstatePropertyHistoryWidgetComponent,
-    CoreModuleLogReportAbuseWidgetComponent,
-    CoreModuleSiteCreditWidgetCreditComponent,
-    CoreModuleSiteUserCreditWidgetCreditComponent,
-    SmsLogOutBoxQueueWidgetComponent,
-    SmsLogOutBoxTaskSchedulerWidgetComponent,
-    SmsLogOutBoxWidgetComponent,
-    SmsLogInBoxWidgetComponent,
+    SmsWidgetModule,
+    EstateWidgetModule,
+    ApplicationWidgetModule,
+    ArticleWidgetModule,
+    BiographyWidgetModule,
+    BlogWidgetModule,
+    CatalogWidgetModule,
+    ChartWidgetModule,
+    NewsWidgetModule,
+    CoreMainWidgetModule,
+    CoreModuleWidgetModule,
+    TicketingWidgetModule,
+    WebDesignerWidgetModule,
     /*widget*/
   ],
   providers: [
     CmsConfirmationDialogService,
     CoreCpMainMenuService,
     CoreConfigurationService,
-    WebDesignerLogMemberInfoService,
-    ApplicationAppService,
-    ApplicationMemberInfoService,
-    NewsContentService,
-    BiographyContentService,
-    BlogContentService,
-    CatalogContentService,
-    EstatePropertyService,
-    EstateCustomerOrderService,
-    TicketingTaskService,
-    ChartContentService,
-    ArticleContentService,
-    CoreSiteService,
-    CoreUserService,
-    CoreUserClaimContentService,
-    CoreUserClaimTypeService,
-    CoreModuleLogReportAbuseService,
-    CoreModuleSiteCreditService,
-    EstatePropertyHistoryService,
-    SmsLogOutBoxQueueService,
-    SmsLogOutBoxTaskSchedulerService,
-    SmsLogOutBoxService,
-    SmsLogInBoxService,
   ],
 })
 export class CmsModulesWidgetModule {}
