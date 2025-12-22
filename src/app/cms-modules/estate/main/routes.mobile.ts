@@ -1,17 +1,16 @@
 import { Routes } from "@angular/router";
 import { EstateCategoryZoneListComponent } from "../category-zone/list/list.component";
-import { EstateContractTypeListComponent } from "./contract-type/list/list.component";
-import { EstateDashboardComponent } from "../dashboard/dashboard.component";
-import { EstatePropertyDetailGroupListComponent } from "./property-detail-group/list/list.component";
-import { EstatePropertyDetailListComponent } from "./property-detail/list/list.component";
-import { EstatePropertyTypeLanduseListComponent } from "./property-type-landuse/list/list.component";
-import { EstatePropertyTypeUsageListComponent } from "./property-type-usage/list/list.component";
 import { EstateAccountAgencyAdsListComponent } from "./account-agency-ads/list/list.component";
 import { EstateAccountAgencyListComponent } from "./account-agency/list/list.component";
 import { EstateAccountExpertListComponent } from "./account-expert/list/list.component";
 import { EstateActivityTypeListComponent } from "./activity-type/list/list.component";
 import { EstateAdsTypeListComponent } from "./ads-type/list/list.component";
+import { EstateContractTypeListComponent } from "./contract-type/list/list.component";
 import { EstateMainComponent } from "./estate-main.component";
+import { EstatePropertyDetailGroupListComponent } from "./property-detail-group/list/list.component";
+import { EstatePropertyDetailListComponent } from "./property-detail/list/list.component";
+import { EstatePropertyTypeLanduseListComponent } from "./property-type-landuse/list/list.component";
+import { EstatePropertyTypeUsageListComponent } from "./property-type-usage/list/list.component";
 
 export const routesMobile: Routes = [
   {
@@ -19,13 +18,6 @@ export const routesMobile: Routes = [
     component: EstateMainComponent,
     data: { title: "ROUTE.ESTATE.MAIN" },
     children: [
-      /* Dashboard */
-      {
-        path: "",
-        pathMatch: "full",
-        component: EstateDashboardComponent,
-        data: { title: "ROUTE.ESTATE.MAIN" },
-      },
       /**/
       {
         path: "property-type-usage",

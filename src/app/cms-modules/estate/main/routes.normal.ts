@@ -1,7 +1,6 @@
 import { Routes } from "@angular/router";
 import { EstateCategoryRackListComponent } from "../category-rack/list/list.component";
 import { EstateCategoryZoneListComponent } from "../category-zone/list/list.component";
-import { EstateDashboardComponent } from "../dashboard/dashboard.component";
 import { EstateAccountAgencyAdsListComponent } from "./account-agency-ads/list/list.component";
 import { EstateAccountAgencyListComponent } from "./account-agency/list/list.component";
 import { EstateAccountExpertListComponent } from "./account-expert/list/list.component";
@@ -20,13 +19,6 @@ export const routesNormal: Routes = [
     component: EstateMainComponent,
     data: { title: "ROUTE.ESTATE.MAIN" },
     children: [
-      /* Dashboard */
-      {
-        path: "",
-        pathMatch: "full",
-        component: EstateDashboardComponent,
-        data: { title: "ROUTE.ESTATE.MAIN" },
-      },
       /**/
       {
         path: "property-type-usage",

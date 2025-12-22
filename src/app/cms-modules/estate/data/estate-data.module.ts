@@ -21,9 +21,11 @@ import {
   EstatePropertyDetailGroupService,
   EstatePropertyProjectService,
   EstatePropertyService,
+  EstatePropertySupplierCategoryService,
   EstatePropertySupplierService,
   EstatePropertyTypeLanduseService,
   EstatePropertyTypeService,
+  EstatePropertyTypeUsageService,
   FileCategoryService,
 } from "ntk-cms-api";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
@@ -38,6 +40,11 @@ import { IconPickerModule } from "ngx-ntk-icon-picker";
 
 import { EstateSharedModule } from "../shared/estate-shared.module";
 import { EstateWidgetModule } from "../shared/estate-widget.module";
+import { EstateBillboardAddComponent } from "./billboard/add/add.component";
+import { EstateBillboardEditComponent } from "./billboard/edit/edit.component";
+import { EstateBillboardListComponent } from "./billboard/list/list.component";
+import { EstateBillboardSelectorComponent } from "./billboard/selector/selector.component";
+import { EstateBillboardTreeComponent } from "./billboard/tree/tree.component";
 import { EstatePropertyAdsAddComponent } from "./property-ads/add/add.component";
 import { EstatePropertyAdsEditComponent } from "./property-ads/edit/edit.component";
 import { EstatePropertyAdsListComponent } from "./property-ads/list/list.component";
@@ -63,11 +70,6 @@ import { EstatePropertySupplierListComponent } from "./property-supplier/list/li
 import { EstatePropertySupplierQuickViewComponent } from "./property-supplier/quick-view/quick-view.component";
 import { EstatePropertySupplierSelectorComponent } from "./property-supplier/selector/selector.component";
 import { EstatePropertySupplierTreeComponent } from "./property-supplier/tree/tree.component";
-import { EstateBillboardAddComponent } from "./billboard/add/add.component";
-import { EstateBillboardEditComponent } from "./billboard/edit/edit.component";
-import { EstateBillboardListComponent } from "./billboard/list/list.component";
-import { EstateBillboardSelectorComponent } from "./billboard/selector/selector.component";
-import { EstateBillboardTreeComponent } from "./billboard/tree/tree.component";
 import { EstatePropertyActionComponent } from "./property/action/action.component";
 import { EstatePropertyAddComponent } from "./property/add/add.component";
 import { EstatePropertyAddMobileComponent } from "./property/add/add.mobile.component";
@@ -170,8 +172,10 @@ import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
     EstatePropertyCompanyService,
     EstatePropertyDetailGroupService,
     EstatePropertyProjectService,
+    EstatePropertySupplierCategoryService,
     EstatePropertySupplierService,
     EstatePropertyTypeLanduseService,
+    EstatePropertyTypeUsageService,
     EstatePropertyTypeService,
     FileCategoryService,
   ],

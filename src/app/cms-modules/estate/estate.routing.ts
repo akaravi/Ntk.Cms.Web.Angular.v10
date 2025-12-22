@@ -64,6 +64,17 @@ const routes: Routes = [
           ),
         data: { title: "ROUTE.ESTATE" },
       },
+      {
+        path: "",
+        redirectTo: "dashboard",
+        pathMatch: "full",
+        data: { title: "ROUTE.PANEL" },
+      },
+      {
+        path: "**",
+        redirectTo: "error/404",
+        data: { title: "ROUTE.ESTATE.MAIN" },
+      },
     ],
   },
 ];
