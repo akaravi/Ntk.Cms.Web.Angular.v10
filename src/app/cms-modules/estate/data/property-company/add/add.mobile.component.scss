@@ -1,0 +1,15 @@
+// Mobile styles are imported globally from styles.mobile.scss
+// Additional component-specific styles if needed
+
+.cms-m-stepper-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 10px 0;
+}
+
+.map-container {
+  margin-top: 10px;
+  height: 300px;
+  width: 100%;
+}

@@ -1,0 +1,20 @@
+// Mobile styles are imported globally from styles.mobile.scss
+// Additional component-specific styles if needed
+
+.cms-m-price-section {
+  margin-top: 20px;
+}
+
+.cms-m-price-group {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: var(--cms-m-bg-secondary, #f5f5f5);
+  border-radius: 8px;
+}
+
+.cms-m-price-group-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: var(--cms-m-text-primary, #333);
+}

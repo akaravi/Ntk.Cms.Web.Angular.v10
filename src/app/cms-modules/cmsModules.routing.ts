@@ -143,6 +143,14 @@ const CmsModulesRoutes: Routes = [
   },
 
   {
+    path: "crm",
+    canActivate: [CmsAuthSiteGuard],
+    loadChildren: () =>
+      import("./crm/crm.module").then((m) => m.CrmModule),
+    data: { title: "ROUTE.CRM" },
+  },
+
+  {
     path: "news",
     canActivate: [CmsAuthSiteGuard],
     loadChildren: () => import("./news/news.module").then((m) => m.NewsModule),

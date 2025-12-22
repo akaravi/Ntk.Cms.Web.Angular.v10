@@ -1,0 +1,351 @@
+<div class="cms-m-body loader-container">
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
+
+  <!-- Header با Safe Area برای iPhone -->
+  <div class="cms-m-header safe-area-top">
+    <div class="cms-m-header-content">
+      <button
+        type="button"
+        class="cms-m-back-btn"
+        (click)="onActionBackToParent()"
+        aria-label="{{ 'ACTION.BACK' | translate }}"
+      >
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </button>
+      <h1 class="cms-m-header-title">
+        {{ formInfo.formTitle || ("ROUTE.ESTATE.CONTRACTTYPE" | translate) }}
+      </h1>
+      <div class="cms-m-header-spacer"></div>
+    </div>
+  </div>
+
+  <!-- Content Area -->
+  <div class="cms-m-content safe-area-content">
+    <app-cms-form-result-message [formInfo]="formInfo">
+    </app-cms-form-result-message>
+
+    <form
+      (ngSubmit)="onFormSubmit()"
+      #vform="ngForm"
+      [ngStyle]="{ direction: tokenInfo.access.direction }"
+    >
+      <!-- RecordStatus Field -->
+      @if (fieldsInfo['recordStatus']?.accessWatchField) {
+        <app-cms-enum-record-status-selector
+          [(model)]="dataModel.recordStatus"
+          [optionDisabled]="false"
+          [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
+          [optionRequired]="true"
+          [optionSelectFirstItem]="true"
+        ></app-cms-enum-record-status-selector>
+      }
+
+      <!-- Title Field -->
+      <div class="cms-m-form-field">
+        <label class="cms-m-form-label">{{
+          fieldsInfo["title"]?.fieldTitle
+        }}</label>
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="dataModel.title"
+          name="dataModel.title"
+          #Title
+          placeholder="{{ fieldsInfo['title']?.fieldTitle }}"
+          minlength="3"
+          maxlength="100"
+          required
+          class="cms-m-form-input"
+          id="dataModel.title"
+        />
+        <em class="cms-m-char-count"
+          >{{ Title.value.length }} / 100</em
+        >
+        @if (Title.errors?.required) {
+          <mat-error>
+            Title is <strong>{{ "MESSAGE.required" | translate }}</strong>
+          </mat-error>
+        }
+      </div>
+
+      <!-- titleML Field -->
+      <div class="cms-m-form-field">
+        <label class="cms-m-form-label">{{
+          fieldsInfo["title"]?.fieldTitle
+        }}</label>
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="dataModel.titleML"
+          cmsKeyboardForce="en"
+          name="dataModel.titleML"
+          [disabled]="true"
+          class="cms-m-form-input"
+          id="dataModel.titleML"
+        />
+      </div>
+
+      <!-- titleResourceLanguage Field -->
+      <div class="cms-m-form-field">
+        <label class="cms-m-form-label">{{
+          fieldsInfo["titleResourceLanguage"]?.fieldTitle
+        }}</label>
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="dataModel.titleResourceLanguage"
+          name="dataModel.titleResourceLanguage"
+          [disabled]="true"
+          #titleResourceLanguage
+          placeholder="{{ fieldsInfo['titleResourceLanguage']?.fieldTitle }}"
+          minlength="1"
+          maxlength="100"
+          required
+          class="cms-m-form-input"
+          id="dataModel.titleResourceLanguage"
+        />
+        <em class="cms-m-char-count"
+          >{{ titleResourceLanguage.value.length }} / 100</em
+        >
+        @if (titleResourceLanguage.errors?.required) {
+          <mat-error>
+            titleResourceLanguage is
+            <strong>{{ "MESSAGE.required" | translate }}</strong>
+          </mat-error>
+        }
+      </div>
+
+      <!-- orderTitle Field -->
+      <div class="cms-m-form-field">
+        <label class="cms-m-form-label">{{
+          fieldsInfo["orderTitle"]?.fieldTitle
+        }}</label>
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="dataModel.orderTitle"
+          name="dataModel.orderTitle"
+          [disabled]="true"
+          #orderTitle
+          placeholder="{{ fieldsInfo['orderTitle']?.fieldTitle }}"
+          minlength="3"
+          maxlength="100"
+          required
+          class="cms-m-form-input"
+          id="dataModel.orderTitle"
+        />
+        <em class="cms-m-char-count"
+          >{{ orderTitle.value.length }} / 100</em
+        >
+        @if (orderTitle.errors?.required) {
+          <mat-error>
+            orderTitle is
+            <strong>{{ "MESSAGE.required" | translate }}</strong>
+          </mat-error>
+        }
+      </div>
+
+      <!-- orderTitleML Field -->
+      <div class="cms-m-form-field">
+        <label class="cms-m-form-label">{{
+          fieldsInfo["title"]?.fieldTitle
+        }}</label>
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="dataModel.orderTitleML"
+          name="dataModel.orderTitleML"
+          [disabled]="true"
+          class="cms-m-form-input"
+          id="dataModel.orderTitleML"
+        />
+      </div>
+
+      <!-- orderTitleResourceLanguage Field -->
+      <div class="cms-m-form-field">
+        <label class="cms-m-form-label">{{
+          fieldsInfo["orderTitleResourceLanguage"]?.fieldTitle
+        }}</label>
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="dataModel.orderTitleResourceLanguage"
+          name="dataModel.orderTitleResourceLanguage"
+          [disabled]="true"
+          #orderTitleResourceLanguage
+          placeholder="{{ fieldsInfo['orderTitleResourceLanguage']?.fieldTitle }}"
+          minlength="1"
+          maxlength="100"
+          required
+          class="cms-m-form-input"
+          id="dataModel.orderTitleResourceLanguage"
+        />
+        <em class="cms-m-char-count"
+          >{{ orderTitleResourceLanguage.value.length }} / 100</em
+        >
+        @if (orderTitleResourceLanguage.errors?.required) {
+          <mat-error>
+            orderTitleResourceLanguage is
+            <strong>{{ "MESSAGE.required" | translate }}</strong>
+          </mat-error>
+        }
+      </div>
+
+      <!-- TitleSoldIt Field -->
+      <div class="cms-m-form-field">
+        <label class="cms-m-form-label">{{
+          fieldsInfo["titleSoldIt"]?.fieldTitle
+        }}</label>
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="dataModel.titleSoldIt"
+          name="dataModel.titleSoldIt"
+          #TitleSoldIt
+          placeholder="{{ fieldsInfo['titleSoldIt']?.fieldTitle }}"
+          minlength="1"
+          maxlength="100"
+          required
+          class="cms-m-form-input"
+          id="dataModel.titleSoldIt"
+        />
+        <em class="cms-m-char-count"
+          >{{ TitleSoldIt.value.length }} / 100</em
+        >
+        @if (TitleSoldIt.errors?.required) {
+          <mat-error>
+            TitleSoldIt is
+            <strong>{{ "MESSAGE.required" | translate }}</strong>
+          </mat-error>
+        }
+      </div>
+
+      <!-- titleSoldItML Field -->
+      <div class="cms-m-form-field">
+        <label class="cms-m-form-label">{{
+          fieldsInfo["titleSoldIt"]?.fieldTitle
+        }}</label>
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="dataModel.titleSoldItML"
+          name="dataModel.titleSoldItML"
+          [disabled]="true"
+          class="cms-m-form-input"
+          id="dataModel.titleSoldItML"
+        />
+      </div>
+
+      <!-- titleSoldItResourceLanguage Field -->
+      <div class="cms-m-form-field">
+        <label class="cms-m-form-label">{{
+          fieldsInfo["titleSoldItResourceLanguage"]?.fieldTitle
+        }}</label>
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="dataModel.titleSoldItResourceLanguage"
+          name="dataModel.titleSoldItResourceLanguage"
+          #titleSoldItResourceLanguage
+          placeholder="{{ fieldsInfo['titleSoldItResourceLanguage']?.fieldTitle }}"
+          minlength="1"
+          maxlength="100"
+          required
+          class="cms-m-form-input"
+          id="dataModel.titleSoldItResourceLanguage"
+        />
+        <em class="cms-m-char-count"
+          >{{ titleSoldItResourceLanguage.value.length }} / 100</em
+        >
+        @if (titleSoldItResourceLanguage.errors?.required) {
+          <mat-error>
+            titleSoldItResourceLanguage is
+            <strong>{{ "MESSAGE.required" | translate }}</strong>
+          </mat-error>
+        }
+      </div>
+
+      <!-- allowPriceInquiryCalculate Field -->
+      @if (fieldsInfo['allowPriceInquiryCalculate']?.accessWatchField) {
+        <div class="cms-m-form-field">
+          <label class="cms-m-form-label">{{
+            fieldsInfo["allowPriceInquiryCalculate"]?.fieldTitle
+          }}</label>
+          <div class="cms-m-switch-wrapper">
+            <label class="cms-m-switch">
+              <input
+                type="checkbox"
+                [(ngModel)]="dataModel.allowPriceInquiryCalculate"
+                name="dataModel.allowPriceInquiryCalculate"
+                id="dataModel.allowPriceInquiryCalculate"
+              />
+              <span class="cms-m-switch-slider"></span>
+            </label>
+          </div>
+        </div>
+      }
+
+      <!-- HasSalePrice Field -->
+      @if (fieldsInfo['hasSalePrice']?.accessWatchField) {
+        <div class="cms-m-form-field">
+          <label class="cms-m-form-label">{{
+            fieldsInfo["hasSalePrice"]?.fieldTitle
+          }}</label>
+          <div class="cms-m-switch-wrapper">
+            <label class="cms-m-switch">
+              <input
+                type="checkbox"
+                [(ngModel)]="dataModel.hasSalePrice"
+                name="dataModel.hasSalePrice"
+                id="dataModel.hasSalePrice"
+              />
+              <span class="cms-m-switch-slider"></span>
+            </label>
+          </div>
+        </div>
+      }
+
+      <!-- hasPeriodPrice Field -->
+      @if (fieldsInfo['hasPeriodPrice']?.accessWatchField) {
+        <div class="cms-m-form-field">
+          <label class="cms-m-form-label">{{
+            fieldsInfo["hasPeriodPrice"]?.fieldTitle
+          }}</label>
+          <div class="cms-m-switch-wrapper">
+            <label class="cms-m-switch">
+              <input
+                type="checkbox"
+                [(ngModel)]="dataModel.hasPeriodPrice"
+                name="dataModel.hasPeriodPrice"
+                id="dataModel.hasPeriodPrice"
+              />
+              <span class="cms-m-switch-slider"></span>
+            </label>
+          </div>
+        </div>
+      }
+
+      @if (formInfo.submitButtonEnabled) {
+        <div class="cms-m-footer safe-area-bottom">
+          <button
+            type="button"
+            class="cms-m-btn cms-m-btn-secondary"
+            (click)="onActionBackToParent()"
+          >
+            <i class="fa-solid fa-times" aria-hidden="true"></i>
+            {{ "ACTION.CANCEL" | translate }}
+          </button>
+          <button
+            type="submit"
+            class="cms-m-btn cms-m-btn-success"
+            [disabled]="!vform.form.valid"
+          >
+            <i class="fa-solid fa-save" aria-hidden="true"></i>
+            {{ "ACTION.SAVE" | translate }}
+          </button>
+        </div>
+      }
+    </form>
+  </div>
+</div>

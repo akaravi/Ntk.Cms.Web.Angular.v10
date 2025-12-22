@@ -1,0 +1,312 @@
+<div class="card card-style loader-container">
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
+  <div class="content mb-0">
+    <p class="mb-0 color-highlight font-600 font-12">
+      {{ formInfo.formTitle }}
+    </p>
+
+    <p>
+      {{ "TITLE.Be_Careful_When_Entering_Information" | translate }}
+    </p>
+    <!--Content-->
+
+    <app-cms-form-result-message
+      [formInfo]="formInfo"
+    ></app-cms-form-result-message>
+    <form
+      (ngSubmit)="onFormSubmit()"
+      #vform="ngForm"
+      [ngStyle]="{ direction: tokenInfo.access.direction }"
+      >
+      <!-- LinkMainImageId Field -->
+      <div class="mb-3">
+        <a
+          href="{{ dataModel.linkMainImageIdSrc | cmsthumbnail }}"
+          target="_blank"
+          >
+          @if (dataModel?.linkMainImageIdSrc?.length > 0) {
+            <img
+              style="vertical-align: middle"
+              class="ntk-hover-zoom"
+              aria-hidden
+              src="{{ dataModel.linkMainImageIdSrc | cmsthumbnail }}"
+              height="50"
+              width="50"
+              />
+          }
+        </a>
+      </div>
+      <div
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+        >
+        <label for="dataModel.linkMainImageId" class="color-highlight">{{
+          "MESSAGE.Photo" | translate
+        }}</label>
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="dataModel.linkMainImageId"
+          name="dataModel.linkMainImageId"
+          #LinkMainImageId
+          placeholder="{{ 'TITLE.Original_File_ID' | translate }}"
+          autocomplete="off"
+          (click)="fileManagerOpenForm = true"
+          class="form-control validate-name"
+          id="dataModel.linkMainImageId"
+          />
+          <cms-file-manager
+            (itemSelected)="onActionFileSelected($event)"
+            [language]="appLanguage"
+            [isPopup]="true"
+            [openSelectFileDescription]="'TITLE.Select_Image' | translate"
+            [(openForm)]="fileManagerOpenForm"
+            [tree]="fileManagerTree"
+            [openFilemanagerButtonLabelKey]="'select'"
+            [openDirectUploadView]="true"
+            [selectFileType]="selectFileTypeMainImage"
+            [openFilemanagerButtonView]="false"
+            >
+          </cms-file-manager>
+        </div>
+        <!-- Account Selector -->
+        <app-crm-account-selector
+          (optionChange)="onActionSelectorAccount($event)"
+          [optionSelectForce]="dataModel.linkAccountId"
+          [optionPlaceholder]="fieldsInfo['linkAccountId']?.fieldTitle || 'Account'"
+          [optionDisabled]="!fieldsInfo['linkAccountId']?.accessAddField"
+          ></app-crm-account-selector>
+        <!-- Contact Selector -->
+        <app-crm-contact-selector
+          (optionChange)="onActionSelectorContact($event)"
+          [optionSelectForce]="dataModel.linkContactId"
+          [optionPlaceholder]="fieldsInfo['linkContactId']?.fieldTitle || 'Contact'"
+          [optionDisabled]="!fieldsInfo['linkContactId']?.accessAddField"
+          ></app-crm-contact-selector>
+        <!-- Campaign Selector -->
+        <app-crm-campaign-selector
+          (optionChange)="onActionSelectorCampaign($event)"
+          [optionSelectForce]="dataModel.linkCampaignId"
+          [optionPlaceholder]="fieldsInfo['linkCampaignId']?.fieldTitle || 'Campaign'"
+          [optionDisabled]="!fieldsInfo['linkCampaignId']?.accessAddField"
+          ></app-crm-campaign-selector>
+        <!-- Title Field -->
+        <div
+          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+          >
+          <label for="dataModel.title" class="color-highlight">{{
+            fieldsInfo["title"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="dataModel.title"
+            name="dataModel.title"
+            #Title
+            placeholder="{{ fieldsInfo['title']?.fieldTitle }}"
+            maxlength="256"
+            [disabled]="!fieldsInfo['title']?.accessAddField"
+            class="form-control validate-name"
+            id="dataModel.title"
+            />
+          </div>
+          <!-- FirstName Field -->
+          <div
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            >
+            <label for="dataModel.firstName" class="color-highlight">{{
+              fieldsInfo["firstName"]?.fieldTitle
+            }}</label>
+            <input
+              matInput
+              type="text"
+              [(ngModel)]="dataModel.firstName"
+              name="dataModel.firstName"
+              #FirstName
+              placeholder="{{ fieldsInfo['firstName']?.fieldTitle }}"
+              maxlength="100"
+              [disabled]="!fieldsInfo['firstName']?.accessAddField"
+              class="form-control validate-name"
+              id="dataModel.firstName"
+              />
+            </div>
+            <!-- LastName Field -->
+            <div
+              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+              >
+              <label for="dataModel.lastName" class="color-highlight">{{
+                fieldsInfo["lastName"]?.fieldTitle
+              }}</label>
+              <input
+                matInput
+                type="text"
+                [(ngModel)]="dataModel.lastName"
+                name="dataModel.lastName"
+                #LastName
+                placeholder="{{ fieldsInfo['lastName']?.fieldTitle }}"
+                maxlength="100"
+                [disabled]="!fieldsInfo['lastName']?.accessAddField"
+                class="form-control validate-name"
+                id="dataModel.lastName"
+                />
+              </div>
+              <!-- CompanyName Field -->
+              <div
+                class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                >
+                <label for="dataModel.companyName" class="color-highlight">{{
+                  fieldsInfo["companyName"]?.fieldTitle
+                }}</label>
+                <input
+                  matInput
+                  type="text"
+                  [(ngModel)]="dataModel.companyName"
+                  name="dataModel.companyName"
+                  #CompanyName
+                  placeholder="{{ fieldsInfo['companyName']?.fieldTitle }}"
+                  maxlength="256"
+                  [disabled]="!fieldsInfo['companyName']?.accessAddField"
+                  class="form-control validate-name"
+                  id="dataModel.companyName"
+                  />
+                </div>
+                <!-- Email Field -->
+                <div
+                  class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                  >
+                  <label for="dataModel.email" class="color-highlight">{{
+                    fieldsInfo["email"]?.fieldTitle
+                  }}</label>
+                  <input
+                    matInput
+                    type="email"
+                    [(ngModel)]="dataModel.email"
+                    name="dataModel.email"
+                    #Email
+                    placeholder="{{ fieldsInfo['email']?.fieldTitle }}"
+                    maxlength="256"
+                    [disabled]="!fieldsInfo['email']?.accessAddField"
+                    class="form-control validate-name"
+                    id="dataModel.email"
+                    />
+                  </div>
+                  <!-- Phone Field -->
+                  <div
+                    class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                    >
+                    <label for="dataModel.phone" class="color-highlight">{{
+                      fieldsInfo["phone"]?.fieldTitle
+                    }}</label>
+                    <input
+                      matInput
+                      type="text"
+                      [(ngModel)]="dataModel.phone"
+                      name="dataModel.phone"
+                      #Phone
+                      placeholder="{{ fieldsInfo['phone']?.fieldTitle }}"
+                      maxlength="50"
+                      [disabled]="!fieldsInfo['phone']?.accessAddField"
+                      class="form-control validate-name"
+                      id="dataModel.phone"
+                      />
+                    </div>
+                    <!-- Mobile Field -->
+                    <div
+                      class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                      >
+                      <label for="dataModel.mobile" class="color-highlight">{{
+                        fieldsInfo["mobile"]?.fieldTitle
+                      }}</label>
+                      <input
+                        matInput
+                        type="text"
+                        [(ngModel)]="dataModel.mobile"
+                        name="dataModel.mobile"
+                        #Mobile
+                        placeholder="{{ fieldsInfo['mobile']?.fieldTitle }}"
+                        maxlength="50"
+                        [disabled]="!fieldsInfo['mobile']?.accessAddField"
+                        class="form-control validate-name"
+                        id="dataModel.mobile"
+                        />
+                      </div>
+                      <!-- LeadStatus Field -->
+                      <div
+                        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                        >
+                        <label for="dataModel.leadStatus" class="color-highlight">{{
+                          fieldsInfo["leadStatus"]?.fieldTitle
+                        }}</label>
+                        <input
+                          matInput
+                          type="text"
+                          [(ngModel)]="dataModel.leadStatus"
+                          name="dataModel.leadStatus"
+                          #LeadStatus
+                          placeholder="{{ fieldsInfo['leadStatus']?.fieldTitle }}"
+                          maxlength="50"
+                          [disabled]="!fieldsInfo['leadStatus']?.accessAddField"
+                          class="form-control validate-name"
+                          id="dataModel.leadStatus"
+                          />
+                        </div>
+                        <!-- Rating Field -->
+                        <div
+                          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                          >
+                          <label for="dataModel.rating" class="color-highlight">{{
+                            fieldsInfo["rating"]?.fieldTitle
+                          }}</label>
+                          <input
+                            matInput
+                            type="text"
+                            [(ngModel)]="dataModel.rating"
+                            name="dataModel.rating"
+                            #Rating
+                            placeholder="{{ fieldsInfo['rating']?.fieldTitle }}"
+                            maxlength="50"
+                            [disabled]="!fieldsInfo['rating']?.accessAddField"
+                            class="form-control validate-name"
+                            id="dataModel.rating"
+                            />
+                          </div>
+                          <!-- Description Field -->
+                          <div
+                            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                            >
+                            <label for="dataModel.description" class="color-highlight">{{
+                              fieldsInfo["description"]?.fieldTitle
+                            }}</label>
+                            <textarea
+                              matInput
+                              [(ngModel)]="dataModel.description"
+                              name="dataModel.description"
+                              #Description
+                              placeholder="{{ fieldsInfo['description']?.fieldTitle }}"
+                              rows="4"
+                              [disabled]="!fieldsInfo['description']?.accessAddField"
+                              class="form-control validate-name"
+                              id="dataModel.description"
+                              ></textarea>
+                            </div>
+                            <!-- Submit Button -->
+                            <div class="form-button-group">
+                              <button
+                                type="submit"
+                                [disabled]="formInfo.submitButtonEnabled == false"
+                                class="btn btn-m btn-full mb-4 rounded-s shadow-l bg-green-dark"
+                                >
+                                {{ "ACTION.SAVE" | translate }}
+                              </button>
+                              <button
+                                type="button"
+                                (click)="onFormCancel()"
+                                class="btn btn-m btn-full mb-4 rounded-s shadow-l bg-red-dark"
+                                >
+                                {{ "ACTION.CANCEL" | translate }}
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+

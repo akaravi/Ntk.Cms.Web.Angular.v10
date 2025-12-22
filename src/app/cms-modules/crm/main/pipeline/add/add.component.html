@@ -1,0 +1,170 @@
+<div class="card card-style loader-container">
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
+  <div class="content mb-0">
+    <p class="mb-0 color-highlight font-600 font-12">
+      {{ formInfo.formTitle }}
+    </p>
+
+    <p>
+      {{ "TITLE.Be_Careful_When_Entering_Information" | translate }}
+    </p>
+    <!--Content-->
+
+    <app-cms-form-result-message
+      [formInfo]="formInfo"
+    ></app-cms-form-result-message>
+    <form
+      (ngSubmit)="onFormSubmit()"
+      #vform="ngForm"
+      [ngStyle]="{ direction: tokenInfo.access.direction }"
+      >
+      <!-- Name Field -->
+      <div
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+        >
+        <label for="dataModel.name" class="color-highlight">{{
+          fieldsInfo["name"]?.fieldTitle
+        }}</label>
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="dataModel.name"
+          name="dataModel.name"
+          #Name
+          placeholder="{{ fieldsInfo['name']?.fieldTitle }}"
+          maxlength="256"
+          [disabled]="!fieldsInfo['name']?.accessAddField"
+          class="form-control validate-name"
+          id="dataModel.name"
+          />
+        </div>
+        <!-- Description Field -->
+        <div
+          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+          >
+          <label for="dataModel.description" class="color-highlight">{{
+            fieldsInfo["description"]?.fieldTitle
+          }}</label>
+          <textarea
+            matInput
+            [(ngModel)]="dataModel.description"
+            name="dataModel.description"
+            #Description
+            placeholder="{{ fieldsInfo['description']?.fieldTitle }}"
+            rows="4"
+            [disabled]="!fieldsInfo['description']?.accessAddField"
+            class="form-control validate-name"
+            id="dataModel.description"
+            ></textarea>
+          </div>
+          <!-- IsActive Field -->
+          <div
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            >
+            <label for="dataModel.isActive" class="color-highlight">{{
+              fieldsInfo["isActive"]?.fieldTitle
+            }}</label>
+            <mat-checkbox
+              [(ngModel)]="dataModel.isActive"
+              name="dataModel.isActive"
+              #IsActive
+              [disabled]="!fieldsInfo['isActive']?.accessAddField"
+              id="dataModel.isActive"
+              ></mat-checkbox>
+            </div>
+            <!-- IsDefault Field -->
+            <div
+              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+              >
+              <label for="dataModel.isDefault" class="color-highlight">{{
+                fieldsInfo["isDefault"]?.fieldTitle
+              }}</label>
+              <mat-checkbox
+                [(ngModel)]="dataModel.isDefault"
+                name="dataModel.isDefault"
+                #IsDefault
+                [disabled]="!fieldsInfo['isDefault']?.accessAddField"
+                id="dataModel.isDefault"
+                ></mat-checkbox>
+              </div>
+              <!-- SortOrder Field -->
+              <div
+                class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                >
+                <label for="dataModel.sortOrder" class="color-highlight">{{
+                  fieldsInfo["sortOrder"]?.fieldTitle
+                }}</label>
+                <input
+                  matInput
+                  type="number"
+                  [(ngModel)]="dataModel.sortOrder"
+                  name="dataModel.sortOrder"
+                  #SortOrder
+                  placeholder="{{ fieldsInfo['sortOrder']?.fieldTitle }}"
+                  [disabled]="!fieldsInfo['sortOrder']?.accessAddField"
+                  class="form-control validate-name"
+                  id="dataModel.sortOrder"
+                  />
+                </div>
+                <!-- Color Field -->
+                <div
+                  class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                  >
+                  <label for="dataModel.color" class="color-highlight">{{
+                    fieldsInfo["color"]?.fieldTitle
+                  }}</label>
+                  <input
+                    matInput
+                    type="color"
+                    [(ngModel)]="dataModel.color"
+                    name="dataModel.color"
+                    #Color
+                    placeholder="{{ fieldsInfo['color']?.fieldTitle }}"
+                    maxlength="7"
+                    [disabled]="!fieldsInfo['color']?.accessAddField"
+                    class="form-control validate-name"
+                    id="dataModel.color"
+                    />
+                  </div>
+                  <!-- Icon Field -->
+                  <div
+                    class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                    >
+                    <label for="dataModel.icon" class="color-highlight">{{
+                      fieldsInfo["icon"]?.fieldTitle
+                    }}</label>
+                    <input
+                      matInput
+                      type="text"
+                      [(ngModel)]="dataModel.icon"
+                      name="dataModel.icon"
+                      #Icon
+                      placeholder="{{ fieldsInfo['icon']?.fieldTitle }}"
+                      maxlength="100"
+                      [disabled]="!fieldsInfo['icon']?.accessAddField"
+                      class="form-control validate-name"
+                      id="dataModel.icon"
+                      />
+                    </div>
+                    <!-- Submit Button -->
+                    <div class="form-button-group">
+                      <button
+                        type="submit"
+                        [disabled]="formInfo.submitButtonEnabled == false"
+                        class="btn btn-m btn-full mb-4 rounded-s shadow-l bg-green-dark"
+                        >
+                        {{ "ACTION.SAVE" | translate }}
+                      </button>
+                      <button
+                        type="button"
+                        (click)="onFormCancel()"
+                        class="btn btn-m btn-full mb-4 rounded-s shadow-l bg-red-dark"
+                        >
+                        {{ "ACTION.CANCEL" | translate }}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+

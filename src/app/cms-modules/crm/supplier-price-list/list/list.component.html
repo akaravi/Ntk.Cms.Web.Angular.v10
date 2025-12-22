@@ -1,0 +1,44 @@
+<mat-card>
+  <mat-card-title>Supplier Price List</mat-card-title>
+  <button mat-raised-button color="primary" [routerLink]="['/cms/modules/crm/supplier-price-list/add']">
+    افزودن
+  </button>
+  <button mat-stroked-button color="primary" (click)="load()" [disabled]="loading">
+    Refresh
+  </button>
+  <mat-progress-spinner
+    *ngIf="loading"
+    diameter="32"
+    mode="indeterminate"
+  ></mat-progress-spinner>
+
+  <div *ngIf="data?.listItems?.length">
+    <table mat-table [dataSource]="data.listItems" class="mat-elevation-z1">
+      <ng-container matColumnDef="productName">
+        <th mat-header-cell *matHeaderCellDef>Product</th>
+        <td mat-cell *matCellDef="let row">{{ row.productName }}</td>
+      </ng-container>
+      <ng-container matColumnDef="unitPrice">
+        <th mat-header-cell *matHeaderCellDef>Price</th>
+        <td mat-cell *matCellDef="let row">{{ row.unitPrice | number }}</td>
+      </ng-container>
+      <ng-container matColumnDef="currency">
+        <th mat-header-cell *matHeaderCellDef>Currency</th>
+        <td mat-cell *matCellDef="let row">{{ row.currency }}</td>
+      </ng-container>
+      <ng-container matColumnDef="validTo">
+        <th mat-header-cell *matHeaderCellDef>Valid To</th>
+        <td mat-cell *matCellDef="let row">{{ row.validTo | date }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['productName','unitPrice','currency','validTo']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['productName','unitPrice','currency','validTo'];"></tr>
+    </table>
+  </div>
+
+  <div *ngIf="!loading && (!data || !data.listItems || data.listItems.length === 0)">
+    No data.
+  </div>
+</mat-card>
+
+

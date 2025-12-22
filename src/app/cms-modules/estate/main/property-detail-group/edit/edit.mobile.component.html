@@ -1,0 +1,195 @@
+<div class="cms-m-body loader-container">
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
+
+  <!-- Header با Safe Area برای iPhone -->
+  <div class="cms-m-header safe-area-top">
+    <div class="cms-m-header-content">
+      <button
+        type="button"
+        class="cms-m-back-btn"
+        (click)="onActionBackToParent()"
+        aria-label="{{ 'ACTION.BACK' | translate }}"
+      >
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </button>
+      <h1 class="cms-m-header-title">
+        {{ formInfo.formTitle || ("ROUTE.ESTATE.DETAIL.GROUP" | translate) }}
+      </h1>
+      <div class="cms-m-header-spacer"></div>
+    </div>
+  </div>
+
+  <!-- Content Area -->
+  <div class="cms-m-content safe-area-content">
+    <app-cms-form-result-message [formInfo]="formInfo">
+    </app-cms-form-result-message>
+
+    <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
+      <!-- RecordStatus Field -->
+      @if (fieldsInfo['recordStatus']?.accessWatchField) {
+        <app-cms-enum-record-status-selector
+          [(model)]="dataModel.recordStatus"
+          [optionDisabled]="false"
+          [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
+          [optionRequired]="true"
+          [optionSelectFirstItem]="true"
+        ></app-cms-enum-record-status-selector>
+      }
+
+      <!-- Title Field -->
+      @if (fieldsInfo['title']?.accessWatchField) {
+        <div class="cms-m-form-field">
+          <label class="cms-m-form-label">{{
+            fieldsInfo["title"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="dataModel.title"
+            name="dataModel.title"
+            #Title
+            placeholder="{{ fieldsInfo['title']?.fieldTitle }}"
+            [disabled]="!fieldsInfo['title']?.accessEditField"
+            minlength="3"
+            maxlength="100"
+            required
+            class="cms-m-form-input"
+            id="dataModel.title"
+          />
+          <em class="cms-m-char-count"
+            >{{ Title.value.length }} / 100</em
+          >
+          @if (Title.errors?.required) {
+            <mat-error>
+              Title is
+              <strong>{{ "MESSAGE.required" | translate }}</strong>
+            </mat-error>
+          }
+        </div>
+      }
+
+      <!-- LinkPropertyTypeLanduseId Field -->
+      <div class="cms-m-form-field">
+        <label class="cms-m-form-label">{{
+          "TITLE.USER" | translate
+        }}</label>
+        <app-estate-property-type-landuse-selector
+          (optionChange)="onActionSelectorSelect($event)"
+          [optionSelectForce]="dataModel.linkPropertyTypeLanduseId"
+          [optionPlaceholder]="'TITLE.USER' | translate"
+        >
+        </app-estate-property-type-landuse-selector>
+      </div>
+
+      <!-- IconFont Field -->
+      @if (fieldsInfo['iconFont']?.accessWatchField) {
+        <div class="cms-m-form-field">
+          <label class="cms-m-form-label">{{
+            fieldsInfo["iconFont"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="dataModel.iconFont"
+            name="dataModel.iconFont"
+            #IconFont
+            [iconPicker]="dataModel.iconFont"
+            [ipIconPack]="['fa']"
+            [ipPosition]="'top'"
+            (iconPickerSelect)="onIconPickerSelect($event)"
+            placeholder="{{ fieldsInfo['iconFont']?.fieldTitle }}"
+            [disabled]="!fieldsInfo['iconFont']?.accessEditField"
+            class="cms-m-form-input"
+            id="dataModel.iconFont"
+          />
+          <span class="cms-m-icon-preview"
+            ><i [ngClass]="dataModel.iconFont"></i
+          ></span>
+        </div>
+      }
+
+      <!-- iconColor Field -->
+      @if (fieldsInfo['iconColor']?.accessWatchField) {
+        <div class="cms-m-form-field">
+          <label class="cms-m-form-label">{{
+            fieldsInfo["iconColor"]?.fieldTitle
+          }}</label>
+          <div class="cms-m-color-picker-wrapper">
+            <input
+              matInput
+              type="text"
+              [(ngModel)]="dataModel.iconColor"
+              name="dataModel.iconColor"
+              #iconColor
+              [style.background]="dataModel.iconColor"
+              [ngxMatColorPicker]="iconColorPicker"
+              placeholder="{{ fieldsInfo['iconColor']?.fieldTitle }}"
+              [disabled]="!fieldsInfo['iconColor']?.accessEditField"
+              class="cms-m-form-input"
+              id="dataModel.iconColor"
+            />
+            <ngx-mat-color-toggle
+              matSuffix
+              [for]="iconColorPicker"
+            ></ngx-mat-color-toggle>
+            <ngx-mat-color-picker
+              #iconColorPicker
+              [touchUi]="true"
+              [color]="'primary'"
+            ></ngx-mat-color-picker>
+          </div>
+        </div>
+      }
+
+      <!-- Description Field -->
+      <div class="cms-m-form-field">
+        <label class="cms-m-form-label">{{
+          fieldsInfo["description"]?.fieldTitle
+        }}</label>
+        <textarea
+          matInput
+          [(ngModel)]="dataModel.description"
+          name="dataModel.description"
+          #Description
+          placeholder="{{ fieldsInfo['description']?.fieldTitle }}"
+          minlength="1"
+          maxlength="500"
+          rows="5"
+          id="dataModel.description"
+          class="cms-m-form-textarea"
+        ></textarea>
+        <em class="cms-m-char-count"
+          >{{ Description.value.length }} / 500</em
+        >
+        @if (Description.errors?.required) {
+          <mat-error>
+            Description is
+            <strong>{{ "MESSAGE.required" | translate }}</strong>
+          </mat-error>
+        }
+      </div>
+
+      @if (formInfo.submitButtonEnabled) {
+        <div class="cms-m-footer safe-area-bottom">
+          <button
+            type="button"
+            class="cms-m-btn cms-m-btn-secondary"
+            (click)="onActionBackToParent()"
+          >
+            <i class="fa-solid fa-times" aria-hidden="true"></i>
+            {{ "ACTION.CANCEL" | translate }}
+          </button>
+          <button
+            type="submit"
+            class="cms-m-btn cms-m-btn-success"
+            [disabled]="!vform.form.valid"
+          >
+            <i class="fa-solid fa-save" aria-hidden="true"></i>
+            {{ "ACTION.SAVE" | translate }}
+          </button>
+        </div>
+      }
+    </form>
+  </div>
+</div>

@@ -1,0 +1,90 @@
+<div class="cms-m-body loader-container">
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
+
+  <div class="cms-m-header safe-area-top">
+    <div class="cms-m-header-content">
+      <h1 class="cms-m-header-title">
+        {{ "ROUTE.ESTATE.COMPANY" | translate }}
+      </h1>
+      <div class="cms-m-header-actions">
+        <button
+          type="button"
+          class="cms-m-header-action-btn"
+          (click)="optionsSearch.data.show = !optionsSearch.data.show"
+          [class.active]="optionsSearch.data.show"
+          [attr.aria-label]="'ACTION.SEARCH' | translate"
+        >
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        </button>
+        <button
+          type="button"
+          class="cms-m-header-action-btn"
+          (click)="onActionButtonReload()"
+          [attr.aria-label]="'ACTION.RELOAD' | translate"
+        >
+          <i
+            class="fa-solid fa-rotate-right"
+            [class.rotation360]="
+              publicHelper.processService.process.inRunArea[
+                constructorInfoAreaId
+              ]
+            "
+            aria-hidden="true"
+          ></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  @if (optionsSearch.data.show) {
+    <div class="cms-m-search-area safe-area-content">
+      <app-cms-search-list [(options)]="optionsSearch"></app-cms-search-list>
+    </div>
+  }
+
+  <div class="cms-m-content safe-area-content">
+    @if (dataModelResult?.listItems?.length) {
+      <div class="cms-m-list">
+        @for (row of dataModelResult.listItems; track row.id) {
+          <div
+            class="cms-m-list-item"
+            [class.selected]="row.id === tableRowSelected?.id"
+            (click)="onActionTableRowSelect(row)"
+            role="button"
+            [attr.aria-label]="row.title || row.id"
+            tabindex="0"
+          >
+            @if (row?.linkMainImageIdSrc?.length > 0) {
+              <div class="cms-m-list-item-image">
+                <img
+                  [src]="row.linkMainImageIdSrc | cmsthumbnail"
+                  [alt]="row.title || row.id"
+                  loading="lazy"
+                />
+              </div>
+            } @else {
+              <div class="cms-m-list-item-image-placeholder">
+                <i class="fa-solid fa-building" aria-hidden="true"></i>
+              </div>
+            }
+            <div class="cms-m-list-item-content">
+              <div class="cms-m-list-item-title">
+                {{ row.title || row.id }}
+              </div>
+              @if (row.description) {
+                <div class="cms-m-list-item-subtitle">
+                  {{ row.description }}
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="cms-m-empty safe-area-content">
+        {{ "MESSAGE.NoRecord" | translate }}
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,427 @@
+<div class="cms-m-body loader-container">
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
+
+  <!-- Header با Safe Area برای iPhone -->
+  <div class="cms-m-header safe-area-top">
+    <div class="cms-m-header-content">
+      <button
+        type="button"
+        class="cms-m-back-btn"
+        (click)="onActionBackToParent()"
+        aria-label="{{ 'ACTION.BACK' | translate }}"
+      >
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </button>
+      <h1 class="cms-m-header-title">
+        {{ formInfo.formTitle || ("ROUTE.EXPERT.PRICE" | translate) }}
+      </h1>
+      <div class="cms-m-header-spacer"></div>
+    </div>
+  </div>
+
+  <!-- Content Area -->
+  <div class="cms-m-content safe-area-content">
+    <app-cms-form-result-message [formInfo]="formInfo">
+    </app-cms-form-result-message>
+
+    <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
+      <!-- RecordStatus Field -->
+      @if (fieldsInfo["recordStatus"]?.accessWatchField) {
+        <app-cms-enum-record-status-selector
+          [(model)]="dataModel.recordStatus"
+          [optionDisabled]="false"
+          [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
+          [optionRequired]="true"
+          [optionSelectFirstItem]="true"
+        ></app-cms-enum-record-status-selector>
+      }
+
+      <!-- ExpertPriceType Field -->
+      @if (fieldsInfo["expertPriceType"]?.accessWatchField) {
+        <div class="cms-m-form-field">
+          <label class="cms-m-form-label">{{
+            fieldsInfo["expertPriceType"]?.fieldTitle
+          }}</label>
+          <app-cms-enum-x-selector
+            [optionDataListResult]="
+              dataModelEstatePropertyExpertPriceTypeEnumResult
+            "
+            [(model)]="dataModel.expertPriceType"
+            [optionDisabled]="false"
+            [optionLabel]="fieldsInfo['expertPriceType']?.fieldTitle"
+            [optionRequired]="true"
+            [optionSelectFirstItem]="true"
+          ></app-cms-enum-x-selector>
+        </div>
+      }
+
+      <!-- LinkLocationId Field -->
+      <div class="cms-m-form-field">
+        <label class="cms-m-form-label">{{
+          "TITLE.Geographical_Region" | translate
+        }}</label>
+        <app-cms-location-selector
+          (optionChange)="onActionSelectorLocation($event)"
+          [optionSelectForce]="dataModel.linkLocationId"
+          [optionPlaceholder]="'TITLE.Geographical_Region' | translate"
+          [optionDisabled]="!fieldsInfo['linkLocationId']?.accessAddField"
+        >
+        </app-cms-location-selector>
+      </div>
+
+      <!-- CreatedYaer Field -->
+      <div class="cms-m-form-field">
+        <label class="cms-m-form-label">{{
+          "TITLE.CreatedYaer" | translate
+        }}</label>
+        <input
+          matInput
+          type="number"
+          [(ngModel)]="dataModel.createdYaer"
+          name="dataModel.createdYaer"
+          #CreatedYaer
+          placeholder="0"
+          class="cms-m-form-input"
+          id="dataModel.createdYaer"
+        />
+      </div>
+
+      <!-- linkCoreCurrencyId Field -->
+      <div class="cms-m-form-field">
+        <label class="cms-m-form-label">{{
+          "TITLE.Specify_the_transaction_currency" | translate
+        }}</label>
+        <app-cms-currency-selector
+          [optionSelectFirstItem]="true"
+          [optionSelectForce]="dataModel.linkCoreCurrencyId"
+          (optionChange)="onActionSelectCurrency($event)"
+          [optionPlaceholder]="
+            'TITLE.Specify_the_transaction_currency' | translate
+          "
+        >
+        </app-cms-currency-selector>
+      </div>
+
+      <!-- LinkContractTypeId Field -->
+      <div class="cms-m-form-field">
+        <label class="cms-m-form-label">{{
+          "TITLE.Transaction_type" | translate
+        }}</label>
+        <app-estate-contract-type-selector
+          (optionChange)="onActionSelectorContarctType($event)"
+          [optionTypeView]="1"
+          [optionDisabled]="!fieldsInfo['linkContractTypeId']?.accessAddField"
+          [optionSelectForce]="dataModel.linkContractTypeId"
+          [optionPlaceholder]="'TITLE.Transaction_type' | translate"
+        >
+        </app-estate-contract-type-selector>
+      </div>
+
+      <!-- LinkPropertyTypeUsageId Field -->
+      <div class="cms-m-form-field">
+        <label class="cms-m-form-label">{{
+          "TITLE.Type_Usage" | translate
+        }}</label>
+        <app-estate-property-type-usage-selector
+          (optionChange)="onActionSelectorSelectUsage($event)"
+          [optionDisabled]="!fieldsInfo['linkPropertyTypeUsageId']?.accessAddField"
+          [optionTypeView]="1"
+          [optionSelectForce]="dataModel.linkPropertyTypeUsageId"
+          [optionPlaceholder]="'TITLE.Type_Usage' | translate"
+        >
+        </app-estate-property-type-usage-selector>
+      </div>
+
+      <!-- LinkPropertyTypeLanduseId Field -->
+      <div class="cms-m-form-field">
+        <label class="cms-m-form-label">{{
+          "TITLE.Property_Type" | translate
+        }}</label>
+        <app-estate-property-type-landuse-selector
+          (optionChange)="onActionSelectorSelectLanduse($event)"
+          [optionDisabled]="!fieldsInfo['linkPropertyTypeLanduseId']?.accessAddField"
+          [optionTypeView]="1"
+          [optionSelectForce]="dataModel.linkPropertyTypeLanduseId"
+          [optionPlaceholder]="'TITLE.Property_Type' | translate"
+        >
+        </app-estate-property-type-landuse-selector>
+      </div>
+
+      <!-- Price Fields (conditional based on contractTypeSelected) -->
+      @if (contractTypeSelected && contractTypeSelected.id?.length > 0) {
+        <div class="cms-m-price-section">
+          @if (contractTypeSelected.hasSalePrice) {
+            <div class="cms-m-price-group">
+              <h3 class="cms-m-price-group-title">
+                {{ "TITLE.Sale_Price" | translate }}
+              </h3>
+              <div class="row">
+                <div class="col-4">
+                  <div class="cms-m-form-field">
+                    <label class="cms-m-form-label">{{
+                      fieldsInfo["salePriceMin"]?.fieldTitle
+                    }}</label>
+                    <input
+                      matInput
+                      type="number"
+                      [(ngModel)]="dataModel.salePriceMin"
+                      name="dataModel.salePriceMin"
+                      class="cms-m-form-input"
+                      placeholder="0"
+                    />
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="cms-m-form-field">
+                    <label class="cms-m-form-label">{{
+                      fieldsInfo["salePriceMax"]?.fieldTitle
+                    }}</label>
+                    <input
+                      matInput
+                      type="number"
+                      [(ngModel)]="dataModel.salePriceMax"
+                      name="dataModel.salePriceMax"
+                      class="cms-m-form-input"
+                      placeholder="0"
+                    />
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="cms-m-form-field">
+                    <label class="cms-m-form-label">{{
+                      fieldsInfo["salePriceAverage"]?.fieldTitle
+                    }}</label>
+                    <input
+                      matInput
+                      type="number"
+                      [(ngModel)]="dataModel.salePriceAverage"
+                      name="dataModel.salePriceAverage"
+                      class="cms-m-form-input"
+                      placeholder="0"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+
+          @if (contractTypeSelected.hasRentPrice) {
+            <div class="cms-m-price-group">
+              <h3 class="cms-m-price-group-title">
+                {{ "TITLE.Rent_Price" | translate }}
+              </h3>
+              <div class="row">
+                <div class="col-4">
+                  <div class="cms-m-form-field">
+                    <label class="cms-m-form-label">{{
+                      fieldsInfo["rentPriceMin"]?.fieldTitle
+                    }}</label>
+                    <input
+                      matInput
+                      type="number"
+                      [(ngModel)]="dataModel.rentPriceMin"
+                      name="dataModel.rentPriceMin"
+                      class="cms-m-form-input"
+                      placeholder="0"
+                    />
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="cms-m-form-field">
+                    <label class="cms-m-form-label">{{
+                      fieldsInfo["rentPriceMax"]?.fieldTitle
+                    }}</label>
+                    <input
+                      matInput
+                      type="number"
+                      [(ngModel)]="dataModel.rentPriceMax"
+                      name="dataModel.rentPriceMax"
+                      class="cms-m-form-input"
+                      placeholder="0"
+                    />
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="cms-m-form-field">
+                    <label class="cms-m-form-label">{{
+                      fieldsInfo["rentPriceAverage"]?.fieldTitle
+                    }}</label>
+                    <input
+                      matInput
+                      type="number"
+                      [(ngModel)]="dataModel.rentPriceAverage"
+                      name="dataModel.rentPriceAverage"
+                      class="cms-m-form-input"
+                      placeholder="0"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+
+          @if (contractTypeSelected.hasDepositPrice) {
+            <div class="cms-m-price-group">
+              <h3 class="cms-m-price-group-title">
+                {{ "TITLE.Deposit_Price" | translate }}
+              </h3>
+              <div class="row">
+                <div class="col-4">
+                  <div class="cms-m-form-field">
+                    <label class="cms-m-form-label">{{
+                      fieldsInfo["depositPriceMin"]?.fieldTitle
+                    }}</label>
+                    <input
+                      matInput
+                      type="number"
+                      [(ngModel)]="dataModel.depositPriceMin"
+                      name="dataModel.depositPriceMin"
+                      class="cms-m-form-input"
+                      placeholder="0"
+                    />
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="cms-m-form-field">
+                    <label class="cms-m-form-label">{{
+                      fieldsInfo["depositPriceMax"]?.fieldTitle
+                    }}</label>
+                    <input
+                      matInput
+                      type="number"
+                      [(ngModel)]="dataModel.depositPriceMax"
+                      name="dataModel.depositPriceMax"
+                      class="cms-m-form-input"
+                      placeholder="0"
+                    />
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="cms-m-form-field">
+                    <label class="cms-m-form-label">{{
+                      fieldsInfo["depositPriceAverage"]?.fieldTitle
+                    }}</label>
+                    <input
+                      matInput
+                      type="number"
+                      [(ngModel)]="dataModel.depositPriceAverage"
+                      name="dataModel.depositPriceAverage"
+                      class="cms-m-form-input"
+                      placeholder="0"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+
+          @if (contractTypeSelected.hasPeriodPrice) {
+            <div class="cms-m-price-group">
+              <h3 class="cms-m-price-group-title">
+                {{ "TITLE.Period_Price" | translate }}
+              </h3>
+              <div class="row">
+                <div class="col-4">
+                  <div class="cms-m-form-field">
+                    <label class="cms-m-form-label">{{
+                      fieldsInfo["periodPriceMin"]?.fieldTitle
+                    }}</label>
+                    <input
+                      matInput
+                      type="number"
+                      [(ngModel)]="dataModel.periodPriceMin"
+                      name="dataModel.periodPriceMin"
+                      class="cms-m-form-input"
+                      placeholder="0"
+                    />
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="cms-m-form-field">
+                    <label class="cms-m-form-label">{{
+                      fieldsInfo["periodPriceMax"]?.fieldTitle
+                    }}</label>
+                    <input
+                      matInput
+                      type="number"
+                      [(ngModel)]="dataModel.periodPriceMax"
+                      name="dataModel.periodPriceMax"
+                      class="cms-m-form-input"
+                      placeholder="0"
+                    />
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="cms-m-form-field">
+                    <label class="cms-m-form-label">{{
+                      "TITLE.Period_Price_Average" | translate
+                    }}</label>
+                    <input
+                      matInput
+                      type="number"
+                      [(ngModel)]="dataModel.periodPriceAverage"
+                      name="dataModel.periodPriceAverage"
+                      class="cms-m-form-input"
+                      placeholder="0"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      }
+
+      <!-- Description Field -->
+      <div class="cms-m-form-field">
+        <label class="cms-m-form-label">{{
+          fieldsInfo["description"]?.fieldTitle
+        }}</label>
+        <textarea
+          matInput
+          [(ngModel)]="dataModel.description"
+          name="dataModel.description"
+          #Description
+          placeholder="{{ fieldsInfo['description']?.fieldTitle }}"
+          minlength="1"
+          maxlength="1000"
+          rows="5"
+          required
+          id="dataModel.description"
+          class="cms-m-form-textarea"
+        ></textarea>
+        <em class="cms-m-char-count"
+          >{{ Description.value.length }} / 1000</em
+        >
+        @if (Description.errors?.required) {
+          <mat-error>
+            Description is
+            <strong>{{ "MESSAGE.required" | translate }}</strong>
+          </mat-error>
+        }
+      </div>
+
+      @if (formInfo.submitButtonEnabled) {
+        <div class="cms-m-footer safe-area-bottom">
+          <button
+            type="button"
+            class="cms-m-btn cms-m-btn-secondary"
+            (click)="onActionBackToParent()"
+          >
+            <i class="fa-solid fa-times" aria-hidden="true"></i>
+            {{ "ACTION.CANCEL" | translate }}
+          </button>
+          <button
+            type="submit"
+            class="cms-m-btn cms-m-btn-success"
+            [disabled]="!vform.form.valid"
+          >
+            <i class="fa-solid fa-save" aria-hidden="true"></i>
+            {{ "ACTION.SAVE" | translate }}
+          </button>
+        </div>
+      }
+    </form>
+  </div>
+</div>

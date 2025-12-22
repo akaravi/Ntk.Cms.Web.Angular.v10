@@ -1,0 +1,144 @@
+<div class="card card-style loader-container">
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
+  <div class="content mb-0">
+    <p class="mb-0 color-highlight font-600 font-12">
+      {{ formInfo.formTitle }}
+    </p>
+
+    <p>
+      {{ "TITLE.Be_Careful_When_Entering_Information" | translate }}
+    </p>
+    <!--Content-->
+
+    <app-cms-form-result-message
+      [formInfo]="formInfo"
+    ></app-cms-form-result-message>
+    <form
+      (ngSubmit)="onFormSubmit()"
+      #vform="ngForm"
+      [ngStyle]="{ direction: tokenInfo.access.direction }"
+      >
+      <!-- Name Field -->
+      <div
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+        >
+        <label for="dataModel.name" class="color-highlight">{{
+          fieldsInfo["name"]?.fieldTitle
+        }}</label>
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="dataModel.name"
+          name="dataModel.name"
+          #Name
+          placeholder="{{ fieldsInfo['name']?.fieldTitle }}"
+          maxlength="256"
+          [disabled]="!fieldsInfo['name']?.accessAddField"
+          class="form-control validate-name"
+          id="dataModel.name"
+          />
+        </div>
+        <!-- Pipeline Selector -->
+        <app-crm-pipeline-selector
+          (optionChange)="onActionSelectorPipeline($event)"
+          [optionSelectForce]="dataModel.linkPipelineId"
+          [optionPlaceholder]="fieldsInfo['linkPipelineId']?.fieldTitle || 'Pipeline'"
+          [optionDisabled]="!fieldsInfo['linkPipelineId']?.accessAddField"
+          [optionRequired]="true"
+          ></app-crm-pipeline-selector>
+        <!-- Description Field -->
+        <div
+          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+          >
+          <label for="dataModel.description" class="color-highlight">{{
+            fieldsInfo["description"]?.fieldTitle
+          }}</label>
+          <textarea
+            matInput
+            [(ngModel)]="dataModel.description"
+            name="dataModel.description"
+            #Description
+            placeholder="{{ fieldsInfo['description']?.fieldTitle }}"
+            rows="4"
+            [disabled]="!fieldsInfo['description']?.accessAddField"
+            class="form-control validate-name"
+            id="dataModel.description"
+            ></textarea>
+          </div>
+          <!-- Probability Field -->
+          <div
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            >
+            <label for="dataModel.probability" class="color-highlight">{{
+              fieldsInfo["probability"]?.fieldTitle
+            }}</label>
+            <input
+              matInput
+              type="number"
+              [(ngModel)]="dataModel.probability"
+              name="dataModel.probability"
+              #Probability
+              placeholder="{{ fieldsInfo['probability']?.fieldTitle }}"
+              min="0"
+              max="100"
+              [disabled]="!fieldsInfo['probability']?.accessAddField"
+              class="form-control validate-name"
+              id="dataModel.probability"
+              />
+            </div>
+            <!-- SortOrder Field -->
+            <div
+              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+              >
+              <label for="dataModel.sortOrder" class="color-highlight">{{
+                fieldsInfo["sortOrder"]?.fieldTitle
+              }}</label>
+              <input
+                matInput
+                type="number"
+                [(ngModel)]="dataModel.sortOrder"
+                name="dataModel.sortOrder"
+                #SortOrder
+                placeholder="{{ fieldsInfo['sortOrder']?.fieldTitle }}"
+                [disabled]="!fieldsInfo['sortOrder']?.accessAddField"
+                class="form-control validate-name"
+                id="dataModel.sortOrder"
+                />
+              </div>
+              <!-- IsActive Field -->
+              <div
+                class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                >
+                <label for="dataModel.isActive" class="color-highlight">{{
+                  fieldsInfo["isActive"]?.fieldTitle
+                }}</label>
+                <mat-checkbox
+                  [(ngModel)]="dataModel.isActive"
+                  name="dataModel.isActive"
+                  #IsActive
+                  [disabled]="!fieldsInfo['isActive']?.accessAddField"
+                  id="dataModel.isActive"
+                  ></mat-checkbox>
+                </div>
+                <!-- Submit Button -->
+                <div class="form-button-group">
+                  <button
+                    type="submit"
+                    [disabled]="formInfo.submitButtonEnabled == false"
+                    class="btn btn-m btn-full mb-4 rounded-s shadow-l bg-green-dark"
+                    >
+                    {{ "ACTION.SAVE" | translate }}
+                  </button>
+                  <button
+                    type="button"
+                    (click)="onFormCancel()"
+                    class="btn btn-m btn-full mb-4 rounded-s shadow-l bg-red-dark"
+                    >
+                    {{ "ACTION.CANCEL" | translate }}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+

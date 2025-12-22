@@ -1,0 +1,214 @@
+<div class="card card-style loader-container">
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
+  <div class="content mb-0">
+    <p class="mb-0 color-highlight font-600 font-12">
+      {{ formInfo.formTitle }}
+    </p>
+
+    <p>
+      {{ "TITLE.Be_Careful_When_Entering_Information" | translate }}
+    </p>
+    <!--Content-->
+
+    <app-cms-form-result-message
+      [formInfo]="formInfo"
+    ></app-cms-form-result-message>
+    <form
+      (ngSubmit)="onFormSubmit()"
+      #vform="ngForm"
+      [ngStyle]="{ direction: tokenInfo.access.direction }"
+      >
+      <!-- ActivityType Field -->
+      <div
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+        >
+        <label for="dataModel.activityType" class="color-highlight">{{
+          fieldsInfo["activityType"]?.fieldTitle
+        }}</label>
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="dataModel.activityType"
+          name="dataModel.activityType"
+          #ActivityType
+          placeholder="{{ fieldsInfo['activityType']?.fieldTitle }}"
+          maxlength="50"
+          [disabled]="!fieldsInfo['activityType']?.accessAddField"
+          class="form-control validate-name"
+          id="dataModel.activityType"
+          />
+        </div>
+        <!-- Subject Field -->
+        <div
+          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+          >
+          <label for="dataModel.subject" class="color-highlight">{{
+            fieldsInfo["subject"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="dataModel.subject"
+            name="dataModel.subject"
+            #Subject
+            placeholder="{{ fieldsInfo['subject']?.fieldTitle }}"
+            maxlength="256"
+            [disabled]="!fieldsInfo['subject']?.accessAddField"
+            class="form-control validate-name"
+            id="dataModel.subject"
+            />
+          </div>
+          <!-- StartDate Field -->
+          <div
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            >
+            <label for="dataModel.startDate" class="color-highlight">{{
+              fieldsInfo["startDate"]?.fieldTitle
+            }}</label>
+            <input
+              matInput
+              type="datetime-local"
+              [(ngModel)]="dataModel.startDate"
+              name="dataModel.startDate"
+              #StartDate
+              placeholder="{{ fieldsInfo['startDate']?.fieldTitle }}"
+              [disabled]="!fieldsInfo['startDate']?.accessAddField"
+              class="form-control validate-name"
+              id="dataModel.startDate"
+              />
+            </div>
+            <!-- EndDate Field -->
+            <div
+              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+              >
+              <label for="dataModel.endDate" class="color-highlight">{{
+                fieldsInfo["endDate"]?.fieldTitle
+              }}</label>
+              <input
+                matInput
+                type="datetime-local"
+                [(ngModel)]="dataModel.endDate"
+                name="dataModel.endDate"
+                #EndDate
+                placeholder="{{ fieldsInfo['endDate']?.fieldTitle }}"
+                [disabled]="!fieldsInfo['endDate']?.accessAddField"
+                class="form-control validate-name"
+                id="dataModel.endDate"
+                />
+              </div>
+              <!-- Status Field -->
+              <div
+                class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                >
+                <label for="dataModel.status" class="color-highlight">{{
+                  fieldsInfo["status"]?.fieldTitle
+                }}</label>
+                <input
+                  matInput
+                  type="text"
+                  [(ngModel)]="dataModel.status"
+                  name="dataModel.status"
+                  #Status
+                  placeholder="{{ fieldsInfo['status']?.fieldTitle }}"
+                  maxlength="50"
+                  [disabled]="!fieldsInfo['status']?.accessAddField"
+                  class="form-control validate-name"
+                  id="dataModel.status"
+                  />
+                </div>
+                <!-- Priority Field -->
+                <div
+                  class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                  >
+                  <label for="dataModel.priority" class="color-highlight">{{
+                    fieldsInfo["priority"]?.fieldTitle
+                  }}</label>
+                  <input
+                    matInput
+                    type="text"
+                    [(ngModel)]="dataModel.priority"
+                    name="dataModel.priority"
+                    #Priority
+                    placeholder="{{ fieldsInfo['priority']?.fieldTitle }}"
+                    maxlength="50"
+                    [disabled]="!fieldsInfo['priority']?.accessAddField"
+                    class="form-control validate-name"
+                    id="dataModel.priority"
+                    />
+                  </div>
+                  <!-- Description Field -->
+                  <div
+                    class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                    >
+                    <label for="dataModel.description" class="color-highlight">{{
+                      fieldsInfo["description"]?.fieldTitle
+                    }}</label>
+                    <textarea
+                      matInput
+                      [(ngModel)]="dataModel.description"
+                      name="dataModel.description"
+                      #Description
+                      placeholder="{{ fieldsInfo['description']?.fieldTitle }}"
+                      rows="4"
+                      [disabled]="!fieldsInfo['description']?.accessAddField"
+                      class="form-control validate-name"
+                      id="dataModel.description"
+                      ></textarea>
+                    </div>
+                    <!-- Account Selector -->
+                    <app-crm-account-selector
+                      (optionChange)="onActionSelectorAccount($event)"
+                      [optionSelectForce]="dataModel.linkAccountId"
+                      [optionPlaceholder]="fieldsInfo['linkAccountId']?.fieldTitle || 'Account'"
+                      [optionDisabled]="!fieldsInfo['linkAccountId']?.accessAddField"
+                      ></app-crm-account-selector>
+                    <!-- Contact Selector -->
+                    <app-crm-contact-selector
+                      (optionChange)="onActionSelectorContact($event)"
+                      [optionSelectForce]="dataModel.linkContactId"
+                      [optionPlaceholder]="fieldsInfo['linkContactId']?.fieldTitle || 'Contact'"
+                      [optionDisabled]="!fieldsInfo['linkContactId']?.accessAddField"
+                      ></app-crm-contact-selector>
+                    <!-- Lead Selector -->
+                    <app-crm-lead-selector
+                      (optionChange)="onActionSelectorLead($event)"
+                      [optionSelectForce]="dataModel.linkLeadId"
+                      [optionPlaceholder]="fieldsInfo['linkLeadId']?.fieldTitle || 'Lead'"
+                      [optionDisabled]="!fieldsInfo['linkLeadId']?.accessAddField"
+                      ></app-crm-lead-selector>
+                    <!-- Opportunity Selector -->
+                    <app-crm-opportunity-selector
+                      (optionChange)="onActionSelectorOpportunity($event)"
+                      [optionSelectForce]="dataModel.linkOpportunityId"
+                      [optionPlaceholder]="fieldsInfo['linkOpportunityId']?.fieldTitle || 'Opportunity'"
+                      [optionDisabled]="!fieldsInfo['linkOpportunityId']?.accessAddField"
+                      ></app-crm-opportunity-selector>
+                    <!-- Deal Selector -->
+                    <app-crm-deal-selector
+                      (optionChange)="onActionSelectorDeal($event)"
+                      [optionSelectForce]="dataModel.linkDealId"
+                      [optionPlaceholder]="fieldsInfo['linkDealId']?.fieldTitle || 'Deal'"
+                      [optionDisabled]="!fieldsInfo['linkDealId']?.accessAddField"
+                      ></app-crm-deal-selector>
+                    <!-- Submit Button -->
+                    <div class="form-button-group">
+                      <button
+                        type="submit"
+                        [disabled]="formInfo.submitButtonEnabled == false"
+                        class="btn btn-m btn-full mb-4 rounded-s shadow-l bg-green-dark"
+                        >
+                        {{ "ACTION.SAVE" | translate }}
+                      </button>
+                      <button
+                        type="button"
+                        (click)="onFormCancel()"
+                        class="btn btn-m btn-full mb-4 rounded-s shadow-l bg-red-dark"
+                        >
+                        {{ "ACTION.CANCEL" | translate }}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+

@@ -1,0 +1,193 @@
+import {
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  CoreEnumService,
+  DataFieldInfoModel,
+  ErrorExceptionResult,
+  EstatePropertyAdsModel,
+  EstatePropertyAdsService,
+  EstatePropertyModel,
+} from "ntk-cms-api";
+import { TreeModel } from "ntk-cms-filemanager";
+import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
+import { FormInfoModel } from "../../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../../core/models/formSubmitedStatusEnum";
+
+@Component({
+  selector: "app-estate-property-ads-add-mobile",
+  templateUrl: "./add.mobile.component.html",
+  styleUrls: ["./add.mobile.component.scss"],
+  standalone: false,
+})
+export class EstatePropertyAdsAddMobileComponent
+  extends AddBaseComponent<
+    EstatePropertyAdsService,
+    EstatePropertyAdsModel,
+    string
+  >
+  implements OnInit
+{
+  requestLinkPropertyId = "";
+  constructorInfoAreaId = this.constructor.name;
+  constructor(
+    public coreEnumService: CoreEnumService,
+    public estatePropertyAdsService: EstatePropertyAdsService,
+    private cmsToastrService: CmsToastrService,
+    public publicHelper: PublicHelper,
+    private cdr: ChangeDetectorRef,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    public translate: TranslateService,
+  ) {
+    super(
+      estatePropertyAdsService,
+      new EstatePropertyAdsModel(),
+      publicHelper,
+      translate,
+    );
+    this.publicHelper.processService.cdr = this.cdr;
+    if (
+      this.activatedRoute.snapshot.paramMap.get("LinkPropertyId")
+    ) {
+      this.requestLinkPropertyId =
+        this.activatedRoute.snapshot.paramMap.get("LinkPropertyId");
+    }
+    if (this.requestLinkPropertyId && this.requestLinkPropertyId.length > 0) {
+      this.dataModel.linkPropertyId = this.requestLinkPropertyId;
+    }
+    this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
+  }
+  @ViewChild("vform", { static: false }) formGroup: FormGroup;
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
+
+  selectFileTypeMainImage = ["jpg", "jpeg", "png"];
+  fileManagerTree: TreeModel;
+  appLanguage = "fa";
+  dataModelResult: ErrorExceptionResult<EstatePropertyAdsModel> =
+    new ErrorExceptionResult<EstatePropertyAdsModel>();
+  dataModel: EstatePropertyAdsModel = new EstatePropertyAdsModel();
+  formInfo: FormInfoModel = new FormInfoModel();
+
+  fileManagerOpenForm = false;
+  AdsTypeTitle: string = "";
+  PropertyTitle: string = "";
+
+  ngOnInit(): void {
+    this.translate.get("TITLE.ADD").subscribe((str: string) => {
+      this.formInfo.formTitle = str;
+    });
+
+    this.DataGetAccess();
+  }
+
+  DataAddContent(): void {
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.submitResultMessage = str;
+      });
+    this.formInfo.submitResultMessage = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
+
+    this.estatePropertyAdsService.ServiceAdd(this.dataModel).subscribe({
+      next: (ret) => {
+        this.dataModelResult = ret;
+        if (ret.isSuccess) {
+          this.translate
+            .get("MESSAGE.registration_completed_successfully")
+            .subscribe((str: string) => {
+              this.formInfo.submitResultMessage = str;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+            });
+          this.cmsToastrService.typeSuccessAdd();
+          this.onActionBackToParent();
+        } else {
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.submitResultMessage = str;
+            });
+          this.formInfo.submitResultMessage = ret.errorMessage;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+        }
+        this.publicHelper.processService.processStop(pName);
+
+        this.formInfo.submitButtonEnabled = true;
+      },
+      error: (er) => {
+        this.formInfo.submitButtonEnabled = true;
+        this.cmsToastrService.typeError(er);
+        this.publicHelper.processService.processStop(pName, false);
+      },
+    });
+  }
+  onActionSelectorSelectLinkPropertyId(
+    model: EstatePropertyModel | null,
+  ): void {
+    if (!model || !model.id || model.id.length <= 0) {
+      this.translate
+        .get("MESSAGE.Property_ID_is_unknown")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+    this.dataModel.linkPropertyId = model.id;
+    this.PropertyTitle = model.title;
+    this.dataModel.title = model.title + "_" + this.AdsTypeTitle;
+  }
+  onActionSelectorSelectLinkAdsTypeId(model: any): void {
+    if (!model || !model.id || model.id.length <= 0) {
+      this.translate
+        .get("MESSAGE.Advertisement_ID_is_unknown")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+    this.dataModel.linkAdsTypeId = model.id;
+    this.AdsTypeTitle = model.title;
+    this.dataModel.title = this.PropertyTitle + "_" + model.title;
+  }
+  onFormSubmit(): void {
+    if (!this.formGroup.valid) {
+      return;
+    }
+    this.formInfo.submitButtonEnabled = false;
+    this.DataAddContent();
+  }
+  onActionBackToParent(): void {
+    if (this.requestLinkPropertyId && this.requestLinkPropertyId.length > 0) {
+      this.router.navigate([
+        "/estate/data/property-ads/LinkPropertyId/" +
+          this.requestLinkPropertyId,
+      ]);
+    } else {
+      this.router.navigate(["/estate/data/property-ads"]);
+    }
+  }
+}

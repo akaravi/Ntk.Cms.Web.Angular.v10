@@ -1,9 +1,15 @@
 import { Routes } from "@angular/router";
-import { EstateCustomerOrderResultListComponent } from "./customer-order-result/list/list.component";
+import { EstateCustomerOrderResultListMobileComponent } from "./customer-order-result/list/list.mobile.component";
+import { EstateCustomerOrderAddMobileComponent } from "./customer-order/add/add.mobile.component";
+import { EstateCustomerOrderEditMobileComponent } from "./customer-order/edit/edit.mobile.component";
 import { EstateLogComponent } from "./estate-log.component";
-import { EstatePropertyExpertPriceListComponent } from "./property-expert-price/list/list.component";
-import { EstatePropertyHistoryListComponent } from "./property-history/list/list.component";
-import { EstateCustomerOrderListComponent } from "./customer-order/list/list.component";
+import { EstatePropertyExpertPriceListMobileComponent } from "./property-expert-price/list/list.mobile.component";
+import { EstatePropertyExpertPriceAddMobileComponent } from "./property-expert-price/add/add.mobile.component";
+import { EstatePropertyExpertPriceEditMobileComponent } from "./property-expert-price/edit/edit.mobile.component";
+import { EstatePropertyHistoryAddMobileComponent } from "./property-history/add/add.mobile.component";
+import { EstatePropertyHistoryEditMobileComponent } from "./property-history/edit/edit.mobile.component";
+import { EstatePropertyHistoryListMobileComponent } from "./property-history/list/list.mobile.component";
+import { EstateCustomerOrderListMobileComponent } from "./customer-order/list/list.mobile.component";
 
 export const routesMobile: Routes = [
   {
@@ -13,79 +19,124 @@ export const routesMobile: Routes = [
     children: [
       {
         path: "property-history",
-        component: EstatePropertyHistoryListComponent,
+        component: EstatePropertyHistoryListMobileComponent,
         data: { title: "ROUTE.ESTATE.HISTORY" },
       },
       {
         path: "property-history/InCheckingOnDay/:InCheckingOnDay",
-        component: EstatePropertyHistoryListComponent,
+        component: EstatePropertyHistoryListMobileComponent,
+        data: { title: "ROUTE.ESTATE.HISTORY" },
+      },
+      {
+        path: "property-history/InCheckingPlanedToDay/:InCheckingPlanedToDay",
+        component: EstatePropertyHistoryListMobileComponent,
         data: { title: "ROUTE.ESTATE.HISTORY" },
       },
       {
         path: "property-history/LinkPropertyId/:LinkPropertyId",
-        component: EstatePropertyHistoryListComponent,
+        component: EstatePropertyHistoryListMobileComponent,
         data: { title: "ROUTE.ESTATE.HISTORY" },
       },
       {
         path: "property-history/LinkEstateExpertId/:LinkEstateExpertId",
-        component: EstatePropertyHistoryListComponent,
+        component: EstatePropertyHistoryListMobileComponent,
         data: { title: "ROUTE.ESTATE.HISTORY" },
       },
       {
         path: "property-history/LinkCustomerOrderId/:LinkCustomerOrderId",
-        component: EstatePropertyHistoryListComponent,
+        component: EstatePropertyHistoryListMobileComponent,
         data: { title: "ROUTE.ESTATE.HISTORY" },
       },
       {
         path: "property-history/LinkEstateAgencyId/:LinkEstateAgencyId",
-        component: EstatePropertyHistoryListComponent,
+        component: EstatePropertyHistoryListMobileComponent,
         data: { title: "ROUTE.ESTATE.HISTORY" },
       },
       {
         path: "property-history/recordstatus/:RecordStatus",
-        component: EstatePropertyHistoryListComponent,
+        component: EstatePropertyHistoryListMobileComponent,
+        data: { title: "ROUTE.ESTATE.HISTORY" },
+      },
+      {
+        path: "property-history/responsibleUserId/:ResponsibleUserId",
+        component: EstatePropertyHistoryListMobileComponent,
+        data: { title: "ROUTE.ESTATE.HISTORY" },
+      },
+      {
+        path: "property-history/activitystatus/:ActivityStatus",
+        component: EstatePropertyHistoryListMobileComponent,
         data: { title: "ROUTE.ESTATE.HISTORY" },
       },
       {
         path: "property-history/action/:Action",
-        component: EstatePropertyHistoryListComponent,
+        component: EstatePropertyHistoryListMobileComponent,
+        data: { title: "ROUTE.ESTATE.HISTORY" },
+      },
+      {
+        path: "property-history/add",
+        component: EstatePropertyHistoryAddMobileComponent,
+        data: { title: "ROUTE.ESTATE.HISTORY" },
+      },
+      {
+        path: "property-history/edit/:id",
+        component: EstatePropertyHistoryEditMobileComponent,
         data: { title: "ROUTE.ESTATE.HISTORY" },
       },
       /**/
       {
         path: "expert-price",
-        component: EstatePropertyExpertPriceListComponent,
+        component: EstatePropertyExpertPriceListMobileComponent,
+        data: { title: "ROUTE.EXPERT.PRICE" },
+      },
+      {
+        path: "expert-price/add",
+        component: EstatePropertyExpertPriceAddMobileComponent,
+        data: { title: "ROUTE.EXPERT.PRICE" },
+      },
+      {
+        path: "expert-price/edit/:id",
+        component: EstatePropertyExpertPriceEditMobileComponent,
         data: { title: "ROUTE.EXPERT.PRICE" },
       },
       /**/
       {
         path: "customer-order-result/LinkCustomerOrder/:LinkCustomerOrder",
-        component: EstateCustomerOrderResultListComponent,
+        component: EstateCustomerOrderResultListMobileComponent,
         data: { title: "ROUTE.ESTATE.CUSTOMER.ORDERRESULT" },
       },
       {
         path: "customer-order-result/LinkProperty/:LinkProperty",
-        component: EstateCustomerOrderResultListComponent,
+        component: EstateCustomerOrderResultListMobileComponent,
         data: { title: "ROUTE.ESTATE.CUSTOMER.ORDERRESULT" },
       },
       {
         path: "customer-order",
-        component: EstateCustomerOrderListComponent,
+        component: EstateCustomerOrderListMobileComponent,
         data: { title: "ROUTE.ESTATE.CUSTOMER.ORDER" },
       },
       {
         path: "customer-order/recordstatus/:RecordStatus",
-        component: EstateCustomerOrderListComponent,
+        component: EstateCustomerOrderListMobileComponent,
         data: { title: "ROUTE.ESTATE.CUSTOMER.ORDER" },
       },
       {
         path: "customer-order/recordstatus/:RecordStatus/:ResponsibleUserId",
-        component: EstateCustomerOrderListComponent,
+        component: EstateCustomerOrderListMobileComponent,
         data: { title: "ROUTE.ESTATE.CUSTOMER.ORDER" },
       },
       {
         path: "customer-order/responsibleUserId/:ResponsibleUserId",
-        component: EstateCustomerOrderListComponent,
+        component: EstateCustomerOrderListMobileComponent,
+        data: { title: "ROUTE.ESTATE.CUSTOMER.ORDER" },
+      },
+      {
+        path: "customer-order/add",
+        component: EstateCustomerOrderAddMobileComponent,
+        data: { title: "ROUTE.ESTATE.CUSTOMER.ORDER" },
+      },
+      {
+        path: "customer-order/edit/:id",
+        component: EstateCustomerOrderEditMobileComponent,
         data: { title: "ROUTE.ESTATE.CUSTOMER.ORDER" },
       },
       /**/

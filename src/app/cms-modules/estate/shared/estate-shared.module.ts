@@ -33,7 +33,6 @@ import { EstateAccountAgencyHeaderComponent } from "../main/account-agency/heade
 import { EstateAccountAgencyListComponent } from "../main/account-agency/list/list.component";
 import { EstateAccountAgencySelectorComponent } from "../main/account-agency/selector/selector.component";
 import { EstateAccountExpertHeaderComponent } from "../main/account-expert/header/header.component";
-import { EstateAccountExpertListComponent } from "../main/account-expert/list/list.component";
 import { EstateAccountExpertSelectorComponent } from "../main/account-expert/selector/selector.component";
 import { EstateActivityTypeSelectorComponent } from "../main/activity-type/selector/selector.component";
 import { EstateActivityTypeTreeComponent } from "../main/activity-type/tree/tree.component";
@@ -100,7 +99,6 @@ import { EstatePropertyTypeUsageSelectorComponent } from "../main/property-type-
     EstateCustomerOrderListComponent,
     EstatePropertyHistoryListComponent,
     EstateAccountAgencyListComponent,
-    EstateAccountExpertListComponent,
     /* Quick Components */
     EstatePropertyHistoryAddComponent,
     EstatePropertyCompleteComponent,
@@ -152,7 +150,6 @@ import { EstatePropertyTypeUsageSelectorComponent } from "../main/property-type-
     EstateCustomerOrderListComponent,
     EstatePropertyHistoryListComponent,
     EstateAccountAgencyListComponent,
-    EstateAccountExpertListComponent,
     /* Quick Components */
     EstatePropertyHistoryAddComponent,
     EstatePropertyCompleteComponent,

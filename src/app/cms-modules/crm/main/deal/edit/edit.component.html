@@ -1,0 +1,236 @@
+<div class="card card-style loader-container">
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
+  <div class="content mb-0">
+    <p class="mb-0 color-highlight font-600 font-12">
+      {{ formInfo.formTitle }}
+    </p>
+
+    <p>
+      {{ "TITLE.Be_Careful_When_Entering_Information" | translate }}
+    </p>
+    <!--Content-->
+
+    <app-cms-form-result-message
+      [formInfo]="formInfo"
+    ></app-cms-form-result-message>
+    <form
+      (ngSubmit)="onFormSubmit()"
+      #vform="ngForm"
+      [ngStyle]="{ direction: tokenInfo.access.direction }"
+      >
+      <!-- Name Field -->
+      <div
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+        >
+        <label for="dataModel.name" class="color-highlight">{{
+          fieldsInfo["name"]?.fieldTitle
+        }}</label>
+        <input
+          matInput
+          type="text"
+          [(ngModel)]="dataModel.name"
+          name="dataModel.name"
+          #Name
+          placeholder="{{ fieldsInfo['name']?.fieldTitle }}"
+          maxlength="256"
+          [disabled]="!fieldsInfo['name']?.accessEditField"
+          class="form-control validate-name"
+          id="dataModel.name"
+          />
+        </div>
+        <!-- Opportunity Selector -->
+        <app-crm-opportunity-selector
+          (optionChange)="onActionSelectorOpportunity($event)"
+          [optionSelectForce]="dataModel.linkOpportunityId"
+          [optionPlaceholder]="fieldsInfo['linkOpportunityId']?.fieldTitle || 'Opportunity'"
+          [optionDisabled]="!fieldsInfo['linkOpportunityId']?.accessEditField"
+          ></app-crm-opportunity-selector>
+        <!-- Account Selector -->
+        <app-crm-account-selector
+          (optionChange)="onActionSelectorAccount($event)"
+          [optionSelectForce]="dataModel.linkAccountId"
+          [optionPlaceholder]="fieldsInfo['linkAccountId']?.fieldTitle || 'Account'"
+          [optionDisabled]="!fieldsInfo['linkAccountId']?.accessEditField"
+          ></app-crm-account-selector>
+        <!-- Contact Selector -->
+        <app-crm-contact-selector
+          (optionChange)="onActionSelectorContact($event)"
+          [optionSelectForce]="dataModel.linkContactId"
+          [optionPlaceholder]="fieldsInfo['linkContactId']?.fieldTitle || 'Contact'"
+          [optionDisabled]="!fieldsInfo['linkContactId']?.accessEditField"
+          ></app-crm-contact-selector>
+        <!-- Pipeline Selector -->
+        <app-crm-pipeline-selector
+          (optionChange)="onActionSelectorPipeline($event)"
+          [optionSelectForce]="dataModel.linkPipelineId"
+          [optionPlaceholder]="fieldsInfo['linkPipelineId']?.fieldTitle || 'Pipeline'"
+          [optionDisabled]="!fieldsInfo['linkPipelineId']?.accessEditField"
+          ></app-crm-pipeline-selector>
+        <!-- Stage Selector -->
+        <app-crm-stage-selector
+          (optionChange)="onActionSelectorStage($event)"
+          [optionSelectForce]="dataModel.linkStageId"
+          [optionLinkPipelineId]="dataModel.linkPipelineId"
+          [optionPlaceholder]="fieldsInfo['linkStageId']?.fieldTitle || 'Stage'"
+          [optionDisabled]="!fieldsInfo['linkStageId']?.accessEditField || !dataModel.linkPipelineId"
+          ></app-crm-stage-selector>
+        <!-- Amount Field -->
+        <div
+          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+          >
+          <label for="dataModel.amount" class="color-highlight">{{
+            fieldsInfo["amount"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="number"
+            [(ngModel)]="dataModel.amount"
+            name="dataModel.amount"
+            #Amount
+            placeholder="{{ fieldsInfo['amount']?.fieldTitle }}"
+            [disabled]="!fieldsInfo['amount']?.accessEditField"
+            class="form-control validate-name"
+            id="dataModel.amount"
+            />
+          </div>
+          <!-- Currency Field -->
+          <div
+            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            >
+            <label for="dataModel.currency" class="color-highlight">{{
+              fieldsInfo["currency"]?.fieldTitle
+            }}</label>
+            <input
+              matInput
+              type="text"
+              [(ngModel)]="dataModel.currency"
+              name="dataModel.currency"
+              #Currency
+              placeholder="{{ fieldsInfo['currency']?.fieldTitle }}"
+              maxlength="10"
+              [disabled]="!fieldsInfo['currency']?.accessEditField"
+              class="form-control validate-name"
+              id="dataModel.currency"
+              />
+            </div>
+            <!-- Stage Field -->
+            <div
+              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+              >
+              <label for="dataModel.stage" class="color-highlight">{{
+                fieldsInfo["stage"]?.fieldTitle
+              }}</label>
+              <input
+                matInput
+                type="text"
+                [(ngModel)]="dataModel.stage"
+                name="dataModel.stage"
+                #Stage
+                placeholder="{{ fieldsInfo['stage']?.fieldTitle }}"
+                maxlength="100"
+                [disabled]="!fieldsInfo['stage']?.accessEditField"
+                class="form-control validate-name"
+                id="dataModel.stage"
+                />
+              </div>
+              <!-- Status Field -->
+              <div
+                class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                >
+                <label for="dataModel.status" class="color-highlight">{{
+                  fieldsInfo["status"]?.fieldTitle
+                }}</label>
+                <input
+                  matInput
+                  type="text"
+                  [(ngModel)]="dataModel.status"
+                  name="dataModel.status"
+                  #Status
+                  placeholder="{{ fieldsInfo['status']?.fieldTitle }}"
+                  maxlength="50"
+                  [disabled]="!fieldsInfo['status']?.accessEditField"
+                  class="form-control validate-name"
+                  id="dataModel.status"
+                  />
+                </div>
+                <!-- Probability Field -->
+                <div
+                  class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                  >
+                  <label for="dataModel.probability" class="color-highlight">{{
+                    fieldsInfo["probability"]?.fieldTitle
+                  }}</label>
+                  <input
+                    matInput
+                    type="number"
+                    [(ngModel)]="dataModel.probability"
+                    name="dataModel.probability"
+                    #Probability
+                    placeholder="{{ fieldsInfo['probability']?.fieldTitle }}"
+                    min="0"
+                    max="100"
+                    [disabled]="!fieldsInfo['probability']?.accessEditField"
+                    class="form-control validate-name"
+                    id="dataModel.probability"
+                    />
+                  </div>
+                  <!-- ExpectedCloseDate Field -->
+                  <div
+                    class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                    >
+                    <label for="dataModel.expectedCloseDate" class="color-highlight">{{
+                      fieldsInfo["expectedCloseDate"]?.fieldTitle
+                    }}</label>
+                    <input
+                      matInput
+                      type="date"
+                      [(ngModel)]="dataModel.expectedCloseDate"
+                      name="dataModel.expectedCloseDate"
+                      #ExpectedCloseDate
+                      placeholder="{{ fieldsInfo['expectedCloseDate']?.fieldTitle }}"
+                      [disabled]="!fieldsInfo['expectedCloseDate']?.accessEditField"
+                      class="form-control validate-name"
+                      id="dataModel.expectedCloseDate"
+                      />
+                    </div>
+                    <!-- Description Field -->
+                    <div
+                      class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                      >
+                      <label for="dataModel.description" class="color-highlight">{{
+                        fieldsInfo["description"]?.fieldTitle
+                      }}</label>
+                      <textarea
+                        matInput
+                        [(ngModel)]="dataModel.description"
+                        name="dataModel.description"
+                        #Description
+                        placeholder="{{ fieldsInfo['description']?.fieldTitle }}"
+                        rows="4"
+                        [disabled]="!fieldsInfo['description']?.accessEditField"
+                        class="form-control validate-name"
+                        id="dataModel.description"
+                        ></textarea>
+                      </div>
+                      <!-- Submit Button -->
+                      <div class="form-button-group">
+                        <button
+                          type="submit"
+                          [disabled]="formInfo.submitButtonEnabled == false"
+                          class="btn btn-m btn-full mb-4 rounded-s shadow-l bg-green-dark"
+                          >
+                          {{ "ACTION.SAVE" | translate }}
+                        </button>
+                        <button
+                          type="button"
+                          (click)="onFormCancel()"
+                          class="btn btn-m btn-full mb-4 rounded-s shadow-l bg-red-dark"
+                          >
+                          {{ "ACTION.CANCEL" | translate }}
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+

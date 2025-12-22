@@ -1,0 +1,44 @@
+<mat-card>
+  <mat-card-title>Supplier Ratings</mat-card-title>
+  <button mat-raised-button color="primary" [routerLink]="['/cms/modules/crm/supplier-rating/add']">
+    افزودن
+  </button>
+  <button mat-stroked-button color="primary" (click)="load()" [disabled]="loading">
+    Refresh
+  </button>
+  <mat-progress-spinner
+    *ngIf="loading"
+    diameter="32"
+    mode="indeterminate"
+  ></mat-progress-spinner>
+
+  <div *ngIf="data?.listItems?.length">
+    <table mat-table [dataSource]="data.listItems" class="mat-elevation-z1">
+      <ng-container matColumnDef="linkAccountId">
+        <th mat-header-cell *matHeaderCellDef>Account</th>
+        <td mat-cell *matCellDef="let row">{{ row.linkAccountId }}</td>
+      </ng-container>
+      <ng-container matColumnDef="averageScore">
+        <th mat-header-cell *matHeaderCellDef>Avg</th>
+        <td mat-cell *matCellDef="let row">{{ row.averageScore }}</td>
+      </ng-container>
+      <ng-container matColumnDef="evaluationDate">
+        <th mat-header-cell *matHeaderCellDef>Date</th>
+        <td mat-cell *matCellDef="let row">{{ row.evaluationDate | date }}</td>
+      </ng-container>
+      <ng-container matColumnDef="notes">
+        <th mat-header-cell *matHeaderCellDef>Notes</th>
+        <td mat-cell *matCellDef="let row">{{ row.notes }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['linkAccountId','averageScore','evaluationDate','notes']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['linkAccountId','averageScore','evaluationDate','notes'];"></tr>
+    </table>
+  </div>
+
+  <div *ngIf="!loading && (!data || !data.listItems || data.listItems.length === 0)">
+    No data.
+  </div>
+</mat-card>
+
+
