@@ -15,6 +15,8 @@ import {
   EstatePropertyTypeModel,
   EstatePropertyTypeService,
   EstatePropertyTypeUsageModel,
+  FilterDataModel,
+  FilterModel,
   ManageUserAccessDataTypesEnum,
 } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
@@ -169,10 +171,21 @@ export class EstateActivityTypeEditMobileComponent
         );
       });
 
-    this.estatePropertyTypeService.ServiceGetAll().subscribe({
+    const filteModelContent = new FilterModel();
+    const filter = new FilterDataModel();
+    filter.propertyName = "LinkActivityTypeId";
+    filter.value = this.requestId;
+    filteModelContent.filters.push(filter);
+
+    this.estatePropertyTypeService.ServiceGetAll(filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          this.dataEstatePropertyTypeUsageModel = ret.listItems;
+          this.dataEstatePropertyTypeModel = ret.listItems;
+          const listG: string[] = [];
+          this.dataEstatePropertyTypeModel.forEach((element) => {
+            listG.push(element.linkPropertyTypeUsageId);
+          });
+          this.dataEstatePropertyTypeUsageIds = listG;
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }

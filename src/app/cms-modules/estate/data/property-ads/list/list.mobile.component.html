@@ -55,10 +55,10 @@
             [attr.aria-label]="row.title || row.id"
             tabindex="0"
           >
-            @if (row?.linkMainImageIdSrc?.length > 0) {
+            @if (getLinkMainImageIdSrc(row)?.length > 0) {
               <div class="cms-m-list-item-image">
                 <img
-                  [src]="row.linkMainImageIdSrc | cmsthumbnail"
+                  [src]="getLinkMainImageIdSrc(row) | cmsthumbnail"
                   [alt]="row.title || row.id"
                   loading="lazy"
                 />

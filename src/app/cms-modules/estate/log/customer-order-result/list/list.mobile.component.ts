@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { EstateCustomerOrderResultListComponent } from "./list.component";
+import { EstateCustomerOrderResultModel } from "ntk-cms-api";
 
 @Component({
   selector: "app-estate-customer-order-result-list-mobile",
@@ -7,4 +8,8 @@ import { EstateCustomerOrderResultListComponent } from "./list.component";
   styleUrls: ["./list.mobile.component.scss"],
   standalone: false,
 })
-export class EstateCustomerOrderResultListMobileComponent extends EstateCustomerOrderResultListComponent {}
+export class EstateCustomerOrderResultListMobileComponent extends EstateCustomerOrderResultListComponent {
+  getTitle(row: EstateCustomerOrderResultModel): string {
+    return (row as any)['title'] || row.id || '';
+  }
+}
