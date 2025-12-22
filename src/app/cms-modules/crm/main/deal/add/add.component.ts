@@ -21,6 +21,8 @@ import {
   CrmContactModel,
   CrmPipelineModel,
   CrmStageModel,
+  CrmEnumService,
+  InfoEnumModel,
 } from "ntk-cms-api";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -50,6 +52,7 @@ export class CrmDealAddComponent
     private dialogRef: MatDialogRef<CrmDealAddComponent>,
     public coreEnumService: CoreEnumService,
     public crmDealService: CrmDealService,
+    public crmEnumService: CrmEnumService,
     private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -74,12 +77,25 @@ export class CrmDealAddComponent
   dataModel: CrmDealModel = new CrmDealModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
+  dataModelCrmDealStatusEnumResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
+
   ngOnInit(): void {
     this.translate.get("TITLE.ADD").subscribe((str: string) => {
       this.formInfo.formTitle = str;
     });
 
     this.DataGetAccess();
+    this.getCrmDealStatusEnum();
+  }
+
+  /**
+   * دریافت اطلاعات CrmDealStatusEnum
+   */
+  getCrmDealStatusEnum(): void {
+    this.crmEnumService.ServiceCrmDealStatusEnum().subscribe((res) => {
+      this.dataModelCrmDealStatusEnumResult = res;
+    });
   }
 
   DataAddContent(): void {

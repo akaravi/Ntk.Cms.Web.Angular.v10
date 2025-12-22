@@ -21,6 +21,8 @@ import {
   CrmLeadModel,
   CrmOpportunityModel,
   CrmDealModel,
+  CrmEnumService,
+  InfoEnumModel,
 } from "ntk-cms-api";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -50,6 +52,7 @@ export class CrmActivityEditComponent
     private dialogRef: MatDialogRef<CrmActivityEditComponent>,
     public coreEnumService: CoreEnumService,
     public crmActivityService: CrmActivityService,
+    public crmEnumService: CrmEnumService,
     private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -78,12 +81,61 @@ export class CrmActivityEditComponent
   formInfo: FormInfoModel = new FormInfoModel();
   requestId = "";
 
+  dataModelCrmActivityTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
+  dataModelCrmActivityStatusEnumResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
+  dataModelCrmActivityPriorityEnumResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
+  dataModelCrmActivityRecurrenceEnumResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
+
   ngOnInit(): void {
     if (this.requestId.length > 0) {
       this.DataGetOneContent();
     } else {
       this.cmsToastrService.typeErrorEditRowIsNull();
     }
+    this.getCrmActivityTypeEnum();
+    this.getCrmActivityStatusEnum();
+    this.getCrmActivityPriorityEnum();
+    this.getCrmActivityRecurrenceEnum();
+  }
+
+  /**
+   * دریافت اطلاعات CrmActivityTypeEnum
+   */
+  getCrmActivityTypeEnum(): void {
+    this.crmEnumService.ServiceCrmActivityTypeEnum().subscribe((res) => {
+      this.dataModelCrmActivityTypeEnumResult = res;
+    });
+  }
+
+  /**
+   * دریافت اطلاعات CrmActivityStatusEnum
+   */
+  getCrmActivityStatusEnum(): void {
+    this.crmEnumService.ServiceCrmActivityStatusEnum().subscribe((res) => {
+      this.dataModelCrmActivityStatusEnumResult = res;
+    });
+  }
+
+  /**
+   * دریافت اطلاعات CrmActivityPriorityEnum
+   */
+  getCrmActivityPriorityEnum(): void {
+    this.crmEnumService.ServiceCrmActivityPriorityEnum().subscribe((res) => {
+      this.dataModelCrmActivityPriorityEnumResult = res;
+    });
+  }
+
+  /**
+   * دریافت اطلاعات CrmActivityRecurrenceEnum
+   */
+  getCrmActivityRecurrenceEnum(): void {
+    this.crmEnumService.ServiceCrmActivityRecurrenceEnum().subscribe((res) => {
+      this.dataModelCrmActivityRecurrenceEnumResult = res;
+    });
   }
 
   DataGetOneContent(): void {

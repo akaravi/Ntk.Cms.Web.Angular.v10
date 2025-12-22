@@ -32,6 +32,7 @@ import {
   CrmSupplierRatingService,
   CrmSupplierPriceListService,
   CrmConfigurationService,
+  CrmEnumService,
 } from "ntk-cms-api";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { SharedModule } from "src/app/shared/shared.module";
@@ -177,10 +178,11 @@ import { CrmDealSelectorComponent } from "./deal/selector/selector.component";
     CrmDealService,
     CrmActivityService,
     CrmCampaignService,
-    CrmSupplierRatingService,
-    CrmSupplierPriceListService,
-    /** */
-    CmsConfirmationDialogService,
+        CrmSupplierRatingService,
+        CrmSupplierPriceListService,
+        CrmEnumService,
+        /** */
+        CmsConfirmationDialogService,
     CoreModuleTagService,
   ],
   exports: [],

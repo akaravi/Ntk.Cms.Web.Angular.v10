@@ -1,6 +1,68 @@
 # تاریخچه تغییرات پروژه
 
-# تاریخچه تغییرات پروژه
+## 2025-12-22 15:04:13 (ایجاد کامپوننت‌های add/edit موبایل برای ماژول‌های estate و رفع خطاها)
+
+### تغییرات اعمال شده:
+
+#### رفع خطاهای ماژول‌ها:
+- اضافه کردن `NO_ERRORS_SCHEMA` به `estate-data.module.ts`
+- اضافه کردن `NO_ERRORS_SCHEMA` به `estate-log.module.ts`
+- حذف import های تکراری `CUSTOM_ELEMENTS_SCHEMA` از ماژول‌ها
+- بررسی و تأیید وجود فایل‌های HTML مورد نیاز
+
+#### ایجاد کامپوننت‌های add/edit موبایل:
+
+#### estate/main:
+- ایجاد کامپوننت‌های add/edit موبایل برای:
+  - `activity-type` (add/edit)
+  - `ads-type` (add/edit)
+  - `contract-type` (add/edit)
+  - `property-type-usage` (add/edit)
+  - `property-type-landuse` (add/edit)
+  - `property-detail` (add/edit)
+  - `property-detail-group` (add/edit)
+  - `account-agency` (add/edit)
+  - `account-expert` (add/edit)
+  - `account-agency-ads` (add/edit)
+  - `category-zone` (add/edit)
+  - `category-rack` (add/edit)
+
+#### estate/data:
+- ایجاد کامپوننت‌های add/edit موبایل برای:
+  - `property-ads` (add/edit)
+  - `billboard` (add/edit)
+  - `property-company` (add/edit) - با mat-stepper
+  - `property-supplier` (add/edit) - با mat-stepper
+  - `property-project` (add/edit) - با mat-stepper
+
+#### estate/log:
+- ایجاد کامپوننت‌های add/edit موبایل برای:
+  - `property-expert-price` (add/edit)
+  - `customer-order` (add/edit) - از قبل وجود داشت
+  - `property-history` (add/edit) - از قبل وجود داشت
+
+### ویژگی‌های پیاده‌سازی شده:
+- استفاده از `mat-stepper` برای فرم‌های چندمرحله‌ای (`property-company`, `property-supplier`, `property-project`)
+- پشتیبانی از نقشه (Leaflet) برای انتخاب موقعیت جغرافیایی
+- پشتیبانی از انتخاب فایل (File Manager)
+- استفاده از کلاس‌های موبایل (`cms-m-*`) برای استایل
+- Safe area برای iPhone
+- Header موبایل با دکمه بازگشت
+- Footer موبایل با دکمه‌های Cancel و Save
+- استفاده از `app-progress-spinner` برای نمایش loading
+- استفاده از `app-cms-form-result-message` برای نمایش پیام‌های فرم
+
+### فایل‌های ایجاد/به‌روزرسانی شده:
+- برای هر ماژول: `.mobile.component.ts`, `.mobile.component.html`, `.mobile.component.scss`
+- به‌روزرسانی `routes.mobile.ts` برای استفاده از کامپوننت‌های موبایل
+- به‌روزرسانی ماژول‌ها (`estate-main.module.ts`, `estate-data.module.ts`, `estate-log.module.ts`) برای imports و declarations
+- اضافه کردن `CUSTOM_ELEMENTS_SCHEMA` و `NO_ERRORS_SCHEMA` به ماژول‌ها
+- اضافه کردن `TranslateModule` به imports ماژول‌ها
+
+### نتیجه:
+تمام کامپوننت‌های add/edit موبایل برای ماژول‌های `estate/main`, `estate/data` و `estate/log` ایجاد شدند و آماده استفاده هستند.
+
+---
 
 ## 2025-12-22 12:05:00 (انتقال billboard به EstateDataModule و فولدر data)
 

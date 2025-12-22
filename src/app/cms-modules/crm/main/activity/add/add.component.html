@@ -19,26 +19,17 @@
       #vform="ngForm"
       [ngStyle]="{ direction: tokenInfo.access.direction }"
       >
-      <!-- ActivityType Field -->
-      <div
-        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-        >
-        <label for="dataModel.activityType" class="color-highlight">{{
-          fieldsInfo["activityType"]?.fieldTitle
-        }}</label>
-        <input
-          matInput
-          type="text"
-          [(ngModel)]="dataModel.activityType"
-          name="dataModel.activityType"
-          #ActivityType
-          placeholder="{{ fieldsInfo['activityType']?.fieldTitle }}"
-          maxlength="50"
-          [disabled]="!fieldsInfo['activityType']?.accessAddField"
-          class="form-control validate-name"
-          id="dataModel.activityType"
-          />
-        </div>
+      <!-- ActivityType Enum Selector -->
+      @if (fieldsInfo['activityType']?.accessWatchField) {
+        <app-cms-enum-x-selector
+          [optionDataListResult]="dataModelCrmActivityTypeEnumResult"
+          [(model)]="dataModel.activityType"
+          [optionDisabled]="!fieldsInfo['activityType']?.accessAddField"
+          [optionLabel]="fieldsInfo['activityType']?.fieldTitle"
+          [optionRequired]="false"
+          [optionSelectFirstItem]="false"
+        ></app-cms-enum-x-selector>
+      }
         <!-- Subject Field -->
         <div
           class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
@@ -97,46 +88,28 @@
                 id="dataModel.endDate"
                 />
               </div>
-              <!-- Status Field -->
-              <div
-                class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-                >
-                <label for="dataModel.status" class="color-highlight">{{
-                  fieldsInfo["status"]?.fieldTitle
-                }}</label>
-                <input
-                  matInput
-                  type="text"
-                  [(ngModel)]="dataModel.status"
-                  name="dataModel.status"
-                  #Status
-                  placeholder="{{ fieldsInfo['status']?.fieldTitle }}"
-                  maxlength="50"
-                  [disabled]="!fieldsInfo['status']?.accessAddField"
-                  class="form-control validate-name"
-                  id="dataModel.status"
-                  />
-                </div>
-                <!-- Priority Field -->
-                <div
-                  class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-                  >
-                  <label for="dataModel.priority" class="color-highlight">{{
-                    fieldsInfo["priority"]?.fieldTitle
-                  }}</label>
-                  <input
-                    matInput
-                    type="text"
-                    [(ngModel)]="dataModel.priority"
-                    name="dataModel.priority"
-                    #Priority
-                    placeholder="{{ fieldsInfo['priority']?.fieldTitle }}"
-                    maxlength="50"
-                    [disabled]="!fieldsInfo['priority']?.accessAddField"
-                    class="form-control validate-name"
-                    id="dataModel.priority"
-                    />
-                  </div>
+              <!-- Status Enum Selector -->
+              @if (fieldsInfo['status']?.accessWatchField) {
+                <app-cms-enum-x-selector
+                  [optionDataListResult]="dataModelCrmActivityStatusEnumResult"
+                  [(model)]="dataModel.status"
+                  [optionDisabled]="!fieldsInfo['status']?.accessAddField"
+                  [optionLabel]="fieldsInfo['status']?.fieldTitle"
+                  [optionRequired]="false"
+                  [optionSelectFirstItem]="true"
+                ></app-cms-enum-x-selector>
+              }
+              <!-- Priority Enum Selector -->
+              @if (fieldsInfo['priority']?.accessWatchField) {
+                <app-cms-enum-x-selector
+                  [optionDataListResult]="dataModelCrmActivityPriorityEnumResult"
+                  [(model)]="dataModel.priority"
+                  [optionDisabled]="!fieldsInfo['priority']?.accessAddField"
+                  [optionLabel]="fieldsInfo['priority']?.fieldTitle"
+                  [optionRequired]="false"
+                  [optionSelectFirstItem]="true"
+                ></app-cms-enum-x-selector>
+              }
                   <!-- Description Field -->
                   <div
                     class="input-style has-borders no-icon input-style-always-active validate-field mb-4"

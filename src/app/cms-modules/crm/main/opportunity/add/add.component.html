@@ -162,26 +162,17 @@
                   id="dataModel.stage"
                   />
                 </div>
-                <!-- Status Field -->
-                <div
-                  class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-                  >
-                  <label for="dataModel.status" class="color-highlight">{{
-                    fieldsInfo["status"]?.fieldTitle
-                  }}</label>
-                  <input
-                    matInput
-                    type="text"
-                    [(ngModel)]="dataModel.status"
-                    name="dataModel.status"
-                    #Status
-                    placeholder="{{ fieldsInfo['status']?.fieldTitle }}"
-                    maxlength="50"
-                    [disabled]="!fieldsInfo['status']?.accessAddField"
-                    class="form-control validate-name"
-                    id="dataModel.status"
-                    />
-                  </div>
+                <!-- Status Enum Selector -->
+                @if (fieldsInfo['status']?.accessWatchField) {
+                  <app-cms-enum-x-selector
+                    [optionDataListResult]="dataModelCrmOpportunityStatusEnumResult"
+                    [(model)]="dataModel.status"
+                    [optionDisabled]="!fieldsInfo['status']?.accessAddField"
+                    [optionLabel]="fieldsInfo['status']?.fieldTitle"
+                    [optionRequired]="false"
+                    [optionSelectFirstItem]="true"
+                  ></app-cms-enum-x-selector>
+                }
                   <!-- ExpectedCloseDate Field -->
                   <div
                     class="input-style has-borders no-icon input-style-always-active validate-field mb-4"

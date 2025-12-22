@@ -22,6 +22,8 @@ import {
   CrmPipelineModel,
   CrmStageModel,
   CrmCampaignModel,
+  CrmEnumService,
+  InfoEnumModel,
 } from "ntk-cms-api";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -51,6 +53,7 @@ export class CrmOpportunityAddComponent
     private dialogRef: MatDialogRef<CrmOpportunityAddComponent>,
     public coreEnumService: CoreEnumService,
     public crmOpportunityService: CrmOpportunityService,
+    public crmEnumService: CrmEnumService,
     private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -75,12 +78,25 @@ export class CrmOpportunityAddComponent
   dataModel: CrmOpportunityModel = new CrmOpportunityModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
+  dataModelCrmOpportunityStatusEnumResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
+
   ngOnInit(): void {
     this.translate.get("TITLE.ADD").subscribe((str: string) => {
       this.formInfo.formTitle = str;
     });
 
     this.DataGetAccess();
+    this.getCrmOpportunityStatusEnum();
+  }
+
+  /**
+   * دریافت اطلاعات CrmOpportunityStatusEnum
+   */
+  getCrmOpportunityStatusEnum(): void {
+    this.crmEnumService.ServiceCrmOpportunityStatusEnum().subscribe((res) => {
+      this.dataModelCrmOpportunityStatusEnumResult = res;
+    });
   }
 
   DataAddContent(): void {
