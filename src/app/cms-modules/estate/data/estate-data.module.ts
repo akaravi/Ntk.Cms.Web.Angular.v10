@@ -11,6 +11,7 @@ import {
   CoreEnumService,
   CoreModuleService,
   CoreModuleTagService,
+  EstateActivityTypeService,
   EstateAdsTypeService,
   EstateBillboardService,
   EstateConfigurationService,
@@ -163,6 +164,7 @@ import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
     CoreModuleTagService,
     EstateConfigurationService,
 
+    EstateActivityTypeService,
     EstateAdsTypeService,
     EstateContractTypeService,
     EstateEnumService,
