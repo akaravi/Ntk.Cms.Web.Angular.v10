@@ -341,7 +341,7 @@ export class EstatePropertyProjectEditComponent
             });
           this.cmsToastrService.typeSuccessEdit();
           setTimeout(
-            () => this.router.navigate(["/estate/property-project"]),
+            () => this.router.navigate(["/estate/data/property-project"]),
             1000,
           );
         } else {
@@ -413,7 +413,7 @@ export class EstatePropertyProjectEditComponent
     }
   }
   onActionBackToParent(): void {
-    this.router.navigate(["/estate/property-project/"]);
+    this.router.navigate(["/estate/data/property-project/"]);
   }
   receiveMap(model: leafletMap = this.mapModel): void {
     if (!model) {

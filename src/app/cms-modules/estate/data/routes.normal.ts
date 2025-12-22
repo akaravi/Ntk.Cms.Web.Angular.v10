@@ -1,4 +1,7 @@
 import { Routes } from "@angular/router";
+import { EstateBillboardAddComponent } from "./billboard/add/add.component";
+import { EstateBillboardEditComponent } from "./billboard/edit/edit.component";
+import { EstateBillboardListComponent } from "./billboard/list/list.component";
 import { EstateDataComponent } from "./estate-data.component";
 import { EstatePropertyAdsListComponent } from "./property-ads/list/list.component";
 import { EstatePropertyAdsSaleListComponent } from "./property-ads/sale-list/sale-list.component";
@@ -120,6 +123,26 @@ export const routesNormal: Routes = [
         path: "property-ads/sale/:LinkPropertyId",
         component: EstatePropertyAdsSaleListComponent,
         data: { title: "ROUTE.ESTATE.PROPERTYADS" },
+      },
+      {
+        path: "billboard",
+        component: EstateBillboardListComponent,
+        data: { title: "ROUTE.ESTATE.BILLBOARD" },
+      },
+      {
+        path: "billboard/add",
+        component: EstateBillboardAddComponent,
+        data: { title: "ROUTE.ESTATE.BILLBOARD" },
+      },
+      {
+        path: "billboard/add-copy/:id",
+        component: EstateBillboardAddComponent,
+        data: { title: "ROUTE.ESTATE.BILLBOARD" },
+      },
+      {
+        path: "billboard/edit/:id",
+        component: EstateBillboardEditComponent,
+        data: { title: "ROUTE.ESTATE.BILLBOARD" },
       },
       {
         path: "property-company",

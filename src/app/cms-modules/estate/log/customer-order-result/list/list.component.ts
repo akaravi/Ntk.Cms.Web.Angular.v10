@@ -402,6 +402,6 @@ export class EstateCustomerOrderResultListComponent
   }
 
   onActionBackToParent(): void {
-    this.router.navigate(["/estate/customer-order/"]);
+    this.router.navigate(["/estate/log/customer-order/"]);
   }
 }

@@ -369,13 +369,13 @@ export class EstateAccountAgencyAdsListComponent
     this.onActionTableRowSelect(model);
 
     this.router.navigate([
-      "/estate/account-agency/LinkAccountAgencyAdsId/",
+      "/estate/main/account-agency/LinkAccountAgencyAdsId/",
       this.tableRowSelected.id,
     ]);
   }
   onActionButtonBuy(): void {
     this.router.navigate([
-      "/estate/account-agency-ads/sale/",
+      "/estate/main/account-agency-ads/sale/",
       this.requestLinkAccountAgencyId,
     ]);
   }
@@ -454,6 +454,6 @@ export class EstateAccountAgencyAdsListComponent
   }
 
   onActionBackToParent(): void {
-    this.router.navigate(["/estate/property/"]);
+    this.router.navigate(["/estate/data/property/"]);
   }
 }

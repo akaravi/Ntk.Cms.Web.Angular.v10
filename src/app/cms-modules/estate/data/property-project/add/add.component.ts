@@ -223,7 +223,7 @@ export class EstatePropertyProjectAddComponent
             });
           this.cmsToastrService.typeSuccessAdd();
           setTimeout(
-            () => this.router.navigate(["/estate/property-project/"]),
+            () => this.router.navigate(["/estate/data/property-project/"]),
             1000,
           );
         } else {
@@ -283,7 +283,7 @@ export class EstatePropertyProjectAddComponent
     }
   }
   onActionBackToParent(): void {
-    this.router.navigate(["/estate/property-project/"]);
+    this.router.navigate(["/estate/data/property-project/"]);
   }
 
   onActionSelectorLocation(model: CoreLocationModel | null): void {

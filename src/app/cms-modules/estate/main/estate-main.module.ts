@@ -19,7 +19,6 @@ import {
   EstateAccountExpertWorkAreaService,
   EstateActivityTypeService,
   EstateAdsTypeService,
-  EstateBillboardService,
   EstateCategoryRackService,
   EstateCategoryZoneService,
   EstateConfigurationService,
@@ -45,11 +44,6 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
 
 import { IconPickerModule } from "ngx-ntk-icon-picker";
 
-import { EstateBillboardAddComponent } from "../billboard/add/add.component";
-import { EstateBillboardEditComponent } from "../billboard/edit/edit.component";
-import { EstateBillboardListComponent } from "../billboard/list/list.component";
-import { EstateBillboardSelectorComponent } from "../billboard/selector/selector.component";
-import { EstateBillboardTreeComponent } from "../billboard/tree/tree.component";
 import { EstateSharedModule } from "../shared/estate-shared.module";
 import { EstateAccountAgencyAdsAddComponent } from "./account-agency-ads/add/add.component";
 import { EstateAccountAgencyAdsEditComponent } from "./account-agency-ads/edit/edit.component";
@@ -78,7 +72,6 @@ import { EstateAdsTypeAddComponent } from "./ads-type/add/add.component";
 import { EstateAdsTypeEditComponent } from "./ads-type/edit/edit.component";
 import { EstateAdsTypeListComponent } from "./ads-type/list/list.component";
 import { EstateContractTypeAddComponent } from "./contract-type/add/add.component";
-import { EstateContractTypeCompleteComponent } from "./contract-type/autocomplete/autocomplete.component";
 import { EstateContractTypeEditComponent } from "./contract-type/edit/edit.component";
 import { EstateContractTypeListComponent } from "./contract-type/list/list.component";
 import { EstateContractTypeTreeComponent } from "./contract-type/tree/tree.component";
@@ -93,12 +86,10 @@ import { EstatePropertyDetailListComponent } from "./property-detail/list/list.c
 import { EstatePropertyDetailSelectorComponent } from "./property-detail/selector/selector.component";
 import { EstatePropertyDetailTreeComponent } from "./property-detail/tree/tree.component";
 import { EstatePropertyTypeLanduseAddComponent } from "./property-type-landuse/add/add.component";
-import { EstatePropertyTypeLanduseCompleteComponent } from "./property-type-landuse/autocomplete/autocomplete.component";
 import { EstatePropertyTypeLanduseEditComponent } from "./property-type-landuse/edit/edit.component";
 import { EstatePropertyTypeLanduseListComponent } from "./property-type-landuse/list/list.component";
 import { EstatePropertyTypeLanduseSelectionlistComponent } from "./property-type-landuse/selectionlist/selectionlist.component";
 import { EstatePropertyTypeUsageAddComponent } from "./property-type-usage/add/add.component";
-import { EstatePropertyTypeUsageCompleteComponent } from "./property-type-usage/autocomplete/autocomplete.component";
 import { EstatePropertyTypeUsageEditComponent } from "./property-type-usage/edit/edit.component";
 import { EstatePropertyTypeUsageListComponent } from "./property-type-usage/list/list.component";
 import { EstatePropertyTypeUsageSelectionlistComponent } from "./property-type-usage/selectionlist/selectionlist.component";
@@ -134,7 +125,7 @@ import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
     EstatePropertyTypeLanduseAddComponent,
     EstatePropertyTypeLanduseEditComponent,
     EstatePropertyTypeLanduseListComponent,
-    EstatePropertyTypeLanduseCompleteComponent,
+
     EstatePropertyTypeLanduseSelectionlistComponent,
     /* */
     EstateActivityTypeAddComponent,
@@ -156,7 +147,7 @@ import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
     EstatePropertyTypeUsageListComponent,
     EstatePropertyTypeUsageTreeComponent,
     EstatePropertyTypeUsageSelectionlistComponent,
-    EstatePropertyTypeUsageCompleteComponent,
+
     /* */
     EstateAdsTypeAddComponent,
     EstateAdsTypeEditComponent,
@@ -167,13 +158,7 @@ import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
     EstateContractTypeEditComponent,
     EstateContractTypeListComponent,
     EstateContractTypeTreeComponent,
-    EstateContractTypeCompleteComponent,
-    /* */
-    EstateBillboardAddComponent,
-    EstateBillboardEditComponent,
-    EstateBillboardListComponent,
-    EstateBillboardSelectorComponent,
-    EstateBillboardTreeComponent,
+
     /* */
     EstatePropertyDetailGroupAddComponent,
     EstatePropertyDetailGroupEditComponent,
@@ -267,7 +252,6 @@ import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
     EstateAccountExpertWorkAreaService,
     EstateContractTypeService,
     EstateEnumService,
-    EstateBillboardService,
     EstateCustomerCategoryService,
     EstateCategoryZoneService,
     EstateCategoryRackService,

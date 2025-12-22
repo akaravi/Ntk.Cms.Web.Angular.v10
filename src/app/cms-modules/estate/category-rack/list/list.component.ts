@@ -355,12 +355,12 @@ export class EstateCategoryRackListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/property-detail/LinkCategoryRackId/" +
+        "/#/estate/main/property-detail/LinkCategoryRackId/" +
         this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
-        "/estate/property-detail/LinkCategoryRackId/",
+        "/estate/main/property-detail/LinkCategoryRackId/",
         this.tableRowSelected.id,
       ]);
     }
@@ -381,11 +381,11 @@ export class EstateCategoryRackListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/property/LinkCategoryRackId/" + this.tableRowSelected.id;
+        "/#/estate/data/property/LinkCategoryRackId/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
-        "/estate/property/LinkCategoryRackId/",
+        "/estate/data/property/LinkCategoryRackId/",
         this.tableRowSelected.id,
       ]);
     }

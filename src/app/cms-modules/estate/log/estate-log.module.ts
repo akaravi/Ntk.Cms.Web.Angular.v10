@@ -4,17 +4,24 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatStepperModule } from "@angular/material/stepper";
+import { RouterModule } from "@angular/router";
 import { AngularEditorModule } from "@kolkov/angular-editor";
 import {
   CoreAuthV3Service,
   CoreEnumService,
   CoreModuleService,
   CoreModuleTagService,
+  EstateActivityTypeService,
+  EstateContractTypeService,
   EstateCustomerOrderResultService,
   EstateCustomerOrderService,
   EstateEnumService,
+  EstatePropertyDetailGroupService,
   EstatePropertyExpertPriceService,
   EstatePropertyHistoryService,
+  EstatePropertyService,
+  EstatePropertyTypeLanduseService,
+  EstatePropertyTypeUsageService,
   FileCategoryService,
 } from "ntk-cms-api";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
@@ -27,15 +34,15 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
 
 import { IconPickerModule } from "ngx-ntk-icon-picker";
 
-import { EstateCustomerOrderActionComponent } from "../customer-order/action/action.component";
-import { EstateCustomerOrderAddToEditComponent } from "../customer-order/add/add-to-edit.component";
-import { EstateCustomerOrderAddMobileComponent } from "../customer-order/add/add.mobile.component";
-import { EstateCustomerOrderEditComponent } from "../customer-order/edit/edit.component";
-import { EstateCustomerOrderEditMobileComponent } from "../customer-order/edit/edit.mobile.component";
-import { EstateCustomerOrderQuickViewComponent } from "../customer-order/quick-view/quick-view.component";
-import { EstateCustomerOrderResponsibleUserListComponent } from "../customer-order/responsible-user-list/responsible-user-list.component";
 import { EstateCustomerOrderResultListComponent } from "./customer-order-result/list/list.component";
 import { EstateCustomerOrderResultViewComponent } from "./customer-order-result/view/view.component";
+import { EstateCustomerOrderActionComponent } from "./customer-order/action/action.component";
+import { EstateCustomerOrderAddToEditComponent } from "./customer-order/add/add-to-edit.component";
+import { EstateCustomerOrderAddMobileComponent } from "./customer-order/add/add.mobile.component";
+import { EstateCustomerOrderEditComponent } from "./customer-order/edit/edit.component";
+import { EstateCustomerOrderEditMobileComponent } from "./customer-order/edit/edit.mobile.component";
+import { EstateCustomerOrderQuickViewComponent } from "./customer-order/quick-view/quick-view.component";
+import { EstateCustomerOrderResponsibleUserListComponent } from "./customer-order/responsible-user-list/responsible-user-list.component";
 import { EstatePropertyExpertPriceAddComponent } from "./property-expert-price/add/add.component";
 import { EstatePropertyExpertPriceEditComponent } from "./property-expert-price/edit/edit.component";
 import { EstatePropertyExpertPriceHeaderComponent } from "./property-expert-price/header/header.component";
@@ -60,6 +67,7 @@ import { EstateSharedModule } from "../shared/estate-shared.module";
     EstatePropertyHistoryAddMobileComponent,
     EstatePropertyHistoryEditComponent,
     EstatePropertyHistoryEditMobileComponent,
+
     EstatePropertyHistoryQuickViewComponent,
     EstatePropertyHistoryResponsibleUserListComponent,
     /* */
@@ -79,10 +87,12 @@ import { EstateSharedModule } from "../shared/estate-shared.module";
     EstateCustomerOrderActionComponent,
     EstateCustomerOrderQuickViewComponent,
     EstateCustomerOrderResponsibleUserListComponent,
+
     /* */
   ],
   imports: [
     CommonModule,
+    RouterModule,
     EstateLogRoutes,
     FormsModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
@@ -106,11 +116,17 @@ import { EstateSharedModule } from "../shared/estate-shared.module";
     CoreAuthV3Service,
     CmsConfirmationDialogService,
     CoreModuleTagService,
-    EstatePropertyHistoryService,
-    EstatePropertyExpertPriceService,
+    EstateActivityTypeService,
+    EstateContractTypeService,
     EstateCustomerOrderResultService,
     EstateCustomerOrderService,
     EstateEnumService,
+    EstatePropertyDetailGroupService,
+    EstatePropertyExpertPriceService,
+    EstatePropertyHistoryService,
+    EstatePropertyService,
+    EstatePropertyTypeLanduseService,
+    EstatePropertyTypeUsageService,
     FileCategoryService,
   ],
   exports: [EstateLogComponent],

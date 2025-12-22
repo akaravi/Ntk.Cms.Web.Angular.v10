@@ -35,24 +35,31 @@ import {
   ManageUserAccessUserTypesEnum,
   RecordStatusEnum,
   SortTypeEnum,
-  TokenInfoModelV3,
 } from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
+import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { ThemeService } from "src/app/core/services/theme.service";
-import { EstatePropertyListComponent } from "../../data/property/list/list.component";
-import { EstatePropertyQuickViewComponent } from "../../data/property/quick-view/quick-view.component";
+import { EstatePropertyListComponent } from "../../../data/property/list/list.component";
+import { EstatePropertyQuickViewComponent } from "../../../data/property/quick-view/quick-view.component";
 
 @Component({
-  selector: "app-estate-customer-order-add-mobile",
-  templateUrl: "./add.mobile.component.html",
-  styleUrls: ["./add.mobile.component.scss"],
+  selector: "app-estate-customer-order-edit-mobile",
+  templateUrl: "./edit.mobile.component.html",
+  styleUrls: ["./edit.mobile.component.scss"],
   standalone: false,
 })
-export class EstateCustomerOrderAddMobileComponent implements OnInit {
+export class EstateCustomerOrderEditMobileComponent
+  extends EditBaseComponent<
+    EstateCustomerOrderService,
+    EstateCustomerOrderModel,
+    string
+  >
+  implements OnInit
+{
   requestId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
@@ -63,8 +70,8 @@ export class EstateCustomerOrderAddMobileComponent implements OnInit {
     public estatePropertyTypeUsageService: EstatePropertyTypeUsageService,
     public estatePropertyTypeLanduseService: EstatePropertyTypeLanduseService,
     private estatePropertyService: EstatePropertyService,
-    public themeService: ThemeService,
     private cmsToastrService: CmsToastrService,
+    public themeService: ThemeService,
     public estatePropertyDetailGroupService: EstatePropertyDetailGroupService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -75,6 +82,13 @@ export class EstateCustomerOrderAddMobileComponent implements OnInit {
     public dialog: MatDialog,
     public translate: TranslateService,
   ) {
+    super(
+      estateCustomerOrderService,
+      new EstateCustomerOrderModel(),
+      publicHelper,
+      translate,
+    );
+
     this.publicHelper.processService.cdr = this.cdr;
 
     this.requestId = this.activatedRoute.snapshot.paramMap.get("id");
@@ -97,19 +111,16 @@ export class EstateCustomerOrderAddMobileComponent implements OnInit {
     this.dataModel.partition = 3;
   }
 
-  tokenInfo: TokenInfoModelV3 = new TokenInfoModelV3();
   @ViewChild(EstatePropertyListComponent)
   estatePropertyList: EstatePropertyListComponent;
   allowActionSend = false;
-  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
-    string,
-    DataFieldInfoModel
-  >();
+
   numbers: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   enumInputDataType = InputDataTypeEnum;
   fileManagerTree: TreeModel;
   appLanguage = "fa";
+
   linkParentId = "";
 
   dataModelContractTypeResult: ErrorExceptionResult<EstateContractTypeModel> =
@@ -153,33 +164,7 @@ export class EstateCustomerOrderAddMobileComponent implements OnInit {
   }
 
   dataFieldInfoModel: DataFieldInfoModel[];
-  DataGetAccess(): void {
-    const pName = this.constructor.name + "DataGetAccess";
-    this.translate
-      .get("MESSAGE.Receiving_information")
-      .subscribe((str: string) => {
-        this.publicHelper.processService.processStart(
-          pName,
-          str,
-          this.constructorInfoAreaId,
-        );
-      });
 
-    this.estateCustomerOrderService.ServiceViewModel().subscribe({
-      next: (ret) => {
-        if (ret.isSuccess) {
-          this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
-        } else {
-          this.cmsToastrService.typeErrorGetAccess(ret.errorMessage);
-        }
-        this.publicHelper.processService.processStop(pName);
-      },
-      error: (er) => {
-        this.cmsToastrService.typeErrorGetAccess(er);
-        this.publicHelper.processService.processStop(pName, false);
-      },
-    });
-  }
   DataGetAccessEstate(): void {
     this.estatePropertyService.ServiceViewModel().subscribe({
       next: (ret) => {
@@ -194,44 +179,7 @@ export class EstateCustomerOrderAddMobileComponent implements OnInit {
       },
     });
   }
-  DataAddContent(actionSubmit = false): void {
-    const pName = this.constructor.name + "main";
-    this.translate
-      .get("MESSAGE.Receiving_information")
-      .subscribe((str: string) => {
-        this.publicHelper.processService.processStart(
-          pName,
-          str,
-          this.constructorInfoAreaId,
-        );
-      });
-    if (!this.dataModel.title || this.dataModel.title.length == 0)
-      this.dataModel.title = "code:" + this.dataModel.caseCode;
-    this.estateCustomerOrderService.ServiceAdd(this.dataModel).subscribe({
-      next: (ret) => {
-        if (ret.isSuccess) {
-          this.dataModel = ret.item;
-          this.cmsToastrService.typeSuccessAdd();
 
-          if (actionSubmit) {
-            if (this.allowActionSend) this.DataSend();
-            setTimeout(
-              () => this.router.navigate(["/estate/customer-order/"]),
-              1000,
-            );
-          }
-          this.DataGetAllProperty();
-        } else {
-          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-        }
-        this.publicHelper.processService.processStop(pName);
-      },
-      error: (er) => {
-        this.cmsToastrService.typeError(er);
-        this.publicHelper.processService.processStop(pName, false);
-      },
-    });
-  }
   DataEditContent(actionSubmit = false): void {
     const pName = this.constructor.name + "main";
     this.translate
@@ -252,7 +200,7 @@ export class EstateCustomerOrderAddMobileComponent implements OnInit {
           if (actionSubmit) {
             if (this.allowActionSend) this.DataSend();
             setTimeout(
-              () => this.router.navigate(["/estate/customer-order/"]),
+              () => this.router.navigate(["/estate/log/customer-order/"]),
               1000,
             );
           } else {
@@ -719,11 +667,7 @@ export class EstateCustomerOrderAddMobileComponent implements OnInit {
       });
     // ** Save Value */
 
-    if (this.dataModel?.id?.length > 0) {
-      this.DataEditContent(actionSubmit);
-    } else {
-      this.DataAddContent(actionSubmit);
-    }
+    this.DataEditContent(actionSubmit);
   }
 
   onActionSelectorSelect(model: EstateCustomerCategoryModel | null): void {
@@ -738,7 +682,7 @@ export class EstateCustomerOrderAddMobileComponent implements OnInit {
     this.dataModel.linkEstateCustomerCategoryId = model.id;
   }
   onFormCancel(): void {
-    this.router.navigate(["/estate/customer-order/"]);
+    this.router.navigate(["/estate/log/customer-order/"]);
   }
 
   onActionSelectCurrency(model: CoreCurrencyModel): void {

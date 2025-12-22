@@ -1,7 +1,4 @@
 import { Routes } from "@angular/router";
-import { EstateBillboardAddComponent } from "../billboard/add/add.component";
-import { EstateBillboardEditComponent } from "../billboard/edit/edit.component";
-import { EstateBillboardListComponent } from "../billboard/list/list.component";
 import { EstateCategoryZoneListComponent } from "../category-zone/list/list.component";
 import { EstateContractTypeListComponent } from "./contract-type/list/list.component";
 import { EstateDashboardComponent } from "../dashboard/dashboard.component";
@@ -84,27 +81,6 @@ export const routesMobile: Routes = [
         path: "contract-type",
         component: EstateContractTypeListComponent,
         data: { title: "ROUTE.ESTATE.CONTRACTTYPE" },
-      },
-      /**/
-      {
-        path: "billboard",
-        component: EstateBillboardListComponent,
-        data: { title: "ROUTE.ESTATE.BILLBOARD" },
-      },
-      {
-        path: "billboard/add",
-        component: EstateBillboardAddComponent,
-        data: { title: "ROUTE.ESTATE.BILLBOARD" },
-      },
-      {
-        path: "billboard/add-copy/:id",
-        component: EstateBillboardAddComponent,
-        data: { title: "ROUTE.ESTATE.BILLBOARD" },
-      },
-      {
-        path: "billboard/edit/:id",
-        component: EstateBillboardEditComponent,
-        data: { title: "ROUTE.ESTATE.BILLBOARD" },
       },
       /**/
       {

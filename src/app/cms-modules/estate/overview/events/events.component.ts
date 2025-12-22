@@ -44,7 +44,7 @@ import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { ThemeService } from "src/app/core/services/theme.service";
 import { environment } from "src/environments/environment";
-import { EstateCustomerOrderQuickViewComponent } from "../../customer-order/quick-view/quick-view.component";
+import { EstateCustomerOrderQuickViewComponent } from "../../log/customer-order/quick-view/quick-view.component";
 import { EstatePropertyCompanyQuickViewComponent } from "../../data/property-company/quick-view/quick-view.component";
 import { EstatePropertyHistoryQuickViewComponent } from "../../log/property-history/quick-view/quick-view.component";
 import { EstatePropertyProjectQuickViewComponent } from "../../data/property-project/quick-view/quick-view.component";
@@ -843,11 +843,11 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
     }
 
     if (event?.ctrlKey) {
-      var link = "/#/estate/account-agency/LinkCustomerOrderId/" + model.id;
+      var link = "/#/estate/main/account-agency/LinkCustomerOrderId/" + model.id;
       window.open(link, "_blank");
     } else {
       this.router.navigate([
-        "/estate/account-agency/LinkCustomerOrderId/",
+        "/estate/main/account-agency/LinkCustomerOrderId/",
         model.id,
       ]);
     }
@@ -866,11 +866,11 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
     }
 
     if (event?.ctrlKey) {
-      var link = "/#/estate/account-user/LinkCustomerOrderId/" + model.id;
+      var link = "/#/estate/main/account-user/LinkCustomerOrderId/" + model.id;
       window.open(link, "_blank");
     } else {
       this.router.navigate([
-        "/estate/account-user/LinkCustomerOrderId/",
+        "/estate/main/account-user/LinkCustomerOrderId/",
         model.id,
       ]);
     }

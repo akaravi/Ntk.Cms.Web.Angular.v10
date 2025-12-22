@@ -56,7 +56,7 @@ export class EstatePropertyHistoryWidgetComponent implements OnInit, OnDestroy {
       this.widgetInfoModel.title = str;
     });
     this.widgetInfoModel.description = "";
-    this.widgetInfoModel.link = "/estate/property-history";
+    this.widgetInfoModel.link = "/estate/log/property-history";
 
     setTimeout(() => {
       this.onActionStatist();
@@ -190,11 +190,11 @@ export class EstatePropertyHistoryWidgetComponent implements OnInit, OnDestroy {
                 "InChecking",
                 0,
                 ret.totalRowCount,
-                "/estate/property-history/InChecking/true",
+                "/estate/log/property-history/InChecking/true",
               ),
             );
           } else {
-            this.widgetInfoModel.link = "/estate/property-history";
+            this.widgetInfoModel.link = "/estate/log/property-history";
           }
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -229,11 +229,11 @@ export class EstatePropertyHistoryWidgetComponent implements OnInit, OnDestroy {
                 "Planned",
                 3,
                 ret.totalRowCount,
-                "/estate/property-history/activitystatus/0",
+                "/estate/log/property-history/activitystatus/0",
               ),
             );
           } else {
-            this.widgetInfoModel.link = "/estate/property-history";
+            this.widgetInfoModel.link = "/estate/log/property-history";
           }
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -276,7 +276,7 @@ export class EstatePropertyHistoryWidgetComponent implements OnInit, OnDestroy {
                 "PlannedToDay",
                 5,
                 ret.totalRowCount,
-                "/estate/property-history/InCheckingPlanedToDay/" +
+                "/estate/log/property-history/InCheckingPlanedToDay/" +
                   this.tokenInfo.access.userId,
               ),
             );
@@ -291,7 +291,7 @@ export class EstatePropertyHistoryWidgetComponent implements OnInit, OnDestroy {
               30 * 1000,
             );
           } else {
-            this.widgetInfoModel.link = "/estate/property-history";
+            this.widgetInfoModel.link = "/estate/log/property-history";
           }
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -329,7 +329,7 @@ export class EstatePropertyHistoryWidgetComponent implements OnInit, OnDestroy {
       .then((confirmed) => {
         if (confirmed) {
           this.router.navigate([
-            "/estate/property-history/InCheckingPlanedToDay/" +
+            "/estate/log/property-history/InCheckingPlanedToDay/" +
               this.tokenInfo.access.userId,
           ]);
         }

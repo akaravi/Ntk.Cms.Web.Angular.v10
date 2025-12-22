@@ -3,7 +3,7 @@ import { EstateCustomerOrderResultListComponent } from "./customer-order-result/
 import { EstateLogComponent } from "./estate-log.component";
 import { EstatePropertyExpertPriceListComponent } from "./property-expert-price/list/list.component";
 import { EstatePropertyHistoryListComponent } from "./property-history/list/list.component";
-import { EstateCustomerOrderListComponent } from "../customer-order/list/list.component";
+import { EstateCustomerOrderListComponent } from "./customer-order/list/list.component";
 
 export const routesMobile: Routes = [
   {

@@ -332,7 +332,7 @@ export class EstatePropertySupplierEditComponent
             });
           this.cmsToastrService.typeSuccessEdit();
           setTimeout(
-            () => this.router.navigate(["/estate/property-supplier"]),
+            () => this.router.navigate(["/estate/data/property-supplier"]),
             1000,
           );
         } else {
@@ -406,7 +406,7 @@ export class EstatePropertySupplierEditComponent
     }
   }
   onActionBackToParent(): void {
-    this.router.navigate(["/estate/property-supplier/"]);
+    this.router.navigate(["/estate/data/property-supplier/"]);
   }
   receiveMap(model: leafletMap = this.mapModel): void {
     if (!model) {

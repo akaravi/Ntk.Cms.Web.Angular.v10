@@ -54,7 +54,7 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { ThemeService } from "src/app/core/services/theme.service";
 import { CmsMapComponent } from "src/app/shared/cms-map/cms-map.component";
 import { environment } from "src/environments/environment";
-import { EstateCustomerOrderListComponent } from "../../../customer-order/list/list.component";
+import { EstateCustomerOrderListComponent } from "../../../log/customer-order/list/list.component";
 import { EstatePropertyExpertPriceInquiryListComponent } from "../../../log/property-expert-price/inquiry-list/inquiry-list.component";
 import { EstatePropertyHistoryAddComponent } from "../../../log/property-history/add/add.component";
 import { EstatePropertyHistoryListComponent } from "../../../log/property-history/list/list.component";
@@ -175,7 +175,7 @@ export class EstatePropertyEditComponent
   ngOnInit(): void {
     if (this.requestId.length <= 0) {
       this.cmsToastrService.typeErrorComponentAction();
-      this.router.navigate(["/estate/property"]);
+      this.router.navigate(["/estate/data/property"]);
       return;
     }
     this.translate.get("TITLE.Edit").subscribe((str: string) => {
@@ -675,7 +675,7 @@ export class EstatePropertyEditComponent
     this.DataEditContent(forcePopupMessageAction);
   }
   onFormCancel(): void {
-    this.router.navigate(["/estate/property"]);
+    this.router.navigate(["/estate/data/property"]);
   }
 
   onActionOptionAddToList(viewAlert: boolean = true): void {
@@ -851,7 +851,7 @@ export class EstatePropertyEditComponent
     }
   }
   onActionBackToParent(): void {
-    this.router.navigate(["/estate/property/"]);
+    this.router.navigate(["/estate/data/property/"]);
   }
   setStep(index: number): void {
     this.step = index;

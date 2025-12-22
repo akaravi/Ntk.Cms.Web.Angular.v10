@@ -15,8 +15,8 @@ import {DataFieldInfoModel,
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
-import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
+import { FormInfoModel } from "../../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-estate-customer-order-action",

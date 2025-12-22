@@ -82,7 +82,7 @@ export class EstatePropertyAdsSaleListComponent implements OnInit, OnDestroy {
       this.requestLinkPropertyId.length === 0
     ) {
       this.cmsToastrService.typeErrorComponentAction();
-      this.router.navigate(["/estate/property"]);
+      this.router.navigate(["/estate/data/property"]);
       return;
     }
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
@@ -207,7 +207,7 @@ export class EstatePropertyAdsSaleListComponent implements OnInit, OnDestroy {
 
   onActionBackToParent(): void {
     this.router.navigate([
-      "/estate/property-ads/LinkPropertyId/" + this.requestLinkPropertyId,
+      "/estate/data/property-ads/LinkPropertyId/" + this.requestLinkPropertyId,
     ]);
   }
 }

@@ -85,7 +85,7 @@ export class EstateAccountAgencyAdsSaleListComponent
       this.requestLinkAccountAgencyId.length === 0
     ) {
       this.cmsToastrService.typeErrorComponentAction();
-      this.router.navigate(["/estate/account-agency"]);
+      this.router.navigate(["/estate/main/account-agency"]);
       return;
     }
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
@@ -214,7 +214,7 @@ export class EstateAccountAgencyAdsSaleListComponent
 
   onActionBackToParent(): void {
     this.router.navigate([
-      "/estate/account-agency-ads/LinkPropertyId/" +
+      "/estate/main/account-agency-ads/LinkPropertyId/" +
         this.requestLinkAccountAgencyId,
     ]);
   }

@@ -425,12 +425,12 @@ export class EstatePropertyAddMobileComponent
             });
             dialogRef.afterClosed().subscribe((result) => {
               setTimeout(
-                () => this.router.navigate(["/estate/property"]),
+                () => this.router.navigate(["/estate/data/property"]),
                 1000,
               );
             });
           } else {
-            setTimeout(() => this.router.navigate(["/estate/property"]), 1000);
+            setTimeout(() => this.router.navigate(["/estate/data/property"]), 1000);
           }
         } else {
           this.translate
@@ -635,7 +635,7 @@ export class EstatePropertyAddMobileComponent
   }
   onFormCancel(): void {
     // this.dialogRef.close({ dialogChangedDate: false });
-    this.router.navigate(["/estate/property"]);
+    this.router.navigate(["/estate/data/property"]);
   }
 
   onActionOptionAddToList(viewAlert: boolean = true): void {
@@ -825,7 +825,7 @@ export class EstatePropertyAddMobileComponent
     }
   }
   onActionBackToParent(): void {
-    this.router.navigate(["/estate/property/"]);
+    this.router.navigate(["/estate/data/property/"]);
   }
   // ** Accardon */
 

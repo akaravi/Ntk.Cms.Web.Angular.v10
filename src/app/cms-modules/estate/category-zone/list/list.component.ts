@@ -355,12 +355,12 @@ export class EstateCategoryZoneListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/property-detail/LinkCategoryZoneId/" +
+        "/#/estate/main/property-detail/LinkCategoryZoneId/" +
         this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
-        "/estate/property-detail/LinkCategoryZoneId/",
+        "/estate/main/property-detail/LinkCategoryZoneId/",
         this.tableRowSelected.id,
       ]);
     }
@@ -381,11 +381,11 @@ export class EstateCategoryZoneListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/property/LinkCategoryZoneId/" + this.tableRowSelected.id;
+        "/#/estate/data/property/LinkCategoryZoneId/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
-        "/estate/property/LinkCategoryZoneId/",
+        "/estate/data/property/LinkCategoryZoneId/",
         this.tableRowSelected.id,
       ]);
     }

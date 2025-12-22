@@ -349,7 +349,7 @@ export class EstatePropertyTypeLanduseListComponent
     this.onActionTableRowSelect(model);
 
     this.router.navigate([
-      "/estate/property-detail/LinkPropertyTypeLanduseId/",
+      "/estate/main/property-detail/LinkPropertyTypeLanduseId/",
       this.tableRowSelected.id,
     ]);
   }
@@ -367,7 +367,7 @@ export class EstatePropertyTypeLanduseListComponent
     this.onActionTableRowSelect(model);
 
     this.router.navigate([
-      "/estate/property/LinkPropertyTypeLanduseId/",
+      "/estate/data/property/LinkPropertyTypeLanduseId/",
       this.tableRowSelected.id,
     ]);
   }

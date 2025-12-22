@@ -353,13 +353,13 @@ export class EstatePropertyAdsListComponent
     this.onActionTableRowSelect(model);
 
     this.router.navigate([
-      "/estate/property/LinkPropertyAdsId/",
+      "/estate/data/property/LinkPropertyAdsId/",
       this.tableRowSelected.id,
     ]);
   }
   onActionButtonBuy(): void {
     this.router.navigate([
-      "/estate/property-ads/sale/",
+      "/estate/data/property-ads/sale/",
       this.requestLinkPropertyId,
     ]);
   }
@@ -437,6 +437,6 @@ export class EstatePropertyAdsListComponent
   }
 
   onActionBackToParent(): void {
-    this.router.navigate(["/estate/property/"]);
+    this.router.navigate(["/estate/data/property/"]);
   }
 }

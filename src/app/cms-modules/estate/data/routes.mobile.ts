@@ -5,6 +5,9 @@ import { EstatePropertyAdsSaleListComponent } from "./property-ads/sale-list/sal
 import { EstatePropertyCompanyAddComponent } from "./property-company/add/add.component";
 import { EstatePropertyCompanyEditComponent } from "./property-company/edit/edit.component";
 import { EstatePropertyCompanyListComponent } from "./property-company/list/list.component";
+import { EstateBillboardAddComponent } from "./billboard/add/add.component";
+import { EstateBillboardEditComponent } from "./billboard/edit/edit.component";
+import { EstateBillboardListComponent } from "./billboard/list/list.component";
 import { EstatePropertyProjectAddComponent } from "./property-project/add/add.component";
 import { EstatePropertyProjectEditComponent } from "./property-project/edit/edit.component";
 import { EstatePropertyProjectListComponent } from "./property-project/list/list.component";
@@ -120,6 +123,26 @@ export const routesMobile: Routes = [
         path: "property-ads/sale/:LinkPropertyId",
         component: EstatePropertyAdsSaleListComponent,
         data: { title: "ROUTE.ESTATE.PROPERTYADS" },
+      },
+      {
+        path: "billboard",
+        component: EstateBillboardListComponent,
+        data: { title: "ROUTE.ESTATE.BILLBOARD" },
+      },
+      {
+        path: "billboard/add",
+        component: EstateBillboardAddComponent,
+        data: { title: "ROUTE.ESTATE.BILLBOARD" },
+      },
+      {
+        path: "billboard/add-copy/:id",
+        component: EstateBillboardAddComponent,
+        data: { title: "ROUTE.ESTATE.BILLBOARD" },
+      },
+      {
+        path: "billboard/edit/:id",
+        component: EstateBillboardEditComponent,
+        data: { title: "ROUTE.ESTATE.BILLBOARD" },
       },
       {
         path: "property-company",

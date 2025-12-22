@@ -422,7 +422,7 @@ export class EstatePropertyTypeUsageListComponent
     this.onActionTableRowSelect(model);
 
     this.router.navigate([
-      "/estate/property/LinkPropertyTypeUsageId/",
+      "/estate/data/property/LinkPropertyTypeUsageId/",
       this.tableRowSelected.id,
     ]);
   }

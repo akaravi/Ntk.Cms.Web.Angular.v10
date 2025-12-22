@@ -40,7 +40,7 @@ import { ThemeService } from "src/app/core/services/theme.service";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { CmsLinkToComponent } from "src/app/shared/cms-link-to/cms-link-to.component";
 import { environment } from "src/environments/environment";
-import { EstatePropertyHistoryAddComponent } from "../../log/property-history/add/add.component";
+import { EstatePropertyHistoryAddComponent } from "../../../log/property-history/add/add.component";
 import { EstateCustomerOrderAddToEditComponent } from "../add/add-to-edit.component";
 import { EstateCustomerOrderQuickViewComponent } from "../quick-view/quick-view.component";
 import { EstateCustomerOrderResponsibleUserListComponent } from "../responsible-user-list/responsible-user-list.component";
@@ -479,7 +479,7 @@ export class EstateCustomerOrderListComponent
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
-        this.router.navigate(["/estate/customer-order/edit/", result.id]);
+        this.router.navigate(["/estate/log/customer-order/edit/", result.id]);
       }
     });
     //open poup
@@ -511,7 +511,7 @@ export class EstateCustomerOrderListComponent
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
-        this.router.navigate(["/estate/customer-order/edit/", result.id]);
+        this.router.navigate(["/estate/log/customer-order/edit/", result.id]);
       }
     });
     //open poup
@@ -535,11 +535,11 @@ export class EstateCustomerOrderListComponent
     }
 
     if (event?.ctrlKey) {
-      this.link = "/#/estate/customer-order/edit/" + this.tableRowSelected.id;
+      this.link = "/#/estate/log/customer-order/edit/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
-        "/estate/customer-order/edit",
+        "/estate/log/customer-order/edit",
         this.tableRowSelected.id,
       ]);
     }
@@ -635,12 +635,12 @@ export class EstateCustomerOrderListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/property-history/LinkCustomerOrderId/" +
+        "/#/estate/log/property-history/LinkCustomerOrderId/" +
         this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
-        "/estate/property-history/LinkCustomerOrderId",
+        "/estate/log/property-history/LinkCustomerOrderId",
         this.tableRowSelected.id,
       ]);
     }
@@ -675,11 +675,11 @@ export class EstateCustomerOrderListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/property/LinkCustomerOrderId/" + this.tableRowSelected.id;
+        "/#/estate/data/property/LinkCustomerOrderId/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
-        "/estate/property/LinkCustomerOrderId/",
+        "/estate/data/property/LinkCustomerOrderId/",
         this.tableRowSelected.id,
       ]);
     }

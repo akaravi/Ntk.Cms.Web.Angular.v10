@@ -357,11 +357,11 @@ export class EstateContractTypeListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/property/LinkContractTypeId/" + this.tableRowSelected.id;
+        "/#/estate/data/property/LinkContractTypeId/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
-        "/estate/property/LinkContractTypeId/",
+        "/estate/data/property/LinkContractTypeId/",
         this.tableRowSelected.id,
       ]);
     }

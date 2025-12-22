@@ -1,10 +1,10 @@
 import { Routes } from "@angular/router";
 import { EstateCustomerOrderResultListComponent } from "./customer-order-result/list/list.component";
+import { EstateCustomerOrderEditComponent } from "./customer-order/edit/edit.component";
+import { EstateCustomerOrderListComponent } from "./customer-order/list/list.component";
+import { EstateLogComponent } from "./estate-log.component";
 import { EstatePropertyExpertPriceListComponent } from "./property-expert-price/list/list.component";
 import { EstatePropertyHistoryListComponent } from "./property-history/list/list.component";
-import { EstateLogComponent } from "./estate-log.component";
-import { EstateCustomerOrderEditComponent } from "../customer-order/edit/edit.component";
-import { EstateCustomerOrderListComponent } from "../customer-order/list/list.component";
 
 export const routesNormal: Routes = [
   {

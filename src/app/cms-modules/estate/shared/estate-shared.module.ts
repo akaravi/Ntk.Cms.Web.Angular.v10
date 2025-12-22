@@ -15,10 +15,7 @@ import { estatePropertyProjectInfoPipe } from "src/app/core/pipe/esate/estate-pr
 import { estatePropertySupplierInfoPipe } from "src/app/core/pipe/esate/estate-property-supplier-info.pipe";
 import { SharedModule } from "src/app/shared/shared.module";
 import { CoreSharedModule } from "../../core-main/core.shared.module";
-import { EstateBillboardHeaderComponent } from "../billboard/header/header.component";
-import { EstateCustomerOrderHeaderComponent } from "../customer-order/header/header.component";
-import { EstateCustomerOrderListComponent } from "../customer-order/list/list.component";
-import { EstateCustomerOrderSelectorComponent } from "../customer-order/selector/selector.component";
+import { EstateBillboardHeaderComponent } from "../data/billboard/header/header.component";
 import { EstatePropertyCompanyHeaderComponent } from "../data/property-company/header/header.component";
 import { EstatePropertyCompanySelectorComponent } from "../data/property-company/selector/selector.component";
 import { EstatePropertyProjectHeaderComponent } from "../data/property-project/header/header.component";
@@ -27,6 +24,9 @@ import { EstatePropertyCompleteComponent } from "../data/property/autocomplete/a
 import { EstatePropertyHeaderComponent } from "../data/property/header/header.component";
 import { EstatePropertyListComponent } from "../data/property/list/list.component";
 import { EstatePropertySelectorComponent } from "../data/property/selector/selector.component";
+import { EstateCustomerOrderHeaderComponent } from "../log/customer-order/header/header.component";
+import { EstateCustomerOrderListComponent } from "../log/customer-order/list/list.component";
+import { EstateCustomerOrderSelectorComponent } from "../log/customer-order/selector/selector.component";
 import { EstatePropertyHistoryAddComponent } from "../log/property-history/add/add.component";
 import { EstatePropertyHistoryListComponent } from "../log/property-history/list/list.component";
 import { EstateAccountAgencyHeaderComponent } from "../main/account-agency/header/header.component";
@@ -38,15 +38,18 @@ import { EstateAccountExpertSelectorComponent } from "../main/account-expert/sel
 import { EstateActivityTypeSelectorComponent } from "../main/activity-type/selector/selector.component";
 import { EstateActivityTypeTreeComponent } from "../main/activity-type/tree/tree.component";
 import { EstateAdsTypeSelectorComponent } from "../main/ads-type/selector/selector.component";
+import { EstateContractTypeCompleteComponent } from "../main/contract-type/autocomplete/autocomplete.component";
 import { EstateContractTypeHeaderComponent } from "../main/contract-type/header/header.component";
 import { EstateContractTypeSelectorComponent } from "../main/contract-type/selector/selector.component";
 import { EstateCustomerCategorySelectorComponent } from "../main/customer-category/selector/selector.component";
 import { EstateCustomerCategoryTreeComponent } from "../main/customer-category/tree/tree.component";
 import { EstatePropertySupplierCategoryTreeSelectorComponent } from "../main/property-supplier-category/tree-selector/tree-selector.component";
 import { EstatePropertySupplierCategoryTreeComponent } from "../main/property-supplier-category/tree/tree.component";
+import { EstatePropertyTypeLanduseCompleteComponent } from "../main/property-type-landuse/autocomplete/autocomplete.component";
 import { EstatePropertyTypeLanduseHeaderComponent } from "../main/property-type-landuse/header/header.component";
 import { EstatePropertyTypeLanduseSelectorComponent } from "../main/property-type-landuse/selector/selector.component";
 import { EstatePropertyTypeLanduseTreeComponent } from "../main/property-type-landuse/tree/tree.component";
+import { EstatePropertyTypeUsageCompleteComponent } from "../main/property-type-usage/autocomplete/autocomplete.component";
 import { EstatePropertyTypeUsageHeaderComponent } from "../main/property-type-usage/header/header.component";
 import { EstatePropertyTypeUsageSelectorComponent } from "../main/property-type-usage/selector/selector.component";
 
@@ -67,6 +70,7 @@ import { EstatePropertyTypeUsageSelectorComponent } from "../main/property-type-
     EstateCustomerOrderSelectorComponent,
     EstateCustomerCategorySelectorComponent,
     EstateAdsTypeSelectorComponent,
+
     /* Headers */
     EstateCustomerOrderHeaderComponent,
     EstateBillboardHeaderComponent,
@@ -100,6 +104,9 @@ import { EstatePropertyTypeUsageSelectorComponent } from "../main/property-type-
     /* Quick Components */
     EstatePropertyHistoryAddComponent,
     EstatePropertyCompleteComponent,
+    EstateContractTypeCompleteComponent,
+    EstatePropertyTypeLanduseCompleteComponent,
+    EstatePropertyTypeUsageCompleteComponent,
   ],
   exports: [
     /* Pipes */
@@ -149,6 +156,9 @@ import { EstatePropertyTypeUsageSelectorComponent } from "../main/property-type-
     /* Quick Components */
     EstatePropertyHistoryAddComponent,
     EstatePropertyCompleteComponent,
+    EstateContractTypeCompleteComponent,
+    EstatePropertyTypeLanduseCompleteComponent,
+    EstatePropertyTypeUsageCompleteComponent,
   ],
   imports: [
     CommonModule,

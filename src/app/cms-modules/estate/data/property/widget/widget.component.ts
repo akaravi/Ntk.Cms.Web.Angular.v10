@@ -84,7 +84,7 @@ export class EstatePropertyWidgetComponent implements OnInit, OnDestroy {
       .subscribe((str: string) => {
         this.widgetInfoModel.description = str;
       });
-    this.widgetInfoModel.link = "/estate/property";
+    this.widgetInfoModel.link = "/estate/data/property";
 
     setTimeout(() => {
       this.onActionStatist();
@@ -160,7 +160,7 @@ export class EstatePropertyWidgetComponent implements OnInit, OnDestroy {
             "Available",
             0,
             ret.totalRowCount,
-            "/estate/property/recordstatus/Available",
+            "/estate/data/property/recordstatus/Available",
           ),
         );
       } else {
@@ -178,7 +178,7 @@ export class EstatePropertyWidgetComponent implements OnInit, OnDestroy {
             "Disable",
             1,
             ret.totalRowCount,
-            "/estate/property/recordstatus/Disable",
+            "/estate/data/property/recordstatus/Disable",
           ),
         );
       } else {
@@ -196,7 +196,7 @@ export class EstatePropertyWidgetComponent implements OnInit, OnDestroy {
             "Pending",
             2,
             ret.totalRowCount,
-            "/estate/property/recordstatus/Pending",
+            "/estate/data/property/recordstatus/Pending",
           ),
         );
       } else {

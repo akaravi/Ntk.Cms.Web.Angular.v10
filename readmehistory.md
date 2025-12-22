@@ -1,5 +1,82 @@
 # تاریخچه تغییرات پروژه
 
+# تاریخچه تغییرات پروژه
+
+## 2025-12-22 12:05:00 (انتقال billboard به EstateDataModule و فولدر data)
+
+### تغییرات اعمال شده:
+- انتقال فولدر `billboard` از `estate/billboard` به `estate/data/billboard`
+- حذف billboard از `EstateMainModule` (imports، declarations، providers) و مسیرهای `routes.normal.ts` و `routes.mobile.ts` ماژول main
+- اضافه کردن billboard به `EstateDataModule` (imports، declarations، providers) و مسیرهای `routes.normal.ts` و `routes.mobile.ts` ماژول data
+- به‌روزرسانی import ها و لینک‌های ناوبری کامپوننت‌های billboard به مسیر جدید `/estate/data/billboard`
+- به‌روزرسانی `EstateSharedModule` برای مسیر جدید هدر billboard
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/estate/data/billboard/**`
+- `src/app/cms-modules/estate/data/estate-data.module.ts`
+- `src/app/cms-modules/estate/data/routes.normal.ts`
+- `src/app/cms-modules/estate/data/routes.mobile.ts`
+- `src/app/cms-modules/estate/main/estate-main.module.ts`
+- `src/app/cms-modules/estate/main/routes.normal.ts`
+- `src/app/cms-modules/estate/main/routes.mobile.ts`
+- `src/app/cms-modules/estate/shared/estate-shared.module.ts`
+
+### نتیجه:
+تمام کامپوننت‌های billboard اکنون زیر ماژول `EstateDataModule` و مسیر `/estate/data/billboard` قرار گرفتند و وابستگی‌ها و مسیرهای مرتبط به‌روزرسانی شدند.
+
+## 2025-12-22 11:18:17 (اضافه کردن تمام service های Estate به EstateLogModule)
+
+### تغییرات اعمال شده:
+
+- **اضافه کردن service های Estate به `EstateLogModule`**:
+  - اضافه کردن `EstateActivityTypeService` به providers
+  - اضافه کردن `EstateContractTypeService` به providers
+  - اضافه کردن `EstatePropertyDetailGroupService` به providers
+  - اضافه کردن `EstatePropertyService` به providers
+  - اضافه کردن `EstatePropertyTypeLanduseService` به providers
+  - اضافه کردن `EstatePropertyTypeUsageService` به providers
+  - اضافه کردن `EstatePropertyHistoryListComponent` به declarations
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/estate/log/estate-log.module.ts`
+
+### مشکلات برطرف شده:
+- خطای `NG0201: No provider found for _EstatePropertyDetailGroupService` در `EstateLogModule` - برطرف شد
+- خطای `NG0201: No provider found for _EstateContractTypeService` در `EstateLogModule` - برطرف شد
+- خطای `NG0201: No provider found for _EstatePropertyService` در `EstateLogModule` - برطرف شد
+- خطای `NG0201: No provider found for _EstatePropertyTypeLanduseService` در `EstateLogModule` - برطرف شد
+- خطای `NG0201: No provider found for _EstatePropertyTypeUsageService` در `EstateLogModule` - برطرف شد
+- خطای `NG0201: No provider found for _EstateActivityTypeService` در `EstateLogModule` - برطرف شد
+
+### توضیحات:
+تمام service های Estate که در کامپوننت‌های `estate/log` استفاده می‌شوند به providers ماژول `EstateLogModule` اضافه شدند. همچنین کامپوننت `EstatePropertyHistoryListComponent` که در routes استفاده می‌شد اما در declarations نبود اضافه شد.
+
+---
+
+## 2025-12-22 11:09:50 (اضافه کردن تمام service های Estate به EstateDataModule)
+
+### تغییرات اعمال شده:
+
+- **اضافه کردن service های Estate به `EstateDataModule`**:
+  - اضافه کردن `EstateConfigurationService` به providers
+  - اضافه کردن `EstatePropertyDetailGroupService` به providers
+  - اضافه کردن `EstatePropertyTypeLanduseService` به providers
+  - اضافه کردن `EstatePropertyTypeService` به providers
+  - اضافه کردن `EstateContractTypeService` به providers
+  - اضافه کردن `EstateAdsTypeService` به providers
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/estate/data/estate-data.module.ts`
+
+### مشکلات برطرف شده:
+- خطای `NG0201: No provider found for _EstateConfigurationService` - برطرف شد
+- خطای `NG0201: No provider found for _EstatePropertyDetailGroupService` - برطرف شد
+- خطای `NG0201: No provider found for _EstateContractTypeService` - برطرف شد
+- خطای `NG0201: No provider found for _EstateAdsTypeService` - برطرف شد
+
+### توضیحات:
+تمام service های Estate که در کامپوننت‌های `estate/data` استفاده می‌شوند به providers ماژول `EstateDataModule` اضافه شدند تا از خطاهای dependency injection جلوگیری شود.
+
 ## 2025-12-22 09:00 (انتقال widget module ها از shared/widget به shared)
 
 ### تغییرات اعمال شده:

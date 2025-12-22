@@ -220,10 +220,10 @@ export class EstatePropertyProjectListComponent
     }
 
     if (event?.ctrlKey) {
-      this.link = "/#/estate/property-project/add/";
+      this.link = "/#/estate/data/property-project/add/";
       window.open(this.link, "_blank");
     } else {
-      this.router.navigate(["/estate/property-project/add"]);
+      this.router.navigate(["/estate/data/property-project/add"]);
     }
   }
   onActionButtonEditRow(
@@ -245,11 +245,11 @@ export class EstatePropertyProjectListComponent
     }
 
     if (event?.ctrlKey) {
-      this.link = "/#/estate/property-project/edit/" + this.tableRowSelected.id;
+      this.link = "/#/estate/data/property-project/edit/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
-        "/estate/property-project/edit",
+        "/estate/data/property-project/edit",
         this.tableRowSelected.id,
       ]);
     }
@@ -274,11 +274,11 @@ export class EstatePropertyProjectListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/property/LinkProjectId/" + this.tableRowSelected.id;
+        "/#/estate/data/property/LinkProjectId/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
-        "/estate/property/LinkProjectId",
+        "/estate/data/property/LinkProjectId",
         this.tableRowSelected.id,
       ]);
     }
@@ -303,11 +303,11 @@ export class EstatePropertyProjectListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/property-company/LinkProjectId/" + this.tableRowSelected.id;
+        "/#/estate/data/property-company/LinkProjectId/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
-        "/estate/property-company/LinkProjectId",
+        "/estate/data/property-company/LinkProjectId",
         this.tableRowSelected.id,
       ]);
     }

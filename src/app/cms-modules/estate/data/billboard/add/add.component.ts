@@ -1,52 +1,45 @@
-import { HttpClient } from "@angular/common/http";
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreCurrencyModel,
+import {
+  CoreCurrencyModel,
   CoreEnumService,
   DataFieldInfoModel,
-  ErrorExceptionResultBase,
   EstateBillboardModel,
   EstateBillboardService,
-  EstatePropertyDetailGroupService,ManageUserAccessDataTypesEnum,
-  SortTypeEnum} from "ntk-cms-api";
+  SortTypeEnum,
+} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
-import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
+import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
-import { EstatePropertyListComponent } from "../../data/property/list/list.component";
+import { EstatePropertyListComponent } from "../../property/list/list.component";
 
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
-import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
+import { FormInfoModel } from "src/app/core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "src/app/core/models/formSubmitedStatusEnum";
 
 @Component({
-  selector: "app-estate-billboard-edit",
-  templateUrl: "./edit.component.html",
+  selector: "app-estate-billboard-add",
+  templateUrl: "./add.component.html",
 
   standalone: false,
 })
-export class EstateBillboardEditComponent
-  extends EditBaseComponent<
-    EstateBillboardService,
-    EstateBillboardModel,
-    string
-  >
+export class EstateBillboardAddComponent
+  extends AddBaseComponent<EstateBillboardService, EstateBillboardModel, string>
   implements OnInit
 {
   requestId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private router: Router,
-    public estatePropertyDetailGroupService: EstatePropertyDetailGroupService,
     public coreEnumService: CoreEnumService,
     public estateBillboardService: EstateBillboardService,
     private cmsToastrService: CmsToastrService,
+    private activatedRoute: ActivatedRoute,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
-    private activatedRoute: ActivatedRoute,
     public translate: TranslateService,
-    public http: HttpClient,
   ) {
     super(
       estateBillboardService,
@@ -54,44 +47,133 @@ export class EstateBillboardEditComponent
       publicHelper,
       translate,
     );
-
     this.publicHelper.processService.cdr = this.cdr;
-    this.requestId = this.activatedRoute.snapshot.paramMap.get("id");
-
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
+    this.requestId = this.activatedRoute.snapshot.paramMap.get("id");
   }
+
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
   @ViewChild(EstatePropertyListComponent)
   estatePropertyList: EstatePropertyListComponent;
+
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
+  dataFieldInfoModel: DataFieldInfoModel[];
 
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   fileManagerTree: TreeModel;
   appLanguage = "fa";
 
-  dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: EstateBillboardModel = new EstateBillboardModel();
   dataModelCorCurrencySelector = new CoreCurrencyModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
   fileManagerOpenForm = false;
-  optionloadComponent = false;
-
-  loadResult = "";
-
   ngOnInit(): void {
-    this.translate.get("TITLE.Edit").subscribe((str: string) => {
+    this.translate.get("TITLE.ADD").subscribe((str: string) => {
       this.formInfo.formTitle = str;
     });
-    if (!this.requestId || this.requestId.length === 0) {
-      this.cmsToastrService.typeErrorComponentAction();
-      this.router.navigate(["/estate/billboard/"]);
-      return;
+
+    this.DataGetAccess();
+    if (this.requestId && this.requestId.length > 0) {
+      this.DataGetOneContent();
     }
-    this.DataGetOneContent();
   }
 
-  dataFieldInfoModel: DataFieldInfoModel[];
+  DataAddContent(): void {
+    this.translate
+      .get("MESSAGE.sending_information_to_the_server")
+      .subscribe((str: string) => {
+        this.formInfo.submitResultMessage = str;
+      });
+    this.formInfo.submitResultMessage = "";
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
 
+    this.estateBillboardService.ServiceAdd(this.dataModel).subscribe({
+      next: (ret) => {
+        if (ret.isSuccess) {
+          this.DataGetOneContent();
+          this.translate
+            .get("MESSAGE.registration_completed_successfully")
+            .subscribe((str: string) => {
+              this.formInfo.submitResultMessage = str;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+            });
+          this.cmsToastrService.typeSuccessAdd();
+          this.router.navigate(["/estate/data/billboard/edit", ret.item.id]);
+        } else {
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.submitResultMessage = str;
+            });
+          this.formInfo.submitResultMessage = ret.errorMessage;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+        }
+        this.publicHelper.processService.processStop(pName);
+
+        this.formInfo.submitButtonEnabled = true;
+      },
+      error: (er) => {
+        this.formInfo.submitButtonEnabled = true;
+        this.cmsToastrService.typeError(er);
+        this.publicHelper.processService.processStop(pName, false);
+      },
+    });
+  }
   DataGetOneContent(): void {
     this.translate
       .get("MESSAGE.Receiving_Information_From_The_Server")
@@ -111,43 +193,17 @@ export class EstateBillboardEditComponent
       });
 
     this.estateBillboardService.setAccessLoad();
-    this.estateBillboardService.setAccessDataType(
-      ManageUserAccessDataTypesEnum.Editor,
-    );
     this.estateBillboardService.ServiceGetOneById(this.requestId).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
-        this.dataFieldInfoModel = ret.access.fieldsInfo;
+
         this.dataModel = ret.item;
         if (ret.isSuccess) {
           this.formInfo.formTitle =
             this.formInfo.formTitle + " " + ret.item.title;
-          if (
-            this.dataModel.linkPropertyIds &&
-            this.dataModel.linkPropertyIds.length > 0
-          )
-            this.LinkPropertyIdsInUse = true;
           this.formInfo.submitResultMessage = "";
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
         } else {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
@@ -175,7 +231,7 @@ export class EstateBillboardEditComponent
     this.formInfo.submitResultMessage = "";
     const pName = this.constructor.name + "main";
     this.translate
-      .get("MESSAGE.sending_information_to_the_server")
+      .get("MESSAGE.Receiving_information")
       .subscribe((str: string) => {
         this.publicHelper.processService.processStart(
           pName,
@@ -186,16 +242,14 @@ export class EstateBillboardEditComponent
 
     this.estateBillboardService.ServiceEdit(this.dataModel).subscribe({
       next: (ret) => {
-        this.dataModelResult = ret;
+        //this.dataModelResult = ret;
         if (ret.isSuccess) {
           this.translate
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
             });
           this.cmsToastrService.typeSuccessEdit();
-          this.optionReload();
         } else {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
@@ -217,10 +271,6 @@ export class EstateBillboardEditComponent
       },
     });
   }
-  onActionCopied(): void {
-    this.cmsToastrService.typeSuccessCopedToClipboard();
-  }
-
   onActionFileSelected(model: NodeInterface): void {
     this.dataModel.linkMainImageId = model.id;
     this.dataModel.linkMainImageIdSrc = model.downloadLinksrc;
@@ -259,20 +309,17 @@ export class EstateBillboardEditComponent
       return;
     }
     this.formInfo.submitButtonEnabled = false;
-    this.DataEditContent();
+
+    if (this.dataModel.id && this.dataModel.id.length > 0) {
+      this.DataEditContent();
+    } else {
+      this.DataAddContent();
+    }
   }
   onFormCancel(): void {
-    this.router.navigate(["/estate/billboard/"]);
+    this.router.navigate(["/estate/data/billboard/"]);
   }
-  optionReload = (): void => {
-    this.estatePropertyList.optionloadComponent = true;
-    this.estatePropertyList.DataGetAll();
-  };
-  onFormLoadResult(): void {
-    this.loadResult = "estatePropertyList";
-    this.estatePropertyList.optionloadComponent = true;
-    this.estatePropertyList.DataGetAll();
-  }
+
   onActionSelectCurrency(model: CoreCurrencyModel): void {
     if (!model || model.id <= 0) {
       // this.cmsToastrService.typeErrorSelected();

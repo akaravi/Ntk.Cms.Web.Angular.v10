@@ -353,12 +353,12 @@ export class EstateActivityTypeListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/property-detail/LinkActivityTypeId/" +
+        "/#/estate/main/property-detail/LinkActivityTypeId/" +
         this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
-        "/estate/property-detail/LinkActivityTypeId/",
+        "/estate/main/property-detail/LinkActivityTypeId/",
         this.tableRowSelected.id,
       ]);
     }
@@ -379,11 +379,11 @@ export class EstateActivityTypeListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/property/LinkActivityTypeId/" + this.tableRowSelected.id;
+        "/#/estate/data/property/LinkActivityTypeId/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
-        "/estate/property/LinkActivityTypeId/",
+        "/estate/data/property/LinkActivityTypeId/",
         this.tableRowSelected.id,
       ]);
     }

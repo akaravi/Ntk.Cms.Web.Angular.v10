@@ -25,8 +25,8 @@ import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
-import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
+import { FormInfoModel } from "../../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-estate-property-history-quick-view",

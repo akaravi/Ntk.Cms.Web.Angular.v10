@@ -521,6 +521,6 @@ export class EstatePropertyDetailListComponent
   }
 
   onActionBackToParent(): void {
-    this.router.navigate(["/estate/property-type-landuse/"]);
+    this.router.navigate(["/estate/main/property-type-landuse/"]);
   }
 }

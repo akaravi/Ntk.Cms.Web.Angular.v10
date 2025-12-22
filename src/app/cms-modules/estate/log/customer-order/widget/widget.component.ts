@@ -88,7 +88,7 @@ export class EstateCustomerOrderWidgetComponent implements OnInit, OnDestroy {
       .subscribe((str: string) => {
         this.widgetInfoModel.description = str;
       });
-    this.widgetInfoModel.link = "/estate/customer-order";
+    this.widgetInfoModel.link = "/estate/log/customer-order";
     setTimeout(() => {
       this.onActionStatist();
     }, 1000);
@@ -154,7 +154,7 @@ export class EstateCustomerOrderWidgetComponent implements OnInit, OnDestroy {
         "Available",
         0,
         0,
-        "/estate/customer-order/recordstatus/Available",
+        "/estate/log/customer-order/recordstatus/Available",
       ),
     );
     this.widgetInfoModel.setItem(
@@ -162,7 +162,7 @@ export class EstateCustomerOrderWidgetComponent implements OnInit, OnDestroy {
         "Archive",
         1,
         0,
-        "/estate/customer-order/recordstatus/Archive",
+        "/estate/log/customer-order/recordstatus/Archive",
       ),
     );
     this.widgetInfoModel.setItem(
@@ -170,7 +170,7 @@ export class EstateCustomerOrderWidgetComponent implements OnInit, OnDestroy {
         "Pending",
         2,
         0,
-        "/estate/customer-order/recordstatus/Pending",
+        "/estate/log/customer-order/recordstatus/Pending",
       ),
     );
     this.widgetInfoModel.setItem(
@@ -178,7 +178,7 @@ export class EstateCustomerOrderWidgetComponent implements OnInit, OnDestroy {
         "Disable",
         3,
         0,
-        "/estate/customer-order/recordstatus/Disable",
+        "/estate/log/customer-order/recordstatus/Disable",
       ),
     );
 
@@ -197,7 +197,7 @@ export class EstateCustomerOrderWidgetComponent implements OnInit, OnDestroy {
             "Available",
             0,
             ret.totalRowCount,
-            "/estate/customer-order/recordstatus/Available",
+            "/estate/log/customer-order/recordstatus/Available",
           ),
         );
         this.rowExist = true;
@@ -222,7 +222,7 @@ export class EstateCustomerOrderWidgetComponent implements OnInit, OnDestroy {
             "Archive",
             1,
             ret.totalRowCount,
-            "/estate/customer-order/recordstatus/Archive",
+            "/estate/log/customer-order/recordstatus/Archive",
           ),
         );
       } else {
@@ -242,7 +242,7 @@ export class EstateCustomerOrderWidgetComponent implements OnInit, OnDestroy {
             "Pending",
             2,
             ret.totalRowCount,
-            "/estate/customer-order/recordstatus/Pending",
+            "/estate/log/customer-order/recordstatus/Pending",
           ),
         );
       } else {
@@ -262,7 +262,7 @@ export class EstateCustomerOrderWidgetComponent implements OnInit, OnDestroy {
             "Disable",
             3,
             ret.totalRowCount,
-            "/estate/customer-order/recordstatus/Disable",
+            "/estate/log/customer-order/recordstatus/Disable",
           ),
         );
       } else {

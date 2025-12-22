@@ -35,15 +35,15 @@ import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { ThemeService } from "src/app/core/services/theme.service";
 import { environment } from "src/environments/environment";
-import { EstateAccountAgencyListComponent } from "../../main/account-agency/list/list.component";
-import { EstateAccountExpertListComponent } from "../../main/account-expert/list/list.component";
-import { EstatePropertyHistoryAddComponent } from "../../log/property-history/add/add.component";
-import { EstatePropertyHistoryListComponent } from "../../log/property-history/list/list.component";
-import { EstatePropertyListComponent } from "../../data/property/list/list.component";
+import { EstateAccountAgencyListComponent } from "../../../main/account-agency/list/list.component";
+import { EstateAccountExpertListComponent } from "../../../main/account-expert/list/list.component";
+import { EstatePropertyHistoryAddComponent } from "../../../log/property-history/add/add.component";
+import { EstatePropertyHistoryListComponent } from "../../../log/property-history/list/list.component";
+import { EstatePropertyListComponent } from "../../../data/property/list/list.component";
 import { EstateCustomerOrderActionComponent } from "../action/action.component";
 
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
-import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
+import { FormInfoModel } from "../../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-estate-customer-order-edit",
@@ -134,7 +134,7 @@ export class EstateCustomerOrderEditComponent
     });
     if (!this.requestId || this.requestId.length === 0) {
       this.cmsToastrService.typeErrorComponentAction();
-      setTimeout(() => this.router.navigate(["/estate/customer-order"]), 1000);
+      setTimeout(() => this.router.navigate(["/estate/log/customer-order"]), 1000);
       return;
     }
     this.DataGetOneContent();
@@ -535,7 +535,7 @@ export class EstateCustomerOrderEditComponent
     this.dataModel.linkEstateCustomerCategoryId = model.id;
   }
   onFormCancel(): void {
-    this.router.navigate(["/estate/customer-order/"]);
+    this.router.navigate(["/estate/log/customer-order/"]);
   }
   optionReload = (): void => {
     this.loadResult = "";

@@ -232,10 +232,10 @@ export class EstatePropertyCompanyListComponent
     }
 
     if (event?.ctrlKey) {
-      this.link = "/#/estate/property-company/add/";
+      this.link = "/#/estate/data/property-company/add/";
       window.open(this.link, "_blank");
     } else {
-      this.router.navigate(["/estate/property-company/add"]);
+      this.router.navigate(["/estate/data/property-company/add"]);
     }
   }
   onActionButtonEditRow(
@@ -257,11 +257,11 @@ export class EstatePropertyCompanyListComponent
     }
 
     if (event?.ctrlKey) {
-      this.link = "/#/estate/property-company/edit/" + this.tableRowSelected.id;
+      this.link = "/#/estate/data/property-company/edit/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
-        "/estate/property-company/edit",
+        "/estate/data/property-company/edit",
         this.tableRowSelected.id,
       ]);
     }
@@ -286,11 +286,11 @@ export class EstatePropertyCompanyListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/property/LinkCompanyId/" + this.tableRowSelected.id;
+        "/#/estate/data/property/LinkCompanyId/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
-        "/estate/property/LinkCompanyId",
+        "/estate/data/property/LinkCompanyId",
         this.tableRowSelected.id,
       ]);
     }

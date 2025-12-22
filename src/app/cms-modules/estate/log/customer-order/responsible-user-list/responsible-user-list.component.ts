@@ -30,7 +30,7 @@ import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
+import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-estate-customer-order-responsible-user-list",

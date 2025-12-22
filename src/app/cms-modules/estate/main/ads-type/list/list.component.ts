@@ -354,11 +354,11 @@ export class EstateAdsTypeListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/property/LinkAdsTypeId/" + this.tableRowSelected.id;
+        "/#/estate/data/property/LinkAdsTypeId/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
-        "/estate/property/LinkAdsTypeId/",
+        "/estate/data/property/LinkAdsTypeId/",
         this.tableRowSelected.id,
       ]);
     }

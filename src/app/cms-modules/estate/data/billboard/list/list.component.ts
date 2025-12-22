@@ -220,10 +220,10 @@ export class EstateBillboardListComponent
     }
 
     if (event?.ctrlKey) {
-      this.link = "/#/estate/billboard/add/";
+      this.link = "/#/estate/data/billboard/add/";
       window.open(this.link, "_blank");
     } else {
-      this.router.navigate(["/estate/billboard/add"]);
+      this.router.navigate(["/estate/data/billboard/add"]);
     }
   }
 
@@ -246,11 +246,11 @@ export class EstateBillboardListComponent
     }
 
     if (event?.ctrlKey) {
-      this.link = "/#/estate/billboard/edit/" + this.tableRowSelected.id;
+      this.link = "/#/estate/data/billboard/edit/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
-        "/estate/billboard/edit",
+        "/estate/data/billboard/edit",
         this.tableRowSelected.id,
       ]);
     }
@@ -347,11 +347,11 @@ export class EstateBillboardListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/property/LinkBillboardId/" + this.tableRowSelected.id;
+        "/#/estate/data/property/LinkBillboardId/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
-        "/estate/property/LinkBillboardId/",
+        "/estate/data/property/LinkBillboardId/",
         this.tableRowSelected.id,
       ]);
     }
@@ -444,11 +444,11 @@ export class EstateBillboardListComponent
     this.onActionTableRowSelect(model);
 
     if (event?.ctrlKey) {
-      this.link = "/#/estate/billboard/add-copy/" + this.tableRowSelected.id;
+      this.link = "/#/estate/data/billboard/add-copy/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
-        "/estate/billboard/add-copy",
+        "/estate/data/billboard/add-copy",
         this.tableRowSelected.id,
       ]);
     }

@@ -749,20 +749,20 @@ export class EstatePropertyListComponent
     if (parentId && parentId.length > 0) {
       if (event?.ctrlKey) {
         this.link =
-          "/#/estate/property/add/LinkPropertyTypeLanduseId/" + parentId;
+          "/#/estate/data/property/add/LinkPropertyTypeLanduseId/" + parentId;
         window.open(this.link, "_blank");
       } else {
         this.router.navigate([
-          "/estate/property/add/LinkPropertyTypeLanduseId",
+          "/estate/data/property/add/LinkPropertyTypeLanduseId",
           parentId,
         ]);
       }
     } else {
       if (event?.ctrlKey) {
-        this.link = "/#/estate/property/add/";
+        this.link = "/#/estate/data/property/add/";
         window.open(this.link, "_blank");
       } else {
-        this.router.navigate(["/estate/property/add"]);
+        this.router.navigate(["/estate/data/property/add"]);
       }
     }
   }
@@ -799,10 +799,10 @@ export class EstatePropertyListComponent
       return;
     }
     if (event?.ctrlKey) {
-      this.link = "/#/estate/property/edit/" + this.tableRowSelected.id;
+      this.link = "/#/estate/data/property/edit/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
-      this.router.navigate(["/estate/property/edit", this.tableRowSelected.id]);
+      this.router.navigate(["/estate/data/property/edit", this.tableRowSelected.id]);
     }
   }
 
@@ -868,7 +868,7 @@ export class EstatePropertyListComponent
       return;
     }
     if (event?.ctrlKey) {
-      this.link = "/#/estate/property/add/";
+      this.link = "/#/estate/data/property/add/";
       window.open(this.link, "_blank");
     }
 
@@ -942,11 +942,11 @@ export class EstatePropertyListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/property-ads/LinkPropertyId/" + this.tableRowSelected.id;
+        "/#/estate/data/property-ads/LinkPropertyId/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
-        "/estate/property-ads/LinkPropertyId",
+        "/estate/data/property-ads/LinkPropertyId",
         this.tableRowSelected.id,
       ]);
     }
@@ -971,11 +971,11 @@ export class EstatePropertyListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/property-history/LinkPropertyId/" + this.tableRowSelected.id;
+        "/#/estate/log/property-history/LinkPropertyId/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
-        "/estate/property-history/LinkPropertyId",
+        "/estate/log/property-history/LinkPropertyId",
         this.tableRowSelected.id,
       ]);
     }

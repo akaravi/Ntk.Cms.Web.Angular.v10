@@ -416,12 +416,12 @@ export class EstateAccountExpertListComponent
     }
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/account-agency/LinkAccountUserId/" +
+        "/#/estate/main/account-agency/LinkAccountUserId/" +
         this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
-        "/estate/account-agency/LinkAccountUserId",
+        "/estate/main/account-agency/LinkAccountUserId",
         this.tableRowSelected.id,
       ]);
     }
@@ -446,12 +446,12 @@ export class EstateAccountExpertListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/property-history/LinkEstateExpertId/" +
+        "/#/estate/log/property-history/LinkEstateExpertId/" +
         this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
-        "/estate/property-history/LinkEstateExpertId",
+        "/estate/log/property-history/LinkEstateExpertId",
         this.tableRowSelected.id,
       ]);
     }
@@ -476,11 +476,11 @@ export class EstateAccountExpertListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/property/LinkEstateExpertId/" + this.tableRowSelected.id;
+        "/#/estate/data/property/LinkEstateExpertId/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
-        "/estate/property/LinkEstateExpertId",
+        "/estate/data/property/LinkEstateExpertId",
         this.tableRowSelected.id,
       ]);
     }
