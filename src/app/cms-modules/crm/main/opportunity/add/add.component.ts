@@ -248,4 +248,3 @@ export class CrmOpportunityAddComponent
     this.dialogRef.close({ dialogChangedDate: false });
   }
 }
-

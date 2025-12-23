@@ -175,37 +175,25 @@ export class CrmDealListComponent
       filter.value = this.requestLinkOpportunityId;
       this.filteModelContent.filters.push(filter);
     }
-    if (
-      this.requestLinkAccountId &&
-      this.requestLinkAccountId.length > 0
-    ) {
+    if (this.requestLinkAccountId && this.requestLinkAccountId.length > 0) {
       const filter = new FilterDataModel();
       filter.propertyName = "linkAccountId";
       filter.value = this.requestLinkAccountId;
       this.filteModelContent.filters.push(filter);
     }
-    if (
-      this.requestLinkContactId &&
-      this.requestLinkContactId.length > 0
-    ) {
+    if (this.requestLinkContactId && this.requestLinkContactId.length > 0) {
       const filter = new FilterDataModel();
       filter.propertyName = "linkContactId";
       filter.value = this.requestLinkContactId;
       this.filteModelContent.filters.push(filter);
     }
-    if (
-      this.requestLinkPipelineId &&
-      this.requestLinkPipelineId.length > 0
-    ) {
+    if (this.requestLinkPipelineId && this.requestLinkPipelineId.length > 0) {
       const filter = new FilterDataModel();
       filter.propertyName = "linkPipelineId";
       filter.value = this.requestLinkPipelineId;
       this.filteModelContent.filters.push(filter);
     }
-    if (
-      this.requestLinkStageId &&
-      this.requestLinkStageId.length > 0
-    ) {
+    if (this.requestLinkStageId && this.requestLinkStageId.length > 0) {
       const filter = new FilterDataModel();
       filter.propertyName = "linkStageId";
       filter.value = this.requestLinkStageId;
@@ -315,9 +303,7 @@ export class CrmDealListComponent
     });
   }
 
-  onActionButtonEditRow(
-    model: CrmDealModel = this.tableRowSelected,
-  ): void {
+  onActionButtonEditRow(model: CrmDealModel = this.tableRowSelected): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
@@ -347,9 +333,7 @@ export class CrmDealListComponent
       }
     });
   }
-  onActionButtonDeleteRow(
-    model: CrmDealModel = this.tableRowSelected,
-  ): void {
+  onActionButtonDeleteRow(model: CrmDealModel = this.tableRowSelected): void {
     if (!model || !model.id || model.id.length === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
@@ -509,4 +493,3 @@ export class CrmDealListComponent
   onActionButtonExport(): void {}
   onActionButtonPrintRow(): void {}
 }
-

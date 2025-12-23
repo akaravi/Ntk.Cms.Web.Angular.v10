@@ -10,8 +10,6 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
   CoreEnumService,
-  ErrorExceptionResultBase,
-  EstatePropertyTypeLanduseModel,
   EstatePropertyTypeLanduseService,
   EstatePropertyTypeModel,
   EstatePropertyTypeService,
@@ -20,15 +18,13 @@ import {
   FilterModel,
   ManageUserAccessDataTypesEnum,
 } from "ntk-cms-api";
-import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
-import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 import { FormSubmitedStatusEnum } from "../../../../../core/models/formSubmitedStatusEnum";
+import { EstatePropertyTypeLanduseEditBaseComponent } from "./edit.base";
 
 @Component({
   selector: "app-estate-property-type-landuse-edit",
@@ -37,56 +33,37 @@ import { FormSubmitedStatusEnum } from "../../../../../core/models/formSubmitedS
   standalone: false,
 })
 export class EstatePropertyTypeLanduseEditComponent
-  extends EditBaseComponent<
-    EstatePropertyTypeLanduseService,
-    EstatePropertyTypeLanduseModel,
-    string
-  >
+  extends EstatePropertyTypeLanduseEditBaseComponent
   implements OnInit
 {
-  requestId = "";
-  constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<EstatePropertyTypeLanduseEditComponent>,
     public coreEnumService: CoreEnumService,
     public estatePropertyTypeLanduseService: EstatePropertyTypeLanduseService,
     public estatePropertyTypeService: EstatePropertyTypeService,
-    private cmsToastrService: CmsToastrService,
+    cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
-    private cdr: ChangeDetectorRef,
+    cdr: ChangeDetectorRef,
     public tokenHelper: TokenHelper,
     public translate: TranslateService,
   ) {
     super(
+      coreEnumService,
       estatePropertyTypeLanduseService,
-      new EstatePropertyTypeLanduseModel(),
+      cmsToastrService,
       publicHelper,
+      cdr,
       translate,
     );
-
-    this.publicHelper.processService.cdr = this.cdr;
 
     if (data) {
       this.requestId = data.id;
     }
-    this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
-
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
   }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
-
-  selectFileTypeMainImage = ["jpg", "jpeg", "png"];
-  fileManagerTree: TreeModel;
-  appLanguage = "fa";
-
-  dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
-  dataModel: EstatePropertyTypeLanduseModel =
-    new EstatePropertyTypeLanduseModel();
-  formInfo: FormInfoModel = new FormInfoModel();
-
-  fileManagerOpenForm = false;
 
   dataEstatePropertyTypeUsageModel: EstatePropertyTypeUsageModel[];
   dataEstatePropertyTypeUsageIds: string[] = [];
@@ -96,20 +73,18 @@ export class EstatePropertyTypeLanduseEditComponent
     this.translate.get("TITLE.Edit").subscribe((str: string) => {
       this.formInfo.formTitle = str;
     });
-    if (!this.requestId || this.requestId.length === 0) {
-      this.cmsToastrService.typeErrorComponentAction();
-      this.dialogRef.close({ dialogChangedDate: false });
+    if (
+      !this.validateRequestId(() =>
+        this.dialogRef.close({ dialogChangedDate: false }),
+      )
+    ) {
       return;
     }
-    this.DataGetOneContent();
+    this.loadItem();
 
     this.DataGetAllEstatePropertyUsage();
   }
 
-  onActionFileSelected(model: NodeInterface): void {
-    this.dataModel.linkMainImageId = model.id;
-    this.dataModel.linkMainImageIdSrc = model.downloadLinksrc;
-  }
   DataGetOneContent(): void {
     this.translate
       .get("MESSAGE.Receiving_Information_From_The_Server")

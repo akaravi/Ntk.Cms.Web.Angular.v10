@@ -135,4 +135,3 @@ export class CrmOpportunityStageHistoryListComponent
     return "این قابلیت در حال حاضر در دسترس نیست";
   }
 }
-

@@ -178,46 +178,31 @@ export class CrmOpportunityListComponent
     this.tableRowsSelected = [];
     this.onActionTableRowSelect(new CrmOpportunityModel());
 
-    if (
-      this.requestLinkAccountId &&
-      this.requestLinkAccountId.length > 0
-    ) {
+    if (this.requestLinkAccountId && this.requestLinkAccountId.length > 0) {
       const filter = new FilterDataModel();
       filter.propertyName = "linkAccountId";
       filter.value = this.requestLinkAccountId;
       this.filteModelContent.filters.push(filter);
     }
-    if (
-      this.requestLinkContactId &&
-      this.requestLinkContactId.length > 0
-    ) {
+    if (this.requestLinkContactId && this.requestLinkContactId.length > 0) {
       const filter = new FilterDataModel();
       filter.propertyName = "linkContactId";
       filter.value = this.requestLinkContactId;
       this.filteModelContent.filters.push(filter);
     }
-    if (
-      this.requestLinkPipelineId &&
-      this.requestLinkPipelineId.length > 0
-    ) {
+    if (this.requestLinkPipelineId && this.requestLinkPipelineId.length > 0) {
       const filter = new FilterDataModel();
       filter.propertyName = "linkPipelineId";
       filter.value = this.requestLinkPipelineId;
       this.filteModelContent.filters.push(filter);
     }
-    if (
-      this.requestLinkStageId &&
-      this.requestLinkStageId.length > 0
-    ) {
+    if (this.requestLinkStageId && this.requestLinkStageId.length > 0) {
       const filter = new FilterDataModel();
       filter.propertyName = "linkStageId";
       filter.value = this.requestLinkStageId;
       this.filteModelContent.filters.push(filter);
     }
-    if (
-      this.requestLinkCampaignId &&
-      this.requestLinkCampaignId.length > 0
-    ) {
+    if (this.requestLinkCampaignId && this.requestLinkCampaignId.length > 0) {
       const filter = new FilterDataModel();
       filter.propertyName = "linkCampaignId";
       filter.value = this.requestLinkCampaignId;

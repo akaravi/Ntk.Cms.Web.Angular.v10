@@ -177,4 +177,3 @@ export class CrmContactAddComponent
     (this.dataModel as any).contactNo = value;
   }
 }
-
