@@ -230,26 +230,28 @@
                         id="dataModel.mobile"
                         />
                       </div>
-                      <!-- LeadStatus Field -->
-                      <div
-                        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-                        >
-                        <label for="dataModel.leadStatus" class="color-highlight">{{
-                          fieldsInfo["leadStatus"]?.fieldTitle
-                        }}</label>
-                        <input
-                          matInput
-                          type="text"
-                          [(ngModel)]="dataModel.leadStatus"
-                          name="dataModel.leadStatus"
-                          #LeadStatus
-                          placeholder="{{ fieldsInfo['leadStatus']?.fieldTitle }}"
-                          maxlength="50"
-                          [disabled]="!fieldsInfo['leadStatus']?.accessAddField"
-                          class="form-control validate-name"
-                          id="dataModel.leadStatus"
-                          />
-                        </div>
+                      <!-- LeadSource Enum Selector -->
+                      @if (fieldsInfo['leadSource']?.accessWatchField) {
+                        <app-cms-enum-x-selector
+                          [optionDataListResult]="dataModelCrmLeadSourceEnumResult"
+                          [(model)]="dataModel.leadSource"
+                          [optionDisabled]="!fieldsInfo['leadSource']?.accessAddField"
+                          [optionLabel]="fieldsInfo['leadSource']?.fieldTitle"
+                          [optionRequired]="false"
+                          [optionSelectFirstItem]="false"
+                        ></app-cms-enum-x-selector>
+                      }
+                      <!-- LeadStatus Enum Selector -->
+                      @if (fieldsInfo['leadStatus']?.accessWatchField) {
+                        <app-cms-enum-x-selector
+                          [optionDataListResult]="dataModelCrmLeadStatusEnumResult"
+                          [(model)]="dataModel.leadStatus"
+                          [optionDisabled]="!fieldsInfo['leadStatus']?.accessAddField"
+                          [optionLabel]="fieldsInfo['leadStatus']?.fieldTitle"
+                          [optionRequired]="false"
+                          [optionSelectFirstItem]="false"
+                        ></app-cms-enum-x-selector>
+                      }
                         <!-- Rating Field -->
                         <div
                           class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
@@ -270,7 +272,303 @@
                             id="dataModel.rating"
                             />
                           </div>
-                          <!-- Description Field -->
+                          <!-- LeadNo Field -->
+                          <div
+                            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                            >
+                            <label for="dataModel.leadNo" class="color-highlight">{{
+                              fieldsInfo["leadNo"]?.fieldTitle || "TITLE.Lead_Number"
+                            }}</label>
+                            <input
+                              matInput
+                              type="text"
+                              [(ngModel)]="dataModel.leadNo"
+                              name="dataModel.leadNo"
+                              #LeadNo
+                              placeholder="{{ 'TITLE.Lead_Number' | translate }}"
+                              maxlength="100"
+                              [disabled]="!fieldsInfo['leadNo']?.accessAddField"
+                              class="form-control validate-name"
+                              id="dataModel.leadNo"
+                              />
+                            </div>
+                            <!-- Salutation Field -->
+                            <div
+                              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                              >
+                              <label for="dataModel.salutation" class="color-highlight">{{
+                                fieldsInfo["salutation"]?.fieldTitle || "TITLE.Salutation"
+                              }}</label>
+                              <input
+                                matInput
+                                type="text"
+                                [(ngModel)]="dataModel.salutation"
+                                name="dataModel.salutation"
+                                #Salutation
+                                placeholder="{{ 'TITLE.Salutation' | translate }}"
+                                maxlength="200"
+                                [disabled]="!fieldsInfo['salutation']?.accessAddField"
+                                class="form-control validate-name"
+                                id="dataModel.salutation"
+                                />
+                              </div>
+                              <!-- Interest Field -->
+                              <div
+                                class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                >
+                                <label for="dataModel.interest" class="color-highlight">{{
+                                  fieldsInfo["interest"]?.fieldTitle || "TITLE.Interest"
+                                }}</label>
+                                <input
+                                  matInput
+                                  type="text"
+                                  [(ngModel)]="dataModel.interest"
+                                  name="dataModel.interest"
+                                  #Interest
+                                  placeholder="{{ 'TITLE.Interest' | translate }}"
+                                  maxlength="50"
+                                  [disabled]="!fieldsInfo['interest']?.accessAddField"
+                                  class="form-control validate-name"
+                                  id="dataModel.interest"
+                                  />
+                                </div>
+                                <!-- Designation Field -->
+                                <div
+                                  class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                  >
+                                  <label for="dataModel.designation" class="color-highlight">{{
+                                    fieldsInfo["designation"]?.fieldTitle || "TITLE.Designation"
+                                  }}</label>
+                                  <input
+                                    matInput
+                                    type="text"
+                                    [(ngModel)]="dataModel.designation"
+                                    name="dataModel.designation"
+                                    #Designation
+                                    placeholder="{{ 'TITLE.Designation' | translate }}"
+                                    maxlength="50"
+                                    [disabled]="!fieldsInfo['designation']?.accessAddField"
+                                    class="form-control validate-name"
+                                    id="dataModel.designation"
+                                    />
+                                  </div>
+                                  <!-- Priority Field -->
+                                  <div
+                                    class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                    >
+                                    <label for="dataModel.priority" class="color-highlight">{{
+                                      fieldsInfo["priority"]?.fieldTitle || "TITLE.Priority"
+                                    }}</label>
+                                    <input
+                                      matInput
+                                      type="text"
+                                      [(ngModel)]="dataModel.priority"
+                                      name="dataModel.priority"
+                                      #Priority
+                                      placeholder="{{ 'TITLE.Priority' | translate }}"
+                                      maxlength="50"
+                                      [disabled]="!fieldsInfo['priority']?.accessAddField"
+                                      class="form-control validate-name"
+                                      id="dataModel.priority"
+                                      />
+                                    </div>
+                                    <!-- SecondaryEmail Field -->
+                                    <div
+                                      class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                      >
+                                      <label for="dataModel.secondaryEmail" class="color-highlight">{{
+                                        fieldsInfo["secondaryEmail"]?.fieldTitle || "TITLE.Secondary_Email"
+                                      }}</label>
+                                      <input
+                                        matInput
+                                        type="email"
+                                        [(ngModel)]="dataModel.secondaryEmail"
+                                        name="dataModel.secondaryEmail"
+                                        #SecondaryEmail
+                                        placeholder="{{ 'TITLE.Secondary_Email' | translate }}"
+                                        maxlength="256"
+                                        [disabled]="!fieldsInfo['secondaryEmail']?.accessAddField"
+                                        class="form-control validate-name"
+                                        id="dataModel.secondaryEmail"
+                                        />
+                                      </div>
+                                      <!-- DemoRequest Field -->
+                                      <div
+                                        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                        >
+                                        <label for="dataModel.demoRequest" class="color-highlight">{{
+                                          fieldsInfo["demoRequest"]?.fieldTitle || "TITLE.Demo_Request"
+                                        }}</label>
+                                        <input
+                                          matInput
+                                          type="text"
+                                          [(ngModel)]="dataModel.demoRequest"
+                                          name="dataModel.demoRequest"
+                                          #DemoRequest
+                                          placeholder="{{ 'TITLE.Demo_Request' | translate }}"
+                                          maxlength="50"
+                                          [disabled]="!fieldsInfo['demoRequest']?.accessAddField"
+                                          class="form-control validate-name"
+                                          id="dataModel.demoRequest"
+                                          />
+                                        </div>
+                                        <!-- ProductVersion Field -->
+                                        <div
+                                          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                          >
+                                          <label for="dataModel.productVersion" class="color-highlight">{{
+                                            fieldsInfo["productVersion"]?.fieldTitle || "TITLE.Product_Version"
+                                          }}</label>
+                                          <input
+                                            matInput
+                                            type="text"
+                                            [(ngModel)]="dataModel.productVersion"
+                                            name="dataModel.productVersion"
+                                            #ProductVersion
+                                            placeholder="{{ 'TITLE.Product_Version' | translate }}"
+                                            maxlength="20"
+                                            [disabled]="!fieldsInfo['productVersion']?.accessAddField"
+                                            class="form-control validate-name"
+                                            id="dataModel.productVersion"
+                                            />
+                                          </div>
+                                          <!-- Product Field -->
+                                          <div
+                                            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                            >
+                                            <label for="dataModel.product" class="color-highlight">{{
+                                              fieldsInfo["product"]?.fieldTitle || "TITLE.Product"
+                                            }}</label>
+                                            <input
+                                              matInput
+                                              type="text"
+                                              [(ngModel)]="dataModel.product"
+                                              name="dataModel.product"
+                                              #Product
+                                              placeholder="{{ 'TITLE.Product' | translate }}"
+                                              maxlength="50"
+                                              [disabled]="!fieldsInfo['product']?.accessAddField"
+                                              class="form-control validate-name"
+                                              id="dataModel.product"
+                                              />
+                                            </div>
+                                            <!-- FundingSituation Field -->
+                                            <div
+                                              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                              >
+                                              <label for="dataModel.fundingSituation" class="color-highlight">{{
+                                                fieldsInfo["fundingSituation"]?.fieldTitle || "TITLE.Funding_Situation"
+                                              }}</label>
+                                              <input
+                                                matInput
+                                                type="text"
+                                                [(ngModel)]="dataModel.fundingSituation"
+                                                name="dataModel.fundingSituation"
+                                                #FundingSituation
+                                                placeholder="{{ 'TITLE.Funding_Situation' | translate }}"
+                                                maxlength="50"
+                                                [disabled]="!fieldsInfo['fundingSituation']?.accessAddField"
+                                                class="form-control validate-name"
+                                                id="dataModel.fundingSituation"
+                                                />
+                                              </div>
+                                              <!-- Purpose Field -->
+                                              <div
+                                                class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                                >
+                                                <label for="dataModel.purpose" class="color-highlight">{{
+                                                  fieldsInfo["purpose"]?.fieldTitle || "TITLE.Purpose"
+                                                }}</label>
+                                                <input
+                                                  matInput
+                                                  type="text"
+                                                  [(ngModel)]="dataModel.purpose"
+                                                  name="dataModel.purpose"
+                                                  #Purpose
+                                                  placeholder="{{ 'TITLE.Purpose' | translate }}"
+                                                  maxlength="50"
+                                                  [disabled]="!fieldsInfo['purpose']?.accessAddField"
+                                                  class="form-control validate-name"
+                                                  id="dataModel.purpose"
+                                                  />
+                                                </div>
+                                                <!-- EvaluationStatus Field -->
+                                                <div
+                                                  class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                                  >
+                                                  <label for="dataModel.evaluationStatus" class="color-highlight">{{
+                                                    fieldsInfo["evaluationStatus"]?.fieldTitle || "TITLE.Evaluation_Status"
+                                                  }}</label>
+                                                  <input
+                                                    matInput
+                                                    type="text"
+                                                    [(ngModel)]="dataModel.evaluationStatus"
+                                                    name="dataModel.evaluationStatus"
+                                                    #EvaluationStatus
+                                                    placeholder="{{ 'TITLE.Evaluation_Status' | translate }}"
+                                                    maxlength="50"
+                                                    [disabled]="!fieldsInfo['evaluationStatus']?.accessAddField"
+                                                    class="form-control validate-name"
+                                                    id="dataModel.evaluationStatus"
+                                                    />
+                                                  </div>
+                                                  <!-- RevenueType Field -->
+                                                  <div
+                                                    class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                                    >
+                                                    <label for="dataModel.revenueType" class="color-highlight">{{
+                                                      fieldsInfo["revenueType"]?.fieldTitle || "TITLE.Revenue_Type"
+                                                    }}</label>
+                                                    <input
+                                                      matInput
+                                                      type="text"
+                                                      [(ngModel)]="dataModel.revenueType"
+                                                      name="dataModel.revenueType"
+                                                      #RevenueType
+                                                      placeholder="{{ 'TITLE.Revenue_Type' | translate }}"
+                                                      maxlength="50"
+                                                      [disabled]="!fieldsInfo['revenueType']?.accessAddField"
+                                                      class="form-control validate-name"
+                                                      id="dataModel.revenueType"
+                                                      />
+                                                    </div>
+                                                    <!-- AssignLeadChk Field -->
+                                                    <div
+                                                      class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                                      >
+                                                      <label for="dataModel.assignLeadChk" class="color-highlight">{{
+                                                        fieldsInfo["assignLeadChk"]?.fieldTitle || "TITLE.Assign_Lead_Check"
+                                                      }}</label>
+                                                      <input
+                                                        matInput
+                                                        type="checkbox"
+                                                        [(ngModel)]="dataModel.assignLeadChk"
+                                                        name="dataModel.assignLeadChk"
+                                                        #AssignLeadChk
+                                                        [disabled]="!fieldsInfo['assignLeadChk']?.accessAddField"
+                                                        class="form-control validate-name"
+                                                        id="dataModel.assignLeadChk"
+                                                        />
+                                                      </div>
+                                                      <!-- EmailOptOut Field -->
+                                                      <div
+                                                        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                                        >
+                                                        <label for="dataModel.emailOptOut" class="color-highlight">{{
+                                                          fieldsInfo["emailOptOut"]?.fieldTitle || "TITLE.Email_Opt_Out"
+                                                        }}</label>
+                                                        <input
+                                                          matInput
+                                                          type="checkbox"
+                                                          [(ngModel)]="dataModel.emailOptOut"
+                                                          name="dataModel.emailOptOut"
+                                                          #EmailOptOut
+                                                          [disabled]="!fieldsInfo['emailOptOut']?.accessAddField"
+                                                          class="form-control validate-name"
+                                                          id="dataModel.emailOptOut"
+                                                          />
+                                                        </div>
+                                                        <!-- Description Field -->
                           <div
                             class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
                             >
@@ -289,6 +587,172 @@
                               id="dataModel.description"
                               ></textarea>
                             </div>
+
+                            <!-- Lead Address Section -->
+                            <div class="mb-4">
+                              <h5 class="color-highlight mb-3">{{ "TITLE.Lead_Address" | translate }}</h5>
+                              
+                              <!-- Lead Address Street Field -->
+                              <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+                                <label for="dataModel.leadAddressStreet" class="color-highlight">{{ "TITLE.Street" | translate }}</label>
+                                <input
+                                  matInput
+                                  type="text"
+                                  [(ngModel)]="dataModel.leadAddressStreet"
+                                  name="dataModel.leadAddressStreet"
+                                  #LeadAddressStreet
+                                  placeholder="{{ 'TITLE.Street' | translate }}"
+                                  maxlength="250"
+                                  class="form-control validate-name"
+                                  id="dataModel.leadAddressStreet"
+                                />
+                              </div>
+
+                              <!-- Lead Address City Field -->
+                              <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+                                <label for="dataModel.leadAddressCity" class="color-highlight">{{ "TITLE.City" | translate }}</label>
+                                <input
+                                  matInput
+                                  type="text"
+                                  [(ngModel)]="dataModel.leadAddressCity"
+                                  name="dataModel.leadAddressCity"
+                                  #LeadAddressCity
+                                  placeholder="{{ 'TITLE.City' | translate }}"
+                                  maxlength="30"
+                                  class="form-control validate-name"
+                                  id="dataModel.leadAddressCity"
+                                />
+                              </div>
+
+                              <!-- Lead Address State Field -->
+                              <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+                                <label for="dataModel.leadAddressState" class="color-highlight">{{ "TITLE.State" | translate }}</label>
+                                <input
+                                  matInput
+                                  type="text"
+                                  [(ngModel)]="dataModel.leadAddressState"
+                                  name="dataModel.leadAddressState"
+                                  #LeadAddressState
+                                  placeholder="{{ 'TITLE.State' | translate }}"
+                                  maxlength="30"
+                                  class="form-control validate-name"
+                                  id="dataModel.leadAddressState"
+                                />
+                              </div>
+
+                              <!-- Lead Address PostalCode Field -->
+                              <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+                                <label for="dataModel.leadAddressPostalCode" class="color-highlight">{{ "TITLE.Postal_Code" | translate }}</label>
+                                <input
+                                  matInput
+                                  type="text"
+                                  [(ngModel)]="dataModel.leadAddressPostalCode"
+                                  name="dataModel.leadAddressPostalCode"
+                                  #LeadAddressPostalCode
+                                  placeholder="{{ 'TITLE.Postal_Code' | translate }}"
+                                  maxlength="30"
+                                  class="form-control validate-name"
+                                  id="dataModel.leadAddressPostalCode"
+                                />
+                              </div>
+
+                              <!-- Lead Address Country Field -->
+                              <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+                                <label for="dataModel.leadAddressCountry" class="color-highlight">{{ "TITLE.Country" | translate }}</label>
+                                <input
+                                  matInput
+                                  type="text"
+                                  [(ngModel)]="dataModel.leadAddressCountry"
+                                  name="dataModel.leadAddressCountry"
+                                  #LeadAddressCountry
+                                  placeholder="{{ 'TITLE.Country' | translate }}"
+                                  maxlength="30"
+                                  class="form-control validate-name"
+                                  id="dataModel.leadAddressCountry"
+                                />
+                              </div>
+
+                              <!-- Lead Address PoBox Field -->
+                              <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+                                <label for="dataModel.leadAddressPoBox" class="color-highlight">{{ "TITLE.PO_Box" | translate }}</label>
+                                <input
+                                  matInput
+                                  type="text"
+                                  [(ngModel)]="dataModel.leadAddressPoBox"
+                                  name="dataModel.leadAddressPoBox"
+                                  #LeadAddressPoBox
+                                  placeholder="{{ 'TITLE.PO_Box' | translate }}"
+                                  maxlength="30"
+                                  class="form-control validate-name"
+                                  id="dataModel.leadAddressPoBox"
+                                />
+                              </div>
+
+                              <!-- Lead Address Phone Field -->
+                              <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+                                <label for="dataModel.leadAddressPhone" class="color-highlight">{{ "TITLE.Phone" | translate }}</label>
+                                <input
+                                  matInput
+                                  type="text"
+                                  [(ngModel)]="dataModel.leadAddressPhone"
+                                  name="dataModel.leadAddressPhone"
+                                  #LeadAddressPhone
+                                  placeholder="{{ 'TITLE.Phone' | translate }}"
+                                  maxlength="50"
+                                  class="form-control validate-name"
+                                  id="dataModel.leadAddressPhone"
+                                />
+                              </div>
+
+                              <!-- Lead Address Mobile Field -->
+                              <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+                                <label for="dataModel.leadAddressMobile" class="color-highlight">{{ "TITLE.Mobile" | translate }}</label>
+                                <input
+                                  matInput
+                                  type="text"
+                                  [(ngModel)]="dataModel.leadAddressMobile"
+                                  name="dataModel.leadAddressMobile"
+                                  #LeadAddressMobile
+                                  placeholder="{{ 'TITLE.Mobile' | translate }}"
+                                  maxlength="50"
+                                  class="form-control validate-name"
+                                  id="dataModel.leadAddressMobile"
+                                />
+                              </div>
+
+                              <!-- Lead Address Fax Field -->
+                              <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+                                <label for="dataModel.leadAddressFax" class="color-highlight">{{ "TITLE.Fax" | translate }}</label>
+                                <input
+                                  matInput
+                                  type="text"
+                                  [(ngModel)]="dataModel.leadAddressFax"
+                                  name="dataModel.leadAddressFax"
+                                  #LeadAddressFax
+                                  placeholder="{{ 'TITLE.Fax' | translate }}"
+                                  maxlength="50"
+                                  class="form-control validate-name"
+                                  id="dataModel.leadAddressFax"
+                                />
+                              </div>
+
+                              <!-- Lead Address Type Field -->
+                              <div class="input-style has-borders no-icon input-style-always-active validate-field mb-4">
+                                <label for="dataModel.leadAddressType" class="color-highlight">{{ "TITLE.Address_Type" | translate }}</label>
+                                <input
+                                  matInput
+                                  type="text"
+                                  [(ngModel)]="dataModel.leadAddressType"
+                                  name="dataModel.leadAddressType"
+                                  #LeadAddressType
+                                  placeholder="{{ 'TITLE.Address_Type' | translate }}"
+                                  maxlength="30"
+                                  class="form-control validate-name"
+                                  id="dataModel.leadAddressType"
+                                />
+                              </div>
+                            </div>
+
                             <!-- Submit Button -->
                             <div class="form-button-group">
                               <button

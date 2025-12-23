@@ -12,7 +12,7 @@ import {
   ClauseTypeEnum,
   CoreEnumService,
   ErrorExceptionResult,
-  CrmLeadFilterModel,
+  FilterModel,
   CrmLeadModel,
   CrmLeadService,
   FilterDataModel,
@@ -107,7 +107,7 @@ export class CrmLeadSelectorComponent implements OnInit {
   async DataGetAll(
     text: string | number | any,
   ): Promise<Observable<CrmLeadModel[]>> {
-    const filterModel = new CrmLeadFilterModel();
+    const filterModel = new FilterModel();
     filterModel.rowPerPage = 20;
     filterModel.accessLoad = true;
     filterModel.sortColumn = "id";
@@ -224,4 +224,3 @@ export class CrmLeadSelectorComponent implements OnInit {
     this.optionChange.emit(null);
   }
 }
-

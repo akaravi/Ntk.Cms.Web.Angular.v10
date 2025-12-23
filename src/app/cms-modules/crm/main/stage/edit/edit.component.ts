@@ -10,12 +10,12 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
   CoreEnumService,
-  DataFieldInfoModel,
-  ErrorExceptionResult,
+  CrmPipelineModel,
   CrmStageModel,
   CrmStageService,
+  DataFieldInfoModel,
+  ErrorExceptionResult,
   TokenInfoModelV3,
-  CrmPipelineModel,
 } from "ntk-cms-api";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -82,15 +82,16 @@ export class CrmStageEditComponent
   }
 
   DataGetOneContent(): void {
-    this.translate.get("MESSAGE.Receiving_information").subscribe((str: string) => {
-      this.formInfo.formTitle = str;
-    });
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.formInfo.formTitle = str;
+      });
     if (!this.requestId || this.requestId.length === 0) {
       this.cmsToastrService.typeErrorEditRowIsNull();
       return;
     }
-    this.formInfo.formSubmitAllow = false;
-    this.formInfo.buttonSubmittedEnabled = false;
+    this.formInfo.submitButtonEnabled = false;
     const pName = this.constructor.name + "main";
     this.publicHelper.processService.processStart(
       pName,
@@ -101,9 +102,9 @@ export class CrmStageEditComponent
     this.crmStageService.ServiceGetOneById(this.requestId).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
-        this.dataModelResult = ret;
+        this.dataModelResult = ret as ErrorExceptionResult<CrmStageModel>;
         if (!ret.isSuccess) {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.cmsToastrService.typeErrorEdit(ret.errorMessage);
         } else {
           this.dataModel = ret.item;
@@ -111,15 +112,15 @@ export class CrmStageEditComponent
             this.formInfo.formTitle =
               this.formInfo.formTitle + " " + ret.item.name;
           }
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
         }
-        this.formInfo.buttonSubmittedEnabled = true;
+        this.formInfo.submitButtonEnabled = true;
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(er);
-        this.formInfo.buttonSubmittedEnabled = true;
+        this.formInfo.submitButtonEnabled = true;
         this.publicHelper.processService.processStop(pName, false);
       },
     });
@@ -141,7 +142,7 @@ export class CrmStageEditComponent
 
     this.crmStageService.ServiceEdit(this.dataModel).subscribe({
       next: (ret) => {
-        this.dataModelResult = ret;
+        this.dataModelResult = ret as ErrorExceptionResult<CrmStageModel>;
         if (ret.isSuccess) {
           this.translate
             .get("MESSAGE.registration_completed_successfully")
@@ -196,4 +197,3 @@ export class CrmStageEditComponent
     this.dialogRef.close({ dialogChangedDate: false });
   }
 }
-

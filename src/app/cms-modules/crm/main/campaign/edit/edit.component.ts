@@ -15,6 +15,8 @@ import {
   CrmCampaignModel,
   CrmCampaignService,
   TokenInfoModelV3,
+  CrmEnumService,
+  InfoEnumModel,
 } from "ntk-cms-api";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -44,6 +46,7 @@ export class CrmCampaignEditComponent
     private dialogRef: MatDialogRef<CrmCampaignEditComponent>,
     public coreEnumService: CoreEnumService,
     public crmCampaignService: CrmCampaignService,
+    public crmEnumService: CrmEnumService,
     private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -72,12 +75,40 @@ export class CrmCampaignEditComponent
   formInfo: FormInfoModel = new FormInfoModel();
   requestId = "";
 
+  dataModelCrmCampaignStatusEnumResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
+  dataModelCrmCampaignTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
+
   ngOnInit(): void {
     if (this.requestId.length > 0) {
       this.DataGetOneContent();
     } else {
       this.cmsToastrService.typeErrorEditRowIsNull();
     }
+    // Commented: Enum methods not available in API
+    // this.getCrmCampaignStatusEnum();
+    // this.getCrmCampaignTypeEnum();
+  }
+
+  /**
+   * دریافت اطلاعات CrmCampaignStatusEnum
+   */
+  getCrmCampaignStatusEnum(): void {
+    // Commented: Enum method not available in API
+    // this.crmEnumService.ServiceCrmCampaignStatusEnum().subscribe((res) => {
+    //   this.dataModelCrmCampaignStatusEnumResult = res;
+    // });
+  }
+
+  /**
+   * دریافت اطلاعات CrmCampaignTypeEnum
+   */
+  getCrmCampaignTypeEnum(): void {
+    // Commented: Enum method not available in API
+    // this.crmEnumService.ServiceCrmCampaignTypeEnum().subscribe((res) => {
+    //   this.dataModelCrmCampaignTypeEnumResult = res;
+    // });
   }
 
   DataGetOneContent(): void {
@@ -88,8 +119,7 @@ export class CrmCampaignEditComponent
       this.cmsToastrService.typeErrorEditRowIsNull();
       return;
     }
-    this.formInfo.formSubmitAllow = false;
-    this.formInfo.buttonSubmittedEnabled = false;
+    this.formInfo.submitButtonEnabled = false;
     const pName = this.constructor.name + "main";
     this.publicHelper.processService.processStart(
       pName,
@@ -100,9 +130,9 @@ export class CrmCampaignEditComponent
     this.crmCampaignService.ServiceGetOneById(this.requestId).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
-        this.dataModelResult = ret;
+        this.dataModelResult = ret as ErrorExceptionResult<CrmCampaignModel>;
         if (!ret.isSuccess) {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.cmsToastrService.typeErrorEdit(ret.errorMessage);
         } else {
           this.dataModel = ret.item;
@@ -110,15 +140,15 @@ export class CrmCampaignEditComponent
             this.formInfo.formTitle =
               this.formInfo.formTitle + " " + ret.item.name;
           }
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
         }
-        this.formInfo.buttonSubmittedEnabled = true;
+        this.formInfo.submitButtonEnabled = true;
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(er);
-        this.formInfo.buttonSubmittedEnabled = true;
+        this.formInfo.submitButtonEnabled = true;
         this.publicHelper.processService.processStop(pName, false);
       },
     });
@@ -140,7 +170,7 @@ export class CrmCampaignEditComponent
 
     this.crmCampaignService.ServiceEdit(this.dataModel).subscribe({
       next: (ret) => {
-        this.dataModelResult = ret;
+        this.dataModelResult = ret as ErrorExceptionResult<CrmCampaignModel>;
         if (ret.isSuccess) {
           this.translate
             .get("MESSAGE.registration_completed_successfully")
@@ -184,4 +214,3 @@ export class CrmCampaignEditComponent
     this.dialogRef.close({ dialogChangedDate: false });
   }
 }
-

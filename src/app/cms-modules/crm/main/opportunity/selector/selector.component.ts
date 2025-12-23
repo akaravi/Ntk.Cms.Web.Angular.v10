@@ -12,7 +12,7 @@ import {
   ClauseTypeEnum,
   CoreEnumService,
   ErrorExceptionResult,
-  CrmOpportunityFilterModel,
+  FilterModel,
   CrmOpportunityModel,
   CrmOpportunityService,
   FilterDataModel,
@@ -105,7 +105,7 @@ export class CrmOpportunitySelectorComponent implements OnInit {
   async DataGetAll(
     text: string | number | any,
   ): Promise<Observable<CrmOpportunityModel[]>> {
-    const filterModel = new CrmOpportunityFilterModel();
+    const filterModel = new FilterModel();
     filterModel.rowPerPage = 20;
     filterModel.accessLoad = true;
     filterModel.sortColumn = "id";
@@ -204,4 +204,3 @@ export class CrmOpportunitySelectorComponent implements OnInit {
     this.optionChange.emit(null);
   }
 }
-

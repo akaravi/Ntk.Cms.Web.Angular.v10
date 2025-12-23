@@ -16,6 +16,8 @@ import {
   CrmAccountModel,
   CrmAccountService,
   TokenInfoModelV3,
+  CrmEnumService,
+  InfoEnumModel,
 } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
@@ -46,6 +48,7 @@ export class CrmAccountEditComponent
     private dialogRef: MatDialogRef<CrmAccountEditComponent>,
     public coreEnumService: CoreEnumService,
     public crmAccountService: CrmAccountService,
+    public crmEnumService: CrmEnumService,
     private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -77,6 +80,11 @@ export class CrmAccountEditComponent
   formInfo: FormInfoModel = new FormInfoModel();
   requestId = "";
 
+  dataModelCrmAccountRatingEnumResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
+  dataModelCrmAccountTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {
@@ -85,6 +93,29 @@ export class CrmAccountEditComponent
     } else {
       this.cmsToastrService.typeErrorEditRowIsNull();
     }
+    // Commented: Enum methods not available in API
+    // this.getCrmAccountRatingEnum();
+    // this.getCrmAccountTypeEnum();
+  }
+
+  /**
+   * دریافت اطلاعات CrmAccountRatingEnum
+   * Commented: Enum method not available in API
+   */
+  getCrmAccountRatingEnum(): void {
+    // this.crmEnumService.ServiceCrmAccountRatingEnum().subscribe((res) => {
+    //   this.dataModelCrmAccountRatingEnumResult = res;
+    // });
+  }
+
+  /**
+   * دریافت اطلاعات CrmAccountTypeEnum
+   * Commented: Enum method not available in API
+   */
+  getCrmAccountTypeEnum(): void {
+    // this.crmEnumService.ServiceCrmAccountTypeEnum().subscribe((res) => {
+    //   this.dataModelCrmAccountTypeEnumResult = res;
+    // });
   }
 
   DataGetOneContent(): void {
@@ -95,8 +126,7 @@ export class CrmAccountEditComponent
       this.cmsToastrService.typeErrorEditRowIsNull();
       return;
     }
-    this.formInfo.formSubmitAllow = false;
-    this.formInfo.buttonSubmittedEnabled = false;
+    this.formInfo.submitButtonEnabled = false;
     const pName = this.constructor.name + "main";
     this.publicHelper.processService.processStart(
       pName,
@@ -107,9 +137,9 @@ export class CrmAccountEditComponent
     this.crmAccountService.ServiceGetOneById(this.requestId).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
-        this.dataModelResult = ret;
+        this.dataModelResult = ret as ErrorExceptionResult<CrmAccountModel>;
         if (!ret.isSuccess) {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.cmsToastrService.typeErrorEdit(ret.errorMessage);
         } else {
           this.dataModel = ret.item;
@@ -117,15 +147,15 @@ export class CrmAccountEditComponent
             this.formInfo.formTitle =
               this.formInfo.formTitle + " " + ret.item.name;
           }
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
         }
-        this.formInfo.buttonSubmittedEnabled = true;
+        this.formInfo.submitButtonEnabled = true;
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(er);
-        this.formInfo.buttonSubmittedEnabled = true;
+        this.formInfo.submitButtonEnabled = true;
         this.publicHelper.processService.processStop(pName, false);
       },
     });
@@ -147,7 +177,7 @@ export class CrmAccountEditComponent
 
     this.crmAccountService.ServiceEdit(this.dataModel).subscribe({
       next: (ret) => {
-        this.dataModelResult = ret;
+        this.dataModelResult = ret as ErrorExceptionResult<CrmAccountModel>;
         if (ret.isSuccess) {
           this.translate
             .get("MESSAGE.registration_completed_successfully")
@@ -211,5 +241,68 @@ export class CrmAccountEditComponent
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });
   }
-}
 
+  // Getters and setters for all optional properties (same as add component)
+  get billStreet(): string { return (this.dataModel as any)?.billStreet || ''; }
+  set billStreet(value: string) { (this.dataModel as any).billStreet = value; }
+
+  get billCity(): string { return (this.dataModel as any)?.billCity || ''; }
+  set billCity(value: string) { (this.dataModel as any).billCity = value; }
+
+  get billState(): string { return (this.dataModel as any)?.billState || ''; }
+  set billState(value: string) { (this.dataModel as any).billState = value; }
+
+  get billPostalCode(): string { return (this.dataModel as any)?.billPostalCode || ''; }
+  set billPostalCode(value: string) { (this.dataModel as any).billPostalCode = value; }
+
+  get accountNo(): string { return (this.dataModel as any)?.accountNo || ''; }
+  set accountNo(value: string) { (this.dataModel as any).accountNo = value; }
+
+  get rating(): string { return (this.dataModel as any)?.rating || ''; }
+  set rating(value: string) { (this.dataModel as any).rating = value; }
+
+  get ownership(): string { return (this.dataModel as any)?.ownership || ''; }
+  set ownership(value: string) { (this.dataModel as any).ownership = value; }
+
+  get sicCode(): string { return (this.dataModel as any)?.sicCode || ''; }
+  set sicCode(value: string) { (this.dataModel as any).sicCode = value; }
+
+  get tickerSymbol(): string { return (this.dataModel as any)?.tickerSymbol || ''; }
+  set tickerSymbol(value: string) { (this.dataModel as any).tickerSymbol = value; }
+
+  get email2(): string { return (this.dataModel as any)?.email2 || ''; }
+  set email2(value: string) { (this.dataModel as any).email2 = value; }
+
+  get otherPhone(): string { return (this.dataModel as any)?.otherPhone || ''; }
+  set otherPhone(value: string) { (this.dataModel as any).otherPhone = value; }
+
+  get emailOptOut(): boolean { return (this.dataModel as any)?.emailOptOut || false; }
+  set emailOptOut(value: boolean) { (this.dataModel as any).emailOptOut = value; }
+
+  get notifyOwner(): boolean { return (this.dataModel as any)?.notifyOwner || false; }
+  set notifyOwner(value: boolean) { (this.dataModel as any).notifyOwner = value; }
+
+  get billCountry(): string { return (this.dataModel as any)?.billCountry || ''; }
+  set billCountry(value: string) { (this.dataModel as any).billCountry = value; }
+
+  get billPoBox(): string { return (this.dataModel as any)?.billPoBox || ''; }
+  set billPoBox(value: string) { (this.dataModel as any).billPoBox = value; }
+
+  get shipStreet(): string { return (this.dataModel as any)?.shipStreet || ''; }
+  set shipStreet(value: string) { (this.dataModel as any).shipStreet = value; }
+
+  get shipCity(): string { return (this.dataModel as any)?.shipCity || ''; }
+  set shipCity(value: string) { (this.dataModel as any).shipCity = value; }
+
+  get shipState(): string { return (this.dataModel as any)?.shipState || ''; }
+  set shipState(value: string) { (this.dataModel as any).shipState = value; }
+
+  get shipPostalCode(): string { return (this.dataModel as any)?.shipPostalCode || ''; }
+  set shipPostalCode(value: string) { (this.dataModel as any).shipPostalCode = value; }
+
+  get shipCountry(): string { return (this.dataModel as any)?.shipCountry || ''; }
+  set shipCountry(value: string) { (this.dataModel as any).shipCountry = value; }
+
+  get shipPoBox(): string { return (this.dataModel as any)?.shipPoBox || ''; }
+  set shipPoBox(value: string) { (this.dataModel as any).shipPoBox = value; }
+}

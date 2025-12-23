@@ -93,33 +93,19 @@ export class CrmLeadListComponent
     if (id && id.length > 0) {
       this.requestLinkAccountId = id;
     }
-    if (
-      this.requestLinkAccountId &&
-      this.requestLinkAccountId.length > 0
-    )
-      this.filteModelContent.linkAccountId = this.requestLinkAccountId;
   }
   @Input() set optionLinkContactId(id: string) {
     this.requestLinkContactId = "";
     if (id && id.length > 0) {
       this.requestLinkContactId = id;
     }
-    if (
-      this.requestLinkContactId &&
-      this.requestLinkContactId.length > 0
-    )
-      this.filteModelContent.linkContactId = this.requestLinkContactId;
   }
   @Input() set optionLinkCampaignId(id: string) {
     this.requestLinkCampaignId = "";
     if (id && id.length > 0) {
       this.requestLinkCampaignId = id;
     }
-    if (
-      this.requestLinkCampaignId &&
-      this.requestLinkCampaignId.length > 0
-    )
-      this.filteModelContent.linkCampaignId = this.requestLinkCampaignId;
+    // linkCampaignId will be added as FilterDataModel in DataGetAll
   }
   link: string;
   comment: string;
@@ -518,4 +504,3 @@ export class CrmLeadListComponent
   onActionButtonExport(): void {}
   onActionButtonPrintRow(): void {}
 }
-

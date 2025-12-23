@@ -90,22 +90,14 @@ export class CrmAccountListComponent
     if (id && id.length > 0) {
       this.requestLinkParentAccountId = id;
     }
-    if (
-      this.requestLinkParentAccountId &&
-      this.requestLinkParentAccountId.length > 0
-    )
-      this.filteModelContent.linkParentAccountId = this.requestLinkParentAccountId;
+    // linkParentAccountId will be added as FilterDataModel in DataGetAll
   }
   @Input() set optionLinkCampaignId(id: string) {
     this.requestLinkCampaignId = "";
     if (id && id.length > 0) {
       this.requestLinkCampaignId = id;
     }
-    if (
-      this.requestLinkCampaignId &&
-      this.requestLinkCampaignId.length > 0
-    )
-      this.filteModelContent.linkCampaignId = this.requestLinkCampaignId;
+    // linkCampaignId will be added as FilterDataModel in DataGetAll
   }
   link: string;
   comment: string;
@@ -490,4 +482,3 @@ export class CrmAccountListComponent
   onActionButtonExport(): void {}
   onActionButtonPrintRow(): void {}
 }
-

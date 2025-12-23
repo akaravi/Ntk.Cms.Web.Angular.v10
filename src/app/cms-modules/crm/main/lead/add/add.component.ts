@@ -19,6 +19,8 @@ import {
   CrmAccountModel,
   CrmContactModel,
   CrmCampaignModel,
+  CrmEnumService,
+  InfoEnumModel,
 } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
@@ -49,6 +51,7 @@ export class CrmLeadAddComponent
     private dialogRef: MatDialogRef<CrmLeadAddComponent>,
     public coreEnumService: CoreEnumService,
     public crmLeadService: CrmLeadService,
+    public crmEnumService: CrmEnumService,
     private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -76,6 +79,11 @@ export class CrmLeadAddComponent
   dataModel: CrmLeadModel = new CrmLeadModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
+  dataModelCrmLeadStatusEnumResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
+  dataModelCrmLeadSourceEnumResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {
@@ -84,6 +92,29 @@ export class CrmLeadAddComponent
     });
 
     this.DataGetAccess();
+    // Commented: Enum methods not available in API
+    // this.getCrmLeadStatusEnum();
+    // this.getCrmLeadSourceEnum();
+  }
+
+  /**
+   * دریافت اطلاعات CrmLeadStatusEnum
+   * Commented: Enum method not available in API
+   */
+  getCrmLeadStatusEnum(): void {
+    // this.crmEnumService.ServiceCrmLeadStatusEnum().subscribe((res) => {
+    //   this.dataModelCrmLeadStatusEnumResult = res;
+    // });
+  }
+
+  /**
+   * دریافت اطلاعات CrmLeadSourceEnum
+   * Commented: Enum method not available in API
+   */
+  getCrmLeadSourceEnum(): void {
+    // this.crmEnumService.ServiceCrmLeadSourceEnum().subscribe((res) => {
+    //   this.dataModelCrmLeadSourceEnumResult = res;
+    // });
   }
 
   DataAddContent(): void {

@@ -87,11 +87,12 @@ export class CrmStageListComponent
     if (id && id.length > 0) {
       this.requestLinkPipelineId = id;
     }
-    if (
-      this.requestLinkPipelineId &&
-      this.requestLinkPipelineId.length > 0
-    )
-      this.filteModelContent.linkPipelineId = this.requestLinkPipelineId;
+    if (this.requestLinkPipelineId && this.requestLinkPipelineId.length > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "linkPipelineId";
+      filter.value = this.requestLinkPipelineId;
+      this.filteModelContent.filters.push(filter);
+    }
   }
   link: string;
   comment: string;
@@ -155,10 +156,7 @@ export class CrmStageListComponent
     this.tableRowsSelected = [];
     this.onActionTableRowSelect(new CrmStageModel());
 
-    if (
-      this.requestLinkPipelineId &&
-      this.requestLinkPipelineId.length > 0
-    ) {
+    if (this.requestLinkPipelineId && this.requestLinkPipelineId.length > 0) {
       const filter = new FilterDataModel();
       filter.propertyName = "linkPipelineId";
       filter.value = this.requestLinkPipelineId;
@@ -268,9 +266,7 @@ export class CrmStageListComponent
     });
   }
 
-  onActionButtonEditRow(
-    model: CrmStageModel = this.tableRowSelected,
-  ): void {
+  onActionButtonEditRow(model: CrmStageModel = this.tableRowSelected): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
@@ -300,9 +296,7 @@ export class CrmStageListComponent
       }
     });
   }
-  onActionButtonDeleteRow(
-    model: CrmStageModel = this.tableRowSelected,
-  ): void {
+  onActionButtonDeleteRow(model: CrmStageModel = this.tableRowSelected): void {
     if (!model || !model.id || model.id.length === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
@@ -462,4 +456,3 @@ export class CrmStageListComponent
   onActionButtonExport(): void {}
   onActionButtonPrintRow(): void {}
 }
-

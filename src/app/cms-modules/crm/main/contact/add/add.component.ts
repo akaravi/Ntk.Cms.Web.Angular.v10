@@ -167,5 +167,14 @@ export class CrmContactAddComponent
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });
   }
+
+  // Getter and setter for optional property
+  get contactNo(): string {
+    return (this.dataModel as any)?.contactNo || '';
+  }
+
+  set contactNo(value: string) {
+    (this.dataModel as any).contactNo = value;
+  }
 }
 

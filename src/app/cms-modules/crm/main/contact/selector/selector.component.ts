@@ -12,7 +12,7 @@ import {
   ClauseTypeEnum,
   CoreEnumService,
   ErrorExceptionResult,
-  CrmContactFilterModel,
+  FilterModel,
   CrmContactModel,
   CrmContactService,
   FilterDataModel,
@@ -111,7 +111,7 @@ export class CrmContactSelectorComponent implements OnInit {
   async DataGetAll(
     text: string | number | any,
   ): Promise<Observable<CrmContactModel[]>> {
-    const filterModel = new CrmContactFilterModel();
+    const filterModel = new FilterModel();
     filterModel.rowPerPage = 20;
     filterModel.accessLoad = true;
     filterModel.sortColumn = "id";
@@ -222,4 +222,3 @@ export class CrmContactSelectorComponent implements OnInit {
     this.optionChange.emit(null);
   }
 }
-

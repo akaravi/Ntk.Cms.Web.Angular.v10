@@ -99,33 +99,18 @@ export class CrmOpportunityListComponent
     if (id && id.length > 0) {
       this.requestLinkAccountId = id;
     }
-    if (
-      this.requestLinkAccountId &&
-      this.requestLinkAccountId.length > 0
-    )
-      this.filteModelContent.linkAccountId = this.requestLinkAccountId;
   }
   @Input() set optionLinkPipelineId(id: string) {
     this.requestLinkPipelineId = "";
     if (id && id.length > 0) {
       this.requestLinkPipelineId = id;
     }
-    if (
-      this.requestLinkPipelineId &&
-      this.requestLinkPipelineId.length > 0
-    )
-      this.filteModelContent.linkPipelineId = this.requestLinkPipelineId;
   }
   @Input() set optionLinkStageId(id: string) {
     this.requestLinkStageId = "";
     if (id && id.length > 0) {
       this.requestLinkStageId = id;
     }
-    if (
-      this.requestLinkStageId &&
-      this.requestLinkStageId.length > 0
-    )
-      this.filteModelContent.linkStageId = this.requestLinkStageId;
   }
   link: string;
   comment: string;
@@ -536,4 +521,3 @@ export class CrmOpportunityListComponent
   onActionButtonExport(): void {}
   onActionButtonPrintRow(): void {}
 }
-

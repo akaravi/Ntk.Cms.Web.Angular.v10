@@ -21,6 +21,7 @@ import {
   CrmLeadModel,
   CrmOpportunityModel,
   CrmDealModel,
+  CrmCampaignModel,
   CrmEnumService,
   InfoEnumModel,
 } from "ntk-cms-api";
@@ -146,8 +147,7 @@ export class CrmActivityEditComponent
       this.cmsToastrService.typeErrorEditRowIsNull();
       return;
     }
-    this.formInfo.formSubmitAllow = false;
-    this.formInfo.buttonSubmittedEnabled = false;
+    this.formInfo.submitButtonEnabled = false;
     const pName = this.constructor.name + "main";
     this.publicHelper.processService.processStart(
       pName,
@@ -158,9 +158,9 @@ export class CrmActivityEditComponent
     this.crmActivityService.ServiceGetOneById(this.requestId).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
-        this.dataModelResult = ret;
+        this.dataModelResult = ret as ErrorExceptionResult<CrmActivityModel>;
         if (!ret.isSuccess) {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.cmsToastrService.typeErrorEdit(ret.errorMessage);
         } else {
           this.dataModel = ret.item;
@@ -168,15 +168,15 @@ export class CrmActivityEditComponent
             this.formInfo.formTitle =
               this.formInfo.formTitle + " " + ret.item.subject;
           }
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
         }
-        this.formInfo.buttonSubmittedEnabled = true;
+        this.formInfo.submitButtonEnabled = true;
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(er);
-        this.formInfo.buttonSubmittedEnabled = true;
+        this.formInfo.submitButtonEnabled = true;
         this.publicHelper.processService.processStop(pName, false);
       },
     });
@@ -198,7 +198,7 @@ export class CrmActivityEditComponent
 
     this.crmActivityService.ServiceEdit(this.dataModel).subscribe({
       next: (ret) => {
-        this.dataModelResult = ret;
+        this.dataModelResult = ret as ErrorExceptionResult<CrmActivityModel>;
         if (ret.isSuccess) {
           this.translate
             .get("MESSAGE.registration_completed_successfully")
@@ -292,6 +292,18 @@ export class CrmActivityEditComponent
       this.dataModel.linkDealId = model.id;
     }
   }
+
+  /**
+   * متد انتخاب Campaign
+   * @param model - مدل Campaign انتخاب شده یا null
+   */
+  onActionSelectorCampaign(model: CrmCampaignModel | null): void {
+    this.dataModel.linkCampaignId = null;
+    if (model && model.id) {
+      this.dataModel.linkCampaignId = model.id;
+    }
+  }
+
   onFormSubmit(): void {
     if (!this.formGroup.valid) {
       return;
@@ -303,4 +315,3 @@ export class CrmActivityEditComponent
     this.dialogRef.close({ dialogChangedDate: false });
   }
 }
-

@@ -80,6 +80,8 @@ export class CrmOpportunityAddComponent
 
   dataModelCrmOpportunityStatusEnumResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
+  dataModelCrmOpportunityTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
 
   ngOnInit(): void {
     this.translate.get("TITLE.ADD").subscribe((str: string) => {
@@ -88,6 +90,7 @@ export class CrmOpportunityAddComponent
 
     this.DataGetAccess();
     this.getCrmOpportunityStatusEnum();
+    this.getCrmOpportunityTypeEnum();
   }
 
   /**
@@ -97,6 +100,16 @@ export class CrmOpportunityAddComponent
     this.crmEnumService.ServiceCrmOpportunityStatusEnum().subscribe((res) => {
       this.dataModelCrmOpportunityStatusEnumResult = res;
     });
+  }
+
+  /**
+   * دریافت اطلاعات CrmOpportunityTypeEnum
+   * Commented: Enum method not available in API
+   */
+  getCrmOpportunityTypeEnum(): void {
+    // this.crmEnumService.ServiceCrmOpportunityTypeEnum().subscribe((res) => {
+    //   this.dataModelCrmOpportunityTypeEnumResult = res;
+    // });
   }
 
   DataAddContent(): void {

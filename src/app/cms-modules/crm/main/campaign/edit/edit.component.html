@@ -39,46 +39,28 @@
           id="dataModel.name"
           />
         </div>
-        <!-- CampaignType Field -->
-        <div
-          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-          >
-          <label for="dataModel.campaignType" class="color-highlight">{{
-            fieldsInfo["campaignType"]?.fieldTitle
-          }}</label>
-          <input
-            matInput
-            type="text"
-            [(ngModel)]="dataModel.campaignType"
-            name="dataModel.campaignType"
-            #CampaignType
-            placeholder="{{ fieldsInfo['campaignType']?.fieldTitle }}"
-            maxlength="100"
-            [disabled]="!fieldsInfo['campaignType']?.accessEditField"
-            class="form-control validate-name"
-            id="dataModel.campaignType"
-            />
-          </div>
-          <!-- Status Field -->
-          <div
-            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-            >
-            <label for="dataModel.status" class="color-highlight">{{
-              fieldsInfo["status"]?.fieldTitle
-            }}</label>
-            <input
-              matInput
-              type="text"
-              [(ngModel)]="dataModel.status"
-              name="dataModel.status"
-              #Status
-              placeholder="{{ fieldsInfo['status']?.fieldTitle }}"
-              maxlength="50"
-              [disabled]="!fieldsInfo['status']?.accessEditField"
-              class="form-control validate-name"
-              id="dataModel.status"
-              />
-            </div>
+        <!-- CampaignType Enum Selector -->
+        @if (fieldsInfo['campaignType']?.accessWatchField) {
+          <app-cms-enum-x-selector
+            [optionDataListResult]="dataModelCrmCampaignTypeEnumResult"
+            [(model)]="dataModel.campaignType"
+            [optionDisabled]="!fieldsInfo['campaignType']?.accessEditField"
+            [optionLabel]="fieldsInfo['campaignType']?.fieldTitle"
+            [optionRequired]="false"
+            [optionSelectFirstItem]="false"
+          ></app-cms-enum-x-selector>
+        }
+        <!-- Status Enum Selector -->
+        @if (fieldsInfo['status']?.accessWatchField) {
+          <app-cms-enum-x-selector
+            [optionDataListResult]="dataModelCrmCampaignStatusEnumResult"
+            [(model)]="dataModel.status"
+            [optionDisabled]="!fieldsInfo['status']?.accessEditField"
+            [optionLabel]="fieldsInfo['status']?.fieldTitle"
+            [optionRequired]="false"
+            [optionSelectFirstItem]="false"
+          ></app-cms-enum-x-selector>
+        }
             <!-- StartDate Field -->
             <div
               class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
@@ -155,7 +137,219 @@
                       id="dataModel.expectedRevenue"
                       />
                     </div>
-                    <!-- Description Field -->
+                    <!-- CampaignNo Field -->
+                    <div
+                      class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                      >
+                      <label for="dataModel.campaignNo" class="color-highlight">{{
+                        fieldsInfo["campaignNo"]?.fieldTitle || "TITLE.Campaign_Number"
+                      }}</label>
+                      <input
+                        matInput
+                        type="text"
+                        [(ngModel)]="dataModel.campaignNo"
+                        name="dataModel.campaignNo"
+                        #CampaignNo
+                        placeholder="{{ 'TITLE.Campaign_Number' | translate }}"
+                        maxlength="100"
+                        [disabled]="!fieldsInfo['campaignNo']?.accessEditField"
+                        class="form-control validate-name"
+                        id="dataModel.campaignNo"
+                        />
+                      </div>
+                      <!-- NumSent Field -->
+                      <div
+                        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                        >
+                        <label for="dataModel.numSent" class="color-highlight">{{
+                          fieldsInfo["numSent"]?.fieldTitle || "TITLE.Number_Sent"
+                        }}</label>
+                        <input
+                          matInput
+                          type="number"
+                          [(ngModel)]="dataModel.numSent"
+                          name="dataModel.numSent"
+                          #NumSent
+                          placeholder="{{ 'TITLE.Number_Sent' | translate }}"
+                          [disabled]="!fieldsInfo['numSent']?.accessEditField"
+                          class="form-control validate-name"
+                          id="dataModel.numSent"
+                          />
+                        </div>
+                        <!-- Sponsor Field -->
+                        <div
+                          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                          >
+                          <label for="dataModel.sponsor" class="color-highlight">{{
+                            fieldsInfo["sponsor"]?.fieldTitle || "TITLE.Sponsor"
+                          }}</label>
+                          <input
+                            matInput
+                            type="text"
+                            [(ngModel)]="dataModel.sponsor"
+                            name="dataModel.sponsor"
+                            #Sponsor
+                            placeholder="{{ 'TITLE.Sponsor' | translate }}"
+                            maxlength="255"
+                            [disabled]="!fieldsInfo['sponsor']?.accessEditField"
+                            class="form-control validate-name"
+                            id="dataModel.sponsor"
+                            />
+                          </div>
+                          <!-- TargetAudience Field -->
+                          <div
+                            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                            >
+                            <label for="dataModel.targetAudience" class="color-highlight">{{
+                              fieldsInfo["targetAudience"]?.fieldTitle || "TITLE.Target_Audience"
+                            }}</label>
+                            <input
+                              matInput
+                              type="text"
+                              [(ngModel)]="dataModel.targetAudience"
+                              name="dataModel.targetAudience"
+                              #TargetAudience
+                              placeholder="{{ 'TITLE.Target_Audience' | translate }}"
+                              maxlength="255"
+                              [disabled]="!fieldsInfo['targetAudience']?.accessEditField"
+                              class="form-control validate-name"
+                              id="dataModel.targetAudience"
+                              />
+                            </div>
+                            <!-- TargetSize Field -->
+                            <div
+                              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                              >
+                              <label for="dataModel.targetSize" class="color-highlight">{{
+                                fieldsInfo["targetSize"]?.fieldTitle || "TITLE.Target_Size"
+                              }}</label>
+                              <input
+                                matInput
+                                type="number"
+                                [(ngModel)]="dataModel.targetSize"
+                                name="dataModel.targetSize"
+                                #TargetSize
+                                placeholder="{{ 'TITLE.Target_Size' | translate }}"
+                                [disabled]="!fieldsInfo['targetSize']?.accessEditField"
+                                class="form-control validate-name"
+                                id="dataModel.targetSize"
+                                />
+                              </div>
+                              <!-- ExpectedResponseCount Field -->
+                              <div
+                                class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                >
+                                <label for="dataModel.expectedResponseCount" class="color-highlight">{{
+                                  fieldsInfo["expectedResponseCount"]?.fieldTitle || "TITLE.Expected_Response_Count"
+                                }}</label>
+                                <input
+                                  matInput
+                                  type="number"
+                                  [(ngModel)]="dataModel.expectedResponseCount"
+                                  name="dataModel.expectedResponseCount"
+                                  #ExpectedResponseCount
+                                  placeholder="{{ 'TITLE.Expected_Response_Count' | translate }}"
+                                  [disabled]="!fieldsInfo['expectedResponseCount']?.accessEditField"
+                                  class="form-control validate-name"
+                                  id="dataModel.expectedResponseCount"
+                                  />
+                                </div>
+                                <!-- ExpectedSalesCount Field -->
+                                <div
+                                  class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                  >
+                                  <label for="dataModel.expectedSalesCount" class="color-highlight">{{
+                                    fieldsInfo["expectedSalesCount"]?.fieldTitle || "TITLE.Expected_Sales_Count"
+                                  }}</label>
+                                  <input
+                                    matInput
+                                    type="number"
+                                    [(ngModel)]="dataModel.expectedSalesCount"
+                                    name="dataModel.expectedSalesCount"
+                                    #ExpectedSalesCount
+                                    placeholder="{{ 'TITLE.Expected_Sales_Count' | translate }}"
+                                    [disabled]="!fieldsInfo['expectedSalesCount']?.accessEditField"
+                                    class="form-control validate-name"
+                                    id="dataModel.expectedSalesCount"
+                                    />
+                                  </div>
+                                  <!-- ActualResponseCount Field -->
+                                  <div
+                                    class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                    >
+                                    <label for="dataModel.actualResponseCount" class="color-highlight">{{
+                                      fieldsInfo["actualResponseCount"]?.fieldTitle || "TITLE.Actual_Response_Count"
+                                    }}</label>
+                                    <input
+                                      matInput
+                                      type="number"
+                                      [(ngModel)]="dataModel.actualResponseCount"
+                                      name="dataModel.actualResponseCount"
+                                      #ActualResponseCount
+                                      placeholder="{{ 'TITLE.Actual_Response_Count' | translate }}"
+                                      [disabled]="!fieldsInfo['actualResponseCount']?.accessEditField"
+                                      class="form-control validate-name"
+                                      id="dataModel.actualResponseCount"
+                                      />
+                                    </div>
+                                    <!-- ActualSalesCount Field -->
+                                    <div
+                                      class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                      >
+                                      <label for="dataModel.actualSalesCount" class="color-highlight">{{
+                                        fieldsInfo["actualSalesCount"]?.fieldTitle || "TITLE.Actual_Sales_Count"
+                                      }}</label>
+                                      <input
+                                        matInput
+                                        type="number"
+                                        [(ngModel)]="dataModel.actualSalesCount"
+                                        name="dataModel.actualSalesCount"
+                                        #ActualSalesCount
+                                        placeholder="{{ 'TITLE.Actual_Sales_Count' | translate }}"
+                                        [disabled]="!fieldsInfo['actualSalesCount']?.accessEditField"
+                                        class="form-control validate-name"
+                                        id="dataModel.actualSalesCount"
+                                        />
+                                      </div>
+                                      <!-- ActualRoi Field -->
+                                      <div
+                                        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                        >
+                                        <label for="dataModel.actualRoi" class="color-highlight">{{
+                                          fieldsInfo["actualRoi"]?.fieldTitle || "TITLE.Actual_ROI"
+                                        }}</label>
+                                        <input
+                                          matInput
+                                          type="number"
+                                          [(ngModel)]="dataModel.actualRoi"
+                                          name="dataModel.actualRoi"
+                                          #ActualRoi
+                                          placeholder="{{ 'TITLE.Actual_ROI' | translate }}"
+                                          [disabled]="!fieldsInfo['actualRoi']?.accessEditField"
+                                          class="form-control validate-name"
+                                          id="dataModel.actualRoi"
+                                          />
+                                        </div>
+                                        <!-- ClosingDate Field -->
+                                        <div
+                                          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                          >
+                                          <label for="dataModel.closingDate" class="color-highlight">{{
+                                            fieldsInfo["closingDate"]?.fieldTitle || "TITLE.Closing_Date"
+                                          }}</label>
+                                          <input
+                                            matInput
+                                            type="date"
+                                            [(ngModel)]="dataModel.closingDate"
+                                            name="dataModel.closingDate"
+                                            #ClosingDate
+                                            placeholder="{{ 'TITLE.Closing_Date' | translate }}"
+                                            [disabled]="!fieldsInfo['closingDate']?.accessEditField"
+                                            class="form-control validate-name"
+                                            id="dataModel.closingDate"
+                                            />
+                                          </div>
+                                          <!-- Description Field -->
                     <div
                       class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
                       >

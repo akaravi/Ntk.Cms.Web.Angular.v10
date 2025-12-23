@@ -87,11 +87,6 @@ export class CrmContactListComponent
     if (id && id.length > 0) {
       this.requestLinkAccountId = id;
     }
-    if (
-      this.requestLinkAccountId &&
-      this.requestLinkAccountId.length > 0
-    )
-      this.filteModelContent.linkAccountId = this.requestLinkAccountId;
   }
   link: string;
   comment: string;

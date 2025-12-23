@@ -88,8 +88,7 @@ export class CrmPipelineEditComponent
       this.cmsToastrService.typeErrorEditRowIsNull();
       return;
     }
-    this.formInfo.formSubmitAllow = false;
-    this.formInfo.buttonSubmittedEnabled = false;
+    this.formInfo.submitButtonEnabled = false;
     const pName = this.constructor.name + "main";
     this.publicHelper.processService.processStart(
       pName,
@@ -100,9 +99,9 @@ export class CrmPipelineEditComponent
     this.crmPipelineService.ServiceGetOneById(this.requestId).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
-        this.dataModelResult = ret;
+        this.dataModelResult = ret as ErrorExceptionResult<CrmPipelineModel>;
         if (!ret.isSuccess) {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.cmsToastrService.typeErrorEdit(ret.errorMessage);
         } else {
           this.dataModel = ret.item;
@@ -110,15 +109,15 @@ export class CrmPipelineEditComponent
             this.formInfo.formTitle =
               this.formInfo.formTitle + " " + ret.item.name;
           }
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
         }
-        this.formInfo.buttonSubmittedEnabled = true;
+        this.formInfo.submitButtonEnabled = true;
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(er);
-        this.formInfo.buttonSubmittedEnabled = true;
+        this.formInfo.submitButtonEnabled = true;
         this.publicHelper.processService.processStop(pName, false);
       },
     });
@@ -140,7 +139,7 @@ export class CrmPipelineEditComponent
 
     this.crmPipelineService.ServiceEdit(this.dataModel).subscribe({
       next: (ret) => {
-        this.dataModelResult = ret;
+        this.dataModelResult = ret as ErrorExceptionResult<CrmPipelineModel>;
         if (ret.isSuccess) {
           this.translate
             .get("MESSAGE.registration_completed_successfully")
@@ -184,4 +183,3 @@ export class CrmPipelineEditComponent
     this.dialogRef.close({ dialogChangedDate: false });
   }
 }
-

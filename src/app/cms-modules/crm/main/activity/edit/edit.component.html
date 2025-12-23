@@ -164,7 +164,285 @@
                       [optionPlaceholder]="fieldsInfo['linkDealId']?.fieldTitle || 'Deal'"
                       [optionDisabled]="!fieldsInfo['linkDealId']?.accessEditField"
                       ></app-crm-deal-selector>
-                    <!-- Submit Button -->
+                    <!-- Campaign Selector -->
+                    <app-crm-campaign-selector
+                      (optionChange)="onActionSelectorCampaign($event)"
+                      [optionSelectForce]="dataModel.linkCampaignId"
+                      [optionPlaceholder]="fieldsInfo['linkCampaignId']?.fieldTitle || 'Campaign'"
+                      [optionDisabled]="!fieldsInfo['linkCampaignId']?.accessEditField"
+                      ></app-crm-campaign-selector>
+                    <!-- Location Field -->
+                    <div
+                      class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                      >
+                      <label for="dataModel.location" class="color-highlight">{{
+                        fieldsInfo["location"]?.fieldTitle || "TITLE.Location"
+                      }}</label>
+                      <input
+                        matInput
+                        type="text"
+                        [(ngModel)]="dataModel.location"
+                        name="dataModel.location"
+                        #Location
+                        placeholder="{{ 'TITLE.Location' | translate }}"
+                        maxlength="512"
+                        [disabled]="!fieldsInfo['location']?.accessEditField"
+                        class="form-control validate-name"
+                        id="dataModel.location"
+                        />
+                      </div>
+                      <!-- SeModule Field -->
+                      <div
+                        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                        >
+                        <label for="dataModel.seModule" class="color-highlight">{{
+                          fieldsInfo["seModule"]?.fieldTitle || "TITLE.SE_Module"
+                        }}</label>
+                        <input
+                          matInput
+                          type="text"
+                          [(ngModel)]="dataModel.seModule"
+                          name="dataModel.seModule"
+                          #SeModule
+                          placeholder="{{ 'TITLE.SE_Module' | translate }}"
+                          maxlength="20"
+                          [disabled]="!fieldsInfo['seModule']?.accessEditField"
+                          class="form-control validate-name"
+                          id="dataModel.seModule"
+                          />
+                        </div>
+                        <!-- TimeStart Field -->
+                        <div
+                          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                          >
+                          <label for="dataModel.timeStart" class="color-highlight">{{
+                            fieldsInfo["timeStart"]?.fieldTitle || "TITLE.Time_Start"
+                          }}</label>
+                          <input
+                            matInput
+                            type="time"
+                            [(ngModel)]="dataModel.timeStart"
+                            name="dataModel.timeStart"
+                            #TimeStart
+                            placeholder="{{ 'TITLE.Time_Start' | translate }}"
+                            [disabled]="!fieldsInfo['timeStart']?.accessEditField"
+                            class="form-control validate-name"
+                            id="dataModel.timeStart"
+                            />
+                          </div>
+                          <!-- TimeEnd Field -->
+                          <div
+                            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                            >
+                            <label for="dataModel.timeEnd" class="color-highlight">{{
+                              fieldsInfo["timeEnd"]?.fieldTitle || "TITLE.Time_End"
+                            }}</label>
+                            <input
+                              matInput
+                              type="time"
+                              [(ngModel)]="dataModel.timeEnd"
+                              name="dataModel.timeEnd"
+                              #TimeEnd
+                              placeholder="{{ 'TITLE.Time_End' | translate }}"
+                              [disabled]="!fieldsInfo['timeEnd']?.accessEditField"
+                              class="form-control validate-name"
+                              id="dataModel.timeEnd"
+                              />
+                            </div>
+                            <!-- DurationHours Field -->
+                            <div
+                              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                              >
+                              <label for="dataModel.durationHours" class="color-highlight">{{
+                                fieldsInfo["durationHours"]?.fieldTitle || "TITLE.Duration_Hours"
+                              }}</label>
+                              <input
+                                matInput
+                                type="text"
+                                [(ngModel)]="dataModel.durationHours"
+                                name="dataModel.durationHours"
+                                #DurationHours
+                                placeholder="{{ 'TITLE.Duration_Hours' | translate }}"
+                                maxlength="200"
+                                [disabled]="!fieldsInfo['durationHours']?.accessEditField"
+                                class="form-control validate-name"
+                                id="dataModel.durationHours"
+                                />
+                              </div>
+                              <!-- DurationMinutes Field -->
+                              <div
+                                class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                >
+                                <label for="dataModel.durationMinutes" class="color-highlight">{{
+                                  fieldsInfo["durationMinutes"]?.fieldTitle || "TITLE.Duration_Minutes"
+                                }}</label>
+                                <input
+                                  matInput
+                                  type="text"
+                                  [(ngModel)]="dataModel.durationMinutes"
+                                  name="dataModel.durationMinutes"
+                                  #DurationMinutes
+                                  placeholder="{{ 'TITLE.Duration_Minutes' | translate }}"
+                                  maxlength="200"
+                                  [disabled]="!fieldsInfo['durationMinutes']?.accessEditField"
+                                  class="form-control validate-name"
+                                  id="dataModel.durationMinutes"
+                                  />
+                                </div>
+                                <!-- EventStatus Field -->
+                                <div
+                                  class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                  >
+                                  <label for="dataModel.eventStatus" class="color-highlight">{{
+                                    fieldsInfo["eventStatus"]?.fieldTitle || "TITLE.Event_Status"
+                                  }}</label>
+                                  <input
+                                    matInput
+                                    type="text"
+                                    [(ngModel)]="dataModel.eventStatus"
+                                    name="dataModel.eventStatus"
+                                    #EventStatus
+                                    placeholder="{{ 'TITLE.Event_Status' | translate }}"
+                                    maxlength="200"
+                                    [disabled]="!fieldsInfo['eventStatus']?.accessEditField"
+                                    class="form-control validate-name"
+                                    id="dataModel.eventStatus"
+                                    />
+                                  </div>
+                                  <!-- Recurrence Field -->
+                                  <div
+                                    class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                    >
+                                    <label for="dataModel.recurrence" class="color-highlight">{{
+                                      fieldsInfo["recurrence"]?.fieldTitle || "TITLE.Recurrence"
+                                    }}</label>
+                                    <input
+                                      matInput
+                                      type="text"
+                                      [(ngModel)]="dataModel.recurrence"
+                                      name="dataModel.recurrence"
+                                      #Recurrence
+                                      placeholder="{{ 'TITLE.Recurrence' | translate }}"
+                                      maxlength="32"
+                                      [disabled]="!fieldsInfo['recurrence']?.accessEditField"
+                                      class="form-control validate-name"
+                                      id="dataModel.recurrence"
+                                      />
+                                    </div>
+                                    <!-- RecurrenceId Field -->
+                                    <div
+                                      class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                      >
+                                      <label for="dataModel.recurrenceId" class="color-highlight">{{
+                                        fieldsInfo["recurrenceId"]?.fieldTitle || "TITLE.Recurrence_ID"
+                                      }}</label>
+                                      <input
+                                        matInput
+                                        type="number"
+                                        [(ngModel)]="dataModel.recurrenceId"
+                                        name="dataModel.recurrenceId"
+                                        #RecurrenceId
+                                        placeholder="{{ 'TITLE.Recurrence_ID' | translate }}"
+                                        [disabled]="!fieldsInfo['recurrenceId']?.accessEditField"
+                                        class="form-control validate-name"
+                                        id="dataModel.recurrenceId"
+                                        />
+                                      </div>
+                                      <!-- ReminderMinutes Field -->
+                                      <div
+                                        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                        >
+                                        <label for="dataModel.reminderMinutes" class="color-highlight">{{
+                                          fieldsInfo["reminderMinutes"]?.fieldTitle || "TITLE.Reminder_Minutes"
+                                        }}</label>
+                                        <input
+                                          matInput
+                                          type="number"
+                                          [(ngModel)]="dataModel.reminderMinutes"
+                                          name="dataModel.reminderMinutes"
+                                          #ReminderMinutes
+                                          placeholder="{{ 'TITLE.Reminder_Minutes' | translate }}"
+                                          [disabled]="!fieldsInfo['reminderMinutes']?.accessEditField"
+                                          class="form-control validate-name"
+                                          id="dataModel.reminderMinutes"
+                                          />
+                                        </div>
+                                        <!-- ReminderTime Field -->
+                                        <div
+                                          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                          >
+                                          <label for="dataModel.reminderTime" class="color-highlight">{{
+                                            fieldsInfo["reminderTime"]?.fieldTitle || "TITLE.Reminder_Time"
+                                          }}</label>
+                                          <input
+                                            matInput
+                                            type="number"
+                                            [(ngModel)]="dataModel.reminderTime"
+                                            name="dataModel.reminderTime"
+                                            #ReminderTime
+                                            placeholder="{{ 'TITLE.Reminder_Time' | translate }}"
+                                            [disabled]="!fieldsInfo['reminderTime']?.accessEditField"
+                                            class="form-control validate-name"
+                                            id="dataModel.reminderTime"
+                                            />
+                                          </div>
+                                          <!-- Visibility Field -->
+                                          <div
+                                            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                            >
+                                            <label for="dataModel.visibility" class="color-highlight">{{
+                                              fieldsInfo["visibility"]?.fieldTitle || "TITLE.Visibility"
+                                            }}</label>
+                                            <input
+                                              matInput
+                                              type="text"
+                                              [(ngModel)]="dataModel.visibility"
+                                              name="dataModel.visibility"
+                                              #Visibility
+                                              placeholder="{{ 'TITLE.Visibility' | translate }}"
+                                              maxlength="50"
+                                              [disabled]="!fieldsInfo['visibility']?.accessEditField"
+                                              class="form-control validate-name"
+                                              id="dataModel.visibility"
+                                              />
+                                            </div>
+                                            <!-- SendNotification Field -->
+                                            <div
+                                              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                              >
+                                              <label for="dataModel.sendNotification" class="color-highlight">{{
+                                                fieldsInfo["sendNotification"]?.fieldTitle || "TITLE.Send_Notification"
+                                              }}</label>
+                                              <input
+                                                matInput
+                                                type="checkbox"
+                                                [(ngModel)]="dataModel.sendNotification"
+                                                name="dataModel.sendNotification"
+                                                #SendNotification
+                                                [disabled]="!fieldsInfo['sendNotification']?.accessEditField"
+                                                class="form-control validate-name"
+                                                id="dataModel.sendNotification"
+                                                />
+                                              </div>
+                                              <!-- NoTime Field -->
+                                              <div
+                                                class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                                                >
+                                                <label for="dataModel.noTime" class="color-highlight">{{
+                                                  fieldsInfo["noTime"]?.fieldTitle || "TITLE.No_Time"
+                                                }}</label>
+                                                <input
+                                                  matInput
+                                                  type="checkbox"
+                                                  [(ngModel)]="dataModel.noTime"
+                                                  name="dataModel.noTime"
+                                                  #NoTime
+                                                  [disabled]="!fieldsInfo['noTime']?.accessEditField"
+                                                  class="form-control validate-name"
+                                                  id="dataModel.noTime"
+                                                  />
+                                                </div>
+                                                <!-- Submit Button -->
                     <div class="form-button-group">
                       <button
                         type="submit"

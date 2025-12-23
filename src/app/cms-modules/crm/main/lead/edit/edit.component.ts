@@ -19,6 +19,8 @@ import {
   CrmAccountModel,
   CrmContactModel,
   CrmCampaignModel,
+  CrmEnumService,
+  InfoEnumModel,
 } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
@@ -49,6 +51,7 @@ export class CrmLeadEditComponent
     private dialogRef: MatDialogRef<CrmLeadEditComponent>,
     public coreEnumService: CoreEnumService,
     public crmLeadService: CrmLeadService,
+    public crmEnumService: CrmEnumService,
     private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -80,6 +83,11 @@ export class CrmLeadEditComponent
   formInfo: FormInfoModel = new FormInfoModel();
   requestId = "";
 
+  dataModelCrmLeadStatusEnumResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
+  dataModelCrmLeadSourceEnumResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {
@@ -88,6 +96,29 @@ export class CrmLeadEditComponent
     } else {
       this.cmsToastrService.typeErrorEditRowIsNull();
     }
+    // Commented: Enum methods not available in API
+    // this.getCrmLeadStatusEnum();
+    // this.getCrmLeadSourceEnum();
+  }
+
+  /**
+   * دریافت اطلاعات CrmLeadStatusEnum
+   */
+  getCrmLeadStatusEnum(): void {
+    // Commented: Enum method not available in API
+    // this.crmEnumService.ServiceCrmLeadStatusEnum().subscribe((res) => {
+    //   this.dataModelCrmLeadStatusEnumResult = res;
+    // });
+  }
+
+  /**
+   * دریافت اطلاعات CrmLeadSourceEnum
+   */
+  getCrmLeadSourceEnum(): void {
+    // Commented: Enum method not available in API
+    // this.crmEnumService.ServiceCrmLeadSourceEnum().subscribe((res) => {
+    //   this.dataModelCrmLeadSourceEnumResult = res;
+    // });
   }
 
   DataGetOneContent(): void {
@@ -98,8 +129,7 @@ export class CrmLeadEditComponent
       this.cmsToastrService.typeErrorEditRowIsNull();
       return;
     }
-    this.formInfo.formSubmitAllow = false;
-    this.formInfo.buttonSubmittedEnabled = false;
+    this.formInfo.submitButtonEnabled = false;
     const pName = this.constructor.name + "main";
     this.publicHelper.processService.processStart(
       pName,
@@ -110,9 +140,9 @@ export class CrmLeadEditComponent
     this.crmLeadService.ServiceGetOneById(this.requestId).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
-        this.dataModelResult = ret;
+        this.dataModelResult = ret as ErrorExceptionResult<CrmLeadModel>;
         if (!ret.isSuccess) {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.cmsToastrService.typeErrorEdit(ret.errorMessage);
         } else {
           this.dataModel = ret.item;
@@ -120,15 +150,15 @@ export class CrmLeadEditComponent
             this.formInfo.formTitle =
               this.formInfo.formTitle + " " + ret.item.title || (ret.item.firstName + " " + ret.item.lastName);
           }
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
         }
-        this.formInfo.buttonSubmittedEnabled = true;
+        this.formInfo.submitButtonEnabled = true;
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(er);
-        this.formInfo.buttonSubmittedEnabled = true;
+        this.formInfo.submitButtonEnabled = true;
         this.publicHelper.processService.processStop(pName, false);
       },
     });
@@ -150,7 +180,7 @@ export class CrmLeadEditComponent
 
     this.crmLeadService.ServiceEdit(this.dataModel).subscribe({
       next: (ret) => {
-        this.dataModelResult = ret;
+        this.dataModelResult = ret as ErrorExceptionResult<CrmLeadModel>;
         if (ret.isSuccess) {
           this.translate
             .get("MESSAGE.registration_completed_successfully")
@@ -255,4 +285,3 @@ export class CrmLeadEditComponent
     this.dialogRef.close({ dialogChangedDate: false });
   }
 }
-

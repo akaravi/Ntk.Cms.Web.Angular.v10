@@ -24,7 +24,7 @@
       </ng-container>
       <ng-container matColumnDef="evaluationDate">
         <th mat-header-cell *matHeaderCellDef>Date</th>
-        <td mat-cell *matCellDef="let row">{{ row.evaluationDate | date }}</td>
+        <td mat-cell *matCellDef="let row">{{ row.evaluationDate | localeDate }}</td>
       </ng-container>
       <ng-container matColumnDef="notes">
         <th mat-header-cell *matHeaderCellDef>Notes</th>
@@ -40,5 +40,3 @@
     No data.
   </div>
 </mat-card>
-
-

@@ -76,5 +76,8 @@ export class CrmAccountHeaderComponent implements OnInit {
       },
     });
   }
-}
 
+  getTitle(item: CrmAccountModel): string {
+    return (item as any)?.['title'] || item?.name || '';
+  }
+}

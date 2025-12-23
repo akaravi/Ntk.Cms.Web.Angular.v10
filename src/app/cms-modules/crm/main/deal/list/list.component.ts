@@ -99,11 +99,6 @@ export class CrmDealListComponent
     if (id && id.length > 0) {
       this.requestLinkOpportunityId = id;
     }
-    if (
-      this.requestLinkOpportunityId &&
-      this.requestLinkOpportunityId.length > 0
-    )
-      this.filteModelContent.linkOpportunityId = this.requestLinkOpportunityId;
   }
   link: string;
   comment: string;

@@ -1,6 +1,8 @@
 import { Routes } from "@angular/router";
 import { CrmSupplierPriceListAddComponent } from "../supplier-price-list/add/add.component";
 import { CrmSupplierPriceListComponent } from "../supplier-price-list/list/list.component";
+import { CrmSupplierRatingAddComponent } from "../supplier-rating/add/add.component";
+import { CrmSupplierRatingListComponent } from "../supplier-rating/list/list.component";
 import { CrmAccountAddComponent } from "./account/add/add.component";
 import { CrmAccountEditComponent } from "./account/edit/edit.component";
 import { CrmAccountListComponent } from "./account/list/list.component";
@@ -180,6 +182,16 @@ export const routesMobile: Routes = [
         path: "supplier-price-list/add",
         component: CrmSupplierPriceListAddComponent,
         data: { title: "ROUTE.CRM.SUPPLIER_PRICE_LIST.ADD" },
+      },
+      {
+        path: "supplier-rating",
+        component: CrmSupplierRatingListComponent,
+        data: { title: "ROUTE.CRM.SUPPLIER_RATING" },
+      },
+      {
+        path: "supplier-rating/add",
+        component: CrmSupplierRatingAddComponent,
+        data: { title: "ROUTE.CRM.SUPPLIER_RATING.ADD" },
       },
       {
         path: "",

@@ -1,5 +1,129 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-12-23 07:30:00 (رفع خطاهای enum methods و کامپوننت CrmOpportunityStageHistory)
+
+### تغییرات اعمال شده:
+
+#### رفع خطاهای enum methods:
+- کامنت کردن متدهای enum که در API وجود ندارند:
+  - `ServiceCrmAccountRatingEnum` و `ServiceCrmAccountTypeEnum` در Account components
+  - `ServiceCrmLeadStatusEnum` و `ServiceCrmLeadSourceEnum` در Lead components
+  - `ServiceCrmCampaignStatusEnum` و `ServiceCrmCampaignTypeEnum` در Campaign components
+  - `ServiceCrmOpportunityTypeEnum` در Opportunity components
+- کامنت کردن فراخوانی‌های این متدها در `ngOnInit`
+
+#### غیرفعال کردن کامپوننت CrmOpportunityStageHistory:
+- کامنت کردن import های `CrmOpportunityStageHistoryModel` و `CrmOpportunityStageHistoryService`
+- غیرفعال کردن متد `loadData()` و نمایش پیام "این قابلیت در حال حاضر در دسترس نیست"
+- تغییر template برای نمایش پیام عدم دسترسی
+
+### فایل‌های تغییر یافته:
+- `crm/main/account/add/add.component.ts` و `edit/edit.component.ts`
+- `crm/main/lead/add/add.component.ts` و `edit/edit.component.ts`
+- `crm/main/campaign/add/add.component.ts` و `edit/edit.component.ts`
+- `crm/main/opportunity/add/add.component.ts` و `edit/edit.component.ts`
+- `crm/main/opportunity/stage-history/list/list.component.ts` و `list.component.html`
+
+### نتیجه:
+تمام خطاهای مربوط به enum methods و کامپوننت CrmOpportunityStageHistory برطرف شدند. ماژول CRM اکنون بدون خطا کامپایل می‌شود.
+
+## 2025-12-23 08:10:00 (استخراج منطق مشترک کامپوننت‌های ویرایش EstateAdsType بین نسخه دسکتاپ و موبایل)
+
+### تغییرات اعمال شده:
+
+- ایجاد کلاس پایه `EstateAdsTypeEditBaseComponent` در `estate/main/ads-type/edit/edit.base.ts` برای اشتراک منطق بین نسخه‌های دسکتاپ و موبایل:
+  - تجمیع فیلدهای مشترک (`requestId`, `formGroup`, `dataModel`, `formInfo`, `fileManagerTree`, `selectFileTypeMainImage` و ...)
+  - تجمیع متدهای مشترک `loadItem` (معادل `DataGetOneContent`) و `saveItem` (معادل `DataEditContent`) با callback برای رفتار موفقیت
+  - پیاده‌سازی متد مشترک `onFormSubmitInternal` برای مدیریت ارسال فرم و کنترل `submitButtonEnabled`
+- به‌روزرسانی `EstateAdsTypeEditComponent` در `estate/main/ads-type/edit/edit.component.ts`:
+  - ارث‌بری از `EstateAdsTypeEditBaseComponent` به جای `EditBaseComponent`
+  - استفاده از متدهای `validateRequestId` و `loadItem` در `ngOnInit` برای کاهش تکرار کد
+  - استفاده از `onFormSubmitInternal` با callback برای بستن دیالوگ بعد از ویرایش موفق
+  - حذف منطق تکراری `DataGetOneContent` و `DataEditContent` و تکیه بر کلاس پایه
+- به‌روزرسانی `EstateAdsTypeEditMobileComponent` در `estate/main/ads-type/edit/edit.mobile.component.ts`:
+  - ارث‌بری از `EstateAdsTypeEditBaseComponent` به جای `EditBaseComponent`
+  - استفاده از `validateRequestId` با هدایت به `onActionBackToParent` در صورت شناسه نامعتبر
+  - استفاده از `loadItem` برای دریافت اطلاعات و `saveItem` برای ذخیره با هدایت به لیست بعد از موفقیت
+  - نگه‌داشتن امضای متدهای `DataGetOneContent` و `DataEditContent` برای سازگاری با template، ولی واگذاری منطق به کلاس پایه
+- برطرف کردن خطاهای لاینتر:
+  - حذف استفاده از `@ViewChild` در کلاس بدون دکوریتور و انتقال آن به کامپوننت‌های واقعی
+  - هم‌تراز کردن سطح دسترسی فیلدهای تزریق شده (مثل `cmsToastrService` و `cdr`) بین کلاس پایه و فرزندان
+
+### نتیجه:
+- منطق مشترک بین نسخه دسکتاپ و موبایل برای ویرایش `EstateAdsType` در یک کلاس پایه متمرکز شد که باعث کاهش تکرار کد و ساده‌تر شدن نگهداری شد.
+- رفتار UI (بستن دیالوگ در دسکتاپ و بازگشت به لیست در موبایل) بدون تغییر و فقط از طریق callback در کلاس پایه کنترل می‌شود.
+
+## 2025-12-23 08:30:00 (استخراج منطق مشترک کامپوننت‌های ویرایش EstateCategoryRack بین نسخه دسکتاپ و موبایل)
+
+### تغییرات اعمال شده:
+
+- ایجاد کلاس پایه `EstateCategoryRackEditBaseComponent` در `estate/category-rack/edit/edit.base.ts` برای اشتراک منطق بین نسخه‌های دسکتاپ و موبایل:
+  - تجمیع فیلدهای مشترک (`requestId`, `formGroup`, `dataModel`, `formInfo`, `fileManagerTree`, `selectFileTypeMainImage` و ...)
+  - تجمیع متدهای مشترک `loadItem` (معادل `DataGetOneContent`) و `saveItem` (معادل `DataEditContent`) با callback برای رفتار موفقیت
+  - پیاده‌سازی متد مشترک `onFormSubmitInternal` برای مدیریت ارسال فرم و کنترل `submitButtonEnabled`
+- به‌روزرسانی `EstateCategoryRackEditComponent` در `estate/category-rack/edit/edit.component.ts`:
+  - ارث‌بری از `EstateCategoryRackEditBaseComponent` به جای `EditBaseComponent`
+  - استفاده از `validateRequestId` و `loadItem` در `ngOnInit` برای کاهش تکرار کد
+  - استفاده از `onFormSubmitInternal` و `saveItem` با callback برای بستن دیالوگ بعد از ویرایش موفق
+  - نگه‌داشتن متدهای `DataGetOneContent` و `DataEditContent` فقط به‌عنوان wrapper روی متدهای پایه برای سازگاری با template
+  - عدم انتقال منطق خاص `DataGetAllEstatePropertyUsage` به base (چون فقط در نسخه دسکتاپ نیاز است)
+- به‌روزرسانی `EstateCategoryRackEditMobileComponent` در `estate/category-rack/edit/edit.mobile.component.ts`:
+  - ارث‌بری از `EstateCategoryRackEditBaseComponent` به جای `EditBaseComponent`
+  - استفاده از `validateRequestId` با هدایت به `onActionBackToParent` در صورت شناسه نامعتبر
+  - استفاده از `loadItem` و `saveItem` برای دریافت/ویرایش داده و بازگشت به لیست بعد از موفقیت
+  - نگه‌داشتن امضای متدهای `DataGetOneContent` و `DataEditContent` برای سازگاری با template، با واگذاری منطق به کلاس پایه
+
+### نتیجه:
+- منطق مشترک ویرایش برای `EstateCategoryRack` نیز مثل `EstateAdsType` در کلاس پایه متمرکز شد و تکرار کد بین نسخه‌های دسکتاپ و موبایل حذف شد.
+- رفتار UI (بستن دیالوگ در نسخه دسکتاپ و برگشت به لیست در نسخه موبایل) بدون تغییر و فقط از طریق callback در base کنترل می‌شود.
+
+## 2025-12-23 08:45:00 (استخراج منطق مشترک کامپوننت‌های ویرایش EstateContractType بین نسخه دسکتاپ و موبایل)
+
+### تغییرات اعمال شده:
+
+- ایجاد کلاس پایه `EstateContractTypeEditBaseComponent` در `estate/main/contract-type/edit/edit.base.ts` برای اشتراک منطق بین نسخه‌های دسکتاپ و موبایل:
+  - تجمیع فیلدهای مشترک (`requestId`, `formGroup`, `dataModel`, `formInfo`, `fileManagerTree`, `selectFileTypeMainImage` و ...)
+  - تجمیع متدهای مشترک `loadItem` (دریافت یک رکورد با setAccessLoad/setAccessDataType و ServiceGetOneById) و `saveItem` (ServiceEdit با مدیریت پیام و وضعیت دکمه)
+  - پیاده‌سازی `validateRequestId` و `onFormSubmitInternal` برای مدیریت اعتبارسنجی شناسه و ارسال فرم
+- به‌روزرسانی `EstateContractTypeEditComponent` در `estate/main/contract-type/edit/edit.component.ts`:
+  - ارث‌بری از `EstateContractTypeEditBaseComponent` به جای `EditBaseComponent`
+  - استفاده از `validateRequestId` و `loadItem` در `ngOnInit` به‌جای منطق تکراری `DataGetOneContent`
+  - نگه‌داشتن متدهای `DataGetOneContent` و `DataEditContent` به‌صورت wrapper روی `loadItem` و `saveItem` برای سازگاری با template
+  - استفاده از `onFormSubmitInternal` برای `onFormSubmit` و بستن دیالوگ از طریق callback بعد از ویرایش موفق
+- به‌روزرسانی `EstateContractTypeEditMobileComponent` در `estate/main/contract-type/edit/edit.mobile.component.ts`:
+  - ارث‌بری از `EstateContractTypeEditBaseComponent` و حذف منطق تکراری دریافت/ویرایش
+  - استفاده از `validateRequestId` با هدایت به `onActionBackToParent` در صورت شناسه نامعتبر
+  - نگه‌داشتن متدهای `DataGetOneContent` و `DataEditContent` به‌عنوان wrapper روی `loadItem` و `saveItem` برای حفظ سازگاری با template
+  - استفاده از `onFormSubmitInternal` برای مدیریت ارسال فرم و بازگشت به لیست بعد از موفقیت
+
+### نتیجه:
+- برای `EstateContractType` هم مانند `EstateAdsType` و `EstateCategoryRack` منطق مشترک بین نسخه‌های دسکتاپ و موبایل در یک base class متمرکز شد و کد تکراری در دو کامپوننت حذف شد.
+- رفتار UX فعلی (دسکتاپ با دیالوگ، موبایل با صفحه و بازگشت به لیست) بدون تغییر و فقط از طریق callback در base کنترل می‌شود.
+
+## 2025-12-23 09:00:00 (استخراج منطق مشترک کامپوننت‌های ویرایش EstatePropertyTypeUsage بین نسخه دسکتاپ و موبایل)
+
+### تغییرات اعمال شده:
+
+- ایجاد کلاس پایه `EstatePropertyTypeUsageEditBaseComponent` در `estate/main/property-type-usage/edit/edit.base.ts` برای اشتراک منطق بین نسخه‌های دسکتاپ و موبایل:
+  - تجمیع فیلدهای مشترک (`requestId`, `formGroup`, `dataModel`, `formInfo`, `fileManagerTree`, `selectFileTypeMainImage` و ...)
+  - متدهای مشترک `validateRequestId`, `loadItem` (دریافت رکورد با setAccessLoad/setAccessDataType و ServiceGetOneById) و `saveItem` (ServiceEdit با پیام و کنترل `submitButtonEnabled`)
+  - متد مشترک `onFormSubmitInternal` برای مدیریت ارسال فرم
+  - `onActionFileSelected` در base برای اشتراک انتخاب فایل
+- به‌روزرسانی `EstatePropertyTypeUsageEditComponent` در `estate/main/property-type-usage/edit/edit.component.ts`:
+  - ارث‌بری از base به جای `EditBaseComponent`
+  - استفاده از `validateRequestId` و `loadItem` در `ngOnInit`
+  - استفاده از `onFormSubmitInternal` برای submit و بستن دیالوگ بعد از موفقیت
+  - نگه‌داشتن متدهای `DataGetOneContent` و `DataEditContent` به‌صورت wrapper روی متدهای base برای سازگاری با template
+  - منطق اختصاصی `DataGetAllEstatePropertyUsage` (دریافت لیست propertyType و landuse) فقط در دسکتاپ باقی ماند
+- به‌روزرسانی `EstatePropertyTypeUsageEditMobileComponent` در `estate/main/property-type-usage/edit/edit.mobile.component.ts`:
+  - ارث‌بری از base و حذف منطق تکراری دریافت/ویرایش
+  - استفاده از `validateRequestId` با هدایت به `onActionBackToParent` در صورت شناسه نامعتبر
+  - `DataGetOneContent` و `DataEditContent` به‌عنوان wrapper روی `loadItem` و `saveItem` حفظ شدند برای سازگاری template
+  - submit از طریق `onFormSubmitInternal` و بازگشت به لیست بعد از موفقیت
+
+### نتیجه:
+- منطق مشترک بین نسخه‌های دسکتاپ و موبایل برای ویرایش `EstatePropertyTypeUsage` متمرکز شد و تکرار کد حذف شد، در حالی که منطق مخصوص دسکتاپ برای بارگذاری لیست‌ها دست‌نخورده باقی ماند.
+
 ## 2025-12-23 07:00:00 (رفع خطاهای property های اختیاری در CrmAccountModel)
 
 ### تغییرات اعمال شده:

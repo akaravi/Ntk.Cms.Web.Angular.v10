@@ -34,6 +34,7 @@ import {
   CrmEnumService,
   CrmLeadService,
   CrmOpportunityService,
+  // CrmOpportunityStageHistoryService, // Commented: Service not available in API
   CrmPipelineService,
   CrmStageService,
   CrmSupplierPriceListService,
@@ -54,6 +55,8 @@ import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
 
 import { CrmSupplierPriceListAddComponent } from "../supplier-price-list/add/add.component";
 import { CrmSupplierPriceListComponent } from "../supplier-price-list/list/list.component";
+import { CrmSupplierRatingAddComponent } from "../supplier-rating/add/add.component";
+import { CrmSupplierRatingListComponent } from "../supplier-rating/list/list.component";
 import { CrmAccountAddComponent } from "./account/add/add.component";
 import { CrmAccountEditComponent } from "./account/edit/edit.component";
 import { CrmAccountHeaderComponent } from "./account/header/header.component";
@@ -84,6 +87,7 @@ import { CrmOpportunityAddComponent } from "./opportunity/add/add.component";
 import { CrmOpportunityEditComponent } from "./opportunity/edit/edit.component";
 import { CrmOpportunityListComponent } from "./opportunity/list/list.component";
 import { CrmOpportunitySelectorComponent } from "./opportunity/selector/selector.component";
+// import { CrmOpportunityStageHistoryListComponent } from "./opportunity/stage-history/list/list.component"; // Commented: Service and Model not available in API
 import { CrmPipelineAddComponent } from "./pipeline/add/add.component";
 import { CrmPipelineEditComponent } from "./pipeline/edit/edit.component";
 import { CrmPipelineListComponent } from "./pipeline/list/list.component";
@@ -123,6 +127,7 @@ import { CrmStageSelectorComponent } from "./stage/selector/selector.component";
     CrmOpportunityListComponent,
     CrmOpportunityAddComponent,
     CrmOpportunityEditComponent,
+    // CrmOpportunityStageHistoryListComponent, // Commented: Service and Model not available in API
     CrmPipelineListComponent,
     CrmPipelineAddComponent,
     CrmPipelineEditComponent,
@@ -140,6 +145,8 @@ import { CrmStageSelectorComponent } from "./stage/selector/selector.component";
     CrmCampaignEditComponent,
     CrmSupplierPriceListComponent,
     CrmSupplierPriceListAddComponent,
+    CrmSupplierRatingListComponent,
+    CrmSupplierRatingAddComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   imports: [
@@ -182,15 +189,17 @@ import { CrmStageSelectorComponent } from "./stage/selector/selector.component";
     CrmLeadService,
     CrmAccountService,
     CrmContactService,
-    CrmOpportunityService,
-    CrmPipelineService,
-    CrmStageService,
-    CrmDealService,
-    CrmActivityService,
+  CrmOpportunityService,
+  // CrmOpportunityStageHistoryService, // Commented: Service not available in API
+  CrmPipelineService,
+  CrmStageService,
+  CrmDealService,
+  CrmActivityService,
     CrmCampaignService,
     CrmSupplierRatingService,
     CrmSupplierPriceListService,
     CrmEnumService,
+    // CrmOpportunityStageHistoryService, // Commented: Service not available in API
     /** */
     CmsConfirmationDialogService,
     CoreModuleTagService,

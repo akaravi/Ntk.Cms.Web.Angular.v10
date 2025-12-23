@@ -11,6 +11,7 @@ import {
   selector: "app-crm-supplier-rating-add",
   templateUrl: "./add.component.html",
   styleUrls: ["./add.component.scss"],
+  standalone: false,
 })
 export class CrmSupplierRatingAddComponent {
   saving = false;
@@ -58,5 +59,3 @@ export class CrmSupplierRatingAddComponent {
     });
   }
 }
-
-

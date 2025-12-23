@@ -12,7 +12,7 @@ import {
   ClauseTypeEnum,
   CoreEnumService,
   ErrorExceptionResult,
-  CrmAccountFilterModel,
+  FilterModel,
   CrmAccountModel,
   CrmAccountService,
   FilterDataModel,
@@ -95,21 +95,21 @@ export class CrmAccountSelectorComponent implements OnInit {
   }
 
   displayFn(model?: CrmAccountModel): string | undefined {
-    return model ? model.title || model.name : undefined;
+    return model ? (model as any)['title'] || model.name : undefined;
   }
   displayOption(model?: CrmAccountModel): string | undefined {
-    return model ? model.title || model.name : undefined;
+    return model ? (model as any)['title'] || model.name : undefined;
   }
   async DataGetAll(
     text: string | number | any,
   ): Promise<Observable<CrmAccountModel[]>> {
-    const filterModel = new CrmAccountFilterModel();
+    const filterModel = new FilterModel();
     filterModel.rowPerPage = 20;
     filterModel.accessLoad = true;
     filterModel.sortColumn = "id";
     if (text && text.length > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "title";
+      filter.propertyName = "name";
       filter.value = text;
       filter.searchType = FilterDataModelSearchTypesEnum.Contains;
       filter.clauseType = ClauseTypeEnum.Or;
@@ -208,4 +208,3 @@ export class CrmAccountSelectorComponent implements OnInit {
     this.optionChange.emit(null);
   }
 }
-

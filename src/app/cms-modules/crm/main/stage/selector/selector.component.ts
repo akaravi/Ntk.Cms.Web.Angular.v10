@@ -12,7 +12,7 @@ import {
   ClauseTypeEnum,
   CoreEnumService,
   ErrorExceptionResult,
-  CrmStageFilterModel,
+  FilterModel,
   CrmStageModel,
   CrmStageService,
   FilterDataModel,
@@ -100,7 +100,7 @@ export class CrmStageSelectorComponent implements OnInit {
   async DataGetAll(
     text: string | number | any,
   ): Promise<Observable<CrmStageModel[]>> {
-    const filterModel = new CrmStageFilterModel();
+    const filterModel = new FilterModel();
     filterModel.rowPerPage = 20;
     filterModel.accessLoad = true;
     filterModel.sortColumn = "sortOrder";
@@ -206,4 +206,3 @@ export class CrmStageSelectorComponent implements OnInit {
     this.optionChange.emit(null);
   }
 }
-

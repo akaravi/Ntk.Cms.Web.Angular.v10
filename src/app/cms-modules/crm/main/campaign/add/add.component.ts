@@ -15,6 +15,8 @@ import {
   CrmCampaignModel,
   CrmCampaignService,
   TokenInfoModelV3,
+  CrmEnumService,
+  InfoEnumModel,
 } from "ntk-cms-api";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -44,6 +46,7 @@ export class CrmCampaignAddComponent
     private dialogRef: MatDialogRef<CrmCampaignAddComponent>,
     public coreEnumService: CoreEnumService,
     public crmCampaignService: CrmCampaignService,
+    public crmEnumService: CrmEnumService,
     private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -68,12 +71,39 @@ export class CrmCampaignAddComponent
   dataModel: CrmCampaignModel = new CrmCampaignModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
+  dataModelCrmCampaignStatusEnumResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
+  dataModelCrmCampaignTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
+
   ngOnInit(): void {
     this.translate.get("TITLE.ADD").subscribe((str: string) => {
       this.formInfo.formTitle = str;
     });
 
     this.DataGetAccess();
+    this.getCrmCampaignStatusEnum();
+    this.getCrmCampaignTypeEnum();
+  }
+
+  /**
+   * دریافت اطلاعات CrmCampaignStatusEnum
+   * Commented: Enum method not available in API
+   */
+  getCrmCampaignStatusEnum(): void {
+    // this.crmEnumService.ServiceCrmCampaignStatusEnum().subscribe((res) => {
+    //   this.dataModelCrmCampaignStatusEnumResult = res;
+    // });
+  }
+
+  /**
+   * دریافت اطلاعات CrmCampaignTypeEnum
+   * Commented: Enum method not available in API
+   */
+  getCrmCampaignTypeEnum(): void {
+    // this.crmEnumService.ServiceCrmCampaignTypeEnum().subscribe((res) => {
+    //   this.dataModelCrmCampaignTypeEnumResult = res;
+    // });
   }
 
   DataAddContent(): void {

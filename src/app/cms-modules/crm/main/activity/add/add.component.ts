@@ -21,6 +21,7 @@ import {
   CrmLeadModel,
   CrmOpportunityModel,
   CrmDealModel,
+  CrmCampaignModel,
   CrmEnumService,
   InfoEnumModel,
 } from "ntk-cms-api";
@@ -244,6 +245,18 @@ export class CrmActivityAddComponent
       this.dataModel.linkDealId = model.id;
     }
   }
+
+  /**
+   * متد انتخاب Campaign
+   * @param model - مدل Campaign انتخاب شده یا null
+   */
+  onActionSelectorCampaign(model: CrmCampaignModel | null): void {
+    this.dataModel.linkCampaignId = null;
+    if (model && model.id) {
+      this.dataModel.linkCampaignId = model.id;
+    }
+  }
+
   onFormSubmit(): void {
     if (!this.formGroup.valid) {
       return;

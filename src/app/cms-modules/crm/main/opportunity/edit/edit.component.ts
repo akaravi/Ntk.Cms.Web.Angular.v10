@@ -84,6 +84,8 @@ export class CrmOpportunityEditComponent
 
   dataModelCrmOpportunityStatusEnumResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
+  dataModelCrmOpportunityTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =
+    new ErrorExceptionResult<InfoEnumModel>();
 
   ngOnInit(): void {
     if (this.requestId.length > 0) {
@@ -92,6 +94,8 @@ export class CrmOpportunityEditComponent
       this.cmsToastrService.typeErrorEditRowIsNull();
     }
     this.getCrmOpportunityStatusEnum();
+    // Commented: Enum method not available in API
+    // this.getCrmOpportunityTypeEnum();
   }
 
   /**
@@ -103,6 +107,16 @@ export class CrmOpportunityEditComponent
     });
   }
 
+  /**
+   * دریافت اطلاعات CrmOpportunityTypeEnum
+   */
+  getCrmOpportunityTypeEnum(): void {
+    // Commented: Enum method not available in API
+    // this.crmEnumService.ServiceCrmOpportunityTypeEnum().subscribe((res) => {
+    //   this.dataModelCrmOpportunityTypeEnumResult = res;
+    // });
+  }
+
   DataGetOneContent(): void {
     this.translate.get("MESSAGE.Receiving_information").subscribe((str: string) => {
       this.formInfo.formTitle = str;
@@ -111,8 +125,7 @@ export class CrmOpportunityEditComponent
       this.cmsToastrService.typeErrorEditRowIsNull();
       return;
     }
-    this.formInfo.formSubmitAllow = false;
-    this.formInfo.buttonSubmittedEnabled = false;
+    this.formInfo.submitButtonEnabled = false;
     const pName = this.constructor.name + "main";
     this.publicHelper.processService.processStart(
       pName,
@@ -123,9 +136,9 @@ export class CrmOpportunityEditComponent
     this.crmOpportunityService.ServiceGetOneById(this.requestId).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
-        this.dataModelResult = ret;
+        this.dataModelResult = ret as ErrorExceptionResult<CrmOpportunityModel>;
         if (!ret.isSuccess) {
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
           this.cmsToastrService.typeErrorEdit(ret.errorMessage);
         } else {
           this.dataModel = ret.item;
@@ -133,15 +146,15 @@ export class CrmOpportunityEditComponent
             this.formInfo.formTitle =
               this.formInfo.formTitle + " " + ret.item.name;
           }
-          this.formInfo.formSubmitAllow = true;
+          this.formInfo.submitButtonEnabled = true;
         }
-        this.formInfo.buttonSubmittedEnabled = true;
+        this.formInfo.submitButtonEnabled = true;
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.formInfo.formSubmitAllow = true;
+        this.formInfo.submitButtonEnabled = true;
         this.cmsToastrService.typeError(er);
-        this.formInfo.buttonSubmittedEnabled = true;
+        this.formInfo.submitButtonEnabled = true;
         this.publicHelper.processService.processStop(pName, false);
       },
     });
@@ -163,7 +176,7 @@ export class CrmOpportunityEditComponent
 
     this.crmOpportunityService.ServiceEdit(this.dataModel).subscribe({
       next: (ret) => {
-        this.dataModelResult = ret;
+        this.dataModelResult = ret as ErrorExceptionResult<CrmOpportunityModel>;
         if (ret.isSuccess) {
           this.translate
             .get("MESSAGE.registration_completed_successfully")
@@ -283,4 +296,3 @@ export class CrmOpportunityEditComponent
     this.dialogRef.close({ dialogChangedDate: false });
   }
 }
-
