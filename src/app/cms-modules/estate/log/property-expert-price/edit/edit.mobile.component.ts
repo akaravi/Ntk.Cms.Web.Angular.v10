@@ -1,9 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-  ViewChild,
-} from "@angular/core";
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
@@ -11,6 +6,7 @@ import {
   CoreCurrencyModel,
   CoreEnumService,
   CoreLocationModel,
+  ErrorExceptionResult,
   ErrorExceptionResultBase,
   EstateContractTypeModel,
   EstateEnumService,

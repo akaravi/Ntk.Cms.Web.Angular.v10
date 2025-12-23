@@ -161,6 +161,7 @@ import { EstatePropertySupplierCategoryEditComponent } from "./property-supplier
 import { EstatePropertySupplierCategorySelectorComponent } from "./property-supplier-category/selector/selector.component";
 
 import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
+import { EstateAccountExpertListMobileComponent } from "./account-expert/list/list.mobile.component";
 
 @NgModule({
   declarations: [
@@ -244,6 +245,7 @@ import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
     EstateAccountExpertTreeComponent,
     EstateAccountExpertSelectionlistComponent,
     EstateAccountExpertListComponent,
+    EstateAccountExpertListMobileComponent,
     /* */
     EstateAccountExpertWorkAreaAddComponent,
     EstateAccountExpertWorkAreaListComponent,

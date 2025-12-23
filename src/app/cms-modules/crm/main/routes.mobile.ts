@@ -1,32 +1,34 @@
 import { Routes } from "@angular/router";
-import { CrmMainComponent } from "./crm-main.component";
-import { CrmLeadListComponent } from "./lead/list/list.component";
-import { CrmLeadAddComponent } from "./lead/add/add.component";
-import { CrmLeadEditComponent } from "./lead/edit/edit.component";
-import { CrmAccountListComponent } from "./account/list/list.component";
+import { CrmSupplierPriceListAddComponent } from "../supplier-price-list/add/add.component";
+import { CrmSupplierPriceListComponent } from "../supplier-price-list/list/list.component";
 import { CrmAccountAddComponent } from "./account/add/add.component";
 import { CrmAccountEditComponent } from "./account/edit/edit.component";
-import { CrmContactListComponent } from "./contact/list/list.component";
-import { CrmContactAddComponent } from "./contact/add/add.component";
-import { CrmContactEditComponent } from "./contact/edit/edit.component";
-import { CrmOpportunityListComponent } from "./opportunity/list/list.component";
-import { CrmOpportunityAddComponent } from "./opportunity/add/add.component";
-import { CrmOpportunityEditComponent } from "./opportunity/edit/edit.component";
-import { CrmPipelineListComponent } from "./pipeline/list/list.component";
-import { CrmPipelineAddComponent } from "./pipeline/add/add.component";
-import { CrmPipelineEditComponent } from "./pipeline/edit/edit.component";
-import { CrmStageListComponent } from "./stage/list/list.component";
-import { CrmStageAddComponent } from "./stage/add/add.component";
-import { CrmStageEditComponent } from "./stage/edit/edit.component";
-import { CrmDealListComponent } from "./deal/list/list.component";
-import { CrmDealAddComponent } from "./deal/add/add.component";
-import { CrmDealEditComponent } from "./deal/edit/edit.component";
-import { CrmActivityListComponent } from "./activity/list/list.component";
+import { CrmAccountListComponent } from "./account/list/list.component";
 import { CrmActivityAddComponent } from "./activity/add/add.component";
 import { CrmActivityEditComponent } from "./activity/edit/edit.component";
-import { CrmCampaignListComponent } from "./campaign/list/list.component";
+import { CrmActivityListComponent } from "./activity/list/list.component";
 import { CrmCampaignAddComponent } from "./campaign/add/add.component";
 import { CrmCampaignEditComponent } from "./campaign/edit/edit.component";
+import { CrmCampaignListComponent } from "./campaign/list/list.component";
+import { CrmContactAddComponent } from "./contact/add/add.component";
+import { CrmContactEditComponent } from "./contact/edit/edit.component";
+import { CrmContactListComponent } from "./contact/list/list.component";
+import { CrmMainComponent } from "./crm-main.component";
+import { CrmDealAddComponent } from "./deal/add/add.component";
+import { CrmDealEditComponent } from "./deal/edit/edit.component";
+import { CrmDealListComponent } from "./deal/list/list.component";
+import { CrmLeadAddComponent } from "./lead/add/add.component";
+import { CrmLeadEditComponent } from "./lead/edit/edit.component";
+import { CrmLeadListComponent } from "./lead/list/list.component";
+import { CrmOpportunityAddComponent } from "./opportunity/add/add.component";
+import { CrmOpportunityEditComponent } from "./opportunity/edit/edit.component";
+import { CrmOpportunityListComponent } from "./opportunity/list/list.component";
+import { CrmPipelineAddComponent } from "./pipeline/add/add.component";
+import { CrmPipelineEditComponent } from "./pipeline/edit/edit.component";
+import { CrmPipelineListComponent } from "./pipeline/list/list.component";
+import { CrmStageAddComponent } from "./stage/add/add.component";
+import { CrmStageEditComponent } from "./stage/edit/edit.component";
+import { CrmStageListComponent } from "./stage/list/list.component";
 
 export const routesMobile: Routes = [
   {
@@ -168,6 +170,16 @@ export const routesMobile: Routes = [
         path: "campaign/edit/:id",
         component: CrmCampaignEditComponent,
         data: { title: "ROUTE.CRM.CAMPAIGN.EDIT" },
+      },
+      {
+        path: "supplier-price-list",
+        component: CrmSupplierPriceListComponent,
+        data: { title: "ROUTE.CRM.SUPPLIER_PRICE_LIST" },
+      },
+      {
+        path: "supplier-price-list/add",
+        component: CrmSupplierPriceListAddComponent,
+        data: { title: "ROUTE.CRM.SUPPLIER_PRICE_LIST.ADD" },
       },
       {
         path: "",

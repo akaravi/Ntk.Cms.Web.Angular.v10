@@ -1,16 +1,17 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { Subscription } from "rxjs";
 import {
   CrmSupplierPriceListModel,
   CrmSupplierPriceListService,
   ErrorExceptionResult,
   FilterModel,
 } from "ntk-cms-api";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-crm-supplier-price-list",
   templateUrl: "./list.component.html",
   styleUrls: ["./list.component.scss"],
+  standalone: false,
 })
 export class CrmSupplierPriceListComponent implements OnInit, OnDestroy {
   data: ErrorExceptionResult<CrmSupplierPriceListModel>;
@@ -43,5 +44,3 @@ export class CrmSupplierPriceListComponent implements OnInit, OnDestroy {
     });
   }
 }
-
-

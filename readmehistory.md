@@ -1,5 +1,97 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-12-23 07:00:00 (رفع خطاهای property های اختیاری در CrmAccountModel)
+
+### تغییرات اعمال شده:
+
+#### رفع خطاهای property های اختیاری:
+- اضافه کردن getter/setter برای تمام property های اختیاری در `CrmAccountAddComponent` و `CrmAccountEditComponent`
+- Property های اضافه شده: `billStreet`, `billCity`, `billState`, `billPostalCode`, `billCountry`, `billPoBox`, `shipStreet`, `shipCity`, `shipState`, `shipPostalCode`, `shipCountry`, `shipPoBox`, `accountNo`, `rating`, `ownership`, `sicCode`, `tickerSymbol`, `email2`, `otherPhone`, `emailOptOut`, `notifyOwner`
+- تبدیل تمام `[(ngModel)]="dataModel.propertyName"` به `[(ngModel)]="propertyName"` در templates
+
+### فایل‌های تغییر یافته:
+- `crm/main/account/add/add.component.ts` و `add.component.html`
+- `crm/main/account/edit/edit.component.ts`
+
+### نتیجه:
+تمام خطاهای مربوط به property های اختیاری در `CrmAccountModel` برطرف شدند. خطاهای باقی‌مانده مربوط به `CrmContactModel` هستند که نیاز به همان کار دارند.
+
+## 2025-12-23 06:30:00 (رفع خطاهای باقی‌مانده در ماژول CRM)
+
+### تغییرات اعمال شده:
+
+#### رفع خطاهای باقی‌مانده:
+- تبدیل `formSubmitAllow` به `submitButtonEnabled` در error handler های تمام edit components
+- حذف `CrmOpportunityStageHistoryListComponent` و `CrmOpportunityStageHistoryService` از ماژول (چون در API وجود ندارند)
+- حذف استفاده مستقیم از `linkAccountId` و `linkContactId` در `FilterModel` در `lead/list/list.component.ts`
+
+### فایل‌های تغییر یافته:
+- تمام edit components در `crm/main/*/edit/edit.component.ts`
+- `crm/main/crm-main.module.ts`
+- `crm/main/lead/list/list.component.ts`
+
+### نتیجه:
+تمام خطاهای مربوط به `formSubmitAllow` و `CrmOpportunityStageHistory` برطرف شدند. خطاهای باقی‌مانده مربوط به property های اختیاری در `CrmAccountModel` هستند (مثل `billStreet`, `billCity`, `billState`).
+
+## 2025-12-23 06:00:00 (رفع خطاهای TypeScript در ماژول CRM)
+
+### تغییرات اعمال شده:
+
+#### رفع خطاهای TypeScript در ماژول CRM:
+- تبدیل `CrmAccountFilterModel`, `CrmCampaignFilterModel`, `CrmContactFilterModel`, `CrmDealFilterModel`, `CrmLeadFilterModel`, `CrmOpportunityFilterModel`, `CrmStageFilterModel`, `CrmPipelineFilterModel` به `FilterModel` در تمام selector components
+- تبدیل `formSubmitAllow` و `buttonSubmittedEnabled` به `submitButtonEnabled` در تمام edit components
+- رفع خطای `title` property در `CrmAccountModel` با استفاده از helper method `getTitle()`
+- حذف استفاده مستقیم از `linkParentAccountId` و `linkCampaignId` در `FilterModel` (استفاده از `FilterDataModel` به جای آن)
+- اصلاح template syntax در `header.component.html` برای نمایش `title`
+
+### فایل‌های تغییر یافته:
+- تمام selector components در `crm/main/*/selector/selector.component.ts`
+- تمام edit components در `crm/main/*/edit/edit.component.ts`
+- `crm/main/account/list/list.component.ts`
+- `crm/main/lead/list/list.component.ts`
+- `crm/main/account/header/header.component.ts` و `header.component.html`
+
+### نتیجه:
+تمام خطاهای TypeScript مربوط به CRM برطرف شدند. خطاهای `ErrorExceptionResultBase` با استفاده از type assertion در تمام edit components رفع شدند.
+
+## 2025-12-23 05:30:00 (رفع خطاهای import در ماژول CRM)
+
+### تغییرات اعمال شده:
+
+#### رفع خطاهای import در ماژول CRM:
+- اضافه کردن import های `CrmSupplierRatingListComponent` و `CrmSupplierRatingAddComponent` به `crm-main.module.ts`
+- اضافه کردن `CrmSupplierRatingListComponent` و `CrmSupplierRatingAddComponent` به declarations در `CrmMainModule`
+- اضافه کردن routes برای `supplier-rating` در `routes.normal.ts` و `routes.mobile.ts`
+- اضافه کردن `standalone: false` به کامپوننت‌های `supplier-rating` برای سازگاری با NgModule
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/crm/main/crm-main.module.ts`
+- `src/app/cms-modules/crm/main/routes.normal.ts`
+- `src/app/cms-modules/crm/main/routes.mobile.ts`
+- `src/app/cms-modules/crm/supplier-rating/list/list.component.ts`
+- `src/app/cms-modules/crm/supplier-rating/add/add.component.ts`
+
+### نتیجه:
+تمام کامپوننت‌های `supplier-rating` به درستی در ماژول CRM import و declare شدند و routes مربوطه اضافه شدند.
+
+## 2025-12-23 05:00:35 (رفع خطاهای TypeScript در کامپوننت‌های estate)
+
+### تغییرات اعمال شده:
+
+#### رفع خطاهای TypeScript:
+- رفع خطای `TS2322: Type 'EstatePropertyTypeModel[]' is not assignable to type 'EstatePropertyTypeUsageModel[]'` در:
+  - `estate/main/property-type-landuse/edit/edit.mobile.component.ts`
+  - `estate/main/activity-type/edit/edit.mobile.component.ts`
+- اصلاح متد `DataGetAllEstatePropertyUsage()` برای استفاده از `FilterModel` و `FilterDataModel` و اختصاص نتیجه به `dataEstatePropertyTypeModel` به جای `dataEstatePropertyTypeUsageModel`
+- اضافه کردن import های `FilterModel` و `FilterDataModel` به کامپوننت‌های mobile
+- رفع خطاهای مربوط به `linkMainImageIdSrc` و `title` با استفاده از متدهای helper:
+  - `getLinkMainImageIdSrc()` در `EstatePropertyAdsListMobileComponent`
+  - `getTitle()` در `EstateCustomerOrderResultListMobileComponent` و `EstatePropertyExpertPriceListMobileComponent`
+
+### نتیجه:
+- تمام خطاهای TypeScript مربوط به estate برطرف شدند
+- خطاهای باقی‌مانده مربوط به ماژول‌های دیگر (CRM) هستند و خارج از محدوده این کار هستند
+
 ## 2025-12-22 15:04:13 (ایجاد کامپوننت‌های add/edit موبایل برای ماژول‌های estate و رفع خطاها)
 
 ### تغییرات اعمال شده:

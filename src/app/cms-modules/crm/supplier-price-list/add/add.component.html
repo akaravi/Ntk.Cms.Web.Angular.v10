@@ -63,20 +63,30 @@
     </div>
 
     <div class="row actions">
-      <button mat-raised-button color="primary" type="submit" [disabled]="saving">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="saving"
+      >
         ذخیره
       </button>
-      <button mat-button color="warn" [routerLink]="['/cms/modules/crm/supplier-price-list']">
+      <button
+        mat-button
+        color="warn"
+        [routerLink]="['/cms/modules/crm/supplier-price-list']"
+      >
         انصراف
       </button>
-      <mat-progress-spinner
-        *ngIf="saving"
-        diameter="28"
-        mode="indeterminate"
-      ></mat-progress-spinner>
+      @if (saving) {
+        <mat-progress-spinner
+          diameter="28"
+          mode="indeterminate"
+        ></mat-progress-spinner>
+      }
     </div>
-    <div class="message" *ngIf="message">{{ message }}</div>
+    @if (message) {
+      <div class="message">{{ message }}</div>
+    }
   </form>
 </mat-card>
-
-

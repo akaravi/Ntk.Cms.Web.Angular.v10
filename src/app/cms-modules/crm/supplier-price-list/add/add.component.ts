@@ -11,6 +11,7 @@ import {
   selector: "app-crm-supplier-price-list-add",
   templateUrl: "./add.component.html",
   styleUrls: ["./add.component.scss"],
+  standalone: false,
 })
 export class CrmSupplierPriceListAddComponent {
   saving = false;
@@ -43,7 +44,9 @@ export class CrmSupplierPriceListAddComponent {
       this.message = "فرم را کامل کنید.";
       return;
     }
-    const model = this.form.value as CrmSupplierPriceListModel;
+    const model = {
+      ...this.form.value,
+    } as unknown as CrmSupplierPriceListModel;
     this.saving = true;
     this.service.ServiceAdd(model).subscribe({
       next: (res: ErrorExceptionResult<CrmSupplierPriceListModel>) => {
@@ -61,5 +64,3 @@ export class CrmSupplierPriceListAddComponent {
     });
   }
 }
-
-
