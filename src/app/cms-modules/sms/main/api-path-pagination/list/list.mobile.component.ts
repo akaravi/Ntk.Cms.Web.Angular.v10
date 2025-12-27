@@ -85,7 +85,7 @@ export class SmsMainApiPathPaginationListMobileComponent
     new ErrorExceptionResult<InfoEnumModel>();
   dataModelSmsOutBoxTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
-  dataModelPrivateResult: ErrorExceptionResult<SmsMainApiPathModel> =
+  dataModelApiPathResult: ErrorExceptionResult<SmsMainApiPathModel> =
     new ErrorExceptionResult<SmsMainApiPathModel>();
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
@@ -145,7 +145,7 @@ export class SmsMainApiPathPaginationListMobileComponent
     filter.rowPerPage = 100;
     this.smsMainApiPathService.ServiceGetAll(filter).subscribe({
       next: (ret) => {
-        this.dataModelPrivateResult = ret;
+        this.dataModelApiPathResult = ret;
       },
     });
   }

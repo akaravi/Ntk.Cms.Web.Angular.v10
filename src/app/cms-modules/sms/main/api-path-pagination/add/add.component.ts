@@ -11,10 +11,6 @@ import { MatChipInputEvent } from "@angular/material/chips";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreSiteCategoryModel,
-  CoreSiteModel,
-  CoreUserGroupModel,
-  CoreUserModel,
   DataFieldInfoModel,
   ErrorExceptionResult,
   InfoEnumModel,

@@ -7,7 +7,6 @@ import {
   ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
-import { MatChipInputEvent } from "@angular/material/chips";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
@@ -16,12 +15,9 @@ import {
   CoreSiteModel,
   CoreUserGroupModel,
   CoreUserModel,
-  ErrorExceptionResult,
   ErrorExceptionResultBase,
-  InfoEnumModel,
   ManageUserAccessDataTypesEnum,
   SmsEnumService,
-  SmsMainApiPathModel,
   SmsMainApiPathPaginationModel,
   SmsMainApiPathPricePermissionModel,
   SmsMainApiPathPricePermissionService,
@@ -105,7 +101,6 @@ export class SmsMainApiPathPricePermissionEditMobileComponent
       return;
     }
     this.DataGetOneContent();
-
   }
 
   DataGetOneContent(): void {
@@ -251,13 +246,22 @@ export class SmsMainApiPathPricePermissionEditMobileComponent
     }
     this.dataModel.linkCoreSiteCategoryId = model.id;
   }
-  onActionSelectorSelectLinkApiPathPaginationId(model: SmsMainApiPathPaginationModel | null): void {
+  SmsMainApiPathPagination: SmsMainApiPathPaginationModel | null = null;
+  onActionSelectorSelectLinkApiPathPaginationId(
+    model: SmsMainApiPathPaginationModel | null,
+  ): void {
     if (!model || model.id.length <= 0) {
       const message = "مسیر سرویس دهنده مشخص نیست";
       this.cmsToastrService.typeErrorSelected(message);
       return;
     }
+    this.SmsMainApiPathPagination = model;
     this.dataModel.linkApiPathPaginationId = model.id;
+    if (
+      !this.dataModel.endUserPricePerPage ||
+      this.dataModel.endUserPricePerPage <= 0
+    )
+      this.dataModel.endUserPricePerPage = model.endUserPricePerPage || 0;
   }
   onActionBackToParent(): void {
     this.dialogRef.close({ dialogChangedDate: false });
@@ -272,5 +276,4 @@ export class SmsMainApiPathPricePermissionEditMobileComponent
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });
   }
-
 }

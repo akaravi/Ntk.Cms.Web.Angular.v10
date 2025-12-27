@@ -130,7 +130,11 @@
           </div>
         </div>
       }
-
+      <div class="divider mt-3 mb-3"></div>
+      {{ "TITLE.Default_Price_Per_Page" | translate }} :
+      {{ SmsMainApiPathPagination?.endUserPricePerPage }}
+      <br />
+      <div class="divider mt-3 mb-3"></div>
       <!-- endUserPricePerPage Field -->
       @if (fieldsInfo["endUserPricePerPage"]?.accessWatchField) {
         <div class="cms-m-form-field">

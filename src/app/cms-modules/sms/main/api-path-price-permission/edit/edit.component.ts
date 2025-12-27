@@ -287,13 +287,17 @@ export class SmsMainApiPathPricePermissionEditComponent
     }
     this.dataModel.linkCoreSiteCategoryId = model.id;
   }
+  SmsMainApiPathPagination: SmsMainApiPathPaginationModel | null = null;
   onActionSelectorSelectLinkApiPathPaginationId(model: SmsMainApiPathPaginationModel | null): void {
     if (!model || model.id.length <= 0) {
       const message = "مسیر سرویس دهنده مشخص نیست";
       this.cmsToastrService.typeErrorSelected(message);
       return;
     }
+    this.SmsMainApiPathPagination = model;
     this.dataModel.linkApiPathPaginationId = model.id;
+    if (!this.dataModel.endUserPricePerPage || this.dataModel.endUserPricePerPage <= 0)
+      this.dataModel.endUserPricePerPage = model.endUserPricePerPage || 0;
   }
   onFormSubmit(): void {
     if (!this.formGroup.valid) {

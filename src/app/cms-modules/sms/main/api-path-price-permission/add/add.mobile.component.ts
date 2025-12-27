@@ -17,7 +17,6 @@ import {
   CoreUserModel,
   DataFieldInfoModel,
   ErrorExceptionResult,
-  InfoEnumModel,
   ManageUserAccessDataTypesEnum,
   SmsEnumService,
   SmsMainApiPathPaginationModel,
@@ -92,7 +91,6 @@ export class SmsMainApiPathPricePermissionAddMobileComponent
     new SmsMainApiPathPricePermissionModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
-
   fileManagerOpenForm = false;
 
   addOnBlurTag = true;
@@ -108,7 +106,6 @@ export class SmsMainApiPathPricePermissionAddMobileComponent
     } else {
       this.DataGetAccess();
     }
-
   }
 
   DataGetOneContent(): void {
@@ -254,6 +251,8 @@ export class SmsMainApiPathPricePermissionAddMobileComponent
     }
     this.dataModel.linkCoreSiteCategoryId = model.id;
   }
+  SmsMainApiPathPagination: SmsMainApiPathPaginationModel | null = null;
+
   onActionSelectorSelectLinkApiPathPaginationId(
     model: SmsMainApiPathPaginationModel | null,
   ): void {
@@ -262,7 +261,13 @@ export class SmsMainApiPathPricePermissionAddMobileComponent
       this.cmsToastrService.typeErrorSelected(message);
       return;
     }
+    this.SmsMainApiPathPagination = model;
     this.dataModel.linkApiPathPaginationId = model.id;
+    if (
+      !this.dataModel.endUserPricePerPage ||
+      this.dataModel.endUserPricePerPage <= 0
+    )
+      this.dataModel.endUserPricePerPage = model.endUserPricePerPage || 0;
   }
   onActionBackToParent(): void {
     this.dialogRef.close({ dialogChangedDate: false });

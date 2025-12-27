@@ -17,8 +17,10 @@ import {
   FilterModel,
   ManageUserAccessDataTypesEnum,
   RecordStatusEnum,
+  SmsMainApiPathModel,
   SmsMainApiPathPaginationModel,
   SmsMainApiPathPaginationService,
+  SmsMainApiPathService,
   SortTypeEnum,
 } from "ntk-cms-api";
 import { Observable, firstValueFrom } from "rxjs";
@@ -48,6 +50,7 @@ export class SmsMainApiPathPaginationSelectorComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
+    public smsMainApiPathService: SmsMainApiPathService,
     public categoryService: SmsMainApiPathPaginationService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
@@ -57,6 +60,8 @@ export class SmsMainApiPathPaginationSelectorComponent implements OnInit {
     new ErrorExceptionResult<SmsMainApiPathPaginationModel>();
   dataModelSelect: SmsMainApiPathPaginationModel =
     new SmsMainApiPathPaginationModel();
+  dataModelApiPathResult: ErrorExceptionResult<SmsMainApiPathModel> =
+    new ErrorExceptionResult<SmsMainApiPathModel>();
   formControl = new FormControl();
   filteredOptions: Observable<SmsMainApiPathPaginationModel[]>;
   @Input() optionDisabled = false;
@@ -79,6 +84,7 @@ export class SmsMainApiPathPaginationSelectorComponent implements OnInit {
       (this.optionLabel.length == 0 && this.optionPlaceholder?.length > 0)
     )
       this.optionLabel = this.optionPlaceholder;
+    this.getPrivateConfig();
   }
   loadOptions(): void {
     this.filteredOptions = this.formControl.valueChanges.pipe(
@@ -94,13 +100,34 @@ export class SmsMainApiPathPaginationSelectorComponent implements OnInit {
       // tap(() => this.myControl.setValue(this.options[0]))
     );
   }
-
+  getPrivateConfig(): void {
+    const filter = new FilterModel();
+    filter.rowPerPage = 100;
+    this.smsMainApiPathService.ServiceGetAll(filter).subscribe({
+      next: (ret) => {
+        this.dataModelApiPathResult = ret;
+      },
+    });
+  }
   displayFn(model?: SmsMainApiPathPaginationModel): string | undefined {
-    return model ? model.title : undefined;
+    if (model && this.dataModelApiPathResult?.listItems?.length > 0) {
+      const find = this.dataModelApiPathResult.listItems.find(
+        (x) => x.id === model.linkApiPathId,
+      );
+      if (!find) return "";
+      return find.title + " | " + model.title;
+    } else return model ? model.title : undefined;
   }
   displayOption(model?: SmsMainApiPathPaginationModel): string | undefined {
-    return model ? model.title : undefined;
+    if (model && this.dataModelApiPathResult?.listItems?.length > 0) {
+      const find = this.dataModelApiPathResult.listItems.find(
+        (x) => x.id === model.linkApiPathId,
+      );
+      if (!find) return "";
+      return find.title + " | " + model.title;
+    } else return model ? model.title : undefined;
   }
+
   async DataGetAll(
     text: string | number | any,
   ): Promise<SmsMainApiPathPaginationModel[]> {

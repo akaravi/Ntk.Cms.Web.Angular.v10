@@ -15,10 +15,8 @@ import {
   CoreUserModel,
   DataFieldInfoModel,
   ErrorExceptionResult,
-  InfoEnumModel,
   ManageUserAccessDataTypesEnum,
   SmsEnumService,
-  SmsMainApiPathModel,
   SmsMainApiPathPaginationModel,
   SmsMainApiPathPricePermissionModel,
   SmsMainApiPathPricePermissionService,
@@ -90,7 +88,6 @@ export class SmsMainApiPathPricePermissionAddComponent
     new SmsMainApiPathPricePermissionModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
-
   fileManagerOpenForm = false;
 
   ngOnInit(): void {
@@ -103,9 +100,7 @@ export class SmsMainApiPathPricePermissionAddComponent
     } else {
       this.DataGetAccess();
     }
-
   }
-
 
   DataGetOneContent(): void {
     if (this.requestId.length <= 0) {
@@ -290,13 +285,23 @@ export class SmsMainApiPathPricePermissionAddComponent
     }
     this.dataModel.linkCoreSiteCategoryId = model.id;
   }
-  onActionSelectorSelectLinkApiPathPaginationId(model: SmsMainApiPathPaginationModel | null): void {
+  SmsMainApiPathPagination: SmsMainApiPathPaginationModel | null = null;
+
+  onActionSelectorSelectLinkApiPathPaginationId(
+    model: SmsMainApiPathPaginationModel | null,
+  ): void {
     if (!model || model.id.length <= 0) {
       const message = "مسیر سرویس دهنده مشخص نیست";
       this.cmsToastrService.typeErrorSelected(message);
       return;
     }
+    this.SmsMainApiPathPagination = model;
     this.dataModel.linkApiPathPaginationId = model.id;
+    if (
+      !this.dataModel.endUserPricePerPage ||
+      this.dataModel.endUserPricePerPage <= 0
+    )
+      this.dataModel.endUserPricePerPage = model.endUserPricePerPage || 0;
   }
 
   onFormSubmit(): void {
