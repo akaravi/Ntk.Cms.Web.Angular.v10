@@ -1,0 +1,8 @@
+---
+alwaysApply: true
+---
+
+theme base is source\AppKit Mobile-main-3.4\appkit
+
+for mobile style in public cms use \src\styles.mobile.scss
+for normal style in public cms use \src\styles.scss

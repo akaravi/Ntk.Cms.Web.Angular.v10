@@ -12,9 +12,10 @@ import {
   RecordStatusEnum,
   SmsEnumService,
   SmsMainApiPathModel,
-  SmsMainApiPathPriceServiceModel,
-  SmsMainApiPathPriceServiceService,
-  SmsMainApiPathService,
+  SmsMainApiPathPaginationModel,
+  SmsMainApiPathPaginationService,
+  SmsMainApiPathPricePermissionModel,
+  SmsMainApiPathPricePermissionService,
   SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
@@ -26,18 +27,19 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { environment } from "src/environments/environment";
-import { SmsMainApiPathPriceServiceAddComponent } from "../add/add.component";
-import { SmsMainApiPathPriceServiceEditComponent } from "../edit/edit.component";
+import { SmsMainApiPathPricePermissionAddComponent } from "../add/add.component";
+import { SmsMainApiPathPricePermissionEditComponent } from "../edit/edit.component";
 
 @Component({
-  selector: "app-sms-apipathpriceservice-list",
-  templateUrl: "./list.component.html",
+  selector: "app-sms-apipath-price-permission-list-mobile",
+  templateUrl: "./list.mobile.component.html",
+  styleUrls: ["./list.mobile.component.scss"],
   standalone: false,
 })
-export class SmsMainApiPathPriceServiceListComponent
+export class SmsMainApiPathPricePermissionListMobileComponent
   extends ListBaseComponent<
-    SmsMainApiPathPriceServiceService,
-    SmsMainApiPathPriceServiceModel,
+    SmsMainApiPathPricePermissionService,
+    SmsMainApiPathPricePermissionModel,
     string
   >
   implements OnInit, OnDestroy
@@ -45,7 +47,7 @@ export class SmsMainApiPathPriceServiceListComponent
   requestLinkApiPathId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    public contentService: SmsMainApiPathPriceServiceService,
+    public contentService: SmsMainApiPathPricePermissionService,
     private cmsToastrService: CmsToastrService,
     private activatedRoute: ActivatedRoute,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
@@ -53,7 +55,7 @@ export class SmsMainApiPathPriceServiceListComponent
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    private smsMainApiPathService: SmsMainApiPathService,
+    private smsMainApiPathPaginationService: SmsMainApiPathPaginationService,
     private cmsStoreService: CmsStoreService,
     public smsEnumService: SmsEnumService,
     public pageInfo: PageInfoService,
@@ -62,7 +64,7 @@ export class SmsMainApiPathPriceServiceListComponent
   ) {
     super(
       contentService,
-      new SmsMainApiPathPriceServiceModel(),
+      new SmsMainApiPathPricePermissionModel(),
       publicHelper,
       tokenHelper,
       translate,
@@ -76,12 +78,6 @@ export class SmsMainApiPathPriceServiceListComponent
     this.filteModelContent.sortColumn = "LinkApiPathId";
     this.filteModelContent.sortType = SortTypeEnum.Ascending;
   }
-  comment: string;
-  author: string;
-  dataSource: any;
-  flag = false;
-  tableContentSelected = [];
-
   filteModelContent = new FilterModel();
   filterDataModelQueryBuilder: FilterDataModel[] = [];
 
@@ -90,11 +86,10 @@ export class SmsMainApiPathPriceServiceListComponent
     new ErrorExceptionResult<InfoEnumModel>();
   dataModelSmsOutBoxTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
-  dataModelPrivateResult: ErrorExceptionResult<SmsMainApiPathModel> =
-    new ErrorExceptionResult<SmsMainApiPathModel>();
+  dataModelPrivateResult: ErrorExceptionResult<SmsMainApiPathPaginationModel> =
+    new ErrorExceptionResult<SmsMainApiPathPaginationModel>();
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    //  'Id',
     "recordStatus",
     "title",
     "LinkApiPathId",
@@ -103,21 +98,16 @@ export class SmsMainApiPathPriceServiceListComponent
     "endUserMaxPage",
     "servicePricePerPage",
     "endUserPricePerPage",
-
-    // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    //  'Id',
     "recordStatus",
     "title",
     "LinkApiPathId",
     "messageType",
     "servicePricePerPage",
     "endUserPricePerPage",
-    // 'Action'
   ];
 
-  expandedElement: SmsMainApiPathPriceServiceModel | null;
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
@@ -154,7 +144,7 @@ export class SmsMainApiPathPriceServiceListComponent
   getPrivateConfig(): void {
     const filter = new FilterModel();
     filter.rowPerPage = 100;
-    this.smsMainApiPathService.ServiceGetAll(filter).subscribe({
+    this.smsMainApiPathPaginationService.ServiceGetAll(filter).subscribe({
       next: (ret) => {
         this.dataModelPrivateResult = ret;
       },
@@ -178,7 +168,7 @@ export class SmsMainApiPathPriceServiceListComponent
       this.tokenInfo,
     );
     this.tableRowsSelected = [];
-    this.onActionTableRowSelect(new SmsMainApiPathPriceServiceModel());
+    this.onActionTableRowSelect(new SmsMainApiPathPricePermissionModel());
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.get_information_list")
@@ -268,19 +258,6 @@ export class SmsMainApiPathPriceServiceListComponent
     this.filteModelContent.rowPerPage = event.pageSize;
     this.DataGetAll();
   }
-  onActionSelectorSelect(model: SmsMainApiPathModel | null): void {
-    /*filter */
-    var sortColumn = this.filteModelContent.sortColumn;
-    var sortType = this.filteModelContent.sortType;
-    this.filteModelContent = new FilterModel();
-
-    this.filteModelContent.sortColumn = sortColumn;
-    this.filteModelContent.sortType = sortType;
-    /*filter */
-    this.categoryModelSelected = model;
-
-    this.DataGetAll();
-  }
 
   onActionButtonNewRow(): void {
     if (
@@ -294,13 +271,17 @@ export class SmsMainApiPathPriceServiceListComponent
     var panelClass = "";
     if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
     else panelClass = "dialog-min";
-    const dialogRef = this.dialog.open(SmsMainApiPathPriceServiceAddComponent, {
-      height: "90%",
-      panelClass: panelClass,
-      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
-      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { linkApiPathId: this.categoryModelSelected?.id },
-    });
+    const dialogRef = this.dialog.open(
+      SmsMainApiPathPricePermissionAddComponent,
+      {
+        height: "90%",
+        panelClass: panelClass,
+        enterAnimationDuration:
+          environment.cmsViewConfig.enterAnimationDuration,
+        exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+        data: { linkApiPathId: this.categoryModelSelected?.id },
+      },
+    );
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -309,7 +290,7 @@ export class SmsMainApiPathPriceServiceListComponent
   }
 
   onActionButtonEditRow(
-    model: SmsMainApiPathPriceServiceModel = this.tableRowSelected,
+    model: SmsMainApiPathPricePermissionModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length == 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -328,7 +309,7 @@ export class SmsMainApiPathPriceServiceListComponent
     if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
     else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(
-      SmsMainApiPathPriceServiceEditComponent,
+      SmsMainApiPathPricePermissionEditComponent,
       {
         height: "90%",
         panelClass: panelClass,
@@ -345,40 +326,8 @@ export class SmsMainApiPathPriceServiceListComponent
     });
   }
 
-  onActionButtonCopyRow(
-    model: SmsMainApiPathPriceServiceModel = this.tableRowSelected,
-  ): void {
-    if (!model || !model.id || model.id.length == 0) {
-      this.cmsToastrService.typeErrorSelectedRow();
-      return;
-    }
-    this.onActionTableRowSelect(model);
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessEditRow
-    ) {
-      this.cmsToastrService.typeErrorAccessEdit();
-      return;
-    }
-    var panelClass = "";
-    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
-    else panelClass = "dialog-min";
-    const dialogRef = this.dialog.open(SmsMainApiPathPriceServiceAddComponent, {
-      height: "90%",
-      panelClass: panelClass,
-      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
-      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id: this.tableRowSelected.id },
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result && result.dialogChangedDate) {
-        this.DataGetAll();
-      }
-    });
-  }
   onActionButtonDeleteRow(
-    model: SmsMainApiPathPriceServiceModel = this.tableRowSelected,
+    model: SmsMainApiPathPricePermissionModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length == 0) {
       this.translate
@@ -514,6 +463,114 @@ export class SmsMainApiPathPriceServiceListComponent
   onActionButtonReload(): void {
     this.DataGetAll();
   }
+
+  // Pull-to-Refresh functionality
+  pullToRefreshState = {
+    isRefreshing: false,
+    startY: 0,
+    currentY: 0,
+    pullDistance: 0,
+    threshold: 80,
+  };
+
+  Math = Math;
+
+  // Swipe Actions functionality
+  swipeState: Map<
+    string,
+    { startX: number; currentX: number; offset: number }
+  > = new Map();
+  readonly SWIPE_THRESHOLD = 100;
+  readonly SWIPE_MAX_OFFSET = 120;
+
+  onItemTouchStart(event: TouchEvent, itemId: string): void {
+    event.stopPropagation();
+    const touch = event.touches[0];
+    this.swipeState.set(itemId, {
+      startX: touch.clientX,
+      currentX: touch.clientX,
+      offset: 0,
+    });
+  }
+
+  onItemTouchMove(event: TouchEvent, itemId: string): void {
+    event.stopPropagation();
+    const state = this.swipeState.get(itemId);
+    if (!state) return;
+    const touch = event.touches[0];
+    state.currentX = touch.clientX;
+    const diff = state.currentX - state.startX;
+    const isRTL = document.documentElement.dir === "rtl";
+    const maxOffset = isRTL ? this.SWIPE_MAX_OFFSET : -this.SWIPE_MAX_OFFSET;
+    const minOffset = isRTL ? -this.SWIPE_MAX_OFFSET : this.SWIPE_MAX_OFFSET;
+    state.offset = Math.max(minOffset, Math.min(maxOffset, diff));
+  }
+
+  onItemTouchEnd(event: TouchEvent, itemId: string): void {
+    event.stopPropagation();
+    const state = this.swipeState.get(itemId);
+    if (!state) return;
+    const isRTL = document.documentElement.dir === "rtl";
+    const threshold = isRTL ? this.SWIPE_THRESHOLD : -this.SWIPE_THRESHOLD;
+    if (
+      (isRTL && state.offset > threshold) ||
+      (!isRTL && state.offset < threshold)
+    ) {
+    } else {
+      state.offset = 0;
+    }
+    this.swipeState.set(itemId, state);
+  }
+
+  onTouchStart(event: TouchEvent): void {
+    const target = event.target as HTMLElement;
+    const contentArea = target.closest(".cms-m-content");
+    if (contentArea && (contentArea as HTMLElement).scrollTop === 0) {
+      this.pullToRefreshState.startY = event.touches[0].clientY;
+      this.pullToRefreshState.isRefreshing = false;
+    }
+  }
+
+  onTouchMove(event: TouchEvent): void {
+    const target = event.target as HTMLElement;
+    const contentArea = target.closest(".cms-m-content");
+    if (
+      contentArea &&
+      (contentArea as HTMLElement).scrollTop === 0 &&
+      this.pullToRefreshState.startY > 0
+    ) {
+      this.pullToRefreshState.currentY = event.touches[0].clientY;
+      this.pullToRefreshState.pullDistance = Math.max(
+        0,
+        this.pullToRefreshState.currentY - this.pullToRefreshState.startY,
+      );
+      if (this.pullToRefreshState.pullDistance > 10) {
+        event.preventDefault();
+      }
+    }
+  }
+
+  onTouchEnd(event: TouchEvent): void {
+    if (
+      this.pullToRefreshState.pullDistance >=
+        this.pullToRefreshState.threshold &&
+      !this.pullToRefreshState.isRefreshing
+    ) {
+      this.pullToRefreshState.isRefreshing = true;
+      this.onActionButtonReload();
+      setTimeout(() => {
+        this.pullToRefreshState.isRefreshing = false;
+        this.pullToRefreshState.pullDistance = 0;
+        this.pullToRefreshState.startY = 0;
+        this.pullToRefreshState.currentY = 0;
+      }, 1000);
+    } else {
+      this.pullToRefreshState.pullDistance = 0;
+      this.pullToRefreshState.startY = 0;
+      this.pullToRefreshState.currentY = 0;
+    }
+  }
+
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
     if (model && model.length > 0) {
       this.filterDataModelQueryBuilder = [...model];
@@ -525,5 +582,9 @@ export class SmsMainApiPathPriceServiceListComponent
 
   onActionBackToParent(): void {
     this.router.navigate(["/sms/main/api-path"]);
+  }
+
+  onActionTableRowSelect(row: SmsMainApiPathPricePermissionModel): void {
+    this.tableRowSelected = row;
   }
 }

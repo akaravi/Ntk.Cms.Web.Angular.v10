@@ -9,7 +9,6 @@ import {
 import { FormGroup } from "@angular/forms";
 import { MatChipInputEvent } from "@angular/material/chips";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
   CoreSiteCategoryModel,
@@ -22,8 +21,8 @@ import {
   ManageUserAccessDataTypesEnum,
   SmsEnumService,
   SmsMainApiPathModel,
-  SmsMainApiPathPriceServiceModel,
-  SmsMainApiPathPriceServiceService,
+  SmsMainApiPathPaginationModel,
+  SmsMainApiPathPaginationService,
 } from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
@@ -34,15 +33,15 @@ import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 import { FormSubmitedStatusEnum } from "../../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
-  selector: "app-sms-apipathpriceservice-add-mobile",
-  templateUrl: "./add.mobile.component.html",
-  styleUrls: ["./add.mobile.component.scss"],
+  selector: "app-sms-apipath-pagination-add",
+  templateUrl: "./add.component.html",
+
   standalone: false,
 })
-export class SmsMainApiPathPriceServiceAddMobileComponent
+export class SmsMainApiPathPaginationAddComponent
   extends AddBaseComponent<
-    SmsMainApiPathPriceServiceService,
-    SmsMainApiPathPriceServiceModel,
+    SmsMainApiPathPaginationService,
+    SmsMainApiPathPaginationModel,
     string
   >
   implements OnInit
@@ -51,18 +50,17 @@ export class SmsMainApiPathPriceServiceAddMobileComponent
   requestId = "";
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<SmsMainApiPathPriceServiceAddMobileComponent>,
+    private dialogRef: MatDialogRef<SmsMainApiPathPaginationAddComponent>,
     public smsEnumService: SmsEnumService,
-    public smsMainApiPathPriceServiceService: SmsMainApiPathPriceServiceService,
+    public smsMainApiPathPaginationService: SmsMainApiPathPaginationService,
     private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
-    private router: Router,
     public translate: TranslateService,
   ) {
     super(
-      smsMainApiPathPriceServiceService,
-      new SmsMainApiPathPriceServiceModel(),
+      smsMainApiPathPaginationService,
+      new SmsMainApiPathPaginationModel(),
       publicHelper,
       translate,
     );
@@ -87,10 +85,10 @@ export class SmsMainApiPathPriceServiceAddMobileComponent
   fileManagerTree: TreeModel;
   appLanguage = "fa";
 
-  dataModelResult: ErrorExceptionResult<SmsMainApiPathPriceServiceModel> =
-    new ErrorExceptionResult<SmsMainApiPathPriceServiceModel>();
-  dataModel: SmsMainApiPathPriceServiceModel =
-    new SmsMainApiPathPriceServiceModel();
+  dataModelResult: ErrorExceptionResult<SmsMainApiPathPaginationModel> =
+    new ErrorExceptionResult<SmsMainApiPathPaginationModel>();
+  dataModel: SmsMainApiPathPaginationModel =
+    new SmsMainApiPathPaginationModel();
   formInfo: FormInfoModel = new FormInfoModel();
   dataModelSmsMessageTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
@@ -98,9 +96,6 @@ export class SmsMainApiPathPriceServiceAddMobileComponent
     new ErrorExceptionResult<InfoEnumModel>();
 
   fileManagerOpenForm = false;
-
-  addOnBlurTag = true;
-  readonly separatorKeysCodes = [ENTER] as const;
 
   ngOnInit(): void {
     this.translate.get("TITLE.ADD").subscribe((str: string) => {
@@ -149,11 +144,11 @@ export class SmsMainApiPathPriceServiceAddMobileComponent
         );
       });
 
-    this.smsMainApiPathPriceServiceService.setAccessLoad();
-    this.smsMainApiPathPriceServiceService.setAccessDataType(
+    this.smsMainApiPathPaginationService.setAccessLoad();
+    this.smsMainApiPathPaginationService.setAccessDataType(
       ManageUserAccessDataTypesEnum.Editor,
     );
-    this.smsMainApiPathPriceServiceService
+    this.smsMainApiPathPaginationService
       .ServiceGetOneById(this.requestId)
       .subscribe({
         next: (ret) => {
@@ -164,6 +159,46 @@ export class SmsMainApiPathPriceServiceAddMobileComponent
             this.dataModel.title = this.dataModel.title + " (COPY)";
             this.formInfo.formTitle = this.formInfo.formTitle;
             this.formInfo.submitResultMessage = "";
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
               FormSubmitedStatusEnum.Success;
           } else {
@@ -203,77 +238,43 @@ export class SmsMainApiPathPriceServiceAddMobileComponent
         );
       });
 
-    this.smsMainApiPathPriceServiceService
-      .ServiceAdd(this.dataModel)
-      .subscribe({
-        next: (ret) => {
-          this.formInfo.submitButtonEnabled = true;
-          this.dataModelResult = ret;
-          if (ret.isSuccess) {
-            this.translate
-              .get("MESSAGE.registration_completed_successfully")
-              .subscribe((str: string) => {
-                this.formInfo.submitResultMessage = str;
-                this.formInfo.submitResultMessageType =
-                  FormSubmitedStatusEnum.Success;
-              });
-            this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
-            this.cmsToastrService.typeSuccessAdd();
-            this.dialogRef.close({ dialogChangedDate: true });
-          } else {
-            this.translate
-              .get("ERRORMESSAGE.MESSAGE.typeError")
-              .subscribe((str: string) => {
-                this.formInfo.submitResultMessage = str;
-              });
-            this.formInfo.submitResultMessage = ret.errorMessage;
-            this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Error;
-            this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-          }
-          this.publicHelper.processService.processStop(pName);
-        },
-        error: (er) => {
-          this.formInfo.submitButtonEnabled = true;
-          this.cmsToastrService.typeError(er);
-          this.publicHelper.processService.processStop(pName, false);
-        },
-      });
+    this.smsMainApiPathPaginationService.ServiceAdd(this.dataModel).subscribe({
+      next: (ret) => {
+        this.formInfo.submitButtonEnabled = true;
+        this.dataModelResult = ret;
+        if (ret.isSuccess) {
+          this.translate
+            .get("MESSAGE.registration_completed_successfully")
+            .subscribe((str: string) => {
+              this.formInfo.submitResultMessage = str;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+            });
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.cmsToastrService.typeSuccessAdd();
+          this.dialogRef.close({ dialogChangedDate: true });
+        } else {
+          this.translate
+            .get("ERRORMESSAGE.MESSAGE.typeError")
+            .subscribe((str: string) => {
+              this.formInfo.submitResultMessage = str;
+            });
+          this.formInfo.submitResultMessage = ret.errorMessage;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+        }
+        this.publicHelper.processService.processStop(pName);
+      },
+      error: (er) => {
+        this.formInfo.submitButtonEnabled = true;
+        this.cmsToastrService.typeError(er);
+        this.publicHelper.processService.processStop(pName, false);
+      },
+    });
   }
-  onActionSelectorCmsUser(model: CoreUserModel | null): void {
-    if (!model || !model.id || model.id <= 0) {
-      this.dataModel.linkCoreUserId = null;
-      return;
-    }
-    this.dataModel.linkCoreUserId = model.id;
-  }
-  onActionSelectorCmsSite(model: CoreSiteModel | null): void {
-    if (!model || !model.id || model.id <= 0) {
-      this.dataModel.linkCoreSiteId = null;
-      return;
-    }
-    this.dataModel.linkCoreSiteId = model.id;
-  }
-  onActionSelectorCoreUserGroup(model: CoreUserGroupModel | null): void {
-    if (!model || !model.id || model.id <= 0) {
-      this.dataModel.linkCoreUserGroupId = null;
-      return;
-    }
-    this.dataModel.linkCoreUserGroupId = model.id;
-  }
-  onActionSelectorCoreSiteCategory(
-    model: CoreSiteCategoryModel | null,
-  ): void {
-    if (!model || !model.id || model.id <= 0) {
-      this.dataModel.linkCoreSiteCategoryId = null;
-      return;
-    }
-    this.dataModel.linkCoreSiteCategoryId = model.id;
-  }
-  onActionSelectorSelectLinkApiPathId(
-    model: SmsMainApiPathModel | null,
-  ): void {
+
+  onActionSelectorSelectLinkApiPathId(model: SmsMainApiPathModel | null): void {
     if (!model || model.id.length <= 0) {
       const message = "مسیر سرویس دهنده مشخص نیست";
       this.cmsToastrService.typeErrorSelected(message);
@@ -281,9 +282,7 @@ export class SmsMainApiPathPriceServiceAddMobileComponent
     }
     this.dataModel.linkApiPathId = model.id;
   }
-  onActionBackToParent(): void {
-    this.dialogRef.close({ dialogChangedDate: false });
-  }
+
   onFormSubmit(): void {
     if (!this.formGroup.valid) {
       return;
@@ -295,25 +294,33 @@ export class SmsMainApiPathPriceServiceAddMobileComponent
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });
   }
-
+  /**
+   * tag
+   */
+  addOnBlurTag = true;
+  readonly separatorKeysCodes = [ENTER] as const;
   addTagRegulatorNumberList(event: MatChipInputEvent): void {
     const value = (event.value || "").trim();
     if (!this.dataModel.regulatorNumberList)
       this.dataModel.regulatorNumberList = [];
+    // Add our item
     if (value) {
       this.dataModel.regulatorNumberList.push(value);
     }
+    // Clear the input value
     event.chipInput!.clear();
   }
   removeTagRegulatorNumberList(item: string): void {
     const index = this.dataModel.regulatorNumberList.indexOf(item);
+
     if (index >= 0) {
       this.dataModel.regulatorNumberList.splice(index, 1);
     }
   }
-
+  /** */
   addTagServicePagination(event: MatChipInputEvent): void {
     const value = (event.value || "").trim();
+    // Add our item
     var valueNum: number = +value || -1;
     if (!this.dataModel.serviceMessageLengthPaginationList)
       this.dataModel.serviceMessageLengthPaginationList = [];
@@ -321,19 +328,22 @@ export class SmsMainApiPathPriceServiceAddMobileComponent
     if (valueNum >= 0) {
       this.dataModel.serviceMessageLengthPaginationList.push(valueNum);
     }
+    // Clear the input value
     event.chipInput!.clear();
   }
 
   removeTagServicePagination(item: number): void {
     const index =
       this.dataModel.serviceMessageLengthPaginationList.indexOf(item);
+
     if (index >= 0) {
       this.dataModel.serviceMessageLengthPaginationList.splice(index, 1);
     }
   }
-
+  /** */
   addTagEndUserPagination(event: MatChipInputEvent): void {
     const value = (event.value || "").trim();
+    // Add our item
     if (!this.dataModel.endUserMessageLengthPaginationList)
       this.dataModel.endUserMessageLengthPaginationList = [];
 
@@ -341,14 +351,19 @@ export class SmsMainApiPathPriceServiceAddMobileComponent
     if (valueNum >= 0) {
       this.dataModel.endUserMessageLengthPaginationList.push(valueNum);
     }
+    // Clear the input value
     event.chipInput!.clear();
   }
 
   removeTagEndUserPagination(item: number): void {
     const index =
       this.dataModel.endUserMessageLengthPaginationList.indexOf(item);
+
     if (index >= 0) {
       this.dataModel.endUserMessageLengthPaginationList.splice(index, 1);
     }
   }
+  /**
+   * tag
+   */
 }

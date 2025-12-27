@@ -1,22 +1,13 @@
 import { Routes } from "@angular/router";
-import { SmsMainApiNumberPermissionListComponent } from "./api-number-permission/list/list.component";
 import { SmsMainApiNumberPermissionListMobileComponent } from "./api-number-permission/list/list.mobile.component";
-import { SmsMainApiNumberListComponent } from "./api-number/list/list.component";
 import { SmsMainApiNumberListMobileComponent } from "./api-number/list/list.mobile.component";
-import { SmsMainApiPathCompanyListComponent } from "./api-path-company/list/list.component";
 import { SmsMainApiPathCompanyListMobileComponent } from "./api-path-company/list/list.mobile.component";
-import { SmsMainApiPathPermissionListComponent } from "./api-path-permission/list/list.component";
 import { SmsMainApiPathPermissionListMobileComponent } from "./api-path-permission/list/list.mobile.component";
-import { SmsMainApiPathPriceServiceListComponent } from "./api-path-price-service/list/list.component";
-import { SmsMainApiPathPriceServiceListMobileComponent } from "./api-path-price-service/list/list.mobile.component";
+import { SmsMainApiPathPaginationListMobileComponent } from "./api-path-pagination/list/list.mobile.component";
 import { SmsMainApiPathEditComponent } from "./api-path/edit/edit.component";
-import { SmsMainApiPathListComponent } from "./api-path/list/list.component";
 import { SmsMainApiPathListMobileComponent } from "./api-path/list/list.mobile.component";
-import { SmsMainClientPermissionListComponent } from "./client-permission/list/list.component";
 import { SmsMainClientPermissionListMobileComponent } from "./client-permission/list/list.mobile.component";
-import { SmsMainMessageContentListComponent } from "./message-content/list/list.component";
 import { SmsMainMessageContentListMobileComponent } from "./message-content/list/list.mobile.component";
-import { SmsMainApiPathPublicConfigListComponent } from "./public-config/list/list.component";
 import { SmsMainApiPathPublicConfigListMobileComponent } from "./public-config/list/list.mobile.component";
 import { SmsMainComponent } from "./sms-main.component";
 
@@ -36,31 +27,31 @@ export const routesMobile: Routes = [
         component: SmsMainApiPathPublicConfigListMobileComponent,
         data: { title: "ROUTE.SMS.MAIN" },
       },
-          {
-            path: "api-path",
-            component: SmsMainApiPathListMobileComponent,
-            data: { title: "ROUTE.SMS.MAIN" },
-          },
-          {
-            path: "api-path/list",
-            component: SmsMainApiPathListMobileComponent,
-            data: { title: "ROUTE.SMS.MAIN" },
-          },
-          {
-            path: "api-path/list/LinkCompanyId/:LinkCompanyId",
-            component: SmsMainApiPathListMobileComponent,
-            data: { title: "ROUTE.SMS.MAIN" },
-          },
-          {
-            path: "api-path/list/LinkPublicConfigId/:LinkPublicConfigId",
-            component: SmsMainApiPathListMobileComponent,
-            data: { title: "ROUTE.SMS.MAIN" },
-          },
-          {
-            path: "api-path/list/LinkSiteId/:LinkSiteId",
-            component: SmsMainApiPathListMobileComponent,
-            data: { title: "ROUTE.SMS.MAIN" },
-          },
+      {
+        path: "api-path",
+        component: SmsMainApiPathListMobileComponent,
+        data: { title: "ROUTE.SMS.MAIN" },
+      },
+      {
+        path: "api-path/list",
+        component: SmsMainApiPathListMobileComponent,
+        data: { title: "ROUTE.SMS.MAIN" },
+      },
+      {
+        path: "api-path/list/LinkCompanyId/:LinkCompanyId",
+        component: SmsMainApiPathListMobileComponent,
+        data: { title: "ROUTE.SMS.MAIN" },
+      },
+      {
+        path: "api-path/list/LinkPublicConfigId/:LinkPublicConfigId",
+        component: SmsMainApiPathListMobileComponent,
+        data: { title: "ROUTE.SMS.MAIN" },
+      },
+      {
+        path: "api-path/list/LinkSiteId/:LinkSiteId",
+        component: SmsMainApiPathListMobileComponent,
+        data: { title: "ROUTE.SMS.MAIN" },
+      },
       {
         path: "api-path/edit/:id",
         component: SmsMainApiPathEditComponent,
@@ -87,13 +78,13 @@ export const routesMobile: Routes = [
         data: { title: "ROUTE.SMS.MAIN" },
       },
       {
-        path: "api-path-price-service",
-        component: SmsMainApiPathPriceServiceListMobileComponent,
+        path: "api-path-pagination",
+        component: SmsMainApiPathPaginationListMobileComponent,
         data: { title: "ROUTE.SMS.MAIN" },
       },
       {
-        path: "api-path-price-service/LinkApiPathId/:LinkApiPathId",
-        component: SmsMainApiPathPriceServiceListMobileComponent,
+        path: "api-path-pagination/LinkApiPathId/:LinkApiPathId",
+        component: SmsMainApiPathPaginationListMobileComponent,
         data: { title: "ROUTE.SMS.MAIN" },
       },
       {

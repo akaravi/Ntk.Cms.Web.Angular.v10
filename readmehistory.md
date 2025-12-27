@@ -5,6 +5,7 @@
 ### تغییرات اعمال شده:
 
 #### رفع خطاهای enum methods:
+
 - کامنت کردن متدهای enum که در API وجود ندارند:
   - `ServiceCrmAccountRatingEnum` و `ServiceCrmAccountTypeEnum` در Account components
   - `ServiceCrmLeadStatusEnum` و `ServiceCrmLeadSourceEnum` در Lead components
@@ -13,11 +14,13 @@
 - کامنت کردن فراخوانی‌های این متدها در `ngOnInit`
 
 #### غیرفعال کردن کامپوننت CrmOpportunityStageHistory:
+
 - کامنت کردن import های `CrmOpportunityStageHistoryModel` و `CrmOpportunityStageHistoryService`
 - غیرفعال کردن متد `loadData()` و نمایش پیام "این قابلیت در حال حاضر در دسترس نیست"
 - تغییر template برای نمایش پیام عدم دسترسی
 
 ### فایل‌های تغییر یافته:
+
 - `crm/main/account/add/add.component.ts` و `edit/edit.component.ts`
 - `crm/main/lead/add/add.component.ts` و `edit/edit.component.ts`
 - `crm/main/campaign/add/add.component.ts` و `edit/edit.component.ts`
@@ -25,6 +28,7 @@
 - `crm/main/opportunity/stage-history/list/list.component.ts` و `list.component.html`
 
 ### نتیجه:
+
 تمام خطاهای مربوط به enum methods و کامپوننت CrmOpportunityStageHistory برطرف شدند. ماژول CRM اکنون بدون خطا کامپایل می‌شود.
 
 ## 2025-12-23 08:10:00 (استخراج منطق مشترک کامپوننت‌های ویرایش EstateAdsType بین نسخه دسکتاپ و موبایل)
@@ -50,6 +54,7 @@
   - هم‌تراز کردن سطح دسترسی فیلدهای تزریق شده (مثل `cmsToastrService` و `cdr`) بین کلاس پایه و فرزندان
 
 ### نتیجه:
+
 - منطق مشترک بین نسخه دسکتاپ و موبایل برای ویرایش `EstateAdsType` در یک کلاس پایه متمرکز شد که باعث کاهش تکرار کد و ساده‌تر شدن نگهداری شد.
 - رفتار UI (بستن دیالوگ در دسکتاپ و بازگشت به لیست در موبایل) بدون تغییر و فقط از طریق callback در کلاس پایه کنترل می‌شود.
 
@@ -74,6 +79,7 @@
   - نگه‌داشتن امضای متدهای `DataGetOneContent` و `DataEditContent` برای سازگاری با template، با واگذاری منطق به کلاس پایه
 
 ### نتیجه:
+
 - منطق مشترک ویرایش برای `EstateCategoryRack` نیز مثل `EstateAdsType` در کلاس پایه متمرکز شد و تکرار کد بین نسخه‌های دسکتاپ و موبایل حذف شد.
 - رفتار UI (بستن دیالوگ در نسخه دسکتاپ و برگشت به لیست در نسخه موبایل) بدون تغییر و فقط از طریق callback در base کنترل می‌شود.
 
@@ -97,6 +103,7 @@
   - استفاده از `onFormSubmitInternal` برای مدیریت ارسال فرم و بازگشت به لیست بعد از موفقیت
 
 ### نتیجه:
+
 - برای `EstateContractType` هم مانند `EstateAdsType` و `EstateCategoryRack` منطق مشترک بین نسخه‌های دسکتاپ و موبایل در یک base class متمرکز شد و کد تکراری در دو کامپوننت حذف شد.
 - رفتار UX فعلی (دسکتاپ با دیالوگ، موبایل با صفحه و بازگشت به لیست) بدون تغییر و فقط از طریق callback در base کنترل می‌شود.
 
@@ -122,6 +129,7 @@
   - submit از طریق `onFormSubmitInternal` و بازگشت به لیست بعد از موفقیت
 
 ### نتیجه:
+
 - منطق مشترک بین نسخه‌های دسکتاپ و موبایل برای ویرایش `EstatePropertyTypeUsage` متمرکز شد و تکرار کد حذف شد، در حالی که منطق مخصوص دسکتاپ برای بارگذاری لیست‌ها دست‌نخورده باقی ماند.
 
 ## 2025-12-23 07:00:00 (رفع خطاهای property های اختیاری در CrmAccountModel)
@@ -129,15 +137,18 @@
 ### تغییرات اعمال شده:
 
 #### رفع خطاهای property های اختیاری:
+
 - اضافه کردن getter/setter برای تمام property های اختیاری در `CrmAccountAddComponent` و `CrmAccountEditComponent`
 - Property های اضافه شده: `billStreet`, `billCity`, `billState`, `billPostalCode`, `billCountry`, `billPoBox`, `shipStreet`, `shipCity`, `shipState`, `shipPostalCode`, `shipCountry`, `shipPoBox`, `accountNo`, `rating`, `ownership`, `sicCode`, `tickerSymbol`, `email2`, `otherPhone`, `emailOptOut`, `notifyOwner`
 - تبدیل تمام `[(ngModel)]="dataModel.propertyName"` به `[(ngModel)]="propertyName"` در templates
 
 ### فایل‌های تغییر یافته:
+
 - `crm/main/account/add/add.component.ts` و `add.component.html`
 - `crm/main/account/edit/edit.component.ts`
 
 ### نتیجه:
+
 تمام خطاهای مربوط به property های اختیاری در `CrmAccountModel` برطرف شدند. خطاهای باقی‌مانده مربوط به `CrmContactModel` هستند که نیاز به همان کار دارند.
 
 ## 2025-12-23 06:30:00 (رفع خطاهای باقی‌مانده در ماژول CRM)
@@ -145,16 +156,19 @@
 ### تغییرات اعمال شده:
 
 #### رفع خطاهای باقی‌مانده:
+
 - تبدیل `formSubmitAllow` به `submitButtonEnabled` در error handler های تمام edit components
 - حذف `CrmOpportunityStageHistoryListComponent` و `CrmOpportunityStageHistoryService` از ماژول (چون در API وجود ندارند)
 - حذف استفاده مستقیم از `linkAccountId` و `linkContactId` در `FilterModel` در `lead/list/list.component.ts`
 
 ### فایل‌های تغییر یافته:
+
 - تمام edit components در `crm/main/*/edit/edit.component.ts`
 - `crm/main/crm-main.module.ts`
 - `crm/main/lead/list/list.component.ts`
 
 ### نتیجه:
+
 تمام خطاهای مربوط به `formSubmitAllow` و `CrmOpportunityStageHistory` برطرف شدند. خطاهای باقی‌مانده مربوط به property های اختیاری در `CrmAccountModel` هستند (مثل `billStreet`, `billCity`, `billState`).
 
 ## 2025-12-23 06:00:00 (رفع خطاهای TypeScript در ماژول CRM)
@@ -162,6 +176,7 @@
 ### تغییرات اعمال شده:
 
 #### رفع خطاهای TypeScript در ماژول CRM:
+
 - تبدیل `CrmAccountFilterModel`, `CrmCampaignFilterModel`, `CrmContactFilterModel`, `CrmDealFilterModel`, `CrmLeadFilterModel`, `CrmOpportunityFilterModel`, `CrmStageFilterModel`, `CrmPipelineFilterModel` به `FilterModel` در تمام selector components
 - تبدیل `formSubmitAllow` و `buttonSubmittedEnabled` به `submitButtonEnabled` در تمام edit components
 - رفع خطای `title` property در `CrmAccountModel` با استفاده از helper method `getTitle()`
@@ -169,6 +184,7 @@
 - اصلاح template syntax در `header.component.html` برای نمایش `title`
 
 ### فایل‌های تغییر یافته:
+
 - تمام selector components در `crm/main/*/selector/selector.component.ts`
 - تمام edit components در `crm/main/*/edit/edit.component.ts`
 - `crm/main/account/list/list.component.ts`
@@ -176,6 +192,7 @@
 - `crm/main/account/header/header.component.ts` و `header.component.html`
 
 ### نتیجه:
+
 تمام خطاهای TypeScript مربوط به CRM برطرف شدند. خطاهای `ErrorExceptionResultBase` با استفاده از type assertion در تمام edit components رفع شدند.
 
 ## 2025-12-23 05:30:00 (رفع خطاهای import در ماژول CRM)
@@ -183,12 +200,14 @@
 ### تغییرات اعمال شده:
 
 #### رفع خطاهای import در ماژول CRM:
+
 - اضافه کردن import های `CrmSupplierRatingListComponent` و `CrmSupplierRatingAddComponent` به `crm-main.module.ts`
 - اضافه کردن `CrmSupplierRatingListComponent` و `CrmSupplierRatingAddComponent` به declarations در `CrmMainModule`
 - اضافه کردن routes برای `supplier-rating` در `routes.normal.ts` و `routes.mobile.ts`
 - اضافه کردن `standalone: false` به کامپوننت‌های `supplier-rating` برای سازگاری با NgModule
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/crm/main/crm-main.module.ts`
 - `src/app/cms-modules/crm/main/routes.normal.ts`
 - `src/app/cms-modules/crm/main/routes.mobile.ts`
@@ -196,6 +215,7 @@
 - `src/app/cms-modules/crm/supplier-rating/add/add.component.ts`
 
 ### نتیجه:
+
 تمام کامپوننت‌های `supplier-rating` به درستی در ماژول CRM import و declare شدند و routes مربوطه اضافه شدند.
 
 ## 2025-12-23 05:00:35 (رفع خطاهای TypeScript در کامپوننت‌های estate)
@@ -203,6 +223,7 @@
 ### تغییرات اعمال شده:
 
 #### رفع خطاهای TypeScript:
+
 - رفع خطای `TS2322: Type 'EstatePropertyTypeModel[]' is not assignable to type 'EstatePropertyTypeUsageModel[]'` در:
   - `estate/main/property-type-landuse/edit/edit.mobile.component.ts`
   - `estate/main/activity-type/edit/edit.mobile.component.ts`
@@ -213,6 +234,7 @@
   - `getTitle()` در `EstateCustomerOrderResultListMobileComponent` و `EstatePropertyExpertPriceListMobileComponent`
 
 ### نتیجه:
+
 - تمام خطاهای TypeScript مربوط به estate برطرف شدند
 - خطاهای باقی‌مانده مربوط به ماژول‌های دیگر (CRM) هستند و خارج از محدوده این کار هستند
 
@@ -221,6 +243,7 @@
 ### تغییرات اعمال شده:
 
 #### رفع خطاهای ماژول‌ها:
+
 - اضافه کردن `NO_ERRORS_SCHEMA` به `estate-data.module.ts`
 - اضافه کردن `NO_ERRORS_SCHEMA` به `estate-log.module.ts`
 - حذف import های تکراری `CUSTOM_ELEMENTS_SCHEMA` از ماژول‌ها
@@ -229,6 +252,7 @@
 #### ایجاد کامپوننت‌های add/edit موبایل:
 
 #### estate/main:
+
 - ایجاد کامپوننت‌های add/edit موبایل برای:
   - `activity-type` (add/edit)
   - `ads-type` (add/edit)
@@ -244,6 +268,7 @@
   - `category-rack` (add/edit)
 
 #### estate/data:
+
 - ایجاد کامپوننت‌های add/edit موبایل برای:
   - `property-ads` (add/edit)
   - `billboard` (add/edit)
@@ -252,12 +277,14 @@
   - `property-project` (add/edit) - با mat-stepper
 
 #### estate/log:
+
 - ایجاد کامپوننت‌های add/edit موبایل برای:
   - `property-expert-price` (add/edit)
   - `customer-order` (add/edit) - از قبل وجود داشت
   - `property-history` (add/edit) - از قبل وجود داشت
 
 ### ویژگی‌های پیاده‌سازی شده:
+
 - استفاده از `mat-stepper` برای فرم‌های چندمرحله‌ای (`property-company`, `property-supplier`, `property-project`)
 - پشتیبانی از نقشه (Leaflet) برای انتخاب موقعیت جغرافیایی
 - پشتیبانی از انتخاب فایل (File Manager)
@@ -269,6 +296,7 @@
 - استفاده از `app-cms-form-result-message` برای نمایش پیام‌های فرم
 
 ### فایل‌های ایجاد/به‌روزرسانی شده:
+
 - برای هر ماژول: `.mobile.component.ts`, `.mobile.component.html`, `.mobile.component.scss`
 - به‌روزرسانی `routes.mobile.ts` برای استفاده از کامپوننت‌های موبایل
 - به‌روزرسانی ماژول‌ها (`estate-main.module.ts`, `estate-data.module.ts`, `estate-log.module.ts`) برای imports و declarations
@@ -276,6 +304,7 @@
 - اضافه کردن `TranslateModule` به imports ماژول‌ها
 
 ### نتیجه:
+
 تمام کامپوننت‌های add/edit موبایل برای ماژول‌های `estate/main`, `estate/data` و `estate/log` ایجاد شدند و آماده استفاده هستند.
 
 ---
@@ -283,6 +312,7 @@
 ## 2025-12-22 12:05:00 (انتقال billboard به EstateDataModule و فولدر data)
 
 ### تغییرات اعمال شده:
+
 - انتقال فولدر `billboard` از `estate/billboard` به `estate/data/billboard`
 - حذف billboard از `EstateMainModule` (imports، declarations، providers) و مسیرهای `routes.normal.ts` و `routes.mobile.ts` ماژول main
 - اضافه کردن billboard به `EstateDataModule` (imports، declarations، providers) و مسیرهای `routes.normal.ts` و `routes.mobile.ts` ماژول data
@@ -290,6 +320,7 @@
 - به‌روزرسانی `EstateSharedModule` برای مسیر جدید هدر billboard
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/estate/data/billboard/**`
 - `src/app/cms-modules/estate/data/estate-data.module.ts`
 - `src/app/cms-modules/estate/data/routes.normal.ts`
@@ -300,6 +331,7 @@
 - `src/app/cms-modules/estate/shared/estate-shared.module.ts`
 
 ### نتیجه:
+
 تمام کامپوننت‌های billboard اکنون زیر ماژول `EstateDataModule` و مسیر `/estate/data/billboard` قرار گرفتند و وابستگی‌ها و مسیرهای مرتبط به‌روزرسانی شدند.
 
 ## 2025-12-22 11:18:17 (اضافه کردن تمام service های Estate به EstateLogModule)
@@ -316,9 +348,11 @@
   - اضافه کردن `EstatePropertyHistoryListComponent` به declarations
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/estate/log/estate-log.module.ts`
 
 ### مشکلات برطرف شده:
+
 - خطای `NG0201: No provider found for _EstatePropertyDetailGroupService` در `EstateLogModule` - برطرف شد
 - خطای `NG0201: No provider found for _EstateContractTypeService` در `EstateLogModule` - برطرف شد
 - خطای `NG0201: No provider found for _EstatePropertyService` در `EstateLogModule` - برطرف شد
@@ -327,6 +361,7 @@
 - خطای `NG0201: No provider found for _EstateActivityTypeService` در `EstateLogModule` - برطرف شد
 
 ### توضیحات:
+
 تمام service های Estate که در کامپوننت‌های `estate/log` استفاده می‌شوند به providers ماژول `EstateLogModule` اضافه شدند. همچنین کامپوننت `EstatePropertyHistoryListComponent` که در routes استفاده می‌شد اما در declarations نبود اضافه شد.
 
 ---
@@ -344,15 +379,18 @@
   - اضافه کردن `EstateAdsTypeService` به providers
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/estate/data/estate-data.module.ts`
 
 ### مشکلات برطرف شده:
+
 - خطای `NG0201: No provider found for _EstateConfigurationService` - برطرف شد
 - خطای `NG0201: No provider found for _EstatePropertyDetailGroupService` - برطرف شد
 - خطای `NG0201: No provider found for _EstateContractTypeService` - برطرف شد
 - خطای `NG0201: No provider found for _EstateAdsTypeService` - برطرف شد
 
 ### توضیحات:
+
 تمام service های Estate که در کامپوننت‌های `estate/data` استفاده می‌شوند به providers ماژول `EstateDataModule` اضافه شدند تا از خطاهای dependency injection جلوگیری شود.
 
 ## 2025-12-22 09:00 (انتقال widget module ها از shared/widget به shared)
@@ -373,6 +411,7 @@
   - اضافه کردن import برای `EstatePropertySupplierHeaderComponent`
 
 ### فایل‌های منتقل شده:
+
 - `application/shared/widget/application-widget.module.ts` → `application/shared/application-widget.module.ts`
 - `article/shared/widget/article-widget.module.ts` → `article/shared/article-widget.module.ts`
 - `biography/shared/widget/biography-widget.module.ts` → `biography/shared/biography-widget.module.ts`
@@ -388,6 +427,7 @@
 - `estate/shared/widget/estate-widget.module.ts` → `estate/shared/estate-widget.module.ts`
 
 ### فایل‌های تغییر یافته:
+
 - تمام widget module های منتقل شده (مسیرهای import داخلی به‌روزرسانی شدند)
 - `src/app/cms-modules/cmsModulesWidget.module.ts`
 - `src/app/cms-modules/estate/data/estate-data.module.ts`
@@ -395,6 +435,7 @@
 - `src/app/cms-modules/estate/shared/estate-shared.module.ts`
 
 ### نتیجه:
+
 تمام widget module ها به فولدر `shared` منتقل شدند و ساختار ساده‌تری پیدا کردند. این تغییر باعث بهبود ساختار پروژه و ساده‌تر شدن مسیرها می‌شود.
 
 ---
@@ -455,6 +496,7 @@
   - فقط `CmsConfirmationDialogService`, `CoreCpMainMenuService`, `CoreConfigurationService` در providers باقی ماندند
 
 ### فایل‌های ایجاد شده:
+
 - `src/app/cms-modules/application/shared/widget/application-widget.module.ts`
 - `src/app/cms-modules/article/shared/widget/article-widget.module.ts`
 - `src/app/cms-modules/biography/shared/widget/biography-widget.module.ts`
@@ -468,9 +510,11 @@
 - `src/app/cms-modules/web-designer/shared/widget/web-designer-widget.module.ts`
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/cmsModulesWidget.module.ts`
 
 ### نتیجه:
+
 تمام widget component های موجود در `CmsModulesWidgetModule` در widget module های مربوط به خودشان سازماندهی شدند. این تغییر باعث بهبود قابل توجه ساختار کد، قابلیت استفاده مجدد، و نگهداری پروژه می‌شود.
 
 ---
@@ -503,14 +547,17 @@
   - اضافه کردن `EstateWidgetModule` به imports
 
 ### دلیل تغییرات:
+
 برای سازماندهی بهتر کد و جلوگیری از تکرار، تمام widget component های Estate در یک ماژول مجزا (EstateWidgetModule) در فولدر shared قرار گرفتند و هر جایی که نیاز است از این ماژول استفاده می‌شود.
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/estate/shared/widget/estate-widget.module.ts` (جدید)
 - `src/app/cms-modules/estate/data/estate-data.module.ts`
 - `src/app/cms-modules/cmsModulesWidget.module.ts`
 
 ### نتیجه:
+
 تمام widget component های Estate با موفقیت در EstateWidgetModule سازماندهی شدند و تمام ماژول‌های مرتبط به‌روزرسانی شدند. این تغییر باعث بهبود ساختار کد و قابلیت استفاده مجدد می‌شود.
 
 ---
@@ -549,14 +596,17 @@
   - اضافه کردن `SmsWidgetModule` به imports
 
 ### دلیل تغییرات:
+
 برای سازماندهی بهتر کد و جلوگیری از تکرار، تمام widget component های SMS در یک ماژول مجزا (SmsWidgetModule) در فولدر shared قرار گرفتند و هر جایی که نیاز است از این ماژول استفاده می‌شود.
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/sms/shared/widget/sms-widget.module.ts` (جدید)
 - `src/app/cms-modules/sms/log/sms-log.module.ts`
 - `src/app/cms-modules/cmsModulesWidget.module.ts`
 
 ### نتیجه:
+
 تمام widget component های SMS با موفقیت در SmsWidgetModule سازماندهی شدند و تمام ماژول‌های مرتبط به‌روزرسانی شدند. این تغییر باعث بهبود ساختار کد و قابلیت استفاده مجدد می‌شود.
 
 ---
@@ -590,6 +640,7 @@
   - به‌روزرسانی import های کامپوننت‌های دیگر که از این کامپوننت‌ها استفاده می‌کردند
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/estate/data/estate-data.module.ts`
 - `src/app/cms-modules/estate/main/estate-main.module.ts`
 - `src/app/cms-modules/estate/shared/estate-shared.module.ts`
@@ -601,6 +652,7 @@
 - و سایر فایل‌هایی که از این کامپوننت‌ها استفاده می‌کردند
 
 ### نتیجه:
+
 تمام کامپوننت‌های property, property-ads, property-company, property-project, property-supplier با موفقیت به EstateDataModule و فولدر data منتقل شدند و تمام import ها و routes به‌روزرسانی شدند.
 
 ---
@@ -617,12 +669,15 @@
   - فقط کامپوننت‌های Mobile widget در `SmsLogModule` باقی ماندند
 
 ### دلیل تغییرات:
+
 کامپوننت‌های widget باید فقط در یک ماژول تعریف شوند. چون این کامپوننت‌ها در `CmsModulesWidgetModule` تعریف شده بودند، از `SmsLogModule` حذف شدند تا خطای NG6007 رفع شود.
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/sms/log/sms-log.module.ts`
 
 ### نتیجه:
+
 پروژه با موفقیت build شد و تمام خطاها رفع شدند. فقط چند warning مربوط به bundle size و budget باقی مانده که خطا نیستند.
 
 ---
@@ -646,6 +701,7 @@
 - **رفع خطای publicConfigJsonFormatter**: اضافه کردن type extension برای `dataModel` در `add.mobile.component.ts` تا `publicConfigJsonFormatter` به صورت optional تعریف شود
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/estate/log/property-expert-price/list/list.component.ts`
 - `src/app/cms-modules/sms/log/sms-log.module.ts`
 - `src/app/cms-modules/sms/main/sms-main.module.ts`
@@ -653,6 +709,7 @@
 - `src/app/cms-modules/sms/main/public-config/add/add.mobile.component.html`
 
 ### نتیجه:
+
 پروژه با موفقیت build شد و تمام خطاها رفع شدند. فقط چند warning مربوط به CommonJS dependencies باقی مانده که خطا نیستند.
 
 ---
@@ -664,15 +721,17 @@
 - **رفع خطاهای NgModule در SmsMainModule**: افزودن کامپوننت‌های موبایل که در exports بودند اما در declarations نبودند:
   - `SmsMainApiPathCompanyAddMobileComponent` به declarations اضافه شد
   - `SmsMainApiPathPermissionAddMobileComponent` به declarations اضافه شد
-  - `SmsMainApiPathPriceServiceAddMobileComponent` به declarations اضافه شد
+  - `SmsMainApiPathPaginationAddMobileComponent` به declarations اضافه شد
   - `SmsMainApiNumberAddMobileComponent` به declarations اضافه شد
   - `SmsMainApiNumberPermissionAddMobileComponent` به declarations اضافه شد
   - `SmsMainMessageContentAddMobileComponent` به declarations اضافه شد
 
 ### دلیل تغییرات:
+
 در Angular، کامپوننت‌هایی که در exports قرار می‌گیرند باید ابتدا در declarations تعریف شوند. این کامپوننت‌ها import شده بودند و در exports قرار داشتند اما در declarations نبودند که باعث خطای NG6004 می‌شد.
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/sms/main/sms-main.module.ts`
 
 ---
@@ -694,9 +753,11 @@
   - تغییر مسیر `EstatePropertyQuickViewComponent` از `../../property/` به `../../../property/`
 
 ### دلیل تغییرات:
+
 رفع خطاهای باقی‌مانده مسیرهای import که پس از انتقال فولدرها به `log/` ایجاد شده بودند.
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/estate/log/estate-log.module.ts`
 - `src/app/cms-modules/estate/log/routes.normal.ts`
 - `src/app/cms-modules/estate/property/add/add.component.ts`
@@ -722,9 +783,11 @@
   - تغییر مسیر `EstatePropertyExpertPriceListComponent` از `../property-expert-price/list/list.component` به `./property-expert-price/list/list.component`
 
 ### دلیل تغییرات:
+
 رفع خطاهای TypeScript و مسیرهای import نادرست که باعث خطا در کامپایل می‌شدند.
 
 ### فایل‌های تغییر یافته:
+
 - `tsconfig.json`
 - `src/app/cms-modules/estate/log/property-history/quick-view/quick-view.component.ts`
 - `src/app/cms-modules/estate/log/routes.mobile.ts`
@@ -750,9 +813,11 @@
   - `overview/events/events.component.ts`: تغییر مسیر از `../../property-history` به `../../log/property-history`
 
 ### دلیل تغییرات:
+
 کامپوننت‌های property-history مربوط به log هستند و باید در فولدر log قرار گیرند تا ساختار ماژول منطقی‌تر شود.
 
 ### فایل‌های تغییر یافته:
+
 - انتقال فولدر: `estate/property-history` → `estate/log/property-history`
 - `src/app/cms-modules/estate/log/estate-log.module.ts`
 - `src/app/cms-modules/estate/shared/estate-shared.module.ts`
@@ -785,9 +850,11 @@
   - `overview/events/events.component.ts`: تغییر مسیر از `../../property-history` به `../../log/property-history`
 
 ### دلیل تغییرات:
+
 کامپوننت‌های property-history مربوط به log هستند و باید در فولدر log قرار گیرند تا ساختار ماژول منطقی‌تر شود.
 
 ### فایل‌های تغییر یافته:
+
 - انتقال فولدر: `estate/property-history` → `estate/log/property-history`
 - `src/app/cms-modules/estate/log/estate-log.module.ts`
 - `src/app/cms-modules/estate/shared/estate-shared.module.ts`
@@ -800,6 +867,7 @@
 - `src/app/cms-modules/estate/overview/events/events.component.ts`
 
 ### نتیجه:
+
 - فولدر property-history با موفقیت به log منتقل شد
 - تمام imports به‌روزرسانی شدند
 - هیچ خطای lint ایجاد نشد
@@ -819,9 +887,11 @@
   - `@extend .cms-m-form-textarea !optional;`
 
 ### دلیل تغییرات:
+
 کلاس‌های `.cms-m-form-input` و `.cms-m-form-textarea` در فایل `styles.mobile.scss` تعریف شده‌اند، اما فایل‌های کامپوننت به صورت جداگانه کامپایل می‌شوند و ممکن است به این کلاس‌ها دسترسی نداشته باشند. استفاده از `!optional` باعث می‌شود که اگر کلاس موجود نبود، خطا ایجاد نشود.
 
 ### نتیجه:
+
 - خطای کامپایل برطرف شد
 - هیچ خطای lint ایجاد نشد
 - کد به درستی کامپایل می‌شود
@@ -837,9 +907,11 @@
   - تمام فایل‌های SCSS که در کامپوننت‌های TypeScript مربوطه از `styleUrls` یا `styles` استفاده نمی‌شدند حذف شدند
 
 ### دلیل تغییرات:
+
 فایل‌های SCSS بدون استفاده باعث افزایش حجم پروژه و سردرگمی می‌شدند. حذف آن‌ها باعث تمیزتر شدن کد و کاهش حجم پروژه می‌شود.
 
 ### نتیجه:
+
 - 155 فایل SCSS بدون استفاده حذف شد
 - هیچ خطای lint ایجاد نشد
 - حجم پروژه کاهش یافت
@@ -868,9 +940,11 @@
 - حذف 47 فایل SCSS بدون استفاده که در کامپوننت‌ها فراخوانی نشده بودند
 
 ### دلیل تغییرات:
+
 کامپوننت‌های `account-agency-work-area`، `account-agency-expert` و `account-agency-ads` در هیچ ماژولی declare نشده بودند و باعث خطا می‌شدند. همچنین فایل‌های SCSS بدون استفاده باید حذف می‌شدند.
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/estate/main/estate-main.module.ts` (افزودن کامپوننت‌ها و services)
 - حذف 47 فایل SCSS بدون استفاده
 
@@ -886,9 +960,11 @@
 - افزودن `EstateAccountExpertWorkAreaService` به providers در `EstateMainModule`
 
 ### دلیل تغییرات:
+
 این کامپوننت‌ها در هیچ ماژولی declare نشده بودند و باعث خطا می‌شدند. با توجه به اینکه مربوط به `account-expert` هستند که در `EstateMainModule` است، به این ماژول اضافه شدند.
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/estate/main/estate-main.module.ts` (افزودن کامپوننت‌ها و service)
 
 ---
@@ -903,9 +979,11 @@
   - حذف import و declaration `EstateAccountAgencyHeaderComponent` از `EstateMainModule`
 
 ### دلیل تغییرات:
+
 این کامپوننت در `EstateAccountExpertListComponent` (که در `EstateSharedModule` است) استفاده می‌شود اما در آن ماژول declare نشده بود. با انتقال به `EstateSharedModule`، حالا در همه ماژول‌ها قابل استفاده است.
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/estate/shared/estate-shared.module.ts` (افزودن EstateAccountAgencyHeaderComponent)
 - `src/app/cms-modules/estate/main/estate-main.module.ts` (حذف EstateAccountAgencyHeaderComponent)
 
@@ -921,9 +999,11 @@
   - حذف import و declaration `EstatePropertyQuickListComponent` از `EstateMainModule`
 
 ### دلیل تغییرات:
+
 این کامپوننت در چند کامپوننت دیگر استفاده می‌شود و با انتقال به `EstateSharedModule`، در همه ماژول‌های estate قابل استفاده خواهد بود.
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/estate/shared/estate-shared.module.ts` (افزودن EstatePropertyQuickListComponent)
 - `src/app/cms-modules/estate/main/estate-main.module.ts` (حذف EstatePropertyQuickListComponent)
 
@@ -941,9 +1021,11 @@
   - `EstatePropertyCompleteComponent`
 
 ### دلیل تغییرات:
+
 این کامپوننت‌ها در `EstateCustomerOrderEditComponent` (که در `EstateActionModule` است) استفاده می‌شوند اما در آن ماژول declare نشده بودند. با انتقال به `EstateSharedModule`، حالا در همه ماژول‌ها قابل استفاده هستند.
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/estate/shared/estate-shared.module.ts` (افزودن Selector و Autocomplete components)
 - `src/app/cms-modules/estate/main/estate-main.module.ts` (حذف کامپوننت‌های منتقل شده)
 
@@ -977,9 +1059,11 @@
   - از `EstateLogModule`: `EstatePropertyHistoryAddComponent`
 
 ### دلیل تغییرات:
+
 این کامپوننت‌ها در `EstatePropertyListComponent` (که در `EstateSharedModule` است) استفاده می‌شوند و باید در همان ماژول یا ماژول‌های import شده موجود باشند.
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/estate/shared/estate-shared.module.ts` (افزودن کامپوننت‌های Header، Tree، Selector و Quick، افزودن NgOptimizedImage)
 - `src/app/cms-modules/estate/main/estate-main.module.ts` (حذف کامپوننت‌های منتقل شده)
 - `src/app/cms-modules/estate/log/estate-log.module.ts` (حذف EstatePropertyHistoryAddComponent)
@@ -1002,13 +1086,16 @@
   - از `EstateMainModule`: `EstatePropertyListComponent`، `EstateAccountAgencyListComponent`، `EstateAccountExpertListComponent`
 
 ### دلیل تغییرات:
+
 این کامپوننت‌ها در چند ماژول استفاده می‌شوند:
+
 - `EstateCustomerOrderListComponent` در `property/edit` (که در `EstateMainModule` است) استفاده می‌شود
 - `EstatePropertyHistoryListComponent` در `property/edit` (که در `EstateMainModule` است) و `customer-order/edit` (که در `EstateActionModule` است) استفاده می‌شود
 - `EstatePropertyListComponent` در `customer-order/edit` (که در `EstateActionModule` است) و `billboard/edit` (که در `EstateMainModule` است) استفاده می‌شود
 - `EstateAccountAgencyListComponent` و `EstateAccountExpertListComponent` در `property/edit` (که در `EstateMainModule` است) و `customer-order/edit` (که در `EstateActionModule` است) استفاده می‌شوند
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/estate/shared/estate-shared.module.ts` (افزودن List components)
 - `src/app/cms-modules/estate/main/estate-main.module.ts` (حذف List components)
 - `src/app/cms-modules/estate/action/estate-action.module.ts` (حذف List component)
@@ -1033,9 +1120,11 @@
 - حذف import تکراری `EstatePropertyTypeUsageHeaderComponent` از `EstateMainModule`
 
 ### دلیل تغییرات:
+
 این کامپوننت‌ها در `EstatePropertyHistoryListComponent` (که در `EstateLogModule` است) استفاده می‌شوند اما در آن ماژول declare نشده بودند. با انتقال به `EstateSharedModule`، حالا در همه ماژول‌ها قابل استفاده هستند.
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/estate/shared/estate-shared.module.ts` (افزودن Header و Tree components)
 - `src/app/cms-modules/estate/main/estate-main.module.ts` (حذف Header و Tree components)
 - `src/app/cms-modules/estate/action/estate-action.module.ts` (حذف Header component)
@@ -1069,14 +1158,17 @@
 - حذف وابستگی `EstateActionModule` و `EstateLogModule` به `EstateMainModule` (جایگزین با `EstateSharedModule`)
 
 ### فایل‌های ایجاد شده:
+
 - `src/app/cms-modules/estate/shared/estate-shared.module.ts`
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/estate/main/estate-main.module.ts` (حذف pipes و selectorهای مشترک، اضافه کردن EstateSharedModule)
 - `src/app/cms-modules/estate/action/estate-action.module.ts` (حذف pipe و selector مشترک، اضافه کردن EstateSharedModule، حذف وابستگی به EstateMainModule)
 - `src/app/cms-modules/estate/log/estate-log.module.ts` (اضافه کردن EstateSharedModule، حذف وابستگی به EstateMainModule)
 
 ### مزایا:
+
 - کاهش تکرار کد: کامپوننت‌های مشترک فقط یک بار declare می‌شوند
 - بهبود maintainability: تغییرات در کامپوننت‌های مشترک فقط در یک جا انجام می‌شود
 - کاهش وابستگی‌ها: زیرماژول‌ها دیگر به `EstateMainModule` وابسته نیستند، فقط به `EstateSharedModule`
@@ -1114,10 +1206,12 @@
     - دکمه ارسال در Footer با Safe Area Support
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/sms/action/send-message/send-message.mobile.component.html` (بازنویسی کامل)
 - `src/app/cms-modules/sms/action/send-message/send-message.mobile.component.scss` (افزودن استایل‌های جدید)
 
 ### بهبودهای UI/UX:
+
 - طراحی کارت‌های Placeholder با نمایش کد و توضیحات
 - استایل Empty State برای زمانی که Placeholder وجود ندارد
 - بهبود استایل Step Description
@@ -1142,6 +1236,7 @@
 - حذف فایل‌های قدیمی `routes.mobile.ts` و `routes.normal.ts` از ریشه `estate`
 
 ### تغییرات URL:
+
 - URLها تغییر کرده‌اند و حالا شامل prefix زیرماژول هستند:
   - `estate/property` → `estate/main/property`
   - `estate/customer-order` → `estate/action/customer-order`
@@ -1149,6 +1244,7 @@
   - `estate/config` → بدون تغییر (همچنان `estate/config`)
 
 ### فایل‌های ایجاد شده:
+
 - `src/app/cms-modules/estate/main/estate-main.component.ts`
 - `src/app/cms-modules/estate/main/estate-main.module.ts`
 - `src/app/cms-modules/estate/main/estate-main.routing.ts`
@@ -1166,10 +1262,12 @@
 - `src/app/cms-modules/estate/log/routes.normal.ts`
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/estate/estate.module.ts` (ساده‌سازی شد)
 - `src/app/cms-modules/estate/estate.routing.ts` (تغییر به lazy loading)
 
 ### فایل‌های حذف شده:
+
 - `src/app/cms-modules/estate/routes.mobile.ts`
 - `src/app/cms-modules/estate/routes.normal.ts`
 
@@ -1184,6 +1282,7 @@
 - افزودن متد `onActionButtonReload` در `application/content/widget.component.ts` (سایر ویجت‌ها از قبل متد را داشتند).
 
 ### فایل‌های تغییر یافته:
+
 - `src/styles.scss`
 - تمام فایل‌های `widget.component.html` در مسیرهای:
   - `estate/property`, `estate/property-history`, `estate/customer-order`
@@ -1205,6 +1304,7 @@
 - افزودن `app-progress-spinner` با `optionsInfoAreaId="constructorInfoAreaId"` به ویجت کاربر (`core-main/user/widget`) و تبدیل ریشه به `loader-container` برای هم‌راستایی با process overlay.
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/application/content/widget/widget.component.ts`
 - `src/app/cms-modules/estate/property-history/widget/widget.component.ts`
 - `src/app/cms-modules/core-main/site/widget/module/widget.component.ts`
@@ -1223,12 +1323,14 @@
 - تغییر `onClick` از پنهان کردن tooltip به نمایش tooltip
 
 ### directive های تغییر یافته:
+
 - `ContactContentByNumberTooltipDirective`
 - `CmsUserInfoTooltipDirective`
 - `CmsSiteInfoTooltipDirective`
 - `CmsModuleInfoTooltipDirective`
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/core/directive/contact/contact-content-by-number-tooltip.directive.ts`
 - `src/app/core/directive/core/cms-user-info-tooltip.directive.ts`
 - `src/app/core/directive/core/cms-site-info-tooltip.directive.ts`
@@ -1249,6 +1351,7 @@
 - افزودن تمام directive ها به `SharedModule` در declarations و exports
 
 ### نحوه استفاده:
+
 ```html
 <!-- برای User Info -->
 <span [cmsUserInfoTooltip]="userId" [tooltipPosition]="'above'">
@@ -1267,6 +1370,7 @@
 ```
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/core/directive/core/cms-user-info-tooltip.directive.ts` (جدید)
 - `src/app/core/directive/core/cms-site-info-tooltip.directive.ts` (جدید)
 - `src/app/core/directive/core/cms-module-info-tooltip.directive.ts` (جدید)
@@ -1287,11 +1391,13 @@
 - pipe همچنان در exports باقی می‌ماند برای استفاده در template ها
 
 ### مزایا:
+
 - استقلال directive: دیگر نیازی به pipe ندارد
 - کاهش وابستگی‌ها: directive مستقل از pipe عمل می‌کند
 - بهبود performance: cache برای جلوگیری از درخواست‌های تکراری
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/core/directive/contact/contact-content-by-number-tooltip.directive.ts`
 - `src/app/shared/shared.module.ts`
 - `readmehistory.md`
@@ -1308,6 +1414,7 @@
 - بهینه‌سازی: یک بار import و یک بار provider در `SharedModule`
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/shared/shared.module.ts`
 - `src/app/cms-modules/sms/log/sms-log.module.ts`
 - `readmehistory.md`
@@ -1317,15 +1424,18 @@
 ## 2025-12-10 08:35 (رفع خطای NG0201: افزودن ContactContentByNumberPipe به providers)
 
 ### دلیل خطا:
+
 - directive `ContactContentByNumberTooltipDirective` از `ContactContentByNumberPipe` استفاده می‌کند
 - اما این pipe در providers در `SmsLogModule` قرار نداشت
 - Angular نمی‌توانست pipe را inject کند و خطای `NG0201: No provider found` رخ می‌داد
 
 ### تغییرات اعمال شده:
+
 - افزودن `ContactContentByNumberPipe` به providers در `SmsLogModule`
 - اطمینان از دسترسی directive به pipe مورد نیاز
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/sms/log/sms-log.module.ts`
 - `readmehistory.md`
 
@@ -1341,6 +1451,7 @@
 - pipe در providers در `SmsLogModule` باقی می‌ماند
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/shared/shared.module.ts`
 - `readmehistory.md`
 
@@ -1355,6 +1466,7 @@
 - اطمینان از دسترسی directive به pipe و service مورد نیاز
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/sms/log/sms-log.module.ts`
 - `readmehistory.md`
 
@@ -1370,6 +1482,7 @@
 - ساده‌سازی template: فقط استفاده از directive کافی است
 
 ### نحوه استفاده:
+
 ```html
 <span
   [contactContentByNumberTooltip]="row.senderNumber"
@@ -1380,6 +1493,7 @@
 ```
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/core/directive/contact-content-by-number-tooltip.directive.ts` (جدید)
 - `src/app/shared/shared.module.ts`
 - `src/app/cms-modules/sms/log/inbox/list/list.component.html`
@@ -1399,11 +1513,13 @@
 - ساده‌سازی template: فقط استفاده از pipe و async pipe کافی است
 
 ### مزایا:
+
 - کد تمیزتر و ساده‌تر: فقط استفاده از pipe در template
 - قابلیت استفاده مجدد: pipe را می‌توان در هر جایی از پروژه استفاده کرد
 - مدیریت خودکار cache: pipe خودش cache را مدیریت می‌کند
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/core/pipe/contact/contact-content-by-number-tooltip.pipe.ts` (جدید)
 - `src/app/shared/shared.module.ts`
 - `src/app/cms-modules/sms/log/inbox/list/list.component.ts`
@@ -1425,6 +1541,7 @@
 - بهینه‌سازی: جلوگیری از درخواست‌های تکراری برای شماره‌های قبلاً دریافت شده
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/sms/log/inbox/list/list.component.ts`
 - `src/app/cms-modules/sms/log/inbox/list/list.component.html`
 - `src/app/cms-modules/sms/log/sms-log.module.ts`
@@ -1442,6 +1559,7 @@
 - نمایش شماره در سلول و اطلاعات دفترچه تلفن در tooltip هنگام hover
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/sms/log/inbox/list/list.component.ts`
 - `src/app/cms-modules/sms/log/inbox/list/list.component.html`
 - `readmehistory.md`
@@ -1482,18 +1600,22 @@
 - نمایش خروجی به صورت فهرست جداشده با `|`؛ در صورت نبود نام، بازگشت به شماره ورودی
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/core/pipe/contact/contact-content-by-number.pipe.ts`
 - `readmehistory.md`
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/core/pipe/contact/contact-content-by-number.pipe.ts`
 - `readmehistory.md`
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/core/pipe/contact/contact-content-by-number.pipe.ts`
 - `readmehistory.md`
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/sms/log/inbox/list/list.component.ts`
 - `src/app/cms-modules/sms/log/inbox/list/list.component.html`
 - `readmehistory.md`
@@ -1508,6 +1630,7 @@
 - افزودن `ContactContentService` به `providers` برای پشتیبانی از pipe و جلوگیری از خطای تزریق
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/shared/shared.module.ts`
 - `readmehistory.md`
 
@@ -1522,6 +1645,7 @@
 - الحاق فیلترهای انتخاب دسته (Category/Module) و وضعیت رکورد به شمارنده‌ها تا نتایج آمار با نتایج لیست مطابقت داشته باشد
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/core-module-log/content-count/list/list.component.ts`
 - `src/app/cms-modules/hyper-shop/content/list/list.component.ts`
 - `src/app/cms-modules/core-main/module-entity/list/list.component.ts`
@@ -1583,6 +1707,7 @@
    - `DataGetAll()`: ریست کردن نتایج جستجوی سرور
 
 **فایل‌های تغییر یافته:**
+
 - `src/app/shared/cms-contact-content-drop-list/cms-contact-content-drop-list.component.ts`
 - `src/app/shared/cms-contact-content-drop-list/cms-contact-content-drop-list.component.html`
 - `readmehistory.md`
@@ -1602,6 +1727,7 @@
 - حالا به جای انتخاب "Report" به صورت پیش‌فرض، اولین آیتم که "Excel" است انتخاب می‌شود
 
 **قبل:**
+
 ```typescript
 ngOnInit(): void {
   this.DataGetAll();
@@ -1614,6 +1740,7 @@ ngOnInit(): void {
 ```
 
 **بعد:**
+
 ```typescript
 ngOnInit(): void {
   this.DataGetAll();
@@ -1629,15 +1756,18 @@ ngOnInit(): void {
 ```
 
 **ترتیب آیتم‌های fileTypeListItems:**
+
 1. Excel (value: 1) ← **انتخاب شده به صورت پیش‌فرض**
 2. Json (value: 3)
 3. Report (value: 4)
 
 **فایل‌های تغییر یافته:**
+
 - `src/app/shared/cms-export-list/cmsExportList.component.ts`
 - `readmehistory.md`
 
 **تاثیر:**
+
 - کاربر دیگر نیازی ندارد دستی Excel را انتخاب کند، به صورت خودکار انتخاب می‌شود
 - UX بهتر: رایج‌ترین فرمت (Excel) به صورت پیش‌فرض انتخاب شده است
 
@@ -1667,6 +1797,7 @@ ngOnInit(): void {
    - افزودن `of` به imports از `rxjs`
 
 **قبل:**
+
 ```typescript
 import { Observable, map } from "rxjs";
 // ...
@@ -1676,26 +1807,29 @@ if (!value || value <= 0) {
 ```
 
 **بعد:**
+
 ```typescript
 import { Observable, map, of } from "rxjs";
 // ...
 if (!value || value <= 0) {
-  return of('');
+  return of("");
 }
 ```
 
 **فایل‌های تغییر یافته:**
+
 - `src/app/core/pipe/core/cms-site-info.pipe.ts`
 - `readmehistory.md`
 
 **نمونه‌هایی از استفاده صحیح در پروژه:**
+
 ```html
-{{ row.linkSiteId | cmssiteinfo | async }}
-{{ dataModel.linkSiteId | cmssiteinfo | async }}
-{{ dataModelCalculate.linkSiteId | cmssiteinfo | async }}
+{{ row.linkSiteId | cmssiteinfo | async }} {{ dataModel.linkSiteId | cmssiteinfo
+| async }} {{ dataModelCalculate.linkSiteId | cmssiteinfo | async }}
 ```
 
 **تاثیر:**
+
 - بهبود performance در مواردی که value نامعتبر است
 - سازگاری بهتر با async pipe در Angular
 - جلوگیری از مشکلات احتمالی subscription
@@ -1728,59 +1862,59 @@ if (!value || value <= 0) {
 
 ```html
 @case ("error") {
-  <div class="alert alert-danger" role="alert">
-    <i class="fa fa-exclamation-circle me-2"></i>
-    <strong>{{ "MESSAGE.Error" | translate }}:</strong>
-    {{ formInfo.submitResultMessage }}
-    @if (formInfo?.submitResultErrors?.length > 0) {
-      <ul class="mt-2 mb-0">
-        @for (error of formInfo.submitResultErrors; track $index) {
-          <li>{{ error }}</li>
-        }
-      </ul>
+<div class="alert alert-danger" role="alert">
+  <i class="fa fa-exclamation-circle me-2"></i>
+  <strong>{{ "MESSAGE.Error" | translate }}:</strong>
+  {{ formInfo.submitResultMessage }} @if (formInfo?.submitResultErrors?.length >
+  0) {
+  <ul class="mt-2 mb-0">
+    @for (error of formInfo.submitResultErrors; track $index) {
+    <li>{{ error }}</li>
     }
-  </div>
-}
-
-@case ("warning") {
-  <div class="alert alert-warning" role="alert">
-    <i class="fa fa-exclamation-triangle me-2"></i>
-    <strong>{{ "MESSAGE.Warning" | translate }}:</strong>
-    {{ formInfo.submitResultMessage }}
-    @if (formInfo?.submitResultWarnings?.length > 0) {
-      <ul class="mt-2 mb-0">
-        @for (warning of formInfo.submitResultWarnings; track $index) {
-          <li>{{ warning }}</li>
-        }
-      </ul>
+  </ul>
+  }
+</div>
+} @case ("warning") {
+<div class="alert alert-warning" role="alert">
+  <i class="fa fa-exclamation-triangle me-2"></i>
+  <strong>{{ "MESSAGE.Warning" | translate }}:</strong>
+  {{ formInfo.submitResultMessage }} @if (formInfo?.submitResultWarnings?.length
+  > 0) {
+  <ul class="mt-2 mb-0">
+    @for (warning of formInfo.submitResultWarnings; track $index) {
+    <li>{{ warning }}</li>
     }
-  </div>
+  </ul>
+  }
+</div>
 }
 
 <!-- نمایش Errors جداگانه -->
-@if (formInfo?.submitResultErrors?.length > 0 && formInfo?.submitResultMessage?.length === 0) {
-  <div class="alert alert-danger" role="alert">
-    <i class="fa fa-exclamation-circle me-2"></i>
-    <strong>{{ "MESSAGE.Error" | translate }}:</strong>
-    <ul class="mt-2 mb-0">
-      @for (error of formInfo.submitResultErrors; track $index) {
-        <li>{{ error }}</li>
-      }
-    </ul>
-  </div>
+@if (formInfo?.submitResultErrors?.length > 0 &&
+formInfo?.submitResultMessage?.length === 0) {
+<div class="alert alert-danger" role="alert">
+  <i class="fa fa-exclamation-circle me-2"></i>
+  <strong>{{ "MESSAGE.Error" | translate }}:</strong>
+  <ul class="mt-2 mb-0">
+    @for (error of formInfo.submitResultErrors; track $index) {
+    <li>{{ error }}</li>
+    }
+  </ul>
+</div>
 }
 
 <!-- نمایش Warnings جداگانه -->
-@if (formInfo?.submitResultWarnings?.length > 0 && formInfo?.submitResultMessage?.length === 0) {
-  <div class="alert alert-warning" role="alert">
-    <i class="fa fa-exclamation-triangle me-2"></i>
-    <strong>{{ "MESSAGE.Warning" | translate }}:</strong>
-    <ul class="mt-2 mb-0">
-      @for (warning of formInfo.submitResultWarnings; track $index) {
-        <li>{{ warning }}</li>
-      }
-    </ul>
-  </div>
+@if (formInfo?.submitResultWarnings?.length > 0 &&
+formInfo?.submitResultMessage?.length === 0) {
+<div class="alert alert-warning" role="alert">
+  <i class="fa fa-exclamation-triangle me-2"></i>
+  <strong>{{ "MESSAGE.Warning" | translate }}:</strong>
+  <ul class="mt-2 mb-0">
+    @for (warning of formInfo.submitResultWarnings; track $index) {
+    <li>{{ warning }}</li>
+    }
+  </ul>
+</div>
 }
 ```
 
@@ -1811,6 +1945,7 @@ if (!value || value <= 0) {
 **هدف:** انتقال FormInfoModel، FormSubmitedStatusEnum و FormValidationStatusEnum از ntk-cms-api به src/app/core/models
 
 **نتایج:**
+
 - ✅ **499 فایل** TypeScript اصلاح شد
 - ✅ **0 فایل** با import قدیمی باقی ماند
 - ✅ **552 import** جدید از core/models
@@ -1819,6 +1954,7 @@ if (!value || value <= 0) {
 **تغییرات در imports:**
 
 **قبل:**
+
 ```typescript
 import {
   FormInfoModel,
@@ -1829,6 +1965,7 @@ import {
 ```
 
 **بعد:**
+
 ```typescript
 import { FormInfoModel } from "../../../../core/models/formInfoModel";
 import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
@@ -1839,11 +1976,13 @@ import {
 ```
 
 **فایل‌های Core Models:**
+
 1. `src/app/core/models/formInfoModel.ts`
 2. `src/app/core/models/formSubmitedStatusEnum.ts`
 3. `src/app/core/models/formValidationStatusEnum.ts`
 
 **اصلاحات خاص:**
+
 - اصلاح ValidationStatusEnum به FormValidationStatusEnum در کل پروژه
 - اصلاح مسیرهای نسبی برای هر فایل بر اساس موقعیتش
 - حذف imports غیرضروری از ntk-cms-api
@@ -1862,6 +2001,7 @@ import {
 #### بخش 1: TypeScript (submitResultMessageType)
 
 **آمار کلی:**
+
 - ✅ **389 فایل** TypeScript پردازش شد
 - ✅ **333 فایل** اصلاح شد
 - ✅ **250 import** جدید اضافه شد
@@ -1869,7 +2009,9 @@ import {
 - ✅ **0 خطا**
 
 **تغییرات در هر فایل:**
+
 1. **اضافه کردن import:**
+
 ```typescript
 import {
   ...,
@@ -1879,6 +2021,7 @@ import {
 ```
 
 2. **اصلاح بلوک موفقیت (if):**
+
 ```typescript
 if (ret.isSuccess) {
   this.formInfo.submitResultMessage = "...";
@@ -1888,6 +2031,7 @@ if (ret.isSuccess) {
 ```
 
 3. **اصلاح بلوک خطا (else):**
+
 ```typescript
 else {
   this.formInfo.submitResultMessage = ret.errorMessage;
@@ -1897,6 +2041,7 @@ else {
 ```
 
 **ماژول‌های اصلاح شده:**
+
 - shared: 10 فایل
 - sms: 32 فایل
 - estate: 61 فایل
@@ -1908,20 +2053,23 @@ else {
 #### بخش 2: HTML (app-cms-form-result-message)
 
 **آمار کلی:**
+
 - ✅ **298 فایل** HTML اصلاح شد
 - ✅ **291 فایل** از طریق اسکریپت
 - ✅ **7 فایل** shared به صورت دستی
 
 **تغییر در هر فایل:**
 قبل از هر `<form (ngSubmit)="onFormSubmit()"` این کامپوننت اضافه شد:
+
 ```html
 <app-cms-form-result-message
   [formInfo]="formInfo"
 ></app-cms-form-result-message>
-<form (ngSubmit)="onFormSubmit()" #vform="ngForm">
+<form (ngSubmit)="onFormSubmit()" #vform="ngForm"></form>
 ```
 
 **نکات مهم:**
+
 - کامپوننت به صورت خودکار بر اساس `formInfo.submitResult` رنگ و آیکون مناسب را نمایش می‌دهد
 - پشتیبانی از 4 حالت: success, error, warning, info
 - نمایش به صورت Full Width با Bootstrap Alert
@@ -1930,6 +2078,7 @@ else {
 #### بخش 3: Backup و امنیت
 
 **Backup های ایجاد شده:**
+
 1. `backup-20251204-180148` - اولین دور اصلاحات
 2. `backup-complete-20251204-180325` - imports کامل
 3. `backup-20251204-180358` - بلوک‌های if/else
@@ -1941,6 +2090,7 @@ else {
 #### بخش 4: اسکریپت‌های استفاده شده
 
 سه اسکریپت PowerShell نوشته شد و اجرا شد:
+
 1. `fix-all-submit-result.ps1` - اضافه کردن imports
 2. `fix-if-else-blocks.ps1` - اصلاح بلوک‌های if/else
 3. `fix-html-form-result-message.ps1` - اضافه کردن component به HTML
@@ -1948,6 +2098,7 @@ else {
 #### نتیجه نهایی:
 
 **✅ 100% موفق:**
+
 - تمام فایل‌های TypeScript: submitResultMessageType دارند
 - تمام فایل‌های HTML با form: app-cms-form-result-message دارند
 - سیستم یکپارچه نمایش پیام در کل پروژه
@@ -1966,11 +2117,13 @@ else {
 **هدف:** نمایش پیام‌های نتیجه ثبت فرم‌ها با استفاده از Bootstrap Alert به صورت Full Width
 
 **فایل‌های تغییر یافته:**
+
 1. `src/app/shared/cms-form-result-message/cms-form-result-message.component.html`
 2. `src/assets/i18n/fa.json`
 3. `src/assets/i18n/en.json`
 
 **تغییرات:**
+
 - تبدیل از alert ساده به Bootstrap Alert با رنگ‌های استاندارد
 - نمایش به صورت Full Width (فول ردیف)
 - استفاده از switch برای نمایش حالت‌های مختلف بر اساس `formInfo.submitResult`:
@@ -1992,9 +2145,11 @@ else {
     - عنوان: "اطلاعات:"
 
 **ترجمه‌های اضافه شده:**
+
 - `MESSAGE.Info`: "اطلاعات" (فارسی) / "Info" (انگلیسی)
 
 **ویژگی‌های پیاده‌سازی شده:**
+
 - سازگار با Bootstrap Alert موجود در پروژه
 - نمایش به صورت Full Width (کل عرض صفحه)
 - استفاده از syntax جدید Angular (@if/@switch)
@@ -2016,6 +2171,7 @@ else {
 **هدف:** نمایش لیست اجراها (scheduleRunInfos) در یک popup برای هر رکورد زمان‌بند ارسال پیامک
 
 **فایل‌های ایجاد شده:**
+
 1. `src/app/cms-modules/sms/log/outbox-task-scheduler/schedule-run-info-list/schedule-run-info-list.component.ts`
    - کامپوننت Dialog برای نمایش لیست اجراها
    - دریافت داده‌های scheduleRunInfos از طریق MAT_DIALOG_DATA
@@ -2032,6 +2188,7 @@ else {
    - نمایش آیکن موفق/ناموفق برای هر اجرا
 
 **فایل‌های تغییر یافته:**
+
 1. `src/app/cms-modules/sms/log/sms-log.module.ts`
    - اضافه کردن ScheduleRunInfoListComponent به declarations
    - اضافه کردن import مربوطه
@@ -2065,6 +2222,7 @@ else {
    - اضافه کردن ترجمه‌های انگلیسی مربوطه
 
 **ویژگی‌های پیاده‌سازی شده:**
+
 - نمایش popup به صورت responsive (fullscreen در موبایل، dialog در دسکتاپ)
 - نمایش تعداد اجراها در badge کنار آیکون
 - نمایش زمان‌ها با فرمت مناسب (localeDateTime)
@@ -2080,6 +2238,7 @@ else {
 ### پیاده‌سازی Drag & Drop حرفه‌ای با راه‌حل مشکل ارتفاع‌ها
 
 **چالش اصلی:**
+
 - ویجت‌ها ارتفاع‌های مختلف داشتند که ظاهر را زشت می‌کرد
 - نیاز به حرکت عمودی و افقی همزمان
 - نیاز به placeholder واضح و کاربردی
@@ -2087,6 +2246,7 @@ else {
 **راه‌حل پیاده‌سازی شده:**
 
 1. **Drag Handle مخفی با نمایش در Hover:**
+
    ```scss
    .drag-handle {
      opacity: 0; // مخفی به صورت پیش‌فرض
@@ -2099,11 +2259,13 @@ else {
      transform: scale(1);
    }
    ```
+
    - آیکون فقط وقتی روی ویجت hover می‌کنید نمایش داده می‌شود
    - با انیمیشن smooth ظاهر می‌شود (fade in + scale)
    - UI تمیزتر و حرفه‌ای‌تر
 
 2. **حل مشکل ارتفاع‌های مختلف:**
+
    ```scss
    .widget-wrapper {
      min-height: 400px; // ارتفاع یکسان برای همه
@@ -2112,39 +2274,41 @@ else {
      height: 100%;
    }
    ```
+
    - تمام ویجت‌ها حداقل 400px ارتفاع دارند (desktop)
    - در تبلت: 350px
    - در موبایل: 300px
 
-2. **Drag Handle ساده و کاربردی:**
+3. **Drag Handle ساده و کاربردی:**
    - آیکون Material: `reorder`
    - موقعیت: بالا سمت راست (RTL: بالا سمت چپ)
    - Cursor: `grab` در عادی، `grabbing` در active
    - Hover: background تیره‌تر + رنگ icon تیره‌تر
    - Active: scale کوچک‌تر (0.95)
 
-3. **Placeholder واضح:**
+4. **Placeholder واضح:**
    - Background: `rgba(0, 0, 0, 0.06)` شفاف
    - Border: `2px solid rgba(0, 0, 0, 0.12)` ساده
    - ارتفاع: همان minimum ویجت‌ها (400/350/300px)
    - متن: "رها کنید"
 
-4. **حالت Dragging:**
+5. **حالت Dragging:**
    - Opacity: 0.7
    - Shadow: `0 8px 20px rgba(0, 0, 0, 0.25)`
    - z-index: 1000
    - Handle مخفی می‌شود
 
-5. **Transitions smooth:**
+6. **Transitions smooth:**
    - انیمیشن: `300ms cubic-bezier(0.4, 0, 0.2, 1)`
    - نرم و طبیعی
 
-6. **پشتیبانی کامل از عمودی و افقی:**
+7. **پشتیبانی کامل از عمودی و افقی:**
    - بدون محدودیت orientation
    - `flex-wrap: wrap` در row
    - جابجایی در تمام جهات
 
 **کلاس‌های استفاده شده:**
+
 - `.widget-item`: کانتینر اصلی ویجت
 - `.drag-handle`: دسته کشیدن
 - `.widget-wrapper`: wrapper با ارتفاع ثابت
@@ -3219,16 +3383,19 @@ ngOnInit(): void {
 ## تاریخ: 2025-01-27 - بهینه‌سازی استایل‌های موبایل ماژول SMS
 
 ### خلاصه تغییرات:
+
 بهینه‌سازی و استخراج استایل‌های تکراری از کامپوننت‌های موبایل ماژول SMS به فایل مشترک `styles.mobile.scss`
 
 ### تغییرات انجام شده:
 
 #### 1. بهینه‌سازی فایل‌های Config:
+
 - **config-main-admin.mobile.component.scss**: حذف استایل‌های تکراری (host, body, header, content, footer, dark mode, RTL) و نگه‌داری فقط استایل‌های خاص (switch, toggle-group, char-count)
 - **check-user.mobile.component.scss**: حذف استایل‌های تکراری و نگه‌داری فقط استایل‌های خاص (notice, list-item, empty-state)
 - **check-site.mobile.component.scss**: مشابه check-user
 
 #### 2. بهینه‌سازی فایل‌های List:
+
 - **list.mobile.component.scss (api-path)**: حذف استایل‌های تکراری و نگه‌داری فقط استایل‌های خاص (content padding, header-spacer, responsive breakpoints)
 - استایل‌های مشترک list به `styles.mobile.scss` اضافه شد:
   - `.cms-m-list`, `.cms-m-list-item`, `.cms-m-list-item-*`
@@ -3240,6 +3407,7 @@ ngOnInit(): void {
   - Animations: `rotate360`, `slideDown`
 
 #### 3. به‌روزرسانی `styles.mobile.scss`:
+
 - اضافه شدن استایل‌های مشترک برای کامپوننت‌های List
 - اضافه شدن استایل‌های Header Actions
 - اضافه شدن استایل‌های Search & Statist Areas
@@ -3247,6 +3415,7 @@ ngOnInit(): void {
 - اضافه شدن RTL Support برای List Components
 
 ### فایل‌های تغییر یافته:
+
 1. `src/assets/scss/styles.mobile.scss` - اضافه شدن استایل‌های مشترک List
 2. `src/app/cms-modules/sms/config/main-admin/config-main-admin.mobile.component.scss` - بهینه‌سازی
 3. `src/app/cms-modules/sms/config/check-user/check-user.mobile.component.scss` - بهینه‌سازی
@@ -3254,9 +3423,11 @@ ngOnInit(): void {
 5. `src/app/cms-modules/sms/main/api-path/list/list.mobile.component.scss` - بهینه‌سازی
 
 ### فایل‌های باقی‌مانده برای بهینه‌سازی:
+
 - ~~سایر فایل‌های list (حدود 17 فایل دیگر) که باید با الگوی مشابه بهینه شوند~~ ✅ **انجام شد**
 
 #### 4. تکمیل بهینه‌سازی فایل‌های List:
+
 - **14 فایل list بهینه شد:**
   - `log/inbox/list/list.mobile.component.scss`
   - `log/outbox/list/list.mobile.component.scss`
@@ -3282,7 +3453,9 @@ ngOnInit(): void {
     - Android specific optimizations
 
 ### نتیجه نهایی:
+
 ✅ **تمام فایل‌های موبایل ماژول SMS بهینه شدند**
+
 - کاهش حجم کد از حدود 775 خط به 50-60 خط در هر فایل list
 - کاهش حجم کد از حدود 550 خط به 128 خط در فایل‌های config
 - بهبود قابلیت نگهداری و یکنواختی
@@ -3293,20 +3466,25 @@ ngOnInit(): void {
 ## تاریخ: 2025-01-27 - برنامه‌ریزی برای ایجاد Mobile Component برای تمام کامپوننت‌های SMS
 
 ### خلاصه:
+
 بررسی و شناسایی کامپوننت‌های SMS که هنوز mobile component ندارند
 
 ### کامپوننت‌های موجود با Mobile:
+
 ✅ **Action:**
+
 - send-message ✅
 - send-message-api ✅
 
 ✅ **Config:**
+
 - site ✅
 - main-admin ✅
 - check-site ✅
 - check-user ✅
 
 ✅ **Log (List):**
+
 - inbox/list ✅
 - outbox/list ✅
 - outbox-queue/list ✅
@@ -3315,6 +3493,7 @@ ngOnInit(): void {
 - api-path/list ✅
 
 ✅ **Main (List):**
+
 - api-path/list ✅
 - api-path-company/list ✅
 - api-number/list ✅
@@ -3328,6 +3507,7 @@ ngOnInit(): void {
 ### کامپوننت‌های بدون Mobile (نیاز به ایجاد):
 
 #### Main Module:
+
 - **Edit Components:**
   - api-path/edit
   - api-path-company/edit
@@ -3362,6 +3542,7 @@ ngOnInit(): void {
   - message-category/delete
 
 #### Log Module:
+
 - **View Components:**
   - outbox/view
   - outbox-queue/view
@@ -3387,6 +3568,7 @@ ngOnInit(): void {
 ### الگوی مشترک برای Mobile Components:
 
 #### 1. Edit/Add Components:
+
 - استفاده از Material Stepper (vertical) برای موبایل
 - Header با دکمه Back
 - Content با safe area support
@@ -3394,17 +3576,20 @@ ngOnInit(): void {
 - استفاده از استایل‌های مشترک از `styles.mobile.scss`
 
 #### 2. View Components:
+
 - Header با دکمه Back
 - Content با نمایش اطلاعات
 - Footer با دکمه Close
 - استفاده از `app-cms-json-list` برای نمایش داده‌ها
 
 #### 3. Tree Components:
+
 - Header با دکمه Back
 - Content با tree view
 - استفاده از Material Tree یا custom tree component
 
 ### مراحل پیاده‌سازی:
+
 1. ایجاد mobile component برای Edit/Add (اولویت اول)
 2. ایجاد mobile component برای View (اولویت دوم)
 3. ایجاد mobile component برای Tree (اولویت سوم)
@@ -3413,6 +3598,7 @@ ngOnInit(): void {
 6. به‌روزرسانی module declarations
 
 ### نکات مهم:
+
 - استفاده از الگوی مشترک از کامپوننت‌های config mobile
 - استفاده از استایل‌های مشترک از `styles.mobile.scss`
 - پشتیبانی از Safe Area برای iPhone
@@ -3420,6 +3606,7 @@ ngOnInit(): void {
 - پشتیبانی از Dark Mode
 
 ### مزایا:
+
 - کاهش حجم کد تکراری
 - بهبود قابلیت نگهداری
 - یکنواختی بیشتر در استایل‌ها
@@ -3430,11 +3617,13 @@ ngOnInit(): void {
 ## تاریخ: 2025-01-27 - بازطراحی کامپوننت ارسال پیام SMS برای موبایل
 
 ### خلاصه تغییرات:
+
 بازطراحی رابط کاربری کامپوننت `SmsActionSendMessageMobileComponent` برای بهبود تجربه کاربری و دسترسی بهتر به دکمه ارسال
 
 ### تغییرات انجام شده:
 
 #### 1. بازطراحی HTML:
+
 - **حذف Material Stepper**: حذف stepper چند مرحله‌ای و جایگزینی با رابط ساده‌تر
 - **محتوای اصلی ساده‌سازی شده**:
   - نمایش مستقیم Direction (مسیر ارسال)
@@ -3455,9 +3644,11 @@ ngOnInit(): void {
   - همیشه در دسترس و قابل مشاهده
 
 #### 2. تغییرات TypeScript:
+
 - اضافه شدن متغیر `settingsMenuOpen` برای کنترل باز/بسته بودن منوی تنظیمات
 
 #### 3. تغییرات SCSS:
+
 - **استایل‌های Drawer**:
   - منوی تنظیمات در سمت چپ با انیمیشن slide-in
   - Overlay با blur effect
@@ -3474,11 +3665,13 @@ ngOnInit(): void {
   - نمایش اطلاعات گیرنده انتخاب شده
 
 ### فایل‌های تغییر یافته:
+
 1. `src/app/cms-modules/sms/action/send-message/send-message.mobile.component.html` - بازطراحی کامل
 2. `src/app/cms-modules/sms/action/send-message/send-message.mobile.component.ts` - اضافه شدن `settingsMenuOpen`
 3. `src/app/cms-modules/sms/action/send-message/send-message.mobile.component.scss` - استایل‌های جدید
 
 ### مزایا:
+
 - دسترسی بهتر به دکمه ارسال (همیشه در دسترس)
 - رابط کاربری ساده‌تر و تمیزتر
 - تمرکز روی اطلاعات مهم (Direction, Receiver, Message)
@@ -3492,6 +3685,7 @@ ngOnInit(): void {
 ## تاریخ: 2025-01-27 - انتقال کامپوننت‌های contract-type و customer-category به فولدر main
 
 ### تغییرات انجام شده:
+
 1. انتقال فولدر `contract-type` از `src/app/cms-modules/estate/contract-type` به `src/app/cms-modules/estate/main/contract-type`
 2. انتقال فولدر `customer-category` از `src/app/cms-modules/estate/customer-category` به `src/app/cms-modules/estate/main/customer-category`
 3. به‌روزرسانی importها در `estate-main.module.ts`
@@ -3499,16 +3693,19 @@ ngOnInit(): void {
 5. به‌روزرسانی importها در `routes.mobile.ts` و `routes.normal.ts`
 
 ### فایل‌های تغییر یافته:
+
 1. `src/app/cms-modules/estate/main/estate-main.module.ts` - به‌روزرسانی importها
 2. `src/app/cms-modules/estate/shared/estate-shared.module.ts` - به‌روزرسانی importها
 3. `src/app/cms-modules/estate/main/routes.mobile.ts` - به‌روزرسانی importها
 4. `src/app/cms-modules/estate/main/routes.normal.ts` - به‌روزرسانی importها
 
 ### کامپوننت‌های منتقل شده:
+
 - **contract-type**: add, edit, list, tree, selector, autocomplete, header
 - **customer-category**: add, edit, tree, selector
 
 ### مزایا:
+
 - سازماندهی بهتر کامپوننت‌ها در فولدر main
 - هماهنگی با ساختار سایر کامپوننت‌های main
 - بهبود ساختار پروژه
@@ -3518,6 +3715,7 @@ ngOnInit(): void {
 ## تاریخ: 2025-01-27 - انتقال کامپوننت‌های property-type-landuse, property-type-usage, property-supplier-category, property-detail-group و property-detail به فولدر main
 
 ### تغییرات انجام شده:
+
 1. انتقال فولدر `property-type-landuse` از `src/app/cms-modules/estate/property-type-landuse` به `src/app/cms-modules/estate/main/property-type-landuse`
 2. انتقال فولدر `property-type-usage` از `src/app/cms-modules/estate/property-type-usage` به `src/app/cms-modules/estate/main/property-type-usage`
 3. انتقال فولدر `property-supplier-category` از `src/app/cms-modules/estate/property-supplier-category` به `src/app/cms-modules/estate/main/property-supplier-category`
@@ -3528,12 +3726,14 @@ ngOnInit(): void {
 8. به‌روزرسانی importها در `routes.mobile.ts` و `routes.normal.ts`
 
 ### فایل‌های تغییر یافته:
+
 1. `src/app/cms-modules/estate/main/estate-main.module.ts` - به‌روزرسانی importها
 2. `src/app/cms-modules/estate/shared/estate-shared.module.ts` - به‌روزرسانی importها
 3. `src/app/cms-modules/estate/main/routes.mobile.ts` - به‌روزرسانی importها
 4. `src/app/cms-modules/estate/main/routes.normal.ts` - به‌روزرسانی importها
 
 ### کامپوننت‌های منتقل شده:
+
 - **property-type-landuse**: add, edit, list, tree, selector, autocomplete, header, selectionlist
 - **property-type-usage**: add, edit, list, tree, selector, autocomplete, header, selectionlist
 - **property-supplier-category**: add, edit, tree, selector, tree-selector
@@ -3541,6 +3741,7 @@ ngOnInit(): void {
 - **property-detail**: add, edit, list, tree, selector
 
 ### مزایا:
+
 - سازماندهی بهتر کامپوننت‌ها در فولدر main
 - هماهنگی با ساختار سایر کامپوننت‌های main
 - بهبود ساختار پروژه
@@ -3550,6 +3751,7 @@ ngOnInit(): void {
 ## تاریخ: 2025-01-27 - انتقال کامپوننت‌های property, property-ads, property-company, property-project و property-supplier به فولدر data
 
 ### تغییرات انجام شده:
+
 1. انتقال فولدر `property` از `src/app/cms-modules/estate/property` به `src/app/cms-modules/estate/data/property`
 2. انتقال فولدر `property-ads` از `src/app/cms-modules/estate/property-ads` به `src/app/cms-modules/estate/data/property-ads`
 3. انتقال فولدر `property-company` از `src/app/cms-modules/estate/property-company` به `src/app/cms-modules/estate/data/property-company`
@@ -3562,6 +3764,7 @@ ngOnInit(): void {
 10. به‌روزرسانی importها در فایل‌های دیگر (customer-order, overview, log, billboard)
 
 ### فایل‌های تغییر یافته:
+
 1. `src/app/cms-modules/estate/main/estate-main.module.ts` - حذف importها و declarations
 2. `src/app/cms-modules/estate/data/estate-data.module.ts` - اضافه کردن importها و declarations
 3. `src/app/cms-modules/estate/shared/estate-shared.module.ts` - به‌روزرسانی importها
@@ -3570,6 +3773,7 @@ ngOnInit(): void {
 6. فایل‌های دیگر: customer-order, overview, log, billboard
 
 ### کامپوننت‌های منتقل شده:
+
 - **property**: action, add, edit, list, autocomplete, header, quick-add, quick-list, quick-view, responsible-user-list, selector, widget
 - **property-ads**: add, edit, list, sale-list, sale-payment
 - **property-company**: add, edit, list, delete, tree, quick-view, header, selector
@@ -3577,6 +3781,7 @@ ngOnInit(): void {
 - **property-supplier**: add, edit, list, delete, tree, quick-view, header, selector
 
 ### مزایا:
+
 - سازماندهی بهتر کامپوننت‌ها در فولدر data
 - جداسازی کامپوننت‌های data از main
 - بهبود ساختار پروژه
@@ -3586,14 +3791,17 @@ ngOnInit(): void {
 ## 2025-12-22 08:52:20 - رفع خطاهای کامپایل Angular
 
 ### تغییرات:
+
 - **فایل**: `src/app/cms-modules/cmsModulesWidget.module.ts`
   - اضافه کردن `SmsWidgetModule` و `EstateWidgetModule` به بخش `exports`
   - این تغییر باعث می‌شود کامپوننت‌های این ماژول‌ها در `PanelModule` قابل استفاده باشند
 
 ### مشکلات برطرف شده:
+
 1. خطای `NG8001`: `'app-sms-log-inbox-widget' is not a known element` - برطرف شد
 2. خطای `NG6002`: `'CmsModulesWidgetModule' does not appear to be an NgModule class` - برطرف شد
 
 ### توضیحات:
+
 - ماژول‌های `SmsWidgetModule` و `EstateWidgetModule` قبلاً در بخش `imports` قرار داشتند اما در بخش `exports` نبودند
 - با اضافه کردن آن‌ها به `exports`، کامپوننت‌های این ماژول‌ها (مانند `app-sms-log-inbox-widget`) در ماژول‌های دیگر که `CmsModulesWidgetModule` را import می‌کنند قابل استفاده می‌شوند

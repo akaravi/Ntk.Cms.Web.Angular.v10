@@ -7,20 +7,23 @@ import {
   ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
-import { MatChipInputEvent } from "@angular/material/chips";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreSiteCategoryModel,
+import {
+  CoreSiteCategoryModel,
   CoreSiteModel,
   CoreUserGroupModel,
   CoreUserModel,
   DataFieldInfoModel,
-  ErrorExceptionResult,InfoEnumModel,
+  ErrorExceptionResult,
+  InfoEnumModel,
   ManageUserAccessDataTypesEnum,
   SmsEnumService,
-  SmsMainApiPathModel,
-  SmsMainApiPathPriceServiceModel,
-  SmsMainApiPathPriceServiceService} from "ntk-cms-api";
+  SmsMainApiPathPaginationModel,
+  SmsMainApiPathPricePermissionModel,
+  SmsMainApiPathPricePermissionService,
+} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -30,15 +33,15 @@ import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 import { FormSubmitedStatusEnum } from "../../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
-  selector: "app-sms-apipathpriceservice-add",
-  templateUrl: "./add.component.html",
-
+  selector: "app-sms-apipath-price-permission-add-mobile",
+  templateUrl: "./add.mobile.component.html",
+  styleUrls: ["./add.mobile.component.scss"],
   standalone: false,
 })
-export class SmsMainApiPathPriceServiceAddComponent
+export class SmsMainApiPathPricePermissionAddMobileComponent
   extends AddBaseComponent<
-    SmsMainApiPathPriceServiceService,
-    SmsMainApiPathPriceServiceModel,
+    SmsMainApiPathPricePermissionService,
+    SmsMainApiPathPricePermissionModel,
     string
   >
   implements OnInit
@@ -47,25 +50,26 @@ export class SmsMainApiPathPriceServiceAddComponent
   requestId = "";
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<SmsMainApiPathPriceServiceAddComponent>,
+    private dialogRef: MatDialogRef<SmsMainApiPathPricePermissionAddMobileComponent>,
     public smsEnumService: SmsEnumService,
-    public smsMainApiPathPriceServiceService: SmsMainApiPathPriceServiceService,
+    public smsMainApiPathPricePermissionService: SmsMainApiPathPricePermissionService,
     private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
+    private router: Router,
     public translate: TranslateService,
   ) {
     super(
-      smsMainApiPathPriceServiceService,
-      new SmsMainApiPathPriceServiceModel(),
+      smsMainApiPathPricePermissionService,
+      new SmsMainApiPathPricePermissionModel(),
       publicHelper,
       translate,
     );
     this.publicHelper.processService.cdr = this.cdr;
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
     if (data) {
-      if ( data.linkApiPathId?.length > 0)
-        this.dataModel.linkApiPathId = data.linkApiPathId;
+      if (data.linkApiPathPaginationId?.length > 0)
+        this.dataModel.linkApiPathPaginationId = data.linkApiPathPaginationId;
       if (data.id) {
         this.requestId = data.id;
       }
@@ -82,10 +86,10 @@ export class SmsMainApiPathPriceServiceAddComponent
   fileManagerTree: TreeModel;
   appLanguage = "fa";
 
-  dataModelResult: ErrorExceptionResult<SmsMainApiPathPriceServiceModel> =
-    new ErrorExceptionResult<SmsMainApiPathPriceServiceModel>();
-  dataModel: SmsMainApiPathPriceServiceModel =
-    new SmsMainApiPathPriceServiceModel();
+  dataModelResult: ErrorExceptionResult<SmsMainApiPathPricePermissionModel> =
+    new ErrorExceptionResult<SmsMainApiPathPricePermissionModel>();
+  dataModel: SmsMainApiPathPricePermissionModel =
+    new SmsMainApiPathPricePermissionModel();
   formInfo: FormInfoModel = new FormInfoModel();
   dataModelSmsMessageTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
@@ -93,6 +97,9 @@ export class SmsMainApiPathPriceServiceAddComponent
     new ErrorExceptionResult<InfoEnumModel>();
 
   fileManagerOpenForm = false;
+
+  addOnBlurTag = true;
+  readonly separatorKeysCodes = [ENTER] as const;
 
   ngOnInit(): void {
     this.translate.get("TITLE.ADD").subscribe((str: string) => {
@@ -141,11 +148,11 @@ export class SmsMainApiPathPriceServiceAddComponent
         );
       });
 
-    this.smsMainApiPathPriceServiceService.setAccessLoad();
-    this.smsMainApiPathPriceServiceService.setAccessDataType(
+    this.smsMainApiPathPricePermissionService.setAccessLoad();
+    this.smsMainApiPathPricePermissionService.setAccessDataType(
       ManageUserAccessDataTypesEnum.Editor,
     );
-    this.smsMainApiPathPriceServiceService
+    this.smsMainApiPathPricePermissionService
       .ServiceGetOneById(this.requestId)
       .subscribe({
         next: (ret) => {
@@ -156,27 +163,8 @@ export class SmsMainApiPathPriceServiceAddComponent
             this.dataModel.title = this.dataModel.title + " (COPY)";
             this.formInfo.formTitle = this.formInfo.formTitle;
             this.formInfo.submitResultMessage = "";
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-            this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
           } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
@@ -184,7 +172,8 @@ export class SmsMainApiPathPriceServiceAddComponent
                 this.formInfo.submitResultMessage = str;
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
-            this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -213,7 +202,7 @@ export class SmsMainApiPathPriceServiceAddComponent
         );
       });
 
-    this.smsMainApiPathPriceServiceService
+    this.smsMainApiPathPricePermissionService
       .ServiceAdd(this.dataModel)
       .subscribe({
         next: (ret) => {
@@ -224,9 +213,11 @@ export class SmsMainApiPathPriceServiceAddComponent
               .get("MESSAGE.registration_completed_successfully")
               .subscribe((str: string) => {
                 this.formInfo.submitResultMessage = str;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+                this.formInfo.submitResultMessageType =
+                  FormSubmitedStatusEnum.Success;
               });
-            this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
             this.cmsToastrService.typeSuccessAdd();
             this.dialogRef.close({ dialogChangedDate: true });
           } else {
@@ -236,7 +227,8 @@ export class SmsMainApiPathPriceServiceAddComponent
                 this.formInfo.submitResultMessage = str;
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
-            this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -276,15 +268,19 @@ export class SmsMainApiPathPriceServiceAddComponent
     }
     this.dataModel.linkCoreSiteCategoryId = model.id;
   }
-  onActionSelectorSelectLinkApiPathId(model: SmsMainApiPathModel | null): void {
+  onActionSelectorSelectLinkApiPathPaginationId(
+    model: SmsMainApiPathPaginationModel | null,
+  ): void {
     if (!model || model.id.length <= 0) {
       const message = "مسیر سرویس دهنده مشخص نیست";
       this.cmsToastrService.typeErrorSelected(message);
       return;
     }
-    this.dataModel.linkApiPathId = model.id;
+    this.dataModel.linkApiPathPaginationId = model.id;
   }
-
+  onActionBackToParent(): void {
+    this.dialogRef.close({ dialogChangedDate: false });
+  }
   onFormSubmit(): void {
     if (!this.formGroup.valid) {
       return;
@@ -296,76 +292,4 @@ export class SmsMainApiPathPriceServiceAddComponent
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });
   }
-  /**
-   * tag
-   */
-  addOnBlurTag = true;
-  readonly separatorKeysCodes = [ENTER] as const;
-  addTagRegulatorNumberList(event: MatChipInputEvent): void {
-    const value = (event.value || "").trim();
-    if (!this.dataModel.regulatorNumberList)
-      this.dataModel.regulatorNumberList = [];
-    // Add our item
-    if (value) {
-      this.dataModel.regulatorNumberList.push(value);
-    }
-    // Clear the input value
-    event.chipInput!.clear();
-  }
-  removeTagRegulatorNumberList(item: string): void {
-    const index = this.dataModel.regulatorNumberList.indexOf(item);
-
-    if (index >= 0) {
-      this.dataModel.regulatorNumberList.splice(index, 1);
-    }
-  }
-  /** */
-  addTagServicePagination(event: MatChipInputEvent): void {
-    const value = (event.value || "").trim();
-    // Add our item
-    var valueNum: number = +value || -1;
-    if (!this.dataModel.serviceMessageLengthPaginationList)
-      this.dataModel.serviceMessageLengthPaginationList = [];
-
-    if (valueNum >= 0) {
-      this.dataModel.serviceMessageLengthPaginationList.push(valueNum);
-    }
-    // Clear the input value
-    event.chipInput!.clear();
-  }
-
-  removeTagServicePagination(item: number): void {
-    const index =
-      this.dataModel.serviceMessageLengthPaginationList.indexOf(item);
-
-    if (index >= 0) {
-      this.dataModel.serviceMessageLengthPaginationList.splice(index, 1);
-    }
-  }
-  /** */
-  addTagEndUserPagination(event: MatChipInputEvent): void {
-    const value = (event.value || "").trim();
-    // Add our item
-    if (!this.dataModel.endUserMessageLengthPaginationList)
-      this.dataModel.endUserMessageLengthPaginationList = [];
-
-    var valueNum: number = +value || -1;
-    if (valueNum >= 0) {
-      this.dataModel.endUserMessageLengthPaginationList.push(valueNum);
-    }
-    // Clear the input value
-    event.chipInput!.clear();
-  }
-
-  removeTagEndUserPagination(item: number): void {
-    const index =
-      this.dataModel.endUserMessageLengthPaginationList.indexOf(item);
-
-    if (index >= 0) {
-      this.dataModel.endUserMessageLengthPaginationList.splice(index, 1);
-    }
-  }
-  /**
-   * tag
-   */
 }

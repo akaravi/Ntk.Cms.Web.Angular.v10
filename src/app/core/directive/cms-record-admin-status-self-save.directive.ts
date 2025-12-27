@@ -64,12 +64,12 @@ export class CmsRecordAdminStatusSelfSaveDirective {
     if (
       this.elRef.nativeElement.options.length > 0 &&
       this.row &&
-      this.row.mainAdminRecordStatus
+      this.row.adminRecordStatus
     ) {
       this.renderer.setProperty(
         this.elRef.nativeElement,
         "value",
-        this.row.mainAdminRecordStatus,
+        this.row.adminRecordStatus,
       );
     }
   }
@@ -77,23 +77,23 @@ export class CmsRecordAdminStatusSelfSaveDirective {
   @HostListener("change")
   onChange() {
     const element: HTMLElement = this.elRef.nativeElement;
-    const mainAdminRecordStatus = element["value"] as RecordAdminStatusEnum;
+    const adminRecordStatus = element["value"] as RecordAdminStatusEnum;
     this.addLoader(element);
     this.contentService.setAccessDataType(ManageUserAccessDataTypesEnum.Editor);
     this.contentService
-      .ServiceSetAdminStatus(this.row.id, mainAdminRecordStatus)
+      .ServiceSetAdminStatus(this.row.id, adminRecordStatus)
       .subscribe({
         next: (ret) => {
           if (ret.isSuccess) {
             this.handleSuccessCase(element);
             this.cmsToastrService.typeSuccessSetStatus(ret.errorMessage);
-            this.row.mainAdminRecordStatus = mainAdminRecordStatus | 0;
+            this.row.adminRecordStatus = adminRecordStatus | 0;
             this.cdr.markForCheck();
           } else {
             this.renderer.setProperty(
               this.elRef.nativeElement,
               "value",
-              this.row.mainAdminRecordStatus,
+              this.row.adminRecordStatus,
             );
             this.cmsToastrService.typeErrorSetStatus(ret.errorMessage);
             this.handleErrorCase(element);
@@ -103,7 +103,7 @@ export class CmsRecordAdminStatusSelfSaveDirective {
           this.renderer.setProperty(
             this.elRef.nativeElement,
             "value",
-            this.row.mainAdminRecordStatus,
+            this.row.adminRecordStatus,
           );
           this.cmsToastrService.typeError(err);
           this.handleErrorCase(element);

@@ -759,12 +759,12 @@ export class SmsMainApiPathListMobileComponent
     }
     if (event?.ctrlKey) {
       const link =
-        "/#/sms/main/api-path-price-service/LinkApiPathId/" +
+        "/#/sms/main/api-path-pagination/LinkApiPathId/" +
         this.tableRowSelected.id;
       window.open(link, "_blank");
     } else {
       this.router.navigate([
-        "/sms/main/api-path-price-service/LinkApiPathId",
+        "/sms/main/api-path-pagination/LinkApiPathId",
         this.tableRowSelected.id,
       ]);
     }

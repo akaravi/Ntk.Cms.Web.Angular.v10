@@ -25,8 +25,8 @@ import {
   SmsApiSendResultModel,
   SmsMainApiNumberModel,
   SmsMainApiPathModel,
-  SmsMainApiPathPriceServiceEstimateModel,
-  SmsMainApiPathPriceServiceService,
+  SmsMainApiPathPaginationService,
+  SmsMainApiPathPriceEstimateModel,
   SmsMainMessageCategoryModel,
   SmsMainMessageContentModel,
   TokenInfoModelV3,
@@ -65,7 +65,7 @@ export class SmsActionSendMessageComponent implements OnInit {
     public smsActionService: SmsActionService,
     private service: CoreModuleSiteUserCreditService,
     private activatedRoute: ActivatedRoute,
-    public smsMainApiPathPriceServiceService: SmsMainApiPathPriceServiceService,
+    public smsMainApiPathPaginationService: SmsMainApiPathPaginationService,
     private cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
@@ -78,8 +78,10 @@ export class SmsActionSendMessageComponent implements OnInit {
   ) {
     this.publicHelper.processService.cdr = this.cdr;
 
-    this.requestLinkApiPathId =      this.activatedRoute.snapshot.paramMap.get("LinkApiPathId");
-    this.requestLinkApiNumberId =      this.activatedRoute.snapshot.paramMap.get("LinkApiNumberId");
+    this.requestLinkApiPathId =
+      this.activatedRoute.snapshot.paramMap.get("LinkApiPathId");
+    this.requestLinkApiNumberId =
+      this.activatedRoute.snapshot.paramMap.get("LinkApiNumberId");
     this.requestMessage = this.activatedRoute.snapshot.paramMap.get("Message");
     this.dataModel.scheduleCron = "";
 
@@ -103,20 +105,20 @@ export class SmsActionSendMessageComponent implements OnInit {
         this.requestMessage = navigationState.Message;
       }
     }
-        if (this.requestLinkApiPathId?.length > 0) {
-          this.dataModel.linkApiPathId = this.requestLinkApiPathId;
-        }
+    if (this.requestLinkApiPathId?.length > 0) {
+      this.dataModel.linkApiPathId = this.requestLinkApiPathId;
+    }
 
-        if (this.requestLinkApiNumberId?.length > 0) {
-          this.dataModel.linkFromNumber = this.requestLinkApiNumberId;
-        }
+    if (this.requestLinkApiNumberId?.length > 0) {
+      this.dataModel.linkFromNumber = this.requestLinkApiNumberId;
+    }
 
-        if (this.requestMessage?.length > 0) {
-          this.dataModel.message = this.requestMessage;
-        }
-        if (this.requestReceiverNumber?.length > 0) {
-          this.dataModel.toNumbers = this.requestReceiverNumber;
-        }
+    if (this.requestMessage?.length > 0) {
+      this.dataModel.message = this.requestMessage;
+    }
+    if (this.requestReceiverNumber?.length > 0) {
+      this.dataModel.toNumbers = this.requestReceiverNumber;
+    }
 
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
@@ -178,8 +180,8 @@ export class SmsActionSendMessageComponent implements OnInit {
   dataModelCreditResult: ErrorExceptionResult<CoreModuleSiteUserCreditModel> =
     new ErrorExceptionResult<CoreModuleSiteUserCreditModel>();
   dataModelMessagePlaceholdersResult: MessagePlaceholderModel[] = [];
-  dataModelApiPathPriceServiceEstimateResult: ErrorExceptionResult<SmsMainApiPathPriceServiceEstimateModel> =
-    new ErrorExceptionResult<SmsMainApiPathPriceServiceEstimateModel>();
+  dataModelApiPathPaginationEstimateResult: ErrorExceptionResult<SmsMainApiPathPriceEstimateModel> =
+    new ErrorExceptionResult<SmsMainApiPathPriceEstimateModel>();
 
   dataModelDateByClockStart: DateByClock = new DateByClock();
   dataModelDateByClockExpire: DateByClock = new DateByClock();
@@ -408,14 +410,14 @@ export class SmsActionSendMessageComponent implements OnInit {
         (x) => x.key === "linkApiPathId",
       ).description = "";
     }
-    this.dataModelApiPathPriceServiceEstimateResult =
-      new ErrorExceptionResult<SmsMainApiPathPriceServiceEstimateModel>();
+    this.dataModelApiPathPaginationEstimateResult =
+      new ErrorExceptionResult<SmsMainApiPathPriceEstimateModel>();
     if (this.dataModel.linkApiPathId?.length > 0) {
-      this.smsMainApiPathPriceServiceService
+      this.smsMainApiPathPaginationService
         .ServiceGetApiPriceEstimate(this.dataModel.linkApiPathId)
         .subscribe({
           next: (ret) => {
-            this.dataModelApiPathPriceServiceEstimateResult = ret;
+            this.dataModelApiPathPaginationEstimateResult = ret;
             this.dataModelMessagePagination.serverList = ret.listItems;
             this.dataModelMessagePagination.messageAddTextFirst =
               model.sendMessageAddTextFirst;

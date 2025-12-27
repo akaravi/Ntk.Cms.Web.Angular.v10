@@ -1,5 +1,5 @@
 import {
-  SmsMainApiPathPriceServiceEstimateModel,
+  SmsMainApiPathPriceEstimateModel,
   SmsMessageTypeEnum,
 } from "ntk-cms-api";
 export class SmsMessagePaginationModel {
@@ -16,9 +16,9 @@ export class SmsMessagePaginationModel {
   endUserPriceMin = 0;
   endUserPriceMax = 0;
 
-  private _serverItems: SmsMainApiPathPriceServiceEstimateModel[] = [];
-  private _serverItemInUse: SmsMainApiPathPriceServiceEstimateModel;
-  set serverList(serverList: SmsMainApiPathPriceServiceEstimateModel[]) {
+  private _serverItems: SmsMainApiPathPriceEstimateModel[] = [];
+  private _serverItemInUse: SmsMainApiPathPriceEstimateModel;
+  set serverList(serverList: SmsMainApiPathPriceEstimateModel[]) {
     this._serverItems = serverList;
     this.checkMessageUnicode();
     this.checkCalculate();
@@ -41,7 +41,7 @@ export class SmsMessagePaginationModel {
           this._serverItemInUse =
             this._serverItems.find(
               (x) => x.messageType === SmsMessageTypeEnum.TextUnicode,
-            ) ?? new SmsMainApiPathPriceServiceEstimateModel();
+            ) ?? new SmsMainApiPathPriceEstimateModel();
           return;
         }
       }
@@ -50,7 +50,7 @@ export class SmsMessagePaginationModel {
     this._serverItemInUse =
       this._serverItems.find(
         (x) => x.messageType === SmsMessageTypeEnum.TextNormal,
-      ) ?? new SmsMainApiPathPriceServiceEstimateModel();
+      ) ?? new SmsMainApiPathPriceEstimateModel();
   }
   private checkCalculate() {
     this.messageLength = this._message?.length ?? 0;
@@ -61,7 +61,7 @@ export class SmsMessagePaginationModel {
     if (this.messageLength > 0) {
       const index =
         this._serverItemInUse?.endUserMessageLengthPaginationList?.findIndex(
-          (x) =>x>= this.messageLength ,
+          (x) => x >= this.messageLength,
         ) ?? -1;
 
       if (index >= 0) {

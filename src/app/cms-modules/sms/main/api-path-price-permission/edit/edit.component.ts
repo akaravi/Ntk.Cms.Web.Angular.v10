@@ -10,17 +10,21 @@ import { FormGroup } from "@angular/forms";
 import { MatChipInputEvent } from "@angular/material/chips";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreSiteCategoryModel,
+import {
+  CoreSiteCategoryModel,
   CoreSiteModel,
   CoreUserGroupModel,
   CoreUserModel,
   ErrorExceptionResult,
-  ErrorExceptionResultBase,InfoEnumModel,
+  ErrorExceptionResultBase,
+  InfoEnumModel,
   ManageUserAccessDataTypesEnum,
   SmsEnumService,
   SmsMainApiPathModel,
-  SmsMainApiPathPriceServiceModel,
-  SmsMainApiPathPriceServiceService} from "ntk-cms-api";
+  SmsMainApiPathPaginationModel,
+  SmsMainApiPathPricePermissionModel,
+  SmsMainApiPathPricePermissionService,
+} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -30,15 +34,15 @@ import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 import { FormSubmitedStatusEnum } from "../../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
-  selector: "app-sms-apipathpriceservice-edit",
+  selector: "app-sms-apipath-price-permission-edit",
   templateUrl: "./edit.component.html",
 
   standalone: false,
 })
-export class SmsMainApiPathPriceServiceEditComponent
+export class SmsMainApiPathPricePermissionEditComponent
   extends EditBaseComponent<
-    SmsMainApiPathPriceServiceService,
-    SmsMainApiPathPriceServiceModel,
+    SmsMainApiPathPricePermissionService,
+    SmsMainApiPathPricePermissionModel,
     string
   >
   implements OnInit
@@ -47,17 +51,17 @@ export class SmsMainApiPathPriceServiceEditComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<SmsMainApiPathPriceServiceEditComponent>,
+    private dialogRef: MatDialogRef<SmsMainApiPathPricePermissionEditComponent>,
     public smsEnumService: SmsEnumService,
-    public smsMainApiPathPriceServiceService: SmsMainApiPathPriceServiceService,
+    public smsMainApiPathPricePermissionService: SmsMainApiPathPricePermissionService,
     private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {
     super(
-      smsMainApiPathPriceServiceService,
-      new SmsMainApiPathPriceServiceModel(),
+      smsMainApiPathPricePermissionService,
+      new SmsMainApiPathPricePermissionModel(),
       publicHelper,
       translate,
     );
@@ -77,8 +81,8 @@ export class SmsMainApiPathPriceServiceEditComponent
   appLanguage = "fa";
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
-  dataModel: SmsMainApiPathPriceServiceModel =
-    new SmsMainApiPathPriceServiceModel();
+  dataModel: SmsMainApiPathPricePermissionModel =
+    new SmsMainApiPathPricePermissionModel();
 
   formInfo: FormInfoModel = new FormInfoModel();
 
@@ -88,7 +92,7 @@ export class SmsMainApiPathPriceServiceEditComponent
     new ErrorExceptionResult<InfoEnumModel>();
 
   fileManagerOpenForm = false;
-  dataSmsMainApiPathPriceServiceModel: SmsMainApiPathPriceServiceModel[];
+  dataSmsMainApiPathPricePermissionModel: SmsMainApiPathPricePermissionModel[];
   ngOnInit(): void {
     if (this.requestId.length > 0) {
       this.translate.get("TITLE.Edit").subscribe((str: string) => {
@@ -138,11 +142,11 @@ export class SmsMainApiPathPriceServiceEditComponent
         );
       });
 
-    this.smsMainApiPathPriceServiceService.setAccessLoad();
-    this.smsMainApiPathPriceServiceService.setAccessDataType(
+    this.smsMainApiPathPricePermissionService.setAccessLoad();
+    this.smsMainApiPathPricePermissionService.setAccessDataType(
       ManageUserAccessDataTypesEnum.Editor,
     );
-    this.smsMainApiPathPriceServiceService
+    this.smsMainApiPathPricePermissionService
       .ServiceGetOneById(this.requestId)
       .subscribe({
         next: (ret) => {
@@ -152,27 +156,48 @@ export class SmsMainApiPathPriceServiceEditComponent
           if (ret.isSuccess) {
             this.formInfo.formTitle = this.formInfo.formTitle;
             this.formInfo.submitResultMessage = "";
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-            this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
           } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
@@ -180,7 +205,8 @@ export class SmsMainApiPathPriceServiceEditComponent
                 this.formInfo.submitResultMessage = str;
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
-            this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -210,7 +236,7 @@ export class SmsMainApiPathPriceServiceEditComponent
         );
       });
 
-    this.smsMainApiPathPriceServiceService
+    this.smsMainApiPathPricePermissionService
       .ServiceEdit(this.dataModel)
       .subscribe({
         next: (ret) => {
@@ -221,9 +247,11 @@ export class SmsMainApiPathPriceServiceEditComponent
               .get("MESSAGE.registration_completed_successfully")
               .subscribe((str: string) => {
                 this.formInfo.submitResultMessage = str;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+                this.formInfo.submitResultMessageType =
+                  FormSubmitedStatusEnum.Success;
               });
-            this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Success;
             this.cmsToastrService.typeSuccessEdit();
             this.dialogRef.close({ dialogChangedDate: true });
           } else {
@@ -233,7 +261,8 @@ export class SmsMainApiPathPriceServiceEditComponent
                 this.formInfo.submitResultMessage = str;
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
-            this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+            this.formInfo.submitResultMessageType =
+              FormSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -273,13 +302,13 @@ export class SmsMainApiPathPriceServiceEditComponent
     }
     this.dataModel.linkCoreSiteCategoryId = model.id;
   }
-  onActionSelectorSelectLinkApiPathId(model: SmsMainApiPathModel | null): void {
+  onActionSelectorSelectLinkApiPathPaginationId(model: SmsMainApiPathPaginationModel | null): void {
     if (!model || model.id.length <= 0) {
       const message = "مسیر سرویس دهنده مشخص نیست";
       this.cmsToastrService.typeErrorSelected(message);
       return;
     }
-    this.dataModel.linkApiPathId = model.id;
+    this.dataModel.linkApiPathPaginationId = model.id;
   }
   onFormSubmit(): void {
     if (!this.formGroup.valid) {
@@ -291,76 +320,5 @@ export class SmsMainApiPathPriceServiceEditComponent
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });
   }
-  /**
-   * tag
-   */
-  addOnBlurTag = true;
-  readonly separatorKeysCodes = [ENTER] as const;
-  addTagRegulatorNumberList(event: MatChipInputEvent): void {
-    const value = (event.value || "").trim();
-    // Add our item
-    if (!this.dataModel.regulatorNumberList)
-      this.dataModel.regulatorNumberList = [];
-    if (value) {
-      this.dataModel.regulatorNumberList.push(value);
-    }
-    // Clear the input value
-    event.chipInput!.clear();
-  }
-  removeTagRegulatorNumberList(item: string): void {
-    const index = this.dataModel.regulatorNumberList.indexOf(item);
 
-    if (index >= 0) {
-      this.dataModel.regulatorNumberList.splice(index, 1);
-    }
-  }
-  /** */
-  addTagServicePagination(event: MatChipInputEvent): void {
-    const value = (event.value || "").trim();
-    // Add our item
-    if (!this.dataModel.serviceMessageLengthPaginationList)
-      this.dataModel.serviceMessageLengthPaginationList = [];
-
-    var valueNum: number = +value || -1;
-    if (valueNum >= 0) {
-      this.dataModel.serviceMessageLengthPaginationList.push(valueNum);
-    }
-    // Clear the input value
-    event.chipInput!.clear();
-  }
-
-  removeTagServicePagination(item: number): void {
-    const index =
-      this.dataModel.serviceMessageLengthPaginationList.indexOf(item);
-
-    if (index >= 0) {
-      this.dataModel.serviceMessageLengthPaginationList.splice(index, 1);
-    }
-  }
-  /** */
-  addTagEndUserPagination(event: MatChipInputEvent): void {
-    const value = (event.value || "").trim();
-    // Add our item
-    if (!this.dataModel.endUserMessageLengthPaginationList)
-      this.dataModel.endUserMessageLengthPaginationList = [];
-
-    var valueNum: number = +value || -1;
-    if (valueNum >= 0) {
-      this.dataModel.endUserMessageLengthPaginationList.push(valueNum);
-    }
-    // Clear the input value
-    event.chipInput!.clear();
-  }
-
-  removeTagEndUserPagination(item: number): void {
-    const index =
-      this.dataModel.endUserMessageLengthPaginationList.indexOf(item);
-
-    if (index >= 0) {
-      this.dataModel.endUserMessageLengthPaginationList.splice(index, 1);
-    }
-  }
-  /**
-   * tag
-   */
 }

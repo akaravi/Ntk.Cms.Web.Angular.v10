@@ -12,8 +12,8 @@ import {
   RecordStatusEnum,
   SmsEnumService,
   SmsMainApiPathModel,
-  SmsMainApiPathPriceServiceModel,
-  SmsMainApiPathPriceServiceService,
+  SmsMainApiPathPaginationModel,
+  SmsMainApiPathPaginationService,
   SmsMainApiPathService,
   SortTypeEnum,
 } from "ntk-cms-api";
@@ -26,19 +26,19 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { environment } from "src/environments/environment";
-import { SmsMainApiPathPriceServiceAddComponent } from "../add/add.component";
-import { SmsMainApiPathPriceServiceEditComponent } from "../edit/edit.component";
+import { SmsMainApiPathPaginationAddComponent } from "../add/add.component";
+import { SmsMainApiPathPaginationEditComponent } from "../edit/edit.component";
 
 @Component({
-  selector: "app-sms-apipathpriceservice-list-mobile",
+  selector: "app-sms-apipath-pagination-list-mobile",
   templateUrl: "./list.mobile.component.html",
   styleUrls: ["./list.mobile.component.scss"],
   standalone: false,
 })
-export class SmsMainApiPathPriceServiceListMobileComponent
+export class SmsMainApiPathPaginationListMobileComponent
   extends ListBaseComponent<
-    SmsMainApiPathPriceServiceService,
-    SmsMainApiPathPriceServiceModel,
+    SmsMainApiPathPaginationService,
+    SmsMainApiPathPaginationModel,
     string
   >
   implements OnInit, OnDestroy
@@ -46,7 +46,7 @@ export class SmsMainApiPathPriceServiceListMobileComponent
   requestLinkApiPathId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    public contentService: SmsMainApiPathPriceServiceService,
+    public contentService: SmsMainApiPathPaginationService,
     private cmsToastrService: CmsToastrService,
     private activatedRoute: ActivatedRoute,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
@@ -63,7 +63,7 @@ export class SmsMainApiPathPriceServiceListMobileComponent
   ) {
     super(
       contentService,
-      new SmsMainApiPathPriceServiceModel(),
+      new SmsMainApiPathPaginationModel(),
       publicHelper,
       tokenHelper,
       translate,
@@ -167,7 +167,7 @@ export class SmsMainApiPathPriceServiceListMobileComponent
       this.tokenInfo,
     );
     this.tableRowsSelected = [];
-    this.onActionTableRowSelect(new SmsMainApiPathPriceServiceModel());
+    this.onActionTableRowSelect(new SmsMainApiPathPaginationModel());
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.get_information_list")
@@ -270,7 +270,7 @@ export class SmsMainApiPathPriceServiceListMobileComponent
     var panelClass = "";
     if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
     else panelClass = "dialog-min";
-    const dialogRef = this.dialog.open(SmsMainApiPathPriceServiceAddComponent, {
+    const dialogRef = this.dialog.open(SmsMainApiPathPaginationAddComponent, {
       height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
@@ -285,7 +285,7 @@ export class SmsMainApiPathPriceServiceListMobileComponent
   }
 
   onActionButtonEditRow(
-    model: SmsMainApiPathPriceServiceModel = this.tableRowSelected,
+    model: SmsMainApiPathPaginationModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length == 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -303,17 +303,13 @@ export class SmsMainApiPathPriceServiceListMobileComponent
     var panelClass = "";
     if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
     else panelClass = "dialog-min";
-    const dialogRef = this.dialog.open(
-      SmsMainApiPathPriceServiceEditComponent,
-      {
-        height: "90%",
-        panelClass: panelClass,
-        enterAnimationDuration:
-          environment.cmsViewConfig.enterAnimationDuration,
-        exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-        data: { id: this.tableRowSelected.id },
-      },
-    );
+    const dialogRef = this.dialog.open(SmsMainApiPathPaginationEditComponent, {
+      height: "90%",
+      panelClass: panelClass,
+      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
+      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+      data: { id: this.tableRowSelected.id },
+    });
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -322,7 +318,7 @@ export class SmsMainApiPathPriceServiceListMobileComponent
   }
 
   onActionButtonDeleteRow(
-    model: SmsMainApiPathPriceServiceModel = this.tableRowSelected,
+    model: SmsMainApiPathPaginationModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length == 0) {
       this.translate
@@ -579,7 +575,7 @@ export class SmsMainApiPathPriceServiceListMobileComponent
     this.router.navigate(["/sms/main/api-path"]);
   }
 
-  onActionTableRowSelect(row: SmsMainApiPathPriceServiceModel): void {
+  onActionTableRowSelect(row: SmsMainApiPathPaginationModel): void {
     this.tableRowSelected = row;
   }
 }

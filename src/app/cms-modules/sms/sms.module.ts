@@ -23,7 +23,7 @@ import {
   SmsLogOutBoxService,
   SmsLogOutBoxQueueService,
   SmsLogOutBoxTaskSchedulerService,
-  SmsMainApiPathPriceServiceService,
+  SmsMainApiPathPaginationService,
   SmsMainApiPathService,
   SmsMainMessageContentService,
 } from "ntk-cms-api";
@@ -57,7 +57,7 @@ import { SmsDashboardComponent } from "./dashboard/dashboard.component";
     SmsEnumService,
     SmsActionService,
     CoreModuleTagService,
-    SmsMainApiPathPriceServiceService,
+    SmsMainApiPathPaginationService,
     /*Dashboard*/
     SmsLogInBoxService,
     SmsLogOutBoxService,

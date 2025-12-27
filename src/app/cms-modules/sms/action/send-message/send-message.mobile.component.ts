@@ -25,8 +25,8 @@ import {
   SmsApiSendResultModel,
   SmsMainApiNumberModel,
   SmsMainApiPathModel,
-  SmsMainApiPathPriceServiceEstimateModel,
-  SmsMainApiPathPriceServiceService,
+  SmsMainApiPathPriceEstimateModel,
+  SmsMainApiPathPaginationService,
   SmsMainMessageCategoryModel,
   SmsMainMessageContentModel,
   TokenInfoModelV3,
@@ -66,7 +66,7 @@ export class SmsActionSendMessageMobileComponent implements OnInit {
     public smsActionService: SmsActionService,
     private service: CoreModuleSiteUserCreditService,
     private activatedRoute: ActivatedRoute,
-    public smsMainApiPathPriceServiceService: SmsMainApiPathPriceServiceService,
+    public smsMainApiPathPaginationService: SmsMainApiPathPaginationService,
     private cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
@@ -184,8 +184,8 @@ export class SmsActionSendMessageMobileComponent implements OnInit {
   dataModelCreditResult: ErrorExceptionResult<CoreModuleSiteUserCreditModel> =
     new ErrorExceptionResult<CoreModuleSiteUserCreditModel>();
   dataModelMessagePlaceholdersResult: MessagePlaceholderModel[] = [];
-  dataModelApiPathPriceServiceEstimateResult: ErrorExceptionResult<SmsMainApiPathPriceServiceEstimateModel> =
-    new ErrorExceptionResult<SmsMainApiPathPriceServiceEstimateModel>();
+  dataModelApiPathPaginationEstimateResult: ErrorExceptionResult<SmsMainApiPathPriceEstimateModel> =
+    new ErrorExceptionResult<SmsMainApiPathPriceEstimateModel>();
 
   dataModelDateByClockStart: DateByClock = new DateByClock();
   dataModelDateByClockExpire: DateByClock = new DateByClock();
@@ -414,14 +414,14 @@ export class SmsActionSendMessageMobileComponent implements OnInit {
         (x) => x.key === "linkApiPathId",
       ).description = "";
     }
-    this.dataModelApiPathPriceServiceEstimateResult =
-      new ErrorExceptionResult<SmsMainApiPathPriceServiceEstimateModel>();
+    this.dataModelApiPathPaginationEstimateResult =
+      new ErrorExceptionResult<SmsMainApiPathPriceEstimateModel>();
     if (this.dataModel.linkApiPathId?.length > 0) {
-      this.smsMainApiPathPriceServiceService
+      this.smsMainApiPathPaginationService
         .ServiceGetApiPriceEstimate(this.dataModel.linkApiPathId)
         .subscribe({
           next: (ret) => {
-            this.dataModelApiPathPriceServiceEstimateResult = ret;
+            this.dataModelApiPathPaginationEstimateResult = ret;
             this.dataModelMessagePagination.serverList = ret.listItems;
             this.dataModelMessagePagination.messageAddTextFirst =
               model.sendMessageAddTextFirst;

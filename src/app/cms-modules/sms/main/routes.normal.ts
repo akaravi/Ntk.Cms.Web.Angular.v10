@@ -2,8 +2,9 @@ import { Routes } from "@angular/router";
 import { SmsMainApiNumberPermissionListComponent } from "./api-number-permission/list/list.component";
 import { SmsMainApiNumberListComponent } from "./api-number/list/list.component";
 import { SmsMainApiPathCompanyListComponent } from "./api-path-company/list/list.component";
+import { SmsMainApiPathPaginationListComponent } from "./api-path-pagination/list/list.component";
 import { SmsMainApiPathPermissionListComponent } from "./api-path-permission/list/list.component";
-import { SmsMainApiPathPriceServiceListComponent } from "./api-path-price-service/list/list.component";
+import { SmsMainApiPathPricePermissionListComponent } from "./api-path-price-permission/list/list.component";
 import { SmsMainApiPathEditComponent } from "./api-path/edit/edit.component";
 import { SmsMainApiPathListComponent } from "./api-path/list/list.component";
 import { SmsMainClientPermissionListComponent } from "./client-permission/list/list.component";
@@ -78,13 +79,28 @@ export const routesNormal: Routes = [
         data: { title: "ROUTE.SMS.MAIN" },
       },
       {
-        path: "api-path-price-service",
-        component: SmsMainApiPathPriceServiceListComponent,
+        path: "api-path-pagination",
+        component: SmsMainApiPathPaginationListComponent,
         data: { title: "ROUTE.SMS.MAIN" },
       },
       {
-        path: "api-path-price-service/LinkApiPathId/:LinkApiPathId",
-        component: SmsMainApiPathPriceServiceListComponent,
+        path: "api-path-pagination/LinkApiPathId/:LinkApiPathId",
+        component: SmsMainApiPathPaginationListComponent,
+        data: { title: "ROUTE.SMS.MAIN" },
+      },
+      {
+        path: "api-path-price-permission",
+        component: SmsMainApiPathPricePermissionListComponent,
+        data: { title: "ROUTE.SMS.MAIN" },
+      },
+      {
+        path: "api-path-price-permission/LinkApiPathId/:LinkApiPathId",
+        component: SmsMainApiPathPricePermissionListComponent,
+        data: { title: "ROUTE.SMS.MAIN" },
+      },
+      {
+        path: "api-path-price-permission/LinkApiPathPaginationId/:LinkApiPathPaginationId",
+        component: SmsMainApiPathPricePermissionListComponent,
         data: { title: "ROUTE.SMS.MAIN" },
       },
       {

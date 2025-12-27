@@ -78,38 +78,7 @@
             ></app-cms-enum-x-selector>
           }
         </app-sms-apipath-selector>
-        <!-- LinkCoreUserId Field -->
-        <app-cms-user-selector
-          (optionChange)="onActionSelectorCmsUser($event)"
-          [optionDisabled]="!fieldsInfo['linkCoreUserId']?.accessAddField"
-          [optionSelectForce]="dataModel.linkCoreUserId"
-          [optionPlaceholder]="'TITLE.USER' | translate"
-          >
-        </app-cms-user-selector>
-        <!-- LinkCoreSiteId Field -->
-        <app-cms-site-selector
-          (optionChange)="onActionSelectorCmsSite($event)"
-          [optionDisabled]="!fieldsInfo['linkCoreSiteId']?.accessAddField"
-          [optionSelectForce]="dataModel.linkCoreSiteId"
-          [optionPlaceholder]="'TITLE.SITE' | translate"
-          >
-        </app-cms-site-selector>
-        <!-- LinkCoreUserGroupId Field -->
-        <app-cms-usergroup-selector
-          (optionChange)="onActionSelectorCoreUserGroup($event)"
-          [optionDisabled]="!fieldsInfo['linkCoreUserGroupId']?.accessAddField"
-          [optionSelectForce]="dataModel.linkCoreUserGroupId"
-          [optionPlaceholder]="'TITLE.Type_Usage' | translate"
-          >
-        </app-cms-usergroup-selector>
-        <!-- LinkCoreSiteCategoryId Field -->
-        <app-cms-sitecategory-selector
-          (optionChange)="onActionSelectorCoreSiteCategory($event)"
-          [optionDisabled]="!fieldsInfo['linkCoreSiteCategoryId']?.accessAddField"
-          [optionSelectForce]="dataModel.linkCoreSiteCategoryId"
-          [optionPlaceholder]="'TITLE.Site_Type' | translate"
-          >
-        </app-cms-sitecategory-selector>
+
         <div class="divider mt-3 mb-3"></div>
         <!-- serviceDeliveryCostBase Field -->
         @if (fieldsInfo['serviceDeliveryCostBase']?.accessWatchField) {

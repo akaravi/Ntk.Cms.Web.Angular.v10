@@ -603,7 +603,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
       return;
     }
     this.router.navigate([
-      "/sms/main/api-path-price-service/LinkApiPathId",
+      "/sms/main/api-path-pagination/LinkApiPathId",
       this.tableRowSelected.id,
     ]);
   }
