@@ -88,11 +88,6 @@ export class SmsMainApiPathPricePermissionEditMobileComponent
 
   formInfo: FormInfoModel = new FormInfoModel();
 
-  dataModelSmsMessageTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =
-    new ErrorExceptionResult<InfoEnumModel>();
-  dataModelSmsOutBoxTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =
-    new ErrorExceptionResult<InfoEnumModel>();
-
   fileManagerOpenForm = false;
   dataSmsMainApiPathPricePermissionModel: SmsMainApiPathPricePermissionModel[];
 
@@ -110,20 +105,9 @@ export class SmsMainApiPathPricePermissionEditMobileComponent
       return;
     }
     this.DataGetOneContent();
-    this.getSmsMessageTypeEnum();
-    this.getSmsOutBoxTypeEnum();
+
   }
 
-  getSmsMessageTypeEnum(): void {
-    this.smsEnumService.ServiceSmsMessageTypeEnum().subscribe((res) => {
-      this.dataModelSmsMessageTypeEnumResult = res;
-    });
-  }
-  getSmsOutBoxTypeEnum(): void {
-    this.smsEnumService.ServiceSmsOutBoxTypeEnum().subscribe((res) => {
-      this.dataModelSmsOutBoxTypeEnumResult = res;
-    });
-  }
   DataGetOneContent(): void {
     if (this.requestId.length <= 0) {
       this.cmsToastrService.typeErrorEditRowIsNull();

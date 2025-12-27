@@ -18,6 +18,7 @@ import {
   SmsMainApiPathAndApiNumberService,
   SmsMainApiPathCompanyService,
   SmsMainApiPathPermissionService,
+  SmsMainApiPathPricePermissionService,
   SmsMainApiPathPublicConfigService,
   SmsMainApiPathService,
   SmsMainClientPermissionService,
@@ -57,9 +58,12 @@ import { SmsMainApiPathPaginationAddComponent } from "./api-path-pagination/add/
 import { SmsMainApiPathPaginationAddMobileComponent } from "./api-path-pagination/add/add.mobile.component";
 import { SmsMainApiPathPaginationEditComponent } from "./api-path-pagination/edit/edit.component";
 import { SmsMainApiPathPaginationEditMobileComponent } from "./api-path-pagination/edit/edit.mobile.component";
+import { SmsMainApiPathPaginationHeaderComponent } from "./api-path-pagination/header/header.component";
 import { SmsMainApiPathPaginationListComponent } from "./api-path-pagination/list/list.component";
 import { SmsMainApiPathPaginationListMobileComponent } from "./api-path-pagination/list/list.mobile.component";
 import { SmsMainApiPathPaginationSelectorComponent } from "./api-path-pagination/selector/selector.component";
+import { SmsMainApiPathPaginationTreeComponent } from "./api-path-pagination/tree/tree.component";
+import { SmsMainApiPathPaginationTreeMobileComponent } from "./api-path-pagination/tree/tree.mobile.component";
 import { SmsMainApiPathPermissionAddComponent } from "./api-path-permission/add/add.component";
 import { SmsMainApiPathPermissionAddMobileComponent } from "./api-path-permission/add/add.mobile.component";
 import { SmsMainApiPathPermissionEditComponent } from "./api-path-permission/edit/edit.component";
@@ -112,8 +116,6 @@ import { SmsMainApiPathPublicConfigListMobileComponent } from "./public-config/l
 import { SmsMainApiPathPublicConfigSelectorComponent } from "./public-config/selector/selector.component";
 import { SmsMainApiPathPublicConfigTreeComponent } from "./public-config/tree/tree.component";
 import { SmsMainApiPathPublicConfigTreeMobileComponent } from "./public-config/tree/tree.mobile.component";
-import { SmsMainApiPathPaginationTreeComponent } from "./api-path-pagination/tree/tree.component";
-import { SmsMainApiPathPaginationTreeMobileComponent } from "./api-path-pagination/tree/tree.mobile.component";
 
 @NgModule({
   declarations: [
@@ -170,6 +172,8 @@ import { SmsMainApiPathPaginationTreeMobileComponent } from "./api-path-paginati
     SmsMainApiPathPaginationSelectorComponent,
     SmsMainApiPathPaginationTreeComponent,
     SmsMainApiPathPaginationTreeMobileComponent,
+    SmsMainApiPathPaginationHeaderComponent,
+
     /*PricePermission*/
     SmsMainApiPathPricePermissionListComponent,
     SmsMainApiPathPricePermissionListMobileComponent,
@@ -269,6 +273,7 @@ import { SmsMainApiPathPaginationTreeMobileComponent } from "./api-path-paginati
     SmsMainApiPathPaginationSelectorComponent,
     SmsMainApiPathPaginationTreeComponent,
     SmsMainApiPathPaginationTreeMobileComponent,
+    SmsMainApiPathPaginationHeaderComponent,
     /*PricePermission*/
     SmsMainApiPathPricePermissionListComponent,
     SmsMainApiPathPricePermissionListMobileComponent,
@@ -342,6 +347,7 @@ import { SmsMainApiPathPaginationTreeMobileComponent } from "./api-path-paginati
     SmsMainApiPathService,
     SmsMainApiPathCompanyService,
     SmsMainApiPathPermissionService,
+    SmsMainApiPathPricePermissionService,
     SmsMainApiNumberPermissionService,
     SmsMainApiPathPublicConfigService,
     SmsMainApiNumberService,

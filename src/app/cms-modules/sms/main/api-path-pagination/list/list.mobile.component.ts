@@ -257,7 +257,27 @@ export class SmsMainApiPathPaginationListMobileComponent
     this.filteModelContent.rowPerPage = event.pageSize;
     this.DataGetAll();
   }
-
+  onActionButtonPermissionRow(
+    model: SmsMainApiPathPaginationModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
+    if (!model || !model.id || model.id.length == 0) {
+      this.cmsToastrService.typeErrorSelectedRow();
+      return;
+    }
+    this.onActionTableRowSelect(model);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/sms/main/api-path-price-permission/LinkApiPathPaginationId/" +
+        this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/sms/main/api-path-price-permission/LinkApiPathPaginationId",
+        this.tableRowSelected.id,
+      ]);
+    }
+  }
   onActionButtonNewRow(): void {
     if (
       this.dataModelResult == null ||

@@ -1,7 +1,9 @@
-<!-- @if (requestLinkApiPathPaginationId?.length > 0) {
-  <app-sms-apipath-pagination-header [optionId]="requestLinkApiPathPaginationId">
+@if (requestLinkApiPathPaginationId?.length > 0) {
+  <app-sms-apipath-pagination-header
+    [optionId]="requestLinkApiPathPaginationId"
+  >
   </app-sms-apipath-pagination-header>
-} -->
+}
 
 <app-cms-html-list
   [optionsListInfoAreaId]="constructorInfoAreaId"
@@ -219,15 +221,26 @@
             | cmstitle: dataModelPrivateResult.listItems
         }}</mat-cell>
       </ng-container>
-      <!-- RegulatorNumber Column -->
-      <ng-container matColumnDef="RegulatorNumber">
+      <!-- linkCoreUserId Column -->
+      <ng-container matColumnDef="linkCoreUserId">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
-          {{ fieldsInfo["regulatorNumber"]?.fieldTitle }}
+          {{ fieldsInfo["linkCoreUserId"]?.fieldTitle }}
         </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.regulatorNumber }} </mat-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.linkCoreUserId | cmsuserinfo | async }}
+        </mat-cell>
+      </ng-container>
+      <!-- linkCoreUserGroupId Column -->
+      <ng-container matColumnDef="linkCoreUserGroupId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ fieldsInfo["linkCoreUserGroupId"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.linkCoreUserGroupId }}
+        </mat-cell>
       </ng-container>
       <!-- endUserDeliveryCostBase Column -->
-      <ng-container matColumnDef="serviceMaxPage">
+      <ng-container matColumnDef="endUserDeliveryCostBase">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ "TITLE.endUserDeliveryCostBase" | translate }}
         </mat-header-cell>

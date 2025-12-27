@@ -45,6 +45,7 @@ export class SmsMainApiPathPricePermissionListMobileComponent
   implements OnInit, OnDestroy
 {
   requestLinkApiPathId = "";
+  requestLinkApiPathPaginationId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: SmsMainApiPathPricePermissionService,
@@ -120,6 +121,16 @@ export class SmsMainApiPathPricePermissionListMobileComponent
       const filter = new FilterDataModel();
       filter.propertyName = "LinkApiPathId";
       filter.value = this.requestLinkApiPathId;
+      this.filteModelContent.filters.push(filter);
+    }
+    if (this.activatedRoute.snapshot.paramMap.get("LinkApiPathPaginationId")) {
+      this.requestLinkApiPathPaginationId =
+        this.activatedRoute.snapshot.paramMap.get("LinkApiPathPaginationId");
+    }
+    if (this.requestLinkApiPathPaginationId?.length > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "LinkApiPathPaginationId";
+      filter.value = this.requestLinkApiPathPaginationId;
       this.filteModelContent.filters.push(filter);
     }
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
@@ -279,7 +290,12 @@ export class SmsMainApiPathPricePermissionListMobileComponent
         enterAnimationDuration:
           environment.cmsViewConfig.enterAnimationDuration,
         exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-        data: { linkApiPathId: this.categoryModelSelected?.id },
+        data: {
+          linkApiPathPaginationId:
+            this.requestLinkApiPathPaginationId?.length > 0
+              ? this.requestLinkApiPathPaginationId
+              : this.categoryModelSelected?.id,
+        },
       },
     );
     dialogRef.afterClosed().subscribe((result) => {

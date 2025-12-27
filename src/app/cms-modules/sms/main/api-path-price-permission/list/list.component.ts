@@ -8,7 +8,6 @@ import {
   ErrorExceptionResult,
   FilterDataModel,
   FilterModel,
-  InfoEnumModel,
   RecordStatusEnum,
   SmsEnumService,
   SmsMainApiPathModel,
@@ -88,10 +87,7 @@ export class SmsMainApiPathPricePermissionListComponent
   filterDataModelQueryBuilder: FilterDataModel[] = [];
 
   categoryModelSelected: SmsMainApiPathModel;
-  dataModelSmsMessageTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =
-    new ErrorExceptionResult<InfoEnumModel>();
-  dataModelSmsOutBoxTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =
-    new ErrorExceptionResult<InfoEnumModel>();
+
   dataModelPrivateResult: ErrorExceptionResult<SmsMainApiPathPaginationModel> =
     new ErrorExceptionResult<SmsMainApiPathPaginationModel>();
   tabledisplayedColumns: string[] = [];
@@ -100,13 +96,12 @@ export class SmsMainApiPathPricePermissionListComponent
     "recordStatus",
     "title",
     "linkApiPathPaginationId",
-    "messageType",
     "endUserPricePerPage",
     "endUserDeliveryCostBase",
     "linkCoreUserId",
-    "linkCoreSiteId",
+    //"linkCoreSiteId",
     "linkCoreUserGroupId",
-    "linkCoreSiteCategoryId",
+    //"linkCoreSiteCategoryId",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
@@ -160,7 +155,6 @@ export class SmsMainApiPathPricePermissionListComponent
         }),
     );
     this.getPrivateConfig();
-    this.getSmsMessageTypeEnum();
   }
   ngOnDestroy(): void {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
@@ -174,16 +168,7 @@ export class SmsMainApiPathPricePermissionListComponent
       },
     });
   }
-  getSmsMessageTypeEnum(): void {
-    this.smsEnumService.ServiceSmsMessageTypeEnum().subscribe((res) => {
-      this.dataModelSmsMessageTypeEnumResult = res;
-    });
-  }
-  getSmsOutBoxTypeEnum(): void {
-    this.smsEnumService.ServiceSmsOutBoxTypeEnum().subscribe((res) => {
-      this.dataModelSmsOutBoxTypeEnumResult = res;
-    });
-  }
+
   DataGetAll(): void {
     this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
       this.tabledisplayedColumnsSource,
@@ -316,7 +301,12 @@ export class SmsMainApiPathPricePermissionListComponent
         enterAnimationDuration:
           environment.cmsViewConfig.enterAnimationDuration,
         exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-        data: { linkApiPathId: this.categoryModelSelected?.id },
+        data: {
+          linkApiPathPaginationId:
+            this.categoryModelSelected?.id.length > 0
+              ? this.categoryModelSelected.id
+              : this.requestLinkApiPathPaginationId,
+        },
       },
     );
     dialogRef.afterClosed().subscribe((result) => {
