@@ -1,5 +1,38 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-12-27 14:31:31 (افزودن ترجمه چندزبانه برای TITLE.Default_Price_Per_Page)
+
+### تغییرات اعمال شده:
+
+#### افزودن کلید چندزبانه TITLE.Default_Price_Per_Page:
+
+- افزودن کلید `TITLE.Default_Price_Per_Page` به تمام فایل‌های چندزبانه:
+  - `fa.json`: "قیمت پیش‌فرض به ازای هر صفحه"
+  - `en.json`: "Default Price Per Page"
+  - `ar.json`: "السعر الافتراضي لكل صفحة"
+  - `de.json`: "Standardpreis pro Seite"
+  - `es.json`: "Precio predeterminado por página"
+  - `fr.json`: "Prix par défaut par page"
+  - `ja.json`: "ページあたりのデフォルト価格"
+  - `tr.json`: "Sayfa başına varsayılan fiyat"
+  - `zh.json`: "每页默认价格"
+
+### فایل‌های تغییر یافته:
+
+- `src/assets/i18n/fa.json`
+- `src/assets/i18n/en.json`
+- `src/assets/i18n/ar.json`
+- `src/assets/i18n/de.json`
+- `src/assets/i18n/es.json`
+- `src/assets/i18n/fr.json`
+- `src/assets/i18n/ja.json`
+- `src/assets/i18n/tr.json`
+- `src/assets/i18n/zh.json`
+
+### نتیجه:
+
+کلید چندزبانه `TITLE.Default_Price_Per_Page` به تمام زبان‌های پشتیبانی شده اضافه شد و آماده استفاده در کامپوننت‌های `api-path-price-permission` است.
+
 ## 2025-12-23 07:30:00 (رفع خطاهای enum methods و کامپوننت CrmOpportunityStageHistory)
 
 ### تغییرات اعمال شده:
