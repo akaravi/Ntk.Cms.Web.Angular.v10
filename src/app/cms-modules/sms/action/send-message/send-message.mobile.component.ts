@@ -342,20 +342,7 @@ export class SmsActionSendMessageMobileComponent implements OnInit {
     if (model && model.id?.length > 0) {
       this.dataModel.linkApiPathId = model.id;
       this.dataModel.linkFromNumber = null;
-      this.dataModel["sendByQueueDisabled"] = false;
-      if (
-        model.apiAbilitySendByQueue == true &&
-        model.apiAbilitySendByDirect == true
-      ) {
-        this.dataModel.optionSendByQueue = true;
-        this.dataModel["sendByQueueDisabled"] = false;
-      } else if (model.apiAbilitySendByQueue == true) {
-        this.dataModel.optionSendByQueue = true;
-        this.dataModel["sendByQueueDisabled"] = true;
-      } else if (model.apiAbilitySendByDirect == true) {
-        this.dataModel.optionSendByQueue = false;
-        this.dataModel["sendByQueueDisabled"] = true;
-      }
+
       const messageAddTextFirst = this.formInfo.validationList.find(
         (x) => x.key === "sendMessageAddTextFirst",
       );

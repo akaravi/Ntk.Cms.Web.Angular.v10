@@ -14,7 +14,10 @@
         <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
       </button>
       <h1 class="cms-m-header-title">
-        {{ formInfo.formTitle || ("TITLE.Be_Careful_When_Entering_Information" | translate) }}
+        {{
+          formInfo.formTitle ||
+            ("TITLE.Be_Careful_When_Entering_Information" | translate)
+        }}
       </h1>
       <div class="cms-m-header-spacer"></div>
     </div>
@@ -27,7 +30,7 @@
 
     <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
       <!-- RecordStatus Field -->
-      @if (fieldsInfo['recordStatus']?.accessWatchField) {
+      @if (fieldsInfo["recordStatus"]?.accessWatchField) {
         <app-cms-enum-record-status-selector
           [(model)]="dataModel.recordStatus"
           [optionDisabled]="false"
@@ -37,6 +40,35 @@
         ></app-cms-enum-record-status-selector>
       }
 
+      <!-- Title Field -->
+      @if (fieldsInfo["title"]?.accessWatchField) {
+        <div class="cms-m-form-field">
+          <label class="cms-m-form-label">{{
+            fieldsInfo["title"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="dataModel.title"
+            name="dataModel.title"
+            #Title
+            placeholder="{{ fieldsInfo['title']?.fieldTitle }}"
+            [disabled]="!fieldsInfo['title']?.accessEditField"
+            minlength="3"
+            maxlength="100"
+            required
+            class="cms-m-form-input"
+            id="dataModel.title"
+          />
+          <em class="cms-m-char-count">{{ Title.value.length }} / 100</em>
+          @if (Title.errors?.required) {
+            <mat-error>
+              Title is
+              <strong>{{ "MESSAGE.required" | translate }}</strong>
+            </mat-error>
+          }
+        </div>
+      }
       <!-- LinkCoreUserId Field -->
       <app-cms-user-selector
         (optionChange)="onActionSelectorCmsUser($event)"
@@ -47,7 +79,7 @@
       </app-cms-user-selector>
 
       <!-- apiKey Field -->
-      @if (fieldsInfo['apiKey']?.accessWatchField) {
+      @if (fieldsInfo["apiKey"]?.accessWatchField) {
         <div class="cms-m-form-field">
           <label class="cms-m-form-label">{{
             fieldsInfo["apiKey"]?.fieldTitle
@@ -116,9 +148,7 @@
           id="dataModel.description"
           class="cms-m-form-textarea"
         ></textarea>
-        <em class="cms-m-char-count"
-          >{{ Description.value.length }} / 500</em
-        >
+        <em class="cms-m-char-count">{{ Description.value.length }} / 500</em>
         @if (Description.errors?.required) {
           <mat-error>
             Description is
@@ -141,12 +171,15 @@
           class="cms-m-form-input"
           id="dataModel.fromDate"
         />
-        <mat-datepicker-toggle matSuffix [for]="FromDate"></mat-datepicker-toggle>
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="FromDate"
+        ></mat-datepicker-toggle>
         <mat-datepicker touchUi #FromDate></mat-datepicker>
       </div>
 
       <!-- ExpireDate Field -->
-      @if (fieldsInfo['expireDate']?.accessWatchField) {
+      @if (fieldsInfo["expireDate"]?.accessWatchField) {
         <div class="cms-m-form-field">
           <label class="cms-m-form-label">{{
             "TITLE.Expire_Date" | translate
@@ -160,7 +193,10 @@
             class="cms-m-form-input"
             id="dataModel.expireDate"
           />
-          <mat-datepicker-toggle matSuffix [for]="ExpireDate"></mat-datepicker-toggle>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="ExpireDate"
+          ></mat-datepicker-toggle>
           <mat-datepicker touchUi #ExpireDate></mat-datepicker>
         </div>
       }

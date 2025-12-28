@@ -74,8 +74,7 @@ export class CoreUserListComponent
     this.filteModelContent.sortType = SortTypeEnum.Descending;
     if (this.requestLinkSiteId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyAnyName = "linkSiteId";
-      filter.propertyName = "SiteUsers";
+      filter.propertyName = "linkSiteId";
       filter.value = this.requestLinkSiteId;
       this.filteModelContent.filters.push(filter);
     }
@@ -179,8 +178,7 @@ export class CoreUserListComponent
     }
     if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyAnyName = "linkSiteId";
-      filter.propertyName = "SiteUsers";
+      filter.propertyName = "linkSiteId";
       filter.value = this.filteModelContent.filterActionSearchLinkSiteId;
       filterModel.filters.push(filter);
     }

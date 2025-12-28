@@ -9,11 +9,14 @@ import {
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreEnumService,
-  ErrorExceptionResult,SmsActionService,
+import {
+  CoreEnumService,
+  ErrorExceptionResult,
+  SmsActionService,
   SmsApiSendMessageTestDtoModel,
   SmsApiSendResultModel,
-  SmsMainApiPathModel} from "ntk-cms-api";
+  SmsMainApiPathModel,
+} from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
@@ -56,7 +59,6 @@ export class SmsMainApiPathSendTestComponent implements OnInit {
   dataModelResult: ErrorExceptionResult<SmsApiSendResultModel> =
     new ErrorExceptionResult<SmsApiSendResultModel>();
   formInfo: FormInfoModel = new FormInfoModel();
-  sendByShow = false;
 
   ngOnInit(): void {
     if (this.requestLinkApiPathId.length <= 0) {
@@ -72,12 +74,6 @@ export class SmsMainApiPathSendTestComponent implements OnInit {
     this.dataModelParentSelected = model;
     if (model && model.id?.length > 0) {
       this.dataModel.linkApiPathId = model.id;
-
-      this.sendByShow = false;
-      if (model.apiAbilitySendByDirect) this.dataModel.sendByQueue = false;
-      if (model.apiAbilitySendByQueue) this.dataModel.sendByQueue = true;
-      if (model.apiAbilitySendByQueue && model.apiAbilitySendByDirect)
-        this.sendByShow = true;
     }
   }
 
@@ -112,26 +108,46 @@ export class SmsMainApiPathSendTestComponent implements OnInit {
             .get("MESSAGE.Submit_request_was_successfully_registered")
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                FormSubmitedStatusEnum.Success;
             });
           this.translate
             .get("MESSAGE.Send_request_was_successfully_registered")

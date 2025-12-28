@@ -603,33 +603,7 @@
                     </div>
                   </div>
                 </div>
-                <!-- optionSendByQueue Field -->
-                <div class="d-flex mb-3">
-                  <div class="pt-1">
-                    <h5
-                      data-trigger-switch="dataModel.optionSendByQueue"
-                      class="font-600 font-14"
-                    >
-                      {{ "TITLE.Send_in_queue" | translate }}
-                    </h5>
-                  </div>
-                  <div class="ms-auto me-3 pe-2">
-                    <div class="custom-control ios-switch small-switch">
-                      <input
-                        type="checkbox"
-                        class="ios-input"
-                        id="dataModel.optionSendByQueue"
-                        [disabled]="dataModel['sendByQueueDisabled']"
-                        [(ngModel)]="dataModel.optionSendByQueue"
-                        name="dataModel.optionSendByQueue"
-                      />
-                      <label
-                        class="custom-control-label"
-                        for="dataModel.optionSendByQueue"
-                      ></label>
-                    </div>
-                  </div>
-                </div>
+
                 <mat-action-row>
                   <button
                     type="button"

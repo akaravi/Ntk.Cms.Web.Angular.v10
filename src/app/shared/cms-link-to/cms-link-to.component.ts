@@ -105,7 +105,7 @@ export class CmsLinkToComponent implements OnInit, OnDestroy {
     this.message.nativeElement.style.direction = "rtl";
     this.message.nativeElement.style.textAlign = "right";
   }
-  sendByShow = false;
+
   dataModelParentSelected: SmsMainApiPathModel;
 
   onActionSelectPrivateSiteConfig(model: SmsMainApiPathModel): void {
@@ -116,11 +116,7 @@ export class CmsLinkToComponent implements OnInit, OnDestroy {
     // }
     if (model && model.id?.length > 0) {
       this.dataModel.linkApiPathId = model.id;
-      this.sendByShow = false;
-      if (model.apiAbilitySendByDirect) this.dataModel.optionSendByQueue = false;
-      if (model.apiAbilitySendByQueue) this.dataModel.optionSendByQueue = true;
-      if (model.apiAbilitySendByQueue && model.apiAbilitySendByDirect)
-        this.sendByShow = true;
+
     }
   }
 
