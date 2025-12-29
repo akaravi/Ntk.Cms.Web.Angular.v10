@@ -59,10 +59,10 @@ jobs:
           echo "System time: $(date +'%Y-%m-%d %H:%M:%S')"
           echo "Commit title: ${{ github.event.head_commit.message }}"
 
-      - name: Webhook Sms
-        uses: joelwmale/webhook-action@master
-        with:
-          #url: "https://smsban.com/api/?action=SMS_SEND&username=${{ vars.SMS_USERNAME }}&password=${{ secrets.SMS_PASSWORD }}&api=${{ vars.SMS_API }}&from=${{ vars.SMS_FROM }}&API_CHANGE_ALLOW=true&to=${{ vars.SMS_TO }}&text=${{ github.repository }} status is ${{ job.status }}  commit: ${{ env.commitTitle }}  ${{ env.SYSTEM_TIME }}   لغو ۱۱"
+      #- name: Webhook Sms
+      #  uses: joelwmale/webhook-action@master
+      #  with:
+      #    url: "https://smsban.com/api/?action=SMS_SEND&username=${{ vars.SMS_USERNAME }}&password=${{ secrets.SMS_PASSWORD }}&api=${{ vars.SMS_API }}&from=${{ vars.SMS_FROM }}&API_CHANGE_ALLOW=true&to=${{ vars.SMS_TO }}&text=${{ github.repository }} status is ${{ job.status }}  commit: ${{ env.commitTitle }}  ${{ env.SYSTEM_TIME }}   لغو ۱۱"
 
           - name: Webhook Plesk
         #  v18
@@ -82,10 +82,10 @@ jobs:
           echo "SYSTEM_TIME=$(date +'%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
           echo "commitTitle=${{ github.event.head_commit.message }}" >> $GITHUB_ENV
 
-      - name: Webhook Sms
-        uses: joelwmale/webhook-action@master
-        with:
-          #url: "https://smsban.com/api/?action=SMS_SEND&username=${{ vars.SMS_USERNAME }}&password=${{ secrets.SMS_PASSWORD }}&api=${{ vars.SMS_API }}&from=${{ vars.SMS_FROM }}&API_CHANGE_ALLOW=true&to=${{ vars.SMS_TO }}&text=${{ github.repository }}  Published to plesk  commit: ${{ env.commitTitle }}  ${{ env.SYSTEM_TIME }}   لغو ۱۱"
+      #- name: Webhook Sms
+      #  uses: joelwmale/webhook-action@master
+      #  with:
+      #    url: "https://smsban.com/api/?action=SMS_SEND&username=${{ vars.SMS_USERNAME }}&password=${{ secrets.SMS_PASSWORD }}&api=${{ vars.SMS_API }}&from=${{ vars.SMS_FROM }}&API_CHANGE_ALLOW=true&to=${{ vars.SMS_TO }}&text=${{ github.repository }}  Published to plesk  commit: ${{ env.commitTitle }}  ${{ env.SYSTEM_TIME }}   لغو ۱۱"
 
       - name: Test get variable exported by push-to-another-repository
         run: echo $DESTINATION_CLONED_DIRECTORY
