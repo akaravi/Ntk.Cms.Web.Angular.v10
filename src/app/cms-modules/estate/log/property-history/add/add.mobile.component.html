@@ -220,7 +220,11 @@
                     matSuffix
                     [for]="AppointmentDateFrom"
                   ></mat-datepicker-toggle>
-                  <mat-datepicker touchUi #AppointmentDateFrom></mat-datepicker>
+                  <mat-datepicker
+                    touchUi
+                    #AppointmentDateFrom
+                    [calendarHeaderComponent]="datapickerHeader"
+                  ></mat-datepicker>
                 </div>
                 <br />
                 @if (fieldsInfo['appointmentDateTo']?.accessWatchField) {
@@ -259,7 +263,11 @@
                         matSuffix
                         [for]="AppointmentDateTo"
                       ></mat-datepicker-toggle>
-                      <mat-datepicker touchUi #AppointmentDateTo></mat-datepicker>
+                      <mat-datepicker
+                        touchUi
+                        #AppointmentDateTo
+                        [calendarHeaderComponent]="datapickerHeader"
+                      ></mat-datepicker>
                     </div>
                   </div>
                   <div class="cms-m-container-footer">

@@ -1083,7 +1083,11 @@
               matSuffix
               [for]="StatusOutOfServiceExpire"
             ></mat-datepicker-toggle>
-            <mat-datepicker touchUi #StatusOutOfServiceExpire></mat-datepicker>
+            <mat-datepicker
+              touchUi
+              #StatusOutOfServiceExpire
+              [calendarHeaderComponent]="datapickerHeader"
+            ></mat-datepicker>
           </div>
           <!-- StatusNotStableMonitorApiChar Field -->
           @if (fieldsInfo["statusNotStableMonitorApiChar"]?.accessWatchField) {
@@ -1162,7 +1166,11 @@
               matSuffix
               [for]="StatusNotStableExpire"
             ></mat-datepicker-toggle>
-            <mat-datepicker touchUi #StatusNotStableExpire></mat-datepicker>
+            <mat-datepicker
+              touchUi
+              #StatusNotStableExpire
+              [calendarHeaderComponent]="datapickerHeader"
+            ></mat-datepicker>
           </div>
           <!-- StatusNotStableCount Field -->
           @if (fieldsInfo["statusNotStableCount"]?.accessWatchField) {

@@ -245,7 +245,11 @@
           matSuffix
           [for]="accessUseStartDate"
         ></mat-datepicker-toggle>
-        <mat-datepicker touchUi #accessUseStartDate></mat-datepicker>
+        <mat-datepicker
+          touchUi
+          #accessUseStartDate
+          [calendarHeaderComponent]="datapickerHeader"
+        ></mat-datepicker>
       </div>
 
       <!-- ExpireDate Field -->

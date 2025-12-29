@@ -118,7 +118,11 @@
                           matSuffix
                           [for]="expireDateTime"
                         ></mat-datepicker-toggle>
-                        <mat-datepicker touchUi #expireDateTime></mat-datepicker>
+                        <mat-datepicker
+                          touchUi
+                          #expireDateTime
+                          [calendarHeaderComponent]="datapickerHeader"
+                        ></mat-datepicker>
                       </div>
                     }
                     @if (formInfo.submitButtonEnabled) {

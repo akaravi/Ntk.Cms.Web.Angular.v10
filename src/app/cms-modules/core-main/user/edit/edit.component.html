@@ -339,7 +339,11 @@
                 matSuffix
                 [for]="BirthDay"
               ></mat-datepicker-toggle>
-              <mat-datepicker touchUi #BirthDay></mat-datepicker>
+              <mat-datepicker
+                touchUi
+                #BirthDay
+                [calendarHeaderComponent]="datapickerHeader"
+              ></mat-datepicker>
             </div>
           }
           <!-- CompanyName Field -->
@@ -532,7 +536,11 @@
                 matSuffix
                 [for]="ExpireLockAccount"
               ></mat-datepicker-toggle>
-              <mat-datepicker touchUi #ExpireLockAccount></mat-datepicker>
+              <mat-datepicker
+                touchUi
+                #ExpireLockAccount
+                [calendarHeaderComponent]="datapickerHeader"
+              ></mat-datepicker>
             </div>
           }
           <!-- FirewallAllowIP Field -->

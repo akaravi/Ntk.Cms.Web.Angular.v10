@@ -24,11 +24,11 @@ export const environment: EnvironmentModel = {
     modules: [""],
   },
   cmsTokenConfig: {
-    SecurityKey: "123456789",
+    SecurityKey: "",//123456789
     ClientMACAddress: "",
     osType: OperatingSystemTypeEnum.Windows,
     DeviceType: DeviceTypeEnum.WebSite,
-    PackageName: "ntk-cms-web",
+    PackageName: "",//
   },
   cmsViewConfig: {
     mobileWindowInnerWidth: 1000,

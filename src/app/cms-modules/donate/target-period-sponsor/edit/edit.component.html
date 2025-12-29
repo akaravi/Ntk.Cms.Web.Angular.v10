@@ -52,7 +52,11 @@
             matSuffix
             [for]="LinkSponsorId"
           ></mat-datepicker-toggle>
-          <mat-datepicker touchUi #LinkSponsorId></mat-datepicker>
+          <mat-datepicker
+            touchUi
+            #LinkSponsorId
+            [calendarHeaderComponent]="datapickerHeader"
+          ></mat-datepicker>
         </div>
         <!-- payment Field -->
         <div
@@ -74,7 +78,11 @@
               matSuffix
               [for]="payment"
             ></mat-datepicker-toggle>
-            <mat-datepicker touchUi #payment></mat-datepicker>
+            <mat-datepicker
+              touchUi
+              #payment
+              [calendarHeaderComponent]="datapickerHeader"
+            ></mat-datepicker>
           </div>
           @if (formInfo.submitButtonEnabled) {
             <div class="form-actions">

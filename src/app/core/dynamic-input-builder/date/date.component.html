@@ -9,4 +9,8 @@
   [for]="ExpireDate"
   [disabled]="optionDisabled"
 ></mat-datepicker-toggle>
-<mat-datepicker touchUi #ExpireDate></mat-datepicker>
+<mat-datepicker
+  touchUi
+  #ExpireDate
+  [calendarHeaderComponent]="datapickerHeader"
+></mat-datepicker>

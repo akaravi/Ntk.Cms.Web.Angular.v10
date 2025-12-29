@@ -289,7 +289,11 @@
             matSuffix
             [for]="approveCheckDate"
           ></mat-datepicker-toggle>
-          <mat-datepicker touchUi #approveCheckDate></mat-datepicker>
+          <mat-datepicker
+            touchUi
+            #approveCheckDate
+            [calendarHeaderComponent]="datapickerHeader"
+          ></mat-datepicker>
         </div>
       }
 

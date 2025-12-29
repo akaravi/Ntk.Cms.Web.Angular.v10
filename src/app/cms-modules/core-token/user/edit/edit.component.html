@@ -327,7 +327,11 @@
                                           matSuffix
                                           [for]="tokenExpireDate"
                                         ></mat-datepicker-toggle>
-                                        <mat-datepicker touchUi #tokenExpireDate></mat-datepicker>
+                                        <mat-datepicker
+                                          touchUi
+                                          #tokenExpireDate
+                                          [calendarHeaderComponent]="datapickerHeader"
+                                        ></mat-datepicker>
                                       </div>
                                     }
                                     @if (tokenInfo.access.userAccessAdminAllowToProfessionalData) {

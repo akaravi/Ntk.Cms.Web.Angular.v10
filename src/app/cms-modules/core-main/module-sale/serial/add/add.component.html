@@ -178,7 +178,11 @@
                         matSuffix
                         [for]="MaxExpireToUse"
                       ></mat-datepicker-toggle>
-                      <mat-datepicker touchUi #MaxExpireToUse></mat-datepicker>
+                      <mat-datepicker
+                        touchUi
+                        #MaxExpireToUse
+                        [calendarHeaderComponent]="datapickerHeader"
+                      ></mat-datepicker>
                     </div>
                   }
                   <!-- NumberOfRegistered Field -->

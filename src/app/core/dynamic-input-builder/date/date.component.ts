@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { DatapickerHeaderComponent } from "src/app/shared/datapicker-header/datapicker-header.component";
 
 @Component({
   selector: "app-input-date",
@@ -16,6 +17,7 @@ export class DateComponent implements OnInit {
   @Input() optionRequired = false;
   @Input() optionDisabled = false;
   private privateModelDate: Date;
+  datapickerHeader = DatapickerHeaderComponent;
   get modelDate(): Date {
     return this.privateModelDate;
   }

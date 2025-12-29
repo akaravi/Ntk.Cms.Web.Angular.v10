@@ -52,7 +52,11 @@
             matSuffix
             [for]="ReceiverDate"
           ></mat-datepicker-toggle>
-          <mat-datepicker touchUi #ReceiverDate></mat-datepicker>
+          <mat-datepicker
+            touchUi
+            #ReceiverDate
+            [calendarHeaderComponent]="datapickerHeader"
+          ></mat-datepicker>
         </div>
       }
       <!-- SenderNumber Field -->

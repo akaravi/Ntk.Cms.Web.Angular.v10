@@ -164,6 +164,7 @@
                         <mat-datepicker
                           touchUi
                           #dataSiteStorageModel_UpdatedContent
+                          [calendarHeaderComponent]="datapickerHeader"
                         ></mat-datepicker>
                       </div>
                       @if (tokenInfo.access.userAccessAdminAllowToProfessionalData) {

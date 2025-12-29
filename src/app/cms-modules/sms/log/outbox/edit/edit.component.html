@@ -52,7 +52,11 @@
             matSuffix
             [for]="SendDate"
           ></mat-datepicker-toggle>
-          <mat-datepicker touchUi #SendDate></mat-datepicker>
+          <mat-datepicker
+            touchUi
+            #SendDate
+            [calendarHeaderComponent]="datapickerHeader"
+          ></mat-datepicker>
         </div>
       }
       <!-- Message Field -->

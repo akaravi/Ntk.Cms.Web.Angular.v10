@@ -1302,7 +1302,11 @@
                                                                                         matSuffix
                                                                                         [for]="ReviewDataAfterSoldIt"
                                                                                       ></mat-datepicker-toggle>
-                                                                                      <mat-datepicker touchUi #ReviewDataAfterSoldIt></mat-datepicker>
+                                                                                      <mat-datepicker
+                                                                                        touchUi
+                                                                                        #ReviewDataAfterSoldIt
+                                                                                        [calendarHeaderComponent]="datapickerHeader"
+                                                                                      ></mat-datepicker>
                                                                                     </div>
                                                                                   }
                                                                                   <hr />

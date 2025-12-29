@@ -176,7 +176,11 @@
                   matSuffix
                   [for]="BeginDate"
                 ></mat-datepicker-toggle>
-                <mat-datepicker touchUi #BeginDate></mat-datepicker>
+                <mat-datepicker
+                  touchUi
+                  #BeginDate
+                  [calendarHeaderComponent]="datapickerHeader"
+                ></mat-datepicker>
               </div>
               <!-- EndDate Field -->
               @if (fieldsInfo['endDate']?.accessWatchField) {
@@ -198,7 +202,11 @@
                       matSuffix
                       [for]="EndDate"
                     ></mat-datepicker-toggle>
-                    <mat-datepicker touchUi #EndDate></mat-datepicker>
+                    <mat-datepicker
+                      touchUi
+                      #EndDate
+                      [calendarHeaderComponent]="datapickerHeader"
+                    ></mat-datepicker>
                   </div>
                 }
                 @if (formInfo.submitButtonEnabled) {

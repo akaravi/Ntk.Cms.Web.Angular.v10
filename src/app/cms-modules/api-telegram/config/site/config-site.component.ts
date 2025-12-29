@@ -1,4 +1,3 @@
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import {
   ChangeDetectorRef,
@@ -10,13 +9,15 @@ import {
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {AccessModel,
+import {
+  AccessModel,
   ApiTelegramConfigurationService,
   ApiTelegramModuleConfigSiteAccessValuesModel,
   ApiTelegramModuleConfigSiteValuesModel,
   ApiTelegramModuleSiteStorageValuesModel,
   CoreEnumService,
-  DataFieldInfoModel,TokenInfoModelV3} from "ntk-cms-api";
+  DataFieldInfoModel, TokenInfoModelV3
+} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -24,6 +25,8 @@ import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { PoinModel } from "src/app/core/models/pointModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { DatapickerHeaderComponent } from "src/app/shared/datapicker-header/datapicker-header.component";
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
 @Component({
   selector: "app-apitelegram-config-site",
   templateUrl: "./config-site.component.html",
@@ -54,7 +57,7 @@ export class ApiTelegramConfigSiteComponent implements OnInit, OnDestroy {
     new ApiTelegramModuleConfigSiteAccessValuesModel();
   tokenInfo = new TokenInfoModelV3();
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
-
+datapickerHeader = DatapickerHeaderComponent;
   formInfo: FormInfoModel = new FormInfoModel();
   dataAccessModel: AccessModel;
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<

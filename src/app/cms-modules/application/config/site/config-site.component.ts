@@ -23,6 +23,7 @@ import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { PoinModel } from "src/app/core/models/pointModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { DatapickerHeaderComponent } from "src/app/shared/datapicker-header/datapicker-header.component";
 
 import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
@@ -55,7 +56,7 @@ export class ApplicationConfigSiteComponent implements OnInit, OnDestroy {
     new ApplicationModuleConfigSiteAccessValuesModel();
   tokenInfo = new TokenInfoModelV3();
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
-
+  datapickerHeader = DatapickerHeaderComponent;
   formInfo: FormInfoModel = new FormInfoModel();
   dataAccessModel: AccessModel;
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<

@@ -58,7 +58,11 @@
               matSuffix
               [for]="ScheduleSendStart"
             ></mat-datepicker-toggle>
-            <mat-datepicker touchUi #ScheduleSendStart></mat-datepicker>
+            <mat-datepicker
+              touchUi
+              #ScheduleSendStart
+              [calendarHeaderComponent]="datapickerHeader"
+            ></mat-datepicker>
           </div>
         }
         <!-- ToNumbers Field -->
