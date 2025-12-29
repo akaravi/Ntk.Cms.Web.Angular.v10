@@ -62,10 +62,9 @@ jobs:
       - name: Webhook Sms
         uses: joelwmale/webhook-action@master
         with:
-          url: "https://smsban.com/api/?action=SMS_SEND&username=${{ vars.SMS_USERNAME }}&password=${{ secrets.SMS_PASSWORD }}&api=${{ vars.SMS_API }}&from=${{ vars.SMS_FROM }}&API_CHANGE_ALLOW=true&to=${{ vars.SMS_TO }}&text=${{ github.repository }} status is ${{ job.status }}  commit: ${{ env.commitTitle }}  ${{ env.SYSTEM_TIME }}   لغو ۱۱"
-          #headers: '{"repository": "joelwmale/webhook-action"}'
-          #body: '{"event": "deployment", "repository": "joelwmale/webhook-action"}'
-      - name: Webhook Plesk
+          #url: "https://smsban.com/api/?action=SMS_SEND&username=${{ vars.SMS_USERNAME }}&password=${{ secrets.SMS_PASSWORD }}&api=${{ vars.SMS_API }}&from=${{ vars.SMS_FROM }}&API_CHANGE_ALLOW=true&to=${{ vars.SMS_TO }}&text=${{ github.repository }} status is ${{ job.status }}  commit: ${{ env.commitTitle }}  ${{ env.SYSTEM_TIME }}   لغو ۱۱"
+
+          - name: Webhook Plesk
         #  v18
         uses: joelwmale/webhook-action@master
         with:
@@ -86,9 +85,7 @@ jobs:
       - name: Webhook Sms
         uses: joelwmale/webhook-action@master
         with:
-          url: "https://smsban.com/api/?action=SMS_SEND&username=${{ vars.SMS_USERNAME }}&password=${{ secrets.SMS_PASSWORD }}&api=${{ vars.SMS_API }}&from=${{ vars.SMS_FROM }}&API_CHANGE_ALLOW=true&to=${{ vars.SMS_TO }}&text=${{ github.repository }}  Published to plesk  commit: ${{ env.commitTitle }}  ${{ env.SYSTEM_TIME }}   لغو ۱۱"
-          #headers: '{"repository": "joelwmale/webhook-action"}'
-          #body: '{"event": "deployment", "repository": "joelwmale/webhook-action"}'
+          #url: "https://smsban.com/api/?action=SMS_SEND&username=${{ vars.SMS_USERNAME }}&password=${{ secrets.SMS_PASSWORD }}&api=${{ vars.SMS_API }}&from=${{ vars.SMS_FROM }}&API_CHANGE_ALLOW=true&to=${{ vars.SMS_TO }}&text=${{ github.repository }}  Published to plesk  commit: ${{ env.commitTitle }}  ${{ env.SYSTEM_TIME }}   لغو ۱۱"
 
       - name: Test get variable exported by push-to-another-repository
         run: echo $DESTINATION_CLONED_DIRECTORY

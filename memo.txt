@@ -236,10 +236,10 @@ https://www.codeandweb.com/babeledit/start-download?os=win&bits=64
 #
 #
 *MEMO*************************************************
-.
+.ntk-cms-api local
 *MEMO*************************************************
 
-
+"ntk-cms-api": "file:../npm-ntk-cms-angular/projects/ntk-cms-api",
 #END#################################################
 #
 #
