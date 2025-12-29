@@ -209,6 +209,7 @@ import { CmsTokenAccessComponent } from "./cms-token-access/cmsTokenAccess.compo
 import { CmsUserGroupSelectorComponent } from "./cms-user-group-selector/cmsUserGroupSelector.component";
 import { CmsUserSelectorComponent } from "./cms-user-selector/cmsUserSelector.component";
 import { CmsViewComponent } from "./cms-view/cms-view.component";
+import { DatapickerHeaderComponent } from "./datapicker-header/datapicker-header.component";
 import {
   MaterialPersianDateAdapter,
   PERSIAN_DATE_FORMATS,
@@ -248,7 +249,7 @@ import { ProgressSpinnerComponent } from "./progress-spinner/progress-spinner.co
     ContactContentByNumberPipe,
     SafePipe,
     /** Component */
-
+    DatapickerHeaderComponent,
     CmsSearchListComponent,
     CmsStatistListComponent,
     CmsExportListComponent,
@@ -518,7 +519,7 @@ import { ProgressSpinnerComponent } from "./progress-spinner/progress-spinner.co
     ValueArrayPipe,
     ContactContentByNumberPipe,
     /** Component */
-
+    DatapickerHeaderComponent,
     CmsSearchListComponent,
     CmsStatistListComponent,
     CmsExportListComponent,

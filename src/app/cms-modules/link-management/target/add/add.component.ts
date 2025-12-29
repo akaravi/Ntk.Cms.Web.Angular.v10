@@ -16,7 +16,6 @@ import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 import { FormInfoModel } from "../../../../core/models/formInfoModel";
-import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
 
 import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import { MatStepper } from "@angular/material/stepper";
@@ -98,7 +97,7 @@ export class LinkManagementTargetAddComponent
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   selectFileTypePodcast = ["mp3"];
   selectFileTypeMovie = ["mp4", "webm"];
-  formInfo: FormInfoModel = new FormInfoModel();
+  
   fileManagerOpenForm = false;
   fileManagerOpenFormPodcast = false;
   fileManagerOpenFormMovie = false;
@@ -348,27 +347,8 @@ export class LinkManagementTargetAddComponent
             .get("MESSAGE.registration_in_this_group_was_successful")
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-            });
+          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Success;
+              });
           this.cmsToastrService.typeSuccessEdit();
         } else {
           this.translate
@@ -377,7 +357,7 @@ export class LinkManagementTargetAddComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
       },
@@ -406,27 +386,8 @@ export class LinkManagementTargetAddComponent
             .get("MESSAGE.registration_in_this_group_was_successful")
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-            });
+          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Success;
+              });
           this.cmsToastrService.typeSuccessEdit();
         } else {
           this.translate
@@ -435,7 +396,7 @@ export class LinkManagementTargetAddComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
       },

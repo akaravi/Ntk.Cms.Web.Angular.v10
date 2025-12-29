@@ -6,7 +6,10 @@ import {
   IApiCmsServerBase,
   TokenInfoModelV3,
 } from "ntk-cms-api";
+import { DatapickerHeaderComponent } from "src/app/shared/datapicker-header/datapicker-header.component";
 import { PublicHelper } from "../helpers/publicHelper";
+import { FormInfoModel } from "../models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../models/formSubmitedStatusEnum";
 //IApiCmsServerBase
 export class AddBaseComponent<
   TService extends IApiCmsServerBase,
@@ -24,6 +27,9 @@ export class AddBaseComponent<
     this.DataGetAccess();
     this.dataModel = item;
   }
+  formInfo: FormInfoModel = new FormInfoModel();
+  formSubmitedStatusEnum = FormSubmitedStatusEnum;
+  datapickerHeader = DatapickerHeaderComponent;
   tokenInfo = new TokenInfoModelV3();
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
     string,

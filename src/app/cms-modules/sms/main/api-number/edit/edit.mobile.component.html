@@ -14,7 +14,10 @@
         <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
       </button>
       <h1 class="cms-m-header-title">
-        {{ formInfo.formTitle || ("TITLE.Be_Careful_When_Entering_Information" | translate) }}
+        {{
+          formInfo.formTitle ||
+            ("TITLE.Be_Careful_When_Entering_Information" | translate)
+        }}
       </h1>
       <div class="cms-m-header-spacer"></div>
     </div>
@@ -27,7 +30,7 @@
 
     <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
       <!-- RecordStatus Field -->
-      @if (fieldsInfo['recordStatus']?.accessWatchField) {
+      @if (fieldsInfo["recordStatus"]?.accessWatchField) {
         <app-cms-enum-record-status-selector
           [(model)]="dataModel.recordStatus"
           [optionDisabled]="false"
@@ -38,7 +41,7 @@
       }
 
       <!-- NumberChar Field -->
-      @if (fieldsInfo['numberChar']?.accessWatchField) {
+      @if (fieldsInfo["numberChar"]?.accessWatchField) {
         <div class="cms-m-form-field">
           <label class="cms-m-form-label">{{
             fieldsInfo["numberChar"]?.fieldTitle
@@ -54,14 +57,12 @@
             class="cms-m-form-input input-ltr"
             id="dataModel.numberChar"
           />
-          <em class="cms-m-char-count"
-            >{{ NumberChar.value.length }} / 100</em
-          >
+          <em class="cms-m-char-count">{{ NumberChar.value.length }} / 100</em>
         </div>
       }
 
       <!-- IsPublic Field -->
-      @if (fieldsInfo['isPublic']?.accessWatchField) {
+      @if (fieldsInfo["isPublic"]?.accessWatchField) {
         <div class="cms-m-form-field">
           <label class="cms-m-form-label">{{
             fieldsInfo["isPublic"]?.fieldTitle
@@ -82,7 +83,7 @@
       }
 
       <!-- SaleStatus Field -->
-      @if (fieldsInfo['saleStatus']?.accessWatchField) {
+      @if (fieldsInfo["saleStatus"]?.accessWatchField) {
         <div class="cms-m-form-field">
           <label class="cms-m-form-label">{{
             fieldsInfo["saleStatus"]?.fieldTitle
@@ -103,7 +104,7 @@
       }
 
       <!-- Priority Field -->
-      @if (fieldsInfo['priority']?.accessWatchField) {
+      @if (fieldsInfo["priority"]?.accessWatchField) {
         <div class="cms-m-form-field">
           <label class="cms-m-form-label">{{
             fieldsInfo["priority"]?.fieldTitle
@@ -123,7 +124,7 @@
       }
 
       <!-- DeliveryRelayStatus Field -->
-      @if (fieldsInfo['deliveryRelayStatus']?.accessWatchField) {
+      @if (fieldsInfo["deliveryRelayStatus"]?.accessWatchField) {
         <div class="cms-m-form-field">
           <label class="cms-m-form-label">{{
             fieldsInfo["deliveryRelayStatus"]?.fieldTitle
@@ -144,7 +145,7 @@
       }
 
       <!-- DeliveryRelayUrl Field -->
-      @if (fieldsInfo['deliveryRelayUrl']?.accessWatchField) {
+      @if (fieldsInfo["deliveryRelayUrl"]?.accessWatchField) {
         <div class="cms-m-form-field">
           <label class="cms-m-form-label">{{
             fieldsInfo["deliveryRelayUrl"]?.fieldTitle
@@ -165,7 +166,7 @@
       }
 
       <!-- SmsRelayStatus Field -->
-      @if (fieldsInfo['smsRelayStatus']?.accessWatchField) {
+      @if (fieldsInfo["smsRelayStatus"]?.accessWatchField) {
         <div class="cms-m-form-field">
           <label class="cms-m-form-label">{{
             fieldsInfo["smsRelayStatus"]?.fieldTitle
@@ -186,7 +187,7 @@
       }
 
       <!-- SmsRelayUrl Field -->
-      @if (fieldsInfo['smsRelayUrl']?.accessWatchField) {
+      @if (fieldsInfo["smsRelayUrl"]?.accessWatchField) {
         <div class="cms-m-form-field">
           <label class="cms-m-form-label">{{
             fieldsInfo["smsRelayUrl"]?.fieldTitle
@@ -228,7 +229,7 @@
       </div>
 
       <!-- ExpireDate Field -->
-      @if (fieldsInfo['expireDate']?.accessWatchField) {
+      @if (fieldsInfo["expireDate"]?.accessWatchField) {
         <div class="cms-m-form-field">
           <label class="cms-m-form-label">{{
             fieldsInfo["expireDate"]?.fieldTitle
@@ -242,8 +243,16 @@
             class="cms-m-form-input"
             id="dataModel.expireDate"
           />
-          <mat-datepicker-toggle matSuffix [for]="ExpireDate"></mat-datepicker-toggle>
-          <mat-datepicker touchUi #ExpireDate></mat-datepicker>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="ExpireDate"
+          ></mat-datepicker-toggle>
+          <mat-datepicker
+            touchUi
+            #ExpireDate
+            [calendarHeaderComponent]="datapickerHeader"
+          >
+          </mat-datepicker>
         </div>
       }
 
@@ -342,7 +351,7 @@
       </div>
 
       <!-- ActionMemo Field -->
-      @if (fieldsInfo['actionMemo']?.accessWatchField) {
+      @if (fieldsInfo["actionMemo"]?.accessWatchField) {
         <div class="cms-m-form-field">
           <label class="cms-m-form-label">{{
             fieldsInfo["actionMemo"]?.fieldTitle
@@ -367,7 +376,9 @@
         [optionDisabled]="false"
         (optionChange)="onActionSelectorUserCategorySelect($event)"
         (optionSelectAdded)="onActionSelectorUserCategorySelectAdded($event)"
-        (optionSelectRemoved)="onActionSelectorUserCategorySelectRemoved($event)"
+        (optionSelectRemoved)="
+          onActionSelectorUserCategorySelectRemoved($event)
+        "
       >
       </app-sms-apipath-selectionlist>
 

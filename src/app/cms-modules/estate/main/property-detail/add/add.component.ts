@@ -4,8 +4,7 @@ import {
   Component,
   Inject,
   OnInit,
-  ViewChild,
-} from "@angular/core";
+  ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MatChipInputEvent } from "@angular/material/chips";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
@@ -19,15 +18,13 @@ import {
   EstatePropertyDetailModel,
   EstatePropertyDetailService,
   EstatePropertyTypeLanduseModel,
-  InfoEnumModel,
-} from "ntk-cms-api";
+  InfoEnumModel } from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 import { FormInfoModel } from "../../../../../core/models/formInfoModel";
-import { FormSubmitedStatusEnum } from "../../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-estate-property-detail-add",
@@ -97,8 +94,7 @@ export class EstatePropertyDetailAddComponent
   dataModelResult: ErrorExceptionResult<EstatePropertyDetailModel> =
     new ErrorExceptionResult<EstatePropertyDetailModel>();
   dataModel: EstatePropertyDetailModel = new EstatePropertyDetailModel();
-  formInfo: FormInfoModel = new FormInfoModel();
-
+  
   fileManagerOpenForm = false;
 
   dataModelInputDataTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =
@@ -151,47 +147,47 @@ export class EstatePropertyDetailAddComponent
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
             });
           this.cmsToastrService.typeSuccessAdd();
           this.dialogRef.close({ dialogChangedDate: true });
@@ -202,7 +198,7 @@ export class EstatePropertyDetailAddComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);

@@ -54,7 +54,7 @@ export class ApplicationAppEditComponent
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
   @ViewChild(CmsMapComponent) childMap: CmsMapComponent;
 
-  formInfo: FormInfoModel = new FormInfoModel();
+  
   dataAccessModel: AccessModel;
 
   dataModel = new ApplicationAppModel();

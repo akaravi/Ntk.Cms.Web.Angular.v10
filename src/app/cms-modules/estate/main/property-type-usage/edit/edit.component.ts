@@ -25,7 +25,6 @@ import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 import { FormInfoModel } from "../../../../../core/models/formInfoModel";
-import { FormSubmitedStatusEnum } from "../../../../../core/models/formSubmitedStatusEnum";
 import { EstatePropertyTypeUsageEditBaseComponent } from "./edit.base";
 
 @Component({
@@ -138,7 +137,7 @@ export class EstatePropertyTypeUsageEditComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
@@ -177,7 +176,7 @@ export class EstatePropertyTypeUsageEditComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
       },
@@ -210,7 +209,7 @@ export class EstatePropertyTypeUsageEditComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
       },

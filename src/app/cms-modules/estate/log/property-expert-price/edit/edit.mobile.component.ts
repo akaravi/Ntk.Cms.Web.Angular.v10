@@ -16,8 +16,7 @@ import {
   EstatePropertyTypeUsageModel,
   InfoEnumModel,
   ManageUserAccessDataTypesEnum,
-  TokenInfoModelV3,
-} from "ntk-cms-api";
+  TokenInfoModelV3 } from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -26,7 +25,6 @@ import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 import { FormInfoModel } from "../../../../../core/models/formInfoModel";
-import { FormSubmitedStatusEnum } from "../../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-estate-property-expert-price-edit-mobile",
@@ -85,8 +83,7 @@ export class EstatePropertyExpertPriceEditMobileComponent
     new EstatePropertyExpertPriceModel();
   dataModelEstatePropertyExpertPriceTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
-  formInfo: FormInfoModel = new FormInfoModel();
-
+  
   dataModelCorCurrencySelector = new CoreCurrencyModel();
   PropertyTypeSelected = new EstatePropertyTypeLanduseModel();
   contractTypeSelected: EstateContractTypeModel;
@@ -147,7 +144,7 @@ export class EstatePropertyExpertPriceEditMobileComponent
             this.formInfo.formTitle = this.formInfo.formTitle;
             this.formInfo.submitResultMessage = "";
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
           } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
@@ -156,7 +153,7 @@ export class EstatePropertyExpertPriceEditMobileComponent
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Error;
+              this.formSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -198,7 +195,7 @@ export class EstatePropertyExpertPriceEditMobileComponent
               .subscribe((str: string) => {
                 this.formInfo.submitResultMessage = str;
                 this.formInfo.submitResultMessageType =
-                  FormSubmitedStatusEnum.Success;
+                  this.formSubmitedStatusEnum.Success;
               });
             this.cmsToastrService.typeSuccessEdit();
             this.onActionBackToParent();
@@ -210,7 +207,7 @@ export class EstatePropertyExpertPriceEditMobileComponent
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Error;
+              this.formSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);

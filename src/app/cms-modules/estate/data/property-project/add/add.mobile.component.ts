@@ -13,8 +13,7 @@ import {
   ErrorExceptionResult,
   EstatePropertyProjectModel,
   EstatePropertyProjectService,
-  TokenInfoModelV3,
-} from "ntk-cms-api";
+  TokenInfoModelV3 } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -23,7 +22,6 @@ import { PoinModel } from "src/app/core/models/pointModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { FormInfoModel } from "../../../../../core/models/formInfoModel";
-import { FormSubmitedStatusEnum } from "../../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-estate-property-project-add-mobile",
@@ -74,7 +72,7 @@ export class EstatePropertyProjectAddMobileComponent
     new ErrorExceptionResult<EstatePropertyProjectModel>();
 
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
-  formInfo: FormInfoModel = new FormInfoModel();
+  
   fileManagerOpenForm = false;
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
     string,
@@ -126,7 +124,7 @@ export class EstatePropertyProjectAddMobileComponent
           this.formInfo.formTitle = this.formInfo.formTitle;
           this.formInfo.submitResultMessage = "";
           this.formInfo.submitResultMessageType =
-            FormSubmitedStatusEnum.Success;
+            this.formSubmitedStatusEnum.Success;
         } else {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
@@ -134,7 +132,7 @@ export class EstatePropertyProjectAddMobileComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
@@ -223,7 +221,7 @@ export class EstatePropertyProjectAddMobileComponent
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
             });
           this.cmsToastrService.typeSuccessAdd();
           this.onActionBackToParent();
@@ -234,7 +232,7 @@ export class EstatePropertyProjectAddMobileComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);

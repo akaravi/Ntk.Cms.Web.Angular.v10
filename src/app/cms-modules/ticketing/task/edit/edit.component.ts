@@ -66,7 +66,7 @@ export class TicketingTaskEditComponent
   }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
-  formInfo: FormInfoModel = new FormInfoModel();
+  
   dataAccessModel: AccessModel;
   dataModel = new TicketingTaskModel();
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();

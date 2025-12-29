@@ -159,7 +159,12 @@
           matSuffix
           [for]="FromDate"
         ></mat-datepicker-toggle>
-        <mat-datepicker touchUi #FromDate></mat-datepicker>
+        <mat-datepicker
+          touchUi
+          #FromDate
+          [calendarHeaderComponent]="datapickerHeader"
+        >
+        </mat-datepicker>
       </div>
       <!-- ExpireDate Field -->
       @if (fieldsInfo["expireDate"]?.accessWatchField) {
@@ -182,7 +187,12 @@
             matSuffix
             [for]="ExpireDate"
           ></mat-datepicker-toggle>
-          <mat-datepicker touchUi #ExpireDate></mat-datepicker>
+          <mat-datepicker
+            touchUi
+            #ExpireDate
+            [calendarHeaderComponent]="datapickerHeader"
+          >
+          </mat-datepicker>
         </div>
       }
       @if (formInfo.submitButtonEnabled) {

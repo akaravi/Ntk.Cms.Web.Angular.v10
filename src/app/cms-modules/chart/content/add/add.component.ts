@@ -69,7 +69,7 @@ export class ChartContentAddComponent
   >();
   mapOptonCenter = new PoinModel();
 
-  formInfo: FormInfoModel = new FormInfoModel();
+  
   dataModel = new ChartContentModel();
   dataModelResult: ErrorExceptionResult<ChartContentModel> =
     new ErrorExceptionResult<ChartContentModel>();

@@ -17,7 +17,7 @@
       <app-cms-html-modal [optionFormInfo]="formInfo">
         <ng-container cms-body>
           <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
-          @if (fieldsInfo['recordStatus']?.accessWatchField) {
+          @if (fieldsInfo["recordStatus"]?.accessWatchField) {
             <app-cms-enum-record-status-selector
               [(model)]="dataModel.recordStatus"
               [optionDisabled]="false"
@@ -33,7 +33,7 @@
             [optionDisabled]="false"
             [optionSelectForce]="dataModel.linkSiteId"
             [optionPlaceholder]="'TITLE.WEBSITE' | translate"
-            >
+          >
           </app-core-site-selector>
           <!-- LinkModuleId Field -->
           <app-core-module-selector
@@ -41,13 +41,13 @@
             [optionDisabled]="false"
             [optionSelectForce]="dataModel.linkModuleId"
             [optionPlaceholder]="'TITLE.MODULE' | translate"
-            >
+          >
           </app-core-module-selector>
           <!-- ExpireDate Field -->
-          @if (fieldsInfo['expireDate']?.accessWatchField) {
+          @if (fieldsInfo["expireDate"]?.accessWatchField) {
             <div
               class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
-              >
+            >
               <label for="dataModel.expireDate" class="color-highlight">{{
                 fieldsInfo["expireDate"]?.fieldTitle
               }}</label>
@@ -63,43 +63,48 @@
                 disabled="{{ !fieldsInfo['expireDate']?.accessEditField }}"
                 class="form-control validate-name"
                 id="dataModel.expireDate"
-                />
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="ExpireDate"
-                ></mat-datepicker-toggle>
-                <mat-datepicker touchUi #ExpireDate></mat-datepicker>
-              </div>
-            }
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="ExpireDate"
+              ></mat-datepicker-toggle>
+              <mat-datepicker
+                touchUi
+                #ExpireDate
+                [calendarHeaderComponent]="datapickerHeader"
+              >
+              </mat-datepicker>
+            </div>
+          }
 
-            <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
-          </ng-container>
+          <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
+        </ng-container>
 
-          <ng-container cms-footer>
-            <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
-            @if (formInfo.submitButtonEnabled) {
-              <div class="ntk-button-row">
-                <button
-                  (click)="onFormCancel()"
-                  type="button"
-                  class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-                  >
-                  {{ "ACTION.BACK" | translate }}
-                </button>
-                <button
-                  type="submit"
-                  class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
-                  [disabled]="!vform.form.valid"
-                  >
-                  <i class="fa fa-check-square-o"></i>
-                  {{ "ACTION.SAVE" | translate }}
-                </button>
-              </div>
-            }
-            <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
-          </ng-container>
-        </app-cms-html-modal>
-      </form>
-      <!--Content-->
-    </div>
+        <ng-container cms-footer>
+          <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
+          @if (formInfo.submitButtonEnabled) {
+            <div class="ntk-button-row">
+              <button
+                (click)="onFormCancel()"
+                type="button"
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+              >
+                {{ "ACTION.BACK" | translate }}
+              </button>
+              <button
+                type="submit"
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
+                [disabled]="!vform.form.valid"
+              >
+                <i class="fa fa-check-square-o"></i>
+                {{ "ACTION.SAVE" | translate }}
+              </button>
+            </div>
+          }
+          <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
+        </ng-container>
+      </app-cms-html-modal>
+    </form>
+    <!--Content-->
   </div>
+</div>

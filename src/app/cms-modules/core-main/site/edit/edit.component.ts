@@ -85,7 +85,7 @@ export class CoreSiteEditComponent
   }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
-  formInfo: FormInfoModel = new FormInfoModel();
+  
   dataAccessModel: AccessModel;
 
   dataModel = new CoreSiteModel();

@@ -62,7 +62,7 @@ export class TicketingAnswerAddComponent
   }
 
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
-  formInfo: FormInfoModel = new FormInfoModel();
+  
   dataAccessModel: AccessModel;
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
     string,

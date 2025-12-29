@@ -15,7 +15,7 @@
     ></app-cms-form-result-message>
     <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
       <!-- RecordStatus Field -->
-      @if (fieldsInfo['recordStatus']?.accessWatchField) {
+      @if (fieldsInfo["recordStatus"]?.accessWatchField) {
         <app-cms-enum-record-status-selector
           [(model)]="dataModel.recordStatus"
           [optionDisabled]="false"
@@ -26,10 +26,10 @@
       }
 
       <!-- NumberChar Field -->
-      @if (fieldsInfo['numberChar']?.accessWatchField) {
+      @if (fieldsInfo["numberChar"]?.accessWatchField) {
         <div
           class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-          >
+        >
           <label for="dataModel.numberChar" class="color-highlight">{{
             fieldsInfo["numberChar"]?.fieldTitle
           }}</label>
@@ -43,418 +43,412 @@
             disabled="{{ !fieldsInfo['numberChar']?.accessEditField }}"
             class="form-control validate-name input-ltr"
             id="dataModel.numberChar"
-            />
-            <em>{{ NumberChar.value.length }} / 100</em>
+          />
+          <em>{{ NumberChar.value.length }} / 100</em>
+        </div>
+      }
+      <!-- IsPublic Field -->
+      @if (fieldsInfo["isPublic"]?.accessWatchField) {
+        <div class="d-flex mb-3">
+          <div class="pt-1">
+            <h5
+              data-trigger-switch="dataModel.isPublic"
+              class="font-600 font-14"
+            >
+              {{ fieldsInfo["isPublic"]?.fieldTitle }}
+            </h5>
           </div>
-        }
-        <!-- IsPublic Field -->
-        @if (fieldsInfo['isPublic']?.accessWatchField) {
-          <div class="d-flex mb-3">
-            <div class="pt-1">
-              <h5 data-trigger-switch="dataModel.isPublic" class="font-600 font-14">
-                {{ fieldsInfo["isPublic"]?.fieldTitle }}
-              </h5>
+          <div class="ms-auto me-3 pe-2">
+            <div class="custom-control ios-switch small-switch">
+              <input
+                type="checkbox"
+                class="ios-input"
+                id="dataModel.isPublic"
+                [(ngModel)]="dataModel.isPublic"
+                name="dataModel.isPublic"
+              />
+              <label
+                class="custom-control-label"
+                for="dataModel.isPublic"
+              ></label>
             </div>
-            <div class="ms-auto me-3 pe-2">
-              <div class="custom-control ios-switch small-switch">
-                <input
-                  type="checkbox"
-                  class="ios-input"
-                  id="dataModel.isPublic"
-                  [(ngModel)]="dataModel.isPublic"
-                  name="dataModel.isPublic"
-                  />
-                  <label
-                    class="custom-control-label"
-                    for="dataModel.isPublic"
-                  ></label>
-                </div>
-              </div>
+          </div>
+        </div>
+      }
+      <!-- SaleStatus Field -->
+      @if (fieldsInfo["saleStatus"]?.accessWatchField) {
+        <div class="d-flex mb-3">
+          <div class="pt-1">
+            <h5
+              data-trigger-switch="dataModel.saleStatus"
+              class="font-600 font-14"
+            >
+              {{ fieldsInfo["saleStatus"]?.fieldTitle }}
+            </h5>
+          </div>
+          <div class="ms-auto me-3 pe-2">
+            <div class="custom-control ios-switch small-switch">
+              <input
+                type="checkbox"
+                class="ios-input"
+                id="dataModel.saleStatus"
+                [(ngModel)]="dataModel.saleStatus"
+                name="dataModel.saleStatus"
+              />
+              <label
+                class="custom-control-label"
+                for="dataModel.saleStatus"
+              ></label>
             </div>
-          }
-          <!-- SaleStatus Field -->
-          @if (fieldsInfo['saleStatus']?.accessWatchField) {
-            <div
-              class="d-flex mb-3"
-              >
-              <div class="pt-1">
-                <h5
-                  data-trigger-switch="dataModel.saleStatus"
-                  class="font-600 font-14"
-                  >
-                  {{ fieldsInfo["saleStatus"]?.fieldTitle }}
-                </h5>
-              </div>
-              <div class="ms-auto me-3 pe-2">
-                <div class="custom-control ios-switch small-switch">
-                  <input
-                    type="checkbox"
-                    class="ios-input"
-                    id="dataModel.saleStatus"
-                    [(ngModel)]="dataModel.saleStatus"
-                    name="dataModel.saleStatus"
-                    />
-                    <label
-                      class="custom-control-label"
-                      for="dataModel.saleStatus"
-                    ></label>
-                  </div>
-                </div>
-              </div>
-            }
-            <!-- Priority Field -->
-            @if (fieldsInfo['priority']?.accessWatchField) {
-              <div
-                class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-                >
-                <label for="dataModel.priority" class="color-highlight">{{
-                  fieldsInfo["priority"]?.fieldTitle
-                }}</label>
-                <input
-                  matInput
-                  type="number"
-                  [(ngModel)]="dataModel.priority"
-                  name="dataModel.priority"
-                  #Priority
-                  placeholder="1"
-                  disabled="{{ !fieldsInfo['priority']?.accessEditField }}"
-                  class="form-control validate-name"
-                  id="dataModel.priority"
-                  />
-                  <em>{{ Priority.value.length }} / 100</em>
-                </div>
-              }
-              <!-- DeliveryRelayStatus Field -->
-              @if (fieldsInfo['deliveryRelayStatus']?.accessWatchField) {
-                <div
-                  class="d-flex mb-3"
-                  >
-                  <div class="pt-1">
-                    <h5
-                      data-trigger-switch="dataModel.deliveryRelayStatus"
-                      class="font-600 font-14"
-                      >
-                      {{ fieldsInfo["deliveryRelayStatus"]?.fieldTitle }}
-                    </h5>
-                  </div>
-                  <div class="ms-auto me-3 pe-2">
-                    <div class="custom-control ios-switch small-switch">
-                      <input
-                        type="checkbox"
-                        class="ios-input"
-                        id="dataModel.deliveryRelayStatus"
-                        [(ngModel)]="dataModel.deliveryRelayStatus"
-                        name="dataModel.deliveryRelayStatus"
-                        />
-                        <label
-                          class="custom-control-label"
-                          for="dataModel.deliveryRelayStatus"
-                        ></label>
-                      </div>
-                    </div>
-                  </div>
-                }
-                <!-- DeliveryRelayUrl Field -->
-                @if (fieldsInfo['deliveryRelayUrl']?.accessWatchField) {
-                  <div
-                    class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-                    >
-                    <label for="dataModel.deliveryRelayUrl" class="color-highlight">{{
-                      fieldsInfo["deliveryRelayUrl"]?.fieldTitle
-                    }}</label>
-                    <input
-                      matInput
-                      type="text"
-                      [(ngModel)]="dataModel.deliveryRelayUrl"
-                      name="dataModel.deliveryRelayUrl"
-                      #DeliveryRelayUrl
-                      [readonly]="!dataModel.deliveryRelayStatus"
-                      placeholder="1"
-                      [disabled]="!fieldsInfo['deliveryRelayUrl']?.accessEditField"
-                      class="form-control validate-name"
-                      id="dataModel.deliveryRelayUrl"
-                      />
-                    </div>
-                  }
-                  <!-- SmsRelayStatus Field -->
-                  @if (fieldsInfo['smsRelayStatus']?.accessWatchField) {
-                    <div
-                      class="d-flex mb-3"
-                      >
-                      <div class="pt-1">
-                        <h5
-                          data-trigger-switch="dataModel.smsRelayStatus"
-                          class="font-600 font-14"
-                          >
-                          {{ fieldsInfo["smsRelayStatus"]?.fieldTitle }}
-                        </h5>
-                      </div>
-                      <div class="ms-auto me-3 pe-2">
-                        <div class="custom-control ios-switch small-switch">
-                          <input
-                            type="checkbox"
-                            class="ios-input"
-                            id="dataModel.smsRelayStatus"
-                            [(ngModel)]="dataModel.smsRelayStatus"
-                            name="dataModel.smsRelayStatus"
-                            />
-                            <label
-                              class="custom-control-label"
-                              for="dataModel.smsRelayStatus"
-                            ></label>
-                          </div>
-                        </div>
-                      </div>
-                    }
-                    <!-- SmsRelayUrl Field -->
-                    @if (fieldsInfo['smsRelayUrl']?.accessWatchField) {
-                      <div
-                        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-                        >
-                        <label for="dataModel.smsRelayUrl" class="color-highlight">{{
-                          fieldsInfo["smsRelayUrl"]?.fieldTitle
-                        }}</label>
-                        <input
-                          matInput
-                          type="text"
-                          [(ngModel)]="dataModel.smsRelayUrl"
-                          name="dataModel.smsRelayUrl"
-                          #SmsRelayUrl
-                          [readonly]="!dataModel.smsRelayStatus"
-                          placeholder="1"
-                          [disabled]="!fieldsInfo['smsRelayUrl']?.accessEditField"
-                          class="form-control validate-name"
-                          id="dataModel.smsRelayUrl"
-                          />
-                        </div>
-                      }
-                      <!-- accessUseStartDate Field -->
-                      <div
-                        class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
-                        >
-                        <label for="dataModel.accessUseStartDate" class="color-highlight">{{
-                          fieldsInfo["accessUseStartDate"]?.fieldTitle
-                        }}</label>
-                        <input
-                          matInput
-                          [matDatepicker]="accessUseStartDate"
-                          type="text"
-                          [(ngModel)]="dataModel.accessUseStartDate"
-                          name="dataModel.accessUseStartDate"
-                          class="form-control validate-name"
-                          id="dataModel.accessUseStartDate"
-                          />
-                          <mat-datepicker-toggle
-                            matSuffix
-                            [for]="accessUseStartDate"
-                          ></mat-datepicker-toggle>
-                          <mat-datepicker touchUi #accessUseStartDate></mat-datepicker>
-                        </div>
+          </div>
+        </div>
+      }
+      <!-- Priority Field -->
+      @if (fieldsInfo["priority"]?.accessWatchField) {
+        <div
+          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+        >
+          <label for="dataModel.priority" class="color-highlight">{{
+            fieldsInfo["priority"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="number"
+            [(ngModel)]="dataModel.priority"
+            name="dataModel.priority"
+            #Priority
+            placeholder="1"
+            disabled="{{ !fieldsInfo['priority']?.accessEditField }}"
+            class="form-control validate-name"
+            id="dataModel.priority"
+          />
+          <em>{{ Priority.value.length }} / 100</em>
+        </div>
+      }
+      <!-- DeliveryRelayStatus Field -->
+      @if (fieldsInfo["deliveryRelayStatus"]?.accessWatchField) {
+        <div class="d-flex mb-3">
+          <div class="pt-1">
+            <h5
+              data-trigger-switch="dataModel.deliveryRelayStatus"
+              class="font-600 font-14"
+            >
+              {{ fieldsInfo["deliveryRelayStatus"]?.fieldTitle }}
+            </h5>
+          </div>
+          <div class="ms-auto me-3 pe-2">
+            <div class="custom-control ios-switch small-switch">
+              <input
+                type="checkbox"
+                class="ios-input"
+                id="dataModel.deliveryRelayStatus"
+                [(ngModel)]="dataModel.deliveryRelayStatus"
+                name="dataModel.deliveryRelayStatus"
+              />
+              <label
+                class="custom-control-label"
+                for="dataModel.deliveryRelayStatus"
+              ></label>
+            </div>
+          </div>
+        </div>
+      }
+      <!-- DeliveryRelayUrl Field -->
+      @if (fieldsInfo["deliveryRelayUrl"]?.accessWatchField) {
+        <div
+          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+        >
+          <label for="dataModel.deliveryRelayUrl" class="color-highlight">{{
+            fieldsInfo["deliveryRelayUrl"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="dataModel.deliveryRelayUrl"
+            name="dataModel.deliveryRelayUrl"
+            #DeliveryRelayUrl
+            [readonly]="!dataModel.deliveryRelayStatus"
+            placeholder="1"
+            [disabled]="!fieldsInfo['deliveryRelayUrl']?.accessEditField"
+            class="form-control validate-name"
+            id="dataModel.deliveryRelayUrl"
+          />
+        </div>
+      }
+      <!-- SmsRelayStatus Field -->
+      @if (fieldsInfo["smsRelayStatus"]?.accessWatchField) {
+        <div class="d-flex mb-3">
+          <div class="pt-1">
+            <h5
+              data-trigger-switch="dataModel.smsRelayStatus"
+              class="font-600 font-14"
+            >
+              {{ fieldsInfo["smsRelayStatus"]?.fieldTitle }}
+            </h5>
+          </div>
+          <div class="ms-auto me-3 pe-2">
+            <div class="custom-control ios-switch small-switch">
+              <input
+                type="checkbox"
+                class="ios-input"
+                id="dataModel.smsRelayStatus"
+                [(ngModel)]="dataModel.smsRelayStatus"
+                name="dataModel.smsRelayStatus"
+              />
+              <label
+                class="custom-control-label"
+                for="dataModel.smsRelayStatus"
+              ></label>
+            </div>
+          </div>
+        </div>
+      }
+      <!-- SmsRelayUrl Field -->
+      @if (fieldsInfo["smsRelayUrl"]?.accessWatchField) {
+        <div
+          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+        >
+          <label for="dataModel.smsRelayUrl" class="color-highlight">{{
+            fieldsInfo["smsRelayUrl"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="dataModel.smsRelayUrl"
+            name="dataModel.smsRelayUrl"
+            #SmsRelayUrl
+            [readonly]="!dataModel.smsRelayStatus"
+            placeholder="1"
+            [disabled]="!fieldsInfo['smsRelayUrl']?.accessEditField"
+            class="form-control validate-name"
+            id="dataModel.smsRelayUrl"
+          />
+        </div>
+      }
+      <!-- accessUseStartDate Field -->
+      <div
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
+      >
+        <label for="dataModel.accessUseStartDate" class="color-highlight">{{
+          fieldsInfo["accessUseStartDate"]?.fieldTitle
+        }}</label>
+        <input
+          matInput
+          [matDatepicker]="accessUseStartDate"
+          type="text"
+          [(ngModel)]="dataModel.accessUseStartDate"
+          name="dataModel.accessUseStartDate"
+          class="form-control validate-name"
+          id="dataModel.accessUseStartDate"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="accessUseStartDate"
+        ></mat-datepicker-toggle>
+        <mat-datepicker touchUi #accessUseStartDate></mat-datepicker>
+      </div>
 
-                        <!-- ExpireDate Field -->
-                        @if (fieldsInfo['expireDate']?.accessWatchField) {
-                          <div
-                            class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
-                            >
-                            <label for="dataModel.expireDate" class="color-highlight">{{
-                              fieldsInfo["expireDate"]?.fieldTitle
-                            }}</label>
-                            <input
-                              matInput
-                              type="text"
-                              [(ngModel)]="dataModel.expireDate"
-                              [matDatepicker]="ExpireDate"
-                              name="dataModel.expireDate"
-                              class="form-control validate-name"
-                              id="dataModel.expireDate"
-                              />
-                              <mat-datepicker-toggle
-                                matSuffix
-                                [for]="ExpireDate"
-                              ></mat-datepicker-toggle>
-                              <mat-datepicker touchUi #ExpireDate></mat-datepicker>
-                            </div>
-                          }
-                          <!-- apiSendMessageAddTextFirst Field -->
-                          <div
-                            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-                            >
-                            <label
-                              for="dataModel.apiSendMessageAddTextFirst"
-                              class="color-highlight"
-                              >{{ fieldsInfo["apiSendMessageAddTextFirst"]?.fieldTitle }}</label
-                              >
-                              <textarea
-                                matInput
-                                [(ngModel)]="dataModel.apiSendMessageAddTextFirst"
-                                name="dataModel.apiSendMessageAddTextFirst"
-                                #apiSendMessageAddTextFirst
-                                type="text"
-              placeholder="{{
-                fieldsInfo['apiSendMessageAddTextFirst']?.fieldTitle
-              }}"
-                                minlength="1"
-                                maxlength="500"
-                                rows="5"
-                                id="dataModel.apiSendMessageAddTextFirst"
-                                class="form-control validate-name"
-                              ></textarea>
-                              <em>{{ apiSendMessageAddTextFirst.value.length }} / 500</em>
-                              @if (apiSendMessageAddTextFirst.errors?.required) {
-                                <mat-error>
-                                  apiSendMessageAddTextFirst is
-                                  <strong>{{ "MESSAGE.required" | translate }}</strong>
-                                </mat-error>
-                              }
-                            </div>
-                            <!-- apiSendMessageAddTextEnd Field -->
-                            <div
-                              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-                              >
-                              <label
-                                for="dataModel.apiSendMessageAddTextEnd"
-                                class="color-highlight"
-                                >{{ fieldsInfo["apiSendMessageAddTextEnd"]?.fieldTitle }}</label
-                                >
-                                <textarea
-                                  matInput
-                                  [(ngModel)]="dataModel.apiSendMessageAddTextEnd"
-                                  name="dataModel.apiSendMessageAddTextEnd"
-                                  #apiSendMessageAddTextEnd
-                                  type="text"
-              placeholder="{{
-                fieldsInfo['apiSendMessageAddTextEnd']?.fieldTitle
-              }}"
-                                  minlength="1"
-                                  maxlength="500"
-                                  rows="5"
-                                  id="dataModel.apiSendMessageAddTextEnd"
-                                  class="form-control validate-name"
-                                ></textarea>
-                                <em>{{ apiSendMessageAddTextEnd.value.length }} / 500</em>
-                                @if (apiSendMessageAddTextEnd.errors?.required) {
-                                  <mat-error>
-                                    apiSendMessageAddTextEnd is
-                                    <strong>{{ "MESSAGE.required" | translate }}</strong>
-                                  </mat-error>
-                                }
-                              </div>
-                              <!-- sendMessageAddTextFirst Field -->
-                              <div
-                                class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-                                >
-                                <label
-                                  for="dataModel.sendMessageAddTextFirst"
-                                  class="color-highlight"
-                                  >{{ fieldsInfo["sendMessageAddTextFirst"]?.fieldTitle }}</label
-                                  >
-                                  <textarea
-                                    matInput
-                                    [(ngModel)]="dataModel.sendMessageAddTextFirst"
-                                    name="dataModel.sendMessageAddTextFirst"
-                                    #sendMessageAddTextFirst
-                                    type="text"
-              placeholder="{{
-                fieldsInfo['sendMessageAddTextFirst']?.fieldTitle
-              }}"
-                                    minlength="1"
-                                    maxlength="500"
-                                    rows="5"
-                                    id="dataModel.sendMessageAddTextFirst"
-                                    class="form-control validate-name"
-                                  ></textarea>
-                                  <em>{{ sendMessageAddTextFirst.value.length }} / 500</em>
-                                  @if (sendMessageAddTextFirst.errors?.required) {
-                                    <mat-error>
-                                      sendMessageAddTextFirst is
-                                      <strong>{{ "MESSAGE.required" | translate }}</strong>
-                                    </mat-error>
-                                  }
-                                </div>
-                                <!-- sendMessageAddTextEnd Field -->
-                                <div
-                                  class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-                                  >
-                                  <label
-                                    for="dataModel.sendMessageAddTextEnd"
-                                    class="color-highlight"
-                                    >{{ fieldsInfo["sendMessageAddTextEnd"]?.fieldTitle }}</label
-                                    >
-                                    <textarea
-                                      matInput
-                                      [(ngModel)]="dataModel.sendMessageAddTextEnd"
-                                      name="dataModel.sendMessageAddTextEnd"
-                                      #sendMessageAddTextEnd
-                                      type="text"
-              placeholder="{{
-                fieldsInfo['sendMessageAddTextEnd']?.fieldTitle
-              }}"
-                                      minlength="1"
-                                      maxlength="500"
-                                      rows="5"
-                                      id="dataModel.sendMessageAddTextEnd"
-                                      class="form-control validate-name"
-                                    ></textarea>
-                                    <em>{{ sendMessageAddTextEnd.value.length }} / 500</em>
-                                    @if (sendMessageAddTextEnd.errors?.required) {
-                                      <mat-error>
-                                        sendMessageAddTextEnd is
-                                        <strong>{{ "MESSAGE.required" | translate }}</strong>
-                                      </mat-error>
-                                    }
-                                  </div>
-                                  <!-- ActionMemo Field -->
-                                  @if (fieldsInfo['actionMemo']?.accessWatchField) {
-                                    <div
-                                      class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-                                      >
-                                      <label for="dataModel.actionMemo" class="color-highlight">{{
-                                        fieldsInfo["actionMemo"]?.fieldTitle
-                                      }}</label>
-                                      <input
-                                        matInput
-                                        type="text"
-                                        [(ngModel)]="dataModel.actionMemo"
-                                        #ActionMemo
-                                        name="dataModel.actionMemo"
-                                        [disabled]="!fieldsInfo['actionMemo']?.accessEditField"
-                                        placeholder="1"
-                                        class="form-control validate-name"
-                                        id="dataModel.actionMemo"
-                                        />
-                                      </div>
-                                    }
-                                    <app-sms-apipath-selectionlist
-                                      [optionSelectForce]="dataCoreCpMainMenuIds"
-                                      [optionDisabled]="false"
-                                      (optionChange)="onActionSelectorUserCategorySelect($event)"
-                                      (optionSelectAdded)="onActionSelectorUserCategorySelectAdded($event)"
+      <!-- ExpireDate Field -->
+      @if (fieldsInfo["expireDate"]?.accessWatchField) {
+        <div
+          class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
+        >
+          <label for="dataModel.expireDate" class="color-highlight">{{
+            fieldsInfo["expireDate"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="dataModel.expireDate"
+            [matDatepicker]="ExpireDate"
+            name="dataModel.expireDate"
+            class="form-control validate-name"
+            id="dataModel.expireDate"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="ExpireDate"
+          ></mat-datepicker-toggle>
+          <mat-datepicker
+            touchUi
+            #ExpireDate
+            [calendarHeaderComponent]="datapickerHeader"
+          >
+          </mat-datepicker>
+        </div>
+      }
+      <!-- apiSendMessageAddTextFirst Field -->
+      <div
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+      >
+        <label
+          for="dataModel.apiSendMessageAddTextFirst"
+          class="color-highlight"
+          >{{ fieldsInfo["apiSendMessageAddTextFirst"]?.fieldTitle }}</label
+        >
+        <textarea
+          matInput
+          [(ngModel)]="dataModel.apiSendMessageAddTextFirst"
+          name="dataModel.apiSendMessageAddTextFirst"
+          #apiSendMessageAddTextFirst
+          type="text"
+          placeholder="{{
+            fieldsInfo['apiSendMessageAddTextFirst']?.fieldTitle
+          }}"
+          minlength="1"
+          maxlength="500"
+          rows="5"
+          id="dataModel.apiSendMessageAddTextFirst"
+          class="form-control validate-name"
+        ></textarea>
+        <em>{{ apiSendMessageAddTextFirst.value.length }} / 500</em>
+        @if (apiSendMessageAddTextFirst.errors?.required) {
+          <mat-error>
+            apiSendMessageAddTextFirst is
+            <strong>{{ "MESSAGE.required" | translate }}</strong>
+          </mat-error>
+        }
+      </div>
+      <!-- apiSendMessageAddTextEnd Field -->
+      <div
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+      >
+        <label
+          for="dataModel.apiSendMessageAddTextEnd"
+          class="color-highlight"
+          >{{ fieldsInfo["apiSendMessageAddTextEnd"]?.fieldTitle }}</label
+        >
+        <textarea
+          matInput
+          [(ngModel)]="dataModel.apiSendMessageAddTextEnd"
+          name="dataModel.apiSendMessageAddTextEnd"
+          #apiSendMessageAddTextEnd
+          type="text"
+          placeholder="{{ fieldsInfo['apiSendMessageAddTextEnd']?.fieldTitle }}"
+          minlength="1"
+          maxlength="500"
+          rows="5"
+          id="dataModel.apiSendMessageAddTextEnd"
+          class="form-control validate-name"
+        ></textarea>
+        <em>{{ apiSendMessageAddTextEnd.value.length }} / 500</em>
+        @if (apiSendMessageAddTextEnd.errors?.required) {
+          <mat-error>
+            apiSendMessageAddTextEnd is
+            <strong>{{ "MESSAGE.required" | translate }}</strong>
+          </mat-error>
+        }
+      </div>
+      <!-- sendMessageAddTextFirst Field -->
+      <div
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+      >
+        <label
+          for="dataModel.sendMessageAddTextFirst"
+          class="color-highlight"
+          >{{ fieldsInfo["sendMessageAddTextFirst"]?.fieldTitle }}</label
+        >
+        <textarea
+          matInput
+          [(ngModel)]="dataModel.sendMessageAddTextFirst"
+          name="dataModel.sendMessageAddTextFirst"
+          #sendMessageAddTextFirst
+          type="text"
+          placeholder="{{ fieldsInfo['sendMessageAddTextFirst']?.fieldTitle }}"
+          minlength="1"
+          maxlength="500"
+          rows="5"
+          id="dataModel.sendMessageAddTextFirst"
+          class="form-control validate-name"
+        ></textarea>
+        <em>{{ sendMessageAddTextFirst.value.length }} / 500</em>
+        @if (sendMessageAddTextFirst.errors?.required) {
+          <mat-error>
+            sendMessageAddTextFirst is
+            <strong>{{ "MESSAGE.required" | translate }}</strong>
+          </mat-error>
+        }
+      </div>
+      <!-- sendMessageAddTextEnd Field -->
+      <div
+        class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+      >
+        <label for="dataModel.sendMessageAddTextEnd" class="color-highlight">{{
+          fieldsInfo["sendMessageAddTextEnd"]?.fieldTitle
+        }}</label>
+        <textarea
+          matInput
+          [(ngModel)]="dataModel.sendMessageAddTextEnd"
+          name="dataModel.sendMessageAddTextEnd"
+          #sendMessageAddTextEnd
+          type="text"
+          placeholder="{{ fieldsInfo['sendMessageAddTextEnd']?.fieldTitle }}"
+          minlength="1"
+          maxlength="500"
+          rows="5"
+          id="dataModel.sendMessageAddTextEnd"
+          class="form-control validate-name"
+        ></textarea>
+        <em>{{ sendMessageAddTextEnd.value.length }} / 500</em>
+        @if (sendMessageAddTextEnd.errors?.required) {
+          <mat-error>
+            sendMessageAddTextEnd is
+            <strong>{{ "MESSAGE.required" | translate }}</strong>
+          </mat-error>
+        }
+      </div>
+      <!-- ActionMemo Field -->
+      @if (fieldsInfo["actionMemo"]?.accessWatchField) {
+        <div
+          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+        >
+          <label for="dataModel.actionMemo" class="color-highlight">{{
+            fieldsInfo["actionMemo"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="dataModel.actionMemo"
+            #ActionMemo
+            name="dataModel.actionMemo"
+            [disabled]="!fieldsInfo['actionMemo']?.accessEditField"
+            placeholder="1"
+            class="form-control validate-name"
+            id="dataModel.actionMemo"
+          />
+        </div>
+      }
+      <app-sms-apipath-selectionlist
+        [optionSelectForce]="dataCoreCpMainMenuIds"
+        [optionDisabled]="false"
+        (optionChange)="onActionSelectorUserCategorySelect($event)"
+        (optionSelectAdded)="onActionSelectorUserCategorySelectAdded($event)"
         (optionSelectRemoved)="
           onActionSelectorUserCategorySelectRemoved($event)
         "
-                                      >
-                                    </app-sms-apipath-selectionlist>
+      >
+      </app-sms-apipath-selectionlist>
 
-                                    @if (formInfo.submitButtonEnabled) {
-                                      <div class="form-actions">
-                                        <button
-                                          type="button"
-                                          (click)="onFormCancel()"
-                                          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-                                          >
-                                          <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
-                                        </button>
-                                        <button
-                                          type="submit"
-                                          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
-                                          [disabled]="!vform.form.valid"
-                                          >
-                                          <i class="fa fa-check-square-o"></i> {{ "ACTION.SAVE" | translate }}
-                                        </button>
-                                      </div>
-                                    }
-                                  </form>
+      @if (formInfo.submitButtonEnabled) {
+        <div class="form-actions">
+          <button
+            type="button"
+            (click)="onFormCancel()"
+            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+          >
+            <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
+          </button>
+          <button
+            type="submit"
+            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
+            [disabled]="!vform.form.valid"
+          >
+            <i class="fa fa-check-square-o"></i> {{ "ACTION.SAVE" | translate }}
+          </button>
+        </div>
+      }
+    </form>
 
-                                  <!--content-->
-                                </div>
-                              </div>
+    <!--content-->
+  </div>
+</div>

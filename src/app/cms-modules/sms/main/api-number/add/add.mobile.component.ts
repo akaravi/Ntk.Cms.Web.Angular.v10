@@ -3,8 +3,7 @@ import {
   Component,
   Inject,
   OnInit,
-  ViewChild,
-} from "@angular/core";
+  ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { Router } from "@angular/router";
@@ -15,15 +14,13 @@ import {
   InfoEnumModel,
   SmsEnumService,
   SmsMainApiNumberModel,
-  SmsMainApiNumberService,
-} from "ntk-cms-api";
+  SmsMainApiNumberService } from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 import { FormInfoModel } from "../../../../../core/models/formInfoModel";
-import { FormSubmitedStatusEnum } from "../../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-sms-api-number-add-mobile",
@@ -76,8 +73,7 @@ export class SmsMainApiNumberAddMobileComponent
     new ErrorExceptionResult<SmsMainApiNumberModel>();
   dataModel: SmsMainApiNumberModel = new SmsMainApiNumberModel();
 
-  formInfo: FormInfoModel = new FormInfoModel();
-
+  
   dataModelEnumApiNumberAccessStatusResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
   dataModelEnumApiNumberActionResult: ErrorExceptionResult<InfoEnumModel> =
@@ -123,10 +119,10 @@ export class SmsMainApiNumberAddMobileComponent
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
             });
           this.formInfo.submitResultMessageType =
-            FormSubmitedStatusEnum.Success;
+            this.formSubmitedStatusEnum.Success;
           this.cmsToastrService.typeSuccessAdd();
           this.dialogRef.close({ dialogChangedDate: true });
         } else {
@@ -136,7 +132,7 @@ export class SmsMainApiNumberAddMobileComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);

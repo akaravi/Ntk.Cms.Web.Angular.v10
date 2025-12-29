@@ -2,8 +2,7 @@ import {
   ChangeDetectorRef,
   Component,
   OnInit,
-  ViewChild,
-} from "@angular/core";
+  ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
@@ -13,8 +12,7 @@ import {
   ErrorExceptionResult,
   EstateAccountExpertModel,
   EstateAccountExpertService,
-  TokenInfoModelV3,
-} from "ntk-cms-api";
+  TokenInfoModelV3 } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -23,7 +21,6 @@ import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 import { FormInfoModel } from "../../../../../core/models/formInfoModel";
-import { FormSubmitedStatusEnum } from "../../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-estate-account-expert-add-mobile",
@@ -79,8 +76,7 @@ export class EstateAccountExpertAddMobileComponent
   dataModelResult: ErrorExceptionResult<EstateAccountExpertModel> =
     new ErrorExceptionResult<EstateAccountExpertModel>();
   dataModel: EstateAccountExpertModel = new EstateAccountExpertModel();
-  formInfo: FormInfoModel = new FormInfoModel();
-
+  
   fileManagerOpenForm = false;
 
   ngOnInit(): void {
@@ -125,7 +121,7 @@ export class EstateAccountExpertAddMobileComponent
           this.formInfo.formTitle = this.formInfo.formTitle;
           this.formInfo.submitResultMessage = "";
           this.formInfo.submitResultMessageType =
-            FormSubmitedStatusEnum.Success;
+            this.formSubmitedStatusEnum.Success;
         } else {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
@@ -133,7 +129,7 @@ export class EstateAccountExpertAddMobileComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
@@ -177,7 +173,7 @@ export class EstateAccountExpertAddMobileComponent
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
             });
           this.cmsToastrService.typeSuccessAdd();
           this.onActionBackToParent();
@@ -188,7 +184,7 @@ export class EstateAccountExpertAddMobileComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);

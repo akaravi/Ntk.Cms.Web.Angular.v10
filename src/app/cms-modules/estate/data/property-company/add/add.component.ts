@@ -67,7 +67,7 @@ export class EstatePropertyCompanyAddComponent
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   selectFileTypePodcast = ["mp3"];
   selectFileTypeMovie = ["mp4", "webm"];
-  formInfo: FormInfoModel = new FormInfoModel();
+  
   fileManagerOpenForm = false;
   fileManagerOpenFormPodcast = false;
   fileManagerOpenFormMovie = false;

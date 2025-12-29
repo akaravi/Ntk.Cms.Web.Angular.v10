@@ -16,10 +16,13 @@ import { CmsDataPinComponent } from "src/app/shared/cms-data-pin/cms-data-pin.co
 import { CmsDataTaskComponent } from "src/app/shared/cms-data-task/cms-data-task.component";
 import { CmsExportEntityComponent } from "src/app/shared/cms-export-entity/cms-export-entity.component";
 import { CmsExportListComponent } from "src/app/shared/cms-export-list/cmsExportList.component";
+import { DatapickerHeaderComponent } from "src/app/shared/datapicker-header/datapicker-header.component";
 import { environment } from "src/environments/environment";
 import { PublicHelper } from "../helpers/publicHelper";
 import { TokenHelper } from "../helpers/tokenHelper";
 import { ContentInfoModel } from "../models/contentInfoModel";
+import { FormInfoModel } from "../models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../models/formSubmitedStatusEnum";
 import { ComponentOptionSearchModel } from "./base/componentOptionSearchModel";
 import { ComponentOptionStatistModel } from "./base/componentOptionStatistModel";
 //IApiCmsServerBase
@@ -38,9 +41,11 @@ export class ListBaseComponent<
   ) {
     publicHelper.pageInfo.updateContentService(baseService);
   }
+  formInfo: FormInfoModel = new FormInfoModel();
+  formSubmitedStatusEnum = FormSubmitedStatusEnum;
   filteModelContent = new FilterModel();
   filterDataModelQueryBuilder: FilterDataModel[] = [];
-
+  datapickerHeader = DatapickerHeaderComponent;
   tableSource: MatTableDataSource<TModel> = new MatTableDataSource<TModel>();
   tokenInfo = new TokenInfoModelV3();
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<

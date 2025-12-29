@@ -3,8 +3,7 @@ import {
   Component,
   Inject,
   OnInit,
-  ViewChild,
-} from "@angular/core";
+  ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
@@ -13,15 +12,13 @@ import {
   ErrorExceptionResultBase,
   ManageUserAccessDataTypesEnum,
   TransactionAssistantSupplierModel,
-  TransactionAssistantSupplierService,
-} from "ntk-cms-api";
+  TransactionAssistantSupplierService } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 import { FormInfoModel } from "../../../../core/models/formInfoModel";
-import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-transaction-assistant-supplier-edit",
@@ -70,8 +67,7 @@ export class TransactionAssistantSupplierEditComponent
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: TransactionAssistantSupplierModel =
     new TransactionAssistantSupplierModel();
-  formInfo: FormInfoModel = new FormInfoModel();
-
+  
   fileManagerOpenForm = false;
 
   ngOnInit(): void {
@@ -120,7 +116,7 @@ export class TransactionAssistantSupplierEditComponent
               this.formInfo.formTitle + " " + (ret.item.name || ret.item.id);
             this.formInfo.submitResultMessage = "";
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
           } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
@@ -129,7 +125,7 @@ export class TransactionAssistantSupplierEditComponent
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Error;
+              this.formSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -169,7 +165,7 @@ export class TransactionAssistantSupplierEditComponent
               .subscribe((str: string) => {
                 this.formInfo.submitResultMessage = str;
                 this.formInfo.submitResultMessageType =
-                  FormSubmitedStatusEnum.Success;
+                  this.formSubmitedStatusEnum.Success;
               });
             this.cmsToastrService.typeSuccessEdit();
             this.dialogRef.close({ dialogChangedDate: true });
@@ -181,7 +177,7 @@ export class TransactionAssistantSupplierEditComponent
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Error;
+              this.formSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);

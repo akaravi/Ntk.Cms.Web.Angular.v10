@@ -69,7 +69,7 @@ export class BlogContentAddComponent
   >();
   mapOptonCenter = new PoinModel();
 
-  formInfo: FormInfoModel = new FormInfoModel();
+  
   dataModel = new BlogContentModel();
   dataModelResult: ErrorExceptionResult<BlogContentModel> =
     new ErrorExceptionResult<BlogContentModel>();

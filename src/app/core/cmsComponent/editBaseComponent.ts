@@ -10,8 +10,11 @@ import { CmsDataCommentComponent } from "src/app/shared/cms-data-comment/cms-dat
 import { CmsDataMemoComponent } from "src/app/shared/cms-data-memo/cms-data-memo.component";
 import { CmsDataPinComponent } from "src/app/shared/cms-data-pin/cms-data-pin.component";
 import { CmsDataTaskComponent } from "src/app/shared/cms-data-task/cms-data-task.component";
+import { DatapickerHeaderComponent } from "src/app/shared/datapicker-header/datapicker-header.component";
 import { environment } from "src/environments/environment";
 import { PublicHelper } from "../helpers/publicHelper";
+import { FormInfoModel } from "../models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../models/formSubmitedStatusEnum";
 //IApiCmsServerBase
 export class EditBaseComponent<
   TService extends IApiCmsServerBase,
@@ -29,13 +32,15 @@ export class EditBaseComponent<
     this.dataModel = item;
   }
   tokenInfo = new TokenInfoModelV3();
+  formSubmitedStatusEnum = FormSubmitedStatusEnum;
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
     string,
     DataFieldInfoModel
   >();
-
+  formInfo: FormInfoModel = new FormInfoModel();
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: TModel;
+  datapickerHeader = DatapickerHeaderComponent;
   onActionButtonMemo(model: TModel = this.dataModel): void {
     //open popup
     var panelClass = "";

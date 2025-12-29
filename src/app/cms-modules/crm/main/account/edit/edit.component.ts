@@ -3,8 +3,7 @@ import {
   Component,
   Inject,
   OnInit,
-  ViewChild,
-} from "@angular/core";
+  ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
@@ -17,8 +16,7 @@ import {
   CrmAccountService,
   TokenInfoModelV3,
   CrmEnumService,
-  InfoEnumModel,
-} from "ntk-cms-api";
+  InfoEnumModel } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -27,7 +25,6 @@ import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 import { FormInfoModel } from "../../../../../core/models/formInfoModel";
-import { FormSubmitedStatusEnum } from "../../../../../core/models/formSubmitedStatusEnum";
 
 /**
  * Component ویرایش Account در CRM.
@@ -77,7 +74,7 @@ export class CrmAccountEditComponent
   dataModelResult: ErrorExceptionResult<CrmAccountModel> =
     new ErrorExceptionResult<CrmAccountModel>();
   dataModel: CrmAccountModel = new CrmAccountModel();
-  formInfo: FormInfoModel = new FormInfoModel();
+  
   requestId = "";
 
   dataModelCrmAccountRatingEnumResult: ErrorExceptionResult<InfoEnumModel> =
@@ -184,7 +181,7 @@ export class CrmAccountEditComponent
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
             });
           this.cmsToastrService.typeSuccessEdit();
           this.dialogRef.close({ dialogChangedDate: true });
@@ -195,7 +192,7 @@ export class CrmAccountEditComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);

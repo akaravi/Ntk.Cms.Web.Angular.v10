@@ -54,7 +54,7 @@ export class TicketingTaskAddComponent
     string,
     DataFieldInfoModel
   >();
-  formInfo: FormInfoModel = new FormInfoModel();
+  
   dataAccessModel: AccessModel;
   dataModel = new TicketingTaskModel();
   dataModelResult: ErrorExceptionResult<TicketingTaskModel> =

@@ -6,15 +6,13 @@ import {
   ErrorExceptionResultBase,
   EstateAdsTypeModel,
   EstateAdsTypeService,
-  ManageUserAccessDataTypesEnum,
-} from "ntk-cms-api";
+  ManageUserAccessDataTypesEnum } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 import { FormInfoModel } from "../../../../../core/models/formInfoModel";
-import { FormSubmitedStatusEnum } from "../../../../../core/models/formSubmitedStatusEnum";
 
 export abstract class EstateAdsTypeEditBaseComponent extends EditBaseComponent<
   EstateAdsTypeService,
@@ -32,8 +30,7 @@ export abstract class EstateAdsTypeEditBaseComponent extends EditBaseComponent<
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: EstateAdsTypeModel = new EstateAdsTypeModel();
-  formInfo: FormInfoModel = new FormInfoModel();
-
+  
   fileManagerOpenForm = false;
 
   protected constructor(
@@ -107,7 +104,7 @@ export abstract class EstateAdsTypeEditBaseComponent extends EditBaseComponent<
             this.formInfo.formTitle + " " + ret.item.title;
           this.formInfo.submitResultMessage = "";
           this.formInfo.submitResultMessageType =
-            FormSubmitedStatusEnum.Success;
+            this.formSubmitedStatusEnum.Success;
         } else {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
@@ -115,7 +112,7 @@ export abstract class EstateAdsTypeEditBaseComponent extends EditBaseComponent<
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
@@ -157,7 +154,7 @@ export abstract class EstateAdsTypeEditBaseComponent extends EditBaseComponent<
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
             });
           this.cmsToastrService.typeSuccessEdit();
           onSuccess();
@@ -168,7 +165,7 @@ export abstract class EstateAdsTypeEditBaseComponent extends EditBaseComponent<
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);

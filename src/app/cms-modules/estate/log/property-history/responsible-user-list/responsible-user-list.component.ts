@@ -80,8 +80,7 @@ export class EstatePropertyHistoryResponsibleUserListComponent
   filteModelContent = new FilterModel();
   filterDataModelQueryBuilder: FilterDataModel[] = [];
 
-  formInfo: FormInfoModel = new FormInfoModel();
-
+  
   optionsSearch: ComponentOptionSearchModel = new ComponentOptionSearchModel();
   optionsStatist: ComponentOptionStatistModel =
     new ComponentOptionStatistModel();

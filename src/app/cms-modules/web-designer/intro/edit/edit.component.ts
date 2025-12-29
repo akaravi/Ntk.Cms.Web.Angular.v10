@@ -52,7 +52,7 @@ export class WebDesignerMainIntroEditComponent
   }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
-  formInfo: FormInfoModel = new FormInfoModel();
+  
   dataAccessModel: AccessModel;
   dataModel = new WebDesignerMainIntroModel();
 

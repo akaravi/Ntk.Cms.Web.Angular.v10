@@ -67,7 +67,7 @@ export class TicketingAnswerEditComponent
   }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
-  formInfo: FormInfoModel = new FormInfoModel();
+  
   dataAccessModel: AccessModel;
   dataModel = new TicketingAnswerModel();
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();

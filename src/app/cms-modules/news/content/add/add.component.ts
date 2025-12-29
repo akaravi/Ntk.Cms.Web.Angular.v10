@@ -63,7 +63,7 @@ export class NewsContentAddComponent
     DataFieldInfoModel
   >();
   mapOptonCenter = new PoinModel();
-  formInfo: FormInfoModel = new FormInfoModel();
+  
   dataModel = new NewsContentModel();
   dataModelResult: ErrorExceptionResult<NewsContentModel> =
     new ErrorExceptionResult<NewsContentModel>();

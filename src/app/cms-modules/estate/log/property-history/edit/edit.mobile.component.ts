@@ -18,8 +18,7 @@ import {
   EstatePropertyModel,
   FilterModel,
   InfoEnumModel,
-  ManageUserAccessDataTypesEnum,
-} from "ntk-cms-api";
+  ManageUserAccessDataTypesEnum } from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -29,7 +28,6 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { EstatePropertyHistoryEditComponent } from "./edit.component";
 
 import { FormInfoModel } from "../../../../../core/models/formInfoModel";
-import { FormSubmitedStatusEnum } from "../../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-estate-property-history-edit-mobile",
@@ -89,7 +87,7 @@ export class EstatePropertyHistoryEditMobileComponent
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: EstatePropertyHistoryModel = new EstatePropertyHistoryModel();
   dataFileModelFiles = new Map<number, string>();
-  formInfo: FormInfoModel = new FormInfoModel();
+  
   fileManagerOpenForm = false;
   date = new FormControl(new Date());
   dataModelEstateActivityStatusEnumResult: ErrorExceptionResult<InfoEnumModel> =
@@ -154,47 +152,47 @@ export class EstatePropertyHistoryEditMobileComponent
               this.formInfo.formTitle + " " + ret.item.title;
             this.formInfo.submitResultMessage = "";
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
 
             /*
              * check file attach list
@@ -224,7 +222,7 @@ export class EstatePropertyHistoryEditMobileComponent
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Error;
+              this.formSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -269,7 +267,7 @@ export class EstatePropertyHistoryEditMobileComponent
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
             });
           this.cmsToastrService.typeSuccessEdit();
           this.dialogRef.close({ dialogChangedDate: true });
@@ -280,7 +278,7 @@ export class EstatePropertyHistoryEditMobileComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);

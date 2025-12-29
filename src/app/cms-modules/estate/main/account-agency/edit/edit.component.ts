@@ -4,8 +4,7 @@ import {
   Component,
   Inject,
   OnInit,
-  ViewChild,
-} from "@angular/core";
+  ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatTableDataSource } from "@angular/material/table";
@@ -26,8 +25,7 @@ import {
   EstateAccountExpertService,
   FilterDataModel,
   FilterModel,
-  ManageUserAccessDataTypesEnum,
-} from "ntk-cms-api";
+  ManageUserAccessDataTypesEnum } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -36,7 +34,6 @@ import { PoinModel } from "src/app/core/models/pointModel";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 import { FormInfoModel } from "../../../../../core/models/formInfoModel";
-import { FormSubmitedStatusEnum } from "../../../../../core/models/formSubmitedStatusEnum";
 
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 
@@ -101,8 +98,7 @@ export class EstateAccountAgencyEditComponent
   dataModel: EstateAccountAgencyModel = new EstateAccountAgencyModel();
   dataEstateAccountAgencyExpertModel: EstateAccountAgencyExpertModel =
     new EstateAccountAgencyExpertModel();
-  formInfo: FormInfoModel = new FormInfoModel();
-
+  
   fileManagerOpenForm = false;
 
   optionTabledataSource =
@@ -169,47 +165,47 @@ export class EstateAccountAgencyEditComponent
               this.formInfo.formTitle + " " + ret.item.title;
             this.formInfo.submitResultMessage = "";
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Success;
+              this.formSubmitedStatusEnum.Success;
             const lat = this.dataModel.geolocationlatitude;
             const lon = this.dataModel.geolocationlongitude;
             if (lat > 0 && lon > 0) {
@@ -225,7 +221,7 @@ export class EstateAccountAgencyEditComponent
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Error;
+              this.formSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -263,7 +259,7 @@ export class EstateAccountAgencyEditComponent
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
               this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+                this.formSubmitedStatusEnum.Success;
             });
           this.cmsToastrService.typeSuccessEdit();
           this.dialogRef.close({ dialogChangedDate: true });
@@ -274,7 +270,7 @@ export class EstateAccountAgencyEditComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
@@ -396,7 +392,7 @@ export class EstateAccountAgencyEditComponent
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Error;
+              this.formSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -435,7 +431,7 @@ export class EstateAccountAgencyEditComponent
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
             this.formInfo.submitResultMessageType =
-              FormSubmitedStatusEnum.Error;
+              this.formSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);

@@ -59,7 +59,7 @@ export class CatalogContentAddComponent
   >();
   mapOptonCenter = new PoinModel();
 
-  formInfo: FormInfoModel = new FormInfoModel();
+  
   dataModel = new CatalogContentModel();
   dataModelResult: ErrorExceptionResult<CatalogContentModel> =
     new ErrorExceptionResult<CatalogContentModel>();

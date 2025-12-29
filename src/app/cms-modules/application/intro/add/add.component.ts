@@ -54,7 +54,7 @@ export class ApplicationIntroAddComponent
   }
   requestLinkApplicationId = 0;
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
-  formInfo: FormInfoModel = new FormInfoModel();
+  
   dataAccessModel: AccessModel;
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
     string,

@@ -51,7 +51,7 @@ export class ApplicationSourceAddComponent
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
   }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
-  formInfo: FormInfoModel = new FormInfoModel();
+  
   dataAccessModel: AccessModel;
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
     string,

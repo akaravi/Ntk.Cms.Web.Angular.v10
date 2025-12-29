@@ -63,7 +63,7 @@ export class FileContentEditComponent
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   selectFileTypePodcast = ["mp3"];
   selectFileTypeMovie = ["mp4", "webm"];
-  formInfo: FormInfoModel = new FormInfoModel();
+  
   mapMarker: any;
   fileManagerOpenForm = false;
   fileManagerOpenFormPodcast = false;

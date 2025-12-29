@@ -53,7 +53,7 @@ export class WebDesignerMainIntroAddComponent
     string,
     DataFieldInfoModel
   >();
-  formInfo: FormInfoModel = new FormInfoModel();
+  
   dataAccessModel: AccessModel;
   dataModel = new WebDesignerMainIntroModel();
   dataModelResult: ErrorExceptionResult<WebDesignerMainIntroModel> =

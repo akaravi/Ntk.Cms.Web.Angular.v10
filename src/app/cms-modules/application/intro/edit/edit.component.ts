@@ -49,7 +49,7 @@ export class ApplicationIntroEditComponent
     this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("id"));
   }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
-  formInfo: FormInfoModel = new FormInfoModel();
+  
   dataAccessModel: AccessModel;
 
   dataModel = new ApplicationIntroModel();

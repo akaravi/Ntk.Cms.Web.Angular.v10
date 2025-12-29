@@ -75,7 +75,7 @@ export class BiographyContentAddComponent
     DataFieldInfoModel
   >();
   mapOptonCenter = new PoinModel();
-  formInfo: FormInfoModel = new FormInfoModel();
+  
   dataModel = new BiographyContentModel();
   dataModelResult: ErrorExceptionResult<BiographyContentModel> =
     new ErrorExceptionResult<BiographyContentModel>();

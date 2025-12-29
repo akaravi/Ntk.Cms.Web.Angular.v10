@@ -14,7 +14,10 @@
         <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
       </button>
       <h1 class="cms-m-header-title">
-        {{ formInfo.formTitle || ("TITLE.Be_Careful_When_Entering_Information" | translate) }}
+        {{
+          formInfo.formTitle ||
+            ("TITLE.Be_Careful_When_Entering_Information" | translate)
+        }}
       </h1>
       <div class="cms-m-header-spacer"></div>
     </div>
@@ -27,7 +30,7 @@
 
     <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
       <!-- RecordStatus Field -->
-      @if (fieldsInfo['recordStatus']?.accessWatchField) {
+      @if (fieldsInfo["recordStatus"]?.accessWatchField) {
         <app-cms-enum-record-status-selector
           [(model)]="dataModel.recordStatus"
           [optionDisabled]="false"
@@ -36,7 +39,13 @@
           [optionSelectFirstItem]="true"
         ></app-cms-enum-record-status-selector>
       }
-
+      <!-- LinkApiPathId Field -->
+      <app-sms-apipath-selector
+        (optionChange)="onActionSelectorSelectLinkApiPathId($event)"
+        [optionSelectForce]="dataModel.linkApiPathId"
+        [optionPlaceholder]="'TITLE.Direction' | translate"
+      >
+      </app-sms-apipath-selector>
       <!-- LinkCoreUserId Field -->
       <app-cms-user-selector
         (optionChange)="onActionSelectorCmsUser($event)"
@@ -73,16 +82,8 @@
       >
       </app-cms-sitecategory-selector>
 
-      <!-- LinkApiPathId Field -->
-      <app-sms-apipath-selector
-        (optionChange)="onActionSelectorSelectLinkApiPathId($event)"
-        [optionSelectForce]="dataModel.linkApiPathId"
-        [optionPlaceholder]="'TITLE.Direction' | translate"
-      >
-      </app-sms-apipath-selector>
-
       <!-- HasInherits Field -->
-      @if (fieldsInfo['hasInherits']?.accessWatchField) {
+      @if (fieldsInfo["hasInherits"]?.accessWatchField) {
         <div class="cms-m-form-field">
           <label class="cms-m-form-label">{{
             fieldsInfo["hasInherits"]?.fieldTitle
@@ -116,8 +117,10 @@
           class="cms-m-form-input"
         >
           @for (
-            item of dataModelEnumApiPathPermissionAccessStatusResult.listItems; track
-            item; let i = $index) {
+            item of dataModelEnumApiPathPermissionAccessStatusResult.listItems;
+            track item;
+            let i = $index
+          ) {
             <option [ngValue]="item.value">
               {{ item.description }}
             </option>
@@ -145,8 +148,10 @@
           class="cms-m-form-input"
         >
           @for (
-            item of dataModelEnumApiPathPermissionActionResult.listItems; track
-            item; let i = $index) {
+            item of dataModelEnumApiPathPermissionActionResult.listItems;
+            track item;
+            let i = $index
+          ) {
             <option [ngValue]="item.value">
               {{ item.description }}
             </option>
@@ -174,12 +179,20 @@
           class="cms-m-form-input"
           id="dataModel.fromDate"
         />
-        <mat-datepicker-toggle matSuffix [for]="FromDate"></mat-datepicker-toggle>
-        <mat-datepicker touchUi #FromDate></mat-datepicker>
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="FromDate"
+        ></mat-datepicker-toggle>
+        <mat-datepicker
+          touchUi
+          #FromDate
+          [calendarHeaderComponent]="datapickerHeader"
+        >
+        </mat-datepicker>
       </div>
 
       <!-- ExpireDate Field -->
-      @if (fieldsInfo['expireDate']?.accessWatchField) {
+      @if (fieldsInfo["expireDate"]?.accessWatchField) {
         <div class="cms-m-form-field">
           <label class="cms-m-form-label">{{
             "TITLE.Expire_Date" | translate
@@ -193,8 +206,16 @@
             class="cms-m-form-input"
             id="dataModel.expireDate"
           />
-          <mat-datepicker-toggle matSuffix [for]="ExpireDate"></mat-datepicker-toggle>
-          <mat-datepicker touchUi #ExpireDate></mat-datepicker>
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="ExpireDate"
+          ></mat-datepicker-toggle>
+          <mat-datepicker
+            touchUi
+            #ExpireDate
+            [calendarHeaderComponent]="datapickerHeader"
+          >
+          </mat-datepicker>
         </div>
       }
 

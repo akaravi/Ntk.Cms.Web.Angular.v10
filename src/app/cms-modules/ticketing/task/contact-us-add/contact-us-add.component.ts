@@ -3,8 +3,7 @@ import {
   Component,
   OnDestroy,
   OnInit,
-  ViewChild,
-} from "@angular/core";
+  ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
@@ -28,7 +27,6 @@ import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 import { FormInfoModel } from "../../../../core/models/formInfoModel";
-import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-ticketing-task-contactus",
@@ -87,7 +85,7 @@ export class TicketingTaskContactUsAddComponent
     string,
     DataFieldInfoModel
   >();
-  formInfo: FormInfoModel = new FormInfoModel();
+  
   dataAccessModel: AccessModel;
   dataModel = new TicketingTaskDtoModel();
   dataModelResult: ErrorExceptionResult<TicketingTaskModel> =
@@ -153,7 +151,7 @@ export class TicketingTaskContactUsAddComponent
         this.dataModelResult = ret;
         if (ret.isSuccess) {
           this.formInfo.submitResultMessageType =
-            FormSubmitedStatusEnum.Success;
+            this.formSubmitedStatusEnum.Success;
           this.translate
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
@@ -161,7 +159,7 @@ export class TicketingTaskContactUsAddComponent
             });
           this.cmsToastrService.typeSuccessAdd();
         } else {
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorAdd(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
