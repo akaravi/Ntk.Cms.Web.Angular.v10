@@ -5,13 +5,13 @@ import {
   CoreEnumService,
   CoreLogTokenConnectionService,
   CoreLogTokenMicroServiceService,
-  CoreLogTokenUserService,
   CoreModuleService,
   CoreTokenActivationService,
+  CoreTokenAuthUserLogService,
+  CoreTokenAuthUserService,
   CoreTokenConnectionService,
   CoreTokenMicroServiceService,
   CoreTokenUserBadLoginService,
-  CoreTokenUserService,
   CoreUserService,
 } from "ntk-cms-api";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
@@ -20,6 +20,10 @@ import { CoreSharedModule } from "../core-main/core.shared.module";
 import { CoreTokenActivationEditComponent } from "./activation/edit/edit.component";
 import { CoreTokenActivationListComponent } from "./activation/list/list.component";
 import { CoreTokenActivationViewComponent } from "./activation/view/view.component";
+import { CoreTokenAuthUserLogListComponent } from "./auth-user-log/list/list.component";
+import { CoreTokenAuthUserLogViewComponent } from "./auth-user-log/view/view.component";
+import { CoreTokenAuthUserListComponent } from "./auth-user/list/list.component";
+import { CoreTokenAuthUserViewComponent } from "./auth-user/view/view.component";
 import { CoreTokenComponent } from "./core-token.component";
 import { CoreTokenRoutes } from "./core-token.routing";
 import { CoreLogTokenMicroServiceEditComponent } from "./micro-service-log/edit/edit.component";
@@ -35,15 +39,9 @@ import { CoreTokenConnectionEditComponent } from "./notification/edit/edit.compo
 import { CoreTokenConnectionListOnlineComponent } from "./notification/list-online/list-online.component";
 import { CoreTokenConnectionListComponent } from "./notification/list/list.component";
 import { CoreTokenConnectionViewComponent } from "./notification/view/view.component";
-import { CoreTokenUserEditComponent } from "./user/edit/edit.component";
-import { CoreTokenUserListComponent } from "./user/list/list.component";
-import { CoreTokenUserViewComponent } from "./user/view/view.component";
 import { CoreTokenUserBadLoginEditComponent } from "./userBadLogin/edit/edit.component";
 import { CoreTokenUserBadLoginListComponent } from "./userBadLogin/list/list.component";
 import { CoreTokenUserBadLoginViewComponent } from "./userBadLogin/view/view.component";
-import { CoreLogTokenUserEditComponent } from "./userLog/edit/edit.component";
-import { CoreLogTokenUserListComponent } from "./userLog/list/list.component";
-import { CoreLogTokenUserViewComponent } from "./userLog/view/view.component";
 
 @NgModule({
   imports: [
@@ -56,14 +54,14 @@ import { CoreLogTokenUserViewComponent } from "./userLog/view/view.component";
   ],
   declarations: [
     CoreTokenComponent,
+
     /** */
-    CoreTokenUserListComponent,
-    CoreTokenUserEditComponent,
-    CoreTokenUserViewComponent,
+    CoreTokenAuthUserListComponent,
+    CoreTokenAuthUserViewComponent,
+
     /** */
-    CoreLogTokenUserListComponent,
-    CoreLogTokenUserEditComponent,
-    CoreLogTokenUserViewComponent,
+    CoreTokenAuthUserLogListComponent,
+    CoreTokenAuthUserLogViewComponent,
     /** */
     CoreTokenUserBadLoginListComponent,
     CoreTokenUserBadLoginEditComponent,
@@ -100,8 +98,8 @@ import { CoreLogTokenUserViewComponent } from "./userLog/view/view.component";
   providers: [
     CoreModuleService,
     CoreEnumService,
-    CoreTokenUserService,
-    CoreLogTokenUserService,
+    CoreTokenAuthUserService,
+    CoreTokenAuthUserLogService,
     CoreTokenUserBadLoginService,
     CoreTokenActivationService,
     CoreTokenMicroServiceService,

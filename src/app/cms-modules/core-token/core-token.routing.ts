@@ -5,11 +5,12 @@ import { CoreTokenComponent } from "./core-token.component";
 import { CoreLogTokenMicroServiceListComponent } from "./micro-service-log/list/list.component";
 import { CoreTokenMicroServiceListComponent } from "./micro-service/list/list.component";
 import { CoreLogTokenConnectionListComponent } from "./notification-log/list/list.component";
-import { CoreTokenConnectionListComponent } from "./notification/list/list.component";
-import { CoreTokenUserListComponent } from "./user/list/list.component";
-import { CoreTokenUserBadLoginListComponent } from "./userBadLogin/list/list.component";
-import { CoreLogTokenUserListComponent } from "./userLog/list/list.component";
 import { CoreTokenConnectionListOnlineComponent } from "./notification/list-online/list-online.component";
+import { CoreTokenConnectionListComponent } from "./notification/list/list.component";
+import { CoreTokenUserBadLoginListComponent } from "./userBadLogin/list/list.component";
+import { CoreTokenAuthUserListComponent } from "./auth-user/list/list.component";
+import { CoreTokenAuthUserLogListComponent } from "./auth-user-log/list/list.component";
+
 
 const routes: Routes = [
   {
@@ -19,44 +20,44 @@ const routes: Routes = [
     children: [
       /** */
       {
-        path: "user",
-        component: CoreTokenUserListComponent,
-        data: { title: "ROUTE.CORETOKEN.USER" },
+        path: "auth-user",
+        component: CoreTokenAuthUserListComponent,
+        data: { title: "ROUTE.CORETOKEN.USERLOG" },
       },
       {
-        path: "user/LinkSiteId/:LinkSiteId",
-        component: CoreTokenUserListComponent,
-        data: { title: "ROUTE.CORETOKEN.USER" },
+        path: "auth-user/LinkSiteId/:LinkSiteId",
+        component: CoreTokenAuthUserListComponent,
+        data: { title: "ROUTE.CORETOKEN.USERLOG" },
       },
       {
-        path: "user/LinkUserId/:LinkUserId",
-        component: CoreTokenUserListComponent,
-        data: { title: "ROUTE.CORETOKEN.USER" },
+        path: "auth-user/LinkUserId/:LinkUserId",
+        component: CoreTokenAuthUserListComponent,
+        data: { title: "ROUTE.CORETOKEN.USERLOG" },
       },
       {
-        path: "user/LinkDeviceId/:LinkDeviceId",
-        component: CoreTokenUserListComponent,
-        data: { title: "ROUTE.CORETOKEN.USER" },
+        path: "auth-user/LinkDeviceId/:LinkDeviceId",
+        component: CoreTokenAuthUserListComponent,
+        data: { title: "ROUTE.CORETOKEN.USERLOG" },
       },
       /** */
       {
-        path: "userlog",
-        component: CoreLogTokenUserListComponent,
+        path: "auth-user-log",
+        component: CoreTokenAuthUserLogListComponent,
         data: { title: "ROUTE.CORETOKEN.USERLOG" },
       },
       {
-        path: "userlog/LinkSiteId/:LinkSiteId",
-        component: CoreLogTokenUserListComponent,
+        path: "auth-user-log/LinkSiteId/:LinkSiteId",
+        component: CoreTokenAuthUserLogListComponent,
         data: { title: "ROUTE.CORETOKEN.USERLOG" },
       },
       {
-        path: "userlog/LinkUserId/:LinkUserId",
-        component: CoreLogTokenUserListComponent,
+        path: "auth-user-log/LinkUserId/:LinkUserId",
+        component: CoreTokenAuthUserLogListComponent,
         data: { title: "ROUTE.CORETOKEN.USERLOG" },
       },
       {
-        path: "userlog/LinkDeviceId/:LinkDeviceId",
-        component: CoreLogTokenUserListComponent,
+        path: "auth-user-log/LinkDeviceId/:LinkDeviceId",
+        component: CoreTokenAuthUserLogListComponent,
         data: { title: "ROUTE.CORETOKEN.USERLOG" },
       },
       /** */

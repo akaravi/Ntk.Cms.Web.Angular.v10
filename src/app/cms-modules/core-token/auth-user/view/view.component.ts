@@ -9,12 +9,15 @@ import {
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreEnumService,
-  CoreLogTokenUserModel,
-  CoreLogTokenUserService,
+import {
+  CoreEnumService,
+  CoreTokenAuthUserModel,
+  CoreTokenAuthUserService,
   DataFieldInfoModel,
-  ErrorExceptionResult,InfoEnumModel,
-  TokenInfoModelV3} from "ntk-cms-api";
+  ErrorExceptionResult,
+  InfoEnumModel,
+  TokenInfoModelV3,
+} from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
@@ -29,14 +32,14 @@ import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStat
   templateUrl: "./view.component.html",
   standalone: false,
 })
-export class CoreLogTokenUserViewComponent implements OnInit, OnDestroy {
+export class CoreTokenAuthUserViewComponent implements OnInit, OnDestroy {
   requestId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<CoreLogTokenUserViewComponent>,
+    private dialogRef: MatDialogRef<CoreTokenAuthUserViewComponent>,
     public coreEnumService: CoreEnumService,
-    public coreLogTokenUserService: CoreLogTokenUserService,
+    public coreTokenAuthUserService: CoreTokenAuthUserService,
     private cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
@@ -53,9 +56,9 @@ export class CoreLogTokenUserViewComponent implements OnInit, OnDestroy {
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
   tokenInfo = new TokenInfoModelV3();
 
-  dataModelResult: ErrorExceptionResult<CoreLogTokenUserModel> =
-    new ErrorExceptionResult<CoreLogTokenUserModel>();
-  dataModel: CoreLogTokenUserModel = new CoreLogTokenUserModel();
+  dataModelResult: ErrorExceptionResult<CoreTokenAuthUserModel> =
+    new ErrorExceptionResult<CoreTokenAuthUserModel>();
+  dataModel: CoreTokenAuthUserModel = new CoreTokenAuthUserModel();
   formInfo: FormInfoModel = new FormInfoModel();
   dataModelEnumSendSmsStatusTypeResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
@@ -119,9 +122,9 @@ export class CoreLogTokenUserViewComponent implements OnInit, OnDestroy {
       });
 
     /*َAccess Field*/
-    this.coreLogTokenUserService.setAccessLoad();
+    this.coreTokenAuthUserService.setAccessLoad();
 
-    this.coreLogTokenUserService.ServiceGetOneById(this.requestId).subscribe({
+    this.coreTokenAuthUserService.ServiceGetOneById(this.requestId).subscribe({
       next: (ret) => {
         /*َAccess Field*/
         // this.dataAccessModel = next.access;
@@ -130,26 +133,8 @@ export class CoreLogTokenUserViewComponent implements OnInit, OnDestroy {
         if (ret.isSuccess) {
           this.formInfo.formTitle = this.formInfo.formTitle + " " + ret.item.id;
           this.formInfo.submitResultMessage = "";
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
         } else {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")

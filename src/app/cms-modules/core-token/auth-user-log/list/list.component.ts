@@ -5,9 +5,9 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreLogTokenUserModel,
-  CoreLogTokenUserService,
   CoreSiteModel,
+  CoreTokenAuthUserLogModel,
+  CoreTokenAuthUserLogService,
   ErrorExceptionResult,
   FilterDataModel,
   FilterModel,
@@ -24,18 +24,17 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { environment } from "src/environments/environment";
-import { CoreLogTokenUserEditComponent } from "../edit/edit.component";
-import { CoreLogTokenUserViewComponent } from "../view/view.component";
+import { CoreTokenAuthUserLogViewComponent } from "../view/view.component";
 
 @Component({
-  selector: "app-coretoken-user-list",
+  selector: "app-coretoken-auth-user-log-list",
   templateUrl: "./list.component.html",
   standalone: false,
 })
-export class CoreLogTokenUserListComponent
+export class CoreTokenAuthUserLogListComponent
   extends ListBaseComponent<
-    CoreLogTokenUserService,
-    CoreLogTokenUserModel,
+    CoreTokenAuthUserLogService,
+    CoreTokenAuthUserLogModel,
     string
   >
   implements OnInit, OnDestroy
@@ -45,7 +44,7 @@ export class CoreLogTokenUserListComponent
   requestLinkDeviceId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: CoreLogTokenUserService,
+    private contentService: CoreTokenAuthUserLogService,
     private cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
@@ -60,7 +59,7 @@ export class CoreLogTokenUserListComponent
   ) {
     super(
       contentService,
-      new CoreLogTokenUserModel(),
+      new CoreTokenAuthUserLogModel(),
       publicHelper,
       tokenHelper,
       translate,
@@ -101,6 +100,18 @@ export class CoreLogTokenUserListComponent
     /*filter Sort*/
     this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
+
+    /**filterActionSearch */
+    this.optionsSearch.data.filterModelContent = this.filteModelContent;
+    this.optionsSearch.data.filterActionSearchRecordStatusShow = true;
+    if (this.tokenHelper.isAdminSite) {
+      this.optionsSearch.data.filterActionSearchLinkUserIdShow = true;
+      this.optionsSearch.data.filterActionSearchLinkSiteIdShow = true;
+    } else {
+      this.optionsSearch.data.filterActionSearchLinkSiteIdShow = false;
+      this.optionsSearch.data.filterActionSearchLinkUserIdShow = false;
+    }
+    /**filterActionSearch */
   }
   comment: string;
   author: string;
@@ -177,7 +188,7 @@ export class CoreLogTokenUserListComponent
       this.tokenInfo,
     );
     this.tableRowsSelected = [];
-    this.onActionTableRowSelect(new CoreLogTokenUserModel());
+    this.onActionTableRowSelect(new CoreTokenAuthUserLogModel());
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.get_information_list")
@@ -200,6 +211,26 @@ export class CoreLogTokenUserListComponent
       filterModel.filters = [...this.filterDataModelQueryBuilder];
     }
     /*filter add search*/
+    /**filterActionSearch */
+    if (this.filteModelContent.filterActionSearchRecordStatus > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "recordStatus";
+      filter.value = this.filteModelContent.filterActionSearchRecordStatus;
+      filterModel.filters.push(filter);
+    }
+    if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "linkSiteId";
+      filter.value = this.filteModelContent.filterActionSearchLinkSiteId;
+      filterModel.filters.push(filter);
+    }
+    if (this.filteModelContent.filterActionSearchLinkUserId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "linkUserId";
+      filter.value = this.filteModelContent.filterActionSearchLinkUserId;
+      filterModel.filters.push(filter);
+    }
+    /**filterActionSearch */
     this.contentService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
@@ -258,7 +289,7 @@ export class CoreLogTokenUserListComponent
   }
 
   onActionButtonViewRow(
-    model: CoreLogTokenUserModel = this.tableRowSelected,
+    model: CoreTokenAuthUserLogModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -276,7 +307,7 @@ export class CoreLogTokenUserListComponent
     var panelClass = "";
     if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
     else panelClass = "dialog-min";
-    const dialogRef = this.dialog.open(CoreLogTokenUserViewComponent, {
+    const dialogRef = this.dialog.open(CoreTokenAuthUserLogViewComponent, {
       height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
@@ -290,40 +321,8 @@ export class CoreLogTokenUserListComponent
     });
   }
 
-  onActionButtonEditRow(
-    model: CoreLogTokenUserModel = this.tableRowSelected,
-  ): void {
-    if (!model || !model.id || model.id.length === 0) {
-      this.cmsToastrService.typeErrorSelectedRow();
-      return;
-    }
-    this.onActionTableRowSelect(model);
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessEditRow
-    ) {
-      this.cmsToastrService.typeErrorAccessEdit();
-      return;
-    }
-    var panelClass = "";
-    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
-    else panelClass = "dialog-min";
-    const dialogRef = this.dialog.open(CoreLogTokenUserEditComponent, {
-      height: "90%",
-      panelClass: panelClass,
-      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
-      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id: this.tableRowSelected.id },
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result && result.dialogChangedDate) {
-        this.DataGetAll();
-      }
-    });
-  }
   onActionButtonDeleteRow(
-    model: CoreLogTokenUserModel = this.tableRowSelected,
+    model: CoreTokenAuthUserLogModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.translate
@@ -462,7 +461,7 @@ export class CoreLogTokenUserListComponent
   }
 
   onActionButtonViewUserRow(
-    model: CoreLogTokenUserModel = this.tableRowSelected,
+    model: CoreTokenAuthUserLogModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -484,7 +483,7 @@ export class CoreLogTokenUserListComponent
   }
 
   onActionButtonViewMemberRow(
-    model: CoreLogTokenUserModel = this.tableRowSelected,
+    model: CoreTokenAuthUserLogModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -509,7 +508,7 @@ export class CoreLogTokenUserListComponent
   }
 
   onActionButtonViewSiteRow(
-    model: CoreLogTokenUserModel = this.tableRowSelected,
+    model: CoreTokenAuthUserLogModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -530,7 +529,7 @@ export class CoreLogTokenUserListComponent
     this.router.navigate(["/core/site/edit", this.tableRowSelected.linkSiteId]);
   }
   onActionButtonViewDeviceRow(
-    model: CoreLogTokenUserModel = this.tableRowSelected,
+    model: CoreTokenAuthUserLogModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();

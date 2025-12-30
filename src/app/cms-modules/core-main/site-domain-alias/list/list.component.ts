@@ -65,7 +65,7 @@ export class CoreSiteDomainAliasListComponent
     );
     this.publicHelper.processService.cdr = this.cdr;
 
-    this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("id"));
+    this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("Id"));
 
     if (this.requestId > 0) {
       const filter = new FilterDataModel();

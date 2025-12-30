@@ -6,8 +6,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
   CoreSiteModel,
-  CoreTokenUserModel,
-  CoreTokenUserService,
+  CoreTokenAuthUserModel,
+  CoreTokenAuthUserService,
   ErrorExceptionResult,
   FilterDataModel,
   FilterModel,
@@ -24,16 +24,19 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { environment } from "src/environments/environment";
-import { CoreTokenUserEditComponent } from "../edit/edit.component";
-import { CoreTokenUserViewComponent } from "../view/view.component";
+import { CoreTokenAuthUserViewComponent } from "../view/view.component";
 
 @Component({
   selector: "app-coretoken-user-list",
   templateUrl: "./list.component.html",
   standalone: false,
 })
-export class CoreTokenUserListComponent
-  extends ListBaseComponent<CoreTokenUserService, CoreTokenUserModel, string>
+export class CoreTokenAuthUserListComponent
+  extends ListBaseComponent<
+    CoreTokenAuthUserService,
+    CoreTokenAuthUserModel,
+    string
+  >
   implements OnInit, OnDestroy
 {
   requestLinkSiteId = 0;
@@ -41,14 +44,14 @@ export class CoreTokenUserListComponent
   requestLinkDeviceId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    public contentService: CoreTokenUserService,
+    private contentService: CoreTokenAuthUserService,
     private cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
-    public translate: TranslateService,
     private cmsStoreService: CmsStoreService,
+    public translate: TranslateService,
     private router: Router,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
@@ -56,7 +59,7 @@ export class CoreTokenUserListComponent
   ) {
     super(
       contentService,
-      new CoreTokenUserModel(),
+      new CoreTokenAuthUserModel(),
       publicHelper,
       tokenHelper,
       translate,
@@ -97,6 +100,7 @@ export class CoreTokenUserListComponent
     /*filter Sort*/
     this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
+
     /**filterActionSearch */
     this.optionsSearch.data.filterModelContent = this.filteModelContent;
     this.optionsSearch.data.filterActionSearchRecordStatusShow = true;
@@ -120,31 +124,31 @@ export class CoreTokenUserListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "id",
-    "linkSiteId",
-    "linkUserId",
-    "linkMemberId",
+    // 'Id',
+    // 'Description',
+    // 'LinkSiteId',
+    // 'LinkUserId',
+    // 'LinkMemberUserId',
     "UserAccessAreaType",
-    "UserType",
+    // 'UserType',
     "UserAccessAdminAllowToAllData",
     "UserAccessAdminAllowToProfessionalData",
     "RememberOnDevice",
-    "createdDate",
-    "tokenExpireDate",
+    // 'CreatedDate',
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "id",
-    "linkSiteId",
-    "linkUserId",
-    "linkMemberId",
+    // 'Id',
+    // 'Description',
+    // 'LinkSiteId',
+    // 'LinkUserId',
+    // 'LinkMemberUserId',
     "UserAccessAreaType",
-    "UserType",
+    // 'UserType',
     "UserAccessAdminAllowToAllData",
     "UserAccessAdminAllowToProfessionalData",
     "RememberOnDevice",
-    "createdDate",
-    "tokenExpireDate",
+    // 'CreatedDate',
     // 'Action'
   ];
   dataModelEnumManageUserAccessAreaTypesResult: ErrorExceptionResult<InfoEnumModel> =
@@ -184,7 +188,7 @@ export class CoreTokenUserListComponent
       this.tokenInfo,
     );
     this.tableRowsSelected = [];
-    this.onActionTableRowSelect(new CoreTokenUserModel());
+    this.onActionTableRowSelect(new CoreTokenAuthUserModel());
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.get_information_list")
@@ -285,7 +289,7 @@ export class CoreTokenUserListComponent
   }
 
   onActionButtonViewRow(
-    model: CoreTokenUserModel = this.tableRowSelected,
+    model: CoreTokenAuthUserModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -303,7 +307,7 @@ export class CoreTokenUserListComponent
     var panelClass = "";
     if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
     else panelClass = "dialog-min";
-    const dialogRef = this.dialog.open(CoreTokenUserViewComponent, {
+    const dialogRef = this.dialog.open(CoreTokenAuthUserViewComponent, {
       height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
@@ -316,40 +320,9 @@ export class CoreTokenUserListComponent
       }
     });
   }
-  onActionButtonEditRow(
-    model: CoreTokenUserModel = this.tableRowSelected,
-  ): void {
-    if (!model || !model.id || model.id.length === 0) {
-      this.cmsToastrService.typeErrorSelectedRow();
-      return;
-    }
-    this.onActionTableRowSelect(model);
-    if (
-      this.dataModelResult == null ||
-      this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessEditRow
-    ) {
-      this.cmsToastrService.typeErrorAccessEdit();
-      return;
-    }
-    var panelClass = "";
-    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
-    else panelClass = "dialog-min";
-    const dialogRef = this.dialog.open(CoreTokenUserEditComponent, {
-      height: "90%",
-      panelClass: panelClass,
-      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
-      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id: this.tableRowSelected.id },
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result && result.dialogChangedDate) {
-        this.DataGetAll();
-      }
-    });
-  }
+
   onActionButtonDeleteRow(
-    model: CoreTokenUserModel = this.tableRowSelected,
+    model: CoreTokenAuthUserModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.translate
@@ -390,7 +363,7 @@ export class CoreTokenUserListComponent
       .confirm(title, message)
       .then((confirmed) => {
         if (confirmed) {
-          const pName = this.constructor.name + "main";
+          const pName = this.constructor.name + "ServiceDelete";
           this.translate
             .get("MESSAGE.Receiving_information")
             .subscribe((str: string) => {
@@ -488,7 +461,7 @@ export class CoreTokenUserListComponent
   }
 
   onActionButtonViewUserRow(
-    model: CoreTokenUserModel = this.tableRowSelected,
+    model: CoreTokenAuthUserModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -510,7 +483,7 @@ export class CoreTokenUserListComponent
   }
 
   onActionButtonViewMemberRow(
-    model: CoreTokenUserModel = this.tableRowSelected,
+    model: CoreTokenAuthUserModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -518,8 +491,8 @@ export class CoreTokenUserListComponent
     }
     this.onActionTableRowSelect(model);
     if (
-      !this.tableRowSelected.linkMemberId ||
-      this.tableRowSelected.linkMemberId === ""
+      !this.tableRowSelected.linkDeviceId ||
+      this.tableRowSelected.linkDeviceId === 0
     ) {
       this.translate
         .get("MESSAGE.Content_does_not_include_device_information")
@@ -535,7 +508,7 @@ export class CoreTokenUserListComponent
   }
 
   onActionButtonViewSiteRow(
-    model: CoreTokenUserModel = this.tableRowSelected,
+    model: CoreTokenAuthUserModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -556,7 +529,7 @@ export class CoreTokenUserListComponent
     this.router.navigate(["/core/site/edit", this.tableRowSelected.linkSiteId]);
   }
   onActionButtonViewDeviceRow(
-    model: CoreTokenUserModel = this.tableRowSelected,
+    model: CoreTokenAuthUserModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
