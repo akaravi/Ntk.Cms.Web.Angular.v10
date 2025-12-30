@@ -27,7 +27,7 @@
           @if (fieldsInfo["recordStatus"]?.accessWatchField) {
             <app-cms-enum-record-status-selector
               [(model)]="dataModel.recordStatus"
-              [optionDisabled]="false"
+              [optionDisabled]="!(fieldsInfo['recordStatus']?.accessEditField ?? false)"
               [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
               [optionRequired]="true"
               [optionSelectFirstItem]="true"
@@ -496,7 +496,7 @@
           <!-- LinkResellerUserId Field -->
           <app-cms-user-selector
             [optionDisabled]="
-              !fieldsInfo['linkResellerUserId']?.accessEditField
+              !(fieldsInfo['linkResellerUserId']?.accessEditField ?? false)
             "
             [optionSelectForce]="dataModel.linkResellerUserId"
             (optionChange)="onActionSelectorLinkResellerUserIdSelect($event)"
@@ -506,7 +506,7 @@
           <!-- LinkResellerSiteId Field -->
           <app-cms-site-selector
             [optionDisabled]="
-              !fieldsInfo['linkResellerSiteId']?.accessEditField
+              !(fieldsInfo['linkResellerSiteId']?.accessEditField ?? false)
             "
             [optionSelectForce]="dataModel.linkResellerSiteId"
             (optionChange)="onActionSelectorLinkResellerSiteIdSelect($event)"

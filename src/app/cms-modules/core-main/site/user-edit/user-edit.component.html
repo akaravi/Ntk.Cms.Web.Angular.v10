@@ -19,7 +19,9 @@
         @if (fieldsInfo["recordStatus"]?.accessWatchField) {
           <app-cms-enum-record-status-selector
             [(model)]="dataModel.recordStatus"
-            [optionDisabled]="false"
+            [optionDisabled]="
+              !(fieldsInfo['recordStatus']?.accessEditField ?? false)
+            "
             [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
             [optionRequired]="true"
             [optionSelectFirstItem]="true"
@@ -29,14 +31,18 @@
         <!-- LinkCmsSiteId Field -->
         <app-core-site-selector
           (optionChange)="onActionSelectorSiteSelect($event)"
-          [optionDisabled]="false"
+          [optionDisabled]="
+            !(fieldsInfo['linkSiteId']?.accessEditField ?? false)
+          "
           [optionSelectForce]="dataModel.linkSiteId"
           [optionPlaceholder]="'TITLE.WEBSITE' | translate"
         ></app-core-site-selector>
         <!-- LinkuserId Field -->
         <app-core-user-selector
           (optionChange)="onActionSelectorUserSelect($event)"
-          [optionDisabled]="false"
+          [optionDisabled]="
+            !(fieldsInfo['linkUserId']?.accessEditField ?? false)
+          "
           [optionSelectForce]="dataModel.linkUserId"
           [optionPlaceholder]="'TITLE.USER' | translate"
         >
@@ -44,7 +50,9 @@
         <!-- LinkUserGroupId Field -->
         <app-core-usercategory-selector
           (optionChange)="onActionSelectorUserGroupSelect($event)"
-          [optionDisabled]="false"
+          [optionDisabled]="
+            !(fieldsInfo['linkUserGroupId']?.accessEditField ?? false)
+          "
           [optionSelectForce]="dataModel.linkUserGroupId"
           [optionPlaceholder]="'TITLE.Account_Type' | translate"
         >

@@ -89,12 +89,11 @@ export class CmsUserSelectorComponent implements OnInit {
   displayFn(model?: CoreUserModel): string | undefined {
     let retOut = "";
     if (model) {
-      if (model.username && model.username.length > 0)
-        retOut = retOut + " " + model.username;
-      if (model.name && model.name.length > 0)
-        retOut = retOut + " " + model.name;
-      if (model.lastName && model.lastName.length > 0)
-        retOut = retOut + " " + model.lastName;
+      if (model.username?.length > 0) retOut = retOut + " " + model.username;
+      if (model.name.length > 0) retOut = retOut + " " + model.name;
+      if (model.lastName?.length > 0) retOut = retOut + " " + model.lastName;
+      if (model.email?.length > 0) retOut = retOut + " " + model.email;
+      if (model.mobile?.length > 0) retOut = retOut + " " + model.mobile;
       retOut = retOut + "#:" + model.id;
     }
     return retOut;
@@ -102,12 +101,11 @@ export class CmsUserSelectorComponent implements OnInit {
   displayOption(model?: CoreUserModel): string | undefined {
     let retOut = "";
     if (model) {
-      if (model.username && model.username.length > 0)
-        retOut = retOut + " " + model.username;
-      if (model.name && model.name.length > 0)
-        retOut = retOut + " " + model.name;
-      if (model.lastName && model.lastName.length > 0)
-        retOut = retOut + " " + model.lastName;
+      if (model.username?.length > 0) retOut = retOut + " " + model.username;
+      if (model.name.length > 0) retOut = retOut + " " + model.name;
+      if (model.lastName?.length > 0) retOut = retOut + " " + model.lastName;
+      if (model.email?.length > 0) retOut = retOut + " " + model.email;
+      if (model.mobile?.length > 0) retOut = retOut + " " + model.mobile;
       retOut = retOut + "#:" + model.id;
     }
     return retOut;

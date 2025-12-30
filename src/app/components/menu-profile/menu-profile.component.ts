@@ -54,8 +54,6 @@ export class MenuProfileComponent implements OnInit {
   tokenInfo: TokenInfoModelV3 = new TokenInfoModelV3();
   inputSiteId?: number;
   inputUserId?: number;
-  loadingStatus = false;
-  disabledAllow = false;
   themeStore = new ThemeStoreModel();
   private unsubscribe: Subscription[] = [];
 
@@ -64,6 +62,14 @@ export class MenuProfileComponent implements OnInit {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   onActionButtonUserAccessAdminAllowToAllData(): void {
+    // Check if process is already running
+    const process = this.publicHelper.processService.process;
+    if (
+      process &&
+      (process.inRunAll || process.inRunArea[this.constructorInfoAreaId])
+    ) {
+      return;
+    }
     const authModel: AuthRefreshTokenModel = new AuthRefreshTokenModel();
     const NewToall = !this.tokenInfo.access.userAccessAdminAllowToAllData;
     authModel.userAccessAdminAllowToProfessionalData =
@@ -97,12 +103,8 @@ export class MenuProfileComponent implements OnInit {
           this.constructorInfoAreaId,
         );
       });
-    this.loadingStatus = true;
-    this.disabledAllow = true;
     this.cmsAuthService.refreshToken(authModel).subscribe({
       next: (ret) => {
-        this.loadingStatus = false;
-        this.disabledAllow = false;
         if (ret.isSuccess) {
           const etitle = "TITLE.Information";
           let emessage = "";
@@ -138,8 +140,6 @@ export class MenuProfileComponent implements OnInit {
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.loadingStatus = false;
-        this.disabledAllow = false;
         if (this.cmsToastrService)
           this.cmsToastrService.typeErrorAccessChange(er);
         this.publicHelper.processService.processStop(pName, false);
@@ -148,6 +148,14 @@ export class MenuProfileComponent implements OnInit {
   }
 
   onActionButtonUserAccessAdminAllowToProfessionalData(): void {
+    // Check if process is already running
+    const process = this.publicHelper.processService.process;
+    if (
+      process &&
+      (process.inRunAll || process.inRunArea[this.constructorInfoAreaId])
+    ) {
+      return;
+    }
     const authModel: AuthRefreshTokenModel = new AuthRefreshTokenModel();
     const NewToPerf =
       !this.tokenInfo.access.userAccessAdminAllowToProfessionalData;
@@ -182,12 +190,8 @@ export class MenuProfileComponent implements OnInit {
           this.constructorInfoAreaId,
         );
       });
-    this.loadingStatus = true;
-    this.disabledAllow = true;
     this.cmsAuthService.refreshToken(authModel).subscribe({
       next: (ret) => {
-        this.loadingStatus = false;
-        this.disabledAllow = false;
         if (ret.isSuccess) {
           const etitle = "TITLE.Information";
           if (
@@ -224,8 +228,6 @@ export class MenuProfileComponent implements OnInit {
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
-        this.loadingStatus = false;
-        this.disabledAllow = false;
         if (this.cmsToastrService)
           this.cmsToastrService.typeErrorAccessChange(er);
         this.publicHelper.processService.processStop(pName, false);
@@ -286,10 +288,8 @@ export class MenuProfileComponent implements OnInit {
           this.constructorInfoAreaId,
         );
       });
-    this.loadingStatus = true;
     this.cmsAuthService.refreshToken(authModel).subscribe({
       next: (ret) => {
-        this.loadingStatus = false;
         if (ret.isSuccess) {
           if (ret.item.access.userId === +this.inputUserId) {
             if (this.cmsToastrService) {
@@ -326,7 +326,6 @@ export class MenuProfileComponent implements OnInit {
         this.publicHelper.processService.processStop(pName);
       },
       error: (err) => {
-        this.loadingStatus = false;
         if (this.cmsToastrService)
           this.cmsToastrService.typeErrorAccessChange(err);
         this.publicHelper.processService.processStop(pName);
@@ -387,10 +386,8 @@ export class MenuProfileComponent implements OnInit {
           this.constructorInfoAreaId,
         );
       });
-    this.loadingStatus = true;
     this.cmsAuthService.refreshToken(authModel).subscribe({
       next: (ret) => {
-        this.loadingStatus = false;
         if (ret.isSuccess) {
           if (ret.item.access.siteId === +this.inputSiteId) {
             if (this.cmsToastrService) {
@@ -419,7 +416,6 @@ export class MenuProfileComponent implements OnInit {
         this.publicHelper.processService.processStop(pName);
       },
       error: (err) => {
-        this.loadingStatus = false;
         if (this.cmsToastrService)
           this.cmsToastrService.typeErrorAccessChange(err);
       },

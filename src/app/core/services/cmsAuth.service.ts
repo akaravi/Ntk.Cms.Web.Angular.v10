@@ -21,6 +21,7 @@ import {
   of,
   switchMap,
 } from "rxjs";
+import { environment } from "src/environments/environment";
 import { TokenInfoType } from "../models/tokenInfoType";
 import { CmsStoreService } from "../reducers/cmsStore.service";
 import {
@@ -29,7 +30,6 @@ import {
   SET_TOKEN_INFO,
   SET_Theme_STATE,
 } from "../reducers/reducer.factory";
-import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root",
@@ -79,13 +79,17 @@ export class CmsAuthService implements OnDestroy {
             payload: ret.item,
           });
         } else {
+          this.coreAuthService.setJWT(null);
           this.router.navigate(["/auth/login"], {
             queryParams: {},
           });
         }
         return ret.item;
       }),
-      catchError((err) => of("error", err)),
+      catchError((err) => {
+        this.coreAuthService.setJWT(null);
+        return of("error", err);
+      }),
       finalize(() => this.isLoadingSubject.next(false)),
     );
   }
@@ -125,6 +129,10 @@ export class CmsAuthService implements OnDestroy {
         }
         return ret;
       }),
+      catchError((err) => {
+        this.coreAuthService.setJWT(null);
+        return of(undefined);
+      }),
       finalize(() => this.isLoadingSubject.next(false)),
     );
   }
@@ -145,8 +153,7 @@ export class CmsAuthService implements OnDestroy {
       }),
       switchMap(() => this.getTokenInfo()),
       catchError((err) => {
-        if(environment.consoleLog)
-        console.error("err", err);
+        if (environment.consoleLog) console.error("err", err);
         return of(undefined);
       }),
       finalize(() => this.isLoadingSubject.next(false)),
@@ -174,8 +181,7 @@ export class CmsAuthService implements OnDestroy {
         });
       },
       error: (err) => {
-        if(environment.consoleLog)
-        console.error("err", err);
+        if (environment.consoleLog) console.error("err", err);
 
         this.router.navigate(["/auth"], {
           queryParams: {},
@@ -215,8 +221,7 @@ export class CmsAuthService implements OnDestroy {
       }),
       switchMap(() => this.getTokenInfoType()),
       catchError((err) => {
-        if(environment.consoleLog)
-        console.error("err", err);
+        if (environment.consoleLog) console.error("err", err);
         return of(undefined);
       }),
       finalize(() => this.isLoadingSubject.next(false)),
@@ -247,8 +252,7 @@ export class CmsAuthService implements OnDestroy {
       }),
       switchMap(() => this.getTokenInfo()),
       catchError((err) => {
-        if(environment.consoleLog)
-        console.error("err", err);
+        if (environment.consoleLog) console.error("err", err);
         return of(undefined);
       }),
       finalize(() => this.isLoadingSubject.next(false)),
