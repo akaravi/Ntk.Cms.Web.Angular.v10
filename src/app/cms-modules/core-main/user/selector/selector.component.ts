@@ -89,7 +89,7 @@ export class CoreUserSelectorComponent implements OnInit {
     let retOut = "";
     if (model) {
       if (model.username?.length > 0) retOut = retOut + " " + model.username;
-      if (model.name.length > 0) retOut = retOut + " " + model.name;
+      if (model.name?.length > 0) retOut = retOut + " " + model.name;
       if (model.lastName?.length > 0) retOut = retOut + " " + model.lastName;
       if (model.email?.length > 0) retOut = retOut + " " + model.email;
       if (model.mobile?.length > 0) retOut = retOut + " " + model.mobile;
@@ -101,7 +101,7 @@ export class CoreUserSelectorComponent implements OnInit {
     let retOut = "";
     if (model) {
       if (model.username?.length > 0) retOut = retOut + " " + model.username;
-      if (model.name.length > 0) retOut = retOut + " " + model.name;
+      if (model.name?.length > 0) retOut = retOut + " " + model.name;
       if (model.lastName?.length > 0) retOut = retOut + " " + model.lastName;
       if (model.email?.length > 0) retOut = retOut + " " + model.email;
       if (model.mobile?.length > 0) retOut = retOut + " " + model.mobile;

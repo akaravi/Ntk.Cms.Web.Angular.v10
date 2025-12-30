@@ -15,6 +15,7 @@ import {
   EstateAccountAgencyModel,
   EstateAccountAgencyService,
   FilterDataModel,
+  FilterModel,
   ManageUserAccessDataTypesEnum,
   RecordStatusEnum,
   SortTypeEnum,
@@ -115,6 +116,24 @@ export class EstateAccountAgencyListComponent
   tableContentSelected = [];
 
   filteModelContent = new EstateAccountAgencyFilterModel();
+  filterDataModelQueryBuilder: FilterDataModel[] = [];
+
+  filterModelCompiler(
+    model: EstateAccountAgencyFilterModel,
+  ): EstateAccountAgencyFilterModel {
+    /*filter CLone*/
+    const filterModel = JSON.parse(JSON.stringify(model));
+    /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
+    return filterModel;
+  }
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
@@ -189,17 +208,7 @@ export class EstateAccountAgencyListComponent
         );
       });
     this.filteModelContent.accessLoad = true;
-    /*filter CLone*/
-    const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
-    /*filter CLone*/
-    /*filter add search*/
-    if (
-      this.filterDataModelQueryBuilder &&
-      this.filterDataModelQueryBuilder.length > 0
-    ) {
-      filterModel.filters = [...this.filterDataModelQueryBuilder];
-    }
-    /*filter add search*/
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
     this.contentService.setAccessDataType(ManageUserAccessDataTypesEnum.Editor);
     this.contentService.ServiceGetAll(filterModel).subscribe({
       next: (ret) => {
@@ -415,7 +424,8 @@ export class EstateAccountAgencyListComponent
         this.constructorInfoAreaId,
       );
     });
-    this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
+    this.contentService.ServiceGetCount(filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.translate.get("MESSAGE.All").subscribe((str: string) => {
@@ -433,7 +443,7 @@ export class EstateAccountAgencyListComponent
       },
     });
 
-    const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
+    const filterStatist1 = this.filterModelCompiler(this.filteModelContent);
     const fastfilter = new FilterDataModel();
     fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
@@ -537,7 +547,8 @@ export class EstateAccountAgencyListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/data/property/LinkEstateAgencyId/" + this.tableRowSelected.id;
+        "/#/estate/data/property/LinkEstateAgencyId/" +
+        this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([

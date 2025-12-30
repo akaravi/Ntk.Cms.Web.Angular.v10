@@ -114,7 +114,7 @@ export class AuthSignUpComponent implements OnInit, OnDestroy {
         });
       return;
     }
-    if (!this.dataModel.name || this.dataModel.name.length === 0) {
+    if (!this.dataModel.name || this.dataModel.name?.length === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.enter_your_name")
         .subscribe((str: string) => {

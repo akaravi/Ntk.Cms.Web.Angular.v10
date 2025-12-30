@@ -15,17 +15,21 @@ import { PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {ClauseTypeEnum,
+import {
+  ClauseTypeEnum,
   DataFieldInfoModel,
+  EstatePropertyFilterModel,
   EstatePropertyModel,
   EstatePropertyService,
   EstatePropertyTypeLanduseModel,
   FilterDataModel,
   FilterDataModelSearchTypesEnum,
-  FilterModel,ManageUserAccessDataTypesEnum,
+  FilterModel,
+  ManageUserAccessDataTypesEnum,
   RecordStatusEnum,
   SortTypeEnum,
-  TokenInfoModelV3} from "ntk-cms-api";
+  TokenInfoModelV3,
+} from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ComponentOptionSearchModel } from "src/app/core/cmsComponent/base/componentOptionSearchModel";
 import { ComponentOptionStatistModel } from "src/app/core/cmsComponent/base/componentOptionStatistModel";
@@ -40,8 +44,6 @@ import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-di
 import { CmsLinkToComponent } from "src/app/shared/cms-link-to/cms-link-to.component";
 import { environment } from "src/environments/environment";
 import { EstatePropertyQuickViewComponent } from "../quick-view/quick-view.component";
-
-import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-estate-property-quick-list",
@@ -222,7 +224,21 @@ export class EstatePropertyQuickListComponent
   filteModelContent = new FilterModel();
   filterDataModelQueryBuilder: FilterDataModel[] = [];
 
-  
+  filterModelCompiler(model: FilterModel): EstatePropertyFilterModel {
+    /*filter CLone*/
+    const filterModel = JSON.parse(JSON.stringify(model));
+    /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
+    return filterModel;
+  }
+
   optionsSearch: ComponentOptionSearchModel = new ComponentOptionSearchModel();
   optionsStatist: ComponentOptionStatistModel =
     new ComponentOptionStatistModel();
@@ -317,17 +333,7 @@ export class EstatePropertyQuickListComponent
         );
       });
     this.filteModelContent.accessLoad = true;
-    /*filter CLone*/
-    const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
-    /*filter CLone*/
-    /*filter add search*/
-    if (
-      this.filterDataModelQueryBuilder &&
-      this.filterDataModelQueryBuilder.length > 0
-    ) {
-      filterModel.filters = [...this.filterDataModelQueryBuilder];
-    }
-    /*filter add search*/
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
     if (
       this.categoryModelSelected &&
       this.categoryModelSelected.id &&
@@ -549,7 +555,10 @@ export class EstatePropertyQuickListComponent
       this.link = "/#/estate/data/property/edit/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
-      this.router.navigate(["/estate/data/property/edit", this.tableRowSelected.id]);
+      this.router.navigate([
+        "/estate/data/property/edit",
+        this.tableRowSelected.id,
+      ]);
     }
   }
 
@@ -605,7 +614,8 @@ export class EstatePropertyQuickListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/data/property-ads/LinkPropertyId/" + this.tableRowSelected.id;
+        "/#/estate/data/property-ads/LinkPropertyId/" +
+        this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
@@ -634,7 +644,8 @@ export class EstatePropertyQuickListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/data/property-history/LinkPropertyId/" + this.tableRowSelected.id;
+        "/#/estate/data/property-history/LinkPropertyId/" +
+        this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
@@ -722,7 +733,8 @@ export class EstatePropertyQuickListComponent
     const statist = new Map<string, number>();
     statist.set("Active", 0);
     statist.set("All", 0);
-    this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
+    this.contentService.ServiceGetCount(filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           statist.set("All", ret.totalRowCount);
@@ -736,7 +748,7 @@ export class EstatePropertyQuickListComponent
       },
     });
 
-    const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
+    const filterStatist1 = this.filterModelCompiler(this.filteModelContent);
     const fastfilter = new FilterDataModel();
     fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;

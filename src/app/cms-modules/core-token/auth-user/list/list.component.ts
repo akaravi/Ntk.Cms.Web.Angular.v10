@@ -159,6 +159,10 @@ export class CoreTokenAuthUserListComponent
   expandedElement: CoreSiteModel | null;
   private unsubscribe: Subscription[] = [];
 
+  // برای حذف گروهی
+  selectedRowsForBulkDelete: Set<string> = new Set<string>();
+  isAllSelected = false;
+
   ngOnInit(): void {
     this.filteModelContent.sortColumn = "createdDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
@@ -180,6 +184,20 @@ export class CoreTokenAuthUserListComponent
   ngOnDestroy(): void {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
+  filterModelCompiler(model: FilterModel): FilterModel {
+    /*filter CLone*/
+    const filterModel = JSON.parse(JSON.stringify(model));
+    /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
+    return filterModel;
+  }
   DataGetAll(): void {
     this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
       this.tabledisplayedColumnsSource,
@@ -187,7 +205,14 @@ export class CoreTokenAuthUserListComponent
       [],
       this.tokenInfo,
     );
+    // اضافه کردن ستون چک‌باکس به انتهای ستون‌ها برای حذف گروهی
+    const selectColumnIndex = this.tabledisplayedColumns.indexOf("select");
+    if (selectColumnIndex === -1) {
+      this.tabledisplayedColumns.push("select");
+    }
     this.tableRowsSelected = [];
+    this.selectedRowsForBulkDelete.clear();
+    this.isAllSelected = false;
     this.onActionTableRowSelect(new CoreTokenAuthUserModel());
     const pName = this.constructor.name + "main";
     this.translate
@@ -200,17 +225,7 @@ export class CoreTokenAuthUserListComponent
         );
       });
     this.filteModelContent.accessLoad = true;
-    /*filter CLone*/
-    const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
-    /*filter CLone*/
-    /*filter add search*/
-    if (
-      this.filterDataModelQueryBuilder &&
-      this.filterDataModelQueryBuilder.length > 0
-    ) {
-      filterModel.filters = [...this.filterDataModelQueryBuilder];
-    }
-    /*filter add search*/
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
     /**filterActionSearch */
     if (this.filteModelContent.filterActionSearchRecordStatus > 0) {
       const filter = new FilterDataModel();
@@ -418,7 +433,28 @@ export class CoreTokenAuthUserListComponent
         this.constructorInfoAreaId,
       );
     });
-    this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
+    /**filterActionSearch */
+    if (this.filteModelContent.filterActionSearchRecordStatus > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "recordStatus";
+      filter.value = this.filteModelContent.filterActionSearchRecordStatus;
+      filterModel.filters.push(filter);
+    }
+    if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "linkSiteId";
+      filter.value = this.filteModelContent.filterActionSearchLinkSiteId;
+      filterModel.filters.push(filter);
+    }
+    if (this.filteModelContent.filterActionSearchLinkUserId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "linkUserId";
+      filter.value = this.filteModelContent.filterActionSearchLinkUserId;
+      filterModel.filters.push(filter);
+    }
+    /**filterActionSearch */
+    this.contentService.ServiceGetCount(filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.translate.get("MESSAGE.All").subscribe((str: string) => {
@@ -436,7 +472,27 @@ export class CoreTokenAuthUserListComponent
       },
     });
 
-    const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
+    const filterStatist1 = this.filterModelCompiler(this.filteModelContent);
+    /**filterActionSearch */
+    if (this.filteModelContent.filterActionSearchRecordStatus > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "recordStatus";
+      filter.value = this.filteModelContent.filterActionSearchRecordStatus;
+      filterStatist1.filters.push(filter);
+    }
+    if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "linkSiteId";
+      filter.value = this.filteModelContent.filterActionSearchLinkSiteId;
+      filterStatist1.filters.push(filter);
+    }
+    if (this.filteModelContent.filterActionSearchLinkUserId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "linkUserId";
+      filter.value = this.filteModelContent.filterActionSearchLinkUserId;
+      filterStatist1.filters.push(filter);
+    }
+    /**filterActionSearch */
     const fastfilter = new FilterDataModel();
     fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
@@ -567,5 +623,127 @@ export class CoreTokenAuthUserListComponent
 
   onActionBackToParent(): void {
     this.router.navigate(["/core/site/"]);
+  }
+
+  // متدهای مدیریت چک‌باکس برای حذف گروهی
+  onCheckboxChange(row: CoreTokenAuthUserModel, event: any): void {
+    if (event.checked) {
+      this.selectedRowsForBulkDelete.add(row.id);
+    } else {
+      this.selectedRowsForBulkDelete.delete(row.id);
+    }
+    this.updateSelectAllState();
+  }
+
+  isRowSelected(rowId: string): boolean {
+    return this.selectedRowsForBulkDelete.has(rowId);
+  }
+
+  onSelectAllChange(event: any): void {
+    this.isAllSelected = event.checked;
+    if (this.isAllSelected) {
+      this.tableSource.data.forEach((row) => {
+        if (row.id) {
+          this.selectedRowsForBulkDelete.add(row.id);
+        }
+      });
+    } else {
+      this.selectedRowsForBulkDelete.clear();
+    }
+  }
+
+  updateSelectAllState(): void {
+    if (this.tableSource.data.length === 0) {
+      this.isAllSelected = false;
+      return;
+    }
+    const allSelected = this.tableSource.data.every((row) =>
+      this.selectedRowsForBulkDelete.has(row.id),
+    );
+    this.isAllSelected = allSelected;
+  }
+
+  getSelectedCount(): number {
+    return this.selectedRowsForBulkDelete.size;
+  }
+
+  // متد حذف گروهی
+  onActionButtonBulkDelete(): void {
+    if (this.selectedRowsForBulkDelete.size === 0) {
+      this.translate
+        .get("MESSAGE.no_row_selected_to_delete")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+
+    if (
+      this.dataModelResult == null ||
+      this.dataModelResult.access == null ||
+      !this.dataModelResult.access.accessDeleteRow
+    ) {
+      this.cmsToastrService.typeErrorAccessDelete();
+      return;
+    }
+
+    var title = "";
+    var message = "";
+    const selectedCount = this.selectedRowsForBulkDelete.size;
+    this.translate
+      .get([
+        "MESSAGE.Please_Confirm",
+        "MESSAGE.Do_you_want_to_delete_this_content",
+      ])
+      .subscribe((str: string) => {
+        title = str["MESSAGE.Please_Confirm"];
+        message =
+          str["MESSAGE.Do_you_want_to_delete_this_content"] +
+          "?" +
+          "<br> ( " +
+          selectedCount +
+          " " +
+          "آیتم انتخاب شده" +
+          " ) ";
+      });
+
+    this.cmsConfirmationDialogService
+      .confirm(title, message)
+      .then((confirmed) => {
+        if (confirmed) {
+          const pName = this.constructor.name + "BulkDelete";
+          this.translate
+            .get("MESSAGE.Receiving_information")
+            .subscribe((str: string) => {
+              this.publicHelper.processService.processStart(
+                pName,
+                str,
+                this.constructorInfoAreaId,
+              );
+            });
+
+          const idsToDelete = Array.from(this.selectedRowsForBulkDelete);
+          this.contentService.ServiceDeleteList(idsToDelete).subscribe({
+            next: (ret) => {
+              if (ret.isSuccess) {
+                this.cmsToastrService.typeSuccessRemove();
+                this.selectedRowsForBulkDelete.clear();
+                this.isAllSelected = false;
+                this.DataGetAll();
+              } else {
+                this.cmsToastrService.typeErrorRemove();
+              }
+              this.publicHelper.processService.processStop(pName);
+            },
+            error: (er) => {
+              this.cmsToastrService.typeError(er);
+              this.publicHelper.processService.processStop(pName, false);
+            },
+          });
+        }
+      })
+      .catch(() => {
+        // User dismissed the dialog
+      });
   }
 }

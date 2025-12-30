@@ -58,7 +58,7 @@
           @if (fieldsInfo['recordStatus']?.accessWatchField) {
             <app-cms-enum-record-status-selector
               [(model)]="dataModel.recordStatus"
-              [optionDisabled]="false"
+              [optionDisabled]="!(fieldsInfo['recordStatus']?.accessEditField ?? false)"
               [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
               [optionRequired]="true"
               [optionSelectFirstItem]="true"
@@ -729,7 +729,7 @@
                                                       @if (!dataModel.actionCreateNewCmsUser) {
                                                         <app-cms-user-selector
                                                           (optionChange)="onActionSelectorCmsUser($event)"
-                                                          [optionDisabled]="!fieldsInfo['linkCmsUserId']?.accessAddField"
+                                                          [optionDisabled]="!(fieldsInfo['linkCmsUserId']?.accessEditField ?? false)"
                                                           [optionSelectForce]="dataModel.linkCmsUserId"
                                                           [optionPlaceholder]="'TITLE.user' | translate"
                                                           >
