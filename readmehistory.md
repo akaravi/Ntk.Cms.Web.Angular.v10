@@ -1,5 +1,38 @@
 # تاریخچه تغییرات پروژه
 
+## 2025-12-31 09:49:47 (افزودن ترجمه چندزبانه برای ACTION.SEND_MESSAGE)
+
+### تغییرات اعمال شده:
+
+#### افزودن کلید چندزبانه ACTION.SEND_MESSAGE:
+
+- افزودن کلید `ACTION.SEND_MESSAGE` به تمام فایل‌های چندزبانه:
+  - `fa.json`: "ارسال پیام"
+  - `en.json`: "Send message"
+  - `ar.json`: "إرسال رسالة"
+  - `de.json`: "Nachricht senden"
+  - `es.json`: "Enviar mensaje"
+  - `fr.json`: "Envoyer un message"
+  - `ja.json`: "メッセージを送信"
+  - `tr.json`: "Mesaj gönder"
+  - `zh.json`: "发送消息"
+
+### فایل‌های تغییر یافته:
+
+- `src/assets/i18n/fa.json`
+- `src/assets/i18n/en.json`
+- `src/assets/i18n/ar.json`
+- `src/assets/i18n/de.json`
+- `src/assets/i18n/es.json`
+- `src/assets/i18n/fr.json`
+- `src/assets/i18n/ja.json`
+- `src/assets/i18n/tr.json`
+- `src/assets/i18n/zh.json`
+
+### نتیجه:
+
+کلید چندزبانه `ACTION.SEND_MESSAGE` به تمام زبان‌های پشتیبانی شده اضافه شد و آماده استفاده در کامپوننت‌های `sms/main/api-path/list` و `sms/main/api-number/list` است.
+
 ## 2025-12-27 14:31:31 (افزودن ترجمه چندزبانه برای TITLE.Default_Price_Per_Page)
 
 ### تغییرات اعمال شده:
