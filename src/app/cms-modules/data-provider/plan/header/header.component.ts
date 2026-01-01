@@ -100,7 +100,7 @@ export class DataProviderPlanHeaderComponent implements OnInit, OnDestroy {
   onActionButtonLinkTo(
     model: DataProviderPlanModel = this.dataModelResult.item,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model || !model.id || model.id === "") {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

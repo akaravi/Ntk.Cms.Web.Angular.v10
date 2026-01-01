@@ -98,7 +98,7 @@ export class DataProviderSourceHeaderComponent implements OnInit, OnDestroy {
   onActionButtonLinkTo(
     model: DataProviderSourceModel = this.dataModelResult.item,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model || !model.id || model.id === "") {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

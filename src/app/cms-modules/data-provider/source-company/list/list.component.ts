@@ -1,62 +1,59 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
-import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { MatDialog } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  DataProviderPlanCategoryModel,
-  DataProviderPlanClientModel,
-  DataProviderPlanClientService,
   FilterDataModel,
   FilterModel,
   RecordStatusEnum,
+  DataProviderSourceCompanyModel,
+  DataProviderSourceCompanyService,
   SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
+import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { environment } from "src/environments/environment";
-import { PublicHelper } from "../../../../core/helpers/publicHelper";
-import { CmsToastrService } from "../../../../core/services/cmsToastr.service";
-import { DataProviderPlanClientAddComponent } from "../add/add.component";
-import { DataProviderPlanClientDeleteComponent } from "../delete/delete.component";
-import { DataProviderPlanClientEditComponent } from "../edit/edit.component";
+import { DataProviderSourceCompanyAddComponent } from "../add/add.component";
+import { DataProviderSourceCompanyEditComponent } from "../edit/edit.component";
 
 @Component({
-  selector: "app-data-provider-plan-client-list",
+  selector: "app-data-provider-source-company-list",
   templateUrl: "./list.component.html",
   standalone: false,
 })
-export class DataProviderPlanClientListComponent
+export class DataProviderSourceCompanyListComponent
   extends ListBaseComponent<
-    DataProviderPlanClientService,
-    DataProviderPlanClientModel,
+    DataProviderSourceCompanyService,
+    DataProviderSourceCompanyModel,
     number
   >
   implements OnInit, OnDestroy
 {
-  requestLinkPlanId = 0;
-  requestLinkClientId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    public contentService: DataProviderPlanClientService,
-    private activatedRoute: ActivatedRoute,
+    public contentService: DataProviderSourceCompanyService,
     private cmsToastrService: CmsToastrService,
+    private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private router: Router,
     public tokenHelper: TokenHelper,
-    private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
+    private cmsStoreService: CmsStoreService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog,
   ) {
     super(
       contentService,
-      new DataProviderPlanClientModel(),
+      new DataProviderSourceCompanyModel(),
       publicHelper,
       tokenHelper,
       translate,
@@ -70,46 +67,32 @@ export class DataProviderPlanClientListComponent
     this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
+  comment: string;
+  author: string;
+  dataSource: any;
+  flag = false;
+  tableContentSelected = [];
+
   filteModelContent = new FilterModel();
   filterDataModelQueryBuilder: FilterDataModel[] = [];
 
-  categoryModelSelected: DataProviderPlanCategoryModel;
-
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "id",
+    "linkMainImageIdSrc",
     "recordStatus",
-    "ExpireDate",
-    // 'Action'
+    "title",
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
-    "id",
+    "linkMainImageIdSrc",
     "recordStatus",
-    "ExpireDate",
-    // 'Action'
+    "title",
   ];
-  private unsubscribe: Subscription[] = [];
-  ngOnInit(): void {
-    this.requestLinkPlanId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkPlanId"),
-    );
-    if (this.requestLinkPlanId && this.requestLinkPlanId > 0) {
-      const filter = new FilterDataModel();
-      filter.propertyName = "LinkPlanId";
-      filter.value = this.requestLinkPlanId;
-      this.filteModelContent.filters.push(filter);
-    }
-    this.requestLinkClientId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkClientId"),
-    );
-    if (this.requestLinkClientId && this.requestLinkClientId > 0) {
-      const filter = new FilterDataModel();
-      filter.propertyName = "LinkClientId";
-      filter.value = this.requestLinkClientId;
-      this.filteModelContent.filters.push(filter);
-    }
 
+  expandedElement: DataProviderSourceCompanyModel | null;
+  private unsubscribe: Subscription[] = [];
+
+  ngOnInit(): void {
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
@@ -135,8 +118,7 @@ export class DataProviderPlanClientListComponent
       this.tokenInfo,
     );
     this.tableRowsSelected = [];
-    this.onActionTableRowSelect(new DataProviderPlanClientModel());
-
+    this.onActionTableRowSelect(new DataProviderSourceCompanyModel());
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.get_information_list")
@@ -147,7 +129,6 @@ export class DataProviderPlanClientListComponent
           this.constructorInfoAreaId,
         );
       });
-
     this.filteModelContent.accessLoad = true;
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
@@ -160,18 +141,11 @@ export class DataProviderPlanClientListComponent
       filterModel.filters = [...this.filterDataModelQueryBuilder];
     }
     /*filter add search*/
-    if (this.categoryModelSelected && this.categoryModelSelected.id > 0) {
-      const filter = new FilterDataModel();
-      filter.propertyName = "LinkCategoryId";
-      filter.value = this.categoryModelSelected.id;
-      filterModel.filters.push(filter);
-    }
-    this.contentService.setAccessLoad();
     this.contentService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {
-        this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
-
         if (ret.isSuccess) {
+          this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
+
           this.dataModelResult = ret;
           this.tableSource.data = ret.listItems;
 
@@ -180,14 +154,11 @@ export class DataProviderPlanClientListComponent
             if (this.optionsSearch.childMethods)
               this.optionsSearch.childMethods.setAccess(ret.access);
           }, 1000);
-        } else {
-          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
-
         this.publicHelper.processService.processStop(pName, false);
       },
     });
@@ -224,32 +195,7 @@ export class DataProviderPlanClientListComponent
     this.DataGetAll();
   }
 
-  onActionSelectorSelect(model: DataProviderPlanCategoryModel | null): void {
-    /*filter */
-    var sortColumn = this.filteModelContent.sortColumn;
-    var sortType = this.filteModelContent.sortType;
-    this.filteModelContent = new FilterModel();
-
-    this.filteModelContent.sortColumn = sortColumn;
-    this.filteModelContent.sortType = sortType;
-    /*filter */
-    this.categoryModelSelected = model;
-
-    this.DataGetAll();
-  }
-
   onActionButtonNewRow(): void {
-    if (
-      this.categoryModelSelected == null ||
-      this.categoryModelSelected.id === ""
-    ) {
-      this.translate
-        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
-        .subscribe((str: string) => {
-          this.cmsToastrService.typeErrorSelected(str);
-        });
-      return;
-    }
     if (
       this.dataModelResult == null ||
       this.dataModelResult.access == null ||
@@ -258,19 +204,17 @@ export class DataProviderPlanClientListComponent
       this.cmsToastrService.typeErrorAccessAdd();
       return;
     }
-
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.height = "90%";
-    dialogConfig.data = { parentId: this.categoryModelSelected.id };
-
-    const dialogRef = this.dialog.open(
-      DataProviderPlanClientAddComponent,
-      dialogConfig,
-    );
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
+    const dialogRef = this.dialog.open(DataProviderSourceCompanyAddComponent, {
+      height: "90%",
+      panelClass: panelClass,
+      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
+      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+      data: {},
+    });
     dialogRef.afterClosed().subscribe((result) => {
-      // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
@@ -278,7 +222,7 @@ export class DataProviderPlanClientListComponent
   }
 
   onActionButtonEditRow(
-    model: DataProviderPlanClientModel = this.tableRowSelected,
+    model: DataProviderSourceCompanyModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id === "") {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -293,25 +237,24 @@ export class DataProviderPlanClientListComponent
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
-    // this.router.navigate(['/polling/content/edit', this.tableRowSelected.id]);
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = { id: this.tableRowSelected.id };
-
-    const dialogRef = this.dialog.open(
-      DataProviderPlanClientEditComponent,
-      dialogConfig,
-    );
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
+    const dialogRef = this.dialog.open(DataProviderSourceCompanyEditComponent, {
+      height: "90%",
+      panelClass: panelClass,
+      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
+      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+      data: { id: this.tableRowSelected.id },
+    });
     dialogRef.afterClosed().subscribe((result) => {
-      // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
     });
   }
   onActionButtonDeleteRow(
-    model: DataProviderPlanClientModel = this.tableRowSelected,
+    model: DataProviderSourceCompanyModel = this.tableRowSelected,
   ): void {
     if (!model || !model.id || model.id === "") {
       this.translate
@@ -331,22 +274,90 @@ export class DataProviderPlanClientListComponent
       this.cmsToastrService.typeErrorAccessDelete();
       return;
     }
-    var panelClass = "";
-    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
-    else panelClass = "dialog-min";
-    const dialogRef = this.dialog.open(DataProviderPlanClientDeleteComponent, {
-      height: "40%",
-      panelClass: panelClass,
-      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
-      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id: this.tableRowSelected.id },
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      // console.log(`Dialog result: ${result}`);
-      if (result && result.dialogChangedDate) {
-        this.DataGetAll();
-      }
-    });
+
+    var title = "";
+    var message = "";
+    this.translate
+      .get([
+        "MESSAGE.Please_Confirm",
+        "MESSAGE.Do_you_want_to_delete_this_content",
+      ])
+      .subscribe((str: string) => {
+        title = str["MESSAGE.Please_Confirm"];
+        message =
+          str["MESSAGE.Do_you_want_to_delete_this_content"] +
+          "?" +
+          "<br> ( " +
+          this.tableRowSelected.title +
+          " ) ";
+      });
+    this.cmsConfirmationDialogService
+      .confirm(title, message)
+      .then((confirmed) => {
+        if (confirmed) {
+          const pName = this.constructor.name + "main";
+          this.translate
+            .get("MESSAGE.Receiving_information")
+            .subscribe((str: string) => {
+              this.publicHelper.processService.processStart(
+                pName,
+                str,
+                this.constructorInfoAreaId,
+              );
+            });
+
+          this.contentService
+            .ServiceDelete(this.tableRowSelected.id)
+            .subscribe({
+              next: (ret) => {
+                if (ret.isSuccess) {
+                  this.cmsToastrService.typeSuccessRemove();
+                  this.DataGetAll();
+                } else {
+                  this.cmsToastrService.typeErrorRemove();
+                }
+                this.publicHelper.processService.processStop(pName);
+              },
+              error: (er) => {
+                this.cmsToastrService.typeError(er);
+                this.publicHelper.processService.processStop(pName, false);
+              },
+            });
+        }
+      })
+      .catch(() => {
+        // console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)')
+      });
+  }
+
+  onActionButtonSourceList(
+    model: DataProviderSourceCompanyModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
+    if (!model || !model.id || model.id === "") {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+    this.onActionTableRowSelect(model);
+
+    if (this.dataModelResult == null || this.dataModelResult.access == null) {
+      this.cmsToastrService.typeErrorSelected();
+      return;
+    }
+    if (event?.ctrlKey) {
+      const link =
+        "/#/data-provider/source/list/LinkSourceCompanyId/" + this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/data-provider/source/list/LinkSourceCompanyId",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
 
   onActionButtonStatist(view = !this.optionsStatist.data.show): void {
@@ -423,3 +434,4 @@ export class DataProviderPlanClientListComponent
     this.DataGetAll();
   }
 }
+

@@ -241,7 +241,7 @@ export class DataProviderPlanSourceListComponent
   onActionButtonNewRow(): void {
     if (
       this.categoryModelSelected == null ||
-      this.categoryModelSelected.id === 0
+      this.categoryModelSelected.id === ""
     ) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
@@ -280,7 +280,7 @@ export class DataProviderPlanSourceListComponent
   onActionButtonEditRow(
     model: DataProviderPlanSourceModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model || !model.id || model.id === "") {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -313,7 +313,7 @@ export class DataProviderPlanSourceListComponent
   onActionButtonDeleteRow(
     model: DataProviderPlanSourceModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model || !model.id || model.id === "") {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {

@@ -11,6 +11,10 @@ import { DataProviderPlanPriceListComponent } from "./plan-price/list/list.compo
 import { DataProviderPlanSourceListComponent } from "./plan-source/list/list.component";
 import { DataProviderPlanListComponent } from "./plan/list/list.component";
 import { DataProviderSourceListComponent } from "./source/list/list.component";
+import { DataProviderSourceCompanyListComponent } from "./source-company/list/list.component";
+import { DataProviderSourcePublicConfigListComponent } from "./source-public-config/list/list.component";
+import { DataProviderSourcePathListComponent } from "./source-path/list/list.component";
+import { DataProviderClientPermissionListComponent } from "./client-permission/list/list.component";
 import { DataProviderTransactionListComponent } from "./transaction/list/list.component";
 
 const routes: Routes = [
@@ -85,6 +89,36 @@ const routes: Routes = [
       },
       {
         path: "source",
+        component: DataProviderSourceListComponent,
+        data: { title: "ROUTE.DATAPROVIDER.SOURCE" },
+      },
+      {
+        path: "source-company",
+        component: DataProviderSourceCompanyListComponent,
+        data: { title: "ROUTE.DATAPROVIDER.SOURCECOMPANY" },
+      },
+      {
+        path: "source-public-config",
+        component: DataProviderSourcePublicConfigListComponent,
+        data: { title: "ROUTE.DATAPROVIDER.SOURCEPUBLICCONFIG" },
+      },
+      {
+        path: "source-path",
+        component: DataProviderSourcePathListComponent,
+        data: { title: "ROUTE.DATAPROVIDER.SOURCEPATH" },
+      },
+      {
+        path: "client-permission",
+        component: DataProviderClientPermissionListComponent,
+        data: { title: "ROUTE.DATAPROVIDER.CLIENTPERMISSION" },
+      },
+      {
+        path: "client-permission/LinkUserId/:LinkUserId",
+        component: DataProviderClientPermissionListComponent,
+        data: { title: "ROUTE.DATAPROVIDER.CLIENTPERMISSION" },
+      },
+      {
+        path: "source/list/LinkSourceCompanyId/:LinkSourceCompanyId",
         component: DataProviderSourceListComponent,
         data: { title: "ROUTE.DATAPROVIDER.SOURCE" },
       },

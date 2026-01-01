@@ -3871,3 +3871,20 @@ ngOnInit(): void {
 
 - ماژول‌های `SmsWidgetModule` و `EstateWidgetModule` قبلاً در بخش `imports` قرار داشتند اما در بخش `exports` نبودند
 - با اضافه کردن آن‌ها به `exports`، کامپوننت‌های این ماژول‌ها (مانند `app-sms-log-inbox-widget`) در ماژول‌های دیگر که `CmsModulesWidgetModule` را import می‌کنند قابل استفاده می‌شوند
+
+---
+
+## 2026-01-01 11:05:26
+
+### فایل تغییر یافته:
+- `src/app/cms-modules/data-provider/source/list/list.component.ts`
+
+### تغییرات اعمال شده:
+- رفع خطاهای TypeScript در مقایسه نوع `number` با `string`
+- در متدهای `onActionButtonEditRow`، `onActionButtonDeleteRow`، `onActionButtonSourceList` و `onActionButtonDataRow`
+- تغییر `model.id === ""` به `model.id === 0` برای تطابق با نوع داده صحیح (number)
+
+### توضیحات:
+- `model.id` از نوع `number` است اما با رشته خالی (`""`) مقایسه می‌شد که باعث خطای TypeScript می‌شد
+- با تغییر به `model.id === 0`، مقایسه با نوع داده صحیح انجام می‌شود
+- این تغییر در 4 متد اعمال شد که همه دارای خطای مشابه بودند

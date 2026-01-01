@@ -244,7 +244,7 @@ export class DataProviderPlanPriceListComponent
   onActionButtonEditRow(
     model: DataProviderPlanPriceModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model || !model.id || model.id === "") {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -278,7 +278,7 @@ export class DataProviderPlanPriceListComponent
   onActionButtonDeleteRow(
     model: DataProviderPlanPriceModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model || !model.id || model.id === "") {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -316,7 +316,7 @@ export class DataProviderPlanPriceListComponent
   onActionButtonTransactionList(
     model: DataProviderPlanPriceModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model || !model.id || model.id === "") {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

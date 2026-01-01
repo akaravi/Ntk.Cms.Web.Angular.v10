@@ -275,7 +275,7 @@ export class DataProviderSourceListComponent
   onActionButtonEditRow(
     model: DataProviderSourceModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model || !model.id || model.id === "") {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -309,7 +309,7 @@ export class DataProviderSourceListComponent
   onActionButtonDeleteRow(
     model: DataProviderSourceModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model || !model.id || model.id === "") {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -348,7 +348,7 @@ export class DataProviderSourceListComponent
     model: DataProviderSourceModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model || !model.id || model.id === "") {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -371,7 +371,7 @@ export class DataProviderSourceListComponent
     model: DataProviderSourceModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model || !model.id || model.id === "") {
       this.translate
         .get("MESSAGE.No_row_selected_for_viewing")
         .subscribe((str: string) => {

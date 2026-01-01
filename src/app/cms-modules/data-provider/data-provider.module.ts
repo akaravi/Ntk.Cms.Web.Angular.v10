@@ -31,6 +31,9 @@ import {
   DataProviderPlanService,
   DataProviderPlanSourceService,
   DataProviderSourceService,
+  DataProviderSourceCompanyService,
+  DataProviderSourcePathService,
+  DataProviderClientPermissionService,
   DataProviderTransactionService,
 } from "ntk-cms-api";
 import { CmsFileManagerModule } from "ntk-cms-filemanager";
@@ -93,6 +96,20 @@ import { DataProviderSourceHeaderComponent } from "./source/header/header.compon
 import { DataProviderSourceListComponent } from "./source/list/list.component";
 import { DataProviderSourceSelectorComponent } from "./source/selector/selector.component";
 import { DataProviderSourceTreeComponent } from "./source/tree/tree.component";
+import { DataProviderSourceCompanyAddComponent } from "./source-company/add/add.component";
+import { DataProviderSourceCompanyEditComponent } from "./source-company/edit/edit.component";
+import { DataProviderSourceCompanyListComponent } from "./source-company/list/list.component";
+import { DataProviderSourceCompanySelectorComponent } from "./source-company/selector/selector.component";
+import { DataProviderSourceCompanyTreeComponent } from "./source-company/tree/tree.component";
+import { DataProviderSourcePublicConfigAddComponent } from "./source-public-config/add/add.component";
+import { DataProviderSourcePublicConfigEditComponent } from "./source-public-config/edit/edit.component";
+import { DataProviderSourcePublicConfigListComponent } from "./source-public-config/list/list.component";
+import { DataProviderSourcePathAddComponent } from "./source-path/add/add.component";
+import { DataProviderSourcePathEditComponent } from "./source-path/edit/edit.component";
+import { DataProviderSourcePathListComponent } from "./source-path/list/list.component";
+import { DataProviderClientPermissionAddComponent } from "./client-permission/add/add.component";
+import { DataProviderClientPermissionEditComponent } from "./client-permission/edit/edit.component";
+import { DataProviderClientPermissionListComponent } from "./client-permission/list/list.component";
 import { DataProviderTransactionListComponent } from "./transaction/list/list.component";
 import { DataProviderTransactionViewComponent } from "./transaction/view/view.component";
 @NgModule({
@@ -152,6 +169,24 @@ import { DataProviderTransactionViewComponent } from "./transaction/view/view.co
     DataProviderSourceSelectorComponent,
     DataProviderSourceTreeComponent,
     /* */
+    DataProviderSourceCompanyAddComponent,
+    DataProviderSourceCompanyEditComponent,
+    DataProviderSourceCompanyListComponent,
+    DataProviderSourceCompanySelectorComponent,
+    DataProviderSourceCompanyTreeComponent,
+    /* */
+    DataProviderSourcePublicConfigAddComponent,
+    DataProviderSourcePublicConfigEditComponent,
+    DataProviderSourcePublicConfigListComponent,
+    /* */
+    DataProviderSourcePathAddComponent,
+    DataProviderSourcePathEditComponent,
+    DataProviderSourcePathListComponent,
+    /* */
+    DataProviderClientPermissionAddComponent,
+    DataProviderClientPermissionEditComponent,
+    DataProviderClientPermissionListComponent,
+    /* */
     DataProviderPlanClientAddComponent,
     DataProviderPlanClientDeleteComponent,
     DataProviderPlanClientEditComponent,
@@ -207,8 +242,12 @@ import { DataProviderTransactionViewComponent } from "./transaction/view/view.co
     DataProviderPlanClientService,
     DataProviderPlanPriceService,
     DataProviderPlanSourceService,
-    /** */
-    CmsConfirmationDialogService,
+  DataProviderSourceCompanyService,
+  DataProviderSourcePublicConfigService,
+  DataProviderSourcePathService,
+  DataProviderClientPermissionService,
+  /** */
+  CmsConfirmationDialogService,
     CoreModuleTagService,
   ],
 })
