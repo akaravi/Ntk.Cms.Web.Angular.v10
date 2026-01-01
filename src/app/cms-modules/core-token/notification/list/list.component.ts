@@ -5,15 +5,15 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreSiteModel,
-  CoreTokenConnectionModel,
-  CoreTokenConnectionService,
-  ErrorExceptionResult,
-  FilterDataModel,
-  FilterModel,
-  InfoEnumModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    CoreSiteModel,
+    CoreTokenConnectionModel,
+    CoreTokenConnectionService,
+    ErrorExceptionResult,
+    FilterDataModel,
+    FilterModel,
+    InfoEnumModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -295,7 +295,7 @@ export class CoreTokenConnectionListComponent
   onActionButtonViewRow(
     model: CoreTokenConnectionModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -328,7 +328,7 @@ export class CoreTokenConnectionListComponent
   onActionButtonEditRow(
     model: CoreTokenConnectionModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -360,7 +360,7 @@ export class CoreTokenConnectionListComponent
   onActionButtonDeleteRow(
     model: CoreTokenConnectionModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -540,7 +540,7 @@ export class CoreTokenConnectionListComponent
   onActionButtonViewUserRow(
     model: CoreTokenConnectionModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -562,7 +562,7 @@ export class CoreTokenConnectionListComponent
   onActionButtonViewSiteRow(
     model: CoreTokenConnectionModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

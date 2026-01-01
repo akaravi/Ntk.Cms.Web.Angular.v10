@@ -122,8 +122,8 @@ export class DataProviderSourceTreeComponent implements OnInit, OnDestroy {
   onActionSelectForce(id: number | DataProviderSourceModel): void {}
 
   onActionAdd(): void {
-    let parentId = 0;
-    if (this.dataModelSelect && this.dataModelSelect.id > 0) {
+    var parentId = "";
+    if (this.dataModelSelect && this.dataModelSelect.id?.length > 0) {
       parentId = this.dataModelSelect.id;
     }
 
@@ -145,11 +145,11 @@ export class DataProviderSourceTreeComponent implements OnInit, OnDestroy {
   }
 
   onActionEdit(): void {
-    let id = 0;
-    if (this.dataModelSelect && this.dataModelSelect.id > 0) {
+    let id = "";
+    if (this.dataModelSelect && this.dataModelSelect.id?.length > 0) {
       id = this.dataModelSelect.id;
     }
-    if (id === 0) {
+    if (id.length === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
         .subscribe((str: string) => {
@@ -180,11 +180,11 @@ export class DataProviderSourceTreeComponent implements OnInit, OnDestroy {
     //   if (res.isSuccess) {
     //   }
     // });
-    let id = 0;
-    if (this.dataModelSelect && this.dataModelSelect.id > 0) {
+    let id = "";
+    if (this.dataModelSelect && this.dataModelSelect.id?.length > 0) {
       id = this.dataModelSelect.id;
     }
-    if (id === 0) {
+    if (id.length === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
         .subscribe((str: string) => {

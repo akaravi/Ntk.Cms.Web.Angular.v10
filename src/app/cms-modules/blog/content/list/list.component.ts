@@ -5,14 +5,14 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  BlogCategoryModel,
-  BlogContentModel,
-  BlogContentService,
-  ClauseTypeEnum,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    BlogCategoryModel,
+    BlogContentModel,
+    BlogContentService,
+    ClauseTypeEnum,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -299,7 +299,7 @@ export class BlogContentListComponent
   }
 
   onActionButtonEditRow(model: BlogContentModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -317,7 +317,7 @@ export class BlogContentListComponent
   onActionButtonDeleteRow(
     model: BlogContentModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -465,7 +465,7 @@ export class BlogContentListComponent
   }
 
   onActionButtonLinkTo(model: BlogContentModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

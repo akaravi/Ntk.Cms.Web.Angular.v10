@@ -5,13 +5,13 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  ApiTelegramMemberInfoModel,
-  ApiTelegramMemberInfoService,
-  ErrorExceptionResult,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    ApiTelegramMemberInfoModel,
+    ApiTelegramMemberInfoService,
+    ErrorExceptionResult,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -218,7 +218,7 @@ export class ApiTelegramMemberInfoListComponent
   onActionButtonDeleteRow(
     model: ApiTelegramMemberInfoModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -297,7 +297,7 @@ export class ApiTelegramMemberInfoListComponent
   onActionButtonGoToModuleList(
     model: ApiTelegramMemberInfoModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {
@@ -374,7 +374,7 @@ export class ApiTelegramMemberInfoListComponent
   onActionButtonSiteList(
     model: ApiTelegramMemberInfoModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -388,7 +388,7 @@ export class ApiTelegramMemberInfoListComponent
   onActionButtonSiteCategoryList(
     model: ApiTelegramMemberInfoModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

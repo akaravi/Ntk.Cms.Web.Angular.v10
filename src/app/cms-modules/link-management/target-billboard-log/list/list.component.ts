@@ -5,12 +5,12 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  FilterDataModel,
-  FilterModel,
-  LinkManagementTargetBillboardLogModel,
-  LinkManagementTargetBillboardLogService,
-  RecordStatusEnum,
-  SortTypeEnum,
+    FilterDataModel,
+    FilterModel,
+    LinkManagementTargetBillboardLogModel,
+    LinkManagementTargetBillboardLogService,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -287,7 +287,7 @@ export class LinkManagementTargetBillboardLogListComponent
   onActionButtonEditRow(
     model: LinkManagementTargetBillboardLogModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -323,7 +323,7 @@ export class LinkManagementTargetBillboardLogListComponent
   onActionButtonDeleteRow(
     model: LinkManagementTargetBillboardLogModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -365,7 +365,7 @@ export class LinkManagementTargetBillboardLogListComponent
     model: LinkManagementTargetBillboardLogModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -391,7 +391,7 @@ export class LinkManagementTargetBillboardLogListComponent
     model: LinkManagementTargetBillboardLogModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

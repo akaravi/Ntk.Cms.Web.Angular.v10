@@ -5,15 +5,14 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  EstatePropertySupplierCategoryModel,
-  EstatePropertySupplierFilterModel,
-  EstatePropertySupplierModel,
-  EstatePropertySupplierService,
-  FilterDataModel,
-  FilterModel,
-  ManageUserAccessDataTypesEnum,
-  RecordStatusEnum,
-  SortTypeEnum,
+    EstatePropertySupplierCategoryModel,
+    EstatePropertySupplierFilterModel,
+    EstatePropertySupplierModel,
+    EstatePropertySupplierService,
+    FilterDataModel,
+    ManageUserAccessDataTypesEnum,
+    RecordStatusEnum,
+    SortTypeEnum
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -249,7 +248,7 @@ export class EstatePropertySupplierListComponent
     model: EstatePropertySupplierModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -278,7 +277,7 @@ export class EstatePropertySupplierListComponent
     model: EstatePropertySupplierModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -306,7 +305,7 @@ export class EstatePropertySupplierListComponent
   onActionButtonDeleteRow(
     model: EstatePropertySupplierModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -440,7 +439,7 @@ export class EstatePropertySupplierListComponent
   onActionButtonLinkTo(
     model: EstatePropertySupplierModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

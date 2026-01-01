@@ -4,13 +4,13 @@ import { PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreModuleTagCategoryModel,
-  CoreModuleTagModel,
-  CoreModuleTagService,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    CoreModuleTagCategoryModel,
+    CoreModuleTagModel,
+    CoreModuleTagService,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -290,7 +290,7 @@ export class CoreModuleTagListComponent
   onActionButtonEditRow(
     model: CoreModuleTagModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -321,7 +321,7 @@ export class CoreModuleTagListComponent
   onActionButtonDeleteRow(
     model: CoreModuleTagModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {

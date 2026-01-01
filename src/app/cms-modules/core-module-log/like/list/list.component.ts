@@ -5,14 +5,14 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService,
-  CoreModuleLogLikeModel,
-  CoreModuleLogLikeService,
-  CoreSiteModel,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    CoreEnumService,
+    CoreModuleLogLikeModel,
+    CoreModuleLogLikeService,
+    CoreSiteModel,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -286,7 +286,7 @@ export class CoreModuleLogLikeListComponent
   onActionButtonViewRow(
     model: CoreModuleLogLikeModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -318,7 +318,7 @@ export class CoreModuleLogLikeListComponent
   onActionButtonEditRow(
     model: CoreModuleLogLikeModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -350,7 +350,7 @@ export class CoreModuleLogLikeListComponent
   onActionButtonDeleteRow(
     model: CoreModuleLogLikeModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -530,7 +530,7 @@ export class CoreModuleLogLikeListComponent
   onActionButtonViewUserRow(
     model: CoreModuleLogLikeModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -552,7 +552,7 @@ export class CoreModuleLogLikeListComponent
   onActionButtonViewMemberRow(
     model: CoreModuleLogLikeModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -577,7 +577,7 @@ export class CoreModuleLogLikeListComponent
   onActionButtonViewSiteRow(
     model: CoreModuleLogLikeModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

@@ -1,9 +1,9 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
+    ChangeDetectorRef,
+    Component,
+    Input,
+    OnDestroy,
+    OnInit,
 } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
@@ -11,25 +11,25 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  ClauseTypeEnum,
-  CoreCurrencyModel,
-  EstateConfigurationService,
-  EstateContractTypeModel,
-  EstateModuleConfigSiteValuesModel,
-  EstatePropertyDetailGroupModel,
-  EstatePropertyDetailGroupService,
-  EstatePropertyDetailValueModel,
-  EstatePropertyFilterModel,
-  EstatePropertyModel,
-  EstatePropertyService,
-  EstatePropertyTypeLanduseModel,
-  EstatePropertyTypeUsageModel,
-  FilterDataModel,
-  FilterModel,
-  InputDataTypeEnum,
-  ManageUserAccessDataTypesEnum,
-  RecordStatusEnum,
-  SortTypeEnum,
+    ClauseTypeEnum,
+    CoreCurrencyModel,
+    EstateConfigurationService,
+    EstateContractTypeModel,
+    EstateModuleConfigSiteValuesModel,
+    EstatePropertyDetailGroupModel,
+    EstatePropertyDetailGroupService,
+    EstatePropertyDetailValueModel,
+    EstatePropertyFilterModel,
+    EstatePropertyModel,
+    EstatePropertyService,
+    EstatePropertyTypeLanduseModel,
+    EstatePropertyTypeUsageModel,
+    FilterDataModel,
+    FilterModel,
+    InputDataTypeEnum,
+    ManageUserAccessDataTypesEnum,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription, forkJoin } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -816,7 +816,7 @@ export class EstatePropertyListComponent
   onActionButtonQuickViewRow(
     model: EstatePropertyModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -900,7 +900,7 @@ export class EstatePropertyListComponent
   onActionButtonQuickHistoryAddRow(
     model: EstatePropertyModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -1152,7 +1152,7 @@ export class EstatePropertyListComponent
   onActionButtonActionSendSmsToCustomerOrder(
     model: EstatePropertyModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -1191,7 +1191,7 @@ export class EstatePropertyListComponent
   onActionButtonViewOtherUserAdvertise(
     model: EstatePropertyModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -1268,7 +1268,7 @@ export class EstatePropertyListComponent
   onActionButtonLinkTo(
     model: EstatePropertyModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -1393,7 +1393,7 @@ export class EstatePropertyListComponent
   onActionButtonResponsibleUserlistView(
     model: EstatePropertyModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

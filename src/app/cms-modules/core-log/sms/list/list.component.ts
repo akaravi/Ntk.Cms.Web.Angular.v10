@@ -5,16 +5,16 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService,
-  CoreLogSmsModel,
-  CoreLogSmsService,
-  CoreSiteModel,
-  ErrorExceptionResult,
-  FilterDataModel,
-  FilterModel,
-  InfoEnumModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    CoreEnumService,
+    CoreLogSmsModel,
+    CoreLogSmsService,
+    CoreSiteModel,
+    ErrorExceptionResult,
+    FilterDataModel,
+    FilterModel,
+    InfoEnumModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -294,7 +294,7 @@ export class CoreLogSmsListComponent
   }
 
   onActionButtonViewRow(model: CoreLogSmsModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -323,7 +323,7 @@ export class CoreLogSmsListComponent
     });
   }
   onActionButtonEditRow(model: CoreLogSmsModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -355,7 +355,7 @@ export class CoreLogSmsListComponent
   onActionButtonDeleteRow(
     model: CoreLogSmsModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -495,7 +495,7 @@ export class CoreLogSmsListComponent
   onActionButtonViewUserRow(
     model: CoreLogSmsModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -517,7 +517,7 @@ export class CoreLogSmsListComponent
   onActionButtonViewMemberRow(
     model: CoreLogSmsModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

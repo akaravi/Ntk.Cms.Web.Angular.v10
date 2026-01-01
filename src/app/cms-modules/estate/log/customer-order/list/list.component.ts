@@ -1,9 +1,9 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
+    ChangeDetectorRef,
+    Component,
+    Input,
+    OnDestroy,
+    OnInit,
 } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
@@ -11,22 +11,22 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreCurrencyModel,
-  EstateContractTypeModel,
-  EstateCustomerOrderFilterModel,
-  EstateCustomerOrderModel,
-  EstateCustomerOrderService,
-  EstatePropertyDetailGroupModel,
-  EstatePropertyDetailGroupService,
-  EstatePropertyDetailValueModel,
-  EstatePropertyTypeLanduseModel,
-  EstatePropertyTypeUsageModel,
-  FilterDataModel,
-  FilterModel,
-  InputDataTypeEnum,
-  ManageUserAccessDataTypesEnum,
-  RecordStatusEnum,
-  SortTypeEnum,
+    CoreCurrencyModel,
+    EstateContractTypeModel,
+    EstateCustomerOrderFilterModel,
+    EstateCustomerOrderModel,
+    EstateCustomerOrderService,
+    EstatePropertyDetailGroupModel,
+    EstatePropertyDetailGroupService,
+    EstatePropertyDetailValueModel,
+    EstatePropertyTypeLanduseModel,
+    EstatePropertyTypeUsageModel,
+    FilterDataModel,
+    FilterModel,
+    InputDataTypeEnum,
+    ManageUserAccessDataTypesEnum,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 
 import { Subscription, forkJoin } from "rxjs";
@@ -496,7 +496,7 @@ export class EstateCustomerOrderListComponent
     model: EstateCustomerOrderModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -528,7 +528,7 @@ export class EstateCustomerOrderListComponent
     model: EstateCustomerOrderModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -555,7 +555,7 @@ export class EstateCustomerOrderListComponent
   onActionButtonDeleteRow(
     model: EstateCustomerOrderModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -656,7 +656,7 @@ export class EstateCustomerOrderListComponent
   onActionButtonOpenCustomerOrder(
     model: EstateCustomerOrderModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {
@@ -671,7 +671,7 @@ export class EstateCustomerOrderListComponent
     model: EstateCustomerOrderModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {
@@ -842,7 +842,7 @@ export class EstateCustomerOrderListComponent
   onActionButtonLinkTo(
     model: EstateCustomerOrderModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -1015,7 +1015,7 @@ export class EstateCustomerOrderListComponent
   onActionButtonQuickHistoryAddRow(
     model: EstateCustomerOrderModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -1044,7 +1044,7 @@ export class EstateCustomerOrderListComponent
   onActionButtonQuickViewRow(
     model: EstateCustomerOrderModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -1096,7 +1096,7 @@ export class EstateCustomerOrderListComponent
   onActionButtonResponsibleUserlistView(
     model: EstateCustomerOrderModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

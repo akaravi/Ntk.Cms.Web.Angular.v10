@@ -5,15 +5,15 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreSiteModel,
-  CoreTokenAuthUserModel,
-  CoreTokenAuthUserService,
-  ErrorExceptionResult,
-  FilterDataModel,
-  FilterModel,
-  InfoEnumModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    CoreSiteModel,
+    CoreTokenAuthUserModel,
+    CoreTokenAuthUserService,
+    ErrorExceptionResult,
+    FilterDataModel,
+    FilterModel,
+    InfoEnumModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -306,7 +306,7 @@ export class CoreTokenAuthUserListComponent
   onActionButtonViewRow(
     model: CoreTokenAuthUserModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -339,7 +339,7 @@ export class CoreTokenAuthUserListComponent
   onActionButtonDeleteRow(
     model: CoreTokenAuthUserModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -519,7 +519,7 @@ export class CoreTokenAuthUserListComponent
   onActionButtonViewUserRow(
     model: CoreTokenAuthUserModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -541,7 +541,7 @@ export class CoreTokenAuthUserListComponent
   onActionButtonViewMemberRow(
     model: CoreTokenAuthUserModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -566,7 +566,7 @@ export class CoreTokenAuthUserListComponent
   onActionButtonViewSiteRow(
     model: CoreTokenAuthUserModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -587,7 +587,7 @@ export class CoreTokenAuthUserListComponent
   onActionButtonViewDeviceRow(
     model: CoreTokenAuthUserModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

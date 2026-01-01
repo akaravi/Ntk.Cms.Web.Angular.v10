@@ -31,7 +31,7 @@ export class DataProviderTransactionListComponent
   extends ListBaseComponent<
     DataProviderTransactionService,
     DataProviderTransactionModel,
-    number
+    string
   >
   implements OnInit, OnDestroy
 {
@@ -253,7 +253,7 @@ export class DataProviderTransactionListComponent
   onActionButtonViewRow(
     model: DataProviderTransactionModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id > 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelected();
       return;
     }

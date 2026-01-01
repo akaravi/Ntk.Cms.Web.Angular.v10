@@ -5,16 +5,16 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService,
-  CoreLogNotificationModel,
-  CoreLogNotificationService,
-  CoreSiteModel,
-  ErrorExceptionResult,
-  FilterDataModel,
-  FilterModel,
-  InfoEnumModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    CoreEnumService,
+    CoreLogNotificationModel,
+    CoreLogNotificationService,
+    CoreSiteModel,
+    ErrorExceptionResult,
+    FilterDataModel,
+    FilterModel,
+    InfoEnumModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -302,7 +302,7 @@ export class CoreLogNotificationListComponent
   onActionButtonViewRow(
     model: CoreLogNotificationModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -333,7 +333,7 @@ export class CoreLogNotificationListComponent
   onActionButtonEditRow(
     model: CoreLogNotificationModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -365,7 +365,7 @@ export class CoreLogNotificationListComponent
   onActionButtonDeleteRow(
     model: CoreLogNotificationModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -505,7 +505,7 @@ export class CoreLogNotificationListComponent
   onActionButtonViewMemberRow(
     model: CoreLogNotificationModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

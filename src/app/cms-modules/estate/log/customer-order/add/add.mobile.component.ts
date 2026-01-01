@@ -4,38 +4,38 @@ import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  ClauseTypeEnum,
-  CoreCurrencyModel,
-  CoreEnumService,
-  CoreUserModel,
-  DataFieldInfoModel,
-  ErrorExceptionResult,
-  EstateAccountAgencyModel,
-  EstateAccountExpertModel,
-  EstateContractTypeModel,
-  EstateContractTypeService,
-  EstateCustomerCategoryModel,
-  EstateCustomerOrderActionSendSmsDtoModel,
-  EstateCustomerOrderModel,
-  EstateCustomerOrderService,
-  EstatePropertyDetailGroupService,
-  EstatePropertyDetailValueModel,
-  EstatePropertyFilterModel,
-  EstatePropertyModel,
-  EstatePropertyService,
-  EstatePropertyTypeLanduseModel,
-  EstatePropertyTypeLanduseService,
-  EstatePropertyTypeUsageModel,
-  EstatePropertyTypeUsageService,
-  FilterDataModel,
-  FilterDataModelSearchTypesEnum,
-  FilterModel,
-  InputDataTypeEnum,
-  ManageUserAccessDataTypesEnum,
-  ManageUserAccessUserTypesEnum,
-  RecordStatusEnum,
-  SortTypeEnum,
-  TokenInfoModelV3,
+    ClauseTypeEnum,
+    CoreCurrencyModel,
+    CoreEnumService,
+    CoreUserModel,
+    DataFieldInfoModel,
+    ErrorExceptionResult,
+    EstateAccountAgencyModel,
+    EstateAccountExpertModel,
+    EstateContractTypeModel,
+    EstateContractTypeService,
+    EstateCustomerCategoryModel,
+    EstateCustomerOrderActionSendSmsDtoModel,
+    EstateCustomerOrderModel,
+    EstateCustomerOrderService,
+    EstatePropertyDetailGroupService,
+    EstatePropertyDetailValueModel,
+    EstatePropertyFilterModel,
+    EstatePropertyModel,
+    EstatePropertyService,
+    EstatePropertyTypeLanduseModel,
+    EstatePropertyTypeLanduseService,
+    EstatePropertyTypeUsageModel,
+    EstatePropertyTypeUsageService,
+    FilterDataModel,
+    FilterDataModelSearchTypesEnum,
+    FilterModel,
+    InputDataTypeEnum,
+    ManageUserAccessDataTypesEnum,
+    ManageUserAccessUserTypesEnum,
+    RecordStatusEnum,
+    SortTypeEnum,
+    TokenInfoModelV3,
 } from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -797,7 +797,7 @@ export class EstateCustomerOrderAddMobileComponent implements OnInit {
     this.stepContent = step;
   }
   onActionButtonQuickViewRow(model: EstatePropertyModel): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

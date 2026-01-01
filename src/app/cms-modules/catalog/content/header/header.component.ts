@@ -77,7 +77,7 @@ export class CatalogContentHeaderComponent implements OnInit {
   onActionButtonLinkTo(
     model: CatalogContentModel = this.dataModelResult.item,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

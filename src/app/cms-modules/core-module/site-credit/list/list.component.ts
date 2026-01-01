@@ -5,15 +5,15 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreModuleModel,
-  CoreModuleService,
-  CoreModuleSiteCreditModel,
-  CoreModuleSiteCreditService,
-  ErrorExceptionResult,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    CoreModuleModel,
+    CoreModuleService,
+    CoreModuleSiteCreditModel,
+    CoreModuleSiteCreditService,
+    ErrorExceptionResult,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -271,7 +271,7 @@ export class CoreModuleSiteCreditListComponent
   onActionButtonEditRow(
     model: CoreModuleSiteCreditModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -303,7 +303,7 @@ export class CoreModuleSiteCreditListComponent
   onActionButtonDeleteRow(
     model: CoreModuleSiteCreditModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {

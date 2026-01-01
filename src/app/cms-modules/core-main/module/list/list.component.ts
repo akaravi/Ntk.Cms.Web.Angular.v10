@@ -6,14 +6,14 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  ActionGoStepEnum,
-  CoreModuleModel,
-  CoreModuleService,
-  EditStepDtoModel,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    ActionGoStepEnum,
+    CoreModuleModel,
+    CoreModuleService,
+    EditStepDtoModel,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -266,7 +266,7 @@ export class CoreModuleListComponent
     });
   }
   onActionButtonEditRow(model: CoreModuleModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -298,7 +298,7 @@ export class CoreModuleListComponent
   onActionButtonDeleteRow(
     model: CoreModuleModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -375,7 +375,7 @@ export class CoreModuleListComponent
   onActionButtonGoToModuleList(
     model: CoreModuleModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {
@@ -480,7 +480,7 @@ export class CoreModuleListComponent
   onActionButtonConfigMainAdminRow(
     model: CoreModuleModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -492,7 +492,7 @@ export class CoreModuleListComponent
     this.router.navigate([model.className + "/config/mainadmin/"]);
   }
   onActionButtonSiteList(model: CoreModuleModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -506,7 +506,7 @@ export class CoreModuleListComponent
   onActionButtonSiteCategoryList(
     model: CoreModuleModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -523,7 +523,7 @@ export class CoreModuleListComponent
   onActionButtonModuleEntityList(
     model: CoreModuleModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

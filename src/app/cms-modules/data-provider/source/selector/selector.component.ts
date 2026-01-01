@@ -60,7 +60,7 @@ export class DataProviderSourceSelectorComponent implements OnInit {
   @Input() optionLabel = "";
   @Output() optionChange = new EventEmitter<DataProviderSourceModel>();
   @Input() optionReload = () => this.onActionButtonReload();
-  @Input() set optionSelectForce(x: number | DataProviderSourceModel) {
+  @Input() set optionSelectForce(x: string | DataProviderSourceModel) {
     this.onActionSelectForce(x);
   }
 
@@ -135,7 +135,7 @@ export class DataProviderSourceSelectorComponent implements OnInit {
         this.optionSelectFirstItem &&
         (!this.dataModelSelect ||
           !this.dataModelSelect.id ||
-          this.dataModelSelect.id <= 0) &&
+          this.dataModelSelect.id.length == 0) &&
         this.dataModelResult.listItems.length > 0
       ) {
         this.optionSelectFirstItem = false;
@@ -172,8 +172,8 @@ export class DataProviderSourceSelectorComponent implements OnInit {
       }),
     );
   }
-  onActionSelectForce(id: number | DataProviderSourceModel): void {
-    if (typeof id === "number" && id > 0) {
+  onActionSelectForce(id: string | DataProviderSourceModel): void {
+    if (typeof id === "string" && id.length > 0) {
       if (this.dataModelSelect && this.dataModelSelect.id === id) {
         return;
       }

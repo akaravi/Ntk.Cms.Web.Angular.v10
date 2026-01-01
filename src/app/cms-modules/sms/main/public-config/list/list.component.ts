@@ -5,15 +5,15 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreCurrencyModel,
-  CoreCurrencyService,
-  ErrorExceptionResult,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SmsMainApiPathPublicConfigModel,
-  SmsMainApiPathPublicConfigService,
-  SortTypeEnum,
+    CoreCurrencyModel,
+    CoreCurrencyService,
+    ErrorExceptionResult,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SmsMainApiPathPublicConfigModel,
+    SmsMainApiPathPublicConfigService,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -250,7 +250,7 @@ export class SmsMainApiPathPublicConfigListComponent
   onActionButtonEditRow(
     model: SmsMainApiPathPublicConfigModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -286,7 +286,7 @@ export class SmsMainApiPathPublicConfigListComponent
   onActionButtonDeleteRow(
     model: SmsMainApiPathPublicConfigModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -452,7 +452,7 @@ export class SmsMainApiPathPublicConfigListComponent
   onActionButtonPrivateList(
     model: SmsMainApiPathPublicConfigModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

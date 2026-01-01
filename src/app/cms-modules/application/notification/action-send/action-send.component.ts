@@ -1,25 +1,27 @@
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
-import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild,
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {ApplicationAppModel,
-  ApplicationEnumService,
-  ApplicationLogNotificationModel,
-  ApplicationLogNotificationService,
-  ApplicationMemberInfoModel,
-  ErrorExceptionResult,InfoEnumModel,
-  SendNotificationModel} from "ntk-cms-api";
+import {
+    ApplicationAppModel,
+    ApplicationEnumService,
+    ApplicationLogNotificationModel,
+    ApplicationLogNotificationService,
+    ApplicationMemberInfoModel,
+    ErrorExceptionResult, InfoEnumModel,
+    SendNotificationModel
+} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStatusEnum";
 @Component({
   selector: "app-application-notification-action-send",
   templateUrl: "./action-send.component.html",
@@ -181,7 +183,7 @@ export class ApplicationLogNotificationActionSendComponent implements OnInit {
     this.dataModel.appId = model.id;
   }
   onActionSelectMemberInfo(model: ApplicationMemberInfoModel | null): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get([
           "MESSAGE.Specify_the_member_of_application",

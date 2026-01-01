@@ -5,12 +5,12 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreSiteCategoryModel,
-  CoreSiteCategoryService,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    CoreSiteCategoryModel,
+    CoreSiteCategoryService,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -233,7 +233,7 @@ export class CoreSiteCategoryListComponent
   onActionButtonEditRow(
     model: CoreSiteCategoryModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -265,7 +265,7 @@ export class CoreSiteCategoryListComponent
   onActionButtonDeleteRow(
     model: CoreSiteCategoryModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -342,7 +342,7 @@ export class CoreSiteCategoryListComponent
   onActionButtonGoToSiteCategoryList(
     model: CoreSiteCategoryModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {
@@ -418,7 +418,7 @@ export class CoreSiteCategoryListComponent
   onActionButtonModuleList(
     model: CoreSiteCategoryModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -436,7 +436,7 @@ export class CoreSiteCategoryListComponent
   onActionButtonSiteList(
     model: CoreSiteCategoryModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

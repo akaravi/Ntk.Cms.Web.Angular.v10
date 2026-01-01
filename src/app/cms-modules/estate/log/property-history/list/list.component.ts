@@ -1,10 +1,10 @@
 import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
+    AfterViewInit,
+    ChangeDetectorRef,
+    Component,
+    Input,
+    OnDestroy,
+    OnInit,
 } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
@@ -13,20 +13,20 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  ActivityStatusEnumEstate,
-  ErrorExceptionResult,
-  EstateActivityTypeModel,
-  EstateActivityTypeService,
-  EstateEnumService,
-  EstatePropertyHistoryFilterModel,
-  EstatePropertyHistoryModel,
-  EstatePropertyHistoryService,
-  FilterDataModel,
-  FilterDataModelSearchTypesEnum,
-  FilterModel,
-  InfoEnumModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    ActivityStatusEnumEstate,
+    ErrorExceptionResult,
+    EstateActivityTypeModel,
+    EstateActivityTypeService,
+    EstateEnumService,
+    EstatePropertyHistoryFilterModel,
+    EstatePropertyHistoryModel,
+    EstatePropertyHistoryService,
+    FilterDataModel,
+    FilterDataModelSearchTypesEnum,
+    FilterModel,
+    InfoEnumModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -38,8 +38,8 @@ import { PageInfoService } from "src/app/core/services/page-info.service";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { environment } from "src/environments/environment";
 import { EstatePropertyQuickViewComponent } from "../../../data/property/quick-view/quick-view.component";
-import { EstatePropertyHistoryAddComponent } from "../add/add.component";
 import { EstateCustomerOrderQuickViewComponent } from "../../customer-order/quick-view/quick-view.component";
+import { EstatePropertyHistoryAddComponent } from "../add/add.component";
 import { EstatePropertyHistoryEditComponent } from "../edit/edit.component";
 import { EstatePropertyHistoryQuickViewComponent } from "../quick-view/quick-view.component";
 import { EstatePropertyHistoryResponsibleUserListComponent } from "../responsible-user-list/responsible-user-list.component";
@@ -542,7 +542,7 @@ export class EstatePropertyHistoryListComponent
   onActionButtonEditRow(
     model: EstatePropertyHistoryModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -596,7 +596,7 @@ export class EstatePropertyHistoryListComponent
   onActionButtonDeleteRow(
     model: EstatePropertyHistoryModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -759,7 +759,7 @@ export class EstatePropertyHistoryListComponent
   onActionButtonQuickViewRow(
     model: EstatePropertyHistoryModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -914,7 +914,7 @@ export class EstatePropertyHistoryListComponent
   onActionButtonResponsibleUserlistView(
     model: EstatePropertyHistoryModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

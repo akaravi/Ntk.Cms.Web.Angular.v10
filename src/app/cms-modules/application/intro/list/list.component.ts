@@ -5,13 +5,13 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  ApplicationAppModel,
-  ApplicationIntroModel,
-  ApplicationIntroService,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    ApplicationAppModel,
+    ApplicationIntroModel,
+    ApplicationIntroService,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -254,7 +254,7 @@ export class ApplicationIntroListComponent
   onActionButtonEditRow(
     model: ApplicationIntroModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -279,7 +279,7 @@ export class ApplicationIntroListComponent
   onActionButtonDeleteRow(
     model: ApplicationIntroModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("MESSAGE.No_row_selected_for_editing")
         .subscribe((str: string) => {

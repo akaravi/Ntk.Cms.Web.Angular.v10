@@ -1,23 +1,25 @@
-import { FormInfoModel } from "../../core/models/formInfoModel";
 import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
+    AfterViewInit,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+    ViewChild,
 } from "@angular/core";
 import { MatTableDataSource } from "@angular/material/table";
 import { TranslateService } from "@ngx-translate/core";
 import "ngx-ntk-pannellum/src/js/libpannellum";
 import "ngx-ntk-pannellum/src/js/pannellum";
-import {File360TourHotSpotModel,
-  File360ViewModel} from "ntk-cms-api";
+import {
+    File360TourHotSpotModel,
+    File360ViewModel
+} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { FormInfoModel } from "../../core/models/formInfoModel";
 // eslint-disable-next-line no-var
 declare var pannellum: any;
 export class PostionViewModel {
@@ -178,7 +180,7 @@ export class Cms360ImageListComponent implements OnInit, AfterViewInit {
     }
   }
   onActionFileSelect(model: NodeInterface): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

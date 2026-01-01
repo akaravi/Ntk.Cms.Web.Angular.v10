@@ -5,14 +5,14 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  AuthRefreshTokenModel,
-  CoreAuthV3Service,
-  CoreSiteModel,
-  CoreSiteService,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    AuthRefreshTokenModel,
+    CoreAuthV3Service,
+    CoreSiteModel,
+    CoreSiteService,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -278,7 +278,7 @@ export class CoreSiteListComponent
   }
 
   onActionButtonEditRow(model: CoreSiteModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -294,7 +294,7 @@ export class CoreSiteListComponent
     this.router.navigate(["/core/site/edit", model.id]);
   }
   onActionButtonDeleteRow(model: CoreSiteModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -331,7 +331,7 @@ export class CoreSiteListComponent
   onActionButtonModuleListRow(
     model: CoreSiteModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -346,7 +346,7 @@ export class CoreSiteListComponent
     ]);
   }
   onActionButtonLoginToRow(model: CoreSiteModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -376,7 +376,7 @@ export class CoreSiteListComponent
   onActionButtonDomainAliasListRow(
     model: CoreSiteModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -390,7 +390,7 @@ export class CoreSiteListComponent
   onActionButtonUserListRow(
     model: CoreSiteModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -407,7 +407,7 @@ export class CoreSiteListComponent
   onActionButtonDeviceListRow(
     model: CoreSiteModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -420,7 +420,7 @@ export class CoreSiteListComponent
     this.router.navigate(["/core/device", this.tableRowSelected.id]);
   }
   onActionButtonResller(model: CoreSiteModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -438,7 +438,7 @@ export class CoreSiteListComponent
   onActionButtonModuleSiteInfo(
     model: CoreSiteModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -478,7 +478,7 @@ export class CoreSiteListComponent
   onActionButtonModuleSiteOptimaze(
     model: CoreSiteModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

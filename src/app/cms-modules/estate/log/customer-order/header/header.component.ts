@@ -2,11 +2,11 @@ import { ChangeDetectorRef, Component, Input, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  DataFieldInfoModel,
-  ErrorExceptionResult,
-  EstateCustomerOrderModel,
-  EstateCustomerOrderService,
-  RecordStatusEnum,
+    DataFieldInfoModel,
+    ErrorExceptionResult,
+    EstateCustomerOrderModel,
+    EstateCustomerOrderService,
+    RecordStatusEnum,
 } from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
@@ -80,7 +80,7 @@ export class EstateCustomerOrderHeaderComponent implements OnInit {
   onActionButtonLinkTo(
     model: EstateCustomerOrderModel = this.dataModelResult.item,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

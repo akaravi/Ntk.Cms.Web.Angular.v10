@@ -5,16 +5,16 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreCurrencyModel,
-  ErrorExceptionResult,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SmsLogOutBoxModel,
-  SmsLogOutBoxService,
-  SmsMainApiPathModel,
-  SmsMainApiPathService,
-  SortTypeEnum,
+    CoreCurrencyModel,
+    ErrorExceptionResult,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SmsLogOutBoxModel,
+    SmsLogOutBoxService,
+    SmsMainApiPathModel,
+    SmsMainApiPathService,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -267,7 +267,7 @@ export class SmsLogOutBoxListMobileComponent
   onActionButtonEditRow(
     model: SmsLogOutBoxModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -300,7 +300,7 @@ export class SmsLogOutBoxListMobileComponent
   onActionButtonViewRow(
     model: SmsLogOutBoxModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -332,7 +332,7 @@ export class SmsLogOutBoxListMobileComponent
   onActionButtonDetailRow(
     model: SmsLogOutBoxModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -350,7 +350,7 @@ export class SmsLogOutBoxListMobileComponent
   onActionButtonDeleteRow(
     model: SmsLogOutBoxModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -523,7 +523,7 @@ export class SmsLogOutBoxListMobileComponent
   onActionButtonPriceServicesList(
     model: SmsLogOutBoxModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

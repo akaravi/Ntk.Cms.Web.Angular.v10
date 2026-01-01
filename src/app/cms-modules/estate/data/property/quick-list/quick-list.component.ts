@@ -1,34 +1,34 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  Input,
-  OnDestroy,
-  OnInit,
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    Input,
+    OnDestroy,
+    OnInit,
 } from "@angular/core";
 import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogRef,
+    MAT_DIALOG_DATA,
+    MatDialog,
+    MatDialogRef,
 } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  ClauseTypeEnum,
-  DataFieldInfoModel,
-  EstatePropertyFilterModel,
-  EstatePropertyModel,
-  EstatePropertyService,
-  EstatePropertyTypeLanduseModel,
-  FilterDataModel,
-  FilterDataModelSearchTypesEnum,
-  FilterModel,
-  ManageUserAccessDataTypesEnum,
-  RecordStatusEnum,
-  SortTypeEnum,
-  TokenInfoModelV3,
+    ClauseTypeEnum,
+    DataFieldInfoModel,
+    EstatePropertyFilterModel,
+    EstatePropertyModel,
+    EstatePropertyService,
+    EstatePropertyTypeLanduseModel,
+    FilterDataModel,
+    FilterDataModelSearchTypesEnum,
+    FilterModel,
+    ManageUserAccessDataTypesEnum,
+    RecordStatusEnum,
+    SortTypeEnum,
+    TokenInfoModelV3,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ComponentOptionSearchModel } from "src/app/core/cmsComponent/base/componentOptionSearchModel";
@@ -565,7 +565,7 @@ export class EstatePropertyQuickListComponent
   onActionButtonQuickViewRow(
     model: EstatePropertyModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -770,7 +770,7 @@ export class EstatePropertyQuickListComponent
   onActionButtonActionSendSmsToCustomerOrder(
     model: EstatePropertyModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -806,7 +806,7 @@ export class EstatePropertyQuickListComponent
   onActionButtonViewOtherUserAdvertise(
     model: EstatePropertyModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -847,7 +847,7 @@ export class EstatePropertyQuickListComponent
   onActionButtonLinkTo(
     model: EstatePropertyModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

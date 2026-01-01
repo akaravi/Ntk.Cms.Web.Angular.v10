@@ -5,14 +5,14 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  FilterDataModel,
-  LinkManagementBillboardPatternModel,
-  LinkManagementCategoryModel,
-  LinkManagementTargetFilterModel,
-  LinkManagementTargetModel,
-  LinkManagementTargetService,
-  RecordStatusEnum,
-  SortTypeEnum,
+    FilterDataModel,
+    LinkManagementBillboardPatternModel,
+    LinkManagementCategoryModel,
+    LinkManagementTargetFilterModel,
+    LinkManagementTargetModel,
+    LinkManagementTargetService,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -288,7 +288,7 @@ export class LinkManagementTargetListComponent
   onActionButtonEditRow(
     model: LinkManagementTargetModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -310,7 +310,7 @@ export class LinkManagementTargetListComponent
   onActionButtonDeleteRow(
     model: LinkManagementTargetModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -440,7 +440,7 @@ export class LinkManagementTargetListComponent
   onActionButtonLinkTo(
     model: LinkManagementTargetModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -520,7 +520,7 @@ export class LinkManagementTargetListComponent
   onActionButtonLog(
     model: LinkManagementTargetModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

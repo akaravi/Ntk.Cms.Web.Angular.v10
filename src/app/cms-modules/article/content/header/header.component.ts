@@ -1,18 +1,18 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
+    ChangeDetectorRef,
+    Component,
+    Input,
+    OnDestroy,
+    OnInit,
 } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  ArticleContentModel,
-  ArticleContentService,
-  DataFieldInfoModel,
-  ErrorExceptionResult,
-  RecordStatusEnum,
+    ArticleContentModel,
+    ArticleContentService,
+    DataFieldInfoModel,
+    ErrorExceptionResult,
+    RecordStatusEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -102,7 +102,7 @@ export class ArticletHeaderComponent implements OnInit, OnDestroy {
   onActionButtonLinkTo(
     model: ArticleContentModel = this.dataModelResult.item,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

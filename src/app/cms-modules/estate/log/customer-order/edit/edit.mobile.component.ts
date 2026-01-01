@@ -4,37 +4,37 @@ import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  ClauseTypeEnum,
-  CoreCurrencyModel,
-  CoreEnumService,
-  CoreUserModel,
-  DataFieldInfoModel,
-  ErrorExceptionResult,
-  EstateAccountAgencyModel,
-  EstateAccountExpertModel,
-  EstateContractTypeModel,
-  EstateContractTypeService,
-  EstateCustomerCategoryModel,
-  EstateCustomerOrderActionSendSmsDtoModel,
-  EstateCustomerOrderModel,
-  EstateCustomerOrderService,
-  EstatePropertyDetailGroupService,
-  EstatePropertyDetailValueModel,
-  EstatePropertyFilterModel,
-  EstatePropertyModel,
-  EstatePropertyService,
-  EstatePropertyTypeLanduseModel,
-  EstatePropertyTypeLanduseService,
-  EstatePropertyTypeUsageModel,
-  EstatePropertyTypeUsageService,
-  FilterDataModel,
-  FilterDataModelSearchTypesEnum,
-  FilterModel,
-  InputDataTypeEnum,
-  ManageUserAccessDataTypesEnum,
-  ManageUserAccessUserTypesEnum,
-  RecordStatusEnum,
-  SortTypeEnum,
+    ClauseTypeEnum,
+    CoreCurrencyModel,
+    CoreEnumService,
+    CoreUserModel,
+    DataFieldInfoModel,
+    ErrorExceptionResult,
+    EstateAccountAgencyModel,
+    EstateAccountExpertModel,
+    EstateContractTypeModel,
+    EstateContractTypeService,
+    EstateCustomerCategoryModel,
+    EstateCustomerOrderActionSendSmsDtoModel,
+    EstateCustomerOrderModel,
+    EstateCustomerOrderService,
+    EstatePropertyDetailGroupService,
+    EstatePropertyDetailValueModel,
+    EstatePropertyFilterModel,
+    EstatePropertyModel,
+    EstatePropertyService,
+    EstatePropertyTypeLanduseModel,
+    EstatePropertyTypeLanduseService,
+    EstatePropertyTypeUsageModel,
+    EstatePropertyTypeUsageService,
+    FilterDataModel,
+    FilterDataModelSearchTypesEnum,
+    FilterModel,
+    InputDataTypeEnum,
+    ManageUserAccessDataTypesEnum,
+    ManageUserAccessUserTypesEnum,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
@@ -741,7 +741,7 @@ export class EstateCustomerOrderEditMobileComponent
     this.stepContent = step;
   }
   onActionButtonQuickViewRow(model: EstatePropertyModel): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

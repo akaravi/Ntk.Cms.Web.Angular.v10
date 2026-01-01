@@ -5,16 +5,16 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreCurrencyModel,
-  ErrorExceptionResult,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SmsLogOutBoxTaskSchedulerModel,
-  SmsLogOutBoxTaskSchedulerService,
-  SmsMainApiPathModel,
-  SmsMainApiPathService,
-  SortTypeEnum,
+    CoreCurrencyModel,
+    ErrorExceptionResult,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SmsLogOutBoxTaskSchedulerModel,
+    SmsLogOutBoxTaskSchedulerService,
+    SmsMainApiPathModel,
+    SmsMainApiPathService,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -276,7 +276,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
   onActionButtonEditRow(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -309,7 +309,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
   onActionButtonDeleteRow(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -386,7 +386,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
   onActionButtonViewRow(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -491,7 +491,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
   onActionButtonSupersedesList(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -517,7 +517,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
   onActionButtonMustSupersedesList(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -543,7 +543,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
   onActionButtonNumbersList(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -569,7 +569,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
   onActionButtonPermitionList(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -595,7 +595,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
   onActionButtonPriceServicesList(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -638,7 +638,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
   onActionButtonScheduleRunInfos(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

@@ -5,15 +5,15 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreLogTokenMicroServiceModel,
-  CoreLogTokenMicroServiceService,
-  CoreSiteModel,
-  ErrorExceptionResult,
-  FilterDataModel,
-  FilterModel,
-  InfoEnumModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    CoreLogTokenMicroServiceModel,
+    CoreLogTokenMicroServiceService,
+    CoreSiteModel,
+    ErrorExceptionResult,
+    FilterDataModel,
+    FilterModel,
+    InfoEnumModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -295,7 +295,7 @@ export class CoreLogTokenMicroServiceListComponent
   onActionButtonViewRow(
     model: CoreLogTokenMicroServiceModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -328,7 +328,7 @@ export class CoreLogTokenMicroServiceListComponent
   onActionButtonEditRow(
     model: CoreLogTokenMicroServiceModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -360,7 +360,7 @@ export class CoreLogTokenMicroServiceListComponent
   onActionButtonDeleteRow(
     model: CoreLogTokenMicroServiceModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -540,7 +540,7 @@ export class CoreLogTokenMicroServiceListComponent
   onActionButtonViewUserRow(
     model: CoreLogTokenMicroServiceModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -562,7 +562,7 @@ export class CoreLogTokenMicroServiceListComponent
   onActionButtonViewSiteRow(
     model: CoreLogTokenMicroServiceModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

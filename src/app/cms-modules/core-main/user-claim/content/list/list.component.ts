@@ -5,15 +5,15 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreUserClaimContentModel,
-  CoreUserClaimContentService,
-  CoreUserClaimTypeModel,
-  CoreUserClaimTypeService,
-  ErrorExceptionResult,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    CoreUserClaimContentModel,
+    CoreUserClaimContentService,
+    CoreUserClaimTypeModel,
+    CoreUserClaimTypeService,
+    ErrorExceptionResult,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -305,7 +305,7 @@ export class CoreUserClaimContentListComponent
   onActionButtonEditRow(
     model: CoreUserClaimContentModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -351,7 +351,7 @@ export class CoreUserClaimContentListComponent
   onActionButtonDeleteRow(
     model: CoreUserClaimContentModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -428,7 +428,7 @@ export class CoreUserClaimContentListComponent
   onActionButtonGoToUserClaimList(
     model: CoreUserClaimContentModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {
@@ -517,7 +517,7 @@ export class CoreUserClaimContentListComponent
   onActionButtonModuleList(
     model: CoreUserClaimContentModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -539,7 +539,7 @@ export class CoreUserClaimContentListComponent
   onActionButtonSiteList(
     model: CoreUserClaimContentModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

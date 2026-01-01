@@ -5,13 +5,13 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  DonateSponsorModel,
-  DonateSponsorService,
-  DonateTargetCategoryModel,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    DonateSponsorModel,
+    DonateSponsorService,
+    DonateTargetCategoryModel,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -259,7 +259,7 @@ export class DonateSponserListComponent
   onActionButtonEditRow(
     model: DonateSponsorModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -290,7 +290,7 @@ export class DonateSponserListComponent
   onActionButtonDeleteRow(
     model: DonateSponsorModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -402,7 +402,7 @@ export class DonateSponserListComponent
   onActionButtonTargetPeriodSponserRow(
     model: DonateSponsorModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -419,7 +419,7 @@ export class DonateSponserListComponent
   onActionButtonTransactionsRow(
     model: DonateSponsorModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
