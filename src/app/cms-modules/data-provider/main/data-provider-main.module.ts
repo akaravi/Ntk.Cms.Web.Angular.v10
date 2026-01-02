@@ -7,8 +7,12 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AngularEditorModule } from "@kolkov/angular-editor";
 import { SharedModule } from "src/app/shared/shared.module";
+<<<<<<< HEAD
 import { CoreSharedModule } from "src/app/cms-modules/core-main/core.shared.module";
 import { DataProviderSharedModule } from "../shared/data-provider-shared.module";
+=======
+import { CoreSharedModule } from "../../core-main/core.shared.module";
+>>>>>>> 5e197e4131b6e5ecf5db6a85970287cf27edc571
 
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -22,6 +26,7 @@ import {
   CoreEnumService,
   CoreModuleService,
   CoreModuleTagService,
+  DataProviderClientPermissionService,
   DataProviderClientService,
   DataProviderEnumService,
   DataProviderPlanCategoryService,
@@ -29,11 +34,10 @@ import {
   DataProviderPlanPriceService,
   DataProviderPlanService,
   DataProviderPlanSourceService,
-  DataProviderSourceService,
   DataProviderSourceCompanyService,
   DataProviderSourcePathService,
   DataProviderSourcePublicConfigService,
-  DataProviderClientPermissionService,
+  DataProviderSourceService,
 } from "ntk-cms-api";
 import { CmsFileManagerModule } from "ntk-cms-filemanager";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
@@ -130,7 +134,7 @@ import { DataProviderClientPermissionListMobileComponent } from "./client-permis
     DataProviderPlanCategoryAddComponent,
     DataProviderPlanCategoryDeleteComponent,
     DataProviderPlanCategoryEditComponent,
-    DataProviderPlanCategorySelectorComponent,
+    // Note: DataProviderPlanCategorySelectorComponent is in DataProviderSharedModule
     DataProviderPlanCategoryTreeComponent,
     /* Plan */
     DataProviderPlanAddComponent,
@@ -139,9 +143,7 @@ import { DataProviderClientPermissionListMobileComponent } from "./client-permis
     DataProviderPlanListComponent,
     DataProviderPlanListMobileComponent,
     DataProviderPlanSelectorComponent,
-    DataProviderPlanSelectionlistComponent,
-    DataProviderPlanTreeComponent,
-    DataProviderPlanHeaderComponent,
+    // Note: DataProviderPlanSelectionlistComponent, DataProviderPlanTreeComponent, DataProviderPlanHeaderComponent are in DataProviderSharedModule
     /* Plan Source */
     DataProviderPlanSourceAddComponent,
     DataProviderPlanSourceDeleteComponent,
@@ -220,7 +222,7 @@ import { DataProviderClientPermissionListMobileComponent } from "./client-permis
     DataProviderPlanCategoryAddComponent,
     DataProviderPlanCategoryDeleteComponent,
     DataProviderPlanCategoryEditComponent,
-    DataProviderPlanCategorySelectorComponent,
+    // Note: DataProviderPlanCategorySelectorComponent is exported from DataProviderSharedModule
     DataProviderPlanCategoryTreeComponent,
     /* Plan */
     DataProviderPlanAddComponent,
@@ -229,9 +231,7 @@ import { DataProviderClientPermissionListMobileComponent } from "./client-permis
     DataProviderPlanListComponent,
     DataProviderPlanListMobileComponent,
     DataProviderPlanSelectorComponent,
-    DataProviderPlanSelectionlistComponent,
-    DataProviderPlanTreeComponent,
-    DataProviderPlanHeaderComponent,
+    // Note: DataProviderPlanSelectionlistComponent, DataProviderPlanTreeComponent, DataProviderPlanHeaderComponent are exported from DataProviderSharedModule
     /* Plan Source */
     DataProviderPlanSourceAddComponent,
     DataProviderPlanSourceDeleteComponent,

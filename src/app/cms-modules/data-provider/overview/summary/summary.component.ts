@@ -37,3 +37,4 @@ export class DataProviderOverviewSummaryComponent implements OnInit, OnDestroy {
   }
 }
 
+

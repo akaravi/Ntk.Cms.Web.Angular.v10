@@ -1674,6 +1674,67 @@ Plan جامع برای بازنویسی کامل ماژول Data Provider با �
 
 ---
 
+## Result 21
+
+**تاریخ:** 2026-01-02 12:13:42
+**وضعیت:** رفع خطاهای Type در plan/delete/delete.component.ts ✅
+
+**خلاصه تغییرات:**
+
+- خطاهای Type در فایل `plan/delete/delete.component.ts` رفع شدند
+- `requestId` از `number` به `string` تغییر یافت (سازگار با ServiceGetOneById و ServiceDelete)
+- `FormSubmitedStatusEnum` import اضافه شد
+- تمام چک‌های مربوط به `requestId` از عدد به string تغییر یافت
+
+**مشکلات رفع شده:**
+
+**Type Errors:**
+
+- خطا در خط 86: `Argument of type 'number' is not assignable to parameter of type 'string'` - رفع شد
+- خطا در خط 138: `Argument of type 'number' is not assignable to parameter of type 'string'` - رفع شد
+
+**تغییرات اعمال شده:**
+
+1. **requestId Type:**
+   - از `requestId = 0;` به `requestId = "";` تغییر یافت
+   - از `this.requestId = +data.id || 0;` به `this.requestId = data.id || "";` تغییر یافت
+
+2. **FormSubmitedStatusEnum Import:**
+   - اضافه شدن `import { FormSubmitedStatusEnum } from "../../../../../core/models/formSubmitedStatusEnum";`
+
+3. **چک‌های requestId:**
+   - از `if (this.requestId <= 0)` به `if (this.requestId.length == 0)` تغییر یافت
+   - از `if (this.requestId === 0)` به `if (this.requestId.length == 0)` تغییر یافت (2 مورد)
+
+**فایل‌های اصلاح شده:**
+
+- `src/app/cms-modules/data-provider/main/plan/delete/delete.component.ts`
+
+**تغییرات:**
+
+- Line 21-22: اضافه شدن import برای FormSubmitedStatusEnum
+- Line 30: تغییر requestId از number به string
+- Line 43: تغییر مقداردهی اولیه از number به string
+- Line 56: تغییر چک از <= 0 به .length == 0
+- Line 65: تغییر چک از === 0 به .length == 0
+- Line 120: تغییر چک از === 0 به .length == 0
+
+**وضعیت:**
+
+- ✅ تمام خطاهای Type رفع شدند
+- ✅ هیچ خطای linter وجود ندارد
+- ✅ سازگاری با ServiceGetOneById و ServiceDelete تایید شد
+- ✅ الگوی کد با سایر delete components یکسان شد (مشابه plan-source, source, etc.)
+
+**تحلیل:**
+
+- در main module، برخی entities از `number` برای id استفاده می‌کنند (مانند Plan)
+- اما ServiceGetOneById و ServiceDelete از `string` استفاده می‌کنند
+- بنابراین باید `requestId` به `string` تبدیل شود حتی اگر id اصلی number باشد
+- این الگو با سایر delete components در main module (plan-source, source, etc.) سازگار است
+
+---
+
 ---
 
 ## Part 5: Testing & Quality Assurance
@@ -1869,5 +1930,66 @@ Plan جامع برای بازنویسی کامل ماژول Data Provider با �
 3. یا استفاده از `@Inject` decorator (در صورت نیاز)
 
 **نکته:** این خطاها مانع استفاده از ماژول Data Provider نیستند.
+
+---
+
+## Result 21
+
+**تاریخ:** 2026-01-02 12:13:42
+**وضعیت:** رفع خطاهای Type در plan/delete/delete.component.ts ✅
+
+**خلاصه تغییرات:**
+
+- خطاهای Type در فایل `plan/delete/delete.component.ts` رفع شدند
+- `requestId` از `number` به `string` تغییر یافت (سازگار با ServiceGetOneById و ServiceDelete)
+- `FormSubmitedStatusEnum` import اضافه شد
+- تمام چک‌های مربوط به `requestId` از عدد به string تغییر یافت
+
+**مشکلات رفع شده:**
+
+**Type Errors:**
+
+- خطا در خط 86: `Argument of type 'number' is not assignable to parameter of type 'string'` - رفع شد
+- خطا در خط 138: `Argument of type 'number' is not assignable to parameter of type 'string'` - رفع شد
+
+**تغییرات اعمال شده:**
+
+1. **requestId Type:**
+   - از `requestId = 0;` به `requestId = "";` تغییر یافت
+   - از `this.requestId = +data.id || 0;` به `this.requestId = data.id || "";` تغییر یافت
+
+2. **FormSubmitedStatusEnum Import:**
+   - اضافه شدن `import { FormSubmitedStatusEnum } from "../../../../../core/models/formSubmitedStatusEnum";`
+
+3. **چک‌های requestId:**
+   - از `if (this.requestId <= 0)` به `if (this.requestId.length == 0)` تغییر یافت
+   - از `if (this.requestId === 0)` به `if (this.requestId.length == 0)` تغییر یافت (2 مورد)
+
+**فایل‌های اصلاح شده:**
+
+- `src/app/cms-modules/data-provider/main/plan/delete/delete.component.ts`
+
+**تغییرات:**
+
+- Line 21-22: اضافه شدن import برای FormSubmitedStatusEnum
+- Line 30: تغییر requestId از number به string
+- Line 43: تغییر مقداردهی اولیه از number به string
+- Line 56: تغییر چک از <= 0 به .length == 0
+- Line 65: تغییر چک از === 0 به .length == 0
+- Line 120: تغییر چک از === 0 به .length == 0
+
+**وضعیت:**
+
+- ✅ تمام خطاهای Type رفع شدند
+- ✅ هیچ خطای linter وجود ندارد
+- ✅ سازگاری با ServiceGetOneById و ServiceDelete تایید شد
+- ✅ الگوی کد با سایر delete components یکسان شد (مشابه plan-source, source, etc.)
+
+**تحلیل:**
+
+- در main module، برخی entities از `number` برای id استفاده می‌کنند (مانند Plan)
+- اما ServiceGetOneById و ServiceDelete از `string` استفاده می‌کنند
+- بنابراین باید `requestId` به `string` تبدیل شود حتی اگر id اصلی number باشد
+- این الگو با سایر delete components در main module (plan-source, source, etc.) سازگار است
 
 ---

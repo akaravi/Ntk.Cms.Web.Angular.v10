@@ -8,14 +8,18 @@ import {
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {DataFieldInfoModel,
+import {
+  DataFieldInfoModel,
   DataProviderPlanModel,
   DataProviderPlanService,
-  ErrorExceptionResult,ManageUserAccessDataTypesEnum} from "ntk-cms-api";
+  ErrorExceptionResult,
+  ManageUserAccessDataTypesEnum,
+} from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "src/app/core/models/formInfoModel";
+import { FormInfoModel } from "../../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-data-provider-plan-delete",
@@ -23,7 +27,7 @@ import { FormInfoModel } from "src/app/core/models/formInfoModel";
   standalone: false,
 })
 export class DataProviderPlanDeleteComponent implements OnInit {
-  requestId = 0;
+  requestId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -36,7 +40,7 @@ export class DataProviderPlanDeleteComponent implements OnInit {
   ) {
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {
-      this.requestId = +data.id || 0;
+      this.requestId = data.id || "";
     }
   }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
@@ -49,7 +53,7 @@ export class DataProviderPlanDeleteComponent implements OnInit {
     new ErrorExceptionResult<DataProviderPlanModel>();
   formInfo: FormInfoModel = new FormInfoModel();
   ngOnInit(): void {
-    if (this.requestId <= 0) {
+    if (this.requestId.length == 0) {
       this.cmsToastrService.typeErrorDeleteRowIsNull();
       this.dialogRef.close({ dialogChangedDate: false });
       return;
@@ -58,7 +62,7 @@ export class DataProviderPlanDeleteComponent implements OnInit {
   }
 
   DataGetOne(): void {
-    if (this.requestId === 0) {
+    if (this.requestId.length == 0) {
       this.cmsToastrService.typeErrorDeleteRowIsNull();
       return;
     }
@@ -114,7 +118,7 @@ export class DataProviderPlanDeleteComponent implements OnInit {
   }
 
   onFormDelete(): void {
-    if (this.requestId === 0) {
+    if (this.requestId.length == 0) {
       this.cmsToastrService.typeErrorDeleteRowIsNull();
       return;
     }

@@ -20,6 +20,10 @@ import { DataProviderPlanCategorySelectorComponent } from "../main/plan-category
 import { DataProviderPlanHeaderComponent } from "../main/plan/header/header.component";
 import { DataProviderPlanSelectionlistComponent } from "../main/plan/selectionlist/selectionlist.component";
 import { DataProviderPlanTreeComponent } from "../main/plan/tree/tree.component";
+// Plan Price
+import { DataProviderPlanPriceHeaderComponent } from "../main/plan-price/header/header.component";
+// Client
+import { DataProviderClientHeaderComponent } from "../main/client/header/header.component";
 
 @NgModule({
   declarations: [
@@ -29,6 +33,10 @@ import { DataProviderPlanTreeComponent } from "../main/plan/tree/tree.component"
     DataProviderPlanHeaderComponent,
     DataProviderPlanSelectionlistComponent,
     DataProviderPlanTreeComponent,
+    /* Plan Price */
+    DataProviderPlanPriceHeaderComponent,
+    /* Client */
+    DataProviderClientHeaderComponent,
   ],
   exports: [
     /* Plan Category */
@@ -37,6 +45,10 @@ import { DataProviderPlanTreeComponent } from "../main/plan/tree/tree.component"
     DataProviderPlanHeaderComponent,
     DataProviderPlanSelectionlistComponent,
     DataProviderPlanTreeComponent,
+    /* Plan Price */
+    DataProviderPlanPriceHeaderComponent,
+    /* Client */
+    DataProviderClientHeaderComponent,
   ],
   imports: [
     CommonModule,
@@ -57,4 +69,3 @@ import { DataProviderPlanTreeComponent } from "../main/plan/tree/tree.component"
     DataProviderPlanCategoryService,
   ],
 })
-export class DataProviderSharedModule {}
