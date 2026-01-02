@@ -24,6 +24,7 @@ import {
 } from "ntk-cms-api";
 import { CmsFileManagerModule } from "ntk-cms-filemanager";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { DataProviderSharedModule } from "../shared/data-provider-shared.module";
 // Transaction
 import { DataProviderTransactionListComponent } from "./list/list.component";
 import { DataProviderTransactionListMobileComponent } from "./list/list.mobile.component";
@@ -58,6 +59,7 @@ import { DataProviderTransactionViewComponent } from "./view/view.component";
     IconPickerModule,
     DragDropModule,
     CmsFileManagerModule,
+    DataProviderSharedModule,
   ],
   providers: [
     CoreModuleService,

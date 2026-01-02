@@ -15,7 +15,7 @@ import {DataFieldInfoModel,
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
+import { FormInfoModel } from "src/app/core/models/formInfoModel";
 
 @Component({
   selector: "app-data-provider-plan-source-delete",

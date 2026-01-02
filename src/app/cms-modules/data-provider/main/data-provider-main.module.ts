@@ -7,12 +7,14 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AngularEditorModule } from "@kolkov/angular-editor";
 import { SharedModule } from "src/app/shared/shared.module";
-import { CoreSharedModule } from "../../../core-main/core.shared.module";
+import { CoreSharedModule } from "src/app/cms-modules/core-main/core.shared.module";
+import { DataProviderSharedModule } from "../shared/data-provider-shared.module";
 
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatStepperModule } from "@angular/material/stepper";
+import { MatTreeModule } from "@angular/material/tree";
 
 import { IconPickerModule } from "ngx-ntk-icon-picker";
 import {
@@ -50,18 +52,16 @@ import { DataProviderClientTreeComponent } from "./client/tree/tree.component";
 import { DataProviderPlanCategoryAddComponent } from "./plan-category/add/add.component";
 import { DataProviderPlanCategoryDeleteComponent } from "./plan-category/delete/delete.component";
 import { DataProviderPlanCategoryEditComponent } from "./plan-category/edit/edit.component";
-import { DataProviderPlanCategorySelectorComponent } from "./plan-category/selector/selector.component";
+// Note: DataProviderPlanCategorySelectorComponent is in DataProviderSharedModule
 import { DataProviderPlanCategoryTreeComponent } from "./plan-category/tree/tree.component";
 // Plan
 import { DataProviderPlanAddComponent } from "./plan/add/add.component";
 import { DataProviderPlanDeleteComponent } from "./plan/delete/delete.component";
 import { DataProviderPlanEditComponent } from "./plan/edit/edit.component";
-import { DataProviderPlanHeaderComponent } from "./plan/header/header.component";
+// Note: DataProviderPlanHeaderComponent, DataProviderPlanSelectionlistComponent, DataProviderPlanTreeComponent are in DataProviderSharedModule
 import { DataProviderPlanListComponent } from "./plan/list/list.component";
 import { DataProviderPlanListMobileComponent } from "./plan/list/list.mobile.component";
-import { DataProviderPlanSelectionlistComponent } from "./plan/selectionlist/selectionlist.component";
 import { DataProviderPlanSelectorComponent } from "./plan/selector/selector.component";
-import { DataProviderPlanTreeComponent } from "./plan/tree/tree.component";
 // Plan Client
 import { DataProviderPlanClientAddComponent } from "./plan-client/add/add.component";
 import { DataProviderPlanClientDeleteComponent } from "./plan-client/delete/delete.component";
@@ -312,10 +312,12 @@ import { DataProviderClientPermissionListMobileComponent } from "./client-permis
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     SharedModule,
     CoreSharedModule,
+    DataProviderSharedModule,
     AngularEditorModule,
     MatIconModule,
     MatFormFieldModule,
     MatStepperModule,
+    MatTreeModule,
     IconPickerModule,
     DragDropModule,
     CmsFileManagerModule,
