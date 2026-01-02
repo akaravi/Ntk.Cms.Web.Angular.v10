@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AngularEditorModule } from "@kolkov/angular-editor";
 import { SharedModule } from "src/app/shared/shared.module";
-import { CoreSharedModule } from "../../../core-main/core.shared.module";
+import { CoreSharedModule } from "../../core-main/core.shared.module";
 
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -20,6 +20,7 @@ import {
   CoreEnumService,
   CoreModuleService,
   CoreModuleTagService,
+  DataProviderClientPermissionService,
   DataProviderClientService,
   DataProviderEnumService,
   DataProviderPlanCategoryService,
@@ -27,11 +28,10 @@ import {
   DataProviderPlanPriceService,
   DataProviderPlanService,
   DataProviderPlanSourceService,
-  DataProviderSourceService,
   DataProviderSourceCompanyService,
   DataProviderSourcePathService,
   DataProviderSourcePublicConfigService,
-  DataProviderClientPermissionService,
+  DataProviderSourceService,
 } from "ntk-cms-api";
 import { CmsFileManagerModule } from "ntk-cms-filemanager";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";

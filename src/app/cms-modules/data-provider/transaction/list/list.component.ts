@@ -36,9 +36,9 @@ export class DataProviderTransactionListComponent
   implements OnInit, OnDestroy
 {
   requestLinkCmsUserId = 0;
-  requestLinkPlanId = 0;
-  requestLinkPlanPriceId = 0;
-  requestLinkClientId = 0;
+  requestLinkPlanId = "";
+  requestLinkPlanPriceId = "";
+  requestLinkClientId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -118,33 +118,9 @@ export class DataProviderTransactionListComponent
       filter.value = this.requestLinkCmsUserId;
       this.filteModelContent.filters.push(filter);
     }
-    this.requestLinkPlanId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkPlanId"),
-    );
-    if (this.requestLinkPlanId && this.requestLinkPlanId > 0) {
-      const filter = new FilterDataModel();
-      filter.propertyName = "LinkPlanId";
-      filter.value = this.requestLinkPlanId;
-      this.filteModelContent.filters.push(filter);
-    }
-    this.requestLinkClientId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkClientId"),
-    );
-    if (this.requestLinkClientId && this.requestLinkClientId > 0) {
-      const filter = new FilterDataModel();
-      filter.propertyName = "LinkClientId";
-      filter.value = this.requestLinkClientId;
-      this.filteModelContent.filters.push(filter);
-    }
-    this.requestLinkPlanPriceId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkPlanPriceId"),
-    );
-    if (this.requestLinkPlanPriceId && this.requestLinkPlanPriceId > 0) {
-      const filter = new FilterDataModel();
-      filter.propertyName = "LinkPlanPriceId";
-      filter.value = this.requestLinkPlanPriceId;
-      this.filteModelContent.filters.push(filter);
-    }
+    this.requestLinkPlanId = this.activatedRoute.snapshot.paramMap.get("LinkPlanId") || "";
+    this.requestLinkClientId = this.activatedRoute.snapshot.paramMap.get("LinkClientId") || "";
+    this.requestLinkPlanPriceId = this.activatedRoute.snapshot.paramMap.get("LinkPlanPriceId") || "";
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
@@ -358,11 +334,11 @@ export class DataProviderTransactionListComponent
   onActionBackToParent(): void {
     if (this.requestLinkCmsUserId > 0) {
       this.router.navigate(["/data-provider/plan/"]);
-    } else if (this.requestLinkPlanId > 0) {
+    } else if (this.requestLinkPlanId.length > 0) {
       this.router.navigate(["/data-provider/plan/"]);
-    } else if (this.requestLinkPlanPriceId > 0) {
+    } else if (this.requestLinkPlanPriceId.length > 0) {
       this.router.navigate(["/data-provider/plan-price/"]);
-    } else if (this.requestLinkClientId > 0) {
+    } else if (this.requestLinkClientId.length > 0) {
       this.router.navigate(["/data-provider/client/"]);
     }
   }

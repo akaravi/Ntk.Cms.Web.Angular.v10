@@ -1,5 +1,43 @@
 # تاریخچه تغییرات پروژه
 
+## 2026-01-02 12:13:42 (رفع خطاهای Type در plan/delete/delete.component.ts - ماژول Data Provider)
+
+### خلاصه:
+خطاهای Type در فایل `plan/delete/delete.component.ts` رفع شدند. مشکل از نوع `requestId` بود که باید `string` باشد نه `number`.
+
+### تغییرات:
+
+#### Type Errors رفع شده:
+- خطا در خط 86: `Argument of type 'number' is not assignable to parameter of type 'string'` - رفع شد
+- خطا در خط 138: `Argument of type 'number' is not assignable to parameter of type 'string'` - رفع شد
+
+#### تغییرات اعمال شده:
+1. **requestId Type:**
+   - از `requestId = 0;` به `requestId = "";` تغییر یافت
+   - از `this.requestId = +data.id || 0;` به `this.requestId = data.id || "";` تغییر یافت
+
+2. **FormSubmitedStatusEnum Import:**
+   - اضافه شدن `import { FormSubmitedStatusEnum } from "../../../../../core/models/formSubmitedStatusEnum";`
+
+3. **چک‌های requestId:**
+   - از `if (this.requestId <= 0)` به `if (this.requestId.length == 0)` تغییر یافت
+   - از `if (this.requestId === 0)` به `if (this.requestId.length == 0)` تغییر یافت (2 مورد)
+
+### فایل‌های اصلاح شده:
+- `src/app/cms-modules/data-provider/main/plan/delete/delete.component.ts`
+
+### نتیجه‌گیری:
+✅ تمام خطاهای Type رفع شدند
+✅ هیچ خطای linter وجود ندارد
+✅ سازگاری با ServiceGetOneById و ServiceDelete تایید شد
+✅ الگوی کد با سایر delete components یکسان شد
+
+### فایل‌های به‌روزرسانی شده:
+- `src/app/cms-modules/data-provider/main/plan/delete/delete.component.ts`
+- `src/app/cms-modules/data-provider/Cursor.1.plan.md` - اضافه شدن Result 21
+
+---
+
 ## 2026-01-02 09:50:31 (بررسی Build و خطاها - ماژول Data Provider)
 
 ### خلاصه:

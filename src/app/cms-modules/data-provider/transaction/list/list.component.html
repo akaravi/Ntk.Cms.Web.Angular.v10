@@ -1,14 +1,14 @@
-@if (requestLinkPlanId > 0) {
+@if (requestLinkPlanId.length > 0) {
   <app-data-provider-plan-header
     [optionId]="requestLinkPlanId"
   ></app-data-provider-plan-header>
 }
-@if (requestLinkPlanPriceId > 0) {
+@if (requestLinkPlanPriceId.length > 0) {
   <app-data-provider-plan-price-header
     [optionId]="requestLinkPlanPriceId"
   ></app-data-provider-plan-price-header>
 }
-@if (requestLinkClientId > 0) {
+@if (requestLinkClientId.length > 0) {
   <app-data-provider-client-header
     [optionId]="requestLinkClientId"
   ></app-data-provider-client-header>
