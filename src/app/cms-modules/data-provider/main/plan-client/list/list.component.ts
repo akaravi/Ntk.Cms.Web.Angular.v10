@@ -19,8 +19,8 @@ import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { environment } from "src/environments/environment";
-import { PublicHelper } from "../../../../core/helpers/publicHelper";
-import { CmsToastrService } from "../../../../core/services/cmsToastr.service";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { DataProviderPlanClientAddComponent } from "../add/add.component";
 import { DataProviderPlanClientDeleteComponent } from "../delete/delete.component";
 import { DataProviderPlanClientEditComponent } from "../edit/edit.component";
@@ -241,7 +241,7 @@ export class DataProviderPlanClientListComponent
   onActionButtonNewRow(): void {
     if (
       this.categoryModelSelected == null ||
-      this.categoryModelSelected.id === ""
+      this.categoryModelSelected.id === 0
     ) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
@@ -280,7 +280,7 @@ export class DataProviderPlanClientListComponent
   onActionButtonEditRow(
     model: DataProviderPlanClientModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === "") {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -313,7 +313,7 @@ export class DataProviderPlanClientListComponent
   onActionButtonDeleteRow(
     model: DataProviderPlanClientModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === "") {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {

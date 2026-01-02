@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { PageEvent } from "@angular/material/paginator";
+import { MatPaginator, PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
@@ -37,6 +37,9 @@ export class DataProviderSourcePublicConfigListComponent
   >
   implements OnInit, OnDestroy
 {
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  tableData: DataProviderSourcePublicConfigModel[] = [];
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: DataProviderSourcePublicConfigService,
@@ -87,26 +90,41 @@ export class DataProviderSourcePublicConfigListComponent
     "AbilityCreditCheck",
     "Action",
   ];
+  tabledisplayedColumnsMobileSource: string[] = [
+    "Id",
+    "RecordStatus",
+    "Title",
+    "ClassName",
+    "AbilityDelivery",
+    "AbilityReceive",
+    "AbilityCreditCheck",
+    "Action",
+  ];
 
-  cmsApiStoreSubscribe: Subscription;
+  private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
-    this.tokenHelper.getCurrentToken().then((value) => {
-      this.tokenInfo = value;
+    this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
+    if (this.tokenInfo) {
       this.DataGetAll();
-    });
+    }
 
-    this.cmsApiStoreSubscribe = this.tokenHelper.getCurrentTokenOnChange().subscribe((next) => {
-      this.tokenInfo = next;
-      this.DataGetAll();
-    });
+    this.unsubscribe.push(
+      this.cmsStoreService
+        .getState((state) => state.tokenInfoStore)
+        .subscribe(async (value) => {
+          this.tokenInfo = value;
+          this.DataGetAll();
+        }),
+    );
   }
   ngOnDestroy(): void {
-    this.cmsApiStoreSubscribe.unsubscribe();
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
   DataGetAll(): void {
-    this.tabledisplayedColumns = this.publicHelper.TabledisplayedColumnsCheck(
+    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
       this.tabledisplayedColumnsSource,
+      this.tabledisplayedColumnsMobileSource,
       [],
       this.tokenInfo,
     );
@@ -166,7 +184,7 @@ export class DataProviderSourcePublicConfigListComponent
     this.DataGetAll();
   }
   onTablePageingData(event?: PageEvent): void {
-    this.filteModelContent.pageCurrent = event.pageIndex + 1;
+    this.filteModelContent.currentPageNumber = event.pageIndex + 1;
     this.filteModelContent.rowPerPage = event.pageSize;
     this.DataGetAll();
   }
@@ -190,7 +208,7 @@ export class DataProviderSourcePublicConfigListComponent
     });
   }
   onActionbuttonEditRow(model: DataProviderSourcePublicConfigModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id === "") {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -217,7 +235,7 @@ export class DataProviderSourcePublicConfigListComponent
     });
   }
   onActionbuttonDeleteRow(model: DataProviderSourcePublicConfigModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id === "") {
+    if (!model || !model.id || model.id === 0) {
       const emessage = this.translate.instant("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow");
       this.cmsToastrService.typeErrorSelected(emessage);
       return;
@@ -257,7 +275,7 @@ export class DataProviderSourcePublicConfigListComponent
     });
   }
   onActionbuttonViewRow(model: DataProviderSourcePublicConfigModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id === "") {
+    if (!model || !model.id || model.id === 0) {
       const emessage = this.translate.instant("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow");
       this.cmsToastrService.typeErrorSelected(emessage);
       return;
@@ -274,4 +292,3 @@ export class DataProviderSourcePublicConfigListComponent
     this.tableRowSelected = row;
   }
 }
-

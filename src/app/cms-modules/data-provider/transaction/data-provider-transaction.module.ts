@@ -26,6 +26,7 @@ import { CmsFileManagerModule } from "ntk-cms-filemanager";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 // Transaction
 import { DataProviderTransactionListComponent } from "./list/list.component";
+import { DataProviderTransactionListMobileComponent } from "./list/list.mobile.component";
 import { DataProviderTransactionViewComponent } from "./view/view.component";
 
 @NgModule({
@@ -33,12 +34,14 @@ import { DataProviderTransactionViewComponent } from "./view/view.component";
     DataProviderTransactionComponent,
     /* Transaction */
     DataProviderTransactionListComponent,
+    DataProviderTransactionListMobileComponent,
     DataProviderTransactionViewComponent,
     /* */
   ],
   exports: [
     /* Transaction */
     DataProviderTransactionListComponent,
+    DataProviderTransactionListMobileComponent,
     DataProviderTransactionViewComponent,
     /* */
   ],

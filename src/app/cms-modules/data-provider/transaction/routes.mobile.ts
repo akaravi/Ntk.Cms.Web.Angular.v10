@@ -1,8 +1,7 @@
 import { Routes } from "@angular/router";
 import { DataProviderTransactionComponent } from "./data-provider-transaction.component";
-// TODO: Import mobile components after creating them
-// import { DataProviderTransactionListMobileComponent } from "./list/list.mobile.component";
-// ... other mobile imports
+import { DataProviderTransactionListMobileComponent } from "./list/list.mobile.component";
+import { DataProviderTransactionViewComponent } from "./view/view.component";
 
 export const routesMobile: Routes = [
   {
@@ -10,8 +9,47 @@ export const routesMobile: Routes = [
     component: DataProviderTransactionComponent,
     data: { title: "ROUTE.DATAPROVIDER.TRANSACTION" },
     children: [
-      // TODO: Add mobile routes after creating mobile components
-      // For now, use normal components as fallback
+      {
+        path: "",
+        pathMatch: "full",
+        component: DataProviderTransactionListMobileComponent,
+        data: { title: "ROUTE.DATAPROVIDER.TRANSACTION" },
+      },
+      {
+        path: "list",
+        component: DataProviderTransactionListMobileComponent,
+        data: { title: "ROUTE.DATAPROVIDER.TRANSACTION" },
+      },
+      {
+        path: "list/LinkPlanId/:LinkPlanId",
+        component: DataProviderTransactionListMobileComponent,
+        data: { title: "ROUTE.DATAPROVIDER.TRANSACTION" },
+      },
+      {
+        path: "list/LinkCmsUserId/:LinkCmsUserId",
+        component: DataProviderTransactionListMobileComponent,
+        data: { title: "ROUTE.DATAPROVIDER.TRANSACTION" },
+      },
+      {
+        path: "list/LinkClientId/:LinkClientId",
+        component: DataProviderTransactionListMobileComponent,
+        data: { title: "ROUTE.DATAPROVIDER.TRANSACTION" },
+      },
+      {
+        path: "list/LinkSponsorId/:LinkSponsorId",
+        component: DataProviderTransactionListMobileComponent,
+        data: { title: "ROUTE.DATAPROVIDER.TRANSACTION" },
+      },
+      {
+        path: "list/LinkPlanPriceId/:LinkPlanPriceId",
+        component: DataProviderTransactionListMobileComponent,
+        data: { title: "ROUTE.DATAPROVIDER.TRANSACTION" },
+      },
+      {
+        path: "view/:id",
+        component: DataProviderTransactionViewComponent,
+        data: { title: "ROUTE.DATAPROVIDER.TRANSACTION" },
+      },
     ],
   },
 ];

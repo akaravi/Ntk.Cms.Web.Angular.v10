@@ -1,15 +1,21 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { PageEvent } from "@angular/material/paginator";
+import { MatPaginator, PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
+  DataProviderClientPermissionModel,
+  DataProviderClientPermissionService,
   FilterDataModel,
   FilterModel,
   RecordStatusEnum,
-  DataProviderClientPermissionModel,
-  DataProviderClientPermissionService,
   SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
@@ -20,6 +26,7 @@ import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { CmsExportListComponent } from "src/app/shared/cms-export-list/cmsExportList.component";
 import { environment } from "src/environments/environment";
 import { DataProviderClientPermissionAddComponent } from "../add/add.component";
 import { DataProviderClientPermissionEditComponent } from "../edit/edit.component";
@@ -37,6 +44,9 @@ export class DataProviderClientPermissionListComponent
   >
   implements OnInit, OnDestroy
 {
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  tableData: DataProviderClientPermissionModel[] = [];
   requestLinkUserId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
@@ -169,7 +179,11 @@ export class DataProviderClientPermissionListComponent
     });
   }
   onTableSortData(sort: MatSort): void {
-    if (this.tableSource && this.tableSource.sort && this.tableSource.sort.active === sort.active) {
+    if (
+      this.tableSource &&
+      this.tableSource.sort &&
+      this.tableSource.sort.active === sort.active
+    ) {
       if (this.tableSource.sort.direction === "asc") {
         sort.direction = "desc";
       } else {
@@ -205,13 +219,17 @@ export class DataProviderClientPermissionListComponent
     var panelClass = "";
     if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
     else panelClass = "dialog-min";
-    const dialogRef = this.dialog.open(DataProviderClientPermissionAddComponent, {
-      height: "90%",
-      panelClass: panelClass,
-      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
-      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: {},
-    });
+    const dialogRef = this.dialog.open(
+      DataProviderClientPermissionAddComponent,
+      {
+        height: "90%",
+        panelClass: panelClass,
+        enterAnimationDuration:
+          environment.cmsViewConfig.enterAnimationDuration,
+        exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+        data: {},
+      },
+    );
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -222,7 +240,7 @@ export class DataProviderClientPermissionListComponent
   onActionButtonEditRow(
     model: DataProviderClientPermissionModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === "") {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -238,13 +256,17 @@ export class DataProviderClientPermissionListComponent
     var panelClass = "";
     if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
     else panelClass = "dialog-min";
-    const dialogRef = this.dialog.open(DataProviderClientPermissionEditComponent, {
-      height: "90%",
-      panelClass: panelClass,
-      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
-      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id: this.tableRowSelected.id },
-    });
+    const dialogRef = this.dialog.open(
+      DataProviderClientPermissionEditComponent,
+      {
+        height: "90%",
+        panelClass: panelClass,
+        enterAnimationDuration:
+          environment.cmsViewConfig.enterAnimationDuration,
+        exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+        data: { id: this.tableRowSelected.id },
+      },
+    );
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -254,7 +276,7 @@ export class DataProviderClientPermissionListComponent
   onActionButtonDeleteRow(
     model: DataProviderClientPermissionModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === "") {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -348,11 +370,15 @@ export class DataProviderClientPermissionListComponent
     this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          const dataStatist1 = ret.listItems.find((x) => x.id === RecordStatusEnum.Available);
+          const dataStatist1 = ret.listItems.find(
+            (x) => x.id === RecordStatusEnum.Available,
+          );
           if (dataStatist1) {
             statist.set("MESSAGE.Active", dataStatist1.count);
           }
-          const dataStatist2 = ret.listItems.find((x) => x.id === RecordStatusEnum.All);
+          const dataStatist2 = ret.listItems.find(
+            (x) => x.id === RecordStatusEnum.All,
+          );
           if (dataStatist2) {
             statist.set("MESSAGE.All", dataStatist2.count);
           }
@@ -371,16 +397,28 @@ export class DataProviderClientPermissionListComponent
 
   onActionbuttonExport(): void {
     //open popup
-    const dialogRef = this.dialog.open(this.publicHelper.model.ExportDialogComponent, {
-      height: "auto",
-      width: "auto",
-      data: { service: this.contentService, filteModel: this.filteModelContent },
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
+    const dialogRef = this.dialog.open(CmsExportListComponent, {
+      height: "50%",
+      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
+      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+      panelClass: panelClass,
+      data: {
+        service: this.contentService,
+        filterModel: this.filteModelContent,
+        title: "",
+      },
     });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
   onActionbuttonPrintRow(model: any = this.tableRowSelected): void {
     this.tableRowSelected = model;
-    if (!model || !model.id || model.id === "") {
-      const emessage = this.translate.instant("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow");
+    if (!model || !model.id || model.id === 0) {
+      const emessage = this.translate.instant(
+        "ERRORMESSAGE.MESSAGE.typeErrorSelectedRow",
+      );
       this.cmsToastrService.typeErrorSelected(emessage);
       return;
     }
@@ -397,20 +435,23 @@ export class DataProviderClientPermissionListComponent
     this.tableRowSelected = row;
   }
 
-  onActionButtonMemo(model: DataProviderClientPermissionModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id === "") {
+  onActionButtonMemo(
+    model: DataProviderClientPermissionModel = this.tableRowSelected,
+  ): void {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
     this.onActionTableRowSelect(model);
   }
 
-  onActionButtonMemoRow(model: DataProviderClientPermissionModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id === "") {
+  onActionButtonMemoRow(
+    model: DataProviderClientPermissionModel = this.tableRowSelected,
+  ): void {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
     this.onActionTableRowSelect(model);
   }
 }
-

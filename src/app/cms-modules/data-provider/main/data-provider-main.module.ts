@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AngularEditorModule } from "@kolkov/angular-editor";
 import { SharedModule } from "src/app/shared/shared.module";
+import { CoreSharedModule } from "../../../core-main/core.shared.module";
 
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { MatFormFieldModule } from "@angular/material/form-field";
@@ -42,6 +43,7 @@ import { DataProviderClientDeleteComponent } from "./client/delete/delete.compon
 import { DataProviderClientEditComponent } from "./client/edit/edit.component";
 import { DataProviderClientHeaderComponent } from "./client/header/header.component";
 import { DataProviderClientListComponent } from "./client/list/list.component";
+import { DataProviderClientListMobileComponent } from "./client/list/list.mobile.component";
 import { DataProviderClientSelectorComponent } from "./client/selector/selector.component";
 import { DataProviderClientTreeComponent } from "./client/tree/tree.component";
 // Plan Category
@@ -56,6 +58,7 @@ import { DataProviderPlanDeleteComponent } from "./plan/delete/delete.component"
 import { DataProviderPlanEditComponent } from "./plan/edit/edit.component";
 import { DataProviderPlanHeaderComponent } from "./plan/header/header.component";
 import { DataProviderPlanListComponent } from "./plan/list/list.component";
+import { DataProviderPlanListMobileComponent } from "./plan/list/list.mobile.component";
 import { DataProviderPlanSelectionlistComponent } from "./plan/selectionlist/selectionlist.component";
 import { DataProviderPlanSelectorComponent } from "./plan/selector/selector.component";
 import { DataProviderPlanTreeComponent } from "./plan/tree/tree.component";
@@ -65,6 +68,7 @@ import { DataProviderPlanClientDeleteComponent } from "./plan-client/delete/dele
 import { DataProviderPlanClientEditComponent } from "./plan-client/edit/edit.component";
 import { DataProviderPlanClientHeaderComponent } from "./plan-client/header/header.component";
 import { DataProviderPlanClientListComponent } from "./plan-client/list/list.component";
+import { DataProviderPlanClientListMobileComponent } from "./plan-client/list/list.mobile.component";
 import { DataProviderPlanClientSelectorComponent } from "./plan-client/selector/selector.component";
 import { DataProviderPlanClientTreeComponent } from "./plan-client/tree/tree.component";
 // Plan Price
@@ -75,6 +79,7 @@ import { DataProviderPlanPriceDeleteComponent } from "./plan-price/delete/delete
 import { DataProviderPlanPriceEditComponent } from "./plan-price/edit/edit.component";
 import { DataProviderPlanPriceHeaderComponent } from "./plan-price/header/header.component";
 import { DataProviderPlanPriceListComponent } from "./plan-price/list/list.component";
+import { DataProviderPlanPriceListMobileComponent } from "./plan-price/list/list.mobile.component";
 import { DataProviderPlanPriceSelectorComponent } from "./plan-price/selector/selector.component";
 import { DataProviderPlanPriceTreeComponent } from "./plan-price/tree/tree.component";
 // Plan Source
@@ -83,6 +88,7 @@ import { DataProviderPlanSourceDeleteComponent } from "./plan-source/delete/dele
 import { DataProviderPlanSourceEditComponent } from "./plan-source/edit/edit.component";
 import { DataProviderPlanSourceHeaderComponent } from "./plan-source/header/header.component";
 import { DataProviderPlanSourceListComponent } from "./plan-source/list/list.component";
+import { DataProviderPlanSourceListMobileComponent } from "./plan-source/list/list.mobile.component";
 import { DataProviderPlanSourceSelectorComponent } from "./plan-source/selector/selector.component";
 import { DataProviderPlanSourceTreeComponent } from "./plan-source/tree/tree.component";
 // Source
@@ -91,26 +97,31 @@ import { DataProviderSourceDeleteComponent } from "./source/delete/delete.compon
 import { DataProviderSourceEditComponent } from "./source/edit/edit.component";
 import { DataProviderSourceHeaderComponent } from "./source/header/header.component";
 import { DataProviderSourceListComponent } from "./source/list/list.component";
+import { DataProviderSourceListMobileComponent } from "./source/list/list.mobile.component";
 import { DataProviderSourceSelectorComponent } from "./source/selector/selector.component";
 import { DataProviderSourceTreeComponent } from "./source/tree/tree.component";
 // Source Company
 import { DataProviderSourceCompanyAddComponent } from "./source-company/add/add.component";
 import { DataProviderSourceCompanyEditComponent } from "./source-company/edit/edit.component";
 import { DataProviderSourceCompanyListComponent } from "./source-company/list/list.component";
+import { DataProviderSourceCompanyListMobileComponent } from "./source-company/list/list.mobile.component";
 import { DataProviderSourceCompanySelectorComponent } from "./source-company/selector/selector.component";
 import { DataProviderSourceCompanyTreeComponent } from "./source-company/tree/tree.component";
 // Source Public Config
 import { DataProviderSourcePublicConfigAddComponent } from "./source-public-config/add/add.component";
 import { DataProviderSourcePublicConfigEditComponent } from "./source-public-config/edit/edit.component";
 import { DataProviderSourcePublicConfigListComponent } from "./source-public-config/list/list.component";
+import { DataProviderSourcePublicConfigListMobileComponent } from "./source-public-config/list/list.mobile.component";
 // Source Path
 import { DataProviderSourcePathAddComponent } from "./source-path/add/add.component";
 import { DataProviderSourcePathEditComponent } from "./source-path/edit/edit.component";
 import { DataProviderSourcePathListComponent } from "./source-path/list/list.component";
+import { DataProviderSourcePathListMobileComponent } from "./source-path/list/list.mobile.component";
 // Client Permission
 import { DataProviderClientPermissionAddComponent } from "./client-permission/add/add.component";
 import { DataProviderClientPermissionEditComponent } from "./client-permission/edit/edit.component";
 import { DataProviderClientPermissionListComponent } from "./client-permission/list/list.component";
+import { DataProviderClientPermissionListMobileComponent } from "./client-permission/list/list.mobile.component";
 
 @NgModule({
   declarations: [
@@ -126,6 +137,7 @@ import { DataProviderClientPermissionListComponent } from "./client-permission/l
     DataProviderPlanDeleteComponent,
     DataProviderPlanEditComponent,
     DataProviderPlanListComponent,
+    DataProviderPlanListMobileComponent,
     DataProviderPlanSelectorComponent,
     DataProviderPlanSelectionlistComponent,
     DataProviderPlanTreeComponent,
@@ -136,6 +148,7 @@ import { DataProviderClientPermissionListComponent } from "./client-permission/l
     DataProviderPlanSourceEditComponent,
     DataProviderPlanSourceHeaderComponent,
     DataProviderPlanSourceListComponent,
+    DataProviderPlanSourceListMobileComponent,
     DataProviderPlanSourceSelectorComponent,
     DataProviderPlanSourceTreeComponent,
     /* Client */
@@ -143,6 +156,7 @@ import { DataProviderClientPermissionListComponent } from "./client-permission/l
     DataProviderClientDeleteComponent,
     DataProviderClientEditComponent,
     DataProviderClientListComponent,
+    DataProviderClientListMobileComponent,
     DataProviderClientSelectorComponent,
     DataProviderClientTreeComponent,
     DataProviderClientChargeComponent,
@@ -154,32 +168,38 @@ import { DataProviderClientPermissionListComponent } from "./client-permission/l
     DataProviderSourceEditComponent,
     DataProviderSourceHeaderComponent,
     DataProviderSourceListComponent,
+    DataProviderSourceListMobileComponent,
     DataProviderSourceSelectorComponent,
     DataProviderSourceTreeComponent,
     /* Source Company */
     DataProviderSourceCompanyAddComponent,
     DataProviderSourceCompanyEditComponent,
     DataProviderSourceCompanyListComponent,
+    DataProviderSourceCompanyListMobileComponent,
     DataProviderSourceCompanySelectorComponent,
     DataProviderSourceCompanyTreeComponent,
     /* Source Public Config */
     DataProviderSourcePublicConfigAddComponent,
     DataProviderSourcePublicConfigEditComponent,
     DataProviderSourcePublicConfigListComponent,
+    DataProviderSourcePublicConfigListMobileComponent,
     /* Source Path */
     DataProviderSourcePathAddComponent,
     DataProviderSourcePathEditComponent,
     DataProviderSourcePathListComponent,
+    DataProviderSourcePathListMobileComponent,
     /* Client Permission */
     DataProviderClientPermissionAddComponent,
     DataProviderClientPermissionEditComponent,
     DataProviderClientPermissionListComponent,
+    DataProviderClientPermissionListMobileComponent,
     /* Plan Client */
     DataProviderPlanClientAddComponent,
     DataProviderPlanClientDeleteComponent,
     DataProviderPlanClientEditComponent,
     DataProviderPlanClientHeaderComponent,
     DataProviderPlanClientListComponent,
+    DataProviderPlanClientListMobileComponent,
     DataProviderPlanClientSelectorComponent,
     DataProviderPlanClientTreeComponent,
     /* Plan Price */
@@ -188,6 +208,7 @@ import { DataProviderClientPermissionListComponent } from "./client-permission/l
     DataProviderPlanPriceEditComponent,
     DataProviderPlanPriceHeaderComponent,
     DataProviderPlanPriceListComponent,
+    DataProviderPlanPriceListMobileComponent,
     DataProviderPlanPriceSelectorComponent,
     DataProviderPlanPriceTreeComponent,
     DataProviderPlanPriceChargeComponent,
@@ -206,6 +227,7 @@ import { DataProviderClientPermissionListComponent } from "./client-permission/l
     DataProviderPlanDeleteComponent,
     DataProviderPlanEditComponent,
     DataProviderPlanListComponent,
+    DataProviderPlanListMobileComponent,
     DataProviderPlanSelectorComponent,
     DataProviderPlanSelectionlistComponent,
     DataProviderPlanTreeComponent,
@@ -216,6 +238,7 @@ import { DataProviderClientPermissionListComponent } from "./client-permission/l
     DataProviderPlanSourceEditComponent,
     DataProviderPlanSourceHeaderComponent,
     DataProviderPlanSourceListComponent,
+    DataProviderPlanSourceListMobileComponent,
     DataProviderPlanSourceSelectorComponent,
     DataProviderPlanSourceTreeComponent,
     /* Client */
@@ -223,6 +246,7 @@ import { DataProviderClientPermissionListComponent } from "./client-permission/l
     DataProviderClientDeleteComponent,
     DataProviderClientEditComponent,
     DataProviderClientListComponent,
+    DataProviderClientListMobileComponent,
     DataProviderClientSelectorComponent,
     DataProviderClientTreeComponent,
     DataProviderClientChargeComponent,
@@ -234,32 +258,38 @@ import { DataProviderClientPermissionListComponent } from "./client-permission/l
     DataProviderSourceEditComponent,
     DataProviderSourceHeaderComponent,
     DataProviderSourceListComponent,
+    DataProviderSourceListMobileComponent,
     DataProviderSourceSelectorComponent,
     DataProviderSourceTreeComponent,
     /* Source Company */
     DataProviderSourceCompanyAddComponent,
     DataProviderSourceCompanyEditComponent,
     DataProviderSourceCompanyListComponent,
+    DataProviderSourceCompanyListMobileComponent,
     DataProviderSourceCompanySelectorComponent,
     DataProviderSourceCompanyTreeComponent,
     /* Source Public Config */
     DataProviderSourcePublicConfigAddComponent,
     DataProviderSourcePublicConfigEditComponent,
     DataProviderSourcePublicConfigListComponent,
+    DataProviderSourcePublicConfigListMobileComponent,
     /* Source Path */
     DataProviderSourcePathAddComponent,
     DataProviderSourcePathEditComponent,
     DataProviderSourcePathListComponent,
+    DataProviderSourcePathListMobileComponent,
     /* Client Permission */
     DataProviderClientPermissionAddComponent,
     DataProviderClientPermissionEditComponent,
     DataProviderClientPermissionListComponent,
+    DataProviderClientPermissionListMobileComponent,
     /* Plan Client */
     DataProviderPlanClientAddComponent,
     DataProviderPlanClientDeleteComponent,
     DataProviderPlanClientEditComponent,
     DataProviderPlanClientHeaderComponent,
     DataProviderPlanClientListComponent,
+    DataProviderPlanClientListMobileComponent,
     DataProviderPlanClientSelectorComponent,
     DataProviderPlanClientTreeComponent,
     /* Plan Price */
@@ -268,6 +298,7 @@ import { DataProviderClientPermissionListComponent } from "./client-permission/l
     DataProviderPlanPriceEditComponent,
     DataProviderPlanPriceHeaderComponent,
     DataProviderPlanPriceListComponent,
+    DataProviderPlanPriceListMobileComponent,
     DataProviderPlanPriceSelectorComponent,
     DataProviderPlanPriceTreeComponent,
     DataProviderPlanPriceChargeComponent,
@@ -280,6 +311,7 @@ import { DataProviderClientPermissionListComponent } from "./client-permission/l
     FormsModule,
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     SharedModule,
+    CoreSharedModule,
     AngularEditorModule,
     MatIconModule,
     MatFormFieldModule,
@@ -311,4 +343,3 @@ import { DataProviderClientPermissionListComponent } from "./client-permission/l
   ],
 })
 export class DataProviderMainModule {}
-

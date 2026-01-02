@@ -22,19 +22,10 @@ import {
   DataProviderClientService,
   DataProviderConfigurationService,
   DataProviderEnumService,
-  DataProviderLogClientService,
-  DataProviderLogPlanService,
-  DataProviderLogSourceService,
   DataProviderPlanCategoryService,
-  DataProviderPlanClientService,
   DataProviderPlanPriceService,
   DataProviderPlanService,
-  DataProviderPlanSourceService,
   DataProviderSourceService,
-  DataProviderSourceCompanyService,
-  DataProviderSourcePathService,
-  DataProviderSourcePublicConfigService,
-  DataProviderClientPermissionService,
   DataProviderTransactionService,
 } from "ntk-cms-api";
 import { CmsFileManagerModule } from "ntk-cms-filemanager";
@@ -82,28 +73,18 @@ import { DataProviderOverviewSummaryComponent } from "./overview/summary/summary
     CoreModuleService,
     CoreEnumService,
     CoreAuthV3Service,
+    /*Config - DataProviderConfigurationService is provided in DataProviderConfigModule */
     /*Config*/
-    DataProviderConfigurationService,
-    /*Config*/
-    /** */
+    /** Services for Dashboard and Overview */
     DataProviderEnumService,
-    DataProviderLogSourceService,
-    DataProviderLogPlanService,
-    DataProviderLogClientService,
+    DataProviderClientService,
     DataProviderPlanService,
     DataProviderSourceService,
     DataProviderTransactionService,
-    DataProviderClientService,
     DataProviderPlanCategoryService,
-    DataProviderPlanClientService,
     DataProviderPlanPriceService,
-    DataProviderPlanSourceService,
-  DataProviderSourceCompanyService,
-  DataProviderSourcePublicConfigService,
-  DataProviderSourcePathService,
-  DataProviderClientPermissionService,
-  /** */
-  CmsConfirmationDialogService,
+    /** */
+    CmsConfirmationDialogService,
     CoreModuleTagService,
   ],
 })

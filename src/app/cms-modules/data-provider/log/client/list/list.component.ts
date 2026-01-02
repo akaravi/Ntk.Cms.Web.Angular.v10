@@ -18,8 +18,8 @@ import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { environment } from "src/environments/environment";
-import { PublicHelper } from "../../../../../core/helpers/publicHelper";
-import { CmsToastrService } from "../../../../../core/services/cmsToastr.service";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { DataProviderLogClientViewComponent } from "../view/view.component";
 
 @Component({

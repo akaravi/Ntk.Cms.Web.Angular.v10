@@ -28,12 +28,15 @@ import { CmsFileManagerModule } from "ntk-cms-filemanager";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 // Log Client
 import { DataProviderLogClientListComponent } from "./client/list/list.component";
+import { DataProviderLogClientListMobileComponent } from "./client/list/list.mobile.component";
 import { DataProviderLogClientViewComponent } from "./client/view/view.component";
 // Log Plan
 import { DataProviderLogPlanListComponent } from "./plan/list/list.component";
+import { DataProviderLogPlanListMobileComponent } from "./plan/list/list.mobile.component";
 import { DataProviderLogPlanViewComponent } from "./plan/view/view.component";
 // Log Source
 import { DataProviderLogSourceListComponent } from "./source/list/list.component";
+import { DataProviderLogSourceListMobileComponent } from "./source/list/list.mobile.component";
 import { DataProviderLogSourceViewComponent } from "./source/view/view.component";
 
 @NgModule({
@@ -41,24 +44,30 @@ import { DataProviderLogSourceViewComponent } from "./source/view/view.component
     DataProviderLogComponent,
     /* Log Client */
     DataProviderLogClientListComponent,
+    DataProviderLogClientListMobileComponent,
     DataProviderLogClientViewComponent,
     /* Log Plan */
     DataProviderLogPlanListComponent,
+    DataProviderLogPlanListMobileComponent,
     DataProviderLogPlanViewComponent,
     /* Log Source */
     DataProviderLogSourceListComponent,
+    DataProviderLogSourceListMobileComponent,
     DataProviderLogSourceViewComponent,
     /* */
   ],
   exports: [
     /* Log Client */
     DataProviderLogClientListComponent,
+    DataProviderLogClientListMobileComponent,
     DataProviderLogClientViewComponent,
     /* Log Plan */
     DataProviderLogPlanListComponent,
+    DataProviderLogPlanListMobileComponent,
     DataProviderLogPlanViewComponent,
     /* Log Source */
     DataProviderLogSourceListComponent,
+    DataProviderLogSourceListMobileComponent,
     DataProviderLogSourceViewComponent,
     /* */
   ],

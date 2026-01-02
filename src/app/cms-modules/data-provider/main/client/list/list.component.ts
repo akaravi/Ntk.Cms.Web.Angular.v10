@@ -19,8 +19,8 @@ import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { environment } from "src/environments/environment";
-import { PublicHelper } from "../../../../../core/helpers/publicHelper";
-import { CmsToastrService } from "../../../../../core/services/cmsToastr.service";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { DataProviderClientAddComponent } from "../add/add.component";
 import { DataProviderClientDeleteComponent } from "../delete/delete.component";
 import { DataProviderClientEditComponent } from "../edit/edit.component";
@@ -268,7 +268,7 @@ export class DataProviderClientListComponent
   onActionButtonEditRow(
     model: DataProviderClientModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === "") {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -301,7 +301,7 @@ export class DataProviderClientListComponent
   onActionButtonDeleteRow(
     model: DataProviderClientModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === "") {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -404,7 +404,7 @@ export class DataProviderClientListComponent
     if (
       !model ||
       !model.id ||
-      model.id === "" ||
+      model.id === 0 ||
       !model.linkSiteId ||
       model.linkSiteId === 0
     ) {
@@ -428,7 +428,7 @@ export class DataProviderClientListComponent
     model: DataProviderClientModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id === "") {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -451,7 +451,7 @@ export class DataProviderClientListComponent
     model: DataProviderClientModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id === "") {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.No_row_selected_for_viewing")
         .subscribe((str: string) => {
@@ -494,7 +494,7 @@ export class DataProviderClientListComponent
     model: DataProviderClientModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id === "") {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

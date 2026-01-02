@@ -15,12 +15,12 @@ import {
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { environment } from "src/environments/environment";
-import { PublicHelper } from "../../../../core/helpers/publicHelper";
-import { CmsToastrService } from "../../../../core/services/cmsToastr.service";
 import { DataProviderPlanAddComponent } from "../add/add.component";
 import { DataProviderPlanDeleteComponent } from "../delete/delete.component";
 import { DataProviderPlanEditComponent } from "../edit/edit.component";
@@ -221,7 +221,7 @@ export class DataProviderPlanListComponent
   onActionButtonNewRow(): void {
     if (
       this.categoryModelSelected == null ||
-      this.categoryModelSelected.id === ""
+      this.categoryModelSelected.id === 0
     ) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
@@ -260,7 +260,7 @@ export class DataProviderPlanListComponent
   onActionButtonEditRow(
     model: DataProviderPlanModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === "") {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -294,7 +294,7 @@ export class DataProviderPlanListComponent
   onActionButtonDeleteRow(
     model: DataProviderPlanModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === "") {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -333,7 +333,7 @@ export class DataProviderPlanListComponent
     model: DataProviderPlanModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id === "") {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.No_row_selected_for_viewing")
         .subscribe((str: string) => {
@@ -354,7 +354,7 @@ export class DataProviderPlanListComponent
     model: DataProviderPlanModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id === "") {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -377,7 +377,7 @@ export class DataProviderPlanListComponent
     model: DataProviderPlanModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id === "") {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -400,7 +400,7 @@ export class DataProviderPlanListComponent
     model: DataProviderPlanModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id === "") {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -424,7 +424,7 @@ export class DataProviderPlanListComponent
     model: DataProviderPlanModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id === "") {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

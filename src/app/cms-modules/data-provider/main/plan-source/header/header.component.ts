@@ -102,7 +102,7 @@ export class DataProviderPlanSourceHeaderComponent
   onActionButtonLinkTo(
     model: DataProviderPlanSourceModel = this.dataModelResult.item,
   ): void {
-    if (!model || !model.id || model.id === "") {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

@@ -102,7 +102,7 @@ export class DataProviderPlanClientHeaderComponent
   onActionButtonLinkTo(
     model: DataProviderPlanClientModel = this.dataModelResult.item,
   ): void {
-    if (!model || !model.id || model.id === "") {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
