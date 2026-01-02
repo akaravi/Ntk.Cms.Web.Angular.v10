@@ -1,0 +1,188 @@
+<div class="data-provider-dashboard">
+  <div class="hero card shadow-sm border-0 mb-4">
+    <div class="row g-3 align-items-center">
+      <div class="col-12 col-md-4 text-center">
+        <div class="hero-icon">
+          <i class="fa-solid fa-database"></i>
+        </div>
+      </div>
+      <div class="col-12 col-md-8">
+        <div class="hero-title">داشبورد Data Provider</div>
+        <div class="hero-subtitle">
+          مدیریت کلاینت‌ها، پلن‌ها، منابع و تراکنش‌های Data Provider.
+        </div>
+        <div class="d-flex flex-wrap gap-2 mt-3">
+          <a
+            routerLink="../main/client"
+            class="btn btn-primary btn-sm fw-bold"
+            >+ کلاینت جدید</a
+          >
+          <a
+            routerLink="../main/plan"
+            class="btn btn-outline-primary btn-sm fw-bold"
+            >پلن‌ها</a
+          >
+          <a routerLink="../main/source" class="btn btn-light btn-sm fw-bold"
+            >منابع</a
+          >
+          <a routerLink="../transaction" class="btn btn-light btn-sm fw-bold"
+            >تراکنش‌ها</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div
+      class="col-12 col-md-3"
+      *ngFor="
+        let card of [
+          {
+            title: 'کلاینت‌ها',
+            value: kpi.clients.total,
+            icon: 'fa-users',
+            route: '../main/client',
+          },
+          {
+            title: 'پلن‌ها',
+            value: kpi.plans.total,
+            icon: 'fa-list',
+            route: '../main/plan',
+          },
+          {
+            title: 'دسته‌بندی پلن‌ها',
+            value: kpi.planCategories.total,
+            icon: 'fa-folder',
+            route: '../main/plan-category',
+          },
+          {
+            title: 'قیمت‌های پلن',
+            value: kpi.planPrices.total,
+            icon: 'fa-tag',
+            route: '../main/plan-price',
+          },
+          {
+            title: 'منابع',
+            value: kpi.sources.total,
+            icon: 'fa-server',
+            route: '../main/source',
+          },
+          {
+            title: 'تراکنش‌ها',
+            value: kpi.transactions.total,
+            icon: 'fa-exchange-alt',
+            route: '../transaction',
+          },
+        ]
+      "
+    >
+      <a
+        class="card kpi-card h-100 shadow-sm border-0"
+        [routerLink]="card.route"
+      >
+        <div class="d-flex align-items-center p-3">
+          <div class="kpi-icon">
+            <i [class]="'fa-solid ' + card.icon" aria-hidden="true"></i>
+          </div>
+          <div class="ms-3">
+            <div class="kpi-title">{{ card.title }}</div>
+            <div class="kpi-value">{{ card.value | number }}</div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-12 col-lg-6">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body">
+          <div class="card-title d-flex align-items-center mb-3">
+            <i class="fa-solid fa-route section-icon"></i>
+            <span class="ms-2 fw-bold">جریان مدیریت Data Provider</span>
+          </div>
+          <div class="flow-steps">
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">ایجاد کلاینت</div>
+                <div class="text-muted small">Client</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">تعریف پلن</div>
+                <div class="text-muted small">Plan</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">تنظیم قیمت</div>
+                <div class="text-muted small">Plan Price</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">اتصال به منبع</div>
+                <div class="text-muted small">Source</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">ایجاد تراکنش</div>
+                <div class="text-muted small">Transaction</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-6">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body">
+          <div class="card-title d-flex align-items-center mb-3">
+            <i class="fa-solid fa-sitemap section-icon"></i>
+            <span class="ms-2 fw-bold">مدیریت Data Provider</span>
+          </div>
+          <div class="flow-steps">
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">مدیریت کلاینت‌ها</div>
+                <div class="text-muted small">Client Management</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">مدیریت پلن‌ها</div>
+                <div class="text-muted small">Plan Management</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">مدیریت منابع</div>
+                <div class="text-muted small">Source Management</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="dot"></div>
+              <div>
+                <div class="fw-bold">گزارش و آمار</div>
+                <div class="text-muted small">Statistics & Reports</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

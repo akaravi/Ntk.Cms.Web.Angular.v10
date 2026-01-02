@@ -1,0 +1,39 @@
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
+import { DataFieldInfoModel } from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
+@Component({
+  selector: "app-data-provider-overview-summary",
+  templateUrl: "./summary.component.html",
+  standalone: false,
+})
+export class DataProviderOverviewSummaryComponent implements OnInit, OnDestroy {
+  constructorInfoAreaId = this.constructor.name;
+  constructor(
+    public publicHelper: PublicHelper,
+    private cdr: ChangeDetectorRef,
+    private cmsToastrService: CmsToastrService,
+    public dialog: MatDialog,
+    public translate: TranslateService,
+    public tokenHelper: TokenHelper,
+  ) {
+    this.publicHelper.processService.cdr = this.cdr;
+  }
+
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
+
+  private unsubscribe: Subscription[] = [];
+  ngOnInit(): void {}
+  ngOnDestroy(): void {
+    if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
+  }
+}
+

@@ -5,12 +5,12 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  DataProviderTransactionModel,
-  DataProviderTransactionService,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    DataProviderLogPlanModel,
+    DataProviderLogPlanService,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -20,42 +20,40 @@ import { PageInfoService } from "src/app/core/services/page-info.service";
 import { environment } from "src/environments/environment";
 import { PublicHelper } from "../../../../../core/helpers/publicHelper";
 import { CmsToastrService } from "../../../../../core/services/cmsToastr.service";
-import { DataProviderTransactionViewComponent } from "../view/view.component";
+import { DataProviderLogPlanViewComponent } from "../view/view.component";
 
 @Component({
-  selector: "app-donate-transaction-list",
+  selector: "app-data-provider-log-plan-list",
   templateUrl: "./list.component.html",
   standalone: false,
 })
-export class DataProviderTransactionListComponent
+export class DataProviderLogPlanListComponent
   extends ListBaseComponent<
-    DataProviderTransactionService,
-    DataProviderTransactionModel,
+    DataProviderLogPlanService,
+    DataProviderLogPlanModel,
     string
   >
   implements OnInit, OnDestroy
 {
-  requestLinkCmsUserId = 0;
   requestLinkPlanId = 0;
-  requestLinkPlanPriceId = 0;
-  requestLinkClientId = 0;
+  requestLinkSourceId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private activatedRoute: ActivatedRoute,
-    public contentService: DataProviderTransactionService,
+    public contentService: DataProviderLogPlanService,
     private cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
-    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
+    private cmsStoreService: CmsStoreService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog,
   ) {
     super(
       contentService,
-      new DataProviderTransactionModel(),
+      new DataProviderLogPlanModel(),
       publicHelper,
       tokenHelper,
       translate,
@@ -76,46 +74,28 @@ export class DataProviderTransactionListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "id",
-    "linkSiteId",
-    "recordStatus",
-    "LinkClientId",
+    "LinkSourceId",
     "LinkPlanId",
-    "LinkPlanPriceId",
-    "SystemTransactionId",
-    "SystemPaymentisSuccess",
-    "AmountPure",
-    "FeeTransport",
-    "FeeTax",
-    "Amount",
     "createdDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "id",
-    "linkSiteId",
-    "recordStatus",
-    "LinkClientId",
+    "LinkSourceId",
     "LinkPlanId",
-    "LinkPlanPriceId",
-    "SystemTransactionId",
-    "SystemPaymentisSuccess",
-    "AmountPure",
-    "FeeTransport",
-    "FeeTax",
-    "Amount",
     "createdDate",
     // 'Action'
   ];
 
   private unsubscribe: Subscription[] = [];
   ngOnInit(): void {
-    this.requestLinkCmsUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkCmsUserId"),
+    this.requestLinkSourceId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkSourceId"),
     );
-    if (this.requestLinkCmsUserId && this.requestLinkCmsUserId > 0) {
+    if (this.requestLinkSourceId && this.requestLinkSourceId > 0) {
       const filter = new FilterDataModel();
-      filter.propertyName = "LinkCmsUserId";
-      filter.value = this.requestLinkCmsUserId;
+      filter.propertyName = "LinkSourceId";
+      filter.value = this.requestLinkSourceId;
       this.filteModelContent.filters.push(filter);
     }
     this.requestLinkPlanId = +Number(
@@ -127,24 +107,7 @@ export class DataProviderTransactionListComponent
       filter.value = this.requestLinkPlanId;
       this.filteModelContent.filters.push(filter);
     }
-    this.requestLinkClientId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkClientId"),
-    );
-    if (this.requestLinkClientId && this.requestLinkClientId > 0) {
-      const filter = new FilterDataModel();
-      filter.propertyName = "LinkClientId";
-      filter.value = this.requestLinkClientId;
-      this.filteModelContent.filters.push(filter);
-    }
-    this.requestLinkPlanPriceId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkPlanPriceId"),
-    );
-    if (this.requestLinkPlanPriceId && this.requestLinkPlanPriceId > 0) {
-      const filter = new FilterDataModel();
-      filter.propertyName = "LinkPlanPriceId";
-      filter.value = this.requestLinkPlanPriceId;
-      this.filteModelContent.filters.push(filter);
-    }
+
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
@@ -170,7 +133,7 @@ export class DataProviderTransactionListComponent
       this.tokenInfo,
     );
     this.tableRowsSelected = [];
-    this.onActionTableRowSelect(new DataProviderTransactionModel());
+    this.onActionTableRowSelect(new DataProviderLogPlanModel());
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.get_information_list")
@@ -251,7 +214,7 @@ export class DataProviderTransactionListComponent
   }
 
   onActionButtonViewRow(
-    model: DataProviderTransactionModel = this.tableRowSelected,
+    model: DataProviderLogPlanModel = this.tableRowSelected,
   ): void {
     if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelected();
@@ -268,7 +231,7 @@ export class DataProviderTransactionListComponent
     var panelClass = "";
     if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
     else panelClass = "dialog-min";
-    const dialogRef = this.dialog.open(DataProviderTransactionViewComponent, {
+    const dialogRef = this.dialog.open(DataProviderLogPlanViewComponent, {
       height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
@@ -356,14 +319,12 @@ export class DataProviderTransactionListComponent
   }
 
   onActionBackToParent(): void {
-    if (this.requestLinkCmsUserId > 0) {
+    if (this.requestLinkPlanId > 0) {
       this.router.navigate(["/data-provider/plan/"]);
-    } else if (this.requestLinkPlanId > 0) {
-      this.router.navigate(["/data-provider/plan/"]);
-    } else if (this.requestLinkPlanPriceId > 0) {
-      this.router.navigate(["/data-provider/plan-price/"]);
-    } else if (this.requestLinkClientId > 0) {
-      this.router.navigate(["/data-provider/client/"]);
+    }
+
+    if (this.requestLinkSourceId > 0) {
+      this.router.navigate(["/data-provider/source/"]);
     }
   }
 }

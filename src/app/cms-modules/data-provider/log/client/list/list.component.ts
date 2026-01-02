@@ -5,12 +5,12 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  DataProviderTransactionModel,
-  DataProviderTransactionService,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    DataProviderLogClientModel,
+    DataProviderLogClientService,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -20,42 +20,39 @@ import { PageInfoService } from "src/app/core/services/page-info.service";
 import { environment } from "src/environments/environment";
 import { PublicHelper } from "../../../../../core/helpers/publicHelper";
 import { CmsToastrService } from "../../../../../core/services/cmsToastr.service";
-import { DataProviderTransactionViewComponent } from "../view/view.component";
+import { DataProviderLogClientViewComponent } from "../view/view.component";
 
 @Component({
-  selector: "app-donate-transaction-list",
+  selector: "app-data-provider-log-client-list",
   templateUrl: "./list.component.html",
   standalone: false,
 })
-export class DataProviderTransactionListComponent
+export class DataProviderLogClientListComponent
   extends ListBaseComponent<
-    DataProviderTransactionService,
-    DataProviderTransactionModel,
+    DataProviderLogClientService,
+    DataProviderLogClientModel,
     string
   >
   implements OnInit, OnDestroy
 {
-  requestLinkCmsUserId = 0;
-  requestLinkPlanId = 0;
-  requestLinkPlanPriceId = 0;
   requestLinkClientId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private activatedRoute: ActivatedRoute,
-    public contentService: DataProviderTransactionService,
+    public contentService: DataProviderLogClientService,
     private cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
-    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
     public pageInfo: PageInfoService,
+    private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog,
   ) {
     super(
       contentService,
-      new DataProviderTransactionModel(),
+      new DataProviderLogClientModel(),
       publicHelper,
       tokenHelper,
       translate,
@@ -76,57 +73,19 @@ export class DataProviderTransactionListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "id",
-    "linkSiteId",
-    "recordStatus",
     "LinkClientId",
-    "LinkPlanId",
-    "LinkPlanPriceId",
-    "SystemTransactionId",
-    "SystemPaymentisSuccess",
-    "AmountPure",
-    "FeeTransport",
-    "FeeTax",
-    "Amount",
     "createdDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "id",
-    "linkSiteId",
-    "recordStatus",
     "LinkClientId",
-    "LinkPlanId",
-    "LinkPlanPriceId",
-    "SystemTransactionId",
-    "SystemPaymentisSuccess",
-    "AmountPure",
-    "FeeTransport",
-    "FeeTax",
-    "Amount",
     "createdDate",
     // 'Action'
   ];
 
   private unsubscribe: Subscription[] = [];
   ngOnInit(): void {
-    this.requestLinkCmsUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkCmsUserId"),
-    );
-    if (this.requestLinkCmsUserId && this.requestLinkCmsUserId > 0) {
-      const filter = new FilterDataModel();
-      filter.propertyName = "LinkCmsUserId";
-      filter.value = this.requestLinkCmsUserId;
-      this.filteModelContent.filters.push(filter);
-    }
-    this.requestLinkPlanId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkPlanId"),
-    );
-    if (this.requestLinkPlanId && this.requestLinkPlanId > 0) {
-      const filter = new FilterDataModel();
-      filter.propertyName = "LinkPlanId";
-      filter.value = this.requestLinkPlanId;
-      this.filteModelContent.filters.push(filter);
-    }
     this.requestLinkClientId = +Number(
       this.activatedRoute.snapshot.paramMap.get("LinkClientId"),
     );
@@ -136,15 +95,7 @@ export class DataProviderTransactionListComponent
       filter.value = this.requestLinkClientId;
       this.filteModelContent.filters.push(filter);
     }
-    this.requestLinkPlanPriceId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkPlanPriceId"),
-    );
-    if (this.requestLinkPlanPriceId && this.requestLinkPlanPriceId > 0) {
-      const filter = new FilterDataModel();
-      filter.propertyName = "LinkPlanPriceId";
-      filter.value = this.requestLinkPlanPriceId;
-      this.filteModelContent.filters.push(filter);
-    }
+
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
@@ -170,7 +121,7 @@ export class DataProviderTransactionListComponent
       this.tokenInfo,
     );
     this.tableRowsSelected = [];
-    this.onActionTableRowSelect(new DataProviderTransactionModel());
+    this.onActionTableRowSelect(new DataProviderLogClientModel());
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.get_information_list")
@@ -251,7 +202,7 @@ export class DataProviderTransactionListComponent
   }
 
   onActionButtonViewRow(
-    model: DataProviderTransactionModel = this.tableRowSelected,
+    model: DataProviderLogClientModel = this.tableRowSelected,
   ): void {
     if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelected();
@@ -268,7 +219,7 @@ export class DataProviderTransactionListComponent
     var panelClass = "";
     if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
     else panelClass = "dialog-min";
-    const dialogRef = this.dialog.open(DataProviderTransactionViewComponent, {
+    const dialogRef = this.dialog.open(DataProviderLogClientViewComponent, {
       height: "90%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
@@ -276,6 +227,7 @@ export class DataProviderTransactionListComponent
       data: { id: this.tableRowSelected.id },
     });
     dialogRef.afterClosed().subscribe((result) => {
+      // console.log(`Dialog result: ${result}`);
       if (result && result.dialogChangedDate) {
       }
     });
@@ -356,13 +308,7 @@ export class DataProviderTransactionListComponent
   }
 
   onActionBackToParent(): void {
-    if (this.requestLinkCmsUserId > 0) {
-      this.router.navigate(["/data-provider/plan/"]);
-    } else if (this.requestLinkPlanId > 0) {
-      this.router.navigate(["/data-provider/plan/"]);
-    } else if (this.requestLinkPlanPriceId > 0) {
-      this.router.navigate(["/data-provider/plan-price/"]);
-    } else if (this.requestLinkClientId > 0) {
+    if (this.requestLinkClientId > 0) {
       this.router.navigate(["/data-provider/client/"]);
     }
   }

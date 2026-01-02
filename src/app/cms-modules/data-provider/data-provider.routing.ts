@@ -1,21 +1,9 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { DataProviderClientChargeComponent } from "./client/charge/charge.component";
-import { DataProviderClientListComponent } from "./client/list/list.component";
 import { DataProviderComponent } from "./data-provider.component";
-import { DataProviderLogClientListComponent } from "./log-client/list/list.component";
-import { DataProviderLogPlanListComponent } from "./log-plan/list/list.component";
-import { DataProviderLogSourceListComponent } from "./log-source/list/list.component";
-import { DataProviderPlanClientListComponent } from "./plan-client/list/list.component";
-import { DataProviderPlanPriceListComponent } from "./plan-price/list/list.component";
-import { DataProviderPlanSourceListComponent } from "./plan-source/list/list.component";
-import { DataProviderPlanListComponent } from "./plan/list/list.component";
-import { DataProviderSourceListComponent } from "./source/list/list.component";
-import { DataProviderSourceCompanyListComponent } from "./source-company/list/list.component";
-import { DataProviderSourcePublicConfigListComponent } from "./source-public-config/list/list.component";
-import { DataProviderSourcePathListComponent } from "./source-path/list/list.component";
-import { DataProviderClientPermissionListComponent } from "./client-permission/list/list.component";
-import { DataProviderTransactionListComponent } from "./transaction/list/list.component";
+import { DataProviderDashboardComponent } from "./dashboard/dashboard.component";
+import { DataProviderOverviewEventsComponent } from "./overview/events/events.component";
+import { DataProviderOverviewSummaryComponent } from "./overview/summary/summary.component";
 
 const routes: Routes = [
   {
@@ -24,6 +12,19 @@ const routes: Routes = [
     data: { title: "ROUTE.DATAPROVIDER" },
 
     children: [
+      /* Dashboard */
+      {
+        path: "",
+        pathMatch: "full",
+        component: DataProviderDashboardComponent,
+        data: { title: "ROUTE.DATAPROVIDER" },
+      },
+      {
+        path: "dashboard",
+        component: DataProviderDashboardComponent,
+        data: { title: "ROUTE.DATAPROVIDER" },
+      },
+      /* Dashboard */
       /* Config */
       {
         path: "config",
@@ -33,175 +34,45 @@ const routes: Routes = [
           ),
         data: { title: "ROUTE.DATAPROVIDER" },
       },
-      /* Config */
+      /* Main */
       {
-        path: "log-client",
-        component: DataProviderLogClientListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.LOGCLIENT" },
+        path: "main",
+        loadChildren: () =>
+          import("./main/data-provider-main.module").then(
+            (m) => m.DataProviderMainModule,
+          ),
+        data: { title: "ROUTE.DATAPROVIDER.MAIN" },
       },
+      /* Log */
       {
-        path: "log-client/LinkClientId/:LinkClientId",
-        component: DataProviderLogClientListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.LOGCLIENT" },
+        path: "log",
+        loadChildren: () =>
+          import("./log/data-provider-log.module").then(
+            (m) => m.DataProviderLogModule,
+          ),
+        data: { title: "ROUTE.DATAPROVIDER.LOG" },
       },
-      {
-        path: "log-client/LinkPlanId/:LinkPlanId",
-        component: DataProviderLogClientListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.LOGCLIENT" },
-      },
-      /** */
-      {
-        path: "log-plan",
-        component: DataProviderLogPlanListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.LOGPLAN" },
-      },
-      {
-        path: "log-plan/LinkSourceId/:LinkSourceId",
-        component: DataProviderLogPlanListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.LOGPLAN" },
-      },
-      {
-        path: "log-plan/LinkPlanId/:LinkPlanId",
-        component: DataProviderLogPlanListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.LOGPLAN" },
-      },
-      /** */
-      {
-        path: "log-source",
-        component: DataProviderLogSourceListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.LOGSOURCE" },
-      },
-      {
-        path: "log-source/LinkSourceId/:LinkSourceId",
-        component: DataProviderLogSourceListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.LOGSOURCE" },
-      },
-      /** */
-      {
-        path: "client",
-        component: DataProviderClientListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.CLIENT" },
-      },
-      {
-        path: "client-charge/:LinkClientId",
-        component: DataProviderClientChargeComponent,
-        data: { title: "ROUTE.DATAPROVIDER.CLIENTCHARGE" },
-      },
-      {
-        path: "source",
-        component: DataProviderSourceListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.SOURCE" },
-      },
-      {
-        path: "source-company",
-        component: DataProviderSourceCompanyListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.SOURCECOMPANY" },
-      },
-      {
-        path: "source-public-config",
-        component: DataProviderSourcePublicConfigListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.SOURCEPUBLICCONFIG" },
-      },
-      {
-        path: "source-path",
-        component: DataProviderSourcePathListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.SOURCEPATH" },
-      },
-      {
-        path: "client-permission",
-        component: DataProviderClientPermissionListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.CLIENTPERMISSION" },
-      },
-      {
-        path: "client-permission/LinkUserId/:LinkUserId",
-        component: DataProviderClientPermissionListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.CLIENTPERMISSION" },
-      },
-      {
-        path: "source/list/LinkSourceCompanyId/:LinkSourceCompanyId",
-        component: DataProviderSourceListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.SOURCE" },
-      },
-      {
-        path: "plan-client",
-        component: DataProviderPlanClientListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.PLANCLIENT" },
-      },
-      {
-        path: "plan-client/LinkPlanId/:LinkPlanId",
-        component: DataProviderPlanClientListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.PLANCLIENT" },
-      },
-      {
-        path: "plan-client/LinkClientId/:LinkClientId",
-        component: DataProviderPlanClientListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.PLANCLIENT" },
-      },
-      {
-        path: "plan",
-        component: DataProviderPlanListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.PLAN" },
-      },
-      {
-        path: "plan/LinkPlanCategory/:LinkPlanCategory",
-        component: DataProviderPlanListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.PLAN" },
-      },
-      {
-        path: "plan-source",
-        component: DataProviderPlanSourceListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.PLANSOURCE" },
-      },
-      {
-        path: "plan-source/LinkPlanId/:LinkPlanId",
-        component: DataProviderPlanSourceListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.PLANSOURCE" },
-      },
-      {
-        path: "plan-source/LinkSourceId/:LinkSourceId",
-        component: DataProviderPlanSourceListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.PLANSOURCE" },
-      },
-      {
-        path: "plan-price",
-        component: DataProviderPlanPriceListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.PLANPRICE" },
-      },
-      {
-        path: "plan-price/LinkPlanId/:LinkPlanId",
-        component: DataProviderPlanPriceListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.PLANPRICE" },
-      },
+      /* Transaction */
       {
         path: "transaction",
-        component: DataProviderTransactionListComponent,
+        loadChildren: () =>
+          import("./transaction/data-provider-transaction.module").then(
+            (m) => m.DataProviderTransactionModule,
+          ),
         data: { title: "ROUTE.DATAPROVIDER.TRANSACTION" },
+      },
+      /* Overview */
+      {
+        path: "overview-summary",
+        component: DataProviderOverviewSummaryComponent,
+        data: { title: "ROUTE.DATAPROVIDER.SUMMARY" },
       },
       {
-        path: "transaction/LinkPlanId/:LinkPlanId",
-        component: DataProviderTransactionListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.TRANSACTION" },
+        path: "overview-events",
+        component: DataProviderOverviewEventsComponent,
+        data: { title: "ROUTE.DATAPROVIDER.EVENTS" },
       },
-      {
-        path: "transaction/LinkCmsUserId/:LinkCmsUserId",
-        component: DataProviderTransactionListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.TRANSACTION" },
-      },
-      {
-        path: "transaction/LinkClientId/:LinkClientId",
-        component: DataProviderTransactionListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.TRANSACTION" },
-      },
-      {
-        path: "transaction/LinkSponsorId/:LinkSponsorId",
-        component: DataProviderTransactionListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.TRANSACTION" },
-      },
-      {
-        path: "transaction/LinkPlanPriceId/:LinkPlanPriceId",
-        component: DataProviderTransactionListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.TRANSACTION" },
-      },
+      /* Overview */
       /** */
     ],
   },

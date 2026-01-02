@@ -1,12 +1,13 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
-import { ActivatedRoute, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  DataProviderTransactionModel,
-  DataProviderTransactionService,
+  DataProviderClientModel,
+  DataProviderClientService,
+  DataProviderPlanModel,
   FilterDataModel,
   FilterModel,
   RecordStatusEnum,
@@ -20,42 +21,39 @@ import { PageInfoService } from "src/app/core/services/page-info.service";
 import { environment } from "src/environments/environment";
 import { PublicHelper } from "../../../../../core/helpers/publicHelper";
 import { CmsToastrService } from "../../../../../core/services/cmsToastr.service";
-import { DataProviderTransactionViewComponent } from "../view/view.component";
+import { DataProviderClientAddComponent } from "../add/add.component";
+import { DataProviderClientDeleteComponent } from "../delete/delete.component";
+import { DataProviderClientEditComponent } from "../edit/edit.component";
 
 @Component({
-  selector: "app-donate-transaction-list",
+  selector: "app-data-provider-client-list",
   templateUrl: "./list.component.html",
   standalone: false,
 })
-export class DataProviderTransactionListComponent
+export class DataProviderClientListComponent
   extends ListBaseComponent<
-    DataProviderTransactionService,
-    DataProviderTransactionModel,
-    string
+    DataProviderClientService,
+    DataProviderClientModel,
+    number
   >
   implements OnInit, OnDestroy
 {
-  requestLinkCmsUserId = 0;
-  requestLinkPlanId = 0;
-  requestLinkPlanPriceId = 0;
-  requestLinkClientId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private activatedRoute: ActivatedRoute,
-    public contentService: DataProviderTransactionService,
+    public contentService: DataProviderClientService,
     private cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
-    private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
+    private cmsStoreService: CmsStoreService,
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog,
   ) {
     super(
       contentService,
-      new DataProviderTransactionModel(),
+      new DataProviderClientModel(),
       publicHelper,
       tokenHelper,
       translate,
@@ -73,78 +71,27 @@ export class DataProviderTransactionListComponent
   filteModelContent = new FilterModel();
   filterDataModelQueryBuilder: FilterDataModel[] = [];
 
+  categoryModelSelected: DataProviderPlanModel;
+  link: string;
+
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
+    "linkMainImageIdSrc",
     "id",
-    "linkSiteId",
     "recordStatus",
-    "LinkClientId",
-    "LinkPlanId",
-    "LinkPlanPriceId",
-    "SystemTransactionId",
-    "SystemPaymentisSuccess",
-    "AmountPure",
-    "FeeTransport",
-    "FeeTax",
-    "Amount",
-    "createdDate",
-    // 'Action'
+    // 'Title',
+    "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
+    "linkMainImageIdSrc",
     "id",
-    "linkSiteId",
     "recordStatus",
-    "LinkClientId",
-    "LinkPlanId",
-    "LinkPlanPriceId",
-    "SystemTransactionId",
-    "SystemPaymentisSuccess",
-    "AmountPure",
-    "FeeTransport",
-    "FeeTax",
-    "Amount",
-    "createdDate",
-    // 'Action'
+    // 'Title',
+    "action_menu",
   ];
 
   private unsubscribe: Subscription[] = [];
   ngOnInit(): void {
-    this.requestLinkCmsUserId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkCmsUserId"),
-    );
-    if (this.requestLinkCmsUserId && this.requestLinkCmsUserId > 0) {
-      const filter = new FilterDataModel();
-      filter.propertyName = "LinkCmsUserId";
-      filter.value = this.requestLinkCmsUserId;
-      this.filteModelContent.filters.push(filter);
-    }
-    this.requestLinkPlanId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkPlanId"),
-    );
-    if (this.requestLinkPlanId && this.requestLinkPlanId > 0) {
-      const filter = new FilterDataModel();
-      filter.propertyName = "LinkPlanId";
-      filter.value = this.requestLinkPlanId;
-      this.filteModelContent.filters.push(filter);
-    }
-    this.requestLinkClientId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkClientId"),
-    );
-    if (this.requestLinkClientId && this.requestLinkClientId > 0) {
-      const filter = new FilterDataModel();
-      filter.propertyName = "LinkClientId";
-      filter.value = this.requestLinkClientId;
-      this.filteModelContent.filters.push(filter);
-    }
-    this.requestLinkPlanPriceId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkPlanPriceId"),
-    );
-    if (this.requestLinkPlanPriceId && this.requestLinkPlanPriceId > 0) {
-      const filter = new FilterDataModel();
-      filter.propertyName = "LinkPlanPriceId";
-      filter.value = this.requestLinkPlanPriceId;
-      this.filteModelContent.filters.push(filter);
-    }
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
@@ -170,7 +117,7 @@ export class DataProviderTransactionListComponent
       this.tokenInfo,
     );
     this.tableRowsSelected = [];
-    this.onActionTableRowSelect(new DataProviderTransactionModel());
+    this.onActionTableRowSelect(new DataProviderClientModel());
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.get_information_list")
@@ -193,11 +140,19 @@ export class DataProviderTransactionListComponent
       filterModel.filters = [...this.filterDataModelQueryBuilder];
     }
     /*filter add search*/
-
+    /*filter CLone*/
+    if (this.categoryModelSelected && this.categoryModelSelected.id > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "PlanClients";
+      filter.propertyAnyName = "LinkPlanId";
+      filter.value = this.categoryModelSelected.id;
+      filterModel.filters.push(filter);
+    }
     this.contentService.setAccessLoad();
     this.contentService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
+
         if (ret.isSuccess) {
           this.dataModelResult = ret;
           this.tableSource.data = ret.listItems;
@@ -249,27 +204,126 @@ export class DataProviderTransactionListComponent
     this.filteModelContent.rowPerPage = event.pageSize;
     this.DataGetAll();
   }
+  onActionSelectorSelect(model: DataProviderPlanModel | null): void {
+    /*filter */
+    var sortColumn = this.filteModelContent.sortColumn;
+    var sortType = this.filteModelContent.sortType;
+    this.filteModelContent = new FilterModel();
 
-  onActionButtonViewRow(
-    model: DataProviderTransactionModel = this.tableRowSelected,
-  ): void {
-    if (!(model?.id?.length > 0)) {
-      this.cmsToastrService.typeErrorSelected();
-      return;
-    }
+    this.filteModelContent.sortColumn = sortColumn;
+    this.filteModelContent.sortType = sortType;
+    /*filter */
+    this.categoryModelSelected = model;
+
+    this.DataGetAll();
+  }
+
+  onActionButtonNewRow(): void {
     if (
       this.dataModelResult == null ||
       this.dataModelResult.access == null ||
-      !this.dataModelResult.access.accessWatchRow
+      !this.dataModelResult.access.accessAddRow
     ) {
-      this.cmsToastrService.typeErrorAccessWatch();
+      this.cmsToastrService.typeErrorAccessAdd();
+      return;
+    }
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = "90%";
+    dialogConfig.data = {};
+
+    const dialogRef = this.dialog.open(
+      DataProviderClientAddComponent,
+      dialogConfig,
+    );
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result && result.dialogChangedDate) {
+        if (result.id && result.id > 0) {
+          const dialogConfig = new MatDialogConfig();
+          dialogConfig.disableClose = true;
+          dialogConfig.autoFocus = true;
+          dialogConfig.height = "90%";
+          dialogConfig.data = { id: result.id };
+
+          const dialogRef = this.dialog.open(
+            DataProviderClientEditComponent,
+            dialogConfig,
+          );
+          dialogRef.afterClosed().subscribe((result) => {
+            if (result && result.dialogChangedDate) {
+              this.categoryModelSelected = new DataProviderPlanModel();
+              this.DataGetAll();
+            }
+          });
+        } else {
+          this.categoryModelSelected = new DataProviderPlanModel();
+          this.DataGetAll();
+        }
+      }
+    });
+  }
+
+  onActionButtonEditRow(
+    model: DataProviderClientModel = this.tableRowSelected,
+  ): void {
+    if (!model || !model.id || model.id === "") {
+      this.cmsToastrService.typeErrorSelectedRow();
+      return;
+    }
+    this.onActionTableRowSelect(model);
+    if (
+      this.dataModelResult == null ||
+      this.dataModelResult.access == null ||
+      !this.dataModelResult.access.accessEditRow
+    ) {
+      this.cmsToastrService.typeErrorAccessEdit();
+      return;
+    }
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = "90%";
+    dialogConfig.data = { id: this.tableRowSelected.id };
+
+    const dialogRef = this.dialog.open(
+      DataProviderClientEditComponent,
+      dialogConfig,
+    );
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result && result.dialogChangedDate) {
+        this.categoryModelSelected = new DataProviderPlanModel();
+        this.DataGetAll();
+      }
+    });
+  }
+  onActionButtonDeleteRow(
+    model: DataProviderClientModel = this.tableRowSelected,
+  ): void {
+    if (!model || !model.id || model.id === "") {
+      this.translate
+        .get("MESSAGE.no_row_selected_to_delete")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+    this.onActionTableRowSelect(model);
+
+    if (
+      this.dataModelResult == null ||
+      this.dataModelResult.access == null ||
+      !this.dataModelResult.access.accessDeleteRow
+    ) {
+      this.cmsToastrService.typeErrorAccessDelete();
       return;
     }
     var panelClass = "";
     if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
     else panelClass = "dialog-min";
-    const dialogRef = this.dialog.open(DataProviderTransactionViewComponent, {
-      height: "90%",
+    const dialogRef = this.dialog.open(DataProviderClientDeleteComponent, {
+      height: "40%",
       panelClass: panelClass,
       enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
       exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
@@ -277,10 +331,10 @@ export class DataProviderTransactionListComponent
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
+        this.DataGetAll();
       }
     });
   }
-
   onActionButtonStatist(view = !this.optionsStatist.data.show): void {
     this.optionsStatist.data.show = view;
     if (!this.optionsStatist.data.show) {
@@ -343,8 +397,88 @@ export class DataProviderTransactionListComponent
     });
   }
 
+  onActionButtonClientCreditAccountRow(
+    model: DataProviderClientModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
+    if (
+      !model ||
+      !model.id ||
+      model.id === "" ||
+      !model.linkSiteId ||
+      model.linkSiteId === 0
+    ) {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+    this.onActionTableRowSelect(model);
+
+    if (event?.ctrlKey) {
+      this.link = "/#/data-provider/client-charge/" + model.id;
+      window.open(this.link, "_blank");
+    } else {
+      this.router.navigate(["/data-provider/client-charge/", model.id]);
+    }
+  }
+  onActionButtonClientList(
+    model: DataProviderClientModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
+    if (!model || !model.id || model.id === "") {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+    this.onActionTableRowSelect(model);
+
+    if (event?.ctrlKey) {
+      this.link = "/#/data-provider/plan-client/LinkClientId/" + model.id;
+      window.open(this.link, "_blank");
+    } else {
+      this.router.navigate([
+        "/data-provider/plan-client/LinkClientId/" + model.id,
+      ]);
+    }
+  }
+  onActionButtonDataRow(
+    model: DataProviderClientModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
+    if (!model || !model.id || model.id === "") {
+      this.translate
+        .get("MESSAGE.No_row_selected_for_viewing")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+    this.onActionTableRowSelect(model);
+
+    if (this.dataModelResult == null || this.dataModelResult.access == null) {
+      this.cmsToastrService.typeErrorAccessDelete();
+      return;
+    }
+    if (event?.ctrlKey) {
+      this.link = "/#/data-provider/log-client/LinkClientId/" + model.id;
+      window.open(this.link, "_blank");
+    } else {
+      this.router.navigate([
+        "/data-provider/log-client/LinkClientId/" + model.id,
+      ]);
+    }
+  }
   onActionButtonReload(): void {
     this.DataGetAll();
+  }
+  onActionCopied(): void {
+    this.cmsToastrService.typeSuccessCopedToClipboard();
   }
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
     if (model && model.length > 0) {
@@ -355,15 +489,28 @@ export class DataProviderTransactionListComponent
     this.DataGetAll();
   }
 
-  onActionBackToParent(): void {
-    if (this.requestLinkCmsUserId > 0) {
-      this.router.navigate(["/data-provider/plan/"]);
-    } else if (this.requestLinkPlanId > 0) {
-      this.router.navigate(["/data-provider/plan/"]);
-    } else if (this.requestLinkPlanPriceId > 0) {
-      this.router.navigate(["/data-provider/plan-price/"]);
-    } else if (this.requestLinkClientId > 0) {
-      this.router.navigate(["/data-provider/client/"]);
+  expandedElement: any;
+  onActionButtonTransactionList(
+    model: DataProviderClientModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
+    if (!model || !model.id || model.id === "") {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+    this.onActionTableRowSelect(model);
+
+    if (event?.ctrlKey) {
+      this.link = "/#/data-provider/transaction/LinkClientId/" + model.id;
+      window.open(this.link, "_blank");
+    } else {
+      this.router.navigate([
+        "/data-provider/transaction/LinkClientId/" + model.id,
+      ]);
     }
   }
 }
