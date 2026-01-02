@@ -16,7 +16,7 @@ import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TRANSACTION_ID_LOCAL_STORAGE_KEY } from "src/app/core/models/constModel";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../../core/models/formInfoModel";
+import { FormInfoModel } from "src/app/core/models/formInfoModel";
 
 @Component({
   selector: "app-data-provider-client-charge-payment",

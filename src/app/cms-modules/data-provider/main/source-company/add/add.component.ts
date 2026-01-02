@@ -1,4 +1,4 @@
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
+import { FormInfoModel } from "src/app/core/models/formInfoModel";
 
 import {
   ChangeDetectorRef,
