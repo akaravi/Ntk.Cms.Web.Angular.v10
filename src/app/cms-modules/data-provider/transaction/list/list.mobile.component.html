@@ -85,7 +85,7 @@
                 <button
                   class="cms-m-action-btn edit"
                   (click)="
-                    onActionButtonEditRow(row); $event.stopPropagation()
+                    onActionButtonViewRow(row); $event.stopPropagation()
                   "
                   [attr.aria-label]="'ACTION.EDIT' | translate"
                 >
@@ -96,7 +96,7 @@
                 <button
                   class="cms-m-action-btn delete"
                   (click)="
-                    onActionButtonDeleteRow(row); $event.stopPropagation()
+                    onActionButtonViewRow(row); $event.stopPropagation()
                   "
                   [attr.aria-label]="'ACTION.DELETE' | translate"
                 >

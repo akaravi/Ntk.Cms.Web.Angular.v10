@@ -28,7 +28,7 @@
       <!-- LinkPlanId Field -->
       <app-data-provider-plan-category-selector
         (optionChange)="onActionSelectorSelect($event)"
-        [optionSelectForce]="dataModel.linkPlanId"
+        [optionSelectForce]="dataModel.linkPlanId || ''"
         [optionPlaceholder]="'TITLE.Category' | translate"
         >
       </app-data-provider-plan-category-selector>

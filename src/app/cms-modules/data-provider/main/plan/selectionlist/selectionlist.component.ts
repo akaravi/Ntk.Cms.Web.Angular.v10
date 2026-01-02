@@ -38,10 +38,10 @@ export class DataProviderPlanSelectionlistComponent implements OnInit {
   dataModelResult: ErrorExceptionResult<DataProviderPlanModel> =
     new ErrorExceptionResult<DataProviderPlanModel>();
   dataModelSelect: DataProviderPlanModel[] = [];
-  dataIdsSelect: number[] = [];
+  dataIdsSelect: string[] = [];
 
   formControl = new FormControl();
-  fieldsStatus: Map<number, boolean> = new Map<number, boolean>();
+  fieldsStatus: Map<string, boolean> = new Map<string, boolean>();
 
   @Input() optionDisabled = false;
   @Input() optionSelectFirstItem = false;
@@ -50,7 +50,7 @@ export class DataProviderPlanSelectionlistComponent implements OnInit {
   @Output() optionSelectAdded = new EventEmitter();
   @Output() optionSelectRemoved = new EventEmitter();
   @Input() optionReload = () => this.onActionButtonReload();
-  @Input() set optionSelectForce(x: number[] | DataProviderPlanModel[]) {
+  @Input() set optionSelectForce(x: string[] | number[] | DataProviderPlanModel[]) {
     this.onActionSelectForce(x);
     this.onActionReSelect();
   }
@@ -115,15 +115,17 @@ export class DataProviderPlanSelectionlistComponent implements OnInit {
     this.optionChange.emit(this.dataModelSelect);
   }
 
-  onActionSelectForce(ids: number[] | DataProviderPlanModel[]): void {
-    if (typeof ids === typeof Array(Number)) {
-      ids.forEach((element) => {
-        this.dataIdsSelect.push(element);
-      });
-    } else if (typeof ids === typeof Array(DataProviderPlanModel)) {
-      ids.forEach((element) => {
-        this.dataIdsSelect.push(element.id);
-      });
+  onActionSelectForce(ids: string[] | number[] | DataProviderPlanModel[]): void {
+    if (Array.isArray(ids) && ids.length > 0) {
+      if (typeof ids[0] === 'string' || typeof ids[0] === 'number') {
+        ids.forEach((element) => {
+          this.dataIdsSelect.push(element.toString());
+        });
+      } else if (ids[0] instanceof DataProviderPlanModel) {
+        (ids as DataProviderPlanModel[]).forEach((element: DataProviderPlanModel) => {
+          this.dataIdsSelect.push(String(element.id));
+        });
+      }
     }
     this.dataIdsSelect.forEach((el) => this.fieldsStatus.set(el, true));
   }

@@ -15,12 +15,12 @@ import {
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { environment } from "src/environments/environment";
-import { PublicHelper } from "src/app/core/helpers/publicHelper";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { DataProviderPlanClientAddComponent } from "../add/add.component";
 import { DataProviderPlanClientDeleteComponent } from "../delete/delete.component";
 import { DataProviderPlanClientEditComponent } from "../edit/edit.component";
@@ -34,12 +34,12 @@ export class DataProviderPlanClientListComponent
   extends ListBaseComponent<
     DataProviderPlanClientService,
     DataProviderPlanClientModel,
-    number
+    string
   >
   implements OnInit, OnDestroy
 {
-  requestLinkPlanId = 0;
-  requestLinkClientId = 0;
+  requestLinkPlanId = "";
+  requestLinkClientId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: DataProviderPlanClientService,
@@ -91,19 +91,14 @@ export class DataProviderPlanClientListComponent
   ];
   private unsubscribe: Subscription[] = [];
   ngOnInit(): void {
-    this.requestLinkPlanId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkPlanId"),
-    );
-    if (this.requestLinkPlanId && this.requestLinkPlanId > 0) {
+    this.requestLinkPlanId = this.activatedRoute.snapshot.paramMap.get("LinkPlanId") || "";
+    if (this.requestLinkPlanId && this.requestLinkPlanId.length > 0) {
       const filter = new FilterDataModel();
       filter.propertyName = "LinkPlanId";
       filter.value = this.requestLinkPlanId;
       this.filteModelContent.filters.push(filter);
     }
-    this.requestLinkClientId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkClientId"),
-    );
-    if (this.requestLinkClientId && this.requestLinkClientId > 0) {
+    if (this.requestLinkClientId && this.requestLinkClientId.length > 0) {
       const filter = new FilterDataModel();
       filter.propertyName = "LinkClientId";
       filter.value = this.requestLinkClientId;
@@ -160,7 +155,7 @@ export class DataProviderPlanClientListComponent
       filterModel.filters = [...this.filterDataModelQueryBuilder];
     }
     /*filter add search*/
-    if (this.categoryModelSelected && this.categoryModelSelected.id > 0) {
+    if (this.categoryModelSelected && (typeof this.categoryModelSelected.id === 'string' ? this.categoryModelSelected.id.length > 0 : this.categoryModelSelected.id > 0)) {
       const filter = new FilterDataModel();
       filter.propertyName = "LinkCategoryId";
       filter.value = this.categoryModelSelected.id;
@@ -241,7 +236,7 @@ export class DataProviderPlanClientListComponent
   onActionButtonNewRow(): void {
     if (
       this.categoryModelSelected == null ||
-      this.categoryModelSelected.id === 0
+      (typeof this.categoryModelSelected.id === 'string' ? this.categoryModelSelected.id.length === 0 : this.categoryModelSelected.id === 0)
     ) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
@@ -280,7 +275,7 @@ export class DataProviderPlanClientListComponent
   onActionButtonEditRow(
     model: DataProviderPlanClientModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -313,7 +308,7 @@ export class DataProviderPlanClientListComponent
   onActionButtonDeleteRow(
     model: DataProviderPlanClientModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {

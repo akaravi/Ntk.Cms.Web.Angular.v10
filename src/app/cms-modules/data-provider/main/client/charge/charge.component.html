@@ -1,4 +1,4 @@
-@if (requestLinkClientId > 0) {
+@if (requestLinkClientId && (typeof requestLinkClientId === 'string' ? requestLinkClientId.length > 0 : requestLinkClientId > 0)) {
   <app-data-provider-plan-header
     [optionId]="requestLinkClientId"
     >

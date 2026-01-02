@@ -47,10 +47,11 @@ export class DataProviderPlanPriceTreeComponent implements OnInit, OnDestroy {
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }
-  @Input() set optionSelectForce(x: number | DataProviderPlanPriceModel) {
+  @Input() set optionSelectForce(x: string | DataProviderPlanPriceModel) {
     this.onActionSelectForce(x);
   }
-  dataModelSelect: DataProviderPlanPriceModel | null = new DataProviderPlanPriceModel();
+  dataModelSelect: DataProviderPlanPriceModel | null =
+    new DataProviderPlanPriceModel();
   dataModelResult: ErrorExceptionResult<DataProviderPlanPriceModel> =
     new ErrorExceptionResult<DataProviderPlanPriceModel>();
   filterModel = new FilterModel();
@@ -60,7 +61,7 @@ export class DataProviderPlanPriceTreeComponent implements OnInit, OnDestroy {
   private unsubscribe: Subscription[] = [];
   @Input() optionReload = () => this.onActionButtonReload();
 
-  hasChild = (_: number, node: DataProviderPlanPriceModel) => null;
+  hasChild = (_: string, node: DataProviderPlanPriceModel) => null;
   childrenAccessor = (node: DataProviderPlanPriceModel) => null;
 
   ngOnInit(): void {
@@ -106,7 +107,7 @@ export class DataProviderPlanPriceTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-    onActionSelect(model: DataProviderPlanPriceModel): void {
+  onActionSelect(model: DataProviderPlanPriceModel): void {
     if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
       this.dataModelSelect = null;
       this.optionChange.emit(null);
@@ -121,11 +122,11 @@ export class DataProviderPlanPriceTreeComponent implements OnInit, OnDestroy {
     this.dataModelSelect = new DataProviderPlanPriceModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | DataProviderPlanPriceModel): void {}
+  onActionSelectForce(id: string | DataProviderPlanPriceModel): void {}
 
   onActionAdd(): void {
-    let parentId = 0;
-    if (this.dataModelSelect && this.dataModelSelect.id > 0) {
+    let parentId = "";
+    if (this.dataModelSelect && this.dataModelSelect.id?.length > 0) {
       parentId = this.dataModelSelect.id;
     }
 
@@ -147,11 +148,11 @@ export class DataProviderPlanPriceTreeComponent implements OnInit, OnDestroy {
   }
 
   onActionEdit(): void {
-    let id = 0;
-    if (this.dataModelSelect && this.dataModelSelect.id > 0) {
+    let id = "";
+    if (this.dataModelSelect && this.dataModelSelect.id?.length > 0) {
       id = this.dataModelSelect.id;
     }
-    if (id === 0) {
+    if (id.length === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
         .subscribe((str: string) => {
@@ -182,11 +183,11 @@ export class DataProviderPlanPriceTreeComponent implements OnInit, OnDestroy {
     //   if (res.isSuccess) {
     //   }
     // });
-    let id = 0;
-    if (this.dataModelSelect && this.dataModelSelect.id > 0) {
+    let id = "";
+    if (this.dataModelSelect && this.dataModelSelect.id?.length > 0) {
       id = this.dataModelSelect.id;
     }
-    if (id === 0) {
+    if (id.length === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
         .subscribe((str: string) => {

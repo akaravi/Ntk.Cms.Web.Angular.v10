@@ -121,12 +121,12 @@ export class DataProviderClientTreeComponent implements OnInit, OnDestroy {
     this.dataModelSelect = new DataProviderClientModel();
     this.DataGetAll();
   }
-  onActionSelectForce(id: number | DataProviderClientModel): void {}
+  onActionSelectForce(id: string | number | DataProviderClientModel): void {}
 
   onActionAdd(): void {
-    let parentId = 0;
-    if (this.dataModelSelect && this.dataModelSelect.id > 0) {
-      parentId = this.dataModelSelect.id;
+    let parentId = "";
+    if (this.dataModelSelect && (typeof this.dataModelSelect.id === 'string' ? this.dataModelSelect.id.length > 0 : this.dataModelSelect.id > 0)) {
+      parentId = String(this.dataModelSelect.id);
     }
 
     const dialogConfig = new MatDialogConfig();
@@ -147,11 +147,11 @@ export class DataProviderClientTreeComponent implements OnInit, OnDestroy {
   }
 
   onActionEdit(): void {
-    let id = 0;
-    if (this.dataModelSelect && this.dataModelSelect.id > 0) {
-      id = this.dataModelSelect.id;
+    let id = "";
+    if (this.dataModelSelect && (typeof this.dataModelSelect.id === 'string' ? this.dataModelSelect.id.length > 0 : this.dataModelSelect.id > 0)) {
+      id = String(this.dataModelSelect.id);
     }
-    if (id === 0) {
+    if (id.length === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
         .subscribe((str: string) => {
@@ -177,11 +177,11 @@ export class DataProviderClientTreeComponent implements OnInit, OnDestroy {
   }
 
   onActionDelete(): void {
-    let id = 0;
-    if (this.dataModelSelect && this.dataModelSelect.id > 0) {
-      id = this.dataModelSelect.id;
+    let id = "";
+    if (this.dataModelSelect && (typeof this.dataModelSelect.id === 'string' ? this.dataModelSelect.id.length > 0 : this.dataModelSelect.id > 0)) {
+      id = String(this.dataModelSelect.id);
     }
-    if (id === 0) {
+    if (id.length === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
         .subscribe((str: string) => {

@@ -79,7 +79,7 @@ export class DataProviderSourceHeaderComponent implements OnInit, OnDestroy {
       });
 
     this.headerService.setAccessLoad();
-    this.headerService.ServiceGetOneById(this.optionId.length).subscribe({
+    this.headerService.ServiceGetOneById(this.optionId).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
         if (ret.isSuccess) {
@@ -98,7 +98,7 @@ export class DataProviderSourceHeaderComponent implements OnInit, OnDestroy {
   onActionButtonLinkTo(
     model: DataProviderSourceModel = this.dataModelResult.item,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model?.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

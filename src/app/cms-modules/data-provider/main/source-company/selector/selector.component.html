@@ -86,7 +86,7 @@
         optionRequired &&
         (!dataModelSelect ||
         !dataModelSelect.id ||
-        dataModelSelect.id <= 0)
+        (typeof dataModelSelect.id === 'string' ? dataModelSelect.id.length === 0 : dataModelSelect.id <= 0))
         ) {
         <em
           >({{ "TITLE.Necessary" | translate }})</em

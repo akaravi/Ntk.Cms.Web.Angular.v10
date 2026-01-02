@@ -30,11 +30,11 @@ export class DataProviderPlanAddComponent
   extends AddBaseComponent<
     DataProviderPlanService,
     DataProviderPlanModel,
-    number
+    string
   >
   implements OnInit
 {
-  requestLinkPlanCategoryId = 0;
+  requestLinkPlanCategoryId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -54,9 +54,9 @@ export class DataProviderPlanAddComponent
     );
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {
-      this.requestLinkPlanCategoryId = +data.linkPlanCategoryId || 0;
+      this.requestLinkPlanCategoryId = data.linkPlanCategoryId || "";
     }
-    if (this.requestLinkPlanCategoryId > 0) {
+    if (this.requestLinkPlanCategoryId && this.requestLinkPlanCategoryId.length > 0) {
       this.dataModel.linkPlanCategoryId = this.requestLinkPlanCategoryId;
     }
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
@@ -145,7 +145,7 @@ export class DataProviderPlanAddComponent
     });
   }
   onActionSelectorSelect(model: DataProviderPlanCategoryModel | null): void {
-    if (!model || model.id <= 0) {
+    if (!model || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
       this.translate
         .get("MESSAGE.category_of_information_is_not_clear")
         .subscribe((str: string) => {
@@ -153,7 +153,7 @@ export class DataProviderPlanAddComponent
         });
       return;
     }
-    this.dataModel.linkPlanCategoryId = model.id;
+    this.dataModel.linkPlanCategoryId = String(model.id);
   }
 
   onFormSubmit(): void {

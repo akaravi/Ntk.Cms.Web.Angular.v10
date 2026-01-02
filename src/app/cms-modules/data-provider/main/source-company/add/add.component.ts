@@ -27,7 +27,7 @@ export class DataProviderSourceCompanyAddComponent
   extends AddBaseComponent<
     DataProviderSourceCompanyService,
     DataProviderSourceCompanyModel,
-    number
+    string
   >
   implements OnInit
 {

@@ -26,11 +26,11 @@ export class DataProviderSourcePathEditComponent
   extends EditBaseComponent<
     DataProviderSourcePathService,
     DataProviderSourcePathModel,
-    number
+    string
   >
   implements OnInit
 {
-  requestId = 0;
+  requestId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -70,7 +70,7 @@ export class DataProviderSourcePathEditComponent
   fileManagerOpenForm = false;
 
   ngOnInit(): void {
-    if (this.requestId > 0) {
+    if (this.requestId && this.requestId.length > 0) {
       this.translate.get("TITLE.Edit").subscribe((str: string) => {
         this.formInfo.formTitle = str;
       });
@@ -83,7 +83,7 @@ export class DataProviderSourcePathEditComponent
   }
 
   DataGetOneContent(): void {
-    if (this.requestId <= 0) {
+    if (this.requestId.length === 0) {
       this.cmsToastrService.typeErrorEditRowIsNull();
       return;
     }

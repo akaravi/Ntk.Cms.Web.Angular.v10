@@ -17,14 +17,14 @@ import { ApiTelegramActionSendMessageComponent } from "../send-message/send-mess
 })
 export class ApiTelegramActionSendMessageSimpleComponent extends ApiTelegramActionSendMessageComponent {
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<ApiTelegramActionSendMessageSimpleComponent>,
-    public coreEnumService: CoreEnumService,
-    public apiTelegramBotConfigService: ApiTelegramBotConfigService,
-    private cmsToastrService: CmsToastrService,
-    public publicHelper: PublicHelper,
-    private cdr: ChangeDetectorRef,
-    public translate: TranslateService,
+    @Inject(MAT_DIALOG_DATA) data: any,
+    dialogRef: MatDialogRef<ApiTelegramActionSendMessageComponent>,
+    coreEnumService: CoreEnumService,
+    apiTelegramBotConfigService: ApiTelegramBotConfigService,
+    cmsToastrService: CmsToastrService,
+    publicHelper: PublicHelper,
+    cdr: ChangeDetectorRef,
+    translate: TranslateService,
   ) {
     super(data, dialogRef, coreEnumService, apiTelegramBotConfigService, cmsToastrService, publicHelper, cdr, translate);
   }

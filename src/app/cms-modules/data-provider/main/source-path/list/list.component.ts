@@ -33,7 +33,7 @@ export class DataProviderSourcePathListComponent
   extends ListBaseComponent<
     DataProviderSourcePathService,
     DataProviderSourcePathModel,
-    number
+    string
   >
   implements OnInit, OnDestroy
 {
@@ -141,6 +141,7 @@ export class DataProviderSourcePathListComponent
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
 
         if (ret.isSuccess) {
+          this.dataModelResult = ret;
           this.tableData = ret.listItems;
           this.tableSource.data = ret.listItems;
           this.tableSource.sort = this.sort;
@@ -186,7 +187,7 @@ export class DataProviderSourcePathListComponent
   onActionbuttonNewRow(): void {
     if (
       this.tokenInfo == null ||
-      !this.tokenInfo.access.accessAddRow
+      !this.dataModelResult?.access?.accessAddRow
     ) {
       this.cmsToastrService.typeErrorAccessAdd();
       return;
@@ -202,7 +203,7 @@ export class DataProviderSourcePathListComponent
     });
   }
   onActionbuttonEditRow(model: DataProviderSourcePathModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model || !model.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id === 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -213,7 +214,7 @@ export class DataProviderSourcePathListComponent
     this.onActionTableRowSelect(model);
     if (
       this.tokenInfo == null ||
-      !this.tokenInfo.access.accessEditRow
+      !this.dataModelResult?.access?.accessEditRow
     ) {
       this.cmsToastrService.typeErrorAccessEdit();
       return;
@@ -229,7 +230,7 @@ export class DataProviderSourcePathListComponent
     });
   }
   onActionbuttonDeleteRow(model: DataProviderSourcePathModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model || !model.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id === 0)) {
       const emessage = this.translate.instant("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow");
       this.cmsToastrService.typeErrorSelected(emessage);
       return;
@@ -238,19 +239,17 @@ export class DataProviderSourcePathListComponent
 
     if (
       this.tokenInfo == null ||
-      !this.tokenInfo.access.accessDeleteRow
+      !this.dataModelResult?.access?.accessDeleteRow
     ) {
       this.cmsToastrService.typeErrorAccessDelete();
       return;
     }
 
     const title = model.title;
-    const dialogRef = this.cmsConfirmationDialogService.confirm(
+    this.cmsConfirmationDialogService.confirm(
       this.translate.instant("MESSAGE.Pay_Attention"),
       this.translate.instant("MESSAGE.Delete", { 0: title }),
-    );
-
-    dialogRef.afterClosed().subscribe((result) => {
+    ).then((result) => {
       if (result) {
         this.contentService.ServiceDelete(model.id).subscribe({
           next: (ret) => {
@@ -269,12 +268,16 @@ export class DataProviderSourcePathListComponent
     });
   }
   onActionbuttonViewRow(model: DataProviderSourcePathModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model || !model.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id === 0)) {
       const emessage = this.translate.instant("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow");
       this.cmsToastrService.typeErrorSelected(emessage);
       return;
     }
     this.onActionTableRowSelect(model);
+  }
+
+  onActionButtonReload(): void {
+    this.DataGetAll();
   }
 
   onSubmitOptionsSearch(model: any): void {

@@ -29,11 +29,11 @@ export class DataProviderPlanEditComponent
   extends EditBaseComponent<
     DataProviderPlanService,
     DataProviderPlanModel,
-    number
+    string
   >
   implements OnInit
 {
-  requestId = 0;
+  requestId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -54,7 +54,7 @@ export class DataProviderPlanEditComponent
 
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {
-      this.requestId = +data.id || 0;
+      this.requestId = data.id || "";
     }
 
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
@@ -78,7 +78,7 @@ export class DataProviderPlanEditComponent
   }
 
   ngOnInit(): void {
-    if (this.requestId > 0) {
+    if (this.requestId && this.requestId.length > 0) {
       this.translate.get("TITLE.Edit_Categories").subscribe((str: string) => {
         this.formInfo.formTitle = str;
       });
@@ -91,7 +91,7 @@ export class DataProviderPlanEditComponent
   }
 
   DataGetOneContent(): void {
-    if (this.requestId <= 0) {
+    if (!this.requestId || this.requestId.length === 0) {
       this.cmsToastrService.typeErrorEditRowIsNull();
       return;
     }
@@ -197,7 +197,7 @@ export class DataProviderPlanEditComponent
     });
   }
   onActionSelectorSelect(model: DataProviderPlanCategoryModel | null): void {
-    if (!model || model.id <= 0) {
+    if (!model || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
       this.translate
         .get("MESSAGE.category_of_information_is_not_clear")
         .subscribe((str: string) => {

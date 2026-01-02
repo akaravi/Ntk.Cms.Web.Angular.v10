@@ -35,7 +35,7 @@
         </button>
         @if (
           dataModelResult?.access?.accessAddRow &&
-          tokenHelper?.checkIsAdmin()
+          tokenHelper?.isAdminSite
         ) {
           <button
             type="button"
@@ -68,23 +68,18 @@
             [attr.aria-label]="row.id || row.id"
             tabindex="0"
           >
-            @if (row?.linkMainImageIdSrc?.length > 0) {
-              <div class="cms-m-list-item-image">
-                <img
-                  [src]="row.linkMainImageIdSrc | cmsthumbnail"
-                  [alt]="row.id || row.id"
-                  loading="lazy"
-                />
-              </div>
-            } @else {
-              <div class="cms-m-list-item-image-placeholder">
-                <i class="fa-solid fa-user" aria-hidden="true"></i>
-              </div>
-            }
+            <div class="cms-m-list-item-image-placeholder">
+              <i class="fa-solid fa-user" aria-hidden="true"></i>
+            </div>
             <div class="cms-m-list-item-content">
               <div class="cms-m-list-item-title">
                 ID: {{ row.id }}
               </div>
+              @if (row.linkSiteId) {
+                <div class="cms-m-list-item-subtitle">
+                  {{ row.linkSiteId | cmssiteinfo | async }}
+                </div>
+              }
               @if (row.recordStatus !== undefined) {
                 <div class="cms-m-list-item-subtitle">
                   <i [ngClass]="row.recordStatus | statusIconClass"></i>

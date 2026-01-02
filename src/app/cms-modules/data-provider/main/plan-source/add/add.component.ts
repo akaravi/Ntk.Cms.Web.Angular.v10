@@ -3,22 +3,23 @@ import {
   Component,
   Inject,
   OnInit,
-  ViewChild } from "@angular/core";
+  ViewChild,
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreEnumService,
+import {
+  CoreEnumService,
   DataFieldInfoModel,
   DataProviderPlanCategoryModel,
   DataProviderPlanSourceModel,
   DataProviderPlanSourceService,
-  ErrorExceptionResult} from "ntk-cms-api";
+  ErrorExceptionResult,
+} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
-
-import { FormInfoModel } from "src/app/core/models/formInfoModel";
 
 @Component({
   selector: "app-data-provider-plan-source-add",
@@ -30,11 +31,11 @@ export class DataProviderPlanSourceAddComponent
   extends AddBaseComponent<
     DataProviderPlanSourceService,
     DataProviderPlanSourceModel,
-    number
+    string
   >
   implements OnInit
 {
-  requestPlanId = 0;
+  requestPlanId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -54,9 +55,9 @@ export class DataProviderPlanSourceAddComponent
     );
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {
-      this.requestPlanId = +data.parentId || 0;
+      this.requestPlanId = data.parentId || "";
     }
-    if (this.requestPlanId > 0) {
+    if (this.requestPlanId && this.requestPlanId.length > 0) {
       this.dataModel.linkPlanId = this.requestPlanId;
     }
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
@@ -76,7 +77,6 @@ export class DataProviderPlanSourceAddComponent
     new ErrorExceptionResult<DataProviderPlanSourceModel>();
   dataModel: DataProviderPlanSourceModel = new DataProviderPlanSourceModel();
 
-  
   fileManagerOpenForm = false;
 
   ngOnInit(): void {
@@ -116,8 +116,9 @@ export class DataProviderPlanSourceAddComponent
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Success;
-              });
+              this.formInfo.submitResultMessageType =
+                this.formSubmitedStatusEnum.Success;
+            });
           this.cmsToastrService.typeSuccessAdd();
           this.dialogRef.close({ dialogChangedDate: true });
         } else {
@@ -127,7 +128,8 @@ export class DataProviderPlanSourceAddComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType =
+            this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
@@ -140,7 +142,7 @@ export class DataProviderPlanSourceAddComponent
     });
   }
   onActionSelectorSelect(model: DataProviderPlanCategoryModel | null): void {
-    if (!model || model.id <= 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.category_of_information_is_not_clear")
         .subscribe((str: string) => {

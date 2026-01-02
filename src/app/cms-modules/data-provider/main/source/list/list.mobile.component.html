@@ -35,7 +35,7 @@
         </button>
         @if (
           dataModelResult?.access?.accessAddRow &&
-          tokenHelper?.checkIsAdmin()
+          tokenHelper?.isAdminSite
         ) {
           <button
             type="button"

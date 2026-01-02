@@ -43,7 +43,7 @@ export class DataProviderPlanClientHeaderComponent
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }
-  @Input() optionId = 0;
+  @Input() optionId = "";
 
   dataModelResult: ErrorExceptionResult<DataProviderPlanClientModel> =
     new ErrorExceptionResult<DataProviderPlanClientModel>();
@@ -54,7 +54,7 @@ export class DataProviderPlanClientHeaderComponent
 
   private unsubscribe: Subscription[] = [];
   ngOnInit(): void {
-    if (this.optionId > 0) {
+    if (this.optionId && this.optionId.length > 0) {
       this.DataGetOneContent();
     }
 
@@ -102,7 +102,7 @@ export class DataProviderPlanClientHeaderComponent
   onActionButtonLinkTo(
     model: DataProviderPlanClientModel = this.dataModelResult.item,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

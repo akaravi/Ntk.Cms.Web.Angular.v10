@@ -15,12 +15,12 @@ import {
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { environment } from "src/environments/environment";
-import { PublicHelper } from "src/app/core/helpers/publicHelper";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { DataProviderPlanSourceAddComponent } from "../add/add.component";
 import { DataProviderPlanSourceDeleteComponent } from "../delete/delete.component";
 import { DataProviderPlanSourceEditComponent } from "../edit/edit.component";
@@ -34,7 +34,7 @@ export class DataProviderPlanSourceListComponent
   extends ListBaseComponent<
     DataProviderPlanSourceService,
     DataProviderPlanSourceModel,
-    number
+    string
   >
   implements OnInit, OnDestroy
 {
@@ -160,7 +160,7 @@ export class DataProviderPlanSourceListComponent
       filterModel.filters = [...this.filterDataModelQueryBuilder];
     }
     /*filter add search*/
-    if (this.categoryModelSelected && this.categoryModelSelected.id > 0) {
+    if (this.categoryModelSelected && (typeof this.categoryModelSelected.id === 'string' ? this.categoryModelSelected.id.length > 0 : this.categoryModelSelected.id > 0)) {
       const filter = new FilterDataModel();
       filter.propertyName = "LinkCategoryId";
       filter.value = this.categoryModelSelected.id;
@@ -241,7 +241,7 @@ export class DataProviderPlanSourceListComponent
   onActionButtonNewRow(): void {
     if (
       this.categoryModelSelected == null ||
-      this.categoryModelSelected.id === 0
+      (typeof this.categoryModelSelected.id === 'string' ? this.categoryModelSelected.id.length === 0 : this.categoryModelSelected.id === 0)
     ) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
@@ -280,7 +280,7 @@ export class DataProviderPlanSourceListComponent
   onActionButtonEditRow(
     model: DataProviderPlanSourceModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -313,7 +313,7 @@ export class DataProviderPlanSourceListComponent
   onActionButtonDeleteRow(
     model: DataProviderPlanSourceModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {

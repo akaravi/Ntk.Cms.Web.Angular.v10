@@ -14,12 +14,12 @@ import {
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { environment } from "src/environments/environment";
-import { PublicHelper } from "src/app/core/helpers/publicHelper";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { DataProviderPlanPriceAddComponent } from "../add/add.component";
 import { DataProviderPlanPriceDeleteComponent } from "../delete/delete.component";
 import { DataProviderPlanPriceEditComponent } from "../edit/edit.component";
@@ -33,7 +33,7 @@ export class DataProviderPlanPriceListComponent
   extends ListBaseComponent<
     DataProviderPlanPriceService,
     DataProviderPlanPriceModel,
-    number
+    string
   >
   implements OnInit, OnDestroy
 {
@@ -244,7 +244,7 @@ export class DataProviderPlanPriceListComponent
   onActionButtonEditRow(
     model: DataProviderPlanPriceModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id?.length == 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -278,7 +278,7 @@ export class DataProviderPlanPriceListComponent
   onActionButtonDeleteRow(
     model: DataProviderPlanPriceModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id?.length == 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -316,7 +316,7 @@ export class DataProviderPlanPriceListComponent
   onActionButtonTransactionList(
     model: DataProviderPlanPriceModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id?.length == 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

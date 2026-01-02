@@ -17,7 +17,7 @@ import { DataProviderPlanPriceChargePaymentComponent } from "../charge-payment/c
   standalone: false,
 })
 export class DataProviderPlanPriceChargeComponent implements OnInit {
-  requestLinkClientId = 0;
+  requestLinkClientId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(DOCUMENT) private document: any,
@@ -28,9 +28,7 @@ export class DataProviderPlanPriceChargeComponent implements OnInit {
     private router: Router,
     public translate: TranslateService,
   ) {
-    this.requestLinkClientId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkClientId"),
-    );
+    this.requestLinkClientId = this.activatedRoute.snapshot.paramMap.get("LinkClientId") || "";
     this.dataModelCalculate.linkClientId = this.requestLinkClientId;
   }
   currency = "";

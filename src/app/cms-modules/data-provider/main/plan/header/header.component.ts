@@ -41,7 +41,7 @@ export class DataProviderPlanHeaderComponent implements OnInit, OnDestroy {
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }
-  @Input() optionId = 0;
+  @Input() optionId: string | number = "";
 
   dataModelResult: ErrorExceptionResult<DataProviderPlanModel> =
     new ErrorExceptionResult<DataProviderPlanModel>();
@@ -52,7 +52,7 @@ export class DataProviderPlanHeaderComponent implements OnInit, OnDestroy {
 
   private unsubscribe: Subscription[] = [];
   ngOnInit(): void {
-    if (this.optionId > 0) {
+    if (this.optionId && (typeof this.optionId === 'string' ? this.optionId.length > 0 : this.optionId > 0)) {
       this.DataGetOneContent();
     }
 
@@ -81,7 +81,8 @@ export class DataProviderPlanHeaderComponent implements OnInit, OnDestroy {
       });
 
     this.headerService.setAccessLoad();
-    this.headerService.ServiceGetOneById(this.optionId).subscribe({
+    const id = typeof this.optionId === 'string' ? this.optionId : this.optionId.toString();
+    this.headerService.ServiceGetOneById(id).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
         if (ret.isSuccess) {
@@ -100,7 +101,7 @@ export class DataProviderPlanHeaderComponent implements OnInit, OnDestroy {
   onActionButtonLinkTo(
     model: DataProviderPlanModel = this.dataModelResult.item,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

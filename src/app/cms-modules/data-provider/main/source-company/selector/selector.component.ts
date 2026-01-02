@@ -135,7 +135,7 @@ export class DataProviderSourceCompanySelectorComponent implements OnInit {
         this.optionSelectFirstItem &&
         (!this.dataModelSelect ||
           !this.dataModelSelect.id ||
-          this.dataModelSelect.id <= 0) &&
+          (typeof this.dataModelSelect.id === 'string' ? this.dataModelSelect.id.length === 0 : this.dataModelSelect.id <= 0)) &&
         this.dataModelResult.listItems.length > 0
       ) {
         this.optionSelectFirstItem = false;
@@ -178,8 +178,11 @@ export class DataProviderSourceCompanySelectorComponent implements OnInit {
       }),
     );
   }
-  onActionSelectForce(id: number | DataProviderSourceCompanyModel): void {
+  onActionSelectForce(id: string | number | DataProviderSourceCompanyModel): void {
     if (typeof id === "number" && id > 0) {
+      id = id.toString();
+    }
+    if (typeof id === "string" && id.length > 0) {
       if (this.dataModelSelect && this.dataModelSelect.id === id) {
         return;
       }

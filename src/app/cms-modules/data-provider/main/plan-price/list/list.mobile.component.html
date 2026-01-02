@@ -35,7 +35,7 @@
         </button>
         @if (
           dataModelResult?.access?.accessAddRow &&
-          tokenHelper?.checkIsAdmin()
+          tokenHelper?.isAdminSite
         ) {
           <button
             type="button"
@@ -85,6 +85,16 @@
               <div class="cms-m-list-item-title">
                 ID: {{ row.id }}
               </div>
+              @if (row.price !== undefined && row.price !== null) {
+                <div class="cms-m-list-item-subtitle">
+                  Price: {{ row.price | number }}
+                </div>
+              }
+              @if (row.linkPlanId) {
+                <div class="cms-m-list-item-subtitle">
+                  Plan ID: {{ row.linkPlanId }}
+                </div>
+              }
               @if (row.recordStatus !== undefined) {
                 <div class="cms-m-list-item-subtitle">
                   <i [ngClass]="row.recordStatus | statusIconClass"></i>
@@ -125,4 +135,3 @@
     }
   </div>
 </div>
-

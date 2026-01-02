@@ -32,7 +32,7 @@ export class DataProviderClientPermissionAddComponent
   extends AddBaseComponent<
     DataProviderClientPermissionService,
     DataProviderClientPermissionModel,
-    number
+    string
   >
   implements OnInit
 {

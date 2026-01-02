@@ -35,12 +35,12 @@
         </button>
         @if (
           dataModelResult?.access?.accessAddRow &&
-          tokenHelper?.checkIsAdmin()
+          tokenHelper?.isAdminSite
         ) {
           <button
             type="button"
             class="cms-m-header-action-btn"
-            (click)="onActionButtonNewRow()"
+            (click)="onActionbuttonNewRow()"
             [attr.aria-label]="'ACTION.ADD' | translate"
           >
             <i class="fa-solid fa-plus" aria-hidden="true"></i>
@@ -96,7 +96,7 @@
                 <button
                   class="cms-m-action-btn edit"
                   (click)="
-                    onActionButtonEditRow(row); $event.stopPropagation()
+                    onActionbuttonEditRow(row); $event.stopPropagation()
                   "
                   [attr.aria-label]="'ACTION.EDIT' | translate"
                 >
@@ -107,7 +107,7 @@
                 <button
                   class="cms-m-action-btn delete"
                   (click)="
-                    onActionButtonDeleteRow(row); $event.stopPropagation()
+                    onActionbuttonDeleteRow(row); $event.stopPropagation()
                   "
                   [attr.aria-label]="'ACTION.DELETE' | translate"
                 >

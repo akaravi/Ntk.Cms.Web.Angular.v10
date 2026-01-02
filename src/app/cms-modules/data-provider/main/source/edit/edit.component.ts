@@ -3,11 +3,13 @@ import {
   Component,
   Inject,
   OnInit,
-  ViewChild } from "@angular/core";
+  ViewChild,
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreEnumService,
+import {
+  CoreEnumService,
   DataProviderPlanModel,
   DataProviderPlanSourceModel,
   DataProviderPlanSourceService,
@@ -15,13 +17,13 @@ import {CoreEnumService,
   DataProviderSourceService,
   ErrorExceptionResultBase,
   FilterDataModel,
-  FilterModel,ManageUserAccessDataTypesEnum} from "ntk-cms-api";
+  FilterModel,
+  ManageUserAccessDataTypesEnum,
+} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
-
-import { FormInfoModel } from "src/app/core/models/formInfoModel";
 
 @Component({
   selector: "app-data-provider-source-edit",
@@ -33,11 +35,11 @@ export class DataProviderSourceEditComponent
   extends EditBaseComponent<
     DataProviderSourceService,
     DataProviderSourceModel,
-    number
+    string
   >
   implements OnInit
 {
-  requestId = 0;
+  requestId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -59,7 +61,7 @@ export class DataProviderSourceEditComponent
 
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {
-      this.requestId = +data.id || 0;
+      this.requestId = data.id || "";
     }
 
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
@@ -74,7 +76,6 @@ export class DataProviderSourceEditComponent
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: DataProviderSourceModel = new DataProviderSourceModel();
 
-  
   fileManagerOpenForm = false;
 
   onActionFileSelected(model: NodeInterface): void {
@@ -83,7 +84,7 @@ export class DataProviderSourceEditComponent
   }
 
   ngOnInit(): void {
-    if (this.requestId > 0) {
+    if (this.requestId?.length > 0) {
       this.translate.get("TITLE.Edit_Categories").subscribe((str: string) => {
         this.formInfo.formTitle = str;
       });
@@ -96,7 +97,7 @@ export class DataProviderSourceEditComponent
   }
 
   DataGetOneContent(): void {
-    if (this.requestId <= 0) {
+    if (this.requestId?.length === 0) {
       this.cmsToastrService.typeErrorEditRowIsNull();
       return;
     }
@@ -131,8 +132,9 @@ export class DataProviderSourceEditComponent
           this.formInfo.formTitle =
             this.formInfo.formTitle + " " + ret.item.title;
           this.formInfo.submitResultMessage = "";
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Success;
-              this.DataGetAllPlanSource();
+          this.formInfo.submitResultMessageType =
+            this.formSubmitedStatusEnum.Success;
+          this.DataGetAllPlanSource();
         } else {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
@@ -140,7 +142,8 @@ export class DataProviderSourceEditComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType =
+            this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
@@ -179,7 +182,8 @@ export class DataProviderSourceEditComponent
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                this.formSubmitedStatusEnum.Success;
             });
           this.cmsToastrService.typeSuccessEdit();
           this.dialogRef.close({ dialogChangedDate: true });
@@ -190,7 +194,8 @@ export class DataProviderSourceEditComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType =
+            this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
@@ -214,7 +219,7 @@ export class DataProviderSourceEditComponent
     this.dialogRef.close({ dialogChangedDate: false });
   }
   DataGetAllPlanSource(): void {
-    if (this.requestId <= 0) {
+    if (this.requestId?.length === 0) {
       this.cmsToastrService.typeErrorEditRowIsNull();
       return;
     }
@@ -248,7 +253,7 @@ export class DataProviderSourceEditComponent
       .subscribe({
         next: (ret) => {
           this.dataCoreCpMainMenuCmsUserGroupModel = ret.listItems;
-          const listG: number[] = [];
+          const listG: string[] = [];
           this.dataCoreCpMainMenuCmsUserGroupModel.forEach((element) => {
             listG.push(element.linkPlanId);
           });
@@ -262,7 +267,8 @@ export class DataProviderSourceEditComponent
                 this.formInfo.submitResultMessage = str;
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -274,7 +280,7 @@ export class DataProviderSourceEditComponent
       });
   }
   dataCoreCpMainMenuModel: DataProviderPlanModel[];
-  dataCoreCpMainMenuIds: number[] = [];
+  dataCoreCpMainMenuIds: string[] = [];
   dataCoreCpMainMenuCmsUserGroupModel: DataProviderPlanSourceModel[];
 
   onActionSelectorPlanSelect(model: DataProviderPlanModel[]): void {
@@ -301,7 +307,8 @@ export class DataProviderSourceEditComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType =
+            this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
       },
@@ -332,7 +339,8 @@ export class DataProviderSourceEditComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType =
+            this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
       },

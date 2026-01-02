@@ -26,7 +26,7 @@ export class DataProviderSourcePathAddComponent
   extends AddBaseComponent<
     DataProviderSourcePathService,
     DataProviderSourcePathModel,
-    number
+    string
   >
   implements OnInit
 {

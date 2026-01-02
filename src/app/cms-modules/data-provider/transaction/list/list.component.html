@@ -42,9 +42,9 @@
   <ng-container cms-action-header-start>
     <!--begin:::::::::::::::::::::::::::::::::::::::::cms-action-header-start-->
     @if (
-      requestLinkPlanId > 0 ||
-      requestLinkPlanPriceId > 0 ||
-      requestLinkClientId > 0
+      requestLinkPlanId.length > 0 ||
+      requestLinkPlanPriceId.length > 0 ||
+      requestLinkClientId.length > 0
       ) {
       <a
         type="button"

@@ -34,13 +34,12 @@
           ></i>
         </button>
         @if (
-          dataModelResult?.access?.accessAddRow &&
-          tokenHelper?.checkIsAdmin()
+          dataModelResult?.access?.accessAddRow && tokenHelper?.isAdminSite
         ) {
           <button
             type="button"
             class="cms-m-header-action-btn"
-            (click)="onActionButtonNewRow()"
+            (click)="onActionbuttonNewRow()"
             [attr.aria-label]="'ACTION.ADD' | translate"
           >
             <i class="fa-solid fa-plus" aria-hidden="true"></i>
@@ -83,8 +82,20 @@
             }
             <div class="cms-m-list-item-content">
               <div class="cms-m-list-item-title">
-                ID: {{ row.id }}
+                @if (row.title && row.title.length > 0) {
+                  {{ row.title }}
+                } @else {
+                  ID: {{ row.id }}
+                }
               </div>
+              @if (row.title && row.title.length > 0) {
+                <div class="cms-m-list-item-subtitle">ID: {{ row.id }}</div>
+              }
+              @if (row.className && row.className.length > 0) {
+                <div class="cms-m-list-item-subtitle">
+                  Class: {{ row.className }}
+                </div>
+              }
               @if (row.recordStatus !== undefined) {
                 <div class="cms-m-list-item-subtitle">
                   <i [ngClass]="row.recordStatus | statusIconClass"></i>
@@ -95,9 +106,7 @@
               @if (dataModelResult?.access?.accessEditRow) {
                 <button
                   class="cms-m-action-btn edit"
-                  (click)="
-                    onActionButtonEditRow(row); $event.stopPropagation()
-                  "
+                  (click)="onActionbuttonEditRow(row); $event.stopPropagation()"
                   [attr.aria-label]="'ACTION.EDIT' | translate"
                 >
                   <i class="fa-solid fa-pen" aria-hidden="true"></i>
@@ -107,7 +116,7 @@
                 <button
                   class="cms-m-action-btn delete"
                   (click)="
-                    onActionButtonDeleteRow(row); $event.stopPropagation()
+                    onActionbuttonDeleteRow(row); $event.stopPropagation()
                   "
                   [attr.aria-label]="'ACTION.DELETE' | translate"
                 >
@@ -125,4 +134,3 @@
     }
   </div>
 </div>
-

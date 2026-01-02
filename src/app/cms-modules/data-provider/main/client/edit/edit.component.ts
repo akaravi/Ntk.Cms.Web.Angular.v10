@@ -413,7 +413,7 @@ export class DataProviderClientEditComponent
           if (listG.indexOf(model.id) < 0) listG.push(model.id);
 
           setTimeout(
-            () => (this.dataCoreCpMainMenuIds = listG.map(string)),
+            () => (this.dataCoreCpMainMenuIds = listG),
             1000,
           );
           /** */

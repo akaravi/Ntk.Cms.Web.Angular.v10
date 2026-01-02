@@ -33,7 +33,7 @@ export class DataProviderSourceCompanyListComponent
   extends ListBaseComponent<
     DataProviderSourceCompanyService,
     DataProviderSourceCompanyModel,
-    number
+    string
   >
   implements OnInit, OnDestroy
 {
@@ -224,7 +224,7 @@ export class DataProviderSourceCompanyListComponent
   onActionButtonEditRow(
     model: DataProviderSourceCompanyModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model || !model.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id === 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -256,7 +256,7 @@ export class DataProviderSourceCompanyListComponent
   onActionButtonDeleteRow(
     model: DataProviderSourceCompanyModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model || !model.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id === 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -334,7 +334,7 @@ export class DataProviderSourceCompanyListComponent
     model: DataProviderSourceCompanyModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model || !model.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id === 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

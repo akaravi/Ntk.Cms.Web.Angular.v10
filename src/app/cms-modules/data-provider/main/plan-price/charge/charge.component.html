@@ -1,4 +1,4 @@
-@if (requestLinkClientId > 0) {
+@if (requestLinkClientId && requestLinkClientId.length > 0) {
   <app-data-provider-plan-price-header
     [optionId]="requestLinkClientId"
     >
@@ -36,7 +36,7 @@
                     matSuffix
                     mat-icon-button
                     aria-label="Clear"
-                    (click)="dataModelCalculate.linkPlanPriceId = 0"
+                    (click)="dataModelCalculate.linkPlanPriceId = ''"
                     >close</mat-icon
                     >
                   }

@@ -29,11 +29,11 @@ export class DataProviderPlanCategoryAddComponent
   extends AddBaseComponent<
     DataProviderPlanCategoryService,
     DataProviderPlanCategoryModel,
-    number
+    string
   >
   implements OnInit
 {
-  requestParentId = 0;
+  requestParentId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -53,10 +53,10 @@ export class DataProviderPlanCategoryAddComponent
     );
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {
-      this.requestParentId = +data.parentId || 0;
+      this.requestParentId = data.parentId || "";
     }
-    if (this.requestParentId > 0) {
-      this.dataModel.linkParentId = this.requestParentId;
+    if (this.requestParentId && this.requestParentId.length > 0) {
+      this.dataModel.linkParentId = Number(this.requestParentId) || 0;
     }
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
   }

@@ -3,21 +3,23 @@ import {
   Component,
   Inject,
   OnInit,
-  ViewChild } from "@angular/core";
+  ViewChild,
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreEnumService,
+import {
+  CoreEnumService,
   DataProviderPlanCategoryModel,
   DataProviderPlanSourceModel,
   DataProviderPlanSourceService,
-  ErrorExceptionResultBase,ManageUserAccessDataTypesEnum} from "ntk-cms-api";
+  ErrorExceptionResultBase,
+  ManageUserAccessDataTypesEnum,
+} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
-
-import { FormInfoModel } from "src/app/core/models/formInfoModel";
 
 @Component({
   selector: "app-data-provider-plan-source-edit",
@@ -29,11 +31,11 @@ export class DataProviderPlanSourceEditComponent
   extends EditBaseComponent<
     DataProviderPlanSourceService,
     DataProviderPlanSourceModel,
-    number
+    string
   >
   implements OnInit
 {
-  requestId = 0;
+  requestId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -54,7 +56,7 @@ export class DataProviderPlanSourceEditComponent
 
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {
-      this.requestId = +data.id || 0;
+      this.requestId = data.id || "";
     }
 
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
@@ -69,11 +71,10 @@ export class DataProviderPlanSourceEditComponent
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: DataProviderPlanSourceModel = new DataProviderPlanSourceModel();
 
-  
   fileManagerOpenForm = false;
 
   ngOnInit(): void {
-    if (this.requestId > 0) {
+    if (this.requestId && this.requestId.length > 0) {
       this.translate.get("TITLE.Edit_Categories").subscribe((str: string) => {
         this.formInfo.formTitle = str;
       });
@@ -86,7 +87,7 @@ export class DataProviderPlanSourceEditComponent
   }
 
   DataGetOneContent(): void {
-    if (this.requestId <= 0) {
+    if (!this.requestId || this.requestId.length === 0) {
       this.cmsToastrService.typeErrorEditRowIsNull();
       return;
     }
@@ -121,15 +122,17 @@ export class DataProviderPlanSourceEditComponent
           this.dataModel = ret.item;
           if (ret.isSuccess) {
             this.formInfo.submitResultMessage = "";
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Success;
-              } else {
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Success;
+          } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
               .subscribe((str: string) => {
                 this.formInfo.submitResultMessage = str;
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -168,7 +171,8 @@ export class DataProviderPlanSourceEditComponent
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                this.formSubmitedStatusEnum.Success;
             });
           this.cmsToastrService.typeSuccessEdit();
           this.dialogRef.close({ dialogChangedDate: true });
@@ -179,7 +183,8 @@ export class DataProviderPlanSourceEditComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType =
+            this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
@@ -192,7 +197,7 @@ export class DataProviderPlanSourceEditComponent
     });
   }
   onActionSelectorSelect(model: DataProviderPlanCategoryModel | null): void {
-    if (!model || model.id <= 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.category_of_information_is_not_clear")
         .subscribe((str: string) => {

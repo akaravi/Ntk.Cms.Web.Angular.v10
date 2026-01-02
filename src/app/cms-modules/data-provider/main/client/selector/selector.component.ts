@@ -124,7 +124,7 @@ export class DataProviderClientSelectorComponent implements OnInit {
         this.optionSelectFirstItem &&
         (!this.dataModelSelect ||
           !this.dataModelSelect.id ||
-          this.dataModelSelect.id <= 0) &&
+          (typeof this.dataModelSelect.id === 'string' ? this.dataModelSelect.id.length === 0 : this.dataModelSelect.id <= 0)) &&
         this.dataModelResult.listItems.length > 0
       ) {
         this.optionSelectFirstItem = false;
@@ -161,22 +161,23 @@ export class DataProviderClientSelectorComponent implements OnInit {
       }),
     );
   }
-  onActionSelectForce(id: number | DataProviderClientModel): void {
-    if (typeof id === "number" && id > 0) {
-      if (this.dataModelSelect && this.dataModelSelect.id === id) {
+  onActionSelectForce(id: string | number | DataProviderClientModel): void {
+    if ((typeof id === "string" && id.length > 0) || (typeof id === "number" && id > 0)) {
+      const idStr = typeof id === "string" ? id : String(id);
+      if (this.dataModelSelect && String(this.dataModelSelect.id) === idStr) {
         return;
       }
       if (
         this.dataModelResult &&
         this.dataModelResult.listItems &&
-        this.dataModelResult.listItems.find((x) => x.id === id)
+        this.dataModelResult.listItems.find((x) => String(x.id) === idStr)
       ) {
-        const item = this.dataModelResult.listItems.find((x) => x.id === id);
+        const item = this.dataModelResult.listItems.find((x) => String(x.id) === idStr);
         this.dataModelSelect = item;
         this.formControl.setValue(item);
         return;
       }
-      this.categoryService.ServiceGetOneById(id).subscribe({
+      this.categoryService.ServiceGetOneById(idStr).subscribe({
         next: (ret) => {
           if (ret.isSuccess) {
             this.filteredOptions = this.push(ret.item);

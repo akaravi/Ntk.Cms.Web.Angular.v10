@@ -83,7 +83,7 @@ export class DataProviderPlanSourceHeaderComponent
       });
 
     this.headerService.setAccessLoad();
-    this.headerService.ServiceGetOneById(this.optionId.length).subscribe({
+    this.headerService.ServiceGetOneById(this.optionId).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
         if (ret.isSuccess) {
@@ -102,7 +102,7 @@ export class DataProviderPlanSourceHeaderComponent
   onActionButtonLinkTo(
     model: DataProviderPlanSourceModel = this.dataModelResult.item,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

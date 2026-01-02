@@ -40,7 +40,7 @@ export class DataProviderClientPermissionListComponent
   extends ListBaseComponent<
     DataProviderClientPermissionService,
     DataProviderClientPermissionModel,
-    number
+    string
   >
   implements OnInit, OnDestroy
 {
@@ -103,6 +103,7 @@ export class DataProviderClientPermissionListComponent
     "linkCoreUserId",
     "fromDate",
     "expireDate",
+    "Action",
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
@@ -110,6 +111,7 @@ export class DataProviderClientPermissionListComponent
     "linkCoreUserId",
     "fromDate",
     "expireDate",
+    "Action",
   ];
 
   expandedElement: DataProviderClientPermissionModel | null;
@@ -240,7 +242,7 @@ export class DataProviderClientPermissionListComponent
   onActionButtonEditRow(
     model: DataProviderClientPermissionModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -276,7 +278,7 @@ export class DataProviderClientPermissionListComponent
   onActionButtonDeleteRow(
     model: DataProviderClientPermissionModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -370,22 +372,13 @@ export class DataProviderClientPermissionListComponent
     this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
-          const dataStatist1 = ret.listItems.find(
-            (x) => x.id === RecordStatusEnum.Available,
-          );
-          if (dataStatist1) {
-            statist.set("MESSAGE.Active", dataStatist1.count);
-          }
-          const dataStatist2 = ret.listItems.find(
-            (x) => x.id === RecordStatusEnum.All,
-          );
-          if (dataStatist2) {
-            statist.set("MESSAGE.All", dataStatist2.count);
-          }
+          this.translate.get("MESSAGE.All").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
+          this.optionsStatist.childMethods.setStatistValue(statist);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
-        this.optionsStatist.childMethods.setStatistValue(statist);
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
@@ -393,6 +386,33 @@ export class DataProviderClientPermissionListComponent
         this.publicHelper.processService.processStop(pName, false);
       },
     });
+
+    const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
+    const fastfilter = new FilterDataModel();
+    fastfilter.propertyName = "recordStatus";
+    fastfilter.value = RecordStatusEnum.Available;
+    filterStatist1.filters.push(fastfilter);
+    this.contentService.ServiceGetCount(filterStatist1).subscribe({
+      next: (ret) => {
+        if (ret.isSuccess) {
+          this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
+          this.optionsStatist.childMethods.setStatistValue(statist);
+        } else {
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+        }
+        this.publicHelper.processService.processStop(pName);
+      },
+      error: (er) => {
+        this.cmsToastrService.typeError(er);
+        this.publicHelper.processService.processStop(pName, false);
+      },
+    });
+  }
+
+  onActionButtonDataRow(model: DataProviderClientPermissionModel, event?: any): void {
+    this.onActionButtonEditRow(model);
   }
 
   onActionbuttonExport(): void {
@@ -415,7 +435,7 @@ export class DataProviderClientPermissionListComponent
   }
   onActionbuttonPrintRow(model: any = this.tableRowSelected): void {
     this.tableRowSelected = model;
-    if (!model || !model.id || model.id === 0) {
+    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
       const emessage = this.translate.instant(
         "ERRORMESSAGE.MESSAGE.typeErrorSelectedRow",
       );
@@ -424,7 +444,7 @@ export class DataProviderClientPermissionListComponent
     }
     this.onActionTableRowSelect(model);
   }
-  onActionbuttonReload(): void {
+  onActionButtonReload(): void {
     this.DataGetAll();
   }
   onSubmitOptionsSearch(model: any): void {
@@ -438,7 +458,7 @@ export class DataProviderClientPermissionListComponent
   onActionButtonMemo(
     model: DataProviderClientPermissionModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -448,7 +468,7 @@ export class DataProviderClientPermissionListComponent
   onActionButtonMemoRow(
     model: DataProviderClientPermissionModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

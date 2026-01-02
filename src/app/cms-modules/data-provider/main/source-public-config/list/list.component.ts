@@ -1,15 +1,20 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator, PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
   DataProviderSourcePublicConfigModel,
   DataProviderSourcePublicConfigService,
+  FilterDataModel,
+  FilterModel,
   SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
@@ -20,7 +25,6 @@ import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
-import { environment } from "src/environments/environment";
 import { DataProviderSourcePublicConfigAddComponent } from "../add/add.component";
 import { DataProviderSourcePublicConfigEditComponent } from "../edit/edit.component";
 
@@ -33,7 +37,7 @@ export class DataProviderSourcePublicConfigListComponent
   extends ListBaseComponent<
     DataProviderSourcePublicConfigService,
     DataProviderSourcePublicConfigModel,
-    number
+    string
   >
   implements OnInit, OnDestroy
 {
@@ -165,7 +169,11 @@ export class DataProviderSourcePublicConfigListComponent
   }
 
   onTableSortData(sort: MatSort): void {
-    if (this.tableSource && this.tableSource.sort && this.tableSource.sort.active === sort.active) {
+    if (
+      this.tableSource &&
+      this.tableSource.sort &&
+      this.tableSource.sort.active === sort.active
+    ) {
       if (this.tableSource.sort.direction === "asc") {
         sort.direction = "desc";
       } else {
@@ -189,26 +197,36 @@ export class DataProviderSourcePublicConfigListComponent
     this.DataGetAll();
   }
 
+  onActionButtonReload(): void {
+    this.DataGetAll();
+  }
+
   onActionbuttonNewRow(): void {
-    if (
-      this.tokenInfo == null ||
-      !this.tokenInfo.access.accessAddRow
-    ) {
+    if (this.tokenInfo == null || !this.dataModelResult?.access?.accessAddRow) {
       this.cmsToastrService.typeErrorAccessAdd();
       return;
     }
-    const dialogRef = this.dialog.open(DataProviderSourcePublicConfigAddComponent, {
-      height: "90%",
-      data: {},
-    });
+    const dialogRef = this.dialog.open(
+      DataProviderSourcePublicConfigAddComponent,
+      {
+        height: "90%",
+        data: {},
+      },
+    );
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
     });
   }
-  onActionbuttonEditRow(model: DataProviderSourcePublicConfigModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id === 0) {
+  onActionbuttonEditRow(
+    model: DataProviderSourcePublicConfigModel = this.tableRowSelected,
+  ): void {
+    if (
+      !model ||
+      !model.id ||
+      (typeof model.id === "string" ? model.id.length === 0 : model.id === 0)
+    ) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -219,24 +237,35 @@ export class DataProviderSourcePublicConfigListComponent
     this.onActionTableRowSelect(model);
     if (
       this.tokenInfo == null ||
-      !this.tokenInfo.access.accessEditRow
+      !this.dataModelResult?.access?.accessEditRow
     ) {
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
-    const dialogRef = this.dialog.open(DataProviderSourcePublicConfigEditComponent, {
-      height: "90%",
-      data: { id: this.tableRowSelected.id },
-    });
+    const dialogRef = this.dialog.open(
+      DataProviderSourcePublicConfigEditComponent,
+      {
+        height: "90%",
+        data: { id: this.tableRowSelected.id },
+      },
+    );
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
       }
     });
   }
-  onActionbuttonDeleteRow(model: DataProviderSourcePublicConfigModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id === 0) {
-      const emessage = this.translate.instant("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow");
+  onActionbuttonDeleteRow(
+    model: DataProviderSourcePublicConfigModel = this.tableRowSelected,
+  ): void {
+    if (
+      !model ||
+      !model.id ||
+      (typeof model.id === "string" ? model.id.length === 0 : model.id === 0)
+    ) {
+      const emessage = this.translate.instant(
+        "ERRORMESSAGE.MESSAGE.typeErrorSelectedRow",
+      );
       this.cmsToastrService.typeErrorSelected(emessage);
       return;
     }
@@ -244,7 +273,7 @@ export class DataProviderSourcePublicConfigListComponent
 
     if (
       this.tokenInfo == null ||
-      !this.tokenInfo.access.accessDeleteRow
+      !this.dataModelResult?.access?.accessDeleteRow
     ) {
       this.cmsToastrService.typeErrorAccessDelete();
       return;
@@ -256,7 +285,7 @@ export class DataProviderSourcePublicConfigListComponent
       this.translate.instant("MESSAGE.Delete", { 0: title }),
     );
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.then((result) => {
       if (result) {
         this.contentService.ServiceDelete(model.id).subscribe({
           next: (ret) => {
@@ -274,9 +303,17 @@ export class DataProviderSourcePublicConfigListComponent
       }
     });
   }
-  onActionbuttonViewRow(model: DataProviderSourcePublicConfigModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id === 0) {
-      const emessage = this.translate.instant("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow");
+  onActionbuttonViewRow(
+    model: DataProviderSourcePublicConfigModel = this.tableRowSelected,
+  ): void {
+    if (
+      !model ||
+      !model.id ||
+      (typeof model.id === "string" ? model.id.length === 0 : model.id === 0)
+    ) {
+      const emessage = this.translate.instant(
+        "ERRORMESSAGE.MESSAGE.typeErrorSelectedRow",
+      );
       this.cmsToastrService.typeErrorSelected(emessage);
       return;
     }

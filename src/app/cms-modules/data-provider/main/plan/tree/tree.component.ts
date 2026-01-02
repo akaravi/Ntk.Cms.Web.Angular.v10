@@ -106,7 +106,7 @@ export class DataProviderPlanTreeComponent implements OnInit, OnDestroy {
       },
     });
   }
-    onActionSelect(model: DataProviderPlanModel): void {
+  onActionSelect(model: DataProviderPlanModel): void {
     if (model && this.dataModelSelect && model.id == this.dataModelSelect.id) {
       this.dataModelSelect = null;
       this.optionChange.emit(null);
@@ -124,8 +124,14 @@ export class DataProviderPlanTreeComponent implements OnInit, OnDestroy {
   onActionSelectForce(id: number | DataProviderPlanModel): void {}
 
   onActionAdd(): void {
-    let parentId = 0;
-    if (this.dataModelSelect && this.dataModelSelect.id > 0) {
+    let parentId: string | number = 0;
+    if (
+      this.dataModelSelect &&
+      this.dataModelSelect.id &&
+      (typeof this.dataModelSelect.id === "string"
+        ? this.dataModelSelect.id.length > 0
+        : this.dataModelSelect.id > 0)
+    ) {
       parentId = this.dataModelSelect.id;
     }
 
@@ -147,11 +153,17 @@ export class DataProviderPlanTreeComponent implements OnInit, OnDestroy {
   }
 
   onActionEdit(): void {
-    let id = 0;
-    if (this.dataModelSelect && this.dataModelSelect.id > 0) {
+    let id: string | number = 0;
+    if (
+      this.dataModelSelect &&
+      this.dataModelSelect.id &&
+      (typeof this.dataModelSelect.id === "string"
+        ? this.dataModelSelect.id.length > 0
+        : this.dataModelSelect.id > 0)
+    ) {
       id = this.dataModelSelect.id;
     }
-    if (id === 0) {
+    if (typeof id === "string" ? id.length === 0 : id === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
         .subscribe((str: string) => {
@@ -182,11 +194,17 @@ export class DataProviderPlanTreeComponent implements OnInit, OnDestroy {
     //   if (res.isSuccess) {
     //   }
     // });
-    let id = 0;
-    if (this.dataModelSelect && this.dataModelSelect.id > 0) {
+    let id: string;
+    if (
+      this.dataModelSelect &&
+      this.dataModelSelect.id &&
+      (typeof this.dataModelSelect.id === "string"
+        ? this.dataModelSelect.id.length > 0
+        : this.dataModelSelect.id > 0)
+    ) {
       id = this.dataModelSelect.id;
     }
-    if (id === 0) {
+    if (typeof id === "string" ? id.length === 0 : id === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
         .subscribe((str: string) => {

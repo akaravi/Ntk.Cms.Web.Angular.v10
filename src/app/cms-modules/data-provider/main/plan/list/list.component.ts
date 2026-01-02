@@ -35,7 +35,7 @@ export class DataProviderPlanListComponent
   extends ListBaseComponent<
     DataProviderPlanService,
     DataProviderPlanModel,
-    number
+    string
   >
   implements OnInit, OnDestroy
 {
@@ -141,7 +141,7 @@ export class DataProviderPlanListComponent
       filterModel.filters = [...this.filterDataModelQueryBuilder];
     }
     /*filter add search*/
-    if (this.categoryModelSelected && this.categoryModelSelected.id > 0) {
+    if (this.categoryModelSelected && this.categoryModelSelected.id && this.categoryModelSelected.id.length > 0) {
       const filter = new FilterDataModel();
       filter.propertyName = "LinkPlanCategoryId";
       filter.value = this.categoryModelSelected.id;
@@ -221,7 +221,7 @@ export class DataProviderPlanListComponent
   onActionButtonNewRow(): void {
     if (
       this.categoryModelSelected == null ||
-      this.categoryModelSelected.id === 0
+      !this.categoryModelSelected.id || this.categoryModelSelected.id.length === 0
     ) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
@@ -260,7 +260,7 @@ export class DataProviderPlanListComponent
   onActionButtonEditRow(
     model: DataProviderPlanModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model || !model.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id === 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -294,7 +294,7 @@ export class DataProviderPlanListComponent
   onActionButtonDeleteRow(
     model: DataProviderPlanModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model || !model.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id === 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -333,7 +333,7 @@ export class DataProviderPlanListComponent
     model: DataProviderPlanModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model || !model.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id === 0)) {
       this.translate
         .get("MESSAGE.No_row_selected_for_viewing")
         .subscribe((str: string) => {
@@ -354,7 +354,7 @@ export class DataProviderPlanListComponent
     model: DataProviderPlanModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model || !model.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id === 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -377,7 +377,7 @@ export class DataProviderPlanListComponent
     model: DataProviderPlanModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model || !model.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id === 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -400,7 +400,7 @@ export class DataProviderPlanListComponent
     model: DataProviderPlanModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model || !model.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id === 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -424,7 +424,7 @@ export class DataProviderPlanListComponent
     model: DataProviderPlanModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model || !model.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id === 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

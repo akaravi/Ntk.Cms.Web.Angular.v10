@@ -30,11 +30,11 @@ export class DataProviderPlanClientAddComponent
   extends AddBaseComponent<
     DataProviderPlanClientService,
     DataProviderPlanClientModel,
-    number
+    string
   >
   implements OnInit
 {
-  requestPlanId = 0;
+  requestPlanId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -54,9 +54,9 @@ export class DataProviderPlanClientAddComponent
     );
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {
-      this.requestPlanId = +data.parentId || 0;
+      this.requestPlanId = data.parentId || "";
     }
-    if (this.requestPlanId > 0) {
+    if (this.requestPlanId && this.requestPlanId.length > 0) {
       this.dataModel.linkPlanId = this.requestPlanId;
     }
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
@@ -140,7 +140,7 @@ export class DataProviderPlanClientAddComponent
     });
   }
   onActionSelectorSelect(model: DataProviderPlanCategoryModel | null): void {
-    if (!model || model.id <= 0) {
+    if (!model || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
       this.translate
         .get("MESSAGE.category_of_information_is_not_clear")
         .subscribe((str: string) => {
@@ -148,7 +148,7 @@ export class DataProviderPlanClientAddComponent
         });
       return;
     }
-    this.dataModel.linkPlanId = model.id;
+    this.dataModel.linkPlanId = String(model.id);
   }
 
   onFormSubmit(): void {

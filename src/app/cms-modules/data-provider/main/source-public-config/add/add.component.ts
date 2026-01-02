@@ -26,7 +26,7 @@ export class DataProviderSourcePublicConfigAddComponent
   extends AddBaseComponent<
     DataProviderSourcePublicConfigService,
     DataProviderSourcePublicConfigModel,
-    number
+    string
   >
   implements OnInit
 {

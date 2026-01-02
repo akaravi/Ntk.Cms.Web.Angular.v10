@@ -28,11 +28,11 @@ export class DataProviderPlanCategoryEditComponent
   extends EditBaseComponent<
     DataProviderPlanCategoryService,
     DataProviderPlanCategoryModel,
-    number
+    string
   >
   implements OnInit
 {
-  requestId = 0;
+  requestId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -53,7 +53,7 @@ export class DataProviderPlanCategoryEditComponent
 
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {
-      this.requestId = +data.id || 0;
+      this.requestId = data.id || "";
     }
 
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
@@ -78,7 +78,7 @@ export class DataProviderPlanCategoryEditComponent
   }
 
   ngOnInit(): void {
-    if (this.requestId > 0) {
+    if (this.requestId && this.requestId.length > 0) {
       this.translate.get("TITLE.Edit_Categories").subscribe((str: string) => {
         this.formInfo.formTitle = str;
       });
@@ -91,7 +91,7 @@ export class DataProviderPlanCategoryEditComponent
   }
 
   DataGetOneContent(): void {
-    if (this.requestId <= 0) {
+    if (!this.requestId || this.requestId.length === 0) {
       this.cmsToastrService.typeErrorEditRowIsNull();
       return;
     }

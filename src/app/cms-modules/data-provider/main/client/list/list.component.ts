@@ -15,12 +15,12 @@ import {
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { environment } from "src/environments/environment";
-import { PublicHelper } from "src/app/core/helpers/publicHelper";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { DataProviderClientAddComponent } from "../add/add.component";
 import { DataProviderClientDeleteComponent } from "../delete/delete.component";
 import { DataProviderClientEditComponent } from "../edit/edit.component";
@@ -34,7 +34,7 @@ export class DataProviderClientListComponent
   extends ListBaseComponent<
     DataProviderClientService,
     DataProviderClientModel,
-    number
+    string
   >
   implements OnInit, OnDestroy
 {
@@ -141,7 +141,7 @@ export class DataProviderClientListComponent
     }
     /*filter add search*/
     /*filter CLone*/
-    if (this.categoryModelSelected && this.categoryModelSelected.id > 0) {
+    if (this.categoryModelSelected && (typeof this.categoryModelSelected.id === 'string' ? this.categoryModelSelected.id.length > 0 : this.categoryModelSelected.id > 0)) {
       const filter = new FilterDataModel();
       filter.propertyName = "PlanClients";
       filter.propertyAnyName = "LinkPlanId";
@@ -268,7 +268,7 @@ export class DataProviderClientListComponent
   onActionButtonEditRow(
     model: DataProviderClientModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -301,7 +301,7 @@ export class DataProviderClientListComponent
   onActionButtonDeleteRow(
     model: DataProviderClientModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -404,9 +404,9 @@ export class DataProviderClientListComponent
     if (
       !model ||
       !model.id ||
-      model.id === 0 ||
+      (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0) ||
       !model.linkSiteId ||
-      model.linkSiteId === 0
+      model.linkSiteId <= 0
     ) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
@@ -428,7 +428,7 @@ export class DataProviderClientListComponent
     model: DataProviderClientModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -451,7 +451,7 @@ export class DataProviderClientListComponent
     model: DataProviderClientModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
       this.translate
         .get("MESSAGE.No_row_selected_for_viewing")
         .subscribe((str: string) => {
@@ -494,7 +494,7 @@ export class DataProviderClientListComponent
     model: DataProviderClientModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

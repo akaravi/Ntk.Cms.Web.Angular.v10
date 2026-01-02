@@ -7,18 +7,14 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { AngularEditorModule } from "@kolkov/angular-editor";
 import { SharedModule } from "src/app/shared/shared.module";
-<<<<<<< HEAD
-import { CoreSharedModule } from "src/app/cms-modules/core-main/core.shared.module";
-import { DataProviderSharedModule } from "../shared/data-provider-shared.module";
-=======
-import { CoreSharedModule } from "../../core-main/core.shared.module";
->>>>>>> 5e197e4131b6e5ecf5db6a85970287cf27edc571
 
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatStepperModule } from "@angular/material/stepper";
 import { MatTreeModule } from "@angular/material/tree";
+import { CoreSharedModule } from "src/app/cms-modules/core-main/core.shared.module";
+import { DataProviderSharedModule } from "../shared/data-provider-shared.module";
 
 import { IconPickerModule } from "ngx-ntk-icon-picker";
 import {
@@ -47,7 +43,6 @@ import { DataProviderClientChargePaymentComponent } from "./client/charge-paymen
 import { DataProviderClientChargeComponent } from "./client/charge/charge.component";
 import { DataProviderClientDeleteComponent } from "./client/delete/delete.component";
 import { DataProviderClientEditComponent } from "./client/edit/edit.component";
-import { DataProviderClientHeaderComponent } from "./client/header/header.component";
 import { DataProviderClientListComponent } from "./client/list/list.component";
 import { DataProviderClientListMobileComponent } from "./client/list/list.mobile.component";
 import { DataProviderClientSelectorComponent } from "./client/selector/selector.component";
@@ -81,7 +76,6 @@ import { DataProviderPlanPriceChargePaymentComponent } from "./plan-price/charge
 import { DataProviderPlanPriceChargeComponent } from "./plan-price/charge/charge.component";
 import { DataProviderPlanPriceDeleteComponent } from "./plan-price/delete/delete.component";
 import { DataProviderPlanPriceEditComponent } from "./plan-price/edit/edit.component";
-import { DataProviderPlanPriceHeaderComponent } from "./plan-price/header/header.component";
 import { DataProviderPlanPriceListComponent } from "./plan-price/list/list.component";
 import { DataProviderPlanPriceListMobileComponent } from "./plan-price/list/list.mobile.component";
 import { DataProviderPlanPriceSelectorComponent } from "./plan-price/selector/selector.component";
@@ -163,7 +157,7 @@ import { DataProviderClientPermissionListMobileComponent } from "./client-permis
     DataProviderClientTreeComponent,
     DataProviderClientChargeComponent,
     DataProviderClientChargePaymentComponent,
-    DataProviderClientHeaderComponent,
+    // Note: DataProviderClientHeaderComponent is in DataProviderSharedModule
     /* Source */
     DataProviderSourceAddComponent,
     DataProviderSourceDeleteComponent,
@@ -208,7 +202,7 @@ import { DataProviderClientPermissionListMobileComponent } from "./client-permis
     DataProviderPlanPriceAddComponent,
     DataProviderPlanPriceDeleteComponent,
     DataProviderPlanPriceEditComponent,
-    DataProviderPlanPriceHeaderComponent,
+    // Note: DataProviderPlanPriceHeaderComponent is in DataProviderSharedModule
     DataProviderPlanPriceListComponent,
     DataProviderPlanPriceListMobileComponent,
     DataProviderPlanPriceSelectorComponent,
@@ -251,7 +245,7 @@ import { DataProviderClientPermissionListMobileComponent } from "./client-permis
     DataProviderClientTreeComponent,
     DataProviderClientChargeComponent,
     DataProviderClientChargePaymentComponent,
-    DataProviderClientHeaderComponent,
+    // Note: DataProviderClientHeaderComponent is in DataProviderSharedModule
     /* Source */
     DataProviderSourceAddComponent,
     DataProviderSourceDeleteComponent,
@@ -296,7 +290,7 @@ import { DataProviderClientPermissionListMobileComponent } from "./client-permis
     DataProviderPlanPriceAddComponent,
     DataProviderPlanPriceDeleteComponent,
     DataProviderPlanPriceEditComponent,
-    DataProviderPlanPriceHeaderComponent,
+    // Note: DataProviderPlanPriceHeaderComponent is in DataProviderSharedModule
     DataProviderPlanPriceListComponent,
     DataProviderPlanPriceListMobileComponent,
     DataProviderPlanPriceSelectorComponent,
