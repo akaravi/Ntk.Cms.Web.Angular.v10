@@ -2,9 +2,14 @@ import { Routes } from "@angular/router";
 import { CmsAuthGuard } from "./core/services/cmsAuthGuard.service";
 import { RouteRedirectGuard } from "./core/services/route-redirect.guard";
 
-
-
 export const routes: Routes = [
+  {
+    path: "IconPicker",
+    loadComponent: () =>
+      import("./modules/icon-picker-test/icon-picker-test.component").then(
+        (m) => m.IconPickerTestComponent,
+      ),
+  },
   {
     path: "test",
     canActivate: [RouteRedirectGuard],

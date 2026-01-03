@@ -41,11 +41,6 @@
               },
               {
                 "glob": "**/*",
-                "input": "node_modules/@fortawesome/fontawesome-free/webfonts/",
-                "output": "assets/fonts/webfonts/"
-              },
-              {
-                "glob": "**/*",
                 "input": "node_modules/font-awesome/fonts/",
                 "output": "assets/fonts/"
               },
@@ -67,7 +62,6 @@
               "node_modules/@kolkov/angular-editor/themes/default.scss",
               "src/assets/styles/bootstrap.rtl.min.css",
               "src/assets/styles/style.css",
-              "src/assets/fonts/css/all.min.css",
               "src/styles.scss",
               "src/styles.mobile.scss"
             ],

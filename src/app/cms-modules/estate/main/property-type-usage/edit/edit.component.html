@@ -61,22 +61,26 @@
             <input
               matInput
               type="text"
-              [(ngModel)]="dataModel.iconFont"
               name="dataModel.iconFont"
-              #IconFont
-              type="text"
+              class="form-control validate-name"
+              [(ngModel)]="dataModel.iconFont"
               [iconPicker]="dataModel.iconFont"
               [ipIconPack]="['fa']"
               [ipPosition]="'top'"
+              [ipWidth]="'250px'"
               (iconPickerSelect)="onIconPickerSelect($event)"
               placeholder="{{ fieldsInfo['iconFont']?.fieldTitle }}"
               [disabled]="!fieldsInfo['iconFont']?.accessEditField"
-              class="form-control validate-name"
               id="dataModel.iconFont"
+              ipButtonStyleClass=""
               />
-              <span class="input-group-addon"
-                ><i [ngClass]="dataModel.iconFont"></i
-              ></span>
+              <em style="opacity: 1 !important;"
+                ><i
+                  style="font-size: 20px !important"
+                  [style.color]="dataModel.iconColor ? dataModel.iconColor : null"
+                  [ngClass]="dataModel.iconFont"
+                ></i
+              ></em>
             </div>
           }
           <!-- iconColor Field -->

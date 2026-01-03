@@ -4863,6 +4863,17 @@ textarea {
   right: 5px;
   pointer-events: none;
 }
+
+/* استثنا برای span داخل ip-button-icon */
+.ip-button-icon .input-style span,
+.input-style:has(.ip-button-icon) span {
+  position: static !important;
+  margin-top: 0 !important;
+  font-size: inherit !important;
+  font-style: inherit !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
 .input-style em {
   position: absolute;
   top: 50%;
@@ -4905,6 +4916,12 @@ textarea {
 .input-style.has-borders span,
 .input-style.has-borders em {
   margin-left: 10px;
+}
+
+/* استثنا برای span داخل ip-button-icon در has-borders */
+.ip-button-icon .input-style.has-borders span,
+.input-style.has-borders:has(.ip-button-icon) span {
+  margin-left: 0 !important;
 }
 
 .input-style.input-style-active label {

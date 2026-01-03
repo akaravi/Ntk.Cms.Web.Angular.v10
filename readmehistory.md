@@ -1,5 +1,28 @@
 # تاریخچه تغییرات پروژه
 
+## 2026-01-03 09:47:00 (رفع خطای NG0203 - Injection Context Error)
+
+### خلاصه:
+خطای `NG0203: The _HttpClient token injection failed` در runtime رفع شد.
+
+### مشکل:
+`CoreAuthV3Service` در `app.config.ts` به صورت مستقیم در providers قرار گرفته بود و `ApiServerBase` که dependency آن است، از `inject()` استفاده می‌کرد که در یک injection context نبود.
+
+### راه حل:
+- حذف `CoreAuthV3Service` از providers در `app.config.ts`
+- `CoreAuthV3Service` از `providedIn: 'root'` استفاده می‌کند و Angular خودش آن را inject می‌کند
+- پاکسازی imports غیرضروری (`ENVIRONMENT_INITIALIZER`, `Injector`, `inject`, `runInInjectionContext`)
+
+### فایل‌های تغییر یافته:
+- `src/app/app.config.ts`: حذف `CoreAuthV3Service` از providers و پاکسازی imports
+
+### نتیجه:
+- ✅ Build successful!
+- ✅ خطای NG0203 حل شد
+- ✅ هیچ خطای linter وجود ندارد
+
+---
+
 ## 2026-01-02 15:59:18 (Build موفقیت‌آمیز - رفع تمام خطاهای Type و Component در ماژول Data Provider)
 
 ### خلاصه:
@@ -4186,3 +4209,134 @@ ngOnInit(): void {
 - `model.id` از نوع `number` است اما با رشته خالی (`""`) مقایسه می‌شد که باعث خطای TypeScript می‌شد
 - با تغییر به `model.id === 0`، مقایسه با نوع داده صحیح انجام می‌شود
 - این تغییر در 4 متد اعمال شد که همه دارای خطای مشابه بودند
+
+---
+
+## تاریخ: 2026-01-03 17:09:17
+### عنوان: رفع خطای NG0203 - Injection Context Error برای ApiServerBase
+
+### مشکل:
+خطای `NG0203: The _HttpClient token injection failed` در runtime رخ می‌داد. این خطا به این دلیل بود که `ApiServerBase` از `@Inject(HttpClient)` استفاده می‌کند و وقتی سرویس‌هایی که از آن extend می‌کنند به صورت مستقیم در providers قرار می‌گرفتند، در injection context مناسب نبودند.
+
+### فایل تغییر یافته:
+- `src/app/app.config.ts`
+
+### تغییرات اعمال شده:
+- اضافه کردن import برای `HttpClient` از `@angular/common/http`
+- تبدیل `CoreAuthV3Service` به factory function با `inject(HttpClient)`
+- تبدیل `CoreEnumService` به factory function با `inject(HttpClient)`
+- تبدیل `CoreModuleService` به factory function با `inject(HttpClient)`
+- تبدیل `CoreConfigurationService` به factory function با `inject(HttpClient)`
+
+### توضیحات:
+- تمام سرویس‌هایی که از `ApiServerBase` extend می‌کنند باید با factory function تعریف شوند
+- factory function از `inject(HttpClient)` استفاده می‌کند که در injection context مناسب است
+- این تغییر باعث می‌شود که `ApiServerBase` constructor به درستی `HttpClient` را دریافت کند
+
+---
+
+## تاریخ: 2026-01-03 17:12:05
+### عنوان: رفع خطای NG0203 - استفاده از deps در factory function
+
+### مشکل:
+روش قبلی با `inject(HttpClient)` نیاز به injection context داشت. روش جدید با `deps: [HttpClient]` استفاده می‌کند که Angular خودش dependency injection را انجام می‌دهد.
+
+### فایل تغییر یافته:
+- `src/app/app.config.ts`
+
+### تغییرات اعمال شده:
+- تغییر factory function از `inject(HttpClient)` به `deps: [HttpClient]`
+- حذف import غیرضروری `Injector`
+- استفاده از dependency injection معمولی Angular به جای `inject()`
+
+### توضیحات:
+- این روش بهتر است چون Angular خودش `HttpClient` را inject می‌کند
+- نیازی به injection context نیست
+- کد ساده‌تر و قابل فهم‌تر است
+
+---
+
+## تاریخ: 2026-01-03 17:13:53
+### عنوان: رفع خطای NG0203 - استفاده از Injector در Factory Service
+
+### مشکل:
+روش قبلی با `deps: [HttpClient]` جواب نمی‌داد. نیاز به روش دیگری بود که از injection context استفاده کند.
+
+### فایل‌های تغییر یافته:
+- `src/app/core/providers/ntk-cms-api.provider.ts`: ساخت NgModule جدید با Factory Service
+- `src/app/app.config.ts`: استفاده از `NtkCmsApiProviderModule` به جای factory function مستقیم
+
+### تغییرات اعمال شده:
+- ساخت `NtkCmsApiServiceFactory` که از `Injector` استفاده می‌کند
+- `Injector` در injection context است و می‌تواند `HttpClient` را بگیرد
+- ساخت `NtkCmsApiProviderModule` که سرویس‌ها را provide می‌کند
+- استفاده از `importProvidersFrom(NtkCmsApiProviderModule.forRoot())` در `app.config.ts`
+
+### توضیحات:
+- `Injector` در injection context است و می‌تواند `HttpClient` را به درستی inject کند
+- Factory Service از `Injector.get(HttpClient)` استفاده می‌کند
+- این روش مطمئن‌تر است چون از injection context Angular استفاده می‌کند
+
+---
+
+## تاریخ: 2026-01-03 17:15:00
+### عنوان: رفع خطای NG0203 - اضافه کردن سرویس‌ها به SharedModule
+
+### مشکل:
+روش قبلی با `NtkCmsApiProviderModule` حذف شد. نیاز به روش دیگری بود که بدون ساخت module جدید کار کند.
+
+### فایل‌های تغییر یافته:
+- `src/app/shared/shared.module.ts`: اضافه کردن سرویس‌ها به providers
+- `src/app/app.config.ts`: حذف سرویس‌ها از providers
+
+### تغییرات اعمال شده:
+- اضافه کردن `CoreAuthV3Service`, `CoreEnumService`, `CoreModuleService`, `CoreConfigurationService` به imports در `SharedModule`
+- اضافه کردن این سرویس‌ها به providers در `SharedModule`
+- حذف این سرویس‌ها از `app.config.ts`
+- حذف import های غیرضروری از `app.config.ts`
+
+### توضیحات:
+- `SharedModule` قبلاً سرویس‌های دیگری که از `ApiServerBase` extend می‌کنند را به درستی provide می‌کند
+- این روش ساده‌تر است و نیازی به ساخت module جدید ندارد
+- سرویس‌ها از طریق `importProvidersFrom(SharedModule.forRoot())` در `app.config.ts` در دسترس هستند
+
+---
+
+## تاریخ: 2026-01-03 20:14:58
+### عنوان: رفع خطای Build - حذف تداخل فایل‌های Font Awesome
+
+### مشکل:
+خطای `Two output files share the same path but have different contents` برای فایل‌های Font Awesome (woff2) در build رخ می‌داد. این خطا به این دلیل بود که دو منبع مختلف برای Font Awesome در `angular.json` وجود داشت:
+- `@fortawesome/fontawesome-free/webfonts/` به `assets/fonts/webfonts/`
+- `font-awesome/fonts/` به `assets/fonts/`
+
+### فایل تغییر یافته:
+- `angular.json`
+
+### تغییرات اعمال شده:
+- حذف خط مربوط به `@fortawesome/fontawesome-free/webfonts/` از `angular.json` چون در `package.json` وجود ندارد
+- فقط `font-awesome/fonts/` باقی ماند که به `assets/fonts/` کپی می‌شود
+
+### توضیحات:
+- `@fortawesome` در `package.json` وجود ندارد، پس خط مربوط به آن باید حذف می‌شد
+- این تغییر باعث می‌شود که فقط یک منبع برای Font Awesome وجود داشته باشد و conflict رخ ندهد
+
+---
+
+## تاریخ: 2026-01-03 20:35:38
+### عنوان: رفع مشکل iconPicker - اضافه کردن style از ngx-ntk-icon-picker
+
+### مشکل:
+iconPicker ایکن‌ها را لود نمی‌کرد. این مشکل به این دلیل بود که style‌های `ngx-ntk-icon-picker` لود نمی‌شدند.
+
+### فایل تغییر یافته:
+- `angular.json`
+
+### تغییرات اعمال شده:
+- اضافه کردن `node_modules/ngx-ntk-icon-picker/src/styles.scss` به styles در `angular.json`
+- این فایل style شامل import های FontAwesome و PrimeIcons است که برای iconPicker لازم است
+
+### توضیحات:
+- `ngx-ntk-icon-picker` یک فایل `styles.scss` دارد که FontAwesome و PrimeIcons را import می‌کند
+- با اضافه کردن این فایل به styles، iconPicker می‌تواند ایکن‌ها را به درستی لود کند
+- این روش بهتر است چون style را مستقیماً از خود کتابخانه iconPicker می‌گیریم

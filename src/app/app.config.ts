@@ -7,12 +7,12 @@ import {
 import {
   APP_INITIALIZER,
   ApplicationConfig,
+  Type,
   importProvidersFrom,
   inject,
   isDevMode,
   provideAppInitializer,
   provideZoneChangeDetection,
-  Type,
 } from "@angular/core";
 import { MAT_CHIPS_DEFAULT_OPTIONS } from "@angular/material/chips";
 import { provideAnimations } from "@angular/platform-browser/animations";
@@ -23,12 +23,6 @@ import { InlineSVGModule } from "ng-inline-svg-2";
 import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig } from "ng2-currency-mask";
 import { ClipboardModule } from "ngx-clipboard";
 import { ToastrModule } from "ngx-toastr";
-import {
-  CoreAuthV3Service,
-  CoreConfigurationService,
-  CoreEnumService,
-  CoreModuleService,
-} from "ntk-cms-api";
 import { routes } from "./app.routes";
 import { CmsTranslateModule } from "./core/i18n";
 import { DYNAMIC_ENVIRONMENT_PROVIDER } from "./core/providers/dynamic-environment.provider";
@@ -65,6 +59,7 @@ function appInitializer(authService: CmsAuthService) {
 }
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideHttpClient(withInterceptorsFromDi(), withFetch()),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withPreloading(NoPreloading)),
     provideServiceWorker("ngsw-worker.js", {
@@ -72,17 +67,13 @@ export const appConfig: ApplicationConfig = {
       registrationStrategy: "registerWhenStable:30000",
     }),
     provideAnimations(),
-    provideHttpClient(withInterceptorsFromDi(), withFetch()),
+
     provideAppInitializer(() => {
       const authService = inject(CmsAuthService);
       appInitializer(authService);
     }),
     CmsAuthService,
     CmsToastrService,
-    CoreAuthV3Service,
-    CoreEnumService,
-    CoreModuleService,
-    CoreConfigurationService,
     importProvidersFrom(CmsStoreService.forRoot()),
     importProvidersFrom(ClipboardModule),
     importProvidersFrom(CmsTranslateModule.forRoot()),
