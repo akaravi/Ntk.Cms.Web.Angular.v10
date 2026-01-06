@@ -6,9 +6,9 @@ import {
   BankPaymentInjectPaymentGotoBankStep1CalculateModel,
   BankPaymentInjectPaymentGotoBankStep2LandingSitePageModel,
   BankPaymentPrivateSiteConfigModel,
-  DonateModuleCalculateDtoModel,
-  DonateModulePaymentDtoModel,
-  DonateTransactionService,
+  DataProviderModuleCalculateDtoModel,
+  DataProviderModulePaymentDtoModel,
+  DataProviderTransactionService,
   ErrorExceptionResult,
 } from "ntk-cms-api";
 
@@ -25,8 +25,8 @@ import { FormInfoModel } from "../../../../../core/models/formInfoModel";
   standalone: false,
 })
 export class DataProviderPlanPriceChargePaymentComponent implements OnInit {
-  requestLinkClientId = 0;
-  requestLinkPlanPriceId = 0;
+  requestLinkClientId = "";
+  requestLinkPlanPriceId = "";
   requestBankPrivateMaster = false;
   constructorInfoAreaId = this.constructor.name;
   constructor(
@@ -34,35 +34,35 @@ export class DataProviderPlanPriceChargePaymentComponent implements OnInit {
     @Inject(DOCUMENT) private document: any,
     private dialogRef: MatDialogRef<DataProviderPlanPriceChargePaymentComponent>,
     private cmsToastrService: CmsToastrService,
-    private donateTransactionService: DonateTransactionService,
+    private dataProviderTransactionService: DataProviderTransactionService,
     public translate: TranslateService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {
-      if (data.linkClientId && data.linkClientId > 0) {
+      if (data.linkClientId) {
         this.requestLinkClientId = data.linkClientId;
       }
-      if (data.linkPlanPriceId && data.linkPlanPriceId > 0) {
+      if (data.linkPlanPriceId) {
         this.requestLinkPlanPriceId = data.linkPlanPriceId;
       }
     }
-    if (this.requestLinkClientId === 0) {
+    if (!this.requestLinkClientId || this.requestLinkClientId === "") {
       this.cmsToastrService.typeErrorComponentAction();
       this.dialogRef.close({ dialogChangedDate: false });
       return;
     }
-    if (this.requestLinkPlanPriceId === 0) {
+    if (!this.requestLinkPlanPriceId || this.requestLinkPlanPriceId === "") {
       this.cmsToastrService.typeErrorComponentAction();
       this.dialogRef.close({ dialogChangedDate: false });
       return;
     }
 
-    this.dataModelCalculate.supportPayment = this.requestLinkClientId;
-    this.dataModelCalculate.linkTargetPeriodId = this.requestLinkPlanPriceId;
-    this.dataModelPayment.supportPayment = this.requestLinkClientId;
-    this.dataModelPayment.linkTargetPeriodId = this.requestLinkPlanPriceId;
+    this.dataModelCalculate.linkClientId = this.requestLinkClientId;
+    this.dataModelCalculate.linkPlanPriceId = this.requestLinkPlanPriceId;
+    this.dataModelPayment.linkClientId = this.requestLinkClientId;
+    this.dataModelPayment.linkPlanPriceId = this.requestLinkPlanPriceId;
     this.dataModelPayment.lastUrlAddressInUse = this.document.location.href;
   }
   viewCalculate = false;
@@ -74,10 +74,10 @@ export class DataProviderPlanPriceChargePaymentComponent implements OnInit {
   dataModelPaymentResult: ErrorExceptionResult<BankPaymentInjectPaymentGotoBankStep2LandingSitePageModel> =
     new ErrorExceptionResult<BankPaymentInjectPaymentGotoBankStep2LandingSitePageModel>();
 
-  dataModelCalculate: DonateModuleCalculateDtoModel =
-    new DonateModuleCalculateDtoModel();
-  dataModelPayment: DonateModulePaymentDtoModel =
-    new DonateModulePaymentDtoModel();
+  dataModelCalculate: DataProviderModuleCalculateDtoModel =
+    new DataProviderModuleCalculateDtoModel();
+  dataModelPayment: DataProviderModulePaymentDtoModel =
+    new DataProviderModulePaymentDtoModel();
   formInfo: FormInfoModel = new FormInfoModel();
 
   ngOnInit(): void {
@@ -100,7 +100,7 @@ export class DataProviderPlanPriceChargePaymentComponent implements OnInit {
           this.constructorInfoAreaId,
         );
       });
-    this.donateTransactionService
+    this.dataProviderTransactionService
       .ServiceOrderCalculate(this.dataModelCalculate)
       .subscribe({
         next: (ret) => {
@@ -131,7 +131,7 @@ export class DataProviderPlanPriceChargePaymentComponent implements OnInit {
           this.constructorInfoAreaId,
         );
       });
-    this.donateTransactionService
+    this.dataProviderTransactionService
       .ServiceOrderPayment(this.dataModelPayment)
       .subscribe({
         next: (ret) => {

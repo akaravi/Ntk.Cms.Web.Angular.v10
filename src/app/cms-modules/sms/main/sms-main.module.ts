@@ -21,7 +21,8 @@ import {
   SmsMainApiPathPricePermissionService,
   SmsMainApiPathPublicConfigService,
   SmsMainApiPathService,
-  SmsMainClientPermissionService,
+  SmsMainClientApplicationService,
+  SmsMainClientApplicationPermissionService,
   SmsMainMessageCategoryService,
   SmsMainMessageContentService,
 } from "ntk-cms-api";
@@ -87,12 +88,15 @@ import { SmsMainApiPathSelectionlistComponent } from "./api-path/selectionlist/s
 import { SmsMainApiPathSelectorComponent } from "./api-path/selector/selector.component";
 import { SmsMainApiPathSendTestComponent } from "./api-path/sendTest/sendTest.component";
 import { SmsMainApiPathTreeMobileComponent } from "./api-path/tree/tree.mobile.component";
-import { SmsMainClientPermissionAddComponent } from "./client-permission/add/add.component";
-import { SmsMainClientPermissionAddMobileComponent } from "./client-permission/add/add.mobile.component";
-import { SmsMainClientPermissionEditComponent } from "./client-permission/edit/edit.component";
-import { SmsMainClientPermissionEditMobileComponent } from "./client-permission/edit/edit.mobile.component";
-import { SmsMainClientPermissionListComponent } from "./client-permission/list/list.component";
-import { SmsMainClientPermissionListMobileComponent } from "./client-permission/list/list.mobile.component";
+import { SmsMainClientApplicationAddComponent } from "./client-application/add/add.component";
+import { SmsMainClientApplicationAddMobileComponent } from "./client-application/add/add.mobile.component";
+import { SmsMainClientApplicationEditComponent } from "./client-application/edit/edit.component";
+import { SmsMainClientApplicationEditMobileComponent } from "./client-application/edit/edit.mobile.component";
+import { SmsMainClientApplicationListComponent } from "./client-application/list/list.component";
+import { SmsMainClientApplicationListMobileComponent } from "./client-application/list/list.mobile.component";
+import { SmsMainClientApplicationPermissionAddComponent } from "./client-application-permission/add/add.component";
+import { SmsMainClientApplicationPermissionEditComponent } from "./client-application-permission/edit/edit.component";
+import { SmsMainClientApplicationPermissionListComponent } from "./client-application-permission/list/list.component";
 import { SmsMainMessageCategoryAddComponent } from "./message-category/add/add.component";
 import { SmsMainMessageCategoryDeleteComponent } from "./message-category/delete/delete.component";
 import { SmsMainMessageCategoryEditComponent } from "./message-category/edit/edit.component";
@@ -199,12 +203,16 @@ import { SmsMainApiPathPublicConfigTreeMobileComponent } from "./public-config/t
     SmsMainApiNumberPermissionEditMobileComponent,
 
     /*Permission*/
-    SmsMainClientPermissionListComponent,
-    SmsMainClientPermissionListMobileComponent,
-    SmsMainClientPermissionAddComponent,
-    SmsMainClientPermissionAddMobileComponent,
-    SmsMainClientPermissionEditComponent,
-    SmsMainClientPermissionEditMobileComponent,
+    SmsMainClientApplicationListComponent,
+    SmsMainClientApplicationListMobileComponent,
+    SmsMainClientApplicationAddComponent,
+    SmsMainClientApplicationAddMobileComponent,
+    SmsMainClientApplicationEditComponent,
+    SmsMainClientApplicationEditMobileComponent,
+    /*ClientApplicationPermission*/
+    SmsMainClientApplicationPermissionListComponent,
+    SmsMainClientApplicationPermissionAddComponent,
+    SmsMainClientApplicationPermissionEditComponent,
 
     /** */
     SmsMainMessageCategoryAddComponent,
@@ -298,12 +306,16 @@ import { SmsMainApiPathPublicConfigTreeMobileComponent } from "./public-config/t
     SmsMainApiNumberPermissionEditComponent,
     SmsMainApiNumberPermissionEditMobileComponent,
     /*Permission*/
-    SmsMainClientPermissionListComponent,
-    SmsMainClientPermissionListMobileComponent,
-    SmsMainClientPermissionAddComponent,
-    SmsMainClientPermissionAddMobileComponent,
-    SmsMainClientPermissionEditComponent,
-    SmsMainClientPermissionEditMobileComponent,
+    SmsMainClientApplicationListComponent,
+    SmsMainClientApplicationListMobileComponent,
+    SmsMainClientApplicationAddComponent,
+    SmsMainClientApplicationAddMobileComponent,
+    SmsMainClientApplicationEditComponent,
+    SmsMainClientApplicationEditMobileComponent,
+    /*ClientApplicationPermission*/
+    SmsMainClientApplicationPermissionListComponent,
+    SmsMainClientApplicationPermissionAddComponent,
+    SmsMainClientApplicationPermissionEditComponent,
     /** */
     SmsMainMessageCategoryAddComponent,
     SmsMainMessageCategoryDeleteComponent,
@@ -354,7 +366,8 @@ import { SmsMainApiPathPublicConfigTreeMobileComponent } from "./public-config/t
     SmsMainApiPathAndApiNumberService,
     SmsMainMessageContentService,
     SmsMainMessageCategoryService,
-    SmsMainClientPermissionService,
+    SmsMainClientApplicationService,
+    SmsMainClientApplicationPermissionService,
   ],
 })
 export class SmsMainModule {}

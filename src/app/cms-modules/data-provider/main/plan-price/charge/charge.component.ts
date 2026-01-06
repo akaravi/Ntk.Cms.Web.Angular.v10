@@ -89,6 +89,6 @@ export class DataProviderPlanPriceChargeComponent implements OnInit {
   }
 
   onActionBackToParent(): void {
-    this.router.navigate(["/donate/target-period/"]);
+    this.router.navigate(["/data-provider/main/client/list"]);
   }
 }

@@ -1,0 +1,120 @@
+<div class="cms-m-body loader-container">
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
+
+  <div class="cms-m-header safe-area-top">
+    <div class="cms-m-header-content">
+      <h1 class="cms-m-header-title">
+        {{ "ROUTE.DATAPROVIDER.CLIENTAPPLICATIONPERMISSION" | translate }}
+      </h1>
+      <div class="cms-m-header-actions">
+        <button
+          type="button"
+          class="cms-m-header-action-btn"
+          (click)="optionsSearch.data.show = !optionsSearch.data.show"
+          [class.active]="optionsSearch.data.show"
+          [attr.aria-label]="'ACTION.SEARCH' | translate"
+        >
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        </button>
+        <button
+          type="button"
+          class="cms-m-header-action-btn"
+          (click)="onActionButtonReload()"
+          [attr.aria-label]="'ACTION.RELOAD' | translate"
+        >
+          <i
+            class="fa-solid fa-rotate-right"
+            [class.rotation360]="
+              publicHelper.processService.process.inRunArea[
+                constructorInfoAreaId
+              ]
+            "
+            aria-hidden="true"
+          ></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  @if (optionsSearch.data.show) {
+    <div class="cms-m-search-area">
+      <app-cms-search-list [(options)]="optionsSearch"></app-cms-search-list>
+    </div>
+  }
+
+  <div class="cms-m-content" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd($event)">
+    @if (tableData && tableData.length > 0) {
+      <div class="cms-m-list">
+        @for (item of tableData; track item.id) {
+          <div
+            class="cms-m-list-item"
+            [class.selected]="tableRowSelected?.id === item.id"
+            (click)="onActionTableRowSelect(item)"
+            (touchstart)="onItemTouchStart($event, item.id)"
+            (touchmove)="onItemTouchMove($event, item.id)"
+            (touchend)="onItemTouchEnd($event, item.id)"
+          >
+            <div class="cms-m-list-item-content">
+              <div class="cms-m-list-item-title">
+                {{ item.linkClientApplicationId }} - {{ item.linkSourcePathId }}
+              </div>
+              <div class="cms-m-list-item-subtitle">
+                @if (item.isRequested) {
+                  <span>{{ "MESSAGE.Requested" | translate }}</span>
+                }
+                @if (item.isApproved !== null) {
+                  <span> | {{ item.isApproved ? ("MESSAGE.Approved" | translate) : ("MESSAGE.Rejected" | translate) }}</span>
+                }
+                @if (item.fromDate) {
+                  <span> | {{ item.fromDate | date: "yyyy-MM-dd" }}</span>
+                }
+                @if (item.expireDate) {
+                  <span> - {{ item.expireDate | date: "yyyy-MM-dd" }}</span>
+                }
+              </div>
+            </div>
+            <div class="cms-m-list-item-actions">
+              @if (dataModelResult?.access?.accessEditRow) {
+                <button
+                  type="button"
+                  class="cms-m-header-action-btn"
+                  (click)="onActionButtonEditRow(item); $event.stopPropagation()"
+                >
+                  <i class="fa-solid fa-pen" aria-hidden="true"></i>
+                </button>
+              }
+              @if (dataModelResult?.access?.accessDeleteRow) {
+                <button
+                  type="button"
+                  class="cms-m-header-action-btn"
+                  (click)="onActionButtonDeleteRow(item); $event.stopPropagation()"
+                >
+                  <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                </button>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="cms-m-empty">
+        {{ "MESSAGE.No_Data" | translate }}
+      </div>
+    }
+  </div>
+
+  @if (dataModelResult?.access?.accessAddRow) {
+    <div class="cms-m-fab">
+      <button
+        type="button"
+        class="cms-m-fab-button"
+        (click)="onActionButtonNewRow()"
+        [attr.aria-label]="'ACTION.ADD' | translate"
+      >
+        <i class="fa-solid fa-plus" aria-hidden="true"></i>
+      </button>
+    </div>
+  }
+</div>
+

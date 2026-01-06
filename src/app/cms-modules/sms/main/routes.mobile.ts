@@ -6,7 +6,8 @@ import { SmsMainApiPathPermissionListMobileComponent } from "./api-path-permissi
 import { SmsMainApiPathPaginationListMobileComponent } from "./api-path-pagination/list/list.mobile.component";
 import { SmsMainApiPathEditComponent } from "./api-path/edit/edit.component";
 import { SmsMainApiPathListMobileComponent } from "./api-path/list/list.mobile.component";
-import { SmsMainClientPermissionListMobileComponent } from "./client-permission/list/list.mobile.component";
+import { SmsMainClientApplicationListMobileComponent } from "./client-application/list/list.mobile.component";
+import { SmsMainClientApplicationPermissionListComponent } from "./client-application-permission/list/list.component";
 import { SmsMainMessageContentListMobileComponent } from "./message-content/list/list.mobile.component";
 import { SmsMainApiPathPublicConfigListMobileComponent } from "./public-config/list/list.mobile.component";
 import { SmsMainComponent } from "./sms-main.component";
@@ -118,13 +119,28 @@ export const routesMobile: Routes = [
         data: { title: "ROUTE.SMS.MAIN" },
       },
       {
-        path: "client-permission",
-        component: SmsMainClientPermissionListMobileComponent,
+        path: "client-application",
+        component: SmsMainClientApplicationListMobileComponent,
         data: { title: "ROUTE.SMS.MAIN" },
       },
       {
-        path: "client-permission/LinkUserId/:LinkUserId",
-        component: SmsMainClientPermissionListMobileComponent,
+        path: "client-application/LinkUserId/:LinkUserId",
+        component: SmsMainClientApplicationListMobileComponent,
+        data: { title: "ROUTE.SMS.MAIN" },
+      },
+      {
+        path: "client-application-permission",
+        component: SmsMainClientApplicationPermissionListComponent,
+        data: { title: "ROUTE.SMS.MAIN" },
+      },
+      {
+        path: "client-application-permission/LinkClientApplicationId/:LinkClientApplicationId",
+        component: SmsMainClientApplicationPermissionListComponent,
+        data: { title: "ROUTE.SMS.MAIN" },
+      },
+      {
+        path: "client-application-permission/LinkApiPathId/:LinkApiPathId",
+        component: SmsMainClientApplicationPermissionListComponent,
         data: { title: "ROUTE.SMS.MAIN" },
       },
       {

@@ -22,7 +22,7 @@ import {
   CoreEnumService,
   CoreModuleService,
   CoreModuleTagService,
-  DataProviderClientPermissionService,
+  DataProviderClientApplicationService,
   DataProviderClientService,
   DataProviderEnumService,
   DataProviderPlanCategoryService,
@@ -115,11 +115,16 @@ import { DataProviderSourcePathAddComponent } from "./source-path/add/add.compon
 import { DataProviderSourcePathEditComponent } from "./source-path/edit/edit.component";
 import { DataProviderSourcePathListComponent } from "./source-path/list/list.component";
 import { DataProviderSourcePathListMobileComponent } from "./source-path/list/list.mobile.component";
-// Client Permission
-import { DataProviderClientPermissionAddComponent } from "./client-permission/add/add.component";
-import { DataProviderClientPermissionEditComponent } from "./client-permission/edit/edit.component";
-import { DataProviderClientPermissionListComponent } from "./client-permission/list/list.component";
-import { DataProviderClientPermissionListMobileComponent } from "./client-permission/list/list.mobile.component";
+// Client Application
+import { DataProviderClientApplicationAddComponent } from "./client-application/add/add.component";
+import { DataProviderClientApplicationEditComponent } from "./client-application/edit/edit.component";
+import { DataProviderClientApplicationListComponent } from "./client-application/list/list.component";
+import { DataProviderClientApplicationListMobileComponent } from "./client-application/list/list.mobile.component";
+// Client Application Permission
+import { DataProviderClientApplicationPermissionAddComponent } from "./client-application-permission/add/add.component";
+import { DataProviderClientApplicationPermissionEditComponent } from "./client-application-permission/edit/edit.component";
+import { DataProviderClientApplicationPermissionListComponent } from "./client-application-permission/list/list.component";
+import { DataProviderClientApplicationPermissionListMobileComponent } from "./client-application-permission/list/list.mobile.component";
 
 @NgModule({
   declarations: [
@@ -184,11 +189,16 @@ import { DataProviderClientPermissionListMobileComponent } from "./client-permis
     DataProviderSourcePathEditComponent,
     DataProviderSourcePathListComponent,
     DataProviderSourcePathListMobileComponent,
-    /* Client Permission */
-    DataProviderClientPermissionAddComponent,
-    DataProviderClientPermissionEditComponent,
-    DataProviderClientPermissionListComponent,
-    DataProviderClientPermissionListMobileComponent,
+    /* Client Application */
+    DataProviderClientApplicationAddComponent,
+    DataProviderClientApplicationEditComponent,
+    DataProviderClientApplicationListComponent,
+    DataProviderClientApplicationListMobileComponent,
+    /* Client Application Permission */
+    DataProviderClientApplicationPermissionAddComponent,
+    DataProviderClientApplicationPermissionEditComponent,
+    DataProviderClientApplicationPermissionListComponent,
+    DataProviderClientApplicationPermissionListMobileComponent,
     /* Plan Client */
     DataProviderPlanClientAddComponent,
     DataProviderPlanClientDeleteComponent,
@@ -272,11 +282,16 @@ import { DataProviderClientPermissionListMobileComponent } from "./client-permis
     DataProviderSourcePathEditComponent,
     DataProviderSourcePathListComponent,
     DataProviderSourcePathListMobileComponent,
-    /* Client Permission */
-    DataProviderClientPermissionAddComponent,
-    DataProviderClientPermissionEditComponent,
-    DataProviderClientPermissionListComponent,
-    DataProviderClientPermissionListMobileComponent,
+    /* Client Application */
+    DataProviderClientApplicationAddComponent,
+    DataProviderClientApplicationEditComponent,
+    DataProviderClientApplicationListComponent,
+    DataProviderClientApplicationListMobileComponent,
+    /* Client Application Permission */
+    DataProviderClientApplicationPermissionAddComponent,
+    DataProviderClientApplicationPermissionEditComponent,
+    DataProviderClientApplicationPermissionListComponent,
+    DataProviderClientApplicationPermissionListMobileComponent,
     /* Plan Client */
     DataProviderPlanClientAddComponent,
     DataProviderPlanClientDeleteComponent,
@@ -332,7 +347,8 @@ import { DataProviderClientPermissionListMobileComponent } from "./client-permis
     DataProviderSourceCompanyService,
     DataProviderSourcePublicConfigService,
     DataProviderSourcePathService,
-    DataProviderClientPermissionService,
+    DataProviderClientApplicationService,
+  DataProviderClientApplicationPermissionService,
     /** */
     CmsConfirmationDialogService,
     CoreModuleTagService,

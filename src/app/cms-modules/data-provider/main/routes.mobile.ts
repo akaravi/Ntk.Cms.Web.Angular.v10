@@ -1,7 +1,8 @@
 import { Routes } from "@angular/router";
 import { DataProviderMainComponent } from "./data-provider-main.component";
 import { DataProviderClientListMobileComponent } from "./client/list/list.mobile.component";
-import { DataProviderClientPermissionListMobileComponent } from "./client-permission/list/list.mobile.component";
+import { DataProviderClientApplicationListMobileComponent } from "./client-application/list/list.mobile.component";
+import { DataProviderClientApplicationPermissionListMobileComponent } from "./client-application-permission/list/list.mobile.component";
 import { DataProviderPlanListMobileComponent } from "./plan/list/list.mobile.component";
 import { DataProviderPlanClientListMobileComponent } from "./plan-client/list/list.mobile.component";
 import { DataProviderPlanPriceListMobileComponent } from "./plan-price/list/list.mobile.component";
@@ -98,14 +99,29 @@ export const routesMobile: Routes = [
         data: { title: "ROUTE.DATAPROVIDER.SOURCEPATH" },
       },
       {
-        path: "client-permission",
-        component: DataProviderClientPermissionListMobileComponent,
-        data: { title: "ROUTE.DATAPROVIDER.CLIENTPERMISSION" },
+        path: "client-application",
+        component: DataProviderClientApplicationListMobileComponent,
+        data: { title: "ROUTE.DATAPROVIDER.CLIENTAPPLICATION" },
       },
       {
-        path: "client-permission/LinkUserId/:LinkUserId",
-        component: DataProviderClientPermissionListMobileComponent,
-        data: { title: "ROUTE.DATAPROVIDER.CLIENTPERMISSION" },
+        path: "client-application/LinkUserId/:LinkUserId",
+        component: DataProviderClientApplicationListMobileComponent,
+        data: { title: "ROUTE.DATAPROVIDER.CLIENTAPPLICATION" },
+      },
+      {
+        path: "client-application-permission",
+        component: DataProviderClientApplicationPermissionListMobileComponent,
+        data: { title: "ROUTE.DATAPROVIDER.CLIENTAPPLICATIONPERMISSION" },
+      },
+      {
+        path: "client-application-permission/LinkClientApplicationId/:LinkClientApplicationId",
+        component: DataProviderClientApplicationPermissionListMobileComponent,
+        data: { title: "ROUTE.DATAPROVIDER.CLIENTAPPLICATIONPERMISSION" },
+      },
+      {
+        path: "client-application-permission/LinkSourcePathId/:LinkSourcePathId",
+        component: DataProviderClientApplicationPermissionListMobileComponent,
+        data: { title: "ROUTE.DATAPROVIDER.CLIENTAPPLICATIONPERMISSION" },
       },
     ],
   },

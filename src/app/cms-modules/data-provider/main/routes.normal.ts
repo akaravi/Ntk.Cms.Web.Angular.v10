@@ -10,7 +10,8 @@ import { DataProviderSourceListComponent } from "./source/list/list.component";
 import { DataProviderSourceCompanyListComponent } from "./source-company/list/list.component";
 import { DataProviderSourcePathListComponent } from "./source-path/list/list.component";
 import { DataProviderSourcePublicConfigListComponent } from "./source-public-config/list/list.component";
-import { DataProviderClientPermissionListComponent } from "./client-permission/list/list.component";
+import { DataProviderClientApplicationListComponent } from "./client-application/list/list.component";
+import { DataProviderClientApplicationPermissionListComponent } from "./client-application-permission/list/list.component";
 
 export const routesNormal: Routes = [
   {
@@ -54,14 +55,29 @@ export const routesNormal: Routes = [
         data: { title: "ROUTE.DATAPROVIDER.SOURCEPATH" },
       },
       {
-        path: "client-permission",
-        component: DataProviderClientPermissionListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.CLIENTPERMISSION" },
+        path: "client-application",
+        component: DataProviderClientApplicationListComponent,
+        data: { title: "ROUTE.DATAPROVIDER.CLIENTAPPLICATION" },
       },
       {
-        path: "client-permission/LinkUserId/:LinkUserId",
-        component: DataProviderClientPermissionListComponent,
-        data: { title: "ROUTE.DATAPROVIDER.CLIENTPERMISSION" },
+        path: "client-application/LinkUserId/:LinkUserId",
+        component: DataProviderClientApplicationListComponent,
+        data: { title: "ROUTE.DATAPROVIDER.CLIENTAPPLICATION" },
+      },
+      {
+        path: "client-application-permission",
+        component: DataProviderClientApplicationPermissionListComponent,
+        data: { title: "ROUTE.DATAPROVIDER.CLIENTAPPLICATIONPERMISSION" },
+      },
+      {
+        path: "client-application-permission/LinkClientApplicationId/:LinkClientApplicationId",
+        component: DataProviderClientApplicationPermissionListComponent,
+        data: { title: "ROUTE.DATAPROVIDER.CLIENTAPPLICATIONPERMISSION" },
+      },
+      {
+        path: "client-application-permission/LinkSourcePathId/:LinkSourcePathId",
+        component: DataProviderClientApplicationPermissionListComponent,
+        data: { title: "ROUTE.DATAPROVIDER.CLIENTAPPLICATIONPERMISSION" },
       },
       {
         path: "plan-client",

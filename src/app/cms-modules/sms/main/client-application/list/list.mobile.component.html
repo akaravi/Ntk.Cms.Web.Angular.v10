@@ -1,0 +1,87 @@
+<div class="cms-m-body loader-container">
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
+
+  <div class="cms-m-header safe-area-top">
+    <div class="cms-m-header-content">
+      <h1 class="cms-m-header-title">
+        {{ "ROUTE.SMS.MAIN" | translate }}
+      </h1>
+      <div class="cms-m-header-actions">
+        <button
+          type="button"
+          class="cms-m-header-action-btn"
+          (click)="optionsSearch.data.show = !optionsSearch.data.show"
+          [class.active]="optionsSearch.data.show"
+          [attr.aria-label]="'ACTION.SEARCH' | translate"
+        >
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        </button>
+        <button
+          type="button"
+          class="cms-m-header-action-btn"
+          (click)="onActionButtonReload()"
+          [attr.aria-label]="'ACTION.RELOAD' | translate"
+        >
+          <i
+            class="fa-solid fa-rotate-right"
+            [class.rotation360]="
+              publicHelper.processService.process.inRunArea[
+                constructorInfoAreaId
+              ]
+            "
+            aria-hidden="true"
+          ></i>
+        </button>
+        @if (
+          dataModelResult?.access?.accessAddRow &&
+          tokenHelper?.isAdminSite
+        ) {
+          <button
+            type="button"
+            class="cms-m-header-action-btn"
+            (click)="onActionButtonNewRow()"
+            [attr.aria-label]="'ACTION.ADD' | translate"
+          >
+            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+
+  @if (optionsSearch.data.show) {
+    <div class="cms-m-search-area">
+      <app-cms-search-list [(options)]="optionsSearch"></app-cms-search-list>
+    </div>
+  }
+
+  <div class="cms-m-content">
+    @if (tableSource.data && tableSource.data.length > 0) {
+      <div class="cms-m-list">
+        @for (item of tableSource.data; track item.id) {
+          <div
+            class="cms-m-list-item"
+            [class.selected]="tableRowSelected?.id === item.id"
+            (click)="onActionTableRowSelect(item)"
+          >
+            <div class="cms-m-list-item-content">
+              <div class="cms-m-list-item-title">{{ item.id }}</div>
+              <div class="cms-m-list-item-subtitle">
+                {{ item.linkUserId | cmsuserinfo | async }}
+              </div>
+            </div>
+            <div class="cms-m-list-item-actions">
+              <i [ngClass]="item.recordStatus | statusIconClass"></i>
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="cms-m-empty">
+        {{ "MESSAGE.No_Data_Found" | translate }}
+      </div>
+    }
+  </div>
+</div>
+

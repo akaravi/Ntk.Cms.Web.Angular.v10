@@ -1,11 +1,11 @@
 /*!
- * 
+ *
  * persian-date -  1.1.0
  * Reza Babakhani <babakhani.reza@gmail.com>
  * http://babakhani.github.io/PersianWebToolkit/docs/persian-date/
- * Under MIT license 
- * 
- * 
+ * Under MIT license
+ *
+ *
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -984,8 +984,6 @@ var PersianDateClass = function () {
          * @param key
          * @returns {*}
          */
-        /* eslint-disable no-case-declarations */
-
     }, {
         key: 'endOf',
         value: function endOf(key) {
@@ -1019,7 +1017,6 @@ var PersianDateClass = function () {
                 default:
                     return this.clone();
             }
-            /* eslint-enable no-case-declarations */
         }
 
         /**
@@ -3266,15 +3263,15 @@ module.exports = {
     if (input[2] < 1 || input[1] > 31) {
       out = false;
     }
-    // Check hour 
+    // Check hour
     if (input[3] < 0 || input[3] > 24) {
       out = false;
     }
-    // Check minute 
+    // Check minute
     if (input[4] < 0 || input[4] > 60) {
       out = false;
     }
-    // Check second 
+    // Check second
     if (input[5] < 0 || input[5] > 60) {
       out = false;
     }
