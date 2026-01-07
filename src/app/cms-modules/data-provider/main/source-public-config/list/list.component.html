@@ -205,7 +205,7 @@
         <mat-cell *matCellDef="let row"> {{ row.title }} </mat-cell>
       </ng-container>
       <!-- ClassName Column -->
-      <ng-container matColumnDef="ClassName">
+      <ng-container matColumnDef="className">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["className"]?.fieldTitle }}
         </mat-header-cell>
@@ -222,7 +222,7 @@
       </ng-container>
 
       <!-- Action Column -->
-      <ng-container matColumnDef="Action">
+      <ng-container matColumnDef="action">
         <mat-header-cell *matHeaderCellDef>
           {{ "TITLE.OPTION" | translate }}
         </mat-header-cell>

@@ -90,9 +90,9 @@ export class DataProviderSourcePublicConfigListComponent
     "recordStatus",
     "title",
     "className",
-    "abilityDelivery",
-    "abilityReceive",
-    "abilityCreditCheck",
+    //"abilityDelivery",
+    //"abilityReceive",
+    //"abilityCreditCheck",
     "action",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
@@ -100,9 +100,9 @@ export class DataProviderSourcePublicConfigListComponent
     "recordStatus",
     "title",
     "className",
-    "abilityDelivery",
-    "abilityReceive",
-    "abilityCreditCheck",
+    //"abilityDelivery",
+    //"abilityReceive",
+    //"abilityCreditCheck",
     "action",
   ];
 
