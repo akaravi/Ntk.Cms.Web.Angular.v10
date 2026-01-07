@@ -23,6 +23,7 @@ import {
   CoreModuleService,
   CoreModuleTagService,
   DataProviderClientApplicationService,
+  DataProviderClientApplicationPermissionService,
   DataProviderClientService,
   DataProviderEnumService,
   DataProviderPlanCategoryService,
@@ -115,11 +116,13 @@ import { DataProviderSourcePathAddComponent } from "./source-path/add/add.compon
 import { DataProviderSourcePathEditComponent } from "./source-path/edit/edit.component";
 import { DataProviderSourcePathListComponent } from "./source-path/list/list.component";
 import { DataProviderSourcePathListMobileComponent } from "./source-path/list/list.mobile.component";
+import { DataProviderSourcePathSelectorComponent } from "./source-path/selector/selector.component";
 // Client Application
 import { DataProviderClientApplicationAddComponent } from "./client-application/add/add.component";
 import { DataProviderClientApplicationEditComponent } from "./client-application/edit/edit.component";
 import { DataProviderClientApplicationListComponent } from "./client-application/list/list.component";
 import { DataProviderClientApplicationListMobileComponent } from "./client-application/list/list.mobile.component";
+import { DataProviderClientApplicationSelectorComponent } from "./client-application/selector/selector.component";
 // Client Application Permission
 import { DataProviderClientApplicationPermissionAddComponent } from "./client-application-permission/add/add.component";
 import { DataProviderClientApplicationPermissionEditComponent } from "./client-application-permission/edit/edit.component";
@@ -189,11 +192,13 @@ import { DataProviderClientApplicationPermissionListMobileComponent } from "./cl
     DataProviderSourcePathEditComponent,
     DataProviderSourcePathListComponent,
     DataProviderSourcePathListMobileComponent,
+    DataProviderSourcePathSelectorComponent,
     /* Client Application */
     DataProviderClientApplicationAddComponent,
     DataProviderClientApplicationEditComponent,
     DataProviderClientApplicationListComponent,
     DataProviderClientApplicationListMobileComponent,
+    DataProviderClientApplicationSelectorComponent,
     /* Client Application Permission */
     DataProviderClientApplicationPermissionAddComponent,
     DataProviderClientApplicationPermissionEditComponent,
@@ -282,11 +287,13 @@ import { DataProviderClientApplicationPermissionListMobileComponent } from "./cl
     DataProviderSourcePathEditComponent,
     DataProviderSourcePathListComponent,
     DataProviderSourcePathListMobileComponent,
+    DataProviderSourcePathSelectorComponent,
     /* Client Application */
     DataProviderClientApplicationAddComponent,
     DataProviderClientApplicationEditComponent,
     DataProviderClientApplicationListComponent,
     DataProviderClientApplicationListMobileComponent,
+    DataProviderClientApplicationSelectorComponent,
     /* Client Application Permission */
     DataProviderClientApplicationPermissionAddComponent,
     DataProviderClientApplicationPermissionEditComponent,

@@ -68,7 +68,7 @@
             <div class="cms-m-list-item-content">
               <div class="cms-m-list-item-title">{{ item.id }}</div>
               <div class="cms-m-list-item-subtitle">
-                {{ item.linkUserId | cmsuserinfo | async }}
+                {{ $any(item).linkUserId | cmsuserinfo | async }}
               </div>
             </div>
             <div class="cms-m-list-item-actions">
@@ -84,4 +84,3 @@
     }
   </div>
 </div>
-

@@ -214,5 +214,27 @@ export class SmsMainClientApplicationEditComponent
   DataGetAllMenuCoreUserGroup(): void {
     // Placeholder for future implementation
   }
-}
 
+  get linkUserId(): any {
+    return (this.dataModel as any).linkUserId;
+  }
+  set linkUserId(value: any) {
+    (this.dataModel as any).linkUserId = value;
+  }
+
+  onActionSelectorUser(model: any): void {
+    if (!model || !model.id) {
+      this.linkUserId = null;
+      return;
+    }
+    this.linkUserId = model.id;
+  }
+
+  onActionSelectorSite(model: any): void {
+    if (!model || !model.id) {
+      this.dataModel.linkSiteId = null;
+      return;
+    }
+    this.dataModel.linkSiteId = model.id;
+  }
+}

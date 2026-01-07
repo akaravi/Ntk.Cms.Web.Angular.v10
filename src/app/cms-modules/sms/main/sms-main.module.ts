@@ -94,6 +94,7 @@ import { SmsMainClientApplicationEditComponent } from "./client-application/edit
 import { SmsMainClientApplicationEditMobileComponent } from "./client-application/edit/edit.mobile.component";
 import { SmsMainClientApplicationListComponent } from "./client-application/list/list.component";
 import { SmsMainClientApplicationListMobileComponent } from "./client-application/list/list.mobile.component";
+import { SmsMainClientApplicationSelectorComponent } from "./client-application/selector/selector.component";
 import { SmsMainClientApplicationPermissionAddComponent } from "./client-application-permission/add/add.component";
 import { SmsMainClientApplicationPermissionEditComponent } from "./client-application-permission/edit/edit.component";
 import { SmsMainClientApplicationPermissionListComponent } from "./client-application-permission/list/list.component";
@@ -209,6 +210,7 @@ import { SmsMainApiPathPublicConfigTreeMobileComponent } from "./public-config/t
     SmsMainClientApplicationAddMobileComponent,
     SmsMainClientApplicationEditComponent,
     SmsMainClientApplicationEditMobileComponent,
+    SmsMainClientApplicationSelectorComponent,
     /*ClientApplicationPermission*/
     SmsMainClientApplicationPermissionListComponent,
     SmsMainClientApplicationPermissionAddComponent,
@@ -312,6 +314,7 @@ import { SmsMainApiPathPublicConfigTreeMobileComponent } from "./public-config/t
     SmsMainClientApplicationAddMobileComponent,
     SmsMainClientApplicationEditComponent,
     SmsMainClientApplicationEditMobileComponent,
+    SmsMainClientApplicationSelectorComponent,
     /*ClientApplicationPermission*/
     SmsMainClientApplicationPermissionListComponent,
     SmsMainClientApplicationPermissionAddComponent,

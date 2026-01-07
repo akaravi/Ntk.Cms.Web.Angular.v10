@@ -1,0 +1,21 @@
+<mat-form-field class="w-100" [appearance]="'outline'">
+  <mat-label>{{ optionLabel || optionPlaceholder }}</mat-label>
+  <input
+    type="text"
+    matInput
+    [formControl]="formControl"
+    [matAutocomplete]="auto"
+    [disabled]="optionDisabled"
+    [required]="optionRequired"
+  />
+  <mat-autocomplete
+    #auto="matAutocomplete"
+    [displayWith]="displayFn"
+    (optionSelected)="onActionSelect($event.option.value)"
+  >
+    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+      {{ displayOption(option) }}
+    </mat-option>
+  </mat-autocomplete>
+  <mat-icon matSuffix>search</mat-icon>
+</mat-form-field>

@@ -182,7 +182,7 @@
           {{ fieldsInfo["isRequested"]?.fieldTitle }}
         </mat-header-cell>
         <mat-cell *matCellDef="let row">
-          {{ row.isRequested ? "MESSAGE.Yes" | translate : "MESSAGE.No" | translate }}
+          {{ (row.isRequested ? "MESSAGE.Yes" : "MESSAGE.No") | translate }}
         </mat-cell>
       </ng-container>
 
@@ -195,7 +195,7 @@
           @if (row.isApproved === null) {
             <span>{{ "MESSAGE.NotSet" | translate }}</span>
           } @else {
-            {{ row.isApproved ? "MESSAGE.Yes" | translate : "MESSAGE.No" | translate }}
+            {{ (row.isApproved ? "MESSAGE.Yes" : "MESSAGE.No") | translate }}
           }
         </mat-cell>
       </ng-container>
@@ -263,4 +263,3 @@
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
   </ng-container>
 </app-cms-html-list>
-

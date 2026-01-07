@@ -57,7 +57,7 @@ export class SmsMainClientApplicationAddComponent
 
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
     if (data && data.linkUserId) {
-      this.dataModel.linkUserId = data.linkUserId;
+      (this.dataModel as any).linkUserId = data.linkUserId;
     }
   }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
@@ -149,5 +149,27 @@ export class SmsMainClientApplicationAddComponent
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });
   }
-}
 
+  get linkUserId(): any {
+    return (this.dataModel as any).linkUserId;
+  }
+  set linkUserId(value: any) {
+    (this.dataModel as any).linkUserId = value;
+  }
+
+  onActionSelectorUser(model: any): void {
+    if (!model || !model.id) {
+      this.linkUserId = null;
+      return;
+    }
+    this.linkUserId = model.id;
+  }
+
+  onActionSelectorSite(model: any): void {
+    if (!model || !model.id) {
+      this.dataModel.linkSiteId = null;
+      return;
+    }
+    this.dataModel.linkSiteId = model.id;
+  }
+}

@@ -56,7 +56,7 @@ export class DataProviderPlanCategoryAddComponent
       this.requestParentId = data.parentId || "";
     }
     if (this.requestParentId && this.requestParentId.length > 0) {
-      this.dataModel.linkParentId = Number(this.requestParentId) || 0;
+      this.dataModel.linkParentId = String(this.requestParentId) || "";
     }
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
   }
@@ -76,7 +76,7 @@ export class DataProviderPlanCategoryAddComponent
   dataModel: DataProviderPlanCategoryModel =
     new DataProviderPlanCategoryModel();
 
-  
+
   fileManagerOpenForm = false;
 
   onActionFileSelected(model: NodeInterface): void {

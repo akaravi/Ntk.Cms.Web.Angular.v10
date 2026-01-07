@@ -48,20 +48,22 @@
         <!-- LinkUserId Field -->
         @if (fieldsInfo['linkUserId']?.accessWatchField) {
           <app-cms-user-selector
-            [(model)]="dataModel.linkUserId"
-            [optionDisabled]="false"
+            (optionChange)="onActionSelectorUser($event)"
+            [optionSelectForce]="linkUserId"
+            [optionPlaceholder]="'TITLE.USER' | translate"
+            [optionDisabled]="!(fieldsInfo['linkUserId']?.accessEditField ?? false)"
             [optionLabel]="fieldsInfo['linkUserId']?.fieldTitle"
-            [optionRequired]="true"
             >
           </app-cms-user-selector>
         }
         <!-- LinkSiteId Field -->
         @if (fieldsInfo['linkSiteId']?.accessWatchField) {
           <app-cms-site-selector
-            [(model)]="dataModel.linkSiteId"
-            [optionDisabled]="false"
+            (optionChange)="onActionSelectorSite($event)"
+            [optionSelectForce]="dataModel.linkSiteId"
+            [optionPlaceholder]="'TITLE.SITE' | translate"
+            [optionDisabled]="!(fieldsInfo['linkSiteId']?.accessEditField ?? false)"
             [optionLabel]="fieldsInfo['linkSiteId']?.fieldTitle"
-            [optionRequired]="false"
             >
           </app-cms-site-selector>
         }
@@ -87,4 +89,3 @@
       <!--Content-->
     </div>
   </div>
-
