@@ -639,11 +639,7 @@ export class EstateCategoryRackListMobileComponent
     }
     this.DataGetAll();
   }
-  onActionTableRowSelect(row: EstateCategoryRackModel): void {
-    this.tableRowSelected = row;
-    if (!row["expanded"]) row["expanded"] = false;
-    row["expanded"] = !row["expanded"];
-  }
+
   public onActionClickRackDoor(model: EstateCategoryRackModel): void {
     if (this.statusFolderClick) return;
 

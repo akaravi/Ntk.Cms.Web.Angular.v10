@@ -1,5 +1,4 @@
 <app-cms-html-list [optionsListInfoAreaId]="constructorInfoAreaId">
-  <ng-container cms-header> </ng-container>
   <ng-container cms-action-header-start>
     <a
       type="button"
@@ -92,11 +91,30 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let row">{{ row.title }}</mat-cell>
       </ng-container>
-      <ng-container matColumnDef="priority">
-        <mat-header-cell *matHeaderCellDef mat-sort-header="priority">
-          {{ "TITLE.Priority" | translate }}
+      <ng-container matColumnDef="linkSourcePathId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="linkSourcePathId">
+          {{ "TITLE.SOURCEPATH" | translate }}
         </mat-header-cell>
-        <mat-cell *matCellDef="let row">{{ row.priority }}</mat-cell>
+        <mat-cell *matCellDef="let row">{{ row.linkSourcePathId }}</mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="servicePricePerPage">
+        <mat-header-cell *matHeaderCellDef mat-sort-header="servicePricePerPage">
+          {{ "TITLE.SERVICE_PRICE_PER_PAGE" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.servicePricePerPage | number }}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="endUserPricePerPage">
+        <mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header="endUserPricePerPage"
+        >
+          {{ "TITLE.ENDUSER_PRICE_PER_PAGE" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.endUserPricePerPage | number }}
+        </mat-cell>
       </ng-container>
       <!-- RecordStatus Column -->
       <ng-container matColumnDef="recordStatus">
@@ -116,7 +134,6 @@
           {{ "TITLE.OPTION" | translate }}
         </mat-header-cell>
         <mat-cell *matCellDef="let row" class="Action">
-          <!-- Action Menu -->
           <button
             type="button"
             mat-icon-button

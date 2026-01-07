@@ -600,7 +600,4 @@ export class SmsMainApiPathPricePermissionListMobileComponent
     this.router.navigate(["/sms/main/api-path"]);
   }
 
-  onActionTableRowSelect(row: SmsMainApiPathPricePermissionModel): void {
-    this.tableRowSelected = row;
-  }
 }

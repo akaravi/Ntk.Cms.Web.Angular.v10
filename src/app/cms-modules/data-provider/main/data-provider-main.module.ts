@@ -33,6 +33,7 @@ import {
   DataProviderPlanSourceService,
   DataProviderSourceCompanyService,
   DataProviderSourcePathService,
+  DataProviderSourcePathPaginationService,
   DataProviderSourcePublicConfigService,
   DataProviderSourceService,
 } from "ntk-cms-api";
@@ -116,6 +117,11 @@ import { DataProviderSourcePathAddComponent } from "./source-path/add/add.compon
 import { DataProviderSourcePathEditComponent } from "./source-path/edit/edit.component";
 import { DataProviderSourcePathListComponent } from "./source-path/list/list.component";
 import { DataProviderSourcePathListMobileComponent } from "./source-path/list/list.mobile.component";
+import { DataProviderSourcePathPaginationAddComponent } from "./source-path-pagination/add/add.component";
+import { DataProviderSourcePathPaginationEditComponent } from "./source-path-pagination/edit/edit.component";
+import { DataProviderSourcePathPaginationListComponent } from "./source-path-pagination/list/list.component";
+import { DataProviderSourcePathPaginationListMobileComponent } from "./source-path-pagination/list/list.mobile.component";
+import { DataProviderSourcePathPaginationSelectorComponent } from "./source-path-pagination/selector/selector.component";
 import { DataProviderSourcePathSelectorComponent } from "./source-path/selector/selector.component";
 // Client Application
 import { DataProviderClientApplicationAddComponent } from "./client-application/add/add.component";
@@ -192,6 +198,16 @@ import { DataProviderClientApplicationPermissionListMobileComponent } from "./cl
     DataProviderSourcePathEditComponent,
     DataProviderSourcePathListComponent,
     DataProviderSourcePathListMobileComponent,
+    DataProviderSourcePathPaginationAddComponent,
+    DataProviderSourcePathPaginationEditComponent,
+    DataProviderSourcePathPaginationListComponent,
+    DataProviderSourcePathPaginationListMobileComponent,
+    DataProviderSourcePathPaginationSelectorComponent,
+    DataProviderSourcePathPaginationAddComponent,
+    DataProviderSourcePathPaginationEditComponent,
+    DataProviderSourcePathPaginationListComponent,
+    DataProviderSourcePathPaginationListMobileComponent,
+    DataProviderSourcePathPaginationSelectorComponent,
     DataProviderSourcePathSelectorComponent,
     /* Client Application */
     DataProviderClientApplicationAddComponent,
@@ -354,6 +370,7 @@ import { DataProviderClientApplicationPermissionListMobileComponent } from "./cl
     DataProviderSourceCompanyService,
     DataProviderSourcePublicConfigService,
     DataProviderSourcePathService,
+    DataProviderSourcePathPaginationService,
     DataProviderClientApplicationService,
   DataProviderClientApplicationPermissionService,
     /** */

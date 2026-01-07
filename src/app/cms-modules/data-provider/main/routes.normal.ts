@@ -9,6 +9,7 @@ import { DataProviderPlanSourceListComponent } from "./plan-source/list/list.com
 import { DataProviderSourceListComponent } from "./source/list/list.component";
 import { DataProviderSourceCompanyListComponent } from "./source-company/list/list.component";
 import { DataProviderSourcePathListComponent } from "./source-path/list/list.component";
+import { DataProviderSourcePathPaginationListComponent } from "./source-path-pagination/list/list.component";
 import { DataProviderSourcePublicConfigListComponent } from "./source-public-config/list/list.component";
 import { DataProviderClientApplicationListComponent } from "./client-application/list/list.component";
 import { DataProviderClientApplicationPermissionListComponent } from "./client-application-permission/list/list.component";
@@ -52,6 +53,11 @@ export const routesNormal: Routes = [
       {
         path: "source-path",
         component: DataProviderSourcePathListComponent,
+        data: { title: "ROUTE.DATAPROVIDER.SOURCEPATH" },
+      },
+      {
+        path: "source-path-pagination",
+        component: DataProviderSourcePathPaginationListComponent,
         data: { title: "ROUTE.DATAPROVIDER.SOURCEPATH" },
       },
       {

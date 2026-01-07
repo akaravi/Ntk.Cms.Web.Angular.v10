@@ -1,0 +1,44 @@
+<div class="cms-m-wrapper loader-container">
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
+
+  <div class="cms-m-actions">
+    <button class="btn" (click)="onActionButtonReload()">
+      {{ "ACTION.RELOAD" | translate }}
+    </button>
+    @if (dataModelResult?.access?.accessAddRow) {
+      <button class="btn" (click)="onActionbuttonNewRow()">
+        {{ "ACTION.ADD" | translate }}
+      </button>
+    }
+  </div>
+
+  <div class="cms-m-content">
+    @if (tableData && tableData.length > 0) {
+      <div class="cms-m-list">
+        @for (item of tableData; track item.id) {
+          <div
+            class="cms-m-list-item"
+            [class.selected]="tableRowSelected?.id === item.id"
+            (click)="onActionTableRowSelect(item)"
+          >
+            <div class="cms-m-list-item-title">{{ item.title }}</div>
+            <div class="cms-m-list-item-subtitle">
+              {{ "TITLE.SOURCEPATH" | translate }}: {{ item.linkSourcePathId }}
+            </div>
+            <div class="cms-m-list-item-subtitle">
+              {{ "TITLE.SERVICE_PRICE_PER_PAGE" | translate }}:
+              {{ item.servicePricePerPage | number }}
+            </div>
+            <div class="cms-m-list-item-subtitle">
+              {{ "TITLE.ENDUSER_PRICE_PER_PAGE" | translate }}:
+              {{ item.endUserPricePerPage | number }}
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="cms-m-empty">{{ "MESSAGE.No_record_found" | translate }}</div>
+    }
+  </div>
+</div>

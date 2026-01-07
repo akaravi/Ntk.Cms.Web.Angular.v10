@@ -970,7 +970,5 @@ export class SmsMainApiPathListMobileComponent
     this.router.navigate(["/sms/main/api-path-company"]);
   }
 
-  onActionTableRowSelect(row: SmsMainApiPathModel): void {
-    this.tableRowSelected = row;
-  }
+
 }

@@ -5,11 +5,11 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
+  DataProviderSourceCompanyModel,
+  DataProviderSourceCompanyService,
   FilterDataModel,
   FilterModel,
   RecordStatusEnum,
-  DataProviderSourceCompanyModel,
-  DataProviderSourceCompanyService,
   SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
@@ -224,7 +224,11 @@ export class DataProviderSourceCompanyListComponent
   onActionButtonEditRow(
     model: DataProviderSourceCompanyModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id === 0)) {
+    if (
+      !model ||
+      !model.id ||
+      (typeof model.id === "string" ? model.id.length === 0 : model.id === 0)
+    ) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -256,7 +260,11 @@ export class DataProviderSourceCompanyListComponent
   onActionButtonDeleteRow(
     model: DataProviderSourceCompanyModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id === 0)) {
+    if (
+      !model ||
+      !model.id ||
+      (typeof model.id === "string" ? model.id.length === 0 : model.id === 0)
+    ) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -334,7 +342,11 @@ export class DataProviderSourceCompanyListComponent
     model: DataProviderSourceCompanyModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id === 0)) {
+    if (
+      !model ||
+      !model.id ||
+      (typeof model.id === "string" ? model.id.length === 0 : model.id === 0)
+    ) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -350,11 +362,12 @@ export class DataProviderSourceCompanyListComponent
     }
     if (event?.ctrlKey) {
       const link =
-        "/#/data-provider/source/list/LinkSourceCompanyId/" + this.tableRowSelected.id;
+        "/#/data-provider/main/source/list/LinkSourceCompanyId/" +
+        this.tableRowSelected.id;
       window.open(link, "_blank");
     } else {
       this.router.navigate([
-        "/data-provider/source/list/LinkSourceCompanyId",
+        "/data-provider/main/source/list/LinkSourceCompanyId",
         this.tableRowSelected.id,
       ]);
     }

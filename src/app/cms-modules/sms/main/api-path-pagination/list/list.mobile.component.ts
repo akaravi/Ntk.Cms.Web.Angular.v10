@@ -595,7 +595,5 @@ export class SmsMainApiPathPaginationListMobileComponent
     this.router.navigate(["/sms/main/api-path"]);
   }
 
-  onActionTableRowSelect(row: SmsMainApiPathPaginationModel): void {
-    this.tableRowSelected = row;
-  }
+
 }

@@ -546,7 +546,5 @@ export class SmsMainApiNumberPermissionListMobileComponent
     this.router.navigate(["/sms/main/api-number"]);
   }
 
-  onActionTableRowSelect(row: SmsMainApiNumberPermissionModel): void {
-    this.tableRowSelected = row;
-  }
+
 }

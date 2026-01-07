@@ -10,6 +10,7 @@ import { DataProviderPlanSourceListMobileComponent } from "./plan-source/list/li
 import { DataProviderSourceListMobileComponent } from "./source/list/list.mobile.component";
 import { DataProviderSourceCompanyListMobileComponent } from "./source-company/list/list.mobile.component";
 import { DataProviderSourcePathListMobileComponent } from "./source-path/list/list.mobile.component";
+import { DataProviderSourcePathPaginationListMobileComponent } from "./source-path-pagination/list/list.mobile.component";
 import { DataProviderSourcePublicConfigListMobileComponent } from "./source-public-config/list/list.mobile.component";
 
 export const routesMobile: Routes = [
@@ -96,6 +97,11 @@ export const routesMobile: Routes = [
       {
         path: "source-path",
         component: DataProviderSourcePathListMobileComponent,
+        data: { title: "ROUTE.DATAPROVIDER.SOURCEPATH" },
+      },
+      {
+        path: "source-path-pagination",
+        component: DataProviderSourcePathPaginationListMobileComponent,
         data: { title: "ROUTE.DATAPROVIDER.SOURCEPATH" },
       },
       {

@@ -8,11 +8,10 @@ import {
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator, PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
-import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  DataProviderSourcePathModel,
-  DataProviderSourcePathService,
+  DataProviderSourcePathPaginationModel,
+  DataProviderSourcePathPaginationService,
   FilterDataModel,
   FilterModel,
   SortTypeEnum,
@@ -25,31 +24,51 @@ import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
-import { DataProviderSourcePathAddComponent } from "../add/add.component";
-import { DataProviderSourcePathEditComponent } from "../edit/edit.component";
+import { DataProviderSourcePathPaginationAddComponent } from "../add/add.component";
+import { DataProviderSourcePathPaginationEditComponent } from "../edit/edit.component";
 
 @Component({
-  selector: "app-data-provider-source-path-list",
+  selector: "app-data-provider-source-path-pagination-list",
   templateUrl: "./list.component.html",
   standalone: false,
 })
-export class DataProviderSourcePathListComponent
+export class DataProviderSourcePathPaginationListComponent
   extends ListBaseComponent<
-    DataProviderSourcePathService,
-    DataProviderSourcePathModel,
+    DataProviderSourcePathPaginationService,
+    DataProviderSourcePathPaginationModel,
     string
   >
   implements OnInit, OnDestroy
 {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  tableData: DataProviderSourcePathModel[] = [];
+  tableData: DataProviderSourcePathPaginationModel[] = [];
   constructorInfoAreaId = this.constructor.name;
+  filteModelContent = new FilterModel();
+  filterDataModelQueryBuilder: FilterDataModel[] = [];
+  tabledisplayedColumns: string[] = [];
+  tabledisplayedColumnsSource: string[] = [
+    "id",
+    "recordStatus",
+    "title",
+    "linkSourcePathId",
+    "servicePricePerPage",
+    "endUserPricePerPage",
+    "action",
+  ];
+  tabledisplayedColumnsMobileSource: string[] = [
+    "id",
+    "recordStatus",
+    "title",
+    "linkSourcePathId",
+    "action",
+  ];
+  private unsubscribe: Subscription[] = [];
+
   constructor(
-    public contentService: DataProviderSourcePathService,
+    public contentService: DataProviderSourcePathPaginationService,
     private cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
-    private router: Router,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -60,7 +79,7 @@ export class DataProviderSourcePathListComponent
   ) {
     super(
       contentService,
-      new DataProviderSourcePathModel(),
+      new DataProviderSourcePathPaginationModel(),
       publicHelper,
       tokenHelper,
       translate,
@@ -69,44 +88,15 @@ export class DataProviderSourcePathListComponent
     this.optionsSearch.parentMethods = {
       onSubmit: (model) => this.onSubmitOptionsSearch(model),
     };
-
-    /*filter Sort*/
     this.filteModelContent.sortColumn = "id";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
-  comment: string;
-  author: string;
-  dataSource: any;
-  flag = false;
-  tableContentSelected = [];
-
-  filteModelContent = new FilterModel();
-  filterDataModelQueryBuilder: FilterDataModel[] = [];
-
-  tabledisplayedColumns: string[] = [];
-  tabledisplayedColumnsSource: string[] = [
-    "id",
-    "recordStatus",
-    "title",
-    "priority",
-    "action",
-  ];
-  tabledisplayedColumnsMobileSource: string[] = [
-    "id",
-    "recordStatus",
-    "title",
-    "priority",
-    "action",
-  ];
-
-  private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
     }
-
     this.unsubscribe.push(
       this.cmsStoreService
         .getState((state) => state.tokenInfoStore)
@@ -119,6 +109,18 @@ export class DataProviderSourcePathListComponent
   ngOnDestroy(): void {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
+
+  filterModelCompiler(model: FilterModel): FilterModel {
+    const filterModel = JSON.parse(JSON.stringify(model));
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    return filterModel;
+  }
+
   DataGetAll(): void {
     this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
       this.tabledisplayedColumnsSource,
@@ -128,7 +130,7 @@ export class DataProviderSourcePathListComponent
     );
 
     this.tableRowsSelected = [];
-    this.onActionTableRowSelect(new DataProviderSourcePathModel());
+    this.onActionTableRowSelect(new DataProviderSourcePathPaginationModel());
     const pName = this.constructor.name + ".DataGetAll";
     this.translate
       .get("MESSAGE.Receiving_information")
@@ -140,7 +142,8 @@ export class DataProviderSourcePathListComponent
         );
       });
     this.filteModelContent.accessLoad = true;
-    this.contentService.ServiceGetAllEditor(this.filteModelContent).subscribe({
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
+    this.contentService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
 
@@ -151,6 +154,10 @@ export class DataProviderSourcePathListComponent
           this.tableSource.sort = this.sort;
           this.tableSource.paginator = this.paginator;
           this.tableSource.filter = "$$$";
+          setTimeout(() => {
+            if (this.optionsSearch.childMethods)
+              this.optionsSearch.childMethods.setAccess(ret.access);
+          }, 500);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -197,10 +204,13 @@ export class DataProviderSourcePathListComponent
       this.cmsToastrService.typeErrorAccessAdd();
       return;
     }
-    const dialogRef = this.dialog.open(DataProviderSourcePathAddComponent, {
-      height: "90%",
-      data: {},
-    });
+    const dialogRef = this.dialog.open(
+      DataProviderSourcePathPaginationAddComponent,
+      {
+        height: "90%",
+        data: {},
+      },
+    );
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -208,13 +218,9 @@ export class DataProviderSourcePathListComponent
     });
   }
   onActionbuttonEditRow(
-    model: DataProviderSourcePathModel = this.tableRowSelected,
+    model: DataProviderSourcePathPaginationModel = this.tableRowSelected,
   ): void {
-    if (
-      !model ||
-      !model.id ||
-      (typeof model.id === "string" ? model.id.length === 0 : model.id === 0)
-    ) {
+    if (!model || !model.id || model.id.length === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -230,10 +236,13 @@ export class DataProviderSourcePathListComponent
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
-    const dialogRef = this.dialog.open(DataProviderSourcePathEditComponent, {
-      height: "90%",
-      data: { id: this.tableRowSelected.id },
-    });
+    const dialogRef = this.dialog.open(
+      DataProviderSourcePathPaginationEditComponent,
+      {
+        height: "90%",
+        data: { id: this.tableRowSelected.id },
+      },
+    );
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -241,13 +250,9 @@ export class DataProviderSourcePathListComponent
     });
   }
   onActionbuttonDeleteRow(
-    model: DataProviderSourcePathModel = this.tableRowSelected,
+    model: DataProviderSourcePathPaginationModel = this.tableRowSelected,
   ): void {
-    if (
-      !model ||
-      !model.id ||
-      (typeof model.id === "string" ? model.id.length === 0 : model.id === 0)
-    ) {
+    if (!model || !model.id || model.id.length === 0) {
       const emessage = this.translate.instant(
         "ERRORMESSAGE.MESSAGE.typeErrorSelectedRow",
       );
@@ -289,13 +294,9 @@ export class DataProviderSourcePathListComponent
       });
   }
   onActionbuttonViewRow(
-    model: DataProviderSourcePathModel = this.tableRowSelected,
+    model: DataProviderSourcePathPaginationModel = this.tableRowSelected,
   ): void {
-    if (
-      !model ||
-      !model.id ||
-      (typeof model.id === "string" ? model.id.length === 0 : model.id === 0)
-    ) {
+    if (!model || !model.id || model.id.length === 0) {
       const emessage = this.translate.instant(
         "ERRORMESSAGE.MESSAGE.typeErrorSelectedRow",
       );
@@ -309,13 +310,16 @@ export class DataProviderSourcePathListComponent
     this.DataGetAll();
   }
 
-  onActionCopied(): void {
-    this.cmsToastrService.typeSuccessCopedToClipboard();
+  onActionButtonStatist(forceShow?: boolean): void {
+    if (forceShow !== undefined) {
+      this.optionsStatist.data.show = forceShow;
+    } else {
+      this.optionsStatist.data.show = !this.optionsStatist.data.show;
+    }
   }
 
-  onActionButtonStatist(force?: boolean): void {
-    this.optionsStatist.data.show =
-      force !== undefined ? force : !this.optionsStatist.data.show;
+  onActionCopied(): void {
+    this.cmsToastrService.typeSuccessCopedToClipboard();
   }
 
   onSubmitOptionsSearch(model: any): void {

@@ -564,7 +564,5 @@ export class SmsMainApiPathPublicConfigListMobileComponent
     this.DataGetAll();
   }
 
-  onActionTableRowSelect(row: SmsMainApiPathPublicConfigModel): void {
-    this.tableRowSelected = row;
-  }
+
 }

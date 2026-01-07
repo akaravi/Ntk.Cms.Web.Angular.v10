@@ -555,7 +555,5 @@ export class SmsMainApiPathPermissionListMobileComponent
     this.router.navigate(["/sms/main/api-path"]);
   }
 
-  onActionTableRowSelect(row: SmsMainApiPathPermissionModel): void {
-    this.tableRowSelected = row;
-  }
+
 }

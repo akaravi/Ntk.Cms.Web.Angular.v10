@@ -15,6 +15,7 @@ import {
   DataProviderSourcePublicConfigService,
   FilterDataModel,
   FilterModel,
+  RecordStatusEnum,
   SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
@@ -85,24 +86,24 @@ export class DataProviderSourcePublicConfigListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "Id",
-    "RecordStatus",
-    "Title",
-    "ClassName",
-    "AbilityDelivery",
-    "AbilityReceive",
-    "AbilityCreditCheck",
-    "Action",
+    "id",
+    "recordStatus",
+    "title",
+    "className",
+    "abilityDelivery",
+    "abilityReceive",
+    "abilityCreditCheck",
+    "action",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "Id",
-    "RecordStatus",
-    "Title",
-    "ClassName",
-    "AbilityDelivery",
-    "AbilityReceive",
-    "AbilityCreditCheck",
-    "Action",
+    "id",
+    "recordStatus",
+    "title",
+    "className",
+    "abilityDelivery",
+    "abilityReceive",
+    "abilityCreditCheck",
+    "action",
   ];
 
   private unsubscribe: Subscription[] = [];
@@ -201,7 +202,7 @@ export class DataProviderSourcePublicConfigListComponent
     this.DataGetAll();
   }
 
-  onActionbuttonNewRow(): void {
+  onActionButtonNewRow(): void {
     if (this.tokenInfo == null || !this.dataModelResult?.access?.accessAddRow) {
       this.cmsToastrService.typeErrorAccessAdd();
       return;
@@ -219,7 +220,7 @@ export class DataProviderSourcePublicConfigListComponent
       }
     });
   }
-  onActionbuttonEditRow(
+  onActionButtonEditRow(
     model: DataProviderSourcePublicConfigModel = this.tableRowSelected,
   ): void {
     if (
@@ -255,7 +256,7 @@ export class DataProviderSourcePublicConfigListComponent
       }
     });
   }
-  onActionbuttonDeleteRow(
+  onActionButtonDeleteRow(
     model: DataProviderSourcePublicConfigModel = this.tableRowSelected,
   ): void {
     if (
@@ -320,12 +321,122 @@ export class DataProviderSourcePublicConfigListComponent
     this.onActionTableRowSelect(model);
   }
 
+  onActionButtonStatist(view = !this.optionsStatist.data.show): void {
+    this.optionsStatist.data.show = view;
+    if (!this.optionsStatist.data.show) {
+      return;
+    }
+    const statist = new Map<string, number>();
+    this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    this.translate.get("MESSAGE.All").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    const pName = this.constructor.name + ".ServiceStatist";
+    this.translate.get("MESSAGE.Get_the_statist").subscribe((str: string) => {
+      this.publicHelper.processService.processStart(
+        pName,
+        str,
+        this.constructorInfoAreaId,
+      );
+    });
+    this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
+      next: (ret) => {
+        if (ret.isSuccess) {
+          this.translate.get("MESSAGE.All").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
+          this.optionsStatist.childMethods.setStatistValue(statist);
+        } else {
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+        }
+        this.publicHelper.processService.processStop(pName);
+      },
+      error: (er) => {
+        this.cmsToastrService.typeError(er);
+        this.publicHelper.processService.processStop(pName, false);
+      },
+    });
+
+    const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
+    const fastfilter = new FilterDataModel();
+    fastfilter.propertyName = "recordStatus";
+    fastfilter.value = RecordStatusEnum.Available;
+    filterStatist1.filters.push(fastfilter);
+    this.contentService.ServiceGetCount(filterStatist1).subscribe({
+      next: (ret) => {
+        if (ret.isSuccess) {
+          this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
+          this.optionsStatist.childMethods.setStatistValue(statist);
+        } else {
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+        }
+        this.publicHelper.processService.processStop(pName);
+      },
+      error: (er) => {
+        this.cmsToastrService.typeError(er);
+        this.publicHelper.processService.processStop(pName, false);
+      },
+    });
+  }
+  onActionButtonNewRowAuto(): any {
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
+    this.contentService.ServiceAutoAdd().subscribe({
+      next: (ret) => {
+        if (ret.isSuccess) {
+          this.cmsToastrService.typeSuccessAdd();
+          this.DataGetAll();
+        } else {
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+        }
+        this.publicHelper.processService.processStop(pName);
+      },
+      error: (er) => {
+        this.cmsToastrService.typeError(er);
+        this.publicHelper.processService.processStop(pName, false);
+      },
+    });
+  }
   onSubmitOptionsSearch(model: any): void {
     this.filteModelContent.filters = model;
     this.DataGetAll();
   }
+  onActionButtonPrivateList(
+    model: DataProviderSourcePublicConfigModel = this.tableRowSelected,
+  ): void {
+    if (!(model?.id?.length > 0)) {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+    this.onActionTableRowSelect(model);
 
-  onActionTableRowSelect(row: DataProviderSourcePublicConfigModel): void {
-    this.tableRowSelected = row;
+    if (
+      this.dataModelResult == null ||
+      this.dataModelResult.access == null ||
+      !this.dataModelResult.access.accessWatchRow
+    ) {
+      this.cmsToastrService.typeErrorSelected();
+      return;
+    }
+    this.router.navigate([
+      "/data-provider/main/source/list/LinkPublicConfigId",
+      this.tableRowSelected.id,
+    ]);
   }
 }
