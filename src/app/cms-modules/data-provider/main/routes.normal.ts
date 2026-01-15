@@ -1,18 +1,18 @@
 import { Routes } from "@angular/router";
-import { DataProviderMainComponent } from "./data-provider-main.component";
-import { DataProviderClientListComponent } from "./client/list/list.component";
+import { DataProviderClientApplicationPermissionListComponent } from "./client-application-permission/list/list.component";
+import { DataProviderClientApplicationListComponent } from "./client-application/list/list.component";
 import { DataProviderClientChargeComponent } from "./client/charge/charge.component";
-import { DataProviderPlanListComponent } from "./plan/list/list.component";
+import { DataProviderClientListComponent } from "./client/list/list.component";
+import { DataProviderMainComponent } from "./data-provider-main.component";
 import { DataProviderPlanClientListComponent } from "./plan-client/list/list.component";
 import { DataProviderPlanPriceListComponent } from "./plan-price/list/list.component";
 import { DataProviderPlanSourceListComponent } from "./plan-source/list/list.component";
-import { DataProviderSourceListComponent } from "./source/list/list.component";
+import { DataProviderPlanListComponent } from "./plan/list/list.component";
 import { DataProviderSourceCompanyListComponent } from "./source-company/list/list.component";
-import { DataProviderSourcePathListComponent } from "./source-path/list/list.component";
 import { DataProviderSourcePathPaginationListComponent } from "./source-path-pagination/list/list.component";
+import { DataProviderSourcePathListComponent } from "./source-path/list/list.component";
 import { DataProviderSourcePublicConfigListComponent } from "./source-public-config/list/list.component";
-import { DataProviderClientApplicationListComponent } from "./client-application/list/list.component";
-import { DataProviderClientApplicationPermissionListComponent } from "./client-application-permission/list/list.component";
+import { DataProviderSourceListComponent } from "./source/list/list.component";
 
 export const routesNormal: Routes = [
   {
@@ -67,6 +67,11 @@ export const routesNormal: Routes = [
       },
       {
         path: "client-application/LinkUserId/:LinkUserId",
+        component: DataProviderClientApplicationListComponent,
+        data: { title: "ROUTE.DATAPROVIDER.CLIENTAPPLICATION" },
+      },
+      {
+        path: "client-application/LinkSiteId/:LinkSiteId",
         component: DataProviderClientApplicationListComponent,
         data: { title: "ROUTE.DATAPROVIDER.CLIENTAPPLICATION" },
       },

@@ -38,6 +38,7 @@ export class SmsMainClientApplicationListComponent
   implements OnInit, OnDestroy
 {
   requestLinkUserId = "";
+  requestLinkSiteId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: SmsMainClientApplicationService,
@@ -69,10 +70,20 @@ export class SmsMainClientApplicationListComponent
       this.requestLinkUserId =
         this.activatedRoute.snapshot.paramMap.get("LinkUserId");
     }
+    if (this.activatedRoute.snapshot.paramMap.get("LinkSiteId")) {
+      this.requestLinkSiteId =
+        +this.activatedRoute.snapshot.paramMap.get("LinkSiteId") || 0;
+    }
     if (this.requestLinkUserId?.length > 0) {
       const filter = new FilterDataModel();
       filter.propertyName = "LinkUserId";
       filter.value = this.requestLinkUserId;
+      this.filteModelContent.filters.push(filter);
+    }
+    if (this.requestLinkSiteId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "linkSiteId";
+      filter.value = this.requestLinkSiteId;
       this.filteModelContent.filters.push(filter);
     }
 

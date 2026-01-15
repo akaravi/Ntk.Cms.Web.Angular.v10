@@ -18,7 +18,9 @@
       @if (fieldsInfo["recordStatus"]?.accessWatchField) {
         <app-cms-enum-record-status-selector
           [(model)]="dataModel.recordStatus"
-          [optionDisabled]="!(fieldsInfo['recordStatus']?.accessEditField ?? false)"
+          [optionDisabled]="
+            !(fieldsInfo['recordStatus']?.accessEditField ?? false)
+          "
           [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
           [optionRequired]="true"
           [optionSelectFirstItem]="true"
@@ -44,14 +46,16 @@
           disabled
         />
       </div>
-      <!-- LinkUserId Field -->
-      @if (fieldsInfo["linkUserId"]?.accessWatchField) {
+      <!-- linkCoreUserId Field -->
+      @if (fieldsInfo["linkCoreUserId"]?.accessWatchField) {
         <app-cms-user-selector
           (optionChange)="onActionSelectorUser($event)"
-          [optionSelectForce]="linkUserId"
+          [optionSelectForce]="dataModel.linkCoreUserId"
           [optionPlaceholder]="'TITLE.USER' | translate"
-          [optionDisabled]="!(fieldsInfo['linkUserId']?.accessEditField ?? false)"
-          [optionLabel]="fieldsInfo['linkUserId']?.fieldTitle"
+          [optionDisabled]="
+            !(fieldsInfo['linkCoreUserId']?.accessEditField ?? false)
+          "
+          [optionLabel]="fieldsInfo['linkCoreUserId']?.fieldTitle"
         ></app-cms-user-selector>
       }
       <!-- LinkSiteId Field -->
@@ -60,7 +64,9 @@
           (optionChange)="onActionSelectorSite($event)"
           [optionSelectForce]="dataModel.linkSiteId"
           [optionPlaceholder]="'TITLE.SITE' | translate"
-          [optionDisabled]="!(fieldsInfo['linkSiteId']?.accessEditField ?? false)"
+          [optionDisabled]="
+            !(fieldsInfo['linkSiteId']?.accessEditField ?? false)
+          "
           [optionLabel]="fieldsInfo['linkSiteId']?.fieldTitle"
         ></app-cms-site-selector>
       }

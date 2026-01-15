@@ -37,6 +37,7 @@ export class DataProviderClientApplicationListComponent
   implements OnInit, OnDestroy
 {
   requestLinkUserId = "";
+  requestLinkSiteId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: DataProviderClientApplicationService,
@@ -68,10 +69,20 @@ export class DataProviderClientApplicationListComponent
       this.requestLinkUserId =
         this.activatedRoute.snapshot.paramMap.get("LinkUserId");
     }
+    if (this.activatedRoute.snapshot.paramMap.get("LinkSiteId")) {
+      this.requestLinkSiteId =
+        +this.activatedRoute.snapshot.paramMap.get("LinkSiteId") || 0;
+    }
     if (this.requestLinkUserId?.length > 0) {
       const filter = new FilterDataModel();
       filter.propertyName = "LinkUserId";
       filter.value = this.requestLinkUserId;
+      this.filteModelContent.filters.push(filter);
+    }
+    if (this.requestLinkSiteId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "linkSiteId";
+      filter.value = this.requestLinkSiteId;
       this.filteModelContent.filters.push(filter);
     }
 
@@ -255,7 +266,10 @@ export class DataProviderClientApplicationListComponent
   onActionButtonEditRow(
     model: DataProviderClientApplicationModel = this.tableRowSelected,
   ): void {
-    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
+    if (
+      !model?.id ||
+      (typeof model.id === "string" ? model.id.length === 0 : model.id <= 0)
+    ) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -287,7 +301,10 @@ export class DataProviderClientApplicationListComponent
   onActionButtonDeleteRow(
     model: DataProviderClientApplicationModel = this.tableRowSelected,
   ): void {
-    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
+    if (
+      !model?.id ||
+      (typeof model.id === "string" ? model.id.length === 0 : model.id <= 0)
+    ) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -308,13 +325,17 @@ export class DataProviderClientApplicationListComponent
     var panelClass = "";
     if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
     else panelClass = "dialog-min";
-    const dialogRef = this.dialog.open(DataProviderClientApplicationEditComponent, {
-      height: "40%",
-      panelClass: panelClass,
-      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
-      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-      data: { id: this.tableRowSelected.id },
-    });
+    const dialogRef = this.dialog.open(
+      DataProviderClientApplicationEditComponent,
+      {
+        height: "40%",
+        panelClass: panelClass,
+        enterAnimationDuration:
+          environment.cmsViewConfig.enterAnimationDuration,
+        exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+        data: { id: this.tableRowSelected.id },
+      },
+    );
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
         this.DataGetAll();
@@ -387,7 +408,10 @@ export class DataProviderClientApplicationListComponent
     model: DataProviderClientApplicationModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
+    if (
+      !model?.id ||
+      (typeof model.id === "string" ? model.id.length === 0 : model.id <= 0)
+    ) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -430,4 +454,3 @@ export class DataProviderClientApplicationListComponent
 
   expandedElement: DataProviderClientApplicationModel | null;
 }
-

@@ -4340,3 +4340,84 @@ iconPicker ایکن‌ها را لود نمی‌کرد. این مشکل به ا�
 - `ngx-ntk-icon-picker` یک فایل `styles.scss` دارد که FontAwesome و PrimeIcons را import می‌کند
 - با اضافه کردن این فایل به styles، iconPicker می‌تواند ایکن‌ها را به درستی لود کند
 - این روش بهتر است چون style را مستقیماً از خود کتابخانه iconPicker می‌گیریم
+
+---
+
+## تاریخ: 2026-01-15 15:47:10
+### عنوان: تکمیل client-application - Tab-Based Layout و مدیریت Permissions
+
+### خلاصه:
+تبدیل کامپوننت‌های edit به tab-based layout و پیاده‌سازی کامل مدیریت permissions در Tab 2.
+
+### تغییرات:
+
+#### 1. بهبود UI برای firewallAllowIP
+- رفع مشکل change detection با استفاده از spread operator و filter
+- اصلاح CSS classes برای badge ها (از `badge-secondary` به `bg-info`)
+- اضافه کردن `font-13` class برای بزرگتر کردن فونت IP ها
+- جابجایی container badge ها به خارج از `input-style` div
+- حذف `(keyup.enter)` از template ها
+
+#### 2. اعتبارسنجی فرمت IP
+- اضافه کردن متد `validateIPFormat` برای اعتبارسنجی:
+  - تک IP: `192.168.1.1`
+  - CIDR notation: `192.168.1.0/24`
+  - IP range: `192.168.1.1-192.168.1.10`
+- اعتبارسنجی octet values (0-255)
+- اعتبارسنجی CIDR prefix (0-32)
+
+#### 3. پیاده‌سازی IP Management در CoreUserEditComponent
+- تبدیل `textarea` به `input` با badge list
+- اضافه کردن تمام متدهای مدیریت IP
+- همگام‌سازی `firewallAllowIP` با `firewallAllowIPList`
+
+#### 4. تبدیل به Tab-Based Layout
+- استفاده از `mat-tab-group` و `mat-tab` از Angular Material
+- Tab 1: اطلاعات اصلی Client Application
+- Tab 2: مدیریت Permissions
+
+#### 5. مدیریت Permissions (CRUD)
+- دریافت لیست permissions با `DataGetAllPermission()`
+- اضافه کردن permission جدید با Dialog
+- ویرایش permission موجود با Dialog
+- حذف permission با تایید کاربر
+- Refresh button با loading spinner
+
+#### 6. UI/UX Improvements
+- جدول permissions با استایل `table-striped` و `table-dark`
+- Badge برای RecordStatus, IsRequested, IsApproved
+- فرمت تاریخ: `yyyy-MM-dd HH:mm`
+- Loading spinner برای permission loading
+- Empty state با آیکون و دکمه "Add First Permission"
+- نمایش تعداد permissions
+
+### فایل‌های تغییر یافته:
+
+#### SMS Module:
+- `src/app/cms-modules/sms/main/client-application/add/add.component.ts`
+- `src/app/cms-modules/sms/main/client-application/add/add.component.html`
+- `src/app/cms-modules/sms/main/client-application/edit/edit.component.ts`
+- `src/app/cms-modules/sms/main/client-application/edit/edit.component.html`
+
+#### Data Provider Module:
+- `src/app/cms-modules/data-provider/main/client-application/add/add.component.ts`
+- `src/app/cms-modules/data-provider/main/client-application/add/add.component.html`
+- `src/app/cms-modules/data-provider/main/client-application/edit/edit.component.ts`
+- `src/app/cms-modules/data-provider/main/client-application/edit/edit.component.html`
+
+#### Core Module:
+- `src/app/cms-modules/core-main/user/edit/edit.component.ts`
+- `src/app/cms-modules/core-main/user/edit/edit.component.html`
+
+#### Documentation:
+- `src/app/cms-modules/sms/Cursor.2.plan.md` - به‌روزرسانی با Part 4, 5, 6 و Result 4, 5, 6
+
+### نتیجه:
+✅ تمام مشکلات UI برای firewallAllowIP رفع شدند
+✅ اعتبارسنجی فرمت IP پیاده‌سازی شد
+✅ IP Management در CoreUserEditComponent پیاده‌سازی شد
+✅ Tab-based layout برای edit components پیاده‌سازی شد
+✅ مدیریت Permissions با CRUD کامل پیاده‌سازی شد
+✅ UI/UX بهبود یافت
+✅ هیچ خطای lint وجود ندارد
+✅ پروژه کامل و آماده استفاده است

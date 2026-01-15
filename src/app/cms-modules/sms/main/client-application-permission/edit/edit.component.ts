@@ -21,6 +21,7 @@ import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { DatapickerHeaderComponent } from "src/app/shared/datapicker-header/datapicker-header.component";
 
 import { FormInfoModel } from "src/app/core/models/formInfoModel";
 
@@ -74,6 +75,7 @@ export class SmsMainClientApplicationPermissionEditComponent
     new SmsMainClientApplicationPermissionModel();
 
   fileManagerOpenForm = false;
+  datapickerHeader = DatapickerHeaderComponent;
   dataSmsMainClientApplicationPermissionModel: SmsMainClientApplicationPermissionModel[];
   ngOnInit(): void {
     if (this.requestId && this.requestId.length > 0) {
@@ -222,6 +224,17 @@ export class SmsMainClientApplicationPermissionEditComponent
     this.dataModel.linkApiPathId = model.id;
   }
 
+  // Toggle isApproved checkbox (three-state: null -> true -> false -> null)
+  onToggleIsApproved(): void {
+    if (this.dataModel.isApproved === null) {
+      this.dataModel.isApproved = true;
+    } else if (this.dataModel.isApproved === true) {
+      this.dataModel.isApproved = false;
+    } else {
+      this.dataModel.isApproved = null;
+    }
+  }
+
   onFormSubmit(): void {
     if (!this.formGroup.valid) {
       return;
@@ -233,4 +246,3 @@ export class SmsMainClientApplicationPermissionEditComponent
     this.dialogRef.close({ dialogChangedDate: false });
   }
 }
-

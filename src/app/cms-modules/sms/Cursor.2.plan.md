@@ -74,3 +74,97 @@
 - در edit component SMS، مقدار `firewallAllowIP` از سرور خوانده شده و به لیست اضافه می‌شود.
 - در DataProvider، کدهای مربوط به `firewallAllowIP` حذف شدند چون این فیلد وجود ندارد.
 - خطای lint گزارش نشد.
+
+## Part 4: بهبود UI و رفع مشکلات نمایش firewallAllowIP
+
+### مشکلات
+- `(keyup.enter)` کاربردی نداشت و حذف شد
+- `onActionAddFirewallIP` به درستی کار نمی‌کرد (مشکل change detection)
+- Badge های IP به درستی نمایش داده نمی‌شدند
+- فونت IP ها کوچک بود
+- فرمت IP اعتبارسنجی نمی‌شد
+
+### راه‌حل‌ها
+- حذف `(keyup.enter)` از تمام template ها
+- اصلاح `onActionAddFirewallIP` و `onActionRemoveFirewallIP` برای استفاده از spread operator و filter برای trigger کردن change detection
+- اصلاح CSS classes برای badge ها (از `badge-secondary` به `bg-info`)
+- اضافه کردن `font-13` class به badge ها
+- جابجایی container badge ها به خارج از `input-style` div
+- اضافه کردن متد `validateIPFormat` برای اعتبارسنجی فرمت IP (تک IP، CIDR، Range)
+- اضافه کردن `syncFirewallAllowIPFromList` برای همگام‌سازی قبل از submit
+
+## Result 4
+
+**تاریخ:** 2026-01-15 15:47:10
+**وضعیت:** تکمیل شد
+
+- مشکل change detection در `firewallAllowIPList` رفع شد با استفاده از spread operator و filter
+- Badge های IP به درستی نمایش داده می‌شوند با استایل `bg-info` و `font-13`
+- Container badge ها به خارج از `input-style` div منتقل شدند
+- اعتبارسنجی فرمت IP اضافه شد (تک IP، CIDR notation، IP range)
+- متد `syncFirewallAllowIPFromList` اضافه شد برای همگام‌سازی قبل از submit
+- فونت IP ها بزرگتر شد
+- خطای lint گزارش نشد
+
+## Part 5: پیاده‌سازی IP Management در CoreUserEditComponent
+
+### دستور
+- پیاده‌سازی مدیریت IP در `CoreUserEditComponent` به همان روش کامپوننت‌های client-application
+
+### تغییرات
+- تبدیل `textarea` برای `firewallAllowIP` به `input` با badge list
+- اضافه کردن `firewallAllowIPInput` property
+- اضافه کردن متدهای `validateIPFormat`, `onActionAddFirewallIP`, `onActionRemoveFirewallIP`
+- اضافه کردن `syncFirewallAllowIPFromList` و فراخوانی آن در `DataEditContent`
+- به‌روزرسانی `DataGetOneContent` برای parse کردن `firewallAllowIP` به `firewallAllowIPList`
+
+## Result 5
+
+**تاریخ:** 2026-01-15 15:47:10
+**وضعیت:** تکمیل شد
+
+- مدیریت IP در `CoreUserEditComponent` به همان روش کامپوننت‌های client-application پیاده‌سازی شد
+- تمام متدهای لازم اضافه شدند
+- UI با badge list و دکمه‌های اضافه/حذف پیاده‌سازی شد
+- اعتبارسنجی فرمت IP اضافه شد
+- خطای lint گزارش نشد
+
+## Part 6: تبدیل به Tab-Based Layout و مدیریت Permissions
+
+### دستور
+- تبدیل صفحه edit به tab-based layout
+- Tab 1: اطلاعات اصلی Client Application
+- Tab 2: مدیریت Permissions (CRUD operations)
+
+### تغییرات در SmsMainClientApplicationEditComponent
+- اضافه کردن `mat-tab-group` و `mat-tab` به template
+- اضافه کردن imports: `MatDialog`, `SmsMainClientApplicationPermissionService`, `SmsMainClientApplicationPermissionAddComponent`, `SmsMainClientApplicationPermissionEditComponent`
+- اضافه کردن properties: `permissionDataModelResult`, `permissionTableData`, `permissionTableRowSelected`, `permissionFilterModel`, `permissionLoading`
+- اضافه کردن متدهای `DataGetAllPermission`, `onActionPermissionButtonNewRow`, `onActionPermissionButtonEditRow`, `onActionPermissionButtonDeleteRow`
+- فراخوانی `DataGetAllPermission` در `ngOnInit` و بعد از هر تغییر permission
+
+### تغییرات در DataProviderClientApplicationEditComponent
+- همان تغییرات SmsMainClientApplicationEditComponent
+- استفاده از `DataProviderClientApplicationPermissionService` و کامپوننت‌های مربوطه
+
+### UI Improvements
+- جدول permissions با استایل `table-striped` و `table-dark`
+- Badge برای RecordStatus, IsRequested, IsApproved
+- فرمت تاریخ: `yyyy-MM-dd HH:mm`
+- Loading spinner برای permission loading
+- Empty state با آیکون و دکمه "Add First Permission"
+- دکمه Refresh با loading spinner
+- نمایش تعداد permissions
+
+## Result 6
+
+**تاریخ:** 2026-01-15 15:47:10
+**وضعیت:** تکمیل شد
+
+- هر دو کامپوننت (SmsMainClientApplicationEditComponent و DataProviderClientApplicationEditComponent) به tab-based layout تبدیل شدند
+- Tab 1: اطلاعات اصلی Client Application
+- Tab 2: مدیریت Permissions با CRUD کامل
+- تمام متدهای مدیریت permissions پیاده‌سازی شدند
+- UI/UX بهبود یافت با جدول، badge، loading states، و empty state
+- خطای lint گزارش نشد
+- پروژه کامل و آماده استفاده است

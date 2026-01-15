@@ -14,246 +14,418 @@
       [formInfo]="formInfo"
     ></app-cms-form-result-message>
     <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
-      <!-- RecordStatus Field -->
-      @if (fieldsInfo["recordStatus"]?.accessWatchField) {
-        <app-cms-enum-record-status-selector
-          [(model)]="dataModel.recordStatus"
-          [optionDisabled]="
-            !(fieldsInfo['recordStatus']?.accessEditField ?? false)
-          "
-          [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
-          [optionRequired]="true"
-          [optionSelectFirstItem]="true"
-        ></app-cms-enum-record-status-selector>
-      }
-      <!-- Title Field -->
-      @if (fieldsInfo["title"]?.accessWatchField) {
-        <div
-          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-        >
-          <label for="dataModel.title" class="color-highlight">{{
-            fieldsInfo["title"]?.fieldTitle
-          }}</label>
-          <input
-            matInput
-            type="text"
-            [(ngModel)]="dataModel.title"
-            name="dataModel.title"
-            #Title
-            type="text"
-            placeholder="{{ fieldsInfo['title']?.fieldTitle }}"
-            [disabled]="!fieldsInfo['title']?.accessEditField"
-            minlength="3"
-            maxlength="100"
-            required
-            class="form-control validate-name"
-            id="dataModel.title"
-          />
-          @if (!Title.value) {
-            <i class="fa fa-times invalid color-red-dark"></i>
+      <mat-tab-group>
+        <!-- Tab 1: Main Information -->
+        <mat-tab label="{{ 'TITLE.REQUIRED_INFORMATION' | translate }}">
+          <!-- RecordStatus Field -->
+          @if (fieldsInfo["recordStatus"]?.accessWatchField) {
+            <app-cms-enum-record-status-selector
+              [(model)]="dataModel.recordStatus"
+              [optionDisabled]="
+                !(fieldsInfo['recordStatus']?.accessEditField ?? false)
+              "
+              [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
+              [optionRequired]="true"
+              [optionSelectFirstItem]="true"
+            ></app-cms-enum-record-status-selector>
           }
-          @if (Title.value) {
-            <i class="fa fa-check valid color-green-dark"></i>
-          }
-          <em>{{ Title.value.length }} / 100</em>
-          @if (Title.errors?.required) {
-            <mat-error>
-              Title is <strong>{{ "MESSAGE.required" | translate }}</strong>
-            </mat-error>
-          }
-        </div>
-      }
-      <!-- linkCoreUserId Field -->
-      @if (fieldsInfo["linkCoreUserId"]?.accessWatchField) {
-        <app-cms-user-selector
-          (optionChange)="onActionSelectorUser($event)"
-          [optionSelectForce]="dataModel.linkCoreUserId"
-          [optionPlaceholder]="'TITLE.USER' | translate"
-          [optionDisabled]="
-            !(fieldsInfo['linkCoreUserId']?.accessEditField ?? false)
-          "
-          [optionLabel]="fieldsInfo['linkCoreUserId']?.fieldTitle"
-        ></app-cms-user-selector>
-      }
-      <!-- LinkSiteId Field -->
-      @if (fieldsInfo["linkSiteId"]?.accessWatchField) {
-        <app-cms-site-selector
-          (optionChange)="onActionSelectorSite($event)"
-          [optionSelectForce]="dataModel.linkSiteId"
-          [optionPlaceholder]="'TITLE.SITE' | translate"
-          [optionDisabled]="
-            !(fieldsInfo['linkSiteId']?.accessEditField ?? false)
-          "
-          [optionLabel]="fieldsInfo['linkSiteId']?.fieldTitle"
-        ></app-cms-site-selector>
-      }
-
-      <!-- FromDate Field -->
-      @if (fieldsInfo["fromDate"]?.accessWatchField) {
-        <div
-          class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
-        >
-          <label for="dataModel.fromDate" class="color-highlight">{{
-            fieldsInfo["fromDate"]?.fieldTitle
-          }}</label>
-          <input
-            matInput
-            [matDatepicker]="FromDate"
-            type="text"
-            [(ngModel)]="dataModel.fromDate"
-            name="dataModel.fromDate"
-            class="form-control validate-name"
-            id="dataModel.fromDate"
-            [disabled]="!fieldsInfo['fromDate']?.accessEditField"
-          />
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="FromDate"
-          ></mat-datepicker-toggle>
-          <mat-datepicker
-            touchUi
-            #FromDate
-            [calendarHeaderComponent]="datapickerHeader"
-          ></mat-datepicker>
-        </div>
-      }
-
-      <!-- ExpireDate Field -->
-      @if (fieldsInfo["expireDate"]?.accessWatchField) {
-        <div
-          class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
-        >
-          <label for="dataModel.expireDate" class="color-highlight">{{
-            fieldsInfo["expireDate"]?.fieldTitle
-          }}</label>
-          <input
-            matInput
-            [matDatepicker]="ExpireDate"
-            type="text"
-            [(ngModel)]="dataModel.expireDate"
-            name="dataModel.expireDate"
-            class="form-control validate-name"
-            id="dataModel.expireDate"
-            [disabled]="!fieldsInfo['expireDate']?.accessEditField"
-          />
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="ExpireDate"
-          ></mat-datepicker-toggle>
-          <mat-datepicker
-            touchUi
-            #ExpireDate
-            [calendarHeaderComponent]="datapickerHeader"
-          ></mat-datepicker>
-        </div>
-      }
-
-      <!-- Description Field -->
-      @if (fieldsInfo["description"]?.accessWatchField) {
-        <div
-          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-        >
-          <label for="dataModel.description" class="color-highlight">{{
-            fieldsInfo["description"]?.fieldTitle
-          }}</label>
-          <textarea
-            matInput
-            [(ngModel)]="dataModel.description"
-            name="dataModel.description"
-            #Description
-            type="text"
-            placeholder="{{ fieldsInfo['description']?.fieldTitle }}"
-            minlength="1"
-            maxlength="500"
-            rows="5"
-            id="dataModel.description"
-            class="form-control validate-name"
-            [disabled]="!fieldsInfo['description']?.accessEditField"
-          ></textarea>
-          <em>{{ Description.value?.length || 0 }} / 500</em>
-        </div>
-      }
-
-      <!-- ApiKey Field -->
-      @if (fieldsInfo["apiKey"]?.accessWatchField) {
-        <div
-          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-        >
-          <label for="dataModel.apiKey" class="color-highlight">{{
-            fieldsInfo["apiKey"]?.fieldTitle
-          }}</label>
-          <input
-            matInput
-            type="text"
-            [(ngModel)]="dataModel.apiKey"
-            name="dataModel.apiKey"
-            #ApiKey
-            placeholder="{{ fieldsInfo['apiKey']?.fieldTitle }}"
-            class="form-control validate-name input-ltr"
-            id="dataModel.apiKey"
-            [disabled]="!fieldsInfo['apiKey']?.accessEditField"
-          />
-          <em>{{ ApiKey.value?.length || 0 }} / 500</em>
-        </div>
-      }
-
-      <!-- FirewallAllowIP Field -->
-      @if (fieldsInfo["firewallAllowIP"]?.accessWatchField) {
-        <div class="mb-4">
-          <div
-            class="input-style has-borders no-icon input-style-always-active validate-field"
-          >
-            <label for="firewallAllowIPInput" class="color-highlight">{{
-              fieldsInfo["firewallAllowIP"]?.fieldTitle
-            }}</label>
-            <div class="d-flex">
+          <!-- Title Field -->
+          @if (fieldsInfo["title"]?.accessWatchField) {
+            <div
+              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            >
+              <label for="dataModel.title" class="color-highlight">{{
+                fieldsInfo["title"]?.fieldTitle
+              }}</label>
               <input
                 matInput
                 type="text"
-                [(ngModel)]="firewallAllowIPInput"
-                name="firewallAllowIPInput"
-                #FirewallAllowIPInput
-                placeholder="{{ fieldsInfo['firewallAllowIP']?.fieldTitle }}"
-                class="form-control validate-name input-ltr"
-                id="firewallAllowIPInput"
-                [disabled]="!fieldsInfo['firewallAllowIP']?.accessEditField"
+                [(ngModel)]="dataModel.title"
+                name="dataModel.title"
+                #Title
+                type="text"
+                placeholder="{{ fieldsInfo['title']?.fieldTitle }}"
+                [disabled]="!fieldsInfo['title']?.accessEditField"
+                minlength="3"
+                maxlength="100"
+                required
+                class="form-control validate-name"
+                id="dataModel.title"
               />
-              <button
-                type="button"
-                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
-                (click)="onActionAddFirewallIP()"
-                [disabled]="
-                  !firewallAllowIPInput || firewallAllowIPInput.length === 0
-                "
-              >
-                <i class="fa fa-plus"></i>
-              </button>
-            </div>
-          </div>
-          @if (
-            dataModel.firewallAllowIPList &&
-            dataModel.firewallAllowIPList.length > 0
-          ) {
-            <div class="d-flex flex-wrap mt-2" style="gap: 0.5rem">
-              @for (ip of dataModel.firewallAllowIPList; track $index) {
-                <span
-                  class="badge bg-info d-inline-flex align-items-center font-13"
-                >
-                  {{ ip }}
-                  <i
-                    class="fa fa-times ms-2"
-                    (click)="onActionRemoveFirewallIP(ip)"
-                    style="cursor: pointer"
-                  ></i>
-                </span>
+              @if (!Title.value) {
+                <i class="fa fa-times invalid color-red-dark"></i>
+              }
+              @if (Title.value) {
+                <i class="fa fa-check valid color-green-dark"></i>
+              }
+              <em>{{ Title.value.length }} / 100</em>
+              @if (Title.errors?.required) {
+                <mat-error>
+                  Title is <strong>{{ "MESSAGE.required" | translate }}</strong>
+                </mat-error>
               }
             </div>
           }
-        </div>
-      }
+          <!-- linkCoreUserId Field -->
+          @if (fieldsInfo["linkCoreUserId"]?.accessWatchField) {
+            <app-cms-user-selector
+              (optionChange)="onActionSelectorUser($event)"
+              [optionSelectForce]="dataModel.linkCoreUserId"
+              [optionPlaceholder]="'TITLE.USER' | translate"
+              [optionDisabled]="
+                !(fieldsInfo['linkCoreUserId']?.accessEditField ?? false)
+              "
+              [optionLabel]="fieldsInfo['linkCoreUserId']?.fieldTitle"
+            ></app-cms-user-selector>
+          }
+          <!-- LinkSiteId Field -->
+          @if (fieldsInfo["linkSiteId"]?.accessWatchField) {
+            <app-cms-site-selector
+              (optionChange)="onActionSelectorSite($event)"
+              [optionSelectForce]="dataModel.linkSiteId"
+              [optionPlaceholder]="'TITLE.SITE' | translate"
+              [optionDisabled]="
+                !(fieldsInfo['linkSiteId']?.accessEditField ?? false)
+              "
+              [optionLabel]="fieldsInfo['linkSiteId']?.fieldTitle"
+            ></app-cms-site-selector>
+          }
+
+          <!-- FromDate Field -->
+          @if (fieldsInfo["fromDate"]?.accessWatchField) {
+            <div
+              class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
+            >
+              <label for="dataModel.fromDate" class="color-highlight">{{
+                fieldsInfo["fromDate"]?.fieldTitle
+              }}</label>
+              <input
+                matInput
+                [matDatepicker]="FromDate"
+                type="text"
+                [(ngModel)]="dataModel.fromDate"
+                name="dataModel.fromDate"
+                class="form-control validate-name"
+                id="dataModel.fromDate"
+                [disabled]="!fieldsInfo['fromDate']?.accessEditField"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="FromDate"
+              ></mat-datepicker-toggle>
+              <mat-datepicker
+                touchUi
+                #FromDate
+                [calendarHeaderComponent]="datapickerHeader"
+              ></mat-datepicker>
+            </div>
+          }
+
+          <!-- ExpireDate Field -->
+          @if (fieldsInfo["expireDate"]?.accessWatchField) {
+            <div
+              class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
+            >
+              <label for="dataModel.expireDate" class="color-highlight">{{
+                fieldsInfo["expireDate"]?.fieldTitle
+              }}</label>
+              <input
+                matInput
+                [matDatepicker]="ExpireDate"
+                type="text"
+                [(ngModel)]="dataModel.expireDate"
+                name="dataModel.expireDate"
+                class="form-control validate-name"
+                id="dataModel.expireDate"
+                [disabled]="!fieldsInfo['expireDate']?.accessEditField"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="ExpireDate"
+              ></mat-datepicker-toggle>
+              <mat-datepicker
+                touchUi
+                #ExpireDate
+                [calendarHeaderComponent]="datapickerHeader"
+              ></mat-datepicker>
+            </div>
+          }
+
+          <!-- Description Field -->
+          @if (fieldsInfo["description"]?.accessWatchField) {
+            <div
+              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            >
+              <label for="dataModel.description" class="color-highlight">{{
+                fieldsInfo["description"]?.fieldTitle
+              }}</label>
+              <textarea
+                matInput
+                [(ngModel)]="dataModel.description"
+                name="dataModel.description"
+                #Description
+                type="text"
+                placeholder="{{ fieldsInfo['description']?.fieldTitle }}"
+                minlength="1"
+                maxlength="500"
+                rows="5"
+                id="dataModel.description"
+                class="form-control validate-name"
+                [disabled]="!fieldsInfo['description']?.accessEditField"
+              ></textarea>
+              <em>{{ Description.value?.length || 0 }} / 500</em>
+            </div>
+          }
+
+          <!-- ApiKey Field -->
+          @if (fieldsInfo["apiKey"]?.accessWatchField) {
+            <div
+              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            >
+              <label for="dataModel.apiKey" class="color-highlight">{{
+                fieldsInfo["apiKey"]?.fieldTitle
+              }}</label>
+              <input
+                matInput
+                type="text"
+                [(ngModel)]="dataModel.apiKey"
+                name="dataModel.apiKey"
+                #ApiKey
+                placeholder="{{ fieldsInfo['apiKey']?.fieldTitle }}"
+                class="form-control validate-name input-ltr"
+                id="dataModel.apiKey"
+                [disabled]="!fieldsInfo['apiKey']?.accessEditField"
+              />
+              <em>{{ ApiKey.value?.length || 0 }} / 500</em>
+            </div>
+          }
+
+          <!-- FirewallAllowIP Field -->
+          @if (fieldsInfo["firewallAllowIP"]?.accessWatchField) {
+            <div class="mb-4">
+              <div
+                class="input-style has-borders no-icon input-style-always-active validate-field"
+              >
+                <label for="firewallAllowIPInput" class="color-highlight">{{
+                  fieldsInfo["firewallAllowIP"]?.fieldTitle
+                }}</label>
+                <div class="d-flex">
+                  <input
+                    matInput
+                    type="text"
+                    [(ngModel)]="firewallAllowIPInput"
+                    name="firewallAllowIPInput"
+                    #FirewallAllowIPInput
+                    placeholder="{{
+                      fieldsInfo['firewallAllowIP']?.fieldTitle
+                    }}"
+                    class="form-control validate-name input-ltr"
+                    id="firewallAllowIPInput"
+                    [disabled]="!fieldsInfo['firewallAllowIP']?.accessEditField"
+                  />
+                  <button
+                    type="button"
+                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
+                    (click)="onActionAddFirewallIP()"
+                    [disabled]="
+                      !firewallAllowIPInput || firewallAllowIPInput.length === 0
+                    "
+                  >
+                    <i class="fa fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+              @if (
+                dataModel.firewallAllowIPList &&
+                dataModel.firewallAllowIPList.length > 0
+              ) {
+                <div class="d-flex flex-wrap mt-2" style="gap: 0.5rem">
+                  @for (ip of dataModel.firewallAllowIPList; track $index) {
+                    <span
+                      class="badge bg-info d-inline-flex align-items-center font-13"
+                    >
+                      {{ ip }}
+                      <i
+                        class="fa fa-times ms-2"
+                        (click)="onActionRemoveFirewallIP(ip)"
+                        style="cursor: pointer"
+                      ></i>
+                    </span>
+                  }
+                </div>
+              }
+            </div>
+          }
+        </mat-tab>
+
+        <!-- Tab 2: Permissions -->
+        <mat-tab label="{{ 'TITLE.PERMISSION' | translate }}">
+          <div class="mt-3">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <h5 class="mb-0">{{ "TITLE.PERMISSION" | translate }}</h5>
+                @if (!apiPathListLoading && !permissionLoading && apiPathList) {
+                  <small class="text-muted">
+                    {{ apiPathList.length }}
+                    {{ "MESSAGE.Item" | translate }}
+                  </small>
+                }
+              </div>
+              <div>
+                <button
+                  type="button"
+                  (click)="DataGetAllApiPaths(); DataGetAllPermission()"
+                  class="btn font-13 font-600 btn-s rounded-s shadow-xl border-0 gradient-gray me-2"
+                  [disabled]="apiPathListLoading || permissionLoading"
+                  [title]="'ACTION.REFRESH' | translate"
+                >
+                  <i
+                    class="fa fa-refresh"
+                    [class.fa-spin]="apiPathListLoading || permissionLoading"
+                  ></i>
+                </button>
+                <button
+                  type="button"
+                  (click)="onActionSavePermissionChanges()"
+                  class="btn font-13 font-600 btn-s rounded-s shadow-xl border-0 gradient-green"
+                  [disabled]="apiPathListLoading || permissionLoading"
+                >
+                  <i class="fa fa-save"></i>
+                  {{ "ACTION.SAVE" | translate }}
+                </button>
+              </div>
+            </div>
+
+            @if (apiPathListLoading || permissionLoading) {
+              <div class="text-center py-4">
+                <i class="fa fa-spinner fa-spin fa-2x text-primary"></i>
+                <p class="mt-2">
+                  {{ "MESSAGE.Receiving_information" | translate }}
+                </p>
+              </div>
+            }
+
+            @if (
+              !apiPathListLoading &&
+              !permissionLoading &&
+              apiPathList &&
+              apiPathList.length > 0
+            ) {
+              <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                  <thead class="table-dark">
+                    <tr>
+                      <th>{{ "TITLE.ApiPath" | translate }}</th>
+                      <th class="text-center">
+                        {{ "TITLE.IsRequested" | translate }}
+                      </th>
+                      @if (tokenHelper.isAdminSite) {
+                        <th class="text-center">
+                          {{ "TITLE.IsApproved" | translate }}
+                        </th>
+                        <th>{{ "TITLE.FromDate" | translate }}</th>
+                        <th>{{ "TITLE.ExpireDate" | translate }}</th>
+                        <th>{{ "TITLE.Description" | translate }}</th>
+                      }
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @for (apiPath of apiPathList; track apiPath.id) {
+                      @let permission = getPermissionForApiPath(apiPath.id);
+                      <tr>
+                        <td>
+                          <code>{{ apiPath.id }}</code>
+                          @if (apiPath.title) {
+                            <br />
+                            <small class="text-muted">{{
+                              apiPath.title
+                            }}</small>
+                          }
+                        </td>
+                        <td class="text-center">
+                          <input
+                            type="checkbox"
+                            [(ngModel)]="permission.isRequested"
+                            class="form-check-input"
+                            [name]="'isRequested_' + apiPath.id"
+                          />
+                        </td>
+                        @if (tokenHelper.isAdminSite) {
+                          <td class="text-center">
+                            <input
+                              type="checkbox"
+                              [checked]="permission.isApproved === true"
+                              (change)="onToggleIsApproved(permission)"
+                              class="form-check-input"
+                              [name]="'isApproved_' + apiPath.id"
+                              [indeterminate]="permission.isApproved === null"
+                            />
+                          </td>
+                          <td>
+                            <div
+                              class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
+                            >
+                              <app-input-date
+                                [(model)]="permission.fromDate"
+                                [optionDisabled]="false"
+                                [optionRequired]="false"
+                              >
+                                {{ "TITLE.FromDate" | translate }}
+                              </app-input-date>
+                            </div>
+                          </td>
+                          <td>
+                            <div
+                              class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
+                            >
+                              <app-input-date
+                                [(model)]="permission.expireDate"
+                                [optionDisabled]="false"
+                                [optionRequired]="false"
+                              >
+                                {{ "TITLE.ExpireDate" | translate }}
+                              </app-input-date>
+                            </div>
+                          </td>
+                          <td>
+                            <textarea
+                              [(ngModel)]="permission.description"
+                              class="form-control"
+                              rows="2"
+                              [name]="'description_' + apiPath.id"
+                              placeholder="{{
+                                'TITLE.Description' | translate
+                              }}"
+                            ></textarea>
+                          </td>
+                        }
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+              <div class="mt-3 text-center">
+                <button
+                  type="button"
+                  (click)="onActionSavePermissionChanges()"
+                  class="btn font-13 font-600 btn-s rounded-s shadow-xl border-0 gradient-green"
+                >
+                  <i class="fa fa-save"></i>
+                  {{ "ACTION.SAVE" | translate }}
+                </button>
+              </div>
+            } @else if (!apiPathListLoading && !permissionLoading) {
+              <div class="alert alert-info mt-3 text-center py-4">
+                <i class="fa fa-info-circle fa-2x mb-2"></i>
+                <p class="mb-0">{{ "MESSAGE.no_information" | translate }}</p>
+              </div>
+            }
+          </div>
+        </mat-tab>
+      </mat-tab-group>
 
       @if (formInfo.submitButtonEnabled) {
-        <div class="form-actions">
+        <div class="form-actions mt-3">
           <button
             type="button"
             (click)="onFormCancel()"

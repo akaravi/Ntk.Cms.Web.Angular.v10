@@ -145,6 +145,11 @@ export const routesNormal: Routes = [
         data: { title: "ROUTE.SMS.MAIN" },
       },
       {
+        path: "client-application/LinkSiteId/:LinkSiteId",
+        component: SmsMainClientApplicationListComponent,
+        data: { title: "ROUTE.SMS.MAIN" },
+      },
+      {
         path: "client-application-permission",
         component: SmsMainClientApplicationPermissionListComponent,
         data: { title: "ROUTE.SMS.MAIN" },

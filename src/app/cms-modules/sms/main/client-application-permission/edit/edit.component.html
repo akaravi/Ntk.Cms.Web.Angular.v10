@@ -68,7 +68,8 @@
             fieldsInfo["isApproved"]?.fieldTitle
           }}</label>
           <mat-checkbox
-            [(ngModel)]="dataModel.isApproved"
+            [checked]="dataModel.isApproved === true"
+            (change)="onToggleIsApproved()"
             name="dataModel.isApproved"
             [disabled]="!fieldsInfo['isApproved']?.accessEditField"
             [indeterminate]="dataModel.isApproved === null"
@@ -185,4 +186,3 @@
     <!--content-->
   </div>
 </div>
-
