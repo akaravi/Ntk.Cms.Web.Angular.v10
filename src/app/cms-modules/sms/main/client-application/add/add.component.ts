@@ -74,6 +74,7 @@ export class SmsMainClientApplicationAddComponent
     new SmsMainClientApplicationModel();
 
   fileManagerOpenForm = false;
+  firewallAllowIPInput = "";
 
   ngOnInit(): void {
     this.translate.get("TITLE.ADD").subscribe((str: string) => {
@@ -81,6 +82,19 @@ export class SmsMainClientApplicationAddComponent
     });
 
     this.DataGetAccess();
+  }
+
+  /** Sync firewallAllowIP (string) from firewallAllowIPList (string[]) before submit */
+  private syncFirewallAllowIPFromList(): void {
+    if (
+      this.dataModel.firewallAllowIPList &&
+      this.dataModel.firewallAllowIPList.length > 0
+    ) {
+      this.dataModel.firewallAllowIP =
+        this.dataModel.firewallAllowIPList.join(",");
+    } else {
+      this.dataModel.firewallAllowIP = "";
+    }
   }
 
   DataAddContent(): void {
@@ -100,6 +114,9 @@ export class SmsMainClientApplicationAddComponent
           this.constructorInfoAreaId,
         );
       });
+
+    // Ensure firewallAllowIP is synced from firewallAllowIPList before send to API
+    this.syncFirewallAllowIPFromList();
 
     this.smsMainClientApplicationService.ServiceAdd(this.dataModel).subscribe({
       next: (ret) => {
@@ -151,19 +168,12 @@ export class SmsMainClientApplicationAddComponent
     this.dialogRef.close({ dialogChangedDate: false });
   }
 
-  get linkUserId(): any {
-    return (this.dataModel as any).linkUserId;
-  }
-  set linkUserId(value: any) {
-    (this.dataModel as any).linkUserId = value;
-  }
-
   onActionSelectorUser(model: any): void {
     if (!model || !model.id) {
-      this.linkUserId = null;
+      this.dataModel.linkCoreUserId = null;
       return;
     }
-    this.linkUserId = model.id;
+    this.dataModel.linkCoreUserId = model.id;
   }
 
   onActionSelectorSite(model: any): void {
@@ -172,5 +182,116 @@ export class SmsMainClientApplicationAddComponent
       return;
     }
     this.dataModel.linkSiteId = model.id;
+  }
+
+  /**
+   * Validate IP address format (single IP, CIDR, or IP range)
+   */
+  private validateIPFormat(ip: string): boolean {
+    if (!ip || ip.trim().length === 0) {
+      return false;
+    }
+
+    // Single IPv4 address: 192.168.1.1
+    const singleIPRegex = /^(\d{1,3}\.){3}\d{1,3}$/;
+
+    // CIDR notation: 192.168.1.0/24
+    const cidrRegex = /^(\d{1,3}\.){3}\d{1,3}\/\d{1,2}$/;
+
+    // IP range: 192.168.1.1-192.168.1.10
+    const rangeRegex = /^(\d{1,3}\.){3}\d{1,3}-(\d{1,3}\.){3}\d{1,3}$/;
+
+    if (singleIPRegex.test(ip)) {
+      // Validate each octet is between 0-255
+      const parts = ip.split(".");
+      return parts.every(
+        (part) => parseInt(part, 10) >= 0 && parseInt(part, 10) <= 255
+      );
+    }
+
+    if (cidrRegex.test(ip)) {
+      const [address, prefix] = ip.split("/");
+      const prefixNum = parseInt(prefix, 10);
+      if (prefixNum < 0 || prefixNum > 32) {
+        return false;
+      }
+      const parts = address.split(".");
+      return parts.every(
+        (part) => parseInt(part, 10) >= 0 && parseInt(part, 10) <= 255
+      );
+    }
+
+    if (rangeRegex.test(ip)) {
+      const [startIP, endIP] = ip.split("-");
+      const startParts = startIP.split(".");
+      const endParts = endIP.split(".");
+      const startValid = startParts.every(
+        (part) => parseInt(part, 10) >= 0 && parseInt(part, 10) <= 255
+      );
+      const endValid = endParts.every(
+        (part) => parseInt(part, 10) >= 0 && parseInt(part, 10) <= 255
+      );
+      return startValid && endValid;
+    }
+
+    return false;
+  }
+
+  onActionAddFirewallIP(): void {
+    if (
+      !this.firewallAllowIPInput ||
+      this.firewallAllowIPInput.trim().length === 0
+    ) {
+      return;
+    }
+
+    const ip = this.firewallAllowIPInput.trim();
+
+    // Validate IP format
+    if (!this.validateIPFormat(ip)) {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.Invalid_IP_Format")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorMessage(str || "Invalid IP format");
+        });
+      return;
+    }
+
+    if (!this.dataModel.firewallAllowIPList) {
+      this.dataModel.firewallAllowIPList = [];
+    }
+
+    if (!this.dataModel.firewallAllowIPList.includes(ip)) {
+      // Create new array to trigger change detection
+      this.dataModel.firewallAllowIPList = [
+        ...this.dataModel.firewallAllowIPList,
+        ip,
+      ];
+    }
+    // Update firewallAllowIP field with the first IP or join all IPs
+    if (this.dataModel.firewallAllowIPList.length > 0) {
+      this.dataModel.firewallAllowIP =
+        this.dataModel.firewallAllowIPList.join(",");
+    }
+    this.firewallAllowIPInput = "";
+  }
+
+  onActionRemoveFirewallIP(ip: string): void {
+    if (!this.dataModel.firewallAllowIPList) {
+      return;
+    }
+    const index = this.dataModel.firewallAllowIPList.indexOf(ip);
+    if (index > -1) {
+      // Create new array to trigger change detection
+      this.dataModel.firewallAllowIPList =
+        this.dataModel.firewallAllowIPList.filter((item) => item !== ip);
+    }
+    // Update firewallAllowIP field
+    if (this.dataModel.firewallAllowIPList.length > 0) {
+      this.dataModel.firewallAllowIP =
+        this.dataModel.firewallAllowIPList.join(",");
+    } else {
+      this.dataModel.firewallAllowIP = "";
+    }
   }
 }

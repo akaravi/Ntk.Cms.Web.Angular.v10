@@ -56,7 +56,7 @@ export class ListBaseComponent<
   optionsSearch: ComponentOptionSearchModel = new ComponentOptionSearchModel();
   optionsStatist: ComponentOptionStatistModel =
     new ComponentOptionStatistModel();
-  tableRowSelected: TModel;
+    tableRowSelected: TModel;
   tableRowsSelected: Array<TModel> = [];
   dataModelResult: ErrorExceptionResult<TModel> =
     new ErrorExceptionResult<TModel>();
