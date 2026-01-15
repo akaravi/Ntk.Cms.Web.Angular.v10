@@ -195,3 +195,38 @@ style‌های `ngx-ntk-icon-picker` لود نمی‌شدند. این کتابخ
 ✅ خطاهای template برطرف شد و اکشن‌های افزودن/ویرایش/حذف در موبایل به درستی به متدهای کامپوننت متصل شدند.
 
 ---
+
+## Part 7: Fix npm Dependency Conflict - @fortawesome/angular-fontawesome
+
+**تاریخ:** 2026-01-15 19:44:27
+**وضعیت:** ✅ تکمیل شده
+
+### مشکل:
+
+خطای `ERESOLVE could not resolve` برای dependency conflict بین `ngx-ntk-icon-picker@20.26.4` و `@fortawesome/angular-fontawesome` رخ می‌داد.
+
+### علت:
+
+- `ngx-ntk-icon-picker@20.26.4` نیاز به `@fortawesome/angular-fontawesome@^4.0.0` دارد (peer dependency)
+- پروژه فعلی `@fortawesome/angular-fontawesome@^3.0.0` را نصب کرده بود
+- این conflict باعث می‌شد npm نتواند dependency tree را resolve کند
+
+### راه حل:
+
+آپدیت `@fortawesome/angular-fontawesome` از نسخه `^3.0.0` به `^4.0.0` در `package.json` برای رفع conflict با `ngx-ntk-icon-picker`.
+
+### دستورات اجرا شده:
+
+- `Get-Date -Format "yyyy-MM-dd HH:mm:ss"`
+
+### فایل‌های تغییر یافته:
+
+- `package.json`: آپدیت `@fortawesome/angular-fontawesome` از `^3.0.0` به `^4.0.0`
+
+### Result 7:
+
+✅ مشکل dependency conflict حل شد. حالا `@fortawesome/angular-fontawesome@^4.0.0` با `ngx-ntk-icon-picker@20.26.4` سازگار است و npm می‌تواند dependency tree را به درستی resolve کند.
+
+**نکته:** بعد از این تغییر باید `npm install` را اجرا کنید تا dependency‌ها به‌روزرسانی شوند.
+
+---

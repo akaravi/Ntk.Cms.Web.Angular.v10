@@ -148,19 +148,29 @@ export class DataProviderSourcePathPaginationListComponent
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
 
         if (ret.isSuccess) {
-          this.dataModelResult = ret;
           this.tableData = ret.listItems;
           this.tableSource.data = ret.listItems;
-          this.tableSource.sort = this.sort;
-          this.tableSource.paginator = this.paginator;
-          this.tableSource.filter = "$$$";
+          if (this.sort) {
+            this.tableSource.sort = this.sort;
+          }
+          if (this.paginator) {
+            this.tableSource.paginator = this.paginator;
+          }
+          // Clear filter to show all data
+          this.tableSource.filter = "";
+
+          if (this.optionsStatist?.data?.show) {
+            this.onActionButtonStatist(true);
+          }
           setTimeout(() => {
-            if (this.optionsSearch.childMethods)
+            if (this.optionsSearch.childMethods) {
               this.optionsSearch.childMethods.setAccess(ret.access);
-          }, 500);
+            }
+          }, 1000);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
+        this.dataModelResult = ret;
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {

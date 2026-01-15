@@ -133,6 +133,74 @@ export class DataProviderClientApplicationPermissionListComponent
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
+    // Process route parameters in ngOnInit to handle route changes
+    this.requestLinkClientApplicationId =
+      this.activatedRoute.snapshot.paramMap.get("LinkClientApplicationId") ||
+      "";
+    this.requestLinkSourcePathId =
+      this.activatedRoute.snapshot.paramMap.get("LinkSourcePathId") || "";
+
+    // Clear existing filters and reapply route-based filters
+    this.filteModelContent.filters = this.filteModelContent.filters.filter(
+      (f) =>
+        f.propertyName !== "LinkClientApplicationId" &&
+        f.propertyName !== "LinkSourcePathId",
+    );
+
+    if (this.requestLinkClientApplicationId && this.requestLinkClientApplicationId.length > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "LinkClientApplicationId";
+      filter.value = this.requestLinkClientApplicationId;
+      this.filteModelContent.filters.push(filter);
+    }
+    if (this.requestLinkSourcePathId && this.requestLinkSourcePathId.length > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "LinkSourcePathId";
+      filter.value = this.requestLinkSourcePathId;
+      this.filteModelContent.filters.push(filter);
+    }
+
+    // Subscribe to route parameter changes
+    this.unsubscribe.push(
+      this.activatedRoute.paramMap.subscribe((params) => {
+        const newLinkClientApplicationId = params.get("LinkClientApplicationId") || "";
+        const newLinkSourcePathId = params.get("LinkSourcePathId") || "";
+
+        if (
+          newLinkClientApplicationId !== this.requestLinkClientApplicationId ||
+          newLinkSourcePathId !== this.requestLinkSourcePathId
+        ) {
+          this.requestLinkClientApplicationId = newLinkClientApplicationId;
+          this.requestLinkSourcePathId = newLinkSourcePathId;
+
+          // Clear existing filters and reapply route-based filters
+          this.filteModelContent.filters = this.filteModelContent.filters.filter(
+            (f) =>
+              f.propertyName !== "LinkClientApplicationId" &&
+              f.propertyName !== "LinkSourcePathId",
+          );
+
+          if (this.requestLinkClientApplicationId && this.requestLinkClientApplicationId.length > 0) {
+            const filter = new FilterDataModel();
+            filter.propertyName = "LinkClientApplicationId";
+            filter.value = this.requestLinkClientApplicationId;
+            this.filteModelContent.filters.push(filter);
+          }
+          if (this.requestLinkSourcePathId && this.requestLinkSourcePathId.length > 0) {
+            const filter = new FilterDataModel();
+            filter.propertyName = "LinkSourcePathId";
+            filter.value = this.requestLinkSourcePathId;
+            this.filteModelContent.filters.push(filter);
+          }
+
+          this.filteModelContent.currentPageNumber = 0;
+          if (this.tokenInfo) {
+            this.DataGetAll();
+          }
+        }
+      }),
+    );
+
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
@@ -179,13 +247,28 @@ export class DataProviderClientApplicationPermissionListComponent
     this.contentService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
+        this.dataModelResult = ret;
 
         if (ret.isSuccess) {
           this.tableData = ret.listItems;
           this.tableSource.data = ret.listItems;
-          this.tableSource.sort = this.sort;
-          this.tableSource.paginator = this.paginator;
-          this.tableSource.filter = "$$$";
+          if (this.sort) {
+            this.tableSource.sort = this.sort;
+          }
+          if (this.paginator) {
+            this.tableSource.paginator = this.paginator;
+          }
+          // Clear filter to show all data
+          this.tableSource.filter = "";
+
+          if (this.optionsStatist?.data?.show) {
+            this.onActionButtonStatist(true);
+          }
+          setTimeout(() => {
+            if (this.optionsSearch.childMethods) {
+              this.optionsSearch.childMethods.setAccess(ret.access);
+            }
+          }, 1000);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -502,4 +585,3 @@ export class DataProviderClientApplicationPermissionListComponent
     this.onActionTableRowSelect(model);
   }
 }
-

@@ -1,6 +1,12 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
-import { PageEvent } from "@angular/material/paginator";
+import { MatPaginator, PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
@@ -36,6 +42,9 @@ export class DataProviderClientApplicationListComponent
   >
   implements OnInit, OnDestroy
 {
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  tableData: DataProviderClientApplicationModel[] = [];
   requestLinkUserId = "";
   requestLinkSiteId = 0;
   constructorInfoAreaId = this.constructor.name;
@@ -167,17 +176,29 @@ export class DataProviderClientApplicationListComponent
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
 
         if (ret.isSuccess) {
-          this.dataModelResult = ret;
+          this.tableData = ret.listItems;
           this.tableSource.data = ret.listItems;
+          if (this.sort) {
+            this.tableSource.sort = this.sort;
+          }
+          if (this.paginator) {
+            this.tableSource.paginator = this.paginator;
+          }
+          // Clear filter to show all data
+          this.tableSource.filter = "";
 
-          if (this.optionsStatist?.data?.show) this.onActionButtonStatist(true);
+          if (this.optionsStatist?.data?.show) {
+            this.onActionButtonStatist(true);
+          }
           setTimeout(() => {
-            if (this.optionsSearch.childMethods)
+            if (this.optionsSearch.childMethods) {
               this.optionsSearch.childMethods.setAccess(ret.access);
+            }
           }, 1000);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
+        this.dataModelResult = ret;
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {

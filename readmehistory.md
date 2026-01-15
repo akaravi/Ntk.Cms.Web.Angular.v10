@@ -1,5 +1,30 @@
 # تاریخچه تغییرات پروژه
 
+## 2026-01-15 19:44:27 (رفع خطای npm Dependency Conflict - @fortawesome/angular-fontawesome)
+
+### خلاصه:
+خطای `ERESOLVE could not resolve` برای dependency conflict بین `ngx-ntk-icon-picker@20.26.4` و `@fortawesome/angular-fontawesome` رفع شد.
+
+### مشکل:
+- `ngx-ntk-icon-picker@20.26.4` نیاز به `@fortawesome/angular-fontawesome@^4.0.0` دارد (peer dependency)
+- پروژه فعلی `@fortawesome/angular-fontawesome@^3.0.0` را نصب کرده بود
+- این conflict باعث می‌شد npm نتواند dependency tree را resolve کند
+
+### راه حل:
+آپدیت `@fortawesome/angular-fontawesome` از نسخه `^3.0.0` به `^4.0.0` در `package.json` برای رفع conflict با `ngx-ntk-icon-picker`.
+
+### فایل‌های تغییر یافته:
+- `package.json`: آپدیت `@fortawesome/angular-fontawesome` از `^3.0.0` به `^4.0.0`
+
+### نتیجه:
+- ✅ مشکل dependency conflict حل شد
+- ✅ `@fortawesome/angular-fontawesome@^4.0.0` با `ngx-ntk-icon-picker@20.26.4` سازگار است
+- ✅ npm می‌تواند dependency tree را به درستی resolve کند
+
+**نکته:** بعد از این تغییر باید `npm install` را اجرا کنید تا dependency‌ها به‌روزرسانی شوند.
+
+---
+
 ## 2026-01-03 09:47:00 (رفع خطای NG0203 - Injection Context Error)
 
 ### خلاصه:

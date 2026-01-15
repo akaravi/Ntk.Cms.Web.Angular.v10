@@ -1,6 +1,12 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
-import { PageEvent } from "@angular/material/paginator";
+import { MatPaginator, PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
@@ -38,6 +44,9 @@ export class DataProviderSourceListComponent
   >
   implements OnInit, OnDestroy
 {
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  tableData: DataProviderSourceModel[] = [];
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: DataProviderSourceService,
@@ -164,14 +173,28 @@ export class DataProviderSourceListComponent
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
 
-        if (ret.isSuccess) {
-          this.dataModelResult = ret;
-          this.tableSource.data = ret.listItems;
+        this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
+        this.dataModelResult = ret;
 
-          if (this.optionsStatist?.data?.show) this.onActionButtonStatist(true);
+        if (ret.isSuccess) {
+          this.tableData = ret.listItems;
+          this.tableSource.data = ret.listItems;
+          if (this.sort) {
+            this.tableSource.sort = this.sort;
+          }
+          if (this.paginator) {
+            this.tableSource.paginator = this.paginator;
+          }
+          // Clear filter to show all data
+          this.tableSource.filter = "";
+
+          if (this.optionsStatist?.data?.show) {
+            this.onActionButtonStatist(true);
+          }
           setTimeout(() => {
-            if (this.optionsSearch.childMethods)
+            if (this.optionsSearch.childMethods) {
               this.optionsSearch.childMethods.setAccess(ret.access);
+            }
           }, 1000);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);

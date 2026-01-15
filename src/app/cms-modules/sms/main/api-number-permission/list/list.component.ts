@@ -1,6 +1,12 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { PageEvent } from "@angular/material/paginator";
+import { MatPaginator, PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
@@ -37,6 +43,9 @@ export class SmsMainApiNumberPermissionListComponent
   >
   implements OnInit, OnDestroy
 {
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  tableData: SmsMainApiNumberPermissionModel[] = [];
   requestLinkApiNumberId = "";
   requestLinkCoreUserId = 0;
   requestLinkCoreSiteId = 0;
@@ -182,17 +191,31 @@ export class SmsMainApiNumberPermissionListComponent
 
     this.contentService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {
+        this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
+        this.dataModelResult = ret;
+
         if (ret.isSuccess) {
-          this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
-
-          this.dataModelResult = ret;
+          this.tableData = ret.listItems;
           this.tableSource.data = ret.listItems;
+          if (this.sort) {
+            this.tableSource.sort = this.sort;
+          }
+          if (this.paginator) {
+            this.tableSource.paginator = this.paginator;
+          }
+          // Clear filter to show all data
+          this.tableSource.filter = "";
 
-          if (this.optionsStatist?.data?.show) this.onActionButtonStatist(true);
+          if (this.optionsStatist?.data?.show) {
+            this.onActionButtonStatist(true);
+          }
           setTimeout(() => {
-            if (this.optionsSearch.childMethods)
+            if (this.optionsSearch.childMethods) {
               this.optionsSearch.childMethods.setAccess(ret.access);
+            }
           }, 1000);
+        } else {
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
       },

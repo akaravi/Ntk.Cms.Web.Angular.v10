@@ -22,6 +22,7 @@ import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { ContentInfoModel } from "src/app/core/models/contentInfoModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
@@ -78,7 +79,10 @@ export class SmsMainClientApplicationPermissionListComponent
     this.requestLinkClientApplicationId =
       this.activatedRoute.snapshot.paramMap.get("LinkClientApplicationId") ||
       "";
-    if (this.requestLinkClientApplicationId && this.requestLinkClientApplicationId.length > 0) {
+    if (
+      this.requestLinkClientApplicationId &&
+      this.requestLinkClientApplicationId.length > 0
+    ) {
       const filter = new FilterDataModel();
       filter.propertyName = "LinkClientApplicationId";
       filter.value = this.requestLinkClientApplicationId;
@@ -159,9 +163,7 @@ export class SmsMainClientApplicationPermissionListComponent
     );
 
     this.tableRowsSelected = [];
-    this.onActionTableRowSelect(
-      new SmsMainClientApplicationPermissionModel(),
-    );
+    this.onActionTableRowSelect(new SmsMainClientApplicationPermissionModel());
     const pName = this.constructor.name + "main";
     this.translate
       .get("MESSAGE.get_information_list")
@@ -176,16 +178,39 @@ export class SmsMainClientApplicationPermissionListComponent
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
     /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
     this.contentService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
+        this.dataModelResult = ret;
 
         if (ret.isSuccess) {
           this.tableData = ret.listItems;
           this.tableSource.data = ret.listItems;
-          this.tableSource.sort = this.sort;
-          this.tableSource.paginator = this.paginator;
-          this.tableSource.filter = "$$$";
+          if (this.sort) {
+            this.tableSource.sort = this.sort;
+          }
+          if (this.paginator) {
+            this.tableSource.paginator = this.paginator;
+          }
+          // Clear filter to show all data
+          this.tableSource.filter = "";
+
+          if (this.optionsStatist?.data?.show) {
+            this.onActionButtonStatist(true);
+          }
+          setTimeout(() => {
+            if (this.optionsSearch.childMethods) {
+              this.optionsSearch.childMethods.setAccess(ret.access);
+            }
+          }, 1000);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
@@ -193,6 +218,7 @@ export class SmsMainClientApplicationPermissionListComponent
       },
       error: (er) => {
         this.cmsToastrService.typeError(er);
+
         this.publicHelper.processService.processStop(pName, false);
       },
     });
@@ -203,21 +229,23 @@ export class SmsMainClientApplicationPermissionListComponent
       this.tableSource.sort &&
       this.tableSource.sort.active === sort.active
     ) {
-      if (this.tableSource.sort.direction === "asc") {
-        sort.direction = "desc";
+      if (this.tableSource.sort.start === "asc") {
+        sort.start = "desc";
+        this.filteModelContent.sortColumn = sort.active;
+        this.filteModelContent.sortType = SortTypeEnum.Descending;
+      } else if (this.tableSource.sort.start === "desc") {
+        sort.start = "asc";
+        this.filteModelContent.sortColumn = "";
+        this.filteModelContent.sortType = SortTypeEnum.Ascending;
       } else {
-        sort.direction = "asc";
+        sort.start = "desc";
       }
     } else {
-      sort.direction = "asc";
+      this.filteModelContent.sortColumn = sort.active;
+      this.filteModelContent.sortType = SortTypeEnum.Descending;
     }
     this.tableSource.sort = sort;
-    this.filteModelContent.sortColumn = sort.active;
-    this.filteModelContent.sortType =
-      sort.direction.toUpperCase() === "DESC"
-        ? SortTypeEnum.Descending
-        : SortTypeEnum.Ascending;
-    this.tableSource.data = this.tableSource.filteredData;
+    this.filteModelContent.currentPageNumber = 0;
     this.DataGetAll();
   }
   onTablePageingData(event?: PageEvent): void {
@@ -262,7 +290,13 @@ export class SmsMainClientApplicationPermissionListComponent
   onActionButtonEditRow(
     model: SmsMainClientApplicationPermissionModel = this.tableRowSelected,
   ): void {
-    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
+    if (
+      !model ||
+      !model.linkApiPathId ||
+      model.linkApiPathId.length == 0 ||
+      !model.linkClientApplicationId ||
+      model.linkClientApplicationId.length == 0
+    ) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -286,7 +320,11 @@ export class SmsMainClientApplicationPermissionListComponent
         enterAnimationDuration:
           environment.cmsViewConfig.enterAnimationDuration,
         exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-        data: { id: this.tableRowSelected.id },
+        data: {
+          linkApiPathId: this.tableRowSelected.linkApiPathId,
+          linkClientApplicationId:
+            this.tableRowSelected.linkClientApplicationId,
+        },
       },
     );
     dialogRef.afterClosed().subscribe((result) => {
@@ -298,7 +336,13 @@ export class SmsMainClientApplicationPermissionListComponent
   onActionButtonDeleteRow(
     model: SmsMainClientApplicationPermissionModel = this.tableRowSelected,
   ): void {
-    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
+    if (
+      !model ||
+      !model.linkApiPathId ||
+      model.linkApiPathId.length == 0 ||
+      !model.linkClientApplicationId ||
+      model.linkClientApplicationId.length == 0
+    ) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -344,7 +388,7 @@ export class SmsMainClientApplicationPermissionListComponent
             });
 
           this.contentService
-            .ServiceDelete(this.tableRowSelected.id)
+            .ServiceDeleteEntity(this.tableRowSelected)
             .subscribe({
               next: (ret) => {
                 if (ret.isSuccess) {
@@ -380,15 +424,13 @@ export class SmsMainClientApplicationPermissionListComponent
       statist.set(str, 0);
     });
     const pName = this.constructor.name + ".ServiceStatist";
-    this.translate
-      .get("MESSAGE.Receiving_information")
-      .subscribe((str: string) => {
-        this.publicHelper.processService.processStart(
-          pName,
-          str,
-          this.constructorInfoAreaId,
-        );
-      });
+    this.translate.get("MESSAGE.Get_the_statist").subscribe((str: string) => {
+      this.publicHelper.processService.processStart(
+        pName,
+        str,
+        this.constructorInfoAreaId,
+      );
+    });
     this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
@@ -456,11 +498,12 @@ export class SmsMainClientApplicationPermissionListComponent
     });
     dialogRef.afterClosed().subscribe((result) => {});
   }
-  onActionbuttonPrintRow(
-    model: any = this.tableRowSelected,
-  ): void {
+  onActionbuttonPrintRow(model: any = this.tableRowSelected): void {
     this.tableRowSelected = model;
-    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
+    if (
+      !model?.id ||
+      (typeof model.id === "string" ? model.id.length === 0 : model.id <= 0)
+    ) {
       const emessage = this.translate.instant(
         "ERRORMESSAGE.MESSAGE.typeErrorSelectedRow",
       );
@@ -472,20 +515,81 @@ export class SmsMainClientApplicationPermissionListComponent
   onActionButtonReload(): void {
     this.DataGetAll();
   }
-  onSubmitOptionsSearch(model: any): void {
-    this.filteModelContent.filters = model;
+  onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
+    if (model && model.length > 0) {
+      this.filterDataModelQueryBuilder = [...model];
+    } else {
+      this.filterDataModelQueryBuilder = [];
+    }
     this.DataGetAll();
   }
   onActionTableRowSelect(
     row: SmsMainClientApplicationPermissionModel,
+    event: MouseEvent = null,
   ): void {
+    if (event) event.preventDefault();
+    //row selected
     this.tableRowSelected = row;
+    this.publicHelper.pageInfo.updateContentInfo(
+      new ContentInfoModel(
+        row.id,
+        row["title"],
+        row["viewContentHidden"],
+        "",
+        row["urlViewContent"],
+      ),
+    );
+
+    if (this.tableRowSelected.id === row.id) {
+      if (row["expanded"] == true) row["expanded"] = false;
+      else row["expanded"] = true;
+    } else {
+      row["expanded"] = false;
+    }
+    //row selected
+    if (event?.button === 2) {
+      // single
+      this.tableRowSelect2Click = false;
+      this.tableRowSelect3Click = false;
+      // single
+      setTimeout(() => {
+        // double
+        this.tableRowSelect2Click = true;
+        this.tableRowSelect3Click = false;
+        // double
+      }, 100);
+      return;
+    }
+    this.clickCount++;
+    setTimeout(() => {
+      if (this.clickCount === 1) {
+        // single
+        this.tableRowSelect2Click = false;
+        this.tableRowSelect3Click = false;
+        // single
+      } else if (this.clickCount === 2) {
+        // double
+        this.tableRowSelect2Click = true;
+        this.tableRowSelect3Click = false;
+        // double
+      } else if (this.clickCount === 3) {
+        // double
+        this.tableRowSelect2Click = false;
+        this.tableRowSelect3Click = true;
+        // double
+      }
+
+      this.clickCount = 0;
+    }, 500);
   }
 
   onActionButtonMemo(
     model: SmsMainClientApplicationPermissionModel = this.tableRowSelected,
   ): void {
-    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
+    if (
+      !model?.id ||
+      (typeof model.id === "string" ? model.id.length === 0 : model.id <= 0)
+    ) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -495,11 +599,13 @@ export class SmsMainClientApplicationPermissionListComponent
   onActionButtonMemoRow(
     model: SmsMainClientApplicationPermissionModel = this.tableRowSelected,
   ): void {
-    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
+    if (
+      !model?.id ||
+      (typeof model.id === "string" ? model.id.length === 0 : model.id <= 0)
+    ) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
     this.onActionTableRowSelect(model);
   }
 }
-

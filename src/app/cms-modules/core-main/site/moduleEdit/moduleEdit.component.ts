@@ -28,7 +28,6 @@ import { FormInfoModel } from "../../../../core/models/formInfoModel";
 @Component({
   selector: "app-core-site-module-edit",
   templateUrl: "./moduleEdit.component.html",
-  styleUrls: ["./moduleEdit.component.scss"],
   standalone: false,
 })
 export class CoreSiteModuleEditComponent
@@ -71,7 +70,7 @@ export class CoreSiteModuleEditComponent
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: CoreModuleSiteModel = new CoreModuleSiteModel();
 
-  
+
   fileManagerOpenForm = false;
 
   dataAccessModel: AccessModel;

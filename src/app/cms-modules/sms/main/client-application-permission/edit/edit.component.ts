@@ -9,8 +9,9 @@ import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  DataFieldInfoModel,
   ErrorExceptionResultBase,
+  FilterDataModel,
+  FilterModel,
   ManageUserAccessDataTypesEnum,
   SmsMainApiPathModel,
   SmsMainClientApplicationModel,
@@ -22,8 +23,6 @@ import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { DatapickerHeaderComponent } from "src/app/shared/datapicker-header/datapicker-header.component";
-
-import { FormInfoModel } from "src/app/core/models/formInfoModel";
 
 @Component({
   selector: "app-sms-client-application-permission-edit",
@@ -38,7 +37,8 @@ export class SmsMainClientApplicationPermissionEditComponent
   >
   implements OnInit
 {
-  requestId = "";
+  requestLinkApiPathId = "";
+  requestLinkClientApplicationId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -57,8 +57,9 @@ export class SmsMainClientApplicationPermissionEditComponent
     );
 
     this.publicHelper.processService.cdr = this.cdr;
-    if (data && data.id) {
-      this.requestId = data.id;
+    if (data && data.linkApiPathId && data.linkClientApplicationId) {
+      this.requestLinkApiPathId = data.linkApiPathId;
+      this.requestLinkClientApplicationId = data.linkClientApplicationId;
     }
 
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
@@ -78,7 +79,12 @@ export class SmsMainClientApplicationPermissionEditComponent
   datapickerHeader = DatapickerHeaderComponent;
   dataSmsMainClientApplicationPermissionModel: SmsMainClientApplicationPermissionModel[];
   ngOnInit(): void {
-    if (this.requestId && this.requestId.length > 0) {
+    if (
+      this.requestLinkApiPathId &&
+      this.requestLinkApiPathId.length > 0 &&
+      this.requestLinkClientApplicationId &&
+      this.requestLinkClientApplicationId.length > 0
+    ) {
       this.translate.get("TITLE.Edit").subscribe((str: string) => {
         this.formInfo.formTitle = str;
       });
@@ -91,7 +97,12 @@ export class SmsMainClientApplicationPermissionEditComponent
   }
 
   DataGetOneContent(): void {
-    if (!this.requestId || this.requestId.length === 0) {
+    if (
+      !this.requestLinkApiPathId ||
+      this.requestLinkApiPathId.length === 0 ||
+      !this.requestLinkClientApplicationId ||
+      this.requestLinkClientApplicationId.length === 0
+    ) {
       this.cmsToastrService.typeErrorEditRowIsNull();
       return;
     }
@@ -117,8 +128,22 @@ export class SmsMainClientApplicationPermissionEditComponent
     this.smsMainClientApplicationPermissionService.setAccessDataType(
       ManageUserAccessDataTypesEnum.Editor,
     );
+    const filteModelContent = new FilterModel();
+
+    /*make filter*/
+    let filter = new FilterDataModel();
+    filter.propertyName = "linkApiPathId";
+    filter.value = this.requestLinkApiPathId;
+    filteModelContent.filters.push(filter);
+    /*make filter*/
+    filter = new FilterDataModel();
+    filter.propertyName = "linkClientApplicationId";
+    filter.value = this.requestLinkClientApplicationId;
+    filteModelContent.filters.push(filter);
+
+    filteModelContent.accessLoad = true;
     this.smsMainClientApplicationPermissionService
-      .ServiceGetOneById(this.requestId)
+      .ServiceGetAll(filteModelContent)
       .subscribe({
         next: (ret) => {
           this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
@@ -214,9 +239,7 @@ export class SmsMainClientApplicationPermissionEditComponent
     }
     this.dataModel.linkClientApplicationId = model.id;
   }
-  onActionSelectorApiPath(
-    model: SmsMainApiPathModel | null,
-  ): void {
+  onActionSelectorApiPath(model: SmsMainApiPathModel | null): void {
     if (!model || !model.id || model.id.length == 0) {
       this.dataModel.linkApiPathId = null;
       return;
