@@ -1,5 +1,60 @@
 # تاریخچه تغییرات پروژه
 
+## 2026-01-15 20:46:57 (تکمیل کامپوننت‌های Edit و Delete در client-application-permission - ماژول Data Provider)
+
+### خلاصه:
+کامپوننت‌های edit و delete در `data-provider/main/client-application-permission` بررسی و تکمیل شدند.
+
+### بررسی‌های انجام شده:
+
+#### Edit Component:
+- ✅ از `ServiceGetOneById` استفاده می‌کند (روش استاندارد)
+- ✅ تمام فیلدها موجود هستند (recordStatus, linkClientApplicationId, linkSourcePathId, isRequested, isApproved, fromDate, expireDate, description)
+- ✅ `datapickerHeader` پیاده‌سازی شده
+- ✅ `onToggleIsApproved` برای three-state checkbox موجود است
+- ✅ تمام متدهای لازم (DataGetOneContent, DataEditContent, onFormSubmit, onFormCancel) موجود هستند
+
+#### Delete Functionality:
+- ✅ در List Component پیاده‌سازی شده
+- ✅ Confirmation dialog موجود است
+- ✅ Error handling کامل است
+- ✅ `onActionButtonDeleteRow` درست کار می‌کند
+
+#### Add Component:
+- ✅ کامل است و تمام فیلدها موجود هستند
+- ✅ `datapickerHeader` پیاده‌سازی شده
+- ✅ `onToggleIsApproved` برای three-state checkbox موجود است
+
+#### List Component:
+- ✅ کامل است
+- ✅ منوی عملیات ردیف فعال است
+- ✅ Edit و Delete درست کار می‌کنند
+- ✅ تمام قابلیت‌ها پیاده‌سازی شده‌اند
+
+#### Mobile Component:
+- ✅ کامل است
+- ✅ با تغییرات TypeScript سازگار است
+
+### نتیجه:
+- ✅ تمام کامپوننت‌ها کامل هستند
+- ✅ Edit component از `ServiceGetOneById` استفاده می‌کند (روش استاندارد)
+- ✅ Delete functionality در List Component پیاده‌سازی شده
+- ✅ همه قابلیت‌ها آماده استفاده هستند
+- ✅ هیچ خطای linter وجود ندارد
+
+### فایل‌های بررسی شده:
+- `src/app/cms-modules/data-provider/main/client-application-permission/edit/edit.component.ts`
+- `src/app/cms-modules/data-provider/main/client-application-permission/edit/edit.component.html`
+- `src/app/cms-modules/data-provider/main/client-application-permission/list/list.component.ts`
+- `src/app/cms-modules/data-provider/main/client-application-permission/list/list.component.html`
+- `src/app/cms-modules/data-provider/main/client-application-permission/add/add.component.ts`
+- `src/app/cms-modules/data-provider/main/client-application-permission/add/add.component.html`
+
+### فایل‌های به‌روزرسانی شده:
+- `src/app/cms-modules/data-provider/Cursor.1.plan.md` - اضافه شدن Result 23
+
+---
+
 ## 2026-01-15 19:44:27 (رفع خطای npm Dependency Conflict - @fortawesome/angular-fontawesome)
 
 ### خلاصه:

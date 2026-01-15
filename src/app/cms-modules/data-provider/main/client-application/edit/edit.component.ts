@@ -36,6 +36,7 @@ import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { DatapickerHeaderComponent } from "src/app/shared/datapicker-header/datapicker-header.component";
 import { environment } from "src/environments/environment";
 import { DataProviderClientApplicationPermissionAddComponent } from "../../client-application-permission/add/add.component";
 import { DataProviderClientApplicationPermissionEditComponent } from "../../client-application-permission/edit/edit.component";
@@ -110,6 +111,7 @@ export class DataProviderClientApplicationEditComponent
 
   fileManagerOpenForm = false;
   firewallAllowIPInput = "";
+  datapickerHeader = DatapickerHeaderComponent;
 
   // Permissions
   permissionDataModelResult: ErrorExceptionResult<DataProviderClientApplicationPermissionModel> =
@@ -220,6 +222,19 @@ export class DataProviderClientApplicationEditComponent
       });
   }
 
+  /** Sync firewallAllowIP (string) from firewallAllowIPList (string[]) before submit */
+  private syncFirewallAllowIPFromList(): void {
+    if (
+      this.dataModel.firewallAllowIPList &&
+      this.dataModel.firewallAllowIPList.length > 0
+    ) {
+      this.dataModel.firewallAllowIP =
+        this.dataModel.firewallAllowIPList.join(",");
+    } else {
+      this.dataModel.firewallAllowIP = "";
+    }
+  }
+
   DataEditContent(): void {
     this.translate
       .get("MESSAGE.sending_information_to_the_server")
@@ -237,6 +252,9 @@ export class DataProviderClientApplicationEditComponent
           this.constructorInfoAreaId,
         );
       });
+
+    // Ensure firewallAllowIP is synced from firewallAllowIPList before send to API
+    this.syncFirewallAllowIPFromList();
 
     this.dataProviderClientApplicationService
       .ServiceEdit(this.dataModel)
@@ -386,6 +404,11 @@ export class DataProviderClientApplicationEditComponent
         ip,
       ];
     }
+    // Update firewallAllowIP field with the first IP or join all IPs
+    if (this.dataModel.firewallAllowIPList.length > 0) {
+      this.dataModel.firewallAllowIP =
+        this.dataModel.firewallAllowIPList.join(",");
+    }
     this.firewallAllowIPInput = "";
   }
 
@@ -398,6 +421,13 @@ export class DataProviderClientApplicationEditComponent
       // Create new array to trigger change detection
       this.dataModel.firewallAllowIPList =
         this.dataModel.firewallAllowIPList.filter((item) => item !== ip);
+    }
+    // Update firewallAllowIP field
+    if (this.dataModel.firewallAllowIPList.length > 0) {
+      this.dataModel.firewallAllowIP =
+        this.dataModel.firewallAllowIPList.join(",");
+    } else {
+      this.dataModel.firewallAllowIP = "";
     }
   }
 

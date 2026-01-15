@@ -21,7 +21,9 @@
           @if (fieldsInfo["recordStatus"]?.accessWatchField) {
             <app-cms-enum-record-status-selector
               [(model)]="dataModel.recordStatus"
-              [optionDisabled]="false"
+              [optionDisabled]="
+                !(fieldsInfo['recordStatus']?.accessEditField ?? false)
+              "
               [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
               [optionRequired]="true"
               [optionSelectFirstItem]="true"
@@ -77,6 +79,18 @@
               [optionLabel]="fieldsInfo['linkCoreUserId']?.fieldTitle"
             >
             </app-cms-user-selector>
+          }
+          <!-- LinkSiteId Field -->
+          @if (fieldsInfo["linkSiteId"]?.accessWatchField) {
+            <app-cms-site-selector
+              (optionChange)="onActionSelectorSite($event)"
+              [optionSelectForce]="dataModel.linkSiteId"
+              [optionPlaceholder]="'TITLE.SITE' | translate"
+              [optionDisabled]="
+                !(fieldsInfo['linkSiteId']?.accessEditField ?? false)
+              "
+              [optionLabel]="fieldsInfo['linkSiteId']?.fieldTitle"
+            ></app-cms-site-selector>
           }
 
           <!-- FromDate Field -->

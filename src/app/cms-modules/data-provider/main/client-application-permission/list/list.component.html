@@ -7,9 +7,13 @@
   (optionOnActionButtonExport)="onActionbuttonExport()"
   (optionOnActionButtonPrintRow)="onActionbuttonPrintRow()"
   [optionTreeDisplay]="false"
-  [optionActionRowId]="tableRowSelected?.id"
+  [optionActionRowDisplay]="tableRowSelected?.linkSourcePathId?.length > 0"
   [optionActionRowDisplayMenu]="tableRowSelect2Click"
-  [optionSelectRowItemTitle]="tableRowSelected?.id"
+  [optionSelectRowItemTitle]="
+    tableRowSelected?.linkSourcePathId +
+    ' - ' +
+    tableRowSelected?.linkClientApplicationId
+  "
 >
   <ng-container cms-tree>
     <!--begin:::::::::::::::::::::::::::::::::::::::::cms-tree-->
@@ -151,8 +155,11 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["recordStatus"]?.fieldTitle }}
         </mat-header-cell>
-        <mat-cell *matCellDef="let row">
-          {{ row.recordStatus }}
+        <mat-cell
+          *matCellDef="let row"
+          [ngClass]="row.recordStatus | statusCellClass"
+        >
+          <i [ngClass]="row.recordStatus | statusIconClass"></i>
         </mat-cell>
       </ng-container>
 
@@ -178,24 +185,24 @@
 
       <!-- IsRequested Column -->
       <ng-container matColumnDef="isRequested">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="form-label">
           {{ fieldsInfo["isRequested"]?.fieldTitle }}
         </mat-header-cell>
         <mat-cell *matCellDef="let row">
-          {{ (row.isRequested ? "MESSAGE.Yes" : "MESSAGE.No") | translate }}
+          <i [ngClass]="row.isRequested | boolclass"></i>
         </mat-cell>
       </ng-container>
 
       <!-- IsApproved Column -->
       <ng-container matColumnDef="isApproved">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>
+        <mat-header-cell *matHeaderCellDef mat-sort-header class="form-label">
           {{ fieldsInfo["isApproved"]?.fieldTitle }}
         </mat-header-cell>
         <mat-cell *matCellDef="let row">
           @if (row.isApproved === null) {
-            <span>{{ "MESSAGE.NotSet" | translate }}</span>
+            <i class="fa fa-question-circle text-warning"></i>
           } @else {
-            {{ (row.isApproved ? "MESSAGE.Yes" : "MESSAGE.No") | translate }}
+            <i [ngClass]="row.isApproved | boolclass"></i>
           }
         </mat-cell>
       </ng-container>
@@ -206,7 +213,7 @@
           {{ fieldsInfo["fromDate"]?.fieldTitle }}
         </mat-header-cell>
         <mat-cell *matCellDef="let row">
-          {{ row.fromDate | date: "yyyy-MM-dd HH:mm" }}
+          {{ row.fromDate | localeDate }}
         </mat-cell>
       </ng-container>
 
@@ -216,50 +223,186 @@
           {{ fieldsInfo["expireDate"]?.fieldTitle }}
         </mat-header-cell>
         <mat-cell *matCellDef="let row">
-          {{ row.expireDate | date: "yyyy-MM-dd HH:mm" }}
+          {{ row.expireDate | localeDate }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- CreatedDate Column -->
+      <ng-container matColumnDef="createdDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ fieldsInfo["createdDate"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.createdDate | localeDate }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- UpdatedDate Column -->
+      <ng-container matColumnDef="updatedDate">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{ fieldsInfo["updatedDate"]?.fieldTitle }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          {{ row.updatedDate | localeDate }}
         </mat-cell>
       </ng-container>
 
       <!-- Action Column -->
       <ng-container matColumnDef="Action">
         <mat-header-cell *matHeaderCellDef>
-          {{ "ACTION.FIELD" | translate }}
+          {{ "TITLE.OPTION" | translate }}
         </mat-header-cell>
+        <mat-cell *matCellDef="let row" class="Action">
+          <!-- Action Menu -->
+          <button
+            type="button"
+            mat-icon-button
+            [matMenuTriggerFor]="actionMenu"
+            aria-label="Action Menu"
+          >
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #actionMenu="matMenu">
+            @if (dataModelResult?.access?.accessEditRow) {
+              <button mat-menu-item (click)="onActionButtonEditRow(row)">
+                <mat-icon>edit</mat-icon>
+                <span>{{ "ACTION.EDIT" | translate }}</span>
+              </button>
+            }
+            @if (dataModelResult?.access?.accessDeleteRow) {
+              <button mat-menu-item (click)="onActionButtonDeleteRow(row)">
+                <mat-icon>delete</mat-icon>
+                <span>{{ "ACTION.DELETE" | translate }}</span>
+              </button>
+            }
+          </mat-menu>
+        </mat-cell>
+      </ng-container>
+      <!--expandedDetail-->
+      <ng-container matColumnDef="expandedDetail">
         <mat-cell *matCellDef="let row">
-          <button
-            type="button"
-            class="btn btn-sm btn-primary m-1"
-            (click)="onActionButtonDataRow(row, $event)"
-            *ngIf="dataModelResult?.access?.accessEditRow"
-          >
-            <i class="fa fa-edit"></i>
-          </button>
-          <button
-            type="button"
-            class="btn btn-sm btn-danger m-1"
-            (click)="onActionButtonDeleteRow(row)"
-            *ngIf="dataModelResult?.access?.accessDeleteRow"
-          >
-            <i class="fa fa-trash"></i>
-          </button>
+          <div>
+            <table>
+              @if (row.linkClientApplicationId) {
+                <tr>
+                  <td></td>
+                  <td>
+                    {{ fieldsInfo["linkClientApplicationId"]?.fieldTitle }} :
+                    {{ row.linkClientApplicationId }}
+                  </td>
+                </tr>
+              }
+              @if (row.linkSourcePathId) {
+                <tr>
+                  <td></td>
+                  <td>
+                    {{ fieldsInfo["linkSourcePathId"]?.fieldTitle }} :
+                    {{ row.linkSourcePathId }}
+                  </td>
+                </tr>
+              }
+              @if (row.isRequested !== null && row.isRequested !== undefined) {
+                <tr>
+                  <td></td>
+                  <td>
+                    {{ fieldsInfo["isRequested"]?.fieldTitle }} :
+                    <i [ngClass]="row.isRequested | boolclass"></i>
+                  </td>
+                </tr>
+              }
+              @if (row.isApproved !== null && row.isApproved !== undefined) {
+                <tr>
+                  <td></td>
+                  <td>
+                    {{ fieldsInfo["isApproved"]?.fieldTitle }} :
+                    @if (row.isApproved === null) {
+                      <i class="fa fa-question-circle text-warning"></i>
+                    } @else {
+                      <i [ngClass]="row.isApproved | boolclass"></i>
+                    }
+                  </td>
+                </tr>
+              }
+              @if (row.fromDate) {
+                <tr>
+                  <td></td>
+                  <td>
+                    {{ fieldsInfo["fromDate"]?.fieldTitle }} :
+                    {{ row.fromDate | localeDate }}
+                  </td>
+                </tr>
+              }
+              @if (row.expireDate) {
+                <tr>
+                  <td></td>
+                  <td>
+                    {{ fieldsInfo["expireDate"]?.fieldTitle }} :
+                    {{ row.expireDate | localeDate }}
+                  </td>
+                </tr>
+              }
+              @if (row.createdDate) {
+                <tr>
+                  <td></td>
+                  <td>
+                    {{ fieldsInfo["createdDate"]?.fieldTitle }} :
+                    {{ row.createdDate | localeDate }}
+                  </td>
+                </tr>
+              }
+              @if (row.updatedDate) {
+                <tr>
+                  <td></td>
+                  <td>
+                    {{ fieldsInfo["updatedDate"]?.fieldTitle }} :
+                    {{ row.updatedDate | localeDate }}
+                  </td>
+                </tr>
+              }
+              <tr>
+                <td></td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
         </mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="tabledisplayedColumns"></mat-header-row>
       <mat-row
-        *matRowDef="let row; columns: tabledisplayedColumns"
-        (click)="onActionTableRowSelect(row)"
-        [class.selected]="tableRowSelected?.id === row.id"
-      ></mat-row>
+        *matRowDef="let row; columns: tabledisplayedColumns; let i = dataIndex"
+        class="ntk-row-mainfild"
+        (click)="onActionTableRowSelect(row, $event)"
+        (rtclick)="onActionTableRowSelect(row, $event)"
+        [class.ntk-row-selected]="row.id === tableRowSelected?.id"
+      >
+      </mat-row>
+      <mat-row
+        *matRowDef="let row; columns: ['expandedDetail']; let i = dataIndex"
+        class="ntk-row-expandedDetail"
+        (click)="onActionTableRowSelect(row, $event)"
+        (rtclick)="onActionTableRowSelect(row, $event)"
+        (mouseenter)="onActionTableRowMouseEnter(row)"
+        (mouseleave)="onActionTableRowMouseLeave(row)"
+        [class.ntk-row-selected]="row.id === tableRowSelected?.id"
+        [ngStyle]="{ display: row.expanded === true ? '' : 'none' }"
+      >
+      </mat-row>
     </mat-table>
-    <mat-paginator
-      [length]="tableSource.filteredData.length"
-      [pageSize]="filteModelContent.rowPerPage"
-      [pageIndex]="filteModelContent.currentPageNumber - 1"
-      [pageSizeOptions]="[10, 20, 50, 100]"
-      (page)="onTablePageingData($event)"
-    >
-    </mat-paginator>
+
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
+  </ng-container>
+  <ng-container cms-footer>
+    <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
+    <mat-paginator
+      #paginator
+      [length]="dataModelResult.totalRowCount"
+      [pageIndex]="dataModelResult.currentPageNumber - 1"
+      [pageSize]="dataModelResult.rowPerPage"
+      [pageSizeOptions]="[5, 10, 20, 100]"
+      (page)="onTablePageingData($event)"
+    ></mat-paginator>
+
+    <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
   </ng-container>
 </app-cms-html-list>

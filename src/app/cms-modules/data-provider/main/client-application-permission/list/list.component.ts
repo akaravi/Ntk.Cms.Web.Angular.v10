@@ -22,6 +22,7 @@ import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { ContentInfoModel } from "src/app/core/models/contentInfoModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
@@ -244,6 +245,14 @@ export class DataProviderClientApplicationPermissionListComponent
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
     /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
     this.contentService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
@@ -288,19 +297,21 @@ export class DataProviderClientApplicationPermissionListComponent
     ) {
       if (this.tableSource.sort.direction === "asc") {
         sort.direction = "desc";
-      } else {
+        this.filteModelContent.sortColumn = sort.active;
+        this.filteModelContent.sortType = SortTypeEnum.Descending;
+      } else if (this.tableSource.sort.direction === "desc") {
         sort.direction = "asc";
+        this.filteModelContent.sortColumn = "";
+        this.filteModelContent.sortType = SortTypeEnum.Ascending;
+      } else {
+        sort.direction = "desc";
       }
     } else {
-      sort.direction = "asc";
+      this.filteModelContent.sortColumn = sort.active;
+      this.filteModelContent.sortType = SortTypeEnum.Descending;
     }
     this.tableSource.sort = sort;
-    this.filteModelContent.sortColumn = sort.active;
-    this.filteModelContent.sortType =
-      sort.direction.toUpperCase() === "DESC"
-        ? SortTypeEnum.Descending
-        : SortTypeEnum.Ascending;
-    this.tableSource.data = this.tableSource.filteredData;
+    this.filteModelContent.currentPageNumber = 0;
     this.DataGetAll();
   }
   onTablePageingData(event?: PageEvent): void {
@@ -464,7 +475,7 @@ export class DataProviderClientApplicationPermissionListComponent
     });
     const pName = this.constructor.name + ".ServiceStatist";
     this.translate
-      .get("MESSAGE.Receiving_information")
+      .get("MESSAGE.Get_the_statist")
       .subscribe((str: string) => {
         this.publicHelper.processService.processStart(
           pName,
@@ -555,14 +566,72 @@ export class DataProviderClientApplicationPermissionListComponent
   onActionButtonReload(): void {
     this.DataGetAll();
   }
-  onSubmitOptionsSearch(model: any): void {
-    this.filteModelContent.filters = model;
+  onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
+    if (model && model.length > 0) {
+      this.filterDataModelQueryBuilder = [...model];
+    } else {
+      this.filterDataModelQueryBuilder = [];
+    }
     this.DataGetAll();
   }
   onActionTableRowSelect(
     row: DataProviderClientApplicationPermissionModel,
+    event: MouseEvent = null,
   ): void {
+    if (event) event.preventDefault();
+    //row selected
     this.tableRowSelected = row;
+    this.publicHelper.pageInfo.updateContentInfo(
+      new ContentInfoModel(
+        row.id,
+        row["title"],
+        row["viewContentHidden"],
+        "",
+        row["urlViewContent"],
+      ),
+    );
+
+    if (this.tableRowSelected.id === row.id) {
+      if (row["expanded"] == true) row["expanded"] = false;
+      else row["expanded"] = true;
+    } else {
+      row["expanded"] = false;
+    }
+    //row selected
+    if (event?.button === 2) {
+      // single
+      this.tableRowSelect2Click = false;
+      this.tableRowSelect3Click = false;
+      // single
+      setTimeout(() => {
+        // double
+        this.tableRowSelect2Click = true;
+        this.tableRowSelect3Click = false;
+        // double
+      }, 100);
+      return;
+    }
+    this.clickCount++;
+    setTimeout(() => {
+      if (this.clickCount === 1) {
+        // single
+        this.tableRowSelect2Click = false;
+        this.tableRowSelect3Click = false;
+        // single
+      } else if (this.clickCount === 2) {
+        // double
+        this.tableRowSelect2Click = true;
+        this.tableRowSelect3Click = false;
+        // double
+      } else if (this.clickCount === 3) {
+        // double
+        this.tableRowSelect2Click = false;
+        this.tableRowSelect3Click = true;
+        // double
+      }
+
+      this.clickCount = 0;
+    }, 500);
   }
 
   onActionButtonMemo(

@@ -50,7 +50,7 @@
           <div
             class="cms-m-list-item"
             [class.selected]="tableRowSelected?.id === item.id"
-            (click)="onActionTableRowSelect(item)"
+            (click)="onActionTableRowSelect(item, $event)"
           >
             <div class="cms-m-list-item-content">
               <div class="cms-m-list-item-title">
@@ -61,7 +61,14 @@
                   <span>{{ "MESSAGE.Requested" | translate }}</span>
                 }
                 @if (item.isApproved !== null) {
-                  <span> | {{ item.isApproved ? ("MESSAGE.Approved" | translate) : ("MESSAGE.Rejected" | translate) }}</span>
+                  <span>
+                    |
+                    {{
+                      item.isApproved
+                        ? ("MESSAGE.Approved" | translate)
+                        : ("MESSAGE.Rejected" | translate)
+                    }}</span
+                  >
                 }
                 @if (item.fromDate) {
                   <span> | {{ item.fromDate | date: "yyyy-MM-dd" }}</span>
@@ -76,7 +83,9 @@
                 <button
                   type="button"
                   class="cms-m-header-action-btn"
-                  (click)="onActionButtonEditRow(item); $event.stopPropagation()"
+                  (click)="
+                    onActionButtonEditRow(item); $event.stopPropagation()
+                  "
                 >
                   <i class="fa-solid fa-pen" aria-hidden="true"></i>
                 </button>
@@ -85,7 +94,9 @@
                 <button
                   type="button"
                   class="cms-m-header-action-btn"
-                  (click)="onActionButtonDeleteRow(item); $event.stopPropagation()"
+                  (click)="
+                    onActionButtonDeleteRow(item); $event.stopPropagation()
+                  "
                 >
                   <i class="fa-solid fa-trash" aria-hidden="true"></i>
                 </button>
