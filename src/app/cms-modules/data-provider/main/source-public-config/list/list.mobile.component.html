@@ -39,7 +39,7 @@
           <button
             type="button"
             class="cms-m-header-action-btn"
-            (click)="onActionbuttonNewRow()"
+            (click)="onActionButtonNewRow()"
             [attr.aria-label]="'ACTION.ADD' | translate"
           >
             <i class="fa-solid fa-plus" aria-hidden="true"></i>
@@ -106,7 +106,7 @@
               @if (dataModelResult?.access?.accessEditRow) {
                 <button
                   class="cms-m-action-btn edit"
-                  (click)="onActionbuttonEditRow(row); $event.stopPropagation()"
+                  (click)="onActionButtonEditRow(row); $event.stopPropagation()"
                   [attr.aria-label]="'ACTION.EDIT' | translate"
                 >
                   <i class="fa-solid fa-pen" aria-hidden="true"></i>
@@ -116,7 +116,7 @@
                 <button
                   class="cms-m-action-btn delete"
                   (click)="
-                    onActionbuttonDeleteRow(row); $event.stopPropagation()
+                    onActionButtonDeleteRow(row); $event.stopPropagation()
                   "
                   [attr.aria-label]="'ACTION.DELETE' | translate"
                 >

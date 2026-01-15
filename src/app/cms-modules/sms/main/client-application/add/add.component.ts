@@ -3,7 +3,7 @@ import {
   Component,
   Inject,
   OnInit,
-  ViewChild
+  ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
@@ -11,17 +11,14 @@ import { TranslateService } from "@ngx-translate/core";
 import {
   DataFieldInfoModel,
   ErrorExceptionResult,
-  InfoEnumModel,
   SmsEnumService,
   SmsMainClientApplicationModel,
-  SmsMainClientApplicationService
+  SmsMainClientApplicationService,
 } from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
-
-import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-sms-client-application-add",
@@ -73,7 +70,8 @@ export class SmsMainClientApplicationAddComponent
 
   dataModelResult: ErrorExceptionResult<SmsMainClientApplicationModel> =
     new ErrorExceptionResult<SmsMainClientApplicationModel>();
-  dataModel: SmsMainClientApplicationModel = new SmsMainClientApplicationModel();
+  dataModel: SmsMainClientApplicationModel =
+    new SmsMainClientApplicationModel();
 
   fileManagerOpenForm = false;
 
@@ -113,9 +111,11 @@ export class SmsMainClientApplicationAddComponent
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Success;
-              });
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                this.formSubmitedStatusEnum.Success;
+            });
+          this.formInfo.submitResultMessageType =
+            this.formSubmitedStatusEnum.Success;
           this.cmsToastrService.typeSuccessAdd();
           this.dialogRef.close({ dialogChangedDate: true, model: ret.item });
         } else {
@@ -125,7 +125,8 @@ export class SmsMainClientApplicationAddComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType =
+            this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);

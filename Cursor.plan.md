@@ -164,3 +164,34 @@ style‌های `ngx-ntk-icon-picker` لود نمی‌شدند. این کتابخ
 ✅ مشکل duplicate files حل شد. حالا فقط Font Awesome Free از طریق `ngx-ntk-icon-picker` لود می‌شود و conflict رخ نمی‌دهد.
 
 ---
+
+## Part 6: Fix SourcePublicConfig Mobile List Template Errors
+
+**تاریخ:** 2026-01-15 09:16:42
+**وضعیت:** ✅ تکمیل شده
+
+### مشکل:
+
+خطای template برای متدهای اکشن در نسخه موبایل لیست SourcePublicConfig رخ می‌داد.
+
+### علت:
+
+در `list.mobile.component.html` نام متدها با امضای کامپوننت هماهنگ نبود (`onActionbutton*` به جای `onActionButton*`).
+
+### راه حل:
+
+اصلاح bindingهای اکشن در template موبایل برای استفاده از نام درست متدها.
+
+### دستورات اجرا شده:
+
+- `Get-Date -Format "yyyy-MM-dd HH:mm:ss"`
+
+### فایل‌های تغییر یافته:
+
+- `src/app/cms-modules/data-provider/main/source-public-config/list/list.mobile.component.html`
+
+### Result 6:
+
+✅ خطاهای template برطرف شد و اکشن‌های افزودن/ویرایش/حذف در موبایل به درستی به متدهای کامپوننت متصل شدند.
+
+---
