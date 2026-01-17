@@ -5,12 +5,12 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    FilterDataModel,
-    FilterModel,
-    RecordStatusEnum,
-    SortTypeEnum,
-    TransactionAssistantProductCategoryModel,
-    TransactionAssistantProductCategoryService,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
+  TransactionAssistantProductCategoryModel,
+  TransactionAssistantProductCategoryService,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -83,11 +83,11 @@ export class TransactionAssistantCategoryListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "id",
+    "recordStatus",
     "title",
+    "id",
     "description",
     "parentId",
-    "recordStatus",
   ];
   tabledisplayedColumnsMobileSource: string[] = ["id", "title"];
 

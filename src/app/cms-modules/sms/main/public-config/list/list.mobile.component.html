@@ -163,7 +163,7 @@
               @if (dataModelResult?.access?.accessWatchRow) {
                 <button
                   class="cms-m-action-btn route"
-                  (click)="onActionButtonPrivateList(row); $event.stopPropagation()"
+                  (click)="onActionButtonPrivateList(row, $event); $event.stopPropagation()"
                   [attr.aria-label]="'ACTION.ROUTES' | translate"
                   >
                   <i class="fa-solid fa-route" aria-hidden="true"></i>

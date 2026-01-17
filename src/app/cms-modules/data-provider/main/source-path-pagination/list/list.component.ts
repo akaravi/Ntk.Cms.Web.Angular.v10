@@ -48,18 +48,18 @@ export class DataProviderSourcePathPaginationListComponent
   filterDataModelQueryBuilder: FilterDataModel[] = [];
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "id",
     "recordStatus",
     "title",
+    "id",
     "linkSourcePathId",
     "servicePricePerPage",
     "endUserPricePerPage",
     "action",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "id",
     "recordStatus",
     "title",
+    "id",
     "linkSourcePathId",
     "action",
   ];

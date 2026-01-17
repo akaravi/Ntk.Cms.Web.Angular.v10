@@ -86,8 +86,8 @@ export class DataProviderSourceListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "linkMainImageIdSrc",
-    "id",
     "recordStatus",
+    "id",
     // 'Title',
     "Description",
     "HashMd5",
@@ -96,8 +96,8 @@ export class DataProviderSourceListComponent
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "linkMainImageIdSrc",
-    "id",
     "recordStatus",
+    "id",
     // 'Title',
     "Description",
     "HashMd5",

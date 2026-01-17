@@ -1,18 +1,21 @@
-import { FormInfoModel } from "src/app/core/models/formInfoModel";
-
 import {
   ChangeDetectorRef,
   Component,
   Inject,
   OnInit,
-  ViewChild } from "@angular/core";
+  ViewChild,
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreEnumService,
-  ErrorExceptionResultBase,ManageUserAccessDataTypesEnum,
+import {
+  CoreEnumService,
+  DataProviderSourcePublicConfigAliasJsonModel,
   DataProviderSourcePublicConfigModel,
-  DataProviderSourcePublicConfigService} from "ntk-cms-api";
+  DataProviderSourcePublicConfigService,
+  ErrorExceptionResultBase,
+  ManageUserAccessDataTypesEnum,
+} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -64,8 +67,8 @@ export class DataProviderSourcePublicConfigEditComponent
   appLanguage = "fa";
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
-  dataModel: DataProviderSourcePublicConfigModel = new DataProviderSourcePublicConfigModel();
-
+  dataModel: DataProviderSourcePublicConfigAliasJsonModel =
+    new DataProviderSourcePublicConfigAliasJsonModel();
 
   fileManagerOpenForm = false;
 
@@ -110,7 +113,7 @@ export class DataProviderSourcePublicConfigEditComponent
       ManageUserAccessDataTypesEnum.Editor,
     );
     this.dataProviderSourcePublicConfigService
-      .ServiceGetOneById(this.requestId)
+      .ServiceGetOneWithJsonFormatter(this.requestId)
       .subscribe({
         next: (ret) => {
           this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
@@ -119,15 +122,17 @@ export class DataProviderSourcePublicConfigEditComponent
             this.formInfo.formTitle =
               this.formInfo.formTitle + " " + ret.item.title;
             this.formInfo.submitResultMessage = "";
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Success;
-              } else {
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Success;
+          } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
               .subscribe((str: string) => {
                 this.formInfo.submitResultMessage = str;
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
-            this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -157,37 +162,41 @@ export class DataProviderSourcePublicConfigEditComponent
         );
       });
 
-    this.dataProviderSourcePublicConfigService.ServiceEdit(this.dataModel).subscribe({
-      next: (ret) => {
-        this.formInfo.submitButtonEnabled = true;
-        this.dataModelResult = ret;
-        if (ret.isSuccess) {
-          this.translate
-            .get("MESSAGE.registration_completed_successfully")
-            .subscribe((str: string) => {
-              this.formInfo.submitResultMessage = str;
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Success;
-            });
-          this.cmsToastrService.typeSuccessEdit();
-          this.dialogRef.close({ dialogChangedDate: true });
-        } else {
-          this.translate
-            .get("ERRORMESSAGE.MESSAGE.typeError")
-            .subscribe((str: string) => {
-              this.formInfo.submitResultMessage = str;
-            });
-          this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
-          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-        }
-        this.publicHelper.processService.processStop(pName);
-      },
-      error: (er) => {
-        this.formInfo.submitButtonEnabled = true;
-        this.cmsToastrService.typeError(er);
-        this.publicHelper.processService.processStop(pName, false);
-      },
-    });
+    this.dataProviderSourcePublicConfigService
+      .ServiceEdit(this.dataModel)
+      .subscribe({
+        next: (ret) => {
+          this.formInfo.submitButtonEnabled = true;
+          this.dataModelResult = ret;
+          if (ret.isSuccess) {
+            this.translate
+              .get("MESSAGE.registration_completed_successfully")
+              .subscribe((str: string) => {
+                this.formInfo.submitResultMessage = str;
+                this.formInfo.submitResultMessageType =
+                  this.formSubmitedStatusEnum.Success;
+              });
+            this.cmsToastrService.typeSuccessEdit();
+            this.dialogRef.close({ dialogChangedDate: true });
+          } else {
+            this.translate
+              .get("ERRORMESSAGE.MESSAGE.typeError")
+              .subscribe((str: string) => {
+                this.formInfo.submitResultMessage = str;
+              });
+            this.formInfo.submitResultMessage = ret.errorMessage;
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Error;
+            this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+          }
+          this.publicHelper.processService.processStop(pName);
+        },
+        error: (er) => {
+          this.formInfo.submitButtonEnabled = true;
+          this.cmsToastrService.typeError(er);
+          this.publicHelper.processService.processStop(pName, false);
+        },
+      });
   }
   onActionFileSelected(model: NodeInterface): void {
     this.dataModel.linkMainImageId = model.id;

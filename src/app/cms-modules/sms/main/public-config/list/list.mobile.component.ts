@@ -5,15 +5,15 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    CoreCurrencyModel,
-    CoreCurrencyService,
-    ErrorExceptionResult,
-    FilterDataModel,
-    FilterModel,
-    RecordStatusEnum,
-    SmsMainApiPathPublicConfigModel,
-    SmsMainApiPathPublicConfigService,
-    SortTypeEnum,
+  CoreCurrencyModel,
+  CoreCurrencyService,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SmsMainApiPathPublicConfigModel,
+  SmsMainApiPathPublicConfigService,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -419,6 +419,7 @@ export class SmsMainApiPathPublicConfigListMobileComponent
   }
   onActionButtonPrivateList(
     model: SmsMainApiPathPublicConfigModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id?.length > 0)) {
       this.translate
@@ -438,10 +439,17 @@ export class SmsMainApiPathPublicConfigListMobileComponent
       this.cmsToastrService.typeErrorSelected();
       return;
     }
-    this.router.navigate([
-      "/sms/main/api-path/list/LinkPublicConfigId",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#//sms/main/api-path/list/LinkPublicConfigId/" +
+        this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/sms/main/api-path/list/LinkPublicConfigId",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
 
   onActionButtonReload(): void {
@@ -563,6 +571,4 @@ export class SmsMainApiPathPublicConfigListMobileComponent
     }
     this.DataGetAll();
   }
-
-
 }

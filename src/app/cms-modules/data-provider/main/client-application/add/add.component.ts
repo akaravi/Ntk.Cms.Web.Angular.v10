@@ -52,6 +52,9 @@ export class DataProviderClientApplicationAddComponent
     );
     this.publicHelper.processService.cdr = this.cdr;
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
+    if (data && data.linkUserId && +data.linkUserId > 0) {
+      this.dataModel.linkCoreUserId = +data.linkUserId;
+    }
   }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<

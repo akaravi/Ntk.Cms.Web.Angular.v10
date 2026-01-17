@@ -84,11 +84,11 @@ export class TransactionAssistantProductListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "linkMainImageIdSrc",
-    "id",
+    "recordStatus",
     "title",
+    "id",
     "price",
     "stockQuantity",
-    "recordStatus",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "linkMainImageIdSrc",

@@ -96,8 +96,8 @@ export class NewsContentListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "linkMainImageIdSrc",
-    "id",
     "recordStatus",
+    "id",
     "ViewCount",
     //'Title',
     "createdDate",

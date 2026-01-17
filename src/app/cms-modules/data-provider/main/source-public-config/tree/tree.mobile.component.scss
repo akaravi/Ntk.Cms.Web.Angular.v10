@@ -1,0 +1,7 @@
+// Mobile styles are imported globally from styles.mobile.scss
+// Additional component-specific styles if needed
+
+.cms-m-list-item-selected {
+  background-color: var(--cms-m-color-primary-light, rgba(25, 118, 210, 0.1));
+  border-color: var(--cms-m-color-primary, #1976d2);
+}

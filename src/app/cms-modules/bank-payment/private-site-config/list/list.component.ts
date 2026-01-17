@@ -97,18 +97,18 @@ export class BankPaymentPrivateSiteConfigListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "linkMainImageIdSrc",
-    "id",
     "recordStatus",
     "title",
+    "id",
     "LinkPublicConfigId",
     "updatedDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "linkMainImageIdSrc",
-    "id",
     "recordStatus",
     "title",
+    "id",
     "LinkPublicConfigId",
     "updatedDate",
     // 'Action'

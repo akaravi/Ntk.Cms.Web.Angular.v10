@@ -436,6 +436,7 @@ export class BankPaymentPublicConfigListComponent
   }
   onActionButtonPrivateList(
     model: BankPaymentPublicConfigModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id > 0)) {
       this.translate
@@ -454,10 +455,17 @@ export class BankPaymentPublicConfigListComponent
       this.cmsToastrService.typeErrorSelected();
       return;
     }
-    this.router.navigate([
-      "/bankpayment/privatesiteconfig/LinkPublicConfigId",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/bankpayment/privatesiteconfig/LinkPublicConfigId/" +
+        this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/bankpayment/privatesiteconfig/LinkPublicConfigId",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
 
   onActionButtonReload(): void {

@@ -22,8 +22,8 @@ import {
   CoreEnumService,
   CoreModuleService,
   CoreModuleTagService,
-  DataProviderClientApplicationService,
   DataProviderClientApplicationPermissionService,
+  DataProviderClientApplicationService,
   DataProviderClientService,
   DataProviderEnumService,
   DataProviderPlanCategoryService,
@@ -32,8 +32,8 @@ import {
   DataProviderPlanService,
   DataProviderPlanSourceService,
   DataProviderSourceCompanyService,
-  DataProviderSourcePathService,
   DataProviderSourcePathPaginationService,
+  DataProviderSourcePathService,
   DataProviderSourcePublicConfigService,
   DataProviderSourceService,
 } from "ntk-cms-api";
@@ -113,15 +113,15 @@ import { DataProviderSourcePublicConfigEditComponent } from "./source-public-con
 import { DataProviderSourcePublicConfigListComponent } from "./source-public-config/list/list.component";
 import { DataProviderSourcePublicConfigListMobileComponent } from "./source-public-config/list/list.mobile.component";
 // Source Path
-import { DataProviderSourcePathAddComponent } from "./source-path/add/add.component";
-import { DataProviderSourcePathEditComponent } from "./source-path/edit/edit.component";
-import { DataProviderSourcePathListComponent } from "./source-path/list/list.component";
-import { DataProviderSourcePathListMobileComponent } from "./source-path/list/list.mobile.component";
 import { DataProviderSourcePathPaginationAddComponent } from "./source-path-pagination/add/add.component";
 import { DataProviderSourcePathPaginationEditComponent } from "./source-path-pagination/edit/edit.component";
 import { DataProviderSourcePathPaginationListComponent } from "./source-path-pagination/list/list.component";
 import { DataProviderSourcePathPaginationListMobileComponent } from "./source-path-pagination/list/list.mobile.component";
 import { DataProviderSourcePathPaginationSelectorComponent } from "./source-path-pagination/selector/selector.component";
+import { DataProviderSourcePathAddComponent } from "./source-path/add/add.component";
+import { DataProviderSourcePathEditComponent } from "./source-path/edit/edit.component";
+import { DataProviderSourcePathListComponent } from "./source-path/list/list.component";
+import { DataProviderSourcePathListMobileComponent } from "./source-path/list/list.mobile.component";
 import { DataProviderSourcePathSelectorComponent } from "./source-path/selector/selector.component";
 // Client Application
 import { DataProviderClientApplicationAddComponent } from "./client-application/add/add.component";
@@ -130,10 +130,18 @@ import { DataProviderClientApplicationListComponent } from "./client-application
 import { DataProviderClientApplicationListMobileComponent } from "./client-application/list/list.mobile.component";
 import { DataProviderClientApplicationSelectorComponent } from "./client-application/selector/selector.component";
 // Client Application Permission
+import { DynamicFormBuilderModule } from "src/app/core/dynamic-form-builder/dynamic-form-builder.module";
 import { DataProviderClientApplicationPermissionAddComponent } from "./client-application-permission/add/add.component";
 import { DataProviderClientApplicationPermissionEditComponent } from "./client-application-permission/edit/edit.component";
 import { DataProviderClientApplicationPermissionListComponent } from "./client-application-permission/list/list.component";
 import { DataProviderClientApplicationPermissionListMobileComponent } from "./client-application-permission/list/list.mobile.component";
+import { DataProviderSourcePathAddMobileComponent } from "./source-path/add/add.mobile.component";
+import { DataProviderSourcePathEditMobileComponent } from "./source-path/edit/edit.mobile.component";
+import { DataProviderSourcePathSelectionlistComponent } from "./source-path/selectionlist/selectionlist.component";
+import { DataProviderSourcePathTreeComponent } from "./source-path/tree/tree.component";
+import { DataProviderSourcePublicConfigSelectorComponent } from "./source-public-config/selector/selector.component";
+import { DataProviderSourcePublicConfigTreeComponent } from "./source-public-config/tree/tree.component";
+import { DataProviderSourcePublicConfigTreeMobileComponent } from "./source-public-config/tree/tree.mobile.component";
 
 @NgModule({
   declarations: [
@@ -193,9 +201,14 @@ import { DataProviderClientApplicationPermissionListMobileComponent } from "./cl
     DataProviderSourcePublicConfigEditComponent,
     DataProviderSourcePublicConfigListComponent,
     DataProviderSourcePublicConfigListMobileComponent,
+    DataProviderSourcePublicConfigSelectorComponent,
+    DataProviderSourcePublicConfigTreeComponent,
+    DataProviderSourcePublicConfigTreeMobileComponent,
     /* Source Path */
     DataProviderSourcePathAddComponent,
+    DataProviderSourcePathAddMobileComponent,
     DataProviderSourcePathEditComponent,
+    DataProviderSourcePathEditMobileComponent,
     DataProviderSourcePathListComponent,
     DataProviderSourcePathListMobileComponent,
     DataProviderSourcePathPaginationAddComponent,
@@ -209,6 +222,8 @@ import { DataProviderClientApplicationPermissionListMobileComponent } from "./cl
     DataProviderSourcePathPaginationListMobileComponent,
     DataProviderSourcePathPaginationSelectorComponent,
     DataProviderSourcePathSelectorComponent,
+    DataProviderSourcePathSelectionlistComponent,
+    DataProviderSourcePathTreeComponent,
     /* Client Application */
     DataProviderClientApplicationAddComponent,
     DataProviderClientApplicationEditComponent,
@@ -298,12 +313,19 @@ import { DataProviderClientApplicationPermissionListMobileComponent } from "./cl
     DataProviderSourcePublicConfigEditComponent,
     DataProviderSourcePublicConfigListComponent,
     DataProviderSourcePublicConfigListMobileComponent,
+    DataProviderSourcePublicConfigSelectorComponent,
+    DataProviderSourcePublicConfigTreeComponent,
+    DataProviderSourcePublicConfigTreeMobileComponent,
     /* Source Path */
     DataProviderSourcePathAddComponent,
+    DataProviderSourcePathAddMobileComponent,
     DataProviderSourcePathEditComponent,
+    DataProviderSourcePathEditMobileComponent,
     DataProviderSourcePathListComponent,
     DataProviderSourcePathListMobileComponent,
     DataProviderSourcePathSelectorComponent,
+    DataProviderSourcePathSelectionlistComponent,
+    DataProviderSourcePathTreeComponent,
     /* Client Application */
     DataProviderClientApplicationAddComponent,
     DataProviderClientApplicationEditComponent,
@@ -353,6 +375,7 @@ import { DataProviderClientApplicationPermissionListMobileComponent } from "./cl
     IconPickerModule,
     DragDropModule,
     CmsFileManagerModule,
+    DynamicFormBuilderModule,
   ],
   providers: [
     CoreModuleService,
@@ -372,7 +395,7 @@ import { DataProviderClientApplicationPermissionListMobileComponent } from "./cl
     DataProviderSourcePathService,
     DataProviderSourcePathPaginationService,
     DataProviderClientApplicationService,
-  DataProviderClientApplicationPermissionService,
+    DataProviderClientApplicationPermissionService,
     /** */
     CmsConfirmationDialogService,
     CoreModuleTagService,

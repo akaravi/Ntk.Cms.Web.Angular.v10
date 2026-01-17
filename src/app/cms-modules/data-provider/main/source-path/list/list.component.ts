@@ -1,20 +1,24 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from "@angular/core";
+import { CdkDragDrop } from "@angular/cdk/drag-drop";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { MatPaginator, PageEvent } from "@angular/material/paginator";
+import { PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
+  ActionGoStepEnum,
+  CoreCurrencyModel,
+  DataProviderSourceCompanyModel,
+  DataProviderSourceCompanyService,
   DataProviderSourcePathModel,
   DataProviderSourcePathService,
+  DataProviderSourcePublicConfigModel,
+  DataProviderSourcePublicConfigService,
+  EditStepDtoModel,
+  ErrorExceptionResult,
   FilterDataModel,
   FilterModel,
+  RecordStatusEnum,
   SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
@@ -25,8 +29,8 @@ import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { environment } from "src/environments/environment";
 import { DataProviderSourcePathAddComponent } from "../add/add.component";
-import { DataProviderSourcePathEditComponent } from "../edit/edit.component";
 
 @Component({
   selector: "app-data-provider-source-path-list",
@@ -41,12 +45,15 @@ export class DataProviderSourcePathListComponent
   >
   implements OnInit, OnDestroy
 {
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  tableData: DataProviderSourcePathModel[] = [];
+  requestLinkSiteId = 0;
+  requestLinkCompanyId = "";
+  requestLinkPublicConfigId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: DataProviderSourcePathService,
+    private dataProviderSourceCompanyService: DataProviderSourceCompanyService,
+    private dataProviderSourcePublicConfigService: DataProviderSourcePublicConfigService,
+    private activatedRoute: ActivatedRoute,
     private cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private router: Router,
@@ -71,8 +78,8 @@ export class DataProviderSourcePathListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "id";
-    this.filteModelContent.sortType = SortTypeEnum.Descending;
+    this.filteModelContent.sortColumn = "priority";
+    this.filteModelContent.sortType = SortTypeEnum.Ascending;
   }
   comment: string;
   author: string;
@@ -83,25 +90,90 @@ export class DataProviderSourcePathListComponent
   filteModelContent = new FilterModel();
   filterDataModelQueryBuilder: FilterDataModel[] = [];
 
+  filterModelCompiler(model: FilterModel): FilterModel {
+    /*filter CLone*/
+    const filterModel = JSON.parse(JSON.stringify(model));
+    /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
+    return filterModel;
+  }
+
+  dataModelCoreCurrencyResult: ErrorExceptionResult<CoreCurrencyModel> =
+    new ErrorExceptionResult<CoreCurrencyModel>();
+  dataModelCompanyResult: ErrorExceptionResult<DataProviderSourceCompanyModel> =
+    new ErrorExceptionResult<DataProviderSourceCompanyModel>();
+  dataModelPublicResult: ErrorExceptionResult<DataProviderSourcePublicConfigModel> =
+    new ErrorExceptionResult<DataProviderSourcePublicConfigModel>();
+
+  categoryModelSelected: DataProviderSourceCompanyModel;
+
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "id",
+    "linkMainImageIdSrc",
+    //'Id',
     "recordStatus",
     "title",
-    "priority",
-    "action",
-  ];
-  tabledisplayedColumnsMobileSource: string[] = [
-    "id",
-    "recordStatus",
-    "title",
-    "priority",
-    "action",
+    "linkSourceCompanyId",
+    "LinkPublicConfigId",
+    "updatedDate",
+    // 'Action'
+    "position",
   ];
 
+  tabledisplayedColumnsMobileSource: string[] = [
+    "linkMainImageIdSrc",
+    //'Id',
+    "recordStatus",
+    "title",
+    "linkSourceCompanyId",
+    "LinkPublicConfigId",
+    //'UpdatedDate',
+    // 'Action'
+    "position",
+  ];
+
+  expandedElement: DataProviderSourcePathModel | null;
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
+    if (this.activatedRoute.snapshot.paramMap.get("LinkCompanyId")) {
+      this.requestLinkCompanyId =
+        this.activatedRoute.snapshot.paramMap.get("LinkCompanyId");
+    }
+    if (this.activatedRoute.snapshot.paramMap.get("LinkSiteId")) {
+      this.requestLinkSiteId =
+        +this.activatedRoute.snapshot.paramMap.get("LinkSiteId") || 0;
+    }
+    if (this.activatedRoute.snapshot.paramMap.get("LinkPublicConfigId")) {
+      this.requestLinkPublicConfigId =
+        this.activatedRoute.snapshot.paramMap.get("LinkPublicConfigId");
+    }
+    const filter = new FilterDataModel();
+    if (this.requestLinkPublicConfigId?.length > 0) {
+      filter.propertyName = "LinkPublicConfigId";
+      filter.value = this.requestLinkPublicConfigId;
+      this.filteModelContent.filters.push(filter);
+    }
+    if (this.requestLinkCompanyId.length > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "linkSourceCompanyId";
+      filter.value = this.requestLinkCompanyId;
+      this.filteModelContent.filters.push(filter);
+    }
+    if (this.requestLinkSiteId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "linkSiteId";
+      filter.value = this.requestLinkSiteId;
+      this.filteModelContent.filters.push(filter);
+    }
+    this.filteModelContent.sortColumn = "priority";
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
@@ -115,7 +187,28 @@ export class DataProviderSourcePathListComponent
           this.DataGetAll();
         }),
     );
+    this.getApiCopmanyList();
+    this.getPublicConfig();
   }
+  getPublicConfig(): void {
+    const filter = new FilterModel();
+    filter.rowPerPage = 100;
+    this.dataProviderSourcePublicConfigService.ServiceGetAll(filter).subscribe({
+      next: (ret) => {
+        this.dataModelPublicResult = ret;
+      },
+    });
+  }
+  getApiCopmanyList(): void {
+    const filter = new FilterModel();
+    filter.rowPerPage = 100;
+    this.dataProviderSourceCompanyService.ServiceGetAll(filter).subscribe({
+      next: (ret) => {
+        this.dataModelCompanyResult = ret;
+      },
+    });
+  }
+
   ngOnDestroy(): void {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
@@ -123,15 +216,14 @@ export class DataProviderSourcePathListComponent
     this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
       this.tabledisplayedColumnsSource,
       this.tabledisplayedColumnsMobileSource,
-      [],
+      ["position"],
       this.tokenInfo,
     );
-
     this.tableRowsSelected = [];
     this.onActionTableRowSelect(new DataProviderSourcePathModel());
-    const pName = this.constructor.name + ".DataGetAll";
+    const pName = this.constructor.name + "main";
     this.translate
-      .get("MESSAGE.Receiving_information")
+      .get("MESSAGE.get_information_list")
       .subscribe((str: string) => {
         this.publicHelper.processService.processStart(
           pName,
@@ -140,34 +232,35 @@ export class DataProviderSourcePathListComponent
         );
       });
     this.filteModelContent.accessLoad = true;
-    this.contentService.ServiceGetAllEditor(this.filteModelContent).subscribe({
+    /*filter CLone*/
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
+    /** filter Category */
+    if (
+      this.categoryModelSelected &&
+      this.categoryModelSelected.id.length > 0
+    ) {
+      let fastfilter = new FilterDataModel();
+      fastfilter.propertyName = "linkSourceCompanyId";
+      fastfilter.value = this.categoryModelSelected.id;
+      filterModel.filters.push(fastfilter);
+    }
+    /** filter Category */
+    this.contentService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {
-        this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
-
         if (ret.isSuccess) {
-          this.tableData = ret.listItems;
-          this.tableSource.data = ret.listItems;
-          if (this.sort) {
-            this.tableSource.sort = this.sort;
-          }
-          if (this.paginator) {
-            this.tableSource.paginator = this.paginator;
-          }
-          // Clear filter to show all data
-          this.tableSource.filter = "";
+          this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
 
-          if (this.optionsStatist?.data?.show) {
-            this.onActionButtonStatist(true);
-          }
+          this.dataModelResult = ret;
+          this.tableSource.data = ret.listItems;
+
+          if (this.optionsStatist?.data?.show) this.onActionButtonStatist(true);
           setTimeout(() => {
-            if (this.optionsSearch.childMethods) {
+            if (this.optionsSearch.childMethods)
               this.optionsSearch.childMethods.setAccess(ret.access);
-            }
           }, 1000);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
-        this.dataModelResult = ret;
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
@@ -183,21 +276,23 @@ export class DataProviderSourcePathListComponent
       this.tableSource.sort &&
       this.tableSource.sort.active === sort.active
     ) {
-      if (this.tableSource.sort.direction === "asc") {
-        sort.direction = "desc";
+      if (this.tableSource.sort.start === "asc") {
+        sort.start = "desc";
+        this.filteModelContent.sortColumn = sort.active;
+        this.filteModelContent.sortType = SortTypeEnum.Descending;
+      } else if (this.tableSource.sort.start === "desc") {
+        sort.start = "asc";
+        this.filteModelContent.sortColumn = "";
+        this.filteModelContent.sortType = SortTypeEnum.Ascending;
       } else {
-        sort.direction = "asc";
+        sort.start = "desc";
       }
     } else {
-      sort.direction = "asc";
+      this.filteModelContent.sortColumn = sort.active;
+      this.filteModelContent.sortType = SortTypeEnum.Descending;
     }
     this.tableSource.sort = sort;
-    this.filteModelContent.sortColumn = sort.active;
-    this.filteModelContent.sortType =
-      sort.direction.toUpperCase() === "DESC"
-        ? SortTypeEnum.Descending
-        : SortTypeEnum.Ascending;
-    this.tableSource.data = this.tableSource.filteredData;
+    this.filteModelContent.currentPageNumber = 0;
     this.DataGetAll();
   }
   onTablePageingData(event?: PageEvent): void {
@@ -206,14 +301,78 @@ export class DataProviderSourcePathListComponent
     this.DataGetAll();
   }
 
-  onActionbuttonNewRow(): void {
-    if (this.tokenInfo == null || !this.dataModelResult?.access?.accessAddRow) {
+  onTableDropRow(event: CdkDragDrop<DataProviderSourcePathModel[]>): void {
+    const previousIndex = this.tableSource.data.findIndex(
+      (row) => row === event.item.data,
+    );
+    const model = new EditStepDtoModel<string>();
+    model.id = this.tableSource.data[previousIndex].id;
+    model.centerId = this.tableSource.data[event.currentIndex].id;
+    if (previousIndex > event.currentIndex) {
+      model.actionGo = ActionGoStepEnum.GoUp;
+    } else {
+      model.actionGo = ActionGoStepEnum.GoDown;
+    }
+
+    this.contentService.ServiceEditStep(model).subscribe({
+      next: (ret) => {
+        if (ret.isSuccess) {
+          moveItemInArray(
+            this.tableSource.data,
+            previousIndex,
+            event.currentIndex,
+          );
+          this.tableSource.data = this.tableSource.data.slice();
+        } else {
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+        }
+      },
+      error: (er) => {
+        this.cmsToastrService.typeError(er);
+      },
+    });
+  }
+
+  onActionButtonNewRow(): void {
+    if (
+      !this.requestLinkCompanyId ||
+      (this.requestLinkCompanyId && this.requestLinkCompanyId.length == 0)
+    ) {
+      if (
+        this.categoryModelSelected == null ||
+        this.categoryModelSelected.id.length === 0
+      ) {
+        this.translate
+          .get("MESSAGE.Company_not_selected")
+          .subscribe((message: string) => {
+            this.cmsToastrService.typeErrorSelected(message);
+          });
+        return;
+      }
+    }
+
+    if (
+      this.dataModelResult == null ||
+      this.dataModelResult.access == null ||
+      !this.dataModelResult.access.accessAddRow
+    ) {
       this.cmsToastrService.typeErrorAccessAdd();
       return;
     }
+    var linkCompanyId = "";
+    if (this.categoryModelSelected && this.categoryModelSelected.id.length > 0)
+      linkCompanyId = this.categoryModelSelected.id;
+    if (this.requestLinkCompanyId && this.requestLinkCompanyId.length > 0)
+      linkCompanyId = this.requestLinkCompanyId;
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(DataProviderSourcePathAddComponent, {
       height: "90%",
-      data: {},
+      panelClass: panelClass,
+      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
+      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+      data: { linkSourceCompanyId: linkCompanyId },
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
@@ -221,14 +380,269 @@ export class DataProviderSourcePathListComponent
       }
     });
   }
-  onActionbuttonEditRow(
+
+  onActionButtonEditRow(
     model: DataProviderSourcePathModel = this.tableRowSelected,
   ): void {
+    if (!(model?.id?.length > 0)) {
+      this.cmsToastrService.typeErrorSelectedRow();
+      return;
+    }
+    this.onActionTableRowSelect(model);
     if (
-      !model ||
-      !model.id ||
-      (typeof model.id === "string" ? model.id.length === 0 : model.id === 0)
+      this.dataModelResult == null ||
+      this.dataModelResult.access == null ||
+      !this.dataModelResult.access.accessEditRow
     ) {
+      this.cmsToastrService.typeErrorAccessEdit();
+      return;
+    }
+    this.router.navigate([
+      "/data-provider/main/source-path/edit",
+      this.tableRowSelected.id,
+    ]);
+  }
+  onActionButtonDeleteRow(
+    model: DataProviderSourcePathModel = this.tableRowSelected,
+  ): void {
+    if (!(model?.id?.length > 0)) {
+      this.translate
+        .get("MESSAGE.no_row_selected_to_delete")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+    this.onActionTableRowSelect(model);
+
+    if (
+      this.dataModelResult == null ||
+      this.dataModelResult.access == null ||
+      !this.dataModelResult.access.accessDeleteRow
+    ) {
+      this.cmsToastrService.typeErrorAccessDelete();
+      return;
+    }
+
+    var title = "";
+    var message = "";
+    this.translate
+      .get([
+        "MESSAGE.Please_Confirm",
+        "MESSAGE.Do_you_want_to_delete_this_content",
+      ])
+      .subscribe((str: string) => {
+        title = str["MESSAGE.Please_Confirm"];
+        message =
+          str["MESSAGE.Do_you_want_to_delete_this_content"] +
+          "?" +
+          "<br> ( " +
+          this.tableRowSelected.title +
+          " ) ";
+      });
+    this.cmsConfirmationDialogService
+      .confirm(title, message)
+      .then((confirmed) => {
+        if (confirmed) {
+          const pName = this.constructor.name + "main";
+          this.translate
+            .get("MESSAGE.Receiving_information")
+            .subscribe((str: string) => {
+              this.publicHelper.processService.processStart(
+                pName,
+                str,
+                this.constructorInfoAreaId,
+              );
+            });
+
+          this.contentService
+            .ServiceDelete(this.tableRowSelected.id)
+            .subscribe({
+              next: (ret) => {
+                if (ret.isSuccess) {
+                  this.cmsToastrService.typeSuccessRemove();
+                  this.DataGetAll();
+                } else {
+                  this.cmsToastrService.typeErrorRemove();
+                }
+                this.publicHelper.processService.processStop(pName);
+              },
+              error: (er) => {
+                this.cmsToastrService.typeError(er);
+                this.publicHelper.processService.processStop(pName, false);
+              },
+            });
+        }
+      })
+      .catch(() => {
+        // console.log('User dismissed the dialog (e.g., by using ESC, clicking the cross icon, or clicking outside the dialog)')
+      });
+  }
+
+  onActionSelectorSelect(model: DataProviderSourceCompanyModel | null): void {
+    /*filter */
+    var sortColumn = this.filteModelContent.sortColumn;
+    var sortType = this.filteModelContent.sortType;
+    this.filteModelContent = new FilterModel();
+
+    this.filteModelContent.sortColumn = sortColumn;
+    this.filteModelContent.sortType = sortType;
+    /*filter */
+    this.filteModelContent.sortColumn = "priority";
+    this.categoryModelSelected = model;
+
+    this.DataGetAll();
+  }
+
+  onActionButtonStatist(view = !this.optionsStatist.data.show): void {
+    this.optionsStatist.data.show = view;
+    if (!this.optionsStatist.data.show) {
+      return;
+    }
+    const statist = new Map<string, number>();
+    this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    this.translate.get("MESSAGE.All").subscribe((str: string) => {
+      statist.set(str, 0);
+    });
+    const pName = this.constructor.name + ".ServiceStatist";
+    this.translate.get("MESSAGE.Get_the_statist").subscribe((str: string) => {
+      this.publicHelper.processService.processStart(
+        pName,
+        str,
+        this.constructorInfoAreaId,
+      );
+    });
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
+    /**filterActionSearch */
+    if (this.filteModelContent.filterActionSearchRecordStatus > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "recordStatus";
+      filter.value = this.filteModelContent.filterActionSearchRecordStatus;
+      filterModel.filters.push(filter);
+    }
+    if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "linkSiteId";
+      filter.value = this.filteModelContent.filterActionSearchLinkSiteId;
+      filterModel.filters.push(filter);
+    }
+    if (this.filteModelContent.filterActionSearchLinkUserId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "linkUserId";
+      filter.value = this.filteModelContent.filterActionSearchLinkUserId;
+      filterModel.filters.push(filter);
+    }
+    /**filterActionSearch */
+    this.contentService.ServiceGetCount(filterModel).subscribe({
+      next: (ret) => {
+        if (ret.isSuccess) {
+          this.translate.get("MESSAGE.All").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
+          this.optionsStatist.childMethods.setStatistValue(statist);
+        } else {
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+        }
+        this.publicHelper.processService.processStop(pName);
+      },
+      error: (er) => {
+        this.cmsToastrService.typeError(er);
+        this.publicHelper.processService.processStop(pName, false);
+      },
+    });
+
+    const filterStatist1 = this.filterModelCompiler(this.filteModelContent);
+    /**filterActionSearch */
+    if (this.filteModelContent.filterActionSearchRecordStatus > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "recordStatus";
+      filter.value = this.filteModelContent.filterActionSearchRecordStatus;
+      filterStatist1.filters.push(filter);
+    }
+    if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "linkSiteId";
+      filter.value = this.filteModelContent.filterActionSearchLinkSiteId;
+      filterStatist1.filters.push(filter);
+    }
+    if (this.filteModelContent.filterActionSearchLinkUserId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "linkUserId";
+      filter.value = this.filteModelContent.filterActionSearchLinkUserId;
+      filterStatist1.filters.push(filter);
+    }
+    /**filterActionSearch */
+    const fastfilter = new FilterDataModel();
+    fastfilter.propertyName = "recordStatus";
+    fastfilter.value = RecordStatusEnum.Available;
+    filterStatist1.filters.push(fastfilter);
+    this.contentService.ServiceGetCount(filterStatist1).subscribe({
+      next: (ret) => {
+        if (ret.isSuccess) {
+          this.translate.get("MESSAGE.Active").subscribe((str: string) => {
+            statist.set(str, ret.totalRowCount);
+          });
+          this.optionsStatist.childMethods.setStatistValue(statist);
+        } else {
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+        }
+        this.publicHelper.processService.processStop(pName);
+      },
+      error: (er) => {
+        this.cmsToastrService.typeError(er);
+        this.publicHelper.processService.processStop(pName, false);
+      },
+    });
+  }
+
+  onActionButtonGetBalance(
+    model: DataProviderSourcePathModel = this.tableRowSelected,
+  ): any {
+    if (!(model?.id?.length > 0)) {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+    const pName = this.constructor.name + "GetBalance";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
+    //todo: add service
+    // this.contentService.ServiceGetBalance(model.id).subscribe({
+    //   next: (ret) => {
+    //     if (ret.isSuccess) {
+    //       this.cmsToastrService.typeSuccessMessage(
+    //         ret.item.info + " " + ret.item.status + " " + ret.item.credit,
+    //       );
+    //     } else {
+    //       this.cmsToastrService.typeErrorMessage(
+    //         ret.errorMessage + ret.item.info + " " + ret.item.status,
+    //       );
+    //     }
+    //     this.publicHelper.processService.processStop(pName);
+    //   },
+    //   error: (er) => {
+    //     this.cmsToastrService.typeError(er);
+    //     this.publicHelper.processService.processStop(pName, false);
+    //   },
+    // });
+  }
+  onActionButtonSendMessage(
+    model: DataProviderSourcePathModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
+    if (!model || !model.id || model.id.length == 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -237,15 +651,214 @@ export class DataProviderSourcePathListComponent
       return;
     }
     this.onActionTableRowSelect(model);
+
     if (
-      this.tokenInfo == null ||
-      !this.dataModelResult?.access?.accessEditRow
+      this.dataModelResult == null ||
+      this.dataModelResult.access == null ||
+      !this.dataModelResult.access.accessWatchRow
     ) {
-      this.cmsToastrService.typeErrorAccessEdit();
+      this.cmsToastrService.typeErrorSelected();
       return;
     }
-    const dialogRef = this.dialog.open(DataProviderSourcePathEditComponent, {
+    if (event?.ctrlKey) {
+      const link =
+        "/#/data-provider/action/send-message/LinkApiPathId/" +
+        this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/data-provider/action/send-message/LinkApiPathId",
+        this.tableRowSelected.id,
+      ]);
+    }
+  }
+  onActionButtonSupersedesList(
+    model: DataProviderSourcePathModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
+    if (!(model?.id?.length > 0)) {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+    this.onActionTableRowSelect(model);
+
+    if (
+      this.dataModelResult == null ||
+      this.dataModelResult.access == null ||
+      !this.dataModelResult.access.accessWatchRow
+    ) {
+      this.cmsToastrService.typeErrorSelected();
+      return;
+    }
+    if (event?.ctrlKey) {
+      const link =
+        "/#/bankpayment/privatesiteconfig/LinkPublicConfigId/" +
+        this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/bankpayment/privatesiteconfig/LinkPublicConfigId",
+        this.tableRowSelected.id,
+      ]);
+    }
+  }
+  onActionButtonMustSupersedesList(
+    model: DataProviderSourcePathModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
+    if (!(model?.id?.length > 0)) {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+    this.onActionTableRowSelect(model);
+
+    if (
+      this.dataModelResult == null ||
+      this.dataModelResult.access == null ||
+      !this.dataModelResult.access.accessWatchRow
+    ) {
+      this.cmsToastrService.typeErrorSelected();
+      return;
+    }
+    if (event?.ctrlKey) {
+      const link =
+        "/#/bankpayment/privatesiteconfig/LinkPublicConfigId/" +
+        this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/bankpayment/privatesiteconfig/LinkPublicConfigId",
+        this.tableRowSelected.id,
+      ]);
+    }
+  }
+  onActionButtonNumbersList(
+    model: DataProviderSourcePathModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
+    if (!(model?.id?.length > 0)) {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+    this.onActionTableRowSelect(model);
+
+    if (
+      this.dataModelResult == null ||
+      this.dataModelResult.access == null ||
+      !this.dataModelResult.access.accessWatchRow
+    ) {
+      this.cmsToastrService.typeErrorSelected();
+      return;
+    }
+    if (event?.ctrlKey) {
+      const link =
+        "/#/data-provider/main/api-number/LinkApiPathId/" +
+        this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/data-provider/main/api-number/LinkApiPathId",
+        this.tableRowSelected.id,
+      ]);
+    }
+  }
+  onActionButtonPermitionList(
+    model: DataProviderSourcePathModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
+    if (!(model?.id?.length > 0)) {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+    this.onActionTableRowSelect(model);
+
+    if (
+      this.dataModelResult == null ||
+      this.dataModelResult.access == null ||
+      !this.dataModelResult.access.accessWatchRow
+    ) {
+      this.cmsToastrService.typeErrorSelected();
+      return;
+    }
+    this.router.navigate([
+      "/data-provider/main/source-path-permission/LinkApiPathId",
+      this.tableRowSelected.id,
+    ]);
+  }
+  onActionButtonOutBoxQueue(
+    model: DataProviderSourcePathModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
+    if (!(model?.id?.length > 0)) {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+    this.onActionTableRowSelect(model);
+
+    if (
+      this.dataModelResult == null ||
+      this.dataModelResult.access == null ||
+      !this.dataModelResult.access.accessWatchRow
+    ) {
+      this.cmsToastrService.typeErrorSelected();
+      return;
+    }
+    if (event?.ctrlKey) {
+      const link =
+        "/#/data-provider/log/outbox-queue/LinkApiPathId/" +
+        this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/data-provider/log/outbox-queue/LinkApiPathId",
+        this.tableRowSelected.id,
+      ]);
+    }
+  }
+  onActionButtonCopy(
+    model: DataProviderSourcePathModel = this.tableRowSelected,
+  ): void {
+    if (!(model?.id?.length > 0)) {
+      this.cmsToastrService.typeErrorSelectedRow();
+      return;
+    }
+    this.onActionTableRowSelect(model);
+    if (
+      this.dataModelResult == null ||
+      this.dataModelResult.access == null ||
+      !this.dataModelResult.access.accessEditRow
+    ) {
+      this.cmsToastrService.typeErrorAccessAdd();
+      return;
+    }
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
+    const dialogRef = this.dialog.open(DataProviderSourcePathAddComponent, {
       height: "90%",
+      panelClass: panelClass,
+      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
+      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
       data: { id: this.tableRowSelected.id },
     });
     dialogRef.afterClosed().subscribe((result) => {
@@ -254,88 +867,118 @@ export class DataProviderSourcePathListComponent
       }
     });
   }
-  onActionbuttonDeleteRow(
+  onActionButtonPriceServicesList(
     model: DataProviderSourcePathModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
-    if (
-      !model ||
-      !model.id ||
-      (typeof model.id === "string" ? model.id.length === 0 : model.id === 0)
-    ) {
-      const emessage = this.translate.instant(
-        "ERRORMESSAGE.MESSAGE.typeErrorSelectedRow",
-      );
-      this.cmsToastrService.typeErrorSelected(emessage);
+    if (!(model?.id?.length > 0)) {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.onActionTableRowSelect(model);
 
     if (
-      this.tokenInfo == null ||
-      !this.dataModelResult?.access?.accessDeleteRow
+      this.dataModelResult == null ||
+      this.dataModelResult.access == null ||
+      !this.dataModelResult.access.accessWatchRow
     ) {
-      this.cmsToastrService.typeErrorAccessDelete();
+      this.cmsToastrService.typeErrorSelected();
       return;
     }
-
-    const title = model.title;
-    this.cmsConfirmationDialogService
-      .confirm(
-        this.translate.instant("MESSAGE.Pay_Attention"),
-        this.translate.instant("MESSAGE.Delete", { 0: title }),
-      )
-      .then((result) => {
-        if (result) {
-          this.contentService.ServiceDelete(model.id).subscribe({
-            next: (ret) => {
-              if (ret.isSuccess) {
-                this.cmsToastrService.typeSuccessRemove();
-                this.DataGetAll();
-              } else {
-                this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-              }
-            },
-            error: (er) => {
-              this.cmsToastrService.typeError(er);
-            },
-          });
-        }
-      });
+    if (event?.ctrlKey) {
+      const link =
+        "/#/data-provider/main/source-path-pagination/LinkApiPathId/" +
+        this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/data-provider/main/source-path-pagination/LinkApiPathId",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
-  onActionbuttonViewRow(
+
+  onActionButtonSendTest(
     model: DataProviderSourcePathModel = this.tableRowSelected,
   ): void {
-    if (
-      !model ||
-      !model.id ||
-      (typeof model.id === "string" ? model.id.length === 0 : model.id === 0)
-    ) {
-      const emessage = this.translate.instant(
-        "ERRORMESSAGE.MESSAGE.typeErrorSelectedRow",
-      );
-      this.cmsToastrService.typeErrorSelected(emessage);
+    if (!(model?.id?.length > 0)) {
+      this.translate
+        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
       return;
     }
     this.onActionTableRowSelect(model);
-  }
 
+    // var panelClass = "";
+    // if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    // else panelClass = "dialog-min";
+    // const dialogRef = this.dialog.open(
+    //   DataProviderSourcePathSendTestComponent,
+    //   {
+    //     height: "90%",
+    //     panelClass: panelClass,
+    //     enterAnimationDuration:
+    //       environment.cmsViewConfig.enterAnimationDuration,
+    //     exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+    //     data: { linkApiPathId: this.tableRowSelected.id },
+    //   },
+    // );
+    // dialogRef.afterClosed().subscribe((result) => {
+    //   // console.log(`Dialog result: ${result}`);
+    //   if (result && result.dialogChangedDate) {
+    //     this.DataGetAll();
+    //   }
+    // });
+  }
+  onActionButtonReportsRow(
+    model: DataProviderSourcePathModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
+    if (!(model?.id?.length > 0)) {
+      this.cmsToastrService.typeErrorSelectedRow();
+      return;
+    }
+    this.onActionTableRowSelect(model);
+    if (
+      this.dataModelResult == null ||
+      this.dataModelResult.access == null ||
+      !this.dataModelResult.access.accessEditRow
+    ) {
+      this.cmsToastrService.typeErrorAccessEdit();
+      return;
+    }
+    if (event?.ctrlKey) {
+      const link =
+        "/#/data-provider/log/source-path/LinkApiPathId/" +
+        this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/data-provider/log/source-path/LinkApiPathId",
+        this.tableRowSelected.id,
+      ]);
+    }
+  }
   onActionButtonReload(): void {
+    this.filteModelContent.sortColumn = "priority";
+    this.DataGetAll();
+  }
+  onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
+    if (model && model.length > 0) {
+      this.filterDataModelQueryBuilder = [...model];
+    } else {
+      this.filterDataModelQueryBuilder = [];
+    }
     this.DataGetAll();
   }
 
-  onActionCopied(): void {
-    this.cmsToastrService.typeSuccessCopedToClipboard();
+  onActionBackToParent(): void {
+    this.router.navigate(["/data-provider/main/source-path-company"]);
   }
-
-  onActionButtonStatist(force?: boolean): void {
-    this.optionsStatist.data.show =
-      force !== undefined ? force : !this.optionsStatist.data.show;
-  }
-
-  onSubmitOptionsSearch(model: any): void {
-    this.filteModelContent.filters = model;
-    this.DataGetAll();
-  }
-
-
 }

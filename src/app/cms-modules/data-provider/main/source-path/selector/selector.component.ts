@@ -17,6 +17,9 @@ import {
   FilterDataModel,
   FilterDataModelSearchTypesEnum,
   FilterModel,
+  ManageUserAccessDataTypesEnum,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Observable, firstValueFrom } from "rxjs";
 import {
@@ -35,6 +38,9 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
   standalone: false,
 })
 export class DataProviderSourcePathSelectorComponent implements OnInit {
+  static nextId = 0;
+  id = ++DataProviderSourcePathSelectorComponent.nextId;
+
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public coreEnumService: CoreEnumService,
@@ -46,19 +52,23 @@ export class DataProviderSourcePathSelectorComponent implements OnInit {
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }
+
   dataModelResult: ErrorExceptionResult<DataProviderSourcePathModel> =
     new ErrorExceptionResult<DataProviderSourcePathModel>();
-  dataModelSelect: DataProviderSourcePathModel = new DataProviderSourcePathModel();
+  dataModelSelect: DataProviderSourcePathModel =
+    new DataProviderSourcePathModel();
   formControl = new FormControl();
   filteredOptions: Observable<DataProviderSourcePathModel[]>;
-  @Input() optionPlaceholder = "";
-  @Input() optionSelectFirstItem = false;
   @Input() optionDisabled = false;
   @Input() optionRequired = false;
+  @Input() optionSelectFirstItem = false;
+  @Input() optionSelectForSendMessage = false;
+  @Input() optionPlaceholder = "";
   @Input() optionLabel = "";
+  @Input() optionAccessDataType: ManageUserAccessDataTypesEnum;
   @Output() optionChange = new EventEmitter<DataProviderSourcePathModel>();
   @Input() optionReload = () => this.onActionButtonReload();
-  @Input() set optionSelectForce(x: string | number | DataProviderSourcePathModel) {
+  @Input() set optionSelectForce(x: string | DataProviderSourcePathModel) {
     this.onActionSelectForce(x);
   }
 
@@ -81,6 +91,7 @@ export class DataProviderSourcePathSelectorComponent implements OnInit {
         }
         return [];
       }),
+      // tap(() => this.myControl.setValue(this.options[0]))
     );
   }
 
@@ -96,7 +107,6 @@ export class DataProviderSourcePathSelectorComponent implements OnInit {
     const filterModel = new FilterModel();
     filterModel.rowPerPage = 20;
     filterModel.accessLoad = true;
-
     let filter = new FilterDataModel();
     filter.propertyName = "title";
     filter.value = text;
@@ -111,10 +121,16 @@ export class DataProviderSourcePathSelectorComponent implements OnInit {
       filter.clauseType = ClauseTypeEnum.Or;
       filterModel.filters.push(filter);
     }
-
+    if (this.optionSelectForSendMessage) {
+      filter = new FilterDataModel();
+      filter.propertyName = "recordStatus";
+      filter.value = RecordStatusEnum.Available;
+      filter.searchType = FilterDataModelSearchTypesEnum.Equal;
+      filterModel.filters.push(filter);
+    }
     const pName = this.constructor.name + "main";
     this.translate
-      .get("MESSAGE.Receiving_information")
+      .get("MESSAGE.get_information_list")
       .subscribe((str: string) => {
         this.publicHelper.processService.processStart(
           pName,
@@ -122,7 +138,11 @@ export class DataProviderSourcePathSelectorComponent implements OnInit {
           this.constructorInfoAreaId,
         );
       });
-
+    /*filter Sort*/
+    filterModel.sortColumn = "priority";
+    filterModel.sortType = SortTypeEnum.Ascending;
+    if (this.optionAccessDataType)
+      this.categoryService.setAccessDataType(this.optionAccessDataType);
     return await firstValueFrom(
       this.categoryService.ServiceGetAll(filterModel),
     ).then((response) => {
@@ -132,30 +152,36 @@ export class DataProviderSourcePathSelectorComponent implements OnInit {
         this.optionSelectFirstItem &&
         (!this.dataModelSelect ||
           !this.dataModelSelect.id ||
-          (typeof this.dataModelSelect.id === 'string' ? this.dataModelSelect.id.length === 0 : this.dataModelSelect.id <= 0)) &&
+          this.dataModelSelect.id.length <= 0) &&
         this.dataModelResult.listItems.length > 0
       ) {
         this.optionSelectFirstItem = false;
-        setTimeout(() => {
-          this.formControl.setValue(this.dataModelResult.listItems[0]);
-        }, 1000);
+        //setTimeout(() => {
+        this.formControl.setValue(this.dataModelResult.listItems[0]);
+        //}, 1000);
         this.onActionSelect(this.dataModelResult.listItems[0]);
       }
       /*select First Item */
       this.publicHelper.processService.processStop(pName);
-
       return response.listItems;
     });
   }
   onActionSelect(model: DataProviderSourcePathModel): void {
+    if (this.optionDisabled) {
+      return;
+    }
     this.dataModelSelect = model;
     this.optionChange.emit(this.dataModelSelect);
   }
   onActionSelectClear(): void {
+    if (this.optionDisabled) {
+      return;
+    }
     this.dataModelSelect = null;
     this.formControl.setValue(null);
     this.optionChange.emit(null);
   }
+
   push(
     newvalue: DataProviderSourcePathModel,
   ): Observable<DataProviderSourcePathModel[]> {
@@ -169,23 +195,22 @@ export class DataProviderSourcePathSelectorComponent implements OnInit {
       }),
     );
   }
-  onActionSelectForce(id: string | number | DataProviderSourcePathModel): void {
-    if ((typeof id === "string" && id.length > 0) || (typeof id === "number" && id > 0)) {
-      const idStr = typeof id === "string" ? id : String(id);
-      if (this.dataModelSelect && String(this.dataModelSelect.id) === idStr) {
+  onActionSelectForce(id: string | DataProviderSourcePathModel): void {
+    if (typeof id === "string" && id.length > 0) {
+      if (this.dataModelSelect && this.dataModelSelect.id === id) {
         return;
       }
       if (
         this.dataModelResult &&
         this.dataModelResult.listItems &&
-        this.dataModelResult.listItems.find((x) => String(x.id) === idStr)
+        this.dataModelResult.listItems.find((x) => x.id === id)
       ) {
-        const item = this.dataModelResult.listItems.find((x) => String(x.id) === idStr);
+        const item = this.dataModelResult.listItems.find((x) => x.id === id);
         this.dataModelSelect = item;
         this.formControl.setValue(item);
         return;
       }
-      this.categoryService.ServiceGetOneById(idStr).subscribe({
+      this.categoryService.ServiceGetOneById(id).subscribe({
         next: (ret) => {
           if (ret.isSuccess) {
             this.filteredOptions = this.push(ret.item);
@@ -210,6 +235,7 @@ export class DataProviderSourcePathSelectorComponent implements OnInit {
 
   onActionButtonReload(): void {
     this.dataModelSelect = new DataProviderSourcePathModel();
+    this.onActionSelectClear();
     this.loadOptions();
   }
 }

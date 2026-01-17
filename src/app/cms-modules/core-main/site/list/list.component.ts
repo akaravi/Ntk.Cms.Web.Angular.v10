@@ -111,10 +111,10 @@ export class CoreSiteListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "MainImageSrc",
+    "recordStatus",
     "title",
     "id",
     "linkCreatedBySiteId",
-    "recordStatus",
     // 'SubDomain',
     // 'Domain',
     // 'CreatedDate',
@@ -124,6 +124,7 @@ export class CoreSiteListComponent
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "MainImageSrc",
+    "recordStatus",
     "title",
     "id",
     "linkCreatedBySiteId",

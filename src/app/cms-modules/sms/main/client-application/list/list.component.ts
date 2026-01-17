@@ -111,8 +111,8 @@ export class SmsMainClientApplicationListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "id",
     "recordStatus",
+    "title",
     "linkUserId",
     "linkSiteId",
     "createdDate",
@@ -120,8 +120,8 @@ export class SmsMainClientApplicationListComponent
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "id",
     "recordStatus",
+    "title",
     "linkUserId",
     "createdDate",
     // 'Action'

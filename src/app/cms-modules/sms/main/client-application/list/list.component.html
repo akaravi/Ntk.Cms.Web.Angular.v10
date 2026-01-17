@@ -147,12 +147,12 @@
       (matSortChange)="onTableSortData(tableSort)"
       multiTemplateDataRows
     >
-      <!-- ID Column -->
-      <ng-container matColumnDef="id">
+      <!-- title Column -->
+      <ng-container matColumnDef="title">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
-          {{ fieldsInfo["id"]?.fieldTitle }}
+          {{ fieldsInfo["title"]?.fieldTitle }}
         </mat-header-cell>
-        <mat-cell *matCellDef="let row"> {{ row.id }} </mat-cell>
+        <mat-cell *matCellDef="let row"> {{ row.title }} </mat-cell>
       </ng-container>
       <!-- LinkSiteId Column -->
       <ng-container matColumnDef="linkSiteId">
@@ -211,12 +211,7 @@
           {{ row.updatedDate | date: "yyyy-MM-dd HH:mm" }}
         </mat-cell>
       </ng-container>
-      <!--expandedTitle-->
-      <ng-container matColumnDef="expandedTitle">
-        <mat-cell *matCellDef="let row">
-          {{ row.id }}
-        </mat-cell>
-      </ng-container>
+
       <!--expandedDetail-->
       <ng-container matColumnDef="expandedDetail">
         <mat-cell *matCellDef="let row">
@@ -247,16 +242,7 @@
         </mat-cell>
       </ng-container>
       <mat-header-row *matHeaderRowDef="tabledisplayedColumns"></mat-header-row>
-      <mat-row
-        *matRowDef="let row; columns: ['expandedTitle']; let i = dataIndex"
-        class="ntk-row-expandedTitle"
-        (click)="onActionTableRowSelect(row, $event)"
-        (rtclick)="onActionTableRowSelect(row, $event)"
-        (mouseenter)="onActionTableRowMouseEnter(row)"
-        (mouseleave)="onActionTableRowMouseLeave(row)"
-        [class.ntk-row-selected]="row.id === tableRowSelected?.id"
-      >
-      </mat-row>
+
       <mat-row
         *matRowDef="let row; columns: tabledisplayedColumns; let i = dataIndex"
         class="ntk-row-mainfild"

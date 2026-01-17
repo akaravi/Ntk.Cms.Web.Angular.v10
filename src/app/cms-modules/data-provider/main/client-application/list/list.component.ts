@@ -104,8 +104,8 @@ export class DataProviderClientApplicationListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "id",
     "recordStatus",
+    "title",
     "linkUserId",
     "linkSiteId",
     "createdDate",
@@ -113,8 +113,8 @@ export class DataProviderClientApplicationListComponent
     "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "id",
     "recordStatus",
+    "title",
     "linkUserId",
     "createdDate",
     "action_menu",
@@ -248,16 +248,23 @@ export class DataProviderClientApplicationListComponent
       this.cmsToastrService.typeErrorAccessAdd();
       return;
     }
-
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.height = "90%";
-    dialogConfig.data = {};
-
+    let linkUserId = this.requestLinkUserId;
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(
       DataProviderClientApplicationAddComponent,
-      dialogConfig,
+      {
+        height: "90%",
+        width: "60%",
+        panelClass: panelClass,
+        enterAnimationDuration:
+          environment.cmsViewConfig.enterAnimationDuration,
+        exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+        data: {
+          linkUserId: linkUserId,
+        },
+      },
     );
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {
@@ -287,14 +294,12 @@ export class DataProviderClientApplicationListComponent
   onActionButtonEditRow(
     model: DataProviderClientApplicationModel = this.tableRowSelected,
   ): void {
-    if (
-      !model?.id ||
-      (typeof model.id === "string" ? model.id.length === 0 : model.id <= 0)
-    ) {
+    if (!model || !model.id || model.id.length == 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
     this.onActionTableRowSelect(model);
+    this.tableRowSelected = model;
     if (
       this.dataModelResult == null ||
       this.dataModelResult.access == null ||
@@ -303,15 +308,19 @@ export class DataProviderClientApplicationListComponent
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.height = "90%";
-    dialogConfig.data = { id: this.tableRowSelected.id };
-
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(
       DataProviderClientApplicationEditComponent,
-      dialogConfig,
+      {
+        height: "90%",
+        panelClass: panelClass,
+        enterAnimationDuration:
+          environment.cmsViewConfig.enterAnimationDuration,
+        exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+        data: { id: this.tableRowSelected.id },
+      },
     );
     dialogRef.afterClosed().subscribe((result) => {
       if (result && result.dialogChangedDate) {

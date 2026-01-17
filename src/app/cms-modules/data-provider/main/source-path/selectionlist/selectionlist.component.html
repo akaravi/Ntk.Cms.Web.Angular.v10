@@ -1,0 +1,13 @@
+<ul>
+  @for (item of dataModelResult.listItems; track item; let i = $index) {
+    <li>
+      <mat-checkbox
+        (change)="onActionSelect(item)"
+        [checked]="fieldsStatus.get(item.id)"
+        [disabled]="optionDisabled"
+        >
+        {{ item.title }}
+      </mat-checkbox>
+    </li>
+  }
+</ul>

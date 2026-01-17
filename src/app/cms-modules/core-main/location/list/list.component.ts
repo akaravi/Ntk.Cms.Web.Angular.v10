@@ -84,18 +84,18 @@ export class CoreLocationListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "LinkImageIdSrc",
-    "id",
     "recordStatus",
     "title",
+    "id",
     "titleML",
     "LocationType",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "LinkImageIdSrc",
-    "id",
     "recordStatus",
     "title",
+    "id",
     "titleML",
     "LocationType",
     // 'Action'

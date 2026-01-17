@@ -79,18 +79,14 @@ export class SmsMainApiPathCompanyListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "linkMainImageIdSrc",
-    //'Id',
     "recordStatus",
     "title",
-    // 'Action'
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
     "linkMainImageIdSrc",
-    //'Id',
     "recordStatus",
     "title",
-    // 'Action'
   ];
 
   expandedElement: SmsMainApiPathCompanyModel | null;

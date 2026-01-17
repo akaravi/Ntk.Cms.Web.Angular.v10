@@ -56,6 +56,26 @@ export const routesNormal: Routes = [
         data: { title: "ROUTE.DATAPROVIDER.SOURCEPATH" },
       },
       {
+        path: "source-path/list",
+        component: DataProviderSourcePathListComponent,
+        data: { title: "ROUTE.DATAPROVIDER.SOURCEPATH" },
+      },
+      {
+        path: "source-path/list/LinkCompanyId/:LinkCompanyId",
+        component: DataProviderSourcePathListComponent,
+        data: { title: "ROUTE.DATAPROVIDER.SOURCEPATH" },
+      },
+      {
+        path: "source-path/list/LinkPublicConfigId/:LinkPublicConfigId",
+        component: DataProviderSourcePathListComponent,
+        data: { title: "ROUTE.DATAPROVIDER.SOURCEPATH" },
+      },
+      {
+        path: "source-path/list/LinkSiteId/:LinkSiteId",
+        component: DataProviderSourcePathListComponent,
+        data: { title: "ROUTE.DATAPROVIDER.SOURCEPATH" },
+      },
+      {
         path: "source-path-pagination",
         component: DataProviderSourcePathPaginationListComponent,
         data: { title: "ROUTE.DATAPROVIDER.SOURCEPATH" },

@@ -96,9 +96,9 @@ export class CoreModuleSaleHeaderListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "linkMainImageIdSrc",
-    "id",
     "recordStatus",
     "title",
+    "id",
     "SalePrice",
     "HasDemo",
     "FromDate",

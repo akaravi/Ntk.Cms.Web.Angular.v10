@@ -91,17 +91,17 @@ export class CoreUserClaimGroupListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "id",
     "recordStatus",
     "title",
+    "id",
     "LinkModuleId",
     "LinkSiteCategoryId",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "id",
     "recordStatus",
     "title",
+    "id",
     "LinkModuleId",
     "LinkSiteCategoryId",
     // 'Action'

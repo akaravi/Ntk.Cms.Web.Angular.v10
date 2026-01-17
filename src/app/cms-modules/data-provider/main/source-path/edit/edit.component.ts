@@ -1,25 +1,28 @@
-import { FormInfoModel } from "src/app/core/models/formInfoModel";
-
-import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild } from "@angular/core";
+import { StepperSelectionEvent } from "@angular/cdk/stepper";
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { MatStepper } from "@angular/material/stepper";
+import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreEnumService,
-  ErrorExceptionResultBase,ManageUserAccessDataTypesEnum,
+import {
+  CoreEnumService,
+  DataProviderSourceCompanyModel,
+  DataProviderSourcePathAliasJsonModel,
   DataProviderSourcePathModel,
-  DataProviderSourcePathService} from "ntk-cms-api";
-import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
+  DataProviderSourcePathService,
+  DataProviderSourcePublicConfigModel,
+  ErrorExceptionResultBase,
+  ManageUserAccessDataTypesEnum,
+} from "ntk-cms-api";
+import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
 @Component({
   selector: "app-data-provider-source-path-edit",
   templateUrl: "./edit.component.html",
+
   standalone: false,
 })
 export class DataProviderSourcePathEditComponent
@@ -33,13 +36,13 @@ export class DataProviderSourcePathEditComponent
   requestId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<DataProviderSourcePathEditComponent>,
     public coreEnumService: CoreEnumService,
     public dataProviderSourcePathService: DataProviderSourcePathService,
     private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
+    private router: Router,
     private cdr: ChangeDetectorRef,
+    private activatedRoute: ActivatedRoute,
     public translate: TranslateService,
   ) {
     super(
@@ -50,40 +53,41 @@ export class DataProviderSourcePathEditComponent
     );
 
     this.publicHelper.processService.cdr = this.cdr;
-    if (data && data.id) {
-      this.requestId = data.id;
+    if (this.activatedRoute.snapshot.paramMap.get("id")) {
+      this.requestId = this.activatedRoute.snapshot.paramMap.get("id");
     }
 
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
   }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
+  complatedView = false;
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
 
   fileManagerTree: TreeModel;
   appLanguage = "fa";
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
-  dataModel: DataProviderSourcePathModel = new DataProviderSourcePathModel();
-
+  dataModel: DataProviderSourcePathAliasJsonModel =
+    new DataProviderSourcePathAliasJsonModel();
 
   fileManagerOpenForm = false;
 
   ngOnInit(): void {
-    if (this.requestId && this.requestId.length > 0) {
+    if (this.requestId.length > 0) {
       this.translate.get("TITLE.Edit").subscribe((str: string) => {
         this.formInfo.formTitle = str;
       });
+      this.DataGetOneContent();
     } else {
       this.cmsToastrService.typeErrorComponentAction();
-      this.dialogRef.close({ dialogChangedDate: false });
+      this.router.navigate(["/data-provider/main/source-path/list"]);
       return;
     }
-    this.DataGetOneContent();
   }
 
   DataGetOneContent(): void {
-    if (this.requestId.length === 0) {
+    if (this.requestId.length <= 0) {
       this.cmsToastrService.typeErrorEditRowIsNull();
       return;
     }
@@ -110,24 +114,89 @@ export class DataProviderSourcePathEditComponent
       ManageUserAccessDataTypesEnum.Editor,
     );
     this.dataProviderSourcePathService
-      .ServiceGetOneById(this.requestId)
+      .ServiceGetOneWithJsonFormatter(this.requestId)
       .subscribe({
         next: (ret) => {
           this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
+          if (!ret.item.perriodStartWorkTime) {
+            ret.item.perriodStartWorkTime = "";
+          } else {
+            ret.item.perriodStartWorkTime =
+              ret.item.perriodStartWorkTime.substring(
+                0,
+                ret.item.perriodStartWorkTime.indexOf(
+                  ":",
+                  ret.item.perriodStartWorkTime.indexOf(":") + 1,
+                ),
+              );
+          }
+          if (!ret.item.perriodEndWorkTime) {
+            ret.item.perriodEndWorkTime = "";
+          } else {
+            ret.item.perriodEndWorkTime = ret.item.perriodEndWorkTime.substring(
+              0,
+              ret.item.perriodEndWorkTime.indexOf(
+                ":",
+                ret.item.perriodEndWorkTime.indexOf(":") + 1,
+              ),
+            );
+          }
           this.dataModel = ret.item;
           if (ret.isSuccess) {
             this.formInfo.formTitle =
               this.formInfo.formTitle + " " + ret.item.title;
             this.formInfo.submitResultMessage = "";
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Success;
-              } else {
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Success;
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Success;
+          } else {
             this.translate
               .get("ERRORMESSAGE.MESSAGE.typeError")
               .subscribe((str: string) => {
                 this.formInfo.submitResultMessage = str;
               });
             this.formInfo.submitResultMessage = ret.errorMessage;
-            this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Error;
             this.cmsToastrService.typeErrorMessage(ret.errorMessage);
           }
           this.publicHelper.processService.processStop(pName);
@@ -166,10 +235,13 @@ export class DataProviderSourcePathEditComponent
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Success;
+              this.formInfo.submitResultMessageType =
+                this.formSubmitedStatusEnum.Success;
             });
+          this.formInfo.submitResultMessageType =
+            this.formSubmitedStatusEnum.Success;
           this.cmsToastrService.typeSuccessEdit();
-          this.dialogRef.close({ dialogChangedDate: true });
+          //setTimeout(() => this.router.navigate(['/data-provider/main/source-path/list']), 1000);
         } else {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
@@ -177,7 +249,8 @@ export class DataProviderSourcePathEditComponent
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType =
+            this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
@@ -189,18 +262,136 @@ export class DataProviderSourcePathEditComponent
       },
     });
   }
-  onActionFileSelected(model: NodeInterface): void {
-    this.dataModel.linkMainImageId = model.id;
-    this.dataModel.linkMainImageIdSrc = model.downloadLinksrc;
+
+  onActionButtonGetToken(): any {
+    const pName = this.constructor.name + "GetToken";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
+
+    this.dataProviderSourcePathService
+      .ServiceGetToken(this.requestId)
+      .subscribe({
+        next: (ret) => {
+          if (ret.isSuccess) {
+            this.cmsToastrService.typeSuccessMessage(
+              ret.item.info + " " + ret.item.status + " ",
+            );
+            setTimeout(() => this.DataGetOneContent(), 2000);
+          } else {
+            this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+          }
+          this.publicHelper.processService.processStop(pName);
+        },
+        error: (er) => {
+          this.cmsToastrService.typeError(er);
+          this.publicHelper.processService.processStop(pName, false);
+        },
+      });
+  }
+  onActionButtonGetBalance(): any {
+    const pName = this.constructor.name + "GetBalance";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
+
+    this.dataProviderSourcePathService
+      .ServiceGetBalance(this.requestId)
+      .subscribe({
+        next: (ret) => {
+          if (ret.isSuccess) {
+            this.cmsToastrService.typeSuccessMessage(
+              ret.item.info + " " + ret.item.status + " " + ret.item.credit,
+            );
+          } else {
+            this.cmsToastrService.typeErrorMessage(
+              ret.errorMessage + ret.item.info + " " + ret.item.status,
+            );
+          }
+          this.publicHelper.processService.processStop(pName);
+        },
+        error: (er) => {
+          this.cmsToastrService.typeError(er);
+          this.publicHelper.processService.processStop(pName, false);
+        },
+      });
+  }
+  onActionSelectorSelectlinkSourceCompanyId(
+    model: DataProviderSourceCompanyModel | null,
+  ): void {
+    if (!model || model.id.length <= 0) {
+      this.translate
+        .get("MESSAGE.Information_application_is_not_clear")
+        .subscribe((message: string) => {
+          this.cmsToastrService.typeErrorSelected(message);
+        });
+      return;
+    }
+    this.dataModel.linkSourceCompanyId = model.id;
+  }
+
+  onStepClick(event: StepperSelectionEvent, stepper: MatStepper): void {
+    if (event.previouslySelectedIndex < event.selectedIndex) {
+      if (!this.formGroup.valid) {
+        this.cmsToastrService.typeErrorFormInvalid();
+        setTimeout(() => {
+          stepper.selectedIndex = event.previouslySelectedIndex;
+          // stepper.previous();
+        }, 10);
+      }
+    }
+  }
+  onActionBackToParent(): void {
+    this.router.navigate(["/data-provider/main/source-path/list"]);
+  }
+  onActionSelectSource(model: DataProviderSourcePublicConfigModel): void {
+    this.dataModel.linkPublicConfigId = null;
+    if (model && model.id?.length > 0) {
+      this.dataModel.linkPublicConfigId = model.id;
+    }
   }
   onFormSubmit(): void {
     if (!this.formGroup.valid) {
+      return;
+    }
+    if (
+      !this.dataModel.linkSourceCompanyId ||
+      this.dataModel.linkSourceCompanyId.length == 0
+    ) {
+      this.translate
+        .get("MESSAGE.Service_company_is_not_clear")
+        .subscribe((message: string) => {
+          this.cmsToastrService.typeErrorSelected(message);
+        });
+      return;
+    }
+    if (
+      !this.dataModel.linkPublicConfigId ||
+      this.dataModel.linkPublicConfigId.length == 0
+    ) {
+      this.translate
+        .get("MESSAGE.Service_type_is_not_clear")
+        .subscribe((message: string) => {
+          this.cmsToastrService.typeErrorSelected(message);
+        });
       return;
     }
     this.formInfo.submitButtonEnabled = false;
     this.DataEditContent();
   }
   onFormCancel(): void {
-    this.dialogRef.close({ dialogChangedDate: false });
+    this.router.navigate(["/data-provider/main/source-path/list"]);
   }
 }

@@ -63,7 +63,7 @@ export class DataProviderSourceCompanySelectorComponent implements OnInit {
   @Input() optionLabel = "";
   @Output() optionChange = new EventEmitter<DataProviderSourceCompanyModel>();
   @Input() optionReload = () => this.onActionButtonReload();
-  @Input() set optionSelectForce(x: number | DataProviderSourceCompanyModel) {
+  @Input() set optionSelectForce(x: string | DataProviderSourceCompanyModel) {
     this.onActionSelectForce(x);
   }
 
@@ -224,4 +224,3 @@ export class DataProviderSourceCompanySelectorComponent implements OnInit {
     this.loadOptions();
   }
 }
-

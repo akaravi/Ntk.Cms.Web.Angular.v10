@@ -12,7 +12,7 @@
     ></app-cms-form-result-message>
     <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
       <!-- RecordStatus Field -->
-      @if (fieldsInfo['recordStatus']?.accessWatchField) {
+      @if (fieldsInfo["recordStatus"]?.accessWatchField) {
         <app-cms-enum-record-status-selector
           [(model)]="dataModel.recordStatus"
           [optionDisabled]="false"
@@ -23,10 +23,10 @@
       }
 
       <!-- Title Field -->
-      @if (fieldsInfo['title']?.accessWatchField) {
+      @if (fieldsInfo["title"]?.accessWatchField) {
         <div
           class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-          >
+        >
           <label for="dataModel.title" class="color-highlight">{{
             fieldsInfo["title"]?.fieldTitle
           }}</label>
@@ -36,182 +36,186 @@
             [(ngModel)]="dataModel.title"
             name="dataModel.title"
             #Title
-            type="text"
             placeholder="{{ fieldsInfo['title']?.fieldTitle }}"
             minlength="3"
             maxlength="128"
             required
             class="form-control validate-name"
             id="dataModel.title"
-            />
-            <em>{{ Title.value.length }} / 128</em>
-            @if (Title.errors?.required) {
-              <mat-error>
-                Title is <strong>{{ "MESSAGE.required" | translate }}</strong>
-              </mat-error>
-            }
-          </div>
-        }
-
-        <!-- ClassName Field -->
-        @if (fieldsInfo['className']?.accessWatchField) {
-          <div
-            class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-            >
-            <label for="dataModel.className" class="color-highlight">{{
-              fieldsInfo["className"]?.fieldTitle
-            }}</label>
-            <input
-              matInput
-              type="text"
-              [(ngModel)]="dataModel.className"
-              name="dataModel.className"
-              #ClassName
-              placeholder="{{ fieldsInfo['className']?.fieldTitle }}"
-              class="form-control validate-name"
-              id="dataModel.className"
-              />
-            </div>
+          />
+          <em>{{ Title.value.length }} / 128</em>
+          @if (Title.errors?.required) {
+            <mat-error>
+              Title is <strong>{{ "MESSAGE.required" | translate }}</strong>
+            </mat-error>
           }
+        </div>
+      }
 
-          <!-- WebServiceUrl Field -->
-          @if (fieldsInfo['webServiceUrl']?.accessWatchField) {
-            <div
-              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-              >
-              <label for="dataModel.webServiceUrl" class="color-highlight">{{
-                fieldsInfo["webServiceUrl"]?.fieldTitle
-              }}</label>
+      <!-- ClassName Field -->
+      @if (fieldsInfo["className"]?.accessWatchField) {
+        <div
+          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+        >
+          <label for="dataModel.className" class="color-highlight">{{
+            fieldsInfo["className"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="dataModel.className"
+            name="dataModel.className"
+            #ClassName
+            placeholder="{{ fieldsInfo['className']?.fieldTitle }}"
+            class="form-control validate-name"
+            id="dataModel.className"
+          />
+        </div>
+      }
+
+      <!-- WebServiceUrl Field -->
+      @if (fieldsInfo["webServiceUrl"]?.accessWatchField) {
+        <div
+          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+        >
+          <label for="dataModel.webServiceUrl" class="color-highlight">{{
+            fieldsInfo["webServiceUrl"]?.fieldTitle
+          }}</label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="dataModel.webServiceUrl"
+            name="dataModel.webServiceUrl"
+            #WebServiceUrl
+            placeholder="{{ fieldsInfo['webServiceUrl']?.fieldTitle }}"
+            class="form-control validate-name"
+            id="dataModel.webServiceUrl"
+          />
+        </div>
+      }
+
+      <!-- AbilityDelivery Field -->
+      @if (fieldsInfo["abilityDelivery"]?.accessWatchField) {
+        <div class="d-flex mb-3">
+          <div class="pt-1">
+            <h5 class="font-600 font-14">
+              {{ fieldsInfo["abilityDelivery"]?.fieldTitle }}
+            </h5>
+          </div>
+          <div class="ms-auto me-3 pe-2">
+            <div class="custom-control ios-switch small-switch">
               <input
-                matInput
-                type="text"
-                [(ngModel)]="dataModel.webServiceUrl"
-                name="dataModel.webServiceUrl"
-                #WebServiceUrl
-                placeholder="{{ fieldsInfo['webServiceUrl']?.fieldTitle }}"
-                class="form-control validate-name"
-                id="dataModel.webServiceUrl"
-                />
-              </div>
-            }
+                type="checkbox"
+                class="ios-input"
+                id="dataModel.abilityDelivery"
+                [(ngModel)]="dataModel.abilityDelivery"
+                name="dataModel.abilityDelivery"
+              />
+              <label
+                class="custom-control-label"
+                for="dataModel.abilityDelivery"
+              ></label>
+            </div>
+          </div>
+        </div>
+      }
 
-            <!-- AbilityDelivery Field -->
-            @if (fieldsInfo['abilityDelivery']?.accessWatchField) {
-              <div class="d-flex mb-3">
-                <div class="pt-1">
-                  <h5 class="font-600 font-14">
-                    {{ fieldsInfo["abilityDelivery"]?.fieldTitle }}
-                  </h5>
-                </div>
-                <div class="ms-auto me-3 pe-2">
-                  <div class="custom-control ios-switch small-switch">
-                    <input
-                      type="checkbox"
-                      class="ios-input"
-                      id="dataModel.abilityDelivery"
-                      [(ngModel)]="dataModel.abilityDelivery"
-                      name="dataModel.abilityDelivery"
-                      />
-                      <label
-                        class="custom-control-label"
-                        for="dataModel.abilityDelivery"
-                      ></label>
-                    </div>
-                  </div>
-                </div>
-              }
+      <!-- AbilityReceive Field -->
+      @if (fieldsInfo["abilityReceive"]?.accessWatchField) {
+        <div class="d-flex mb-3">
+          <div class="pt-1">
+            <h5 class="font-600 font-14">
+              {{ fieldsInfo["abilityReceive"]?.fieldTitle }}
+            </h5>
+          </div>
+          <div class="ms-auto me-3 pe-2">
+            <div class="custom-control ios-switch small-switch">
+              <input
+                type="checkbox"
+                class="ios-input"
+                id="dataModel.abilityReceive"
+                [(ngModel)]="dataModel.abilityReceive"
+                name="dataModel.abilityReceive"
+              />
+              <label
+                class="custom-control-label"
+                for="dataModel.abilityReceive"
+              ></label>
+            </div>
+          </div>
+        </div>
+      }
 
-              <!-- AbilityReceive Field -->
-              @if (fieldsInfo['abilityReceive']?.accessWatchField) {
-                <div class="d-flex mb-3">
-                  <div class="pt-1">
-                    <h5 class="font-600 font-14">
-                      {{ fieldsInfo["abilityReceive"]?.fieldTitle }}
-                    </h5>
-                  </div>
-                  <div class="ms-auto me-3 pe-2">
-                    <div class="custom-control ios-switch small-switch">
-                      <input
-                        type="checkbox"
-                        class="ios-input"
-                        id="dataModel.abilityReceive"
-                        [(ngModel)]="dataModel.abilityReceive"
-                        name="dataModel.abilityReceive"
-                        />
-                        <label
-                          class="custom-control-label"
-                          for="dataModel.abilityReceive"
-                        ></label>
-                      </div>
-                    </div>
-                  </div>
-                }
+      <!-- AbilityCreditCheck Field -->
+      @if (fieldsInfo["abilityCreditCheck"]?.accessWatchField) {
+        <div class="d-flex mb-3">
+          <div class="pt-1">
+            <h5 class="font-600 font-14">
+              {{ fieldsInfo["abilityCreditCheck"]?.fieldTitle }}
+            </h5>
+          </div>
+          <div class="ms-auto me-3 pe-2">
+            <div class="custom-control ios-switch small-switch">
+              <input
+                type="checkbox"
+                class="ios-input"
+                id="dataModel.abilityCreditCheck"
+                [(ngModel)]="dataModel.abilityCreditCheck"
+                name="dataModel.abilityCreditCheck"
+              />
+              <label
+                class="custom-control-label"
+                for="dataModel.abilityCreditCheck"
+              ></label>
+            </div>
+          </div>
+        </div>
+      }
 
-                <!-- AbilityCreditCheck Field -->
-                @if (fieldsInfo['abilityCreditCheck']?.accessWatchField) {
-                  <div class="d-flex mb-3">
-                    <div class="pt-1">
-                      <h5 class="font-600 font-14">
-                        {{ fieldsInfo["abilityCreditCheck"]?.fieldTitle }}
-                      </h5>
-                    </div>
-                    <div class="ms-auto me-3 pe-2">
-                      <div class="custom-control ios-switch small-switch">
-                        <input
-                          type="checkbox"
-                          class="ios-input"
-                          id="dataModel.abilityCreditCheck"
-                          [(ngModel)]="dataModel.abilityCreditCheck"
-                          name="dataModel.abilityCreditCheck"
-                          />
-                          <label
-                            class="custom-control-label"
-                            for="dataModel.abilityCreditCheck"
-                          ></label>
-                        </div>
-                      </div>
-                    </div>
-                  }
+      <!-- publicConfigJsonFormatter Field -->
+      <dynamic-form-builder-cms
+        [formGroup]="vform.form"
+        [(jsonValue)]="dataModel.publicConfigJsonValues"
+        [propertiesInfos]="dataModel.publicConfigJsonFormatter"
+      ></dynamic-form-builder-cms>
+      <!-- Memo Field -->
+      @if (fieldsInfo["memo"]?.accessWatchField) {
+        <div
+          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+        >
+          <label for="dataModel.memo" class="color-highlight">{{
+            fieldsInfo["memo"]?.fieldTitle
+          }}</label>
+          <textarea
+            matInput
+            [(ngModel)]="dataModel.memo"
+            name="dataModel.memo"
+            #Memo
+            rows="5"
+            class="form-control validate-name"
+            id="dataModel.memo"
+          ></textarea>
+        </div>
+      }
 
-                  <!-- Memo Field -->
-                  @if (fieldsInfo['memo']?.accessWatchField) {
-                    <div
-                      class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-                      >
-                      <label for="dataModel.memo" class="color-highlight">{{
-                        fieldsInfo["memo"]?.fieldTitle
-                      }}</label>
-                      <textarea
-                        matInput
-                        [(ngModel)]="dataModel.memo"
-                        name="dataModel.memo"
-                        #Memo
-                        rows="5"
-                        class="form-control validate-name"
-                        id="dataModel.memo"
-                        ></textarea>
-                      </div>
-                    }
-
-                    @if (formInfo.submitButtonEnabled) {
-                      <div class="form-actions">
-                        <button
-                          type="button"
-                          (click)="onFormCancel()"
-                          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-                          >
-                          <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
-                        </button>
-                        <button
-                          type="submit"
-                          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
-                          [disabled]="!vform.form.valid"
-                          >
-                          <i class="fa fa-check-square-o"></i> {{ "ACTION.SAVE" | translate }}
-                        </button>
-                      </div>
-                    }
-                  </form>
-                </div>
-              </div>
-
+      @if (formInfo.submitButtonEnabled) {
+        <div class="form-actions">
+          <button
+            type="button"
+            (click)="onFormCancel()"
+            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+          >
+            <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
+          </button>
+          <button
+            type="submit"
+            class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
+            [disabled]="!vform.form.valid"
+          >
+            <i class="fa fa-check-square-o"></i> {{ "ACTION.SAVE" | translate }}
+          </button>
+        </div>
+      }
+    </form>
+  </div>
+</div>

@@ -26,6 +26,7 @@ import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { environment } from "src/environments/environment";
 import { DataProviderSourcePublicConfigAddComponent } from "../add/add.component";
 import { DataProviderSourcePublicConfigEditComponent } from "../edit/edit.component";
 
@@ -86,9 +87,9 @@ export class DataProviderSourcePublicConfigListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
-    "id",
     "recordStatus",
     "title",
+    "id",
     "className",
     //"abilityDelivery",
     //"abilityReceive",
@@ -96,9 +97,9 @@ export class DataProviderSourcePublicConfigListComponent
     "action",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
-    "id",
     "recordStatus",
     "title",
+    "id",
     "className",
     //"abilityDelivery",
     //"abilityReceive",
@@ -238,30 +239,30 @@ export class DataProviderSourcePublicConfigListComponent
   onActionButtonEditRow(
     model: DataProviderSourcePublicConfigModel = this.tableRowSelected,
   ): void {
-    if (
-      !model ||
-      !model.id ||
-      (typeof model.id === "string" ? model.id.length === 0 : model.id === 0)
-    ) {
-      this.translate
-        .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
-        .subscribe((str: string) => {
-          this.cmsToastrService.typeErrorSelected(str);
-        });
+    if (!(model?.id?.length > 0)) {
+      this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
     this.onActionTableRowSelect(model);
     if (
-      this.tokenInfo == null ||
-      !this.dataModelResult?.access?.accessEditRow
+      this.dataModelResult == null ||
+      this.dataModelResult.access == null ||
+      !this.dataModelResult.access.accessEditRow
     ) {
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
     const dialogRef = this.dialog.open(
       DataProviderSourcePublicConfigEditComponent,
       {
         height: "90%",
+        panelClass: panelClass,
+        enterAnimationDuration:
+          environment.cmsViewConfig.enterAnimationDuration,
+        exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
         data: { id: this.tableRowSelected.id },
       },
     );
@@ -430,6 +431,7 @@ export class DataProviderSourcePublicConfigListComponent
   }
   onActionButtonPrivateList(
     model: DataProviderSourcePublicConfigModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id?.length > 0)) {
       this.translate
@@ -449,9 +451,16 @@ export class DataProviderSourcePublicConfigListComponent
       this.cmsToastrService.typeErrorSelected();
       return;
     }
-    this.router.navigate([
-      "/data-provider/main/source/list/LinkPublicConfigId",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/data-provider/main/source-path/list/LinkPublicConfigId/" +
+        this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/data-provider/main/source-path/list/LinkPublicConfigId",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
 }

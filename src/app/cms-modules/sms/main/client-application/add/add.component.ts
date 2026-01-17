@@ -53,8 +53,8 @@ export class SmsMainClientApplicationAddComponent
     this.publicHelper.processService.cdr = this.cdr;
 
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
-    if (data && data.linkUserId) {
-      (this.dataModel as any).linkUserId = data.linkUserId;
+    if (data && data.linkUserId && +data.linkUserId > 0) {
+      this.dataModel.linkCoreUserId = +data.linkUserId;
     }
   }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
@@ -205,7 +205,7 @@ export class SmsMainClientApplicationAddComponent
       // Validate each octet is between 0-255
       const parts = ip.split(".");
       return parts.every(
-        (part) => parseInt(part, 10) >= 0 && parseInt(part, 10) <= 255
+        (part) => parseInt(part, 10) >= 0 && parseInt(part, 10) <= 255,
       );
     }
 
@@ -217,7 +217,7 @@ export class SmsMainClientApplicationAddComponent
       }
       const parts = address.split(".");
       return parts.every(
-        (part) => parseInt(part, 10) >= 0 && parseInt(part, 10) <= 255
+        (part) => parseInt(part, 10) >= 0 && parseInt(part, 10) <= 255,
       );
     }
 
@@ -226,10 +226,10 @@ export class SmsMainClientApplicationAddComponent
       const startParts = startIP.split(".");
       const endParts = endIP.split(".");
       const startValid = startParts.every(
-        (part) => parseInt(part, 10) >= 0 && parseInt(part, 10) <= 255
+        (part) => parseInt(part, 10) >= 0 && parseInt(part, 10) <= 255,
       );
       const endValid = endParts.every(
-        (part) => parseInt(part, 10) >= 0 && parseInt(part, 10) <= 255
+        (part) => parseInt(part, 10) >= 0 && parseInt(part, 10) <= 255,
       );
       return startValid && endValid;
     }
