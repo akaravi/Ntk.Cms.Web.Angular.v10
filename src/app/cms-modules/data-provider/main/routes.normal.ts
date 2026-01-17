@@ -13,6 +13,7 @@ import { DataProviderSourcePathPaginationListComponent } from "./source-path-pag
 import { DataProviderSourcePathListComponent } from "./source-path/list/list.component";
 import { DataProviderSourcePublicConfigListComponent } from "./source-public-config/list/list.component";
 import { DataProviderSourceListComponent } from "./source/list/list.component";
+import { DataProviderSourcePathEditComponent } from "./source-path/edit/edit.component";
 
 export const routesNormal: Routes = [
   {
@@ -73,6 +74,12 @@ export const routesNormal: Routes = [
       {
         path: "source-path/list/LinkSiteId/:LinkSiteId",
         component: DataProviderSourcePathListComponent,
+        data: { title: "ROUTE.DATAPROVIDER.SOURCEPATH" },
+      }
+      ,
+       {
+        path: "source-path/edit/:id",
+        component: DataProviderSourcePathEditComponent,
         data: { title: "ROUTE.DATAPROVIDER.SOURCEPATH" },
       },
       {

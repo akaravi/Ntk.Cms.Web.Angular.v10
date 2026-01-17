@@ -334,22 +334,22 @@ export class DataProviderSourcePathListComponent
   }
 
   onActionButtonNewRow(): void {
-    if (
-      !this.requestLinkCompanyId ||
-      (this.requestLinkCompanyId && this.requestLinkCompanyId.length == 0)
-    ) {
-      if (
-        this.categoryModelSelected == null ||
-        this.categoryModelSelected.id.length === 0
-      ) {
-        this.translate
-          .get("MESSAGE.Company_not_selected")
-          .subscribe((message: string) => {
-            this.cmsToastrService.typeErrorSelected(message);
-          });
-        return;
-      }
-    }
+    // if (
+    //   !this.requestLinkCompanyId ||
+    //   (this.requestLinkCompanyId && this.requestLinkCompanyId.length == 0)
+    // ) {
+    //   if (
+    //     this.categoryModelSelected == null ||
+    //     this.categoryModelSelected.id.length === 0
+    //   ) {
+    //     this.translate
+    //       .get("MESSAGE.Company_not_selected")
+    //       .subscribe((message: string) => {
+    //         this.cmsToastrService.typeErrorSelected(message);
+    //       });
+    //     return;
+    //   }
+    // }
 
     if (
       this.dataModelResult == null ||
