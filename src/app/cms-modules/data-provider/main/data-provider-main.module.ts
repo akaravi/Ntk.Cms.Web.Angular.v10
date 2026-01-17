@@ -130,6 +130,7 @@ import { DataProviderClientApplicationListComponent } from "./client-application
 import { DataProviderClientApplicationListMobileComponent } from "./client-application/list/list.mobile.component";
 import { DataProviderClientApplicationSelectorComponent } from "./client-application/selector/selector.component";
 // Client Application Permission
+import { NgxMaterialTimepickerModule } from "ngx-material-timepicker";
 import { DynamicFormBuilderModule } from "src/app/core/dynamic-form-builder/dynamic-form-builder.module";
 import { DataProviderClientApplicationPermissionAddComponent } from "./client-application-permission/add/add.component";
 import { DataProviderClientApplicationPermissionEditComponent } from "./client-application-permission/edit/edit.component";
@@ -137,8 +138,10 @@ import { DataProviderClientApplicationPermissionListComponent } from "./client-a
 import { DataProviderClientApplicationPermissionListMobileComponent } from "./client-application-permission/list/list.mobile.component";
 import { DataProviderSourcePathAddMobileComponent } from "./source-path/add/add.mobile.component";
 import { DataProviderSourcePathEditMobileComponent } from "./source-path/edit/edit.mobile.component";
+import { DataProviderSourcePathHeaderComponent } from "./source-path/header/header.component";
 import { DataProviderSourcePathSelectionlistComponent } from "./source-path/selectionlist/selectionlist.component";
 import { DataProviderSourcePathTreeComponent } from "./source-path/tree/tree.component";
+import { DataProviderSourcePathTreeMobileComponent } from "./source-path/tree/tree.mobile.component";
 import { DataProviderSourcePublicConfigSelectorComponent } from "./source-public-config/selector/selector.component";
 import { DataProviderSourcePublicConfigTreeComponent } from "./source-public-config/tree/tree.component";
 import { DataProviderSourcePublicConfigTreeMobileComponent } from "./source-public-config/tree/tree.mobile.component";
@@ -224,6 +227,8 @@ import { DataProviderSourcePublicConfigTreeMobileComponent } from "./source-publ
     DataProviderSourcePathSelectorComponent,
     DataProviderSourcePathSelectionlistComponent,
     DataProviderSourcePathTreeComponent,
+    DataProviderSourcePathTreeMobileComponent,
+    DataProviderSourcePathHeaderComponent,
     /* Client Application */
     DataProviderClientApplicationAddComponent,
     DataProviderClientApplicationEditComponent,
@@ -326,6 +331,8 @@ import { DataProviderSourcePublicConfigTreeMobileComponent } from "./source-publ
     DataProviderSourcePathSelectorComponent,
     DataProviderSourcePathSelectionlistComponent,
     DataProviderSourcePathTreeComponent,
+    DataProviderSourcePathTreeMobileComponent,
+    DataProviderSourcePathHeaderComponent,
     /* Client Application */
     DataProviderClientApplicationAddComponent,
     DataProviderClientApplicationEditComponent,
@@ -376,6 +383,7 @@ import { DataProviderSourcePublicConfigTreeMobileComponent } from "./source-publ
     DragDropModule,
     CmsFileManagerModule,
     DynamicFormBuilderModule,
+    NgxMaterialTimepickerModule,
   ],
   providers: [
     CoreModuleService,

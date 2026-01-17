@@ -566,24 +566,24 @@ export class DataProviderSourcePathListMobileComponent
         );
       });
 
-    this.contentService.ServiceGetBalance(model.id).subscribe({
-      next: (ret) => {
-        if (ret.isSuccess) {
-          this.cmsToastrService.typeSuccessMessage(
-            ret.item.info + " " + ret.item.status + " " + ret.item.credit,
-          );
-        } else {
-          this.cmsToastrService.typeErrorMessage(
-            ret.errorMessage + ret.item.info + " " + ret.item.status,
-          );
-        }
-        this.publicHelper.processService.processStop(pName);
-      },
-      error: (er) => {
-        this.cmsToastrService.typeError(er);
-        this.publicHelper.processService.processStop(pName, false);
-      },
-    });
+    // this.contentService.ServiceGetBalance(model.id).subscribe({
+    //   next: (ret) => {
+    //     if (ret.isSuccess) {
+    //       this.cmsToastrService.typeSuccessMessage(
+    //         ret.item.info + " " + ret.item.status + " " + ret.item.credit,
+    //       );
+    //     } else {
+    //       this.cmsToastrService.typeErrorMessage(
+    //         ret.errorMessage + ret.item.info + " " + ret.item.status,
+    //       );
+    //     }
+    //     this.publicHelper.processService.processStop(pName);
+    //   },
+    //   error: (er) => {
+    //     this.cmsToastrService.typeError(er);
+    //     this.publicHelper.processService.processStop(pName, false);
+    //   },
+    // });
   }
   onActionButtonSendMessage(
     model: DataProviderSourcePathModel = this.tableRowSelected,
@@ -794,25 +794,25 @@ export class DataProviderSourcePathListMobileComponent
     }
     this.onActionTableRowSelect(model);
 
-    var panelClass = "";
-    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
-    else panelClass = "dialog-min";
-    const dialogRef = this.dialog.open(
-      DataProviderSourcePathSendTestComponent,
-      {
-        height: "90%",
-        panelClass: panelClass,
-        enterAnimationDuration:
-          environment.cmsViewConfig.enterAnimationDuration,
-        exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
-        data: { linkApiPathId: this.tableRowSelected.id },
-      },
-    );
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result && result.dialogChangedDate) {
-        this.DataGetAll();
-      }
-    });
+    // var panelClass = "";
+    // if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    // else panelClass = "dialog-min";
+    // const dialogRef = this.dialog.open(
+    //   DataProviderSourcePathSendTestComponent,
+    //   {
+    //     height: "90%",
+    //     panelClass: panelClass,
+    //     enterAnimationDuration:
+    //       environment.cmsViewConfig.enterAnimationDuration,
+    //     exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+    //     data: { linkApiPathId: this.tableRowSelected.id },
+    //   },
+    // );
+    // dialogRef.afterClosed().subscribe((result) => {
+    //   if (result && result.dialogChangedDate) {
+    //     this.DataGetAll();
+    //   }
+    // });
   }
   onActionButtonReportsRow(
     model: DataProviderSourcePathModel = this.tableRowSelected,

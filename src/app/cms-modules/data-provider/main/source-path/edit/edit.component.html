@@ -156,65 +156,7 @@
               />
             </div>
           }
-          <!-- hookAddressReceiveMessageAPIById Field -->
-          @if (
-            fieldsInfo["hookAddressReceiveMessageAPIById"]?.accessWatchField
-          ) {
-            <div
-              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-            >
-              <label
-                for="dataModel.hookAddressReceiveMessageAPIById"
-                class="color-highlight"
-                >{{
-                  fieldsInfo["hookAddressReceiveMessageAPIById"]?.fieldTitle
-                }}</label
-              >
-              <input
-                matInput
-                [(ngModel)]="dataModel.hookAddressReceiveMessageAPIById"
-                name="dataModel.hookAddressReceiveMessageAPIById"
-                placeholder="https://"
-                #hookAddressReceiveMessageAPIById
-                type="text"
-                readonly
-                placeholder="1"
-                class="form-control validate-name input-ltr"
-                id="dataModel.hookAddressReceiveMessageAPIById"
-              />
-            </div>
-          }
 
-          <!-- hookAddressReceiveDeliveryStatusAPIById Field -->
-          @if (
-            fieldsInfo["hookAddressReceiveDeliveryStatusAPIById"]
-              ?.accessWatchField
-          ) {
-            <div
-              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-            >
-              <label
-                for="dataModel.hookAddressReceiveDeliveryStatusAPIById"
-                class="color-highlight"
-                >{{
-                  fieldsInfo["hookAddressReceiveDeliveryStatusAPIById"]
-                    ?.fieldTitle
-                }}</label
-              >
-              <input
-                matInput
-                [(ngModel)]="dataModel.hookAddressReceiveDeliveryStatusAPIById"
-                name="dataModel.hookAddressReceiveDeliveryStatusAPIById"
-                placeholder="https://"
-                #hookAddressReceiveDeliveryStatusAPIById
-                type="text"
-                readonly
-                placeholder="1"
-                class="form-control validate-name input-ltr"
-                id="dataModel.hookAddressReceiveDeliveryStatusAPIById"
-              />
-            </div>
-          }
 
           <!-- apiAbilityLengthMinToSend Field -->
           @if (fieldsInfo["apiAbilityLengthMinToSend"]?.accessWatchField) {
@@ -1091,33 +1033,7 @@
               [calendarHeaderComponent]="datapickerHeader"
             ></mat-datepicker>
           </div>
-          <!-- StatusNotStableMonitorApiChar Field -->
-          @if (fieldsInfo["statusNotStableMonitorApiChar"]?.accessWatchField) {
-            <div
-              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-            >
-              <label
-                for="dataModel.statusNotStableMonitorApiChar"
-                class="color-highlight"
-                >{{
-                  fieldsInfo["statusNotStableMonitorApiChar"]?.fieldTitle
-                }}</label
-              >
-              <input
-                matInput
-                [(ngModel)]="dataModel.statusNotStableMonitorApiChar"
-                name="dataModel.statusNotStableMonitorApiChar"
-                #StatusNotStableMonitorApiChar
-                type="number"
-                placeholder="1"
-                [disabled]="
-                  !fieldsInfo['statusNotStableMonitorApiChar']?.accessEditField
-                "
-                class="form-control validate-name"
-                id="dataModel.statusNotStableMonitorApiChar"
-              />
-            </div>
-          }
+
           <!-- StatusNotStableActive Field -->
           @if (fieldsInfo["apiAbilityUseInside"]?.accessWatchField) {
             <div class="d-flex mb-3">

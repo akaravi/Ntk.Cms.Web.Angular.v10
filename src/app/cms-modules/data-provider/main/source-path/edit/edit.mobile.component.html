@@ -165,53 +165,8 @@
               </div>
             }
 
-            <!-- hookAddressReceiveMessageAPIById Field -->
-            @if (
-              fieldsInfo["hookAddressReceiveMessageAPIById"]?.accessWatchField
-            ) {
-              <div class="cms-m-form-field">
-                <label class="cms-m-form-label">{{
-                  fieldsInfo["hookAddressReceiveMessageAPIById"]?.fieldTitle
-                }}</label>
-                <input
-                  matInput
-                  [(ngModel)]="dataModel.hookAddressReceiveMessageAPIById"
-                  name="dataModel.hookAddressReceiveMessageAPIById"
-                  placeholder="https://"
-                  #hookAddressReceiveMessageAPIById
-                  type="text"
-                  readonly
-                  class="cms-m-form-input input-ltr"
-                  id="dataModel.hookAddressReceiveMessageAPIById"
-                />
-              </div>
-            }
 
-            <!-- hookAddressReceiveDeliveryStatusAPIById Field -->
-            @if (
-              fieldsInfo["hookAddressReceiveDeliveryStatusAPIById"]
-                ?.accessWatchField
-            ) {
-              <div class="cms-m-form-field">
-                <label class="cms-m-form-label">{{
-                  fieldsInfo["hookAddressReceiveDeliveryStatusAPIById"]
-                    ?.fieldTitle
-                }}</label>
-                <input
-                  matInput
-                  [(ngModel)]="
-                    dataModel.hookAddressReceiveDeliveryStatusAPIById
-                  "
-                  name="dataModel.hookAddressReceiveDeliveryStatusAPIById"
-                  placeholder="https://"
-                  #hookAddressReceiveDeliveryStatusAPIById
-                  type="text"
-                  readonly
-                  class="cms-m-form-input input-ltr"
-                  id="dataModel.hookAddressReceiveDeliveryStatusAPIById"
-                />
-              </div>
-            }
+
 
             <!-- apiAbilityLengthMinToSend Field -->
             @if (fieldsInfo["apiAbilityLengthMinToSend"]?.accessWatchField) {

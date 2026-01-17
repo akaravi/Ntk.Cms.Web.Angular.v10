@@ -234,25 +234,25 @@ export class DataProviderSourcePathEditMobileComponent
         );
       });
 
-    this.dataProviderSourcePathService
-      .ServiceGetToken(this.requestId)
-      .subscribe({
-        next: (ret) => {
-          if (ret.isSuccess) {
-            this.cmsToastrService.typeSuccessMessage(
-              ret.item.info + " " + ret.item.status + " ",
-            );
-            setTimeout(() => this.DataGetOneContent(), 2000);
-          } else {
-            this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-          }
-          this.publicHelper.processService.processStop(pName);
-        },
-        error: (er) => {
-          this.cmsToastrService.typeError(er);
-          this.publicHelper.processService.processStop(pName, false);
-        },
-      });
+    // this.dataProviderSourcePathService
+    //   .ServiceGetToken(this.requestId)
+    //   .subscribe({
+    //     next: (ret) => {
+    //       if (ret.isSuccess) {
+    //         this.cmsToastrService.typeSuccessMessage(
+    //           ret.item.info + " " + ret.item.status + " ",
+    //         );
+    //         setTimeout(() => this.DataGetOneContent(), 2000);
+    //       } else {
+    //         this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+    //       }
+    //       this.publicHelper.processService.processStop(pName);
+    //     },
+    //     error: (er) => {
+    //       this.cmsToastrService.typeError(er);
+    //       this.publicHelper.processService.processStop(pName, false);
+    //     },
+    //   });
   }
   onActionButtonGetBalance(): any {
     const pName = this.constructor.name + "GetBalance";
@@ -266,26 +266,26 @@ export class DataProviderSourcePathEditMobileComponent
         );
       });
 
-    this.dataProviderSourcePathService
-      .ServiceGetBalance(this.requestId)
-      .subscribe({
-        next: (ret) => {
-          if (ret.isSuccess) {
-            this.cmsToastrService.typeSuccessMessage(
-              ret.item.info + " " + ret.item.status + " " + ret.item.credit,
-            );
-          } else {
-            this.cmsToastrService.typeErrorMessage(
-              ret.errorMessage + ret.item.info + " " + ret.item.status,
-            );
-          }
-          this.publicHelper.processService.processStop(pName);
-        },
-        error: (er) => {
-          this.cmsToastrService.typeError(er);
-          this.publicHelper.processService.processStop(pName, false);
-        },
-      });
+    // this.dataProviderSourcePathService
+    //   .ServiceGetBalance(this.requestId)
+    //   .subscribe({
+    //     next: (ret) => {
+    //       if (ret.isSuccess) {
+    //         this.cmsToastrService.typeSuccessMessage(
+    //           ret.item.info + " " + ret.item.status + " " + ret.item.credit,
+    //         );
+    //       } else {
+    //         this.cmsToastrService.typeErrorMessage(
+    //           ret.errorMessage + ret.item.info + " " + ret.item.status,
+    //         );
+    //       }
+    //       this.publicHelper.processService.processStop(pName);
+    //     },
+    //     error: (er) => {
+    //       this.cmsToastrService.typeError(er);
+    //       this.publicHelper.processService.processStop(pName, false);
+    //     },
+    //   });
   }
   onActionSelectorSelectlinkSourceCompanyId(
     model: DataProviderSourceCompanyModel | null,
