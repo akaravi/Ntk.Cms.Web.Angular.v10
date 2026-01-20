@@ -3,6 +3,9 @@
 #"version": "18.3.0431.2",
 name: Node.js CI
 
+permissions:
+  contents: write
+
 on:
   push:
     branches: [publish]
@@ -75,9 +78,7 @@ jobs:
       - name: Create Release Archive
         if: success() && github.event_name == 'push' && github.ref == 'refs/heads/publish' && steps.check_tag.outputs.exists != 'true'
         run: |
-          cd dist/ntk-cms-web/browser
-          zip -r ../../release-v${{ steps.package_version.outputs.version }}.zip .
-          cd ../../..
+          zip -r "release-v${{ steps.package_version.outputs.version }}.zip" dist/ntk-cms-web/browser
           echo "Release archive created: release-v${{ steps.package_version.outputs.version }}.zip"
 
       - name: Create Release
