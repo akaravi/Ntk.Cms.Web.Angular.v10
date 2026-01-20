@@ -66,9 +66,11 @@ jobs:
         if: success() && github.event_name == 'push' && github.ref == 'refs/heads/publish' && steps.check_tag.outputs.exists != 'true'
         id: commit_history
         run: |
-          echo "history<<EOF" >> $GITHUB_OUTPUT
-          git log --pretty=format:"- %s (%an)" -10 >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          {
+            echo "history<<EOF"
+            git log --pretty=format:"- %s (%an)" -10
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Create Release Archive
         if: success() && github.event_name == 'push' && github.ref == 'refs/heads/publish' && steps.check_tag.outputs.exists != 'true'
