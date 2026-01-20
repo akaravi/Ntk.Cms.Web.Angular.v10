@@ -1,15 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
-@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700|Roboto:300,400,500,600,700");
-@import url("https://fonts.googleapis.com/css?family=Open+Sans");
-
-/* Material Icons */
-@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+/* Local Fonts - No CDN dependency */
+@import "./assets/fonts/poppins/poppins.css";
+@import "./assets/fonts/roboto/roboto.css";
+@import "./assets/fonts/open-sans/open-sans.css";
+@import "./assets/fonts/material-icons/material-icons.css";
 
 /* PrimeIcons CSS */
-@import "primeicons/primeicons.css";
+@import "node_modules/primeicons/primeicons.css";
 
 /* FontAwesome CSS */
-@import "@fortawesome/fontawesome-free/css/all.css";
+@import "node_modules/@fortawesome/fontawesome-free/css/all.css";
 
 /* You can add global styles to this file, and also import other style files */
 :root {

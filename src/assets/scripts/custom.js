@@ -1398,11 +1398,12 @@ document.addEventListener("DOMContentLoaded", () => {
         style: "filterizr/filterizr.css",
         trigger: ".gallery-filter",
       },
-      {
-        id: "embedly",
-        plug: "embedly/embedly.js",
-        trigger: ".embedly-card",
-      },
+      // Embedly plugin disabled - requires CDN access (http://cdn.embedly.com)
+      // {
+      //   id: "embedly",
+      //   plug: "embedly/embedly.js",
+      //   trigger: ".embedly-card",
+      // },
     ];
 
     for (let i = 0; i < plugins.length; i++) {

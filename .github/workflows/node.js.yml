@@ -36,6 +36,91 @@ jobs:
         #run: npm run build --if-present
       #- run: npm test
 
+      - name: Get package version
+        id: package_version
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Version: $VERSION"
+
+      - name: Get System Time for Release
+        id: release_time
+        run: |
+          echo "time=$(date +'%Y-%m-%d %H:%M:%S')" >> $GITHUB_OUTPUT
+
+      - name: Check if tag exists
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/publish'
+        id: check_tag
+        run: |
+          TAG_NAME="v${{ steps.package_version.outputs.version }}"
+          if git ls-remote --tags origin "$TAG_NAME" | grep -q "$TAG_NAME"; then
+            echo "Tag $TAG_NAME already exists"
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "Tag $TAG_NAME does not exist"
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+        continue-on-error: true
+
+      - name: Get commit history for release notes
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/publish' && steps.check_tag.outputs.exists != 'true'
+        id: commit_history
+        run: |
+          echo "history<<EOF" >> $GITHUB_OUTPUT
+          git log --pretty=format:"- %s (%an)" -10 >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create Release Archive
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/publish' && steps.check_tag.outputs.exists != 'true'
+        run: |
+          cd dist/ntk-cms-web/browser
+          zip -r ../../release-v${{ steps.package_version.outputs.version }}.zip .
+          cd ../../..
+          echo "Release archive created: release-v${{ steps.package_version.outputs.version }}.zip"
+
+      - name: Create Release
+        if: success() && github.event_name == 'push' && github.ref == 'refs/heads/publish' && steps.check_tag.outputs.exists != 'true'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ steps.package_version.outputs.version }}
+          name: Release v${{ steps.package_version.outputs.version }}
+          body: |
+            ## نسخه ${{ steps.package_version.outputs.version }}
+
+            **تغییرات:**
+            - ${{ github.event.head_commit.message }}
+
+            **تاریخ ساخت:**
+            ${{ steps.release_time.outputs.time }}
+
+            **Commit:**
+            - SHA: `${{ github.sha }}`
+            - Author: ${{ github.event.head_commit.author.name }}
+            - Message: ${{ github.event.head_commit.message }}
+
+            **آخرین تغییرات (10 commit اخیر):**
+            ${{ steps.commit_history.outputs.history }}
+
+            **لینک‌های مفید:**
+            - [مشاهده Commit](${{ github.event.head_commit.url }})
+            - [مشاهده Workflow Run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            - [دانلود Release](https://github.com/${{ github.repository }}/releases/tag/v${{ steps.package_version.outputs.version }})
+          files: |
+            release-v${{ steps.package_version.outputs.version }}.zip
+          draft: false
+          prerelease: false
+          fail_on_unmatched_files: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Cleanup release archive
+        if: always() && github.event_name == 'push' && github.ref == 'refs/heads/publish'
+        run: |
+          if [ -f "release-v${{ steps.package_version.outputs.version }}.zip" ]; then
+            rm -f release-v${{ steps.package_version.outputs.version }}.zip
+            echo "Release archive cleaned up"
+          fi
+
       - name: Push Publish To Other Git repo
         if: success()
         uses: cpina/github-action-push-to-another-repository@main
@@ -56,13 +141,19 @@ jobs:
         run: |
           echo "SYSTEM_TIME=$(date +'%Y-%m-%d %H:%M:%S')" >> $GITHUB_ENV
           echo "commitTitle=${{ github.event.head_commit.message }}" >> $GITHUB_ENV
+          RELEASE_INFO=""
+          if [ "${{ steps.check_tag.outputs.exists }}" != "true" ] && [ "${{ github.event_name }}" == "push" ] && [ "${{ github.ref }}" == "refs/heads/publish" ]; then
+            RELEASE_INFO="Release: v${{ steps.package_version.outputs.version }}"
+          fi
+          echo "releaseInfo=$RELEASE_INFO" >> $GITHUB_ENV
           echo "System time: $(date +'%Y-%m-%d %H:%M:%S')"
-          echo "Commit title: ${{ github.event.head_commit.message }}"
+          echo "Commit title: ${{ env.commitTitle }}"
+          echo "Release info: $RELEASE_INFO"
 
       - name: Webhook Sms
         uses: joelwmale/webhook-action@master
         with:
-          url: "https://smsban.com/api/?action=SMS_SEND&username=${{ vars.SMS_USERNAME }}&password=${{ secrets.SMS_PASSWORD }}&api=${{ vars.SMS_API }}&from=${{ vars.SMS_FROM }}&API_CHANGE_ALLOW=true&to=${{ vars.SMS_TO }}&text=${{ github.repository }} status is ${{ job.status }}  commit: ${{ env.commitTitle }}  ${{ env.SYSTEM_TIME }}   لغو ۱۱"
+          url: "https://smsban.com/api/?action=SMS_SEND&username=${{ vars.SMS_USERNAME }}&password=${{ secrets.SMS_PASSWORD }}&api=${{ vars.SMS_API }}&from=${{ vars.SMS_FROM }}&API_CHANGE_ALLOW=true&to=${{ vars.SMS_TO }}&text=${{ github.repository }} status: ${{ job.status }} ${{ env.releaseInfo }} commit: ${{ env.commitTitle }}  ${{ env.SYSTEM_TIME }}   لغو ۱۱"
 
       - name: Webhook Plesk
         #  v18
