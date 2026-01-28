@@ -3,22 +3,24 @@ import {
   Component,
   Inject,
   OnInit,
-  ViewChild } from "@angular/core";
+  ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreEnumService,
-  ErrorExceptionResultBase,ManageUserAccessDataTypesEnum,
+import {
+  CoreEnumService,
+  ErrorExceptionResultBase, ManageUserAccessDataTypesEnum,
   TicketingDepartemenModel,
   TicketingFaqModel,
-  TicketingFaqService} from "ntk-cms-api";
+  TicketingFaqService
+} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsFormsErrorStateMatcher } from "src/app/core/pipe/cmsFormsErrorStateMatcher";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-ticketing-faq-add",
@@ -68,7 +70,7 @@ export class TicketingFaqEditComponent
   dataModel: TicketingFaqModel = new TicketingFaqModel();
   dataFileModel = new Map<number, string>();
 
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {
@@ -130,14 +132,17 @@ export class TicketingFaqEditComponent
             this.dataModel.linkFileIds.split(",").forEach((element, index) => {
               let link = "";
               if (
-                this.dataModel.linkFileIdsSrc.length >=
-                this.dataModel.linkFileIdsSrc.length
+                this.dataModel.linkFileIdsSrc.length >= this.dataModel.linkFileIds.length
               ) {
                 link = this.dataModel.linkFileIdsSrc[index];
               }
               this.dataFileModel.set(+element, link);
             });
           }
+                       /**
+           * check file attach list
+           */
+
         } else {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
