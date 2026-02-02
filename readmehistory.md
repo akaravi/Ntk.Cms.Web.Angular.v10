@@ -4321,6 +4321,15 @@ ngOnInit(): void {
 - حذف کامل اکشن‌های درون ردیف (`cms-m-list-item-actions` و `cms-m-list-item-swipe-actions`) از همه لیست‌های موبایل برای یکنواختی UX.
 - بهبود performance با استفاده از `ChangeDetectionStrategy.OnPush` در کامپوننت پایه.
 
+### خطایابی و رفع مشکلات:
+
+- رفع خطای HTML در فایل‌های `list.mobile.component.html`:
+  - `sms/log/inbox/list/list.mobile.component.html`: اضافه شدن `</div>` برای بستن `cms-m-list-item`
+  - `sms/log/outbox-detail/list/list.mobile.component.html`: اضافه شدن `</div>` برای بستن `cms-m-list-item`
+  - `sms/log/outbox-queue/list/list.mobile.component.html`: حذف `</div>` اضافی
+  - `sms/log/outbox-task-scheduler/list/list.mobile.component.html`: اضافه شدن `</div>` برای بستن `cms-m-list-item`
+- همه خطاهای کامپایل Angular برطرف شدند و پروژه بدون خطا build می‌شود.
+
 ---
 
 ## تاریخ: 2025-01-27 - بازطراحی کامپوننت ارسال پیام SMS برای موبایل
