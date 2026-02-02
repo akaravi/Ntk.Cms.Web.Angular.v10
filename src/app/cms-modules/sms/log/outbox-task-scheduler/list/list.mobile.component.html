@@ -170,58 +170,8 @@
                 </div>
               }
             </div>
-            <div class="cms-m-list-item-actions">
-              @if (row.scheduleRunInfos && row.scheduleRunInfos.length > 0) {
-                <button
-                  class="cms-m-action-btn schedule"
-                  (click)="onActionButtonScheduleRunInfos(row); $event.stopPropagation()"
-                  [attr.aria-label]="'ACTION.SCHEDULE_RUN_INFOS' | translate"
-                  >
-                  <i class="fa-solid fa-list-check" aria-hidden="true"></i>
-                </button>
-              }
-              @if (dataModelResult?.access?.accessWatchRow) {
-                <button
-                  class="cms-m-action-btn view"
-                  (click)="onActionButtonViewRow(row); $event.stopPropagation()"
-                  [attr.aria-label]="'ACTION.VIEW' | translate"
-                  >
-                  <i class="fa-solid fa-eye" aria-hidden="true"></i>
-                </button>
-              }
-              @if (dataModelResult?.access?.accessEditRow) {
-                <button
-                  class="cms-m-action-btn edit"
-                  (click)="onActionButtonEditRow(row); $event.stopPropagation()"
-                  [attr.aria-label]="'ACTION.EDIT' | translate"
-                  >
-                  <i class="fa-solid fa-pen" aria-hidden="true"></i>
-                </button>
-              }
-              @if (dataModelResult?.access?.accessDeleteRow) {
-                <button
-                  class="cms-m-action-btn delete"
-                  (click)="onActionButtonDeleteRow(row); $event.stopPropagation()"
-                  [attr.aria-label]="'ACTION.DELETE' | translate"
-                  >
-                  <i class="fa-solid fa-trash" aria-hidden="true"></i>
-                </button>
-              }
             </div>
           </div>
-          <!-- Swipe Actions Background -->
-          <div class="cms-m-list-item-swipe-actions">
-            @if (dataModelResult?.access?.accessDeleteRow) {
-              <button
-                class="cms-m-swipe-action-btn delete"
-                (click)="onActionButtonDeleteRow(row); $event.stopPropagation()"
-                [attr.aria-label]="'ACTION.DELETE' | translate"
-              >
-                <i class="fa-solid fa-trash" aria-hidden="true"></i>
-              </button>
-            }
-          </div>
-        </div>
         }
       </div>
     } @else {

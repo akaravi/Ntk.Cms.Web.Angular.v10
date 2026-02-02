@@ -174,29 +174,6 @@
                 </div>
               }
             </div>
-            <div class="cms-m-list-item-actions">
-              @if (dataModelResult?.access?.accessDeleteRow) {
-                <button
-                  class="cms-m-action-btn delete"
-                  (click)="onActionButtonDeleteRow(row); $event.stopPropagation()"
-                  [attr.aria-label]="'ACTION.DELETE' | translate"
-                  >
-                  <i class="fa-solid fa-trash" aria-hidden="true"></i>
-                </button>
-              }
-            </div>
-          </div>
-          <!-- Swipe Actions Background -->
-          <div class="cms-m-list-item-swipe-actions">
-            @if (dataModelResult?.access?.accessDeleteRow) {
-              <button
-                class="cms-m-swipe-action-btn delete"
-                (click)="onActionButtonDeleteRow(row); $event.stopPropagation()"
-                [attr.aria-label]="'ACTION.DELETE' | translate"
-              >
-                <i class="fa-solid fa-trash" aria-hidden="true"></i>
-              </button>
-            }
           </div>
         </div>
         }

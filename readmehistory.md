@@ -4307,11 +4307,19 @@ ngOnInit(): void {
 - در `estate/data/property/list/list.mobile.component.html`:
   - حذف اکشن‌های درون هر ردیف (`cms-m-list-item-actions` و `cms-m-list-item-swipe-actions`) برای جلوگیری از شلوغی و تکرار رفتار
   - اتکا به منوی اکشن ردیف (`cms-action-row`) مشابه الگوی `news` برای یکنواختی UX
+- در `src/app/shared/cms-html-list-mobile/cms-html-list-mobile.component.ts`:
+  - فعال‌سازی `ChangeDetectionStrategy.OnPush` برای بهبود performance و کاهش رندرهای غیرضروری در تمام لیست‌های موبایل که از این کامپوننت استفاده می‌کنند
+  - اضافه شدن `ChangeDetectorRef` و استفاده از `markForCheck()` در همه subscription‌ها (cmsStoreService و translate) برای اطمینان از کارکرد صحیح `OnPush` strategy
+  - اضافه شدن `markForCheck()` در همه متدهای تغییر state (`actionViewTree`, `actionViewMenuMain`, `actionViewMenuItemRow`, `actionViewGuideNotice`, `actionCloseGuideNotice`) برای اطمینان از رندر صحیح با `OnPush`
+  - اضافه شدن `markForCheck()` در همه setterهای Input که state را تغییر می‌دهند (`optionActionGuideNoticeDisplay`, `optionActionRowId`, `optionActionRowDisplayMenu`, `optionActionRowDisplayMenuAct`)
+  - اضافه شدن همه subscription‌ها به `unsubscribe` array برای جلوگیری از memory leak
 
 ### نکات:
 
 - تمام استایل‌های موبایل با استفاده از متغیرهای تعریف‌شده در `styles.mobile.scss` و با درنظرگرفتن تم روز/شب پیاده‌سازی شده‌اند.
-- در مراحل بعدی سایر لیست‌های موبایل نیز به `CmsHtmlListMobileComponent` مهاجرت داده می‌شوند تا کد تکراری کمتر و UX یکنواخت‌تری داشته باشیم.
+- **همه لیست‌های موبایل** به `CmsHtmlListMobileComponent` مهاجرت داده شدند (بیش از 30 فایل در ماژول‌های `news`, `estate`, `sms`, `data-provider`).
+- حذف کامل اکشن‌های درون ردیف (`cms-m-list-item-actions` و `cms-m-list-item-swipe-actions`) از همه لیست‌های موبایل برای یکنواختی UX.
+- بهبود performance با استفاده از `ChangeDetectionStrategy.OnPush` در کامپوننت پایه.
 
 ---
 

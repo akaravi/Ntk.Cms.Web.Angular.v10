@@ -377,3 +377,51 @@ onActionButtonEditRow(
 - کد حالا با الگوی سایر کامپوننت‌های موبایل در پروژه هماهنگ است
 
 ---
+
+## Part 11: ایجاد و استانداردسازی کامپوننت لیست موبایل عمومی
+
+**تاریخ:** 2026-02-02
+**وضعیت:** ✅ تکمیل شده
+
+### هدف:
+
+ایجاد یک کامپوننت اشتراکی `CmsHtmlListMobileComponent` برای استفاده در تمام لیست‌های موبایل و استانداردسازی UX/UI در همه لیست‌های موبایل پروژه.
+
+### تغییرات انجام شده:
+
+1. **ایجاد کامپوننت جدید:**
+   - `src/app/shared/cms-html-list-mobile/cms-html-list-mobile.component.ts`
+   - `src/app/shared/cms-html-list-mobile/cms-html-list-mobile.component.html`
+   - `src/app/shared/cms-html-list-mobile/cms-html-list-mobile.component.scss`
+
+2. **اضافه شدن به SharedModule:**
+   - Import, Declaration, Export در `shared.module.ts`
+
+3. **تبدیل فایل‌ها:**
+   - 25 فایل `list.mobile.component.html` از `app-cms-html-list` به `app-cms-html-list-mobile` تبدیل شدند
+   - حذف کامل `cms-m-list-item-actions` و `cms-m-list-item-swipe-actions` از همه لیست‌های موبایل
+
+4. **بهینه‌سازی عملکرد:**
+   - فعال‌سازی `ChangeDetectionStrategy.OnPush`
+   - اضافه شدن `ChangeDetectorRef` و استفاده از `markForCheck()` در همه subscription‌ها
+   - مدیریت صحیح subscription‌ها برای جلوگیری از memory leak
+
+5. **ویژگی‌های UI/UX:**
+   - استفاده از CSS variables برای تم روز/شب
+   - پشتیبانی از Safe Area برای iPhone
+   - دکمه‌های اکشن ثابت در پایین صفحه
+   - منوی Tree با انیمیشن slide-in
+   - UX یکنواخت در همه لیست‌های موبایل
+
+### Result 11:
+
+✅ همه کارها تکمیل شد:
+- کامپوننت `CmsHtmlListMobileComponent` ایجاد و بهینه شد
+- 25 فایل `list.mobile.component.html` استاندارد شدند
+- همه `cms-m-list-item-actions` حذف شدند
+- `ChangeDetectionStrategy.OnPush` فعال است
+- همه subscription‌ها به درستی مدیریت می‌شوند
+- هیچ خطای لینت وجود ندارد
+- همه تغییرات در `readmehistory.md` ثبت شدند
+
+---

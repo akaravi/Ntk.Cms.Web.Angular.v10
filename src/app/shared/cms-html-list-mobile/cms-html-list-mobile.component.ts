@@ -1,12 +1,14 @@
 import {
-    Component,
-    ElementRef,
-    EventEmitter,
-    Input,
-    OnDestroy,
-    OnInit,
-    Output,
-    ViewChild,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild,
 } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { Subscription } from "rxjs";
@@ -20,6 +22,7 @@ import { ThemeService } from "src/app/core/services/theme.service";
   templateUrl: "./cms-html-list-mobile.component.html",
   styleUrls: ["./cms-html-list-mobile.component.scss"],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CmsHtmlListMobileComponent implements OnInit, OnDestroy {
   static nextId = 0;
@@ -29,6 +32,7 @@ export class CmsHtmlListMobileComponent implements OnInit, OnDestroy {
   @Output() optionActionGuideNoticeDisplayChange = new EventEmitter<boolean>();
   @Input() set optionActionGuideNoticeDisplay(view: boolean) {
     this.viewGuideNotice = view;
+    this.cdr.markForCheck();
   }
   @Input() optionGuideNoticeKey = "";
   @Input() optionFooterDisplay = true;
@@ -45,6 +49,7 @@ export class CmsHtmlListMobileComponent implements OnInit, OnDestroy {
       this.viewMenuItemRow = false;
       this.viewMenuMain = false;
       this.lastSelectId = null;
+      this.cdr.markForCheck();
       return;
     }
     if (this.lastSelectId != id) {
@@ -52,15 +57,20 @@ export class CmsHtmlListMobileComponent implements OnInit, OnDestroy {
       this.viewMenuMain = false;
     }
     this.lastSelectId = id;
+    this.cdr.markForCheck();
   }
   @Input()
   public set optionActionRowDisplayMenu(status: boolean) {
     if (this.optionActionRowDisplay && status) this.viewMenuItemRow = true;
     else this.viewMenuItemRow = false;
+    this.cdr.markForCheck();
   }
   @Input()
   public set optionActionRowDisplayMenuAct(status: boolean) {
-    if (this.optionActionRowDisplay) this.viewMenuItemRow = true;
+    if (this.optionActionRowDisplay) {
+      this.viewMenuItemRow = true;
+      this.cdr.markForCheck();
+    }
   }
   @Input() optionTitle = "";
   @Input() optionCategoryTitle = "";
@@ -85,6 +95,7 @@ export class CmsHtmlListMobileComponent implements OnInit, OnDestroy {
     public themeService: ThemeService,
     public translate: TranslateService,
     private cmsStoreService: CmsStoreService,
+    private cdr: ChangeDetectorRef,
   ) {
     this.unsubscribe.push(
       this.cmsStoreService
@@ -100,15 +111,22 @@ export class CmsHtmlListMobileComponent implements OnInit, OnDestroy {
               block: "start",
             });
           }
+          this.cdr.markForCheck();
         }),
     );
 
-    this.translate.get("TITLE.OperationMenu").subscribe((str: string) => {
-      this.optionTitle = str;
-    });
-    this.translate.get("TITLE.Category").subscribe((str: string) => {
-      this.optionCategoryTitle = str;
-    });
+    this.unsubscribe.push(
+      this.translate.get("TITLE.OperationMenu").subscribe((str: string) => {
+        this.optionTitle = str;
+        this.cdr.markForCheck();
+      }),
+    );
+    this.unsubscribe.push(
+      this.translate.get("TITLE.Category").subscribe((str: string) => {
+        this.optionCategoryTitle = str;
+        this.cdr.markForCheck();
+      }),
+    );
   }
   @ViewChild("topList") topList: ElementRef;
   private unsubscribe: Subscription[] = [];
@@ -136,10 +154,12 @@ export class CmsHtmlListMobileComponent implements OnInit, OnDestroy {
     this.viewGuideNotice = false;
     this.viewMenuMain = false;
     this.viewMenuItemRow = false;
+    this.cdr.markForCheck();
   }
   actionCloseGuideNotice(): void {
     this.viewGuideNotice = !this.viewGuideNotice;
     this.optionActionGuideNoticeDisplayChange.emit(this.viewGuideNotice);
+    this.cdr.markForCheck();
   }
   actionViewGuideNotice(state?: boolean) {
     if (state === true) {
@@ -152,6 +172,7 @@ export class CmsHtmlListMobileComponent implements OnInit, OnDestroy {
     this.viewMenuMain = false;
     this.viewMenuItemRow = false;
     this.viewTree = false;
+    this.cdr.markForCheck();
   }
   actionViewMenuMain(state?: boolean) {
     if (state === true) {
@@ -164,6 +185,7 @@ export class CmsHtmlListMobileComponent implements OnInit, OnDestroy {
     this.viewGuideNotice = false;
     this.viewMenuItemRow = false;
     this.viewTree = false;
+    this.cdr.markForCheck();
   }
   actionViewMenuItemRow(state?: boolean) {
     if (state === true) {
@@ -176,6 +198,7 @@ export class CmsHtmlListMobileComponent implements OnInit, OnDestroy {
     this.viewGuideNotice = false;
     this.viewMenuMain = false;
     this.viewTree = false;
+    this.cdr.markForCheck();
   }
 
   // Helper method to get button position classes

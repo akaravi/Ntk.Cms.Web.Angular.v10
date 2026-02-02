@@ -1,4 +1,4 @@
-<app-cms-html-list
+<app-cms-html-list-mobile
   [optionsListInfoAreaId]="constructorInfoAreaId"
   [optionGuideNoticeKey]="''"
   [(optionActionGuideNoticeDisplay)]="viewGuideNotice"
@@ -315,18 +315,6 @@
                       }
                     </div>
                   </div>
-                  <!-- Swipe Actions Background -->
-                  <div class="cms-m-list-item-swipe-actions">
-                    @if (dataModelResult?.access?.accessDeleteRow) {
-                      <button
-                        class="cms-m-swipe-action-btn delete"
-                        (click)="onActionButtonDeleteRow(row); $event.stopPropagation()"
-                        [attr.aria-label]="'ACTION.DELETE' | translate"
-                        >
-                        <i class="fa-solid fa-trash" aria-hidden="true"></i>
-                      </button>
-                    }
-                  </div>
                 </div>
               }
             </div>
@@ -355,4 +343,4 @@
           ></mat-paginator>
           <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
         </ng-container>
-      </app-cms-html-list>
+      </app-cms-html-list-mobile>
