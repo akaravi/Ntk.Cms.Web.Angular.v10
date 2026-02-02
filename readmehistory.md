@@ -4284,6 +4284,37 @@ ngOnInit(): void {
 
 ---
 
+## تاریخ: 2026-02-02 - ایجاد و استانداردسازی لیست موبایل عمومی
+
+### خلاصه تغییرات:
+
+- ایجاد کامپوننت اشتراکی `CmsHtmlListMobileComponent` برای استفاده در تمام لیست‌های موبایل
+- جایگزینی تدریجی `app-cms-html-list` با `app-cms-html-list-mobile` در لیست‌های موبایل
+- همسان‌سازی الگوی ظاهری ردیف‌ها با الگوی `news/content/list.mobile.component.html`
+
+### تغییرات انجام شده:
+
+- ایجاد پوشه و فایل‌های زیر:
+  - `src/app/shared/cms-html-list-mobile/cms-html-list-mobile.component.ts`
+  - `src/app/shared/cms-html-list-mobile/cms-html-list-mobile.component.html`
+  - `src/app/shared/cms-html-list-mobile/cms-html-list-mobile.component.scss`
+- اضافه شدن `CmsHtmlListMobileComponent` به `SharedModule` (declarations و exports)
+- جایگزینی تگ روت در چند لیست موبایل:
+  - `news/content/list/list.mobile.component.html` → `app-cms-html-list-mobile`
+  - `news/category/list/list.mobile.component.html` → `app-cms-html-list-mobile`
+  - `data-provider/main/client/list/list.mobile.component.html` → `app-cms-html-list-mobile`
+  - `estate/data/property/list/list.mobile.component.html` → `app-cms-html-list-mobile`
+- در `estate/data/property/list/list.mobile.component.html`:
+  - حذف اکشن‌های درون هر ردیف (`cms-m-list-item-actions` و `cms-m-list-item-swipe-actions`) برای جلوگیری از شلوغی و تکرار رفتار
+  - اتکا به منوی اکشن ردیف (`cms-action-row`) مشابه الگوی `news` برای یکنواختی UX
+
+### نکات:
+
+- تمام استایل‌های موبایل با استفاده از متغیرهای تعریف‌شده در `styles.mobile.scss` و با درنظرگرفتن تم روز/شب پیاده‌سازی شده‌اند.
+- در مراحل بعدی سایر لیست‌های موبایل نیز به `CmsHtmlListMobileComponent` مهاجرت داده می‌شوند تا کد تکراری کمتر و UX یکنواخت‌تری داشته باشیم.
+
+---
+
 ## تاریخ: 2025-01-27 - بازطراحی کامپوننت ارسال پیام SMS برای موبایل
 
 ### خلاصه تغییرات:

@@ -36,7 +36,7 @@
   </app-estate-property-company-header>
 }
 
-<app-cms-html-list
+<app-cms-html-list-mobile
   [optionsListInfoAreaId]="constructorInfoAreaId"
   [optionGuideNoticeKey]="'estate.property.list'"
   [(optionActionGuideNoticeDisplay)]="viewGuideNotice"
@@ -571,93 +571,6 @@
                       </div>
                     }
                   </div>
-                  <div class="cms-m-list-item-actions">
-                    @if (dataModelResult?.access?.accessWatchRow) {
-                      <button
-                        class="cms-m-action-btn view"
-                        (click)="onActionButtonQuickViewRow(row); $event.stopPropagation()"
-                        [attr.aria-label]="'ACTION.VIEW' | translate"
-                        >
-                        <i class="fa-solid fa-eye" aria-hidden="true"></i>
-                      </button>
-                    }
-                    @if (dataModelResult?.access?.accessEditRow) {
-                      <button
-                        class="cms-m-action-btn edit"
-                        (click)="onActionButtonEditRow(row); $event.stopPropagation()"
-                        [attr.aria-label]="'ACTION.EDIT' | translate"
-                        >
-                        <i class="fa-solid fa-pen" aria-hidden="true"></i>
-                      </button>
-                    }
-                    @if (dataModelResult?.access?.accessDeleteRow) {
-                      <button
-                        class="cms-m-action-btn delete"
-                        (click)="onActionButtonDeleteRow(row); $event.stopPropagation()"
-                        [attr.aria-label]="'ACTION.DELETE' | translate"
-                        >
-                        <i class="fa-solid fa-trash" aria-hidden="true"></i>
-                      </button>
-                    }
-                    <div class="cms-m-action-menu">
-                      <button
-                        class="cms-m-action-btn more"
-                        (click)="toggleActionMenu(row.id); $event.stopPropagation()"
-                        [attr.aria-label]="'TITLE.More' | translate"
-                        [attr.aria-expanded]="actionMenuOpen === toString(row.id)"
-                        >
-                        <i class="fa-solid fa-ellipsis-vertical" aria-hidden="true"></i>
-                      </button>
-                      @if (actionMenuOpen === toString(row.id)) {
-                        <div class="cms-m-action-menu-dropdown" (click)="$event.stopPropagation()">
-                          @if (dataModelResult?.access?.accessWatchRow) {
-                            <button
-                              class="cms-m-action-menu-item"
-                              (click)="onActionButtonQuickViewRow(row); closeActionMenu()"
-                              >
-                              <i class="fa-solid fa-eye" aria-hidden="true"></i>
-                              <span>{{ "ACTION.QUICK_VIEW" | translate }}</span>
-                            </button>
-                          }
-                          @if (dataModelResult?.access?.accessEditRow) {
-                            <button
-                              class="cms-m-action-menu-item"
-                              (click)="onActionButtonHistoryRow(row); closeActionMenu()"
-                              >
-                              <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
-                              <span>{{ "ACTION.HISTORY" | translate }}</span>
-                            </button>
-                            <button
-                              class="cms-m-action-menu-item"
-                              (click)="onActionButtonAdsRow(row); closeActionMenu()"
-                              >
-                              <i class="fa-solid fa-rectangle-ad" aria-hidden="true"></i>
-                              <span>{{ "ACTION.ADS" | translate }}</span>
-                            </button>
-                          }
-                          <button
-                            class="cms-m-action-menu-item"
-                            (click)="onActionButtonLinkTo(row); closeActionMenu()"
-                            >
-                            <i class="fa-solid fa-link" aria-hidden="true"></i>
-                            <span>{{ "ACTION.LINKTO" | translate }}</span>
-                          </button>
-                        </div>
-                      }
-                    </div>
-                  </div>
-                </div>
-                <!-- Swipe Actions Background -->
-                <div class="cms-m-list-item-swipe-actions">
-                  @if (dataModelResult?.access?.accessDeleteRow) {
-                    <button
-                      class="cms-m-swipe-action-btn delete"
-                      (click)="onActionButtonDeleteRow(row); $event.stopPropagation()"
-                      [attr.aria-label]="'ACTION.DELETE' | translate"
-                      >
-                      <i class="fa-solid fa-trash" aria-hidden="true"></i>
-                    </button>
-                  }
                 </div>
               </div>
             }
@@ -681,4 +594,4 @@
           ></mat-paginator>
           <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
         </ng-container>
-      </app-cms-html-list>
+      </app-cms-html-list-mobile>
