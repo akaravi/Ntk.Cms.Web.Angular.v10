@@ -49,7 +49,7 @@ export class DataProviderSourcePublicConfigListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: DataProviderSourcePublicConfigService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private router: Router,
     public tokenHelper: TokenHelper,
@@ -425,6 +425,10 @@ export class DataProviderSourcePublicConfigListComponent
       },
     });
   }
+  onActionCopied(): void {
+    this.cmsToastrService.typeSuccessCopedToClipboard();
+  }
+
   onSubmitOptionsSearch(model: any): void {
     this.filteModelContent.filters = model;
     this.DataGetAll();

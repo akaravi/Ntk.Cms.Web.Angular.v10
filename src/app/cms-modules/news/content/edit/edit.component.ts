@@ -49,18 +49,18 @@ export class NewsContentEditComponent
   requestId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private activatedRoute: ActivatedRoute,
+    protected activatedRoute: ActivatedRoute,
     public coreEnumService: CoreEnumService,
     public publicHelper: PublicHelper,
     public contentService: NewsContentService,
-    private contentTagService: NewsContentTagService,
-    private contentSimilarService: NewsContentSimilarService,
-    private contentOtherInfoService: NewsContentOtherInfoService,
-    private contentCategoryService: NewsContentCategoryService,
-    private cmsToastrService: CmsToastrService,
-    private router: Router,
+    public contentTagService: NewsContentTagService,
+    public contentSimilarService: NewsContentSimilarService,
+    public contentOtherInfoService: NewsContentOtherInfoService,
+    public contentCategoryService: NewsContentCategoryService,
+    protected cmsToastrService: CmsToastrService,
+    protected router: Router,
     public translate: TranslateService,
-    private cdr: ChangeDetectorRef,
+    protected cdr: ChangeDetectorRef,
   ) {
     super(contentService, new NewsContentModel(), publicHelper, translate);
 
@@ -100,7 +100,7 @@ export class NewsContentEditComponent
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   selectFileTypePodcast = ["mp3"];
   selectFileTypeMovie = ["mp4", "webm"];
-  
+
   fileManagerOpenForm = false;
   fileManagerOpenFormPodcast = false;
   fileManagerOpenFormMovie = false;
@@ -814,6 +814,9 @@ export class NewsContentEditComponent
   }
   onActionBackToParent(): void {
     this.router.navigate(["/news/content/"]);
+  }
+  onFormCancel(): void {
+    this.onActionBackToParent();
   }
   receiveMap(model: leafletMap = this.mapModel): void {
     if (!model) {

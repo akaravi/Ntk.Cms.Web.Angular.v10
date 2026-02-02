@@ -186,6 +186,7 @@ import { CmsGuideNoticeComponent } from "./cms-guide-notice/cms-guide-notice.com
 import { CmsHtmlCardComponent } from "./cms-html-card/cms-html-card.component";
 import { CmsHtmlFormComponent } from "./cms-html-form/cms-html-form.component";
 import { CmsHtmlListComponent } from "./cms-html-list/cms-html-list.component";
+import { CmsHtmlListMobileComponent } from "./cms-html-list-mobile/cms-html-list-mobile.component";
 import { CmsHtmlModalComponent } from "./cms-html-modal/cms-html-modal.component";
 import { CmsHtmlNoticeComponent } from "./cms-html-notice/cms-html-notice.component";
 import { CmsHtmlTreeComponent } from "./cms-html-tree/cms-html-tree.component";
@@ -303,6 +304,7 @@ import { ProgressSpinnerComponent } from "./progress-spinner/progress-spinner.co
     CmsHtmlFormComponent,
     CmsHtmlModalComponent,
     CmsHtmlListComponent,
+    CmsHtmlListMobileComponent,
     CmsHtmlTreeComponent,
     CmsSiteCreditViewComponent,
     CmsSiteUserCreditViewComponent,
@@ -577,6 +579,7 @@ import { ProgressSpinnerComponent } from "./progress-spinner/progress-spinner.co
     CmsHtmlFormComponent,
     CmsHtmlModalComponent,
     CmsHtmlListComponent,
+    CmsHtmlListMobileComponent,
     CmsHtmlTreeComponent,
     CmsSiteCreditViewComponent,
     CmsSiteUserCreditViewComponent,

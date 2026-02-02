@@ -1,12 +1,12 @@
 import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-  ViewChild,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
+    ViewChild,
 } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { Subscription } from "rxjs";
@@ -17,6 +17,7 @@ import { ThemeService } from "src/app/core/services/theme.service";
 @Component({
   selector: "app-cms-html-list",
   templateUrl: "./cms-html-list.component.html",
+  styleUrls: ["./cms-html-list.component.scss"],
   standalone: false,
 })
 export class CmsHtmlListComponent implements OnInit, OnDestroy {
@@ -66,6 +67,13 @@ export class CmsHtmlListComponent implements OnInit, OnDestroy {
   @Input() optionClassBody = "ntk-cms-html-tree-body";
   @Input() optionTreeDisplay = true;
   @Input() optionsListInfoAreaId = "list";
+
+  // Inputs for button display control
+  // Default to true for backward compatibility (previous behavior always showed buttons)
+  // Set to false explicitly if you don't want to show the button
+  @Input() optionActionButtonMemoDisplay = true;
+  @Input() optionActionButtonPrintRowDisplay = true;
+  @Input() optionActionButtonMemoRowDisplay = true;
 
   @Output() optionOnActionButtonMemo = new EventEmitter<any>();
   @Output() optionOnActionButtonExport = new EventEmitter<any>();
@@ -119,9 +127,9 @@ export class CmsHtmlListComponent implements OnInit, OnDestroy {
   viewTree = false;
 
   actionViewTree(state?: boolean) {
-    if (state == true) {
+    if (state === true) {
       this.viewTree = false;
-    } else if (state == false) {
+    } else if (state === false) {
       this.viewTree = true;
     } else {
       this.viewTree = !this.viewTree;
@@ -130,50 +138,74 @@ export class CmsHtmlListComponent implements OnInit, OnDestroy {
     this.viewGuideNotice = false;
     this.viewMenuMain = false;
     this.viewMenuItemRow = false;
-    //this.viewTree = false;
   }
   actionCloseGuideNotice(): void {
     this.viewGuideNotice = !this.viewGuideNotice;
     this.optionActionGuideNoticeDisplayChange.emit(this.viewGuideNotice);
   }
   actionViewGuideNotice(state?: boolean) {
-    if (state == true) {
+    if (state === true) {
       this.viewGuideNotice = true;
-    } else if (state == false) {
+    } else if (state === false) {
       this.viewGuideNotice = false;
     } else {
       this.viewGuideNotice = !this.viewGuideNotice;
     }
-    //this.viewGuideNotice = false
     this.viewMenuMain = false;
     this.viewMenuItemRow = false;
     this.viewTree = false;
   }
   actionViewMenuMain(state?: boolean) {
-    if (state == true) {
+    if (state === true) {
       this.viewMenuMain = true;
-    } else if (state == false) {
+    } else if (state === false) {
       this.viewMenuMain = false;
     } else {
       this.viewMenuMain = !this.viewMenuMain;
     }
     this.viewGuideNotice = false;
-    //this.viewMenuMain = false;
     this.viewMenuItemRow = false;
     this.viewTree = false;
   }
   actionViewMenuItemRow(state?: boolean) {
-    if (state == true) {
+    if (state === true) {
       this.viewMenuItemRow = true;
-    } else if (state == false) {
+    } else if (state === false) {
       this.viewMenuItemRow = false;
     } else {
       this.viewMenuItemRow = !this.viewMenuItemRow;
     }
     this.viewGuideNotice = false;
     this.viewMenuMain = false;
-    //this.viewMenuItemRow = false;
     this.viewTree = false;
+  }
+
+  // Helper method to get button position classes
+  getActionMainButtonClasses(): string {
+    const classes = ['cms-html-list-fixed-button', 'cms-html-list-action-main-button'];
+    if (this.optionTreeDisplay && this.publicHelper.isMobile) {
+      classes.push('with-tree');
+    }
+    return classes.join(' ');
+  }
+
+  // Helper method to get row button position classes
+  getActionRowButtonClasses(): string {
+    const classes = ['cms-html-list-fixed-button', 'cms-html-list-action-row-button'];
+    if (this.optionTreeDisplay && this.publicHelper.isMobile) {
+      classes.push('with-tree');
+      if (this.optionActionMainDisplay) {
+        classes.push('with-action-main');
+      }
+    } else if (this.optionActionMainDisplay) {
+      classes.push('with-action-main');
+    }
+    return classes.join(' ');
+  }
+
+  // Helper method to get icon rotation class
+  getIconRotationClass(isRotated: boolean): string {
+    return isRotated ? 'cms-html-list-icon rotated' : 'cms-html-list-icon normal';
   }
   onActionButtonMemo(): void {
     this.optionOnActionButtonMemo.emit();

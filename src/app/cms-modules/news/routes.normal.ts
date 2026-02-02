@@ -1,0 +1,35 @@
+import { Routes } from "@angular/router";
+import { NewsComponent } from "./news.component";
+import { NewsCategoryListComponent } from "./category/list/list.component";
+import { NewsContentListComponent } from "./content/list/list.component";
+
+export const routesNormal: Routes = [
+  {
+    path: "",
+    component: NewsComponent,
+    data: { title: "ROUTE.NEWS" },
+    children: [
+      {
+        path: "content",
+        component: NewsContentListComponent,
+        data: { title: "ROUTE.NEWS.CONTENT" },
+      },
+      {
+        path: "content/LinkCategoryId/:LinkCategoryId",
+        component: NewsContentListComponent,
+        data: { title: "ROUTE.NEWS.CONTENT" },
+      },
+      {
+        path: "category",
+        component: NewsCategoryListComponent,
+        data: { title: "ROUTE.NEWS.CATEGORY" },
+      },
+      {
+        path: "config",
+        loadChildren: () =>
+          import("./config/news-config.module").then((m) => m.NewsConfigModule),
+        data: { title: "ROUTE.NEWS" },
+      },
+    ],
+  },
+];

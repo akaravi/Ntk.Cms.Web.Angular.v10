@@ -18,9 +18,13 @@
   --cms-m-text-secondary: #64748b;
   --cms-m-border-color: rgba(15, 23, 42, 0.08);
   --cms-m-press-color: rgba(239, 62, 74, 0.08);
-  --cms-m-selected-bg: rgba(239, 62, 74, 0.12);
+  --cms-m-selected-bg: rgba(74, 137, 220, 0.12);
   --cms-m-primary-color: #ef3e4a;
   --cms-m-primary-gradient: linear-gradient(135deg, #ff6f61 0%, #d72638 100%);
+  /* Highlight Color - رنگ رندی انتخاب شده در پروژه */
+  --cms-m-highlight-color: #4A89DC;
+  --cms-m-highlight-color-light: #5D9CEC;
+  --cms-m-highlight-gradient: linear-gradient(to bottom, #5D9CEC, #4A89DC);
   --cms-m-secondary-bg: #f1f5f9;
   --cms-m-disabled-bg: #e2e8f0;
   --cms-m-info-bg: rgba(239, 62, 74, 0.06);
@@ -82,7 +86,11 @@
     --cms-m-text-secondary: #94a3b8;
     --cms-m-border-color: rgba(226, 232, 240, 0.08);
     --cms-m-press-color: rgba(255, 99, 132, 0.12);
-    --cms-m-selected-bg: rgba(239, 62, 74, 0.15);
+    --cms-m-selected-bg: rgba(74, 137, 220, 0.15);
+    /* Highlight Color - رنگ رندی انتخاب شده در پروژه */
+    --cms-m-highlight-color: #5D9CEC;
+    --cms-m-highlight-color-light: #6BA8F0;
+    --cms-m-highlight-gradient: linear-gradient(to bottom, #6BA8F0, #5D9CEC);
     --cms-m-secondary-bg: #111827;
     --cms-m-disabled-bg: #1f2937;
     --cms-m-info-bg: rgba(239, 62, 74, 0.12);
@@ -816,6 +824,22 @@
   }
 }
 
+.cms-m-empty {
+  padding: var(--cms-m-spacing-lg);
+  text-align: center;
+  color: var(--cms-m-text-secondary);
+  font-size: var(--cms-m-font-size-base);
+  background-color: var(--cms-m-card-bg);
+  border-radius: var(--cms-m-radius-lg);
+  margin: var(--cms-m-spacing-md);
+  border: 1px solid var(--cms-m-border-color);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--cms-m-card-bg);
+    border-color: var(--cms-m-border-color);
+  }
+}
+
 /* ============================================
    Time Grid
    ============================================ */
@@ -1029,7 +1053,7 @@
 .cms-m-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--cms-m-spacing-sm);
 }
 
 .cms-m-list-item-wrapper {
@@ -1041,13 +1065,7 @@
 .cms-m-list-item {
   position: relative;
   z-index: 2;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(239, 62, 74, 0.04) 0%,
-      rgba(255, 255, 255, 0.9) 100%
-    ),
-    var(--cms-m-card-bg);
+  background: var(--cms-m-card-bg);
   display: flex;
   align-items: flex-start;
   padding: 12px var(--cms-m-spacing-md);
@@ -1057,10 +1075,13 @@
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   min-height: 72px;
-  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
   border: 1px solid var(--cms-m-border-color);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+
+  @media (prefers-color-scheme: dark) {
+    background: var(--cms-m-card-bg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
 
   &:active {
     transform: scale(0.98);
@@ -1069,8 +1090,19 @@
 
   &.selected {
     background-color: var(--cms-m-selected-bg);
-    border-color: var(--cms-m-primary-color);
-    box-shadow: 0 12px 26px rgba(239, 62, 74, 0.22);
+    border-color: var(--cms-m-highlight-color);
+    box-shadow: 0 4px 12px rgba(74, 137, 220, 0.15);
+    border-left: 3px solid var(--cms-m-highlight-color);
+
+    [dir="rtl"] & {
+      border-left: none;
+      border-right: 3px solid var(--cms-m-highlight-color);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      box-shadow: 0 4px 12px rgba(74, 137, 220, 0.2);
+      border-color: var(--cms-m-highlight-color-light);
+    }
   }
 
   &:focus-visible {
@@ -1152,6 +1184,65 @@
   }
 }
 
+.cms-m-list-item-description {
+  font-size: var(--cms-m-font-size-sm);
+  color: var(--cms-m-text-secondary);
+  line-height: 20px;
+  margin-top: var(--cms-m-spacing-xs);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  opacity: 0.8;
+}
+
+.cms-m-list-item-expanded {
+  margin-top: var(--cms-m-spacing-md);
+  padding-top: var(--cms-m-spacing-md);
+  border-top: 1px solid var(--cms-m-border-color);
+  display: flex;
+  flex-direction: column;
+  gap: var(--cms-m-spacing-sm);
+  background-color: var(--cms-m-secondary-bg);
+  border-radius: var(--cms-m-radius-md);
+  padding: var(--cms-m-spacing-md);
+  margin-left: calc(56px + 12px); /* برای همترازی با تصویر */
+  margin-right: 0;
+
+  [dir="rtl"] & {
+    margin-left: 0;
+    margin-right: calc(56px + 12px);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--cms-m-info-bg);
+    border-top-color: var(--cms-m-border-color);
+  }
+}
+
+.cms-m-list-item-expanded-image {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  border-radius: var(--cms-m-radius-md);
+  overflow: hidden;
+  background-color: var(--cms-m-disabled-bg);
+  margin-bottom: var(--cms-m-spacing-sm);
+
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--cms-m-code-bg);
+  }
+}
+
 .cms-m-list-item-footer {
   display: flex;
   align-items: center;
@@ -1197,6 +1288,24 @@
   gap: var(--cms-m-spacing-sm);
   flex-shrink: 0;
   margin-right: -4px;
+}
+
+.cms-m-list-item-actions-floating {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+  z-index: 3;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: calc(100% - 16px);
+
+  [dir="rtl"] & {
+    right: auto;
+    left: 8px;
+  }
 }
 
 .cms-m-action-btn {
@@ -1266,6 +1375,34 @@
 
     &:active {
       background-color: #c2410c;
+      transform: scale(0.92);
+    }
+  }
+
+  &.comment {
+    background: linear-gradient(
+      135deg,
+      rgba(59, 130, 246, 0.95),
+      rgba(37, 99, 235, 0.95)
+    );
+    color: #fff;
+
+    &:active {
+      background-color: #2563eb;
+      transform: scale(0.92);
+    }
+  }
+
+  &.linkto {
+    background: linear-gradient(
+      135deg,
+      rgba(16, 185, 129, 0.95),
+      rgba(5, 150, 105, 0.95)
+    );
+    color: #fff;
+
+    &:active {
+      background-color: #059669;
       transform: scale(0.92);
     }
   }
@@ -1371,6 +1508,9 @@
 }
 
 .cms-m-fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
   width: 56px;
   height: 56px;
   min-width: 56px;
@@ -1389,9 +1529,12 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
-  align-self: flex-end;
-  position: relative;
-  z-index: 10;
+  z-index: 1000;
+
+  [dir="rtl"] & {
+    right: auto;
+    left: 24px;
+  }
 
   i {
     font-size: 24px;
@@ -1692,4 +1835,181 @@
 
 .cms-m-gap-lg {
   gap: var(--cms-m-spacing-lg);
+}
+
+/* ============================================
+   Action Row - دکمه‌های عملیات برای ردیف انتخاب شده
+   ============================================ */
+.cms-m-action-row {
+  display: flex;
+  gap: var(--cms-m-spacing-sm);
+  padding: var(--cms-m-spacing-md);
+  background: var(--cms-m-card-bg);
+  border-bottom: 1px solid var(--cms-m-border-color);
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.cms-m-action-row-btn {
+  flex: 1;
+  min-width: 80px;
+  max-width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: var(--cms-m-spacing-sm);
+  border: none;
+  border-radius: var(--cms-m-radius-md);
+  cursor: pointer;
+  transition: all var(--cms-m-transition-base);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  i {
+    font-size: 20px;
+    margin-bottom: 2px;
+  }
+
+  span {
+    font-size: var(--cms-m-font-size-xs);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  &.edit {
+    background: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+    color: white;
+
+    &:active {
+      transform: scale(0.95);
+      box-shadow: 0 1px 4px rgba(168, 85, 247, 0.4);
+    }
+  }
+
+  &.delete {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+
+    &:active {
+      transform: scale(0.95);
+      box-shadow: 0 1px 4px rgba(239, 68, 68, 0.4);
+    }
+  }
+
+  &.comment {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: white;
+
+    &:active {
+      transform: scale(0.95);
+      box-shadow: 0 1px 4px rgba(59, 130, 246, 0.4);
+    }
+  }
+
+  &.linkto {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+
+    &:active {
+      transform: scale(0.95);
+      box-shadow: 0 1px 4px rgba(16, 185, 129, 0.4);
+    }
+  }
+
+  &.view {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+
+    &:active {
+      transform: scale(0.95);
+      box-shadow: 0 1px 4px rgba(16, 185, 129, 0.4);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+}
+
+/* ============================================
+   News Module - Mobile Components Overrides
+   ماژول News - Override های خاص موبایل
+   فقط override های خاص این ماژول در اینجا قرار می‌گیرد
+   ============================================ */
+
+/* News Module - List Item Image Size Override
+   Override اندازه تصویر برای ماژول News (48px به جای 56px) */
+app-news-category-list-mobile,
+app-news-content-list-mobile {
+  .cms-m-list-item-image {
+    width: 48px;
+    height: 48px;
+    margin-left: 0;
+  }
+
+  .cms-m-list-item-image-placeholder {
+    width: 48px;
+    height: 48px;
+    margin-left: 0;
+    background: var(--cms-m-info-bg);
+    color: var(--cms-m-primary-color);
+
+    i {
+      font-size: 20px;
+      color: var(--cms-m-primary-color);
+    }
+  }
+
+  .cms-m-list-item-title {
+    font-size: var(--cms-m-font-size-sm);
+    margin-bottom: 4px;
+  }
+
+  .cms-m-list-item-actions-floating {
+    top: 6px;
+    right: 6px;
+    gap: 3px;
+
+    [dir="rtl"] & {
+      right: auto;
+      left: 6px;
+    }
+  }
+
+  .cms-m-action-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--cms-m-radius-sm);
+    border: none;
+    background: var(--cms-m-secondary-bg);
+
+    &.view {
+      color: var(--cms-m-primary-color);
+    }
+
+    &.edit {
+      color: var(--cms-m-warning-color);
+    }
+
+    &.delete {
+      color: var(--cms-m-delete-color);
+    }
+
+    &.comment {
+      color: var(--cms-m-info-color, #3b82f6);
+    }
+
+    &.linkto {
+      color: var(--cms-m-success-color, #10b981);
+    }
+
+    &.more {
+      color: var(--cms-m-text-secondary);
+    }
+  }
 }

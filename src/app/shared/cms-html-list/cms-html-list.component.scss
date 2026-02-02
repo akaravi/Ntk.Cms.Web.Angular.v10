@@ -1,0 +1,149 @@
+/* ============================================
+   CMS HTML List Component Styles
+   کامپوننت لیست HTML با پشتیبانی موبایل و دسکتاپ
+   ============================================ */
+
+/* Local Card Styles - محلی برای این کامپوننت */
+:host {
+  .cms-html-list-card {
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
+    background-size: cover;
+    border: 0px !important;
+    max-height: 150000px;
+    margin-bottom: 30px;
+    background-position: center center !important;
+  }
+
+  .cms-html-list-card-style {
+    overflow: hidden;
+    margin: 0px 15px 10px 15px;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 4px 24px 0 rgba(0, 0, 0, 0.1);
+
+    .cms-html-list-card-body {
+      padding: 15px;
+    }
+
+    .cms-html-list-card-overlay {
+      border-radius: 20px;
+    }
+  }
+
+  .cms-html-list-loader-container {
+    position: relative;
+  }
+}
+
+/* Fixed Action Buttons - Mobile */
+.cms-html-list-fixed-button {
+  position: fixed;
+  left: 1px;
+  z-index: 99;
+  min-width: 30px !important;
+  height: 30px;
+  margin: 0px;
+
+  /* Smooth transitions */
+  transition: bottom 0.3s ease, opacity 0.2s ease;
+}
+
+/* Tree Button Position */
+.cms-html-list-tree-button {
+  bottom: 80px;
+}
+
+/* Action Main Button Position */
+.cms-html-list-action-main-button {
+  bottom: 80px;
+
+  &.with-tree {
+    bottom: 120px;
+  }
+}
+
+/* Action Row Button Position */
+.cms-html-list-action-row-button {
+  bottom: 80px;
+
+  &.with-tree {
+    &.with-action-main {
+      bottom: 160px;
+    }
+
+    &:not(.with-action-main) {
+      bottom: 120px;
+    }
+  }
+
+  &:not(.with-tree) {
+    &.with-action-main {
+      bottom: 120px;
+    }
+  }
+}
+
+/* Menu Modal */
+.cms-html-list-menu-modal {
+  display: block;
+  width: 350px;
+  height: 320px;
+}
+
+/* Icon Styles */
+.cms-html-list-icon {
+  color: #ffffff;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-block;
+
+  &.rotated {
+    transform: rotate(90deg);
+  }
+
+  &.normal {
+    transform: rotate(0deg);
+  }
+}
+
+/* Action Button Icon */
+.cms-html-list-action-icon {
+  color: #ffffff;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .cms-html-list-menu-modal {
+    width: 100%;
+    max-width: 350px;
+  }
+}
+
+/* Desktop Styles */
+@media (min-width: 769px) {
+  .cms-html-list-fixed-button {
+    display: none;
+  }
+}
+
+/* Animation for smooth transitions */
+.cms-html-list-icon {
+  will-change: transform;
+}
+
+/* Accessibility improvements */
+.cms-html-list-action-button {
+  &:focus {
+    outline: 2px solid var(--cms-m-highlight-color, #4A89DC);
+    outline-offset: 2px;
+  }
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:active {
+    opacity: 0.8;
+  }
+}

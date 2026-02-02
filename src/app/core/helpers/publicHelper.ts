@@ -61,6 +61,19 @@ export class PublicHelper {
     return false;
   }
 
+  get isRtl(): boolean {
+    return document.documentElement.dir === "rtl" ||
+           document.documentElement.getAttribute("dir") === "rtl";
+  }
+
+  get isLtr(): boolean {
+    return !this.isRtl;
+  }
+
+  getDirection(): "rtl" | "ltr" {
+    return this.isRtl ? "rtl" : "ltr";
+  }
+
   appClientVersion = environment.appVersion;
   appServerVersion = "";
 

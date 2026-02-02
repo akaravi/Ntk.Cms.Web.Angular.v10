@@ -31,12 +31,12 @@ export class NewsCategoryAddComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<NewsCategoryAddComponent>,
+    protected dialogRef: MatDialogRef<NewsCategoryAddComponent>,
     public coreEnumService: CoreEnumService,
     public categoryService: NewsCategoryService,
-    private cmsToastrService: CmsToastrService,
+    protected cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
-    private cdr: ChangeDetectorRef,
+    protected cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {
     super(categoryService, new NewsCategoryModel(), publicHelper, translate);
@@ -60,7 +60,7 @@ export class NewsCategoryAddComponent
   dataModelResult: ErrorExceptionResult<NewsCategoryModel> =
     new ErrorExceptionResult<NewsCategoryModel>();
   dataModel: NewsCategoryModel = new NewsCategoryModel();
-  
+
   fileManagerOpenForm = false;
   onActionFileSelected(model: NodeInterface): void {
     this.dataModel.linkMainImageId = model.id;

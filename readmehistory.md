@@ -1,5 +1,208 @@
 # تاریخچه تغییرات پروژه
 
+## 2026-02-02 12:11:55 (رفع خطاهای متعدد TypeScript در کامپوننت‌های موبایل)
+
+### خلاصه:
+رفع چندین خطای TypeScript در کامپوننت‌های موبایل مختلف شامل خطاهای `onActionButtonEditRow`, `linkUserId`, و متدهای گم‌شده.
+
+### تغییرات انجام شده:
+
+#### 1. رفع خطاهای onActionButtonEditRow:
+- ✅ حذف پارامتر `$event` از فراخوانی در `template/category/list/list.mobile.component.html`
+- ✅ حذف پارامتر `$event` از فراخوانی در `data-provider/main/client-application/list/list.mobile.component.html`
+- ✅ حذف پارامتر `$event` از فراخوانی در `news/category/list/list.mobile.component.html`
+
+#### 2. رفع خطاهای linkUserId:
+- ✅ استفاده از `$any(row).linkUserId` در `data-provider/main/client-application/list/list.mobile.component.html`
+- ✅ استفاده از `$any(row).linkUserId` در `sms/main/client-application/list/list.mobile.component.html`
+
+#### 3. اضافه کردن متدهای گم‌شده:
+- ✅ اضافه کردن `onActionCopied()` به `data-provider/main/source-public-config/list/list.component.ts`
+- ✅ اضافه کردن `onActionCopied()` به `data-provider/transaction/list/list.component.ts`
+- ✅ اضافه کردن `onActionButtonNewRowAuto()`, `getRowExpanded()`, و `onActionCopied()` به `sms/main/public-config/list/list.mobile.component.ts`
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/template/category/list/list.mobile.component.html`
+- `src/app/cms-modules/data-provider/main/client-application/list/list.mobile.component.html`
+- `src/app/cms-modules/news/category/list/list.mobile.component.html`
+- `src/app/cms-modules/sms/main/client-application/list/list.mobile.component.html`
+- `src/app/cms-modules/data-provider/main/source-public-config/list/list.component.ts`
+- `src/app/cms-modules/data-provider/transaction/list/list.component.ts`
+- `src/app/cms-modules/sms/main/public-config/list/list.mobile.component.ts`
+
+---
+
+## 2026-02-02 12:07:39 (رفع خطای TypeScript - onActionButtonEditRow)
+
+### خلاصه:
+رفع خطای TypeScript `TS2554: Expected 0-1 arguments, but got 2` در کامپوننت موبایل TemplateItemList.
+
+### مشکل:
+متد `onActionButtonEditRow` در template موبایل با 2 آرگومان (`tableRowSelected` و `$event`) فراخوانی می‌شد، در حالی که تعریف متد فقط 0-1 آرگومان می‌پذیرد.
+
+### تغییرات انجام شده:
+- ✅ حذف پارامتر `$event` از فراخوانی `onActionButtonEditRow` در template موبایل
+- ✅ هماهنگ‌سازی با الگوی سایر کامپوننت‌های موبایل در پروژه
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/template/item/list/list.mobile.component.html`
+
+---
+
+## 2026-02-02 10:14:46 (بهینه‌سازی کامپوننت cms-html-list)
+
+### خلاصه:
+بهینه‌سازی کامل کامپوننت `cms-html-list` با تبدیل inline styles به کلاس‌های CSS و ایجاد استایل‌های محلی برای `card` و `card-style`.
+
+### تغییرات انجام شده:
+
+#### 1. ایجاد فایل SCSS محلی:
+- ✅ ایجاد فایل `cms-html-list.component.scss`
+- ✅ تبدیل تمام inline styles به کلاس‌های CSS
+- ✅ ایجاد استایل‌های محلی برای `card` و `card-style` با استفاده از `:host`
+
+#### 2. بهینه‌سازی TypeScript:
+- ✅ اضافه کردن Inputهای boolean برای کنترل نمایش دکمه‌ها
+- ✅ اضافه کردن helper methods برای مدیریت کلاس‌های CSS
+- ✅ بهبود کد با استفاده از `===` به جای `==`
+- ✅ حذف کامنت‌های غیرضروری
+
+#### 3. بهینه‌سازی HTML:
+- ✅ حذف تمام inline styles
+- ✅ حذف `this` از template
+- ✅ حذف `target="_blank"` از دکمه‌های غیرلینک
+- ✅ اضافه کردن `role="button"` و `aria-label` برای accessibility
+
+#### 4. بهبود CSS:
+- ✅ ایجاد کلاس‌های CSS برای fixed buttons
+- ✅ اضافه کردن transitions برای smooth animations
+- ✅ بهبود responsive design
+- ✅ اضافه کردن accessibility improvements
+
+### فایل‌های تغییر یافته:
+- `src/app/shared/cms-html-list/cms-html-list.component.scss` (جدید)
+- `src/app/shared/cms-html-list/cms-html-list.component.ts`
+- `src/app/shared/cms-html-list/cms-html-list.component.html`
+
+---
+
+## 2026-01-15 22:00:00 (افزودن Entity Category به ماژول Template)
+
+### خلاصه:
+Entity جدید `category` به ماژول `template` اضافه شد که شامل تمام کامپوننت‌های لازم (list, add, edit, view, delete) در حالت desktop و mobile است.
+
+### کامپوننت‌های Category ایجاد شده:
+
+#### Desktop Components:
+- ✅ `template/category/list/list.component.ts` - List component با ارث‌بری از `ListBaseComponent`
+- ✅ `template/category/list/list.component.html` - تمپلیت desktop با `app-cms-html-list` و `mat-table`
+- ✅ `template/category/add/add.component.ts` - Add component با ارث‌بری از `AddBaseComponent`
+- ✅ `template/category/add/add.component.html` - تمپلیت desktop با فرم
+- ✅ `template/category/edit/edit.component.ts` - Edit component با ارث‌بری از `EditBaseComponent`
+- ✅ `template/category/edit/edit.component.html` - تمپلیت desktop با فرم
+- ✅ `template/category/view/view.component.ts` - View component
+- ✅ `template/category/view/view.component.html` - تمپلیت desktop با `app-cms-json-list`
+- ✅ `template/category/delete/delete.component.ts` - Delete component
+- ✅ `template/category/delete/delete.component.html` - تمپلیت desktop
+
+#### Mobile Components:
+- ✅ `template/category/list/list.mobile.component.ts` - Mobile list با ارث‌بری از desktop
+- ✅ `template/category/list/list.mobile.component.html` - تمپلیت mobile با `cms-m-*` classes
+- ✅ `template/category/list/list.mobile.component.scss` - استایل‌های mobile
+- ✅ `template/category/add/add.mobile.component.ts` - Mobile add با ارث‌بری از desktop
+- ✅ `template/category/add/add.mobile.component.html` - تمپلیت mobile با `cms-m-*` classes و footer
+- ✅ `template/category/edit/edit.mobile.component.ts` - Mobile edit با ارث‌بری از desktop
+- ✅ `template/category/edit/edit.mobile.component.html` - تمپلیت mobile با `cms-m-*` classes و footer
+- ✅ `template/category/view/view.mobile.component.ts` - Mobile view با ارث‌بری از desktop
+- ✅ `template/category/view/view.mobile.component.html` - تمپلیت mobile با `cms-m-*` classes
+- ✅ `template/category/delete/delete.mobile.component.ts` - Mobile delete با ارث‌بری از desktop
+- ✅ `template/category/delete/delete.mobile.component.html` - تمپلیت mobile با `cms-m-*` classes و footer
+
+### تغییرات در فایل‌های موجود:
+- ✅ `template/template.module.ts` - افزودن تمام کامپوننت‌های category
+- ✅ `template/routes.normal.ts` - افزودن route برای category (desktop)
+- ✅ `template/routes.mobile.ts` - افزودن route برای category (mobile)
+
+### نتیجه:
+- ✅ Entity category با موفقیت به ماژول template اضافه شد
+- ✅ تمام کامپوننت‌ها با الگوهای پروژه سازگار هستند
+- ✅ هیچ خطای linter وجود ندارد
+- ✅ Module و routing به‌درستی به‌روزرسانی شدند
+
+**خلاصه ماژول Template:**
+- ماژول template شامل دو entity است: `item` و `category`
+- هر entity شامل 5 کامپوننت است: list, add, edit, view, delete
+- هر کامپوننت دارای نسخه desktop و mobile است
+- تمام کامپوننت‌ها با الگوهای پروژه سازگار هستند
+
+---
+
+## 2026-01-15 21:30:00 (ایجاد ماژول Template با کامپوننت‌های کامل Desktop و Mobile)
+
+### خلاصه:
+ماژول جدید `template` در `src/app/cms-modules/template/` ایجاد شد که شامل تمام کامپوننت‌های لازم برای مدیریت یک entity (list, add, edit, view, delete) در حالت desktop و mobile است.
+
+### کامپوننت‌های ایجاد شده:
+
+#### Desktop Components:
+- ✅ `template/item/list/list.component.ts` - List component با ارث‌بری از `ListBaseComponent`
+- ✅ `template/item/list/list.component.html` - تمپلیت desktop با `app-cms-html-list` و `mat-table`
+- ✅ `template/item/add/add.component.ts` - Add component با ارث‌بری از `AddBaseComponent`
+- ✅ `template/item/add/add.component.html` - تمپلیت desktop با فرم
+- ✅ `template/item/edit/edit.component.ts` - Edit component با ارث‌بری از `EditBaseComponent`
+- ✅ `template/item/edit/edit.component.html` - تمپلیت desktop با فرم
+- ✅ `template/item/view/view.component.ts` - View component
+- ✅ `template/item/view/view.component.html` - تمپلیت desktop با `app-cms-json-list`
+- ✅ `template/item/delete/delete.component.ts` - Delete component
+- ✅ `template/item/delete/delete.component.html` - تمپلیت desktop
+
+#### Mobile Components:
+- ✅ `template/item/list/list.mobile.component.ts` - Mobile list با ارث‌بری از desktop
+- ✅ `template/item/list/list.mobile.component.html` - تمپلیت mobile با `cms-m-*` classes
+- ✅ `template/item/list/list.mobile.component.scss` - استایل‌های mobile
+- ✅ `template/item/add/add.mobile.component.ts` - Mobile add با ارث‌بری از desktop
+- ✅ `template/item/add/add.mobile.component.html` - تمپلیت mobile با `cms-m-*` classes و footer
+- ✅ `template/item/edit/edit.mobile.component.ts` - Mobile edit با ارث‌بری از desktop
+- ✅ `template/item/edit/edit.mobile.component.html` - تمپلیت mobile با `cms-m-*` classes و footer
+- ✅ `template/item/view/view.mobile.component.ts` - Mobile view با ارث‌بری از desktop
+- ✅ `template/item/view/view.mobile.component.html` - تمپلیت mobile با `cms-m-*` classes
+- ✅ `template/item/delete/delete.mobile.component.ts` - Mobile delete با ارث‌بری از desktop
+- ✅ `template/item/delete/delete.mobile.component.html` - تمپلیت mobile با `cms-m-*` classes و footer
+
+#### Module و Routing:
+- ✅ `template/template.component.ts` - کامپوننت اصلی با router-outlet
+- ✅ `template/template.module.ts` - ماژول Angular با تمام کامپوننت‌ها
+- ✅ `template/template.routing.ts` - routing اصلی با تشخیص خودکار desktop/mobile
+- ✅ `template/routes.normal.ts` - routes برای desktop
+- ✅ `template/routes.mobile.ts` - routes برای mobile
+
+### تغییرات در فایل‌های موجود:
+- ✅ `src/app/cms-modules/cmsModules.routing.ts` - افزودن lazy loading برای ماژول template
+
+### ویژگی‌های پیاده‌سازی شده:
+- ✅ استفاده از `CoreModuleService` و `CoreModuleModel` برای داده‌های فرضی
+- ✅ کامپوننت‌های mobile با ارث‌بری از desktop برای استفاده مجدد کد
+- ✅ استفاده از استایل‌های `cms-m-*` برای UI موبایل
+- ✅ Header با دکمه Back و Safe Area support برای iPhone
+- ✅ Footer با دکمه‌های Save/Cancel/Delete
+- ✅ Content با Safe Area support
+- ✅ Routing با تشخیص خودکار desktop/mobile بر اساس عرض صفحه
+- ✅ Lazy loading در routing اصلی
+
+### فایل‌های مستندسازی:
+- ✅ `src/app/cms-modules/template/Cursor.Template.plan.md` - Plan کامل با تمام مراحل و نتایج
+
+### نتیجه:
+- ✅ ماژول template با موفقیت ایجاد شد
+- ✅ تمام کامپوننت‌ها با الگوهای پروژه سازگار هستند
+- ✅ هیچ خطای linter وجود ندارد
+- ✅ استایل‌های mobile به‌روزرسانی شدند و از `cms-m-form-*` استفاده می‌کنند
+- ✅ Routing به درستی تنظیم شده و آماده استفاده است
+
+**نکته:** این ماژول به عنوان یک template برای ایجاد ماژول‌های جدید در پروژه استفاده می‌شود.
+
+---
+
 ## 2026-01-15 20:46:57 (تکمیل کامپوننت‌های Edit و Delete در client-application-permission - ماژول Data Provider)
 
 ### خلاصه:
