@@ -37,7 +37,7 @@ export class CatalogContentListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: CatalogContentService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public tokenHelper: TokenHelper,
     private router: Router,
     private cdr: ChangeDetectorRef,

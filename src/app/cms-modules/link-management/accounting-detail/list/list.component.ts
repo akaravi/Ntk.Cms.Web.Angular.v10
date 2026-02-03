@@ -41,7 +41,7 @@ export class LinkManagementAccountingDetailListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: LinkManagementAccountingDetailService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     public tokenHelper: TokenHelper,

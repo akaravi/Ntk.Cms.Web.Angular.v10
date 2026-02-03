@@ -41,7 +41,7 @@ export class TicketingTemplateEditComponent
     private dialogRef: MatDialogRef<TicketingTemplateEditComponent>,
     public coreEnumService: CoreEnumService,
     public ticketingTemplateService: TicketingTemplateService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -72,7 +72,7 @@ export class TicketingTemplateEditComponent
   dataModel: TicketingTemplateModel = new TicketingTemplateModel();
   dataFileModel = new Map<number, string>();
 
-  
+
   ngOnInit(): void {
     if (this.requestId > 0) {
       this.translate.get("TITLE.Edit_Categories").subscribe((str: string) => {

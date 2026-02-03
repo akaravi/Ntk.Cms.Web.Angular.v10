@@ -46,7 +46,7 @@ export class CoreModuleLogScoreListComponent
   constructor(
     private coreEnumService: CoreEnumService,
     public contentService: CoreModuleLogScoreService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
     private cmsStoreService: CmsStoreService,

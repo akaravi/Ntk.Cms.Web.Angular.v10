@@ -1,63 +1,5 @@
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  HostListener,
-  OnDestroy,
-  OnInit,
-} from "@angular/core";
-import { RouterOutlet } from "@angular/router";
 //start change title when route happened
-import { Title } from "@angular/platform-browser";
-import {
-  ActivatedRoute,
-  Event,
-  NavigationEnd,
-  NavigationError,
-  NavigationStart,
-  Router,
-} from "@angular/router";
-import { Observable, Subscription, filter, map } from "rxjs";
 //end change title when route happened
-import { CommonModule } from "@angular/common";
-import { HttpParams } from "@angular/common/http";
-import { SwPush } from "@angular/service-worker";
-import { TranslateService } from "@ngx-translate/core";
-import { getAnalytics } from "firebase/analytics";
-import { initializeApp } from "firebase/app";
-import {
-  CoreAuthV3Service,
-  CoreConfigurationService,
-  CoreModuleService,
-  CoreSiteService,
-  CoreSiteSupportModel,
-  ErrorExceptionResult,
-  TokenDeviceSetNotificationIdDtoModel,
-  TokenInfoModelV3,
-} from "ntk-cms-api";
-import { environment } from "src/environments/environment";
-import { ComponentsModule } from "./components/components.module";
-import { PublicHelper } from "./core/helpers/publicHelper";
-import { TokenHelper } from "./core/helpers/tokenHelper";
-import { ConnectionStatusModel } from "./core/models/connectionStatusModel";
-import {
-  KeyboardEventF9,
-  RESSELLER_SITE_ID_LOCAL_STORAGE_KEY,
-  RESSELLER_USER_ID_LOCAL_STORAGE_KEY,
-  SITE_ID_LOCAL_STORAGE_KEY,
-  SITE_TYPE_ID_LOCAL_STORAGE_KEY,
-} from "./core/models/constModel";
-import { ProcessModel } from "./core/models/processModel";
-import { CmsStoreService } from "./core/reducers/cmsStore.service";
-import {
-  SET_Connection_STATE,
-  SET_Core_Module,
-} from "./core/reducers/reducer.factory";
-import { CmsToastrService } from "./core/services/cmsToastr.service";
-import { PageInfoService } from "./core/services/page-info.service";
-import { ProcessService } from "./core/services/process.service";
-import { ThemeService } from "./core/services/theme.service";
-import { SharedModule } from "./shared/shared.module";
 
 @Component({
   selector: "app-root",
@@ -79,8 +21,7 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     public publicHelper: PublicHelper,
     public tokenHelper: TokenHelper,
     private swPush: SwPush,
-    private cmsToastrService: CmsToastrService,
-    private cmsStoreService: CmsStoreService,
+        private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     public pageInfo: PageInfoService,
     public processService: ProcessService,

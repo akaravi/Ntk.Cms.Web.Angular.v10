@@ -35,7 +35,7 @@ import { TicketingDepartemenEditComponent } from "../edit/edit.component";
 export class TicketingDepartemenTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: TicketingDepartemenService,
     public dialog: MatDialog,

@@ -67,7 +67,7 @@ export class EstateCustomerOrderEditComponent
     private estateContractTypeService: EstateContractTypeService,
     private estatePropertyService: EstatePropertyService,
     public estatePropertyDetailGroupService: EstatePropertyDetailGroupService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public themeService: ThemeService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -113,7 +113,7 @@ export class EstateCustomerOrderEditComponent
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: EstateCustomerOrderModel = new EstateCustomerOrderModel();
   dataModelCorCurrencySelector = new CoreCurrencyModel();
-  
+
   contractTypeSelected: EstateContractTypeModel;
 
   fileManagerOpenForm = false;

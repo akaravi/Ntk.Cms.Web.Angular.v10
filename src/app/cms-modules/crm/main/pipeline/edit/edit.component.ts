@@ -41,7 +41,7 @@ export class CrmPipelineEditComponent
     private dialogRef: MatDialogRef<CrmPipelineEditComponent>,
     public coreEnumService: CoreEnumService,
     public crmPipelineService: CrmPipelineService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private cmsStoreService: CmsStoreService,
@@ -66,7 +66,7 @@ export class CrmPipelineEditComponent
   dataModelResult: ErrorExceptionResult<CrmPipelineModel> =
     new ErrorExceptionResult<CrmPipelineModel>();
   dataModel: CrmPipelineModel = new CrmPipelineModel();
-  
+
   requestId = "";
 
   ngOnInit(): void {

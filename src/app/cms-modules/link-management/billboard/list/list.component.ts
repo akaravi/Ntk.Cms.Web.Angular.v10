@@ -42,7 +42,7 @@ export class LinkManagementBillboardListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: LinkManagementBillboardService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private cmsStoreService: CmsStoreService,

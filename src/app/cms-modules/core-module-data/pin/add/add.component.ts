@@ -1,24 +1,26 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild } from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {AccessModel,
-  CoreEnumService,
-  CoreModuleDataPinModel,
-  CoreModuleDataPinService,
-  CoreSiteModel,
-  DataFieldInfoModel,
-  ErrorExceptionResult} from "ntk-cms-api";
+import {
+    AccessModel,
+    CoreEnumService,
+    CoreModuleDataPinModel,
+    CoreModuleDataPinService,
+    CoreSiteModel,
+    DataFieldInfoModel,
+    ErrorExceptionResult
+} from "ntk-cms-api";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-coremodule-data-pin-add",
@@ -41,7 +43,7 @@ export class CoreModuleDataPinAddComponent
     private dialogRef: MatDialogRef<CoreModuleDataPinAddComponent>,
     public coreEnumService: CoreEnumService,
     public coreModuleDataPinService: CoreModuleDataPinService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -72,7 +74,7 @@ export class CoreModuleDataPinAddComponent
     new ErrorExceptionResult<CoreModuleDataPinModel>();
   dataModel: CoreModuleDataPinModel = new CoreModuleDataPinModel();
 
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

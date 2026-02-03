@@ -1,11 +1,11 @@
 import { ENTER } from "@angular/cdk/keycodes";
 import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import {
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
+    ChangeDetectorRef,
+    Component,
+    OnDestroy,
+    OnInit,
+    ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MatChipInputEvent } from "@angular/material/chips";
@@ -14,15 +14,17 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import * as Leaflet from "leaflet";
 import { Map as leafletMap } from "leaflet";
-import {AccessModel,
-  CoreEnumService,
-  CoreSiteCategoryModel,
-  CoreSiteModel,
-  CoreSiteService,
-  CoreUserModel,
-  ErrorExceptionResult,
-  ErrorExceptionResultBase,InfoEnumModel,
-  ManageUserAccessDataTypesEnum} from "ntk-cms-api";
+import {
+    AccessModel,
+    CoreEnumService,
+    CoreSiteCategoryModel,
+    CoreSiteModel,
+    CoreSiteService,
+    CoreUserModel,
+    ErrorExceptionResult,
+    ErrorExceptionResultBase, InfoEnumModel,
+    ManageUserAccessDataTypesEnum
+} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { Subscription } from "rxjs";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
@@ -32,7 +34,6 @@ import { PoinModel } from "src/app/core/models/pointModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-core-site-edit",
@@ -51,7 +52,7 @@ export class CoreSiteEditComponent
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
     private coreSiteService: CoreSiteService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     private router: Router,
     public translate: TranslateService,
@@ -85,7 +86,7 @@ export class CoreSiteEditComponent
   }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
-  
+
   dataAccessModel: AccessModel;
 
   dataModel = new CoreSiteModel();

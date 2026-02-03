@@ -1,29 +1,3 @@
-import { SelectionModel } from "@angular/cdk/collections";
-import { NestedTreeControl } from "@angular/cdk/tree";
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-} from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
-import { MatTreeNestedDataSource } from "@angular/material/tree";
-import { TranslateService } from "@ngx-translate/core";
-import {
-  ContactCategoryModel,
-  ContactCategoryService,
-  CoreEnumService,
-  ErrorExceptionResult,
-  FilterModel,
-} from "ntk-cms-api";
-import { Subscription } from "rxjs";
-import { PublicHelper } from "src/app/core/helpers/publicHelper";
-import { TokenHelper } from "src/app/core/helpers/tokenHelper";
-import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-contact-category-treeselector",
@@ -33,8 +7,7 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 export class ContactCategoryTreeSelectorComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
-    public coreEnumService: CoreEnumService,
+        public coreEnumService: CoreEnumService,
     public categoryService: ContactCategoryService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,

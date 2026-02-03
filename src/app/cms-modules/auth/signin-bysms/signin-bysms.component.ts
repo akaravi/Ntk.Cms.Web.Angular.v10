@@ -47,7 +47,7 @@ export class AuthSignInBySmsComponent implements OnInit, OnDestroy {
   private destroyRef = inject(DestroyRef);
   constructor(
     private coreAuthService: CoreAuthV3Service,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public translate: TranslateService,
     private router: Router,
     private cmsTranslationService: CmsTranslationService,

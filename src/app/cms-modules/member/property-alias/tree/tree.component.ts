@@ -35,7 +35,7 @@ import { MemberPropertyAliasEditComponent } from "../edit/edit.component";
 export class MemberPropertyAliasTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: MemberPropertyAliasService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,

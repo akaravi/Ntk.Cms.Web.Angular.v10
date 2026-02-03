@@ -1,20 +1,20 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild,
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService,
-  DataFieldInfoModel,
-  DataProviderPlanCategoryModel,
-  DataProviderPlanSourceModel,
-  DataProviderPlanSourceService,
-  ErrorExceptionResult,
+    CoreEnumService,
+    DataFieldInfoModel,
+    DataProviderPlanCategoryModel,
+    DataProviderPlanSourceModel,
+    DataProviderPlanSourceService,
+    ErrorExceptionResult,
 } from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
@@ -42,7 +42,7 @@ export class DataProviderPlanSourceAddComponent
     private dialogRef: MatDialogRef<DataProviderPlanSourceAddComponent>,
     public coreEnumService: CoreEnumService,
     public dataProviderPlanSourceService: DataProviderPlanSourceService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,

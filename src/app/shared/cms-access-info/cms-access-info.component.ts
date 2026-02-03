@@ -31,7 +31,7 @@ export class CmsAccessInfoComponent implements OnInit {
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
   ) {
     if (data && data.access) {
       this.access = data.access;

@@ -36,7 +36,7 @@ export class LinkManagementCategoryTreeSelectorComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: LinkManagementCategoryService,
     private cdr: ChangeDetectorRef,

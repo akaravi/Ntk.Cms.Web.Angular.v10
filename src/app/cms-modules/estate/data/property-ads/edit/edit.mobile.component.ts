@@ -39,7 +39,7 @@ export class EstatePropertyAdsEditMobileComponent
   constructor(
     public coreEnumService: CoreEnumService,
     public estatePropertyAdsService: EstatePropertyAdsService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private router: Router,
     private cdr: ChangeDetectorRef,
@@ -67,7 +67,7 @@ export class EstatePropertyAdsEditMobileComponent
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: EstatePropertyAdsModel = new EstatePropertyAdsModel();
-  
+
   fileManagerOpenForm = false;
   AdsTypeTitle: string = "";
   PropertyTitle: string = "";

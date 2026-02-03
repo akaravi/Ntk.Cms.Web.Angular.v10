@@ -49,7 +49,7 @@ export class CoreLogReportDataListComponent
   constructor(
     private coreEnumService: CoreEnumService,
     private contentService: CoreLogReportDataService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
     public tokenHelper: TokenHelper,

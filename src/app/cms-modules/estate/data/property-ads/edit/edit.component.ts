@@ -42,7 +42,7 @@ export class EstatePropertyAdsEditComponent
     private dialogRef: MatDialogRef<EstatePropertyAdsEditComponent>,
     public coreEnumService: CoreEnumService,
     public estatePropertyAdsService: EstatePropertyAdsService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -68,7 +68,7 @@ export class EstatePropertyAdsEditComponent
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: EstatePropertyAdsModel = new EstatePropertyAdsModel();
-  
+
   fileManagerOpenForm = false;
   AdsTypeTitle: string = "";
   PropertyTitle: string = "";

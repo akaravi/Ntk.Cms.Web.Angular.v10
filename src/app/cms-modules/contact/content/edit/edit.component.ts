@@ -1,28 +1,30 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild } from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {ClauseTypeEnum,
-  ContactCategoryModel,
-  ContactContentCategoryModel,
-  ContactContentCategoryService,
-  ContactContentModel,
-  ContactContentService,
-  CoreEnumService,
-  ErrorExceptionResultBase,
-  FilterDataModel,
-  FilterModel,ManageUserAccessDataTypesEnum} from "ntk-cms-api";
+import {
+    ClauseTypeEnum,
+    ContactCategoryModel,
+    ContactContentCategoryModel,
+    ContactContentCategoryService,
+    ContactContentModel,
+    ContactContentService,
+    CoreEnumService,
+    ErrorExceptionResultBase,
+    FilterDataModel,
+    FilterModel, ManageUserAccessDataTypesEnum
+} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-contact-content-edit",
@@ -42,7 +44,7 @@ export class ContactContentEditComponent
     public coreEnumService: CoreEnumService,
     public ContactContentService: ContactContentService,
     private contentCategoryService: ContactContentCategoryService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -71,7 +73,7 @@ export class ContactContentEditComponent
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: ContactContentModel = new ContactContentModel();
 
-  
+
   fileManagerOpenForm = false;
 
   onActionFileSelected(model: NodeInterface): void {}

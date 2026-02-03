@@ -13,7 +13,7 @@ export class CmsQDocComponent implements OnInit {
   static nextId = 0;
   id = ++CmsQDocComponent.nextId;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public http: HttpClient,
     public translate: TranslateService,
   ) {}

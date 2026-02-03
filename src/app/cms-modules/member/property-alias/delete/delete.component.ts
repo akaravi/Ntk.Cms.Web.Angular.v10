@@ -29,7 +29,7 @@ export class MemberPropertyAliasDeleteComponent implements OnInit {
     public publicHelper: PublicHelper,
     public contentService: MemberPropertyAliasService,
     private cdr: ChangeDetectorRef,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;

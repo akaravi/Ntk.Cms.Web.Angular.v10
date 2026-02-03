@@ -47,7 +47,7 @@ export class CoreModuleEntityReportFileListComponent
   constructor(
     public contentService: CoreModuleEntityReportFileService,
     public coreEnumService: CoreEnumService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public tokenHelper: TokenHelper,
     private activatedRoute: ActivatedRoute,

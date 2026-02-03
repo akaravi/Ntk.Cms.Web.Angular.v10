@@ -45,7 +45,7 @@ export class EstateCategoryZoneEditComponent
     public coreEnumService: CoreEnumService,
     public estateCategoryZoneService: EstateCategoryZoneService,
     public estatePropertyTypeService: EstatePropertyTypeService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -72,7 +72,7 @@ export class EstateCategoryZoneEditComponent
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: EstateCategoryZoneModel = new EstateCategoryZoneModel();
-  
+
   fileManagerOpenForm = false;
 
   dataEstatePropertyTypeUsageModel: EstatePropertyTypeUsageModel[];

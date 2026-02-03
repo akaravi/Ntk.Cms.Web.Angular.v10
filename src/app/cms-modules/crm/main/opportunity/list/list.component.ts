@@ -54,7 +54,7 @@ export class CrmOpportunityListComponent
   constructor(
     private contentService: CrmOpportunityService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,

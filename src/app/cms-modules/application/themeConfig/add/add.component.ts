@@ -48,7 +48,7 @@ export class ApplicationThemeConfigAddComponent
     private dialogRef: MatDialogRef<ApplicationThemeConfigAddComponent>,
     public coreEnumService: CoreEnumService,
     public applicationThemeConfigService: ApplicationThemeConfigService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     public publicHelper: PublicHelper,
@@ -86,7 +86,7 @@ export class ApplicationThemeConfigAddComponent
     new ErrorExceptionResult<ApplicationThemeConfigModel>();
   dataModel: ApplicationThemeConfigModel = new ApplicationThemeConfigModel();
 
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {}

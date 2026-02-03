@@ -39,7 +39,7 @@ export class EstatePropertyDetailGroupTreeComponent
   requestLinkPropertyTypeLanduseId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: EstatePropertyDetailGroupService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,

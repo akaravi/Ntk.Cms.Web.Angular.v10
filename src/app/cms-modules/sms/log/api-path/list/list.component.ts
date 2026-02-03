@@ -39,7 +39,7 @@ export class SmsLogApiPathListComponent
   constructor(
     private contentService: SmsLogApiPathService,
     private activatedRoute: ActivatedRoute,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private smsMainApiPathService: SmsMainApiPathService,
     private router: Router,

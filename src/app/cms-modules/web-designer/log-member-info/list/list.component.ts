@@ -46,7 +46,7 @@ export class WebDesignerLogMemberInfoListComponent
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     public themeService: ThemeService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     private router: Router,
     public tokenHelper: TokenHelper,

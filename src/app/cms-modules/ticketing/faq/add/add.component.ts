@@ -37,7 +37,7 @@ export class TicketingFaqAddComponent
     private dialogRef: MatDialogRef<TicketingFaqAddComponent>,
     public coreEnumService: CoreEnumService,
     public ticketingFaqService: TicketingFaqService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -71,7 +71,7 @@ export class TicketingFaqAddComponent
     new ErrorExceptionResult<TicketingFaqModel>();
   dataModel: TicketingFaqModel = new TicketingFaqModel();
   dataFileModel = new Map<number, string>();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

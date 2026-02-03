@@ -26,7 +26,7 @@ export class CmsGuideinfoComponent implements OnInit, OnDestroy {
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private coreGuideService: CoreGuideService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
   ) {}
   closeResult = "";
   private unsubscribe: Subscription[] = [];

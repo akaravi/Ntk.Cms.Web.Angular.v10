@@ -44,7 +44,7 @@ export class CoreLogMemberListComponent
   constructor(
     private coreEnumService: CoreEnumService,
     private contentService: CoreLogMemberService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
     public tokenHelper: TokenHelper,

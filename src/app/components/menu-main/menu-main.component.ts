@@ -39,7 +39,7 @@ export class MenuMainComponent implements OnInit {
   constructor(
     public tokenHelper: TokenHelper,
     public publicHelper: PublicHelper,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreAuthService: CoreAuthV3Service,
     private coreCpMainMenuService: CoreCpMainMenuService,
     private cmsStoreService: CmsStoreService,

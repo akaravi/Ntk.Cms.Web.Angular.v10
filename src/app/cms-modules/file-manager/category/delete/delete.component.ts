@@ -34,7 +34,7 @@ export class FileCategoryDeleteComponent implements OnInit {
     private fileCategoryService: FileCategoryService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {

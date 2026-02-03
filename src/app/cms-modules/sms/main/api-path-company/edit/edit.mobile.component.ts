@@ -1,25 +1,26 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild } from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService,
-  ErrorExceptionResultBase,
-  ManageUserAccessDataTypesEnum,
-  SmsMainApiPathCompanyModel,
-  SmsMainApiPathCompanyService } from "ntk-cms-api";
+    CoreEnumService,
+    ErrorExceptionResultBase,
+    ManageUserAccessDataTypesEnum,
+    SmsMainApiPathCompanyModel,
+    SmsMainApiPathCompanyService
+} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-sms-apipathcompany-edit-mobile",
@@ -42,7 +43,7 @@ export class SmsMainApiPathCompanyEditMobileComponent
     private dialogRef: MatDialogRef<SmsMainApiPathCompanyEditMobileComponent>,
     public coreEnumService: CoreEnumService,
     public smsMainApiPathCompanyService: SmsMainApiPathCompanyService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private router: Router,
@@ -72,7 +73,7 @@ export class SmsMainApiPathCompanyEditMobileComponent
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: SmsMainApiPathCompanyModel = new SmsMainApiPathCompanyModel();
 
-  
+
   fileManagerOpenForm = false;
   dataSmsMainApiPathCompanyModel: SmsMainApiPathCompanyModel[];
 

@@ -1,24 +1,26 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild } from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreDeviceModel,
-  CoreDeviceService,
-  CoreEnumService,
-  CoreSiteModel,
-  DataFieldInfoModel,
-  ErrorExceptionResult,InfoEnumModel} from "ntk-cms-api";
+import {
+    CoreDeviceModel,
+    CoreDeviceService,
+    CoreEnumService,
+    CoreSiteModel,
+    DataFieldInfoModel,
+    ErrorExceptionResult, InfoEnumModel
+} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-core-sitecategory-add",
@@ -36,7 +38,7 @@ export class CoreDeviceAddComponent
     private dialogRef: MatDialogRef<CoreDeviceAddComponent>,
     public coreEnumService: CoreEnumService,
     public coreDeviceService: CoreDeviceService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -65,7 +67,7 @@ export class CoreDeviceAddComponent
     new ErrorExceptionResult<InfoEnumModel>();
   dataModel: CoreDeviceModel = new CoreDeviceModel();
 
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

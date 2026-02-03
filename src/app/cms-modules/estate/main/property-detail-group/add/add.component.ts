@@ -42,7 +42,7 @@ export class EstatePropertyDetailGroupAddComponent
     private dialogRef: MatDialogRef<EstatePropertyDetailGroupAddComponent>,
     public coreEnumService: CoreEnumService,
     public estatePropertyDetailGroupService: EstatePropertyDetailGroupService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -76,7 +76,7 @@ export class EstatePropertyDetailGroupAddComponent
     new ErrorExceptionResult<EstatePropertyDetailGroupModel>();
   dataModel: EstatePropertyDetailGroupModel =
     new EstatePropertyDetailGroupModel();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

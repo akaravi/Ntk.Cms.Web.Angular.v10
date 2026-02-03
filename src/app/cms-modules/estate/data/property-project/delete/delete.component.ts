@@ -38,7 +38,7 @@ export class EstatePropertyProjectDeleteComponent implements OnInit {
     public publicHelper: PublicHelper,
     public contentService: EstatePropertyProjectService,
     private cdr: ChangeDetectorRef,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     public tokenHelper: TokenHelper,
     public translate: TranslateService,

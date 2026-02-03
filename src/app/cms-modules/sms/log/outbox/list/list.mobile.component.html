@@ -1,6 +1,6 @@
 <app-cms-html-list-mobile
   [optionsListInfoAreaId]="constructorInfoAreaId"
-  [optionGuideNoticeKey]="''"
+  [optionGuideNoticeKey]="'sms.log.outbox.list'"
   [(optionActionGuideNoticeDisplay)]="viewGuideNotice"
   (optionOnActionButtonMemoRow)="onActionButtonMemoRow()"
   (optionOnActionButtonMemo)="onActionButtonMemo()"
@@ -11,7 +11,7 @@
   [optionActionRowDisplay]="tableRowSelected?.id?.length > 0"
   [optionActionRowDisplayMenu]="tableRowSelect2Click"
   [optionActionRowDisplayMenuAct]="tableRowSelectActionMenuClick"
-  [optionSelectRowItemTitle]="tableRowSelected?.message"
+  [optionSelectRowItemTitle]="tableRowSelected?.message || tableRowSelected?.id"
   >
   <ng-container cms-tree>
     <!--begin:::::::::::::::::::::::::::::::::::::::::cms-tree-->
@@ -150,144 +150,95 @@
       <ng-container cms-action-area>
         <!--begin:::::::::::::::::::::::::::::::::::::::::cms-action-area-->
         <app-cms-search-list [(options)]="optionsSearch"></app-cms-search-list>
-
         <app-cms-statist-list [(options)]="optionsStatist"></app-cms-statist-list>
         <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-area-->
       </ng-container>
       <ng-container cms-body>
         <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
-        <!-- Pull-to-Refresh Indicator -->
-        @if (pullToRefreshState.pullDistance > 0) {
-          <div
-            class="cms-m-pull-refresh-indicator"
-            [style.transform]="
-              'translateY(' +
-              (pullToRefreshState.pullDistance > 80
-                ? 80
-                : pullToRefreshState.pullDistance) +
-              'px)'
-            "
-            [class.refreshing]="pullToRefreshState.isRefreshing"
-            >
-            <i
-              class="fa-solid fa-rotate-right"
-              [class.rotation360]="pullToRefreshState.isRefreshing"
-              aria-hidden="true"
-            ></i>
-            <span>{{
-              pullToRefreshState.isRefreshing
-                ? ("ACTION.RELOADING" | translate)
-                : ("ACTION.PULL_TO_REFRESH" | translate)
-            }}</span>
+        @if (dataModelResult?.listItems?.length) {
+          <div class="cms-m-list">
+            @for (row of dataModelResult.listItems; track row.id) {
+              <div
+                class="cms-m-list-item"
+                [class.selected]="row.id === tableRowSelected?.id"
+                (click)="onActionTableRowSelect(row, $event)"
+                (rtclick)="onActionTableRowSelect(row, $event)"
+                (mouseenter)="onActionTableRowMouseEnter(row)"
+                (mouseleave)="onActionTableRowMouseLeave(row)"
+                role="button"
+                [attr.aria-label]="row.message || row.id"
+                tabindex="0"
+              >
+                <div class="cms-m-list-item-image-placeholder">
+                  <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+                </div>
+                <div class="cms-m-list-item-content">
+                  <div class="cms-m-list-item-title">
+                    {{
+                      row.linkApiPathId
+                        ? (row.linkApiPathId
+                          | cmstitle: dataModelPrivateResult.listItems)
+                        : ("TITLE.ApiPath" | translate)
+                    }}
+                  </div>
+                  @if (row.linkApiNumberId) {
+                    <div class="cms-m-list-item-subtitle">
+                      <i class="fa-solid fa-sim-card" aria-hidden="true"></i>
+                      {{ fieldsInfo["linkApiNumberId"]?.fieldTitle }}: {{ row.linkApiNumberId }}
+                    </div>
+                  }
+                  @if (row.message?.length) {
+                    <div class="cms-m-list-item-description">
+                      {{ row.message }}
+                    </div>
+                  }
+                  @if (row.sendDate) {
+                    <div class="cms-m-list-item-subtitle">
+                      <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+                      {{ fieldsInfo["sendDate"]?.fieldTitle }}: {{ row.sendDate | localeDate }}
+                    </div>
+                  }
+                  @if (row.createdDate) {
+                    <div class="cms-m-list-item-subtitle">
+                      <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+                      {{ fieldsInfo["createdDate"]?.fieldTitle }}: {{ row.createdDate | localeDate }}
+                    </div>
+                  }
+                  @if (row.updatedDate) {
+                    <div class="cms-m-list-item-subtitle">
+                      <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
+                      {{ fieldsInfo["updatedDate"]?.fieldTitle }}: {{ row.updatedDate | localeDate }}
+                    </div>
+                  }
+                  @if (row.recordStatus !== undefined) {
+                    <div class="cms-m-list-item-subtitle">
+                      <i [ngClass]="row.recordStatus | statusIconClass"></i>
+                    </div>
+                  }
+                  <!-- Expanded Detail (when row is expanded) -->
+                  @if (getRowExpanded(row)) {
+                    <div class="cms-m-list-item-expanded">
+                      <div class="cms-m-list-item-subtitle">
+                        <span
+                          class="navi-icon pointer"
+                          [cdkCopyToClipboard]="row.id.toString()"
+                          (click)="onActionCopied(); $event.stopPropagation()"
+                          >
+                          <i class="flaticon2-copy"></i>
+                        </span>
+                        ID: {{ row.id }}
+                      </div>
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        } @else {
+          <div class="cms-m-empty">
+            {{ "MESSAGE.NoRecord" | translate }}
           </div>
         }
-        <!-- Mobile List View -->
-        <div
-          class="cms-m-content"
-          (touchstart)="onTouchStart($event)"
-          (touchmove)="onTouchMove($event)"
-          (touchend)="onTouchEnd($event)"
-          >
-          @if (dataModelResult?.listItems && dataModelResult.listItems.length > 0) {
-            <div class="cms-m-list">
-              @for (row of dataModelResult.listItems; track row.id) {
-                <div
-                  class="cms-m-list-item-wrapper"
-                  [style.transform]="
-                    'translateX(' + (swipeState.get(row.id)?.offset || 0) + 'px)'
-                  "
-                  >
-                  <div
-                    class="cms-m-list-item"
-                    [class.selected]="row.id === tableRowSelected?.id"
-                    (click)="onActionTableRowSelect(row, $event)"
-                    (rtclick)="onActionTableRowSelect(row, $event)"
-                    (mouseenter)="onActionTableRowMouseEnter(row)"
-                    (mouseleave)="onActionTableRowMouseLeave(row)"
-                    (touchstart)="onItemTouchStart($event, row.id)"
-                    (touchmove)="onItemTouchMove($event, row.id)"
-                    (touchend)="onItemTouchEnd($event, row.id)"
-                    role="button"
-                    [attr.aria-label]="row.id"
-                    tabindex="0"
-                  >
-                    <div class="cms-m-list-item-image-placeholder">
-                      <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
-                    </div>
-                    <div class="cms-m-list-item-content">
-                      <div class="cms-m-list-item-title">
-                        {{
-                          row.linkApiPathId
-                            ? (row.linkApiPathId
-                              | cmstitle: dataModelPrivateResult.listItems)
-                            : ("TITLE.ApiPath" | translate)
-                        }}
-                      </div>
-                      @if (row.linkApiNumberId) {
-                        <div class="cms-m-list-item-subtitle">
-                          <i class="fa-solid fa-sim-card" aria-hidden="true"></i>
-                          {{ fieldsInfo["linkApiNumberId"]?.fieldTitle }}: {{ row.linkApiNumberId }}
-                        </div>
-                      }
-                      @if (row.message?.length) {
-                        <div class="cms-m-list-item-description">
-                          <i class="fa-solid fa-comment-dots" aria-hidden="true"></i>
-                          {{ row.message }}
-                        </div>
-                      }
-                      @if (row.sendDate) {
-                        <div class="cms-m-list-item-subtitle">
-                          <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
-                          {{ fieldsInfo["sendDate"]?.fieldTitle }}: {{ row.sendDate | localeDate }}
-                        </div>
-                      }
-                      @if (row.createdDate) {
-                        <div class="cms-m-list-item-subtitle">
-                          <i class="fa-solid fa-clock" aria-hidden="true"></i>
-                          {{ fieldsInfo["createdDate"]?.fieldTitle }}: {{ row.createdDate | localeDate }}
-                        </div>
-                      }
-                      @if (row.updatedDate) {
-                        <div class="cms-m-list-item-subtitle">
-                          <i class="fa-solid fa-clock-rotate-left" aria-hidden="true"></i>
-                          {{ fieldsInfo["updatedDate"]?.fieldTitle }}: {{ row.updatedDate | localeDate }}
-                        </div>
-                      }
-                      @if (row.recordStatus !== undefined) {
-                        <div class="cms-m-list-item-subtitle">
-                          <i [ngClass]="row.recordStatus | statusIconClass"></i>
-                        </div>
-                      }
-                      <!-- Expanded Detail (when row is expanded) -->
-                      @if (getRowExpanded(row)) {
-                        <div class="cms-m-list-item-expanded">
-                          <div class="cms-m-list-item-subtitle">
-                            <span
-                              class="navi-icon pointer"
-                              [cdkCopyToClipboard]="row.id.toString()"
-                              >
-                              <i class="flaticon2-copy"></i>
-                            </span>
-                            ID: {{ row.id }}
-                          </div>
-                        </div>
-                      }
-                    </div>
-                  </div>
-                </div>
-              }
-            </div>
-          } @else {
-            <div class="cms-m-empty-state">
-              <div class="cms-m-empty-state-icon">
-                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
-              </div>
-              <div class="cms-m-empty-state-text">
-                {{ "MESSAGE.no_information" | translate }}
-              </div>
-            </div>
-          }
-        </div>
         <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
       </ng-container>
         <ng-container cms-footer>

@@ -1,25 +1,27 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild } from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreSiteCategoryModel,
-  CoreSiteModel,
-  CoreUserGroupModel,
-  CoreUserModel,
-  ErrorExceptionResult,
-  ErrorExceptionResultBase,
-  InfoEnumModel,
-  ManageUserAccessDataTypesEnum,
-  SmsEnumService,
-  SmsMainApiPathModel,
-  SmsMainApiPathPermissionModel,
-  SmsMainApiPathPermissionService } from "ntk-cms-api";
+    CoreSiteCategoryModel,
+    CoreSiteModel,
+    CoreUserGroupModel,
+    CoreUserModel,
+    ErrorExceptionResult,
+    ErrorExceptionResultBase,
+    InfoEnumModel,
+    ManageUserAccessDataTypesEnum,
+    SmsEnumService,
+    SmsMainApiPathModel,
+    SmsMainApiPathPermissionModel,
+    SmsMainApiPathPermissionService
+} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -47,7 +49,7 @@ export class SmsMainApiPathPermissionEditComponent
     private dialogRef: MatDialogRef<SmsMainApiPathPermissionEditComponent>,
     public smsEnumService: SmsEnumService,
     public smsMainApiPathPermissionService: SmsMainApiPathPermissionService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,

@@ -34,7 +34,7 @@ export class TicketingTaskAddComponent
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
     private ticketingTaskService: TicketingTaskService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private dialogRef: MatDialogRef<TicketingTaskAddComponent>,
     private router: Router,
     private cdr: ChangeDetectorRef,
@@ -54,7 +54,7 @@ export class TicketingTaskAddComponent
     string,
     DataFieldInfoModel
   >();
-  
+
   dataAccessModel: AccessModel;
   dataModel = new TicketingTaskModel();
   dataModelResult: ErrorExceptionResult<TicketingTaskModel> =

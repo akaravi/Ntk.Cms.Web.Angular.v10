@@ -42,7 +42,7 @@ export class DonateTargetPeriodListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: DonateTargetPeriodService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     public tokenHelper: TokenHelper,

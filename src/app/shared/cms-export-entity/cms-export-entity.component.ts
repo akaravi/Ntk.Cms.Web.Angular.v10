@@ -37,7 +37,7 @@ export class CmsExportEntityComponent implements OnInit, OnDestroy {
   requestService: IApiCmsServerBase;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<CmsExportEntityComponent>,

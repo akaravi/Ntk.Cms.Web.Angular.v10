@@ -1,21 +1,23 @@
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild } from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatStepper } from "@angular/material/stepper";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreEnumService,
-  DataFieldInfoModel,
-  ErrorExceptionResult,InfoEnumModel,
-  WebDesignerMainMenuModel,
-  WebDesignerMainMenuService} from "ntk-cms-api";
+import {
+    CoreEnumService,
+    DataFieldInfoModel,
+    ErrorExceptionResult, InfoEnumModel,
+    WebDesignerMainMenuModel,
+    WebDesignerMainMenuService
+} from "ntk-cms-api";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
@@ -40,7 +42,7 @@ export class WebDesignerMainMenuAddComponent
     private dialogRef: MatDialogRef<WebDesignerMainMenuAddComponent>,
     public coreEnumService: CoreEnumService,
     public webDesignerMainMenuService: WebDesignerMainMenuService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -68,7 +70,7 @@ export class WebDesignerMainMenuAddComponent
   dataModelResult: ErrorExceptionResult<WebDesignerMainMenuModel> =
     new ErrorExceptionResult<WebDesignerMainMenuModel>();
   dataModel: WebDesignerMainMenuModel = new WebDesignerMainMenuModel();
-  
+
   dataModelEnumMenuPlaceTypeResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
   fileManagerOpenForm = false;

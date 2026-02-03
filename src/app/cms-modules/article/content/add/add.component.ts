@@ -49,7 +49,7 @@ export class ArticleContentAddComponent
     public contentService: ArticleContentService,
     private contentSimilarService: ArticleContentSimilarService,
     private contentOtherInfoService: ArticleContentOtherInfoService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     private contentTagService: ArticleContentTagService,
     private cdr: ChangeDetectorRef,
@@ -68,7 +68,7 @@ export class ArticleContentAddComponent
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   selectFileTypePodcast = ["mp3"];
   selectFileTypeMovie = ["mp4", "webm"];
-  
+
   fileManagerOpenForm = false;
   fileManagerOpenFormPodcast = false;
   fileManagerOpenFormMovie = false;

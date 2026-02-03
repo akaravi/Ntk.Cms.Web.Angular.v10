@@ -32,7 +32,7 @@ export class DonateTargetPeriodSponserHeaderComponent
     private headerService: DonateTargetPeriodSponsorService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public dialog: MatDialog,
     public translate: TranslateService,
     private cmsStoreService: CmsStoreService,

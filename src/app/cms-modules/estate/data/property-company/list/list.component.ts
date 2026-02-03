@@ -44,7 +44,7 @@ export class EstatePropertyCompanyListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: EstatePropertyCompanyService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,

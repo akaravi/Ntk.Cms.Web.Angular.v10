@@ -2,12 +2,12 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreUserClaimCheckModel,
-  CoreUserClaimContentService,
-  ErrorExceptionResult,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
+    CoreUserClaimCheckModel,
+    CoreUserClaimContentService,
+    ErrorExceptionResult,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -30,7 +30,7 @@ export class CoreUserClaimContentWidgetStatusComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private service: CoreUserClaimContentService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public dialog: MatDialog,
     private tokenHelper: TokenHelper,

@@ -36,7 +36,7 @@ export class BlogCategoryAddComponent
     private dialogRef: MatDialogRef<BlogCategoryAddComponent>,
     public coreEnumService: CoreEnumService,
     public categoryService: BlogCategoryService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -67,7 +67,7 @@ export class BlogCategoryAddComponent
     new ErrorExceptionResult<BlogCategoryModel>();
   dataModel: BlogCategoryModel = new BlogCategoryModel();
 
-  
+
   fileManagerOpenForm = false;
 
   onActionFileSelected(model: NodeInterface): void {

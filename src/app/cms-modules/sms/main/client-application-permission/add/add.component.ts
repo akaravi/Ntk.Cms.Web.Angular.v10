@@ -1,20 +1,20 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild,
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  DataFieldInfoModel,
-  ErrorExceptionResult,
-  SmsMainApiPathModel,
-  SmsMainClientApplicationModel,
-  SmsMainClientApplicationPermissionModel,
-  SmsMainClientApplicationPermissionService,
+    DataFieldInfoModel,
+    ErrorExceptionResult,
+    SmsMainApiPathModel,
+    SmsMainClientApplicationModel,
+    SmsMainClientApplicationPermissionModel,
+    SmsMainClientApplicationPermissionService,
 } from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
@@ -22,7 +22,6 @@ import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { DatapickerHeaderComponent } from "src/app/shared/datapicker-header/datapicker-header.component";
 
-import { FormInfoModel } from "src/app/core/models/formInfoModel";
 
 @Component({
   selector: "app-sms-client-application-permission-add",
@@ -42,7 +41,7 @@ export class SmsMainClientApplicationPermissionAddComponent
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<SmsMainClientApplicationPermissionAddComponent>,
     public smsMainClientApplicationPermissionService: SmsMainClientApplicationPermissionService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,

@@ -64,7 +64,7 @@ export class EstateCustomerOrderAddMobileComponent implements OnInit {
     public estatePropertyTypeLanduseService: EstatePropertyTypeLanduseService,
     private estatePropertyService: EstatePropertyService,
     public themeService: ThemeService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public estatePropertyDetailGroupService: EstatePropertyDetailGroupService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,

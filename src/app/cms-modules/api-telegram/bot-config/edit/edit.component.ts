@@ -44,7 +44,7 @@ export class ApiTelegramBotConfigEditComponent
     public coreEnumService: CoreEnumService,
     public contentService: ApiTelegramBotConfigService,
     public apiTelegramBotConfigService: ApiTelegramBotConfigService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -74,7 +74,7 @@ export class ApiTelegramBotConfigEditComponent
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: ApiTelegramBotConfigModel = new ApiTelegramBotConfigModel();
 
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

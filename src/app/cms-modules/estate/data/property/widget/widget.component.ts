@@ -35,7 +35,7 @@ export class EstatePropertyWidgetComponent implements OnInit, OnDestroy {
   constructor(
     private service: EstatePropertyService,
     private cdr: ChangeDetectorRef,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public translate: TranslateService,

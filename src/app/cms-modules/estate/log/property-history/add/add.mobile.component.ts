@@ -43,7 +43,7 @@ export class EstatePropertyHistoryAddMobileComponent implements OnInit {
     public coreEnumService: CoreEnumService,
     public estatePropertyHistoryService: EstatePropertyHistoryService,
     public estateActivityTypeService: EstateActivityTypeService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     public estateEnumService: EstateEnumService,
     public publicHelper: PublicHelper,

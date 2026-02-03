@@ -1,22 +1,24 @@
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild } from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreEnumService,
-  CoreSiteCategoryModel,
-  FilterDataModel,
-  FilterModel,ManageUserAccessDataTypesEnum,
-  WebDesignerMainPageTemplateModel,
-  WebDesignerMainPageTemplateService,
-  WebDesignerMainPageTemplateSiteCategoryModel,
-  WebDesignerMainPageTemplateSiteCategoryService} from "ntk-cms-api";
+import {
+    CoreEnumService,
+    CoreSiteCategoryModel,
+    FilterDataModel,
+    FilterModel, ManageUserAccessDataTypesEnum,
+    WebDesignerMainPageTemplateModel,
+    WebDesignerMainPageTemplateService,
+    WebDesignerMainPageTemplateSiteCategoryModel,
+    WebDesignerMainPageTemplateSiteCategoryService
+} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -43,7 +45,7 @@ export class WebDesignerMainPageTemplateEditComponent
     public coreEnumService: CoreEnumService,
     public webDesignerMainPageTemplateService: WebDesignerMainPageTemplateService,
     public webDesignerMainPageTemplateSiteCategoryService: WebDesignerMainPageTemplateSiteCategoryService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -69,7 +71,7 @@ export class WebDesignerMainPageTemplateEditComponent
 
   dataModel: WebDesignerMainPageTemplateModel =
     new WebDesignerMainPageTemplateModel();
-  
+
   fileManagerOpenForm = false;
   dataCoreSiteCategoryModel: CoreSiteCategoryModel[];
   dataCoreSiteCategoryIds: number[] = [];

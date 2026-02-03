@@ -37,7 +37,7 @@ export class CoreLogTokenConnectionViewComponent implements OnInit, OnDestroy {
     private dialogRef: MatDialogRef<CoreLogTokenConnectionViewComponent>,
     public coreEnumService: CoreEnumService,
     public coreLogTokenConnectionService: CoreLogTokenConnectionService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,

@@ -48,7 +48,7 @@ export class EstatePropertyProjectQuickViewComponent
     private dialogRef: MatDialogRef<EstatePropertyProjectQuickViewComponent>,
     public coreEnumService: CoreEnumService,
     public estatePropertyProjectService: EstatePropertyProjectService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,

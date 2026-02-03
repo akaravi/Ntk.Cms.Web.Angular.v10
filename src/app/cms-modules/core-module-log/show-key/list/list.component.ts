@@ -44,7 +44,7 @@ export class CoreModuleLogShowKeyListComponent
   constructor(
     private coreEnumService: CoreEnumService,
     public contentService: CoreModuleLogShowKeyService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
     public tokenHelper: TokenHelper,

@@ -1,19 +1,19 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
 } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService,
-  CoreUserClaimGroupModel,
-  CoreUserClaimGroupService,
-  ErrorExceptionResult,
-  FilterModel,
+    CoreEnumService,
+    CoreUserClaimGroupModel,
+    CoreUserClaimGroupService,
+    ErrorExceptionResult,
+    FilterModel,
 } from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
@@ -32,7 +32,7 @@ export class CoreUserClaimGroupSelectionlistComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }

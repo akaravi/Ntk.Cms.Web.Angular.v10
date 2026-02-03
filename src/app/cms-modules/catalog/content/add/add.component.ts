@@ -42,7 +42,7 @@ export class CatalogContentAddComponent
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
     public contentService: CatalogContentService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -59,7 +59,7 @@ export class CatalogContentAddComponent
   >();
   mapOptonCenter = new PoinModel();
 
-  
+
   dataModel = new CatalogContentModel();
   dataModelResult: ErrorExceptionResult<CatalogContentModel> =
     new ErrorExceptionResult<CatalogContentModel>();

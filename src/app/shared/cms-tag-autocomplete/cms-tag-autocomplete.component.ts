@@ -37,7 +37,7 @@ export class CmsTagAutocompleteComponent implements OnInit {
   id = ++CmsTagAutocompleteComponent.nextId;
   constructor(
     public service: CoreModuleTagService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
   ) {
     this.filteredOptions = this.tagCtrl.valueChanges.pipe(
       startWith(null),

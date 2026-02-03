@@ -23,7 +23,7 @@ export class EstateAccountExpertHeaderComponent implements OnInit {
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public dialog: MatDialog,
   ) {
     this.publicHelper.processService.cdr = this.cdr;

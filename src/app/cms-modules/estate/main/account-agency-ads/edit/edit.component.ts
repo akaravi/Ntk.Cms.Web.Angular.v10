@@ -44,7 +44,7 @@ export class EstateAccountAgencyAdsEditComponent
     private dialogRef: MatDialogRef<EstateAccountAgencyAdsEditComponent>,
     public coreEnumService: CoreEnumService,
     public estateAccountAgencyAdsService: EstateAccountAgencyAdsService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public tokenHelper: TokenHelper,

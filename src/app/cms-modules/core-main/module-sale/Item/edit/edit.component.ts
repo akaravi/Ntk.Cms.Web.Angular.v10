@@ -1,26 +1,28 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild } from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreEnumService,
-  CoreModuleModel,
-  CoreModuleSaleHeaderModel,
-  CoreModuleSaleItemModel,
-  CoreModuleSaleItemService,
-  ErrorExceptionResult,
-  ErrorExceptionResultBase,InfoEnumModel,
-  ManageUserAccessDataTypesEnum} from "ntk-cms-api";
+import {
+    CoreEnumService,
+    CoreModuleModel,
+    CoreModuleSaleHeaderModel,
+    CoreModuleSaleItemModel,
+    CoreModuleSaleItemService,
+    ErrorExceptionResult,
+    ErrorExceptionResultBase, InfoEnumModel,
+    ManageUserAccessDataTypesEnum
+} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-core-modulesaleitem-edit",
@@ -44,7 +46,7 @@ export class CoreModuleSaleItemEditComponent
     public coreEnumService: CoreEnumService,
     public coreModuleSaleItemService: CoreModuleSaleItemService,
     public publicHelper: PublicHelper,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {
@@ -73,7 +75,7 @@ export class CoreModuleSaleItemEditComponent
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: CoreModuleSaleItemModel = new CoreModuleSaleItemModel();
 
-  
+
   dataModelEnumCmsModuleSaleItemTypeResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
 

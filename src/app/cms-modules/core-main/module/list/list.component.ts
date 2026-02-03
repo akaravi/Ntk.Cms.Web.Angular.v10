@@ -39,7 +39,7 @@ export class CoreModuleListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: CoreModuleService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public tokenHelper: TokenHelper,
     private router: Router,

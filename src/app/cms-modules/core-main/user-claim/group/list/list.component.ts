@@ -45,7 +45,7 @@ export class CoreUserClaimGroupListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: CoreUserClaimGroupService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private coreModuleService: CoreModuleService,
     private coreSiteCategoryService: CoreSiteCategoryService,

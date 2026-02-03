@@ -43,7 +43,7 @@ export class EstatePropertyTypeLanduseAddComponent
     private dialogRef: MatDialogRef<EstatePropertyTypeLanduseAddComponent>,
     public coreEnumService: CoreEnumService,
     public estatePropertyTypeLanduseService: EstatePropertyTypeLanduseService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -75,7 +75,7 @@ export class EstatePropertyTypeLanduseAddComponent
     new ErrorExceptionResult<EstatePropertyTypeLanduseModel>();
   dataModel: EstatePropertyTypeLanduseModel =
     new EstatePropertyTypeLanduseModel();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

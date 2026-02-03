@@ -42,7 +42,7 @@ export class TicketingDepartemenLogEditComponent
     private dialogRef: MatDialogRef<TicketingDepartemenLogEditComponent>,
     public coreEnumService: CoreEnumService,
     public ticketingDepartemenLogService: TicketingDepartemenLogService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
@@ -65,7 +65,7 @@ export class TicketingDepartemenLogEditComponent
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: TicketingDepartemenLogModel = new TicketingDepartemenLogModel();
-  
+
   fileManagerOpenForm = false;
 
   private unsubscribe: Subscription[] = [];

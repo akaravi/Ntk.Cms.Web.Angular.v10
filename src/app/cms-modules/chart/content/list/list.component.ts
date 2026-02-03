@@ -1,29 +1,3 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
-import { PageEvent } from "@angular/material/paginator";
-import { MatSort } from "@angular/material/sort";
-import { Router } from "@angular/router";
-import { TranslateService } from "@ngx-translate/core";
-import {
-    ChartCategoryModel,
-    ChartContentModel,
-    ChartContentService,
-    ClauseTypeEnum,
-    FilterDataModel,
-    FilterModel,
-    RecordStatusEnum,
-    SortTypeEnum,
-} from "ntk-cms-api";
-import { Subscription } from "rxjs";
-import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
-import { TokenHelper } from "src/app/core/helpers/tokenHelper";
-import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
-import { PageInfoService } from "src/app/core/services/page-info.service";
-import { CmsLinkToComponent } from "src/app/shared/cms-link-to/cms-link-to.component";
-import { environment } from "src/environments/environment";
-import { PublicHelper } from "../../../../core/helpers/publicHelper";
-import { CmsToastrService } from "../../../../core/services/cmsToastr.service";
-import { ChartContentDeleteComponent } from "../delete/delete.component";
 
 @Component({
   selector: "app-chart-content-list",
@@ -37,8 +11,7 @@ export class ChartContentListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: ChartContentService,
-    private cmsToastrService: CmsToastrService,
-    private router: Router,
+        private router: Router,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
     private cmsStoreService: CmsStoreService,

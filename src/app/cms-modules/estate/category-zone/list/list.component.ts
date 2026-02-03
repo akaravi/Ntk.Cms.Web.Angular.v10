@@ -42,7 +42,7 @@ export class EstateCategoryZoneListComponent
   constructor(
     private contentService: EstateCategoryZoneService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,

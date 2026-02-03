@@ -35,7 +35,7 @@ import { CatalogCategoryEditComponent } from "../edit/edit.component";
 export class CatalogCategoryTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: CatalogCategoryService,
     public dialog: MatDialog,

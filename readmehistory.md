@@ -1,5 +1,129 @@
 # تاریخچه تغییرات پروژه
 
+## 2026-02-02 (ادامه بازنویسی List Mobile Components - Part 1.1.4 تا 1.1.11)
+
+### خلاصه:
+ادامه بازنویسی List Mobile Components با استفاده از `app-cms-html-list-mobile`. انجام 8 فایل دیگر از Estate Module.
+
+### تغییرات انجام شده:
+
+#### Part 1.1.4: `estate/main/account-agency`
+- ✅ بازنویسی `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile`
+- ✅ ساده‌سازی `list.mobile.component.ts` (حذف styleUrls و متدهای اضافی)
+- ✅ حذف `list.mobile.component.scss`
+
+#### Part 1.1.5: `estate/main/account-agency-ads`
+- ✅ بازنویسی `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile`
+- ✅ ساده‌سازی `list.mobile.component.ts` (حذف styleUrls و متدهای اضافی)
+- ✅ حذف `list.mobile.component.scss`
+
+#### Part 1.1.6: `estate/main/account-expert`
+- ✅ بازنویسی `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile`
+- ✅ ساده‌سازی `list.mobile.component.ts` (حذف styleUrls و متدهای اضافی)
+- ✅ حذف `list.mobile.component.scss`
+
+#### Part 1.1.7: `estate/main/activity-type`
+- ✅ بازنویسی `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile`
+- ✅ ساده‌سازی `list.mobile.component.ts` (حذف styleUrls و متدهای اضافی)
+- ✅ حذف `list.mobile.component.scss`
+
+#### Part 1.1.8: `estate/main/ads-type`
+- ✅ بازنویسی `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile`
+- ✅ ساده‌سازی `list.mobile.component.ts` (حذف styleUrls و متدهای اضافی)
+- ✅ حذف `list.mobile.component.scss`
+
+#### Part 1.1.9: `estate/main/contract-type`
+- ✅ بازنویسی `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile`
+- ✅ ساده‌سازی `list.mobile.component.ts` (حذف styleUrls و متدهای اضافی)
+- ✅ حذف `list.mobile.component.scss`
+
+#### Part 1.1.10: `estate/main/property-detail`
+- ✅ بازنویسی `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile`
+- ✅ ساده‌سازی `list.mobile.component.ts` (حذف styleUrls و متدهای اضافی)
+- ✅ حذف `list.mobile.component.scss`
+
+#### Part 1.1.11: `estate/main/property-detail-group`
+- ✅ بازنویسی `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile`
+- ✅ ساده‌سازی `list.mobile.component.ts` (حذف styleUrls و متدهای اضافی)
+- ✅ حذف `list.mobile.component.scss`
+
+### آمار:
+- **انجام شده**: 11 فایل از 55 فایل (20%)
+- **باقیمانده Estate Module**: 13 فایل
+- **باقیمانده کل**: 44 فایل
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/estate/main/account-agency/list/list.mobile.component.html`
+- `src/app/cms-modules/estate/main/account-agency/list/list.mobile.component.ts`
+- `src/app/cms-modules/estate/main/account-agency-ads/list/list.mobile.component.html`
+- `src/app/cms-modules/estate/main/account-agency-ads/list/list.mobile.component.ts`
+- `src/app/cms-modules/estate/main/account-expert/list/list.mobile.component.html`
+- `src/app/cms-modules/estate/main/account-expert/list/list.mobile.component.ts`
+- `src/app/cms-modules/estate/main/activity-type/list/list.mobile.component.html`
+- `src/app/cms-modules/estate/main/activity-type/list/list.mobile.component.ts`
+- `src/app/cms-modules/estate/main/ads-type/list/list.mobile.component.html`
+- `src/app/cms-modules/estate/main/ads-type/list/list.mobile.component.ts`
+- `src/app/cms-modules/estate/main/contract-type/list/list.mobile.component.html`
+- `src/app/cms-modules/estate/main/contract-type/list/list.mobile.component.ts`
+- `src/app/cms-modules/estate/main/property-detail/list/list.mobile.component.html`
+- `src/app/cms-modules/estate/main/property-detail/list/list.mobile.component.ts`
+- `src/app/cms-modules/estate/main/property-detail-group/list/list.mobile.component.html`
+- `src/app/cms-modules/estate/main/property-detail-group/list/list.mobile.component.ts`
+
+### فایل‌های حذف شده:
+- `src/app/cms-modules/estate/main/account-agency/list/list.mobile.component.scss`
+- `src/app/cms-modules/estate/main/account-agency-ads/list/list.mobile.component.scss`
+- `src/app/cms-modules/estate/main/account-expert/list/list.mobile.component.scss`
+- `src/app/cms-modules/estate/main/activity-type/list/list.mobile.component.scss`
+- `src/app/cms-modules/estate/main/ads-type/list/list.mobile.component.scss`
+- `src/app/cms-modules/estate/main/contract-type/list/list.mobile.component.scss`
+- `src/app/cms-modules/estate/main/property-detail/list/list.mobile.component.scss`
+- `src/app/cms-modules/estate/main/property-detail-group/list/list.mobile.component.scss`
+
+---
+
+## 2026-02-02 (شروع بازنویسی List Mobile Components - Part 1.1.1 تا 1.1.3)
+
+### خلاصه:
+شروع بازنویسی List Mobile Components با استفاده از `app-cms-html-list-mobile`. انجام 3 فایل اول از Estate Module.
+
+### تغییرات انجام شده:
+
+#### Part 1.1.1: `estate/log/customer-order-result`
+- ✅ بازنویسی `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile`
+- ✅ ساده‌سازی `list.mobile.component.ts` (حذف styleUrls، حفظ getTitle و getRowExpanded)
+- ✅ حذف `list.mobile.component.scss`
+
+#### Part 1.1.2: `estate/log/property-expert-price`
+- ✅ بازنویسی `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile`
+- ✅ ساده‌سازی `list.mobile.component.ts` (حذف styleUrls، حفظ getTitle و getRowExpanded)
+- ✅ حذف `list.mobile.component.scss`
+
+#### Part 1.1.3: `estate/log/property-history`
+- ✅ بازنویسی `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile`
+- ✅ ساده‌سازی `list.mobile.component.ts` (حذف تمام متدهای اضافی و styleUrls، فقط getRowExpanded)
+- ✅ حذف `list.mobile.component.scss`
+
+### آمار:
+- **انجام شده**: 3 فایل از 55 فایل (5.5%)
+- **باقیمانده Estate Module**: 21 فایل
+- **باقیمانده کل**: 52 فایل
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/estate/log/customer-order-result/list/list.mobile.component.html`
+- `src/app/cms-modules/estate/log/customer-order-result/list/list.mobile.component.ts`
+- `src/app/cms-modules/estate/log/property-expert-price/list/list.mobile.component.html`
+- `src/app/cms-modules/estate/log/property-expert-price/list/list.mobile.component.ts`
+- `src/app/cms-modules/estate/log/property-history/list/list.mobile.component.html`
+- `src/app/cms-modules/estate/log/property-history/list/list.mobile.component.ts`
+
+### فایل‌های حذف شده:
+- `src/app/cms-modules/estate/log/customer-order-result/list/list.mobile.component.scss`
+- `src/app/cms-modules/estate/log/property-expert-price/list/list.mobile.component.scss`
+- `src/app/cms-modules/estate/log/property-history/list/list.mobile.component.scss`
+
+---
+
 ## 2026-02-02 (بازنویسی estate customer-order list mobile با الگوی جدید)
 
 ### خلاصه:

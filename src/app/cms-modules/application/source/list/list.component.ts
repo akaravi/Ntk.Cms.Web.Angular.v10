@@ -38,7 +38,7 @@ export class ApplicationSourceListComponent
   constructor(
     public contentService: ApplicationSourceService,
     public publicHelper: PublicHelper,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private cdr: ChangeDetectorRef,

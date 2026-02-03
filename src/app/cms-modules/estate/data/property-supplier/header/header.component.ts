@@ -35,7 +35,7 @@ export class EstatePropertySupplierHeaderComponent
     private cdr: ChangeDetectorRef,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public dialog: MatDialog,
     public translate: TranslateService,
   ) {

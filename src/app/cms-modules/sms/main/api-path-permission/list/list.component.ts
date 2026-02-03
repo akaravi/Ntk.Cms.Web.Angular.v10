@@ -1,9 +1,9 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
+    ChangeDetectorRef,
+    Component,
+    OnDestroy,
+    OnInit,
+    ViewChild,
 } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator, PageEvent } from "@angular/material/paginator";
@@ -11,13 +11,13 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SmsMainApiPathModel,
-  SmsMainApiPathPermissionModel,
-  SmsMainApiPathPermissionService,
-  SortTypeEnum,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SmsMainApiPathModel,
+    SmsMainApiPathPermissionModel,
+    SmsMainApiPathPermissionService,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -53,7 +53,7 @@ export class SmsMainApiPathPermissionListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: SmsMainApiPathPermissionService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private activatedRoute: ActivatedRoute,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private router: Router,

@@ -51,7 +51,7 @@ export class BlogContentAddComponent
     public contentService: BlogContentService,
     private contentSimilarService: BlogContentSimilarService,
     private contentOtherInfoService: BlogContentOtherInfoService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     private contentTagService: BlogContentTagService,
     private cdr: ChangeDetectorRef,
@@ -69,7 +69,7 @@ export class BlogContentAddComponent
   >();
   mapOptonCenter = new PoinModel();
 
-  
+
   dataModel = new BlogContentModel();
   dataModelResult: ErrorExceptionResult<BlogContentModel> =
     new ErrorExceptionResult<BlogContentModel>();

@@ -37,7 +37,7 @@ export class DonateTargetListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: DonateTargetService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,

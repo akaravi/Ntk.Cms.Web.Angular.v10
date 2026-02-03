@@ -38,7 +38,7 @@ export class NewsContentListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: NewsContentService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
     private activatedRoute: ActivatedRoute,

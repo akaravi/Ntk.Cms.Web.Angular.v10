@@ -42,7 +42,7 @@ export class EstateAccountAgencyWorkAreaListComponent
   constructor(
     private contentService: EstateAccountAgencyWorkAreaService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,

@@ -44,7 +44,7 @@ export class CoreUserSupportAccessListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: CoreUserSupportAccessService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private router: Router,
     public tokenHelper: TokenHelper,

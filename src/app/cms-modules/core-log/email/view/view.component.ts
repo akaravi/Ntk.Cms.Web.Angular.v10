@@ -37,7 +37,7 @@ export class CoreLogEmailViewComponent implements OnInit, OnDestroy {
     private dialogRef: MatDialogRef<CoreLogEmailViewComponent>,
     public coreEnumService: CoreEnumService,
     public coreLogEmailService: CoreLogEmailService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,

@@ -40,7 +40,7 @@ export class MemberPropertyAliasEditComponent
     private dialogRef: MatDialogRef<MemberPropertyAliasEditComponent>,
     public coreEnumService: CoreEnumService,
     public memberPropertyAliasService: MemberPropertyAliasService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -66,7 +66,7 @@ export class MemberPropertyAliasEditComponent
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: MemberPropertyAliasModel = new MemberPropertyAliasModel();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

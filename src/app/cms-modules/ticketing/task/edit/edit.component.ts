@@ -43,7 +43,7 @@ export class TicketingTaskEditComponent
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
     private ticketingTaskService: TicketingTaskService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -66,7 +66,7 @@ export class TicketingTaskEditComponent
   }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
-  
+
   dataAccessModel: AccessModel;
   dataModel = new TicketingTaskModel();
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();

@@ -48,7 +48,7 @@ export class EstateCustomerOrderResponsibleUserListComponent
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<EstateCustomerOrderResponsibleUserListComponent>,
     public contentService: EstateCustomerOrderService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public tokenHelper: TokenHelper,
     private router: Router,
     private cdr: ChangeDetectorRef,

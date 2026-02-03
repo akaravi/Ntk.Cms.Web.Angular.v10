@@ -33,7 +33,7 @@ export class BlogCategoryDeleteComponent implements OnInit {
     private categoryService: BlogCategoryService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
 

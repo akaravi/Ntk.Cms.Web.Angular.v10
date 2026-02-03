@@ -37,7 +37,7 @@ export class ApplicationIntroEditComponent
     public coreEnumService: CoreEnumService,
     public applicationEnumService: ApplicationEnumService,
     private applicationIntroService: ApplicationIntroService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     private router: Router,
@@ -49,7 +49,7 @@ export class ApplicationIntroEditComponent
     this.requestId = +Number(this.activatedRoute.snapshot.paramMap.get("id"));
   }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
-  
+
   dataAccessModel: AccessModel;
 
   dataModel = new ApplicationIntroModel();

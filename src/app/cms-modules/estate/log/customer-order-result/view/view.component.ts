@@ -38,7 +38,7 @@ export class EstateCustomerOrderResultViewComponent
     private dialogRef: MatDialogRef<EstateCustomerOrderResultViewComponent>,
     public coreEnumService: CoreEnumService,
     public estateCustomerOrderResultService: EstateCustomerOrderResultService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,

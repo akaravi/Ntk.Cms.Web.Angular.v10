@@ -50,7 +50,7 @@ export class MemberPropertyDetailListComponent
     private memberPropertyTypeService: MemberPropertyTypeService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public tokenHelper: TokenHelper,
     private router: Router,
     private cdr: ChangeDetectorRef,

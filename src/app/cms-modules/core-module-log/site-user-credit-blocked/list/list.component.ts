@@ -46,7 +46,7 @@ export class CoreModuleLogSiteUserCreditBlockedListComponent
   constructor(
     private coreEnumService: CoreEnumService,
     public contentService: CoreModuleLogSiteUserCreditBlockedService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
     public tokenHelper: TokenHelper,

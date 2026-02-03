@@ -41,7 +41,7 @@ export class CoreLocationListComponent
   constructor(
     public contentService: CoreLocationService,
     private coreEnumService: CoreEnumService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private router: Router,
     public tokenHelper: TokenHelper,

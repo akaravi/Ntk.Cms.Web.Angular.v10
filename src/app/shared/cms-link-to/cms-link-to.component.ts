@@ -38,7 +38,7 @@ export class CmsLinkToComponent implements OnInit, OnDestroy {
   id = ++CmsLinkToComponent.nextId;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<CmsLinkToComponent>,
     public smsActionService: SmsActionService,

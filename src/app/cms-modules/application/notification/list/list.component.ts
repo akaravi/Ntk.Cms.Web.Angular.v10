@@ -44,7 +44,7 @@ export class ApplicationLogNotificationListComponent
     private contentService: ApplicationLogNotificationService,
     private activatedRoute: ActivatedRoute,
     private cdr: ChangeDetectorRef,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
     public translate: TranslateService,

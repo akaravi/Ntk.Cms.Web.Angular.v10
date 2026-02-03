@@ -1,10 +1,10 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
 } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -20,7 +20,7 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 export class WebDesignerBuilderModuleNewsComponent implements OnInit {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,

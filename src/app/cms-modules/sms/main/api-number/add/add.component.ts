@@ -1,23 +1,25 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild } from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {DataFieldInfoModel,
-  ErrorExceptionResult,InfoEnumModel,
-  SmsEnumService,
-  SmsMainApiNumberModel,
-  SmsMainApiNumberService} from "ntk-cms-api";
+import {
+    DataFieldInfoModel,
+    ErrorExceptionResult, InfoEnumModel,
+    SmsEnumService,
+    SmsMainApiNumberModel,
+    SmsMainApiNumberService
+} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-sms-api-number-add",
@@ -39,7 +41,7 @@ export class SmsMainApiNumberAddComponent
     private dialogRef: MatDialogRef<SmsMainApiNumberAddComponent>,
     public smsEnumService: SmsEnumService,
     public smsMainApiNumberService: SmsMainApiNumberService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -70,7 +72,7 @@ export class SmsMainApiNumberAddComponent
     new ErrorExceptionResult<SmsMainApiNumberModel>();
   dataModel: SmsMainApiNumberModel = new SmsMainApiNumberModel();
 
-  
+
   dataModelEnumApiNumberAccessStatusResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
   dataModelEnumApiNumberActionResult: ErrorExceptionResult<InfoEnumModel> =

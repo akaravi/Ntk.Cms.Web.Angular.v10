@@ -1,24 +1,26 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild } from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {AccessModel,
-  CoreEnumService,
-  CoreModuleDataCommentModel,
-  CoreModuleDataCommentService,
-  CoreSiteModel,
-  DataFieldInfoModel,
-  ErrorExceptionResult} from "ntk-cms-api";
+import {
+    AccessModel,
+    CoreEnumService,
+    CoreModuleDataCommentModel,
+    CoreModuleDataCommentService,
+    CoreSiteModel,
+    DataFieldInfoModel,
+    ErrorExceptionResult
+} from "ntk-cms-api";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-coremodule-data-comment-add",
@@ -41,7 +43,7 @@ export class CoreModuleDataCommentAddComponent
     private dialogRef: MatDialogRef<CoreModuleDataCommentAddComponent>,
     public coreEnumService: CoreEnumService,
     public coreModuleDataCommentService: CoreModuleDataCommentService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -72,7 +74,7 @@ export class CoreModuleDataCommentAddComponent
     new ErrorExceptionResult<CoreModuleDataCommentModel>();
   dataModel: CoreModuleDataCommentModel = new CoreModuleDataCommentModel();
 
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

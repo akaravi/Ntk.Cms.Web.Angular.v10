@@ -43,7 +43,7 @@ export class EstateContractTypeListComponent
   constructor(
     private contentService: EstateContractTypeService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     public tokenHelper: TokenHelper,
     private router: Router,

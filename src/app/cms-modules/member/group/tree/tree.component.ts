@@ -35,7 +35,7 @@ import { MemberGroupEditComponent } from "../edit/edit.component";
 export class MemberGroupTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: MemberGroupService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,

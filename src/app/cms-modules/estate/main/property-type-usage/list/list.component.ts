@@ -42,7 +42,7 @@ export class EstatePropertyTypeUsageListComponent
     private contentService: EstatePropertyTypeUsageService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private router: Router,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,

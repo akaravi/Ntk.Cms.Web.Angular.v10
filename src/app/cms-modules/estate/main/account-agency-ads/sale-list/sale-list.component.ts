@@ -36,7 +36,7 @@ export class EstateAccountAgencyAdsSaleListComponent
   constructor(
     private estateAdsTypeService: EstateAdsTypeService,
     public publicHelper: PublicHelper,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     private coreSiteService: CoreSiteService,
     public themeService: ThemeService,

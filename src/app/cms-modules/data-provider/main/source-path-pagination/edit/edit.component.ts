@@ -1,22 +1,3 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild,
-} from "@angular/core";
-import { FormGroup } from "@angular/forms";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { TranslateService } from "@ngx-translate/core";
-import {
-  DataProviderSourcePathPaginationModel,
-  DataProviderSourcePathPaginationService,
-  ErrorExceptionResultBase,
-  ManageUserAccessDataTypesEnum,
-} from "ntk-cms-api";
-import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
-import { PublicHelper } from "src/app/core/helpers/publicHelper";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-data-provider-source-path-pagination-edit",
@@ -37,8 +18,7 @@ export class DataProviderSourcePathPaginationEditComponent
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<DataProviderSourcePathPaginationEditComponent>,
     public contentService: DataProviderSourcePathPaginationService,
-    private cmsToastrService: CmsToastrService,
-    public publicHelper: PublicHelper,
+        public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {

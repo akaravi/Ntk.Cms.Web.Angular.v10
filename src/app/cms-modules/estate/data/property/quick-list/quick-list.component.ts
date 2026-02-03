@@ -71,7 +71,7 @@ export class EstatePropertyQuickListComponent
     private dialogRef: MatDialogRef<EstatePropertyQuickListComponent>,
     public contentService: EstatePropertyService,
     private activatedRoute: ActivatedRoute,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,

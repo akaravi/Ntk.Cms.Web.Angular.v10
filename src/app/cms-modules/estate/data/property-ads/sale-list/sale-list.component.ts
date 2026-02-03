@@ -34,7 +34,7 @@ export class EstatePropertyAdsSaleListComponent implements OnInit, OnDestroy {
   constructor(
     private estateAdsTypeService: EstateAdsTypeService,
     public publicHelper: PublicHelper,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     private coreSiteService: CoreSiteService,
     private cmsStoreService: CmsStoreService,

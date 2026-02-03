@@ -37,7 +37,7 @@ export class CoreLogMemberViewComponent implements OnInit, OnDestroy {
     private dialogRef: MatDialogRef<CoreLogMemberViewComponent>,
     public coreEnumService: CoreEnumService,
     public coreLogMemberService: CoreLogMemberService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,

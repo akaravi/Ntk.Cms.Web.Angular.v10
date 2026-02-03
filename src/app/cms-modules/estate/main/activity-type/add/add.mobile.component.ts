@@ -38,7 +38,7 @@ export class EstateActivityTypeAddMobileComponent
   constructor(
     public coreEnumService: CoreEnumService,
     public estateActivityTypeService: EstateActivityTypeService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private router: Router,
@@ -69,7 +69,7 @@ export class EstateActivityTypeAddMobileComponent
   dataModelResult: ErrorExceptionResult<EstateActivityTypeModel> =
     new ErrorExceptionResult<EstateActivityTypeModel>();
   dataModel: EstateActivityTypeModel = new EstateActivityTypeModel();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

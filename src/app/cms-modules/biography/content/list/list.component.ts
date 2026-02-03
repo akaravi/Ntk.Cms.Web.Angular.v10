@@ -41,7 +41,7 @@ export class BiographyContentListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: BiographyContentService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
     public translate: TranslateService,

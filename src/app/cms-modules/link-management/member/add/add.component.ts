@@ -39,7 +39,7 @@ export class LinkManagementMemberAddComponent
     private dialogRef: MatDialogRef<LinkManagementMemberAddComponent>,
     public coreEnumService: CoreEnumService,
     public categoryService: LinkManagementMemberService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -69,7 +69,7 @@ export class LinkManagementMemberAddComponent
     new ErrorExceptionResult<LinkManagementMemberModel>();
   dataModel: LinkManagementMemberModel = new LinkManagementMemberModel();
 
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

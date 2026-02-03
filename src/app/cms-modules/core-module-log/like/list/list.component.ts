@@ -46,7 +46,7 @@ export class CoreModuleLogLikeListComponent
   constructor(
     private coreEnumService: CoreEnumService,
     public contentService: CoreModuleLogLikeService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
     public tokenHelper: TokenHelper,

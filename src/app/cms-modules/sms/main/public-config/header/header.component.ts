@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService,
-  DataFieldInfoModel,
-  ErrorExceptionResult,
-  SmsMainApiPathPublicConfigModel,
-  SmsMainApiPathPublicConfigService,
+    CoreEnumService,
+    DataFieldInfoModel,
+    ErrorExceptionResult,
+    SmsMainApiPathPublicConfigModel,
+    SmsMainApiPathPublicConfigService,
 } from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
@@ -24,7 +24,7 @@ export class SmsMainApiPathPublicConfigHeaderComponent implements OnInit {
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }

@@ -1,24 +1,26 @@
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild } from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatStepper } from "@angular/material/stepper";
 import { TranslateService } from "@ngx-translate/core";
-import {AccessModel,
-  CoreEnumService,
-  CoreUserGroupModel,
-  ErrorExceptionResult,
-  ErrorExceptionResultBase,InfoEnumModel,
-  ManageUserAccessDataTypesEnum,
-  WebDesignerMainMenuModel,
-  WebDesignerMainMenuService} from "ntk-cms-api";
+import {
+    AccessModel,
+    CoreEnumService,
+    CoreUserGroupModel,
+    ErrorExceptionResult,
+    ErrorExceptionResultBase, InfoEnumModel,
+    ManageUserAccessDataTypesEnum,
+    WebDesignerMainMenuModel,
+    WebDesignerMainMenuService
+} from "ntk-cms-api";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
@@ -44,7 +46,7 @@ export class WebDesignerMainMenuEditComponent
     public coreEnumService: CoreEnumService,
     public webDesignerMainMenuService: WebDesignerMainMenuService,
     public publicHelper: PublicHelper,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {
@@ -66,7 +68,7 @@ export class WebDesignerMainMenuEditComponent
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: WebDesignerMainMenuModel = new WebDesignerMainMenuModel();
-  
+
   dataModelEnumMenuPlaceTypeResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
   dataAccessModel: AccessModel;

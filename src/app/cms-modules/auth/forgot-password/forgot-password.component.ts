@@ -32,7 +32,7 @@ export class AuthForgotPasswordComponent implements OnInit {
   private destroyRef = inject(DestroyRef);
   constructor(
     private coreAuthService: CoreAuthV3Service,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public translate: TranslateService,
     private router: Router,
     private cdr: ChangeDetectorRef,

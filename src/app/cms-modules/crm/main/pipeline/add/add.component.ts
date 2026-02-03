@@ -41,7 +41,7 @@ export class CrmPipelineAddComponent
     private dialogRef: MatDialogRef<CrmPipelineAddComponent>,
     public coreEnumService: CoreEnumService,
     public crmPipelineService: CrmPipelineService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private cmsStoreService: CmsStoreService,
@@ -63,7 +63,7 @@ export class CrmPipelineAddComponent
   dataModelResult: ErrorExceptionResult<CrmPipelineModel> =
     new ErrorExceptionResult<CrmPipelineModel>();
   dataModel: CrmPipelineModel = new CrmPipelineModel();
-  
+
   ngOnInit(): void {
     this.translate.get("TITLE.ADD").subscribe((str: string) => {
       this.formInfo.formTitle = str;

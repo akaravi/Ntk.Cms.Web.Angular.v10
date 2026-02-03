@@ -26,7 +26,7 @@ export class MenuProfileComponent implements OnInit {
   constructor(
     public coreAuthService: CoreAuthV3Service,
     public cmsAuthService: CmsAuthService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public translate: TranslateService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,

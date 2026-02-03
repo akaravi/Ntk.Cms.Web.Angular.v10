@@ -44,7 +44,7 @@ export class CrmContactAddComponent
     private dialogRef: MatDialogRef<CrmContactAddComponent>,
     public coreEnumService: CoreEnumService,
     public crmContactService: CrmContactService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private cmsStoreService: CmsStoreService,
@@ -69,7 +69,7 @@ export class CrmContactAddComponent
   dataModelResult: ErrorExceptionResult<CrmContactModel> =
     new ErrorExceptionResult<CrmContactModel>();
   dataModel: CrmContactModel = new CrmContactModel();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

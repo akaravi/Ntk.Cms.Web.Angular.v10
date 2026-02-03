@@ -41,7 +41,7 @@ export class EstatePropertyTypeUsageAddMobileComponent
   constructor(
     public coreEnumService: CoreEnumService,
     public estatePropertyTypeUsageService: EstatePropertyTypeUsageService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -77,7 +77,7 @@ export class EstatePropertyTypeUsageAddMobileComponent
     new ErrorExceptionResult<EstatePropertyTypeUsageModel>();
   dataModel: EstatePropertyTypeUsageModel =
     new EstatePropertyTypeUsageModel();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

@@ -41,7 +41,7 @@ export class EstateAccountExpertAddMobileComponent
   constructor(
     public coreEnumService: CoreEnumService,
     public estateAccountExpertService: EstateAccountExpertService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
@@ -76,7 +76,7 @@ export class EstateAccountExpertAddMobileComponent
   dataModelResult: ErrorExceptionResult<EstateAccountExpertModel> =
     new ErrorExceptionResult<EstateAccountExpertModel>();
   dataModel: EstateAccountExpertModel = new EstateAccountExpertModel();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

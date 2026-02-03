@@ -3,20 +3,20 @@ import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService,
-  CoreModuleModel,
-  CoreModuleSaleHeaderModel,
-  CoreModuleSaleHeaderService,
-  CoreModuleSaleInvoiceDetailModel,
-  CoreModuleSaleInvoiceModel,
-  CoreModuleSaleItemModel,
-  CoreModuleService,
-  CoreSiteService,
-  DataFieldInfoModel,
-  ErrorExceptionResult,
-  FilterModel,
-  InfoEnumModel,
-  TokenInfoModelV3,
+    CoreEnumService,
+    CoreModuleModel,
+    CoreModuleSaleHeaderModel,
+    CoreModuleSaleHeaderService,
+    CoreModuleSaleInvoiceDetailModel,
+    CoreModuleSaleInvoiceModel,
+    CoreModuleSaleItemModel,
+    CoreModuleService,
+    CoreSiteService,
+    DataFieldInfoModel,
+    ErrorExceptionResult,
+    FilterModel,
+    InfoEnumModel,
+    TokenInfoModelV3,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -40,7 +40,7 @@ export class CoreModuleSaleHeaderSaleListComponent
     private coreModuleSaleHeaderService: CoreModuleSaleHeaderService,
     private coreSiteService: CoreSiteService,
     public publicHelper: PublicHelper,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     private coreModuleService: CoreModuleService,
     private cmsStoreService: CmsStoreService,

@@ -41,7 +41,7 @@ export class ApplicationThemeConfigEditComponent
     private dialogRef: MatDialogRef<ApplicationThemeConfigEditComponent>,
     public coreEnumService: CoreEnumService,
     public applicationThemeConfigService: ApplicationThemeConfigService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -67,7 +67,7 @@ export class ApplicationThemeConfigEditComponent
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: ApplicationThemeConfigModel = new ApplicationThemeConfigModel();
 
-  
+
   fileManagerOpenForm = false;
 
   dataAccessModel: AccessModel;

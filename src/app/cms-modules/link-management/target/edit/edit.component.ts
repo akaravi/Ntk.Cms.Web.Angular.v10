@@ -51,7 +51,7 @@ export class LinkManagementTargetEditComponent
     private linkManagementEnumService: LinkManagementEnumService,
     private linkManagementTargetService: LinkManagementTargetService,
     private contentCategoryService: LinkManagementTargetCategoryService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private router: Router,

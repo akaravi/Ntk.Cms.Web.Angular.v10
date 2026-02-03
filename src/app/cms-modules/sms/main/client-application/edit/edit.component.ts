@@ -1,32 +1,32 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild,
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogRef,
+    MAT_DIALOG_DATA,
+    MatDialog,
+    MatDialogRef,
 } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  ErrorExceptionResult,
-  ErrorExceptionResultBase,
-  FilterDataModel,
-  FilterModel,
-  InfoEnumModel,
-  ManageUserAccessDataTypesEnum,
-  SmsEnumService,
-  SmsMainApiPathModel,
-  SmsMainApiPathService,
-  SmsMainClientApplicationModel,
-  SmsMainClientApplicationPermissionModel,
-  SmsMainClientApplicationPermissionService,
-  SmsMainClientApplicationService,
-  SortTypeEnum,
+    ErrorExceptionResult,
+    ErrorExceptionResultBase,
+    FilterDataModel,
+    FilterModel,
+    InfoEnumModel,
+    ManageUserAccessDataTypesEnum,
+    SmsEnumService,
+    SmsMainApiPathModel,
+    SmsMainApiPathService,
+    SmsMainClientApplicationModel,
+    SmsMainClientApplicationPermissionModel,
+    SmsMainClientApplicationPermissionService,
+    SmsMainClientApplicationService,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
@@ -61,7 +61,7 @@ export class SmsMainClientApplicationEditComponent
     public smsMainClientApplicationService: SmsMainClientApplicationService,
     public smsMainClientApplicationPermissionService: SmsMainClientApplicationPermissionService,
     public smsMainApiPathService: SmsMainApiPathService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public publicHelper: PublicHelper,
     public tokenHelper: TokenHelper,

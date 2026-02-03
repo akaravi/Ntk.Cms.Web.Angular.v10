@@ -37,7 +37,7 @@ import { SignupRuleComponent } from "../signup-rule/signup-rule.component";
 export class AuthSignUpComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     private coreAuthService: CoreAuthV3Service,
     public dialog: MatDialog,

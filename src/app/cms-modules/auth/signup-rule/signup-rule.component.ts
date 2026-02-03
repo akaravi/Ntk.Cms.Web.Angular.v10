@@ -12,7 +12,7 @@ export class SignupRuleComponent implements OnInit {
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private coreConfigurationService: CoreConfigurationService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public translate: TranslateService,

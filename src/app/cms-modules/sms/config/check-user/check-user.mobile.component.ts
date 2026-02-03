@@ -1,19 +1,3 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
-import { MatTableDataSource } from "@angular/material/table";
-import { ActivatedRoute } from "@angular/router";
-import { TranslateService } from "@ngx-translate/core";
-import {
-  BaseModuleSiteCheckUserModel,
-  CoreEnumService,
-  ErrorExceptionResult,
-  SmsConfigurationService,
-  TokenInfoModelV3,
-} from "ntk-cms-api";
-import { Subscription } from "rxjs";
-import { PublicHelper } from "src/app/core/helpers/publicHelper";
-import { TokenHelper } from "src/app/core/helpers/tokenHelper";
-import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-sms-config-checkuser-mobile",
@@ -32,8 +16,7 @@ export class SmsConfigCheckUserMobileComponent implements OnInit, OnDestroy {
     private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
-    private cmsToastrService: CmsToastrService,
-    private cdr: ChangeDetectorRef,
+        private cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
@@ -101,4 +84,3 @@ export class SmsConfigCheckUserMobileComponent implements OnInit, OnDestroy {
     });
   }
 }
-

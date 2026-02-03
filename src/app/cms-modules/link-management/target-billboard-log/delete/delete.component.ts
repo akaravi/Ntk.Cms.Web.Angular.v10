@@ -33,7 +33,7 @@ export class LinkManagementTargetBillboardLogDeleteComponent implements OnInit {
     private linkManagementTargetBillboardLogService: LinkManagementTargetBillboardLogService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
     if (data && data.id) {

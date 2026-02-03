@@ -1,24 +1,26 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild } from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {ErrorExceptionResult,
-  ErrorExceptionResultBase,InfoEnumModel,
-  ManageUserAccessDataTypesEnum,
-  SmsEnumService,
-  SmsLogOutBoxTaskSchedulerModel,
-  SmsLogOutBoxTaskSchedulerService} from "ntk-cms-api";
+import {
+    ErrorExceptionResult,
+    ErrorExceptionResultBase, InfoEnumModel,
+    ManageUserAccessDataTypesEnum,
+    SmsEnumService,
+    SmsLogOutBoxTaskSchedulerModel,
+    SmsLogOutBoxTaskSchedulerService
+} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-sms-log-outbox-task-scheduler-edit",
@@ -41,7 +43,7 @@ export class SmsLogOutBoxTaskSchedulerEditComponent
     private dialogRef: MatDialogRef<SmsLogOutBoxTaskSchedulerEditComponent>,
     public smsEnumService: SmsEnumService,
     public smsLogOutBoxTaskSchedulerService: SmsLogOutBoxTaskSchedulerService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -71,7 +73,7 @@ export class SmsLogOutBoxTaskSchedulerEditComponent
   dataModel: SmsLogOutBoxTaskSchedulerModel =
     new SmsLogOutBoxTaskSchedulerModel();
 
-  
+
   dataModelSmsMessageTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
   dataModelSmsOutBoxTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =

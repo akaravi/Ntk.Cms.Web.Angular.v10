@@ -44,7 +44,7 @@ export class CoreModuleDataPinListComponent
   constructor(
     private coreEnumService: CoreEnumService,
     public contentService: CoreModuleDataPinService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
     public tokenHelper: TokenHelper,

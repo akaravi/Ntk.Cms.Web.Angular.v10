@@ -41,7 +41,7 @@ export class EstateAccountAgencyAddMobileComponent
   constructor(
     public coreEnumService: CoreEnumService,
     public estateAccountAgencyService: EstateAccountAgencyService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private router: Router,
@@ -76,7 +76,7 @@ export class EstateAccountAgencyAddMobileComponent
   dataModelResult: ErrorExceptionResult<EstateAccountAgencyModel> =
     new ErrorExceptionResult<EstateAccountAgencyModel>();
   dataModel: EstateAccountAgencyModel = new EstateAccountAgencyModel();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

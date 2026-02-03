@@ -46,7 +46,7 @@ export class CoreLogTokenMicroServiceListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: CoreLogTokenMicroServiceService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
     public tokenHelper: TokenHelper,

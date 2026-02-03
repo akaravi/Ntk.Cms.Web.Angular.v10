@@ -49,7 +49,7 @@ export class EstatePropertyExpertPriceAddComponent
     private dialogRef: MatDialogRef<EstatePropertyExpertPriceAddComponent>,
     public coreEnumService: CoreEnumService,
     public estatePropertyExpertPriceService: EstatePropertyExpertPriceService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private estateEnumService: EstateEnumService,
@@ -91,7 +91,7 @@ export class EstatePropertyExpertPriceAddComponent
   dataModelEstatePropertyExpertPriceTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
 
-  
+
   PropertyTypeSelected = new EstatePropertyTypeLanduseModel();
   dataModelCorCurrencySelector = new CoreCurrencyModel();
   contractTypeSelected: EstateContractTypeModel;

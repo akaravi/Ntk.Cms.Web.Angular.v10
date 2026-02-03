@@ -1,23 +1,23 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
+    ChangeDetectorRef,
+    Component,
+    Input,
+    OnDestroy,
+    OnInit,
 } from "@angular/core";
 import { PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreSiteCategoryCmsModuleModel,
-  CoreSiteCategoryCmsModuleService,
-  DataFieldInfoModel,
-  ErrorExceptionResult,
-  FilterDataModel,
-  FilterModel,
-  SortTypeEnum,
-  TokenInfoModelV3,
+    CoreSiteCategoryCmsModuleModel,
+    CoreSiteCategoryCmsModuleService,
+    DataFieldInfoModel,
+    ErrorExceptionResult,
+    FilterDataModel,
+    FilterModel,
+    SortTypeEnum,
+    TokenInfoModelV3,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -48,7 +48,7 @@ export class CoreSiteCategoryCmsModuleListViewComponent
   constructor(
     public CoreSiteCategoryCmsModuleService: CoreSiteCategoryCmsModuleService,
     public publicHelper: PublicHelper,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,

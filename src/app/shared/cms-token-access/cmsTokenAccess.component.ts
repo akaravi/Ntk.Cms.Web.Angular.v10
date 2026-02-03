@@ -23,7 +23,7 @@ export class CmsTokenAccessComponent implements OnInit, OnDestroy {
   constructor(
     public coreAuthService: CoreAuthV3Service,
     public translate: TranslateService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,

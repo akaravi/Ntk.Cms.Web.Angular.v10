@@ -1,17 +1,17 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CatalogContentService,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
+    CatalogContentService,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import {
-  WidgetContentInfoModel,
-  WidgetInfoModel,
+    WidgetContentInfoModel,
+    WidgetInfoModel,
 } from "src/app/core/models/widget-info-model";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
@@ -25,7 +25,7 @@ export class CatalogContentWidgetComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private service: CatalogContentService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     private tokenHelper: TokenHelper,

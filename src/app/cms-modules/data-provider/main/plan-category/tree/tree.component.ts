@@ -1,31 +1,3 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-} from "@angular/core";
-import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
-import { MatTreeNestedDataSource } from "@angular/material/tree";
-import { TranslateService } from "@ngx-translate/core";
-import {
-  CoreEnumService,
-  DataProviderPlanCategoryModel,
-  DataProviderPlanCategoryService,
-  ErrorExceptionResult,
-  FilterModel,
-} from "ntk-cms-api";
-import { Subscription } from "rxjs";
-import { PublicHelper } from "src/app/core/helpers/publicHelper";
-import { TokenHelper } from "src/app/core/helpers/tokenHelper";
-import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
-import { environment } from "src/environments/environment";
-import { DataProviderPlanCategoryAddComponent } from "../add/add.component";
-import { DataProviderPlanCategoryDeleteComponent } from "../delete/delete.component";
-import { DataProviderPlanCategoryEditComponent } from "../edit/edit.component";
 
 @Component({
   selector: "app-data-provider-plan-category-tree",
@@ -37,8 +9,7 @@ export class DataProviderPlanCategoryTreeComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
-    public coreEnumService: CoreEnumService,
+        public coreEnumService: CoreEnumService,
     public categoryService: DataProviderPlanCategoryService,
     public dialog: MatDialog,
     private cdr: ChangeDetectorRef,

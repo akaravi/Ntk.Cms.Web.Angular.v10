@@ -1,21 +1,23 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnDestroy,
-  OnInit,
-  ViewChild,
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnDestroy,
+    OnInit,
+    ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreEnumService,
-  CoreLocationModel,
-  DataFieldInfoModel,
-  ErrorExceptionResult,InfoEnumModel,
-  TokenInfoModelV3,
-  WebDesignerLogMemberInfoModel,
-  WebDesignerLogMemberInfoService} from "ntk-cms-api";
+import {
+    CoreEnumService,
+    CoreLocationModel,
+    DataFieldInfoModel,
+    ErrorExceptionResult, InfoEnumModel,
+    TokenInfoModelV3,
+    WebDesignerLogMemberInfoModel,
+    WebDesignerLogMemberInfoService
+} from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
@@ -41,7 +43,7 @@ export class WebDesignerLogMemberInfoViewComponent
     public coreEnumService: CoreEnumService,
     public webDesignerLogMemberInfoService: WebDesignerLogMemberInfoService,
     private cdr: ChangeDetectorRef,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,

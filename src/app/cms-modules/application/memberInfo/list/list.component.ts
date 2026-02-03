@@ -47,7 +47,7 @@ export class ApplicationMemberInfoListComponent
     private activatedRoute: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
     public pageInfo: PageInfoService,

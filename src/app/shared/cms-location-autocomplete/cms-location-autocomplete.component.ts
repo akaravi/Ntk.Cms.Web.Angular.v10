@@ -39,7 +39,7 @@ export class CmsLocationCompleteComponent implements OnInit {
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public service: CoreLocationService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
   ) {

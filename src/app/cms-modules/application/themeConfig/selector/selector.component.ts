@@ -41,7 +41,7 @@ export class ApplicationThemeConfigSelectorComponent implements OnInit {
   constructor(
     public coreEnumService: CoreEnumService,
     public translate: TranslateService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public categoryService: ApplicationThemeConfigService,

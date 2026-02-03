@@ -44,7 +44,7 @@ export class CoreTokenMicroServiceEditComponent
     private dialogRef: MatDialogRef<CoreTokenMicroServiceEditComponent>,
     public coreEnumService: CoreEnumService,
     public coreTokenMicroServiceService: CoreTokenMicroServiceService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
@@ -69,7 +69,7 @@ export class CoreTokenMicroServiceEditComponent
   dataModel: CoreTokenMicroServiceModel = new CoreTokenMicroServiceModel();
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
-  
+
   dataModelEnumManageUserAccessAreaTypesResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
   dataModelEnumManageUserAccessUserTypesResult: ErrorExceptionResult<InfoEnumModel> =

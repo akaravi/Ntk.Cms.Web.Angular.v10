@@ -36,7 +36,7 @@ export class CoreLogCurrencyViewComponent implements OnInit, OnDestroy {
     private dialogRef: MatDialogRef<CoreLogCurrencyViewComponent>,
     public coreEnumService: CoreEnumService,
     public coreLogCurrencyService: CoreLogCurrencyService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private tokenHelper: TokenHelper,

@@ -50,7 +50,7 @@ export class CoreModuleLogSiteCreditBlockedListComponent
     private coreEnumService: CoreEnumService,
     private coreModuleService: CoreModuleService,
     public contentService: CoreModuleLogSiteCreditBlockedService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
     public tokenHelper: TokenHelper,

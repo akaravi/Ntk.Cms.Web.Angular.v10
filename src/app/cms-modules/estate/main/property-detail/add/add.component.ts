@@ -48,7 +48,7 @@ export class EstatePropertyDetailAddComponent
     private dialogRef: MatDialogRef<EstatePropertyDetailAddComponent>,
     public coreEnumService: CoreEnumService,
     public estatePropertyDetailService: EstatePropertyDetailService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private estateEnumService: EstateEnumService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -94,7 +94,7 @@ export class EstatePropertyDetailAddComponent
   dataModelResult: ErrorExceptionResult<EstatePropertyDetailModel> =
     new ErrorExceptionResult<EstatePropertyDetailModel>();
   dataModel: EstatePropertyDetailModel = new EstatePropertyDetailModel();
-  
+
   fileManagerOpenForm = false;
 
   dataModelInputDataTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =

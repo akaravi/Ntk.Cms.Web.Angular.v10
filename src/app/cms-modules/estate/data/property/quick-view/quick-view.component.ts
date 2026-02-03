@@ -46,7 +46,7 @@ export class EstatePropertyQuickViewComponent implements OnInit, OnDestroy {
     public coreEnumService: CoreEnumService,
     public estatePropertyService: EstatePropertyService,
     public estateContractTypeService: EstateContractTypeService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,

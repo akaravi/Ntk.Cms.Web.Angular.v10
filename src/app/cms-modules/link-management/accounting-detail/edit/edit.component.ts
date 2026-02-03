@@ -43,7 +43,7 @@ export class LinkManagementAccountingDetailEditComponent
     private dialogRef: MatDialogRef<LinkManagementAccountingDetailEditComponent>,
     public coreEnumService: CoreEnumService,
     public categoryService: LinkManagementAccountingDetailService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private linkManagementEnumService: LinkManagementEnumService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -74,7 +74,7 @@ export class LinkManagementAccountingDetailEditComponent
   dataModel: LinkManagementAccountingDetailModel =
     new LinkManagementAccountingDetailModel();
 
-  
+
   dataModelEnumSharingAccountingTypeResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
 

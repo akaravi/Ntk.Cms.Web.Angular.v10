@@ -51,7 +51,7 @@ export class CrmOpportunityAddComponent
     public coreEnumService: CoreEnumService,
     public crmOpportunityService: CrmOpportunityService,
     public crmEnumService: CrmEnumService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private cmsStoreService: CmsStoreService,
@@ -73,7 +73,7 @@ export class CrmOpportunityAddComponent
   dataModelResult: ErrorExceptionResult<CrmOpportunityModel> =
     new ErrorExceptionResult<CrmOpportunityModel>();
   dataModel: CrmOpportunityModel = new CrmOpportunityModel();
-  
+
   dataModelCrmOpportunityStatusEnumResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
   dataModelCrmOpportunityTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =

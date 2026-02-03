@@ -51,7 +51,7 @@ export class EstatePropertyHistoryEditMobileComponent
     public coreEnumService: CoreEnumService,
     public estatePropertyHistoryService: EstatePropertyHistoryService,
     public estateActivityTypeService: EstateActivityTypeService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     public estateEnumService: EstateEnumService,
     public publicHelper: PublicHelper,
@@ -87,7 +87,7 @@ export class EstatePropertyHistoryEditMobileComponent
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: EstatePropertyHistoryModel = new EstatePropertyHistoryModel();
   dataFileModelFiles = new Map<number, string>();
-  
+
   fileManagerOpenForm = false;
   date = new FormControl(new Date());
   dataModelEstateActivityStatusEnumResult: ErrorExceptionResult<InfoEnumModel> =

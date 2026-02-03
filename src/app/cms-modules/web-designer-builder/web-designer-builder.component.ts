@@ -1,12 +1,12 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  DataFieldInfoModel,
-  ErrorExceptionResult,
-  ManageUserAccessDataTypesEnum,
-  TokenInfoModelV3,
-  WebDesignerMainPageModel,
-  WebDesignerMainPageService,
+    DataFieldInfoModel,
+    ErrorExceptionResult,
+    ManageUserAccessDataTypesEnum,
+    TokenInfoModelV3,
+    WebDesignerMainPageModel,
+    WebDesignerMainPageService,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -30,7 +30,7 @@ export class WebDesignerBuilderComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     private cmsStoreService: CmsStoreService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     public webDesignerMainPageService: WebDesignerMainPageService,
   ) {

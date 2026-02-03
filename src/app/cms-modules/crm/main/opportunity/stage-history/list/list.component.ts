@@ -51,7 +51,7 @@ export class CrmOpportunityStageHistoryListComponent
 
   constructor(
     // private contentService: CrmOpportunityStageHistoryService, // Commented: Service not available in API
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,

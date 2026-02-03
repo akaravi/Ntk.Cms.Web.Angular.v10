@@ -39,7 +39,7 @@ export class ApiTelegramMemberInfoListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: ApiTelegramMemberInfoService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public tokenHelper: TokenHelper,
     private router: Router,

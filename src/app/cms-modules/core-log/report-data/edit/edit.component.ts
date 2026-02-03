@@ -44,7 +44,7 @@ export class CoreLogReportDataEditComponent
     private dialogRef: MatDialogRef<CoreLogReportDataEditComponent>,
     public coreEnumService: CoreEnumService,
     public coreLogReportDataService: CoreLogReportDataService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
@@ -69,7 +69,7 @@ export class CoreLogReportDataEditComponent
   dataModel: CoreLogReportDataModel = new CoreLogReportDataModel();
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
-  
+
   dataModelEnumSendReportDataStatusTypeResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
 

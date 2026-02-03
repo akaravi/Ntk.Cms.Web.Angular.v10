@@ -51,7 +51,7 @@ export class CmsGuideNoticeComponent implements OnInit, OnDestroy {
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
     private coreGuideService: CoreGuideService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public dialog: MatDialog,
   ) {}
   tokenInfo = new TokenInfoModelV3();

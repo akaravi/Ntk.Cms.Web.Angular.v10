@@ -41,7 +41,7 @@ export class LinkManagementTargetBillboardLogEditComponent
     private dialogRef: MatDialogRef<LinkManagementTargetBillboardLogEditComponent>,
     public coreEnumService: CoreEnumService,
     public categoryService: LinkManagementTargetBillboardLogService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -72,7 +72,7 @@ export class LinkManagementTargetBillboardLogEditComponent
   dataModel: LinkManagementTargetBillboardLogModel =
     new LinkManagementTargetBillboardLogModel();
 
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

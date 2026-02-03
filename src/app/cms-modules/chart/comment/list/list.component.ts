@@ -57,7 +57,7 @@ export class ChartCommentListComponent
     private commentService: ChartCommentService,
     public contentService: ChartContentService,
     private activatedRoute: ActivatedRoute,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public tokenHelper: TokenHelper,
     private router: Router,

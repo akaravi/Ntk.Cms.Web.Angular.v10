@@ -40,7 +40,7 @@ export class EstatePropertySupplierCategoryAddComponent
     private dialogRef: MatDialogRef<EstatePropertySupplierCategoryAddComponent>,
     public coreEnumService: CoreEnumService,
     public estatePropertySupplierCategoryService: EstatePropertySupplierCategoryService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -67,7 +67,7 @@ export class EstatePropertySupplierCategoryAddComponent
     new ErrorExceptionResult<EstatePropertySupplierCategoryModel>();
   dataModel: EstatePropertySupplierCategoryModel =
     new EstatePropertySupplierCategoryModel();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

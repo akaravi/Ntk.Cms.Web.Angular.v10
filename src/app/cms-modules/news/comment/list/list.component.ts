@@ -58,7 +58,7 @@ export class NewsCommentListComponent
     private commentService: NewsCommentService,
     public contentService: NewsContentService,
     private activatedRoute: ActivatedRoute,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public tokenHelper: TokenHelper,
     private router: Router,

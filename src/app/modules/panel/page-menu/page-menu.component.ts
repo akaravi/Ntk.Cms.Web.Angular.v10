@@ -27,7 +27,7 @@ export class PageMenuComponent implements OnInit {
   constructor(
     public tokenHelper: TokenHelper,
     private coreCpMainMenuService: CoreCpMainMenuService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     public themeService: ThemeService,
     private activatedRoute: ActivatedRoute,

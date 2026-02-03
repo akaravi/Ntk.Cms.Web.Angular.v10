@@ -42,7 +42,7 @@ export class TicketingConfigMainAdminComponent implements OnInit, OnDestroy {
     private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,

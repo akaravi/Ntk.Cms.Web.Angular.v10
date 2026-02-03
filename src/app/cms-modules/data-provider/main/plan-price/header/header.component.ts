@@ -1,26 +1,3 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-} from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
-import { TranslateService } from "@ngx-translate/core";
-import {
-  DataFieldInfoModel,
-  DataProviderPlanPriceModel,
-  DataProviderPlanPriceService,
-  ErrorExceptionResult,
-  RecordStatusEnum,
-} from "ntk-cms-api";
-import { Subscription } from "rxjs";
-import { PublicHelper } from "src/app/core/helpers/publicHelper";
-import { TokenHelper } from "src/app/core/helpers/tokenHelper";
-import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
-import { CmsLinkToComponent } from "src/app/shared/cms-link-to/cms-link-to.component";
-import { environment } from "src/environments/environment";
 @Component({
   selector: "app-data-provider-plan-price-header",
   templateUrl: "./header.component.html",
@@ -33,8 +10,7 @@ export class DataProviderPlanPriceHeaderComponent implements OnInit, OnDestroy {
     private headerService: DataProviderPlanPriceService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
-    private cmsToastrService: CmsToastrService,
-    public translate: TranslateService,
+        public translate: TranslateService,
     private cmsStoreService: CmsStoreService,
     public dialog: MatDialog,
     public tokenHelper: TokenHelper,

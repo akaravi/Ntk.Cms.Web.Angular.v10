@@ -44,7 +44,7 @@ export class SmsLogOutBoxListComponent
   constructor(
     private contentService: SmsLogOutBoxService,
     private activatedRoute: ActivatedRoute,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private smsMainApiPathService: SmsMainApiPathService,
     private router: Router,

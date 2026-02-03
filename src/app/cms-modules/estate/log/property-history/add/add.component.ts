@@ -50,7 +50,7 @@ export class EstatePropertyHistoryAddComponent
     private dialogRef: MatDialogRef<EstatePropertyHistoryAddComponent>,
     public coreEnumService: CoreEnumService,
     public estatePropertyHistoryService: EstatePropertyHistoryService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public estateEnumService: EstateEnumService,
     private cdr: ChangeDetectorRef,
     public tokenHelper: TokenHelper,
@@ -87,7 +87,7 @@ export class EstatePropertyHistoryAddComponent
   tokenInfo = new TokenInfoModelV3();
 
   dataFileModelFiles = new Map<number, string>();
-  
+
   fileManagerOpenForm = false;
   date = new FormControl(new Date());
   dataModelEstateActivityStatusEnumResult: ErrorExceptionResult<InfoEnumModel> =

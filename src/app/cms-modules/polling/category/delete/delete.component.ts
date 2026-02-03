@@ -34,7 +34,7 @@ export class PollingCategoryDeleteComponent implements OnInit {
     private pollingCategoryService: PollingCategoryService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {

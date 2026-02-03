@@ -1,19 +1,21 @@
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild } from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreEnumService,
-  CoreModuleModel,
-  DataFieldInfoModel,
-  ErrorExceptionResult,WebDesignerMainPageDependencyModel,
-  WebDesignerMainPageDependencyService} from "ntk-cms-api";
+import {
+    CoreEnumService,
+    CoreModuleModel,
+    DataFieldInfoModel,
+    ErrorExceptionResult, WebDesignerMainPageDependencyModel,
+    WebDesignerMainPageDependencyService
+} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -39,7 +41,7 @@ export class WebDesignerMainPageDependencyAddComponent
     private dialogRef: MatDialogRef<WebDesignerMainPageDependencyAddComponent>,
     public coreEnumService: CoreEnumService,
     public webDesignerMainPageDependencyService: WebDesignerMainPageDependencyService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -71,7 +73,7 @@ export class WebDesignerMainPageDependencyAddComponent
     new ErrorExceptionResult<WebDesignerMainPageDependencyModel>();
   dataModel: WebDesignerMainPageDependencyModel =
     new WebDesignerMainPageDependencyModel();
-  
+
   fileManagerOpenForm = false;
   ngOnInit(): void {
     this.translate.get("TITLE.ADD").subscribe((str: string) => {

@@ -39,7 +39,7 @@ export class WebDesignerMainIntroListComponent
   constructor(
     public contentService: WebDesignerMainIntroService,
     private activatedRoute: ActivatedRoute,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,

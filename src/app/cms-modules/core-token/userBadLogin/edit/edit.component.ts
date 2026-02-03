@@ -43,7 +43,7 @@ export class CoreTokenUserBadLoginEditComponent
     private dialogRef: MatDialogRef<CoreTokenUserBadLoginEditComponent>,
     public coreEnumService: CoreEnumService,
     public coreTokenUserBadLoginService: CoreTokenUserBadLoginService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
@@ -68,7 +68,7 @@ export class CoreTokenUserBadLoginEditComponent
     new ErrorExceptionResult<CoreTokenUserBadLoginModel>();
   dataModel: CoreTokenUserBadLoginModel = new CoreTokenUserBadLoginModel();
 
-  
+
   dataModelEnumManageUserAccessAreaTypesResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
 

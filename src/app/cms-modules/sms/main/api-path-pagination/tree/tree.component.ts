@@ -1,21 +1,21 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
 } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService,
-  ErrorExceptionResult,
-  FilterModel,
-  SmsMainApiPathPaginationModel,
-  SmsMainApiPathPaginationService,
+    CoreEnumService,
+    ErrorExceptionResult,
+    FilterModel,
+    SmsMainApiPathPaginationModel,
+    SmsMainApiPathPaginationService,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -33,7 +33,7 @@ export class SmsMainApiPathPaginationTreeComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: SmsMainApiPathPaginationService,
     private cdr: ChangeDetectorRef,

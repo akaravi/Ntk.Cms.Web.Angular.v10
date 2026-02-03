@@ -40,7 +40,7 @@ export class DonateTargetPeriodEditComponent
     private dialogRef: MatDialogRef<DonateTargetPeriodEditComponent>,
     public coreEnumService: CoreEnumService,
     public donateTargetPeriodService: DonateTargetPeriodService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -69,7 +69,7 @@ export class DonateTargetPeriodEditComponent
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: DonateTargetPeriodModel = new DonateTargetPeriodModel();
 
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

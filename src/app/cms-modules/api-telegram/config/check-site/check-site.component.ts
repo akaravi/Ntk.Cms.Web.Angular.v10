@@ -30,7 +30,7 @@ export class ApiTelegramConfigCheckSiteComponent implements OnInit, OnDestroy {
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
     public translate: TranslateService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
   ) {
     this.publicHelper.processService.cdr = this.cdr;

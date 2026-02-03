@@ -43,7 +43,7 @@ export class EstatePropertyTypeUsageAddComponent
     private dialogRef: MatDialogRef<EstatePropertyTypeUsageAddComponent>,
     public coreEnumService: CoreEnumService,
     public estatePropertyTypeUsageService: EstatePropertyTypeUsageService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -73,7 +73,7 @@ export class EstatePropertyTypeUsageAddComponent
   dataModelResult: ErrorExceptionResult<EstatePropertyTypeUsageModel> =
     new ErrorExceptionResult<EstatePropertyTypeUsageModel>();
   dataModel: EstatePropertyTypeUsageModel = new EstatePropertyTypeUsageModel();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

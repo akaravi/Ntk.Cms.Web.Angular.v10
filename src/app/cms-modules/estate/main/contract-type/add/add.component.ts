@@ -43,7 +43,7 @@ export class EstateContractTypeAddComponent
     private dialogRef: MatDialogRef<EstateContractTypeAddComponent>,
     public coreEnumService: CoreEnumService,
     public estateContractTypeService: EstateContractTypeService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -76,7 +76,7 @@ export class EstateContractTypeAddComponent
   dataModelResult: ErrorExceptionResult<EstateContractTypeModel> =
     new ErrorExceptionResult<EstateContractTypeModel>();
   dataModel: EstateContractTypeModel = new EstateContractTypeModel();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

@@ -65,7 +65,7 @@ export class EstateCustomerOrderListComponent
     public contentService: EstateCustomerOrderService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public estatePropertyDetailGroupService: EstatePropertyDetailGroupService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public tokenHelper: TokenHelper,
     private router: Router,
     private cdr: ChangeDetectorRef,

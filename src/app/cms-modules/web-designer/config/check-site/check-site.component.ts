@@ -3,11 +3,11 @@ import { MatTableDataSource } from "@angular/material/table";
 import { ActivatedRoute } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  BaseModuleSiteCheckSiteModel,
-  CoreEnumService,
-  ErrorExceptionResult,
-  TokenInfoModelV3,
-  WebDesignerConfigurationService,
+    BaseModuleSiteCheckSiteModel,
+    CoreEnumService,
+    ErrorExceptionResult,
+    TokenInfoModelV3,
+    WebDesignerConfigurationService,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -30,7 +30,7 @@ export class WebDesignerConfigCheckSiteComponent implements OnInit, OnDestroy {
     private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {

@@ -1,31 +1,3 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
-import { MatPaginator, PageEvent } from "@angular/material/paginator";
-import { MatSort } from "@angular/material/sort";
-import { TranslateService } from "@ngx-translate/core";
-import {
-  DataProviderSourcePathPaginationModel,
-  DataProviderSourcePathPaginationService,
-  FilterDataModel,
-  FilterModel,
-  SortTypeEnum,
-} from "ntk-cms-api";
-import { Subscription } from "rxjs";
-import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
-import { PublicHelper } from "src/app/core/helpers/publicHelper";
-import { TokenHelper } from "src/app/core/helpers/tokenHelper";
-import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
-import { PageInfoService } from "src/app/core/services/page-info.service";
-import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
-import { DataProviderSourcePathPaginationAddComponent } from "../add/add.component";
-import { DataProviderSourcePathPaginationEditComponent } from "../edit/edit.component";
 
 @Component({
   selector: "app-data-provider-source-path-pagination-list",
@@ -67,8 +39,7 @@ export class DataProviderSourcePathPaginationListComponent
 
   constructor(
     public contentService: DataProviderSourcePathPaginationService,
-    private cmsToastrService: CmsToastrService,
-    private cmsConfirmationDialogService: CmsConfirmationDialogService,
+        private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,

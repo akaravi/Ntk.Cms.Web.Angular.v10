@@ -70,7 +70,7 @@ export class EstateCustomerOrderEditMobileComponent
     public estatePropertyTypeUsageService: EstatePropertyTypeUsageService,
     public estatePropertyTypeLanduseService: EstatePropertyTypeLanduseService,
     private estatePropertyService: EstatePropertyService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public themeService: ThemeService,
     public estatePropertyDetailGroupService: EstatePropertyDetailGroupService,
     public publicHelper: PublicHelper,

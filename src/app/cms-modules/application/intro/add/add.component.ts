@@ -36,7 +36,7 @@ export class ApplicationIntroAddComponent
     public coreEnumService: CoreEnumService,
     public applicationEnumService: ApplicationEnumService,
     private applicationIntroService: ApplicationIntroService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public translate: TranslateService,
     private cdr: ChangeDetectorRef,
     private router: Router,
@@ -54,7 +54,7 @@ export class ApplicationIntroAddComponent
   }
   requestLinkApplicationId = 0;
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
-  
+
   dataAccessModel: AccessModel;
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
     string,

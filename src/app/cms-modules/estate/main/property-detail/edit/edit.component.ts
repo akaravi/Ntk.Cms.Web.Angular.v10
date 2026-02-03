@@ -47,7 +47,7 @@ export class EstatePropertyDetailEditComponent
     private dialogRef: MatDialogRef<EstatePropertyDetailEditComponent>,
     public coreEnumService: CoreEnumService,
     public estatePropertyDetailService: EstatePropertyDetailService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -74,7 +74,7 @@ export class EstatePropertyDetailEditComponent
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: EstatePropertyDetailModel = new EstatePropertyDetailModel();
-  
+
   dataModelInputDataTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
   keywordDefaultDataModel = [];

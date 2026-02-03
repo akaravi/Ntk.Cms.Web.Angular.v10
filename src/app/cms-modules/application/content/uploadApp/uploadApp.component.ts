@@ -27,7 +27,7 @@ export class ApplicationAppUploadAppComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public dataItemModel: ApplicationAppModel,
     private dialogRef: MatDialogRef<ApplicationAppUploadAppComponent>,
     private applicationAppService: ApplicationAppService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,

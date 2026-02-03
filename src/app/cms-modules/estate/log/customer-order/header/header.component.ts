@@ -28,7 +28,7 @@ export class EstateCustomerOrderHeaderComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     public themeService: ThemeService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public dialog: MatDialog,
   ) {
     this.publicHelper.processService.cdr = this.cdr;

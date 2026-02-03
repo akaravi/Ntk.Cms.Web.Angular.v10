@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService,
-  CoreModuleSaleSerialModel,
-  CoreModuleSaleSerialService,
-  DataFieldInfoModel,
-  ErrorExceptionResult,
+    CoreEnumService,
+    CoreModuleSaleSerialModel,
+    CoreModuleSaleSerialService,
+    DataFieldInfoModel,
+    ErrorExceptionResult,
 } from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
@@ -23,7 +23,7 @@ export class CoreModuleSaleSerialHeaderComponent implements OnInit {
     public coreModuleSaleSerialService: CoreModuleSaleSerialService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;

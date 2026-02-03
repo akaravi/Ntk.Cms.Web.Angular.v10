@@ -37,7 +37,7 @@ export class BlogContentListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: BlogContentService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public tokenHelper: TokenHelper,
     private router: Router,
     private cdr: ChangeDetectorRef,

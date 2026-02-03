@@ -1,22 +1,22 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
 } from "@angular/core";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService,
-  CoreLocationModel,
-  CoreLocationService,
-  ErrorExceptionResult,
-  FilterDataModel,
-  FilterModel,
+    CoreEnumService,
+    CoreLocationModel,
+    CoreLocationService,
+    ErrorExceptionResult,
+    FilterDataModel,
+    FilterModel,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -35,7 +35,7 @@ import { CoreLocationEditComponent } from "../edit/edit.component";
 export class CoreLocationTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: CoreLocationService,
     public dialog: MatDialog,

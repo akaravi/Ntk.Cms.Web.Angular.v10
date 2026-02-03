@@ -21,7 +21,7 @@ export class EstatePropertyTypeLanduseHeaderComponent implements OnInit {
     private headerService: EstatePropertyTypeLanduseService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public translate: TranslateService,
     public dialog: MatDialog,
   ) {

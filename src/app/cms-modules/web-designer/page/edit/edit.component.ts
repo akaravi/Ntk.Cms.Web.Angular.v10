@@ -1,24 +1,26 @@
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 import { ENTER } from "@angular/cdk/keycodes";
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild } from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MatChipInputEvent } from "@angular/material/chips";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreSiteCategoryModel,
-  ErrorExceptionResult,InfoEnumModel,
-  ManageUserAccessDataTypesEnum,
-  WebDesignerEnumService,
-  WebDesignerMainPageDependencyModel,
-  WebDesignerMainPageModel,
-  WebDesignerMainPageService,
-  WebDesignerMainPageTemplateModel} from "ntk-cms-api";
+import {
+    CoreSiteCategoryModel,
+    ErrorExceptionResult, InfoEnumModel,
+    ManageUserAccessDataTypesEnum,
+    WebDesignerEnumService,
+    WebDesignerMainPageDependencyModel,
+    WebDesignerMainPageModel,
+    WebDesignerMainPageService,
+    WebDesignerMainPageTemplateModel
+} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -44,7 +46,7 @@ export class WebDesignerMainPageEditComponent
     private dialogRef: MatDialogRef<WebDesignerMainPageEditComponent>,
     public webDesignerEnumService: WebDesignerEnumService,
     public webDesignerMainPageService: WebDesignerMainPageService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public translate: TranslateService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
@@ -70,7 +72,7 @@ export class WebDesignerMainPageEditComponent
   appLanguage = "fa";
 
   dataModel: WebDesignerMainPageModel = new WebDesignerMainPageModel();
-  
+
   dataModelEnumPageAbilityTypeResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
   fileManagerOpenForm = false;

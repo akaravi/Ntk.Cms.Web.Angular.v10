@@ -21,7 +21,7 @@ export class DonateTargetPeriodChargeComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
     private coreSiteService: CoreSiteService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     public translate: TranslateService,
   ) {

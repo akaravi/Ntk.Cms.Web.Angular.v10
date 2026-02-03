@@ -31,7 +31,7 @@ export class DonateTargetPeriodChargePaymentComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     @Inject(DOCUMENT) private document: any,
     private dialogRef: MatDialogRef<DonateTargetPeriodChargePaymentComponent>,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private donateTransactionService: DonateTransactionService,
     public translate: TranslateService,
     private cdr: ChangeDetectorRef,

@@ -44,7 +44,7 @@ export class ApiTelegramBotConfigListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: ApiTelegramBotConfigService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,

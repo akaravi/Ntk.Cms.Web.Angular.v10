@@ -34,7 +34,7 @@ export class EstateAdsTypeAddMobileComponent
   constructor(
     public coreEnumService: CoreEnumService,
     public estateAdsTypeService: EstateAdsTypeService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private router: Router,
@@ -65,7 +65,7 @@ export class EstateAdsTypeAddMobileComponent
   dataModelResult: ErrorExceptionResult<EstateAdsTypeModel> =
     new ErrorExceptionResult<EstateAdsTypeModel>();
   dataModel: EstateAdsTypeModel = new EstateAdsTypeModel();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

@@ -22,7 +22,7 @@ export class EstateContractTypeHeaderComponent implements OnInit {
     private headerService: EstateContractTypeService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public translate: TranslateService,
     public dialog: MatDialog,
   ) {

@@ -3,10 +3,10 @@ import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreSiteService,
-  ErrorExceptionResult,
-  ShareInfoModel,
-  TokenInfoModelV3,
+    CoreSiteService,
+    ErrorExceptionResult,
+    ShareInfoModel,
+    TokenInfoModelV3,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -25,7 +25,7 @@ export class CoreInfoComponent implements OnInit, OnDestroy {
   constructor(
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private coreSiteService: CoreSiteService,
     private router: Router,
     public translate: TranslateService,

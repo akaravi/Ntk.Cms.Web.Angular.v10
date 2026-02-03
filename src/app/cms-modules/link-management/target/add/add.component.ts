@@ -47,7 +47,7 @@ export class LinkManagementTargetAddComponent
     public publicHelper: PublicHelper,
     private linkManagementTargetService: LinkManagementTargetService,
     private contentCategoryService: LinkManagementTargetCategoryService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,

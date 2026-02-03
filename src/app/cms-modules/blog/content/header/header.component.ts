@@ -24,7 +24,7 @@ export class BlogContentHeaderComponent implements OnInit {
     private headerService: BlogContentService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public translate: TranslateService,
     public dialog: MatDialog,
   ) {

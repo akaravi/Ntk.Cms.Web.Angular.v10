@@ -40,7 +40,7 @@ export class DonateConfigMainAdminComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,

@@ -47,7 +47,7 @@ export class SmsLogOutBoxQueueListComponent
     public contentService: SmsLogOutBoxQueueService,
     private smsMainApiPathService: SmsMainApiPathService,
     private activatedRoute: ActivatedRoute,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private router: Router,
     public tokenHelper: TokenHelper,

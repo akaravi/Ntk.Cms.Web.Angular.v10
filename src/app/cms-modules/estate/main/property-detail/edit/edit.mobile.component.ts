@@ -41,7 +41,7 @@ export class EstatePropertyDetailEditMobileComponent
   constructor(
     public coreEnumService: CoreEnumService,
     public estatePropertyDetailService: EstatePropertyDetailService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private router: Router,
     private cdr: ChangeDetectorRef,
@@ -70,7 +70,7 @@ export class EstatePropertyDetailEditMobileComponent
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: EstatePropertyDetailModel = new EstatePropertyDetailModel();
-  
+
   dataModelInputDataTypeEnumResult: any;
   keywordDefaultDataModel = [];
   keywordNullDataModel = [];

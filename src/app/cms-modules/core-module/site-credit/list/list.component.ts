@@ -44,7 +44,7 @@ export class CoreModuleSiteCreditListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: CoreModuleSiteCreditService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,

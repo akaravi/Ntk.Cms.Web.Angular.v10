@@ -39,7 +39,7 @@ export class ApiTelegramBotConfigAddComponent
     private dialogRef: MatDialogRef<ApiTelegramBotConfigAddComponent>,
     public coreEnumService: CoreEnumService,
     public apiTelegramBotConfigService: ApiTelegramBotConfigService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     public publicHelper: PublicHelper,
@@ -67,7 +67,7 @@ export class ApiTelegramBotConfigAddComponent
   dataModelResult: ErrorExceptionResult<ApiTelegramBotConfigModel> =
     new ErrorExceptionResult<ApiTelegramBotConfigModel>();
   dataModel: ApiTelegramBotConfigModel = new ApiTelegramBotConfigModel();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

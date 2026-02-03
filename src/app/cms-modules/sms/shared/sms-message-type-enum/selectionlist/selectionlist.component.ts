@@ -1,18 +1,18 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
 } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  ErrorExceptionResult,
-  InfoEnumModel,
-  SmsEnumService,
+    ErrorExceptionResult,
+    InfoEnumModel,
+    SmsEnumService,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -36,7 +36,7 @@ export class SmsMessageTypeEnumSelectionlistComponent
     public tokenHelper: TokenHelper,
     public translate: TranslateService,
     private cmsStoreService: CmsStoreService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }

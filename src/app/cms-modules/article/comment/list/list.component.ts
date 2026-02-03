@@ -58,7 +58,7 @@ export class ArticleCommentListComponent
     public contentService: ArticleContentService,
     private activatedRoute: ActivatedRoute,
     public publicHelper: PublicHelper,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private router: Router,
     private cdr: ChangeDetectorRef,

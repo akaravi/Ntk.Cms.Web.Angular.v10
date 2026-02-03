@@ -45,7 +45,7 @@ export class EstateCustomerOrderQuickViewComponent
     private dialogRef: MatDialogRef<EstateCustomerOrderQuickViewComponent>,
     public coreEnumService: CoreEnumService,
     public estateCustomerOrderService: EstateCustomerOrderService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,

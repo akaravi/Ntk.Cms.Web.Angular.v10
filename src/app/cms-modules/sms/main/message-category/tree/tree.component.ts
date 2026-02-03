@@ -1,19 +1,19 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
 } from "@angular/core";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
 import {
-  CoreEnumService,
-  ErrorExceptionResult,
-  FilterModel,
-  SmsMainMessageCategoryModel,
-  SmsMainMessageCategoryService,
+    CoreEnumService,
+    ErrorExceptionResult,
+    FilterModel,
+    SmsMainMessageCategoryModel,
+    SmsMainMessageCategoryService,
 } from "ntk-cms-api";
 
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
@@ -37,7 +37,7 @@ import { SmsMainMessageCategoryAddComponent } from "../add/add.component";
 export class SmsMainMessageCategoryTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: SmsMainMessageCategoryService,
     public dialog: MatDialog,

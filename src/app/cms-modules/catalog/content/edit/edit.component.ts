@@ -9,24 +9,25 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import * as Leaflet from "leaflet";
 import { Map as leafletMap } from "leaflet";
-import {AccessModel,
-  CatalogContentModel,
-  CatalogContentOtherInfoModel,
-  CatalogContentService,
-  ClauseTypeEnum,
-  CoreEnumService,
-  CoreLocationModel,
-  ErrorExceptionResult,
-  ErrorExceptionResultBase,
-  FilterDataModel,
-  FilterModel,ManageUserAccessDataTypesEnum} from "ntk-cms-api";
+import {
+    AccessModel,
+    CatalogContentModel,
+    CatalogContentOtherInfoModel,
+    CatalogContentService,
+    ClauseTypeEnum,
+    CoreEnumService,
+    CoreLocationModel,
+    ErrorExceptionResult,
+    ErrorExceptionResultBase,
+    FilterDataModel,
+    FilterModel, ManageUserAccessDataTypesEnum
+} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { PoinModel } from "src/app/core/models/pointModel";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-catalog-content-edit",
@@ -45,7 +46,7 @@ export class CatalogContentEditComponent
     public coreEnumService: CoreEnumService,
     public publicHelper: PublicHelper,
     public contentService: CatalogContentService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -78,7 +79,7 @@ export class CatalogContentEditComponent
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   selectFileTypePodcast = ["mp3"];
   selectFileTypeMovie = ["mp4", "webm"];
-  
+
   fileManagerOpenForm = false;
   fileManagerOpenFormPodcast = false;
   fileManagerOpenFormMovie = false;

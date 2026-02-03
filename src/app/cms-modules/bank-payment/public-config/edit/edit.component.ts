@@ -40,7 +40,7 @@ export class BankPaymentPublicConfigEditComponent
     private dialogRef: MatDialogRef<BankPaymentPublicConfigEditComponent>,
     public coreEnumService: CoreEnumService,
     public bankPaymentPublicConfigService: BankPaymentPublicConfigService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -68,7 +68,7 @@ export class BankPaymentPublicConfigEditComponent
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: BankPaymentPublicConfigAliasJsonModel =
     new BankPaymentPublicConfigAliasJsonModel();
-  
+
   fileManagerOpenForm = false;
   ngOnInit(): void {
     if (this.requestId > 0) {

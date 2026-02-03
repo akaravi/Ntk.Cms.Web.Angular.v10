@@ -45,7 +45,7 @@ export class CmsSiteUserCreditViewComponent implements OnInit {
     public coreEnumService: CoreEnumService,
     public coreModuleSiteUserCreditService: CoreModuleSiteUserCreditService,
     public coreModuleService: CoreModuleService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,

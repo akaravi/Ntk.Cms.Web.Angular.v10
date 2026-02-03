@@ -43,7 +43,7 @@ export class CoreLogNotificationEditComponent
     private dialogRef: MatDialogRef<CoreLogNotificationEditComponent>,
     public coreEnumService: CoreEnumService,
     public coreLogNotificationService: CoreLogNotificationService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
@@ -69,7 +69,7 @@ export class CoreLogNotificationEditComponent
   dataModel: CoreLogNotificationModel = new CoreLogNotificationModel();
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
-  
+
   dataModelEnumSendNotificationStatusTypeResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
 

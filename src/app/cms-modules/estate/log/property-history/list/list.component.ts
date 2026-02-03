@@ -67,7 +67,7 @@ export class EstatePropertyHistoryListComponent
   constructor(
     public contentService: EstatePropertyHistoryService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private estateActivityTypeService: EstateActivityTypeService,
     public estateEnumService: EstateEnumService,
     public tokenHelper: TokenHelper,

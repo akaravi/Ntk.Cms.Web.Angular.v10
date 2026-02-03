@@ -38,7 +38,7 @@ export class EstateCategoryRackAddMobileComponent
   constructor(
     public coreEnumService: CoreEnumService,
     public estateCategoryRackService: EstateCategoryRackService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private router: Router,
@@ -69,7 +69,7 @@ export class EstateCategoryRackAddMobileComponent
   dataModelResult: ErrorExceptionResult<EstateCategoryRackModel> =
     new ErrorExceptionResult<EstateCategoryRackModel>();
   dataModel: EstateCategoryRackModel = new EstateCategoryRackModel();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

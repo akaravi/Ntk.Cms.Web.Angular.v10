@@ -31,7 +31,7 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 export class ApplicationAppTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: ApplicationAppService,
     private router: Router,

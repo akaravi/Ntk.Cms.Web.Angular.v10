@@ -37,7 +37,7 @@ export class DonateTargetPeriodSponserTreeComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: DonateTargetPeriodSponsorService,
     public dialog: MatDialog,

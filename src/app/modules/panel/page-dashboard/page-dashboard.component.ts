@@ -43,7 +43,7 @@ export class PageDashboardComponent implements OnInit {
     public tokenHelper: TokenHelper,
     public pageInfo: PageInfoService,
     private coreCpMainMenuService: CoreCpMainMenuService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public themeService: ThemeService,
     private cmsStoreService: CmsStoreService,
     private router: Router,

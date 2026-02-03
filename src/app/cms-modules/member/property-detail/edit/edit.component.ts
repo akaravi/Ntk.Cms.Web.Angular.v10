@@ -46,7 +46,7 @@ export class MemberPropertyDetailEditComponent
     public coreEnumService: CoreEnumService,
     public memberPropertyDetailService: MemberPropertyDetailService,
     // private estateEnumService: EstateEnumService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -72,7 +72,7 @@ export class MemberPropertyDetailEditComponent
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: MemberPropertyDetailModel = new MemberPropertyDetailModel();
-  
+
   dataModelEnumInputDataTypeResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
   keywordDataModel = [];

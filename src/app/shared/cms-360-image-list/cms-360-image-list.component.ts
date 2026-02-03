@@ -37,7 +37,7 @@ export class Cms360ImageListComponent implements OnInit, AfterViewInit {
   static nextId = 0;
   id = ++Cms360ImageListComponent.nextId;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
   ) {

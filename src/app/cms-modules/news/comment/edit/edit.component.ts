@@ -36,7 +36,7 @@ export class NewsCommentEditComponent
     private dialogRef: MatDialogRef<NewsCommentEditComponent>,
     public coreEnumService: CoreEnumService,
     public commentService: NewsCommentService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -58,7 +58,7 @@ export class NewsCommentEditComponent
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: NewsCommentModel = new NewsCommentModel();
   ComponentAction = ComponentActionEnum.none;
-  
+
   selected: any;
   openFormFileManager = false;
   ngOnInit(): void {

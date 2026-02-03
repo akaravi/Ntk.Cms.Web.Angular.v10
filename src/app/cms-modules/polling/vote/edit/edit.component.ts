@@ -37,7 +37,7 @@ export class PollingVoteEditComponent
     private dialogRef: MatDialogRef<PollingVoteEditComponent>,
     public coreEnumService: CoreEnumService,
     public pollingVoteService: PollingVoteService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -58,7 +58,7 @@ export class PollingVoteEditComponent
 
   ComponentAction = ComponentActionEnum.none;
 
-  
+
   selected: any;
   openFormFileManager = false;
 

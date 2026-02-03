@@ -1,10 +1,10 @@
 import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import {
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
+    ChangeDetectorRef,
+    Component,
+    OnDestroy,
+    OnInit,
+    ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
@@ -12,13 +12,13 @@ import { MatStepper } from "@angular/material/stepper";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  AccessModel,
-  CoreEnumService,
-  CoreSiteModel,
-  CoreUserModel,
-  CoreUserService,
-  ErrorExceptionResultBase,
-  ManageUserAccessDataTypesEnum,
+    AccessModel,
+    CoreEnumService,
+    CoreSiteModel,
+    CoreUserModel,
+    CoreUserService,
+    ErrorExceptionResultBase,
+    ManageUserAccessDataTypesEnum,
 } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { Subscription } from "rxjs";
@@ -44,7 +44,7 @@ export class CoreUserEditComponent
     private activatedRoute: ActivatedRoute,
     public coreEnumService: CoreEnumService,
     public coreUserService: CoreUserService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,

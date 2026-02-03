@@ -43,7 +43,7 @@ export class CoreTokenActivationEditComponent
     private dialogRef: MatDialogRef<CoreTokenActivationEditComponent>,
     public coreEnumService: CoreEnumService,
     public coreTokenActivationService: CoreTokenActivationService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
@@ -69,7 +69,7 @@ export class CoreTokenActivationEditComponent
     new ErrorExceptionResult<CoreTokenActivationModel>();
   dataModel: CoreTokenActivationModel = new CoreTokenActivationModel();
 
-  
+
   dataModelEnumManageUserAccessAreaTypesResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
   dataModelEnumManageUserAccessUserTypesResult: ErrorExceptionResult<InfoEnumModel> =

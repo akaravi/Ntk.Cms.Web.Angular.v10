@@ -40,7 +40,7 @@ export class CoreLogErrorListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private contentService: CoreLogErrorService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
     private cmsStoreService: CmsStoreService,

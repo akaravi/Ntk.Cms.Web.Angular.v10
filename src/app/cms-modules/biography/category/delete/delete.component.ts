@@ -31,7 +31,7 @@ export class BiographyCategoryDeleteComponent implements OnInit {
     private biographyCategoryService: BiographyCategoryService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
 

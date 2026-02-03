@@ -69,7 +69,7 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
     public estateAccountAgencyService: EstateAccountAgencyService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public themeService: ThemeService,
     private router: Router,
     public dialog: MatDialog,

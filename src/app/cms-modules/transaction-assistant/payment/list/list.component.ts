@@ -43,7 +43,7 @@ export class TransactionAssistantPaymentListComponent
   constructor(
     private contentService: TransactionAssistantPaymentService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public tokenHelper: TokenHelper,
     private router: Router,
     private cdr: ChangeDetectorRef,

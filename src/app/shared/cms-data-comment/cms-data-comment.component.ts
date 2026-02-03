@@ -34,7 +34,7 @@ export class CmsDataCommentComponent implements OnInit {
   service: IApiCmsServerBase;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<CmsDataCommentComponent>,
     public http: HttpClient,

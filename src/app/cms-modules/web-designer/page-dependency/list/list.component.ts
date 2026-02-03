@@ -47,7 +47,7 @@ export class WebDesignerMainPageDependencyListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: WebDesignerMainPageDependencyService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private coreModuleService: CoreModuleService,
     private activatedRoute: ActivatedRoute,

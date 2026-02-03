@@ -43,7 +43,7 @@ export class CmsSiteCreditViewComponent implements OnInit {
     public coreEnumService: CoreEnumService,
     public coreModuleSiteCreditService: CoreModuleSiteCreditService,
     public coreModuleService: CoreModuleService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,

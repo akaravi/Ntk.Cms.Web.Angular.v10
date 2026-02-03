@@ -1,23 +1,3 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild,
-} from "@angular/core";
-import { FormGroup } from "@angular/forms";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { TranslateService } from "@ngx-translate/core";
-import {
-  DataFieldInfoModel,
-  DataProviderPlanCategoryModel,
-  DataProviderPlanCategoryService,
-  ErrorExceptionResult,
-  FilterModel,
-  ManageUserAccessDataTypesEnum,
-} from "ntk-cms-api";
-import { PublicHelper } from "src/app/core/helpers/publicHelper";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 
@@ -36,8 +16,7 @@ export class DataProviderPlanCategoryDeleteComponent implements OnInit {
     private dataProviderPlanCategoryService: DataProviderPlanCategoryService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    private cmsToastrService: CmsToastrService,
-  ) {
+      ) {
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {
       this.requestId = data.id || "";

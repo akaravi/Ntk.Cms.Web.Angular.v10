@@ -35,7 +35,7 @@ import { DonateSponserEditComponent } from "../edit/edit.component";
 export class DonateSponserTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: DonateSponsorService,
     public dialog: MatDialog,

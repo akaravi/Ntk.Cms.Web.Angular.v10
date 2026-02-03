@@ -36,7 +36,7 @@ export class BankPaymentPrivateSiteConfigPaymentTestComponent
     private dialogRef: MatDialogRef<BankPaymentPrivateSiteConfigPaymentTestComponent>,
     public coreEnumService: CoreEnumService,
     public bankPaymentPrivateSiteConfigService: BankPaymentPrivateSiteConfigService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public translate: TranslateService,

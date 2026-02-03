@@ -43,7 +43,7 @@ export class EstateCategoryRackListComponent
   constructor(
     private contentService: EstateCategoryRackService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,

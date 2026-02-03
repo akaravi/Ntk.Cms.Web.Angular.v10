@@ -38,7 +38,7 @@ export class EstateCategoryZoneAddMobileComponent
   constructor(
     public coreEnumService: CoreEnumService,
     public estateCategoryZoneService: EstateCategoryZoneService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private router: Router,
@@ -69,7 +69,7 @@ export class EstateCategoryZoneAddMobileComponent
   dataModelResult: ErrorExceptionResult<EstateCategoryZoneModel> =
     new ErrorExceptionResult<EstateCategoryZoneModel>();
   dataModel: EstateCategoryZoneModel = new EstateCategoryZoneModel();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

@@ -39,7 +39,7 @@ export class LinkManagementCategoryEditComponent
     private dialogRef: MatDialogRef<LinkManagementCategoryEditComponent>,
     public coreEnumService: CoreEnumService,
     public categoryService: LinkManagementCategoryService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -68,7 +68,7 @@ export class LinkManagementCategoryEditComponent
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: LinkManagementCategoryModel = new LinkManagementCategoryModel();
 
-  
+
   fileManagerOpenForm = false;
 
   onActionFileSelected(model: NodeInterface): void {

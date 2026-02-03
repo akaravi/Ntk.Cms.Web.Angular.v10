@@ -42,7 +42,7 @@ export class CoreLogAvoidDuplicateDataEntryEditComponent
     private dialogRef: MatDialogRef<CoreLogAvoidDuplicateDataEntryEditComponent>,
     public coreEnumService: CoreEnumService,
     public coreLogAvoidDuplicateDataEntryService: CoreLogAvoidDuplicateDataEntryService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
@@ -68,7 +68,7 @@ export class CoreLogAvoidDuplicateDataEntryEditComponent
     new CoreLogAvoidDuplicateDataEntryModel();
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
-  
+
   fileManagerOpenForm = false;
 
   private unsubscribe: Subscription[] = [];

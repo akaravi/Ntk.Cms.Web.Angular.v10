@@ -39,7 +39,7 @@ export class ApiTelegramUploadedFileListComponent
   constructor(
     public contentService: ApiTelegramUploadedFileService,
     public publicHelper: PublicHelper,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private router: Router,
     private cdr: ChangeDetectorRef,

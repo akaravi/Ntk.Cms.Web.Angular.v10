@@ -50,7 +50,7 @@ export class CrmDealEditComponent
     public coreEnumService: CoreEnumService,
     public crmDealService: CrmDealService,
     public crmEnumService: CrmEnumService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private cmsStoreService: CmsStoreService,
@@ -75,7 +75,7 @@ export class CrmDealEditComponent
   dataModelResult: ErrorExceptionResult<CrmDealModel> =
     new ErrorExceptionResult<CrmDealModel>();
   dataModel: CrmDealModel = new CrmDealModel();
-  
+
   requestId = "";
 
   dataModelCrmDealStatusEnumResult: ErrorExceptionResult<InfoEnumModel> =

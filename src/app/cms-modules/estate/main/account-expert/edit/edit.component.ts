@@ -57,7 +57,7 @@ export class EstateAccountExpertEditComponent
     public coreEnumService: CoreEnumService,
     public estateAccountExpertService: EstateAccountExpertService,
     private estateAccountAgencyExpertService: EstateAccountAgencyExpertService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public tokenHelper: TokenHelper,
@@ -96,7 +96,7 @@ export class EstateAccountExpertEditComponent
   dataEstateAccountAgencyExpertModel: EstateAccountAgencyExpertModel =
     new EstateAccountAgencyExpertModel();
 
-  
+
   fileManagerOpenForm = false;
 
   optionTabledataSource =

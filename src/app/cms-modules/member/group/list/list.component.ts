@@ -36,7 +36,7 @@ export class MemberGroupListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: MemberGroupService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,

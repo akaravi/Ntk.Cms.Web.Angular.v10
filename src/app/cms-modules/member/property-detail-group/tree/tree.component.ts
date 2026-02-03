@@ -39,7 +39,7 @@ export class MemberPropertyDetailGroupTreeComponent
   requestLinkPropertyTypeId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: MemberPropertyDetailGroupService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,

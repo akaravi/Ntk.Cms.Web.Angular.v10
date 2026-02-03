@@ -1,22 +1,24 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild } from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreCurrencyModel,
-  CoreCurrencyService,
-  CoreEnumService,
-  ErrorExceptionResultBase,ManageUserAccessDataTypesEnum} from "ntk-cms-api";
+import {
+    CoreCurrencyModel,
+    CoreCurrencyService,
+    CoreEnumService,
+    ErrorExceptionResultBase, ManageUserAccessDataTypesEnum
+} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-core-currency-edit",
@@ -35,7 +37,7 @@ export class CoreCurrencyEditComponent
     private dialogRef: MatDialogRef<CoreCurrencyEditComponent>,
     public coreEnumService: CoreEnumService,
     public coreCurrencyService: CoreCurrencyService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -65,7 +67,7 @@ export class CoreCurrencyEditComponent
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: CoreCurrencyModel = new CoreCurrencyModel();
 
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

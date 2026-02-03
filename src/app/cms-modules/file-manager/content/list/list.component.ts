@@ -35,7 +35,7 @@ export class FileContentListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: FileContentService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,

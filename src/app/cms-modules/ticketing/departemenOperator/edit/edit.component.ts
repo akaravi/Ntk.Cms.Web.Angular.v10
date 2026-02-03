@@ -38,7 +38,7 @@ export class TicketingDepartemenOperatorEditComponent
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
     private ticketingDepartemenOperatorService: TicketingDepartemenOperatorService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -55,7 +55,7 @@ export class TicketingDepartemenOperatorEditComponent
   }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
-  
+
   dataAccessModel: AccessModel;
   dataModel = new TicketingDepartemenOperatorModel();
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();

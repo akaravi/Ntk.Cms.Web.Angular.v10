@@ -32,7 +32,7 @@ export class CmsSiteCategorySelectionListComponent implements OnInit {
     public categoryService: CoreSiteCategoryService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;

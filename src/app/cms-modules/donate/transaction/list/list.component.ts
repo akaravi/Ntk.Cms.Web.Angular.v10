@@ -40,7 +40,7 @@ export class DonateTransactionListComponent
   LinkTargetPeriodId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private activatedRoute: ActivatedRoute,
     public contentService: DonateTransactionService,
     private router: Router,

@@ -45,7 +45,7 @@ export class DonateTargetPeriodSponserListComponent
   constructor(
     public contentService: DonateTargetPeriodSponsorService,
     private activatedRoute: ActivatedRoute,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,

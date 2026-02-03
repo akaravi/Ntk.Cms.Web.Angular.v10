@@ -9,20 +9,22 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import * as Leaflet from "leaflet";
 import { Map as leafletMap } from "leaflet";
-import {AccessModel,
-  ChartCategoryModel,
-  ChartContentModel,
-  ChartContentOtherInfoModel,
-  ChartContentOtherInfoService,
-  ChartContentService,
-  ChartContentSimilarModel,
-  ChartContentSimilarService,
-  ChartContentTagModel,
-  ChartContentTagService,
-  CoreEnumService,
-  CoreLocationModel,
-  DataFieldInfoModel,
-  ErrorExceptionResult} from "ntk-cms-api";
+import {
+    AccessModel,
+    ChartCategoryModel,
+    ChartContentModel,
+    ChartContentOtherInfoModel,
+    ChartContentOtherInfoService,
+    ChartContentService,
+    ChartContentSimilarModel,
+    ChartContentSimilarService,
+    ChartContentTagModel,
+    ChartContentTagService,
+    CoreEnumService,
+    CoreLocationModel,
+    DataFieldInfoModel,
+    ErrorExceptionResult
+} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { firstValueFrom, of } from "rxjs";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
@@ -30,7 +32,6 @@ import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { PoinModel } from "src/app/core/models/pointModel";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-chart-content-add",
@@ -51,7 +52,7 @@ export class ChartContentAddComponent
     public contentService: ChartContentService,
     private contentSimilarService: ChartContentSimilarService,
     private contentOtherInfoService: ChartContentOtherInfoService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     private contentTagService: ChartContentTagService,
     private cdr: ChangeDetectorRef,
@@ -69,7 +70,7 @@ export class ChartContentAddComponent
   >();
   mapOptonCenter = new PoinModel();
 
-  
+
   dataModel = new ChartContentModel();
   dataModelResult: ErrorExceptionResult<ChartContentModel> =
     new ErrorExceptionResult<ChartContentModel>();

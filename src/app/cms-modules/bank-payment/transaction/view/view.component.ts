@@ -37,7 +37,7 @@ export class BankPaymentTransactionViewComponent implements OnInit, OnDestroy {
     private dialogRef: MatDialogRef<BankPaymentTransactionViewComponent>,
     public coreEnumService: CoreEnumService,
     public bankPaymentTransactionService: BankPaymentTransactionService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,

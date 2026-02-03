@@ -43,7 +43,7 @@ export class CoreLogAvoidDuplicateDataEntryListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private contentService: CoreLogAvoidDuplicateDataEntryService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
     private router: Router,

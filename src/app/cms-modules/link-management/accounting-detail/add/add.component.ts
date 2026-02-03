@@ -42,7 +42,7 @@ export class LinkManagementAccountingDetailAddComponent
     public coreEnumService: CoreEnumService,
     public categoryService: LinkManagementAccountingDetailService,
     private linkManagementEnumService: LinkManagementEnumService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -73,7 +73,7 @@ export class LinkManagementAccountingDetailAddComponent
   dataModel: LinkManagementAccountingDetailModel =
     new LinkManagementAccountingDetailModel();
 
-  
+
   dataModelEnumSharingAccountingTypeResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
   fileManagerOpenForm = false;

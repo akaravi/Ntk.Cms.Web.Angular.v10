@@ -44,7 +44,7 @@ export class CoreSiteDomainAliasListComponent
   constructor(
     public contentService: CoreSiteDomainAliasService,
     private coreSiteService: CoreSiteService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
     private cmsStoreService: CmsStoreService,

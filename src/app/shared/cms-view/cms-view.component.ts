@@ -12,7 +12,7 @@ export class CmsViewComponent implements OnInit, OnDestroy {
   static nextId = 0;
   id = ++CmsViewComponent.nextId;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public http: HttpClient,
   ) {

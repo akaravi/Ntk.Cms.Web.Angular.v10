@@ -39,7 +39,7 @@ export class PollingCategoryEditComponent
     private dialogRef: MatDialogRef<PollingCategoryEditComponent>,
     public coreEnumService: CoreEnumService,
     public pollingCategoryService: PollingCategoryService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -68,7 +68,7 @@ export class PollingCategoryEditComponent
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: PollingCategoryModel = new PollingCategoryModel();
 
-  
+
   fileManagerOpenForm = false;
 
   onActionFileSelected(model: NodeInterface): void {

@@ -38,7 +38,7 @@ export class BiographyCategoryEditComponent
     private dialogRef: MatDialogRef<BiographyCategoryEditComponent>,
     public coreEnumService: CoreEnumService,
     public biographyCategoryService: BiographyCategoryService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -65,7 +65,7 @@ export class BiographyCategoryEditComponent
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: BiographyCategoryModel = new BiographyCategoryModel();
-  
+
   fileManagerOpenForm = false;
   onActionFileSelected(model: NodeInterface): void {
     this.dataModel.linkMainImageId = model.id;

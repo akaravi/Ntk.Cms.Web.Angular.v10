@@ -34,7 +34,7 @@ export class ApplicationLogNotificationActionSendComponent implements OnInit {
     private dialogRef: MatDialogRef<ApplicationLogNotificationActionSendComponent>,
     public applicationEnumService: ApplicationEnumService,
     public applicationLogNotificationService: ApplicationLogNotificationService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public translate: TranslateService,

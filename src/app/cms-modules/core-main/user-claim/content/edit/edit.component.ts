@@ -1,20 +1,23 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnDestroy,
-  OnInit,
-  ViewChild } from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnDestroy,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreEnumService,
-  CoreSiteModel,
-  CoreUserClaimContentModel,
-  CoreUserClaimContentService,
-  CoreUserClaimTypeModel,
-  CoreUserModel,
-  ErrorExceptionResultBase,ManageUserAccessDataTypesEnum} from "ntk-cms-api";
+import {
+    CoreEnumService,
+    CoreSiteModel,
+    CoreUserClaimContentModel,
+    CoreUserClaimContentService,
+    CoreUserClaimTypeModel,
+    CoreUserModel,
+    ErrorExceptionResultBase, ManageUserAccessDataTypesEnum
+} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { Subscription } from "rxjs";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
@@ -23,7 +26,6 @@ import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-core-userclaim-edit",
@@ -47,7 +49,7 @@ export class CoreUserClaimContentEditComponent
     public coreEnumService: CoreEnumService,
     public coreUserClaimContentService: CoreUserClaimContentService,
     public publicHelper: PublicHelper,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     private tokenHelper: TokenHelper,
@@ -110,7 +112,7 @@ export class CoreUserClaimContentEditComponent
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: CoreUserClaimContentModel = new CoreUserClaimContentModel();
 
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

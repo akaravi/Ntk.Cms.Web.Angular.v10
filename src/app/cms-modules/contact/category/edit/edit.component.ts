@@ -1,22 +1,6 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild } from "@angular/core";
-import { FormGroup } from "@angular/forms";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { TranslateService } from "@ngx-translate/core";
-import {ContactCategoryModel,
-  ContactCategoryService,
-  CoreEnumService,
-  ErrorExceptionResultBase,ManageUserAccessDataTypesEnum} from "ntk-cms-api";
-import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
-import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-contact-category-edit",
@@ -37,9 +21,8 @@ export class ContactCategoryEditComponent
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<ContactCategoryEditComponent>,
-    public coreEnumService: CoreEnumService,
-    public contactCategoryService: ContactCategoryService,
-    private cmsToastrService: CmsToastrService,
+      public contactCategoryService: ContactCategoryService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -66,9 +49,9 @@ export class ContactCategoryEditComponent
   appLanguage = "fa";
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
-  dataModel: ContactCategoryModel = new ContactCategoryModel();
+dataModel: ContactCategoryModel = new ContactCategoryModel();
 
-  
+
   fileManagerOpenForm = false;
 
   onActionFileSelected(model: NodeInterface): void {
@@ -213,5 +196,3 @@ export class ContactCategoryEditComponent
     } else {
       this.dataModel.linkParentId = null;
     }
-  }
-}

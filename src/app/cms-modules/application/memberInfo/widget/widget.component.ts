@@ -27,7 +27,7 @@ export class ApplicationMemberInfoWidgetComponent implements OnInit, OnDestroy {
     private service: ApplicationMemberInfoService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     public translate: TranslateService,

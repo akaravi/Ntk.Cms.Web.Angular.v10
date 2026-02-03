@@ -34,7 +34,7 @@ export class EstatePropertyActionComponent implements OnInit {
     public service: EstatePropertyService,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
   ) {
     this.publicHelper.processService.cdr = this.cdr;

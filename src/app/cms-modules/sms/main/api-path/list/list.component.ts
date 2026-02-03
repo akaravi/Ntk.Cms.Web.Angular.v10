@@ -51,7 +51,7 @@ export class SmsMainApiPathListComponent
     private smsMainApiPathCompanyService: SmsMainApiPathCompanyService,
     private smsMainApiPathPublicConfigService: SmsMainApiPathPublicConfigService,
     private activatedRoute: ActivatedRoute,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private router: Router,
     public tokenHelper: TokenHelper,

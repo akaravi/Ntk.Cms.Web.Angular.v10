@@ -1,27 +1,3 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild,
-} from "@angular/core";
-import { FormGroup } from "@angular/forms";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { Router } from "@angular/router";
-import { TranslateService } from "@ngx-translate/core";
-import {
-  CoreEnumService,
-  DataFieldInfoModel,
-  DataProviderSourceCompanyModel,
-  DataProviderSourcePathModel,
-  DataProviderSourcePathService,
-  DataProviderSourcePublicConfigModel,
-  ErrorExceptionResult,
-} from "ntk-cms-api";
-import { TreeModel } from "ntk-cms-filemanager";
-import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
-import { PublicHelper } from "src/app/core/helpers/publicHelper";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-data-provider-source-path-add-mobile",
@@ -44,8 +20,7 @@ export class DataProviderSourcePathAddMobileComponent
     private dialogRef: MatDialogRef<DataProviderSourcePathAddMobileComponent>,
     public coreEnumService: CoreEnumService,
     public dataProviderSourcePathService: DataProviderSourcePathService,
-    private cmsToastrService: CmsToastrService,
-    public publicHelper: PublicHelper,
+        public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private router: Router,
     public translate: TranslateService,

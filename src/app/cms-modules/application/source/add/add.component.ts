@@ -34,7 +34,7 @@ export class ApplicationSourceAddComponent
     public coreEnumService: CoreEnumService,
     public applicationEnumService: ApplicationEnumService,
     private applicationSourceService: ApplicationSourceService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public translate: TranslateService,
     private cdr: ChangeDetectorRef,
     private router: Router,
@@ -51,7 +51,7 @@ export class ApplicationSourceAddComponent
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
   }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
-  
+
   dataAccessModel: AccessModel;
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
     string,

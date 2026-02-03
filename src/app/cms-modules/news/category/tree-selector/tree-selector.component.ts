@@ -33,7 +33,7 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 export class NewsCategoryTreeSelectorComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: NewsCategoryService,
     private cdr: ChangeDetectorRef,

@@ -43,7 +43,7 @@ export class LinkManagementBillboardPatternListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: LinkManagementBillboardPatternService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private linkManagementEnumService: LinkManagementEnumService,
     private router: Router,
     public tokenHelper: TokenHelper,

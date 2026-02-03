@@ -37,7 +37,7 @@ export class DonateSponserAddComponent
     private dialogRef: MatDialogRef<DonateSponserAddComponent>,
     public coreEnumService: CoreEnumService,
     public donateSponsorService: DonateSponsorService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -72,7 +72,7 @@ export class DonateSponserAddComponent
     new ErrorExceptionResult<DonateSponsorModel>();
   dataModel: DonateSponsorModel = new DonateSponsorModel();
 
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

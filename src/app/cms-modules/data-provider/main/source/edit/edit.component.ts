@@ -1,24 +1,24 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild,
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService,
-  DataProviderPlanModel,
-  DataProviderPlanSourceModel,
-  DataProviderPlanSourceService,
-  DataProviderSourceModel,
-  DataProviderSourceService,
-  ErrorExceptionResultBase,
-  FilterDataModel,
-  FilterModel,
-  ManageUserAccessDataTypesEnum,
+    CoreEnumService,
+    DataProviderPlanModel,
+    DataProviderPlanSourceModel,
+    DataProviderPlanSourceService,
+    DataProviderSourceModel,
+    DataProviderSourceService,
+    ErrorExceptionResultBase,
+    FilterDataModel,
+    FilterModel,
+    ManageUserAccessDataTypesEnum,
 } from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
@@ -47,7 +47,7 @@ export class DataProviderSourceEditComponent
     public coreEnumService: CoreEnumService,
     public dataProviderSourceService: DataProviderSourceService,
     private dataProviderPlanSourceService: DataProviderPlanSourceService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,

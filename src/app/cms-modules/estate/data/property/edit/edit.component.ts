@@ -80,7 +80,7 @@ export class EstatePropertyEditComponent
     public estateContractTypeService: EstateContractTypeService,
     public estatePropertyService: EstatePropertyService,
     public estatePropertyDetailGroupService: EstatePropertyDetailGroupService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     private router: Router,
     public publicHelper: PublicHelper,
@@ -138,7 +138,7 @@ export class EstatePropertyEditComponent
   dataModelCorCurrencySelector = new CoreCurrencyModel();
   dataFileModelImgaes = new Map<number, string>();
   dataFileModelFiles = new Map<number, string>();
-  
+
   fileManagerOpenForm = false;
   currencyOptionSelectFirstItem = true;
   contractTypeSelected: EstateContractTypeModel;

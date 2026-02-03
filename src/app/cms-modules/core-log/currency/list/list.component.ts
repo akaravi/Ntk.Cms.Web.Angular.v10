@@ -41,7 +41,7 @@ export class CoreLogCurrencyListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: CoreLogCurrencyService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
     public tokenHelper: TokenHelper,

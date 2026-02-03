@@ -42,7 +42,7 @@ export class EstateCustomerOrderAddToEditComponent
     private dialogRef: MatDialogRef<EstateCustomerOrderAddToEditComponent>,
     public coreEnumService: CoreEnumService,
     public estateCustomerOrderService: EstateCustomerOrderService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -73,7 +73,7 @@ export class EstateCustomerOrderAddToEditComponent
   dataModelResult: ErrorExceptionResult<EstateCustomerOrderModel> =
     new ErrorExceptionResult<EstateCustomerOrderModel>();
   dataModel: EstateCustomerOrderModel = new EstateCustomerOrderModel();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

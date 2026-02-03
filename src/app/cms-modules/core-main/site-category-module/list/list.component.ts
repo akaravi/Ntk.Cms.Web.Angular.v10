@@ -5,12 +5,12 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreSiteCategoryCmsModuleModel,
-  CoreSiteCategoryCmsModuleService,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    CoreSiteCategoryCmsModuleModel,
+    CoreSiteCategoryCmsModuleService,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -42,7 +42,7 @@ export class CoreSiteCategoryCmsModuleListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: CoreSiteCategoryCmsModuleService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public tokenHelper: TokenHelper,

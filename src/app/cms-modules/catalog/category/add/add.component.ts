@@ -36,7 +36,7 @@ export class CatalogCategoryAddComponent
     private dialogRef: MatDialogRef<CatalogCategoryAddComponent>,
     public coreEnumService: CoreEnumService,
     public categoryService: CatalogCategoryService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -67,7 +67,7 @@ export class CatalogCategoryAddComponent
     new ErrorExceptionResult<CatalogCategoryModel>();
   dataModel: CatalogCategoryModel = new CatalogCategoryModel();
 
-  
+
   fileManagerOpenForm = false;
 
   onActionFileSelected(model: NodeInterface): void {

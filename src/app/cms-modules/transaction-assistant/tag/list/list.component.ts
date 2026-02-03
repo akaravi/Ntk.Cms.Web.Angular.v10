@@ -43,7 +43,7 @@ export class TransactionAssistantTagListComponent
   constructor(
     private contentService: TransactionAssistantTagService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public tokenHelper: TokenHelper,
     private router: Router,
     private cdr: ChangeDetectorRef,

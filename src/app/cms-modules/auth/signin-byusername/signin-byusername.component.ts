@@ -36,7 +36,7 @@ export class AuthSignInByUsernameComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   private destroyRef = inject(DestroyRef);
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     private route: ActivatedRoute,
     private router: Router,

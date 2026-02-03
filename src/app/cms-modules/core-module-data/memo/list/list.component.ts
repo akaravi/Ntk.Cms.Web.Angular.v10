@@ -44,7 +44,7 @@ export class CoreModuleDataMemoListComponent
   constructor(
     private coreEnumService: CoreEnumService,
     public contentService: CoreModuleDataMemoService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
     public tokenHelper: TokenHelper,

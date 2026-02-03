@@ -40,7 +40,7 @@ export class DonateTargetCategoryAddComponent
     private dialogRef: MatDialogRef<DonateTargetCategoryAddComponent>,
     public coreEnumService: CoreEnumService,
     public donateTargetCategoryService: DonateTargetCategoryService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -75,7 +75,7 @@ export class DonateTargetCategoryAddComponent
     new ErrorExceptionResult<DonateTargetCategoryModel>();
   dataModel: DonateTargetCategoryModel = new DonateTargetCategoryModel();
 
-  
+
   fileManagerOpenForm = false;
 
   onActionFileSelected(model: NodeInterface): void {

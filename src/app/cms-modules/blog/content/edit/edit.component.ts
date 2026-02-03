@@ -58,7 +58,7 @@ export class BlogContentEditComponent
     private contentTagService: BlogContentTagService,
     private contentSimilarService: BlogContentSimilarService,
     private contentOtherInfoService: BlogContentOtherInfoService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -102,7 +102,7 @@ export class BlogContentEditComponent
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   selectFileTypePodcast = ["mp3"];
   selectFileTypeMovie = ["mp4", "webm"];
-  
+
   fileManagerOpenForm = false;
   fileManagerOpenFormPodcast = false;
   fileManagerOpenFormMovie = false;

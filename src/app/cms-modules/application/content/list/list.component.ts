@@ -44,7 +44,7 @@ export class ApplicationAppListComponent
     public contentService: ApplicationAppService,
     private activatedRoute: ActivatedRoute,
     public publicHelper: PublicHelper,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public translate: TranslateService,
     private router: Router,
     private cmsStoreService: CmsStoreService,

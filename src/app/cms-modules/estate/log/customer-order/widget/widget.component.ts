@@ -37,7 +37,7 @@ export class EstateCustomerOrderWidgetComponent implements OnInit, OnDestroy {
     private service: EstateCustomerOrderService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     public translate: TranslateService,

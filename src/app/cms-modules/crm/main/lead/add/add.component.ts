@@ -49,7 +49,7 @@ export class CrmLeadAddComponent
     public coreEnumService: CoreEnumService,
     public crmLeadService: CrmLeadService,
     public crmEnumService: CrmEnumService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private cmsStoreService: CmsStoreService,
@@ -74,7 +74,7 @@ export class CrmLeadAddComponent
   dataModelResult: ErrorExceptionResult<CrmLeadModel> =
     new ErrorExceptionResult<CrmLeadModel>();
   dataModel: CrmLeadModel = new CrmLeadModel();
-  
+
   dataModelCrmLeadStatusEnumResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
   dataModelCrmLeadSourceEnumResult: ErrorExceptionResult<InfoEnumModel> =

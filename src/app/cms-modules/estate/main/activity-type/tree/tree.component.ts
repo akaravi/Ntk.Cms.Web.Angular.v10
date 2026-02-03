@@ -36,7 +36,7 @@ import { EstateActivityTypeEditComponent } from "../edit/edit.component";
 export class EstateActivityTypeTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: EstateActivityTypeService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,

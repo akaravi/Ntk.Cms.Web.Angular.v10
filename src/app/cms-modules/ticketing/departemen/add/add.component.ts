@@ -38,7 +38,7 @@ export class TicketingDepartemenAddComponent
     private dialogRef: MatDialogRef<TicketingDepartemenAddComponent>,
     public coreEnumService: CoreEnumService,
     public ticketingDepartemenService: TicketingDepartemenService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -64,7 +64,7 @@ export class TicketingDepartemenAddComponent
   dataModelResult: ErrorExceptionResult<TicketingDepartemenModel> =
     new ErrorExceptionResult<TicketingDepartemenModel>();
   dataModel: TicketingDepartemenModel = new TicketingDepartemenModel();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

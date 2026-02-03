@@ -46,7 +46,7 @@ export class ApplicationSourceEditComponent
     public applicationEnumService: ApplicationEnumService,
     private applicationSourceService: ApplicationSourceService,
     private applicationSourceSiteCategoryService: ApplicationSourceSiteCategoryService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public translate: TranslateService,
     private cdr: ChangeDetectorRef,
     private router: Router,
@@ -66,7 +66,7 @@ export class ApplicationSourceEditComponent
 
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
-  
+
   dataAccessModel: AccessModel;
 
   dataModel = new ApplicationSourceModel();

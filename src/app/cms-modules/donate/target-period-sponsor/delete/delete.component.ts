@@ -32,7 +32,7 @@ export class DonateTargetPeriodSponserDeleteComponent implements OnInit {
     private donateTargetPeriodSponsorService: DonateTargetPeriodSponsorService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {

@@ -1,22 +1,3 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-} from "@angular/core";
-import { FormControl } from "@angular/forms";
-import { TranslateService } from "@ngx-translate/core";
-import {
-  CoreEnumService,
-  DataProviderSourcePathModel,
-  DataProviderSourcePathService,
-  ErrorExceptionResult,
-  FilterModel,
-} from "ntk-cms-api";
-import { PublicHelper } from "src/app/core/helpers/publicHelper";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-data-provider-source-path-selectionlist",
@@ -32,8 +13,7 @@ export class DataProviderSourcePathSelectionlistComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
-    private cmsToastrService: CmsToastrService,
-  ) {
+      ) {
     this.publicHelper.processService.cdr = this.cdr;
   }
   dataModelResult: ErrorExceptionResult<DataProviderSourcePathModel> =

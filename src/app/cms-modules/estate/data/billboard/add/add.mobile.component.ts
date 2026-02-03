@@ -32,7 +32,7 @@ export class EstateBillboardAddMobileComponent
     private router: Router,
     public coreEnumService: CoreEnumService,
     public estateBillboardService: EstateBillboardService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private activatedRoute: ActivatedRoute,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -64,7 +64,7 @@ export class EstateBillboardAddMobileComponent
 
   dataModel: EstateBillboardModel = new EstateBillboardModel();
   dataModelCorCurrencySelector = new CoreCurrencyModel();
-  
+
   fileManagerOpenForm = false;
   ngOnInit(): void {
     this.translate.get("TITLE.ADD").subscribe((str: string) => {

@@ -41,7 +41,7 @@ export class SmsMainMessageContentListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: SmsMainMessageContentService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private router: Router,
     private activatedRoute: ActivatedRoute,

@@ -48,7 +48,7 @@ export class EstatePropertyDetailGroupListComponent
     private contentService: EstatePropertyDetailGroupService,
     private estatePropertyTypeLanduseService: EstatePropertyTypeLanduseService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public tokenHelper: TokenHelper,
     private router: Router,
     private cdr: ChangeDetectorRef,

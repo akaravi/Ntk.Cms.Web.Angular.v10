@@ -38,7 +38,7 @@ export class CoreTokenUserBadLoginViewComponent implements OnInit, OnDestroy {
     private dialogRef: MatDialogRef<CoreTokenUserBadLoginViewComponent>,
     public coreEnumService: CoreEnumService,
     public coreTokenUserBadLoginService: CoreTokenUserBadLoginService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,

@@ -47,7 +47,7 @@ export class WebDesignerMainMenuListComponent
   constructor(
     public contentService: WebDesignerMainMenuService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public tokenHelper: TokenHelper,
     public coreEnumService: CoreEnumService,
     private cdr: ChangeDetectorRef,

@@ -1,21 +1,21 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
 } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService,
-  ErrorExceptionResult,
-  FilterModel,
-  DataProviderSourceCompanyModel,
-  DataProviderSourceCompanyService,
+    CoreEnumService,
+    DataProviderSourceCompanyModel,
+    DataProviderSourceCompanyService,
+    ErrorExceptionResult,
+    FilterModel,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -32,7 +32,7 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 export class DataProviderSourceCompanyTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: DataProviderSourceCompanyService,
     public dialog: MatDialog,
@@ -120,4 +120,3 @@ export class DataProviderSourceCompanyTreeComponent implements OnInit, OnDestroy
   }
   onActionSelectForce(id: number | DataProviderSourceCompanyModel): void {}
 }
-

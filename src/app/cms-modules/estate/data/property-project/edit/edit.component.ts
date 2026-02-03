@@ -51,7 +51,7 @@ export class EstatePropertyProjectEditComponent
     private activatedRoute: ActivatedRoute,
     public publicHelper: PublicHelper,
     public contentService: EstatePropertyProjectService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     private router: Router,
     private cdr: ChangeDetectorRef,
@@ -96,7 +96,7 @@ export class EstatePropertyProjectEditComponent
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   selectFileTypePodcast = ["mp3"];
   selectFileTypeMovie = ["mp4", "webm"];
-  
+
   fileManagerOpenForm = false;
   fileManagerOpenFormPodcast = false;
   fileManagerOpenFormMovie = false;

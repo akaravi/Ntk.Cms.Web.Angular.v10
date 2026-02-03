@@ -44,7 +44,7 @@ export class CrmCampaignAddComponent
     public coreEnumService: CoreEnumService,
     public crmCampaignService: CrmCampaignService,
     public crmEnumService: CrmEnumService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private cmsStoreService: CmsStoreService,
@@ -66,7 +66,7 @@ export class CrmCampaignAddComponent
   dataModelResult: ErrorExceptionResult<CrmCampaignModel> =
     new ErrorExceptionResult<CrmCampaignModel>();
   dataModel: CrmCampaignModel = new CrmCampaignModel();
-  
+
   dataModelCrmCampaignStatusEnumResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
   dataModelCrmCampaignTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =

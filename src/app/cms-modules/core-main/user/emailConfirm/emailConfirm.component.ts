@@ -1,20 +1,22 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild,
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {AuthEmailConfirmDtoModel,
-  CaptchaModel,
-  CoreAuthV3Service,
-  CoreEnumService,
-  CoreUserService,
-  DataFieldInfoModel,
-  ErrorExceptionResultBase} from "ntk-cms-api";
+import {
+    AuthEmailConfirmDtoModel,
+    CaptchaModel,
+    CoreAuthV3Service,
+    CoreEnumService,
+    CoreUserService,
+    DataFieldInfoModel,
+    ErrorExceptionResultBase
+} from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
@@ -36,7 +38,7 @@ export class CoreUserEmailConfirmComponent implements OnInit {
     public coreUserService: CoreUserService,
 
     private coreAuthService: CoreAuthV3Service,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,

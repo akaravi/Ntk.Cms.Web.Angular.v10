@@ -26,7 +26,7 @@ export class PageAboutusComponent implements OnInit {
     public translate: TranslateService,
     private tokenHelper: TokenHelper,
     private coreSiteService: CoreSiteService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
   ) {

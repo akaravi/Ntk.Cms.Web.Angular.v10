@@ -46,7 +46,7 @@ export class CrmAccountAddComponent
     public coreEnumService: CoreEnumService,
     public crmAccountService: CrmAccountService,
     public crmEnumService: CrmEnumService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private cmsStoreService: CmsStoreService,
@@ -71,7 +71,7 @@ export class CrmAccountAddComponent
   dataModelResult: ErrorExceptionResult<CrmAccountModel> =
     new ErrorExceptionResult<CrmAccountModel>();
   dataModel: CrmAccountModel = new CrmAccountModel();
-  
+
   dataModelCrmAccountRatingEnumResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
   dataModelCrmAccountTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =

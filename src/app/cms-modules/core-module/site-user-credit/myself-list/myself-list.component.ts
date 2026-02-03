@@ -3,14 +3,14 @@ import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreModuleModel,
-  CoreModuleService,
-  CoreModuleSiteUserCreditModel,
-  CoreModuleSiteUserCreditService,
-  ErrorExceptionResult,
-  FilterDataModel,
-  FilterModel,
-  SortTypeEnum,
+    CoreModuleModel,
+    CoreModuleService,
+    CoreModuleSiteUserCreditModel,
+    CoreModuleSiteUserCreditService,
+    ErrorExceptionResult,
+    FilterDataModel,
+    FilterModel,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -38,7 +38,7 @@ export class CoreModuleSiteUserCreditMyselfListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: CoreModuleSiteUserCreditService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,

@@ -47,7 +47,7 @@ export class EstateActivityTypeEditComponent
     public coreEnumService: CoreEnumService,
     public estateActivityTypeService: EstateActivityTypeService,
     public estatePropertyTypeService: EstatePropertyTypeService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -74,7 +74,7 @@ export class EstateActivityTypeEditComponent
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: EstateActivityTypeModel = new EstateActivityTypeModel();
-  
+
   fileManagerOpenForm = false;
 
   dataEstatePropertyTypeUsageModel: EstatePropertyTypeUsageModel[];

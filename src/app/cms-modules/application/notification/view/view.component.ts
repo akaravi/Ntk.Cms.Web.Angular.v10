@@ -40,7 +40,7 @@ export class ApplicationLogNotificationViewComponent
     public coreEnumService: CoreEnumService,
     private cdr: ChangeDetectorRef,
     public applicationLogNotificationService: ApplicationLogNotificationService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,

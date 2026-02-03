@@ -45,7 +45,7 @@ export class TicketingTaskListComponent
   constructor(
     public contentService: TicketingTaskService,
     private activatedRoute: ActivatedRoute,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private router: Router,
     public tokenHelper: TokenHelper,

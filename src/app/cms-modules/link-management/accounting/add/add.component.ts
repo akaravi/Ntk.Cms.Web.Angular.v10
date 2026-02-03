@@ -39,7 +39,7 @@ export class LinkManagementAccountingAddComponent
     private dialogRef: MatDialogRef<LinkManagementAccountingAddComponent>,
     public coreEnumService: CoreEnumService,
     public categoryService: LinkManagementAccountingService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -70,7 +70,7 @@ export class LinkManagementAccountingAddComponent
   dataModel: LinkManagementAccountingModel =
     new LinkManagementAccountingModel();
 
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

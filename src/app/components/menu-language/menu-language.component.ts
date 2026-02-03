@@ -25,7 +25,7 @@ export class MenuLanguageComponent implements OnInit {
   constructor(
     private cmsTranslationService: CmsTranslationService,
     public cmsAuthService: CmsAuthService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     private tokenHelper: TokenHelper,
     private router: Router,

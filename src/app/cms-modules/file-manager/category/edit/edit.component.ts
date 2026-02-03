@@ -38,7 +38,7 @@ export class FileCategoryEditComponent
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
     public fileCategoryService: FileCategoryService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {
@@ -70,7 +70,7 @@ export class FileCategoryEditComponent
 
   ComponentAction = ComponentActionEnum.none;
 
-  
+
   fileManagerOpenForm = false;
   onActionFileSelected(model: NodeInterface): void {
     this.dataModel.linkMainImageId = model.id;

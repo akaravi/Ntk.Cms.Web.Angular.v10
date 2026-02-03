@@ -61,7 +61,7 @@ export class BiographyContentEditComponent
     private contentTagService: BiographyContentTagService,
     private contentSimilarService: BiographyContentSimilarService,
     private contentOtherInfoService: BiographyContentOtherInfoService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -105,7 +105,7 @@ export class BiographyContentEditComponent
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   selectFileTypePodcast = ["mp3"];
   selectFileTypeMovie = ["mp4", "webm"];
-  
+
   fileManagerOpenForm = false;
   fileManagerOpenFormPodcast = false;
   fileManagerOpenFormMovie = false;

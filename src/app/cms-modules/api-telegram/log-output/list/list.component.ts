@@ -39,7 +39,7 @@ export class ApiTelegramLogOutputListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private contentService: ApiTelegramLogOutputService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private activatedRoute: ActivatedRoute,
     public tokenHelper: TokenHelper,
     private router: Router,

@@ -1,20 +1,20 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
 } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService,
-  ErrorExceptionResult,
-  FilterModel,
-  SmsMainApiPathModel,
-  SmsMainApiPathService,
+    CoreEnumService,
+    ErrorExceptionResult,
+    FilterModel,
+    SmsMainApiPathModel,
+    SmsMainApiPathService,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -31,7 +31,7 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 export class SmsMainApiPathTreeMobileComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: SmsMainApiPathService,
     private cdr: ChangeDetectorRef,

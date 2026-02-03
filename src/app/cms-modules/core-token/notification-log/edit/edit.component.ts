@@ -43,7 +43,7 @@ export class CoreLogTokenConnectionEditComponent
     private dialogRef: MatDialogRef<CoreLogTokenConnectionEditComponent>,
     public coreEnumService: CoreEnumService,
     public coreLogTokenConnectionService: CoreLogTokenConnectionService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private tokenHelper: TokenHelper,
@@ -68,7 +68,7 @@ export class CoreLogTokenConnectionEditComponent
     new ErrorExceptionResult<CoreLogTokenConnectionModel>();
   dataModel: CoreLogTokenConnectionModel = new CoreLogTokenConnectionModel();
 
-  
+
   dataModelEnumManageUserAccessAreaTypesResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
   dataModelEnumManageUserAccessUserTypesResult: ErrorExceptionResult<InfoEnumModel> =

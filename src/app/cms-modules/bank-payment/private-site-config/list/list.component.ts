@@ -51,7 +51,7 @@ export class BankPaymentPrivateSiteConfigListComponent
     private bankPaymentPublicConfigService: BankPaymentPublicConfigService,
     private activatedRoute: ActivatedRoute,
     public tokenHelper: TokenHelper,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private router: Router,
     public themeService: ThemeService,

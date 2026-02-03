@@ -1,22 +1,22 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild,
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  ErrorExceptionResultBase,
-  FilterDataModel,
-  FilterModel,
-  ManageUserAccessDataTypesEnum,
-  SmsMainApiPathModel,
-  SmsMainClientApplicationModel,
-  SmsMainClientApplicationPermissionModel,
-  SmsMainClientApplicationPermissionService,
+    ErrorExceptionResultBase,
+    FilterDataModel,
+    FilterModel,
+    ManageUserAccessDataTypesEnum,
+    SmsMainApiPathModel,
+    SmsMainClientApplicationModel,
+    SmsMainClientApplicationPermissionModel,
+    SmsMainClientApplicationPermissionService,
 } from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
@@ -44,7 +44,7 @@ export class SmsMainClientApplicationPermissionEditComponent
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<SmsMainClientApplicationPermissionEditComponent>,
     public smsMainClientApplicationPermissionService: SmsMainClientApplicationPermissionService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,

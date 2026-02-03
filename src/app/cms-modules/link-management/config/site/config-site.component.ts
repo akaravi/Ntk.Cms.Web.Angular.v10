@@ -38,7 +38,7 @@ export class LinkManagementConfigSiteComponent implements OnInit, OnDestroy {
     private configService: LinkManagementConfigurationService,
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private tokenHelper: TokenHelper,

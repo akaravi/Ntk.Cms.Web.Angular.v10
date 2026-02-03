@@ -45,7 +45,7 @@ export class CoreModuleSaleHeaderGroupListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: CoreModuleSaleHeaderGroupService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private coreUserGroupService: CoreUserGroupService,
     private coreSiteCategoryService: CoreSiteCategoryService,

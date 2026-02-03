@@ -51,7 +51,7 @@ export class CrmActivityAddComponent
     public coreEnumService: CoreEnumService,
     public crmActivityService: CrmActivityService,
     public crmEnumService: CrmEnumService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private cmsStoreService: CmsStoreService,
@@ -73,7 +73,7 @@ export class CrmActivityAddComponent
   dataModelResult: ErrorExceptionResult<CrmActivityModel> =
     new ErrorExceptionResult<CrmActivityModel>();
   dataModel: CrmActivityModel = new CrmActivityModel();
-  
+
   dataModelCrmActivityTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
   dataModelCrmActivityStatusEnumResult: ErrorExceptionResult<InfoEnumModel> =

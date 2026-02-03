@@ -43,7 +43,7 @@ export class SmsMainApiPathPublicConfigListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: SmsMainApiPathPublicConfigService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private coreCurrencyService: CoreCurrencyService,
     private cmsStoreService: CmsStoreService,

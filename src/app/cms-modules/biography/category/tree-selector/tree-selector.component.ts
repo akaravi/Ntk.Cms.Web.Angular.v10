@@ -35,7 +35,7 @@ export class BiographyCategoryTreeSelectorComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: BiographyCategoryService,
     private cdr: ChangeDetectorRef,

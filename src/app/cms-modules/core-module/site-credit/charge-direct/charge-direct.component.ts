@@ -1,20 +1,22 @@
 import { DOCUMENT } from "@angular/common";
 import { Component, Inject, OnInit } from "@angular/core";
 import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogRef,
+    MAT_DIALOG_DATA,
+    MatDialog,
+    MatDialogRef,
 } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreModuleModel,
-  CoreModuleService,
-  CoreModuleSiteCreditChargeDirectDtoModel,
-  CoreModuleSiteCreditModel,
-  CoreModuleSiteCreditService,
-  CoreSiteService,
-  ErrorExceptionResult,
-  FilterModel} from "ntk-cms-api";
+import {
+    CoreModuleModel,
+    CoreModuleService,
+    CoreModuleSiteCreditChargeDirectDtoModel,
+    CoreModuleSiteCreditModel,
+    CoreModuleSiteCreditService,
+    CoreSiteService,
+    ErrorExceptionResult,
+    FilterModel
+} from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
@@ -33,7 +35,7 @@ export class CoreModuleSiteCreditChargeDirectComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialog: MatDialog,
     private coreSiteService: CoreSiteService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private coreModuleService: CoreModuleService,
     private router: Router,
     public publicHelper: PublicHelper,

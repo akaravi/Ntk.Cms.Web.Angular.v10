@@ -4,20 +4,20 @@ import { MatTableDataSource } from "@angular/material/table";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService,
-  CoreModuleCheckSerialForSiteDtoModel,
-  CoreModuleModel,
-  CoreModuleSaleHeaderModel,
-  CoreModuleSaleInvoiceDetailModel,
-  CoreModuleSaleInvoiceModel,
-  CoreModuleSaleItemModel,
-  CoreModuleSaleSerialService,
-  CoreModuleService,
-  DataFieldInfoModel,
-  ErrorExceptionResult,
-  FilterModel,
-  InfoEnumModel,
-  TokenInfoModelV3,
+    CoreEnumService,
+    CoreModuleCheckSerialForSiteDtoModel,
+    CoreModuleModel,
+    CoreModuleSaleHeaderModel,
+    CoreModuleSaleInvoiceDetailModel,
+    CoreModuleSaleInvoiceModel,
+    CoreModuleSaleItemModel,
+    CoreModuleSaleSerialService,
+    CoreModuleService,
+    DataFieldInfoModel,
+    ErrorExceptionResult,
+    FilterModel,
+    InfoEnumModel,
+    TokenInfoModelV3,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -44,7 +44,7 @@ export class CoreModuleSaleSerialCheckListComponent
   constructor(
     private coreModuleSaleSerialService: CoreModuleSaleSerialService,
     public publicHelper: PublicHelper,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public translate: TranslateService,
     public coreEnumService: CoreEnumService,
     private activatedRoute: ActivatedRoute,

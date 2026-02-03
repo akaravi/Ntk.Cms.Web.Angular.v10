@@ -76,7 +76,7 @@ export class EstatePropertyListComponent
     private themeService: ThemeService,
     private activatedRoute: ActivatedRoute,
     public publicHelper: PublicHelper,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public estatePropertyDetailGroupService: EstatePropertyDetailGroupService,
     public tokenHelper: TokenHelper,

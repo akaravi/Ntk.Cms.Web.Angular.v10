@@ -46,7 +46,7 @@ export class EstateAccountAgencyAdsAddComponent
     private dialogRef: MatDialogRef<EstateAccountAgencyAdsAddComponent>,
     public coreEnumService: CoreEnumService,
     public estateAccountAgencyAdsService: EstateAccountAgencyAdsService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private cmsStoreService: CmsStoreService,
@@ -82,7 +82,7 @@ export class EstateAccountAgencyAdsAddComponent
   dataModelResult: ErrorExceptionResult<EstateAccountAgencyAdsModel> =
     new ErrorExceptionResult<EstateAccountAgencyAdsModel>();
   dataModel: EstateAccountAgencyAdsModel = new EstateAccountAgencyAdsModel();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

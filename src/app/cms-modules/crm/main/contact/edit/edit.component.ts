@@ -44,7 +44,7 @@ export class CrmContactEditComponent
     private dialogRef: MatDialogRef<CrmContactEditComponent>,
     public coreEnumService: CoreEnumService,
     public crmContactService: CrmContactService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private cmsStoreService: CmsStoreService,
@@ -72,7 +72,7 @@ export class CrmContactEditComponent
   dataModelResult: ErrorExceptionResult<CrmContactModel> =
     new ErrorExceptionResult<CrmContactModel>();
   dataModel: CrmContactModel = new CrmContactModel();
-  
+
   requestId = "";
 
   fileManagerOpenForm = false;

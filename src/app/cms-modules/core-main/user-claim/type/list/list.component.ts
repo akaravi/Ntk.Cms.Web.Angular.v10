@@ -45,7 +45,7 @@ export class CoreUserClaimTypeListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: CoreUserClaimTypeService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private coreEnumService: CoreEnumService,
     private router: Router,

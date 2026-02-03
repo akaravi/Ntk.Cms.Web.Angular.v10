@@ -32,7 +32,7 @@ export class EstateCustomerOrderActionComponent implements OnInit {
     public service: EstateCustomerOrderService,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
   ) {
     this.publicHelper.processService.cdr = this.cdr;

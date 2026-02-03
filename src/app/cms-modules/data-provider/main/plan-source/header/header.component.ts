@@ -1,18 +1,18 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
+    ChangeDetectorRef,
+    Component,
+    Input,
+    OnDestroy,
+    OnInit,
 } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  DataFieldInfoModel,
-  DataProviderPlanSourceModel,
-  DataProviderPlanSourceService,
-  ErrorExceptionResult,
-  RecordStatusEnum,
+    DataFieldInfoModel,
+    DataProviderPlanSourceModel,
+    DataProviderPlanSourceService,
+    ErrorExceptionResult,
+    RecordStatusEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -35,7 +35,7 @@ export class DataProviderPlanSourceHeaderComponent
     private headerService: DataProviderPlanSourceService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public translate: TranslateService,
     private cmsStoreService: CmsStoreService,
     public dialog: MatDialog,

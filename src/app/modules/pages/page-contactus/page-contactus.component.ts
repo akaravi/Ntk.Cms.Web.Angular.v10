@@ -41,7 +41,7 @@ export class PageContactusComponent
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
     private ticketingTaskService: TicketingTaskService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     public translate: TranslateService,
     private cmsStoreService: CmsStoreService,

@@ -35,7 +35,7 @@ import { NewsCategoryEditComponent } from "../edit/edit.component";
 export class NewsCategoryTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: NewsCategoryService,
     public dialog: MatDialog,

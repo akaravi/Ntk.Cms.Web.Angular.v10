@@ -1,33 +1,5 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-} from "@angular/core";
-import { MatTreeNestedDataSource } from "@angular/material/tree";
-import {
-  ContactCategoryModel,
-  ContactCategoryService,
-  CoreEnumService,
-  ErrorExceptionResult,
-  FilterModel,
-} from "ntk-cms-api";
 
-import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
-import { ContactCategoryDeleteComponent } from "../delete/delete.component";
-import { ContactCategoryEditComponent } from "../edit/edit.component";
 
-import { TranslateService } from "@ngx-translate/core";
-import { Subscription } from "rxjs";
-import { PublicHelper } from "src/app/core/helpers/publicHelper";
-import { TokenHelper } from "src/app/core/helpers/tokenHelper";
-import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
-import { environment } from "src/environments/environment";
-import { ContactCategoryAddComponent } from "../add/add.component";
 
 @Component({
   selector: "app-contact-category-tree",
@@ -38,8 +10,7 @@ import { ContactCategoryAddComponent } from "../add/add.component";
 export class ContactCategoryTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
-    public coreEnumService: CoreEnumService,
+        public coreEnumService: CoreEnumService,
     public categoryService: ContactCategoryService,
     public dialog: MatDialog,
     private cdr: ChangeDetectorRef,

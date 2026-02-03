@@ -37,7 +37,7 @@ export class LinkManagementBillboardPatternTreeComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: LinkManagementBillboardPatternService,
     public dialog: MatDialog,

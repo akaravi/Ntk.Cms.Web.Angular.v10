@@ -37,7 +37,7 @@ export class CoreLogReportDataViewComponent implements OnInit, OnDestroy {
     private dialogRef: MatDialogRef<CoreLogReportDataViewComponent>,
     public coreEnumService: CoreEnumService,
     public coreLogReportDataService: CoreLogReportDataService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,

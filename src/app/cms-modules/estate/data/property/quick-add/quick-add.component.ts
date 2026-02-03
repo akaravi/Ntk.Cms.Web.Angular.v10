@@ -66,7 +66,7 @@ export class EstatePropertyQuickAddComponent
     public estatePropertyDetailGroupService: EstatePropertyDetailGroupService,
     private estatePropertyTypeService: EstatePropertyTypeService,
     private estatePropertyTypeLanduseService: EstatePropertyTypeLanduseService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     public themeService: ThemeService,
     public publicHelper: PublicHelper,
@@ -102,7 +102,7 @@ export class EstatePropertyQuickAddComponent
   dataModelEstatePropertyTypeLanduseResult: ErrorExceptionResult<EstatePropertyTypeLanduseModel> =
     new ErrorExceptionResult<EstatePropertyTypeLanduseModel>();
   dataModel: EstatePropertyModel = new EstatePropertyModel();
-  
+
   dataModelCorCurrencySelector = new CoreCurrencyModel();
   contractTypeSelected: EstateContractTypeModel;
   PropertyTypeSelected = new EstatePropertyTypeLanduseModel();

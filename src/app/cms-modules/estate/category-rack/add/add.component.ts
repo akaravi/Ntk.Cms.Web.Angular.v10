@@ -39,7 +39,7 @@ export class EstateCategoryRackAddComponent
     private dialogRef: MatDialogRef<EstateCategoryRackAddComponent>,
     public coreEnumService: CoreEnumService,
     public estateCategoryRackService: EstateCategoryRackService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -65,7 +65,7 @@ export class EstateCategoryRackAddComponent
   dataModelResult: ErrorExceptionResult<EstateCategoryRackModel> =
     new ErrorExceptionResult<EstateCategoryRackModel>();
   dataModel: EstateCategoryRackModel = new EstateCategoryRackModel();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

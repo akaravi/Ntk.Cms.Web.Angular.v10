@@ -40,7 +40,7 @@ export class EstatePropertyExpertPriceInquiryCalculateComponent
     private dialogRef: MatDialogRef<EstatePropertyExpertPriceInquiryCalculateComponent>,
     public coreEnumService: CoreEnumService,
     public estatePropertyExpertPriceService: EstatePropertyExpertPriceService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private estateEnumService: EstateEnumService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,

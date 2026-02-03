@@ -35,7 +35,7 @@ export class MemberGroupEditComponent
     private dialogRef: MatDialogRef<MemberGroupEditComponent>,
     public coreEnumService: CoreEnumService,
     public memberGroupService: MemberGroupService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -56,7 +56,7 @@ export class MemberGroupEditComponent
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: MemberGroupModel = new MemberGroupModel();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

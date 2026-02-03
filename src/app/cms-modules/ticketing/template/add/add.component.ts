@@ -40,7 +40,7 @@ export class TicketingTemplateAddComponent
     private dialogRef: MatDialogRef<TicketingTemplateAddComponent>,
     public coreEnumService: CoreEnumService,
     public ticketingTemplateService: TicketingTemplateService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -69,7 +69,7 @@ export class TicketingTemplateAddComponent
   dataModelResult: ErrorExceptionResult<TicketingTemplateModel> =
     new ErrorExceptionResult<TicketingTemplateModel>();
   dataModel: TicketingTemplateModel = new TicketingTemplateModel();
-  
+
   ngOnInit(): void {
     this.translate.get("TITLE.Submit_New_Content").subscribe((str: string) => {
       this.formInfo.formTitle = str;

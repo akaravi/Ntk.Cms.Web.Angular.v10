@@ -44,7 +44,7 @@ export class BankPaymentTransactionLogListComponent
   constructor(
     private contentService: BankPaymentTransactionLogService,
     private activatedRoute: ActivatedRoute,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private bankPaymentEnumService: BankPaymentEnumService,
     private router: Router,
     public tokenHelper: TokenHelper,

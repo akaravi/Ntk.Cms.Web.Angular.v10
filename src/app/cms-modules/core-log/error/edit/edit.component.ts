@@ -38,7 +38,7 @@ export class CoreLogErrorEditComponent
     private dialogRef: MatDialogRef<CoreLogErrorEditComponent>,
     public coreEnumService: CoreEnumService,
     public coreLogErrorService: CoreLogErrorService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
@@ -64,7 +64,7 @@ export class CoreLogErrorEditComponent
   dataModel: CoreLogErrorModel = new CoreLogErrorModel();
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
-  
+
   fileManagerOpenForm = false;
 
   private unsubscribe: Subscription[] = [];

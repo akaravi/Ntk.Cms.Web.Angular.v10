@@ -39,7 +39,7 @@ export class EstatePropertyCompanyEditMobileComponent
     private activatedRoute: ActivatedRoute,
     public publicHelper: PublicHelper,
     public contentService: EstatePropertyCompanyService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -65,7 +65,7 @@ export class EstatePropertyCompanyEditMobileComponent
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
 
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
-  
+
   fileManagerOpenForm = false;
   fileManagerTree: TreeModel;
   appLanguage = "fa";

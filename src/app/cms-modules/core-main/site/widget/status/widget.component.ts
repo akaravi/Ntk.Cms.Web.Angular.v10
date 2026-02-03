@@ -1,18 +1,18 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  AuthRefreshTokenModel,
-  CoreSiteModel,
-  CoreSiteService,
-  FilterDataModel,
-  FilterModel,
-  TokenInfoModelV3,
+    AuthRefreshTokenModel,
+    CoreSiteModel,
+    CoreSiteService,
+    FilterDataModel,
+    FilterModel,
+    TokenInfoModelV3,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import {
-  WidgetContentInfoModel,
-  WidgetInfoModel,
+    WidgetContentInfoModel,
+    WidgetInfoModel,
 } from "src/app/core/models/widget-info-model";
 import { PersianCalendarService } from "src/app/core/pipe/persian-date/persian-date.service";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
@@ -45,7 +45,7 @@ export class CoreSiteWidgetStatusComponent implements OnInit, OnDestroy {
     private service: CoreSiteService,
     public translate: TranslateService,
     private persianCalendarService: PersianCalendarService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsAuthService: CmsAuthService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,

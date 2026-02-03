@@ -56,7 +56,7 @@ export class BankPaymentTransactionListComponent
     @Inject(DOCUMENT) private document: any,
     public contentService: BankPaymentTransactionService,
     private activatedRoute: ActivatedRoute,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public translate: TranslateService,
     private bankPaymentEnumService: BankPaymentEnumService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,

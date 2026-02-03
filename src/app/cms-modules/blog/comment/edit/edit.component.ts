@@ -38,7 +38,7 @@ export class BlogCommentEditComponent
     public coreEnumService: CoreEnumService,
     public commentService: BlogCommentService,
     public publicHelper: PublicHelper,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {
@@ -62,7 +62,7 @@ export class BlogCommentEditComponent
 
   ComponentAction = ComponentActionEnum.none;
 
-  
+
   selected: any;
   openFormFileManager = false;
 

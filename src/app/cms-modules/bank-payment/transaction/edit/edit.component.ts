@@ -42,7 +42,7 @@ export class BankPaymentTransactionEditComponent
     private dialogRef: MatDialogRef<BankPaymentTransactionEditComponent>,
     public coreEnumService: CoreEnumService,
     public bankPaymentTransactionService: BankPaymentTransactionService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private bankPaymentEnumService: BankPaymentEnumService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -69,7 +69,7 @@ export class BankPaymentTransactionEditComponent
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: BankPaymentTransactionModel = new BankPaymentTransactionModel();
-  
+
   fileManagerOpenForm = false;
   dataAccessModel: AccessModel;
 

@@ -17,7 +17,7 @@ export class ApplicationAppDownloadComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public dataModel: ApplicationAppModel,
     private dialogRef: MatDialogRef<ApplicationAppDownloadComponent>,
     private applicationAppService: ApplicationAppService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public translate: TranslateService,

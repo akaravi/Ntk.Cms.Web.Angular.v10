@@ -40,7 +40,7 @@ export class Cms360TourListComponent implements OnInit, AfterViewInit {
   static nextId = 0;
   id = ++Cms360TourListComponent.nextId;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
   ) {

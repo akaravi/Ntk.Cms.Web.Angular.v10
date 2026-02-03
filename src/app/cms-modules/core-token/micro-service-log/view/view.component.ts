@@ -39,7 +39,7 @@ export class CoreLogTokenMicroServiceViewComponent
     private dialogRef: MatDialogRef<CoreLogTokenMicroServiceViewComponent>,
     public coreEnumService: CoreEnumService,
     public coreLogTokenMicroServiceService: CoreLogTokenMicroServiceService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,

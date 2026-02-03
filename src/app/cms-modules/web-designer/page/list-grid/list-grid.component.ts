@@ -49,7 +49,7 @@ export class WebDesignerMainPageListGridComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: WebDesignerMainPageService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private webDesignerMainPageTemplateService: WebDesignerMainPageTemplateService,
     private coreSiteCategoryService: CoreSiteCategoryService,

@@ -41,7 +41,7 @@ export class ApplicationAppEditComponent
     public coreEnumService: CoreEnumService,
     public applicationEnumService: ApplicationEnumService,
     private applicationAppService: ApplicationAppService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public translate: TranslateService,
     private cdr: ChangeDetectorRef,
     private router: Router,
@@ -54,7 +54,7 @@ export class ApplicationAppEditComponent
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
   @ViewChild(CmsMapComponent) childMap: CmsMapComponent;
 
-  
+
   dataAccessModel: AccessModel;
 
   dataModel = new ApplicationAppModel();

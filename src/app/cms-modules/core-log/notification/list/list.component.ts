@@ -48,7 +48,7 @@ export class CoreLogNotificationListComponent
   constructor(
     private coreEnumService: CoreEnumService,
     private contentService: CoreLogNotificationService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
     public tokenHelper: TokenHelper,

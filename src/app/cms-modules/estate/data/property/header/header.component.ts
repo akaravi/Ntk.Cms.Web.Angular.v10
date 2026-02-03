@@ -34,7 +34,7 @@ export class EstatePropertyHeaderComponent implements OnInit, OnDestroy {
     private headerService: EstatePropertyService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public translate: TranslateService,
     private cmsStoreService: CmsStoreService,
     public themeService: ThemeService,

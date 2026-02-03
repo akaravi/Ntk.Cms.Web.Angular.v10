@@ -37,7 +37,7 @@ export class DonateLogViewListComponent
     private activatedRoute: ActivatedRoute,
     public contentService: DonateLogViewService,
     private cmsStoreService: CmsStoreService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,

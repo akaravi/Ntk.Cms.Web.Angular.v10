@@ -1,26 +1,3 @@
-import { StepperSelectionEvent } from "@angular/cdk/stepper";
-import {
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from "@angular/core";
-import { FormGroup } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { TranslateService } from "@ngx-translate/core";
-import {AccessModel,
-  ContactConfigurationService,
-  ContactModuleConfigAdminMainValuesModel,
-  ContactModuleConfigSiteAccessValuesModel,
-  ContactModuleConfigSiteValuesModel,
-  CoreEnumService,
-  DataFieldInfoModel,TokenInfoModelV3} from "ntk-cms-api";
-import { TreeModel } from "ntk-cms-filemanager";
-import { Subscription } from "rxjs";
-import { PublicHelper } from "src/app/core/helpers/publicHelper";
-import { TokenHelper } from "src/app/core/helpers/tokenHelper";
-import { PoinModel } from "src/app/core/models/pointModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
@@ -39,9 +16,8 @@ export class ContactConfigMainAdminComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
-    public publicHelper: PublicHelper,
-    public coreEnumService: CoreEnumService,
-    private cmsToastrService: CmsToastrService,
+    ic coreEnumService: CoreEnumService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -357,5 +333,3 @@ export class ContactConfigMainAdminComponent implements OnInit, OnDestroy {
           this.publicHelper.processService.processStop(pName, false);
         },
       });
-  }
-}

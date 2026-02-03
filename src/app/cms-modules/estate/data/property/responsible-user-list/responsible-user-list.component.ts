@@ -48,7 +48,7 @@ export class EstatePropertyResponsibleUserListComponent
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<EstatePropertyResponsibleUserListComponent>,
     public contentService: EstatePropertyService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     public tokenHelper: TokenHelper,
     private router: Router,

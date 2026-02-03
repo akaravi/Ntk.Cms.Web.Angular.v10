@@ -39,7 +39,7 @@ export class BankPaymentPublicConfigAddComponent
     private dialogRef: MatDialogRef<BankPaymentPublicConfigAddComponent>,
     public coreEnumService: CoreEnumService,
     public bankPaymentPublicConfigService: BankPaymentPublicConfigService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -65,7 +65,7 @@ export class BankPaymentPublicConfigAddComponent
   dataModelResult: ErrorExceptionResult<BankPaymentPublicConfigModel> =
     new ErrorExceptionResult<BankPaymentPublicConfigModel>();
   dataModel: BankPaymentPublicConfigModel = new BankPaymentPublicConfigModel();
-  
+
   fileManagerOpenForm = false;
   ngOnInit(): void {
     this.translate.get("TITLE.ADD").subscribe((str: string) => {

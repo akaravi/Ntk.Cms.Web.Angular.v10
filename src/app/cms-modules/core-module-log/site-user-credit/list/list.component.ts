@@ -51,7 +51,7 @@ export class CoreModuleLogSiteUserCreditListComponent
     private coreEnumService: CoreEnumService,
     private coreModuleService: CoreModuleService,
     public contentService: CoreModuleLogSiteUserCreditService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
     private cmsStoreService: CmsStoreService,

@@ -33,7 +33,7 @@ export class DonateTargetCategoryDeleteComponent implements OnInit {
     private donateTargetCategoryService: DonateTargetCategoryService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {

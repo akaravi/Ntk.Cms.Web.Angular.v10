@@ -50,7 +50,7 @@ export class DataProviderClientApplicationListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: DataProviderClientApplicationService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     public tokenHelper: TokenHelper,

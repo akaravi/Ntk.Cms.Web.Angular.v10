@@ -33,7 +33,7 @@ export class EstatePropertyHistoryWidgetComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private service: EstatePropertyHistoryService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public translate: TranslateService,
     private cdr: ChangeDetectorRef,

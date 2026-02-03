@@ -1,17 +1,19 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  DestroyRef,
-  inject,
-  OnInit,
+    ChangeDetectorRef,
+    Component,
+    DestroyRef,
+    inject,
+    OnInit,
 } from "@angular/core";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {AuthRefreshTokenModel,
-  CoreSiteUserModel,
-  CoreSiteUserService,
-  ErrorExceptionResult,
-  FilterModel} from "ntk-cms-api";
+import {
+    AuthRefreshTokenModel,
+    CoreSiteUserModel,
+    CoreSiteUserService,
+    ErrorExceptionResult,
+    FilterModel
+} from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsTranslationService } from "src/app/core/i18n/cmsTranslation.service";
@@ -35,7 +37,7 @@ export class CoreSiteSiteSelectComponent implements OnInit {
     private cmsAuthService: CmsAuthService,
     private cmsTranslationService: CmsTranslationService,
     private coreSiteUserService: CoreSiteUserService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public tokenHelper: TokenHelper,

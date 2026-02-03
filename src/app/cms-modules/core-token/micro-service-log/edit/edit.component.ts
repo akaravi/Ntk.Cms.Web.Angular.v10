@@ -43,7 +43,7 @@ export class CoreLogTokenMicroServiceEditComponent
     private dialogRef: MatDialogRef<CoreLogTokenMicroServiceEditComponent>,
     public coreEnumService: CoreEnumService,
     public coreLogTokenMicroServiceService: CoreLogTokenMicroServiceService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private tokenHelper: TokenHelper,
@@ -69,7 +69,7 @@ export class CoreLogTokenMicroServiceEditComponent
   dataModel: CoreLogTokenMicroServiceModel =
     new CoreLogTokenMicroServiceModel();
 
-  
+
   dataModelEnumManageUserAccessAreaTypesResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
   dataModelEnumManageUserAccessUserTypesResult: ErrorExceptionResult<InfoEnumModel> =

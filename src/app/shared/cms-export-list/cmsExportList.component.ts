@@ -36,7 +36,7 @@ export class CmsExportListComponent implements OnInit {
   requestService: IApiCmsServerBase;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<CmsExportListComponent>,
     public translate: TranslateService,

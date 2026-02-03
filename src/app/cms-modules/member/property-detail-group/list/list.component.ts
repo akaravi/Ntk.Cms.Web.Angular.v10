@@ -45,7 +45,7 @@ export class MemberPropertyDetailGroupListComponent
     private contentService: MemberPropertyDetailGroupService,
     private memberPropertyTypeService: MemberPropertyTypeService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public tokenHelper: TokenHelper,
     private router: Router,
     private cdr: ChangeDetectorRef,

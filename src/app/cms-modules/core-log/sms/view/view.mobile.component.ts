@@ -41,7 +41,7 @@ export class CoreLogSmsViewMobileComponent implements OnInit, OnDestroy {
     private dialogRef: MatDialogRef<CoreLogSmsViewMobileComponent>,
     public coreEnumService: CoreEnumService,
     public coreLogSmsService: CoreLogSmsService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,

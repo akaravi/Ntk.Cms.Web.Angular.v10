@@ -28,7 +28,7 @@ export class NewsCategoryMenuComponent implements OnInit, OnDestroy {
   constructor(
     public tokenHelper: TokenHelper,
     public categoryService: NewsCategoryService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private activatedRoute: ActivatedRoute,
     private cmsStoreService: CmsStoreService,
     private router: Router,

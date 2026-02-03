@@ -1,22 +1,24 @@
 import { AddBaseComponent } from "./../../../../core/cmsComponent/addBaseComponent";
 
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild } from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreEnumService,
-  CoreModuleEntityModel,
-  CoreModuleEntityReportFileModel,
-  CoreModuleEntityReportFileService,
-  DataFieldInfoModel,
-  ErrorExceptionResult,InfoEnumModel} from "ntk-cms-api";
+import {
+    CoreEnumService,
+    CoreModuleEntityModel,
+    CoreModuleEntityReportFileModel,
+    CoreModuleEntityReportFileService,
+    DataFieldInfoModel,
+    ErrorExceptionResult, InfoEnumModel
+} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
@@ -41,7 +43,7 @@ export class CoreModuleEntityReportFileAddComponent
     private dialogRef: MatDialogRef<CoreModuleEntityReportFileAddComponent>,
     public coreEnumService: CoreEnumService,
     public coreModuleEntityReportFileService: CoreModuleEntityReportFileService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -78,7 +80,7 @@ export class CoreModuleEntityReportFileAddComponent
   dataModelReportFileTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
 
-  
+
   fileManagerOpenForm = false;
   fileManagerOpenFormReport = false;
 

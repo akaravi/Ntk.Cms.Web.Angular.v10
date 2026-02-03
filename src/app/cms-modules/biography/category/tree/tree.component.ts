@@ -35,7 +35,7 @@ import { BiographyCategoryEditComponent } from "../edit/edit.component";
 export class BiographyCategoryTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: BiographyCategoryService,
     public dialog: MatDialog,

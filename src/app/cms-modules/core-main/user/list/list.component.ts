@@ -42,7 +42,7 @@ export class CoreUserListComponent
     private coreUserService: CoreUserService,
     public contentService: CmsConfirmationDialogService,
     private router: Router,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private activatedRoute: ActivatedRoute,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,

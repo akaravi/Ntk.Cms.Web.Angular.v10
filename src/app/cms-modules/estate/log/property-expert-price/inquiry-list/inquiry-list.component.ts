@@ -41,7 +41,7 @@ export class EstatePropertyExpertPriceInquiryListComponent implements OnInit {
     public coreEnumService: CoreEnumService,
     public estatePropertyExpertPriceService: EstatePropertyExpertPriceService,
     private estateEnumService: EstateEnumService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,

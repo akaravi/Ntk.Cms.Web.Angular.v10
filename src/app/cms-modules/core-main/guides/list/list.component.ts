@@ -42,7 +42,7 @@ export class CoreGuideListComponent
   constructor(
     public contentService: CoreGuideService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public tokenHelper: TokenHelper,
     public coreEnumService: CoreEnumService,
     private cdr: ChangeDetectorRef,

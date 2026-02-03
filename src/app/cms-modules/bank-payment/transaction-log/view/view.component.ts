@@ -39,7 +39,7 @@ export class BankPaymentTransactionLogViewComponent
     private dialogRef: MatDialogRef<BankPaymentTransactionLogViewComponent>,
     public coreEnumService: CoreEnumService,
     public bankPaymentTransactionLogService: BankPaymentTransactionLogService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,

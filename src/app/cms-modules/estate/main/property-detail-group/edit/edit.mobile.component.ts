@@ -39,7 +39,7 @@ export class EstatePropertyDetailGroupEditMobileComponent
   constructor(
     public coreEnumService: CoreEnumService,
     public estatePropertyDetailGroupService: EstatePropertyDetailGroupService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private router: Router,
     private cdr: ChangeDetectorRef,
@@ -68,7 +68,7 @@ export class EstatePropertyDetailGroupEditMobileComponent
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: EstatePropertyDetailGroupModel =
     new EstatePropertyDetailGroupModel();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

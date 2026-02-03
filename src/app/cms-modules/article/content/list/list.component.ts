@@ -38,7 +38,7 @@ export class ArticleContentListComponent
   constructor(
     public publicHelper: PublicHelper,
     public contentService: ArticleContentService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     public translate: TranslateService,
     private cmsStoreService: CmsStoreService,

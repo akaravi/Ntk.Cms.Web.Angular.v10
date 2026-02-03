@@ -47,7 +47,7 @@ export class EstateCustomerCategoryEditComponent
     public coreEnumService: CoreEnumService,
     public estateCustomerCategoryService: EstateCustomerCategoryService,
     public estatePropertyTypeService: EstatePropertyTypeService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -74,7 +74,7 @@ export class EstateCustomerCategoryEditComponent
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: EstateCustomerCategoryModel = new EstateCustomerCategoryModel();
-  
+
   fileManagerOpenForm = false;
 
   dataEstatePropertyTypeUsageModel: EstatePropertyTypeUsageModel[];

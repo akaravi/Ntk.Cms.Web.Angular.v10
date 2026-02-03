@@ -1,20 +1,22 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnDestroy,
-  OnInit,
-  ViewChild,
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnDestroy,
+    OnInit,
+    ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreEnumService,
-  DataFieldInfoModel,
-  DataProviderLogSourceModel,
-  DataProviderLogSourceService,
-  ErrorExceptionResult,InfoEnumModel,
-  TokenInfoModelV3} from "ntk-cms-api";
+import {
+    CoreEnumService,
+    DataFieldInfoModel,
+    DataProviderLogSourceModel,
+    DataProviderLogSourceService,
+    ErrorExceptionResult, InfoEnumModel,
+    TokenInfoModelV3
+} from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
@@ -37,7 +39,7 @@ export class DataProviderLogSourceViewComponent implements OnInit, OnDestroy {
     private dialogRef: MatDialogRef<DataProviderLogSourceViewComponent>,
     public coreEnumService: CoreEnumService,
     public DataProviderLogSourceService: DataProviderLogSourceService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,

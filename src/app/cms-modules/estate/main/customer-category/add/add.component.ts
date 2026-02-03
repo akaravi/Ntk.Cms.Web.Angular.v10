@@ -40,7 +40,7 @@ export class EstateCustomerCategoryAddComponent
     private dialogRef: MatDialogRef<EstateCustomerCategoryAddComponent>,
     public coreEnumService: CoreEnumService,
     public estateCustomerCategoryService: EstateCustomerCategoryService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -66,7 +66,7 @@ export class EstateCustomerCategoryAddComponent
   dataModelResult: ErrorExceptionResult<EstateCustomerCategoryModel> =
     new ErrorExceptionResult<EstateCustomerCategoryModel>();
   dataModel: EstateCustomerCategoryModel = new EstateCustomerCategoryModel();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

@@ -39,7 +39,7 @@ export class EstateActivityTypeSelectionlistComponent
     public tokenHelper: TokenHelper,
     public translate: TranslateService,
     private cmsStoreService: CmsStoreService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }

@@ -42,7 +42,7 @@ export class CrmStageEditComponent
     private dialogRef: MatDialogRef<CrmStageEditComponent>,
     public coreEnumService: CoreEnumService,
     public crmStageService: CrmStageService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private cmsStoreService: CmsStoreService,
@@ -67,7 +67,7 @@ export class CrmStageEditComponent
   dataModelResult: ErrorExceptionResult<CrmStageModel> =
     new ErrorExceptionResult<CrmStageModel>();
   dataModel: CrmStageModel = new CrmStageModel();
-  
+
   requestId = "";
 
   ngOnInit(): void {

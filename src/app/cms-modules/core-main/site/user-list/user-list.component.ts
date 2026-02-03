@@ -5,16 +5,16 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  AuthRefreshTokenModel,
-  CoreSiteUserModel,
-  CoreSiteUserService,
-  CoreUserModel,
-  DataFieldInfoModel,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
-  TokenInfoModelV3,
+    AuthRefreshTokenModel,
+    CoreSiteUserModel,
+    CoreSiteUserService,
+    CoreUserModel,
+    DataFieldInfoModel,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SortTypeEnum,
+    TokenInfoModelV3,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ComponentOptionSearchModel } from "src/app/core/cmsComponent/base/componentOptionSearchModel";
@@ -48,7 +48,7 @@ export class CoreSiteUserListComponent
   constructor(
     public contentService: CoreSiteUserService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsAuthService: CmsAuthService,
     private router: Router,
     private activatedRoute: ActivatedRoute,

@@ -47,7 +47,7 @@ export class EstatePropertyTypeLanduseEditMobileComponent
     public coreEnumService: CoreEnumService,
     public estatePropertyTypeLanduseService: EstatePropertyTypeLanduseService,
     public estatePropertyTypeService: EstatePropertyTypeService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     private router: Router,
@@ -81,7 +81,7 @@ export class EstatePropertyTypeLanduseEditMobileComponent
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: EstatePropertyTypeLanduseModel =
     new EstatePropertyTypeLanduseModel();
-  
+
   fileManagerOpenForm = false;
 
   dataEstatePropertyTypeUsageModel: EstatePropertyTypeUsageModel[];

@@ -42,7 +42,7 @@ export class LinkManagementTargetListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: LinkManagementTargetService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private router: Router,
     private activatedRoute: ActivatedRoute,

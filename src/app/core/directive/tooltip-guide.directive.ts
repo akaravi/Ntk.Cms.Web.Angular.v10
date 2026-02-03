@@ -32,7 +32,7 @@ export class TooltipGuideDirective {
     private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     private coreGuideService: CoreGuideService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
   ) {
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {

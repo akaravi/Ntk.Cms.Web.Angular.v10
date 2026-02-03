@@ -61,7 +61,7 @@ export class BiographyCommentListComponent
     public contentService: BiographyCommentService,
     private biographyContentService: BiographyContentService,
     private activatedRoute: ActivatedRoute,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public tokenHelper: TokenHelper,
     private router: Router,

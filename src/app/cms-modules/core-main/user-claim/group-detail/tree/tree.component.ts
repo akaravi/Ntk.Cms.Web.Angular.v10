@@ -1,21 +1,21 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
 } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService,
-  CoreUserClaimGroupDetailModel,
-  CoreUserClaimGroupDetailService,
-  ErrorExceptionResult,
-  FilterModel,
+    CoreEnumService,
+    CoreUserClaimGroupDetailModel,
+    CoreUserClaimGroupDetailService,
+    ErrorExceptionResult,
+    FilterModel,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -36,7 +36,7 @@ export class CoreUserClaimGroupDetailTreeComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: CoreUserClaimGroupDetailService,
     public dialog: MatDialog,

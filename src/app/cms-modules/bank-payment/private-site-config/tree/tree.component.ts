@@ -36,7 +36,7 @@ export class BankPaymentPrivateSiteConfigTreeComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: BankPaymentPrivateSiteConfigService,
     private cdr: ChangeDetectorRef,

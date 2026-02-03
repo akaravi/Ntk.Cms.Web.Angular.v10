@@ -35,7 +35,7 @@ export class TicketingFaqOriginListComponent implements OnInit, OnDestroy {
     private ticketingFaqService: TicketingFaqService,
     private ticketingDepartemenService: TicketingDepartemenService,
     public publicHelper: PublicHelper,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     private router: Router,
     private cdr: ChangeDetectorRef,

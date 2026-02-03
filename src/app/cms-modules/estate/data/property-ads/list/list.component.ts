@@ -44,7 +44,7 @@ export class EstatePropertyAdsListComponent
     private contentService: EstatePropertyAdsService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public themeService: ThemeService,
     public tokenHelper: TokenHelper,
     private router: Router,

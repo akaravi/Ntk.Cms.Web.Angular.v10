@@ -9,7 +9,7 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 export class AuthSignOutComponent implements OnInit {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsAuthService: CmsAuthService,
   ) {}
   ngOnInit(): void {

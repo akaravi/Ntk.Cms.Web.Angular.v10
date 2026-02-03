@@ -40,7 +40,7 @@ export class LinkManagementMemberListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: LinkManagementMemberService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
     public translate: TranslateService,

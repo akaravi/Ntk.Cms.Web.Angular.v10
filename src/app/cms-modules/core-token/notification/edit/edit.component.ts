@@ -44,7 +44,7 @@ export class CoreTokenConnectionEditComponent
     private dialogRef: MatDialogRef<CoreTokenConnectionEditComponent>,
     public coreEnumService: CoreEnumService,
     public coreTokenConnectionService: CoreTokenConnectionService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
@@ -69,7 +69,7 @@ export class CoreTokenConnectionEditComponent
   dataModel: CoreTokenConnectionModel = new CoreTokenConnectionModel();
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
-  
+
   dataModelEnumManageUserAccessAreaTypesResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
   dataModelEnumManageUserAccessUserTypesResult: ErrorExceptionResult<InfoEnumModel> =

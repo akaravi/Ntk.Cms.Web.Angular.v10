@@ -39,7 +39,7 @@ export class HyperShopCategoryEditComponent
     private dialogRef: MatDialogRef<HyperShopCategoryEditComponent>,
     public coreEnumService: CoreEnumService,
     public hyperShopCategoryService: HyperShopCategoryService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -65,7 +65,7 @@ export class HyperShopCategoryEditComponent
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: HyperShopCategoryModel = new HyperShopCategoryModel();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

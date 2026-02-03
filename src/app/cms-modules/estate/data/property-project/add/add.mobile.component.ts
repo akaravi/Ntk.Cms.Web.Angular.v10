@@ -44,7 +44,7 @@ export class EstatePropertyProjectAddMobileComponent
     public coreEnumService: CoreEnumService,
     public publicHelper: PublicHelper,
     public contentService: EstatePropertyProjectService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     public tokenHelper: TokenHelper,
     private router: Router,
@@ -72,7 +72,7 @@ export class EstatePropertyProjectAddMobileComponent
     new ErrorExceptionResult<EstatePropertyProjectModel>();
 
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
-  
+
   fileManagerOpenForm = false;
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
     string,

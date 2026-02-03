@@ -81,7 +81,7 @@ export class EstatePropertyAddMobileComponent
     public estatePropertyDetailGroupService: EstatePropertyDetailGroupService,
     private estatePropertyTypeService: EstatePropertyTypeService,
     private estatePropertyTypeLanduseService: EstatePropertyTypeLanduseService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     private router: Router,
     public publicHelper: PublicHelper,
@@ -157,7 +157,7 @@ export class EstatePropertyAddMobileComponent
   dataModel: EstatePropertyModel = new EstatePropertyModel();
   dataFileModelImgaes = new Map<number, string>();
   dataFileModelFiles = new Map<number, string>();
-  
+
   fileManagerOpenForm = false;
   dataModelCorCurrencySelector = new CoreCurrencyModel();
   contractTypeSelected: EstateContractTypeModel;

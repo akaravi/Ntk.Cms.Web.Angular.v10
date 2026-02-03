@@ -3,16 +3,16 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatTableDataSource } from "@angular/material/table";
 import { ActivatedRoute, Router } from "@angular/router";
 import {
-  CoreUserClaimCheckDtoModel,
-  CoreUserClaimCheckModel,
-  CoreUserClaimContentModel,
-  CoreUserClaimContentService,
-  CoreUserClaimTypeModel,
-  CoreUserClaimTypeService,
-  DataFieldInfoModel,
-  ErrorExceptionResult,
-  FilterModel,
-  TokenInfoModelV3,
+    CoreUserClaimCheckDtoModel,
+    CoreUserClaimCheckModel,
+    CoreUserClaimContentModel,
+    CoreUserClaimContentService,
+    CoreUserClaimTypeModel,
+    CoreUserClaimTypeService,
+    DataFieldInfoModel,
+    ErrorExceptionResult,
+    FilterModel,
+    TokenInfoModelV3,
 } from "ntk-cms-api";
 import { ComponentOptionSearchModel } from "src/app/core/cmsComponent/base/componentOptionSearchModel";
 import { ComponentOptionStatistModel } from "src/app/core/cmsComponent/base/componentOptionStatistModel";
@@ -42,7 +42,7 @@ export class CoreUserClaimContentCheckListComponent
   constructor(
     private coreUserClaimContentService: CoreUserClaimContentService,
     public publicHelper: PublicHelper,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private coreUserClaimTypeService: CoreUserClaimTypeService,
     private router: Router,
     private cmsStoreService: CmsStoreService,

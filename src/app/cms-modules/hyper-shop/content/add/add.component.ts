@@ -41,7 +41,7 @@ export class HyperShopContentAddComponent
     private dialogRef: MatDialogRef<HyperShopContentAddComponent>,
     public coreEnumService: CoreEnumService,
     public hyperShopContentService: HyperShopContentService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -75,7 +75,7 @@ export class HyperShopContentAddComponent
     new ErrorExceptionResult<HyperShopContentModel>();
   dataModel: HyperShopContentModel = new HyperShopContentModel();
   dataFileModel = new Map<number, string>();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

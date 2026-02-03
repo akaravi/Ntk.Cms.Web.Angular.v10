@@ -41,7 +41,7 @@ export class EstatePropertyDetailAddMobileComponent
   constructor(
     public coreEnumService: CoreEnumService,
     public estatePropertyDetailService: EstatePropertyDetailService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private estateEnumService: EstateEnumService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -100,7 +100,7 @@ export class EstatePropertyDetailAddMobileComponent
   dataModelResult: ErrorExceptionResult<EstatePropertyDetailModel> =
     new ErrorExceptionResult<EstatePropertyDetailModel>();
   dataModel: EstatePropertyDetailModel = new EstatePropertyDetailModel();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

@@ -40,7 +40,7 @@ export class EstateBillboardEditComponent
     public estatePropertyDetailGroupService: EstatePropertyDetailGroupService,
     public coreEnumService: CoreEnumService,
     public estateBillboardService: EstateBillboardService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
@@ -70,7 +70,7 @@ export class EstateBillboardEditComponent
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: EstateBillboardModel = new EstateBillboardModel();
   dataModelCorCurrencySelector = new CoreCurrencyModel();
-  
+
   fileManagerOpenForm = false;
   optionloadComponent = false;
 

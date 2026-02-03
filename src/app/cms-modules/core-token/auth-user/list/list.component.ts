@@ -45,7 +45,7 @@ export class CoreTokenAuthUserListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private contentService: CoreTokenAuthUserService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
     public tokenHelper: TokenHelper,

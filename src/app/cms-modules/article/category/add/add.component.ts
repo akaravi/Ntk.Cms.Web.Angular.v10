@@ -35,7 +35,7 @@ export class ArticleCategoryAddComponent
     private dialogRef: MatDialogRef<ArticleCategoryAddComponent>,
     public coreEnumService: CoreEnumService,
     public categoryService: ArticleCategoryService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     public publicHelper: PublicHelper,
@@ -62,7 +62,7 @@ export class ArticleCategoryAddComponent
   dataModelResult: ErrorExceptionResult<ArticleCategoryModel> =
     new ErrorExceptionResult<ArticleCategoryModel>();
   dataModel: ArticleCategoryModel = new ArticleCategoryModel();
-  
+
   fileManagerOpenForm = false;
   onActionFileSelected(model: NodeInterface): void {
     this.dataModel.linkMainImageId = model.id;

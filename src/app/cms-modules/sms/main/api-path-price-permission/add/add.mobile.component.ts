@@ -1,32 +1,33 @@
 import { ENTER } from "@angular/cdk/keycodes";
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild } from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreSiteCategoryModel,
-  CoreSiteModel,
-  CoreUserGroupModel,
-  CoreUserModel,
-  DataFieldInfoModel,
-  ErrorExceptionResult,
-  ManageUserAccessDataTypesEnum,
-  SmsEnumService,
-  SmsMainApiPathPaginationModel,
-  SmsMainApiPathPricePermissionModel,
-  SmsMainApiPathPricePermissionService } from "ntk-cms-api";
+    CoreSiteCategoryModel,
+    CoreSiteModel,
+    CoreUserGroupModel,
+    CoreUserModel,
+    DataFieldInfoModel,
+    ErrorExceptionResult,
+    ManageUserAccessDataTypesEnum,
+    SmsEnumService,
+    SmsMainApiPathPaginationModel,
+    SmsMainApiPathPricePermissionModel,
+    SmsMainApiPathPricePermissionService
+} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-sms-apipath-price-permission-add-mobile",
@@ -49,7 +50,7 @@ export class SmsMainApiPathPricePermissionAddMobileComponent
     private dialogRef: MatDialogRef<SmsMainApiPathPricePermissionAddMobileComponent>,
     public smsEnumService: SmsEnumService,
     public smsMainApiPathPricePermissionService: SmsMainApiPathPricePermissionService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private router: Router,

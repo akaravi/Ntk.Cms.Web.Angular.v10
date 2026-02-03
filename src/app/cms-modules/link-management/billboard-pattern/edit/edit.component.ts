@@ -43,7 +43,7 @@ export class LinkManagementBillboardPatternEditComponent
     public coreEnumService: CoreEnumService,
     public categoryService: LinkManagementBillboardPatternService,
     private linkManagementEnumService: LinkManagementEnumService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -73,7 +73,7 @@ export class LinkManagementBillboardPatternEditComponent
   dataModel: LinkManagementBillboardPatternModel =
     new LinkManagementBillboardPatternModel();
 
-  
+
   dataModelEnumManagementContentSettingTypeResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
   dataModelEnumSharingPriceTypeResult: ErrorExceptionResult<InfoEnumModel> =

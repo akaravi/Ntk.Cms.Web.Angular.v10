@@ -40,7 +40,7 @@ export class ApplicationIntroListComponent
   constructor(
     public contentService: ApplicationIntroService,
     private activatedRoute: ActivatedRoute,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     private router: Router,

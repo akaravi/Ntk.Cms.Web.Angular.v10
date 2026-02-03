@@ -47,7 +47,7 @@ export class CoreModuleSaleItemListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: CoreModuleSaleItemService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public coreEnumService: CoreEnumService,
     private activatedRoute: ActivatedRoute,

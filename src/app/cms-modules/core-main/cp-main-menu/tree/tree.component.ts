@@ -1,22 +1,22 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
 } from "@angular/core";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreCpMainMenuModel,
-  CoreCpMainMenuService,
-  CoreEnumService,
-  ErrorExceptionResult,
-  FilterModel,
-  SortTypeEnum,
+    CoreCpMainMenuModel,
+    CoreCpMainMenuService,
+    CoreEnumService,
+    ErrorExceptionResult,
+    FilterModel,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -35,7 +35,7 @@ import { CoreCpMainMenuEditComponent } from "../edit/edit.component";
 export class CoreCpMainMenuTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: CoreCpMainMenuService,
     public dialog: MatDialog,

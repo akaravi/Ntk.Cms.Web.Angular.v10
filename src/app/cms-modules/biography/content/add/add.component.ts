@@ -53,7 +53,7 @@ export class BiographyContentAddComponent
     private biographyContentService: BiographyContentService,
     private biographyContentSimilarService: BiographyContentSimilarService,
     private biographyContentOtherInfoService: BiographyContentOtherInfoService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     private biographyContentTagService: BiographyContentTagService,
     private cdr: ChangeDetectorRef,
@@ -75,7 +75,7 @@ export class BiographyContentAddComponent
     DataFieldInfoModel
   >();
   mapOptonCenter = new PoinModel();
-  
+
   dataModel = new BiographyContentModel();
   dataModelResult: ErrorExceptionResult<BiographyContentModel> =
     new ErrorExceptionResult<BiographyContentModel>();

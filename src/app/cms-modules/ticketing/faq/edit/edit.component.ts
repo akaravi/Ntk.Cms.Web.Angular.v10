@@ -39,7 +39,7 @@ export class TicketingFaqEditComponent
     private dialogRef: MatDialogRef<TicketingFaqEditComponent>,
     public coreEnumService: CoreEnumService,
     public ticketingFaqService: TicketingFaqService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,

@@ -35,7 +35,7 @@ export class EstatePropertyTypeUsageCompleteComponent implements OnInit {
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public service: EstatePropertyTypeUsageService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public translate: TranslateService,
   ) {
     this.filteredOptions = this.tagCtrl.valueChanges.pipe(

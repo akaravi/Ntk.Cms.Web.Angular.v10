@@ -43,7 +43,7 @@ export class ApplicationThemeConfigListComponent
     public contentService: ApplicationThemeConfigService,
     private activatedRoute: ActivatedRoute,
     public publicHelper: PublicHelper,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,

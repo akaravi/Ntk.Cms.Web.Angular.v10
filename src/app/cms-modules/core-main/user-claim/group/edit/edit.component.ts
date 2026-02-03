@@ -1,36 +1,38 @@
 import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild } from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatStepper } from "@angular/material/stepper";
 import { TranslateService } from "@ngx-translate/core";
-import {ApplicationAppModel,
-  ApplicationSourceModel,
-  CoreEnumService,
-  CoreModuleModel,
-  CoreSiteCategoryModel,
-  CoreUserClaimGroupDetailModel,
-  CoreUserClaimGroupDetailService,
-  CoreUserClaimGroupModel,
-  CoreUserClaimGroupService,
-  CoreUserClaimTypeModel,
-  CoreUserGroupModel,
-  ErrorExceptionResult,
-  ErrorExceptionResultBase,
-  FilterDataModel,
-  FilterModel,InfoEnumModel,
-  ManageUserAccessDataTypesEnum} from "ntk-cms-api";
+import {
+    ApplicationAppModel,
+    ApplicationSourceModel,
+    CoreEnumService,
+    CoreModuleModel,
+    CoreSiteCategoryModel,
+    CoreUserClaimGroupDetailModel,
+    CoreUserClaimGroupDetailService,
+    CoreUserClaimGroupModel,
+    CoreUserClaimGroupService,
+    CoreUserClaimTypeModel,
+    CoreUserGroupModel,
+    ErrorExceptionResult,
+    ErrorExceptionResultBase,
+    FilterDataModel,
+    FilterModel, InfoEnumModel,
+    ManageUserAccessDataTypesEnum
+} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-core-userclaimgroup-edit",
@@ -54,7 +56,7 @@ export class CoreUserClaimGroupEditComponent
     public coreUserClaimGroupService: CoreUserClaimGroupService,
     public coreUserClaimGroupDetailService: CoreUserClaimGroupDetailService,
     public publicHelper: PublicHelper,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {
@@ -83,7 +85,7 @@ export class CoreUserClaimGroupEditComponent
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: CoreUserClaimGroupModel = new CoreUserClaimGroupModel();
 
-  
+
   dataModelEnumUserClaimGroupActionTypeResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
 

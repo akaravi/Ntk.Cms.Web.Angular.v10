@@ -34,7 +34,7 @@ import { BankPaymentPublicConfigEditComponent } from "../edit/edit.component";
 export class BankPaymentPublicConfigTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: BankPaymentPublicConfigService,
     private cdr: ChangeDetectorRef,

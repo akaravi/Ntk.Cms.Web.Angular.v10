@@ -1,21 +1,21 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
 } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService,
-  CoreSiteModel,
-  CoreSiteService,
-  ErrorExceptionResult,
-  FilterModel,
+    CoreEnumService,
+    CoreSiteModel,
+    CoreSiteService,
+    ErrorExceptionResult,
+    FilterModel,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -35,7 +35,7 @@ import { CoreSiteEditComponent } from "../edit/edit.component";
 export class CoreSiteTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: CoreSiteService,
     public dialog: MatDialog,

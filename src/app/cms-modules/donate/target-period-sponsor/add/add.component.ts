@@ -42,7 +42,7 @@ export class DonateTargetPeriodSponserAddComponent
     private dialogRef: MatDialogRef<DonateTargetPeriodSponserAddComponent>,
     public coreEnumService: CoreEnumService,
     public donateTargetPeriodSponsorService: DonateTargetPeriodSponsorService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -84,7 +84,7 @@ export class DonateTargetPeriodSponserAddComponent
   dataModel: DonateTargetPeriodSponsorModel =
     new DonateTargetPeriodSponsorModel();
 
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

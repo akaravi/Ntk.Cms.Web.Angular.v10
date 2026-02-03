@@ -1,23 +1,6 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild } from "@angular/core";
-import { FormGroup } from "@angular/forms";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { TranslateService } from "@ngx-translate/core";
-import {CoreEnumService,
-  DataFieldInfoModel,
-  DataProviderPlanCategoryModel,
-  DataProviderPlanCategoryService,
-  ErrorExceptionResult} from "ntk-cms-api";
-import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
-import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "src/app/core/models/formInfoModel";
 
 @Component({
   selector: "app-data-provider-plan-category-add",
@@ -38,9 +21,8 @@ export class DataProviderPlanCategoryAddComponent
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<DataProviderPlanCategoryAddComponent>,
-    public coreEnumService: CoreEnumService,
-    public dataProviderPlanCategoryService: DataProviderPlanCategoryService,
-    private cmsToastrService: CmsToastrService,
+      public dataProviderPlanCategoryService: DataProviderPlanCategoryService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -154,5 +136,3 @@ export class DataProviderPlanCategoryAddComponent
   }
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });
-  }
-}

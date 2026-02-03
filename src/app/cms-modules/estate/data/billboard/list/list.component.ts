@@ -41,7 +41,7 @@ export class EstateBillboardListComponent
   constructor(
     public contentService: EstateBillboardService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public tokenHelper: TokenHelper,
     private router: Router,
     private cdr: ChangeDetectorRef,

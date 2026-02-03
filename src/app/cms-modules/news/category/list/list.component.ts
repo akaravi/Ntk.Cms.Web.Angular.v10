@@ -41,7 +41,7 @@ export class NewsCategoryListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: NewsCategoryService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,

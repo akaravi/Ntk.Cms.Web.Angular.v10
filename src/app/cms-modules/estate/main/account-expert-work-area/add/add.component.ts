@@ -48,7 +48,7 @@ export class EstateAccountExpertWorkAreaAddComponent
     public coreEnumService: CoreEnumService,
     public estateEnumService: EstateEnumService,
     public estateAccountExpertWorkAreaService: EstateAccountExpertWorkAreaService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -79,7 +79,7 @@ export class EstateAccountExpertWorkAreaAddComponent
     new ErrorExceptionResult<EstateAccountExpertWorkAreaModel>();
   dataModel: EstateAccountExpertWorkAreaModel =
     new EstateAccountExpertWorkAreaModel();
-  
+
   dataModelEnumEstateUserTypeResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
 

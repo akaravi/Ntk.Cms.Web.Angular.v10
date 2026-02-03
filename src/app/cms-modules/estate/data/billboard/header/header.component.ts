@@ -34,7 +34,7 @@ export class EstateBillboardHeaderComponent implements OnInit, OnDestroy {
     private headerService: EstateBillboardService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public themeService: ThemeService,
     public dialog: MatDialog,
     public translate: TranslateService,

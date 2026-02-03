@@ -37,7 +37,7 @@ export class DonateLogViewComponent implements OnInit, OnDestroy {
     private dialogRef: MatDialogRef<DonateLogViewComponent>,
     public coreEnumService: CoreEnumService,
     public donateLogViewService: DonateLogViewService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,

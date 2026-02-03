@@ -37,7 +37,7 @@ export class CmsContactCategoryTreeSelectorComponent
   id = ++CmsContactCategoryTreeSelectorComponent.nextId;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: ContactCategoryService,
     private cdr: ChangeDetectorRef,

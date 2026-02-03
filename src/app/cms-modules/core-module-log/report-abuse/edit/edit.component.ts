@@ -1,17 +1,20 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnDestroy,
-  OnInit,
-  ViewChild } from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnDestroy,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreEnumService,
-  CoreModuleLogReportAbuseModel,
-  CoreModuleLogReportAbuseService,
-  ErrorExceptionResultBase,ManageUserAccessDataTypesEnum} from "ntk-cms-api";
+import {
+    CoreEnumService,
+    CoreModuleLogReportAbuseModel,
+    CoreModuleLogReportAbuseService,
+    ErrorExceptionResultBase, ManageUserAccessDataTypesEnum
+} from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -19,7 +22,6 @@ import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-coremodulelog-report-abuse-edit",
@@ -42,7 +44,7 @@ export class CoreModuleLogReportAbuseEditComponent
     private dialogRef: MatDialogRef<CoreModuleLogReportAbuseEditComponent>,
     public coreEnumService: CoreEnumService,
     public coreModuleLogReportAbuseService: CoreModuleLogReportAbuseService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
@@ -68,7 +70,7 @@ export class CoreModuleLogReportAbuseEditComponent
     new CoreModuleLogReportAbuseModel();
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
-  
+
   fileManagerOpenForm = false;
 
   private unsubscribe: Subscription[] = [];

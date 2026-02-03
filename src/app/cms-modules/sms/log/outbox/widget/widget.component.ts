@@ -1,25 +1,25 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
+    ChangeDetectorRef,
+    Component,
+    Input,
+    OnDestroy,
+    OnInit,
 } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  FilterDataModel,
-  FilterModel,
-  ManageUserAccessDataTypesEnum,
-  RecordAdminStatusEnum,
-  RecordStatusEnum,
-  SmsLogOutBoxService,
+    FilterDataModel,
+    FilterModel,
+    ManageUserAccessDataTypesEnum,
+    RecordAdminStatusEnum,
+    RecordStatusEnum,
+    SmsLogOutBoxService,
 } from "ntk-cms-api";
 import { Subscription, forkJoin } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { ChartOptionsModel } from "src/app/core/models/chartOptionsModel";
 import {
-  WidgetContentInfoModel,
-  WidgetInfoModel,
+    WidgetContentInfoModel,
+    WidgetInfoModel,
 } from "src/app/core/models/widget-info-model";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
@@ -36,7 +36,7 @@ export class SmsLogOutBoxWidgetComponent implements OnInit, OnDestroy {
   constructor(
     private service: SmsLogOutBoxService,
     private cdr: ChangeDetectorRef,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
     public translate: TranslateService,

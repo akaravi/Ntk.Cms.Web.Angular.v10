@@ -32,7 +32,7 @@ export class EstatePropertyCompanyDeleteComponent implements OnInit {
     public publicHelper: PublicHelper,
     public contentService: EstatePropertyCompanyService,
     private cdr: ChangeDetectorRef,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;

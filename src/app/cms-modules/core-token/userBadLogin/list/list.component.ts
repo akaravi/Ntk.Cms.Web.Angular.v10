@@ -48,7 +48,7 @@ export class CoreTokenUserBadLoginListComponent
   constructor(
     private coreEnumService: CoreEnumService,
     private contentService: CoreTokenUserBadLoginService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
     public tokenHelper: TokenHelper,

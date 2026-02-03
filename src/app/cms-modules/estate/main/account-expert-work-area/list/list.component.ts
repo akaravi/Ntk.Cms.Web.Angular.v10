@@ -41,7 +41,7 @@ export class EstateAccountExpertWorkAreaListComponent
   constructor(
     private contentService: EstateAccountExpertWorkAreaService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,

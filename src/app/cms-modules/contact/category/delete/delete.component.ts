@@ -1,18 +1,3 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild,
-} from "@angular/core";
-import { FormGroup } from "@angular/forms";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { TranslateService } from "@ngx-translate/core";
-import {ContactCategoryModel,
-  ContactCategoryService,
-  DataFieldInfoModel,
-  ErrorExceptionResult,
-  FilterModel,ManageUserAccessDataTypesEnum} from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
@@ -31,9 +16,8 @@ export class ContactCategoryDeleteComponent implements OnInit {
     private dialogRef: MatDialogRef<ContactCategoryDeleteComponent>,
     public publicHelper: PublicHelper,
     private contactCategoryService: ContactCategoryService,
-    private cdr: ChangeDetectorRef,
-    public translate: TranslateService,
-    private cmsToastrService: CmsToastrService,
+    translate: TranslateService,
+    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
     if (data && data.id && data.id.length > 0) {
@@ -83,9 +67,9 @@ export class ContactCategoryDeleteComponent implements OnInit {
 
     this.contactCategoryService.setAccessLoad();
     this.contactCategoryService.setAccessDataType(
-      ManageUserAccessDataTypesEnum.Editor,
+  ManageUserAccessDataTypesEnum.Editor,
     );
-    
+
     this.contactCategoryService.ServiceGetOneById(this.requestId).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
@@ -322,5 +306,3 @@ export class ContactCategoryDeleteComponent implements OnInit {
   }
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });
-  }
-}

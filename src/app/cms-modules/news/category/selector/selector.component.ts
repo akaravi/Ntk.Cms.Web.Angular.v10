@@ -38,7 +38,7 @@ export class NewsCategorySelectorComponent implements OnInit {
   id = ++NewsCategorySelectorComponent.nextId;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,

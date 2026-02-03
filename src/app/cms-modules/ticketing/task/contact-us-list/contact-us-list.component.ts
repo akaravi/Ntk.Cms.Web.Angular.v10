@@ -42,7 +42,7 @@ export class TicketingTaskContactUsListComponent
   constructor(
     public contentService: TicketingTaskService,
     private activatedRoute: ActivatedRoute,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,

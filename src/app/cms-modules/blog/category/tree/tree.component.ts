@@ -35,7 +35,7 @@ import { BlogCategoryEditComponent } from "../edit/edit.component";
 export class BlogCategoryTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: BlogCategoryService,
     public dialog: MatDialog,

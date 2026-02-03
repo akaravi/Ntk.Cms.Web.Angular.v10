@@ -56,7 +56,7 @@ export class EstatePropertyExpertPriceListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: EstatePropertyExpertPriceService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private estateEnumService: EstateEnumService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private coreCurrencyService: CoreCurrencyService,

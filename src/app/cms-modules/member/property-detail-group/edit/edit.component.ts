@@ -40,7 +40,7 @@ export class MemberPropertyDetailGroupEditComponent
     private dialogRef: MatDialogRef<MemberPropertyDetailGroupEditComponent>,
     public coreEnumService: CoreEnumService,
     public memberPropertyDetailGroupService: MemberPropertyDetailGroupService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -67,7 +67,7 @@ export class MemberPropertyDetailGroupEditComponent
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: MemberPropertyDetailGroupModel =
     new MemberPropertyDetailGroupModel();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

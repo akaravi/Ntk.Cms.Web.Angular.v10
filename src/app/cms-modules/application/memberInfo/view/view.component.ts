@@ -39,7 +39,7 @@ export class ApplicationMemberInfoViewComponent implements OnInit, OnDestroy {
     public coreEnumService: CoreEnumService,
     public applicationMemberInfoService: ApplicationMemberInfoService,
     private cdr: ChangeDetectorRef,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,

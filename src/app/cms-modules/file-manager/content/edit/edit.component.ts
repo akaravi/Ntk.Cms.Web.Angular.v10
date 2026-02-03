@@ -40,7 +40,7 @@ export class FileContentEditComponent
     public coreEnumService: CoreEnumService,
     public publicHelper: PublicHelper,
     private fileContentService: FileContentService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -63,7 +63,7 @@ export class FileContentEditComponent
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   selectFileTypePodcast = ["mp3"];
   selectFileTypeMovie = ["mp4", "webm"];
-  
+
   mapMarker: any;
   fileManagerOpenForm = false;
   fileManagerOpenFormPodcast = false;

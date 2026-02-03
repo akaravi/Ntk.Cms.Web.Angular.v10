@@ -31,7 +31,7 @@ export class TicketingTaskHeaderComponent implements OnInit, OnDestroy {
     private headerService: TicketingTaskService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public dialog: MatDialog,
     public translate: TranslateService,
     private cmsStoreService: CmsStoreService,

@@ -36,7 +36,7 @@ export class EstateAccountAgencyAdsSalePaymentComponent implements OnInit {
     public estateAdsTypeService: EstateAdsTypeService,
     public estateAccountAgencyAdsService: EstateAccountAgencyAdsService,
 
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public translate: TranslateService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,

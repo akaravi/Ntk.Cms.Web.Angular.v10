@@ -44,7 +44,7 @@ export class CoreLogEmailListComponent
   constructor(
     private coreEnumService: CoreEnumService,
     private contentService: CoreLogEmailService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
     private cmsStoreService: CmsStoreService,

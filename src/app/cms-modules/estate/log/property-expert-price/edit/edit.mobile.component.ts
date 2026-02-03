@@ -48,7 +48,7 @@ export class EstatePropertyExpertPriceEditMobileComponent
     private activatedRoute: ActivatedRoute,
     public coreEnumService: CoreEnumService,
     public estatePropertyExpertPriceService: EstatePropertyExpertPriceService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private estateEnumService: EstateEnumService,
     private cmsStoreService: CmsStoreService,
     public publicHelper: PublicHelper,
@@ -83,7 +83,7 @@ export class EstatePropertyExpertPriceEditMobileComponent
     new EstatePropertyExpertPriceModel();
   dataModelEstatePropertyExpertPriceTypeEnumResult: ErrorExceptionResult<InfoEnumModel> =
     new ErrorExceptionResult<InfoEnumModel>();
-  
+
   dataModelCorCurrencySelector = new CoreCurrencyModel();
   PropertyTypeSelected = new EstatePropertyTypeLanduseModel();
   contractTypeSelected: EstateContractTypeModel;

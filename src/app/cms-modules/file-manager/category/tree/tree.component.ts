@@ -34,7 +34,7 @@ import { FileCategoryEditComponent } from "../edit/edit.component";
 export class FileCategoryTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: FileCategoryService,
     public dialog: MatDialog,

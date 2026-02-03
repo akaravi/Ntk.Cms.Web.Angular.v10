@@ -1,35 +1,3 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from "@angular/core";
-import { FormGroup } from "@angular/forms";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { Router } from "@angular/router";
-import { TranslateService } from "@ngx-translate/core";
-import {
-  CoreEnumService,
-  DataProviderClientModel,
-  DataProviderClientService,
-  DataProviderPlanClientModel,
-  DataProviderPlanClientService,
-  DataProviderPlanModel,
-  ErrorExceptionResultBase,
-  FilterDataModel,
-  FilterModel,
-  ManageUserAccessDataTypesEnum,
-} from "ntk-cms-api";
-import { TreeModel } from "ntk-cms-filemanager";
-import { Subscription } from "rxjs";
-import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
-import { PublicHelper } from "src/app/core/helpers/publicHelper";
-import { TokenHelper } from "src/app/core/helpers/tokenHelper";
-import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
-import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 
 @Component({
   selector: "app-data-provider-client-edit",
@@ -52,8 +20,7 @@ export class DataProviderClientEditComponent
     private dialogRef: MatDialogRef<DataProviderClientEditComponent>,
     public coreEnumService: CoreEnumService,
     public dataProviderClientService: DataProviderClientService,
-    private cmsToastrService: CmsToastrService,
-    public publicHelper: PublicHelper,
+        public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private cmsStoreService: CmsStoreService,
     private router: Router,

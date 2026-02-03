@@ -55,7 +55,7 @@ export class CmsSearchListComponent implements OnInit {
   fieldMap: QueryBuilderFieldMap = {};
   constructor(
     public translate: TranslateService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private publicHelper: PublicHelper,
   ) {
     this.lang = this.translate.currentLang;

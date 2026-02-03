@@ -41,7 +41,7 @@ export class CoreSiteListComponent
   constructor(
     public contentService: CoreSiteService,
     private coreAuthService: CoreAuthV3Service,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
     private activatedRoute: ActivatedRoute,

@@ -37,7 +37,7 @@ export class DonateTargetAddComponent
     private dialogRef: MatDialogRef<DonateTargetAddComponent>,
     public coreEnumService: CoreEnumService,
     public donateTargetService: DonateTargetService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -72,7 +72,7 @@ export class DonateTargetAddComponent
     new ErrorExceptionResult<DonateTargetModel>();
   dataModel: DonateTargetModel = new DonateTargetModel();
 
-  
+
   fileManagerOpenForm = false;
 
   onActionFileSelected(model: NodeInterface): void {

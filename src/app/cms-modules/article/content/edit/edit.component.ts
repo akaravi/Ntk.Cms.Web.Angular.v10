@@ -55,7 +55,7 @@ export class ArticleContentEditComponent
     private contentTagService: ArticleContentTagService,
     private contentSimilarService: ArticleContentSimilarService,
     private contentOtherInfoService: ArticleContentOtherInfoService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private contentCategoryService: ArticleContentCategoryService,
     private router: Router,
     private cdr: ChangeDetectorRef,

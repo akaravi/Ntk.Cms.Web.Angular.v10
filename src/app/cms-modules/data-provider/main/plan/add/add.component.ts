@@ -1,24 +1,6 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild } from "@angular/core";
-import { FormGroup } from "@angular/forms";
-import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
-import { TranslateService } from "@ngx-translate/core";
-import {CoreEnumService,
-  DataFieldInfoModel,
-  DataProviderPlanCategoryModel,
-  DataProviderPlanModel,
-  DataProviderPlanService,
-  ErrorExceptionResult} from "ntk-cms-api";
-import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
-import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "src/app/core/models/formInfoModel";
 
 @Component({
   selector: "app-data-provider-plan-add",
@@ -39,9 +21,8 @@ export class DataProviderPlanAddComponent
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<DataProviderPlanAddComponent>,
-    public coreEnumService: CoreEnumService,
-    public dataProviderPlanService: DataProviderPlanService,
-    private cmsToastrService: CmsToastrService,
+      public dataProviderPlanService: DataProviderPlanService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -74,9 +55,9 @@ export class DataProviderPlanAddComponent
 
   dataModelResult: ErrorExceptionResult<DataProviderPlanModel> =
     new ErrorExceptionResult<DataProviderPlanModel>();
-  dataModel: DataProviderPlanModel = new DataProviderPlanModel();
+dataModel: DataProviderPlanModel = new DataProviderPlanModel();
 
-  
+
   fileManagerOpenForm = false;
 
   onActionFileSelected(model: NodeInterface): void {
@@ -166,5 +147,3 @@ export class DataProviderPlanAddComponent
   }
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });
-  }
-}

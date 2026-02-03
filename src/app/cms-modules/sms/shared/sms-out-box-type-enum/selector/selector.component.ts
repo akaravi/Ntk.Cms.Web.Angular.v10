@@ -1,26 +1,26 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
 } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  ErrorExceptionResult,
-  InfoEnumModel,
-  SmsEnumService,
+    ErrorExceptionResult,
+    InfoEnumModel,
+    SmsEnumService,
 } from "ntk-cms-api";
 import { Observable, Subscription, firstValueFrom } from "rxjs";
 import {
-  debounceTime,
-  distinctUntilChanged,
-  map,
-  startWith,
-  switchMap,
+    debounceTime,
+    distinctUntilChanged,
+    map,
+    startWith,
+    switchMap,
 } from "rxjs/operators";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
@@ -37,7 +37,7 @@ export class SmsOutBoxTypeEnumSelectorComponent implements OnInit, OnDestroy {
   id = ++SmsOutBoxTypeEnumSelectorComponent.nextId;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public translate: TranslateService,

@@ -44,7 +44,7 @@ export class EstateActivityTypeEditMobileComponent
     public coreEnumService: CoreEnumService,
     public estateActivityTypeService: EstateActivityTypeService,
     public estatePropertyTypeService: EstatePropertyTypeService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private router: Router,
     private cdr: ChangeDetectorRef,
@@ -73,7 +73,7 @@ export class EstateActivityTypeEditMobileComponent
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: EstateActivityTypeModel = new EstateActivityTypeModel();
-  
+
   fileManagerOpenForm = false;
 
   dataEstatePropertyTypeUsageModel: EstatePropertyTypeUsageModel[];

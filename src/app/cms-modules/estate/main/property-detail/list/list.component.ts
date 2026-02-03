@@ -53,7 +53,7 @@ export class EstatePropertyDetailListComponent
     private estatePropertyTypeLanduseService: EstatePropertyTypeLanduseService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private router: Router,

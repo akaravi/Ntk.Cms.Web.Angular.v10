@@ -40,7 +40,7 @@ export class EstateActivityTypeAddComponent
     private dialogRef: MatDialogRef<EstateActivityTypeAddComponent>,
     public coreEnumService: CoreEnumService,
     public estateActivityTypeService: EstateActivityTypeService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -66,7 +66,7 @@ export class EstateActivityTypeAddComponent
   dataModelResult: ErrorExceptionResult<EstateActivityTypeModel> =
     new ErrorExceptionResult<EstateActivityTypeModel>();
   dataModel: EstateActivityTypeModel = new EstateActivityTypeModel();
-  
+
   fileManagerOpenForm = false;
 
   ngOnInit(): void {

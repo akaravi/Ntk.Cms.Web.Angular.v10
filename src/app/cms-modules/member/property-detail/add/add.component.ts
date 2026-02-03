@@ -45,7 +45,7 @@ export class MemberPropertyDetailAddComponent
     private dialogRef: MatDialogRef<MemberPropertyDetailAddComponent>,
     public coreEnumService: CoreEnumService,
     public memberPropertyDetailService: MemberPropertyDetailService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     // private estateEnumService: EstateEnumService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -86,7 +86,7 @@ export class MemberPropertyDetailAddComponent
   dataModelResult: ErrorExceptionResult<MemberPropertyDetailModel> =
     new ErrorExceptionResult<MemberPropertyDetailModel>();
   dataModel: MemberPropertyDetailModel = new MemberPropertyDetailModel();
-  
+
   fileManagerOpenForm = false;
 
   dataModelEnumInputDataTypeResult: ErrorExceptionResult<InfoEnumModel> =

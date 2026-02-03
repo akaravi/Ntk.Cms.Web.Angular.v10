@@ -40,7 +40,7 @@ export class BiographyCommentEditComponent
     private dialogRef: MatDialogRef<BiographyCommentEditComponent>,
     public coreEnumService: CoreEnumService,
     public biographyCommentService: BiographyCommentService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -68,7 +68,7 @@ export class BiographyCommentEditComponent
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
   dataModel: BiographyCommentModel = new BiographyCommentModel();
   ComponentAction = ComponentActionEnum.none;
-  
+
   selected: any;
   openFormFileManager = false;
   ngOnInit(): void {

@@ -57,7 +57,7 @@ export class BlogCommentListComponent
     private commentService: BlogCommentService,
     public contentService: BlogContentService,
     private activatedRoute: ActivatedRoute,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private router: Router,
     public tokenHelper: TokenHelper,

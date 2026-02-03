@@ -28,7 +28,7 @@ export class CmsBankpaymentTransactionInfoComponent implements OnInit {
     public bankPaymentTransactionService: BankPaymentTransactionService,
     private dialogRef: MatDialogRef<CmsBankpaymentTransactionInfoComponent>,
     private bankPaymentEnumService: BankPaymentEnumService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public translate: TranslateService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,

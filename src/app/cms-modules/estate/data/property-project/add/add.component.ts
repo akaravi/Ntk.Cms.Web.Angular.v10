@@ -48,7 +48,7 @@ export class EstatePropertyProjectAddComponent
     public coreEnumService: CoreEnumService,
     public publicHelper: PublicHelper,
     public contentService: EstatePropertyProjectService,
-    private cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
     public tokenHelper: TokenHelper,
     private router: Router,
@@ -76,7 +76,7 @@ export class EstatePropertyProjectAddComponent
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   selectFileTypePodcast = ["mp3"];
   selectFileTypeMovie = ["mp4", "webm"];
-  
+
   fileManagerOpenForm = false;
   fileManagerOpenFormPodcast = false;
   fileManagerOpenFormMovie = false;
