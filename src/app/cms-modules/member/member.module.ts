@@ -40,6 +40,7 @@ import { MemberGroupDeleteComponent } from "./group/delete/delete.component";
 import { MemberGroupEditComponent } from "./group/edit/edit.component";
 import { MemberGroupHeaderComponent } from "./group/header/header.component";
 import { MemberGroupListComponent } from "./group/list/list.component";
+import { MemberGroupListMobileComponent } from "./group/list/list.mobile.component";
 import { MemberGroupSelectorComponent } from "./group/selector/selector.component";
 import { MemberGroupTreeComponent } from "./group/tree/tree.component";
 import { MemberPropertyAliasAddComponent } from "./property-alias/add/add.component";
@@ -47,16 +48,19 @@ import { MemberPropertyAliasDeleteComponent } from "./property-alias/delete/dele
 import { MemberPropertyAliasEditComponent } from "./property-alias/edit/edit.component";
 import { MemberPropertyAliasHeaderComponent } from "./property-alias/header/header.component";
 import { MemberPropertyAliasListComponent } from "./property-alias/list/list.component";
+import { MemberPropertyAliasListMobileComponent } from "./property-alias/list/list.mobile.component";
 import { MemberPropertyAliasSelectorComponent } from "./property-alias/selector/selector.component";
 import { MemberPropertyAliasTreeComponent } from "./property-alias/tree/tree.component";
 import { MemberPropertyDetailGroupAddComponent } from "./property-detail-group/add/add.component";
 import { MemberPropertyDetailGroupEditComponent } from "./property-detail-group/edit/edit.component";
 import { MemberPropertyDetailGroupListComponent } from "./property-detail-group/list/list.component";
+import { MemberPropertyDetailGroupListMobileComponent } from "./property-detail-group/list/list.mobile.component";
 import { MemberPropertyDetailGroupSelectorComponent } from "./property-detail-group/selector/selector.component";
 import { MemberPropertyDetailGroupTreeComponent } from "./property-detail-group/tree/tree.component";
 import { MemberPropertyDetailAddComponent } from "./property-detail/add/add.component";
 import { MemberPropertyDetailEditComponent } from "./property-detail/edit/edit.component";
 import { MemberPropertyDetailListComponent } from "./property-detail/list/list.component";
+import { MemberPropertyDetailListMobileComponent } from "./property-detail/list/list.mobile.component";
 import { MemberPropertyDetailSelectorComponent } from "./property-detail/selector/selector.component";
 import { MemberPropertyDetailTreeComponent } from "./property-detail/tree/tree.component";
 @NgModule({
@@ -64,6 +68,7 @@ import { MemberPropertyDetailTreeComponent } from "./property-detail/tree/tree.c
     MemberComponent,
     /* */
     MemberGroupListComponent,
+    MemberGroupListMobileComponent,
     MemberGroupAddComponent,
     MemberGroupEditComponent,
     MemberGroupDeleteComponent,
@@ -72,6 +77,7 @@ import { MemberPropertyDetailTreeComponent } from "./property-detail/tree/tree.c
     MemberGroupTreeComponent,
     /* */
     MemberPropertyAliasListComponent,
+    MemberPropertyAliasListMobileComponent,
     MemberPropertyAliasAddComponent,
     MemberPropertyAliasEditComponent,
     MemberPropertyAliasDeleteComponent,
@@ -80,12 +86,14 @@ import { MemberPropertyDetailTreeComponent } from "./property-detail/tree/tree.c
     MemberPropertyAliasTreeComponent,
     /* */
     MemberPropertyDetailGroupListComponent,
+    MemberPropertyDetailGroupListMobileComponent,
     MemberPropertyDetailGroupAddComponent,
     MemberPropertyDetailGroupEditComponent,
     MemberPropertyDetailGroupSelectorComponent,
     MemberPropertyDetailGroupTreeComponent,
     /* */
     MemberPropertyDetailListComponent,
+    MemberPropertyDetailListMobileComponent,
     MemberPropertyDetailAddComponent,
     MemberPropertyDetailEditComponent,
     MemberPropertyDetailSelectorComponent,

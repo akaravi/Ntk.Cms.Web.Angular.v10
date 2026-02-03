@@ -41,7 +41,7 @@ export class TransactionAssistantAddressListComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: TransactionAssistantAddressService,
+    protected contentService: TransactionAssistantAddressService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public cmsToastrService: CmsToastrService,
     public tokenHelper: TokenHelper,
@@ -419,5 +419,29 @@ export class TransactionAssistantAddressListComponent
       this.filterDataModelQueryBuilder = [];
     }
     this.DataGetAll();
+  }
+
+  onActionButtonViewRow(
+    model: TransactionAssistantAddressModel = this.tableRowSelected,
+  ): void {
+    if (!(model?.id?.length > 0)) {
+      this.cmsToastrService.typeErrorSelectedRow();
+      return;
+    }
+    this.onActionTableRowSelect(model);
+    if (
+      this.dataModelResult == null ||
+      this.dataModelResult.access == null ||
+      !this.dataModelResult.access.accessWatchRow
+    ) {
+      this.cmsToastrService.typeErrorAccessWatch();
+      return;
+    }
+    // For now, view opens edit dialog. If a view component exists, use it instead.
+    this.onActionButtonEditRow(model);
+  }
+
+  onActionCopied(): void {
+    this.cmsToastrService.typeSuccessCopedToClipboard();
   }
 }

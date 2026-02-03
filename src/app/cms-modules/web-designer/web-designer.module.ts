@@ -36,12 +36,15 @@ import { CoreModuleModule } from "../core-main/module/coreModule.module";
 import { WebDesignerMainIntroAddComponent } from "./intro/add/add.component";
 import { WebDesignerMainIntroEditComponent } from "./intro/edit/edit.component";
 import { WebDesignerMainIntroListComponent } from "./intro/list/list.component";
+import { WebDesignerMainIntroListMobileComponent } from "./intro/list/list.mobile.component";
 import { WebDesignerLogMemberInfoListComponent } from "./log-member-info/list/list.component";
+import { WebDesignerLogMemberInfoListMobileComponent } from "./log-member-info/list/list.mobile.component";
 import { WebDesignerLogMemberInfoSelectorComponent } from "./log-member-info/selector/selector.component";
 import { WebDesignerLogMemberInfoViewComponent } from "./log-member-info/view/view.component";
 import { WebDesignerMainMenuAddComponent } from "./menu/add/add.component";
 import { WebDesignerMainMenuEditComponent } from "./menu/edit/edit.component";
 import { WebDesignerMainMenuListComponent } from "./menu/list/list.component";
+import { WebDesignerMainMenuListMobileComponent } from "./menu/list/list.mobile.component";
 import { WebDesignerMainMenuSelectorComponent } from "./menu/selector/selector.component";
 import { WebDesignerMainMenuTreeComponent } from "./menu/tree/tree.component";
 import { WebDesignerMainPageDependencyAddComponent } from "./page-dependency/add/add.component";
@@ -49,12 +52,14 @@ import { WebDesignerMainPageDependencyAutoAddPageComponent } from "./page-depend
 import { WebDesignerMainPageDependencyEditComponent } from "./page-dependency/edit/edit.component";
 import { WebDesignerMainPageDependencyHeaderComponent } from "./page-dependency/header/header.component";
 import { WebDesignerMainPageDependencyListComponent } from "./page-dependency/list/list.component";
+import { WebDesignerMainPageDependencyListMobileComponent } from "./page-dependency/list/list.mobile.component";
 import { WebDesignerMainPageDependencySelectorComponent } from "./page-dependency/selector/selector.component";
 import { WebDesignerMainPageDependencyTreeComponent } from "./page-dependency/tree/tree.component";
 import { WebDesignerMainPageTemplateAddComponent } from "./page-template/add/add.component";
 import { WebDesignerMainPageTemplateEditComponent } from "./page-template/edit/edit.component";
 import { WebDesignerMainPageTemplateHeaderComponent } from "./page-template/header/header.component";
 import { WebDesignerMainPageTemplateListComponent } from "./page-template/list/list.component";
+import { WebDesignerMainPageTemplateListMobileComponent } from "./page-template/list/list.mobile.component";
 import { WebDesignerMainPageTemplateSelectorComponent } from "./page-template/selector/selector.component";
 import { WebDesignerMainPageTemplateTreeComponent } from "./page-template/tree/tree.component";
 import { WebDesignerMainPageAddComponent } from "./page/add/add.component";
@@ -62,6 +67,7 @@ import { WebDesignerMainPageEditComponent } from "./page/edit/edit.component";
 import { WebDesignerMainPageHeaderComponent } from "./page/header/header.component";
 import { WebDesignerMainPageListGridComponent } from "./page/list-grid/list-grid.component";
 import { WebDesignerMainPageListComponent } from "./page/list/list.component";
+import { WebDesignerMainPageListMobileComponent } from "./page/list/list.mobile.component";
 import { WebDesignerMainPageSelectorComponent } from "./page/selector/selector.component";
 import { WebDesignerMainPageTreeComponent } from "./page/tree/tree.component";
 @NgModule({
@@ -71,11 +77,13 @@ import { WebDesignerMainPageTreeComponent } from "./page/tree/tree.component";
     WebDesignerMainIntroAddComponent,
     WebDesignerMainIntroEditComponent,
     WebDesignerMainIntroListComponent,
+    WebDesignerMainIntroListMobileComponent,
     /** */
     /** */
     WebDesignerMainMenuAddComponent,
     WebDesignerMainMenuEditComponent,
     WebDesignerMainMenuListComponent,
+    WebDesignerMainMenuListMobileComponent,
     WebDesignerMainMenuSelectorComponent,
     WebDesignerMainMenuTreeComponent,
     /** */
@@ -83,6 +91,7 @@ import { WebDesignerMainPageTreeComponent } from "./page/tree/tree.component";
     WebDesignerMainPageTemplateAddComponent,
     WebDesignerMainPageTemplateEditComponent,
     WebDesignerMainPageTemplateListComponent,
+    WebDesignerMainPageTemplateListMobileComponent,
     WebDesignerMainPageTemplateSelectorComponent,
     WebDesignerMainPageTemplateTreeComponent,
     WebDesignerMainPageTemplateHeaderComponent,
@@ -91,6 +100,7 @@ import { WebDesignerMainPageTreeComponent } from "./page/tree/tree.component";
     WebDesignerMainPageDependencyAddComponent,
     WebDesignerMainPageDependencyEditComponent,
     WebDesignerMainPageDependencyListComponent,
+    WebDesignerMainPageDependencyListMobileComponent,
     WebDesignerMainPageDependencySelectorComponent,
     WebDesignerMainPageDependencyTreeComponent,
     WebDesignerMainPageDependencyHeaderComponent,
@@ -100,12 +110,14 @@ import { WebDesignerMainPageTreeComponent } from "./page/tree/tree.component";
     WebDesignerMainPageAddComponent,
     WebDesignerMainPageEditComponent,
     WebDesignerMainPageListComponent,
+    WebDesignerMainPageListMobileComponent,
     WebDesignerMainPageListGridComponent,
     WebDesignerMainPageSelectorComponent,
     WebDesignerMainPageTreeComponent,
     WebDesignerMainPageHeaderComponent,
     /** */
     WebDesignerLogMemberInfoListComponent,
+    WebDesignerLogMemberInfoListMobileComponent,
     WebDesignerLogMemberInfoSelectorComponent,
     WebDesignerLogMemberInfoViewComponent,
     /** */

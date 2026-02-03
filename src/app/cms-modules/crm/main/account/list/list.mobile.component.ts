@@ -1,0 +1,13 @@
+import { Component } from "@angular/core";
+import { CrmAccountListComponent } from "./list.component";
+
+@Component({
+  selector: "app-crm-account-list-mobile",
+  templateUrl: "./list.mobile.component.html",
+  standalone: false,
+})
+export class CrmAccountListMobileComponent extends CrmAccountListComponent {
+  getRowExpanded(row: any): boolean {
+    return (row as any).expanded === true;
+  }
+}

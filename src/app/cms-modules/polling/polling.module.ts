@@ -29,8 +29,10 @@ import { PollingContentAddComponent } from "./content/add/add.component";
 import { PollingContentDeleteComponent } from "./content/delete/delete.component";
 import { PollingContentEditComponent } from "./content/edit/edit.component";
 import { PollingContentListComponent } from "./content/list/list.component";
+import { PollingContentListMobileComponent } from "./content/list/list.mobile.component";
 import { PollingVoteEditComponent } from "./vote/edit/edit.component";
 import { PollingVoteListComponent } from "./vote/list/list.component";
+import { PollingVoteListMobileComponent } from "./vote/list/list.mobile.component";
 
 @NgModule({
   declarations: [
@@ -41,11 +43,13 @@ import { PollingVoteListComponent } from "./vote/list/list.component";
     PollingCategoryDeleteComponent,
     PollingCategoryTreeComponent,
     PollingContentListComponent,
+    PollingContentListMobileComponent,
     PollingContentAddComponent,
     PollingContentEditComponent,
     PollingContentDeleteComponent,
     PollingVoteEditComponent,
     PollingVoteListComponent,
+    PollingVoteListMobileComponent,
   ],
   imports: [
     CommonModule,

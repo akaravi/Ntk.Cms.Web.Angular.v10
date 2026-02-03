@@ -149,47 +149,12 @@
       </ng-container>
       <ng-container cms-body>
         <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
-        <!-- Pull-to-Refresh Indicator -->
-        @if (pullToRefreshState.pullDistance > 0) {
-          <div
-            class="cms-m-pull-refresh-indicator"
-            [style.transform]="
-              'translateY(' +
-              (pullToRefreshState.pullDistance > 80
-                ? 80
-                : pullToRefreshState.pullDistance) +
-              'px)'
-            "
-            [class.refreshing]="pullToRefreshState.isRefreshing"
-            >
-            <i
-              class="fa-solid fa-rotate-right"
-              [class.rotation360]="pullToRefreshState.isRefreshing"
-              aria-hidden="true"
-            ></i>
-            <span>{{
-              pullToRefreshState.isRefreshing
-                ? ("ACTION.RELOADING" | translate)
-                : ("ACTION.PULL_TO_REFRESH" | translate)
-            }}</span>
-          </div>
-        }
         <!-- Mobile List View -->
-        <div
-          class="cms-m-content"
-          (touchstart)="onTouchStart($event)"
-          (touchmove)="onTouchMove($event)"
-          (touchend)="onTouchEnd($event)"
-          >
+        <div class="cms-m-content">
           @if (dataModelResult?.listItems && dataModelResult.listItems.length > 0) {
             <div class="cms-m-list">
               @for (row of dataModelResult.listItems; track row.id) {
-                <div
-                  class="cms-m-list-item-wrapper"
-                  [style.transform]="
-                    'translateX(' + (swipeState.get(row.id)?.offset || 0) + 'px)'
-                  "
-                  >
+                <div class="cms-m-list-item-wrapper">
                   <div
                     class="cms-m-list-item"
                     [class.selected]="row.id === tableRowSelected?.id"
@@ -197,9 +162,6 @@
                     (rtclick)="onActionTableRowSelect(row, $event)"
                     (mouseenter)="onActionTableRowMouseEnter(row)"
                     (mouseleave)="onActionTableRowMouseLeave(row)"
-                    (touchstart)="onItemTouchStart($event, row.id)"
-                    (touchmove)="onItemTouchMove($event, row.id)"
-                    (touchend)="onItemTouchEnd($event, row.id)"
                     role="button"
                     [attr.aria-label]="row.title"
                     tabindex="0"

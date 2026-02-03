@@ -1,0 +1,13 @@
+import { Component } from "@angular/core";
+import { CoreSiteListComponent } from "./list.component";
+
+@Component({
+  selector: "app-core-site-list-mobile",
+  templateUrl: "./list.mobile.component.html",
+  standalone: false,
+})
+export class CoreSiteListMobileComponent extends CoreSiteListComponent {
+  getRowExpanded(row: any): boolean {
+    return (row as any).expanded === true;
+  }
+}

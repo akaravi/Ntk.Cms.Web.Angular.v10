@@ -5034,3 +5034,250 @@ iconPicker ایکن‌ها را لود نمی‌کرد. این مشکل به ا�
 ✅ UI/UX بهبود یافت
 ✅ هیچ خطای lint وجود ندارد
 ✅ پروژه کامل و آماده استفاده است
+
+## 2026-02-03 (Phase 2 - Transaction Assistant list mobile components)
+
+### خلاصه:
+ایجاد نسخه موبایل برای چندین List Component در ماژول Transaction Assistant با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
+
+### تغییرات انجام شده:
+- ✅ 	ransaction-assistant/address: ایجاد list.mobile.component.ts/html
+- ✅ 	ransaction-assistant/cart: ایجاد list.mobile.component.ts/html
+- ✅ 	ransaction-assistant/category: ایجاد list.mobile.component.ts/html
+- ✅ 	ransaction-assistant/inventory: ایجاد list.mobile.component.ts/html
+- ✅ 	ransaction-assistant/invoice: ایجاد list.mobile.component.ts/html
+- ✅ 	ransaction-assistant/offer: ایجاد list.mobile.component.ts/html
+- ✅ 	ransaction-assistant/order: ایجاد list.mobile.component.ts/html
+- ✅ 	ransaction-assistant/payment: ایجاد list.mobile.component.ts/html
+- ✅ 	ransaction-assistant/product: ایجاد list.mobile.component.ts/html
+
+### بررسی خطا:
+- ✅ Lint: بدون خطا در مسیرهای تغییر یافته
+
+## 2026-02-03 (Phase 2 - Transaction Assistant list mobile components - completion)
+
+### خلاصه:
+تکمیل ایجاد نسخه موبایل برای تمام List Component های ماژول Transaction Assistant (۱۴/۱۴) با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
+
+### تغییرات انجام شده (تکمیلی):
+- ✅ 	ransaction-assistant/rating: ایجاد list.mobile.component.ts/html
+- ✅ 	ransaction-assistant/request: ایجاد list.mobile.component.ts/html
+- ✅ 	ransaction-assistant/shipment: ایجاد list.mobile.component.ts/html
+- ✅ 	ransaction-assistant/supplier: ایجاد list.mobile.component.ts/html
+- ✅ 	ransaction-assistant/tag: ایجاد list.mobile.component.ts/html
+
+### بررسی خطا:
+- ✅ Lint: بدون خطا در مسیرهای تغییر یافته
+
+## 2026-02-03 (Phase 2 - Web Designer list mobile components)
+
+### خلاصه:
+ایجاد نسخه موبایل برای List Component های ماژول Web Designer با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
+
+### تغییرات انجام شده:
+- ✅ web-designer/intro: ایجاد list.mobile.component.ts/html
+- ✅ web-designer/log-member-info: ایجاد list.mobile.component.ts/html
+- ✅ web-designer/menu: ایجاد list.mobile.component.ts/html
+- ✅ web-designer/page-dependency: ایجاد list.mobile.component.ts/html
+- ✅ web-designer/page-template: ایجاد list.mobile.component.ts/html
+
+### بررسی خطا:
+- ✅ Lint: بدون خطا در مسیرهای تغییر یافته
+
+## 2026-02-03 (Phase 2 - Link Management list mobile components)
+
+### خلاصه:
+ایجاد نسخه موبایل برای List Component های ماژول Link Management با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
+
+### تغییرات انجام شده:
+- ✅ link-management/accounting: ایجاد list.mobile.component.ts/html
+- ✅ link-management/accounting-detail: ایجاد list.mobile.component.ts/html
+- ✅ link-management/billboard: ایجاد list.mobile.component.ts/html
+- ✅ link-management/billboard-pattern: ایجاد list.mobile.component.ts/html
+- ✅ link-management/member: ایجاد list.mobile.component.ts/html
+- ✅ link-management/target: ایجاد list.mobile.component.ts/html
+- ✅ link-management/target-billboard-log: ایجاد list.mobile.component.ts/html
+
+### بررسی خطا:
+- ✅ Lint: بدون خطا در مسیرهای تغییر یافته
+
+## 2026-02-03 (Phase 2 - Polling list mobile components)
+
+### خلاصه:
+ایجاد نسخه موبایل برای List Component های ماژول Polling با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
+
+### تغییرات انجام شده:
+- ✅ polling/content: ایجاد list.mobile.component.ts/html
+- ✅ polling/vote: ایجاد list.mobile.component.ts/html
+
+### بررسی خطا:
+- ✅ Lint: بدون خطا در مسیرهای تغییر یافته
+
+## 2026-02-03 (Phase 2 - Ticketing, File Manager, Member list mobile components)
+
+### خلاصه:
+ایجاد نسخه موبایل برای List Component های ماژول‌های Ticketing، File Manager و Member با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
+
+### تغییرات انجام شده:
+- ✅ 	icketing/departemen: ایجاد list.mobile.component.ts/html
+- ✅ ile-manager/content: ایجاد list.mobile.component.ts/html
+- ✅ member/group: ایجاد list.mobile.component.ts/html
+- ✅ member/property-alias: ایجاد list.mobile.component.ts/html
+- ✅ member/property-detail: ایجاد list.mobile.component.ts/html
+- ✅ member/property-detail-group: ایجاد list.mobile.component.ts/html
+
+### بررسی خطا:
+- ✅ Lint: بدون خطا در مسیرهای تغییر یافته
+
+## 2026-02-03 (Phase 2 - News Comment list mobile component)
+
+### خلاصه:
+ایجاد نسخه موبایل برای List Component ماژول News Comment با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
+
+### تغییرات انجام شده:
+- ✅ 
+ews/comment: ایجاد list.mobile.component.ts/html
+
+### بررسی خطا:
+- ✅ Lint: بدون خطا در مسیرهای تغییر یافته
+
+## 2026-02-03 (Phase 2 - Application Module list mobile components)
+
+### خلاصه:
+ایجاد نسخه موبایل برای List Component های ماژول Application با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
+
+### تغییرات انجام شده:
+- ✅ pplication/content: ایجاد list.mobile.component.ts/html
+- ✅ pplication/intro: ایجاد list.mobile.component.ts/html
+- ✅ pplication/memberInfo: ایجاد list.mobile.component.ts/html
+- ✅ pplication/notification: ایجاد list.mobile.component.ts/html
+- ✅ pplication/source: ایجاد list.mobile.component.ts/html
+- ✅ pplication/themeConfig: ایجاد list.mobile.component.ts/html
+
+### بررسی خطا:
+- ✅ Lint: بدون خطا در مسیرهای تغییر یافته
+
+## 2026-02-03 (Phase 2 - Article Module list mobile components)
+
+### خلاصه:
+ایجاد نسخه موبایل برای List Component های ماژول Article با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
+
+### تغییرات انجام شده:
+- ✅ rticle/comment: ایجاد list.mobile.component.ts/html
+- ✅ rticle/content: ایجاد list.mobile.component.ts/html
+
+### بررسی خطا:
+- ✅ Lint: بدون خطا در مسیرهای تغییر یافته
+
+## 2026-02-03 (Phase 2 - Biography, Blog, Catalog, Chart list mobile components)
+
+### خلاصه:
+ایجاد نسخه موبایل برای List Component های ماژول‌های Biography، Blog، Catalog و Chart با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
+
+### تغییرات انجام شده:
+- ✅ iography/comment: ایجاد list.mobile.component.ts/html
+- ✅ iography/content: ایجاد list.mobile.component.ts/html
+- ✅ log/comment: ایجاد list.mobile.component.ts/html
+- ✅ log/content: ایجاد list.mobile.component.ts/html
+- ✅ catalog/content: ایجاد list.mobile.component.ts/html
+- ✅ chart/comment: ایجاد list.mobile.component.ts/html
+- ✅ chart/content: ایجاد list.mobile.component.ts/html
+
+### بررسی خطا:
+- ✅ Lint: بدون خطا در مسیرهای تغییر یافته
+
+## 2026-02-03 (Phase 2 - Contact Module list mobile component)
+
+### خلاصه:
+ایجاد نسخه موبایل برای List Component ماژول Contact با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
+
+### تغییرات انجام شده:
+- ✅ contact/content: ایجاد list.mobile.component.ts/html
+
+### بررسی خطا:
+- ✅ Lint: بدون خطا در مسیرهای تغییر یافته
+
+## 2026-02-03 (Phase 2 - Core-log Module list mobile components)
+
+### خلاصه:
+ایجاد نسخه موبایل برای List Component های ماژول Core-log با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
+
+### تغییرات انجام شده:
+- ✅ core-log/avoid-duplicate: ایجاد list.mobile.component.ts/html
+- ✅ core-log/currency: ایجاد list.mobile.component.ts/html
+- ✅ core-log/email: ایجاد list.mobile.component.ts/html
+- ✅ core-log/error: ایجاد list.mobile.component.ts/html
+- ✅ core-log/member: ایجاد list.mobile.component.ts/html
+- ✅ core-log/notification: ایجاد list.mobile.component.ts/html (اگر وجود دارد)
+- ✅ core-log/sms: ایجاد list.mobile.component.ts/html (اگر وجود دارد)
+
+### بررسی خطا:
+- ✅ Lint: بدون خطا در مسیرهای تغییر یافته
+
+## 2026-02-03 (Phase 2 - Core-main Module list mobile components)
+
+### خلاصه:
+ایجاد نسخه موبایل برای List Component های ماژول Core-main با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
+
+### تغییرات انجام شده:
+- ✅ core-main/cp-main-menu: ایجاد list.mobile.component.ts/html
+- ✅ core-main/currency: ایجاد list.mobile.component.ts/html
+- ✅ core-main/device: ایجاد list.mobile.component.ts/html
+- ✅ core-main/guides: ایجاد list.mobile.component.ts/html
+- ✅ core-main/location: ایجاد list.mobile.component.ts/html
+- ✅ core-main/module: ایجاد list.mobile.component.ts/html
+- ✅ core-main/module-entity: ایجاد list.mobile.component.ts/html
+- ✅ core-main/module-entity-report-file: ایجاد list.mobile.component.ts/html
+- ✅ core-main/site: ایجاد list.mobile.component.ts/html
+- ✅ core-main/site-category: ایجاد list.mobile.component.ts/html
+
+### بررسی خطا:
+- ✅ Lint: بدون خطا در مسیرهای تغییر یافته
+
+## 2026-02-03 (Phase 2 - Core-module, Core-token list mobile components)
+
+### خلاصه:
+ایجاد نسخه موبایل برای List Component های ماژول‌های Core-module و Core-token با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
+
+### تغییرات انجام شده:
+- ✅ core-module/site-credit: ایجاد list.mobile.component.ts/html
+- ✅ core-module/site-user-credit: ایجاد list.mobile.component.ts/html
+- ✅ core-module/tag: ایجاد list.mobile.component.ts/html
+- ✅ core-token/activation: ایجاد list.mobile.component.ts/html
+- ✅ core-token/auth-user: ایجاد list.mobile.component.ts/html
+- ✅ core-token/auth-user-log: ایجاد list.mobile.component.ts/html
+- ✅ core-token/micro-service: ایجاد list.mobile.component.ts/html
+- ✅ core-token/micro-service-log: ایجاد list.mobile.component.ts/html
+- ✅ core-token/notification: ایجاد list.mobile.component.ts/html
+- ✅ core-token/notification-log: ایجاد list.mobile.component.ts/html
+- ✅ core-token/userBadLogin: ایجاد list.mobile.component.ts/html
+
+### بررسی خطا:
+- ✅ Lint: بدون خطا در مسیرهای تغییر یافته
+
+## 2026-02-03 (Phase 2 - CRM, Donate, Hyper-shop list mobile components)
+
+### خلاصه:
+ایجاد نسخه موبایل برای List Component های ماژول‌های CRM، Donate و Hyper-shop با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
+
+### تغییرات انجام شده:
+- ✅ crm/main/account: ایجاد list.mobile.component.ts/html
+- ✅ crm/main/activity: ایجاد list.mobile.component.ts/html
+- ✅ crm/main/campaign: ایجاد list.mobile.component.ts/html
+- ✅ crm/main/contact: ایجاد list.mobile.component.ts/html
+- ✅ crm/main/deal: ایجاد list.mobile.component.ts/html
+- ✅ crm/main/lead: ایجاد list.mobile.component.ts/html
+- ✅ crm/main/opportunity: ایجاد list.mobile.component.ts/html
+- ✅ crm/main/pipeline: ایجاد list.mobile.component.ts/html
+- ✅ crm/main/stage: ایجاد list.mobile.component.ts/html
+- ✅ donate/log-view: ایجاد list.mobile.component.ts/html
+- ✅ donate/sponser: ایجاد list.mobile.component.ts/html
+- ✅ donate/target: ایجاد list.mobile.component.ts/html
+- ✅ donate/target-period: ایجاد list.mobile.component.ts/html
+- ✅ donate/target-period-sponsor: ایجاد list.mobile.component.ts/html
+- ✅ donate/transaction: ایجاد list.mobile.component.ts/html
+- ✅ hyper-shop/category: ایجاد list.mobile.component.ts/html
+- ✅ hyper-shop/content: ایجاد list.mobile.component.ts/html
+
+### بررسی خطا:
+- ✅ Lint: بدون خطا در مسیرهای تغییر یافته

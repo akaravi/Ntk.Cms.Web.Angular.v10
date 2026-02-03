@@ -54,71 +54,85 @@ import { CoreSharedModule } from "../core-main/core.shared.module";
 import { TransactionAssistantProductAddComponent } from "./product/add/add.component";
 import { TransactionAssistantProductEditComponent } from "./product/edit/edit.component";
 import { TransactionAssistantProductListComponent } from "./product/list/list.component";
+import { TransactionAssistantProductListMobileComponent } from "./product/list/list.mobile.component";
 
 // Order Components
 import { TransactionAssistantOrderAddComponent } from "./order/add/add.component";
 import { TransactionAssistantOrderEditComponent } from "./order/edit/edit.component";
 import { TransactionAssistantOrderListComponent } from "./order/list/list.component";
+import { TransactionAssistantOrderListMobileComponent } from "./order/list/list.mobile.component";
 
 // Cart Components
 import { TransactionAssistantCartAddComponent } from "./cart/add/add.component";
 import { TransactionAssistantCartEditComponent } from "./cart/edit/edit.component";
 import { TransactionAssistantCartListComponent } from "./cart/list/list.component";
+import { TransactionAssistantCartListMobileComponent } from "./cart/list/list.mobile.component";
 
 // Payment Components
 import { TransactionAssistantPaymentAddComponent } from "./payment/add/add.component";
 import { TransactionAssistantPaymentEditComponent } from "./payment/edit/edit.component";
 import { TransactionAssistantPaymentListComponent } from "./payment/list/list.component";
+import { TransactionAssistantPaymentListMobileComponent } from "./payment/list/list.mobile.component";
 
 // Address Components
 import { TransactionAssistantAddressAddComponent } from "./address/add/add.component";
 import { TransactionAssistantAddressEditComponent } from "./address/edit/edit.component";
 import { TransactionAssistantAddressListComponent } from "./address/list/list.component";
+import { TransactionAssistantAddressListMobileComponent } from "./address/list/list.mobile.component";
 
 // Invoice Components
 import { TransactionAssistantInvoiceAddComponent } from "./invoice/add/add.component";
 import { TransactionAssistantInvoiceEditComponent } from "./invoice/edit/edit.component";
 import { TransactionAssistantInvoiceListComponent } from "./invoice/list/list.component";
+import { TransactionAssistantInvoiceListMobileComponent } from "./invoice/list/list.mobile.component";
 
 // Rating Components
 import { TransactionAssistantRatingAddComponent } from "./rating/add/add.component";
 import { TransactionAssistantRatingEditComponent } from "./rating/edit/edit.component";
 import { TransactionAssistantRatingListComponent } from "./rating/list/list.component";
+import { TransactionAssistantRatingListMobileComponent } from "./rating/list/list.mobile.component";
 
 // Request Components
 import { TransactionAssistantRequestAddComponent } from "./request/add/add.component";
 import { TransactionAssistantRequestEditComponent } from "./request/edit/edit.component";
 import { TransactionAssistantRequestListComponent } from "./request/list/list.component";
+import { TransactionAssistantRequestListMobileComponent } from "./request/list/list.mobile.component";
 
 // Inventory Components
 import { TransactionAssistantInventoryAddComponent } from "./inventory/add/add.component";
 import { TransactionAssistantInventoryEditComponent } from "./inventory/edit/edit.component";
 import { TransactionAssistantInventoryListComponent } from "./inventory/list/list.component";
+import { TransactionAssistantInventoryListMobileComponent } from "./inventory/list/list.mobile.component";
 
 // Shipment Components
 import { TransactionAssistantShipmentAddComponent } from "./shipment/add/add.component";
 import { TransactionAssistantShipmentEditComponent } from "./shipment/edit/edit.component";
 import { TransactionAssistantShipmentListComponent } from "./shipment/list/list.component";
+import { TransactionAssistantShipmentListMobileComponent } from "./shipment/list/list.mobile.component";
 
 // Supplier Components
 import { TransactionAssistantSupplierAddComponent } from "./supplier/add/add.component";
 import { TransactionAssistantSupplierEditComponent } from "./supplier/edit/edit.component";
 import { TransactionAssistantSupplierListComponent } from "./supplier/list/list.component";
+import { TransactionAssistantSupplierListMobileComponent } from "./supplier/list/list.mobile.component";
 
 // Offer Components
 import { TransactionAssistantOfferAddComponent } from "./offer/add/add.component";
 import { TransactionAssistantOfferEditComponent } from "./offer/edit/edit.component";
 import { TransactionAssistantOfferListComponent } from "./offer/list/list.component";
+import { TransactionAssistantOfferListMobileComponent } from "./offer/list/list.mobile.component";
 
 // Tag Components
 import { TransactionAssistantTagAddComponent } from "./tag/add/add.component";
 import { TransactionAssistantTagEditComponent } from "./tag/edit/edit.component";
 import { TransactionAssistantTagListComponent } from "./tag/list/list.component";
+import { TransactionAssistantTagListMobileComponent } from "./tag/list/list.mobile.component";
 
 // Category Components
 import { TransactionAssistantCategoryAddComponent } from "./category/add/add.component";
 import { TransactionAssistantCategoryEditComponent } from "./category/edit/edit.component";
 import { TransactionAssistantCategoryListComponent } from "./category/list/list.component";
+import { TransactionAssistantCategoryListMobileComponent } from "./category/list/list.mobile.component";
 import { TransactionAssistantDashboardComponent } from "./dashboard/dashboard.component";
 
 @NgModule({
@@ -126,26 +140,31 @@ import { TransactionAssistantDashboardComponent } from "./dashboard/dashboard.co
     TransactionAssistantComponent,
     /* Product */
     TransactionAssistantProductListComponent,
+    TransactionAssistantProductListMobileComponent,
     TransactionAssistantProductAddComponent,
     TransactionAssistantProductEditComponent,
     /* Product */
     /* Order */
     TransactionAssistantOrderListComponent,
+    TransactionAssistantOrderListMobileComponent,
     TransactionAssistantOrderAddComponent,
     TransactionAssistantOrderEditComponent,
     /* Order */
     /* Cart */
     TransactionAssistantCartListComponent,
+    TransactionAssistantCartListMobileComponent,
     TransactionAssistantCartAddComponent,
     TransactionAssistantCartEditComponent,
     /* Cart */
     /* Payment */
     TransactionAssistantPaymentListComponent,
+    TransactionAssistantPaymentListMobileComponent,
     TransactionAssistantPaymentAddComponent,
     TransactionAssistantPaymentEditComponent,
     /* Payment */
     /* Address */
     TransactionAssistantAddressListComponent,
+    TransactionAssistantAddressListMobileComponent,
     TransactionAssistantAddressAddComponent,
     TransactionAssistantAddressEditComponent,
     /* Address */
@@ -156,41 +175,49 @@ import { TransactionAssistantDashboardComponent } from "./dashboard/dashboard.co
     /* Invoice */
     /* Rating */
     TransactionAssistantRatingListComponent,
+    TransactionAssistantRatingListMobileComponent,
     TransactionAssistantRatingAddComponent,
     TransactionAssistantRatingEditComponent,
     /* Rating */
     /* Request */
     TransactionAssistantRequestListComponent,
+    TransactionAssistantRequestListMobileComponent,
     TransactionAssistantRequestAddComponent,
     TransactionAssistantRequestEditComponent,
     /* Request */
     /* Inventory */
     TransactionAssistantInventoryListComponent,
+    TransactionAssistantInventoryListMobileComponent,
     TransactionAssistantInventoryAddComponent,
     TransactionAssistantInventoryEditComponent,
     /* Inventory */
     /* Shipment */
     TransactionAssistantShipmentListComponent,
+    TransactionAssistantShipmentListMobileComponent,
     TransactionAssistantShipmentAddComponent,
     TransactionAssistantShipmentEditComponent,
     /* Shipment */
     /* Supplier */
     TransactionAssistantSupplierListComponent,
+    TransactionAssistantSupplierListMobileComponent,
     TransactionAssistantSupplierAddComponent,
     TransactionAssistantSupplierEditComponent,
     /* Supplier */
     /* Offer */
     TransactionAssistantOfferListComponent,
+    TransactionAssistantOfferListMobileComponent,
     TransactionAssistantOfferAddComponent,
     TransactionAssistantOfferEditComponent,
     /* Offer */
     /* Tag */
     TransactionAssistantTagListComponent,
+    TransactionAssistantTagListMobileComponent,
     TransactionAssistantTagAddComponent,
     TransactionAssistantTagEditComponent,
     /* Tag */
     /* Category */
     TransactionAssistantCategoryListComponent,
+    TransactionAssistantCategoryListMobileComponent,
     TransactionAssistantCategoryAddComponent,
     TransactionAssistantCategoryEditComponent,
     /* Category */

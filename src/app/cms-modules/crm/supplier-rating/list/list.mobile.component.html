@@ -1,0 +1,44 @@
+<div class="cms-m-list">
+  <div class="cms-m-header">
+    <h2>Supplier Ratings</h2>
+    <button mat-raised-button color="primary" [routerLink]="['/cms/modules/crm/supplier-rating/add']">
+      افزودن
+    </button>
+    <button mat-stroked-button color="primary" (click)="load()" [disabled]="loading">
+      Refresh
+    </button>
+  </div>
+
+  <mat-progress-spinner
+    *ngIf="loading"
+    diameter="32"
+    mode="indeterminate"
+  ></mat-progress-spinner>
+
+  <div *ngIf="data?.listItems?.length" class="cms-m-content">
+    @for (row of data.listItems; track row.id) {
+      <div class="cms-m-row">
+        <div class="cms-m-row-field">
+          <label>Account</label>
+          <span>{{ row.linkAccountId }}</span>
+        </div>
+        <div class="cms-m-row-field">
+          <label>Average Score</label>
+          <span>{{ row.averageScore }}</span>
+        </div>
+        <div class="cms-m-row-field">
+          <label>Evaluation Date</label>
+          <span>{{ row.evaluationDate | localeDate }}</span>
+        </div>
+        <div class="cms-m-row-field">
+          <label>Notes</label>
+          <span>{{ row.notes }}</span>
+        </div>
+      </div>
+    }
+  </div>
+
+  <div *ngIf="!loading && (!data || !data.listItems || data.listItems.length === 0)" class="cms-m-empty">
+    No data.
+  </div>
+</div>

@@ -9,21 +9,24 @@ import { CmsFileManagerModule } from "ntk-cms-filemanager";
 import { SharedModule } from "src/app/shared/shared.module";
 
 import {
-  CoreLogAvoidDuplicateDataEntryService,
-  CoreLogCurrencyService,
-  CoreLogErrorService,
-  CoreLogMemberService,
-  CoreLogNotificationService,
-  CoreLogReportDataService,
-  CoreLogSmsService,
-  CoreLogEmailService,
-  CoreModuleService,
+    CoreLogAvoidDuplicateDataEntryService,
+    CoreLogCurrencyService,
+    CoreLogEmailService,
+    CoreLogErrorService,
+    CoreLogMemberService,
+    CoreLogNotificationService,
+    CoreLogReportDataService,
+    CoreLogSmsService,
+    CoreModuleService,
 } from "ntk-cms-api";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { CoreLogAvoidDuplicateDataEntryEditComponent } from "./avoid-duplicate/edit/edit.component";
 import { CoreLogAvoidDuplicateDataEntryListComponent } from "./avoid-duplicate/list/list.component";
 import { CoreLogCurrencyListComponent } from "./currency/list/list.component";
 import { CoreLogCurrencyViewComponent } from "./currency/view/view.component";
+import { CoreLogEmailEditComponent } from "./email/edit/edit.component";
+import { CoreLogEmailListComponent } from "./email/list/list.component";
+import { CoreLogEmailViewComponent } from "./email/view/view.component";
 import { CoreLogErrorEditComponent } from "./error/edit/edit.component";
 import { CoreLogErrorListComponent } from "./error/list/list.component";
 import { CoreLogMemberEditComponent } from "./member/edit/edit.component";
@@ -34,14 +37,12 @@ import { CoreLogNotificationListComponent } from "./notification/list/list.compo
 import { CoreLogNotificationViewComponent } from "./notification/view/view.component";
 import { CoreLogReportDataEditComponent } from "./report-data/edit/edit.component";
 import { CoreLogReportDataListComponent } from "./report-data/list/list.component";
+import { CoreLogReportDataListMobileComponent } from "./report-data/list/list.mobile.component";
 import { CoreLogReportDataViewComponent } from "./report-data/view/view.component";
 import { CoreLogSmsEditComponent } from "./sms/edit/edit.component";
 import { CoreLogSmsListComponent } from "./sms/list/list.component";
 import { CoreLogSmsViewComponent } from "./sms/view/view.component";
 import { CoreLogSmsViewMobileComponent } from "./sms/view/view.mobile.component";
-import { CoreLogEmailEditComponent } from "./email/edit/edit.component";
-import { CoreLogEmailListComponent } from "./email/list/list.component";
-import { CoreLogEmailViewComponent } from "./email/view/view.component";
 
 @NgModule({
   imports: [
@@ -85,6 +86,7 @@ import { CoreLogEmailViewComponent } from "./email/view/view.component";
     CoreLogCurrencyViewComponent,
     /** */
     CoreLogReportDataListComponent,
+    CoreLogReportDataListMobileComponent,
     CoreLogReportDataEditComponent,
     CoreLogReportDataViewComponent,
   ],
@@ -118,6 +120,7 @@ import { CoreLogEmailViewComponent } from "./email/view/view.component";
     CoreLogCurrencyViewComponent,
     /** */
     CoreLogReportDataListComponent,
+    CoreLogReportDataListMobileComponent,
     CoreLogReportDataEditComponent,
     CoreLogReportDataViewComponent,
   ],

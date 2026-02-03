@@ -46,6 +46,7 @@ import { NewsCategoryViewMobileComponent } from "./category/view/view.mobile.com
 // Content Components
 import { NewsCommentEditComponent } from "./comment/edit/edit.component";
 import { NewsCommentListComponent } from "./comment/list/list.component";
+import { NewsCommentListMobileComponent } from "./comment/list/list.mobile.component";
 import { NewsContentAddComponent } from "./content/add/add.component";
 import { NewsContentAddMobileComponent } from "./content/add/add.mobile.component";
 import { NewsContentDeleteComponent } from "./content/delete/delete.component";
@@ -101,6 +102,7 @@ import { NewsContentViewMobileComponent } from "./content/view/view.mobile.compo
     NewsCategoryMenuComponent,
     // Comment
     NewsCommentListComponent,
+    NewsCommentListMobileComponent,
     NewsCommentEditComponent,
   ],
   imports: [

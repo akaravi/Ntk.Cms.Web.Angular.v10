@@ -1,18 +1,17 @@
 import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { TicketingAnswerListComponent } from "./answer/list/list.component";
-import { TicketingDepartemenEditComponent } from "./departemen/edit/edit.component";
-import { TicketingDepartemenListComponent } from "./departemen/list/list.component";
-import { TicketingDepartemenLogListComponent } from "./departemenLog/list/list.component";
-import { TicketingFaqListComponent } from "./faq/list/list.component";
-import { TicketingFaqOriginListComponent } from "./faq/origin-list/origin-list.component";
-import { TicketingTaskContactUsAddComponent } from "./task/contact-us-add/contact-us-add.component";
-import { TicketingTaskContactUsListComponent } from "./task/contact-us-list/contact-us-list.component";
-import { TicketingTaskListComponent } from "./task/list/list.component";
-import { TicketingTemplateListComponent } from "./template/list/list.component";
-import { TicketingComponent } from "./ticketing.component";
+import { RouterModule } from "@angular/router";
 
-const routes: Routes = [
+import { routesMobile } from "./routes.mobile";
+import { routesNormal } from "./routes.normal";
+/**توجه این روت دو بخش داد باید در هر دو بخش روت ها اضفا شود */
+
+@NgModule({
+  imports: [
+    RouterModule.forChild(window.innerWidth < 1000 ? routesMobile : routesNormal),
+  ],
+  exports: [RouterModule],
+})
+export class TicketingRouting {}
   {
     path: "",
     component: TicketingComponent,

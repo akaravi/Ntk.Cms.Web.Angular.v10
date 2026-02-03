@@ -21,6 +21,7 @@ import { FileContentDeleteComponent } from "./content/delete/delete.component";
 import { FileContentEditComponent } from "./content/edit/edit.component";
 import { FileContentExplorerComponent } from "./content/explorer/explorer.component";
 import { FileContentListComponent } from "./content/list/list.component";
+import { FileContentListMobileComponent } from "./content/list/list.mobile.component";
 import { FileContentSelectorComponent } from "./content/selector/selector.component";
 
 @NgModule({
@@ -29,6 +30,7 @@ import { FileContentSelectorComponent } from "./content/selector/selector.compon
     FileContentEditComponent,
     FileContentDeleteComponent,
     FileContentListComponent,
+    FileContentListMobileComponent,
     FileContentSelectorComponent,
     FileCategoryTreeComponent,
     FileCategorySelectorComponent,

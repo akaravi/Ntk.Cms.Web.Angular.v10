@@ -55,8 +55,10 @@ import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
 
 import { CrmSupplierPriceListAddComponent } from "../supplier-price-list/add/add.component";
 import { CrmSupplierPriceListComponent } from "../supplier-price-list/list/list.component";
+import { CrmSupplierPriceListMobileComponent } from "../supplier-price-list/list/list.mobile.component";
 import { CrmSupplierRatingAddComponent } from "../supplier-rating/add/add.component";
 import { CrmSupplierRatingListComponent } from "../supplier-rating/list/list.component";
+import { CrmSupplierRatingListMobileComponent } from "../supplier-rating/list/list.mobile.component";
 import { CrmAccountAddComponent } from "./account/add/add.component";
 import { CrmAccountEditComponent } from "./account/edit/edit.component";
 import { CrmAccountHeaderComponent } from "./account/header/header.component";
@@ -144,8 +146,10 @@ import { CrmStageSelectorComponent } from "./stage/selector/selector.component";
     CrmCampaignAddComponent,
     CrmCampaignEditComponent,
     CrmSupplierPriceListComponent,
+    CrmSupplierPriceListMobileComponent,
     CrmSupplierPriceListAddComponent,
     CrmSupplierRatingListComponent,
+    CrmSupplierRatingListMobileComponent,
     CrmSupplierRatingAddComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],

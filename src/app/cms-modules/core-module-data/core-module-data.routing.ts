@@ -1,43 +1,14 @@
 import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { CoreModuleDataCommentListComponent } from "./comment/list/list.component";
-import { CoreModuleDataComponent } from "./core-module-data.component";
-import { CoreModuleDataMemoListComponent } from "./memo/list/list.component";
-import { CoreModuleDataPinListComponent } from "./pin/list/list.component";
-import { CoreModuleDataTaskListComponent } from "./task/list/list.component";
+import { RouterModule } from "@angular/router";
 
-const routes: Routes = [
-  {
-    path: "",
-    component: CoreModuleDataComponent,
-    data: { title: "ROUTE.COREMODULELOG" },
-    children: [
-      {
-        path: "memo",
-        component: CoreModuleDataMemoListComponent,
-        data: { title: "ROUTE.COREMODULELOG.MEMO" },
-      },
-      {
-        path: "pin",
-        component: CoreModuleDataPinListComponent,
-        data: { title: "ROUTE.COREMODULELOG.PIN" },
-      },
-      {
-        path: "task",
-        component: CoreModuleDataTaskListComponent,
-        data: { title: "ROUTE.COREMODULELOG.TASK" },
-      },
-      {
-        path: "comment",
-        component: CoreModuleDataCommentListComponent,
-        data: { title: "ROUTE.COREMODULELOG.COMMENT" },
-      },
-    ],
-  },
-];
+import { routesMobile } from "./routes.mobile";
+import { routesNormal } from "./routes.normal";
+/**توجه این روت دو بخش داد باید در هر دو بخش روت ها اضفا شود */
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [
+    RouterModule.forChild(window.innerWidth < 1000 ? routesMobile : routesNormal),
+  ],
   exports: [RouterModule],
 })
 export class CoreModuleDataRoutes {}

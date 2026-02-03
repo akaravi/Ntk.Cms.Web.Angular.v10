@@ -8,33 +8,37 @@ import { CoreModuleDataComponent } from "./core-module-data.component";
 import { CoreModuleDataRoutes } from "./core-module-data.routing";
 
 import {
-  CoreModuleDataCommentService,
-  CoreModuleDataMemoService,
-  CoreModuleDataPinService,
-  CoreModuleDataTaskService,
-  CoreModuleService,
-  CoreModuleSiteCreditService,
-  CoreModuleSiteUserCreditService,
-  CoreModuleTagCategoryService,
-  CoreModuleTagService,
+    CoreModuleDataCommentService,
+    CoreModuleDataMemoService,
+    CoreModuleDataPinService,
+    CoreModuleDataTaskService,
+    CoreModuleService,
+    CoreModuleSiteCreditService,
+    CoreModuleSiteUserCreditService,
+    CoreModuleTagCategoryService,
+    CoreModuleTagService,
 } from "ntk-cms-api";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 
 import { CoreModuleDataCommentAddComponent } from "./comment/add/add.component";
 import { CoreModuleDataCommentEditComponent } from "./comment/edit/edit.component";
 import { CoreModuleDataCommentListComponent } from "./comment/list/list.component";
+import { CoreModuleDataCommentListMobileComponent } from "./comment/list/list.mobile.component";
 import { CoreModuleDataCommentViewComponent } from "./comment/view/view.component";
 import { CoreModuleDataMemoAddComponent } from "./memo/add/add.component";
 import { CoreModuleDataMemoEditComponent } from "./memo/edit/edit.component";
 import { CoreModuleDataMemoListComponent } from "./memo/list/list.component";
+import { CoreModuleDataMemoListMobileComponent } from "./memo/list/list.mobile.component";
 import { CoreModuleDataMemoViewComponent } from "./memo/view/view.component";
 import { CoreModuleDataPinAddComponent } from "./pin/add/add.component";
 import { CoreModuleDataPinEditComponent } from "./pin/edit/edit.component";
 import { CoreModuleDataPinListComponent } from "./pin/list/list.component";
+import { CoreModuleDataPinListMobileComponent } from "./pin/list/list.mobile.component";
 import { CoreModuleDataPinViewComponent } from "./pin/view/view.component";
 import { CoreModuleDataTaskAddComponent } from "./task/add/add.component";
 import { CoreModuleDataTaskEditComponent } from "./task/edit/edit.component";
 import { CoreModuleDataTaskListComponent } from "./task/list/list.component";
+import { CoreModuleDataTaskListMobileComponent } from "./task/list/list.mobile.component";
 import { CoreModuleDataTaskViewComponent } from "./task/view/view.component";
 
 @NgModule({
@@ -53,21 +57,25 @@ import { CoreModuleDataTaskViewComponent } from "./task/view/view.component";
     CoreModuleDataComponent,
     /**Memo */
     CoreModuleDataMemoListComponent,
+    CoreModuleDataMemoListMobileComponent,
     CoreModuleDataMemoEditComponent,
     CoreModuleDataMemoAddComponent,
     CoreModuleDataMemoViewComponent,
     /**Pin */
     CoreModuleDataPinListComponent,
+    CoreModuleDataPinListMobileComponent,
     CoreModuleDataPinEditComponent,
     CoreModuleDataPinAddComponent,
     CoreModuleDataPinViewComponent,
     /**Task */
     CoreModuleDataTaskListComponent,
+    CoreModuleDataTaskListMobileComponent,
     CoreModuleDataTaskEditComponent,
     CoreModuleDataTaskAddComponent,
     CoreModuleDataTaskViewComponent,
     /**Comment */
     CoreModuleDataCommentListComponent,
+    CoreModuleDataCommentListMobileComponent,
     CoreModuleDataCommentEditComponent,
     CoreModuleDataCommentAddComponent,
     CoreModuleDataCommentViewComponent,
@@ -76,21 +84,25 @@ import { CoreModuleDataTaskViewComponent } from "./task/view/view.component";
     CoreModuleDataComponent,
     /**Memo */
     CoreModuleDataMemoListComponent,
+    CoreModuleDataMemoListMobileComponent,
     CoreModuleDataMemoEditComponent,
     CoreModuleDataMemoAddComponent,
     CoreModuleDataMemoViewComponent,
     /**Pin */
     CoreModuleDataPinListComponent,
+    CoreModuleDataPinListMobileComponent,
     CoreModuleDataPinEditComponent,
     CoreModuleDataPinAddComponent,
     CoreModuleDataPinViewComponent,
     /**Task */
     CoreModuleDataTaskListComponent,
+    CoreModuleDataTaskListMobileComponent,
     CoreModuleDataTaskEditComponent,
     CoreModuleDataTaskAddComponent,
     CoreModuleDataTaskViewComponent,
     /**Comment */
     CoreModuleDataCommentListComponent,
+    CoreModuleDataCommentListMobileComponent,
     CoreModuleDataCommentEditComponent,
     CoreModuleDataCommentAddComponent,
     CoreModuleDataCommentViewComponent,

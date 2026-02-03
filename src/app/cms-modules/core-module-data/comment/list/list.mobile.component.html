@@ -1,0 +1,105 @@
+<app-cms-html-list-mobile
+  [optionsListInfoAreaId]="constructorInfoAreaId"
+  [optionGuideNoticeKey]="''"
+  [(optionActionGuideNoticeDisplay)]="viewGuideNotice"
+  (optionOnActionButtonMemoRow)="onActionButtonMemoRow()"
+  (optionOnActionButtonMemo)="onActionButtonMemo()"
+  (optionOnActionButtonExport)="onActionButtonExport()"
+  (optionOnActionButtonPrintRow)="onActionButtonPrintRow()"
+  [optionTreeDisplay]="false"
+  [optionActionRowId]="tableRowSelected?.id"
+  [optionActionRowDisplayMenu]="tableRowSelect2Click"
+  [optionSelectRowItemTitle]="tableRowSelected?.id"
+  >
+  <ng-container cms-mobile-content>
+    @for (row of dataModelResult?.listItems; track row.id) {
+      <div class="cms-m-row" [class.cms-m-row-expanded]="getRowExpanded(row)">
+        <div class="cms-m-row-header" (click)="onActionTableRowSelect(row, $event)">
+          <div class="cms-m-row-main">
+            <div class="cms-m-row-title">
+              <span class="cms-m-row-id">#{{ row.id }}</span>
+              <span class="cms-m-row-status" [ngClass]="row.recordStatus | statusCellClass">
+                <i [ngClass]="row.recordStatus | statusIconClass"></i>
+              </span>
+            </div>
+            <div class="cms-m-row-subtitle">
+              <span>{{ row.moduleName }}</span>
+              <span>{{ row.moduleEntityName }}</span>
+            </div>
+          </div>
+          <div class="cms-m-row-actions">
+            <button
+              type="button"
+              class="cms-m-action-menu"
+              (click)="toggleActionMenu(row.id); $event.stopPropagation()"
+              >
+              <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
+          </div>
+        </div>
+        <div class="cms-m-row-content" *ngIf="getRowExpanded(row)">
+          <div class="cms-m-row-field">
+            <label>{{ fieldsInfo['id']?.fieldTitle }}</label>
+            <span>{{ row.id }}</span>
+          </div>
+          <div class="cms-m-row-field">
+            <label>{{ fieldsInfo['recordStatus']?.fieldTitle }}</label>
+            <span [ngClass]="row.recordStatus | statusCellClass">
+              <i [ngClass]="row.recordStatus | statusIconClass"></i>
+            </span>
+          </div>
+          <div class="cms-m-row-field">
+            <label>{{ fieldsInfo['moduleName']?.fieldTitle }}</label>
+            <span>{{ row.moduleName }}</span>
+          </div>
+          <div class="cms-m-row-field">
+            <label>{{ fieldsInfo['moduleEntityName']?.fieldTitle }}</label>
+            <span>{{ row.moduleEntityName }}</span>
+          </div>
+          <div class="cms-m-row-field">
+            <label>{{ fieldsInfo['moduleEntityId']?.fieldTitle }}</label>
+            <span>{{ row.moduleEntityId }}</span>
+          </div>
+          <div class="cms-m-row-field">
+            <label>{{ fieldsInfo['subjectBody']?.fieldTitle }}</label>
+            <span>{{ row.subjectBody }}</span>
+          </div>
+          <div class="cms-m-row-field">
+            <label>{{ fieldsInfo['createdDate']?.fieldTitle }}</label>
+            <span style="direction: ltr">{{ row.createdDate | localeDateTime }}</span>
+          </div>
+          @if (row.writer || row.comment) {
+            <div class="cms-m-row-field">
+              <label>Writer</label>
+              <span>{{ row.writer }}</span>
+            </div>
+            <div class="cms-m-row-field">
+              <label>Comment</label>
+              <span>{{ row.comment }}</span>
+            </div>
+          }
+        </div>
+        <div class="cms-m-action-menu-dropdown" *ngIf="actionMenuOpen === toString(row.id)">
+          @if (dataModelResult?.access?.accessWatchRow) {
+            <button (click)="onActionButtonViewRow(row); closeActionMenu()">
+              <i class="fa-solid fa-eye"></i>
+              {{ "ACTION.VIEW" | translate }}
+            </button>
+          }
+          @if (dataModelResult?.access?.accessEditRow) {
+            <button (click)="onActionButtonEditRow(row); closeActionMenu()">
+              <i class="fa-solid fa-pen"></i>
+              {{ "ACTION.EDIT" | translate }}
+            </button>
+          }
+          @if (dataModelResult?.access?.accessDeleteRow) {
+            <button (click)="onActionButtonDeleteRow(row); closeActionMenu()">
+              <i class="fa-solid fa-trash"></i>
+              {{ "ACTION.DELETE" | translate }}
+            </button>
+          }
+        </div>
+      </div>
+    }
+  </ng-container>
+</app-cms-html-list-mobile>
