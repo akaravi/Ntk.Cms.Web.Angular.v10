@@ -1092,16 +1092,32 @@
     background-color: var(--cms-m-selected-bg);
     border-color: var(--cms-m-highlight-color);
     box-shadow: 0 4px 12px rgba(74, 137, 220, 0.15);
-    border-left: 3px solid var(--cms-m-highlight-color);
+    border-left: 4px solid var(--cms-m-highlight-color);
+    border-left-width: 4px;
 
     [dir="rtl"] & {
       border-left: none;
-      border-right: 3px solid var(--cms-m-highlight-color);
+      border-left-width: 0;
+      border-right: 4px solid var(--cms-m-highlight-color);
+      border-right-width: 4px;
+    }
+
+    [dir="ltr"] & {
+      border-right: none;
+      border-right-width: 0;
     }
 
     @media (prefers-color-scheme: dark) {
       box-shadow: 0 4px 12px rgba(74, 137, 220, 0.2);
       border-color: var(--cms-m-highlight-color-light);
+
+      [dir="rtl"] & {
+        border-right-color: var(--cms-m-highlight-color-light);
+      }
+
+      [dir="ltr"] & {
+        border-left-color: var(--cms-m-highlight-color-light);
+      }
     }
   }
 

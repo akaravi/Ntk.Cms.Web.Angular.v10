@@ -1,5 +1,163 @@
 # تاریخچه تغییرات پروژه
 
+## 2026-02-02 (بازنویسی estate customer-order list mobile با الگوی جدید)
+
+### خلاصه:
+بازنویسی کامل فایل‌های `list.mobile.component.html` و `list.mobile.component.ts` برای estate customer-order با استفاده از کامپوننت `app-cms-html-list-mobile` و حذف فایل SCSS اضافی.
+
+### تغییرات انجام شده:
+
+#### 1. فایل HTML - استفاده از app-cms-html-list-mobile:
+- ✅ تبدیل به استفاده از `app-cms-html-list-mobile` wrapper component
+- ✅ اضافه شدن تمام ng-content slots (header, action-header, action-main, action-row, action-area, body, footer)
+- ✅ اضافه شدن دکمه‌های action در header (info, reload, search, statist)
+- ✅ اضافه شدن دکمه‌های action-main (add)
+- ✅ اضافه شدن دکمه‌های action-row (edit, delete, view, link-to)
+- ✅ استفاده از `cms-m-list` و `cms-m-list-item` برای نمایش لیست
+- ✅ اضافه شدن placeholder icon برای shopping-cart
+- ✅ اضافه شدن paginator در footer
+- ✅ حفظ تمام قابلیت‌های قبلی (search, statist, expanded rows)
+
+#### 2. فایل TypeScript - ساده‌سازی:
+- ✅ حذف متدهای اضافی (toggleActionMenu, closeActionMenu, toString, onDocumentClick)
+- ✅ حفظ فقط متد `getRowExpanded` که مورد نیاز است
+- ✅ حذف styleUrls از component decorator (چون SCSS حذف شد)
+
+#### 3. حذف فایل SCSS:
+- ✅ حذف `list.mobile.component.scss` چون استایل‌ها در `styles.mobile.scss` و `cms-html-list-mobile.component.scss` موجود است
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/estate/log/customer-order/list/list.mobile.component.html` (بازنویسی کامل)
+- `src/app/cms-modules/estate/log/customer-order/list/list.mobile.component.ts` (ساده‌سازی)
+- `src/app/cms-modules/estate/log/customer-order/list/list.mobile.component.scss` (حذف شده)
+
+---
+
+## 2026-02-02 (بهبود استایل selected در لیست موبایل - سمت چپ)
+
+### خلاصه:
+بهبود استایل selected state برای نمایش واضح‌تر border در سمت چپ کادر در حالت RTL.
+
+### تغییرات انجام شده:
+- ✅ افزایش ضخامت border از 3px به 4px برای وضوح بیشتر
+- ✅ بهبود استایل RTL با border-right واضح‌تر
+- ✅ بهبود استایل LTR با border-left واضح‌تر
+- ✅ بهبود dark mode برای selected state
+
+### فایل‌های تغییر یافته:
+- `src/styles.mobile.scss`
+
+---
+
+## 2026-02-02 (حذف background color بین ردیف‌ها در cms-html-list-mobile)
+
+### خلاصه:
+حذف background color از container اصلی برای حذف رنگ پس‌زمینه بین ردیف‌های لیست.
+
+### تغییرات انجام شده:
+- ✅ تغییر background container از `var(--cms-m-bg-color, #f6f7fb)` به `transparent`
+- ✅ حذف background در dark mode نیز
+
+### فایل‌های تغییر یافته:
+- `src/app/shared/cms-html-list-mobile/cms-html-list-mobile.component.scss`
+
+---
+
+## 2026-02-02 (بازطراحی کامل cms-html-list-mobile - حذف لایه‌ها و padding اضافی)
+
+### خلاصه:
+بازطراحی کامل کامپوننت `cms-html-list-mobile` با حذف لایه‌ها و padding‌های اضافی و ساده‌سازی ساختار HTML و CSS.
+
+### تغییرات انجام شده:
+
+#### 1. حذف لایه‌های اضافی در HTML:
+- ✅ حذف لایه `cms-html-list-mobile-card` اضافی
+- ✅ حذف لایه `cms-html-list-mobile-inner` اضافی
+- ✅ حذف لایه `cms-html-list-mobile-loader-container` اضافی
+- ✅ ساده‌سازی ساختار: container -> content -> header/body/footer
+- ✅ حذف کلاس‌های safe-area اضافی از HTML (انتقال به CSS)
+
+#### 2. کاهش padding و margin در SCSS:
+- ✅ کاهش padding content از 16px به 12px
+- ✅ حذف padding اضافی از inner wrapper
+- ✅ حذف margin-bottom اضافی از card
+- ✅ کاهش padding header از 16px به 12px 0
+- ✅ کاهش padding footer از 16px به 12px 0
+- ✅ استفاده مستقیم از safe-area در CSS به جای کلاس‌های HTML
+
+#### 3. بهینه‌سازی ساختار:
+- ✅ حذف wrapper اضافی برای loader
+- ✅ ساده‌سازی header structure
+- ✅ حذف border-radius و backdrop-filter اضافی از card wrapper
+- ✅ استفاده مستقیم از safe-area-inset در padding
+
+#### 4. حفظ تمام قابلیت‌ها:
+- ✅ تمام دکمه‌های fixed حفظ شدند
+- ✅ تمام menu modals حفظ شدند
+- ✅ تمام ng-content slots حفظ شدند
+- ✅ تمام اکشن‌ها و event handler‌ها حفظ شدند
+- ✅ Tree panel حفظ شد
+- ✅ Header actions حفظ شدند
+
+### نتیجه:
+- کاهش قابل توجه padding و margin اضافی
+- حذف 3 لایه wrapper اضافی
+- ساختار HTML ساده‌تر و تمیزتر
+- عملکرد بهتر با لایه‌های کمتر
+- حفظ کامل تمام قابلیت‌ها
+
+### فایل‌های تغییر یافته:
+- `src/app/shared/cms-html-list-mobile/cms-html-list-mobile.component.html`
+- `src/app/shared/cms-html-list-mobile/cms-html-list-mobile.component.scss`
+
+---
+
+## 2026-02-02 (تبدیل cms-html-list-mobile به ظاهر iOS)
+
+### خلاصه:
+تبدیل کامپوننت `cms-html-list-mobile` به ظاهر و استایل iOS با استفاده از safe-area support، backdrop-filter، و بهینه‌سازی‌های مخصوص iOS.
+
+### تغییرات انجام شده:
+
+#### 1. فایل HTML - اضافه شدن Safe Area Support:
+- ✅ اضافه شدن کلاس `safe-area-all` به container اصلی
+- ✅ اضافه شدن کلاس `safe-area-content` به content area
+- ✅ اضافه شدن کلاس `safe-area-top` به header
+- ✅ اضافه شدن کلاس `safe-area-bottom` به footer
+- ✅ اضافه شدن کلاس `safe-area-all` به tree panel
+- ✅ اضافه شدن کلاس `safe-area-content` به دکمه‌های fixed
+- ✅ اضافه شدن کلاس `safe-area-all` به menu modals
+- ✅ اضافه شدن کلاس `safe-area-top` به menu titles
+- ✅ اضافه شدن کلاس `safe-area-content` به menu content
+- ✅ اضافه شدن `safe-area-bottom` div به menu modals
+
+#### 2. فایل SCSS - بهینه‌سازی‌های iOS:
+- ✅ اضافه شدن `-webkit-overflow-scrolling: touch` برای smooth scrolling
+- ✅ استفاده از `100dvh` برای dynamic viewport height
+- ✅ اضافه شدن `backdrop-filter` و `-webkit-backdrop-filter` با blur و saturate
+- ✅ افزایش border-radius به `var(--cms-m-radius-xl, 16px)` برای iOS style
+- ✅ بهبود box-shadow با چند لایه برای عمق بیشتر
+- ✅ اضافه شدن `-webkit-tap-highlight-color: transparent` برای حذف highlight پیش‌فرض
+- ✅ اضافه شدن `touch-action: manipulation` برای بهبود touch performance
+- ✅ بهبود transitions با `cubic-bezier(0.4, 0, 0.2, 1)`
+- ✅ اضافه شدن safe-area support به دکمه‌های fixed با `env(safe-area-inset-bottom)`
+- ✅ بهبود dark mode با backdrop-filter
+- ✅ اضافه شدن `@supports (-webkit-touch-callout: none)` برای iOS specific optimizations
+
+### ویژگی‌های iOS اضافه شده:
+1. **Safe Area Support**: پشتیبانی کامل از notch و safe area در iPhone X و جدیدتر
+2. **Blur Effects**: استفاده از backdrop-filter برای ایجاد افکت blur شیشه‌ای iOS
+3. **Rounded Corners**: استفاده از border-radius بیشتر برای ظاهر iOS
+4. **Smooth Scrolling**: استفاده از `-webkit-overflow-scrolling: touch`
+5. **Touch Optimization**: حذف tap highlight و بهبود touch performance
+6. **Dynamic Viewport**: استفاده از `dvh` برای viewport height داینامیک
+
+### فایل‌های تغییر یافته:
+- `src/app/shared/cms-html-list-mobile/cms-html-list-mobile.component.html`
+- `src/app/shared/cms-html-list-mobile/cms-html-list-mobile.component.scss`
+
+---
+
 ## 2026-02-02 12:11:55 (رفع خطاهای متعدد TypeScript در کامپوننت‌های موبایل)
 
 ### خلاصه:

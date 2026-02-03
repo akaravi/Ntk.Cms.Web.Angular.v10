@@ -7,78 +7,67 @@
           : 'cms-html-list-mobile-tree cms-html-list-mobile-tree-hidden'
       "
       >
-      <!--begin::tree-->
       <ng-content select="[cms-tree]"></ng-content>
-      <!--end::tree-->
     </div>
   }
+
   <div class="cms-html-list-mobile-content">
-    <div class="cms-html-list-mobile-card cms-html-list-mobile-loader-container">
-      @if (optionsListInfoAreaId?.length > 0) {
-        <app-progress-spinner
-          [optionsInfoAreaId]="optionsListInfoAreaId"
-          >
-        </app-progress-spinner>
-      }
-      <div class="cms-html-list-mobile-inner">
-        <!--begin::Header-->
-        @if (optionHeaderDisplay) {
-          <div class="cms-html-list-mobile-header">
-            <ng-content
-              select="[cms-header]"
-            ></ng-content>
-            <ng-content select="[cms-action-header]"></ng-content>
-            <div class="cms-html-list-mobile-header-actions">
-              <div class="cms-html-list-mobile-header-actions-end">
-                <ng-content select="[cms-action-header-end]"></ng-content>
-              </div>
-              <div class="cms-html-list-mobile-header-actions-start">
-                <ng-content select="[cms-action-header-start]"></ng-content>
-                @if (optionActionMainDisplay) {
-                  <a
-                    (click)="actionViewMenuMain()"
-                    class="cms-html-list-mobile-action-button cms-html-list-mobile-header-button"
-                    role="button"
-                    [attr.aria-label]="optionTitle || ('TITLE.OperationMenu' | translate)"
-                    >
-                    <i
-                      class="fa fa-bars"
-                      [ngClass]="getIconRotationClass(viewMenuMain)"
-                    ></i>
-                  </a>
-                }
-              </div>
-            </div>
+    @if (optionsListInfoAreaId?.length > 0) {
+      <app-progress-spinner
+        [optionsInfoAreaId]="optionsListInfoAreaId"
+        >
+      </app-progress-spinner>
+    }
+
+    @if (optionHeaderDisplay) {
+      <div class="cms-html-list-mobile-header">
+        <ng-content select="[cms-header]"></ng-content>
+        <ng-content select="[cms-action-header]"></ng-content>
+        <div class="cms-html-list-mobile-header-actions">
+          <div class="cms-html-list-mobile-header-actions-end">
+            <ng-content select="[cms-action-header-end]"></ng-content>
           </div>
-        }
-        <ng-content select="[cms-action-area]"></ng-content>
-        <!--end::Header-->
-        @if (optionHeaderDisplay || optionActionMainDisplay) {
-          <div class="cms-html-list-mobile-divider"></div>
-        }
-        <!--begin::Body-->
-        <div class="cms-html-list-mobile-body" [ngClass]="optionClassBody">
-          <ng-content select="[cms-body]"></ng-content>
+          <div class="cms-html-list-mobile-header-actions-start">
+            <ng-content select="[cms-action-header-start]"></ng-content>
+            @if (optionActionMainDisplay) {
+              <a
+                (click)="actionViewMenuMain()"
+                class="cms-html-list-mobile-action-button cms-html-list-mobile-header-button"
+                role="button"
+                [attr.aria-label]="optionTitle || ('TITLE.OperationMenu' | translate)"
+                >
+                <i
+                  class="fa fa-bars"
+                  [ngClass]="getIconRotationClass(viewMenuMain)"
+                ></i>
+              </a>
+            }
+          </div>
         </div>
-        <!--end::Body-->
-        <!--begin::Footer-->
-        @if (optionFooterDisplay) {
-          <div class="cms-html-list-mobile-footer">
-            <ng-content select="[cms-message]"></ng-content>
-            <ng-content select="[cms-footer]"></ng-content>
-          </div>
-        }
-        <!--end::Footer-->
       </div>
+    }
+
+    <ng-content select="[cms-action-area]"></ng-content>
+
+    @if (optionHeaderDisplay || optionActionMainDisplay) {
+      <div class="cms-html-list-mobile-divider"></div>
+    }
+
+    <div class="cms-html-list-mobile-body" [ngClass]="optionClassBody">
+      <ng-content select="[cms-body]"></ng-content>
     </div>
+
+    @if (optionFooterDisplay) {
+      <div class="cms-html-list-mobile-footer">
+        <ng-content select="[cms-message]"></ng-content>
+        <ng-content select="[cms-footer]"></ng-content>
+      </div>
+    }
   </div>
 </div>
 
-<!--begin::cms-tree-button-->
 @if (optionTreeDisplay) {
-  <div
-    class="cms-html-list-mobile-fixed-button cms-html-list-mobile-tree-button"
-    >
+  <div class="cms-html-list-mobile-fixed-button cms-html-list-mobile-tree-button">
     <a
       (click)="actionViewTree()"
       class="cms-html-list-mobile-action-button cms-html-list-mobile-fixed-button-item"
@@ -93,13 +82,9 @@
     </a>
   </div>
 }
-<!--end::cms-tree-button-->
 
-<!--begin::cms-action-main-->
 @if (optionActionMainDisplay) {
-  <div
-    [ngClass]="getActionMainButtonClasses()"
-    >
+  <div [ngClass]="getActionMainButtonClasses()">
     <a
       (click)="actionViewMenuMain()"
       class="cms-html-list-mobile-action-button cms-html-list-mobile-fixed-button-item"
@@ -114,13 +99,9 @@
     </a>
   </div>
 }
-<!--end::cms-action-main-button-->
 
-<!--begin::cms-action-row-button-->
 @if (optionActionRowDisplay) {
-  <div
-    [ngClass]="getActionRowButtonClasses()"
-    >
+  <div [ngClass]="getActionRowButtonClasses()">
     <a
       (click)="actionViewMenuItemRow()"
       class="cms-html-list-mobile-action-button cms-html-list-mobile-fixed-button-item"
@@ -137,26 +118,21 @@
     </a>
   </div>
 }
-<!--end::cms-action-row-button-->
 
-<!--begin::Show Menu Main content-->
 <div
   class="menu menu-box-modal rounded-m shadow-xl cms-html-list-mobile-menu-modal"
   [ngClass]="viewMenuMain ? 'menu-active' : ''"
   >
   <div class="menu-title">
     @if (optionTitle?.length > 0) {
-      <p class="color-highlight">
-        {{ optionTitle }}
-      </p>
+      <p class="color-highlight">{{ optionTitle }}</p>
     }
     <h1></h1>
-    <a (click)="actionViewMenuMain(false)" class="close-menu"
-      ><i class="fa fa-times-circle"></i
-    ></a>
+    <a (click)="actionViewMenuMain(false)" class="close-menu">
+      <i class="fa fa-times-circle"></i>
+    </a>
   </div>
   <div class="divider divider-margins"></div>
-  <!--begin::cms-action-main-->
   <div class="row text-center">
     <ng-content select="[cms-action-main]"></ng-content>
     @if (optionActionButtonMemoDisplay) {
@@ -184,9 +160,7 @@
         role="button"
         [attr.aria-label]="'ACTION.EXPORTFILE' | translate"
         >
-        <i
-          class="fa-solid fa-cloud-arrow-down font-18 cms-html-list-mobile-action-icon"
-        ></i>
+        <i class="fa-solid fa-cloud-arrow-down font-18 cms-html-list-mobile-action-icon"></i>
         <br />
       </a>
       <p class="font-11 text-center opacity-70">
@@ -194,28 +168,22 @@
       </p>
     </div>
   </div>
-  <!--end::cms-action-main-->
 </div>
-<!--end:: Show Menu Main content-->
 
-<!--begin::Show Menu Row content-->
 <div
   class="menu menu-box-modal rounded-m shadow-xl cms-html-list-mobile-menu-modal"
   [ngClass]="viewMenuItemRow ? 'menu-active' : ''"
   >
   <div class="menu-title">
     @if (optionSelectRowItemTitle?.length > 0) {
-      <p class="color-highlight">
-        {{ optionSelectRowItemTitle }}
-      </p>
+      <p class="color-highlight">{{ optionSelectRowItemTitle }}</p>
     }
     <h1></h1>
-    <a (click)="actionViewMenuItemRow(false)" class="close-menu"
-      ><i class="fa fa-times-circle"></i
-    ></a>
+    <a (click)="actionViewMenuItemRow(false)" class="close-menu">
+      <i class="fa fa-times-circle"></i>
+    </a>
   </div>
   <div class="divider divider-margins"></div>
-  <!--begin::cms-action-row-->
   <div class="row text-center">
     <ng-content select="[cms-action-row]"></ng-content>
     @if (optionActionButtonPrintRowDisplay) {
@@ -226,7 +194,9 @@
           (click)="onActionButtonPrintRow()"
           role="button"
           [attr.aria-label]="'ACTION.PRINT' | translate"
-          ><i class="fa-solid fa-print font-18 cms-html-list-mobile-action-icon"></i><br />
+          >
+          <i class="fa-solid fa-print font-18 cms-html-list-mobile-action-icon"></i>
+          <br />
         </a>
         <p class="font-11 text-center opacity-70">
           {{ "ACTION.PRINT" | translate }}
@@ -251,9 +221,7 @@
       </div>
     }
   </div>
-  <!--end::cms-action-row-->
 </div>
-<!--end:: Show Menu Row content-->
 
 <app-cms-guide-notice
   [(optionView)]="viewGuideNotice"
