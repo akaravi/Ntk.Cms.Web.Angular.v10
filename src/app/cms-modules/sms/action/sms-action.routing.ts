@@ -7,7 +7,7 @@ import { routesMobile } from "./routes.mobile";
 
 @NgModule({
   imports: [
-    RouterModule.forChild(window.innerWidth < 1000 ? routesMobile : routesNormal),
+    RouterModule.forChild(getResponsiveRoutes(routesMobile, routesNormal)),
     //RouterModule.forChild(routesNormal),
   ],
   exports: [RouterModule],
