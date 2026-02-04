@@ -1,6 +1,24 @@
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  DataProviderPlanCategoryModel,
+  DataProviderPlanModel,
+  DataProviderPlanService,
+  ErrorExceptionResultBase,
+  ManageUserAccessDataTypesEnum,
+} from "ntk-cms-api";
+import { TreeModel, NodeInterface } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
-
 
 @Component({
   selector: "app-data-provider-plan-edit",
@@ -14,14 +32,13 @@ export class DataProviderPlanEditComponent
     DataProviderPlanModel,
     string
   >
-  implements OnInit
-{
+  implements OnInit {
   requestId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<DataProviderPlanEditComponent>,
-      public dataProviderPlanService: DataProviderPlanService,
+    public dataProviderPlanService: DataProviderPlanService,
     public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -49,9 +66,7 @@ export class DataProviderPlanEditComponent
   appLanguage = "fa";
 
   dataModelResult: ErrorExceptionResultBase = new ErrorExceptionResultBase();
-dataModel: DataProviderPlanModel = new DataProviderPlanModel();
-
-
+  dataModel: DataProviderPlanModel = new DataProviderPlanModel();
   fileManagerOpenForm = false;
 
   onActionFileSelected(model: NodeInterface): void {
@@ -108,15 +123,17 @@ dataModel: DataProviderPlanModel = new DataProviderPlanModel();
           this.formInfo.formTitle =
             this.formInfo.formTitle + " " + ret.item.title;
           this.formInfo.submitResultMessage = "";
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Success;
-              } else {
+          this.formInfo.submitResultMessageType =
+            this.formSubmitedStatusEnum.Success;
+        } else {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
             });
           this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType =
+            this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);

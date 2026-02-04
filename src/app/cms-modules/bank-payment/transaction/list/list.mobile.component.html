@@ -231,7 +231,7 @@
                   @if (row.bankStatus !== undefined) {
                     <div class="cms-m-list-item-subtitle">
                       <i class="fa-solid fa-building-columns" aria-hidden="true"></i>
-                      {{ fieldsInfo['bankStatus']?.fieldTitle }}: {{ row.bankStatus | enums: dataModelEnumBankStatusResult.listItems }}
+                      {{ fieldsInfo['bankStatus']?.fieldTitle }}: {{ row.bankStatus | enums: dataModelEnumTransactionBankStatusResult.listItems }}
                     </div>
                   }
                   @if (row.amount) {

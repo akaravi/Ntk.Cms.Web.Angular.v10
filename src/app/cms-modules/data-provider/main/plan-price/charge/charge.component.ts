@@ -1,4 +1,14 @@
 
+import { Component, Inject, OnInit } from "@angular/core";
+import { DOCUMENT } from "@angular/common";
+import { ActivatedRoute, Router } from "@angular/router";
+import { MatDialog } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
+import { DataProviderModuleCalculateDtoModel, CoreSiteService } from "ntk-cms-api";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { CmsBankpaymentTransactionInfoComponent } from "src/app/shared/cms-bankpayment-transaction-info/cms-bankpayment-transaction-info.component";
+import { DataProviderPlanPriceChargePaymentComponent } from "./charge-payment/charge-payment.component";
+
 @Component({
   selector: "app-data-provider-plan-price-charge",
   templateUrl: "./charge.component.html",
@@ -12,8 +22,9 @@ export class DataProviderPlanPriceChargeComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private dialog: MatDialog,
     private coreSiteService: CoreSiteService,
-        private router: Router,
+    private router: Router,
     public translate: TranslateService,
+    public cmsToastrService: CmsToastrService,
   ) {
     this.requestLinkClientId = this.activatedRoute.snapshot.paramMap.get("LinkClientId") || "";
     this.dataModelCalculate.linkClientId = this.requestLinkClientId;

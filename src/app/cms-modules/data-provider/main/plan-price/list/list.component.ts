@@ -1,4 +1,36 @@
 
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+} from "@angular/core";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { PageEvent } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { ActivatedRoute, Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  DataProviderPlanPriceModel,
+  DataProviderPlanPriceService,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { PageInfoService } from "src/app/core/services/page-info.service";
+import { environment } from "src/environments/environment";
+import { DataProviderPlanPriceAddComponent } from "../add/add.component";
+import { DataProviderPlanPriceEditComponent } from "../edit/edit.component";
+import { DataProviderPlanPriceDeleteComponent } from "../delete/delete.component";
+
 @Component({
   selector: "app-data-provider-plan-price-list",
   templateUrl: "./list.component.html",
@@ -10,13 +42,12 @@ export class DataProviderPlanPriceListComponent
     DataProviderPlanPriceModel,
     string
   >
-  implements OnInit, OnDestroy
-{
+  implements OnInit, OnDestroy {
   requestLinkPlanId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: DataProviderPlanPriceService,
-        private activatedRoute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private router: Router,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
@@ -25,6 +56,7 @@ export class DataProviderPlanPriceListComponent
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog,
+    public cmsToastrService: CmsToastrService,
   ) {
     super(
       contentService,

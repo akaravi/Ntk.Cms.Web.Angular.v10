@@ -105,6 +105,7 @@ import { DonateTransactionViewComponent } from "./transaction/view/view.componen
     DonateSponserHeaderComponent,
     /* */
     DonateTargetPeriodListComponent,
+    DonateTargetPeriodListMobileComponent,
     DonateTargetPeriodAddComponent,
     DonateTargetPeriodEditComponent,
     DonateTargetPeriodDeleteComponent,

@@ -64,8 +64,10 @@ import { EstateAccountAgencyAdsSaleListComponent } from "./account-agency-ads/sa
 import { EstateAccountAgencyAdsSalePaymentComponent } from "./account-agency-ads/sale-payment/sale-payment.component";
 import { EstateAccountAgencyExpertAddComponent } from "./account-agency-expert/add/add.component";
 import { EstateAccountAgencyExpertListComponent } from "./account-agency-expert/list/list.component";
+import { EstateAccountAgencyExpertListMobileComponent } from "./account-agency-expert/list/list.mobile.component";
 import { EstateAccountAgencyWorkAreaAddComponent } from "./account-agency-work-area/add/add.component";
 import { EstateAccountAgencyWorkAreaListComponent } from "./account-agency-work-area/list/list.component";
+import { EstateAccountAgencyWorkAreaListMobileComponent } from "./account-agency-work-area/list/list.mobile.component";
 import { EstateAccountAgencyAddComponent } from "./account-agency/add/add.component";
 import { EstateAccountAgencyAddMobileComponent } from "./account-agency/add/add.mobile.component";
 import { EstateAccountAgencyEditComponent } from "./account-agency/edit/edit.component";
@@ -260,9 +262,11 @@ import { EstateAccountExpertListMobileComponent } from "./account-expert/list/li
     /* */
     EstateAccountAgencyWorkAreaAddComponent,
     EstateAccountAgencyWorkAreaListComponent,
+    EstateAccountAgencyWorkAreaListMobileComponent,
     /* */
     EstateAccountAgencyExpertAddComponent,
     EstateAccountAgencyExpertListComponent,
+    EstateAccountAgencyExpertListMobileComponent,
     /* */
     EstateAccountAgencyAdsAddComponent,
     EstateAccountAgencyAdsAddMobileComponent,

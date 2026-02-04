@@ -1,3 +1,26 @@
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  CoreEnumService,
+  DataProviderSourcePathModel,
+  DataProviderSourcePathService,
+  ErrorExceptionResult,
+  FilterModel,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-data-provider-source-path-tree-mobile",
@@ -10,7 +33,7 @@ export class DataProviderSourcePathTreeMobileComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-        public coreEnumService: CoreEnumService,
+    public coreEnumService: CoreEnumService,
     public categoryService: DataProviderSourcePathService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
@@ -18,6 +41,7 @@ export class DataProviderSourcePathTreeMobileComponent
     private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
     public dialog: MatDialog,
+    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }

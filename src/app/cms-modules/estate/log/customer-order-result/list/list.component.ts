@@ -41,7 +41,7 @@ export class EstateCustomerOrderResultListComponent
   requestLinkProperty = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: EstateCustomerOrderResultService,
+    public contentService: EstateCustomerOrderResultService,
     private activatedRoute: ActivatedRoute,
     public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,

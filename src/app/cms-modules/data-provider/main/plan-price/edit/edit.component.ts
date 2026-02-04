@@ -1,6 +1,25 @@
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  DataProviderPlanModel,
+  DataProviderPlanPriceModel,
+  DataProviderPlanPriceService,
+  ErrorExceptionResultBase,
+  ManageUserAccessDataTypesEnum,
+} from "ntk-cms-api";
+import { TreeModel, NodeInterface } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
-
+import { CoreSiteService } from "src/app/core/services/core-site.service";
 
 @Component({
   selector: "app-data-provider-plan-price-edit",
@@ -14,14 +33,13 @@ export class DataProviderPlanPriceEditComponent
     DataProviderPlanPriceModel,
     string
   >
-  implements OnInit
-{
+  implements OnInit {
   requestId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<DataProviderPlanPriceEditComponent>,
-      public dataproviderplanpriceservice: DataProviderPlanPriceService,
+    public dataproviderplanpriceservice: DataProviderPlanPriceService,
     public cmsToastrService: CmsToastrService,
     private coreSiteService: CoreSiteService,
     public publicHelper: PublicHelper,

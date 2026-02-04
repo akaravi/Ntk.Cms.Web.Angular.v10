@@ -22,4 +22,8 @@ export class EstateCategoryRackListMobileComponent extends EstateCategoryRackLis
     super['onActionButtonNewRow']?.();
   }
 
+  onActionClickRackDoor(row: any): void {
+    super['onActionClickRackDoor']?.(row);
+  }
+
 }

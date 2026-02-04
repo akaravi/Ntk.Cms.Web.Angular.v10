@@ -39,7 +39,7 @@ export class EstateAccountExpertWorkAreaListComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: EstateAccountExpertWorkAreaService,
+    public contentService: EstateAccountExpertWorkAreaService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public cmsToastrService: CmsToastrService,
     private router: Router,

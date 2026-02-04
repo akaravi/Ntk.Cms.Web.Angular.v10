@@ -1,3 +1,27 @@
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  CoreEnumService,
+  DataProviderSourcePublicConfigModel,
+  DataProviderSourcePublicConfigService,
+  ErrorExceptionResult,
+  FilterModel,
+} from "ntk-cms-api";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { Subscription } from "rxjs";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-data-provider-source-public-config-tree",
@@ -6,11 +30,10 @@
   standalone: false,
 })
 export class DataProviderSourcePublicConfigTreeComponent
-  implements OnInit, OnDestroy
-{
+  implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-        public coreEnumService: CoreEnumService,
+    public coreEnumService: CoreEnumService,
     public categoryService: DataProviderSourcePublicConfigService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
@@ -18,6 +41,7 @@ export class DataProviderSourcePublicConfigTreeComponent
     private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
     public dialog: MatDialog,
+    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }

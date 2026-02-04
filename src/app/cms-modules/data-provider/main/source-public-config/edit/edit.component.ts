@@ -1,3 +1,26 @@
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  CoreEnumService,
+  DataProviderSourcePublicConfigAliasJsonModel,
+  DataProviderSourcePublicConfigModel,
+  DataProviderSourcePublicConfigService,
+  ErrorExceptionResultBase,
+  ManageUserAccessDataTypesEnum,
+} from "ntk-cms-api";
+import { TreeModel, NodeInterface } from "ntk-cms-filemanager";
+import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
 @Component({
   selector: "app-data-provider-source-public-config-edit",
   templateUrl: "./edit.component.html",
@@ -18,9 +41,10 @@ export class DataProviderSourcePublicConfigEditComponent
     private dialogRef: MatDialogRef<DataProviderSourcePublicConfigEditComponent>,
     public coreEnumService: CoreEnumService,
     public dataProviderSourcePublicConfigService: DataProviderSourcePublicConfigService,
-        public publicHelper: PublicHelper,
+    public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
+    public cmsToastrService: CmsToastrService,
   ) {
     super(
       dataProviderSourcePublicConfigService,

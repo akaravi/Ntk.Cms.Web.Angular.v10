@@ -49,7 +49,7 @@ export class EstateAccountExpertListComponent
   requestLinkLocationWorkAreaIds: number[];
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: EstateAccountExpertService,
+    public contentService: EstateAccountExpertService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public cmsToastrService: CmsToastrService,
     private router: Router,

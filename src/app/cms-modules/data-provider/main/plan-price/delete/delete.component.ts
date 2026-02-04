@@ -1,5 +1,24 @@
 
-import { FormInfoModel } from "../../../../../core/models/formInfoModel";
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  DataFieldInfoModel,
+  DataProviderPlanPriceModel,
+  DataProviderPlanPriceService,
+  ErrorExceptionResult,
+  ManageUserAccessDataTypesEnum,
+} from "ntk-cms-api";
+import { FormInfoModel } from "src/app/core/models/formInfoModel";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-data-provider-plan-price-delete",
@@ -16,7 +35,8 @@ export class DataProviderPlanPriceDeleteComponent implements OnInit {
     private dataproviderplanservice: DataProviderPlanPriceService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-      ) {
+    public cmsToastrService: CmsToastrService,
+  ) {
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {
       this.requestId = data.id || "";

@@ -11,7 +11,7 @@
   [optionActionRowDisplay]="tableRowSelected?.id > 0"
   [optionActionRowDisplayMenu]="tableRowSelect2Click"
   [optionActionRowDisplayMenuAct]="tableRowSelectActionMenuClick"
-  [optionSelectRowItemTitle]="($any(tableRowSelected)?.title)ML || tableRowSelected?.id"
+  [optionSelectRowItemTitle]="($any(tableRowSelected)?.titleML) || tableRowSelected?.id"
   >
   <ng-container cms-tree></ng-container>
   <ng-container cms-header></ng-container>

@@ -1,4 +1,34 @@
 
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from "@angular/core";
+import { FormControl } from "@angular/forms";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  DataProviderSourcePathPaginationModel,
+  DataProviderSourcePathPaginationService,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterDataModelSearchTypesEnum,
+  FilterModel,
+} from "ntk-cms-api";
+import {
+  Observable,
+  debounceTime,
+  distinctUntilChanged,
+  firstValueFrom,
+  map,
+  startWith,
+  switchMap,
+} from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
 @Component({
   selector: "app-data-provider-source-path-pagination-selector",
   templateUrl: "./selector.component.html",
@@ -9,10 +39,11 @@ export class DataProviderSourcePathPaginationSelectorComponent implements OnInit
   id = ++DataProviderSourcePathPaginationSelectorComponent.nextId;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-        private cdr: ChangeDetectorRef,
+    private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
     public categoryService: DataProviderSourcePathPaginationService,
+    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }

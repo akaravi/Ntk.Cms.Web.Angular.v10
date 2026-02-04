@@ -1,4 +1,25 @@
 
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  DataFieldInfoModel,
+  DataProviderSourcePathModel,
+  DataProviderSourcePathService,
+  ErrorExceptionResult,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
 @Component({
   selector: "app-data-provider-source-path-header",
   templateUrl: "./header.component.html",
@@ -13,10 +34,11 @@ export class DataProviderSourcePathHeaderComponent
     private headerService: DataProviderSourcePathService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
-        public dialog: MatDialog,
+    public dialog: MatDialog,
     public translate: TranslateService,
     private cmsStoreService: CmsStoreService,
     public tokenHelper: TokenHelper,
+    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }

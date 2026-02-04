@@ -41,7 +41,7 @@ export class EstateContractTypeListComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: EstateContractTypeService,
+    public contentService: EstateContractTypeService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,

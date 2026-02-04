@@ -1,7 +1,25 @@
 import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  CoreEnumService,
+  DataFieldInfoModel,
+  DataProviderSourcePublicConfigModel,
+  DataProviderSourcePublicConfigService,
+  ErrorExceptionResult,
+} from "ntk-cms-api";
+import { TreeModel, NodeInterface } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
 @Component({
   selector: "app-data-provider-source-public-config-add",
   templateUrl: "./add.component.html",
@@ -18,7 +36,7 @@ export class DataProviderSourcePublicConfigAddComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    rSourcePublicConfigAddComponent>,
+    private dialogRef: MatDialogRef<DataProviderSourcePublicConfigAddComponent>,
     public coreEnumService: CoreEnumService,
     public dataProviderSourcePublicConfigService: DataProviderSourcePublicConfigService,
     public cmsToastrService: CmsToastrService,
@@ -47,8 +65,8 @@ export class DataProviderSourcePublicConfigAddComponent
 
   dataModelResult: ErrorExceptionResult<DataProviderSourcePublicConfigModel> =
     new ErrorExceptionResult<DataProviderSourcePublicConfigModel>();
-  dataModel: DataProviderSourcePublicConfigModel = new DataProviderSourcePublicConfigModel();
-
+  dataModel: DataProviderSourcePublicConfigModel =
+    new DataProviderSourcePublicConfigModel();
 
   fileManagerOpenForm = false;
 
@@ -78,37 +96,41 @@ export class DataProviderSourcePublicConfigAddComponent
         );
       });
 
-    this.dataProviderSourcePublicConfigService.ServiceAdd(this.dataModel).subscribe({
-      next: (ret) => {
-        this.formInfo.submitButtonEnabled = true;
-        this.dataModelResult = ret;
-        if (ret.isSuccess) {
-          this.translate
-            .get("MESSAGE.registration_completed_successfully")
-            .subscribe((str: string) => {
-              this.formInfo.submitResultMessage = str;
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Success;
+    this.dataProviderSourcePublicConfigService
+      .ServiceAdd(this.dataModel)
+      .subscribe({
+        next: (ret) => {
+          this.formInfo.submitButtonEnabled = true;
+          this.dataModelResult = ret;
+          if (ret.isSuccess) {
+            this.translate
+              .get("MESSAGE.registration_completed_successfully")
+              .subscribe((str: string) => {
+                this.formInfo.submitResultMessage = str;
+                this.formInfo.submitResultMessageType =
+                  this.formSubmitedStatusEnum.Success;
               });
-          this.cmsToastrService.typeSuccessAdd();
-          this.dialogRef.close({ dialogChangedDate: true });
-        } else {
-          this.translate
-            .get("ERRORMESSAGE.MESSAGE.typeError")
-            .subscribe((str: string) => {
-              this.formInfo.submitResultMessage = str;
-            });
-          this.formInfo.submitResultMessage = ret.errorMessage;
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
-          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-        }
-        this.publicHelper.processService.processStop(pName);
-      },
-      error: (er) => {
-        this.formInfo.submitButtonEnabled = true;
-        this.cmsToastrService.typeError(er);
-        this.publicHelper.processService.processStop(pName, false);
-      },
-    });
+            this.cmsToastrService.typeSuccessAdd();
+            this.dialogRef.close({ dialogChangedDate: true });
+          } else {
+            this.translate
+              .get("ERRORMESSAGE.MESSAGE.typeError")
+              .subscribe((str: string) => {
+                this.formInfo.submitResultMessage = str;
+              });
+            this.formInfo.submitResultMessage = ret.errorMessage;
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Error;
+            this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+          }
+          this.publicHelper.processService.processStop(pName);
+        },
+        error: (er) => {
+          this.formInfo.submitButtonEnabled = true;
+          this.cmsToastrService.typeError(er);
+          this.publicHelper.processService.processStop(pName, false);
+        },
+      });
   }
   onActionFileSelected(model: NodeInterface): void {
     this.dataModel.linkMainImageId = model.id;
@@ -122,3 +144,7 @@ export class DataProviderSourcePublicConfigAddComponent
     this.DataAddContent();
   }
   onFormCancel(): void {
+    this.dialogRef.close({ dialogChangedDate: false });
+  }
+}
+
