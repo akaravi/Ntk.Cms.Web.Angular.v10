@@ -32,6 +32,7 @@ import { CoreSiteRouting } from "./coreSite.routing";
 import { CoreSiteDeleteComponent } from "./delete/delete.component";
 import { CoreSiteEditComponent } from "./edit/edit.component";
 import { CoreSiteListComponent } from "./list/list.component";
+import { CoreSiteListMobileComponent } from "./list/list.mobile.component";
 import { CoreSiteModuleSiteInfoComponent } from "./module-site-info/module-site-info.component";
 import { CoreSiteModuleSiteOptimazeComponent } from "./module-site-optimaze/module-site-optimaze.component";
 import { CoreSiteModuleAddComponent } from "./moduleAdd/moduleAdd.component";
@@ -51,6 +52,7 @@ import { CoreSiteUserListComponent } from "./user-list/user-list.component";
     CoreSiteAddFirstComponent,
     CoreSiteSiteSelectComponent,
     CoreSiteListComponent,
+    CoreSiteListMobileComponent,
     CoreSiteAddComponent,
     CoreSiteEditComponent,
     CoreSiteDeleteComponent,
@@ -102,6 +104,7 @@ import { CoreSiteUserListComponent } from "./user-list/user-list.component";
     CoreSiteAddFirstComponent,
     CoreSiteSiteSelectComponent,
     CoreSiteListComponent,
+    CoreSiteListMobileComponent,
     CoreSiteAddComponent,
     CoreSiteEditComponent,
     CoreSiteDeleteComponent,

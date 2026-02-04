@@ -76,6 +76,7 @@ import { EstateAccountAgencyListMobileComponent } from "./account-agency/list/li
 import { EstateAccountAgencyTreeComponent } from "./account-agency/tree/tree.component";
 import { EstateAccountExpertWorkAreaAddComponent } from "./account-expert-work-area/add/add.component";
 import { EstateAccountExpertWorkAreaListComponent } from "./account-expert-work-area/list/list.component";
+import { EstateAccountExpertWorkAreaListMobileComponent } from "./account-expert-work-area/list/list.mobile.component";
 import { EstateAccountExpertAddComponent } from "./account-expert/add/add.component";
 import { EstateAccountExpertAddMobileComponent } from "./account-expert/add/add.mobile.component";
 import { EstateAccountExpertEditComponent } from "./account-expert/edit/edit.component";
@@ -251,6 +252,7 @@ import { EstateAccountExpertListMobileComponent } from "./account-expert/list/li
     /* */
     EstateAccountExpertWorkAreaAddComponent,
     EstateAccountExpertWorkAreaListComponent,
+    EstateAccountExpertWorkAreaListMobileComponent,
     /* */
     EstateAccountAgencyAddComponent,
     EstateAccountAgencyAddMobileComponent,

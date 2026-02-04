@@ -8,6 +8,7 @@ import { CoreCurrencyComponent } from "./coreCurrency.component";
 import { CoreCurrencyRouting } from "./coreCurrency.routing";
 import { CoreCurrencyEditComponent } from "./edit/edit.component";
 import { CoreCurrencyListComponent } from "./list/list.component";
+import { CoreCurrencyListMobileComponent } from "./list/list.mobile.component";
 import { CoreCurrencySelectorComponent } from "./selector/selector.component";
 
 import { AngularEditorModule } from "@kolkov/angular-editor";
@@ -19,6 +20,7 @@ import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-di
   declarations: [
     CoreCurrencyComponent,
     CoreCurrencyListComponent,
+    CoreCurrencyListMobileComponent,
     CoreCurrencyAddComponent,
     CoreCurrencyEditComponent,
     CoreCurrencySelectorComponent,
@@ -26,6 +28,7 @@ import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-di
   exports: [
     CoreCurrencyComponent,
     CoreCurrencyListComponent,
+    CoreCurrencyListMobileComponent,
     CoreCurrencyAddComponent,
     CoreCurrencyEditComponent,
     CoreCurrencySelectorComponent,

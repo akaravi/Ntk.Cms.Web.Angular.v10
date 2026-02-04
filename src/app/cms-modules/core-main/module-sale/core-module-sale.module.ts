@@ -20,6 +20,7 @@ import { SharedModule } from "src/app/shared/shared.module";
 import { CoreModuleSaleItemAddComponent } from "./Item/add/add.component";
 import { CoreModuleSaleItemEditComponent } from "./Item/edit/edit.component";
 import { CoreModuleSaleItemListComponent } from "./Item/list/list.component";
+import { CoreModuleSaleItemListMobileComponent } from "./Item/list/list.mobile.component";
 import { CoreModuleSaleItemListViewComponent } from "./Item/listview/listview.component";
 import { CoreModuleSaleItemSelectorComponent } from "./Item/selector/selector.component";
 import { CoreModuleSaleComponent } from "./core-module-sale.component";
@@ -28,25 +29,32 @@ import { CoreModuleSaleHeaderGroupAddComponent } from "./header-group/add/add.co
 import { CoreModuleSaleHeaderGroupEditComponent } from "./header-group/edit/edit.component";
 import { CoreModuleSaleHeaderGroupHeaderComponent } from "./header-group/header/header.component";
 import { CoreModuleSaleHeaderGroupListComponent } from "./header-group/list/list.component";
+import { CoreModuleSaleHeaderGroupListMobileComponent } from "./header-group/list/list.mobile.component";
 import { CoreModuleSaleHeaderGroupSelectorComponent } from "./header-group/selector/selector.component";
 import { CoreModuleSaleHeaderGroupTreeComponent } from "./header-group/tree/tree.component";
 import { CoreModuleSaleHeaderAddComponent } from "./header/add/add.component";
 import { CoreModuleSaleHeaderEditComponent } from "./header/edit/edit.component";
 import { CoreModuleSaleHeaderHeaderComponent } from "./header/header/header.component";
 import { CoreModuleSaleHeaderListComponent } from "./header/list/list.component";
+import { CoreModuleSaleHeaderListMobileComponent } from "./header/list/list.mobile.component";
 import { CoreModuleSaleHeaderSaleListComponent } from "./header/sale-list/sale-list.component";
 import { CoreModuleSaleHeaderSalePaymentComponent } from "./header/sale-payment/sale-payment.component";
 import { CoreModuleSaleHeaderSelectorComponent } from "./header/selector/selector.component";
 import { CoreModuleSaleHeaderTreeComponent } from "./header/tree/tree.component";
 import { CoreModuleSaleInvoiceDetailListComponent } from "./invoice-detail/list/list.component";
+import { CoreModuleSaleInvoiceDetailListMobileComponent } from "./invoice-detail/list/list.mobile.component";
 import { CoreModuleSaleInvoiceDetailViewComponent } from "./invoice-detail/view/view.component";
 import { CoreModuleSaleInvoiceListComponent } from "./invoice/list/list.component";
+import { CoreModuleSaleInvoiceListMobileComponent } from "./invoice/list/list.mobile.component";
 import { CoreModuleSaleInvoiceViewComponent } from "./invoice/view/view.component";
+import { CoreModuleSaleItemListComponent } from "./Item/list/list.component";
+import { CoreModuleSaleItemListMobileComponent } from "./Item/list/list.mobile.component";
 import { CoreModuleSaleSerialAddComponent } from "./serial/add/add.component";
 import { CoreModuleSaleSerialCheckListComponent } from "./serial/check-list/check-list.component";
 import { CoreModuleSaleSerialEditComponent } from "./serial/edit/edit.component";
 import { CoreModuleSaleSerialHeaderComponent } from "./serial/header/header.component";
 import { CoreModuleSaleSerialListComponent } from "./serial/list/list.component";
+import { CoreModuleSaleSerialListMobileComponent } from "./serial/list/list.mobile.component";
 import { CoreModuleSaleSerialSelectorComponent } from "./serial/selector/selector.component";
 
 @NgModule({
@@ -54,6 +62,7 @@ import { CoreModuleSaleSerialSelectorComponent } from "./serial/selector/selecto
     CoreModuleSaleComponent,
     /** */
     CoreModuleSaleHeaderGroupListComponent,
+    CoreModuleSaleHeaderGroupListMobileComponent,
     CoreModuleSaleHeaderGroupAddComponent,
     CoreModuleSaleHeaderGroupEditComponent,
     CoreModuleSaleHeaderGroupSelectorComponent,
@@ -62,6 +71,7 @@ import { CoreModuleSaleSerialSelectorComponent } from "./serial/selector/selecto
     /** */
     /** */
     CoreModuleSaleHeaderListComponent,
+    CoreModuleSaleHeaderListMobileComponent,
     CoreModuleSaleHeaderAddComponent,
     CoreModuleSaleHeaderEditComponent,
     CoreModuleSaleHeaderSelectorComponent,
@@ -72,6 +82,7 @@ import { CoreModuleSaleSerialSelectorComponent } from "./serial/selector/selecto
     /** */
     /** */
     CoreModuleSaleItemListComponent,
+    CoreModuleSaleItemListMobileComponent,
     CoreModuleSaleItemAddComponent,
     CoreModuleSaleItemEditComponent,
     CoreModuleSaleItemSelectorComponent,
@@ -79,6 +90,7 @@ import { CoreModuleSaleSerialSelectorComponent } from "./serial/selector/selecto
     /** */
     /** */
     CoreModuleSaleSerialListComponent,
+    CoreModuleSaleSerialListMobileComponent,
     CoreModuleSaleSerialAddComponent,
     CoreModuleSaleSerialEditComponent,
     CoreModuleSaleSerialSelectorComponent,
@@ -87,10 +99,12 @@ import { CoreModuleSaleSerialSelectorComponent } from "./serial/selector/selecto
     /** */
     /** */
     CoreModuleSaleInvoiceListComponent,
+    CoreModuleSaleInvoiceListMobileComponent,
     CoreModuleSaleInvoiceViewComponent,
     /** */
     /** */
     CoreModuleSaleInvoiceDetailListComponent,
+    CoreModuleSaleInvoiceDetailListMobileComponent,
     CoreModuleSaleInvoiceDetailViewComponent,
     /** */
   ],
@@ -98,6 +112,7 @@ import { CoreModuleSaleSerialSelectorComponent } from "./serial/selector/selecto
     CoreModuleSaleComponent,
     /** */
     CoreModuleSaleHeaderGroupListComponent,
+    CoreModuleSaleHeaderGroupListMobileComponent,
     CoreModuleSaleHeaderGroupAddComponent,
     CoreModuleSaleHeaderGroupEditComponent,
     CoreModuleSaleHeaderGroupSelectorComponent,
@@ -105,6 +120,7 @@ import { CoreModuleSaleSerialSelectorComponent } from "./serial/selector/selecto
     /** */
     /** */
     CoreModuleSaleHeaderListComponent,
+    CoreModuleSaleHeaderListMobileComponent,
     CoreModuleSaleHeaderAddComponent,
     CoreModuleSaleHeaderEditComponent,
     CoreModuleSaleHeaderSelectorComponent,
@@ -114,6 +130,7 @@ import { CoreModuleSaleSerialSelectorComponent } from "./serial/selector/selecto
     /** */
     /** */
     CoreModuleSaleItemListComponent,
+    CoreModuleSaleItemListMobileComponent,
     CoreModuleSaleItemAddComponent,
     CoreModuleSaleItemEditComponent,
     CoreModuleSaleItemSelectorComponent,
@@ -121,6 +138,7 @@ import { CoreModuleSaleSerialSelectorComponent } from "./serial/selector/selecto
     /** */
     /** */
     CoreModuleSaleSerialListComponent,
+    CoreModuleSaleSerialListMobileComponent,
     CoreModuleSaleSerialAddComponent,
     CoreModuleSaleSerialEditComponent,
     CoreModuleSaleSerialSelectorComponent,
@@ -129,10 +147,12 @@ import { CoreModuleSaleSerialSelectorComponent } from "./serial/selector/selecto
     /** */
     /** */
     CoreModuleSaleInvoiceListComponent,
+    CoreModuleSaleInvoiceListMobileComponent,
     CoreModuleSaleInvoiceViewComponent,
     /** */
     /** */
     CoreModuleSaleInvoiceDetailListComponent,
+    CoreModuleSaleInvoiceDetailListMobileComponent,
     CoreModuleSaleInvoiceDetailViewComponent,
     /** */
   ],

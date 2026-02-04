@@ -13,6 +13,7 @@ import { CoreModuleEntityReportFileComponent } from "./core-module-entity-report
 import { CoreModuleEntityReportFileRouting } from "./core-module-entity-report-file.routing";
 import { CoreModuleEntityReportFileEditComponent } from "./edit/edit.component";
 import { CoreModuleEntityReportFileListComponent } from "./list/list.component";
+import { CoreModuleEntityReportFileListMobileComponent } from "./list/list.mobile.component";
 
 @NgModule({
   declarations: [
@@ -20,12 +21,14 @@ import { CoreModuleEntityReportFileListComponent } from "./list/list.component";
     CoreModuleEntityReportFileAddComponent,
     CoreModuleEntityReportFileEditComponent,
     CoreModuleEntityReportFileListComponent,
+    CoreModuleEntityReportFileListMobileComponent,
   ],
   exports: [
     CoreModuleEntityReportFileComponent,
     CoreModuleEntityReportFileAddComponent,
     CoreModuleEntityReportFileEditComponent,
     CoreModuleEntityReportFileListComponent,
+    CoreModuleEntityReportFileListMobileComponent,
   ],
   imports: [
     CommonModule,

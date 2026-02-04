@@ -63,40 +63,49 @@ import { CrmAccountAddComponent } from "./account/add/add.component";
 import { CrmAccountEditComponent } from "./account/edit/edit.component";
 import { CrmAccountHeaderComponent } from "./account/header/header.component";
 import { CrmAccountListComponent } from "./account/list/list.component";
+import { CrmAccountListMobileComponent } from "./account/list/list.mobile.component";
 import { CrmAccountSelectorComponent } from "./account/selector/selector.component";
 import { CrmActivityAddComponent } from "./activity/add/add.component";
 import { CrmActivityEditComponent } from "./activity/edit/edit.component";
 import { CrmActivityListComponent } from "./activity/list/list.component";
+import { CrmActivityListMobileComponent } from "./activity/list/list.mobile.component";
 import { CrmCampaignAddComponent } from "./campaign/add/add.component";
 import { CrmCampaignEditComponent } from "./campaign/edit/edit.component";
 import { CrmCampaignHeaderComponent } from "./campaign/header/header.component";
 import { CrmCampaignListComponent } from "./campaign/list/list.component";
+import { CrmCampaignListMobileComponent } from "./campaign/list/list.mobile.component";
 import { CrmCampaignSelectorComponent } from "./campaign/selector/selector.component";
 import { CrmContactAddComponent } from "./contact/add/add.component";
 import { CrmContactEditComponent } from "./contact/edit/edit.component";
 import { CrmContactHeaderComponent } from "./contact/header/header.component";
 import { CrmContactListComponent } from "./contact/list/list.component";
+import { CrmContactListMobileComponent } from "./contact/list/list.mobile.component";
 import { CrmContactSelectorComponent } from "./contact/selector/selector.component";
 import { CrmDealAddComponent } from "./deal/add/add.component";
 import { CrmDealEditComponent } from "./deal/edit/edit.component";
 import { CrmDealListComponent } from "./deal/list/list.component";
+import { CrmDealListMobileComponent } from "./deal/list/list.mobile.component";
 import { CrmDealSelectorComponent } from "./deal/selector/selector.component";
 import { CrmLeadAddComponent } from "./lead/add/add.component";
 import { CrmLeadEditComponent } from "./lead/edit/edit.component";
 import { CrmLeadListComponent } from "./lead/list/list.component";
+import { CrmLeadListMobileComponent } from "./lead/list/list.mobile.component";
 import { CrmLeadSelectorComponent } from "./lead/selector/selector.component";
 import { CrmOpportunityAddComponent } from "./opportunity/add/add.component";
 import { CrmOpportunityEditComponent } from "./opportunity/edit/edit.component";
 import { CrmOpportunityListComponent } from "./opportunity/list/list.component";
+import { CrmOpportunityListMobileComponent } from "./opportunity/list/list.mobile.component";
 import { CrmOpportunitySelectorComponent } from "./opportunity/selector/selector.component";
 // import { CrmOpportunityStageHistoryListComponent } from "./opportunity/stage-history/list/list.component"; // Commented: Service and Model not available in API
 import { CrmPipelineAddComponent } from "./pipeline/add/add.component";
 import { CrmPipelineEditComponent } from "./pipeline/edit/edit.component";
 import { CrmPipelineListComponent } from "./pipeline/list/list.component";
+import { CrmPipelineListMobileComponent } from "./pipeline/list/list.mobile.component";
 import { CrmPipelineSelectorComponent } from "./pipeline/selector/selector.component";
 import { CrmStageAddComponent } from "./stage/add/add.component";
 import { CrmStageEditComponent } from "./stage/edit/edit.component";
 import { CrmStageListComponent } from "./stage/list/list.component";
+import { CrmStageListMobileComponent } from "./stage/list/list.mobile.component";
 import { CrmStageSelectorComponent } from "./stage/selector/selector.component";
 
 /**
@@ -118,31 +127,40 @@ import { CrmStageSelectorComponent } from "./stage/selector/selector.component";
     CrmOpportunitySelectorComponent,
     CrmDealSelectorComponent,
     CrmLeadListComponent,
+    CrmLeadListMobileComponent,
     CrmLeadAddComponent,
     CrmLeadEditComponent,
     CrmAccountListComponent,
+    CrmAccountListMobileComponent,
     CrmAccountAddComponent,
     CrmAccountEditComponent,
     CrmContactListComponent,
+    CrmContactListMobileComponent,
     CrmContactAddComponent,
     CrmContactEditComponent,
     CrmOpportunityListComponent,
+    CrmOpportunityListMobileComponent,
     CrmOpportunityAddComponent,
     CrmOpportunityEditComponent,
     // CrmOpportunityStageHistoryListComponent, // Commented: Service and Model not available in API
     CrmPipelineListComponent,
+    CrmPipelineListMobileComponent,
     CrmPipelineAddComponent,
     CrmPipelineEditComponent,
     CrmStageListComponent,
+    CrmStageListMobileComponent,
     CrmStageAddComponent,
     CrmStageEditComponent,
     CrmDealListComponent,
+    CrmDealListMobileComponent,
     CrmDealAddComponent,
     CrmDealEditComponent,
     CrmActivityListComponent,
+    CrmActivityListMobileComponent,
     CrmActivityAddComponent,
     CrmActivityEditComponent,
     CrmCampaignListComponent,
+    CrmCampaignListMobileComponent,
     CrmCampaignAddComponent,
     CrmCampaignEditComponent,
     CrmSupplierPriceListComponent,

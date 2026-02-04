@@ -8,6 +8,7 @@ import { CoreSiteDomainAliasComponent } from "./coreSiteDomainAlias.component";
 import { CoreSiteDomainAliasRouting } from "./coreSiteDomainAlias.routing";
 import { CoreSiteDomainAliasEditComponent } from "./edit/edit.component";
 import { CoreSiteDomainAliasListComponent } from "./list/list.component";
+import { CoreSiteDomainAliasListMobileComponent } from "./list/list.mobile.component";
 import { CoreSiteDomainAliasSelectorComponent } from "./selector/selector.component";
 
 import { AngularEditorModule } from "@kolkov/angular-editor";
@@ -19,6 +20,7 @@ import { CoreSiteModule } from "../site/coreSite.module";
   declarations: [
     CoreSiteDomainAliasComponent,
     CoreSiteDomainAliasListComponent,
+    CoreSiteDomainAliasListMobileComponent,
     CoreSiteDomainAliasAddComponent,
     CoreSiteDomainAliasEditComponent,
     CoreSiteDomainAliasSelectorComponent,
@@ -26,6 +28,7 @@ import { CoreSiteModule } from "../site/coreSite.module";
   exports: [
     CoreSiteDomainAliasComponent,
     CoreSiteDomainAliasListComponent,
+    CoreSiteDomainAliasListMobileComponent,
     CoreSiteDomainAliasAddComponent,
     CoreSiteDomainAliasEditComponent,
     CoreSiteDomainAliasSelectorComponent,

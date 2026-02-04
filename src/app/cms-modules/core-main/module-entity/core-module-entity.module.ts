@@ -10,6 +10,7 @@ import { CoreModuleEntityComponent } from "./core-module-entity.component";
 import { CoreModuleEntityRouting } from "./core-module-entity.routing";
 import { CoreModuleEntityEditComponent } from "./edit/edit.component";
 import { CoreModuleEntityListComponent } from "./list/list.component";
+import { CoreModuleEntityListMobileComponent } from "./list/list.mobile.component";
 import { CoreModuleEntitySelectorComponent } from "./selector/selector.component";
 
 @NgModule({
@@ -17,12 +18,14 @@ import { CoreModuleEntitySelectorComponent } from "./selector/selector.component
     CoreModuleEntityComponent,
     CoreModuleEntityEditComponent,
     CoreModuleEntityListComponent,
+    CoreModuleEntityListMobileComponent,
     CoreModuleEntitySelectorComponent,
   ],
   exports: [
     CoreModuleEntityComponent,
     CoreModuleEntityEditComponent,
     CoreModuleEntityListComponent,
+    CoreModuleEntityListMobileComponent,
     CoreModuleEntitySelectorComponent,
   ],
   imports: [

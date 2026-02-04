@@ -12,6 +12,7 @@ import { CoreSiteCategoryComponent } from "./coreSiteCategory.component";
 import { CoreSiteCategoryRouting } from "./coreSiteCategory.routing";
 import { CoreSiteCategoryEditComponent } from "./edit/edit.component";
 import { CoreSiteCategoryListComponent } from "./list/list.component";
+import { CoreSiteCategoryListMobileComponent } from "./list/list.mobile.component";
 import { CoreSiteCategorySelectorComponent } from "./selector/selector.component";
 import { CoreSiteCategoryTreeComponent } from "./tree/tree.component";
 
@@ -25,6 +26,7 @@ import { CoreModuleModule } from "../module/coreModule.module";
   declarations: [
     CoreSiteCategoryComponent,
     CoreSiteCategoryListComponent,
+    CoreSiteCategoryListMobileComponent,
     CoreSiteCategoryAddComponent,
     CoreSiteCategoryEditComponent,
     CoreSiteCategorySelectorComponent,
@@ -34,6 +36,7 @@ import { CoreModuleModule } from "../module/coreModule.module";
   exports: [
     CoreSiteCategoryComponent,
     CoreSiteCategoryListComponent,
+    CoreSiteCategoryListMobileComponent,
     CoreSiteCategoryAddComponent,
     CoreSiteCategoryEditComponent,
     CoreSiteCategorySelectorComponent,

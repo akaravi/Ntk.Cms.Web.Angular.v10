@@ -8,6 +8,7 @@ import { CoreLocationComponent } from "./coreLocation.component";
 import { CoreLocationRouting } from "./coreLocation.routing";
 import { CoreLocationEditComponent } from "./edit/edit.component";
 import { CoreLocationListComponent } from "./list/list.component";
+import { CoreLocationListMobileComponent } from "./list/list.mobile.component";
 import { CoreLocationSelectorComponent } from "./selector/selector.component";
 import { CoreLocationTreeComponent } from "./tree/tree.component";
 
@@ -21,6 +22,7 @@ import { CoreLocationAddBulkComponent } from "./add-bulk/add-bulk.component";
   declarations: [
     CoreLocationComponent,
     CoreLocationListComponent,
+    CoreLocationListMobileComponent,
     CoreLocationAddComponent,
     CoreLocationAddBulkComponent,
     CoreLocationEditComponent,
@@ -30,6 +32,7 @@ import { CoreLocationAddBulkComponent } from "./add-bulk/add-bulk.component";
   exports: [
     CoreLocationComponent,
     CoreLocationListComponent,
+    CoreLocationListMobileComponent,
     CoreLocationAddComponent,
     CoreLocationAddBulkComponent,
     CoreLocationEditComponent,

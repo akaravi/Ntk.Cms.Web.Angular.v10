@@ -13,6 +13,7 @@ import {
   CoreSiteUserService,
 } from "ntk-cms-api";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
 import { SharedModule } from "src/app/shared/shared.module";
 import { CoreModuleModule } from "../module/coreModule.module";
 import { CoreUserGroupCmsModule } from "../user-group/coreUserGroup.module";
@@ -21,9 +22,9 @@ import { CoreCpMainMenuComponent } from "./coreCpMainMenu.component";
 import { CoreCpMainMenuRouting } from "./coreCpMainMenu.routing";
 import { CoreCpMainMenuEditComponent } from "./edit/edit.component";
 import { CoreCpMainMenuListComponent } from "./list/list.component";
+import { CoreCpMainMenuListMobileComponent } from "./list/list.mobile.component";
 import { CoreCpMainMenuSelectorComponent } from "./selector/selector.component";
 import { CoreCpMainMenuTreeComponent } from "./tree/tree.component";
-import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
   exports: [
     CoreCpMainMenuComponent,
     CoreCpMainMenuListComponent,
+    CoreCpMainMenuListMobileComponent,
     CoreCpMainMenuAddComponent,
     CoreCpMainMenuEditComponent,
     CoreCpMainMenuTreeComponent,

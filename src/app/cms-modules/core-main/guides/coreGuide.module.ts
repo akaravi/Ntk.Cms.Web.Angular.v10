@@ -13,6 +13,7 @@ import { CoreGuideComponent } from "./coreGuide.component";
 import { CoreGuideRouting } from "./coreGuide.routing";
 import { CoreGuideEditComponent } from "./edit/edit.component";
 import { CoreGuideListComponent } from "./list/list.component";
+import { CoreGuideListMobileComponent } from "./list/list.mobile.component";
 import { CoreGuideSelectorComponent } from "./selector/selector.component";
 import { CoreGuideTreeComponent } from "./tree/tree.component";
 
@@ -20,6 +21,7 @@ import { CoreGuideTreeComponent } from "./tree/tree.component";
   declarations: [
     CoreGuideComponent,
     CoreGuideListComponent,
+    CoreGuideListMobileComponent,
     CoreGuideAddComponent,
     CoreGuideEditComponent,
     CoreGuideSelectorComponent,
@@ -29,6 +31,7 @@ import { CoreGuideTreeComponent } from "./tree/tree.component";
   exports: [
     CoreGuideComponent,
     CoreGuideListComponent,
+    CoreGuideListMobileComponent,
     CoreGuideAddComponent,
     CoreGuideEditComponent,
     CoreGuideSelectorComponent,

@@ -23,16 +23,19 @@ import { CoreModuleSiteCreditChargeOnlineCalculateComponent } from "./site-credi
 import { CoreModuleSiteCreditChargeOnlineComponent } from "./site-credit/charge-online/charge-online.component";
 import { CoreModuleSiteCreditEditComponent } from "./site-credit/edit/edit.component";
 import { CoreModuleSiteCreditListComponent } from "./site-credit/list/list.component";
+import { CoreModuleSiteCreditListMobileComponent } from "./site-credit/list/list.mobile.component";
 
 import { CoreModuleSiteUserCreditChargeDirectComponent } from "./site-user-credit/charge-direct/charge-direct.component";
 import { CoreModuleSiteUserCreditChargeOnlineCalculateComponent } from "./site-user-credit/charge-online-calculate/charge-online-calculate.component";
 import { CoreModuleSiteUserCreditChargeOnlineComponent } from "./site-user-credit/charge-online/charge-online.component";
 import { CoreModuleSiteUserCreditEditComponent } from "./site-user-credit/edit/edit.component";
 import { CoreModuleSiteUserCreditListComponent } from "./site-user-credit/list/list.component";
+import { CoreModuleSiteUserCreditListMobileComponent } from "./site-user-credit/list/list.mobile.component";
 import { CoreModuleSiteUserCreditMyselfListComponent } from "./site-user-credit/myself-list/myself-list.component";
 import { CoreModuleTagAddBulkComponent } from "./tag/add-bulk/add-bulk.component";
 import { CoreModuleTagEditComponent } from "./tag/edit/edit.component";
 import { CoreModuleTagListComponent } from "./tag/list/list.component";
+import { CoreModuleTagListMobileComponent } from "./tag/list/list.mobile.component";
 import { CoreModuleTagSelectorComponent } from "./tag/selector/selector.component";
 import { CoreModuleTagCategoryDeleteComponent } from "./tagCategory/delete/delete.component";
 import { CoreModuleTagCategoryEditComponent } from "./tagCategory/edit/edit.component";
@@ -78,6 +81,7 @@ import { CoreModuleTagCategoryTreeComponent } from "./tagCategory/tree/tree.comp
     CoreModuleComponent,
     CoreModuleTagEditComponent,
     CoreModuleTagListComponent,
+    CoreModuleTagListMobileComponent,
     CoreModuleTagCategoryEditComponent,
     CoreModuleTagCategoryDeleteComponent,
     CoreModuleTagCategoryTreeComponent,
@@ -86,9 +90,11 @@ import { CoreModuleTagCategoryTreeComponent } from "./tagCategory/tree/tree.comp
     CoreModuleTagAddBulkComponent,
     CoreModuleSiteCreditEditComponent,
     CoreModuleSiteCreditListComponent,
+    CoreModuleSiteCreditListMobileComponent,
 
     CoreModuleSiteUserCreditEditComponent,
     CoreModuleSiteUserCreditListComponent,
+    CoreModuleSiteUserCreditListMobileComponent,
     CoreModuleSiteUserCreditMyselfListComponent,
     CoreModuleSiteUserCreditChargeOnlineComponent,
     CoreModuleSiteCreditChargeOnlineComponent,

@@ -8,6 +8,7 @@ import {
 } from "ntk-cms-api";
 import { SharedModule } from "src/app/shared/shared.module";
 import { CoreSiteCategoryCmsModuleListComponent } from "./list/list.component";
+import { CoreSiteCategoryCmsModuleListMobileComponent } from "./list/list.mobile.component";
 import { CoreSiteCategoryCmsModuleSelectorComponent } from "./selector/selector.component";
 
 import { AngularEditorModule } from "@kolkov/angular-editor";
@@ -25,6 +26,7 @@ import { CoreSiteCategoryCmsModuleListViewComponent } from "./listview/listview.
   declarations: [
     CoreSiteCategoryCmsModuleComponent,
     CoreSiteCategoryCmsModuleListComponent,
+    CoreSiteCategoryCmsModuleListMobileComponent,
     CoreSiteCategoryCmsModuleListViewComponent,
     CoreSiteCategoryCmsModuleAddComponent,
     CoreSiteCategoryCmsModuleEditComponent,
@@ -34,6 +36,7 @@ import { CoreSiteCategoryCmsModuleListViewComponent } from "./listview/listview.
   exports: [
     CoreSiteCategoryCmsModuleComponent,
     CoreSiteCategoryCmsModuleListComponent,
+    CoreSiteCategoryCmsModuleListMobileComponent,
     CoreSiteCategoryCmsModuleListViewComponent,
     CoreSiteCategoryCmsModuleAddComponent,
     CoreSiteCategoryCmsModuleEditComponent,
