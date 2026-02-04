@@ -40,5 +40,16 @@ export class CoreModuleLogSiteUserCreditBlockedListMobileComponent extends CoreM
   getRowExpanded(row: any): boolean {
     return (row as any).expanded === true;
   }
-}
+  onActionCopied(): void {
+    super['onActionCopied']?.();
+  }
 
+  onActionButtonViewRow(model: any): void {
+    super['onActionButtonViewRow']?.(model);
+  }
+
+  onActionButtonNewRow(): void {
+    super['onActionButtonNewRow']?.();
+  }
+
+}

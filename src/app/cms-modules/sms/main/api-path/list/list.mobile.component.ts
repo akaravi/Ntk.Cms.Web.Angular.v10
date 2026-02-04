@@ -14,4 +14,12 @@ export class SmsMainApiPathListMobileComponent extends SmsMainApiPathListCompone
   onActionCopied(): void {
     this.cmsToastrService.typeSuccessCopedToClipboard();
   }
+  onActionButtonViewRow(model: any): void {
+    super['onActionButtonViewRow']?.(model);
+  }
+
+  onActionButtonNewRow(): void {
+    super['onActionButtonNewRow']?.();
+  }
+
 }

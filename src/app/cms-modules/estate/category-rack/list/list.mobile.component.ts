@@ -10,4 +10,16 @@ import { EstateCategoryRackListComponent } from "./list.component";
 export class EstateCategoryRackListMobileComponent extends EstateCategoryRackListComponent {
   // این کامپوننت UI خاصی دارد و نمی‌تواند از app-cms-html-list-mobile استفاده کند
   // اما TS را ساده‌سازی کردیم تا از EstateCategoryRackListComponent ارث‌بری کند
+  onActionCopied(): void {
+    super['onActionCopied']?.();
+  }
+
+  onActionButtonViewRow(model: any): void {
+    super['onActionButtonViewRow']?.(model);
+  }
+
+  onActionButtonNewRow(): void {
+    super['onActionButtonNewRow']?.();
+  }
+
 }

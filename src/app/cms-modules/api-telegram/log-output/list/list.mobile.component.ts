@@ -40,48 +40,16 @@ export class ApiTelegramLogOutputListMobileComponent extends ApiTelegramLogOutpu
   getRowExpanded(row: any): boolean {
     return (row as any).expanded === true;
   }
-}
-
-import { Component, HostListener } from "@angular/core";
-import { ApiTelegramLogOutputListComponent } from "./list.component";
-
-@Component({
-  selector: "app-apitelegram-log-output-list-mobile",
-  templateUrl: "./list.mobile.component.html",
-  standalone: false,
-})
-export class ApiTelegramLogOutputListMobileComponent extends ApiTelegramLogOutputListComponent {
-  actionMenuOpen: string | null = null;
-
-  toggleActionMenu(rowId: string | number): void {
-    const idStr = String(rowId);
-    if (this.actionMenuOpen === idStr) {
-      this.actionMenuOpen = null;
-    } else {
-      this.actionMenuOpen = idStr;
-    }
+  onActionCopied(): void {
+    super['onActionCopied']?.();
   }
 
-  closeActionMenu(): void {
-    this.actionMenuOpen = null;
+  onActionButtonViewRow(model: any): void {
+    super['onActionButtonViewRow']?.(model);
   }
 
-  toString(value: string | number): string {
-    return String(value);
+  onActionButtonNewRow(): void {
+    super['onActionButtonNewRow']?.();
   }
 
-  @HostListener("document:click", ["$event"])
-  onDocumentClick(event: Event): void {
-    const target = event.target as HTMLElement;
-    if (
-      !target.closest(".cms-m-action-menu") &&
-      !target.closest(".cms-m-action-menu-dropdown")
-    ) {
-      this.closeActionMenu();
-    }
-  }
-
-  getRowExpanded(row: any): boolean {
-    return (row as any).expanded === true;
-  }
 }

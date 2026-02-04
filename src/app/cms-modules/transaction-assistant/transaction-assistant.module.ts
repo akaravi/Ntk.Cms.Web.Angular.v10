@@ -170,6 +170,7 @@ import { TransactionAssistantDashboardComponent } from "./dashboard/dashboard.co
     /* Address */
     /* Invoice */
     TransactionAssistantInvoiceListComponent,
+    TransactionAssistantInvoiceListMobileComponent,
     TransactionAssistantInvoiceAddComponent,
     TransactionAssistantInvoiceEditComponent,
     /* Invoice */

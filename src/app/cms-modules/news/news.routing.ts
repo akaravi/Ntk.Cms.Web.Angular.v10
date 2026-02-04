@@ -1,8 +1,8 @@
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 
-import { DesktopViewportCanMatchGuard, MobileViewportCanMatchGuard } from "../../core/guards/responsive-route.guard";
-import { withResponsiveRouteVariants } from "../../core/helpers/responsive-routing.helper";
+import { DesktopViewportCanMatchGuard, MobileViewportCanMatchGuard } from "src/app/core/guards/responsive-route.guard";
+import { withResponsiveRouteVariants } from "src/app/core/helpers/responsive-routing.helper";
 import { routesMobile } from "./routes.mobile";
 import { routesNormal } from "./routes.normal";
 

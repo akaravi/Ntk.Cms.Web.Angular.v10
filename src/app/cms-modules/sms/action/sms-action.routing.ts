@@ -1,13 +1,22 @@
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 
+import { DesktopViewportCanMatchGuard, MobileViewportCanMatchGuard } from "src/app/core/guards/responsive-route.guard";
+import { withResponsiveRouteVariants } from "src/app/core/helpers/responsive-routing.helper";
 import { routesNormal } from "./routes.normal";
 import { routesMobile } from "./routes.mobile";
 /**توجه این روت دو بخش داد باید در هر دو بخش روت ها اضفا شود */
 
 @NgModule({
   imports: [
-    RouterModule.forChild(getResponsiveRoutes(routesMobile, routesNormal)),
+    RouterModule.forChild(
+      withResponsiveRouteVariants(
+        routesMobile,
+        routesNormal,
+        MobileViewportCanMatchGuard,
+        DesktopViewportCanMatchGuard,
+      ),
+    ),
     //RouterModule.forChild(routesNormal),
   ],
   exports: [RouterModule],

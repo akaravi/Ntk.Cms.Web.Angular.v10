@@ -41,7 +41,7 @@ export class TransactionAssistantRatingListComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: TransactionAssistantRatingService,
+    public contentService: TransactionAssistantRatingService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public cmsToastrService: CmsToastrService,
     public tokenHelper: TokenHelper,

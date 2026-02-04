@@ -40,4 +40,17 @@ export class WebDesignerMainPageListMobileComponent extends WebDesignerMainPageL
   getRowExpanded(row: any): boolean {
     return (row as any).expanded === true;
   }
+
+  onActionButtonViewRow(model: any): void {
+    // Ensure template can call this even if base class method is protected/not picked by template typing
+    (super as any).onActionButtonViewRow(model);
+  }
+
+  onActionCopied(): void {
+    (super as any).onActionCopied?.();
+  }
+  onActionButtonNewRow(): void {
+    super['onActionButtonNewRow']?.();
+  }
+
 }

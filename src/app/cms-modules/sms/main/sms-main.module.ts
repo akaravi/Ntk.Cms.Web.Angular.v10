@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { NgModule } from "@angular/core";
+import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, NgModule } from "@angular/core";
 import { SmsMainComponent } from "./sms-main.component";
 import { SmsMainRoutes } from "./sms-main.routing";
 
@@ -98,6 +98,7 @@ import { SmsMainClientApplicationSelectorComponent } from "./client-application/
 import { SmsMainClientApplicationPermissionAddComponent } from "./client-application-permission/add/add.component";
 import { SmsMainClientApplicationPermissionEditComponent } from "./client-application-permission/edit/edit.component";
 import { SmsMainClientApplicationPermissionListComponent } from "./client-application-permission/list/list.component";
+import { SmsMainClientApplicationPermissionListMobileComponent } from "./client-application-permission/list/list.mobile.component";
 import { SmsMainMessageCategoryAddComponent } from "./message-category/add/add.component";
 import { SmsMainMessageCategoryDeleteComponent } from "./message-category/delete/delete.component";
 import { SmsMainMessageCategoryEditComponent } from "./message-category/edit/edit.component";
@@ -213,6 +214,7 @@ import { SmsMainApiPathPublicConfigTreeMobileComponent } from "./public-config/t
     SmsMainClientApplicationSelectorComponent,
     /*ClientApplicationPermission*/
     SmsMainClientApplicationPermissionListComponent,
+    SmsMainClientApplicationPermissionListMobileComponent,
     SmsMainClientApplicationPermissionAddComponent,
     SmsMainClientApplicationPermissionEditComponent,
 
@@ -317,6 +319,7 @@ import { SmsMainApiPathPublicConfigTreeMobileComponent } from "./public-config/t
     SmsMainClientApplicationSelectorComponent,
     /*ClientApplicationPermission*/
     SmsMainClientApplicationPermissionListComponent,
+    SmsMainClientApplicationPermissionListMobileComponent,
     SmsMainClientApplicationPermissionAddComponent,
     SmsMainClientApplicationPermissionEditComponent,
     /** */
@@ -372,5 +375,6 @@ import { SmsMainApiPathPublicConfigTreeMobileComponent } from "./public-config/t
     SmsMainClientApplicationService,
     SmsMainClientApplicationPermissionService,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
 export class SmsMainModule {}

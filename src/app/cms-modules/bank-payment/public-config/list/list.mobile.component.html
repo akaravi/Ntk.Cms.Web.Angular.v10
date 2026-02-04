@@ -12,8 +12,8 @@
   [optionActionRowDisplayMenu]="tableRowSelect2Click"
   [optionActionRowDisplayMenuAct]="tableRowSelectActionMenuClick"
   [optionSelectRowItemTitle]="
-    tableRowSelected?.title?.length > 0
-      ? tableRowSelected?.title
+    ($any(tableRowSelected)?.title)?.length > 0
+      ? ($any(tableRowSelected)?.title)
       : tableRowSelected?.id
   "
   >
@@ -123,8 +123,7 @@
               type="button"
               class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-magenta"
               target="_blank"
-              ><i class="fa-solid fa-pen font-18" style="color: #ffffff"></i><br
-            /></a>
+              ><i class="fa-solid fa-pen font-18" style="color: #ffffff"></i><br /></a>
             <p class="font-11 text-center opacity-70">
               {{ "ACTION.EDIT" | translate }}
             </p>
@@ -141,8 +140,7 @@
               type="button"
               class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-red"
               target="_blank"
-              ><i class="fa-solid fa-trash font-18" style="color: #ffffff"></i><br
-            /></a>
+              ><i class="fa-solid fa-trash font-18" style="color: #ffffff"></i><br /></a>
             <p class="font-11 text-center opacity-70">
               {{ "ACTION.DELETE" | translate }}
             </p>
@@ -154,8 +152,7 @@
               (click)="onActionButtonPrivateList(tableRowSelected, $event)"
               class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
               target="_blank"
-              ><i class="fa-solid fa-money-bill font-18" style="color: #ffffff"></i
-            ><br />
+              ><i class="fa-solid fa-money-bill font-18" style="color: #ffffff"></i><br />
           </a>
           <p class="font-11 text-center opacity-70">
             {{ "ACTION.ACCOUNTS" | translate }}
@@ -185,14 +182,14 @@
                 (mouseenter)="onActionTableRowMouseEnter(row)"
                 (mouseleave)="onActionTableRowMouseLeave(row)"
                 role="button"
-                [attr.aria-label]="row.title || row.id"
+                [attr.aria-label]="($any(row).title) || row.id"
                 tabindex="0"
               >
                 @if (row?.linkModuleFileLogoIdSrc?.length > 0) {
                   <div class="cms-m-list-item-image">
                     <img
                       [src]="row.linkModuleFileLogoIdSrc"
-                      [alt]="row.title || row.id"
+                      [alt]="($any(row).title) || row.id"
                       class="cms-m-list-item-image-img"
                     />
                   </div>
@@ -203,7 +200,7 @@
                 }
                 <div class="cms-m-list-item-content">
                   <div class="cms-m-list-item-title">
-                    {{ row.title || ('ID: ' + row.id) }}
+                    {{ ($any(row).title) || ('ID: ' + row.id) }}
                   </div>
                   @if (row.className) {
                     <div class="cms-m-list-item-subtitle">

@@ -14,4 +14,12 @@ export class DataProviderSourcePublicConfigListMobileComponent extends DataProvi
   onActionCopied(): void {
     this.cmsToastrService.typeSuccessCopedToClipboard();
   }
+  onActionButtonViewRow(model: any): void {
+    super['onActionButtonViewRow']?.(model);
+  }
+
+  onActionButtonNewRow(): void {
+    super['onActionButtonNewRow']?.();
+  }
+
 }

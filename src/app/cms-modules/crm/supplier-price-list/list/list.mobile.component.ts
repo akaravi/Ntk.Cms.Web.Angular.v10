@@ -7,4 +7,16 @@ import { CrmSupplierPriceListComponent } from "./list.component";
   standalone: false,
 })
 export class CrmSupplierPriceListMobileComponent extends CrmSupplierPriceListComponent {
+  onActionCopied(): void {
+    super['onActionCopied']?.();
+  }
+
+  onActionButtonViewRow(model: any): void {
+    super['onActionButtonViewRow']?.(model);
+  }
+
+  onActionButtonNewRow(): void {
+    super['onActionButtonNewRow']?.();
+  }
+
 }
