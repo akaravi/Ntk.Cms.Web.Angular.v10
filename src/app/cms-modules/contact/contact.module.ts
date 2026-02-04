@@ -28,6 +28,7 @@ import { ContactCategoryTreeComponent } from "./category/tree/tree.component";
 import { ContactContentAddComponent } from "./content/add/add.component";
 import { ContactContentEditComponent } from "./content/edit/edit.component";
 import { ContactContentListComponent } from "./content/list/list.component";
+import { ContactContentListMobileComponent } from "./content/list/list.mobile.component";
 import { ContactContentSelectionlistComponent } from "./content/selection-list/selectionlist.component";
 import { ContactContentSelectorComponent } from "./content/selector/selector.component";
 import { ContactContentImportComponent } from "./content/import/import.component";
@@ -43,6 +44,7 @@ import { ContactContentImportComponent } from "./content/import/import.component
     ContactCategoryTreeSelectorComponent,
     ContactContentSelectorComponent,
     ContactContentListComponent,
+    ContactContentListMobileComponent,
     ContactContentAddComponent,
     ContactContentEditComponent,
     ContactContentSelectionlistComponent,

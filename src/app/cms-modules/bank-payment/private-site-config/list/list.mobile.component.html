@@ -190,10 +190,10 @@
                 [attr.aria-label]="($any(row).title) || row.id"
                 tabindex="0"
               >
-                @if (row?.linkMainImageIdSrc?.length > 0) {
+                @if ($any(row)?.linkMainImageIdSrc?.length > 0) {
                   <div class="cms-m-list-item-image">
                     <img
-                      [src]="row.linkMainImageIdSrc | cmsthumbnail"
+                      [src]="$any(row).linkMainImageIdSrc | cmsthumbnail"
                       [alt]="($any(row).title) || row.id"
                       class="cms-m-list-item-image-img"
                     />
@@ -207,10 +207,10 @@
                   <div class="cms-m-list-item-title">
                     {{ ($any(row).title) || ('ID: ' + row.id) }}
                   </div>
-                  @if (row.linkSiteId) {
+                  @if ($any(row).linkSiteId) {
                     <div class="cms-m-list-item-subtitle">
                       <i class="fa-solid fa-globe" aria-hidden="true"></i>
-                      {{ fieldsInfo['linkSiteId']?.fieldTitle }}: {{ row.linkSiteId }}
+                      {{ fieldsInfo['linkSiteId']?.fieldTitle }}: {{ $any(row).linkSiteId }}
                     </div>
                   }
                   @if (row.linkPublicConfigId) {

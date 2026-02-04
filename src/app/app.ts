@@ -1,3 +1,51 @@
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  HostListener,
+  OnDestroy,
+  OnInit,
+} from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { Router, RouterOutlet, ActivatedRoute, NavigationStart, NavigationEnd, NavigationError, Event } from "@angular/router";
+import { Title } from "@angular/platform-browser";
+import { TranslateService } from "@ngx-translate/core";
+import { SwPush } from "@angular/service-worker";
+import {
+  CoreAuthV3Service,
+  CoreSiteService,
+  CoreConfigurationService,
+  CoreModuleService,
+  ErrorExceptionResult,
+  CoreSiteSupportModel,
+  TokenInfoModelV3,
+  TokenDeviceSetNotificationIdDtoModel,
+} from "ntk-cms-api";
+import { Observable, Subscription, filter, map } from "rxjs";
+import { ComponentsModule } from "./components/components.module";
+import { SharedModule } from "./shared/shared.module";
+import { PublicHelper } from "./core/helpers/publicHelper";
+import { TokenHelper } from "./core/helpers/tokenHelper";
+import { CmsStoreService } from "./core/reducers/cmsStore.service";
+import { SET_Core_Module, SET_Connection_STATE } from "./core/reducers/reducer.factory";
+import { PageInfoService } from "./core/services/page-info.service";
+import { ProcessService } from "./core/services/process.service";
+import { ProcessModel } from "./core/models/processModel";
+import { ThemeService } from "./core/services/theme.service";
+import { CmsToastrService } from "./core/services/cmsToastr.service";
+import {
+  SITE_ID_LOCAL_STORAGE_KEY,
+  SITE_TYPE_ID_LOCAL_STORAGE_KEY,
+  RESSELLER_SITE_ID_LOCAL_STORAGE_KEY,
+  RESSELLER_USER_ID_LOCAL_STORAGE_KEY,
+  KeyboardEventF9,
+} from "./core/models/constModel";
+import { ConnectionStatusModel } from "./core/models/connectionStatusModel";
+import { HttpParams } from "@angular/common/http";
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { environment } from "../environments/environment";
+
 //start change title when route happened
 //end change title when route happened
 
@@ -10,6 +58,8 @@
 export class App implements OnInit, AfterViewInit, OnDestroy {
   //protected readonly title = signal('aaaa');
   private unsubscribe: Subscription[] = [];
+  private lastViewportIsMobile: boolean =
+    typeof window !== "undefined" ? window.innerWidth < 1000 : false;
   constructor(
     private router: Router,
     private titleService: Title,
@@ -26,6 +76,7 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
     public pageInfo: PageInfoService,
     public processService: ProcessService,
     private coreModuleService: CoreModuleService,
+    public cmsToastrService: CmsToastrService,
   ) {
     if (
       environment.cmsServerConfig.configApiServerPath &&
@@ -201,6 +252,15 @@ export class App implements OnInit, AfterViewInit, OnDestroy {
   @HostListener("window:resize", ["$event"])
   onWindowResize(event: Event) {
     this.themeService.updateInnerSize();
+    // Re-evaluate responsive routes when crossing the 1000px breakpoint
+    // (routes are selected via canMatch guards in module routing files)
+    const nowIsMobile = window.innerWidth < 1000;
+    if (nowIsMobile !== this.lastViewportIsMobile) {
+      this.lastViewportIsMobile = nowIsMobile;
+      // Trigger a re-navigation to the current URL so Angular can re-match routes
+      // with the new viewport size. This avoids requiring a full page reload.
+      this.router.navigateByUrl(this.router.url, { replaceUrl: true });
+    }
   }
   getServiceVer(): void {
     const pName = this.constructor.name + "ServiceIp";

@@ -36,11 +36,13 @@ import { ArticleCategoryTreeSelectorComponent } from "./category/tree-selector/t
 import { ArticleCategoryTreeComponent } from "./category/tree/tree.component";
 import { ArticleCommentEditComponent } from "./comment/edit/edit.component";
 import { ArticleCommentListComponent } from "./comment/list/list.component";
+import { ArticleCommentListMobileComponent } from "./comment/list/list.mobile.component";
 import { ArticleContentAddComponent } from "./content/add/add.component";
 import { ArticleContentDeleteComponent } from "./content/delete/delete.component";
 import { ArticleContentEditComponent } from "./content/edit/edit.component";
 import { ArticletHeaderComponent } from "./content/header/header.component";
 import { ArticleContentListComponent } from "./content/list/list.component";
+import { ArticleContentListMobileComponent } from "./content/list/list.mobile.component";
 import { ArticleContentSelectorComponent } from "./content/selector/selector.component";
 @NgModule({
   declarations: [
@@ -49,6 +51,7 @@ import { ArticleContentSelectorComponent } from "./content/selector/selector.com
     ArticleContentEditComponent,
     ArticleContentDeleteComponent,
     ArticleContentListComponent,
+    ArticleContentListMobileComponent,
     ArticleContentSelectorComponent,
     ArticleCategoryTreeComponent,
     ArticletHeaderComponent,
@@ -57,6 +60,7 @@ import { ArticleContentSelectorComponent } from "./content/selector/selector.com
     ArticleCategoryEditComponent,
     ArticleCategoryDeleteComponent,
     ArticleCommentListComponent,
+    ArticleCommentListMobileComponent,
     ArticleCommentEditComponent,
     ArticleCategoryTreeSelectorComponent,
   ],

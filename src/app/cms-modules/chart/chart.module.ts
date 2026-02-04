@@ -39,8 +39,10 @@ import { ChartCategoryTreeSelectorComponent } from "./category/tree-selector/tre
 import { ChartCategoryTreeComponent } from "./category/tree/tree.component";
 import { ChartCommentEditComponent } from "./comment/edit/edit.component";
 import { ChartCommentListComponent } from "./comment/list/list.component";
+import { ChartCommentListMobileComponent } from "./comment/list/list.mobile.component";
 import { ChartContentDeleteComponent } from "./content/delete/delete.component";
 import { ChartContentListComponent } from "./content/list/list.component";
+import { ChartContentListMobileComponent } from "./content/list/list.mobile.component";
 import { ChartContentSelectorComponent } from "./content/selector/selector.component";
 
 @NgModule({
@@ -50,6 +52,7 @@ import { ChartContentSelectorComponent } from "./content/selector/selector.compo
     ChartContentEditComponent,
     ChartContentDeleteComponent,
     ChartContentListComponent,
+    ChartContentListMobileComponent,
     ChartContentSelectorComponent,
     ChartCategoryTreeComponent,
     ChartCategoryTreeSelectorComponent,
@@ -58,6 +61,7 @@ import { ChartContentSelectorComponent } from "./content/selector/selector.compo
     ChartCategoryEditComponent,
     ChartCategoryDeleteComponent,
     ChartCommentListComponent,
+    ChartCommentListMobileComponent,
     ChartCommentEditComponent,
   ],
   imports: [

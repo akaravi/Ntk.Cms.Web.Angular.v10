@@ -35,10 +35,12 @@ import { BiographyCategoryTreeSelectorComponent } from "./category/tree-selector
 import { BiographyCategoryTreeComponent } from "./category/tree/tree.component";
 import { BiographyCommentEditComponent } from "./comment/edit/edit.component";
 import { BiographyCommentListComponent } from "./comment/list/list.component";
+import { BiographyCommentListMobileComponent } from "./comment/list/list.mobile.component";
 import { BiographyContentAddComponent } from "./content/add/add.component";
 import { BiographyContentDeleteComponent } from "./content/delete/delete.component";
 import { BiographyContentEditComponent } from "./content/edit/edit.component";
 import { BiographyContentListComponent } from "./content/list/list.component";
+import { BiographyContentListMobileComponent } from "./content/list/list.mobile.component";
 import { BiographyContentSelectorComponent } from "./content/selector/selector.component";
 @NgModule({
   declarations: [
@@ -47,6 +49,7 @@ import { BiographyContentSelectorComponent } from "./content/selector/selector.c
     BiographyContentEditComponent,
     BiographyContentDeleteComponent,
     BiographyContentListComponent,
+    BiographyContentListMobileComponent,
     BiographyContentSelectorComponent,
     BiographyCategoryTreeComponent,
     BiographyCategorySelectorComponent,
@@ -54,6 +57,7 @@ import { BiographyContentSelectorComponent } from "./content/selector/selector.c
     BiographyCategoryEditComponent,
     BiographyCategoryDeleteComponent,
     BiographyCommentListComponent,
+    BiographyCommentListMobileComponent,
     BiographyCommentEditComponent,
     BiographyCategoryTreeSelectorComponent,
   ],

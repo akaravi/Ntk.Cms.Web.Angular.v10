@@ -40,9 +40,11 @@ import { BlogCategoryTreeSelectorComponent } from "./category/tree-selector/tree
 import { BlogCategoryTreeComponent } from "./category/tree/tree.component";
 import { BlogCommentEditComponent } from "./comment/edit/edit.component";
 import { BlogCommentListComponent } from "./comment/list/list.component";
+import { BlogCommentListMobileComponent } from "./comment/list/list.mobile.component";
 import { BlogContentDeleteComponent } from "./content/delete/delete.component";
 import { BlogContentHeaderComponent } from "./content/header/header.component";
 import { BlogContentListComponent } from "./content/list/list.component";
+import { BlogContentListMobileComponent } from "./content/list/list.mobile.component";
 import { BlogContentSelectorComponent } from "./content/selector/selector.component";
 
 @NgModule({
@@ -53,6 +55,7 @@ import { BlogContentSelectorComponent } from "./content/selector/selector.compon
     BlogContentEditComponent,
     BlogContentDeleteComponent,
     BlogContentListComponent,
+    BlogContentListMobileComponent,
     BlogContentHeaderComponent,
     BlogContentSelectorComponent,
     BlogCategoryTreeComponent,
@@ -62,6 +65,7 @@ import { BlogContentSelectorComponent } from "./content/selector/selector.compon
     BlogCategoryDeleteComponent,
     BlogCategoryTreeSelectorComponent,
     BlogCommentListComponent,
+    BlogCommentListMobileComponent,
     BlogCommentEditComponent,
   ],
   imports: [

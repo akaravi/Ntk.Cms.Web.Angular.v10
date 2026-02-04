@@ -4,11 +4,17 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ApplicationComponent } from "./application.component";
 import { ApplicationRoutes } from "./application.routing";
 import { ApplicationAppListComponent } from "./content/list/list.component";
+import { ApplicationAppListMobileComponent } from "./content/list/list.mobile.component";
 import { ApplicationIntroListComponent } from "./intro/list/list.component";
+import { ApplicationIntroListMobileComponent } from "./intro/list/list.mobile.component";
 import { ApplicationMemberInfoListComponent } from "./memberInfo/list/list.component";
+import { ApplicationMemberInfoListMobileComponent } from "./memberInfo/list/list.mobile.component";
 import { ApplicationLogNotificationListComponent } from "./notification/list/list.component";
+import { ApplicationLogNotificationListMobileComponent } from "./notification/list/list.mobile.component";
 import { ApplicationSourceListComponent } from "./source/list/list.component";
+import { ApplicationSourceListMobileComponent } from "./source/list/list.mobile.component";
 import { ApplicationThemeConfigListComponent } from "./themeConfig/list/list.component";
+import { ApplicationThemeConfigListMobileComponent } from "./themeConfig/list/list.mobile.component";
 
 import { AngularEditorModule } from "@kolkov/angular-editor";
 import { SharedModule } from "src/app/shared/shared.module";
@@ -60,12 +66,14 @@ import { ApplicationThemeConfigSelectorComponent } from "./themeConfig/selector/
     ApplicationComponent,
 
     ApplicationSourceListComponent,
+    ApplicationSourceListMobileComponent,
     ApplicationSourceTreeComponent,
     ApplicationSourceAddComponent,
     ApplicationSourceEditComponent,
     ApplicationSourceSelectorComponent,
 
     ApplicationAppListComponent,
+    ApplicationAppListMobileComponent,
     ApplicationAppTreeComponent,
     ApplicationAppAddComponent,
     ApplicationAppEditComponent,
@@ -75,18 +83,22 @@ import { ApplicationThemeConfigSelectorComponent } from "./themeConfig/selector/
     ApplicationAppUploadUpdateComponent,
 
     ApplicationIntroListComponent,
+    ApplicationIntroListMobileComponent,
     ApplicationIntroAddComponent,
     ApplicationIntroEditComponent,
 
     ApplicationMemberInfoListComponent,
+    ApplicationMemberInfoListMobileComponent,
     ApplicationMemberInfoViewComponent,
     ApplicationMemberInfoSelectorComponent,
 
     ApplicationLogNotificationListComponent,
+    ApplicationLogNotificationListMobileComponent,
     ApplicationLogNotificationViewComponent,
     ApplicationLogNotificationActionSendComponent,
 
     ApplicationThemeConfigListComponent,
+    ApplicationThemeConfigListMobileComponent,
     ApplicationThemeConfigSelectorComponent,
     ApplicationThemeConfigAddComponent,
     ApplicationThemeConfigEditComponent,

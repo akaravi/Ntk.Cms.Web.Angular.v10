@@ -120,10 +120,10 @@
             tabindex="0"
             >
             @if (false) {
-              @if (row?.linkMainImageIdSrc?.length > 0) {
+              @if ($any(row)?.linkMainImageIdSrc?.length > 0) {
                 <div class="cms-m-list-item-image">
                   <img
-                    [src]="row.linkMainImageIdSrc | cmsthumbnail"
+                    [src]="$any(row).linkMainImageIdSrc | cmsthumbnail"
                     [alt]="($any(row).title) || row.id"
                     loading="lazy"
                   />
