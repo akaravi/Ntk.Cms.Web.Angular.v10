@@ -7,14 +7,9 @@ import { ApplicationAppListComponent } from "./list.component";
   standalone: false,
 })
 export class ApplicationAppListMobileComponent extends ApplicationAppListComponent {
-  getRowExpanded(row: any): boolean {
-    return (row as any).expanded === true;
-  }
 
 
-  onActionButtonViewRow(model: any): void {
-    super['onActionButtonViewRow']?.(model);
-  }
+
 
 
 

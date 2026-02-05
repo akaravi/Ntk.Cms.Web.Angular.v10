@@ -7,14 +7,9 @@ import { CoreModuleTagListComponent } from "./list.component";
   standalone: false,
 })
 export class CoreModuleTagListMobileComponent extends CoreModuleTagListComponent {
-  getRowExpanded(row: any): boolean {
-    return (row as any).expanded === true;
-  }
 
 
-  onActionButtonViewRow(model: any): void {
-    super['onActionButtonViewRow']?.(model);
-  }
+
 
 
 

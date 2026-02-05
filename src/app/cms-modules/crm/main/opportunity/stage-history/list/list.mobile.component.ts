@@ -9,9 +9,6 @@ import { CrmOpportunityStageHistoryListComponent } from "./list.component";
 export class CrmOpportunityStageHistoryListMobileComponent extends CrmOpportunityStageHistoryListComponent {
 
 
-  onActionButtonViewRow(model: any): void {
-    super['onActionButtonViewRow']?.(model);
-  }
 
 
 

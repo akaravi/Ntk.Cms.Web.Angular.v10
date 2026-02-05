@@ -9,9 +9,6 @@ import { CrmSupplierPriceListComponent } from "./list.component";
 export class CrmSupplierPriceListMobileComponent extends CrmSupplierPriceListComponent {
 
 
-  onActionButtonViewRow(model: any): void {
-    super['onActionButtonViewRow']?.(model);
-  }
 
 
 

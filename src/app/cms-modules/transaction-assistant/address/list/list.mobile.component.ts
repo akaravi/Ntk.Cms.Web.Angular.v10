@@ -7,9 +7,7 @@ import { TransactionAssistantAddressListComponent } from "./list.component";
   standalone: false,
 })
 export class TransactionAssistantAddressListMobileComponent extends TransactionAssistantAddressListComponent {
-  getRowExpanded(row: any): boolean {
-    return (row as any).expanded === true;
-  }
+
 
   // Explicitly declare inherited methods for TypeScript
   override onActionButtonViewRow(model?: any): void {

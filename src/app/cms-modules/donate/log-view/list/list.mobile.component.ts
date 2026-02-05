@@ -7,9 +7,7 @@ import { DonateLogViewListComponent } from "./list.component";
   standalone: false,
 })
 export class DonateLogViewListMobileComponent extends DonateLogViewListComponent {
-  getRowExpanded(row: any): boolean {
-    return (row as any).expanded === true;
-  }
+
   onActionButtonEditRow(model: any): void {
     super['onActionButtonEditRow']?.(model);
   }
@@ -18,9 +16,6 @@ export class DonateLogViewListMobileComponent extends DonateLogViewListComponent
   }
 
 
-  onActionButtonViewRow(model: any): void {
-    super['onActionButtonViewRow']?.(model);
-  }
 
 
 

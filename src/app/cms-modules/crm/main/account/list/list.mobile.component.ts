@@ -7,14 +7,9 @@ import { CrmAccountListComponent } from "./list.component";
   standalone: false,
 })
 export class CrmAccountListMobileComponent extends CrmAccountListComponent {
-  getRowExpanded(row: any): boolean {
-    return (row as any).expanded === true;
-  }
 
 
-  onActionButtonViewRow(model: any): void {
-    super['onActionButtonViewRow']?.(model);
-  }
+
 
 
 

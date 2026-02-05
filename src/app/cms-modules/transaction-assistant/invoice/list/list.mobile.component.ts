@@ -7,12 +7,8 @@ import { TransactionAssistantInvoiceListComponent } from "./list.component";
   standalone: false,
 })
 export class TransactionAssistantInvoiceListMobileComponent extends TransactionAssistantInvoiceListComponent {
-  getRowExpanded(row: any): boolean {
-    return (row as any).expanded === true;
-  }
-  onActionButtonViewRow(model: any): void {
-    super["onActionButtonViewRow"]?.(model);
-  }
+
+
 
 
 

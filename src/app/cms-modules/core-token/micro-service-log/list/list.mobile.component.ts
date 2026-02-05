@@ -7,14 +7,9 @@ import { CoreLogTokenMicroServiceListComponent } from "./list.component";
   standalone: false,
 })
 export class CoreLogTokenMicroServiceListMobileComponent extends CoreLogTokenMicroServiceListComponent {
-  getRowExpanded(row: any): boolean {
-    return (row as any).expanded === true;
-  }
 
 
-  onActionButtonViewRow(model: any): void {
-    super['onActionButtonViewRow']?.(model);
-  }
+
 
 
 

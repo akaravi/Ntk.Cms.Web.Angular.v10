@@ -7,14 +7,9 @@ import { CrmOpportunityListComponent } from "./list.component";
   standalone: false,
 })
 export class CrmOpportunityListMobileComponent extends CrmOpportunityListComponent {
-  getRowExpanded(row: any): boolean {
-    return (row as any).expanded === true;
-  }
 
 
-  onActionButtonViewRow(model: any): void {
-    super['onActionButtonViewRow']?.(model);
-  }
+
 
 
 

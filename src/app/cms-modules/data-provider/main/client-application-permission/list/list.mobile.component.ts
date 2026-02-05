@@ -9,14 +9,9 @@ import { DataProviderClientApplicationPermissionListComponent } from "./list.com
 export class DataProviderClientApplicationPermissionListMobileComponent
   extends DataProviderClientApplicationPermissionListComponent
 {
-  getRowExpanded(row: any): boolean {
-    return (row as any).expanded === true;
-  }
 
 
-  onActionButtonViewRow(model: any): void {
-    super['onActionButtonViewRow']?.(model);
-  }
+
 
 
 

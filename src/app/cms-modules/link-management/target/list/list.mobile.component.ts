@@ -7,14 +7,9 @@ import { LinkManagementTargetListComponent } from "./list.component";
   standalone: false,
 })
 export class LinkManagementTargetListMobileComponent extends LinkManagementTargetListComponent {
-  getRowExpanded(row: any): boolean {
-    return (row as any).expanded === true;
-  }
 
 
-  onActionButtonViewRow(model: any): void {
-    super['onActionButtonViewRow']?.(model);
-  }
+
 
 
 

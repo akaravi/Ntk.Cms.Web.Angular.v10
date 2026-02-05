@@ -12,9 +12,6 @@ export class EstateCategoryRackListMobileComponent extends EstateCategoryRackLis
   // اما TS را ساده‌سازی کردیم تا از EstateCategoryRackListComponent ارث‌بری کند
 
 
-  onActionButtonViewRow(model: any): void {
-    super['onActionButtonViewRow']?.(model);
-  }
 
 
 

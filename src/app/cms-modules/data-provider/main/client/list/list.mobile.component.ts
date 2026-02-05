@@ -7,14 +7,9 @@ import { DataProviderClientListComponent } from "./list.component";
   standalone: false,
 })
 export class DataProviderClientListMobileComponent extends DataProviderClientListComponent {
-  getRowExpanded(row: any): boolean {
-    return (row as any).expanded === true;
-  }
 
 
-  onActionButtonViewRow(model: any): void {
-    super['onActionButtonViewRow']?.(model);
-  }
+
 
 
 
