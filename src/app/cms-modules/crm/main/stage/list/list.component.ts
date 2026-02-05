@@ -437,9 +437,7 @@ export class CrmStageListComponent
     });
   }
 
-  onActionCopied(): void {
-    this.cmsToastrService.typeSuccessCopedToClipboard();
-  }
+
 
   onActionButtonReload(): void {
     this.optionloadComponent = true;

@@ -7,16 +7,12 @@ import { CrmSupplierRatingListComponent } from "./list.component";
   standalone: false,
 })
 export class CrmSupplierRatingListMobileComponent extends CrmSupplierRatingListComponent {
-  onActionCopied(): void {
-    super['onActionCopied']?.();
-  }
+
 
   onActionButtonViewRow(model: any): void {
     super['onActionButtonViewRow']?.(model);
   }
 
-  onActionButtonNewRow(): void {
-    super['onActionButtonNewRow']?.();
-  }
+
 
 }

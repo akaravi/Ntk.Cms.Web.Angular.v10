@@ -14,12 +14,8 @@ export class TransactionAssistantPaymentListMobileComponent extends TransactionA
     super["onActionButtonViewRow"]?.(model);
   }
 
-  onActionCopied(): void {
-    super["onActionCopied"]?.();
-  }
 
-  onActionButtonNewRow(): void {
-    super['onActionButtonNewRow']?.();
-  }
+
+
 
 }

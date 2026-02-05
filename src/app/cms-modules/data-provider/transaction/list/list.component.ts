@@ -5,12 +5,12 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  DataProviderTransactionModel,
-  DataProviderTransactionService,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    DataProviderTransactionModel,
+    DataProviderTransactionService,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -331,9 +331,7 @@ export class DataProviderTransactionListComponent
     this.DataGetAll();
   }
 
-  onActionCopied(): void {
-    this.cmsToastrService.typeSuccessCopedToClipboard();
-  }
+
 
   onActionBackToParent(): void {
     if (this.requestLinkCmsUserId > 0) {

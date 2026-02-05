@@ -474,9 +474,7 @@ export class CrmDealListComponent
     });
   }
 
-  onActionCopied(): void {
-    this.cmsToastrService.typeSuccessCopedToClipboard();
-  }
+
 
   onActionButtonReload(): void {
     this.optionloadComponent = true;

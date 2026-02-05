@@ -14,12 +14,8 @@ export class TransactionAssistantCategoryListMobileComponent extends Transaction
     super["onActionButtonViewRow"]?.(model);
   }
 
-  onActionCopied(): void {
-    super["onActionCopied"]?.();
-  }
 
-  onActionButtonNewRow(): void {
-    super['onActionButtonNewRow']?.();
-  }
+
+
 
 }

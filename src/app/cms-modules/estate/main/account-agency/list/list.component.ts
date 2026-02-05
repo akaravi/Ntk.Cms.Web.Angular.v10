@@ -556,9 +556,7 @@ export class EstateAccountAgencyListComponent
       ]);
     }
   }
-  onActionCopied(): void {
-    this.cmsToastrService.typeSuccessCopedToClipboard();
-  }
+
 
   onActionButtonReload(): void {
     this.optionloadComponent = true;

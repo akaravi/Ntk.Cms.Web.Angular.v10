@@ -4,29 +4,31 @@ import { FormGroup } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreCurrencyModel,
-  CoreEnumService,
-  CoreUserModel,
-  DataFieldInfoModel,
-  ErrorExceptionResultBase,
-  EstateAccountAgencyModel,
-  EstateAccountExpertModel,
-  EstateContractTypeModel,
-  EstateContractTypeService,
-  EstateCustomerCategoryModel,
-  EstateCustomerOrderModel,
-  EstateCustomerOrderService,
-  EstatePropertyDetailGroupService,
-  EstatePropertyDetailValueModel,
-  EstatePropertyService,
-  EstatePropertyTypeLanduseModel,
-  EstatePropertyTypeUsageModel,
-  FilterDataModel,
-  FilterModel,InputDataTypeEnum,
-  ManageUserAccessDataTypesEnum,
-  ManageUserAccessUserTypesEnum,
-  RecordStatusEnum,
-  SortTypeEnum} from "ntk-cms-api";
+import {
+    CoreCurrencyModel,
+    CoreEnumService,
+    CoreUserModel,
+    DataFieldInfoModel,
+    ErrorExceptionResultBase,
+    EstateAccountAgencyModel,
+    EstateAccountExpertModel,
+    EstateContractTypeModel,
+    EstateContractTypeService,
+    EstateCustomerCategoryModel,
+    EstateCustomerOrderModel,
+    EstateCustomerOrderService,
+    EstatePropertyDetailGroupService,
+    EstatePropertyDetailValueModel,
+    EstatePropertyService,
+    EstatePropertyTypeLanduseModel,
+    EstatePropertyTypeUsageModel,
+    FilterDataModel,
+    FilterModel, InputDataTypeEnum,
+    ManageUserAccessDataTypesEnum,
+    ManageUserAccessUserTypesEnum,
+    RecordStatusEnum,
+    SortTypeEnum
+} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -35,14 +37,13 @@ import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { ThemeService } from "src/app/core/services/theme.service";
 import { environment } from "src/environments/environment";
-import { EstateAccountAgencyListComponent } from "../../../main/account-agency/list/list.component";
-import { EstateAccountExpertListComponent } from "../../../main/account-expert/list/list.component";
+import { EstatePropertyListComponent } from "../../../data/property/list/list.component";
 import { EstatePropertyHistoryAddComponent } from "../../../log/property-history/add/add.component";
 import { EstatePropertyHistoryListComponent } from "../../../log/property-history/list/list.component";
-import { EstatePropertyListComponent } from "../../../data/property/list/list.component";
+import { EstateAccountAgencyListComponent } from "../../../main/account-agency/list/list.component";
+import { EstateAccountExpertListComponent } from "../../../main/account-expert/list/list.component";
 import { EstateCustomerOrderActionComponent } from "../action/action.component";
 
-import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-estate-customer-order-edit",
@@ -383,9 +384,7 @@ export class EstateCustomerOrderEditComponent
         },
       });
   }
-  onActionCopied(): void {
-    this.cmsToastrService.typeSuccessCopedToClipboard();
-  }
+
   onActionSelectorSelectUsage(
     model: EstatePropertyTypeUsageModel | null,
   ): void {

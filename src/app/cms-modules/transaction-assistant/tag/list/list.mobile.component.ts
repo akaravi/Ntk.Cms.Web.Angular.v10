@@ -14,12 +14,8 @@ export class TransactionAssistantTagListMobileComponent extends TransactionAssis
     super["onActionButtonViewRow"]?.(model);
   }
 
-  onActionCopied(): void {
-    super["onActionCopied"]?.();
-  }
 
-  onActionButtonNewRow(): void {
-    super['onActionButtonNewRow']?.();
-  }
+
+
 
 }

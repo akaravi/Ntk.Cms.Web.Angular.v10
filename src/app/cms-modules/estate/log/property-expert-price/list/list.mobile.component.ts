@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
-import { EstatePropertyExpertPriceListComponent } from "./list.component";
 import { EstatePropertyExpertPriceModel } from "ntk-cms-api";
+import { EstatePropertyExpertPriceListComponent } from "./list.component";
 
 @Component({
   selector: "app-estate-property-expert-price-list-mobile",
@@ -15,16 +15,12 @@ export class EstatePropertyExpertPriceListMobileComponent extends EstateProperty
   getRowExpanded(row: any): boolean {
     return (row as any).expanded === true;
   }
-  onActionCopied(): void {
-    super['onActionCopied']?.();
-  }
+
 
   onActionButtonViewRow(model: any): void {
     super['onActionButtonViewRow']?.(model);
   }
 
-  onActionButtonNewRow(): void {
-    super['onActionButtonNewRow']?.();
-  }
+
 
 }

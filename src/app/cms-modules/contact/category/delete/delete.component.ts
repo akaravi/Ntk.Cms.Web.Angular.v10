@@ -1,7 +1,24 @@
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  ContactCategoryModel,
+  ContactCategoryService,
+  DataFieldInfoModel,
+  ErrorExceptionResult,
+  FilterModel,
+  ManageUserAccessDataTypesEnum,
+} from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { FormInfoModel } from "src/app/core/models/formInfoModel";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
-
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-contact-category-delete",
@@ -16,8 +33,9 @@ export class ContactCategoryDeleteComponent implements OnInit {
     private dialogRef: MatDialogRef<ContactCategoryDeleteComponent>,
     public publicHelper: PublicHelper,
     private contactCategoryService: ContactCategoryService,
-    translate: TranslateService,
+    public translate: TranslateService,
     public cmsToastrService: CmsToastrService,
+    private cdr: ChangeDetectorRef,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
     if (data && data.id && data.id.length > 0) {
@@ -306,3 +324,5 @@ export class ContactCategoryDeleteComponent implements OnInit {
   }
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });
+  }
+}

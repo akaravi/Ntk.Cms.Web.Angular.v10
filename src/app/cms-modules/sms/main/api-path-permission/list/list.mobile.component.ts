@@ -11,15 +11,11 @@ export class SmsMainApiPathPermissionListMobileComponent extends SmsMainApiPathP
     return (row as any).expanded === true;
   }
 
-  onActionCopied(): void {
-    this.cmsToastrService.typeSuccessCopedToClipboard();
-  }
+
   onActionButtonViewRow(model: any): void {
     super['onActionButtonViewRow']?.(model);
   }
 
-  onActionButtonNewRow(): void {
-    super['onActionButtonNewRow']?.();
-  }
+
 
 }

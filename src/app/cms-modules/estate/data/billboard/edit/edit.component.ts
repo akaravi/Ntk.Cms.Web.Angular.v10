@@ -3,21 +3,22 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreCurrencyModel,
-  CoreEnumService,
-  DataFieldInfoModel,
-  ErrorExceptionResultBase,
-  EstateBillboardModel,
-  EstateBillboardService,
-  EstatePropertyDetailGroupService,ManageUserAccessDataTypesEnum,
-  SortTypeEnum} from "ntk-cms-api";
+import {
+    CoreCurrencyModel,
+    CoreEnumService,
+    DataFieldInfoModel,
+    ErrorExceptionResultBase,
+    EstateBillboardModel,
+    EstateBillboardService,
+    EstatePropertyDetailGroupService, ManageUserAccessDataTypesEnum,
+    SortTypeEnum
+} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { EstatePropertyListComponent } from "../../property/list/list.component";
 
-import { FormInfoModel } from "src/app/core/models/formInfoModel";
 
 @Component({
   selector: "app-estate-billboard-edit",
@@ -196,9 +197,7 @@ export class EstateBillboardEditComponent
       },
     });
   }
-  onActionCopied(): void {
-    this.cmsToastrService.typeSuccessCopedToClipboard();
-  }
+
 
   onActionFileSelected(model: NodeInterface): void {
     this.dataModel.linkMainImageId = model.id;

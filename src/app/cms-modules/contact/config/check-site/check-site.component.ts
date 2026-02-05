@@ -1,3 +1,19 @@
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { MatTableDataSource } from "@angular/material/table";
+import { ActivatedRoute } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
+import {
+    BaseModuleSiteCheckSiteModel,
+    ContactConfigurationService,
+    CoreEnumService,
+    ErrorExceptionResult,
+    TokenInfoModelV3,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-contact-config-checksite",
@@ -17,6 +33,7 @@ export class ContactConfigCheckSiteComponent implements OnInit, OnDestroy {
     public coreEnumService: CoreEnumService,
         private cdr: ChangeDetectorRef,
     public translate: TranslateService,
+    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
     this.requestLinkSiteId = +Number(

@@ -1,25 +1,27 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnDestroy,
-  OnInit,
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnDestroy,
+    OnInit,
 } from "@angular/core";
 import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogRef,
+    MAT_DIALOG_DATA,
+    MatDialog,
+    MatDialogRef,
 } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreUserModel,
-  DataFieldInfoModel,
-  EstatePropertyHistoryService,
-  FilterDataModel,
-  FilterModel,SortTypeEnum,
-  TokenInfoModelV3} from "ntk-cms-api";
+import {
+    CoreUserModel,
+    DataFieldInfoModel,
+    EstatePropertyHistoryService,
+    FilterDataModel,
+    FilterModel, SortTypeEnum,
+    TokenInfoModelV3
+} from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ComponentOptionSearchModel } from "src/app/core/cmsComponent/base/componentOptionSearchModel";
 import { ComponentOptionStatistModel } from "src/app/core/cmsComponent/base/componentOptionStatistModel";
@@ -30,7 +32,6 @@ import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 
-import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-estate-property-history-responsible-user-list",
@@ -228,9 +229,7 @@ export class EstatePropertyHistoryResponsibleUserListComponent
   onActionButtonReload(): void {
     this.DataGetAll();
   }
-  onActionCopied(): void {
-    this.cmsToastrService.typeSuccessCopedToClipboard();
-  }
+
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
     if (model && model.length > 0) {
       this.filterDataModelQueryBuilder = [...model];

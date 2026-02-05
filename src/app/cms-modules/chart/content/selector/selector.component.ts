@@ -1,3 +1,33 @@
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from "@angular/core";
+import { FormControl } from "@angular/forms";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  ChartContentModel,
+  ChartContentService,
+  ClauseTypeEnum,
+  CoreEnumService,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterDataModelSearchTypesEnum,
+  FilterModel,
+} from "ntk-cms-api";
+import { Observable, firstValueFrom } from "rxjs";
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  startWith,
+  switchMap,
+} from "rxjs/operators";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-chart-content-selector",
@@ -14,6 +44,7 @@ export class ChartContentSelectorComponent implements OnInit {
     public publicHelper: PublicHelper,
     public translate: TranslateService,
     public contentService: ChartContentService,
+    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }

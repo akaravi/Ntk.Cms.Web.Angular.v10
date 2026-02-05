@@ -419,9 +419,7 @@ export class CrmPipelineListComponent
     });
   }
 
-  onActionCopied(): void {
-    this.cmsToastrService.typeSuccessCopedToClipboard();
-  }
+
 
   onActionButtonReload(): void {
     this.optionloadComponent = true;

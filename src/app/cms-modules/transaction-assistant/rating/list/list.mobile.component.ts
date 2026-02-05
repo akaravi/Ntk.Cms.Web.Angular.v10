@@ -14,12 +14,8 @@ export class TransactionAssistantRatingListMobileComponent extends TransactionAs
     super["onActionButtonViewRow"]?.(model);
   }
 
-  onActionCopied(): void {
-    super["onActionCopied"]?.();
-  }
 
-  onActionButtonNewRow(): void {
-    super['onActionButtonNewRow']?.();
-  }
+
+
 
 }

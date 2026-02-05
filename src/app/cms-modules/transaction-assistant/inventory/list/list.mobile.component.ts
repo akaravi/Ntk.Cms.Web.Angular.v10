@@ -14,12 +14,8 @@ export class TransactionAssistantInventoryListMobileComponent extends Transactio
     super["onActionButtonViewRow"]?.(model);
   }
 
-  onActionCopied(): void {
-    super["onActionCopied"]?.();
-  }
 
-  onActionButtonNewRow(): void {
-    super['onActionButtonNewRow']?.();
-  }
+
+
 
 }

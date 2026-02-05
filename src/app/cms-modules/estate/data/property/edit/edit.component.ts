@@ -1,10 +1,11 @@
 import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import {
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild } from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    OnDestroy,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { MatStepper } from "@angular/material/stepper";
@@ -14,31 +15,32 @@ import { TranslateService } from "@ngx-translate/core";
 import * as Leaflet from "leaflet";
 import { Map as leafletMap } from "leaflet";
 import {
-  CoreCurrencyModel,
-  CoreEnumService,
-  CoreLocationModel,
-  CoreUserModel,
-  ErrorExceptionResult,
-  ErrorExceptionResultBase,
-  EstateAccountAgencyModel,
-  EstateAccountExpertModel,
-  EstateContractModel,
-  EstateContractTypeModel,
-  EstateContractTypeService,
-  EstatePropertyCompanyModel,
-  EstatePropertyDetailGroupService,
-  EstatePropertyDetailValueModel,
-  EstatePropertyModel,
-  EstatePropertyProjectModel,
-  EstatePropertyService,
-  EstatePropertyTypeLanduseModel,
-  EstatePropertyTypeUsageModel,
-  FilterDataModel,
-  FilterModel,
-  InputDataTypeEnum,
-  ManageUserAccessDataTypesEnum,
-  ManageUserAccessUserTypesEnum,
-  RecordStatusEnum } from "ntk-cms-api";
+    CoreCurrencyModel,
+    CoreEnumService,
+    CoreLocationModel,
+    CoreUserModel,
+    ErrorExceptionResult,
+    ErrorExceptionResultBase,
+    EstateAccountAgencyModel,
+    EstateAccountExpertModel,
+    EstateContractModel,
+    EstateContractTypeModel,
+    EstateContractTypeService,
+    EstatePropertyCompanyModel,
+    EstatePropertyDetailGroupService,
+    EstatePropertyDetailValueModel,
+    EstatePropertyModel,
+    EstatePropertyProjectModel,
+    EstatePropertyService,
+    EstatePropertyTypeLanduseModel,
+    EstatePropertyTypeUsageModel,
+    FilterDataModel,
+    FilterModel,
+    InputDataTypeEnum,
+    ManageUserAccessDataTypesEnum,
+    ManageUserAccessUserTypesEnum,
+    RecordStatusEnum
+} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { Subscription } from "rxjs";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
@@ -61,7 +63,6 @@ import { EstateAccountExpertListComponent } from "../../../main/account-expert/l
 import { EstatePropertyActionComponent } from "../action/action.component";
 import { EstatePropertyQuickListComponent } from "../quick-list/quick-list.component";
 
-import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-estate-property-edit",
@@ -538,9 +539,7 @@ export class EstatePropertyEditComponent
   }
 
   receiveZoom(zoom: number): void {}
-  onActionCopied(): void {
-    this.cmsToastrService.typeSuccessCopedToClipboard();
-  }
+
   onActionSelectorSelectUsage(
     model: EstatePropertyTypeUsageModel | null,
   ): void {

@@ -1,9 +1,9 @@
 
 import {
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
+    ChangeDetectorRef,
+    Component,
+    OnDestroy,
+    OnInit,
 } from "@angular/core";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
@@ -11,17 +11,13 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService,
-  DataFieldInfoModel,
-  DataProviderPlanCategoryModel,
-  DataProviderPlanModel,
-  DataProviderPlanService,
-  ErrorExceptionResult,
-  FilterDataModel,
-  FilterDataModelSearchTypesEnum,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    DataProviderPlanCategoryModel,
+    DataProviderPlanModel,
+    DataProviderPlanService,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SortTypeEnum
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -32,8 +28,8 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { environment } from "src/environments/environment";
 import { DataProviderPlanAddComponent } from "../add/add.component";
-import { DataProviderPlanEditComponent } from "../edit/edit.component";
 import { DataProviderPlanDeleteComponent } from "../delete/delete.component";
+import { DataProviderPlanEditComponent } from "../edit/edit.component";
 
 @Component({
   selector: "app-data-provider-plan-list",
@@ -519,9 +515,7 @@ export class DataProviderPlanListComponent
   onActionButtonReload(): void {
     this.DataGetAll();
   }
-  onActionCopied(): void {
-    this.cmsToastrService.typeSuccessCopedToClipboard();
-  }
+
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
     if (model && model.length > 0) {
       this.filterDataModelQueryBuilder = [...model];

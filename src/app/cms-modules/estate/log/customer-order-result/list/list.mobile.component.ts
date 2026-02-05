@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
-import { EstateCustomerOrderResultListComponent } from "./list.component";
 import { EstateCustomerOrderResultModel } from "ntk-cms-api";
+import { EstateCustomerOrderResultListComponent } from "./list.component";
 
 @Component({
   selector: "app-estate-customer-order-result-list-mobile",
@@ -15,16 +15,12 @@ export class EstateCustomerOrderResultListMobileComponent extends EstateCustomer
   getRowExpanded(row: any): boolean {
     return (row as any).expanded === true;
   }
-  onActionCopied(): void {
-    super['onActionCopied']?.();
-  }
+
 
   onActionButtonViewRow(model: any): void {
     super['onActionButtonViewRow']?.(model);
   }
 
-  onActionButtonNewRow(): void {
-    super['onActionButtonNewRow']?.();
-  }
+
 
 }

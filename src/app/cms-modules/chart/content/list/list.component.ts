@@ -4,20 +4,20 @@ import {
   OnDestroy,
   OnInit,
 } from "@angular/core";
-import { Router } from "@angular/router";
 import { MatDialog } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
+import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
   ChartCategoryModel,
   ChartContentModel,
   ChartContentService,
   ClauseTypeEnum,
-  ErrorExceptionResult,
   FilterDataModel,
   FilterModel,
-  SortTypeEnum,
+  RecordStatusEnum,
+  SortTypeEnum
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -26,9 +26,8 @@ import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
+import { CmsLinkToComponent } from "src/app/shared/cms-link-to/cms-link-to.component";
 import { environment } from "src/environments/environment";
-import { ChartContentAddComponent } from "../add/add.component";
-import { ChartContentEditComponent } from "../edit/edit.component";
 import { ChartContentDeleteComponent } from "../delete/delete.component";
 
 @Component({
@@ -454,9 +453,7 @@ export class ChartContentListComponent
   onActionButtonReload(): void {
     this.DataGetAll();
   }
-  onActionCopied(): void {
-    this.cmsToastrService.typeSuccessCopedToClipboard();
-  }
+
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
     if (model && model.length > 0) {
       this.filterDataModelQueryBuilder = [...model];

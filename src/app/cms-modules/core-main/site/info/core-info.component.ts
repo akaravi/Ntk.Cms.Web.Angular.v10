@@ -98,9 +98,7 @@ export class CoreInfoComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
-  onActionCopied(): void {
-    this.cmsToastrService.typeSuccessCopedToClipboard();
-  }
+
   onActionButtonResllerUser(): void {
     this.router.navigate(["/core/user/reseller-chart"]);
   }

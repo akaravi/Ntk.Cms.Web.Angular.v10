@@ -16,16 +16,12 @@ export class DonateTransactionListMobileComponent extends DonateTransactionListC
   onActionButtonDeleteRow(model: any): void {
     super['onActionButtonDeleteRow']?.(model);
   }
-  onActionCopied(): void {
-    super['onActionCopied']?.();
-  }
+
 
   onActionButtonViewRow(model: any): void {
     super['onActionButtonViewRow']?.(model);
   }
 
-  onActionButtonNewRow(): void {
-    super['onActionButtonNewRow']?.();
-  }
+
 
 }

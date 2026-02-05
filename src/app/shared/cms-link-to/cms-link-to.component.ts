@@ -1,22 +1,24 @@
 import { HttpClient } from "@angular/common/http";
 import {
-  Component,
-  ElementRef,
-  Inject,
-  Input,
-  OnDestroy,
-  OnInit,
-  ViewChild,
+    Component,
+    ElementRef,
+    Inject,
+    Input,
+    OnDestroy,
+    OnInit,
+    ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {SmsActionService,
-  SmsApiSendMessageDtoModel,
-  SmsMainApiNumberModel,
-  SmsMainApiPathModel,
-  TokenInfoModelV3} from "ntk-cms-api";
+import {
+    SmsActionService,
+    SmsApiSendMessageDtoModel,
+    SmsMainApiNumberModel,
+    SmsMainApiPathModel,
+    TokenInfoModelV3
+} from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
@@ -210,9 +212,7 @@ export class CmsLinkToComponent implements OnInit, OnDestroy {
     });
   }
 
-  onActionCopied(): void {
-    this.cmsToastrService.typeSuccessCopedToClipboard();
-  }
+
   onActionOpenLink(): void {
     const url = this.router.serializeUrl(
       this.router.createUrlTree([this.optionurlViewContent]),

@@ -1,14 +1,14 @@
 import { MatTableDataSource } from "@angular/material/table";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    BaseEntity,
-    DataFieldInfoModel,
-    ErrorExceptionResult,
-    FilterDataModel,
-    FilterModel,
-    IApiCmsServerBase,
-    RecordStatusEnum,
-    TokenInfoModelV3,
+  BaseEntity,
+  DataFieldInfoModel,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterModel,
+  IApiCmsServerBase,
+  RecordStatusEnum,
+  TokenInfoModelV3,
 } from "ntk-cms-api";
 import { CmsDataCommentComponent } from "src/app/shared/cms-data-comment/cms-data-comment.component";
 import { CmsDataMemoComponent } from "src/app/shared/cms-data-memo/cms-data-memo.component";
@@ -372,5 +372,8 @@ export class ListBaseComponent<
         this.publicHelper.processService.processStop(pName, false);
       },
     });
+  }
+    onActionCopied (): void {
+    this.publicHelper.cmsToastrService.typeSuccessCopedToClipboard();
   }
 }

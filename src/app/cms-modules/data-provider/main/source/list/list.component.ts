@@ -496,9 +496,7 @@ export class DataProviderSourceListComponent
   onActionButtonReload(): void {
     this.DataGetAll();
   }
-  onActionCopied(): void {
-    this.cmsToastrService.typeSuccessCopedToClipboard();
-  }
+
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
     if (model && model.length > 0) {
       this.filterDataModelQueryBuilder = [...model];

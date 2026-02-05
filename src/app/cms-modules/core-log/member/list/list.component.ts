@@ -43,7 +43,7 @@ export class CoreLogMemberListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private coreEnumService: CoreEnumService,
-    private contentService: CoreLogMemberService,
+    public contentService: CoreLogMemberService,
     public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,

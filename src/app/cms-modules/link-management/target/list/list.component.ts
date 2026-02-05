@@ -5,14 +5,14 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  FilterDataModel,
-  LinkManagementBillboardPatternModel,
-  LinkManagementCategoryModel,
-  LinkManagementTargetFilterModel,
-  LinkManagementTargetModel,
-  LinkManagementTargetService,
-  RecordStatusEnum,
-  SortTypeEnum,
+    FilterDataModel,
+    LinkManagementBillboardPatternModel,
+    LinkManagementCategoryModel,
+    LinkManagementTargetFilterModel,
+    LinkManagementTargetModel,
+    LinkManagementTargetService,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -498,9 +498,7 @@ export class LinkManagementTargetListComponent
     });
   }
 
-  onActionCopied(): void {
-    this.cmsToastrService.typeSuccessCopedToClipboard();
-  }
+
 
   onActionButtonReload(): void {
     this.DataGetAll();

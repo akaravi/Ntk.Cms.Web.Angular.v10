@@ -1,3 +1,29 @@
+import { SelectionModel } from "@angular/cdk/collections";
+import { NestedTreeControl } from "@angular/cdk/tree";
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  ContactCategoryModel,
+  ContactCategoryService,
+  CoreEnumService,
+  ErrorExceptionResult,
+  FilterModel,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-contact-category-treeselector",
@@ -15,6 +41,7 @@ export class ContactCategoryTreeSelectorComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
+    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
     this.checklistSelection.changed.subscribe((x) => {

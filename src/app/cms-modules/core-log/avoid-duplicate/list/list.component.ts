@@ -5,15 +5,15 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    CoreLogAvoidDuplicateDataEntryModel,
-    CoreLogAvoidDuplicateDataEntryService,
-    CoreSiteModel,
-    ErrorExceptionResult,
-    FilterDataModel,
-    FilterModel,
-    InfoEnumModel,
-    RecordStatusEnum,
-    SortTypeEnum,
+  CoreLogAvoidDuplicateDataEntryModel,
+  CoreLogAvoidDuplicateDataEntryService,
+  CoreSiteModel,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterModel,
+  InfoEnumModel,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -42,7 +42,7 @@ export class CoreLogAvoidDuplicateDataEntryListComponent
   requestLinkUserId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: CoreLogAvoidDuplicateDataEntryService,
+    public contentService: CoreLogAvoidDuplicateDataEntryService,
     public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,

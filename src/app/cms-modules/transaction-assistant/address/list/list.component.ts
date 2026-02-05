@@ -441,7 +441,5 @@ export class TransactionAssistantAddressListComponent
     this.onActionButtonEditRow(model);
   }
 
-  onActionCopied(): void {
-    this.cmsToastrService.typeSuccessCopedToClipboard();
-  }
+
 }

@@ -5,12 +5,12 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  NewsCategoryModel,
-  NewsCategoryService,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    FilterDataModel,
+    FilterModel,
+    NewsCategoryModel,
+    NewsCategoryService,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -347,9 +347,7 @@ export class NewsCategoryListComponent
   ): void {
     this.onActionTableRowSelect(row);
   }
-  onActionCopied(): void {
-    this.cmsToastrService.typeSuccessCopedToClipboard();
-  }
+
   onActionButtonStatist(view = !this.optionsStatist.data.show): void {
     this.optionsStatist.data.show = view;
     if (!this.optionsStatist.data.show) {

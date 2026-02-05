@@ -16,11 +16,6 @@ export class TransactionAssistantAddressListMobileComponent extends TransactionA
     super.onActionButtonViewRow(model);
   }
 
-  override onActionCopied(): void {
-    super.onActionCopied();
-  }
-  onActionButtonNewRow(): void {
-    super['onActionButtonNewRow']?.();
-  }
+
 
 }

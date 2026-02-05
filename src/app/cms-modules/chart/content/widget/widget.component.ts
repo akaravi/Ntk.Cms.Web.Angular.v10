@@ -1,3 +1,20 @@
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  ChartContentService,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import {
+  WidgetContentInfoModel,
+  WidgetInfoModel,
+} from "src/app/core/models/widget-info-model";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
   selector: "app-chart-content-widget",
@@ -13,6 +30,7 @@ export class ChartContentWidgetComponent implements OnInit, OnDestroy {
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
+    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }
