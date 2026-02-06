@@ -7,27 +7,28 @@ import { MatStepperModule } from "@angular/material/stepper";
 import { RouterModule } from "@angular/router";
 import { AngularEditorModule } from "@kolkov/angular-editor";
 import {
-  CoreAuthV3Service,
-  CoreEnumService,
-  CoreModuleService,
-  CoreModuleTagService,
-  EstateActivityTypeService,
-  EstateAdsTypeService,
-  EstateBillboardService,
-  EstateConfigurationService,
-  EstateContractTypeService,
-  EstateEnumService,
-  EstatePropertyAdsService,
-  EstatePropertyCompanyService,
-  EstatePropertyDetailGroupService,
-  EstatePropertyProjectService,
-  EstatePropertyService,
-  EstatePropertySupplierCategoryService,
-  EstatePropertySupplierService,
-  EstatePropertyTypeLanduseService,
-  EstatePropertyTypeService,
-  EstatePropertyTypeUsageService,
-  FileCategoryService,
+    CoreAuthV3Service,
+    CoreEnumService,
+    CoreModuleService,
+    CoreModuleTagService,
+    EstateActivityTypeService,
+    EstateAdsTypeService,
+    EstateBillboardService,
+    EstateConfigurationService,
+    EstateContractTypeService,
+    EstateEnumService,
+    EstatePropertyAdsService,
+    EstatePropertyCompanyService,
+    EstatePropertyDetailGroupService,
+    EstatePropertyExpertPriceService,
+    EstatePropertyProjectService,
+    EstatePropertyService,
+    EstatePropertySupplierCategoryService,
+    EstatePropertySupplierService,
+    EstatePropertyTypeLanduseService,
+    EstatePropertyTypeService,
+    EstatePropertyTypeUsageService,
+    FileCategoryService,
 } from "ntk-cms-api";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { SharedModule } from "src/app/shared/shared.module";
@@ -39,6 +40,7 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
 
 import { IconPickerModule } from "ngx-ntk-icon-picker";
 
+import { EstateLogModule } from "../log/estate-log.module";
 import { EstateSharedModule } from "../shared/estate-shared.module";
 import { EstateWidgetModule } from "../shared/estate-widget.module";
 import { EstateBillboardAddComponent } from "./billboard/add/add.component";
@@ -90,17 +92,17 @@ import { EstatePropertyActionComponent } from "./property/action/action.componen
 import { EstatePropertyAddComponent } from "./property/add/add.component";
 import { EstatePropertyAddMobileComponent } from "./property/add/add.mobile.component";
 import { EstatePropertyEditComponent } from "./property/edit/edit.component";
+import { EstatePropertyListMobileComponent } from "./property/list/list.mobile.component";
 import { EstatePropertyQuickAddComponent } from "./property/quick-add/quick-add.component";
 import { EstatePropertyQuickListComponent } from "./property/quick-list/quick-list.component";
 import { EstatePropertyQuickViewComponent } from "./property/quick-view/quick-view.component";
 import { EstatePropertyResponsibleUserListComponent } from "./property/responsible-user-list/responsible-user-list.component";
-import { EstatePropertyListMobileComponent } from "./property/list/list.mobile.component";
 
 import { CurrencyMaskModule } from "ng2-currency-mask";
 import { CmsFileManagerModule } from "ntk-cms-filemanager";
 
-import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
 import { TranslateModule } from "@ngx-translate/core";
+import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
 
 @NgModule({
   declarations: [
@@ -177,6 +179,7 @@ import { TranslateModule } from "@ngx-translate/core";
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     EstateSharedModule,
     EstateWidgetModule,
+    EstateLogModule,
     AngularEditorModule,
     CurrencyMaskModule,
     MatIconModule,
@@ -208,6 +211,7 @@ import { TranslateModule } from "@ngx-translate/core";
     EstatePropertyAdsService,
     EstatePropertyCompanyService,
     EstatePropertyDetailGroupService,
+    EstatePropertyExpertPriceService,
     EstatePropertyProjectService,
     EstatePropertySupplierCategoryService,
     EstatePropertySupplierService,

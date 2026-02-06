@@ -1,5 +1,29 @@
 # تاریخچه تغییرات پروژه
 
+## 2026-02-02 (رفع خطای Dependency Injection و Translate Pipe)
+
+### خلاصه:
+رفع دو خطا:
+1. NG0201: No provider found for `_EstatePropertyExpertPriceService` در `EstateDataModule`
+2. NG0302: The pipe 'translate' could not be found در `EstatePropertyExpertPriceInquiryListComponent`
+
+### مشکل 1:
+کامپوننت‌های `EstateDataModule` (مثل `EstatePropertyAddComponent`) از `EstatePropertyExpertPriceInquiryListComponent` استفاده می‌کنند که به `EstatePropertyExpertPriceService` نیاز دارد. این سرویس فقط در `EstateLogModule` ارائه شده بود و در `EstateDataModule` موجود نبود.
+
+### مشکل 2:
+کامپوننت `EstatePropertyExpertPriceInquiryListComponent` از pipe `translate` استفاده می‌کند اما وقتی در dialog از کامپوننت‌های `EstateDataModule` استفاده می‌شود، Angular نمی‌تواند `TranslateModule` را پیدا کند چون کامپوننت در `EstateLogModule` تعریف شده است.
+
+### تغییرات انجام شده:
+- ✅ اضافه کردن `EstatePropertyExpertPriceService` به imports در `estate-data.module.ts`
+- ✅ اضافه کردن `EstatePropertyExpertPriceService` به providers در `estate-data.module.ts`
+- ✅ اضافه کردن `EstatePropertyExpertPriceInquiryListComponent` به exports در `estate-log.module.ts`
+- ✅ اضافه کردن `EstateLogModule` به imports در `estate-data.module.ts`
+
+### نتیجه:
+هر دو خطا برطرف شدند و کامپوننت‌های `EstateDataModule` می‌توانند از `EstatePropertyExpertPriceInquiryListComponent` در dialog بدون مشکل استفاده کنند.
+
+---
+
 ## 2026-02-02 (ادامه بازنویسی List Mobile Components - Part 1.1.4 تا 1.1.11)
 
 ### خلاصه:
@@ -5135,7 +5159,7 @@ iconPicker ایکن‌ها را لود نمی‌کرد. این مشکل به ا�
 ایجاد نسخه موبایل برای List Component ماژول News Comment با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
 
 ### تغییرات انجام شده:
-- ✅ 
+- ✅
 ews/comment: ایجاد list.mobile.component.ts/html
 
 ### بررسی خطا:

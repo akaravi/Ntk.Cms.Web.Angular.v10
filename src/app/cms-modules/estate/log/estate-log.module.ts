@@ -63,11 +63,11 @@ import { EstatePropertyHistoryResponsibleUserListComponent } from "./property-hi
 import { CurrencyMaskModule } from "ng2-currency-mask";
 import { CmsFileManagerModule } from "ntk-cms-filemanager";
 
+import { TranslateModule } from "@ngx-translate/core";
 import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
 import { EstateSharedModule } from "../shared/estate-shared.module";
-import { TranslateModule } from "@ngx-translate/core";
-import { EstatePropertyHistoryListMobileComponent } from "./property-history/list/list.mobile.component";
 import { EstateCustomerOrderListMobileComponent } from "./customer-order/list/list.mobile.component";
+import { EstatePropertyHistoryListMobileComponent } from "./property-history/list/list.mobile.component";
 
 @NgModule({
   declarations: [
@@ -145,6 +145,9 @@ import { EstateCustomerOrderListMobileComponent } from "./customer-order/list/li
     EstatePropertyTypeUsageService,
     FileCategoryService,
   ],
-  exports: [EstateLogComponent],
+  exports: [
+    EstateLogComponent,
+    EstatePropertyExpertPriceInquiryListComponent,
+  ],
 })
 export class EstateLogModule {}
