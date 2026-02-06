@@ -35,19 +35,14 @@ import { ApiTelegramBotConfigListComponent } from "./bot-config/list/list.compon
 import { ApiTelegramBotConfigListMobileComponent } from "./bot-config/list/list.mobile.component";
 import { ApiTelegramBotConfigSelectorComponent } from "./bot-config/selector/selector.component";
 import { ApiTelegramLogInputListComponent } from "./log-input/list/list.component";
-import { ApiTelegramLogOutputListComponent } from "./log-output/list/list.component";
-import { ApiTelegramMemberInfoListComponent } from "./member-info/list/list.component";
-import { ApiTelegramReceivedFileListComponent } from "./received-file/list/list.component";
-import { ApiTelegramUploadedFileListComponent } from "./uploaded-file/list/list.component";
-import { ApiTelegramConfigComponent } from "./config/api-telegram-config.component";
-import { ApiTelegramConfigCheckSiteComponent } from "./config/check-site/check-site.component";
-import { ApiTelegramConfigCheckUserComponent } from "./config/check-user/check-user.component";
-import { ApiTelegramConfigMainAdminComponent } from "./config/main-admin/config-main-admin.component";
-import { ApiTelegramConfigSiteComponent } from "./config/site/config-site.component";
 import { ApiTelegramLogInputListMobileComponent } from "./log-input/list/list.mobile.component";
+import { ApiTelegramLogOutputListComponent } from "./log-output/list/list.component";
 import { ApiTelegramLogOutputListMobileComponent } from "./log-output/list/list.mobile.component";
+import { ApiTelegramMemberInfoListComponent } from "./member-info/list/list.component";
 import { ApiTelegramMemberInfoListMobileComponent } from "./member-info/list/list.mobile.component";
+import { ApiTelegramReceivedFileListComponent } from "./received-file/list/list.component";
 import { ApiTelegramReceivedFileListMobileComponent } from "./received-file/list/list.mobile.component";
+import { ApiTelegramUploadedFileListComponent } from "./uploaded-file/list/list.component";
 import { ApiTelegramUploadedFileListMobileComponent } from "./uploaded-file/list/list.mobile.component";
 
 @NgModule({
@@ -72,11 +67,7 @@ import { ApiTelegramUploadedFileListMobileComponent } from "./uploaded-file/list
     //
     ApiTelegramActionSendMessageComponent,
     ApiTelegramActionSendMessageSimpleComponent,
-    ApiTelegramConfigComponent,
-    ApiTelegramConfigCheckSiteComponent,
-    ApiTelegramConfigCheckUserComponent,
-    ApiTelegramConfigMainAdminComponent,
-    ApiTelegramConfigSiteComponent,
+
     ApiTelegramLogInputListMobileComponent,
     ApiTelegramLogOutputListMobileComponent,
     ApiTelegramMemberInfoListMobileComponent,

@@ -41,7 +41,6 @@ import { WebDesignerLogMemberInfoListComponent } from "./log-member-info/list/li
 import { WebDesignerLogMemberInfoListMobileComponent } from "./log-member-info/list/list.mobile.component";
 import { WebDesignerLogMemberInfoSelectorComponent } from "./log-member-info/selector/selector.component";
 import { WebDesignerLogMemberInfoViewComponent } from "./log-member-info/view/view.component";
-import { WebDesignerLogMemberInfoWidgetComponent } from "./log-member-info/widget/widget.component";
 import { WebDesignerMainMenuAddComponent } from "./menu/add/add.component";
 import { WebDesignerMainMenuEditComponent } from "./menu/edit/edit.component";
 import { WebDesignerMainMenuListComponent } from "./menu/list/list.component";
@@ -122,7 +121,6 @@ import { WebDesignerMainPageTreeComponent } from "./page/tree/tree.component";
     WebDesignerLogMemberInfoListMobileComponent,
     WebDesignerLogMemberInfoSelectorComponent,
     WebDesignerLogMemberInfoViewComponent,
-    WebDesignerLogMemberInfoWidgetComponent,
     /** */
 
   ],

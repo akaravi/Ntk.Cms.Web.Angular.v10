@@ -31,11 +31,6 @@ import { TicketingAnswerEditComponent } from "./answer/edit/edit.component";
 import { TicketingAnswerListComponent } from "./answer/list/list.component";
 import { TicketingAnswerListMobileComponent } from "./answer/list/list.mobile.component";
 import { TicketingAnswerViewComponent } from "./answer/view/view.component";
-import { TicketingConfigCheckSiteComponent } from "./config/check-site/check-site.component";
-import { TicketingConfigCheckUserComponent } from "./config/check-user/check-user.component";
-import { TicketingConfigMainAdminComponent } from "./config/main-admin/config-main-admin.component";
-import { TicketingConfigSiteComponent } from "./config/site/config-site.component";
-import { TicketingConfigComponent } from "./config/ticketing-config.component";
 import { TicketingDepartemenAddComponent } from "./departemen/add/add.component";
 import { TicketingDepartemenDeleteComponent } from "./departemen/delete/delete.component";
 import { TicketingDepartemenEditComponent } from "./departemen/edit/edit.component";
@@ -121,13 +116,7 @@ import { TicketingTemplateSelectorComponent } from "./template/selector/selector
     TicketingFaqListMobileComponent,
     TicketingTaskListMobileComponent,
     TicketingTemplateListMobileComponent,
-    /* Config Components */
-    TicketingConfigComponent,
-    TicketingConfigCheckSiteComponent,
-    TicketingConfigCheckUserComponent,
-    TicketingConfigMainAdminComponent,
-    TicketingConfigSiteComponent,
-    /* Widget Components */
+
     TicketingTaskWidgetComponent,
     /** */
   ],

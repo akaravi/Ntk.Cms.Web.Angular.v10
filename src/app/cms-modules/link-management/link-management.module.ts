@@ -56,30 +56,25 @@ import { LinkManagementCategoryTreeSelectorComponent } from "./category/tree-sel
 import { LinkManagementCategoryTreeComponent } from "./category/tree/tree.component";
 
 import { CmsFileManagerModule } from "ntk-cms-filemanager";
-import { LinkManagementMemberAddComponent } from "./member/add/add.component";
-import { LinkManagementMemberDeleteComponent } from "./member/delete/delete.component";
-import { LinkManagementMemberEditComponent } from "./member/edit/edit.component";
-import { LinkManagementMemberListComponent } from "./member/list/list.component";
-import { LinkManagementMemberSelectorComponent } from "./member/selector/selector.component";
-import { LinkManagementTargetBillboardLogDeleteComponent } from "./target-billboard-log/delete/delete.component";
-import { LinkManagementTargetBillboardLogEditComponent } from "./target-billboard-log/edit/edit.component";
-import { LinkManagementTargetBillboardLogListComponent } from "./target-billboard-log/list/list.component";
-import { LinkManagementTargetAddComponent } from "./target/add/add.component";
-import { LinkManagementTargetDeleteComponent } from "./target/delete/delete.component";
-import { LinkManagementTargetEditComponent } from "./target/edit/edit.component";
-import { LinkManagementTargetListComponent } from "./target/list/list.component";
 import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
 import { LinkManagementAccountingDetailListMobileComponent } from "./accounting-detail/list/list.mobile.component";
 import { LinkManagementAccountingListMobileComponent } from "./accounting/list/list.mobile.component";
 import { LinkManagementBillboardPatternListMobileComponent } from "./billboard-pattern/list/list.mobile.component";
 import { LinkManagementBillboardListMobileComponent } from "./billboard/list/list.mobile.component";
-import { LinkManagementConfigCheckSiteComponent } from "./config/check-site/check-site.component";
-import { LinkManagementConfigCheckUserComponent } from "./config/check-user/check-user.component";
-import { LinkManagementConfigComponent } from "./config/link-management-config.component";
-import { LinkManagementConfigMainAdminComponent } from "./config/main-admin/config-main-admin.component";
-import { LinkManagementConfigSiteComponent } from "./config/site/config-site.component";
+import { LinkManagementMemberAddComponent } from "./member/add/add.component";
+import { LinkManagementMemberDeleteComponent } from "./member/delete/delete.component";
+import { LinkManagementMemberEditComponent } from "./member/edit/edit.component";
+import { LinkManagementMemberListComponent } from "./member/list/list.component";
 import { LinkManagementMemberListMobileComponent } from "./member/list/list.mobile.component";
+import { LinkManagementMemberSelectorComponent } from "./member/selector/selector.component";
+import { LinkManagementTargetBillboardLogDeleteComponent } from "./target-billboard-log/delete/delete.component";
+import { LinkManagementTargetBillboardLogEditComponent } from "./target-billboard-log/edit/edit.component";
+import { LinkManagementTargetBillboardLogListComponent } from "./target-billboard-log/list/list.component";
 import { LinkManagementTargetBillboardLogListMobileComponent } from "./target-billboard-log/list/list.mobile.component";
+import { LinkManagementTargetAddComponent } from "./target/add/add.component";
+import { LinkManagementTargetDeleteComponent } from "./target/delete/delete.component";
+import { LinkManagementTargetEditComponent } from "./target/edit/edit.component";
+import { LinkManagementTargetListComponent } from "./target/list/list.component";
 import { LinkManagementTargetListMobileComponent } from "./target/list/list.mobile.component";
 
 @NgModule({
@@ -136,11 +131,6 @@ import { LinkManagementTargetListMobileComponent } from "./target/list/list.mobi
     LinkManagementAccountingListMobileComponent,
     LinkManagementBillboardPatternListMobileComponent,
     LinkManagementBillboardListMobileComponent,
-    LinkManagementConfigCheckSiteComponent,
-    LinkManagementConfigCheckUserComponent,
-    LinkManagementConfigComponent,
-    LinkManagementConfigMainAdminComponent,
-    LinkManagementConfigSiteComponent,
     LinkManagementMemberListMobileComponent,
     LinkManagementTargetBillboardLogListMobileComponent,
     LinkManagementTargetListMobileComponent,
