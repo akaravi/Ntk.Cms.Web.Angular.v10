@@ -24,6 +24,7 @@ import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-di
 import { BankPaymentPrivateSiteConfigAddComponent } from "./private-site-config/add/add.component";
 import { BankPaymentPrivateSiteConfigEditComponent } from "./private-site-config/edit/edit.component";
 import { BankPaymentPrivateSiteConfigListComponent } from "./private-site-config/list/list.component";
+import { BankPaymentPrivateSiteConfigListMobileComponent } from "./private-site-config/list/list.mobile.component";
 import { BankPaymentPrivateSiteConfigPaymentTestComponent } from "./private-site-config/paymentTest/paymentTest.component";
 import { BankPaymentPrivateSiteConfigSelectorComponent } from "./private-site-config/selector/selector.component";
 import { BankPaymentPrivateSiteConfigTreeComponent } from "./private-site-config/tree/tree.component";
@@ -31,23 +32,17 @@ import { BankPaymentPublicConfigAddComponent } from "./public-config/add/add.com
 import { BankPaymentPublicConfigEditComponent } from "./public-config/edit/edit.component";
 import { BankPaymentPublicConfigHeaderComponent } from "./public-config/header/header.component";
 import { BankPaymentPublicConfigListComponent } from "./public-config/list/list.component";
+import { BankPaymentPublicConfigListMobileComponent } from "./public-config/list/list.mobile.component";
 import { BankPaymentPublicConfigSelectorComponent } from "./public-config/selector/selector.component";
 import { BankPaymentPublicConfigTreeComponent } from "./public-config/tree/tree.component";
 import { BankPaymentTransactionLogListComponent } from "./transaction-log/list/list.component";
+import { BankPaymentTransactionLogListMobileComponent } from "./transaction-log/list/list.mobile.component";
 import { BankPaymentTransactionLogViewComponent } from "./transaction-log/view/view.component";
 import { BankPaymentTransactionEditComponent } from "./transaction/edit/edit.component";
 import { BankPaymentTransactionHeaderComponent } from "./transaction/header/header.component";
 import { BankPaymentTransactionListComponent } from "./transaction/list/list.component";
-import { BankPaymentTransactionViewComponent } from "./transaction/view/view.component";
-import { BankPaymentConfigComponent } from "./config/bank-payment-config.component";
-import { BankPaymentConfigCheckSiteComponent } from "./config/check-site/check-site.component";
-import { BankPaymentConfigCheckUserComponent } from "./config/check-user/check-user.component";
-import { BankPaymentConfigMainAdminComponent } from "./config/main-admin/config-main-admin.component";
-import { BankPaymentConfigSiteComponent } from "./config/site/config-site.component";
-import { BankPaymentPrivateSiteConfigListMobileComponent } from "./private-site-config/list/list.mobile.component";
-import { BankPaymentPublicConfigListMobileComponent } from "./public-config/list/list.mobile.component";
-import { BankPaymentTransactionLogListMobileComponent } from "./transaction-log/list/list.mobile.component";
 import { BankPaymentTransactionListMobileComponent } from "./transaction/list/list.mobile.component";
+import { BankPaymentTransactionViewComponent } from "./transaction/view/view.component";
 @NgModule({
   declarations: [
     BankPaymentComponent,
@@ -72,11 +67,7 @@ import { BankPaymentTransactionListMobileComponent } from "./transaction/list/li
     /* */
     BankPaymentTransactionLogListComponent,
     BankPaymentTransactionLogViewComponent,
-    BankPaymentConfigComponent,
-    BankPaymentConfigCheckSiteComponent,
-    BankPaymentConfigCheckUserComponent,
-    BankPaymentConfigMainAdminComponent,
-    BankPaymentConfigSiteComponent,
+
     BankPaymentPrivateSiteConfigListMobileComponent,
     BankPaymentPublicConfigListMobileComponent,
     BankPaymentTransactionLogListMobileComponent,

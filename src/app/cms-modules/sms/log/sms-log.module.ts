@@ -61,14 +61,6 @@ import { SmsLogOutBoxListComponent } from "./outbox/list/list.component";
 import { SmsLogOutBoxListMobileComponent } from "./outbox/list/list.mobile.component";
 import { SmsLogOutBoxViewComponent } from "./outbox/view/view.component";
 import { SmsLogOutBoxViewMobileComponent } from "./outbox/view/view.mobile.component";
-import { SmsLogInBoxWidgetComponent } from "./inbox/widget/widget.component";
-import { SmsLogInBoxWidgetMobileComponent } from "./inbox/widget/widget.mobile.component";
-import { SmsLogOutBoxQueueWidgetComponent } from "./outbox-queue/widget/widget.component";
-import { SmsLogOutBoxQueueWidgetMobileComponent } from "./outbox-queue/widget/widget.mobile.component";
-import { SmsLogOutBoxTaskSchedulerWidgetComponent } from "./outbox-task-scheduler/widget/widget.component";
-import { SmsLogOutBoxTaskSchedulerWidgetMobileComponent } from "./outbox-task-scheduler/widget/widget.mobile.component";
-import { SmsLogOutBoxWidgetComponent } from "./outbox/widget/widget.component";
-import { SmsLogOutBoxWidgetMobileComponent } from "./outbox/widget/widget.mobile.component";
 
 @NgModule({
   declarations: [
@@ -101,14 +93,6 @@ import { SmsLogOutBoxWidgetMobileComponent } from "./outbox/widget/widget.mobile
     SmsLogOutBoxDetailViewMobileComponent,
     SmsLogApiPathListComponent,
     SmsLogApiPathListMobileComponent,
-    SmsLogInBoxWidgetComponent,
-    SmsLogInBoxWidgetMobileComponent,
-    SmsLogOutBoxQueueWidgetComponent,
-    SmsLogOutBoxQueueWidgetMobileComponent,
-    SmsLogOutBoxTaskSchedulerWidgetComponent,
-    SmsLogOutBoxTaskSchedulerWidgetMobileComponent,
-    SmsLogOutBoxWidgetComponent,
-    SmsLogOutBoxWidgetMobileComponent,
   ],
   imports: [
     CommonModule,

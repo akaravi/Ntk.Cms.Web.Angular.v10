@@ -134,12 +134,6 @@ import { TransactionAssistantDashboardComponent } from "./dashboard/dashboard.co
 import { TransactionAssistantShipmentListMobileComponent } from "./shipment/list/list.mobile.component";
 import { TransactionAssistantSupplierListMobileComponent } from "./supplier/list/list.mobile.component";
 import { TransactionAssistantTagListMobileComponent } from "./tag/list/list.mobile.component";
-// Config Components
-import { TransactionAssistantConfigCheckSiteComponent } from "./config/check-site/check-site.component";
-import { TransactionAssistantConfigCheckUserComponent } from "./config/check-user/check-user.component";
-import { TransactionAssistantConfigMainAdminComponent } from "./config/main-admin/config-main-admin.component";
-import { TransactionAssistantConfigSiteComponent } from "./config/site/config-site.component";
-import { TransactionAssistantConfigComponent } from "./config/transaction-assistant-config.component";
 
 @NgModule({
   declarations: [
@@ -231,13 +225,7 @@ import { TransactionAssistantConfigComponent } from "./config/transaction-assist
     /* Dashboard */
     TransactionAssistantDashboardComponent,
     /* Dashboard */
-    /* Config */
-    TransactionAssistantConfigComponent,
-    TransactionAssistantConfigCheckSiteComponent,
-    TransactionAssistantConfigCheckUserComponent,
-    TransactionAssistantConfigMainAdminComponent,
-    TransactionAssistantConfigSiteComponent,
-    /* Config */
+
   ],
   imports: [
     CommonModule,

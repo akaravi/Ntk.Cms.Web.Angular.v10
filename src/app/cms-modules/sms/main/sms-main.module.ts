@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA, NgModule } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { SmsMainComponent } from "./sms-main.component";
 import { SmsMainRoutes } from "./sms-main.routing";
 
@@ -98,7 +98,6 @@ import { SmsMainClientApplicationSelectorComponent } from "./client-application/
 import { SmsMainClientApplicationPermissionAddComponent } from "./client-application-permission/add/add.component";
 import { SmsMainClientApplicationPermissionEditComponent } from "./client-application-permission/edit/edit.component";
 import { SmsMainClientApplicationPermissionListComponent } from "./client-application-permission/list/list.component";
-import { SmsMainClientApplicationPermissionListMobileComponent } from "./client-application-permission/list/list.mobile.component";
 import { SmsMainMessageCategoryAddComponent } from "./message-category/add/add.component";
 import { SmsMainMessageCategoryDeleteComponent } from "./message-category/delete/delete.component";
 import { SmsMainMessageCategoryEditComponent } from "./message-category/edit/edit.component";
@@ -122,7 +121,6 @@ import { SmsMainApiPathPublicConfigListMobileComponent } from "./public-config/l
 import { SmsMainApiPathPublicConfigSelectorComponent } from "./public-config/selector/selector.component";
 import { SmsMainApiPathPublicConfigTreeComponent } from "./public-config/tree/tree.component";
 import { SmsMainApiPathPublicConfigTreeMobileComponent } from "./public-config/tree/tree.mobile.component";
-import { SmsMainApiPathTreeComponent } from "./api-path/tree/tree.component";
 
 @NgModule({
   declarations: [
@@ -215,7 +213,6 @@ import { SmsMainApiPathTreeComponent } from "./api-path/tree/tree.component";
     SmsMainClientApplicationSelectorComponent,
     /*ClientApplicationPermission*/
     SmsMainClientApplicationPermissionListComponent,
-    SmsMainClientApplicationPermissionListMobileComponent,
     SmsMainClientApplicationPermissionAddComponent,
     SmsMainClientApplicationPermissionEditComponent,
 
@@ -235,7 +232,6 @@ import { SmsMainApiPathTreeComponent } from "./api-path/tree/tree.component";
     SmsMainMessageContentListMobileComponent,
     SmsMainMessageContentSelectorComponent,
     /** */
-    SmsMainApiPathTreeComponent,
   ],
   exports: [
     SmsMainApiPathPublicConfigAddComponent,
@@ -321,7 +317,6 @@ import { SmsMainApiPathTreeComponent } from "./api-path/tree/tree.component";
     SmsMainClientApplicationSelectorComponent,
     /*ClientApplicationPermission*/
     SmsMainClientApplicationPermissionListComponent,
-    SmsMainClientApplicationPermissionListMobileComponent,
     SmsMainClientApplicationPermissionAddComponent,
     SmsMainClientApplicationPermissionEditComponent,
     /** */
@@ -377,6 +372,5 @@ import { SmsMainApiPathTreeComponent } from "./api-path/tree/tree.component";
     SmsMainClientApplicationService,
     SmsMainClientApplicationPermissionService,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
 })
 export class SmsMainModule {}

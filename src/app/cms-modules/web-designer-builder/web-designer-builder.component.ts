@@ -1,12 +1,12 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  DataFieldInfoModel,
-  ErrorExceptionResult,
-  ManageUserAccessDataTypesEnum,
-  TokenInfoModelV3,
-  WebDesignerMainPageModel,
-  WebDesignerMainPageService,
+    DataFieldInfoModel,
+    ErrorExceptionResult,
+    ManageUserAccessDataTypesEnum,
+    TokenInfoModelV3,
+    WebDesignerMainPageModel,
+    WebDesignerMainPageService,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";

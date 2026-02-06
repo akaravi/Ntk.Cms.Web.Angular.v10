@@ -35,19 +35,13 @@ import { BiographyCategoryTreeSelectorComponent } from "./category/tree-selector
 import { BiographyCategoryTreeComponent } from "./category/tree/tree.component";
 import { BiographyCommentEditComponent } from "./comment/edit/edit.component";
 import { BiographyCommentListComponent } from "./comment/list/list.component";
+import { BiographyCommentListMobileComponent } from "./comment/list/list.mobile.component";
 import { BiographyContentAddComponent } from "./content/add/add.component";
 import { BiographyContentDeleteComponent } from "./content/delete/delete.component";
 import { BiographyContentEditComponent } from "./content/edit/edit.component";
 import { BiographyContentListComponent } from "./content/list/list.component";
-import { BiographyContentSelectorComponent } from "./content/selector/selector.component";
-import { BiographyCommentListMobileComponent } from "./comment/list/list.mobile.component";
-import { BiographyConfigComponent } from "./config/biography-config.component";
-import { BiographyConfigCheckSiteComponent } from "./config/check-site/check-site.component";
-import { BiographyConfigCheckUserComponent } from "./config/check-user/check-user.component";
-import { BiographyConfigMainAdminComponent } from "./config/main-admin/config-main-admin.component";
-import { BiographyConfigSiteComponent } from "./config/site/config-site.component";
 import { BiographyContentListMobileComponent } from "./content/list/list.mobile.component";
-import { BiographyContentWidgetComponent } from "./content/widget/widget.component";
+import { BiographyContentSelectorComponent } from "./content/selector/selector.component";
 @NgModule({
   declarations: [
     BiographyComponent,
@@ -65,13 +59,8 @@ import { BiographyContentWidgetComponent } from "./content/widget/widget.compone
     BiographyCommentEditComponent,
     BiographyCategoryTreeSelectorComponent,
     BiographyCommentListMobileComponent,
-    BiographyConfigComponent,
-    BiographyConfigCheckSiteComponent,
-    BiographyConfigCheckUserComponent,
-    BiographyConfigMainAdminComponent,
-    BiographyConfigSiteComponent,
     BiographyContentListMobileComponent,
-    BiographyContentWidgetComponent,
+
   ],
   imports: [
     CommonModule,

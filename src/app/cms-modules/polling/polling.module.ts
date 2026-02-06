@@ -31,13 +31,6 @@ import { PollingContentEditComponent } from "./content/edit/edit.component";
 import { PollingContentListComponent } from "./content/list/list.component";
 import { PollingVoteEditComponent } from "./vote/edit/edit.component";
 import { PollingVoteListComponent } from "./vote/list/list.component";
-import { PollingConfigCheckSiteComponent } from "./config/check-site/check-site.component";
-import { PollingConfigCheckUserComponent } from "./config/check-user/check-user.component";
-import { PollingConfigMainAdminComponent } from "./config/main-admin/config-main-admin.component";
-import { PollingConfigComponent } from "./config/polling-config.component";
-import { PollingConfigSiteComponent } from "./config/site/config-site.component";
-import { PollingContentListMobileComponent } from "./content/list/list.mobile.component";
-import { PollingVoteListMobileComponent } from "./vote/list/list.mobile.component";
 
 @NgModule({
   declarations: [
@@ -53,13 +46,6 @@ import { PollingVoteListMobileComponent } from "./vote/list/list.mobile.componen
     PollingContentDeleteComponent,
     PollingVoteEditComponent,
     PollingVoteListComponent,
-    PollingConfigCheckSiteComponent,
-    PollingConfigCheckUserComponent,
-    PollingConfigMainAdminComponent,
-    PollingConfigComponent,
-    PollingConfigSiteComponent,
-    PollingContentListMobileComponent,
-    PollingVoteListMobileComponent,
   ],
   imports: [
     CommonModule,
