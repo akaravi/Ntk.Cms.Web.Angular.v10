@@ -1,16 +1,15 @@
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
 import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MatStepper } from "@angular/material/stepper";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {
-    AccessModel,
-    CoreEnumService,
-    DataFieldInfoModel,
-    ErrorExceptionResult, WebDesignerMainIntroModel,
-    WebDesignerMainIntroService
-} from "ntk-cms-api";
+import {AccessModel,
+  CoreEnumService,
+  DataFieldInfoModel,
+  ErrorExceptionResult,WebDesignerMainIntroModel,
+  WebDesignerMainIntroService} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";

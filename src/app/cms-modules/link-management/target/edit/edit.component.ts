@@ -5,20 +5,18 @@ import { MatStepper } from "@angular/material/stepper";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import { Map as leafletMap } from "leaflet";
-import {
-  AccessModel,
+import {AccessModel,
   CoreEnumService,
   CoreSiteModel,
   ErrorExceptionResult,
-  ErrorExceptionResultBase, InfoEnumModel,
+  ErrorExceptionResultBase,InfoEnumModel,
   LinkManagementBillboardPatternModel,
   LinkManagementEnumService,
   LinkManagementTargetCategoryModel,
   LinkManagementTargetCategoryService,
   LinkManagementTargetModel,
   LinkManagementTargetService,
-  ManageUserAccessDataTypesEnum
-} from "ntk-cms-api";
+  ManageUserAccessDataTypesEnum} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -27,11 +25,12 @@ import { PoinModel } from "src/app/core/models/pointModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-linkmanagement-target-edit",
   templateUrl: "./edit.component.html",
-
+  styleUrls: ["./edit.component.scss"],
   standalone: false,
 })
 export class LinkManagementTargetEditComponent
@@ -98,7 +97,7 @@ export class LinkManagementTargetEditComponent
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   selectFileTypePodcast = ["mp3"];
   selectFileTypeMovie = ["mp4", "webm"];
-  dataFileModel = new Map<number, string>();
+
   fileManagerOpenForm = false;
   fileManagerOpenFormPodcast = false;
   fileManagerOpenFormMovie = false;
@@ -196,30 +195,6 @@ export class LinkManagementTargetEditComponent
 
           if (ret.isSuccess) {
             this.dataModel = ret.item;
-
-
-
-             /**
-           * check file attach list
-           */
-          if (
-            this.dataModel.linkFileIds &&
-            this.dataModel.linkFileIds.length > 0
-          ) {
-            this.dataModel.linkFileIds.split(",").forEach((element, index) => {
-              let link = "";
-              if (
-                this.dataModel.linkFileIdsSrc.length >= this.dataModel.linkFileIds.length
-              ) {
-                link = this.dataModel.linkFileIdsSrc[index];
-              }
-              this.dataFileModel.set(+element, link);
-            });
-          }
-             /**
-           * check file attach list
-           */
-
           } else {
             this.cmsToastrService.typeErrorGetOne(ret.errorMessage);
           }
@@ -252,13 +227,7 @@ export class LinkManagementTargetEditComponent
           this.constructorInfoAreaId,
         );
       });
-   this.dataModel.linkFileIds = "";
-    if (this.dataFileModel) {
-      const keys = Array.from(this.dataFileModel.keys());
-      if (keys && keys.length > 0) {
-        this.dataModel.linkFileIds = keys.join(",");
-      }
-    }
+
     this.linkManagementTargetService.ServiceEdit(this.dataModel).subscribe({
       next: (ret) => {
         this.publicHelper.processService.processStop(pName);

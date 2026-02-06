@@ -3,22 +3,23 @@ import { FormControl } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService,
-  DataFieldInfoModel,
-  ErrorExceptionResult,
-  ErrorExceptionResultBase,
-  EstateAccountAgencyModel,
-  EstateAccountExpertModel,
-  EstateActivityTypeModel,
-  EstateActivityTypeService,
-  EstateCustomerOrderModel,
-  EstateEnumService,
-  EstatePropertyHistoryModel,
-  EstatePropertyHistoryService,
-  EstatePropertyModel,
-  FilterModel,
-  InfoEnumModel,
-  ManageUserAccessDataTypesEnum } from "ntk-cms-api";
+    CoreEnumService,
+    DataFieldInfoModel,
+    ErrorExceptionResult,
+    ErrorExceptionResultBase,
+    EstateAccountAgencyModel,
+    EstateAccountExpertModel,
+    EstateActivityTypeModel,
+    EstateActivityTypeService,
+    EstateCustomerOrderModel,
+    EstateEnumService,
+    EstatePropertyHistoryModel,
+    EstatePropertyHistoryService,
+    EstatePropertyModel,
+    FilterModel,
+    InfoEnumModel,
+    ManageUserAccessDataTypesEnum
+} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -27,7 +28,6 @@ import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { EstatePropertyHistoryEditComponent } from "./edit.component";
 
-import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-estate-property-history-edit-mobile",

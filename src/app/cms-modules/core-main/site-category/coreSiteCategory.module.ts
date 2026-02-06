@@ -12,7 +12,6 @@ import { CoreSiteCategoryComponent } from "./coreSiteCategory.component";
 import { CoreSiteCategoryRouting } from "./coreSiteCategory.routing";
 import { CoreSiteCategoryEditComponent } from "./edit/edit.component";
 import { CoreSiteCategoryListComponent } from "./list/list.component";
-import { CoreSiteCategoryListMobileComponent } from "./list/list.mobile.component";
 import { CoreSiteCategorySelectorComponent } from "./selector/selector.component";
 import { CoreSiteCategoryTreeComponent } from "./tree/tree.component";
 
@@ -20,23 +19,23 @@ import { AngularEditorModule } from "@kolkov/angular-editor";
 
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { CoreModuleModule } from "../module/coreModule.module";
+import { CoreSiteCategoryListMobileComponent } from "./list/list.mobile.component";
 // import { CoreSiteCategoryCmsModuleListComponent } from './moduleList/moduleList.component';
 
 @NgModule({
   declarations: [
     CoreSiteCategoryComponent,
     CoreSiteCategoryListComponent,
-    CoreSiteCategoryListMobileComponent,
     CoreSiteCategoryAddComponent,
     CoreSiteCategoryEditComponent,
     CoreSiteCategorySelectorComponent,
     CoreSiteCategoryTreeComponent,
     // CoreSiteCategoryCmsModuleListComponent,
+    CoreSiteCategoryListMobileComponent,
   ],
   exports: [
     CoreSiteCategoryComponent,
     CoreSiteCategoryListComponent,
-    CoreSiteCategoryListMobileComponent,
     CoreSiteCategoryAddComponent,
     CoreSiteCategoryEditComponent,
     CoreSiteCategorySelectorComponent,

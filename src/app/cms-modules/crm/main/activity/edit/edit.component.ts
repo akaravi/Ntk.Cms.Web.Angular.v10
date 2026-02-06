@@ -1,35 +1,36 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild } from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService,
-  CoreUserModel,
-  DataFieldInfoModel,
-  ErrorExceptionResult,
-  CrmActivityModel,
-  CrmActivityService,
-  TokenInfoModelV3,
-  CrmAccountModel,
-  CrmContactModel,
-  CrmLeadModel,
-  CrmOpportunityModel,
-  CrmDealModel,
-  CrmCampaignModel,
-  CrmEnumService,
-  InfoEnumModel } from "ntk-cms-api";
+    CoreEnumService,
+    CoreUserModel,
+    CrmAccountModel,
+    CrmActivityModel,
+    CrmActivityService,
+    CrmCampaignModel,
+    CrmContactModel,
+    CrmDealModel,
+    CrmEnumService,
+    CrmLeadModel,
+    CrmOpportunityModel,
+    DataFieldInfoModel,
+    ErrorExceptionResult,
+    InfoEnumModel,
+    TokenInfoModelV3
+} from "ntk-cms-api";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 
 /**
  * Component ویرایش Activity در CRM.

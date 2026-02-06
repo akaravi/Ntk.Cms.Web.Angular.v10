@@ -1,26 +1,28 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  HostListener,
-  Inject,
-  OnDestroy,
-  OnInit,
-  ViewChild,
+    ChangeDetectorRef,
+    Component,
+    HostListener,
+    Inject,
+    OnDestroy,
+    OnInit,
+    ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatTableDataSource } from "@angular/material/table";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreEnumService,
-  DataFieldInfoModel,
-  ErrorExceptionResult,
-  EstateContractModel,
-  EstateContractTypeModel,
-  EstateContractTypeService,
-  EstatePropertyModel,
-  EstatePropertyService,InputDataTypeEnum,
-  ManageUserAccessDataTypesEnum,
-  TokenInfoModelV3} from "ntk-cms-api";
+import {
+    CoreEnumService,
+    DataFieldInfoModel,
+    ErrorExceptionResult,
+    EstateContractModel,
+    EstateContractTypeModel,
+    EstateContractTypeService,
+    EstatePropertyModel,
+    EstatePropertyService, InputDataTypeEnum,
+    ManageUserAccessDataTypesEnum,
+    TokenInfoModelV3
+} from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";

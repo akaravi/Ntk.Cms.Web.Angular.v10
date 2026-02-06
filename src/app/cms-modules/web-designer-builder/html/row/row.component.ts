@@ -1,10 +1,10 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
 } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";

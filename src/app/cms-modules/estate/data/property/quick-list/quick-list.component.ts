@@ -18,17 +18,15 @@ import { TranslateService } from "@ngx-translate/core";
 import {
     ClauseTypeEnum,
     DataFieldInfoModel,
-    EstatePropertyFilterModel,
     EstatePropertyModel,
     EstatePropertyService,
     EstatePropertyTypeLanduseModel,
     FilterDataModel,
     FilterDataModelSearchTypesEnum,
-    FilterModel,
-    ManageUserAccessDataTypesEnum,
+    FilterModel, ManageUserAccessDataTypesEnum,
     RecordStatusEnum,
     SortTypeEnum,
-    TokenInfoModelV3,
+    TokenInfoModelV3
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ComponentOptionSearchModel } from "src/app/core/cmsComponent/base/componentOptionSearchModel";
@@ -44,6 +42,7 @@ import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-di
 import { CmsLinkToComponent } from "src/app/shared/cms-link-to/cms-link-to.component";
 import { environment } from "src/environments/environment";
 import { EstatePropertyQuickViewComponent } from "../quick-view/quick-view.component";
+
 
 @Component({
   selector: "app-estate-property-quick-list",
@@ -224,20 +223,6 @@ export class EstatePropertyQuickListComponent
   filteModelContent = new FilterModel();
   filterDataModelQueryBuilder: FilterDataModel[] = [];
 
-  filterModelCompiler(model: FilterModel): EstatePropertyFilterModel {
-    /*filter CLone*/
-    const filterModel = JSON.parse(JSON.stringify(model));
-    /*filter CLone*/
-    /*filter add search*/
-    if (
-      this.filterDataModelQueryBuilder &&
-      this.filterDataModelQueryBuilder.length > 0
-    ) {
-      filterModel.filters = [...this.filterDataModelQueryBuilder];
-    }
-    /*filter add search*/
-    return filterModel;
-  }
 
   optionsSearch: ComponentOptionSearchModel = new ComponentOptionSearchModel();
   optionsStatist: ComponentOptionStatistModel =
@@ -333,7 +318,17 @@ export class EstatePropertyQuickListComponent
         );
       });
     this.filteModelContent.accessLoad = true;
-    const filterModel = this.filterModelCompiler(this.filteModelContent);
+    /*filter CLone*/
+    const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
+    /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
     if (
       this.categoryModelSelected &&
       this.categoryModelSelected.id &&
@@ -555,17 +550,14 @@ export class EstatePropertyQuickListComponent
       this.link = "/#/estate/data/property/edit/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
-      this.router.navigate([
-        "/estate/data/property/edit",
-        this.tableRowSelected.id,
-      ]);
+      this.router.navigate(["/estate/data/property/edit", this.tableRowSelected.id]);
     }
   }
 
   onActionButtonQuickViewRow(
     model: EstatePropertyModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -614,8 +606,7 @@ export class EstatePropertyQuickListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/data/property-ads/LinkPropertyId/" +
-        this.tableRowSelected.id;
+        "/#/estate/data/property-ads/LinkPropertyId/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
@@ -644,8 +635,7 @@ export class EstatePropertyQuickListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/data/property-history/LinkPropertyId/" +
-        this.tableRowSelected.id;
+        "/#/estate/data/property-history/LinkPropertyId/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
@@ -733,8 +723,7 @@ export class EstatePropertyQuickListComponent
     const statist = new Map<string, number>();
     statist.set("Active", 0);
     statist.set("All", 0);
-    const filterModel = this.filterModelCompiler(this.filteModelContent);
-    this.contentService.ServiceGetCount(filterModel).subscribe({
+    this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           statist.set("All", ret.totalRowCount);
@@ -748,7 +737,7 @@ export class EstatePropertyQuickListComponent
       },
     });
 
-    const filterStatist1 = this.filterModelCompiler(this.filteModelContent);
+    const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
     fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
@@ -770,7 +759,7 @@ export class EstatePropertyQuickListComponent
   onActionButtonActionSendSmsToCustomerOrder(
     model: EstatePropertyModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -806,7 +795,7 @@ export class EstatePropertyQuickListComponent
   onActionButtonViewOtherUserAdvertise(
     model: EstatePropertyModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -829,7 +818,9 @@ export class EstatePropertyQuickListComponent
     this.optionloadComponent = true;
     this.DataGetAll();
   }
-
+  onActionCopied(): void {
+    this.cmsToastrService.typeSuccessCopedToClipboard();
+  }
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
     if (model && model.length > 0) {
       this.filterDataModelQueryBuilder = [...model];
@@ -845,7 +836,7 @@ export class EstatePropertyQuickListComponent
   onActionButtonLinkTo(
     model: EstatePropertyModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

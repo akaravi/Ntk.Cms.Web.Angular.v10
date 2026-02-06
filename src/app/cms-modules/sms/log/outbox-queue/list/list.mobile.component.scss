@@ -1,0 +1,49 @@
+/* ============================================
+   Mobile Component Styles - SMS Outbox Queue List
+   استایل‌های خاص این کامپوننت
+   استایل‌های مشترک در styles.mobile.scss موجود است
+   ============================================ */
+
+/* ============================================
+   Component Specific Styles
+   ============================================ */
+
+.cms-m-content {
+  padding: 8px var(--cms-m-spacing-md);
+  padding-bottom: calc(8px + env(safe-area-inset-bottom));
+  position: relative;
+  touch-action: pan-y;
+}
+
+.cms-m-header-spacer {
+  flex: 1;
+}
+
+@media (max-width: 375px) {
+  .cms-m-content {
+    padding: 8px 12px;
+  }
+
+  .cms-m-list-item {
+    padding: 10px 12px;
+  }
+
+  .cms-m-list-item-image,
+  .cms-m-list-item-image-placeholder {
+    width: 48px;
+    height: 48px;
+  }
+
+  .cms-m-action-btn {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+  }
+}
+
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .cms-m-list-item {
+    will-change: transform;
+  }
+}

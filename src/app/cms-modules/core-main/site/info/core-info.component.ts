@@ -3,10 +3,10 @@ import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    CoreSiteService,
-    ErrorExceptionResult,
-    ShareInfoModel,
-    TokenInfoModelV3,
+  CoreSiteService,
+  ErrorExceptionResult,
+  ShareInfoModel,
+  TokenInfoModelV3,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -98,7 +98,9 @@ export class CoreInfoComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
-
+  onActionCopied(): void {
+    this.cmsToastrService.typeSuccessCopedToClipboard();
+  }
   onActionButtonResllerUser(): void {
     this.router.navigate(["/core/user/reseller-chart"]);
   }

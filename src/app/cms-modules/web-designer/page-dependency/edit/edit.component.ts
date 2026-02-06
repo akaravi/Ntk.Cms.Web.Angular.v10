@@ -1,21 +1,19 @@
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 import {
-    ChangeDetectorRef,
-    Component,
-    Inject,
-    OnInit,
-    ViewChild
-} from "@angular/core";
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {
-    CoreEnumService,
-    CoreModuleModel,
-    ErrorExceptionResultBase, ManageUserAccessDataTypesEnum,
-    WebDesignerMainPageDependencyModel,
-    WebDesignerMainPageDependencyService
-} from "ntk-cms-api";
+import {CoreEnumService,
+  CoreModuleModel,
+  ErrorExceptionResultBase,ManageUserAccessDataTypesEnum,
+  WebDesignerMainPageDependencyModel,
+  WebDesignerMainPageDependencyService} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";

@@ -222,4 +222,7 @@ export class CmsLinkToComponent implements OnInit, OnDestroy {
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });
   }
+  onActionCopied (): void {
+    this.publicHelper.cmsToastrService.typeSuccessCopedToClipboard();
+  }
 }

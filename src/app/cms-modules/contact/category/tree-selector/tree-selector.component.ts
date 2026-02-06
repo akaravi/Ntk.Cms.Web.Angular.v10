@@ -33,7 +33,8 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 export class ContactCategoryTreeSelectorComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-        public coreEnumService: CoreEnumService,
+    public cmsToastrService: CmsToastrService,
+    public coreEnumService: CoreEnumService,
     public categoryService: ContactCategoryService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
@@ -41,7 +42,6 @@ export class ContactCategoryTreeSelectorComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
-    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
     this.checklistSelection.changed.subscribe((x) => {

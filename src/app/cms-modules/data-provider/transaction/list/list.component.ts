@@ -14,12 +14,12 @@ import {
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
-import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { environment } from "src/environments/environment";
+import { PublicHelper } from "../../../../core/helpers/publicHelper";
+import { CmsToastrService } from "../../../../core/services/cmsToastr.service";
 import { DataProviderTransactionViewComponent } from "../view/view.component";
 
 @Component({
@@ -31,14 +31,14 @@ export class DataProviderTransactionListComponent
   extends ListBaseComponent<
     DataProviderTransactionService,
     DataProviderTransactionModel,
-    string
+    number
   >
   implements OnInit, OnDestroy
 {
   requestLinkCmsUserId = 0;
-  requestLinkPlanId = "";
-  requestLinkPlanPriceId = "";
-  requestLinkClientId = "";
+  requestLinkPlanId = 0;
+  requestLinkPlanPriceId = 0;
+  requestLinkClientId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -118,9 +118,33 @@ export class DataProviderTransactionListComponent
       filter.value = this.requestLinkCmsUserId;
       this.filteModelContent.filters.push(filter);
     }
-    this.requestLinkPlanId = this.activatedRoute.snapshot.paramMap.get("LinkPlanId") || "";
-    this.requestLinkClientId = this.activatedRoute.snapshot.paramMap.get("LinkClientId") || "";
-    this.requestLinkPlanPriceId = this.activatedRoute.snapshot.paramMap.get("LinkPlanPriceId") || "";
+    this.requestLinkPlanId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkPlanId"),
+    );
+    if (this.requestLinkPlanId && this.requestLinkPlanId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "LinkPlanId";
+      filter.value = this.requestLinkPlanId;
+      this.filteModelContent.filters.push(filter);
+    }
+    this.requestLinkClientId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkClientId"),
+    );
+    if (this.requestLinkClientId && this.requestLinkClientId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "LinkClientId";
+      filter.value = this.requestLinkClientId;
+      this.filteModelContent.filters.push(filter);
+    }
+    this.requestLinkPlanPriceId = +Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkPlanPriceId"),
+    );
+    if (this.requestLinkPlanPriceId && this.requestLinkPlanPriceId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "LinkPlanPriceId";
+      filter.value = this.requestLinkPlanPriceId;
+      this.filteModelContent.filters.push(filter);
+    }
     this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     if (this.tokenInfo) {
       this.DataGetAll();
@@ -229,7 +253,7 @@ export class DataProviderTransactionListComponent
   onActionButtonViewRow(
     model: DataProviderTransactionModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id > 0) {
       this.cmsToastrService.typeErrorSelected();
       return;
     }
@@ -331,16 +355,14 @@ export class DataProviderTransactionListComponent
     this.DataGetAll();
   }
 
-
-
   onActionBackToParent(): void {
     if (this.requestLinkCmsUserId > 0) {
       this.router.navigate(["/data-provider/plan/"]);
-    } else if (this.requestLinkPlanId.length > 0) {
+    } else if (this.requestLinkPlanId > 0) {
       this.router.navigate(["/data-provider/plan/"]);
-    } else if (this.requestLinkPlanPriceId.length > 0) {
+    } else if (this.requestLinkPlanPriceId > 0) {
       this.router.navigate(["/data-provider/plan-price/"]);
-    } else if (this.requestLinkClientId.length > 0) {
+    } else if (this.requestLinkClientId > 0) {
       this.router.navigate(["/data-provider/client/"]);
     }
   }

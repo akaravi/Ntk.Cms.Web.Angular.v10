@@ -31,6 +31,11 @@ import { TicketingAnswerEditComponent } from "./answer/edit/edit.component";
 import { TicketingAnswerListComponent } from "./answer/list/list.component";
 import { TicketingAnswerListMobileComponent } from "./answer/list/list.mobile.component";
 import { TicketingAnswerViewComponent } from "./answer/view/view.component";
+import { TicketingConfigCheckSiteComponent } from "./config/check-site/check-site.component";
+import { TicketingConfigCheckUserComponent } from "./config/check-user/check-user.component";
+import { TicketingConfigMainAdminComponent } from "./config/main-admin/config-main-admin.component";
+import { TicketingConfigSiteComponent } from "./config/site/config-site.component";
+import { TicketingConfigComponent } from "./config/ticketing-config.component";
 import { TicketingDepartemenAddComponent } from "./departemen/add/add.component";
 import { TicketingDepartemenDeleteComponent } from "./departemen/delete/delete.component";
 import { TicketingDepartemenEditComponent } from "./departemen/edit/edit.component";
@@ -46,6 +51,7 @@ import { TicketingDepartemenOperatorEditComponent } from "./departemenOperator/e
 import { TicketingDepartemenOperatorListComponent } from "./departemenOperator/list/list.component";
 import { TicketingDepartemenOperatorListMobileComponent } from "./departemenOperator/list/list.mobile.component";
 import { TicketingDepartemenOperatorSelectorComponent } from "./departemenOperator/selector/selector.component";
+import { TicketingDepartemenOperatorTreeComponent } from "./departemenOperator/tree/tree.component";
 import { TicketingFaqAddComponent } from "./faq/add/add.component";
 import { TicketingFaqEditComponent } from "./faq/edit/edit.component";
 import { TicketingFaqListComponent } from "./faq/list/list.component";
@@ -59,18 +65,17 @@ import { TicketingTaskHeaderComponent } from "./task/header/header.component";
 import { TicketingTaskListComponent } from "./task/list/list.component";
 import { TicketingTaskListMobileComponent } from "./task/list/list.mobile.component";
 import { TicketingTaskViewComponent } from "./task/view/view.component";
+import { TicketingTaskWidgetComponent } from "./task/widget/widget.component";
 import { TicketingTemplateAddComponent } from "./template/add/add.component";
 import { TicketingTemplateEditComponent } from "./template/edit/edit.component";
 import { TicketingTemplateListComponent } from "./template/list/list.component";
 import { TicketingTemplateListMobileComponent } from "./template/list/list.mobile.component";
 import { TicketingTemplateSelectorComponent } from "./template/selector/selector.component";
-import { TicketingDepartemenOperatorTreeComponent } from "./departemenOperator/tree/tree.component";
 
 @NgModule({
   declarations: [
     TicketingComponent,
     TicketingDepartemenListComponent,
-    TicketingDepartemenListMobileComponent,
     TicketingDepartemenAddComponent,
     TicketingDepartemenEditComponent,
     TicketingDepartemenDeleteComponent,
@@ -80,17 +85,14 @@ import { TicketingDepartemenOperatorTreeComponent } from "./departemenOperator/t
     TicketingFaqAddComponent,
     TicketingFaqEditComponent,
     TicketingFaqListComponent,
-    TicketingFaqListMobileComponent,
     TicketingFaqOriginListComponent,
     /* */
     TicketingTemplateAddComponent,
     TicketingTemplateEditComponent,
     TicketingTemplateListComponent,
-    TicketingTemplateListMobileComponent,
     TicketingTemplateSelectorComponent,
     /** */
     TicketingTaskListComponent,
-    TicketingTaskListMobileComponent,
     TicketingTaskEditComponent,
     TicketingTaskAddComponent,
     TicketingTaskViewComponent,
@@ -99,7 +101,6 @@ import { TicketingDepartemenOperatorTreeComponent } from "./departemenOperator/t
     TicketingTaskHeaderComponent,
     /* */
     TicketingDepartemenOperatorListComponent,
-    TicketingDepartemenOperatorListMobileComponent,
     TicketingDepartemenLogEditComponent,
     TicketingDepartemenOperatorAddComponent,
     TicketingDepartemenOperatorEditComponent,
@@ -107,13 +108,27 @@ import { TicketingDepartemenOperatorTreeComponent } from "./departemenOperator/t
     TicketingDepartemenOperatorTreeComponent,
     /* */
     TicketingAnswerListComponent,
-    TicketingAnswerListMobileComponent,
     TicketingAnswerAddComponent,
     TicketingAnswerEditComponent,
     TicketingAnswerViewComponent,
+    TicketingAnswerListMobileComponent,
     /* */
     TicketingDepartemenLogListComponent,
     TicketingDepartemenLogListMobileComponent,
+    /* Mobile Components */
+    TicketingDepartemenListMobileComponent,
+    TicketingDepartemenOperatorListMobileComponent,
+    TicketingFaqListMobileComponent,
+    TicketingTaskListMobileComponent,
+    TicketingTemplateListMobileComponent,
+    /* Config Components */
+    TicketingConfigComponent,
+    TicketingConfigCheckSiteComponent,
+    TicketingConfigCheckUserComponent,
+    TicketingConfigMainAdminComponent,
+    TicketingConfigSiteComponent,
+    /* Widget Components */
+    TicketingTaskWidgetComponent,
     /** */
   ],
   exports: [TicketingTaskContactUsAddComponent],

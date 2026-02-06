@@ -41,7 +41,7 @@ export class EstateContractTypeListComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    public contentService: EstateContractTypeService,
+    private contentService: EstateContractTypeService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public cmsToastrService: CmsToastrService,
     private cmsStoreService: CmsStoreService,
@@ -79,21 +79,6 @@ export class EstateContractTypeListComponent
 
   filteModelContent = new FilterModel();
   filterDataModelQueryBuilder: FilterDataModel[] = [];
-
-  filterModelCompiler(model: FilterModel): FilterModel {
-    /*filter CLone*/
-    const filterModel = JSON.parse(JSON.stringify(model));
-    /*filter CLone*/
-    /*filter add search*/
-    if (
-      this.filterDataModelQueryBuilder &&
-      this.filterDataModelQueryBuilder.length > 0
-    ) {
-      filterModel.filters = [...this.filterDataModelQueryBuilder];
-    }
-    /*filter add search*/
-    return filterModel;
-  }
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
@@ -155,7 +140,17 @@ export class EstateContractTypeListComponent
         );
       });
     this.filteModelContent.accessLoad = true;
-    const filterModel = this.filterModelCompiler(this.filteModelContent);
+    /*filter CLone*/
+    const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
+    /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
     this.contentService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
@@ -241,7 +236,7 @@ export class EstateContractTypeListComponent
   onActionButtonEditRow(
     model: EstateContractTypeModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -273,7 +268,7 @@ export class EstateContractTypeListComponent
   onActionButtonDeleteRow(
     model: EstateContractTypeModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -350,7 +345,7 @@ export class EstateContractTypeListComponent
     model: EstateContractTypeModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {
@@ -392,8 +387,7 @@ export class EstateContractTypeListComponent
         this.constructorInfoAreaId,
       );
     });
-    const filterModel = this.filterModelCompiler(this.filteModelContent);
-    this.contentService.ServiceGetCount(filterModel).subscribe({
+    this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.translate.get("MESSAGE.All").subscribe((str: string) => {
@@ -411,7 +405,7 @@ export class EstateContractTypeListComponent
       },
     });
 
-    const filterStatist1 = this.filterModelCompiler(this.filteModelContent);
+    const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
     fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;

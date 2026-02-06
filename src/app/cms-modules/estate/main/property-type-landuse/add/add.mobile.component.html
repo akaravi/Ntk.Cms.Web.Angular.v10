@@ -34,7 +34,7 @@
       @if (fieldsInfo['recordStatus']?.accessWatchField) {
         <app-cms-enum-record-status-selector
           [(model)]="dataModel.recordStatus"
-          [optionDisabled]="!(fieldsInfo['recordStatus']?.accessAddField ?? false)"
+          [optionDisabled]="false"
           [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
           [optionRequired]="true"
           [optionSelectFirstItem]="true"
@@ -78,26 +78,21 @@
           <input
             matInput
             type="text"
-            name="dataModel.iconFont"
-            class="cms-m-form-input"
             [(ngModel)]="dataModel.iconFont"
+            name="dataModel.iconFont"
+            #IconFont
             [iconPicker]="dataModel.iconFont"
             [ipIconPack]="['fa']"
             [ipPosition]="'top'"
-            [ipWidth]="'250px'"
             (iconPickerSelect)="onIconPickerSelect($event)"
             placeholder="{{ fieldsInfo['iconFont']?.fieldTitle }}"
             [disabled]="!fieldsInfo['iconFont']?.accessAddField"
+            class="cms-m-form-input"
             id="dataModel.iconFont"
-            ipButtonStyleClass=""
           />
-          <em style="opacity: 1 !important;"
-            ><i
-              style="font-size: 20px !important"
-              [style.color]="dataModel.iconColor ? dataModel.iconColor : null"
-              [ngClass]="dataModel.iconFont"
-            ></i
-          ></em>
+          <span class="cms-m-icon-preview"
+            ><i [ngClass]="dataModel.iconFont"></i
+          ></span>
         </div>
       }
 

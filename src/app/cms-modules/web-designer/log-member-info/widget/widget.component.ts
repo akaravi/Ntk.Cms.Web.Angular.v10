@@ -1,16 +1,16 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    FilterDataModel,
-    FilterModel,
-    RecordStatusEnum,
-    WebDesignerLogMemberInfoService,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  WebDesignerLogMemberInfoService,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import {
-    WidgetContentInfoModel,
-    WidgetInfoModel,
+  WidgetContentInfoModel,
+  WidgetInfoModel,
 } from "src/app/core/models/widget-info-model";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";

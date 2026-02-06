@@ -122,6 +122,7 @@ import { SmsMainApiPathPublicConfigListMobileComponent } from "./public-config/l
 import { SmsMainApiPathPublicConfigSelectorComponent } from "./public-config/selector/selector.component";
 import { SmsMainApiPathPublicConfigTreeComponent } from "./public-config/tree/tree.component";
 import { SmsMainApiPathPublicConfigTreeMobileComponent } from "./public-config/tree/tree.mobile.component";
+import { SmsMainApiPathTreeComponent } from "./api-path/tree/tree.component";
 
 @NgModule({
   declarations: [
@@ -234,6 +235,7 @@ import { SmsMainApiPathPublicConfigTreeMobileComponent } from "./public-config/t
     SmsMainMessageContentListMobileComponent,
     SmsMainMessageContentSelectorComponent,
     /** */
+    SmsMainApiPathTreeComponent,
   ],
   exports: [
     SmsMainApiPathPublicConfigAddComponent,

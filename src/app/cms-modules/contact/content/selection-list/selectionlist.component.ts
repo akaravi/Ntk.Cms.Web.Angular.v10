@@ -1,19 +1,19 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
 } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    ContactContentModel,
-    ContactContentService,
-    CoreEnumService,
-    ErrorExceptionResult,
-    FilterModel,
+  ContactContentModel,
+  ContactContentService,
+  CoreEnumService,
+  ErrorExceptionResult,
+  FilterModel,
 } from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";

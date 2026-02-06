@@ -1,10 +1,11 @@
 import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild } from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatTableDataSource } from "@angular/material/table";
@@ -12,20 +13,21 @@ import { TranslateService } from "@ngx-translate/core";
 import * as Leaflet from "leaflet";
 import { Map as leafletMap } from "leaflet";
 import {
-  CoreEnumService,
-  CoreLocationModel,
-  CoreUserModel,
-  DataFieldInfoModel,
-  ErrorExceptionResultBase,
-  EstateAccountAgencyExpertModel,
-  EstateAccountAgencyExpertService,
-  EstateAccountAgencyModel,
-  EstateAccountAgencyService,
-  EstateAccountExpertModel,
-  EstateAccountExpertService,
-  FilterDataModel,
-  FilterModel,
-  ManageUserAccessDataTypesEnum } from "ntk-cms-api";
+    CoreEnumService,
+    CoreLocationModel,
+    CoreUserModel,
+    DataFieldInfoModel,
+    ErrorExceptionResultBase,
+    EstateAccountAgencyExpertModel,
+    EstateAccountAgencyExpertService,
+    EstateAccountAgencyModel,
+    EstateAccountAgencyService,
+    EstateAccountExpertModel,
+    EstateAccountExpertService,
+    FilterDataModel,
+    FilterModel,
+    ManageUserAccessDataTypesEnum
+} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -33,7 +35,6 @@ import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { PoinModel } from "src/app/core/models/pointModel";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 

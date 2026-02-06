@@ -1,20 +1,20 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild,
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  DataFieldInfoModel,
-  ErrorExceptionResult,
-  EstatePropertyProjectModel,
-  EstatePropertyProjectService,
-  ManageUserAccessDataTypesEnum,
-  TokenInfoModelV3,
+    DataFieldInfoModel,
+    ErrorExceptionResult,
+    EstatePropertyProjectModel,
+    EstatePropertyProjectService,
+    ManageUserAccessDataTypesEnum,
+    TokenInfoModelV3,
 } from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";

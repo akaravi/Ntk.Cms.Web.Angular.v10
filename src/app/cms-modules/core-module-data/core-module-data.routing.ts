@@ -1,16 +1,43 @@
 import { NgModule } from "@angular/core";
-import { RouterModule } from "@angular/router";
+import { RouterModule, Routes } from "@angular/router";
+import { CoreModuleDataCommentListComponent } from "./comment/list/list.component";
+import { CoreModuleDataComponent } from "./core-module-data.component";
+import { CoreModuleDataMemoListComponent } from "./memo/list/list.component";
+import { CoreModuleDataPinListComponent } from "./pin/list/list.component";
+import { CoreModuleDataTaskListComponent } from "./task/list/list.component";
 
-import { DesktopViewportCanMatchGuard, MobileViewportCanMatchGuard } from "src/app/core/guards/responsive-route.guard";
-import { withResponsiveRouteVariants } from "src/app/core/helpers/responsive-routing.helper";
-import { routesMobile } from "./routes.mobile";
-import { routesNormal } from "./routes.normal";
-/**توجه این روت دو بخش داد باید در هر دو بخش روت ها اضفا شود */
+const routes: Routes = [
+  {
+    path: "",
+    component: CoreModuleDataComponent,
+    data: { title: "ROUTE.COREMODULELOG" },
+    children: [
+      {
+        path: "memo",
+        component: CoreModuleDataMemoListComponent,
+        data: { title: "ROUTE.COREMODULELOG.MEMO" },
+      },
+      {
+        path: "pin",
+        component: CoreModuleDataPinListComponent,
+        data: { title: "ROUTE.COREMODULELOG.PIN" },
+      },
+      {
+        path: "task",
+        component: CoreModuleDataTaskListComponent,
+        data: { title: "ROUTE.COREMODULELOG.TASK" },
+      },
+      {
+        path: "comment",
+        component: CoreModuleDataCommentListComponent,
+        data: { title: "ROUTE.COREMODULELOG.COMMENT" },
+      },
+    ],
+  },
+];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(withResponsiveRouteVariants(routesMobile, routesNormal, MobileViewportCanMatchGuard, DesktopViewportCanMatchGuard)),
-  ],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
 export class CoreModuleDataRoutes {}

@@ -26,11 +26,11 @@ export class NewsCategoryDeleteComponent implements OnInit {
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    protected dialogRef: MatDialogRef<NewsCategoryDeleteComponent>,
+    private dialogRef: MatDialogRef<NewsCategoryDeleteComponent>,
     public publicHelper: PublicHelper,
-    public contentService: NewsCategoryService,
-    protected cdr: ChangeDetectorRef,
-    protected cmsToastrService: CmsToastrService,
+    private categoryService: NewsCategoryService,
+    private cdr: ChangeDetectorRef,
+    public cmsToastrService: CmsToastrService,
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
@@ -77,11 +77,11 @@ export class NewsCategoryDeleteComponent implements OnInit {
           this.constructorInfoAreaId,
         );
       });
-    this.contentService.setAccessLoad();
-    this.contentService.setAccessDataType(
+    this.categoryService.setAccessLoad();
+    this.categoryService.setAccessDataType(
       ManageUserAccessDataTypesEnum.Editor,
     );
-    this.contentService.ServiceGetOneById(this.requestId).subscribe({
+    this.categoryService.ServiceGetOneById(this.requestId).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
         this.dataModelResultCategory = ret;
@@ -128,7 +128,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
           this.constructorInfoAreaId,
         );
       });
-    this.contentService.ServiceGetAll(filterModel).subscribe({
+    this.categoryService.ServiceGetAll(filterModel).subscribe({
       next: (ret) => {
         this.dataModelResultCategoryAllData = ret;
         if (!ret.isSuccess) {
@@ -193,7 +193,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
           this.constructorInfoAreaId,
         );
       });
-    this.contentService
+    this.categoryService
       .ServiceMove(this.requestId, this.dataModel.newCatId)
       .subscribe({
         next: (ret) => {
@@ -247,7 +247,7 @@ export class NewsCategoryDeleteComponent implements OnInit {
           this.constructorInfoAreaId,
         );
       });
-    this.contentService.ServiceDelete(this.requestId).subscribe({
+    this.categoryService.ServiceDelete(this.requestId).subscribe({
       next: (ret) => {
         this.formInfo.submitButtonEnabled = !ret.isSuccess;
         if (!ret.isSuccess) {

@@ -2,22 +2,22 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  ActivityStatusEnumEstate,
-  EstatePropertyHistoryFilterModel,
-  EstatePropertyHistoryService,
-  FilterDataModel,
-  FilterDataModelSearchTypesEnum,
-  FilterModel,
-  ManageUserAccessDataTypesEnum,
-  RecordStatusEnum,
-  TokenInfoModelV3,
+    ActivityStatusEnumEstate,
+    EstatePropertyHistoryFilterModel,
+    EstatePropertyHistoryService,
+    FilterDataModel,
+    FilterDataModelSearchTypesEnum,
+    FilterModel,
+    ManageUserAccessDataTypesEnum,
+    RecordStatusEnum,
+    TokenInfoModelV3,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import {
-  WidgetContentInfoModel,
-  WidgetInfoModel,
+    WidgetContentInfoModel,
+    WidgetInfoModel,
 } from "src/app/core/models/widget-info-model";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";

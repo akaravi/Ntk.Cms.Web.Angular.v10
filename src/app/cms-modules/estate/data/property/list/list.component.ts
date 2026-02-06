@@ -240,23 +240,6 @@ export class EstatePropertyListComponent
 
   searchInResponsibleChecked = false;
   filteModelContent = new EstatePropertyFilterModel();
-  filterDataModelQueryBuilder: FilterDataModel[] = [];
-
-  filterModelCompiler(model: EstatePropertyFilterModel): EstatePropertyFilterModel {
-    /*filter CLone*/
-    const filterModel = JSON.parse(JSON.stringify(model));
-    /*filter CLone*/
-    /*filter add search*/
-    if (
-      this.filterDataModelQueryBuilder &&
-      this.filterDataModelQueryBuilder.length > 0
-    ) {
-      filterModel.filters = [...this.filterDataModelQueryBuilder];
-    }
-    /*filter add search*/
-    return filterModel;
-  }
-
   dataModelPropertyDetailGroups: EstatePropertyDetailGroupModel[] = [];
   dataConfigSiteValuesModel = new EstateModuleConfigSiteValuesModel();
 
@@ -429,7 +412,17 @@ export class EstatePropertyListComponent
         );
       });
     this.filteModelContent.accessLoad = true;
-    const filterModel = this.filterModelCompiler(this.filteModelContent);
+    /*filter CLone*/
+    const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
+    /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
     if (
       this.categoryModelSelected &&
       this.categoryModelSelected.id &&
@@ -816,7 +809,7 @@ export class EstatePropertyListComponent
   onActionButtonQuickViewRow(
     model: EstatePropertyModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -900,7 +893,7 @@ export class EstatePropertyListComponent
   onActionButtonQuickHistoryAddRow(
     model: EstatePropertyModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -1073,24 +1066,24 @@ export class EstatePropertyListComponent
     });
     this.contentService.setAccessDataType(ManageUserAccessDataTypesEnum.Editor);
     //*filter */
-    const filterStatist0 = this.filterModelCompiler(this.filteModelContent);
+    const filterStatist0 = JSON.parse(JSON.stringify(this.filteModelContent));
     const s0 = this.contentService.ServiceGetCount(filterStatist0);
     //*filter */
-    const filterStatist1 = this.filterModelCompiler(this.filteModelContent);
+    const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter1 = new FilterDataModel();
     fastfilter1.propertyName = "recordStatus";
     fastfilter1.value = RecordStatusEnum.Available;
     filterStatist1.filters.push(fastfilter1);
     const s1 = this.contentService.ServiceGetCount(filterStatist1);
     //*filter */
-    const filterStatist2 = this.filterModelCompiler(this.filteModelContent);
+    const filterStatist2 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter2 = new FilterDataModel();
     fastfilter2.propertyName = "recordStatus";
     fastfilter2.value = RecordStatusEnum.Disable;
     filterStatist2.filters.push(fastfilter2);
     const s2 = this.contentService.ServiceGetCount(filterStatist2);
     //*filter */
-    const filterStatist3 = this.filterModelCompiler(this.filteModelContent);
+    const filterStatist3 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter3 = new FilterDataModel();
     fastfilter3.propertyName = "recordStatus";
     fastfilter3.value = RecordStatusEnum.Pending;
@@ -1152,7 +1145,7 @@ export class EstatePropertyListComponent
   onActionButtonActionSendSmsToCustomerOrder(
     model: EstatePropertyModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -1191,7 +1184,7 @@ export class EstatePropertyListComponent
   onActionButtonViewOtherUserAdvertise(
     model: EstatePropertyModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -1250,7 +1243,9 @@ export class EstatePropertyListComponent
     this.optionloadComponent = true;
     this.DataGetAll();
   }
-
+  onActionCopied(): void {
+    this.cmsToastrService.typeSuccessCopedToClipboard();
+  }
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
     if (model && model.length > 0) {
       this.filterDataModelQueryBuilder = [...model];
@@ -1266,7 +1261,7 @@ export class EstatePropertyListComponent
   onActionButtonLinkTo(
     model: EstatePropertyModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -1391,7 +1386,7 @@ export class EstatePropertyListComponent
   onActionButtonResponsibleUserlistView(
     model: EstatePropertyModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

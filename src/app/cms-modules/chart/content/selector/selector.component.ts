@@ -40,11 +40,11 @@ export class ChartContentSelectorComponent implements OnInit {
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public coreEnumService: CoreEnumService,
-        private cdr: ChangeDetectorRef,
+    public cmsToastrService: CmsToastrService,
+    private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
     public contentService: ChartContentService,
-    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }

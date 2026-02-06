@@ -64,10 +64,8 @@ import { EstateAccountAgencyAdsSaleListComponent } from "./account-agency-ads/sa
 import { EstateAccountAgencyAdsSalePaymentComponent } from "./account-agency-ads/sale-payment/sale-payment.component";
 import { EstateAccountAgencyExpertAddComponent } from "./account-agency-expert/add/add.component";
 import { EstateAccountAgencyExpertListComponent } from "./account-agency-expert/list/list.component";
-import { EstateAccountAgencyExpertListMobileComponent } from "./account-agency-expert/list/list.mobile.component";
 import { EstateAccountAgencyWorkAreaAddComponent } from "./account-agency-work-area/add/add.component";
 import { EstateAccountAgencyWorkAreaListComponent } from "./account-agency-work-area/list/list.component";
-import { EstateAccountAgencyWorkAreaListMobileComponent } from "./account-agency-work-area/list/list.mobile.component";
 import { EstateAccountAgencyAddComponent } from "./account-agency/add/add.component";
 import { EstateAccountAgencyAddMobileComponent } from "./account-agency/add/add.mobile.component";
 import { EstateAccountAgencyEditComponent } from "./account-agency/edit/edit.component";
@@ -76,7 +74,6 @@ import { EstateAccountAgencyListMobileComponent } from "./account-agency/list/li
 import { EstateAccountAgencyTreeComponent } from "./account-agency/tree/tree.component";
 import { EstateAccountExpertWorkAreaAddComponent } from "./account-expert-work-area/add/add.component";
 import { EstateAccountExpertWorkAreaListComponent } from "./account-expert-work-area/list/list.component";
-import { EstateAccountExpertWorkAreaListMobileComponent } from "./account-expert-work-area/list/list.mobile.component";
 import { EstateAccountExpertAddComponent } from "./account-expert/add/add.component";
 import { EstateAccountExpertAddMobileComponent } from "./account-expert/add/add.mobile.component";
 import { EstateAccountExpertEditComponent } from "./account-expert/edit/edit.component";
@@ -165,6 +162,31 @@ import { EstatePropertySupplierCategorySelectorComponent } from "./property-supp
 
 import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
 import { EstateAccountExpertListMobileComponent } from "./account-expert/list/list.mobile.component";
+import { EstateAccountAgencyExpertListMobileComponent } from "./account-agency-expert/list/list.mobile.component";
+import { EstateAccountAgencyWorkAreaListMobileComponent } from "./account-agency-work-area/list/list.mobile.component";
+import { EstateAccountAgencyHeaderComponent } from "./account-agency/header/header.component";
+import { EstateAccountAgencyListComponent } from "./account-agency/list/list.component";
+import { EstateAccountAgencySelectorComponent } from "./account-agency/selector/selector.component";
+import { EstateAccountExpertWorkAreaListMobileComponent } from "./account-expert-work-area/list/list.mobile.component";
+import { EstateAccountExpertHeaderComponent } from "./account-expert/header/header.component";
+import { EstateAccountExpertSelectorComponent } from "./account-expert/selector/selector.component";
+import { EstateActivityTypeSelectorComponent } from "./activity-type/selector/selector.component";
+import { EstateActivityTypeTreeComponent } from "./activity-type/tree/tree.component";
+import { EstateAdsTypeSelectorComponent } from "./ads-type/selector/selector.component";
+import { EstateContractTypeCompleteComponent } from "./contract-type/autocomplete/autocomplete.component";
+import { EstateContractTypeHeaderComponent } from "./contract-type/header/header.component";
+import { EstateContractTypeSelectorComponent } from "./contract-type/selector/selector.component";
+import { EstateCustomerCategorySelectorComponent } from "./customer-category/selector/selector.component";
+import { EstateCustomerCategoryTreeComponent } from "./customer-category/tree/tree.component";
+import { EstatePropertySupplierCategoryTreeSelectorComponent } from "./property-supplier-category/tree-selector/tree-selector.component";
+import { EstatePropertySupplierCategoryTreeComponent } from "./property-supplier-category/tree/tree.component";
+import { EstatePropertyTypeLanduseCompleteComponent } from "./property-type-landuse/autocomplete/autocomplete.component";
+import { EstatePropertyTypeLanduseHeaderComponent } from "./property-type-landuse/header/header.component";
+import { EstatePropertyTypeLanduseSelectorComponent } from "./property-type-landuse/selector/selector.component";
+import { EstatePropertyTypeLanduseTreeComponent } from "./property-type-landuse/tree/tree.component";
+import { EstatePropertyTypeUsageCompleteComponent } from "./property-type-usage/autocomplete/autocomplete.component";
+import { EstatePropertyTypeUsageHeaderComponent } from "./property-type-usage/header/header.component";
+import { EstatePropertyTypeUsageSelectorComponent } from "./property-type-usage/selector/selector.component";
 
 @NgModule({
   declarations: [
@@ -252,7 +274,6 @@ import { EstateAccountExpertListMobileComponent } from "./account-expert/list/li
     /* */
     EstateAccountExpertWorkAreaAddComponent,
     EstateAccountExpertWorkAreaListComponent,
-    EstateAccountExpertWorkAreaListMobileComponent,
     /* */
     EstateAccountAgencyAddComponent,
     EstateAccountAgencyAddMobileComponent,
@@ -264,11 +285,9 @@ import { EstateAccountExpertListMobileComponent } from "./account-expert/list/li
     /* */
     EstateAccountAgencyWorkAreaAddComponent,
     EstateAccountAgencyWorkAreaListComponent,
-    EstateAccountAgencyWorkAreaListMobileComponent,
     /* */
     EstateAccountAgencyExpertAddComponent,
     EstateAccountAgencyExpertListComponent,
-    EstateAccountAgencyExpertListMobileComponent,
     /* */
     EstateAccountAgencyAdsAddComponent,
     EstateAccountAgencyAdsAddMobileComponent,
@@ -300,6 +319,31 @@ import { EstateAccountExpertListMobileComponent } from "./account-expert/list/li
     EstateCategoryRackListComponent,
     EstateCategoryRackListMobileComponent,
     /* */
+    EstateAccountAgencyExpertListMobileComponent,
+    EstateAccountAgencyWorkAreaListMobileComponent,
+    EstateAccountAgencyHeaderComponent,
+    EstateAccountAgencyListComponent,
+    EstateAccountAgencySelectorComponent,
+    EstateAccountExpertWorkAreaListMobileComponent,
+    EstateAccountExpertHeaderComponent,
+    EstateAccountExpertSelectorComponent,
+    EstateActivityTypeSelectorComponent,
+    EstateActivityTypeTreeComponent,
+    EstateAdsTypeSelectorComponent,
+    EstateContractTypeCompleteComponent,
+    EstateContractTypeHeaderComponent,
+    EstateContractTypeSelectorComponent,
+    EstateCustomerCategorySelectorComponent,
+    EstateCustomerCategoryTreeComponent,
+    EstatePropertySupplierCategoryTreeSelectorComponent,
+    EstatePropertySupplierCategoryTreeComponent,
+    EstatePropertyTypeLanduseCompleteComponent,
+    EstatePropertyTypeLanduseHeaderComponent,
+    EstatePropertyTypeLanduseSelectorComponent,
+    EstatePropertyTypeLanduseTreeComponent,
+    EstatePropertyTypeUsageCompleteComponent,
+    EstatePropertyTypeUsageHeaderComponent,
+    EstatePropertyTypeUsageSelectorComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   imports: [

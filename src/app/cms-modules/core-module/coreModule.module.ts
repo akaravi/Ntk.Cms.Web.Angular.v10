@@ -10,11 +10,11 @@ import { SharedModule } from "src/app/shared/shared.module";
 
 import { CurrencyMaskModule } from "ng2-currency-mask";
 import {
-  CoreModuleService,
-  CoreModuleSiteCreditService,
-  CoreModuleSiteUserCreditService,
-  CoreModuleTagCategoryService,
-  CoreModuleTagService,
+    CoreModuleService,
+    CoreModuleSiteCreditService,
+    CoreModuleSiteUserCreditService,
+    CoreModuleTagCategoryService,
+    CoreModuleTagService,
 } from "ntk-cms-api";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { CoreSharedModule } from "../core-main/core.shared.module";
@@ -41,6 +41,8 @@ import { CoreModuleTagCategoryDeleteComponent } from "./tagCategory/delete/delet
 import { CoreModuleTagCategoryEditComponent } from "./tagCategory/edit/edit.component";
 import { CoreModuleTagCategorySelectorComponent } from "./tagCategory/selector/selector.component";
 import { CoreModuleTagCategoryTreeComponent } from "./tagCategory/tree/tree.component";
+import { CoreModuleSiteCreditWidgetCreditComponent } from "./site-credit/widget/widget-credit.component";
+import { CoreModuleSiteUserCreditWidgetCreditComponent } from "./site-user-credit/widget/widget-credit.component";
 
 @NgModule({
   imports: [
@@ -76,12 +78,17 @@ import { CoreModuleTagCategoryTreeComponent } from "./tagCategory/tree/tree.comp
     CoreModuleSiteUserCreditChargeOnlineCalculateComponent,
     CoreModuleSiteCreditChargeDirectComponent,
     CoreModuleSiteUserCreditChargeDirectComponent,
+    // Mobile Components
+    CoreModuleTagListMobileComponent,
+    CoreModuleSiteCreditListMobileComponent,
+    CoreModuleSiteUserCreditListMobileComponent,
+    CoreModuleSiteCreditWidgetCreditComponent,
+    CoreModuleSiteUserCreditWidgetCreditComponent,
   ],
   exports: [
     CoreModuleComponent,
     CoreModuleTagEditComponent,
     CoreModuleTagListComponent,
-    CoreModuleTagListMobileComponent,
     CoreModuleTagCategoryEditComponent,
     CoreModuleTagCategoryDeleteComponent,
     CoreModuleTagCategoryTreeComponent,
@@ -90,11 +97,9 @@ import { CoreModuleTagCategoryTreeComponent } from "./tagCategory/tree/tree.comp
     CoreModuleTagAddBulkComponent,
     CoreModuleSiteCreditEditComponent,
     CoreModuleSiteCreditListComponent,
-    CoreModuleSiteCreditListMobileComponent,
 
     CoreModuleSiteUserCreditEditComponent,
     CoreModuleSiteUserCreditListComponent,
-    CoreModuleSiteUserCreditListMobileComponent,
     CoreModuleSiteUserCreditMyselfListComponent,
     CoreModuleSiteUserCreditChargeOnlineComponent,
     CoreModuleSiteCreditChargeOnlineComponent,

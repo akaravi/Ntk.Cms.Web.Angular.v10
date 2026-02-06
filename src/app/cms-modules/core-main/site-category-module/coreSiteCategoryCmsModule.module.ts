@@ -8,7 +8,6 @@ import {
 } from "ntk-cms-api";
 import { SharedModule } from "src/app/shared/shared.module";
 import { CoreSiteCategoryCmsModuleListComponent } from "./list/list.component";
-import { CoreSiteCategoryCmsModuleListMobileComponent } from "./list/list.mobile.component";
 import { CoreSiteCategoryCmsModuleSelectorComponent } from "./selector/selector.component";
 
 import { AngularEditorModule } from "@kolkov/angular-editor";
@@ -21,22 +20,22 @@ import { CoreSiteCategoryCmsModuleComponent } from "./coreSiteCategoryCmsModule.
 import { CoreSiteCategoryCmsModuleRouting } from "./coreSiteCategoryCmsModule.routing";
 import { CoreSiteCategoryCmsModuleEditComponent } from "./edit/edit.component";
 import { CoreSiteCategoryCmsModuleListViewComponent } from "./listview/listview.component";
+import { CoreSiteCategoryCmsModuleListMobileComponent } from "./list/list.mobile.component";
 
 @NgModule({
   declarations: [
     CoreSiteCategoryCmsModuleComponent,
     CoreSiteCategoryCmsModuleListComponent,
-    CoreSiteCategoryCmsModuleListMobileComponent,
     CoreSiteCategoryCmsModuleListViewComponent,
     CoreSiteCategoryCmsModuleAddComponent,
     CoreSiteCategoryCmsModuleEditComponent,
 
     CoreSiteCategoryCmsModuleSelectorComponent,
+    CoreSiteCategoryCmsModuleListMobileComponent,
   ],
   exports: [
     CoreSiteCategoryCmsModuleComponent,
     CoreSiteCategoryCmsModuleListComponent,
-    CoreSiteCategoryCmsModuleListMobileComponent,
     CoreSiteCategoryCmsModuleListViewComponent,
     CoreSiteCategoryCmsModuleAddComponent,
     CoreSiteCategoryCmsModuleEditComponent,

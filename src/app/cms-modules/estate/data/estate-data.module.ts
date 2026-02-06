@@ -101,6 +101,16 @@ import { CmsFileManagerModule } from "ntk-cms-filemanager";
 
 import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
 import { TranslateModule } from "@ngx-translate/core";
+import { EstateBillboardHeaderComponent } from "./billboard/header/header.component";
+import { EstatePropertyCompanyHeaderComponent } from "./property-company/header/header.component";
+import { EstatePropertyCompanySelectorComponent } from "./property-company/selector/selector.component";
+import { EstatePropertyProjectHeaderComponent } from "./property-project/header/header.component";
+import { EstatePropertyProjectSelectorComponent } from "./property-project/selector/selector.component";
+import { EstatePropertyCompleteComponent } from "./property/autocomplete/autocomplete.component";
+import { EstatePropertyHeaderComponent } from "./property/header/header.component";
+import { EstatePropertyListComponent } from "./property/list/list.component";
+import { EstatePropertySelectorComponent } from "./property/selector/selector.component";
+import { EstatePropertyWidgetComponent } from "./property/widget/widget.component";
 
 @NgModule({
   declarations: [
@@ -167,6 +177,16 @@ import { TranslateModule } from "@ngx-translate/core";
     EstatePropertyCompanyListMobileComponent,
     EstatePropertySupplierListMobileComponent,
     EstatePropertyProjectListMobileComponent,
+    EstateBillboardHeaderComponent,
+    EstatePropertyCompanyHeaderComponent,
+    EstatePropertyCompanySelectorComponent,
+    EstatePropertyProjectHeaderComponent,
+    EstatePropertyProjectSelectorComponent,
+    EstatePropertyCompleteComponent,
+    EstatePropertyHeaderComponent,
+    EstatePropertyListComponent,
+    EstatePropertySelectorComponent,
+    EstatePropertyWidgetComponent,
   ],
   imports: [
     CommonModule,

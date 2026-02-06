@@ -1,27 +1,25 @@
 import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import {
-    ChangeDetectorRef,
-    Component,
-    Inject,
-    OnInit,
-    ViewChild
-} from "@angular/core";
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatStepper } from "@angular/material/stepper";
 import { TranslateService } from "@ngx-translate/core";
-import {
-    CoreEnumService,
-    CoreUserModel,
-    CoreUserService,
-    DataFieldInfoModel,
-    ErrorExceptionResult, RecordStatusEnum
-} from "ntk-cms-api";
+import {CoreEnumService,
+  CoreUserModel,
+  CoreUserService,
+  DataFieldInfoModel,
+  ErrorExceptionResult,RecordStatusEnum} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-core-user-add",

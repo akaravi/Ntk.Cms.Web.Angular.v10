@@ -5,15 +5,15 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    CoreEnumService,
-    CoreLocationModel,
-    CoreLocationService,
-    ErrorExceptionResult,
-    FilterDataModel,
-    FilterModel,
-    InfoEnumModel,
-    RecordStatusEnum,
-    SortTypeEnum,
+  CoreEnumService,
+  CoreLocationModel,
+  CoreLocationService,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterModel,
+  InfoEnumModel,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -84,18 +84,18 @@ export class CoreLocationListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "LinkImageIdSrc",
+    "id",
     "recordStatus",
     "title",
-    "id",
     "titleML",
     "LocationType",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "LinkImageIdSrc",
+    "id",
     "recordStatus",
     "title",
-    "id",
     "titleML",
     "LocationType",
     // 'Action'
@@ -290,7 +290,7 @@ export class CoreLocationListComponent
   onActionButtonEditRow(
     model: CoreLocationModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -322,7 +322,7 @@ export class CoreLocationListComponent
   onActionButtonDeleteRow(
     model: CoreLocationModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -399,7 +399,7 @@ export class CoreLocationListComponent
   onActionButtonGoToSiteCategoryList(
     model: CoreLocationModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {

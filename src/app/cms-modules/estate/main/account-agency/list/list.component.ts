@@ -17,7 +17,7 @@ import {
     FilterDataModel,
     ManageUserAccessDataTypesEnum,
     RecordStatusEnum,
-    SortTypeEnum
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -49,7 +49,7 @@ export class EstateAccountAgencyListComponent
   requestLinkLocationWorkAreaIds: number[];
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    public contentService: EstateAccountAgencyService,
+    private contentService: EstateAccountAgencyService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public cmsToastrService: CmsToastrService,
     private router: Router,
@@ -115,24 +115,6 @@ export class EstateAccountAgencyListComponent
   tableContentSelected = [];
 
   filteModelContent = new EstateAccountAgencyFilterModel();
-  filterDataModelQueryBuilder: FilterDataModel[] = [];
-
-  filterModelCompiler(
-    model: EstateAccountAgencyFilterModel,
-  ): EstateAccountAgencyFilterModel {
-    /*filter CLone*/
-    const filterModel = JSON.parse(JSON.stringify(model));
-    /*filter CLone*/
-    /*filter add search*/
-    if (
-      this.filterDataModelQueryBuilder &&
-      this.filterDataModelQueryBuilder.length > 0
-    ) {
-      filterModel.filters = [...this.filterDataModelQueryBuilder];
-    }
-    /*filter add search*/
-    return filterModel;
-  }
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
@@ -207,7 +189,17 @@ export class EstateAccountAgencyListComponent
         );
       });
     this.filteModelContent.accessLoad = true;
-    const filterModel = this.filterModelCompiler(this.filteModelContent);
+    /*filter CLone*/
+    const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
+    /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
     this.contentService.setAccessDataType(ManageUserAccessDataTypesEnum.Editor);
     this.contentService.ServiceGetAll(filterModel).subscribe({
       next: (ret) => {
@@ -298,7 +290,7 @@ export class EstateAccountAgencyListComponent
   onActionButtonEditRow(
     model: EstateAccountAgencyModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -330,7 +322,7 @@ export class EstateAccountAgencyListComponent
   onActionButtonDeleteRow(
     model: EstateAccountAgencyModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -423,8 +415,7 @@ export class EstateAccountAgencyListComponent
         this.constructorInfoAreaId,
       );
     });
-    const filterModel = this.filterModelCompiler(this.filteModelContent);
-    this.contentService.ServiceGetCount(filterModel).subscribe({
+    this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.translate.get("MESSAGE.All").subscribe((str: string) => {
@@ -442,7 +433,7 @@ export class EstateAccountAgencyListComponent
       },
     });
 
-    const filterStatist1 = this.filterModelCompiler(this.filteModelContent);
+    const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
     fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
@@ -546,8 +537,7 @@ export class EstateAccountAgencyListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/data/property/LinkEstateAgencyId/" +
-        this.tableRowSelected.id;
+        "/#/estate/data/property/LinkEstateAgencyId/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
@@ -556,7 +546,9 @@ export class EstateAccountAgencyListComponent
       ]);
     }
   }
-
+  onActionCopied(): void {
+    this.cmsToastrService.typeSuccessCopedToClipboard();
+  }
 
   onActionButtonReload(): void {
     this.optionloadComponent = true;

@@ -1,16 +1,37 @@
 import { NgModule } from "@angular/core";
-import { RouterModule } from "@angular/router";
+import { RouterModule, Routes } from "@angular/router";
+import { FileContentExplorerComponent } from "./content/explorer/explorer.component";
+import { FileContentListComponent } from "./content/list/list.component";
+import { FileManagerComponent } from "./file-manager.component";
 
-import { DesktopViewportCanMatchGuard, MobileViewportCanMatchGuard } from "src/app/core/guards/responsive-route.guard";
-import { withResponsiveRouteVariants } from "src/app/core/helpers/responsive-routing.helper";
-import { routesMobile } from "./routes.mobile";
-import { routesNormal } from "./routes.normal";
-/**توجه این روت دو بخش داد باید در هر دو بخش روت ها اضفا شود */
+const routes: Routes = [
+  {
+    path: "",
+    component: FileManagerComponent,
+    data: { title: "ROUTE.FILEMANAGER" },
+    children: [
+      {
+        path: "content",
+        component: FileContentListComponent,
+        data: { title: "ROUTE.FILEMANAGER" },
+      },
+      {
+        path: "explorer",
+        component: FileContentExplorerComponent,
+        data: { title: "ROUTE.FILEMANAGER" },
+      },
+      {
+        path: "",
+        redirectTo: "explorer",
+        pathMatch: "full",
+        data: { title: "ROUTE.FILEMANAGER" },
+      },
+    ],
+  },
+];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(withResponsiveRouteVariants(routesMobile, routesNormal, MobileViewportCanMatchGuard, DesktopViewportCanMatchGuard)),
-  ],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
 export class FileManagerRouting {}

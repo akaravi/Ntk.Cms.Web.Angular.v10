@@ -166,20 +166,6 @@ export class CrmLeadListComponent
   ngOnDestroy(): void {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
-  filterModelCompiler(model: FilterModel): FilterModel {
-    /*filter CLone*/
-    const filterModel = JSON.parse(JSON.stringify(model));
-    /*filter CLone*/
-    /*filter add search*/
-    if (
-      this.filterDataModelQueryBuilder &&
-      this.filterDataModelQueryBuilder.length > 0
-    ) {
-      filterModel.filters = [...this.filterDataModelQueryBuilder];
-    }
-    /*filter add search*/
-    return filterModel;
-  }
   DataGetAll(): void {
     this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
       this.tabledisplayedColumnsSource,
@@ -232,7 +218,17 @@ export class CrmLeadListComponent
         );
       });
     this.filteModelContent.accessLoad = true;
-    const filterModel = this.filterModelCompiler(this.filteModelContent);
+    /*filter CLone*/
+    const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
+    /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
     this.contentService.setAccessDataType(ManageUserAccessDataTypesEnum.Editor);
     this.contentService.ServiceGetAll(filterModel).subscribe({
       next: (ret) => {
@@ -317,7 +313,7 @@ export class CrmLeadListComponent
   onActionButtonEditRow(
     model: CrmLeadModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -349,7 +345,7 @@ export class CrmLeadListComponent
   onActionButtonDeleteRow(
     model: CrmLeadModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -442,8 +438,7 @@ export class CrmLeadListComponent
         this.constructorInfoAreaId,
       );
     });
-    const filterModel = this.filterModelCompiler(this.filteModelContent);
-    this.contentService.ServiceGetCount(filterModel).subscribe({
+    this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.translate.get("MESSAGE.All").subscribe((str: string) => {
@@ -461,7 +456,7 @@ export class CrmLeadListComponent
       },
     });
 
-    const filterStatist1 = this.filterModelCompiler(this.filteModelContent);
+    const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
     fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
@@ -485,7 +480,9 @@ export class CrmLeadListComponent
     });
   }
 
-
+  onActionCopied(): void {
+    this.cmsToastrService.typeSuccessCopedToClipboard();
+  }
 
   onActionButtonReload(): void {
     this.optionloadComponent = true;

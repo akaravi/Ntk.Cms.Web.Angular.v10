@@ -239,7 +239,7 @@ export class ApiTelegramBotConfigListComponent
   onActionButtonEditRow(
     model: ApiTelegramBotConfigModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -271,7 +271,7 @@ export class ApiTelegramBotConfigListComponent
   onActionButtonDeleteRow(
     model: ApiTelegramBotConfigModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -348,7 +348,7 @@ export class ApiTelegramBotConfigListComponent
   onActionButtonGoToModuleList(
     model: ApiTelegramBotConfigModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {
@@ -421,7 +421,7 @@ export class ApiTelegramBotConfigListComponent
   onActionButtonInboxList(
     model: ApiTelegramBotConfigModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -435,7 +435,7 @@ export class ApiTelegramBotConfigListComponent
   onActionButtonOutboxList(
     model: ApiTelegramBotConfigModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -452,7 +452,7 @@ export class ApiTelegramBotConfigListComponent
   onActionButtonSendMessage(
     model: ApiTelegramBotConfigModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -478,7 +478,7 @@ export class ApiTelegramBotConfigListComponent
   onActionButtonReceiveMessageAll(
     model: ApiTelegramBotConfigModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -507,7 +507,7 @@ export class ApiTelegramBotConfigListComponent
   onActionButtonGetMeAsync(
     model: ApiTelegramBotConfigModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -547,7 +547,7 @@ export class ApiTelegramBotConfigListComponent
   onActionButtonReceiveMessageLast(
     model: ApiTelegramBotConfigModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -605,7 +605,7 @@ export class ApiTelegramBotConfigListComponent
   onActionButtonLinkTo(
     model: ApiTelegramBotConfigModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

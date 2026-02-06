@@ -86,28 +86,14 @@ export class CoreUserSelectorComponent implements OnInit {
   }
 
   displayFn(model?: CoreUserModel): string | undefined {
-    let retOut = "";
-    if (model) {
-      if (model.username?.length > 0) retOut = retOut + " " + model.username;
-      if (model.name?.length > 0) retOut = retOut + " " + model.name;
-      if (model.lastName?.length > 0) retOut = retOut + " " + model.lastName;
-      if (model.email?.length > 0) retOut = retOut + " " + model.email;
-      if (model.mobile?.length > 0) retOut = retOut + " " + model.mobile;
-      retOut = retOut + "#:" + model.id;
-    }
-    return retOut;
+    return model
+      ? model.username + " # " + model.name + " # " + model.lastName
+      : undefined;
   }
   displayOption(model?: CoreUserModel): string | undefined {
-    let retOut = "";
-    if (model) {
-      if (model.username?.length > 0) retOut = retOut + " " + model.username;
-      if (model.name?.length > 0) retOut = retOut + " " + model.name;
-      if (model.lastName?.length > 0) retOut = retOut + " " + model.lastName;
-      if (model.email?.length > 0) retOut = retOut + " " + model.email;
-      if (model.mobile?.length > 0) retOut = retOut + " " + model.mobile;
-      retOut = retOut + "#:" + model.id;
-    }
-    return retOut;
+    return model
+      ? model.username + " # " + model.name + " # " + model.lastName
+      : undefined;
   }
   async DataGetAll(text: string | number | any): Promise<CoreUserModel[]> {
     const filterModel = new FilterModel();

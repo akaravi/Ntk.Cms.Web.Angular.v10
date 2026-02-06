@@ -5,6 +5,7 @@ import { SplashScreenService } from "./splash-screen.service";
   selector: "app-splash-screen",
   templateUrl: "./splash-screen.component.html",
   styleUrls: ["./splash-screen.component.scss"],
+  standalone: false,
 })
 export class SplashScreenComponent implements OnInit {
   static nextId = 0;

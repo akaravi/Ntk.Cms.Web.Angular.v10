@@ -5,16 +5,16 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    CoreEnumService,
-    CoreLogNotificationModel,
-    CoreLogNotificationService,
-    CoreSiteModel,
-    ErrorExceptionResult,
-    FilterDataModel,
-    FilterModel,
-    InfoEnumModel,
-    RecordStatusEnum,
-    SortTypeEnum,
+  CoreEnumService,
+  CoreLogNotificationModel,
+  CoreLogNotificationService,
+  CoreSiteModel,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterModel,
+  InfoEnumModel,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -47,7 +47,7 @@ export class CoreLogNotificationListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private coreEnumService: CoreEnumService,
-    public contentService: CoreLogNotificationService,
+    private contentService: CoreLogNotificationService,
     public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
@@ -188,20 +188,6 @@ export class CoreLogNotificationListComponent
   ngOnDestroy(): void {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
-  filterModelCompiler(model: FilterModel): FilterModel {
-    /*filter CLone*/
-    const filterModel = JSON.parse(JSON.stringify(model));
-    /*filter CLone*/
-    /*filter add search*/
-    if (
-      this.filterDataModelQueryBuilder &&
-      this.filterDataModelQueryBuilder.length > 0
-    ) {
-      filterModel.filters = [...this.filterDataModelQueryBuilder];
-    }
-    /*filter add search*/
-    return filterModel;
-  }
   DataGetAll(): void {
     this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
       this.tabledisplayedColumnsSource,
@@ -222,7 +208,17 @@ export class CoreLogNotificationListComponent
         );
       });
     this.filteModelContent.accessLoad = true;
-    const filterModel = this.filterModelCompiler(this.filteModelContent);
+    /*filter CLone*/
+    const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
+    /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
     /**filterActionSearch */
     if (this.filteModelContent.filterActionSearchRecordStatus > 0) {
       const filter = new FilterDataModel();
@@ -302,7 +298,7 @@ export class CoreLogNotificationListComponent
   onActionButtonViewRow(
     model: CoreLogNotificationModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -333,7 +329,7 @@ export class CoreLogNotificationListComponent
   onActionButtonEditRow(
     model: CoreLogNotificationModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -365,7 +361,7 @@ export class CoreLogNotificationListComponent
   onActionButtonDeleteRow(
     model: CoreLogNotificationModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -459,8 +455,7 @@ export class CoreLogNotificationListComponent
         this.constructorInfoAreaId,
       );
     });
-    const filterModel = this.filterModelCompiler(this.filteModelContent);
-    this.contentService.ServiceGetCount(filterModel).subscribe({
+    this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.translate.get("MESSAGE.All").subscribe((str: string) => {
@@ -478,7 +473,7 @@ export class CoreLogNotificationListComponent
       },
     });
 
-    const filterStatist1 = this.filterModelCompiler(this.filteModelContent);
+    const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
     fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
@@ -505,7 +500,7 @@ export class CoreLogNotificationListComponent
   onActionButtonViewMemberRow(
     model: CoreLogNotificationModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

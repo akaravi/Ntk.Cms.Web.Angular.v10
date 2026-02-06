@@ -163,6 +163,7 @@ import { CmsActionButtonReloadComponent } from "./cms-action-button-reload/cms-a
 import { CmsApplicationSelectorComponent } from "./cms-application-selector/cms-application-selector.component";
 import { CmsBankpaymentGridComponent } from "./cms-bankpayment-grid/cms-bankpayment-grid.component";
 import { CmsBankpaymentTransactionInfoComponent } from "./cms-bankpayment-transaction-info/cms-bankpayment-transaction-info.component";
+import { ConfirmationDialogComponent } from "./cms-confirmation-dialog/cmsConfirmationDialog.component";
 import { CmsContactCategoryTreeSelectorComponent } from "./cms-contact-category-tree-selector/cms-contact-category-tree-selector.component";
 import { CmsContactContentDropListComponent } from "./cms-contact-content-drop-list/cms-contact-content-drop-list.component";
 import { CmsContactContentSelectionListComponent } from "./cms-contact-content-selection-list/cms-contact-content-selection-list.component";
@@ -185,8 +186,8 @@ import { CmsGuideinfoComponent } from "./cms-guide-info/cms-guide-info.component
 import { CmsGuideNoticeComponent } from "./cms-guide-notice/cms-guide-notice.component";
 import { CmsHtmlCardComponent } from "./cms-html-card/cms-html-card.component";
 import { CmsHtmlFormComponent } from "./cms-html-form/cms-html-form.component";
-import { CmsHtmlListComponent } from "./cms-html-list/cms-html-list.component";
 import { CmsHtmlListMobileComponent } from "./cms-html-list-mobile/cms-html-list-mobile.component";
+import { CmsHtmlListComponent } from "./cms-html-list/cms-html-list.component";
 import { CmsHtmlModalComponent } from "./cms-html-modal/cms-html-modal.component";
 import { CmsHtmlNoticeComponent } from "./cms-html-notice/cms-html-notice.component";
 import { CmsHtmlTreeComponent } from "./cms-html-tree/cms-html-tree.component";
@@ -222,6 +223,7 @@ import {
 import { OverlayService } from "./overlay/overlay.service";
 import { PasswordStrengthComponent } from "./password-strength/password-strength.component";
 import { ProgressSpinnerComponent } from "./progress-spinner/progress-spinner.component";
+import { SplashScreenComponent } from "./splash-screen/splash-screen.component";
 
 @NgModule({
   declarations: [
@@ -288,6 +290,7 @@ import { ProgressSpinnerComponent } from "./progress-spinner/progress-spinner.co
     CmsMapComponent,
     CmsTagAutocompleteComponent,
     ProgressSpinnerComponent,
+    SplashScreenComponent,
     PasswordStrengthComponent,
     CmsJsonListComponent,
     CmsGuideinfoComponent,
@@ -316,6 +319,9 @@ import { ProgressSpinnerComponent } from "./progress-spinner/progress-spinner.co
     CmsSmsMainApiNumberSelectorComponent,
     NgxQueryBuilderComponent,
     CmsHtmlWidgetComponent,
+    ConfirmationDialogComponent,
+
+
     /** input */
     StringComponent,
     IntComponent,
@@ -563,6 +569,7 @@ import { ProgressSpinnerComponent } from "./progress-spinner/progress-spinner.co
     CmsShowKeyComponent,
     CmsTagAutocompleteComponent,
     ProgressSpinnerComponent,
+    SplashScreenComponent,
     PasswordStrengthComponent,
     CmsJsonListComponent,
     CmsGuideinfoComponent,
@@ -591,6 +598,9 @@ import { ProgressSpinnerComponent } from "./progress-spinner/progress-spinner.co
     CmsSmsMainApiNumberSelectorComponent,
     NgxQueryBuilderComponent,
     CmsHtmlWidgetComponent,
+    ConfirmationDialogComponent,
+
+
     /** input */
     StringComponent,
     IntComponent,
@@ -624,6 +634,7 @@ import { ProgressSpinnerComponent } from "./progress-spinner/progress-spinner.co
     InlineSVGDirective,
     KeyboardForceDirective,
     KeyboardForceNumberDirective,
+
   ],
 })
 export class SharedModule {

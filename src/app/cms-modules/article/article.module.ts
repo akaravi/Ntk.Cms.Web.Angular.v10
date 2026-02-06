@@ -36,14 +36,20 @@ import { ArticleCategoryTreeSelectorComponent } from "./category/tree-selector/t
 import { ArticleCategoryTreeComponent } from "./category/tree/tree.component";
 import { ArticleCommentEditComponent } from "./comment/edit/edit.component";
 import { ArticleCommentListComponent } from "./comment/list/list.component";
-import { ArticleCommentListMobileComponent } from "./comment/list/list.mobile.component";
 import { ArticleContentAddComponent } from "./content/add/add.component";
 import { ArticleContentDeleteComponent } from "./content/delete/delete.component";
 import { ArticleContentEditComponent } from "./content/edit/edit.component";
 import { ArticletHeaderComponent } from "./content/header/header.component";
 import { ArticleContentListComponent } from "./content/list/list.component";
-import { ArticleContentListMobileComponent } from "./content/list/list.mobile.component";
 import { ArticleContentSelectorComponent } from "./content/selector/selector.component";
+import { ArticleCommentListMobileComponent } from "./comment/list/list.mobile.component";
+import { ArticleConfigComponent } from "./config/article-config.component";
+import { ArticleConfigCheckSiteComponent } from "./config/check-site/check-site.component";
+import { ArticleConfigCheckUserComponent } from "./config/check-user/check-user.component";
+import { ArticleConfigMainAdminComponent } from "./config/main-admin/config-main-admin.component";
+import { ArticleConfigSiteComponent } from "./config/site/config-site.component";
+import { ArticleContentListMobileComponent } from "./content/list/list.mobile.component";
+import { ArticleContentWidgetComponent } from "./content/widget/widget.component";
 @NgModule({
   declarations: [
     ArticleComponent,
@@ -51,7 +57,6 @@ import { ArticleContentSelectorComponent } from "./content/selector/selector.com
     ArticleContentEditComponent,
     ArticleContentDeleteComponent,
     ArticleContentListComponent,
-    ArticleContentListMobileComponent,
     ArticleContentSelectorComponent,
     ArticleCategoryTreeComponent,
     ArticletHeaderComponent,
@@ -60,9 +65,16 @@ import { ArticleContentSelectorComponent } from "./content/selector/selector.com
     ArticleCategoryEditComponent,
     ArticleCategoryDeleteComponent,
     ArticleCommentListComponent,
-    ArticleCommentListMobileComponent,
     ArticleCommentEditComponent,
     ArticleCategoryTreeSelectorComponent,
+    ArticleCommentListMobileComponent,
+    ArticleConfigComponent,
+    ArticleConfigCheckSiteComponent,
+    ArticleConfigCheckUserComponent,
+    ArticleConfigMainAdminComponent,
+    ArticleConfigSiteComponent,
+    ArticleContentListMobileComponent,
+    ArticleContentWidgetComponent,
   ],
   imports: [
     ArticleRouting,

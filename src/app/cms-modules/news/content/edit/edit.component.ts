@@ -49,18 +49,18 @@ export class NewsContentEditComponent
   requestId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    protected activatedRoute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     public coreEnumService: CoreEnumService,
     public publicHelper: PublicHelper,
     public contentService: NewsContentService,
-    public contentTagService: NewsContentTagService,
-    public contentSimilarService: NewsContentSimilarService,
-    public contentOtherInfoService: NewsContentOtherInfoService,
-    public contentCategoryService: NewsContentCategoryService,
-    protected cmsToastrService: CmsToastrService,
-    protected router: Router,
+    private contentTagService: NewsContentTagService,
+    private contentSimilarService: NewsContentSimilarService,
+    private contentOtherInfoService: NewsContentOtherInfoService,
+    private contentCategoryService: NewsContentCategoryService,
+    public cmsToastrService: CmsToastrService,
+    private router: Router,
     public translate: TranslateService,
-    protected cdr: ChangeDetectorRef,
+    private cdr: ChangeDetectorRef,
   ) {
     super(contentService, new NewsContentModel(), publicHelper, translate);
 
@@ -814,9 +814,6 @@ export class NewsContentEditComponent
   }
   onActionBackToParent(): void {
     this.router.navigate(["/news/content/"]);
-  }
-  onFormCancel(): void {
-    this.onActionBackToParent();
   }
   receiveMap(model: leafletMap = this.mapModel): void {
     if (!model) {

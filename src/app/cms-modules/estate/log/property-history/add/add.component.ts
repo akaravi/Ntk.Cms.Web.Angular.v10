@@ -1,25 +1,29 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild } from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogRef } from "@angular/material/dialog";
+    MAT_DIALOG_DATA,
+    MatDialog,
+    MatDialogRef
+} from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreEnumService,
-  ErrorExceptionResult,
-  EstateAccountExpertModel,
-  EstateActivityTypeModel,
-  EstateCustomerOrderModel,
-  EstateEnumService,
-  EstatePropertyHistoryModel,
-  EstatePropertyHistoryService,
-  EstatePropertyModel,InfoEnumModel,
-  TokenInfoModelV3} from "ntk-cms-api";
+import {
+    CoreEnumService,
+    ErrorExceptionResult,
+    EstateAccountExpertModel,
+    EstateActivityTypeModel,
+    EstateCustomerOrderModel,
+    EstateEnumService,
+    EstatePropertyHistoryModel,
+    EstatePropertyHistoryService,
+    EstatePropertyModel, InfoEnumModel,
+    TokenInfoModelV3
+} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -28,7 +32,6 @@ import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 
-import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-estate-property-history-add",

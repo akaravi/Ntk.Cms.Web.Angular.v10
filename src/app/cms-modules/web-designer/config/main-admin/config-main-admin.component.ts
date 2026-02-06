@@ -1,23 +1,21 @@
 import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import {
-    ChangeDetectorRef,
-    Component,
-    OnDestroy,
-    OnInit,
-    ViewChild,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {
-    AccessModel,
-    CoreEnumService,
-    DataFieldInfoModel, TokenInfoModelV3,
-    WebDesignerConfigurationService,
-    WebDesignerModuleConfigAdminMainValuesModel,
-    WebDesignerModuleConfigSiteAccessValuesModel,
-    WebDesignerModuleConfigSiteValuesModel
-} from "ntk-cms-api";
+import {AccessModel,
+  CoreEnumService,
+  DataFieldInfoModel,TokenInfoModelV3,
+  WebDesignerConfigurationService,
+  WebDesignerModuleConfigAdminMainValuesModel,
+  WebDesignerModuleConfigSiteAccessValuesModel,
+  WebDesignerModuleConfigSiteValuesModel} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";

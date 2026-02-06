@@ -3,18 +3,17 @@ import { FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreCurrencyModel,
-  CoreEnumService,
-  DataFieldInfoModel,
-  ErrorExceptionResult,
-  EstateBillboardModel,
-  EstateBillboardService } from "ntk-cms-api";
+    CoreCurrencyModel,
+    CoreEnumService,
+    DataFieldInfoModel,
+    EstateBillboardModel,
+    EstateBillboardService
+} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-estate-billboard-add-mobile",

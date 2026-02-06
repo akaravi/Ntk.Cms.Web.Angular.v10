@@ -301,7 +301,7 @@ export class ArticleContentListComponent
     model: ArticleContentModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -325,7 +325,7 @@ export class ArticleContentListComponent
   onActionButtonDeleteRow(
     model: ArticleContentModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -459,7 +459,9 @@ export class ArticleContentListComponent
   onActionButtonReload(): void {
     this.DataGetAll();
   }
-
+  onActionCopied(): void {
+    this.cmsToastrService.typeSuccessCopedToClipboard();
+  }
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
     if (model && model.length > 0) {
       this.filterDataModelQueryBuilder = [...model];
@@ -473,7 +475,7 @@ export class ArticleContentListComponent
     model: ArticleContentModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.No_row_selected_for_editing")
         .subscribe((str: string) => {
@@ -492,7 +494,7 @@ export class ArticleContentListComponent
   onActionButtonLinkTo(
     model: ArticleContentModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

@@ -68,6 +68,13 @@ import { EstateSharedModule } from "../shared/estate-shared.module";
 import { TranslateModule } from "@ngx-translate/core";
 import { EstatePropertyHistoryListMobileComponent } from "./property-history/list/list.mobile.component";
 import { EstateCustomerOrderListMobileComponent } from "./customer-order/list/list.mobile.component";
+import { EstateCustomerOrderHeaderComponent } from "./customer-order/header/header.component";
+import { EstateCustomerOrderListComponent } from "./customer-order/list/list.component";
+import { EstateCustomerOrderSelectorComponent } from "./customer-order/selector/selector.component";
+import { EstateCustomerOrderWidgetComponent } from "./customer-order/widget/widget.component";
+import { EstatePropertyHistoryAddComponent } from "./property-history/add/add.component";
+import { EstatePropertyHistoryListComponent } from "./property-history/list/list.component";
+import { EstatePropertyHistoryWidgetComponent } from "./property-history/widget/widget.component";
 
 @NgModule({
   declarations: [
@@ -102,6 +109,13 @@ import { EstateCustomerOrderListMobileComponent } from "./customer-order/list/li
     EstateCustomerOrderResponsibleUserListComponent,
 
     /* */
+    EstateCustomerOrderHeaderComponent,
+    EstateCustomerOrderListComponent,
+    EstateCustomerOrderSelectorComponent,
+    EstateCustomerOrderWidgetComponent,
+    EstatePropertyHistoryAddComponent,
+    EstatePropertyHistoryListComponent,
+    EstatePropertyHistoryWidgetComponent,
   ],
   imports: [
     CommonModule,

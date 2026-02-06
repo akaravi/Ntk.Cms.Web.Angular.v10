@@ -1,42 +1,44 @@
 import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import {
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild } from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    OnDestroy,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { MatStepper } from "@angular/material/stepper";
 import { MatTableDataSource } from "@angular/material/table";
 import { TranslateService } from "@ngx-translate/core";
 
-import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 
-import {CoreCurrencyModel,
-  CoreEnumService,
-  CoreLocationModel,
-  CoreUserModel,
-  ErrorExceptionResult,
-  EstateAccountAgencyModel,
-  EstateAccountExpertModel,
-  EstateContractModel,
-  EstateContractTypeModel,
-  EstateContractTypeService,
-  EstatePropertyCompanyModel,
-  EstatePropertyDetailGroupService,
-  EstatePropertyDetailValueModel,
-  EstatePropertyModel,
-  EstatePropertyProjectModel,
-  EstatePropertyService,
-  EstatePropertyTypeLanduseModel,
-  EstatePropertyTypeLanduseService,
-  EstatePropertyTypeModel,
-  EstatePropertyTypeService,
-  EstatePropertyTypeUsageModel,
-  FilterDataModel,
-  FilterModel,InputDataTypeEnum,
-  TokenInfoModelV3} from "ntk-cms-api";
+import {
+    CoreCurrencyModel,
+    CoreEnumService,
+    CoreLocationModel,
+    CoreUserModel,
+    ErrorExceptionResult,
+    EstateAccountAgencyModel,
+    EstateAccountExpertModel,
+    EstateContractModel,
+    EstateContractTypeModel,
+    EstateContractTypeService,
+    EstatePropertyCompanyModel,
+    EstatePropertyDetailGroupService,
+    EstatePropertyDetailValueModel,
+    EstatePropertyModel,
+    EstatePropertyProjectModel,
+    EstatePropertyService,
+    EstatePropertyTypeLanduseModel,
+    EstatePropertyTypeLanduseService,
+    EstatePropertyTypeModel,
+    EstatePropertyTypeService,
+    EstatePropertyTypeUsageModel,
+    FilterDataModel,
+    FilterModel, InputDataTypeEnum,
+    TokenInfoModelV3
+} from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";

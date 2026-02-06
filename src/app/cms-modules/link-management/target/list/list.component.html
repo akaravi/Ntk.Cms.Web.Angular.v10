@@ -338,21 +338,13 @@
               {{ "TITLE.CreationDate" | translate }} :
               {{ row.createdDate | localeDateTime }}
               <br />
-              @if(row.updatedDate){
-              {{ "TITLE.UpdatedDate" | translate }} :
-              {{ row.updatedDate | localeDateTime }}
-              <br />
-              }
               {{ "TITLE.CurrentNumberOfClicks" | translate }} :
               {{ row.currentClickCount }}
               <br />
               {{ "TITLE.CurrentViewCount" | translate }} :
               {{ row.CurrentViewCount }}
-              @if(row?.linkFileIds?.length>0){
-<br>
-{{ "TITLE.ATTACH_FILES" | translate }} :
-              {{ row.linkFileIds }}
-              }
+
+              {{ row.currentViewCount }}
             </mat-cell>
           </ng-container>
           <!--expandedDetail-->

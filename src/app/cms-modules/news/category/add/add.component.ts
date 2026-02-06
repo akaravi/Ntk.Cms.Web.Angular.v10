@@ -31,12 +31,12 @@ export class NewsCategoryAddComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    protected dialogRef: MatDialogRef<NewsCategoryAddComponent>,
+    private dialogRef: MatDialogRef<NewsCategoryAddComponent>,
     public coreEnumService: CoreEnumService,
     public categoryService: NewsCategoryService,
-    protected cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
-    protected cdr: ChangeDetectorRef,
+    private cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {
     super(categoryService, new NewsCategoryModel(), publicHelper, translate);

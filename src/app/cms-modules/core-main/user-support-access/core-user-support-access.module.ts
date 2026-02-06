@@ -10,21 +10,20 @@ import { CoreUserSupportAccessComponent } from "./core-user-support-access.compo
 import { CoreUserSupportAccessRouting } from "./core-user-support-access.routing";
 import { CoreUserSupportAccessEditComponent } from "./edit/edit.component";
 import { CoreUserSupportAccessListComponent } from "./list/list.component";
-import { CoreUserSupportAccessListMobileComponent } from "./list/list.mobile.component";
 import { CoreSharedModule } from "../core.shared.module";
+import { CoreUserSupportAccessListMobileComponent } from "./list/list.mobile.component";
 
 @NgModule({
   declarations: [
     CoreUserSupportAccessComponent,
     CoreUserSupportAccessListComponent,
-    CoreUserSupportAccessListMobileComponent,
     CoreUserSupportAccessAddComponent,
     CoreUserSupportAccessEditComponent,
+    CoreUserSupportAccessListMobileComponent,
   ],
   exports: [
     CoreUserSupportAccessComponent,
     CoreUserSupportAccessListComponent,
-    CoreUserSupportAccessListMobileComponent,
     CoreUserSupportAccessAddComponent,
     CoreUserSupportAccessEditComponent,
   ],

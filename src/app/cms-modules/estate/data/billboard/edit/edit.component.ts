@@ -197,7 +197,9 @@ export class EstateBillboardEditComponent
       },
     });
   }
-
+  onActionCopied(): void {
+    this.cmsToastrService.typeSuccessCopedToClipboard();
+  }
 
   onActionFileSelected(model: NodeInterface): void {
     this.dataModel.linkMainImageId = model.id;

@@ -8,27 +8,26 @@ import { CoreCurrencyComponent } from "./coreCurrency.component";
 import { CoreCurrencyRouting } from "./coreCurrency.routing";
 import { CoreCurrencyEditComponent } from "./edit/edit.component";
 import { CoreCurrencyListComponent } from "./list/list.component";
-import { CoreCurrencyListMobileComponent } from "./list/list.mobile.component";
 import { CoreCurrencySelectorComponent } from "./selector/selector.component";
 
 import { AngularEditorModule } from "@kolkov/angular-editor";
 
 import { CmsFileManagerModule } from "ntk-cms-filemanager";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { CoreCurrencyListMobileComponent } from "./list/list.mobile.component";
 
 @NgModule({
   declarations: [
     CoreCurrencyComponent,
     CoreCurrencyListComponent,
-    CoreCurrencyListMobileComponent,
     CoreCurrencyAddComponent,
     CoreCurrencyEditComponent,
     CoreCurrencySelectorComponent,
+    CoreCurrencyListMobileComponent,
   ],
   exports: [
     CoreCurrencyComponent,
     CoreCurrencyListComponent,
-    CoreCurrencyListMobileComponent,
     CoreCurrencyAddComponent,
     CoreCurrencyEditComponent,
     CoreCurrencySelectorComponent,

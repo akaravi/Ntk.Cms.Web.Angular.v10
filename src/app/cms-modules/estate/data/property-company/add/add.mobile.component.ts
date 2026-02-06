@@ -7,18 +7,18 @@ import { TranslateService } from "@ngx-translate/core";
 import * as Leaflet from "leaflet";
 import { Map as leafletMap } from "leaflet";
 import {
-  CoreEnumService,
-  CoreLocationModel,
-  DataFieldInfoModel,
-  ErrorExceptionResult,
-  EstatePropertyCompanyModel,
-  EstatePropertyCompanyService } from "ntk-cms-api";
+    CoreEnumService,
+    CoreLocationModel,
+    DataFieldInfoModel,
+    ErrorExceptionResult,
+    EstatePropertyCompanyModel,
+    EstatePropertyCompanyService
+} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { PoinModel } from "src/app/core/models/pointModel";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
-import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-estate-property-company-add-mobile",

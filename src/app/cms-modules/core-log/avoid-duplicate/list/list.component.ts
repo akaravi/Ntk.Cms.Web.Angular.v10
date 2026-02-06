@@ -42,7 +42,7 @@ export class CoreLogAvoidDuplicateDataEntryListComponent
   requestLinkUserId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    public contentService: CoreLogAvoidDuplicateDataEntryService,
+    private contentService: CoreLogAvoidDuplicateDataEntryService,
     public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
@@ -152,20 +152,6 @@ export class CoreLogAvoidDuplicateDataEntryListComponent
   ngOnDestroy(): void {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
-  filterModelCompiler(model: FilterModel): FilterModel {
-    /*filter CLone*/
-    const filterModel = JSON.parse(JSON.stringify(model));
-    /*filter CLone*/
-    /*filter add search*/
-    if (
-      this.filterDataModelQueryBuilder &&
-      this.filterDataModelQueryBuilder.length > 0
-    ) {
-      filterModel.filters = [...this.filterDataModelQueryBuilder];
-    }
-    /*filter add search*/
-    return filterModel;
-  }
   DataGetAll(): void {
     this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
       this.tabledisplayedColumnsSource,
@@ -186,7 +172,17 @@ export class CoreLogAvoidDuplicateDataEntryListComponent
         );
       });
     this.filteModelContent.accessLoad = true;
-    const filterModel = this.filterModelCompiler(this.filteModelContent);
+    /*filter CLone*/
+    const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
+    /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
     this.contentService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
@@ -245,7 +241,7 @@ export class CoreLogAvoidDuplicateDataEntryListComponent
   onActionButtonEditRow(
     model: CoreLogAvoidDuplicateDataEntryModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -281,7 +277,7 @@ export class CoreLogAvoidDuplicateDataEntryListComponent
   onActionButtonDeleteRow(
     model: CoreLogAvoidDuplicateDataEntryModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -375,8 +371,7 @@ export class CoreLogAvoidDuplicateDataEntryListComponent
         this.constructorInfoAreaId,
       );
     });
-    const filterModel = this.filterModelCompiler(this.filteModelContent);
-    this.contentService.ServiceGetCount(filterModel).subscribe({
+    this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.translate.get("MESSAGE.All").subscribe((str: string) => {
@@ -394,7 +389,7 @@ export class CoreLogAvoidDuplicateDataEntryListComponent
       },
     });
 
-    const filterStatist1 = this.filterModelCompiler(this.filteModelContent);
+    const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
     fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
@@ -421,7 +416,7 @@ export class CoreLogAvoidDuplicateDataEntryListComponent
   onActionButtonViewUserRow(
     model: CoreLogAvoidDuplicateDataEntryModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -443,7 +438,7 @@ export class CoreLogAvoidDuplicateDataEntryListComponent
   onActionButtonViewMemberRow(
     model: CoreLogAvoidDuplicateDataEntryModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

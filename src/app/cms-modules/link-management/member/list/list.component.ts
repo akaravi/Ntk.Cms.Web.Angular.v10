@@ -5,12 +5,12 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    FilterDataModel,
-    FilterModel,
-    LinkManagementMemberModel,
-    LinkManagementMemberService,
-    RecordStatusEnum,
-    SortTypeEnum,
+  FilterDataModel,
+  FilterModel,
+  LinkManagementMemberModel,
+  LinkManagementMemberService,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -219,7 +219,7 @@ export class LinkManagementMemberListComponent
   onActionButtonEditRow(
     model: LinkManagementMemberModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -252,7 +252,7 @@ export class LinkManagementMemberListComponent
   onActionButtonDeleteRow(
     model: LinkManagementMemberModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -348,7 +348,9 @@ export class LinkManagementMemberListComponent
   onActionButtonReload(): void {
     this.DataGetAll();
   }
-
+  onActionCopied(): void {
+    this.cmsToastrService.typeSuccessCopedToClipboard();
+  }
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
     if (model && model.length > 0) {
       this.filterDataModelQueryBuilder = [...model];

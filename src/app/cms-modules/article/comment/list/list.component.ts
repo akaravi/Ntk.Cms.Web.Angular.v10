@@ -1,9 +1,9 @@
 import {
-    animate,
-    state,
-    style,
-    transition,
-    trigger,
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
 } from "@angular/animations";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
@@ -12,14 +12,14 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    ArticleCommentModel,
-    ArticleCommentService,
-    ArticleContentService,
-    FilterDataModel,
-    FilterDataModelSearchTypesEnum,
-    FilterModel,
-    RecordStatusEnum,
-    SortTypeEnum,
+  ArticleCommentModel,
+  ArticleCommentService,
+  ArticleContentService,
+  FilterDataModel,
+  FilterDataModelSearchTypesEnum,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -283,7 +283,7 @@ export class ArticleCommentListComponent
   onActionButtonEditRow(
     model: ArticleCommentModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -315,7 +315,7 @@ export class ArticleCommentListComponent
   onActionButtonDeleteRow(
     model: ArticleCommentModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -466,7 +466,7 @@ export class ArticleCommentListComponent
     this.router.navigate(["/article/content/"]);
   }
   onActionButtonViewContent(model: ArticleCommentModel): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -524,7 +524,7 @@ export class ArticleCommentListComponent
     model: ArticleCommentModel,
     event?: MouseEvent,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -552,7 +552,7 @@ export class ArticleCommentListComponent
   onActionButtonLinkTo(
     model: ArticleCommentModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

@@ -3,20 +3,19 @@ import { FormControl } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService,
-  DataFieldInfoModel,
-  ErrorExceptionResult,
-  EstateAccountExpertModel,
-  EstateActivityTypeModel,
-  EstateActivityTypeService,
-  EstateCustomerOrderModel,
-  EstateEnumService,
-  EstatePropertyHistoryModel,
-  EstatePropertyHistoryService,
-  EstatePropertyModel,
-  FilterModel,
-  InfoEnumModel,
-  TokenInfoModelV3,
+    CoreEnumService,
+    DataFieldInfoModel,
+    ErrorExceptionResult,
+    EstateAccountExpertModel,
+    EstateActivityTypeModel,
+    EstateActivityTypeService,
+    EstateCustomerOrderModel,
+    EstateEnumService,
+    EstatePropertyHistoryModel,
+    EstatePropertyHistoryService,
+    EstatePropertyModel,
+    FilterModel, InfoEnumModel,
+    TokenInfoModelV3
 } from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -25,7 +24,6 @@ import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { EstatePropertyHistoryAddComponent } from "./add.component";
 
-import { DatapickerHeaderComponent } from "src/app/shared/datapicker-header/datapicker-header.component";
 import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 import { FormSubmitedStatusEnum } from "../../../../../core/models/formSubmitedStatusEnum";
 
@@ -74,7 +72,7 @@ export class EstatePropertyHistoryAddMobileComponent implements OnInit {
   fileManagerTree: TreeModel;
   appLanguage = "fa";
   tokenInfo = new TokenInfoModelV3();
-  datapickerHeader = DatapickerHeaderComponent;
+
   dataModelResult: ErrorExceptionResult<EstatePropertyHistoryModel> =
     new ErrorExceptionResult<EstatePropertyHistoryModel>();
   dataModelActivityTypeResult: ErrorExceptionResult<EstateActivityTypeModel> =
@@ -163,48 +161,27 @@ export class EstatePropertyHistoryAddMobileComponent implements OnInit {
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
               this.formInfo.submitResultMessage = str;
-              this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
-              this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
-              this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
-              this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
-              this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
-              this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
-              this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
-              this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
-              this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
-              this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
-              this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
-              this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
-              this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
-              this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
-              this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
-              this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
-              this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
-              this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
-              this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
-              this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
-              this.formInfo.submitResultMessageType =
-                FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
             });
           this.cmsToastrService.typeSuccessAdd();
           this.dialogRef.close({ dialogChangedDate: true });

@@ -5,15 +5,14 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    FilterDataModel,
-    LinkManagementBillboardFilterModel,
-    LinkManagementBillboardModel,
-    LinkManagementBillboardPatternModel,
-    LinkManagementBillboardService,
-    LinkManagementCategoryModel,
-    LinkManagementTargetFilterModel,
-    RecordStatusEnum,
-    SortTypeEnum,
+  FilterDataModel,
+  LinkManagementBillboardFilterModel,
+  LinkManagementBillboardModel,
+  LinkManagementBillboardPatternModel,
+  LinkManagementBillboardService,
+  LinkManagementCategoryModel,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -92,26 +91,8 @@ export class LinkManagementBillboardListComponent
     /**filterActionSearch */
   }
   filteModelContent = new LinkManagementBillboardFilterModel();
-  filterDataModelQueryBuilder: FilterDataModel[] = [];
   categoryModelSelected: LinkManagementCategoryModel;
   categoryPatternModelSelected: LinkManagementBillboardPatternModel;
-
-  filterModelCompiler(
-    model: LinkManagementTargetFilterModel,
-  ): LinkManagementTargetFilterModel {
-    /*filter CLone*/
-    const filterModel = JSON.parse(JSON.stringify(model));
-    /*filter CLone*/
-    /*filter add search*/
-    if (
-      this.filterDataModelQueryBuilder &&
-      this.filterDataModelQueryBuilder.length > 0
-    ) {
-      filterModel.filters = [...this.filterDataModelQueryBuilder];
-    }
-    /*filter add search*/
-    return filterModel;
-  }
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
@@ -172,7 +153,17 @@ export class LinkManagementBillboardListComponent
         );
       });
     this.filteModelContent.accessLoad = true;
-    const filterModel = this.filterModelCompiler(this.filteModelContent);
+    /*filter CLone*/
+    const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
+    /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
     /**filterActionSearch */
     if (this.filteModelContent.filterActionSearchRecordStatus > 0) {
       const filter = new FilterDataModel();
@@ -324,7 +315,7 @@ export class LinkManagementBillboardListComponent
   onActionButtonEditRow(
     model: LinkManagementBillboardModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -345,7 +336,7 @@ export class LinkManagementBillboardListComponent
   onActionButtonDeleteRow(
     model: LinkManagementBillboardModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -400,28 +391,7 @@ export class LinkManagementBillboardListComponent
         this.constructorInfoAreaId,
       );
     });
-    const filterModel = this.filterModelCompiler(this.filteModelContent);
-    /**filterActionSearch */
-    if (this.filteModelContent.filterActionSearchRecordStatus > 0) {
-      const filter = new FilterDataModel();
-      filter.propertyName = "recordStatus";
-      filter.value = this.filteModelContent.filterActionSearchRecordStatus;
-      filterModel.filters.push(filter);
-    }
-    if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
-      const filter = new FilterDataModel();
-      filter.propertyName = "linkSiteId";
-      filter.value = this.filteModelContent.filterActionSearchLinkSiteId;
-      filterModel.filters.push(filter);
-    }
-    if (this.filteModelContent.filterActionSearchLinkUserId > 0) {
-      const filter = new FilterDataModel();
-      filter.propertyName = "linkUserId";
-      filter.value = this.filteModelContent.filterActionSearchLinkUserId;
-      filterModel.filters.push(filter);
-    }
-    /**filterActionSearch */
-    this.contentService.ServiceGetCount(filterModel).subscribe({
+    this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.translate.get("MESSAGE.All").subscribe((str: string) => {
@@ -439,27 +409,7 @@ export class LinkManagementBillboardListComponent
       },
     });
 
-    const filterStatist1 = this.filterModelCompiler(this.filteModelContent);
-    /**filterActionSearch */
-    if (this.filteModelContent.filterActionSearchRecordStatus > 0) {
-      const filter = new FilterDataModel();
-      filter.propertyName = "recordStatus";
-      filter.value = this.filteModelContent.filterActionSearchRecordStatus;
-      filterStatist1.filters.push(filter);
-    }
-    if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
-      const filter = new FilterDataModel();
-      filter.propertyName = "linkSiteId";
-      filter.value = this.filteModelContent.filterActionSearchLinkSiteId;
-      filterStatist1.filters.push(filter);
-    }
-    if (this.filteModelContent.filterActionSearchLinkUserId > 0) {
-      const filter = new FilterDataModel();
-      filter.propertyName = "linkUserId";
-      filter.value = this.filteModelContent.filterActionSearchLinkUserId;
-      filterStatist1.filters.push(filter);
-    }
-    /**filterActionSearch */
+    const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
     fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
@@ -498,7 +448,7 @@ export class LinkManagementBillboardListComponent
   onActionButtonLog(
     model: LinkManagementBillboardModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

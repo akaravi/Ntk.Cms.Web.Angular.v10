@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    CoreEnumService,
-    DataFieldInfoModel,
-    ErrorExceptionResult,
-    WebDesignerMainPageTemplateModel,
-    WebDesignerMainPageTemplateService,
+  CoreEnumService,
+  DataFieldInfoModel,
+  ErrorExceptionResult,
+  WebDesignerMainPageTemplateModel,
+  WebDesignerMainPageTemplateService,
 } from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";

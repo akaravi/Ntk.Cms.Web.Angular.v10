@@ -1,19 +1,19 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
 } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService,
-  ErrorExceptionResult,
-  EstateAccountAgencyFilterModel,
-  EstateAccountAgencyModel,
-  EstateAccountAgencyService,
+    CoreEnumService,
+    ErrorExceptionResult,
+    EstateAccountAgencyFilterModel,
+    EstateAccountAgencyModel,
+    EstateAccountAgencyService,
 } from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";

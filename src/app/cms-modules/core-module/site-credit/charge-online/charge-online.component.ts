@@ -1,21 +1,19 @@
 import { DOCUMENT } from "@angular/common";
 import { Component, Inject, OnInit } from "@angular/core";
 import {
-    MAT_DIALOG_DATA,
-    MatDialog,
-    MatDialogRef,
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
 } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {
-    CoreModuleModel,
-    CoreModuleService,
-    CoreModuleSiteCreditCalculateDtoModel,
-    CoreModuleSiteCreditPaymentDtoModel,
-    CoreSiteService,
-    ErrorExceptionResult,
-    FilterModel
-} from "ntk-cms-api";
+import {CoreModuleModel,
+  CoreModuleService,
+  CoreModuleSiteCreditCalculateDtoModel,
+  CoreModuleSiteCreditPaymentDtoModel,
+  CoreSiteService,
+  ErrorExceptionResult,
+  FilterModel} from "ntk-cms-api";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 import { FormInfoModel } from "../../../../core/models/formInfoModel";

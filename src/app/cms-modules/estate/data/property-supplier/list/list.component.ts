@@ -6,13 +6,13 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
     EstatePropertySupplierCategoryModel,
-    EstatePropertySupplierFilterModel,
     EstatePropertySupplierModel,
     EstatePropertySupplierService,
     FilterDataModel,
+    FilterModel,
     ManageUserAccessDataTypesEnum,
     RecordStatusEnum,
-    SortTypeEnum
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -80,25 +80,8 @@ export class EstatePropertySupplierListComponent
   }
   link: string;
 
-  filteModelContent = new EstatePropertySupplierFilterModel();
+  filteModelContent = new FilterModel();
   filterDataModelQueryBuilder: FilterDataModel[] = [];
-
-  filterModelCompiler(
-    model: EstatePropertySupplierFilterModel,
-  ): EstatePropertySupplierFilterModel {
-    /*filter CLone*/
-    const filterModel = JSON.parse(JSON.stringify(model));
-    /*filter CLone*/
-    /*filter add search*/
-    if (
-      this.filterDataModelQueryBuilder &&
-      this.filterDataModelQueryBuilder.length > 0
-    ) {
-      filterModel.filters = [...this.filterDataModelQueryBuilder];
-    }
-    /*filter add search*/
-    return filterModel;
-  }
 
   categoryModelSelected: EstatePropertySupplierCategoryModel;
   tabledisplayedColumns: string[] = [];
@@ -161,7 +144,17 @@ export class EstatePropertySupplierListComponent
         );
       });
     this.filteModelContent.accessLoad = true;
-    const filterModel = this.filterModelCompiler(this.filteModelContent);
+    /*filter CLone*/
+    const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
+    /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
     /** filter Category */
     if (
       this.categoryModelSelected &&
@@ -248,7 +241,7 @@ export class EstatePropertySupplierListComponent
     model: EstatePropertySupplierModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -277,7 +270,7 @@ export class EstatePropertySupplierListComponent
     model: EstatePropertySupplierModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -305,7 +298,7 @@ export class EstatePropertySupplierListComponent
   onActionButtonDeleteRow(
     model: EstatePropertySupplierModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -358,8 +351,7 @@ export class EstatePropertySupplierListComponent
         this.constructorInfoAreaId,
       );
     });
-    const filterModel = this.filterModelCompiler(this.filteModelContent);
-    this.contentService.ServiceGetCount(filterModel).subscribe({
+    this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.translate.get("MESSAGE.All").subscribe((str: string) => {
@@ -376,7 +368,7 @@ export class EstatePropertySupplierListComponent
         this.publicHelper.processService.processStop(pName, false);
       },
     });
-    const filterStatist1 = this.filterModelCompiler(this.filteModelContent);
+    const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
     fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
@@ -410,7 +402,7 @@ export class EstatePropertySupplierListComponent
     /*filter */
     var sortColumn = this.filteModelContent.sortColumn;
     var sortType = this.filteModelContent.sortType;
-    this.filteModelContent = new EstatePropertySupplierFilterModel();
+    this.filteModelContent = new FilterModel();
 
     this.filteModelContent.sortColumn = sortColumn;
     this.filteModelContent.sortType = sortType;
@@ -422,7 +414,9 @@ export class EstatePropertySupplierListComponent
   onActionButtonReload(): void {
     this.DataGetAll();
   }
-
+  onActionCopied(): void {
+    this.cmsToastrService.typeSuccessCopedToClipboard();
+  }
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
     if (model && model.length > 0) {
       this.filterDataModelQueryBuilder = [...model];
@@ -437,7 +431,7 @@ export class EstatePropertySupplierListComponent
   onActionButtonLinkTo(
     model: EstatePropertySupplierModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

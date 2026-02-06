@@ -375,5 +375,12 @@ export class ListBaseComponent<
   }
     onActionCopied (): void {
     this.publicHelper.cmsToastrService.typeSuccessCopedToClipboard();
+    }
+  getRowExpanded(row: TModel): boolean {
+    if (row["expanded"] == true) return true;
+    else return false;
+  }
+  onActionButtonViewRow(row: TModel): void {
+
   }
 }

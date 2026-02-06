@@ -4,17 +4,11 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ApplicationComponent } from "./application.component";
 import { ApplicationRoutes } from "./application.routing";
 import { ApplicationAppListComponent } from "./content/list/list.component";
-import { ApplicationAppListMobileComponent } from "./content/list/list.mobile.component";
 import { ApplicationIntroListComponent } from "./intro/list/list.component";
-import { ApplicationIntroListMobileComponent } from "./intro/list/list.mobile.component";
 import { ApplicationMemberInfoListComponent } from "./memberInfo/list/list.component";
-import { ApplicationMemberInfoListMobileComponent } from "./memberInfo/list/list.mobile.component";
 import { ApplicationLogNotificationListComponent } from "./notification/list/list.component";
-import { ApplicationLogNotificationListMobileComponent } from "./notification/list/list.mobile.component";
 import { ApplicationSourceListComponent } from "./source/list/list.component";
-import { ApplicationSourceListMobileComponent } from "./source/list/list.mobile.component";
 import { ApplicationThemeConfigListComponent } from "./themeConfig/list/list.component";
-import { ApplicationThemeConfigListMobileComponent } from "./themeConfig/list/list.mobile.component";
 
 import { AngularEditorModule } from "@kolkov/angular-editor";
 import { SharedModule } from "src/app/shared/shared.module";
@@ -60,20 +54,31 @@ import { ApplicationSourceTreeComponent } from "./source/tree/tree.component";
 import { ApplicationThemeConfigAddComponent } from "./themeConfig/add/add.component";
 import { ApplicationThemeConfigEditComponent } from "./themeConfig/edit/edit.component";
 import { ApplicationThemeConfigSelectorComponent } from "./themeConfig/selector/selector.component";
+import { ApplicationConfigComponent } from "./config/application-config.component";
+import { ApplicationConfigCheckSiteComponent } from "./config/check-site/check-site.component";
+import { ApplicationConfigCheckUserComponent } from "./config/check-user/check-user.component";
+import { ApplicationConfigMainAdminComponent } from "./config/main-admin/config-main-admin.component";
+import { ApplicationConfigSiteComponent } from "./config/site/config-site.component";
+import { ApplicationAppListMobileComponent } from "./content/list/list.mobile.component";
+import { ApplicationAppWidgetComponent } from "./content/widget/widget.component";
+import { ApplicationIntroListMobileComponent } from "./intro/list/list.mobile.component";
+import { ApplicationMemberInfoListMobileComponent } from "./memberInfo/list/list.mobile.component";
+import { ApplicationMemberInfoWidgetComponent } from "./memberInfo/widget/widget.component";
+import { ApplicationLogNotificationListMobileComponent } from "./notification/list/list.mobile.component";
+import { ApplicationSourceListMobileComponent } from "./source/list/list.mobile.component";
+import { ApplicationThemeConfigListMobileComponent } from "./themeConfig/list/list.mobile.component";
 
 @NgModule({
   declarations: [
     ApplicationComponent,
 
     ApplicationSourceListComponent,
-    ApplicationSourceListMobileComponent,
     ApplicationSourceTreeComponent,
     ApplicationSourceAddComponent,
     ApplicationSourceEditComponent,
     ApplicationSourceSelectorComponent,
 
     ApplicationAppListComponent,
-    ApplicationAppListMobileComponent,
     ApplicationAppTreeComponent,
     ApplicationAppAddComponent,
     ApplicationAppEditComponent,
@@ -83,25 +88,34 @@ import { ApplicationThemeConfigSelectorComponent } from "./themeConfig/selector/
     ApplicationAppUploadUpdateComponent,
 
     ApplicationIntroListComponent,
-    ApplicationIntroListMobileComponent,
     ApplicationIntroAddComponent,
     ApplicationIntroEditComponent,
 
     ApplicationMemberInfoListComponent,
-    ApplicationMemberInfoListMobileComponent,
     ApplicationMemberInfoViewComponent,
     ApplicationMemberInfoSelectorComponent,
 
     ApplicationLogNotificationListComponent,
-    ApplicationLogNotificationListMobileComponent,
     ApplicationLogNotificationViewComponent,
     ApplicationLogNotificationActionSendComponent,
 
     ApplicationThemeConfigListComponent,
-    ApplicationThemeConfigListMobileComponent,
     ApplicationThemeConfigSelectorComponent,
     ApplicationThemeConfigAddComponent,
     ApplicationThemeConfigEditComponent,
+    ApplicationConfigComponent,
+    ApplicationConfigCheckSiteComponent,
+    ApplicationConfigCheckUserComponent,
+    ApplicationConfigMainAdminComponent,
+    ApplicationConfigSiteComponent,
+    ApplicationAppListMobileComponent,
+    ApplicationAppWidgetComponent,
+    ApplicationIntroListMobileComponent,
+    ApplicationMemberInfoListMobileComponent,
+    ApplicationMemberInfoWidgetComponent,
+    ApplicationLogNotificationListMobileComponent,
+    ApplicationSourceListMobileComponent,
+    ApplicationThemeConfigListMobileComponent,
   ],
   imports: [
     CommonModule,

@@ -108,13 +108,11 @@ import { TransactionAssistantInventoryListMobileComponent } from "./inventory/li
 import { TransactionAssistantShipmentAddComponent } from "./shipment/add/add.component";
 import { TransactionAssistantShipmentEditComponent } from "./shipment/edit/edit.component";
 import { TransactionAssistantShipmentListComponent } from "./shipment/list/list.component";
-import { TransactionAssistantShipmentListMobileComponent } from "./shipment/list/list.mobile.component";
 
 // Supplier Components
 import { TransactionAssistantSupplierAddComponent } from "./supplier/add/add.component";
 import { TransactionAssistantSupplierEditComponent } from "./supplier/edit/edit.component";
 import { TransactionAssistantSupplierListComponent } from "./supplier/list/list.component";
-import { TransactionAssistantSupplierListMobileComponent } from "./supplier/list/list.mobile.component";
 
 // Offer Components
 import { TransactionAssistantOfferAddComponent } from "./offer/add/add.component";
@@ -126,7 +124,6 @@ import { TransactionAssistantOfferListMobileComponent } from "./offer/list/list.
 import { TransactionAssistantTagAddComponent } from "./tag/add/add.component";
 import { TransactionAssistantTagEditComponent } from "./tag/edit/edit.component";
 import { TransactionAssistantTagListComponent } from "./tag/list/list.component";
-import { TransactionAssistantTagListMobileComponent } from "./tag/list/list.mobile.component";
 
 // Category Components
 import { TransactionAssistantCategoryAddComponent } from "./category/add/add.component";
@@ -134,6 +131,15 @@ import { TransactionAssistantCategoryEditComponent } from "./category/edit/edit.
 import { TransactionAssistantCategoryListComponent } from "./category/list/list.component";
 import { TransactionAssistantCategoryListMobileComponent } from "./category/list/list.mobile.component";
 import { TransactionAssistantDashboardComponent } from "./dashboard/dashboard.component";
+import { TransactionAssistantShipmentListMobileComponent } from "./shipment/list/list.mobile.component";
+import { TransactionAssistantSupplierListMobileComponent } from "./supplier/list/list.mobile.component";
+import { TransactionAssistantTagListMobileComponent } from "./tag/list/list.mobile.component";
+// Config Components
+import { TransactionAssistantConfigCheckSiteComponent } from "./config/check-site/check-site.component";
+import { TransactionAssistantConfigCheckUserComponent } from "./config/check-user/check-user.component";
+import { TransactionAssistantConfigMainAdminComponent } from "./config/main-admin/config-main-admin.component";
+import { TransactionAssistantConfigSiteComponent } from "./config/site/config-site.component";
+import { TransactionAssistantConfigComponent } from "./config/transaction-assistant-config.component";
 
 @NgModule({
   declarations: [
@@ -225,6 +231,13 @@ import { TransactionAssistantDashboardComponent } from "./dashboard/dashboard.co
     /* Dashboard */
     TransactionAssistantDashboardComponent,
     /* Dashboard */
+    /* Config */
+    TransactionAssistantConfigComponent,
+    TransactionAssistantConfigCheckSiteComponent,
+    TransactionAssistantConfigCheckUserComponent,
+    TransactionAssistantConfigMainAdminComponent,
+    TransactionAssistantConfigSiteComponent,
+    /* Config */
   ],
   imports: [
     CommonModule,

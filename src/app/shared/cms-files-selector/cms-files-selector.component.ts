@@ -50,5 +50,7 @@ export class CmsFilesSelectorComponent implements OnInit {
       this.dataFileModel.delete(key);
     }
   }
-
+onActionCopied (): void {
+    this.publicHelper.cmsToastrService.typeSuccessCopedToClipboard();
+  }
 }

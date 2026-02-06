@@ -96,9 +96,9 @@ export class CoreModuleSaleHeaderListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "linkMainImageIdSrc",
+    "id",
     "recordStatus",
     "title",
-    "id",
     "SalePrice",
     "HasDemo",
     "FromDate",
@@ -266,7 +266,7 @@ export class CoreModuleSaleHeaderListComponent
   onActionButtonEditRow(
     model: CoreModuleSaleHeaderModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -312,7 +312,7 @@ export class CoreModuleSaleHeaderListComponent
   onActionButtonDeleteRow(
     model: CoreModuleSaleHeaderModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -389,7 +389,7 @@ export class CoreModuleSaleHeaderListComponent
   onActionButtonItemList(
     model: CoreModuleSaleHeaderModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {
@@ -468,7 +468,7 @@ export class CoreModuleSaleHeaderListComponent
   onActionButtonModuleList(
     model: CoreModuleSaleHeaderModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -490,7 +490,7 @@ export class CoreModuleSaleHeaderListComponent
   onActionButtonSiteList(
     model: CoreModuleSaleHeaderModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

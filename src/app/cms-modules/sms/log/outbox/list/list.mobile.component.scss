@@ -1,0 +1,80 @@
+/* ============================================
+   Mobile Component Styles - SMS Outbox List
+   استایل‌های خاص این کامپوننت
+   استایل‌های مشترک در styles.mobile.scss موجود است
+   ============================================ */
+
+/* ============================================
+   Component Specific Styles
+   ============================================ */
+
+/* Content با padding متفاوت */
+.cms-m-content {
+  padding: 8px var(--cms-m-spacing-md);
+  padding-bottom: calc(8px + env(safe-area-inset-bottom));
+  position: relative;
+  touch-action: pan-y;
+}
+
+.cms-m-list-item-message {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  margin: 6px 0;
+  font-size: var(--cms-m-font-size-sm);
+  color: var(--cms-m-text-secondary);
+  line-height: 20px;
+  max-height: 40px;
+  overflow: hidden;
+
+  i {
+    font-size: 14px;
+    color: var(--cms-m-primary-color);
+    margin-top: 2px;
+  }
+
+  span {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* Header Spacer با flex */
+.cms-m-header-spacer {
+  flex: 1;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 375px) {
+  .cms-m-content {
+    padding: 8px 12px;
+  }
+
+  .cms-m-list-item {
+    padding: 10px 12px;
+  }
+
+  .cms-m-list-item-image,
+  .cms-m-list-item-image-placeholder {
+    width: 48px;
+    height: 48px;
+  }
+
+  .cms-m-action-btn {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
+  }
+}
+
+/* Android Specific Optimizations */
+@media screen and (-webkit-min-device-pixel-ratio: 0) {
+  .cms-m-list-item {
+    will-change: transform;
+  }
+}

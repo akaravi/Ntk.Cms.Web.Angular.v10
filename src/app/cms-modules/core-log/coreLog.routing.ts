@@ -1,16 +1,98 @@
 import { NgModule } from "@angular/core";
-import { RouterModule } from "@angular/router";
+import { RouterModule, Routes } from "@angular/router";
+import { CoreLogAvoidDuplicateDataEntryListComponent } from "./avoid-duplicate/list/list.component";
+import { CoreLogComponent } from "./coreLog.component";
+import { CoreLogCurrencyListComponent } from "./currency/list/list.component";
+import { CoreLogErrorListComponent } from "./error/list/list.component";
+import { CoreLogMemberListComponent } from "./member/list/list.component";
+import { CoreLogNotificationListComponent } from "./notification/list/list.component";
+import { CoreLogReportDataListComponent } from "./report-data/list/list.component";
+import { CoreLogSmsListComponent } from "./sms/list/list.component";
+import { CoreLogEmailListComponent } from "./email/list/list.component";
 
-import { DesktopViewportCanMatchGuard, MobileViewportCanMatchGuard } from "src/app/core/guards/responsive-route.guard";
-import { withResponsiveRouteVariants } from "src/app/core/helpers/responsive-routing.helper";
-import { routesMobile } from "./routes.mobile";
-import { routesNormal } from "./routes.normal";
-/**توجه این روت دو بخش داد باید در هر دو بخش روت ها اضفا شود */
+const routes: Routes = [
+  {
+    path: "",
+    component: CoreLogComponent,
+    data: { title: "ROUTE.CORELOG" },
+
+    children: [
+      {
+        path: "error",
+        component: CoreLogErrorListComponent,
+        data: { title: "ROUTE.CORELOG.ERROR" },
+      },
+      {
+        path: "avoid-duplicate",
+        component: CoreLogAvoidDuplicateDataEntryListComponent,
+        data: { title: "ROUTE.CORELOG" },
+      },
+      {
+        path: "avoid-duplicate/:LinkUserId",
+        component: CoreLogAvoidDuplicateDataEntryListComponent,
+        data: { title: "ROUTE.CORELOG" },
+      },
+      {
+        path: "sms",
+        component: CoreLogSmsListComponent,
+        data: { title: "ROUTE.CORELOG" },
+      },
+      {
+        path: "email",
+        component: CoreLogEmailListComponent,
+        data: { title: "ROUTE.CORELOG" },
+      },
+      {
+        path: "notification",
+        component: CoreLogNotificationListComponent,
+        data: { title: "ROUTE.CORELOG" },
+      },
+      {
+        path: "report-data",
+        component: CoreLogReportDataListComponent,
+        data: { title: "ROUTE.CORELOG" },
+      },
+      {
+        path: "report-data/LinkSiteId/:LinkSiteId",
+        component: CoreLogReportDataListComponent,
+        data: { title: "ROUTE.CORELOG" },
+      },
+      {
+        path: "report-data/LinkUserId/:LinkUserId",
+        component: CoreLogReportDataListComponent,
+        data: { title: "ROUTE.CORELOG" },
+      },
+      {
+        path: "report-data/LinkModuleEntityId/:LinkModuleEntityId",
+        component: CoreLogReportDataListComponent,
+        data: { title: "ROUTE.CORELOG" },
+      },
+      {
+        path: "report-data/LinkModuleEntityReportFileId/:LinkModuleEntityReportFileId",
+        component: CoreLogReportDataListComponent,
+        data: { title: "ROUTE.CORELOG" },
+      },
+      {
+        path: "member",
+        component: CoreLogMemberListComponent,
+        data: { title: "ROUTE.CORELOG" },
+      },
+      {
+        path: "currency",
+        component: CoreLogCurrencyListComponent,
+        data: { title: "ROUTE.CORELOG" },
+      },
+      {
+        path: "currency/:LinkCurrencyId",
+        component: CoreLogCurrencyListComponent,
+        data: { title: "ROUTE.CORELOG" },
+      },
+    ],
+  },
+];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(withResponsiveRouteVariants(routesMobile, routesNormal, MobileViewportCanMatchGuard, DesktopViewportCanMatchGuard)),
-  ],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
 export class CoreLogRoutes {}

@@ -28,7 +28,6 @@ import { CoreModuleEntityReportFileListMobileComponent } from "./list/list.mobil
     CoreModuleEntityReportFileAddComponent,
     CoreModuleEntityReportFileEditComponent,
     CoreModuleEntityReportFileListComponent,
-    CoreModuleEntityReportFileListMobileComponent,
   ],
   imports: [
     CommonModule,

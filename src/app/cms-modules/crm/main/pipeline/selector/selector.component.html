@@ -29,7 +29,7 @@
     @for (state of filteredOptions | async; track state) {
       <mat-option [value]="state" [disabled]="optionDisabled">
         @if (state.icon) {
-          <i [class]="state.icon" style="margin-left: 5px"></i>
+          <i [class]="state.icon" style="margin-left: 5px;"></i>
         }
         <span>{{ displayOption(state) }}</span>
       </mat-option>
@@ -56,8 +56,12 @@
     "
     (click)="onActionButtonReload()"
   ></i>
-  @if (optionRequired && !(dataModelSelect?.id?.length > 0)) {
+  @if (
+    optionRequired &&
+    (!dataModelSelect || !dataModelSelect.id || dataModelSelect.id.length <= 0)
+  ) {
     <em>({{ "TITLE.Necessary" | translate }})</em>
   }
   <ng-content></ng-content>
 </div>
+

@@ -40,12 +40,18 @@ import { BlogCategoryTreeSelectorComponent } from "./category/tree-selector/tree
 import { BlogCategoryTreeComponent } from "./category/tree/tree.component";
 import { BlogCommentEditComponent } from "./comment/edit/edit.component";
 import { BlogCommentListComponent } from "./comment/list/list.component";
-import { BlogCommentListMobileComponent } from "./comment/list/list.mobile.component";
 import { BlogContentDeleteComponent } from "./content/delete/delete.component";
 import { BlogContentHeaderComponent } from "./content/header/header.component";
 import { BlogContentListComponent } from "./content/list/list.component";
-import { BlogContentListMobileComponent } from "./content/list/list.mobile.component";
 import { BlogContentSelectorComponent } from "./content/selector/selector.component";
+import { BlogCommentListMobileComponent } from "./comment/list/list.mobile.component";
+import { BlogConfigComponent } from "./config/blog-config.component";
+import { BlogConfigCheckSiteComponent } from "./config/check-site/check-site.component";
+import { BlogConfigCheckUserComponent } from "./config/check-user/check-user.component";
+import { BlogConfigMainAdminComponent } from "./config/main-admin/config-main-admin.component";
+import { BlogConfigSiteComponent } from "./config/site/config-site.component";
+import { BlogContentListMobileComponent } from "./content/list/list.mobile.component";
+import { BlogContentWidgetComponent } from "./content/widget/widget.component";
 
 @NgModule({
   declarations: [
@@ -55,7 +61,6 @@ import { BlogContentSelectorComponent } from "./content/selector/selector.compon
     BlogContentEditComponent,
     BlogContentDeleteComponent,
     BlogContentListComponent,
-    BlogContentListMobileComponent,
     BlogContentHeaderComponent,
     BlogContentSelectorComponent,
     BlogCategoryTreeComponent,
@@ -65,8 +70,15 @@ import { BlogContentSelectorComponent } from "./content/selector/selector.compon
     BlogCategoryDeleteComponent,
     BlogCategoryTreeSelectorComponent,
     BlogCommentListComponent,
-    BlogCommentListMobileComponent,
     BlogCommentEditComponent,
+    BlogCommentListMobileComponent,
+    BlogConfigComponent,
+    BlogConfigCheckSiteComponent,
+    BlogConfigCheckUserComponent,
+    BlogConfigMainAdminComponent,
+    BlogConfigSiteComponent,
+    BlogContentListMobileComponent,
+    BlogContentWidgetComponent,
   ],
   imports: [
     CommonModule,

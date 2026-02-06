@@ -5,15 +5,15 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    BankPaymentPrivateSiteConfigModel,
-    BankPaymentPrivateSiteConfigService,
-    BankPaymentPublicConfigModel,
-    BankPaymentPublicConfigService,
-    ErrorExceptionResult,
-    FilterDataModel,
-    FilterModel,
-    RecordStatusEnum,
-    SortTypeEnum,
+  BankPaymentPrivateSiteConfigModel,
+  BankPaymentPrivateSiteConfigService,
+  BankPaymentPublicConfigModel,
+  BankPaymentPublicConfigService,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -97,18 +97,18 @@ export class BankPaymentPrivateSiteConfigListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "linkMainImageIdSrc",
+    "id",
     "recordStatus",
     "title",
-    "id",
     "LinkPublicConfigId",
     "updatedDate",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "linkMainImageIdSrc",
+    "id",
     "recordStatus",
     "title",
-    "id",
     "LinkPublicConfigId",
     "updatedDate",
     // 'Action'
@@ -330,7 +330,7 @@ export class BankPaymentPrivateSiteConfigListComponent
   onActionButtonEditRow(
     model: BankPaymentPrivateSiteConfigModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -366,7 +366,7 @@ export class BankPaymentPrivateSiteConfigListComponent
   onActionButtonDeleteRow(
     model: BankPaymentPrivateSiteConfigModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -502,7 +502,7 @@ export class BankPaymentPrivateSiteConfigListComponent
   onActionButtonTransactionList(
     model: BankPaymentPrivateSiteConfigModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -516,7 +516,7 @@ export class BankPaymentPrivateSiteConfigListComponent
   onActionButtonTestPayment(
     model: BankPaymentPrivateSiteConfigModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

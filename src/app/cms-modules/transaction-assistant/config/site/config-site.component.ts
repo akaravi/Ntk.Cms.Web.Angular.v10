@@ -340,4 +340,3 @@ export class TransactionAssistantConfigSiteComponent implements OnInit, OnDestro
       });
   }
 }
-

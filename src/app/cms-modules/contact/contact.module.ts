@@ -28,10 +28,15 @@ import { ContactCategoryTreeComponent } from "./category/tree/tree.component";
 import { ContactContentAddComponent } from "./content/add/add.component";
 import { ContactContentEditComponent } from "./content/edit/edit.component";
 import { ContactContentListComponent } from "./content/list/list.component";
-import { ContactContentListMobileComponent } from "./content/list/list.mobile.component";
 import { ContactContentSelectionlistComponent } from "./content/selection-list/selectionlist.component";
 import { ContactContentSelectorComponent } from "./content/selector/selector.component";
 import { ContactContentImportComponent } from "./content/import/import.component";
+import { ContactConfigCheckSiteComponent } from "./config/check-site/check-site.component";
+import { ContactConfigCheckUserComponent } from "./config/check-user/check-user.component";
+import { ContactConfigComponent } from "./config/contact-config.component";
+import { ContactConfigMainAdminComponent } from "./config/main-admin/config-main-admin.component";
+import { ContactConfigSiteComponent } from "./config/site/config-site.component";
+import { ContactContentListMobileComponent } from "./content/list/list.mobile.component";
 
 @NgModule({
   declarations: [
@@ -44,11 +49,16 @@ import { ContactContentImportComponent } from "./content/import/import.component
     ContactCategoryTreeSelectorComponent,
     ContactContentSelectorComponent,
     ContactContentListComponent,
-    ContactContentListMobileComponent,
     ContactContentAddComponent,
     ContactContentEditComponent,
     ContactContentSelectionlistComponent,
     ContactContentImportComponent,
+    ContactConfigCheckSiteComponent,
+    ContactConfigCheckUserComponent,
+    ContactConfigComponent,
+    ContactConfigMainAdminComponent,
+    ContactConfigSiteComponent,
+    ContactContentListMobileComponent,
   ],
   imports: [
     CommonModule,

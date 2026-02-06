@@ -30,8 +30,14 @@ import { CatalogCategoryTreeComponent } from "./category/tree/tree.component";
 import { CatalogContentDeleteComponent } from "./content/delete/delete.component";
 import { CatalogContentHeaderComponent } from "./content/header/header.component";
 import { CatalogContentListComponent } from "./content/list/list.component";
-import { CatalogContentListMobileComponent } from "./content/list/list.mobile.component";
 import { CatalogContentSelectorComponent } from "./content/selector/selector.component";
+import { CatalogConfigComponent } from "./config/catalog-config.component";
+import { CatalogConfigCheckSiteComponent } from "./config/check-site/check-site.component";
+import { CatalogConfigCheckUserComponent } from "./config/check-user/check-user.component";
+import { CatalogConfigMainAdminComponent } from "./config/main-admin/config-main-admin.component";
+import { CatalogConfigSiteComponent } from "./config/site/config-site.component";
+import { CatalogContentListMobileComponent } from "./content/list/list.mobile.component";
+import { CatalogContentWidgetComponent } from "./content/widget/widget.component";
 
 @NgModule({
   declarations: [
@@ -41,7 +47,6 @@ import { CatalogContentSelectorComponent } from "./content/selector/selector.com
     CatalogContentEditComponent,
     CatalogContentDeleteComponent,
     CatalogContentListComponent,
-    CatalogContentListMobileComponent,
     CatalogContentHeaderComponent,
     CatalogContentSelectorComponent,
     CatalogCategoryTreeComponent,
@@ -50,6 +55,13 @@ import { CatalogContentSelectorComponent } from "./content/selector/selector.com
     CatalogCategoryEditComponent,
     CatalogCategoryDeleteComponent,
     CatalogCategoryTreeSelectorComponent,
+    CatalogConfigComponent,
+    CatalogConfigCheckSiteComponent,
+    CatalogConfigCheckUserComponent,
+    CatalogConfigMainAdminComponent,
+    CatalogConfigSiteComponent,
+    CatalogContentListMobileComponent,
+    CatalogContentWidgetComponent,
   ],
   imports: [
     CommonModule,

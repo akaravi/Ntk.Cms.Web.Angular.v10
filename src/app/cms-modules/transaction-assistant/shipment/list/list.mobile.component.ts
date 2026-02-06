@@ -9,9 +9,4 @@ import { TransactionAssistantShipmentListComponent } from "./list.component";
 export class TransactionAssistantShipmentListMobileComponent extends TransactionAssistantShipmentListComponent {
 
 
-
-
-
-
-
 }

@@ -1,31 +1,31 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
 } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  ClauseTypeEnum,
-  CoreEnumService,
-  ErrorExceptionResult,
-  EstateContractTypeModel,
-  EstateContractTypeService,
-  FilterDataModel,
-  FilterDataModelSearchTypesEnum,
-  FilterModel,
+    ClauseTypeEnum,
+    CoreEnumService,
+    ErrorExceptionResult,
+    EstateContractTypeModel,
+    EstateContractTypeService,
+    FilterDataModel,
+    FilterDataModelSearchTypesEnum,
+    FilterModel,
 } from "ntk-cms-api";
 import { Observable, Subscription, firstValueFrom } from "rxjs";
 import {
-  debounceTime,
-  distinctUntilChanged,
-  map,
-  startWith,
-  switchMap,
+    debounceTime,
+    distinctUntilChanged,
+    map,
+    startWith,
+    switchMap,
 } from "rxjs/operators";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";

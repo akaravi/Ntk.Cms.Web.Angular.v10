@@ -243,7 +243,6 @@ const CmsModulesRoutes: Routes = [
       ),
     data: { title: "ROUTE.DATAPROVIDER" },
   },
-
   {
     path: "api-telegram",
     canActivate: [CmsAuthSiteGuard],

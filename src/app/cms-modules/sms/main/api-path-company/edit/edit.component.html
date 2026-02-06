@@ -40,6 +40,7 @@
             [(ngModel)]="dataModel.title"
             name="dataModel.title"
             #Title
+            type="text"
             placeholder="{{ fieldsInfo['title']?.fieldTitle }}"
             minlength="3"
             maxlength="100"
@@ -136,6 +137,7 @@
                   name="dataModel.serviceAvailableCredit"
                   currencyMask
                   #ServiceAvailableCredit
+                  type="number"
                   placeholder="0"
                   [disabled]="!fieldsInfo['serviceAvailableCredit']?.accessEditField"
                   required
@@ -175,6 +177,7 @@
                     name="dataModel.serviceSumCredit"
                     currencyMask
                     #ServiceSumCredit
+                    type="number"
                     placeholder="0"
                     [disabled]="!fieldsInfo['serviceSumCredit']?.accessEditField"
                     required
@@ -214,6 +217,7 @@
                       name="dataModel.userAvailableCredit"
                       currencyMask
                       #UserAvailableCredit
+                      type="number"
                       placeholder="0"
                       [disabled]="!fieldsInfo['userAvailableCredit']?.accessEditField"
                       required
@@ -253,6 +257,7 @@
                         name="dataModel.userSumCredit"
                         currencyMask
                         #UserSumCredit
+                        type="number"
                         placeholder="0"
                         [disabled]="!fieldsInfo['userSumCredit']?.accessEditField"
                         required
@@ -289,6 +294,7 @@
                         [(ngModel)]="dataModel.description"
                         name="dataModel.description"
                         #Description
+                        type="text"
                         placeholder="{{ fieldsInfo['description']?.fieldTitle }}"
                         minlength="1"
                         maxlength="500"

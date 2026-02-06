@@ -1,23 +1,23 @@
 import { ENTER } from "@angular/cdk/keycodes";
 import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+    ViewChild,
 } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { MatAutocompleteSelectedEvent } from "@angular/material/autocomplete";
 import { MatChipInputEvent } from "@angular/material/chips";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  ClauseTypeEnum,
-  EstatePropertyTypeUsageService,
-  FilterDataModel,
-  FilterDataModelSearchTypesEnum,
-  FilterModel,
+    ClauseTypeEnum,
+    EstatePropertyTypeUsageService,
+    FilterDataModel,
+    FilterDataModelSearchTypesEnum,
+    FilterModel,
 } from "ntk-cms-api";
 import { Observable } from "rxjs";
 import { debounceTime, map, startWith, switchMap } from "rxjs/operators";

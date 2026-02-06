@@ -48,8 +48,12 @@
     "
     (click)="onActionButtonReload()"
   ></i>
-  @if (optionRequired && !(dataModelSelect?.id?.length > 0)) {
+  @if (
+    optionRequired &&
+    (!dataModelSelect || !dataModelSelect.id || dataModelSelect.id.length <= 0)
+  ) {
     <em>({{ "TITLE.Necessary" | translate }})</em>
   }
   <ng-content></ng-content>
 </div>
+

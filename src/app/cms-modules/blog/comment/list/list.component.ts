@@ -1,9 +1,9 @@
 import {
-    animate,
-    state,
-    style,
-    transition,
-    trigger,
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
 } from "@angular/animations";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
@@ -12,14 +12,14 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    BlogCommentModel,
-    BlogCommentService,
-    BlogContentService,
-    FilterDataModel,
-    FilterDataModelSearchTypesEnum,
-    FilterModel,
-    RecordStatusEnum,
-    SortTypeEnum,
+  BlogCommentModel,
+  BlogCommentService,
+  BlogContentService,
+  FilterDataModel,
+  FilterDataModelSearchTypesEnum,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -288,7 +288,7 @@ export class BlogCommentListComponent
   }
 
   onActionButtonEditRow(model: BlogCommentModel = this.tableRowSelected): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -320,7 +320,7 @@ export class BlogCommentListComponent
   onActionButtonDeleteRow(
     model: BlogCommentModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -478,7 +478,7 @@ export class BlogCommentListComponent
     this.router.navigate(["/blog/content/"]);
   }
   onActionButtonViewContent(model: BlogCommentModel): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -534,7 +534,7 @@ export class BlogCommentListComponent
       });
   }
   onActionButtonEditContent(model: BlogCommentModel): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -553,7 +553,7 @@ export class BlogCommentListComponent
     ]);
   }
   onActionButtonLinkTo(model: BlogCommentModel = this.tableRowSelected): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

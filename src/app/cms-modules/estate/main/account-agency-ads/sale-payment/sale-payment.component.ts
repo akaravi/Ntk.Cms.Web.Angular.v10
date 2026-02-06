@@ -3,14 +3,14 @@ import { ChangeDetectorRef, Component, Inject, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  BankPaymentInjectPaymentGotoBankStep1CalculateModel,
-  BankPaymentInjectPaymentGotoBankStep2LandingSitePageModel,
-  BankPaymentPrivateSiteConfigModel,
-  ErrorExceptionResult,
-  EstateAccountAgencyAdsService,
-  EstateAdsTypeService,
-  EstateModuleSaleAccountAgencyAdsCalculateDtoModel,
-  EstateModuleSaleAccountAgencyAdsPaymentDtoModel,
+    BankPaymentInjectPaymentGotoBankStep1CalculateModel,
+    BankPaymentInjectPaymentGotoBankStep2LandingSitePageModel,
+    BankPaymentPrivateSiteConfigModel,
+    ErrorExceptionResult,
+    EstateAccountAgencyAdsService,
+    EstateAdsTypeService,
+    EstateModuleSaleAccountAgencyAdsCalculateDtoModel,
+    EstateModuleSaleAccountAgencyAdsPaymentDtoModel,
 } from "ntk-cms-api";
 
 import { PublicHelper } from "src/app/core/helpers/publicHelper";

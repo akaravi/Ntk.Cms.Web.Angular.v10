@@ -3,20 +3,21 @@ import { FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreCurrencyModel,
-  CoreEnumService,
-  CoreLocationModel,
-  ErrorExceptionResult,
-  ErrorExceptionResultBase,
-  EstateContractTypeModel,
-  EstateEnumService,
-  EstatePropertyExpertPriceModel,
-  EstatePropertyExpertPriceService,
-  EstatePropertyTypeLanduseModel,
-  EstatePropertyTypeUsageModel,
-  InfoEnumModel,
-  ManageUserAccessDataTypesEnum,
-  TokenInfoModelV3 } from "ntk-cms-api";
+    CoreCurrencyModel,
+    CoreEnumService,
+    CoreLocationModel,
+    ErrorExceptionResult,
+    ErrorExceptionResultBase,
+    EstateContractTypeModel,
+    EstateEnumService,
+    EstatePropertyExpertPriceModel,
+    EstatePropertyExpertPriceService,
+    EstatePropertyTypeLanduseModel,
+    EstatePropertyTypeUsageModel,
+    InfoEnumModel,
+    ManageUserAccessDataTypesEnum,
+    TokenInfoModelV3
+} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -24,7 +25,6 @@ import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-estate-property-expert-price-edit-mobile",

@@ -349,7 +349,7 @@ export class CoreUserClaimGroupDetailListComponent
   onActionButtonDeleteRow(
     model: CoreUserClaimGroupDetailModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {

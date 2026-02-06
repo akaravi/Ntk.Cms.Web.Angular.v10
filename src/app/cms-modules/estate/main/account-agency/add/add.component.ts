@@ -1,21 +1,24 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild } from "@angular/core";
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import * as Leaflet from "leaflet";
 import { Map as leafletMap } from "leaflet";
-import {CoreEnumService,
-  CoreLocationModel,
-  CoreUserModel,
-  DataFieldInfoModel,
-  ErrorExceptionResult,
-  EstateAccountAgencyModel,
-  EstateAccountAgencyService,TokenInfoModelV3} from "ntk-cms-api";
+import {
+    CoreEnumService,
+    CoreLocationModel,
+    CoreUserModel,
+    DataFieldInfoModel,
+    ErrorExceptionResult,
+    EstateAccountAgencyModel,
+    EstateAccountAgencyService, TokenInfoModelV3
+} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -24,7 +27,6 @@ import { PoinModel } from "src/app/core/models/pointModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-estate-account-agency-add",

@@ -384,7 +384,9 @@ export class EstateCustomerOrderEditComponent
         },
       });
   }
-
+  onActionCopied(): void {
+    this.cmsToastrService.typeSuccessCopedToClipboard();
+  }
   onActionSelectorSelectUsage(
     model: EstatePropertyTypeUsageModel | null,
   ): void {

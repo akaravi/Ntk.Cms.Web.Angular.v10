@@ -17,7 +17,7 @@
       <!-- RecordStatus Field -->
       <app-cms-enum-record-status-selector
         [(model)]="dataModel.recordStatus"
-        [optionDisabled]="!(fieldsInfo['recordStatus']?.accessEditField ?? false)"
+        [optionDisabled]="false"
         [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
         [optionRequired]="true"
         [optionSelectFirstItem]="true"
@@ -96,7 +96,7 @@
           (optionChange)="onActionSelectUser($event)"
           [optionSelectForce]="dataModel.linkUserId"
           [optionPlaceholder]="'TITLE.USER' | translate"
-          [optionDisabled]="!(fieldsInfo['linkUserId']?.accessEditField ?? false)"
+          [optionDisabled]="!fieldsInfo['linkUserId']?.accessEditField"
         >
         </app-cms-user-selector>
       }
@@ -107,7 +107,7 @@
           (optionChange)="onActionSelectSite($event)"
           [optionSelectForce]="dataModel.linkSiteId"
           [optionPlaceholder]="'TITLE.SITE' | translate"
-          [optionDisabled]="!(fieldsInfo['linkSiteId']?.accessEditField ?? false)"
+          [optionDisabled]="!fieldsInfo['linkSiteId']?.accessEditField"
         >
         </app-cms-site-selector>
       }

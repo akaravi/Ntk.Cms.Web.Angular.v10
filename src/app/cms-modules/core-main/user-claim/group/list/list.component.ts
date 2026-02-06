@@ -91,17 +91,17 @@ export class CoreUserClaimGroupListComponent
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
+    "id",
     "recordStatus",
     "title",
-    "id",
     "LinkModuleId",
     "LinkSiteCategoryId",
     // 'Action'
   ];
   tabledisplayedColumnsMobileSource: string[] = [
+    "id",
     "recordStatus",
     "title",
-    "id",
     "LinkModuleId",
     "LinkSiteCategoryId",
     // 'Action'
@@ -265,7 +265,7 @@ export class CoreUserClaimGroupListComponent
   onActionButtonEditRow(
     model: CoreUserClaimGroupModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -297,7 +297,7 @@ export class CoreUserClaimGroupListComponent
   onActionButtonDeleteRow(
     model: CoreUserClaimGroupModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -374,7 +374,7 @@ export class CoreUserClaimGroupListComponent
   onActionButtonDetailList(
     model: CoreUserClaimGroupModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {
@@ -453,7 +453,7 @@ export class CoreUserClaimGroupListComponent
   onActionButtonSiteList(
     model: CoreUserClaimGroupModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

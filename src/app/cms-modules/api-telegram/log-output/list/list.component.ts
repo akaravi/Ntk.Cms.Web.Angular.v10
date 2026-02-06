@@ -5,13 +5,13 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    ApiTelegramLogOutputModel,
-    ApiTelegramLogOutputService,
-    ErrorExceptionResult,
-    FilterDataModel,
-    FilterModel,
-    RecordStatusEnum,
-    SortTypeEnum,
+  ApiTelegramLogOutputModel,
+  ApiTelegramLogOutputService,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -295,7 +295,7 @@ export class ApiTelegramLogOutputListComponent
   onActionButtonSendMessage(
     model: ApiTelegramLogOutputModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

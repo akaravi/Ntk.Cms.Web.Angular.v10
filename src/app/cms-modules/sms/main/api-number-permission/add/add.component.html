@@ -18,7 +18,7 @@
       @if (fieldsInfo["recordStatus"]?.accessWatchField) {
         <app-cms-enum-record-status-selector
           [(model)]="dataModel.recordStatus"
-          [optionDisabled]="!(fieldsInfo['recordStatus']?.accessAddField ?? false)"
+          [optionDisabled]="false"
           [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
           [optionRequired]="true"
           [optionSelectFirstItem]="true"
@@ -38,7 +38,7 @@
       <!-- LinkCoreUserId Field -->
       <app-cms-user-selector
         (optionChange)="onActionSelectorCmsUser($event)"
-        [optionDisabled]="!(fieldsInfo['linkCoreUserId']?.accessAddField ?? false)"
+        [optionDisabled]="!fieldsInfo['linkCoreUserId']?.accessAddField"
         [optionSelectForce]="dataModel.linkCoreUserId"
         [optionPlaceholder]="'TITLE.USER' | translate"
       >
@@ -46,7 +46,7 @@
       <!-- LinkCoreSiteId Field -->
       <app-cms-site-selector
         (optionChange)="onActionSelectorCmsSite($event)"
-        [optionDisabled]="!(fieldsInfo['linkCoreSiteId']?.accessAddField ?? false)"
+        [optionDisabled]="!fieldsInfo['linkCoreSiteId']?.accessAddField"
         [optionSelectForce]="dataModel.linkCoreSiteId"
         [optionPlaceholder]="'TITLE.SITE' | translate"
       >
@@ -54,7 +54,7 @@
       <!-- LinkCoreUserGroupId Field -->
       <app-cms-usergroup-selector
         (optionChange)="onActionSelectorCoreUserGroup($event)"
-        [optionDisabled]="!(fieldsInfo['linkCoreUserGroupId']?.accessAddField ?? false)"
+        [optionDisabled]="!fieldsInfo['linkCoreUserGroupId']?.accessAddField"
         [optionSelectForce]="dataModel.linkCoreUserGroupId"
         [optionPlaceholder]="'TITLE.Type_Usage' | translate"
       >

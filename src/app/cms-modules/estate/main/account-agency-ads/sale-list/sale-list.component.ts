@@ -3,14 +3,14 @@ import { MatDialog } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService,
-  CoreSiteService,
-  ErrorExceptionResult,
-  EstateAdsTypeModel,
-  EstateAdsTypeService,
-  FilterModel,
-  InfoEnumModel,
-  TokenInfoModelV3,
+    CoreEnumService,
+    CoreSiteService,
+    ErrorExceptionResult,
+    EstateAdsTypeModel,
+    EstateAdsTypeService,
+    FilterModel,
+    InfoEnumModel,
+    TokenInfoModelV3,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";

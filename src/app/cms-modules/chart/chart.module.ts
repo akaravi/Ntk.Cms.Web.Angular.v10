@@ -39,11 +39,17 @@ import { ChartCategoryTreeSelectorComponent } from "./category/tree-selector/tre
 import { ChartCategoryTreeComponent } from "./category/tree/tree.component";
 import { ChartCommentEditComponent } from "./comment/edit/edit.component";
 import { ChartCommentListComponent } from "./comment/list/list.component";
-import { ChartCommentListMobileComponent } from "./comment/list/list.mobile.component";
 import { ChartContentDeleteComponent } from "./content/delete/delete.component";
 import { ChartContentListComponent } from "./content/list/list.component";
-import { ChartContentListMobileComponent } from "./content/list/list.mobile.component";
 import { ChartContentSelectorComponent } from "./content/selector/selector.component";
+import { ChartCommentListMobileComponent } from "./comment/list/list.mobile.component";
+import { ChartConfigComponent } from "./config/chart-config.component";
+import { ChartConfigCheckSiteComponent } from "./config/check-site/check-site.component";
+import { ChartConfigCheckUserComponent } from "./config/check-user/check-user.component";
+import { ChartConfigMainAdminComponent } from "./config/main-admin/config-main-admin.component";
+import { ChartConfigSiteComponent } from "./config/site/config-site.component";
+import { ChartContentListMobileComponent } from "./content/list/list.mobile.component";
+import { ChartContentWidgetComponent } from "./content/widget/widget.component";
 
 @NgModule({
   declarations: [
@@ -52,7 +58,6 @@ import { ChartContentSelectorComponent } from "./content/selector/selector.compo
     ChartContentEditComponent,
     ChartContentDeleteComponent,
     ChartContentListComponent,
-    ChartContentListMobileComponent,
     ChartContentSelectorComponent,
     ChartCategoryTreeComponent,
     ChartCategoryTreeSelectorComponent,
@@ -61,8 +66,15 @@ import { ChartContentSelectorComponent } from "./content/selector/selector.compo
     ChartCategoryEditComponent,
     ChartCategoryDeleteComponent,
     ChartCommentListComponent,
-    ChartCommentListMobileComponent,
     ChartCommentEditComponent,
+    ChartCommentListMobileComponent,
+    ChartConfigComponent,
+    ChartConfigCheckSiteComponent,
+    ChartConfigCheckUserComponent,
+    ChartConfigMainAdminComponent,
+    ChartConfigSiteComponent,
+    ChartContentListMobileComponent,
+    ChartContentWidgetComponent,
   ],
   imports: [
     CommonModule,

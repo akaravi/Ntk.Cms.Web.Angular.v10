@@ -25,12 +25,12 @@ export class ChartContentWidgetComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private service: ChartContentService,
-        private cdr: ChangeDetectorRef,
+    public cmsToastrService: CmsToastrService,
+    private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
-    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }

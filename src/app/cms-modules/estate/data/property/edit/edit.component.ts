@@ -539,7 +539,9 @@ export class EstatePropertyEditComponent
   }
 
   receiveZoom(zoom: number): void {}
-
+  onActionCopied(): void {
+    this.cmsToastrService.typeSuccessCopedToClipboard();
+  }
   onActionSelectorSelectUsage(
     model: EstatePropertyTypeUsageModel | null,
   ): void {

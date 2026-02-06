@@ -99,4 +99,3 @@ export class TransactionAssistantConfigCheckSiteComponent implements OnInit, OnD
     });
   }
 }
-

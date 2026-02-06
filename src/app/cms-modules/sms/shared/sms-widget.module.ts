@@ -15,6 +15,10 @@ import { SmsLogOutBoxTaskSchedulerWidgetComponent } from "../log/outbox-task-sch
 import { SmsLogOutBoxTaskSchedulerWidgetMobileComponent } from "../log/outbox-task-scheduler/widget/widget.mobile.component";
 import { SmsLogOutBoxWidgetComponent } from "../log/outbox/widget/widget.component";
 import { SmsLogOutBoxWidgetMobileComponent } from "../log/outbox/widget/widget.mobile.component";
+import { SmsMessageTypeEnumSelectionlistComponent } from "./sms-message-type-enum/selectionlist/selectionlist.component";
+import { SmsMessageTypeEnumSelectorComponent } from "./sms-message-type-enum/selector/selector.component";
+import { SmsOutBoxTypeEnumSelectionlistComponent } from "./sms-out-box-type-enum/selectionlist/selectionlist.component";
+import { SmsOutBoxTypeEnumSelectorComponent } from "./sms-out-box-type-enum/selector/selector.component";
 
 @NgModule({
   declarations: [
@@ -26,6 +30,10 @@ import { SmsLogOutBoxWidgetMobileComponent } from "../log/outbox/widget/widget.m
     SmsLogOutBoxQueueWidgetMobileComponent,
     SmsLogOutBoxTaskSchedulerWidgetComponent,
     SmsLogOutBoxTaskSchedulerWidgetMobileComponent,
+    SmsMessageTypeEnumSelectionlistComponent,
+    SmsMessageTypeEnumSelectorComponent,
+    SmsOutBoxTypeEnumSelectionlistComponent,
+    SmsOutBoxTypeEnumSelectorComponent,
   ],
   exports: [
     SmsLogInBoxWidgetComponent,

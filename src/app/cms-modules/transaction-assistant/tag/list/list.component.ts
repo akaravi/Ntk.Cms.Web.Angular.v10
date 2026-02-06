@@ -5,12 +5,12 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    FilterDataModel,
-    FilterModel,
-    RecordStatusEnum,
-    SortTypeEnum,
-    TransactionAssistantTagModel,
-    TransactionAssistantTagService,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
+  TransactionAssistantTagModel,
+  TransactionAssistantTagService,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -41,7 +41,7 @@ export class TransactionAssistantTagListComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    public contentService: TransactionAssistantTagService,
+    private contentService: TransactionAssistantTagService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public cmsToastrService: CmsToastrService,
     public tokenHelper: TokenHelper,
@@ -224,7 +224,7 @@ export class TransactionAssistantTagListComponent
   onActionButtonEditRow(
     model: TransactionAssistantTagModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -256,7 +256,7 @@ export class TransactionAssistantTagListComponent
   onActionButtonDeleteRow(
     model: TransactionAssistantTagModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {

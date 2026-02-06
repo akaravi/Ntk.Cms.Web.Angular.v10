@@ -41,7 +41,7 @@ export class EstateCustomerOrderResultListComponent
   requestLinkProperty = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    public contentService: EstateCustomerOrderResultService,
+    private contentService: EstateCustomerOrderResultService,
     private activatedRoute: ActivatedRoute,
     public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
@@ -108,21 +108,6 @@ export class EstateCustomerOrderResultListComponent
   filteModelContent = new FilterModel();
   filterDataModelQueryBuilder: FilterDataModel[] = [];
 
-  filterModelCompiler(model: FilterModel): FilterModel {
-    /*filter CLone*/
-    const filterModel = JSON.parse(JSON.stringify(model));
-    /*filter CLone*/
-    /*filter add search*/
-    if (
-      this.filterDataModelQueryBuilder &&
-      this.filterDataModelQueryBuilder.length > 0
-    ) {
-      filterModel.filters = [...this.filterDataModelQueryBuilder];
-    }
-    /*filter add search*/
-    return filterModel;
-  }
-
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = ["Description"];
   tabledisplayedColumnsMobileSource: string[] = ["Description"];
@@ -168,7 +153,17 @@ export class EstateCustomerOrderResultListComponent
         );
       });
     this.filteModelContent.accessLoad = true;
-    const filterModel = this.filterModelCompiler(this.filteModelContent);
+    /*filter CLone*/
+    const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
+    /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
 
     this.contentService.ServiceGetAll(filterModel).subscribe({
       next: (ret) => {
@@ -227,7 +222,7 @@ export class EstateCustomerOrderResultListComponent
   onActionButtonDeleteRow(
     model: EstateCustomerOrderResultModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -321,8 +316,7 @@ export class EstateCustomerOrderResultListComponent
         this.constructorInfoAreaId,
       );
     });
-    const filterModel = this.filterModelCompiler(this.filteModelContent);
-    this.contentService.ServiceGetCount(filterModel).subscribe({
+    this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.translate.get("MESSAGE.All").subscribe((str: string) => {
@@ -340,7 +334,7 @@ export class EstateCustomerOrderResultListComponent
       },
     });
 
-    const filterStatist1 = this.filterModelCompiler(this.filteModelContent);
+    const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
     const fastfilter = new FilterDataModel();
     fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
@@ -367,7 +361,7 @@ export class EstateCustomerOrderResultListComponent
   onActionButtonViewRow(
     model: EstateCustomerOrderResultModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

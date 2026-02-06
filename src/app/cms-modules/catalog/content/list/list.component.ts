@@ -263,7 +263,7 @@ export class CatalogContentListComponent
   onActionButtonEditRow(
     model: CatalogContentModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -281,7 +281,7 @@ export class CatalogContentListComponent
   onActionButtonDeleteRow(
     model: CatalogContentModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -417,7 +417,9 @@ export class CatalogContentListComponent
   onActionButtonReload(): void {
     this.DataGetAll();
   }
-
+  onActionCopied(): void {
+    this.cmsToastrService.typeSuccessCopedToClipboard();
+  }
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
     if (model && model.length > 0) {
       this.filterDataModelQueryBuilder = [...model];
@@ -430,7 +432,7 @@ export class CatalogContentListComponent
   onActionButtonLinkTo(
     model: CatalogContentModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

@@ -253,7 +253,7 @@ export class CoreModuleLogContentCountListComponent
   onActionButtonViewRow(
     model: CoreModuleLogContentCountModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -285,7 +285,7 @@ export class CoreModuleLogContentCountListComponent
   onActionButtonEditRow(
     model: CoreModuleLogContentCountModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -317,7 +317,7 @@ export class CoreModuleLogContentCountListComponent
   onActionButtonDeleteRow(
     model: CoreModuleLogContentCountModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -394,7 +394,7 @@ export class CoreModuleLogContentCountListComponent
   onActionButtonViewContent(
     model: CoreModuleLogContentCountModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -483,7 +483,7 @@ export class CoreModuleLogContentCountListComponent
   onActionButtonViewUserRow(
     model: CoreModuleLogContentCountModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -505,7 +505,7 @@ export class CoreModuleLogContentCountListComponent
   onActionButtonViewMemberRow(
     model: CoreModuleLogContentCountModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -530,7 +530,7 @@ export class CoreModuleLogContentCountListComponent
   onActionButtonViewSiteRow(
     model: CoreModuleLogContentCountModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

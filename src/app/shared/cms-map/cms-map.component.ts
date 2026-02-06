@@ -55,7 +55,7 @@ export class CmsMapComponent implements OnInit, OnDestroy {
   public zoom: number;
   destroy = false;
 
-  constructor(private cmsToastrService: CmsToastrService) {}
+  constructor(public cmsToastrService: CmsToastrService) {}
 
   ngOnInit(): void {
     const iconRetinaUrl = "assets/leaflet/marker-icon-2x.png";

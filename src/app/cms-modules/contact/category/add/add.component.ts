@@ -1,23 +1,23 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    Inject,
-    OnInit,
-    ViewChild,
-} from "@angular/core";
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {
-    ContactCategoryModel,
-    ContactCategoryService,
-    DataFieldInfoModel,
-    ErrorExceptionResult,
-} from "ntk-cms-api";
+import {ContactCategoryModel,
+  ContactCategoryService,
+  CoreEnumService,
+  DataFieldInfoModel,
+  ErrorExceptionResult} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-contact-category-add",
@@ -34,7 +34,8 @@ export class ContactCategoryAddComponent
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<ContactCategoryAddComponent>,
-      public contactCategoryService: ContactCategoryService,
+    public coreEnumService: CoreEnumService,
+    public contactCategoryService: ContactCategoryService,
     public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -68,7 +69,7 @@ export class ContactCategoryAddComponent
 
   dataModelResult: ErrorExceptionResult<ContactCategoryModel> =
     new ErrorExceptionResult<ContactCategoryModel>();
-dataModel: ContactCategoryModel = new ContactCategoryModel();
+  dataModel: ContactCategoryModel = new ContactCategoryModel();
 
 
   fileManagerOpenForm = false;

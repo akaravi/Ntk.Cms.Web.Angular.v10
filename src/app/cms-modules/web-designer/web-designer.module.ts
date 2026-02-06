@@ -36,11 +36,11 @@ import { CoreModuleModule } from "../core-main/module/coreModule.module";
 import { WebDesignerMainIntroAddComponent } from "./intro/add/add.component";
 import { WebDesignerMainIntroEditComponent } from "./intro/edit/edit.component";
 import { WebDesignerMainIntroListComponent } from "./intro/list/list.component";
-import { WebDesignerMainIntroListMobileComponent } from "./intro/list/list.mobile.component";
 import { WebDesignerLogMemberInfoListComponent } from "./log-member-info/list/list.component";
 import { WebDesignerLogMemberInfoListMobileComponent } from "./log-member-info/list/list.mobile.component";
 import { WebDesignerLogMemberInfoSelectorComponent } from "./log-member-info/selector/selector.component";
 import { WebDesignerLogMemberInfoViewComponent } from "./log-member-info/view/view.component";
+import { WebDesignerLogMemberInfoWidgetComponent } from "./log-member-info/widget/widget.component";
 import { WebDesignerMainMenuAddComponent } from "./menu/add/add.component";
 import { WebDesignerMainMenuEditComponent } from "./menu/edit/edit.component";
 import { WebDesignerMainMenuListComponent } from "./menu/list/list.component";
@@ -70,6 +70,13 @@ import { WebDesignerMainPageListComponent } from "./page/list/list.component";
 import { WebDesignerMainPageListMobileComponent } from "./page/list/list.mobile.component";
 import { WebDesignerMainPageSelectorComponent } from "./page/selector/selector.component";
 import { WebDesignerMainPageTreeComponent } from "./page/tree/tree.component";
+import { WebDesignerMainIntroListMobileComponent } from "./intro/list/list.mobile.component";
+// Config Components
+import { WebDesignerConfigComponent } from "./config/web-designer-config.component";
+import { WebDesignerConfigCheckSiteComponent } from "./config/check-site/check-site.component";
+import { WebDesignerConfigCheckUserComponent } from "./config/check-user/check-user.component";
+import { WebDesignerConfigMainAdminComponent } from "./config/main-admin/config-main-admin.component";
+import { WebDesignerConfigSiteComponent } from "./config/site/config-site.component";
 @NgModule({
   declarations: [
     WebDesignerComponent,
@@ -120,7 +127,15 @@ import { WebDesignerMainPageTreeComponent } from "./page/tree/tree.component";
     WebDesignerLogMemberInfoListMobileComponent,
     WebDesignerLogMemberInfoSelectorComponent,
     WebDesignerLogMemberInfoViewComponent,
+    WebDesignerLogMemberInfoWidgetComponent,
     /** */
+    /* Config */
+    WebDesignerConfigComponent,
+    WebDesignerConfigCheckSiteComponent,
+    WebDesignerConfigCheckUserComponent,
+    WebDesignerConfigMainAdminComponent,
+    WebDesignerConfigSiteComponent,
+    /* Config */
   ],
   imports: [
     CommonModule,

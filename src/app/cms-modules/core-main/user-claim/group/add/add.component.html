@@ -18,7 +18,7 @@
       @if (fieldsInfo['recordStatus']?.accessWatchField) {
         <app-cms-enum-record-status-selector
           [(model)]="dataModel.recordStatus"
-          [optionDisabled]="!(fieldsInfo['recordStatus']?.accessAddField ?? false)"
+          [optionDisabled]="false"
           [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
           [optionRequired]="true"
           [optionSelectFirstItem]="true"
@@ -136,7 +136,7 @@
             (optionChange)="onActionSelectUserGroup($event)"
             [optionSelectForce]="dataModel.linkUserGroupId"
             [optionPlaceholder]="'TITLE.User_Group' | translate"
-            [optionDisabled]="!(fieldsInfo['linkUserGroupId']?.accessEditField ?? false)"
+            [optionDisabled]="!fieldsInfo['linkUserGroupId']?.accessEditField"
             >
           </app-cms-usergroup-selector>
 

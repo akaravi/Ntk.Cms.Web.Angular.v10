@@ -1,20 +1,20 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
 } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService,
-  ErrorExceptionResult,
-  EstateActivityTypeModel,
-  EstateActivityTypeService,
-  FilterModel,
+    CoreEnumService,
+    ErrorExceptionResult,
+    EstateActivityTypeModel,
+    EstateActivityTypeService,
+    FilterModel,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";

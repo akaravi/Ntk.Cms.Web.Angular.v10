@@ -2,11 +2,11 @@ import { ChangeDetectorRef, Component, Input, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    CatalogContentModel,
-    CatalogContentService,
-    DataFieldInfoModel,
-    ErrorExceptionResult,
-    RecordStatusEnum,
+  CatalogContentModel,
+  CatalogContentService,
+  DataFieldInfoModel,
+  ErrorExceptionResult,
+  RecordStatusEnum,
 } from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
@@ -77,7 +77,7 @@ export class CatalogContentHeaderComponent implements OnInit {
   onActionButtonLinkTo(
     model: CatalogContentModel = this.dataModelResult.item,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

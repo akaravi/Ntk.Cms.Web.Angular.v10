@@ -1,22 +1,22 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    EventEmitter,
-    Input,
-    OnDestroy,
-    OnInit,
-    Output,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
 } from "@angular/core";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    CoreEnumService,
-    CoreGuideModel,
-    CoreGuideService,
-    ErrorExceptionResult,
-    FilterModel,
-    SortTypeEnum,
+  CoreEnumService,
+  CoreGuideModel,
+  CoreGuideService,
+  ErrorExceptionResult,
+  FilterModel,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";

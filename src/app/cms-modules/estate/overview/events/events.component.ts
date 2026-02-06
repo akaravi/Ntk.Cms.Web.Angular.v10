@@ -4,37 +4,37 @@ import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    CoreUserModel,
-    DataFieldInfoModel,
-    ErrorExceptionResult,
-    EstateAccountAgencyFilterModel,
-    EstateAccountAgencyModel,
-    EstateAccountAgencyService,
-    EstateAccountExpertFilterModel,
-    EstateAccountExpertModel,
-    EstateAccountExpertService,
-    EstateCustomerOrderFilterModel,
-    EstateCustomerOrderModel,
-    EstateCustomerOrderService,
-    EstatePropertyCompanyFilterModel,
-    EstatePropertyCompanyModel,
-    EstatePropertyCompanyService,
-    EstatePropertyFilterModel,
-    EstatePropertyHistoryFilterModel,
-    EstatePropertyHistoryModel,
-    EstatePropertyHistoryService,
-    EstatePropertyModel,
-    EstatePropertyProjectFilterModel,
-    EstatePropertyProjectModel,
-    EstatePropertyProjectService,
-    EstatePropertyService,
-    EstatePropertySupplierFilterModel,
-    EstatePropertySupplierModel,
-    EstatePropertySupplierService,
-    FilterDataModel,
-    FilterDataModelSearchTypesEnum,
-    RecordStatusEnum,
-    TokenInfoModelV3,
+  CoreUserModel,
+  DataFieldInfoModel,
+  ErrorExceptionResult,
+  EstateAccountAgencyFilterModel,
+  EstateAccountAgencyModel,
+  EstateAccountAgencyService,
+  EstateAccountExpertFilterModel,
+  EstateAccountExpertModel,
+  EstateAccountExpertService,
+  EstateCustomerOrderFilterModel,
+  EstateCustomerOrderModel,
+  EstateCustomerOrderService,
+  EstatePropertyCompanyFilterModel,
+  EstatePropertyCompanyModel,
+  EstatePropertyCompanyService,
+  EstatePropertyFilterModel,
+  EstatePropertyHistoryFilterModel,
+  EstatePropertyHistoryModel,
+  EstatePropertyHistoryService,
+  EstatePropertyModel,
+  EstatePropertyProjectFilterModel,
+  EstatePropertyProjectModel,
+  EstatePropertyProjectService,
+  EstatePropertyService,
+  EstatePropertySupplierFilterModel,
+  EstatePropertySupplierModel,
+  EstatePropertySupplierService,
+  FilterDataModel,
+  FilterDataModelSearchTypesEnum,
+  RecordStatusEnum,
+  TokenInfoModelV3,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -44,12 +44,12 @@ import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { ThemeService } from "src/app/core/services/theme.service";
 import { environment } from "src/environments/environment";
+import { EstateCustomerOrderQuickViewComponent } from "../../log/customer-order/quick-view/quick-view.component";
 import { EstatePropertyCompanyQuickViewComponent } from "../../data/property-company/quick-view/quick-view.component";
+import { EstatePropertyHistoryQuickViewComponent } from "../../log/property-history/quick-view/quick-view.component";
 import { EstatePropertyProjectQuickViewComponent } from "../../data/property-project/quick-view/quick-view.component";
 import { EstatePropertySupplierQuickViewComponent } from "../../data/property-supplier/quick-view/quick-view.component";
 import { EstatePropertyQuickViewComponent } from "../../data/property/quick-view/quick-view.component";
-import { EstateCustomerOrderQuickViewComponent } from "../../log/customer-order/quick-view/quick-view.component";
-import { EstatePropertyHistoryQuickViewComponent } from "../../log/property-history/quick-view/quick-view.component";
 @Component({
   selector: "app-estate-overview-events",
   templateUrl: "./events.component.html",
@@ -696,7 +696,7 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
     listItems: EstatePropertyModel[],
     event?: MouseEvent,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {
@@ -739,7 +739,7 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
     listItems: EstateCustomerOrderModel[],
     event?: MouseEvent,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {
@@ -783,7 +783,7 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
     model: EstatePropertyHistoryModel,
     event?: MouseEvent,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {
@@ -833,7 +833,7 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
     model: EstateAccountAgencyModel,
     event?: MouseEvent,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {
@@ -856,7 +856,7 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
     model: EstateAccountExpertModel,
     event?: MouseEvent,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {
@@ -880,7 +880,7 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
     model: EstatePropertyProjectModel,
     event?: MouseEvent,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {
@@ -930,7 +930,7 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
     model: EstatePropertySupplierModel,
     event?: MouseEvent,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {
@@ -980,7 +980,7 @@ export class EstateOverviewEventsComponent implements OnInit, OnDestroy {
     model: EstatePropertyCompanyModel,
     event?: MouseEvent,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {

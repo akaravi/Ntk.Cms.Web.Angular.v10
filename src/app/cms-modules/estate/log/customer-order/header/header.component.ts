@@ -80,7 +80,7 @@ export class EstateCustomerOrderHeaderComponent implements OnInit {
   onActionButtonLinkTo(
     model: EstateCustomerOrderModel = this.dataModelResult.item,
   ): void {
-    if (!(model?.id?.length > 0)) {
+    if (!model || !model.id || model.id.length === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

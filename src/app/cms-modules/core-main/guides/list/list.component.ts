@@ -5,17 +5,17 @@ import { PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    ActionGoStepEnum,
-    CoreEnumService,
-    CoreGuideModel,
-    CoreGuideService,
-    EditStepDtoModel,
-    ErrorExceptionResult,
-    FilterDataModel,
-    FilterModel,
-    InfoEnumModel,
-    RecordStatusEnum,
-    SortTypeEnum,
+  ActionGoStepEnum,
+  CoreEnumService,
+  CoreGuideModel,
+  CoreGuideService,
+  EditStepDtoModel,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterModel,
+  InfoEnumModel,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -304,7 +304,7 @@ export class CoreGuideListComponent
   }
 
   onActionButtonEditRow(model: CoreGuideModel = this.tableRowSelected): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

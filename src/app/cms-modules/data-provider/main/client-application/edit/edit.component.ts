@@ -1,3 +1,41 @@
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  CoreEnumService,
+  DataProviderClientApplicationModel,
+  DataProviderClientApplicationPermissionModel,
+  DataProviderClientApplicationPermissionService,
+  DataProviderClientApplicationService,
+  DataProviderSourcePathModel,
+  DataProviderSourcePathService,
+  ErrorExceptionResult,
+  ErrorExceptionResultBase,
+  FilterDataModel,
+  FilterModel,
+  ManageUserAccessDataTypesEnum,
+  SortTypeEnum
+} from "ntk-cms-api";
+import { TreeModel } from "ntk-cms-filemanager";
+import { Subscription } from "rxjs";
+import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { DatapickerHeaderComponent } from "src/app/shared/datapicker-header/datapicker-header.component";
+import { environment } from "src/environments/environment";
+import { DataProviderClientApplicationPermissionAddComponent } from "../../client-application-permission/add/add.component";
+import { DataProviderClientApplicationPermissionEditComponent } from "../../client-application-permission/edit/edit.component";
 
 @Component({
   selector: "app-data-provider-client-application-edit",
@@ -21,7 +59,8 @@ export class DataProviderClientApplicationEditComponent
     public dataProviderClientApplicationService: DataProviderClientApplicationService,
     public dataProviderSourcePathService: DataProviderSourcePathService,
     public dataProviderClientApplicationPermissionService: DataProviderClientApplicationPermissionService,
-        private cmsConfirmationDialogService: CmsConfirmationDialogService,
+    private cmsConfirmationDialogService: CmsConfirmationDialogService,
+         public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private cmsStoreService: CmsStoreService,

@@ -33,12 +33,12 @@ export class ApiTelegramActionSendMessageComponent implements OnInit {
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    protected dialogRef: MatDialogRef<ApiTelegramActionSendMessageComponent>,
+    private dialogRef: MatDialogRef<ApiTelegramActionSendMessageComponent>,
     public coreEnumService: CoreEnumService,
     public apiTelegramBotConfigService: ApiTelegramBotConfigService,
-    protected cmsToastrService: CmsToastrService,
+    public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
-    protected cdr: ChangeDetectorRef,
+    private cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;

@@ -1,11 +1,11 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    EventEmitter,
-    Input,
-    OnDestroy,
-    OnInit,
-    Output,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
 } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { CoreGuideService, TokenInfoModelV3 } from "ntk-cms-api";
@@ -250,5 +250,8 @@ export class CmsGuideNoticeComponent implements OnInit, OnDestroy {
     Promise.resolve().then(() => this.cdr.detectChanges());
     this.privatOptionView = false;
     this.optionViewChange.emit(this.privatOptionView);
+  }
+  onActionCopied (): void {
+    this.publicHelper.cmsToastrService.typeSuccessCopedToClipboard();
   }
 }

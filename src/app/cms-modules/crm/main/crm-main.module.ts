@@ -55,10 +55,8 @@ import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
 
 import { CrmSupplierPriceListAddComponent } from "../supplier-price-list/add/add.component";
 import { CrmSupplierPriceListComponent } from "../supplier-price-list/list/list.component";
-import { CrmSupplierPriceListMobileComponent } from "../supplier-price-list/list/list.mobile.component";
 import { CrmSupplierRatingAddComponent } from "../supplier-rating/add/add.component";
 import { CrmSupplierRatingListComponent } from "../supplier-rating/list/list.component";
-import { CrmSupplierRatingListMobileComponent } from "../supplier-rating/list/list.mobile.component";
 import { CrmAccountAddComponent } from "./account/add/add.component";
 import { CrmAccountEditComponent } from "./account/edit/edit.component";
 import { CrmAccountHeaderComponent } from "./account/header/header.component";
@@ -97,6 +95,7 @@ import { CrmOpportunityListComponent } from "./opportunity/list/list.component";
 import { CrmOpportunityListMobileComponent } from "./opportunity/list/list.mobile.component";
 import { CrmOpportunitySelectorComponent } from "./opportunity/selector/selector.component";
 // import { CrmOpportunityStageHistoryListComponent } from "./opportunity/stage-history/list/list.component"; // Commented: Service and Model not available in API
+import { CrmOpportunityStageHistoryListMobileComponent } from "./opportunity/stage-history/list/list.mobile.component";
 import { CrmPipelineAddComponent } from "./pipeline/add/add.component";
 import { CrmPipelineEditComponent } from "./pipeline/edit/edit.component";
 import { CrmPipelineListComponent } from "./pipeline/list/list.component";
@@ -127,48 +126,48 @@ import { CrmStageSelectorComponent } from "./stage/selector/selector.component";
     CrmOpportunitySelectorComponent,
     CrmDealSelectorComponent,
     CrmLeadListComponent,
-    CrmLeadListMobileComponent,
     CrmLeadAddComponent,
     CrmLeadEditComponent,
     CrmAccountListComponent,
-    CrmAccountListMobileComponent,
     CrmAccountAddComponent,
     CrmAccountEditComponent,
     CrmContactListComponent,
-    CrmContactListMobileComponent,
     CrmContactAddComponent,
     CrmContactEditComponent,
     CrmOpportunityListComponent,
-    CrmOpportunityListMobileComponent,
     CrmOpportunityAddComponent,
     CrmOpportunityEditComponent,
     // CrmOpportunityStageHistoryListComponent, // Commented: Service and Model not available in API
     CrmPipelineListComponent,
-    CrmPipelineListMobileComponent,
     CrmPipelineAddComponent,
     CrmPipelineEditComponent,
     CrmStageListComponent,
-    CrmStageListMobileComponent,
     CrmStageAddComponent,
     CrmStageEditComponent,
     CrmDealListComponent,
-    CrmDealListMobileComponent,
     CrmDealAddComponent,
     CrmDealEditComponent,
     CrmActivityListComponent,
-    CrmActivityListMobileComponent,
     CrmActivityAddComponent,
     CrmActivityEditComponent,
     CrmCampaignListComponent,
-    CrmCampaignListMobileComponent,
     CrmCampaignAddComponent,
     CrmCampaignEditComponent,
     CrmSupplierPriceListComponent,
-    CrmSupplierPriceListMobileComponent,
     CrmSupplierPriceListAddComponent,
     CrmSupplierRatingListComponent,
-    CrmSupplierRatingListMobileComponent,
     CrmSupplierRatingAddComponent,
+    // Mobile Components
+    CrmAccountListMobileComponent,
+    CrmActivityListMobileComponent,
+    CrmCampaignListMobileComponent,
+    CrmContactListMobileComponent,
+    CrmDealListMobileComponent,
+    CrmLeadListMobileComponent,
+    CrmOpportunityListMobileComponent,
+    CrmPipelineListMobileComponent,
+    CrmStageListMobileComponent,
+    CrmOpportunityStageHistoryListMobileComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   imports: [

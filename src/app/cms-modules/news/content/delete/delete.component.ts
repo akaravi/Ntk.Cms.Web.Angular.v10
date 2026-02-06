@@ -25,11 +25,11 @@ export class NewsContentDeleteComponent implements OnInit {
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    protected dialogRef: MatDialogRef<NewsContentDeleteComponent>,
+    private dialogRef: MatDialogRef<NewsContentDeleteComponent>,
     public publicHelper: PublicHelper,
     public contentService: NewsContentService,
-    protected cdr: ChangeDetectorRef,
-    protected cmsToastrService: CmsToastrService,
+    private cdr: ChangeDetectorRef,
+    public cmsToastrService: CmsToastrService,
     public translate: TranslateService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;

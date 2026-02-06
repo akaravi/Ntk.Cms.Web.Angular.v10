@@ -1,32 +1,32 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    EventEmitter,
-    Input,
-    OnInit,
-    Output,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
 } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    ClauseTypeEnum,
-    CoreEnumService,
-    ErrorExceptionResult,
-    FilterDataModel,
-    FilterDataModelSearchTypesEnum,
-    FilterModel,
-    SmsMainApiNumberModel,
-    SmsMainApiNumberService,
-    SmsMainApiPathModel,
-    SmsMainApiPathService,
+  ClauseTypeEnum,
+  CoreEnumService,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterDataModelSearchTypesEnum,
+  FilterModel,
+  SmsMainApiNumberModel,
+  SmsMainApiNumberService,
+  SmsMainApiPathModel,
+  SmsMainApiPathService,
 } from "ntk-cms-api";
-import { Observable, firstValueFrom } from "rxjs";
+import { firstValueFrom, Observable } from "rxjs";
 import {
-    debounceTime,
-    distinctUntilChanged,
-    map,
-    startWith,
-    switchMap,
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  startWith,
+  switchMap,
 } from "rxjs/operators";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";

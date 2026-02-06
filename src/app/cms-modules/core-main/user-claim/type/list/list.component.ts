@@ -255,7 +255,7 @@ export class CoreUserClaimTypeListComponent
   onActionButtonEditRow(
     model: CoreUserClaimTypeModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -287,7 +287,7 @@ export class CoreUserClaimTypeListComponent
   onActionButtonDeleteRow(
     model: CoreUserClaimTypeModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -364,7 +364,7 @@ export class CoreUserClaimTypeListComponent
   onActionButtonDetailList(
     model: CoreUserClaimTypeModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {
@@ -443,7 +443,7 @@ export class CoreUserClaimTypeListComponent
   onActionButtonModuleList(
     model: CoreUserClaimTypeModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -465,7 +465,7 @@ export class CoreUserClaimTypeListComponent
   onActionButtonSiteList(
     model: CoreUserClaimTypeModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

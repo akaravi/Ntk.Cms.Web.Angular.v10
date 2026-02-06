@@ -289,7 +289,7 @@ export class CoreModuleSaleItemListComponent
   onActionButtonEditRow(
     model: CoreModuleSaleItemModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -335,7 +335,7 @@ export class CoreModuleSaleItemListComponent
   onActionButtonDeleteRow(
     model: CoreModuleSaleItemModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -412,7 +412,7 @@ export class CoreModuleSaleItemListComponent
   onActionButtonGoToModuleSaleItemList(
     model: CoreModuleSaleItemModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {

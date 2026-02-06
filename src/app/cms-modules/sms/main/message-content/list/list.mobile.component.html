@@ -1,214 +1,206 @@
-<app-cms-html-list-mobile
-  [optionsListInfoAreaId]="constructorInfoAreaId"
-  [optionGuideNoticeKey]="'sms.main.message.content.list'"
-  [(optionActionGuideNoticeDisplay)]="viewGuideNotice"
-  (optionOnActionButtonMemoRow)="onActionButtonMemoRow()"
-  (optionOnActionButtonMemo)="onActionButtonMemo()"
-  (optionOnActionButtonExport)="onActionButtonExport()"
-  (optionOnActionButtonPrintRow)="onActionButtonPrintRow()"
-  [optionTreeDisplay]="false"
-  [optionActionRowId]="tableRowSelected?.id"
-  [optionActionRowDisplay]="tableRowSelected?.id?.length > 0"
-  [optionActionRowDisplayMenu]="tableRowSelect2Click"
-  [optionActionRowDisplayMenuAct]="tableRowSelectActionMenuClick"
-  [optionSelectRowItemTitle]="($any(tableRowSelected)?.title)"
-  >
-  <ng-container cms-header>
-    <!--begin:::::::::::::::::::::::::::::::::::::::::cms-header-->
-    <!--end:::::::::::::::::::::::::::::::::::::::::cms-header-->
-  </ng-container>
-  <ng-container cms-action-header>
-    <!--begin:::::::::::::::::::::::::::::::::::::::::cms-action-header-->
-    <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-header-->
-  </ng-container>
-  <ng-container cms-action-header-start>
-    <!--begin:::::::::::::::::::::::::::::::::::::::::cms-action-header-start-->
-    <a
-      type="button"
-      class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-      (click)="viewGuideNotice = !viewGuideNotice"
-      target="_blank"
-      >
-      <i class="fa-solid fa-info font-18" style="color: #ffffff"></i>
-    </a>
-    <a
-      type="button"
-      class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-      (click)="onActionButtonReload()"
-      target="_blank"
-      >
+<div class="cms-m-body loader-container">
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
+
+  <!-- Header با Safe Area برای iPhone -->
+  <div class="cms-m-header safe-area-top">
+    <div class="cms-m-header-content">
+      <h1 class="cms-m-header-title">
+        {{ "ROUTE.SMS.MAIN" | translate }}
+      </h1>
+      <div class="cms-m-header-actions">
+        <button
+          type="button"
+          class="cms-m-header-action-btn"
+          (click)="optionsSearch.data.show = !optionsSearch.data.show"
+          [class.active]="optionsSearch.data.show"
+          [attr.aria-label]="'ACTION.SEARCH' | translate"
+          >
+          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        </button>
+        <button
+          type="button"
+          class="cms-m-header-action-btn"
+          (click)="onActionButtonReload()"
+          [attr.aria-label]="'ACTION.RELOAD' | translate"
+          >
+          <i
+            class="fa-solid fa-rotate-right"
+            [class.rotation360]="
+              publicHelper.processService.process.inRunArea[constructorInfoAreaId]
+            "
+            aria-hidden="true"
+          ></i>
+        </button>
+        <button
+          type="button"
+          class="cms-m-header-action-btn"
+          (click)="onActionButtonStatist()"
+          [class.active]="optionsStatist?.data?.show"
+          [attr.aria-label]="'ACTION.STATIST' | translate"
+          >
+          <i class="fa-solid fa-chart-bar" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Area -->
+  @if (optionsSearch.data.show) {
+    <div class="cms-m-search-area safe-area-content">
+      <app-cms-search-list [(options)]="optionsSearch"></app-cms-search-list>
+    </div>
+  }
+
+  <!-- Statist Area -->
+  @if (optionsStatist?.data?.show) {
+    <div class="cms-m-statist-area safe-area-content">
+      <app-cms-statist-list [(options)]="optionsStatist"></app-cms-statist-list>
+    </div>
+  }
+
+  <!-- Pull-to-Refresh Indicator -->
+  @if (pullToRefreshState.pullDistance > 0) {
+    <div
+      class="cms-m-pull-refresh-indicator"
+      [style.transform]="
+        'translateY(' +
+        (pullToRefreshState.pullDistance > 80
+          ? 80
+          : pullToRefreshState.pullDistance) +
+        'px)'
+      "
+      [class.refreshing]="pullToRefreshState.isRefreshing"
+    >
       <i
-        class="fa-solid fa-rotate-right font-18"
-        style="color: #ffffff"
-        [class.rotation360]="
-          publicHelper.processService.process.inRunArea[constructorInfoAreaId]
-        "
+        class="fa-solid fa-rotate-right"
+        [class.rotation360]="pullToRefreshState.isRefreshing"
+        aria-hidden="true"
       ></i>
-    </a>
-    <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-header-start-->
-  </ng-container>
-  <ng-container cms-action-header-end>
-    <!--begin:::::::::::::::::::::::::::::::::::::::::cms-action-header-end-->
-    <a
-      (click)="optionsSearch.data.show = !optionsSearch.data.show"
-      class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-      >
-      <mat-slide-toggle [checked]="optionsSearch.data.show"></mat-slide-toggle
-        >{{ "ACTION.SEARCH" | translate }}
-      </a>
-      <a
-        (click)="onActionButtonStatist()"
-        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-        >
-        <mat-slide-toggle [checked]="optionsStatist.data.show"></mat-slide-toggle
-          >{{ "ACTION.STATIST" | translate }}
-        </a>
-        <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-header-end-->
-      </ng-container>
-      <ng-container cms-action-main>
-        <!--begin:::::::::::::::::::::::::::::::::::::::::cms-action-->
-        @if (dataModelResult?.access?.accessAddRow) {
-          <div class="col-4">
-            <a
-              (click)="onActionButtonNewRow()"
-              type="button"
-              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
-              target="_blank"
-              ><i class="fa-solid fa-plus font-18" style="color: #ffffff"></i> <br /></a>
-            <p class="font-11 text-center opacity-70">
-              {{ "ACTION.ADD" | translate }}
-            </p>
-          </div>
-        }
-        <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-->
-      </ng-container>
-      <ng-container cms-action-row>
-        <!--begin:::::::::::::::::::::::::::::::::::::::::cms-action-row-->
-        @if (dataModelResult?.access?.accessEditRow && tableRowSelected?.id?.length > 0) {
-          <div class="col-4">
-            <a
-              (click)="onActionButtonEditRow(tableRowSelected)"
-              type="button"
-              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-magenta"
-              target="_blank"
-              ><i class="fa-solid fa-pen font-18" style="color: #ffffff"></i><br /></a>
-            <p class="font-11 text-center opacity-70">
-              {{ "ACTION.EDIT" | translate }}
-            </p>
-          </div>
-        }
-        @if (dataModelResult?.access?.accessDeleteRow && tableRowSelected?.id?.length > 0) {
-          <div class="col-4">
-            <a
-              (click)="onActionButtonDeleteRow(tableRowSelected)"
-              type="button"
-              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-red"
-              target="_blank"
-              ><i class="fa-solid fa-trash font-18" style="color: #ffffff"></i><br /></a>
-            <p class="font-11 text-center opacity-70">
-              {{ "ACTION.DELETE" | translate }}
-            </p>
-          </div>
-        }
-        <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-row-->
-      </ng-container>
-      <ng-container cms-action-area>
-        <!--begin:::::::::::::::::::::::::::::::::::::::::cms-action-area-->
-        <app-cms-search-list [(options)]="optionsSearch"></app-cms-search-list>
-        <app-cms-statist-list [(options)]="optionsStatist"></app-cms-statist-list>
-        <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-area-->
-      </ng-container>
-      <ng-container cms-body>
-        <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
-        @if (dataModelResult?.listItems?.length) {
-          <div class="cms-m-list">
-            @for (row of dataModelResult.listItems; track row.id) {
-              <div
-                class="cms-m-list-item"
-                [class.selected]="row.id === tableRowSelected?.id"
-                (click)="onActionTableRowSelect(row, $event)"
-                (rtclick)="onActionTableRowSelect(row, $event)"
-                (mouseenter)="onActionTableRowMouseEnter(row)"
-                (mouseleave)="onActionTableRowMouseLeave(row)"
-                role="button"
-                [attr.aria-label]="($any(row).title) || row.id"
-                tabindex="0"
-              >
-                <div class="cms-m-list-item-image-placeholder">
-                  <i class="fa-solid fa-message" aria-hidden="true"></i>
-                </div>
-                <div class="cms-m-list-item-content">
-                  <div class="cms-m-list-item-title">
-                    {{ ($any(row).title) || "ID: " + row.id }}
-                  </div>
-                  @if (row.id) {
-                    <div class="cms-m-list-item-subtitle">
-                      <i class="fa-solid fa-hashtag" aria-hidden="true"></i>
-                      {{ fieldsInfo["id"]?.fieldTitle }}: {{ row.id }}
-                    </div>
-                  }
-                  @if (row.createdDate) {
-                    <div class="cms-m-list-item-subtitle">
-                      <i class="fa-solid fa-calendar" aria-hidden="true"></i>
-                      {{ fieldsInfo["createdDate"]?.fieldTitle }}: {{ row.createdDate | localeDate }}
-                    </div>
-                  }
-                  @if (row.recordStatus !== undefined) {
-                    <div class="cms-m-list-item-subtitle">
-                      <i [ngClass]="row.recordStatus | statusIconClass"></i>
-                      @if (dataModelResult?.access?.accessEditRow && row.id === tableRowSelected?.id) {
-                        <select
-                          matNativeControl
-                          cmsRecordStatusSelfSave
-                          [contentService]="contentService"
-                          [row]="row"
-                          style="background: none; border: none; margin-left: 8px;"
-                        ></select>
-                      }
-                    </div>
-                  }
-                  @if (row.updatedDate) {
-                    <div class="cms-m-list-item-subtitle">
-                      <i class="fa-solid fa-clock" aria-hidden="true"></i>
-                      {{ fieldsInfo["updatedDate"]?.fieldTitle }}: {{ row.updatedDate | localeDate }}
-                    </div>
-                  }
-                  <!-- Expanded Detail (when row is expanded) -->
-                  @if (getRowExpanded(row)) {
-                    <div class="cms-m-list-item-expanded">
-                      <div class="cms-m-list-item-subtitle">
-                        <span
-                          class="navi-icon pointer"
-                          [cdkCopyToClipboard]="row.id.toString()"
-                          (click)="onActionCopied(); $event.stopPropagation()"
-                          >
-                          <i class="flaticon2-copy"></i>
-                        </span>
-                        ID: {{ row.id }}
-                      </div>
-                    </div>
-                  }
-                </div>
+      <span>{{
+        pullToRefreshState.isRefreshing
+          ? ("ACTION.RELOADING" | translate)
+          : ("ACTION.PULL_TO_REFRESH" | translate)
+      }}</span>
+    </div>
+  }
+
+  <!-- Content Area -->
+  <div
+    class="cms-m-content safe-area-content"
+    (touchstart)="onTouchStart($event)"
+    (touchmove)="onTouchMove($event)"
+    (touchend)="onTouchEnd($event)"
+  >
+    @if (dataModelResult?.listItems && dataModelResult.listItems.length > 0) {
+      <div class="cms-m-list">
+        @for (row of dataModelResult.listItems; track row.id) {
+          <div
+            class="cms-m-list-item-wrapper"
+            [style.transform]="
+              'translateX(' + (swipeState.get(row.id)?.offset || 0) + 'px)'
+            "
+          >
+            <div
+              class="cms-m-list-item"
+              [class.selected]="row.id === tableRowSelected?.id"
+              (click)="onActionTableRowSelect(row)"
+              (touchstart)="onItemTouchStart($event, row.id)"
+              (touchmove)="onItemTouchMove($event, row.id)"
+              (touchend)="onItemTouchEnd($event, row.id)"
+              role="button"
+              [attr.aria-label]="row.title"
+              tabindex="0"
+            >
+            <div class="cms-m-list-item-image-placeholder">
+              <i class="fa-solid fa-message" aria-hidden="true"></i>
+            </div>
+            <div class="cms-m-list-item-content">
+              <div class="cms-m-list-item-title">
+                {{ row.title }}
               </div>
+              <div class="cms-m-list-item-footer">
+                <div class="cms-m-list-item-status">
+                  <i [ngClass]="row.recordStatus | statusIconClass" aria-hidden="true"></i>
+                </div>
+                @if (row.updatedDate) {
+                  <div class="cms-m-list-item-date">
+                    <i class="fa-solid fa-clock" aria-hidden="true"></i>
+                    <span>{{ row.updatedDate | localeDate }}</span>
+                  </div>
+                }
+              </div>
+            </div>
+            <div class="cms-m-list-item-actions">
+              @if (dataModelResult?.access?.accessEditRow) {
+                <button
+                  class="cms-m-action-btn edit"
+                  (click)="onActionButtonEditRow(row); $event.stopPropagation()"
+                  [attr.aria-label]="'ACTION.EDIT' | translate"
+                  >
+                  <i class="fa-solid fa-pen" aria-hidden="true"></i>
+                </button>
+              }
+              @if (dataModelResult?.access?.accessDeleteRow) {
+                <button
+                  class="cms-m-action-btn delete"
+                  (click)="onActionButtonDeleteRow(row); $event.stopPropagation()"
+                  [attr.aria-label]="'ACTION.DELETE' | translate"
+                  >
+                  <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                </button>
+              }
+            </div>
+          </div>
+          <!-- Swipe Actions Background -->
+          <div class="cms-m-list-item-swipe-actions">
+            @if (dataModelResult?.access?.accessDeleteRow) {
+              <button
+                class="cms-m-swipe-action-btn delete"
+                (click)="onActionButtonDeleteRow(row); $event.stopPropagation()"
+                [attr.aria-label]="'ACTION.DELETE' | translate"
+              >
+                <i class="fa-solid fa-trash" aria-hidden="true"></i>
+              </button>
             }
           </div>
-        } @else {
-          <div class="cms-m-empty">
-            {{ "MESSAGE.NoRecord" | translate }}
-          </div>
+        </div>
         }
-        <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
-      </ng-container>
-        <ng-container cms-footer>
-          <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
-          <mat-paginator
-            #paginator
-            [length]="dataModelResult.totalRowCount"
-            [pageIndex]="dataModelResult.currentPageNumber - 1"
-            [pageSize]="dataModelResult.rowPerPage"
-            [pageSizeOptions]="[5, 10, 20, 100]"
-            (page)="onTablePageingData($event)"
+      </div>
+    } @else {
+      <div class="cms-m-empty-state">
+        <div class="cms-m-empty-state-icon">
+          <i class="fa-solid fa-inbox" aria-hidden="true"></i>
+        </div>
+        <div class="cms-m-empty-state-text">
+          {{ "MESSAGE.no_information" | translate }}
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- Footer با Safe Area برای iPhone -->
+  <div class="cms-m-footer safe-area-bottom">
+    @if (dataModelResult?.access?.accessAddRow) {
+      <button
+        class="cms-m-fab"
+        (click)="onActionButtonNewRow()"
+        [attr.aria-label]="'ACTION.ADD' | translate"
+        >
+        <i class="fa-solid fa-plus" aria-hidden="true"></i>
+      </button>
+    }
+    @if (dataModelResult?.totalRowCount > 0) {
+      <div class="cms-m-pagination-wrapper">
+        <mat-paginator
+          #paginator
+          [length]="dataModelResult?.totalRowCount || 0"
+          [pageIndex]="(dataModelResult?.currentPageNumber || 1) - 1"
+          [pageSize]="dataModelResult?.rowPerPage || 10"
+          [pageSizeOptions]="[5, 10, 20, 100]"
+          (page)="onTablePageingData($event)"
           ></mat-paginator>
-          <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
-        </ng-container>
-      </app-cms-html-list-mobile>
+      </div>
+    }
+  </div>
+</div>

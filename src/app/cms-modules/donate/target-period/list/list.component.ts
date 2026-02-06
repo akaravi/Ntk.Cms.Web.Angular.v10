@@ -5,13 +5,13 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    DonateTargetCategoryModel,
-    DonateTargetPeriodModel,
-    DonateTargetPeriodService,
-    FilterDataModel,
-    FilterModel,
-    RecordStatusEnum,
-    SortTypeEnum,
+  DonateTargetCategoryModel,
+  DonateTargetPeriodModel,
+  DonateTargetPeriodService,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -290,7 +290,7 @@ export class DonateTargetPeriodListComponent
   onActionButtonEditRow(
     model: DonateTargetPeriodModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -321,7 +321,7 @@ export class DonateTargetPeriodListComponent
   onActionButtonDeleteRow(
     model: DonateTargetPeriodModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -443,7 +443,7 @@ export class DonateTargetPeriodListComponent
   onActionButtonTargetPeriodSponserList(
     model: DonateTargetPeriodModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -461,7 +461,7 @@ export class DonateTargetPeriodListComponent
   onActionButtonTransactionsRow(
     model: DonateTargetPeriodModel = this.tableRowSelected,
   ): void {
-    if (!(model?.id > 0)) {
+    if (!model || !model.id || model.id === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
