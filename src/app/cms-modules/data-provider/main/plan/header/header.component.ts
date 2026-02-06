@@ -1,4 +1,10 @@
-import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from "@angular/core";
+import {
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+} from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
@@ -9,13 +15,12 @@ import {
   RecordStatusEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
-import { CmsLinkToComponent } from "src/app/shared/cms-link-to/cms-link-to.component";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { CmsLinkToComponent } from "src/app/shared/cms-link-to/cms-link-to.component";
 import { environment } from "src/environments/environment";
-
 @Component({
   selector: "app-data-provider-plan-header",
   templateUrl: "./header.component.html",
@@ -28,11 +33,11 @@ export class DataProviderPlanHeaderComponent implements OnInit, OnDestroy {
     private headerService: DataProviderPlanService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
+    private cmsToastrService: CmsToastrService,
     public dialog: MatDialog,
     public translate: TranslateService,
     private cmsStoreService: CmsStoreService,
     public tokenHelper: TokenHelper,
-    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }

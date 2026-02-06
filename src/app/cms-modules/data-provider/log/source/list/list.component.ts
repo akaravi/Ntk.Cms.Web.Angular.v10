@@ -14,12 +14,12 @@ import {
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
-import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { environment } from "src/environments/environment";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { DataProviderLogSourceViewComponent } from "../view/view.component";
 
 @Component({
@@ -40,7 +40,7 @@ export class DataProviderLogSourceListComponent
   constructor(
     private activatedRoute: ActivatedRoute,
     public contentService: DataProviderLogSourceService,
-    public cmsToastrService: CmsToastrService,
+    private cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,

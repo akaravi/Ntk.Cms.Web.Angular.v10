@@ -1,4 +1,3 @@
-
 import {
   ChangeDetectorRef,
   Component,
@@ -16,9 +15,10 @@ import {
   ErrorExceptionResult,
   ManageUserAccessDataTypesEnum,
 } from "ntk-cms-api";
-import { FormInfoModel } from "src/app/core/models/formInfoModel";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
+import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-data-provider-plan-price-delete",
@@ -35,7 +35,7 @@ export class DataProviderPlanPriceDeleteComponent implements OnInit {
     private dataproviderplanservice: DataProviderPlanPriceService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    public cmsToastrService: CmsToastrService,
+    private cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {

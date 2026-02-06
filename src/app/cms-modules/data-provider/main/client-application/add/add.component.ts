@@ -3,7 +3,7 @@ import {
   Component,
   Inject,
   OnInit,
-  ViewChild
+  ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
@@ -13,7 +13,7 @@ import {
   DataFieldInfoModel,
   DataProviderClientApplicationModel,
   DataProviderClientApplicationService,
-  ErrorExceptionResult
+  ErrorExceptionResult,
 } from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
@@ -39,8 +39,8 @@ export class DataProviderClientApplicationAddComponent
     private dialogRef: MatDialogRef<DataProviderClientApplicationAddComponent>,
     public coreEnumService: CoreEnumService,
     public dataProviderClientApplicationService: DataProviderClientApplicationService,
+    private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
-    public cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {

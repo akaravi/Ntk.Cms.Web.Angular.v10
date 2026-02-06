@@ -1,28 +1,29 @@
 import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild,
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {AccessModel,
-  ApplicationSourceModel,
-  CoreEnumService,
-  DataFieldInfoModel,
-  ErrorExceptionResult,TicketingAnswerModel,
-  TicketingAnswerService} from "ntk-cms-api";
+import {
+    AccessModel,
+    ApplicationSourceModel,
+    CoreEnumService,
+    DataFieldInfoModel,
+    ErrorExceptionResult, TicketingAnswerModel,
+    TicketingAnswerService
+} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { PoinModel } from "src/app/core/models/pointModel";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-ticketing-answer-add",

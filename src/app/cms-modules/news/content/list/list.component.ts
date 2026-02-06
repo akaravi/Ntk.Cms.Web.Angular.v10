@@ -5,14 +5,14 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  ClauseTypeEnum,
-  FilterDataModel,
-  FilterModel,
-  NewsCategoryModel,
-  NewsContentModel,
-  NewsContentService,
-  RecordStatusEnum,
-  SortTypeEnum,
+    ClauseTypeEnum,
+    FilterDataModel,
+    FilterModel,
+    NewsCategoryModel,
+    NewsContentModel,
+    NewsContentService,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -24,6 +24,7 @@ import { environment } from "src/environments/environment";
 import { PublicHelper } from "../../../../core/helpers/publicHelper";
 import { CmsToastrService } from "../../../../core/services/cmsToastr.service";
 import { NewsContentDeleteComponent } from "../delete/delete.component";
+import { NewsContentViewComponent } from "../view/view.component";
 @Component({
   selector: "app-news-content-list",
   templateUrl: "./list.component.html",
@@ -96,8 +97,8 @@ export class NewsContentListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "linkMainImageIdSrc",
-    "id",
     "recordStatus",
+    "id",
     "ViewCount",
     //'Title',
     "createdDate",
@@ -368,7 +369,7 @@ export class NewsContentListComponent
     model: NewsContentModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -389,10 +390,42 @@ export class NewsContentListComponent
       this.router.navigate(["/news/content/edit", this.tableRowSelected.id]);
     }
   }
+  public onActionButtonViewRow(
+    model: NewsContentModel = this.tableRowSelected,
+  ): void {
+    if (!(model?.id > 0)) {
+      this.cmsToastrService.typeErrorSelectedRow();
+      return;
+    }
+    this.onActionTableRowSelect(model);
+    if (
+      this.dataModelResult == null ||
+      this.dataModelResult.access == null ||
+      !this.dataModelResult.access.accessWatchRow
+    ) {
+      this.cmsToastrService.typeErrorAccessWatch();
+      return;
+    }
+    var panelClass = "";
+    if (this.publicHelper.isMobile) panelClass = "dialog-fullscreen";
+    else panelClass = "dialog-min";
+    const dialogRef = this.dialog.open(NewsContentViewComponent, {
+      height: "90%",
+      panelClass: panelClass,
+      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
+      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+      data: { id: this.tableRowSelected.id },
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result && result.dialogChangedDate) {
+        this.DataGetAll();
+      }
+    });
+  }
   onActionButtonDeleteRow(
     model: NewsContentModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -583,7 +616,7 @@ export class NewsContentListComponent
   }
 
   onActionButtonLinkTo(model: NewsContentModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

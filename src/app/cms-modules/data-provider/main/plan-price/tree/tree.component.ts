@@ -1,5 +1,3 @@
-
-import { MatTreeNestedDataSource } from "@angular/material/tree";
 import {
   ChangeDetectorRef,
   Component,
@@ -10,6 +8,7 @@ import {
   Output,
 } from "@angular/core";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
 import { TranslateService } from "@ngx-translate/core";
 import {
   CoreEnumService,
@@ -19,14 +18,14 @@ import {
   FilterModel,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
-import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { environment } from "src/environments/environment";
 import { DataProviderPlanPriceAddComponent } from "../add/add.component";
-import { DataProviderPlanPriceEditComponent } from "../edit/edit.component";
 import { DataProviderPlanPriceDeleteComponent } from "../delete/delete.component";
+import { DataProviderPlanPriceEditComponent } from "../edit/edit.component";
 
 @Component({
   selector: "app-data-provider-plan-price-tree",
@@ -36,6 +35,7 @@ import { DataProviderPlanPriceDeleteComponent } from "../delete/delete.component
 export class DataProviderPlanPriceTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
+    private cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: DataProviderPlanPriceService,
     public dialog: MatDialog,
@@ -44,7 +44,6 @@ export class DataProviderPlanPriceTreeComponent implements OnInit, OnDestroy {
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
-    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }

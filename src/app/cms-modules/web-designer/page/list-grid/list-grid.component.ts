@@ -280,7 +280,7 @@ export class WebDesignerMainPageListGridComponent
   onActionButtonEditRow(
     model: WebDesignerMainPageModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -312,7 +312,7 @@ export class WebDesignerMainPageListGridComponent
   onActionButtonDeleteRow(
     model: WebDesignerMainPageModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -386,7 +386,7 @@ export class WebDesignerMainPageListGridComponent
   onActionButtonGoToSiteCategoryList(
     model: WebDesignerMainPageModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {
@@ -452,7 +452,7 @@ export class WebDesignerMainPageListGridComponent
   onActionButtonHtmlEditor(
     model: WebDesignerMainPageModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -474,7 +474,7 @@ export class WebDesignerMainPageListGridComponent
   onActionButtonHtmlView(
     model: WebDesignerMainPageModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -496,7 +496,7 @@ export class WebDesignerMainPageListGridComponent
   onActionButtonSiteRouteView(
     model: WebDesignerMainPageModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -529,7 +529,7 @@ export class WebDesignerMainPageListGridComponent
   onActionButtonHtmlViewWithOutParent(
     model: WebDesignerMainPageModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

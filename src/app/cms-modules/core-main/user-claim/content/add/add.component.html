@@ -18,7 +18,7 @@
       @if (fieldsInfo["recordStatus"]?.accessWatchField) {
         <app-cms-enum-record-status-selector
           [(model)]="dataModel.recordStatus"
-          [optionDisabled]="false"
+          [optionDisabled]="!(fieldsInfo['recordStatus']?.accessAddField ?? false)"
           [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
           [optionRequired]="true"
           [optionSelectFirstItem]="true"
@@ -98,7 +98,7 @@
           (optionChange)="onActionSelectUser($event)"
           [optionSelectForce]="dataModel.linkUserId"
           [optionPlaceholder]="'TITLE.USER' | translate"
-          [optionDisabled]="!fieldsInfo['linkUserId']?.accessAddField"
+          [optionDisabled]="!(fieldsInfo['linkUserId']?.accessAddField ?? false)"
         >
         </app-cms-user-selector>
       }
@@ -109,7 +109,7 @@
           (optionChange)="onActionSelectSite($event)"
           [optionSelectForce]="dataModel.linkSiteId"
           [optionPlaceholder]="'TITLE.SITE' | translate"
-          [optionDisabled]="!fieldsInfo['linkSiteId']?.accessAddField"
+          [optionDisabled]="!(fieldsInfo['linkSiteId']?.accessAddField ?? false)"
         >
         </app-cms-site-selector>
       }

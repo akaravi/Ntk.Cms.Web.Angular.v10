@@ -116,6 +116,24 @@ export class EstateAccountExpertListComponent
   tableContentSelected = [];
 
   filteModelContent = new EstateAccountExpertFilterModel();
+  filterDataModelQueryBuilder: FilterDataModel[] = [];
+
+  filterModelCompiler(
+    model: EstateAccountExpertFilterModel,
+  ): EstateAccountExpertFilterModel {
+    /*filter CLone*/
+    const filterModel = JSON.parse(JSON.stringify(model));
+    /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
+    return filterModel;
+  }
 
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
@@ -189,17 +207,7 @@ export class EstateAccountExpertListComponent
       this.filteModelContent.filters.push(filter);
     }
 
-    /*filter CLone*/
-    const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
-    /*filter CLone*/
-    /*filter add search*/
-    if (
-      this.filterDataModelQueryBuilder &&
-      this.filterDataModelQueryBuilder.length > 0
-    ) {
-      filterModel.filters = [...this.filterDataModelQueryBuilder];
-    }
-    /*filter add search*/
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
     this.contentService.setAccessDataType(ManageUserAccessDataTypesEnum.Editor);
     this.contentService.ServiceGetAll(filterModel).subscribe({
       next: (ret) => {
@@ -292,7 +300,7 @@ export class EstateAccountExpertListComponent
   onActionButtonEditRow(
     model: EstateAccountExpertModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -324,7 +332,7 @@ export class EstateAccountExpertListComponent
   onActionButtonDeleteRow(
     model: EstateAccountExpertModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -476,7 +484,8 @@ export class EstateAccountExpertListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/data/property/LinkEstateExpertId/" + this.tableRowSelected.id;
+        "/#/estate/data/property/LinkEstateExpertId/" +
+        this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
@@ -505,7 +514,8 @@ export class EstateAccountExpertListComponent
         this.constructorInfoAreaId,
       );
     });
-    this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
+    this.contentService.ServiceGetCount(filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.translate.get("MESSAGE.All").subscribe((str: string) => {
@@ -523,7 +533,7 @@ export class EstateAccountExpertListComponent
       },
     });
 
-    const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
+    const filterStatist1 = this.filterModelCompiler(this.filteModelContent);
     const fastfilter = new FilterDataModel();
     fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;

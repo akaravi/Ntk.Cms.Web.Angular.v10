@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
@@ -267,7 +267,7 @@ export class SmsLogOutBoxListMobileComponent
   onActionButtonEditRow(
     model: SmsLogOutBoxModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -300,7 +300,7 @@ export class SmsLogOutBoxListMobileComponent
   onActionButtonViewRow(
     model: SmsLogOutBoxModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -332,7 +332,7 @@ export class SmsLogOutBoxListMobileComponent
   onActionButtonDetailRow(
     model: SmsLogOutBoxModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -350,7 +350,7 @@ export class SmsLogOutBoxListMobileComponent
   onActionButtonDeleteRow(
     model: SmsLogOutBoxModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -523,7 +523,7 @@ export class SmsLogOutBoxListMobileComponent
   onActionButtonPriceServicesList(
     model: SmsLogOutBoxModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -669,5 +669,39 @@ export class SmsLogOutBoxListMobileComponent
 
   onActionBackToParent(): void {
     this.router.navigate(["/sms/main/api-path-company"]);
+  }
+
+  actionMenuOpen: string | null = null;
+
+  toggleActionMenu(rowId: string | number): void {
+    const idStr = String(rowId);
+    if (this.actionMenuOpen === idStr) {
+      this.actionMenuOpen = null;
+    } else {
+      this.actionMenuOpen = idStr;
+    }
+  }
+
+  closeActionMenu(): void {
+    this.actionMenuOpen = null;
+  }
+
+  toString(value: string | number): string {
+    return String(value);
+  }
+
+  @HostListener("document:click", ["$event"])
+  onDocumentClick(event: Event): void {
+    const target = event.target as HTMLElement;
+    if (
+      !target.closest(".cms-m-action-menu") &&
+      !target.closest(".cms-m-action-menu-dropdown")
+    ) {
+      this.closeActionMenu();
+    }
+  }
+
+  getRowExpanded(row: any): boolean {
+    return (row as any).expanded === true;
   }
 }

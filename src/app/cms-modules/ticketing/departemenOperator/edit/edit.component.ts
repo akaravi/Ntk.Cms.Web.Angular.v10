@@ -3,19 +3,20 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {AccessModel,
-  ApplicationSourceModel,
-  CoreEnumService,
-  ErrorExceptionResultBase,ManageUserAccessDataTypesEnum,
-  TicketingDepartemenOperatorModel,
-  TicketingDepartemenOperatorService} from "ntk-cms-api";
+import {
+    AccessModel,
+    ApplicationSourceModel,
+    CoreEnumService,
+    ErrorExceptionResultBase, ManageUserAccessDataTypesEnum,
+    TicketingDepartemenOperatorModel,
+    TicketingDepartemenOperatorService
+} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { PoinModel } from "src/app/core/models/pointModel";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-aplication-app-edit",

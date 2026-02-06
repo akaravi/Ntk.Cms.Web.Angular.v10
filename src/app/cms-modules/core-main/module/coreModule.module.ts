@@ -16,25 +16,24 @@ import { AngularEditorModule } from "@kolkov/angular-editor";
 import { CmsFileManagerModule } from "ntk-cms-filemanager";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { CoreSharedModule } from "../core.shared.module";
-import { CoreModuleSelectionlistComponent } from "./selectionlist/selectionlist.component";
-import { CoreModuleHeaderComponent } from "./header/header.component";
 import { CoreModuleListMobileComponent } from "./list/list.mobile.component";
+import { CoreModuleSelectionlistComponent } from "./selectionlist/selectionlist.component";
 
 @NgModule({
   declarations: [
     CoreModuleComponent,
     CoreModuleListComponent,
+    CoreModuleListMobileComponent,
     CoreModuleAddComponent,
     CoreModuleEditComponent,
     CoreModuleSelectorComponent,
     CoreModuleTreeComponent,
     CoreModuleSelectionlistComponent,
-    CoreModuleHeaderComponent,
-    CoreModuleListMobileComponent,
   ],
   exports: [
     CoreModuleComponent,
     CoreModuleListComponent,
+    CoreModuleListMobileComponent,
     CoreModuleAddComponent,
     CoreModuleEditComponent,
     CoreModuleSelectorComponent,

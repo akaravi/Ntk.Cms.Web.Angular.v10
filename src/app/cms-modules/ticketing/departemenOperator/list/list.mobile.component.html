@@ -166,12 +166,7 @@
                   <div class="cms-m-list-item-title">
                     {{ ($any(row).title) || ('ID: ' + row.id) }}
                   </div>
-                  @if (row.linkSourceId) {
-                    <div class="cms-m-list-item-subtitle">
-                      <i class="fa-solid fa-link" aria-hidden="true"></i>
-                      {{ fieldsInfo['LinkSourceId']?.fieldTitle }}: {{ row.linkSourceId }}
-                    </div>
-                  }
+
                   @if (row.linkSiteId) {
                     <div class="cms-m-list-item-subtitle">
                       <i class="fa-solid fa-globe" aria-hidden="true"></i>

@@ -1,4 +1,3 @@
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
@@ -7,16 +6,18 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import * as Leaflet from "leaflet";
 import { Map as leafletMap } from "leaflet";
-import {AccessModel,
-  ApplicationAppModel,
-  ApplicationAppService,
-  ApplicationEnumService,
-  ApplicationSourceModel,
-  ApplicationThemeConfigModel,
-  CoreEnumService,
-  ErrorExceptionResult,
-  ErrorExceptionResultBase,InfoEnumModel,
-  ManageUserAccessDataTypesEnum} from "ntk-cms-api";
+import {
+    AccessModel,
+    ApplicationAppModel,
+    ApplicationAppService,
+    ApplicationEnumService,
+    ApplicationSourceModel,
+    ApplicationThemeConfigModel,
+    CoreEnumService,
+    ErrorExceptionResult,
+    ErrorExceptionResultBase, InfoEnumModel,
+    ManageUserAccessDataTypesEnum
+} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";

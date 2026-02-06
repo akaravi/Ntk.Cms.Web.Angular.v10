@@ -122,6 +122,10 @@ export class SmsLogOutBoxTaskSchedulerListComponent
   expandedElement: SmsLogOutBoxTaskSchedulerModel | null;
   private unsubscribe: Subscription[] = [];
 
+  // برای حذف گروهی
+  selectedRowsForBulkDelete: Set<string> = new Set<string>();
+  isAllSelected = false;
+
   ngOnInit(): void {
     if (this.activatedRoute.snapshot.paramMap.get("LinkApiPathId")) {
       this.requestLinkApiPathId =
@@ -171,7 +175,14 @@ export class SmsLogOutBoxTaskSchedulerListComponent
       [],
       this.tokenInfo,
     );
+    // اضافه کردن ستون چک‌باکس به انتهای ستون‌ها برای حذف گروهی
+    const selectColumnIndex = this.tabledisplayedColumns.indexOf("select");
+    if (selectColumnIndex === -1) {
+      this.tabledisplayedColumns.push("select");
+    }
     this.tableRowsSelected = [];
+    this.selectedRowsForBulkDelete.clear();
+    this.isAllSelected = false;
     this.onActionTableRowSelect(new SmsLogOutBoxTaskSchedulerModel());
     const pName = this.constructor.name + "main";
     this.translate
@@ -265,7 +276,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
   onActionButtonEditRow(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -298,7 +309,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
   onActionButtonDeleteRow(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -375,7 +386,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
   onActionButtonViewRow(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -480,7 +491,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
   onActionButtonSupersedesList(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -506,7 +517,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
   onActionButtonMustSupersedesList(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -532,7 +543,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
   onActionButtonNumbersList(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -558,7 +569,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
   onActionButtonPermitionList(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -584,7 +595,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
   onActionButtonPriceServicesList(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -627,7 +638,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
   onActionButtonScheduleRunInfos(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -657,5 +668,127 @@ export class SmsLogOutBoxTaskSchedulerListComponent
     dialogRef.afterClosed().subscribe((result) => {
       // No need to refresh data
     });
+  }
+
+  // متدهای مدیریت چک‌باکس برای حذف گروهی
+  onCheckboxChange(row: SmsLogOutBoxTaskSchedulerModel, event: any): void {
+    if (event.checked) {
+      this.selectedRowsForBulkDelete.add(row.id);
+    } else {
+      this.selectedRowsForBulkDelete.delete(row.id);
+    }
+    this.updateSelectAllState();
+  }
+
+  isRowSelected(rowId: string): boolean {
+    return this.selectedRowsForBulkDelete.has(rowId);
+  }
+
+  onSelectAllChange(event: any): void {
+    this.isAllSelected = event.checked;
+    if (this.isAllSelected) {
+      this.tableSource.data.forEach((row) => {
+        if (row.id) {
+          this.selectedRowsForBulkDelete.add(row.id);
+        }
+      });
+    } else {
+      this.selectedRowsForBulkDelete.clear();
+    }
+  }
+
+  updateSelectAllState(): void {
+    if (this.tableSource.data.length === 0) {
+      this.isAllSelected = false;
+      return;
+    }
+    const allSelected = this.tableSource.data.every((row) =>
+      this.selectedRowsForBulkDelete.has(row.id),
+    );
+    this.isAllSelected = allSelected;
+  }
+
+  getSelectedCount(): number {
+    return this.selectedRowsForBulkDelete.size;
+  }
+
+  // متد حذف گروهی
+  onActionButtonBulkDelete(): void {
+    if (this.selectedRowsForBulkDelete.size === 0) {
+      this.translate
+        .get("MESSAGE.no_row_selected_to_delete")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+
+    if (
+      this.dataModelResult == null ||
+      this.dataModelResult.access == null ||
+      !this.dataModelResult.access.accessDeleteRow
+    ) {
+      this.cmsToastrService.typeErrorAccessDelete();
+      return;
+    }
+
+    var title = "";
+    var message = "";
+    const selectedCount = this.selectedRowsForBulkDelete.size;
+    this.translate
+      .get([
+        "MESSAGE.Please_Confirm",
+        "MESSAGE.Do_you_want_to_delete_this_content",
+      ])
+      .subscribe((str: string) => {
+        title = str["MESSAGE.Please_Confirm"];
+        message =
+          str["MESSAGE.Do_you_want_to_delete_this_content"] +
+          "?" +
+          "<br> ( " +
+          selectedCount +
+          " " +
+          "آیتم انتخاب شده" +
+          " ) ";
+      });
+
+    this.cmsConfirmationDialogService
+      .confirm(title, message)
+      .then((confirmed) => {
+        if (confirmed) {
+          const pName = this.constructor.name + "BulkDelete";
+          this.translate
+            .get("MESSAGE.Receiving_information")
+            .subscribe((str: string) => {
+              this.publicHelper.processService.processStart(
+                pName,
+                str,
+                this.constructorInfoAreaId,
+              );
+            });
+
+          const idsToDelete = Array.from(this.selectedRowsForBulkDelete);
+          this.contentService.ServiceDeleteList(idsToDelete).subscribe({
+            next: (ret) => {
+              if (ret.isSuccess) {
+                this.cmsToastrService.typeSuccessRemove();
+                this.selectedRowsForBulkDelete.clear();
+                this.isAllSelected = false;
+                this.DataGetAll();
+              } else {
+                this.cmsToastrService.typeErrorRemove();
+              }
+              this.publicHelper.processService.processStop(pName);
+            },
+            error: (er) => {
+              this.cmsToastrService.typeError(er);
+              this.publicHelper.processService.processStop(pName, false);
+            },
+          });
+        }
+      })
+      .catch(() => {
+        // User dismissed the dialog
+      });
   }
 }

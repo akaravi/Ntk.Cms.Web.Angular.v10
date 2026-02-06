@@ -6,7 +6,7 @@
   (optionOnActionButtonMemo)="onActionButtonMemo()"
   (optionOnActionButtonExport)="onActionButtonExport()"
   (optionOnActionButtonPrintRow)="onActionButtonPrintRow()"
-  [optionTreeDisplay]="requestHeaderGroupId === 0"
+  [optionTreeDisplay]="false"
   [optionActionRowId]="tableRowSelected?.id"
   [optionActionRowDisplay]="tableRowSelected?.id > 0"
   [optionActionRowDisplayMenu]="tableRowSelect2Click"
@@ -14,27 +14,13 @@
   [optionSelectRowItemTitle]="($any(tableRowSelected)?.titleML) || tableRowSelected?.id"
   >
   <ng-container cms-tree>
-    @if (requestHeaderGroupId === 0) {
-      <app-core-modulesaleheadergroup-tree
-        (optionChange)="onActionSelectorSelect($event)"
-        >
-      </app-core-modulesaleheadergroup-tree>
-    }
+
   </ng-container>
   <ng-container cms-header></ng-container>
   <ng-container cms-action-header></ng-container>
 
   <ng-container cms-action-header-start>
-    @if (requestHeaderGroupId > 0) {
-      <a
-        type="button"
-        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-        (click)="onActionBackToParent()"
-        target="_blank"
-        >
-        <i class="fa-solid fa-arrow-left font-18" style="color: #ffffff"></i>
-      </a>
-    }
+
     <a
       type="button"
       class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"

@@ -1,4 +1,3 @@
-
 import {
   ChangeDetectorRef,
   Component,
@@ -17,15 +16,14 @@ import {
   FilterDataModelSearchTypesEnum,
   FilterModel,
 } from "ntk-cms-api";
+import { Observable, firstValueFrom } from "rxjs";
 import {
-  Observable,
   debounceTime,
   distinctUntilChanged,
-  firstValueFrom,
   map,
   startWith,
   switchMap,
-} from "rxjs";
+} from "rxjs/operators";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
@@ -39,11 +37,11 @@ export class DataProviderSourcePathPaginationSelectorComponent implements OnInit
   id = ++DataProviderSourcePathPaginationSelectorComponent.nextId;
   constructorInfoAreaId = this.constructor.name;
   constructor(
+    private cmsToastrService: CmsToastrService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
     public categoryService: DataProviderSourcePathPaginationService,
-    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }

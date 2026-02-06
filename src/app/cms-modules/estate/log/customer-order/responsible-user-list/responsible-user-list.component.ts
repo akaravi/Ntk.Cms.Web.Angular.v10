@@ -81,6 +81,20 @@ export class EstateCustomerOrderResponsibleUserListComponent
   filteModelContent = new FilterModel();
   filterDataModelQueryBuilder: FilterDataModel[] = [];
 
+  filterModelCompiler(model: FilterModel): FilterModel {
+    /*filter CLone*/
+    const filterModel = JSON.parse(JSON.stringify(model));
+    /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
+    return filterModel;
+  }
 
   optionsSearch: ComponentOptionSearchModel = new ComponentOptionSearchModel();
   optionsStatist: ComponentOptionStatistModel =
@@ -157,17 +171,7 @@ export class EstateCustomerOrderResponsibleUserListComponent
         );
       });
     this.filteModelContent.accessLoad = true;
-    /*filter CLone*/
-    const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
-    /*filter CLone*/
-    /*filter add search*/
-    if (
-      this.filterDataModelQueryBuilder &&
-      this.filterDataModelQueryBuilder.length > 0
-    ) {
-      filterModel.filters = [...this.filterDataModelQueryBuilder];
-    }
-    /*filter add search*/
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
 
     // ** */
     this.contentService

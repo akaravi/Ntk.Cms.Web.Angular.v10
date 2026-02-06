@@ -2,17 +2,19 @@ import { DOCUMENT } from "@angular/common";
 import { ChangeDetectorRef, Component, Inject, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {BankPaymentInjectPaymentGotoBankStep1CalculateModel,
-  BankPaymentInjectPaymentGotoBankStep2LandingSitePageModel,
-  BankPaymentPrivateSiteConfigModel,
-  CoreModuleModel,
-  CoreModuleService,
-  CoreModuleSiteUserCreditCalculateDtoModel,
-  CoreModuleSiteUserCreditPaymentDtoModel,
-  CoreModuleSiteUserCreditService,
-  CoreSiteService,
-  ErrorExceptionResult,
-  FilterModel} from "ntk-cms-api";
+import {
+    BankPaymentInjectPaymentGotoBankStep1CalculateModel,
+    BankPaymentInjectPaymentGotoBankStep2LandingSitePageModel,
+    BankPaymentPrivateSiteConfigModel,
+    CoreModuleModel,
+    CoreModuleService,
+    CoreModuleSiteUserCreditCalculateDtoModel,
+    CoreModuleSiteUserCreditPaymentDtoModel,
+    CoreModuleSiteUserCreditService,
+    CoreSiteService,
+    ErrorExceptionResult,
+    FilterModel
+} from "ntk-cms-api";
 
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TRANSACTION_ID_LOCAL_STORAGE_KEY } from "src/app/core/models/constModel";

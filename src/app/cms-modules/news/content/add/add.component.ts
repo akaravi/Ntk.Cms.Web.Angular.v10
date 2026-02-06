@@ -41,16 +41,16 @@ export class NewsContentAddComponent
   requestCategoryId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private activatedRoute: ActivatedRoute,
+    protected activatedRoute: ActivatedRoute,
     public publicHelper: PublicHelper,
     public coreEnumService: CoreEnumService,
     public contentService: NewsContentService,
-    private contentSimilarService: NewsContentSimilarService,
-    private contentOtherInfoService: NewsContentOtherInfoService,
-    public cmsToastrService: CmsToastrService,
-    private router: Router,
-    private contentTagService: NewsContentTagService,
-    private cdr: ChangeDetectorRef,
+    public contentSimilarService: NewsContentSimilarService,
+    public contentOtherInfoService: NewsContentOtherInfoService,
+    protected cmsToastrService: CmsToastrService,
+    protected router: Router,
+    public contentTagService: NewsContentTagService,
+    protected cdr: ChangeDetectorRef,
     public translate: TranslateService,
   ) {
     super(contentService, new NewsContentModel(), publicHelper, translate);
@@ -431,6 +431,9 @@ export class NewsContentAddComponent
   }
   onActionBackToParent(): void {
     this.router.navigate(["/news/content/"]);
+  }
+  onFormCancel(): void {
+    this.onActionBackToParent();
   }
 
   onActionSelectorLocation(model: CoreLocationModel | null): void {

@@ -347,7 +347,9 @@ export class NewsCategoryListComponent
   ): void {
     this.onActionTableRowSelect(row);
   }
-
+  onActionCopied(): void {
+    this.cmsToastrService.typeSuccessCopedToClipboard();
+  }
   onActionButtonStatist(view = !this.optionsStatist.data.show): void {
     this.optionsStatist.data.show = view;
     if (!this.optionsStatist.data.show) {

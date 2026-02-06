@@ -1,4 +1,3 @@
-
 import {
   ChangeDetectorRef,
   Component,
@@ -38,10 +37,10 @@ export class DataProviderSourcePathPaginationEditComponent
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<DataProviderSourcePathPaginationEditComponent>,
     public contentService: DataProviderSourcePathPaginationService,
+    private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    public cmsToastrService: CmsToastrService,
   ) {
     super(
       contentService,

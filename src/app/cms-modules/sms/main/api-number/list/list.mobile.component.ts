@@ -613,7 +613,4 @@ export class SmsMainApiNumberListMobileComponent
     this.router.navigate(["/sms/main/api-path"]);
   }
 
-  onActionTableRowSelect(row: SmsMainApiNumberModel): void {
-    this.tableRowSelected = row;
-  }
 }

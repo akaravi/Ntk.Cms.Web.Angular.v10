@@ -244,7 +244,7 @@ export class SmsMainMessageContentListComponent
   onActionButtonEditRow(
     model: SmsMainMessageContentModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -279,7 +279,7 @@ export class SmsMainMessageContentListComponent
   onActionButtonDeleteRow(
     model: SmsMainMessageContentModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {

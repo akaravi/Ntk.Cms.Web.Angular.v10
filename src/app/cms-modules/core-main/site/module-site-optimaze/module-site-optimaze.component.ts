@@ -1,18 +1,20 @@
 import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-  ViewChild,
+    ChangeDetectorRef,
+    Component,
+    Inject,
+    OnInit,
+    ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { MatStepper } from "@angular/material/stepper";
 import { TranslateService } from "@ngx-translate/core";
-import {CoreEnumService,
-  CoreSiteService,
-  ErrorExceptionResult,ProcessModuleSiteDataOptimazeOutputModel} from "ntk-cms-api";
+import {
+    CoreEnumService,
+    CoreSiteService,
+    ErrorExceptionResult, ProcessModuleSiteDataOptimazeOutputModel
+} from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 

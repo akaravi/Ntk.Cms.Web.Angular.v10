@@ -10,7 +10,6 @@ import {
 @Component({
   selector: "app-crm-supplier-rating-list",
   templateUrl: "./list.component.html",
-  styleUrls: ["./list.component.scss"],
   standalone: false,
 })
 export class CrmSupplierRatingListComponent implements OnInit, OnDestroy {

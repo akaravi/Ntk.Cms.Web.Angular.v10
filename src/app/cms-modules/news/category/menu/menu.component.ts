@@ -2,12 +2,12 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  ErrorExceptionResult,
-  FilterDataModel,
-  FilterModel,
-  NewsCategoryModel,
-  NewsCategoryService,
-  TokenInfoModelV3,
+    ErrorExceptionResult,
+    FilterDataModel,
+    FilterModel,
+    NewsCategoryModel,
+    NewsCategoryService,
+    TokenInfoModelV3,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";

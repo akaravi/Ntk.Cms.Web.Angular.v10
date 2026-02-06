@@ -3,23 +3,23 @@ import {
   Component,
   Inject,
   OnInit,
-  ViewChild,
-} from "@angular/core";
+  ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {
+import {CoreEnumService,
+  CoreSiteService,
   DataFieldInfoModel,
   DataProviderPlanModel,
   DataProviderPlanPriceModel,
   DataProviderPlanPriceService,
-  ErrorExceptionResult,
-} from "ntk-cms-api";
-import { TreeModel, NodeInterface } from "ntk-cms-filemanager";
+  ErrorExceptionResult} from "ntk-cms-api";
+import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
-import { CoreSiteService } from "ntk-cms-api";
+
+import { FormInfoModel } from "src/app/core/models/formInfoModel";
 
 @Component({
   selector: "app-data-provider-plan-price-add",
@@ -33,14 +33,16 @@ export class DataProviderPlanPriceAddComponent
     DataProviderPlanPriceModel,
     string
   >
-  implements OnInit {
+  implements OnInit
+{
   requestLinkPlanId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<DataProviderPlanPriceAddComponent>,
-      public dataproviderplanpriceservice: DataProviderPlanPriceService,
-    public cmsToastrService: CmsToastrService,
+    public coreEnumService: CoreEnumService,
+    public dataproviderplanpriceservice: DataProviderPlanPriceService,
+    private cmsToastrService: CmsToastrService,
     private coreSiteService: CoreSiteService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
@@ -74,9 +76,9 @@ export class DataProviderPlanPriceAddComponent
 
   dataModelResult: ErrorExceptionResult<DataProviderPlanPriceModel> =
     new ErrorExceptionResult<DataProviderPlanPriceModel>();
-dataModel: DataProviderPlanPriceModel = new DataProviderPlanPriceModel();
+  dataModel: DataProviderPlanPriceModel = new DataProviderPlanPriceModel();
 
-
+  
   fileManagerOpenForm = false;
 
   onActionFileSelected(model: NodeInterface): void {
@@ -182,3 +184,5 @@ dataModel: DataProviderPlanPriceModel = new DataProviderPlanPriceModel();
   }
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });
+  }
+}

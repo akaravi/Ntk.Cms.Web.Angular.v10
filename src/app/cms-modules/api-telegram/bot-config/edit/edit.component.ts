@@ -3,24 +3,27 @@ import {
   Component,
   Inject,
   OnInit,
-  ViewChild } from "@angular/core";
+  ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import {
   MAT_DIALOG_DATA,
   MatDialog,
-  MatDialogRef } from "@angular/material/dialog";
+  MatDialogRef
+} from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {ApiTelegramBotConfigModel,
+import {
+  ApiTelegramBotConfigModel,
   ApiTelegramBotConfigService,
   CoreEnumService,
-  ErrorExceptionResultBase,ManageUserAccessDataTypesEnum} from "ntk-cms-api";
+  ErrorExceptionResultBase, ManageUserAccessDataTypesEnum
+} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { CmsViewComponent } from "src/app/shared/cms-view/cms-view.component";
 
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-core-module-edit",

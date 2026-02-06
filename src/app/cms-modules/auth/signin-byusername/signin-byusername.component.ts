@@ -1,32 +1,34 @@
-import { FormInfoModel } from "../../../core/models/formInfoModel";
 import {
-  ChangeDetectorRef,
-  Component,
-  DestroyRef,
-  inject,
-  OnDestroy,
-  OnInit,
+    ChangeDetectorRef,
+    Component,
+    DestroyRef,
+    inject,
+    OnDestroy,
+    OnInit,
 } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {AuthUserSignInModel,
-  CaptchaModel,
-  CoreAuthV3Service} from "ntk-cms-api";
+import {
+    AuthUserSignInModel,
+    CaptchaModel,
+    CoreAuthV3Service
+} from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsTranslationService } from "src/app/core/i18n/cmsTranslation.service";
 import { ConnectionStatusModel } from "src/app/core/models/connectionStatusModel";
 import {
-  ROUTE_SELECT_SITE,
-  SELECT_SITE_LOCAL_STORAGE_KEY,
-  themeAuthPageLSKey,
+    ROUTE_SELECT_SITE,
+    SELECT_SITE_LOCAL_STORAGE_KEY,
+    themeAuthPageLSKey,
 } from "src/app/core/models/constModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { SET_TOKEN_INFO } from "src/app/core/reducers/reducer.factory";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { environment } from "src/environments/environment";
+import { FormInfoModel } from "../../../core/models/formInfoModel";
 @Component({
   selector: "app-auth-signin-byusername",
   templateUrl: "./signin-byusername.component.html",

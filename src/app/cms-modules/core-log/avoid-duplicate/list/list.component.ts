@@ -5,15 +5,15 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreLogAvoidDuplicateDataEntryModel,
-  CoreLogAvoidDuplicateDataEntryService,
-  CoreSiteModel,
-  ErrorExceptionResult,
-  FilterDataModel,
-  FilterModel,
-  InfoEnumModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    CoreLogAvoidDuplicateDataEntryModel,
+    CoreLogAvoidDuplicateDataEntryService,
+    CoreSiteModel,
+    ErrorExceptionResult,
+    FilterDataModel,
+    FilterModel,
+    InfoEnumModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -152,6 +152,20 @@ export class CoreLogAvoidDuplicateDataEntryListComponent
   ngOnDestroy(): void {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
+  filterModelCompiler(model: FilterModel): FilterModel {
+    /*filter CLone*/
+    const filterModel = JSON.parse(JSON.stringify(model));
+    /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
+    return filterModel;
+  }
   DataGetAll(): void {
     this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
       this.tabledisplayedColumnsSource,
@@ -172,17 +186,7 @@ export class CoreLogAvoidDuplicateDataEntryListComponent
         );
       });
     this.filteModelContent.accessLoad = true;
-    /*filter CLone*/
-    const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
-    /*filter CLone*/
-    /*filter add search*/
-    if (
-      this.filterDataModelQueryBuilder &&
-      this.filterDataModelQueryBuilder.length > 0
-    ) {
-      filterModel.filters = [...this.filterDataModelQueryBuilder];
-    }
-    /*filter add search*/
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
     this.contentService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
@@ -241,7 +245,7 @@ export class CoreLogAvoidDuplicateDataEntryListComponent
   onActionButtonEditRow(
     model: CoreLogAvoidDuplicateDataEntryModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -277,7 +281,7 @@ export class CoreLogAvoidDuplicateDataEntryListComponent
   onActionButtonDeleteRow(
     model: CoreLogAvoidDuplicateDataEntryModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -371,7 +375,8 @@ export class CoreLogAvoidDuplicateDataEntryListComponent
         this.constructorInfoAreaId,
       );
     });
-    this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
+    this.contentService.ServiceGetCount(filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.translate.get("MESSAGE.All").subscribe((str: string) => {
@@ -389,7 +394,7 @@ export class CoreLogAvoidDuplicateDataEntryListComponent
       },
     });
 
-    const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
+    const filterStatist1 = this.filterModelCompiler(this.filteModelContent);
     const fastfilter = new FilterDataModel();
     fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
@@ -416,7 +421,7 @@ export class CoreLogAvoidDuplicateDataEntryListComponent
   onActionButtonViewUserRow(
     model: CoreLogAvoidDuplicateDataEntryModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -438,7 +443,7 @@ export class CoreLogAvoidDuplicateDataEntryListComponent
   onActionButtonViewMemberRow(
     model: CoreLogAvoidDuplicateDataEntryModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

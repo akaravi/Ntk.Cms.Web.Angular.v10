@@ -17,7 +17,7 @@ export class DataProviderOverviewSummaryComponent implements OnInit, OnDestroy {
   constructor(
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
-    public cmsToastrService: CmsToastrService,
+    private cmsToastrService: CmsToastrService,
     public dialog: MatDialog,
     public translate: TranslateService,
     public tokenHelper: TokenHelper,
@@ -36,3 +36,5 @@ export class DataProviderOverviewSummaryComponent implements OnInit, OnDestroy {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 }
+
+

@@ -5,18 +5,18 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreModuleModel,
-  CoreModuleService,
-  CoreModuleSiteModel,
-  CoreModuleSiteService,
-  DataFieldInfoModel,
-  ErrorExceptionResult,
-  FilterDataModel,
-  FilterDataModelSearchTypesEnum,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
-  TokenInfoModelV3,
+    CoreModuleModel,
+    CoreModuleService,
+    CoreModuleSiteModel,
+    CoreModuleSiteService,
+    DataFieldInfoModel,
+    ErrorExceptionResult,
+    FilterDataModel,
+    FilterDataModelSearchTypesEnum,
+    FilterModel,
+    RecordStatusEnum,
+    SortTypeEnum,
+    TokenInfoModelV3,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ComponentOptionSearchModel } from "src/app/core/cmsComponent/base/componentOptionSearchModel";

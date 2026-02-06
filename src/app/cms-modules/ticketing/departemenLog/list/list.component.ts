@@ -5,14 +5,14 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  ApplicationSourceModel,
-  ClauseTypeEnum,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
-  TicketingDepartemenLogModel,
-  TicketingDepartemenLogService,
+    ApplicationSourceModel,
+    ClauseTypeEnum,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SortTypeEnum,
+    TicketingDepartemenLogModel,
+    TicketingDepartemenLogService,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";

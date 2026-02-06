@@ -1,10 +1,5 @@
-
-import {
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-  ViewChild,
-} from "@angular/core";
+import { StepperSelectionEvent } from "@angular/cdk/stepper";
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MatStepper } from "@angular/material/stepper";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -43,12 +38,12 @@ export class DataProviderSourcePathEditMobileComponent
   constructor(
     public coreEnumService: CoreEnumService,
     public dataProviderSourcePathService: DataProviderSourcePathService,
+    private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private router: Router,
     private cdr: ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
     public translate: TranslateService,
-    public cmsToastrService: CmsToastrService,
   ) {
     super(
       dataProviderSourcePathService,
@@ -306,7 +301,7 @@ export class DataProviderSourcePathEditMobileComponent
     this.dataModel.linkSourceCompanyId = model.id;
   }
 
-  onStepClick(event: any, stepper: MatStepper): void {
+  onStepClick(event: StepperSelectionEvent, stepper: MatStepper): void {
     if (event.previouslySelectedIndex < event.selectedIndex) {
       if (!this.formGroup.valid) {
         this.cmsToastrService.typeErrorFormInvalid();

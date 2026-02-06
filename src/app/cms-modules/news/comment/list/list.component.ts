@@ -1,9 +1,9 @@
 import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
+    animate,
+    state,
+    style,
+    transition,
+    trigger,
 } from "@angular/animations";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
@@ -12,14 +12,14 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  FilterDataModel,
-  FilterDataModelSearchTypesEnum,
-  FilterModel,
-  NewsCommentModel,
-  NewsCommentService,
-  NewsContentService,
-  RecordStatusEnum,
-  SortTypeEnum,
+    FilterDataModel,
+    FilterDataModelSearchTypesEnum,
+    FilterModel,
+    NewsCommentModel,
+    NewsCommentService,
+    NewsContentService,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -281,7 +281,7 @@ export class NewsCommentListComponent
     });
   }
   onActionButtonEditRow(model: NewsCommentModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -313,7 +313,7 @@ export class NewsCommentListComponent
   onActionButtonDeleteRow(
     model: NewsCommentModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -469,7 +469,7 @@ export class NewsCommentListComponent
     this.router.navigate(["/news/content/"]);
   }
   onActionButtonViewContent(model: NewsCommentModel): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -524,7 +524,7 @@ export class NewsCommentListComponent
       });
   }
   onActionButtonEditContent(model: NewsCommentModel, event?: MouseEvent): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -549,7 +549,7 @@ export class NewsCommentListComponent
     }
   }
   onActionButtonLinkTo(model: NewsCommentModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

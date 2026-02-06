@@ -13,29 +13,31 @@ import { CoreSiteCategoryCmsModuleSelectorComponent } from "./selector/selector.
 import { AngularEditorModule } from "@kolkov/angular-editor";
 
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { CoreSharedModule } from "../core.shared.module";
 import { CoreModuleModule } from "../module/coreModule.module";
 import { CoreSiteCategoryCmsModule } from "../site-category/coreSiteCategory.module";
 import { CoreSiteCategoryCmsModuleAddComponent } from "./add/add.component";
 import { CoreSiteCategoryCmsModuleComponent } from "./coreSiteCategoryCmsModule.component";
 import { CoreSiteCategoryCmsModuleRouting } from "./coreSiteCategoryCmsModule.routing";
 import { CoreSiteCategoryCmsModuleEditComponent } from "./edit/edit.component";
-import { CoreSiteCategoryCmsModuleListViewComponent } from "./listview/listview.component";
 import { CoreSiteCategoryCmsModuleListMobileComponent } from "./list/list.mobile.component";
+import { CoreSiteCategoryCmsModuleListViewComponent } from "./listview/listview.component";
 
 @NgModule({
   declarations: [
     CoreSiteCategoryCmsModuleComponent,
     CoreSiteCategoryCmsModuleListComponent,
+    CoreSiteCategoryCmsModuleListMobileComponent,
     CoreSiteCategoryCmsModuleListViewComponent,
     CoreSiteCategoryCmsModuleAddComponent,
     CoreSiteCategoryCmsModuleEditComponent,
 
     CoreSiteCategoryCmsModuleSelectorComponent,
-    CoreSiteCategoryCmsModuleListMobileComponent,
   ],
   exports: [
     CoreSiteCategoryCmsModuleComponent,
     CoreSiteCategoryCmsModuleListComponent,
+    CoreSiteCategoryCmsModuleListMobileComponent,
     CoreSiteCategoryCmsModuleListViewComponent,
     CoreSiteCategoryCmsModuleAddComponent,
     CoreSiteCategoryCmsModuleEditComponent,
@@ -49,9 +51,10 @@ import { CoreSiteCategoryCmsModuleListMobileComponent } from "./list/list.mobile
     ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: "never" }),
     SharedModule,
     AngularEditorModule,
-
+CoreSharedModule,
     CoreModuleModule,
     CoreSiteCategoryCmsModule,
+
   ],
   providers: [
     CoreSiteCategoryCmsModuleService,

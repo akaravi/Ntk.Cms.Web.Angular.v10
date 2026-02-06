@@ -5,15 +5,15 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  ErrorExceptionResult,
-  FilterDataModel,
-  FilterModel,
-  MemberPropertyDetailGroupModel,
-  MemberPropertyDetailGroupService,
-  MemberPropertyTypeModel,
-  MemberPropertyTypeService,
-  RecordStatusEnum,
-  SortTypeEnum,
+    ErrorExceptionResult,
+    FilterDataModel,
+    FilterModel,
+    MemberPropertyDetailGroupModel,
+    MemberPropertyDetailGroupService,
+    MemberPropertyTypeModel,
+    MemberPropertyTypeService,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -218,32 +218,6 @@ export class MemberPropertyDetailGroupListComponent
     this.DataGetAll();
   }
 
-  // onTableDropRow(event: CdkDragDrop<MemberPropertyDetailGroupModel[]>): void {
-  //   const previousIndex = this.tableSource.data.findIndex(row => row === event.item.data);
-  //   const model = new EditStepDtoModel<number>();
-  //   model.id = this.tableSource.data[previousIndex].id;
-  //   model.centerId = this.tableSource.data[event.currentIndex].id;
-  //   if (previousIndex > event.currentIndex) {
-  //     model.actionGo = ActionGoStepEnum.GoUp;
-  //   }
-  //   else {
-  //     model.actionGo = ActionGoStepEnum.GoDown;
-  //   }
-  //   this.contentService.ServiceEditStep(model).subscribe({
-  //     next: (ret) => {
-  //       if (ret.isSuccess) {
-  //         moveItemInArray(this.tableSource.data, previousIndex, event.currentIndex);
-  //         this.tableSource.data = this.tableSource.data.slice();
-  //       } else {
-  //         this.cmsToastrService.typeErrorMessage(ret.errorMessage);
-  //       }
-  //     },
-  //     error: (er) => {
-  //       this.cmsToastrService.typeError(er);
-  //     }
-  //   }
-  //   );
-  // }
   onActionButtonNewRow(): void {
     if (
       this.dataModelResult == null ||
@@ -273,7 +247,7 @@ export class MemberPropertyDetailGroupListComponent
   onActionButtonEditRow(
     model: MemberPropertyDetailGroupModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -305,7 +279,7 @@ export class MemberPropertyDetailGroupListComponent
   onActionButtonDeleteRow(
     model: MemberPropertyDetailGroupModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -381,7 +355,7 @@ export class MemberPropertyDetailGroupListComponent
   onActionButtonContentList(
     model: MemberPropertyDetailGroupModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {

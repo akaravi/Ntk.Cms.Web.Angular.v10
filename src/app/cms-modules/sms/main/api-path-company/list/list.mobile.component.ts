@@ -561,7 +561,5 @@ export class SmsMainApiPathCompanyListMobileComponent
     this.DataGetAll();
   }
 
-  onActionTableRowSelect(row: SmsMainApiPathCompanyModel): void {
-    this.tableRowSelected = row;
-  }
+
 }

@@ -1,4 +1,3 @@
-
 import {
   ChangeDetectorRef,
   Component,
@@ -19,15 +18,14 @@ import {
   FilterDataModelSearchTypesEnum,
   FilterModel,
 } from "ntk-cms-api";
+import { Observable, firstValueFrom } from "rxjs";
 import {
-  Observable,
   debounceTime,
   distinctUntilChanged,
-  firstValueFrom,
   map,
   startWith,
   switchMap,
-} from "rxjs";
+} from "rxjs/operators";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
@@ -42,11 +40,11 @@ export class DataProviderPlanSelectorComponent implements OnInit {
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public coreEnumService: CoreEnumService,
+    private cmsToastrService: CmsToastrService,
     public translate: TranslateService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public categoryService: DataProviderPlanService,
-    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }

@@ -1,19 +1,19 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
 } from "@angular/core";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
 import {
-  CoreEnumService,
-  ErrorExceptionResult,
-  FilterModel,
-  PollingCategoryModel,
-  PollingCategoryService,
+    CoreEnumService,
+    ErrorExceptionResult,
+    FilterModel,
+    PollingCategoryModel,
+    PollingCategoryService,
 } from "ntk-cms-api";
 
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";

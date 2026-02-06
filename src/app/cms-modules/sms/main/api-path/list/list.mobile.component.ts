@@ -369,7 +369,7 @@ export class SmsMainApiPathListMobileComponent
   onActionButtonEditRow(
     model: SmsMainApiPathModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -387,7 +387,7 @@ export class SmsMainApiPathListMobileComponent
   onActionButtonDeleteRow(
     model: SmsMainApiPathModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -541,7 +541,7 @@ export class SmsMainApiPathListMobileComponent
   onActionButtonGetBalance(
     model: SmsMainApiPathModel = this.tableRowSelected,
   ): any {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -616,7 +616,7 @@ export class SmsMainApiPathListMobileComponent
     model: SmsMainApiPathModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -649,7 +649,7 @@ export class SmsMainApiPathListMobileComponent
     model: SmsMainApiPathModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -676,7 +676,7 @@ export class SmsMainApiPathListMobileComponent
     model: SmsMainApiPathModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -706,7 +706,7 @@ export class SmsMainApiPathListMobileComponent
     }
   }
   onActionButtonCopy(model: SmsMainApiPathModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -739,7 +739,7 @@ export class SmsMainApiPathListMobileComponent
     model: SmsMainApiPathModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -773,7 +773,7 @@ export class SmsMainApiPathListMobileComponent
   onActionButtonSendTest(
     model: SmsMainApiPathModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -803,7 +803,7 @@ export class SmsMainApiPathListMobileComponent
     model: SmsMainApiPathModel = this.tableRowSelected,
     event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -970,7 +970,5 @@ export class SmsMainApiPathListMobileComponent
     this.router.navigate(["/sms/main/api-path-company"]);
   }
 
-  onActionTableRowSelect(row: SmsMainApiPathModel): void {
-    this.tableRowSelected = row;
-  }
+
 }

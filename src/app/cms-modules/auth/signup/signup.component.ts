@@ -1,33 +1,35 @@
-import { FormInfoModel } from "../../../core/models/formInfoModel";
-import { FormSubmitedStatusEnum } from "../../../core/models/formSubmitedStatusEnum";
 import {
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
+    ChangeDetectorRef,
+    Component,
+    OnDestroy,
+    OnInit,
+    ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {AuthUserSignInModel,
-  AuthUserSignUpModel,
-  CaptchaModel,
-  CoreAuthV3Service} from "ntk-cms-api";
+import {
+    AuthUserSignInModel,
+    AuthUserSignUpModel,
+    CaptchaModel,
+    CoreAuthV3Service
+} from "ntk-cms-api";
 import { Observable, Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import {
-  RESSELLER_SITE_ID_LOCAL_STORAGE_KEY,
-  RESSELLER_USER_ID_LOCAL_STORAGE_KEY,
-  ROUTE_SELECT_SITE,
-  SELECT_SITE_LOCAL_STORAGE_KEY,
+    RESSELLER_SITE_ID_LOCAL_STORAGE_KEY,
+    RESSELLER_USER_ID_LOCAL_STORAGE_KEY,
+    ROUTE_SELECT_SITE,
+    SELECT_SITE_LOCAL_STORAGE_KEY,
 } from "src/app/core/models/constModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { SET_TOKEN_INFO } from "src/app/core/reducers/reducer.factory";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { environment } from "src/environments/environment";
+import { FormInfoModel } from "../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../core/models/formSubmitedStatusEnum";
 import { SignupRuleComponent } from "../signup-rule/signup-rule.component";
 @Component({
   selector: "app-auth-signup",
@@ -114,7 +116,7 @@ export class AuthSignUpComponent implements OnInit, OnDestroy {
         });
       return;
     }
-    if (!this.dataModel.name || this.dataModel.name.length === 0) {
+    if (!this.dataModel.name || this.dataModel.name?.length === 0) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.enter_your_name")
         .subscribe((str: string) => {

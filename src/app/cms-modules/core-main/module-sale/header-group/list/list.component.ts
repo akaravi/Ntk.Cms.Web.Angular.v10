@@ -273,7 +273,7 @@ export class CoreModuleSaleHeaderGroupListComponent
   onActionButtonEditRow(
     model: CoreModuleSaleHeaderGroupModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -305,7 +305,7 @@ export class CoreModuleSaleHeaderGroupListComponent
   onActionButtonDeleteRow(
     model: CoreModuleSaleHeaderGroupModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -382,7 +382,7 @@ export class CoreModuleSaleHeaderGroupListComponent
   onActionButtonHeaderList(
     model: CoreModuleSaleHeaderGroupModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {
@@ -461,7 +461,7 @@ export class CoreModuleSaleHeaderGroupListComponent
   onActionButtonModuleList(
     model: CoreModuleSaleHeaderGroupModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -483,7 +483,7 @@ export class CoreModuleSaleHeaderGroupListComponent
   onActionButtonSiteList(
     model: CoreModuleSaleHeaderGroupModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

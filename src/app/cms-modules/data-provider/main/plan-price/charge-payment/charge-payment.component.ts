@@ -1,12 +1,5 @@
-
-
-import {
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnInit,
-} from "@angular/core";
 import { DOCUMENT } from "@angular/common";
+import { ChangeDetectorRef, Component, Inject, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
@@ -18,10 +11,12 @@ import {
   DataProviderTransactionService,
   ErrorExceptionResult,
 } from "ntk-cms-api";
-import { FormInfoModel } from "src/app/core/models/formInfoModel";
+
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
-import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { TRANSACTION_ID_LOCAL_STORAGE_KEY } from "src/app/core/models/constModel";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
+import { FormInfoModel } from "../../../../../core/models/formInfoModel";
 
 @Component({
   selector: "app-data-provider-plan-price-charge-payment",
@@ -38,11 +33,11 @@ export class DataProviderPlanPriceChargePaymentComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     @Inject(DOCUMENT) private document: any,
     private dialogRef: MatDialogRef<DataProviderPlanPriceChargePaymentComponent>,
+    private cmsToastrService: CmsToastrService,
     private dataProviderTransactionService: DataProviderTransactionService,
     public translate: TranslateService,
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
-    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {

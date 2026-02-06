@@ -5,16 +5,16 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreEnumService,
-  CoreLogEmailModel,
-  CoreLogEmailService,
-  CoreSiteModel,
-  ErrorExceptionResult,
-  FilterDataModel,
-  FilterModel,
-  InfoEnumModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    CoreEnumService,
+    CoreLogEmailModel,
+    CoreLogEmailService,
+    CoreSiteModel,
+    ErrorExceptionResult,
+    FilterDataModel,
+    FilterModel,
+    InfoEnumModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -180,6 +180,20 @@ export class CoreLogEmailListComponent
   ngOnDestroy(): void {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
+  filterModelCompiler(model: FilterModel): FilterModel {
+    /*filter CLone*/
+    const filterModel = JSON.parse(JSON.stringify(model));
+    /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
+    return filterModel;
+  }
   DataGetAll(): void {
     this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
       this.tabledisplayedColumnsSource,
@@ -200,17 +214,7 @@ export class CoreLogEmailListComponent
         );
       });
     this.filteModelContent.accessLoad = true;
-    /*filter CLone*/
-    const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
-    /*filter CLone*/
-    /*filter add search*/
-    if (
-      this.filterDataModelQueryBuilder &&
-      this.filterDataModelQueryBuilder.length > 0
-    ) {
-      filterModel.filters = [...this.filterDataModelQueryBuilder];
-    }
-    /*filter add search*/
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
     /**filterActionSearch */
     if (this.filteModelContent.filterActionSearchRecordStatus > 0) {
       const filter = new FilterDataModel();
@@ -290,7 +294,7 @@ export class CoreLogEmailListComponent
   onActionButtonViewRow(
     model: CoreLogEmailModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -321,7 +325,7 @@ export class CoreLogEmailListComponent
   onActionButtonEditRow(
     model: CoreLogEmailModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -353,7 +357,7 @@ export class CoreLogEmailListComponent
   onActionButtonDeleteRow(
     model: CoreLogEmailModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -447,7 +451,8 @@ export class CoreLogEmailListComponent
         this.constructorInfoAreaId,
       );
     });
-    this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
+    this.contentService.ServiceGetCount(filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.translate.get("MESSAGE.All").subscribe((str: string) => {
@@ -465,7 +470,7 @@ export class CoreLogEmailListComponent
       },
     });
 
-    const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
+    const filterStatist1 = this.filterModelCompiler(this.filteModelContent);
     const fastfilter = new FilterDataModel();
     fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;
@@ -492,7 +497,7 @@ export class CoreLogEmailListComponent
   onActionButtonViewUserRow(
     model: CoreLogEmailModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -514,7 +519,7 @@ export class CoreLogEmailListComponent
   onActionButtonViewMemberRow(
     model: CoreLogEmailModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

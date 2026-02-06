@@ -1,11 +1,13 @@
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 import { ChangeDetectorRef, Component, Inject, OnInit } from "@angular/core";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
-import {ApplicationAppModel,
-  ApplicationAppService} from "ntk-cms-api";
+import {
+    ApplicationAppModel,
+    ApplicationAppService
+} from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { FormInfoModel } from "../../../../core/models/formInfoModel";
 @Component({
   selector: "app-download",
   templateUrl: "./download.component.html",

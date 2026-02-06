@@ -1,3 +1,29 @@
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { PageEvent } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  DataProviderClientModel,
+  DataProviderClientService,
+  DataProviderPlanModel,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { PageInfoService } from "src/app/core/services/page-info.service";
+import { environment } from "src/environments/environment";
+import { DataProviderClientAddComponent } from "../add/add.component";
+import { DataProviderClientDeleteComponent } from "../delete/delete.component";
+import { DataProviderClientEditComponent } from "../edit/edit.component";
 
 @Component({
   selector: "app-data-provider-client-list",
@@ -15,7 +41,8 @@ export class DataProviderClientListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: DataProviderClientService,
-        private router: Router,
+    private cmsToastrService: CmsToastrService,
+    private router: Router,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -450,7 +477,9 @@ export class DataProviderClientListComponent
   onActionButtonReload(): void {
     this.DataGetAll();
   }
-
+  onActionCopied(): void {
+    this.cmsToastrService.typeSuccessCopedToClipboard();
+  }
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
     if (model && model.length > 0) {
       this.filterDataModelQueryBuilder = [...model];

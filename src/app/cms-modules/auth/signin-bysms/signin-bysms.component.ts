@@ -1,32 +1,34 @@
-import { FormInfoModel } from "../../../core/models/formInfoModel";
 import {
-  ChangeDetectorRef,
-  Component,
-  DestroyRef,
-  inject,
-  OnDestroy,
-  OnInit,
+    ChangeDetectorRef,
+    Component,
+    DestroyRef,
+    inject,
+    OnDestroy,
+    OnInit,
 } from "@angular/core";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {AuthUserSignInBySmsDtoModel,
-  CaptchaModel,
-  CoreAuthV3Service} from "ntk-cms-api";
+import {
+    AuthUserSignInBySmsDtoModel,
+    CaptchaModel,
+    CoreAuthV3Service
+} from "ntk-cms-api";
 import { interval, Observable, Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsTranslationService } from "src/app/core/i18n/cmsTranslation.service";
 import { ConnectionStatusModel } from "src/app/core/models/connectionStatusModel";
 import {
-  RESSELLER_SITE_ID_LOCAL_STORAGE_KEY,
-  RESSELLER_USER_ID_LOCAL_STORAGE_KEY,
-  ROUTE_SELECT_SITE,
-  SELECT_SITE_LOCAL_STORAGE_KEY,
-  themeAuthPageLSKey,
+    RESSELLER_SITE_ID_LOCAL_STORAGE_KEY,
+    RESSELLER_USER_ID_LOCAL_STORAGE_KEY,
+    ROUTE_SELECT_SITE,
+    SELECT_SITE_LOCAL_STORAGE_KEY,
+    themeAuthPageLSKey,
 } from "src/app/core/models/constModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { SET_TOKEN_INFO } from "src/app/core/reducers/reducer.factory";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
+import { FormInfoModel } from "../../../core/models/formInfoModel";
 enum ErrorStates {
   NotSubmitted,
   HasError,

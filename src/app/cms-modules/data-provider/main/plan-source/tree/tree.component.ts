@@ -1,21 +1,21 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    EventEmitter,
-    Input,
-    OnDestroy,
-    OnInit,
-    Output,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
 } from "@angular/core";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { MatTreeNestedDataSource } from "@angular/material/tree";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    CoreEnumService,
-    DataProviderPlanSourceModel,
-    DataProviderPlanSourceService,
-    ErrorExceptionResult,
-    FilterModel,
+  CoreEnumService,
+  DataProviderPlanSourceModel,
+  DataProviderPlanSourceService,
+  ErrorExceptionResult,
+  FilterModel,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -35,7 +35,7 @@ import { DataProviderPlanSourceEditComponent } from "../edit/edit.component";
 export class DataProviderPlanSourceTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    public cmsToastrService: CmsToastrService,
+    private cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: DataProviderPlanSourceService,
     public dialog: MatDialog,

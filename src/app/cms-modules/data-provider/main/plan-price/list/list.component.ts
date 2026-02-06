@@ -1,10 +1,4 @@
-
-import {
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-} from "@angular/core";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
@@ -13,7 +7,6 @@ import { TranslateService } from "@ngx-translate/core";
 import {
   DataProviderPlanPriceModel,
   DataProviderPlanPriceService,
-  ErrorExceptionResult,
   FilterDataModel,
   FilterModel,
   RecordStatusEnum,
@@ -28,8 +21,8 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { environment } from "src/environments/environment";
 import { DataProviderPlanPriceAddComponent } from "../add/add.component";
-import { DataProviderPlanPriceEditComponent } from "../edit/edit.component";
 import { DataProviderPlanPriceDeleteComponent } from "../delete/delete.component";
+import { DataProviderPlanPriceEditComponent } from "../edit/edit.component";
 
 @Component({
   selector: "app-data-provider-plan-price-list",
@@ -42,11 +35,13 @@ export class DataProviderPlanPriceListComponent
     DataProviderPlanPriceModel,
     string
   >
-  implements OnInit, OnDestroy {
+  implements OnInit, OnDestroy
+{
   requestLinkPlanId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: DataProviderPlanPriceService,
+    private cmsToastrService: CmsToastrService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     public tokenHelper: TokenHelper,
@@ -56,7 +51,6 @@ export class DataProviderPlanPriceListComponent
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog,
-    public cmsToastrService: CmsToastrService,
   ) {
     super(
       contentService,

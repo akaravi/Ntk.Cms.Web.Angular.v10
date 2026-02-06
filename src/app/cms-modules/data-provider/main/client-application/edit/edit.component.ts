@@ -4,10 +4,14 @@ import {
   Inject,
   OnDestroy,
   OnInit,
-  ViewChild
+  ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from "@angular/material/dialog";
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
   CoreEnumService,
@@ -22,7 +26,7 @@ import {
   FilterDataModel,
   FilterModel,
   ManageUserAccessDataTypesEnum,
-  SortTypeEnum
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { Subscription } from "rxjs";
@@ -59,8 +63,8 @@ export class DataProviderClientApplicationEditComponent
     public dataProviderClientApplicationService: DataProviderClientApplicationService,
     public dataProviderSourcePathService: DataProviderSourcePathService,
     public dataProviderClientApplicationPermissionService: DataProviderClientApplicationPermissionService,
+    private cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
-         public cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private cmsStoreService: CmsStoreService,

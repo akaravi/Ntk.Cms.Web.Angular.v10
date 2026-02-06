@@ -76,6 +76,21 @@ export class EstatePropertyTypeLanduseListComponent
   filteModelContent = new FilterModel();
   filterDataModelQueryBuilder: FilterDataModel[] = [];
 
+  filterModelCompiler(model: FilterModel): FilterModel {
+    /*filter CLone*/
+    const filterModel = JSON.parse(JSON.stringify(model));
+    /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
+    return filterModel;
+  }
+
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "linkMainImageIdSrc",
@@ -134,17 +149,7 @@ export class EstatePropertyTypeLanduseListComponent
         );
       });
     this.filteModelContent.accessLoad = true;
-    /*filter CLone*/
-    const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
-    /*filter CLone*/
-    /*filter add search*/
-    if (
-      this.filterDataModelQueryBuilder &&
-      this.filterDataModelQueryBuilder.length > 0
-    ) {
-      filterModel.filters = [...this.filterDataModelQueryBuilder];
-    }
-    /*filter add search*/
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
     this.contentService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
@@ -230,7 +235,7 @@ export class EstatePropertyTypeLanduseListComponent
   onActionButtonEditRow(
     model: EstatePropertyTypeLanduseModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -262,7 +267,7 @@ export class EstatePropertyTypeLanduseListComponent
   onActionButtonDeleteRow(
     model: EstatePropertyTypeLanduseModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -338,7 +343,7 @@ export class EstatePropertyTypeLanduseListComponent
   onActionButtonContentDetailList(
     model: EstatePropertyTypeLanduseModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {
@@ -356,7 +361,7 @@ export class EstatePropertyTypeLanduseListComponent
   onActionButtonContentList(
     model: EstatePropertyTypeLanduseModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {
@@ -391,7 +396,8 @@ export class EstatePropertyTypeLanduseListComponent
         this.constructorInfoAreaId,
       );
     });
-    this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
+    this.contentService.ServiceGetCount(filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.translate.get("MESSAGE.All").subscribe((str: string) => {
@@ -409,7 +415,7 @@ export class EstatePropertyTypeLanduseListComponent
       },
     });
 
-    const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
+    const filterStatist1 = this.filterModelCompiler(this.filteModelContent);
     const fastfilter = new FilterDataModel();
     fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;

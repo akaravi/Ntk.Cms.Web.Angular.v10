@@ -9,12 +9,12 @@ import {
 import { SharedModule } from "src/app/shared/shared.module";
 
 import { AngularEditorModule } from "@kolkov/angular-editor";
+import { ApplicationConfigComponent } from "./application-config.component";
 import { ApplicationConfigRouting } from "./application-config.routing";
 import { ApplicationConfigCheckSiteComponent } from "./check-site/check-site.component";
 import { ApplicationConfigCheckUserComponent } from "./check-user/check-user.component";
 import { ApplicationConfigMainAdminComponent } from "./main-admin/config-main-admin.component";
 import { ApplicationConfigSiteComponent } from "./site/config-site.component";
-import { ApplicationConfigComponent } from "./application-config.component";
 
 @NgModule({
   declarations: [

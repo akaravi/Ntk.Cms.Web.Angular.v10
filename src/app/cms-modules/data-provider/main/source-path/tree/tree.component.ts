@@ -18,10 +18,11 @@ import {
   FilterModel,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
-import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
 @Component({
   selector: "app-data-provider-source-path-tree",
   templateUrl: "./tree.component.html",
@@ -30,6 +31,7 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 export class DataProviderSourcePathTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
+    private cmsToastrService: CmsToastrService,
     public coreEnumService: CoreEnumService,
     public categoryService: DataProviderSourcePathService,
     private cdr: ChangeDetectorRef,
@@ -38,7 +40,6 @@ export class DataProviderSourcePathTreeComponent implements OnInit, OnDestroy {
     private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
     public dialog: MatDialog,
-    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }

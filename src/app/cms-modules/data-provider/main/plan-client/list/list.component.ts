@@ -1,19 +1,13 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-} from "@angular/core";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
+import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
   DataProviderPlanCategoryModel,
   DataProviderPlanClientModel,
   DataProviderPlanClientService,
-  ErrorExceptionResult,
   FilterDataModel,
   FilterModel,
   RecordStatusEnum,
@@ -28,8 +22,8 @@ import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
 import { environment } from "src/environments/environment";
 import { DataProviderPlanClientAddComponent } from "../add/add.component";
-import { DataProviderPlanClientEditComponent } from "../edit/edit.component";
 import { DataProviderPlanClientDeleteComponent } from "../delete/delete.component";
+import { DataProviderPlanClientEditComponent } from "../edit/edit.component";
 
 @Component({
   selector: "app-data-provider-plan-client-list",
@@ -50,7 +44,8 @@ export class DataProviderPlanClientListComponent
   constructor(
     public contentService: DataProviderPlanClientService,
     private activatedRoute: ActivatedRoute,
-        private router: Router,
+    private cmsToastrService: CmsToastrService,
+    private router: Router,
     public tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
@@ -58,7 +53,6 @@ export class DataProviderPlanClientListComponent
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog,
-    public cmsToastrService: CmsToastrService,
   ) {
     super(
       contentService,

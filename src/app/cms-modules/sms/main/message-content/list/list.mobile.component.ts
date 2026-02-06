@@ -525,7 +525,5 @@ export class SmsMainMessageContentListMobileComponent
     this.DataGetAll();
   }
 
-  onActionTableRowSelect(row: SmsMainMessageContentModel): void {
-    this.tableRowSelected = row;
-  }
+
 }

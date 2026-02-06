@@ -31,7 +31,7 @@ export class DataProviderPlanSelectionlistComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
-    public cmsToastrService: CmsToastrService,
+    private cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }

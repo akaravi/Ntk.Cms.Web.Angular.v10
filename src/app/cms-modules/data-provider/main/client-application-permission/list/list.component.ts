@@ -1,3 +1,36 @@
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatPaginator, PageEvent } from "@angular/material/paginator";
+import { MatSort } from "@angular/material/sort";
+import { ActivatedRoute, Router } from "@angular/router";
+import { TranslateService } from "@ngx-translate/core";
+import {
+  DataProviderClientApplicationPermissionModel,
+  DataProviderClientApplicationPermissionService,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
+} from "ntk-cms-api";
+import { Subscription } from "rxjs";
+import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { ContentInfoModel } from "src/app/core/models/contentInfoModel";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { PageInfoService } from "src/app/core/services/page-info.service";
+import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
+import { CmsExportListComponent } from "src/app/shared/cms-export-list/cmsExportList.component";
+import { environment } from "src/environments/environment";
+import { DataProviderClientApplicationPermissionAddComponent } from "../add/add.component";
+import { DataProviderClientApplicationPermissionEditComponent } from "../edit/edit.component";
 
 @Component({
   selector: "app-data-provider-client-application-permission-list",
@@ -20,7 +53,8 @@ export class DataProviderClientApplicationPermissionListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public contentService: DataProviderClientApplicationPermissionService,
-        private activatedRoute: ActivatedRoute,
+    private cmsToastrService: CmsToastrService,
+    private activatedRoute: ActivatedRoute,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private router: Router,
     public tokenHelper: TokenHelper,

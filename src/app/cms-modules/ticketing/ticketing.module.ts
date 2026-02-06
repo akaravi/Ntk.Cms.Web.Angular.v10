@@ -60,7 +60,6 @@ import { TicketingTaskHeaderComponent } from "./task/header/header.component";
 import { TicketingTaskListComponent } from "./task/list/list.component";
 import { TicketingTaskListMobileComponent } from "./task/list/list.mobile.component";
 import { TicketingTaskViewComponent } from "./task/view/view.component";
-import { TicketingTaskWidgetComponent } from "./task/widget/widget.component";
 import { TicketingTemplateAddComponent } from "./template/add/add.component";
 import { TicketingTemplateEditComponent } from "./template/edit/edit.component";
 import { TicketingTemplateListComponent } from "./template/list/list.component";
@@ -117,7 +116,6 @@ import { TicketingTemplateSelectorComponent } from "./template/selector/selector
     TicketingTaskListMobileComponent,
     TicketingTemplateListMobileComponent,
 
-    TicketingTaskWidgetComponent,
     /** */
   ],
   exports: [TicketingTaskContactUsAddComponent],

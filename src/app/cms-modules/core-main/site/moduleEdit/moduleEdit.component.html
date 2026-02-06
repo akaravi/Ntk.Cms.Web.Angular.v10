@@ -20,7 +20,7 @@
           @if (fieldsInfo["recordStatus"]?.accessWatchField) {
             <app-cms-enum-record-status-selector
               [(model)]="dataModel.recordStatus"
-              [optionDisabled]="false"
+              [optionDisabled]="!(fieldsInfo['recordStatus']?.accessEditField ?? false)"
               [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
               [optionRequired]="true"
               [optionSelectFirstItem]="true"
@@ -30,7 +30,7 @@
           <!-- LinkCmsSiteId Field -->
           <app-core-site-selector
             (optionChange)="onActionSiteSelect($event)"
-            [optionDisabled]="false"
+            [optionDisabled]="!(fieldsInfo['linkSiteId']?.accessEditField ?? false)"
             [optionSelectForce]="dataModel.linkSiteId"
             [optionPlaceholder]="'TITLE.WEBSITE' | translate"
           >

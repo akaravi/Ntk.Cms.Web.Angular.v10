@@ -10,21 +10,22 @@ import { CoreDeviceComponent } from "./coreDevice.component";
 import { CoreDeviceRouting } from "./coreDevice.routing";
 import { CoreDeviceEditComponent } from "./edit/edit.component";
 import { CoreDeviceListComponent } from "./list/list.component";
-import { CoreDeviceSelectorComponent } from "./selector/selector.component";
 import { CoreDeviceListMobileComponent } from "./list/list.mobile.component";
+import { CoreDeviceSelectorComponent } from "./selector/selector.component";
 
 @NgModule({
   declarations: [
     CoreDeviceComponent,
     CoreDeviceListComponent,
+    CoreDeviceListMobileComponent,
     CoreDeviceAddComponent,
     CoreDeviceEditComponent,
     CoreDeviceSelectorComponent,
-    CoreDeviceListMobileComponent,
   ],
   exports: [
     CoreDeviceComponent,
     CoreDeviceListComponent,
+    CoreDeviceListMobileComponent,
     CoreDeviceAddComponent,
     CoreDeviceEditComponent,
     CoreDeviceSelectorComponent,

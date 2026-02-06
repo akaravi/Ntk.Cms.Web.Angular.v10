@@ -20,14 +20,15 @@ import { CoreCurrencyListMobileComponent } from "./list/list.mobile.component";
   declarations: [
     CoreCurrencyComponent,
     CoreCurrencyListComponent,
+    CoreCurrencyListMobileComponent,
     CoreCurrencyAddComponent,
     CoreCurrencyEditComponent,
     CoreCurrencySelectorComponent,
-    CoreCurrencyListMobileComponent,
   ],
   exports: [
     CoreCurrencyComponent,
     CoreCurrencyListComponent,
+    CoreCurrencyListMobileComponent,
     CoreCurrencyAddComponent,
     CoreCurrencyEditComponent,
     CoreCurrencySelectorComponent,

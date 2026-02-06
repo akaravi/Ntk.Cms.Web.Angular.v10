@@ -26,7 +26,7 @@
           @if (fieldsInfo['recordStatus']?.accessWatchField) {
             <app-cms-enum-record-status-selector
               [(model)]="dataModel.recordStatus"
-              [optionDisabled]="false"
+              [optionDisabled]="!(fieldsInfo['recordStatus']?.accessEditField ?? false)"
               [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
               [optionRequired]="true"
               [optionSelectFirstItem]="true"
@@ -50,7 +50,6 @@
               placeholder="{{ fieldsInfo['title']?.fieldTitle }}"
               minlength="3"
               maxlength="100"
-              required
               class="form-control validate-name"
               id="dataModel.title"
               />
@@ -539,6 +538,13 @@
                                                 </cms-file-manager>
                                               </div>
                                             }
+@if (fieldsInfo['linkFileIds']?.accessWatchField) {
+                                                    <app-cms-files-selector
+          [(dataFileModel)]="dataFileModel"
+          [openDirectUploadView]="true"
+          >
+        </app-cms-files-selector>
+      }
                                             @if (formInfo.submitButtonEnabled) {
                                               <div class="form-actions">
                                                 <button

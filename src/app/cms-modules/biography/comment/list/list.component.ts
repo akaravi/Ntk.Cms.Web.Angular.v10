@@ -1,9 +1,9 @@
 import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
+    animate,
+    state,
+    style,
+    transition,
+    trigger,
 } from "@angular/animations";
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
@@ -12,14 +12,14 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  BiographyCommentModel,
-  BiographyCommentService,
-  BiographyContentService,
-  FilterDataModel,
-  FilterDataModelSearchTypesEnum,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    BiographyCommentModel,
+    BiographyCommentService,
+    BiographyContentService,
+    FilterDataModel,
+    FilterDataModelSearchTypesEnum,
+    FilterModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -286,7 +286,7 @@ export class BiographyCommentListComponent
   onActionButtonEditRow(
     model: BiographyCommentModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -318,7 +318,7 @@ export class BiographyCommentListComponent
   onActionButtonDeleteRow(
     model: BiographyCommentModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -469,7 +469,7 @@ export class BiographyCommentListComponent
     this.router.navigate(["/biography/content/"]);
   }
   onActionButtonViewContent(model: BiographyCommentModel): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -525,7 +525,7 @@ export class BiographyCommentListComponent
       });
   }
   onActionButtonEditContent(model: BiographyCommentModel): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -546,7 +546,7 @@ export class BiographyCommentListComponent
   onActionButtonLinkTo(
     model: BiographyCommentModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

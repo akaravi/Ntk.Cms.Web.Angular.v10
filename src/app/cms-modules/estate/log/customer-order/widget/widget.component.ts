@@ -73,6 +73,21 @@ export class EstateCustomerOrderWidgetComponent implements OnInit, OnDestroy {
   filteModelContent = new FilterModel();
   filterDataModelQueryBuilder: FilterDataModel[] = [];
 
+  filterModelCompiler(model: FilterModel): FilterModel {
+    /*filter CLone*/
+    const filterModel = JSON.parse(JSON.stringify(model));
+    /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
+    return filterModel;
+  }
+
   widgetInfoModel = new WidgetInfoModel();
   private unsubscribe: Subscription[] = [];
 
@@ -119,28 +134,28 @@ export class EstateCustomerOrderWidgetComponent implements OnInit, OnDestroy {
     });
     this.service.setAccessDataType(ManageUserAccessDataTypesEnum.Editor);
     //*filter */
-    const filterStatist0 = JSON.parse(JSON.stringify(this.filteModelContent));
+    const filterStatist0 = this.filterModelCompiler(this.filteModelContent);
     const fastfilter0 = new FilterDataModel();
     fastfilter0.propertyName = "recordStatus";
     fastfilter0.value = RecordStatusEnum.Available;
     filterStatist0.filters.push(fastfilter0);
     const s0 = this.service.ServiceGetCount(filterStatist0);
     //*filter */
-    const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
+    const filterStatist1 = this.filterModelCompiler(this.filteModelContent);
     const fastfilter1 = new FilterDataModel();
     fastfilter1.propertyName = "recordStatus";
     fastfilter1.value = RecordStatusEnum.Archive;
     filterStatist1.filters.push(fastfilter1);
     const s1 = this.service.ServiceGetCount(filterStatist1);
     //*filter */
-    const filterStatist2 = JSON.parse(JSON.stringify(this.filteModelContent));
+    const filterStatist2 = this.filterModelCompiler(this.filteModelContent);
     const fastfilter2 = new FilterDataModel();
     fastfilter2.propertyName = "recordStatus";
     fastfilter2.value = RecordStatusEnum.Pending;
     filterStatist2.filters.push(fastfilter2);
     const s2 = this.service.ServiceGetCount(filterStatist2);
     //*filter */
-    const filterStatist3 = JSON.parse(JSON.stringify(this.filteModelContent));
+    const filterStatist3 = this.filterModelCompiler(this.filteModelContent);
     const fastfilter3 = new FilterDataModel();
     fastfilter3.propertyName = "recordStatus";
     fastfilter3.value = RecordStatusEnum.Disable;

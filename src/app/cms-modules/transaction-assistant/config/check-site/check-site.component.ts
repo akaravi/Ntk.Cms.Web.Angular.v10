@@ -3,11 +3,11 @@ import { MatTableDataSource } from "@angular/material/table";
 import { ActivatedRoute } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  TransactionAssistantConfigurationService,
-  BaseModuleSiteCheckSiteModel,
-  CoreEnumService,
-  ErrorExceptionResult,
-  TokenInfoModelV3,
+    BaseModuleSiteCheckSiteModel,
+    CoreEnumService,
+    ErrorExceptionResult,
+    TokenInfoModelV3,
+    TransactionAssistantConfigurationService,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";

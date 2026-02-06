@@ -1,8 +1,8 @@
 import { Routes } from "@angular/router";
-import { CrmSupplierPriceListAddComponent } from "../supplier-price-list/add/add.component";
-import { CrmSupplierPriceListComponent } from "../supplier-price-list/list/list.component";
-import { CrmSupplierRatingAddComponent } from "../supplier-rating/add/add.component";
-import { CrmSupplierRatingListComponent } from "../supplier-rating/list/list.component";
+import { CrmSupplierPriceListAddComponent } from "./supplier-price-list/add/add.component";
+import { CrmSupplierPriceListComponent } from "./supplier-price-list/list/list.component";
+import { CrmSupplierRatingAddComponent } from "./supplier-rating/add/add.component";
+import { CrmSupplierRatingListComponent } from "./supplier-rating/list/list.component";
 import { CrmAccountListComponent } from "./account/list/list.component";
 import { CrmActivityListComponent } from "./activity/list/list.component";
 import { CrmCampaignListComponent } from "./campaign/list/list.component";

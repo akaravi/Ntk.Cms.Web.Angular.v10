@@ -262,7 +262,7 @@ export class SmsLogOutBoxQueueListMobileComponent
   onActionButtonEditRow(
     model: SmsLogOutBoxQueueModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -294,7 +294,7 @@ export class SmsLogOutBoxQueueListMobileComponent
   onActionButtonDeleteRow(
     model: SmsLogOutBoxQueueModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -371,7 +371,7 @@ export class SmsLogOutBoxQueueListMobileComponent
   onActionButtonViewRow(
     model: SmsLogOutBoxQueueModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

@@ -9,8 +9,4 @@ import { CoreGuideListComponent } from "./list.component";
 export class CoreGuideListMobileComponent extends CoreGuideListComponent {
 
 
-
-
-
-
 }

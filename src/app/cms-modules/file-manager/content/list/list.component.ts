@@ -240,7 +240,7 @@ export class FileContentListComponent
   }
 
   onActionButtonEditRow(model: FileContentModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -258,7 +258,7 @@ export class FileContentListComponent
   onActionButtonDeleteRow(
     model: FileContentModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {

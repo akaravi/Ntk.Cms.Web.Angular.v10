@@ -1,22 +1,22 @@
 import {
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewChild,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    OnDestroy,
+    OnInit,
+    ViewChild,
 } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  ContactCategoryModel,
-  ContactContentModel,
-  ContactContentService,
-  ContactImportApplyRequestDtoModel,
-  ContactImportApplyResultModel,
-  ContactImportDestinationHeaderModel,
-  ContactImportMappingItem,
-  ContactImportPreviewResponseModel,
-  GoogleContactFileType,
+    ContactCategoryModel,
+    ContactContentModel,
+    ContactContentService,
+    ContactImportApplyRequestDtoModel,
+    ContactImportApplyResultModel,
+    ContactImportDestinationHeaderModel,
+    ContactImportMappingItem,
+    ContactImportPreviewResponseModel,
+    GoogleContactFileType,
 } from "ntk-cms-api";
 import { firstValueFrom } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";

@@ -6,15 +6,15 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  CoreModuleModel,
-  CoreModuleService,
-  ErrorExceptionResult,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
-  WebDesignerMainPageDependencyModel,
-  WebDesignerMainPageDependencyService,
+    CoreModuleModel,
+    CoreModuleService,
+    ErrorExceptionResult,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SortTypeEnum,
+    WebDesignerMainPageDependencyModel,
+    WebDesignerMainPageDependencyService,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -333,7 +333,7 @@ export class WebDesignerMainPageDependencyListComponent
   onActionButtonEditRow(
     model: WebDesignerMainPageDependencyModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -369,7 +369,7 @@ export class WebDesignerMainPageDependencyListComponent
   onActionButtonDeleteRow(
     model: WebDesignerMainPageDependencyModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -443,7 +443,7 @@ export class WebDesignerMainPageDependencyListComponent
   onActionButtonPageList(
     model: WebDesignerMainPageDependencyModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {
@@ -519,7 +519,7 @@ export class WebDesignerMainPageDependencyListComponent
   onActionButtonSiteRouteView(
     model: WebDesignerMainPageDependencyModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

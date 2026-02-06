@@ -239,7 +239,7 @@ export class SmsLogApiPathListMobileComponent
   onActionButtonDeleteRow(
     model: SmsLogApiPathModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {

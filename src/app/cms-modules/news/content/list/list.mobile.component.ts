@@ -37,10 +37,7 @@ export class NewsContentListMobileComponent extends NewsContentListComponent {
     }
   }
 
-
-
-
-
-
-
+  getRowExpanded(row: any): boolean {
+    return (row as any).expanded === true;
+  }
 }

@@ -5,12 +5,12 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
-  TransactionAssistantProductService,
-  TransactionAssistantProductModel,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SortTypeEnum,
+    TransactionAssistantProductModel,
+    TransactionAssistantProductService,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -28,7 +28,6 @@ import { TransactionAssistantProductEditComponent } from "../edit/edit.component
 @Component({
   selector: "app-transaction-assistant-product-list",
   templateUrl: "./list.component.html",
-  styleUrls: ["./list.component.scss"],
   standalone: false,
 })
 export class TransactionAssistantProductListComponent
@@ -84,11 +83,11 @@ export class TransactionAssistantProductListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "linkMainImageIdSrc",
-    "id",
+    "recordStatus",
     "title",
+    "id",
     "price",
     "stockQuantity",
-    "recordStatus",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     "linkMainImageIdSrc",
@@ -234,7 +233,7 @@ export class TransactionAssistantProductListComponent
   onActionButtonEditRow(
     model: TransactionAssistantProductModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -270,7 +269,7 @@ export class TransactionAssistantProductListComponent
   onActionButtonDeleteRow(
     model: TransactionAssistantProductModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {

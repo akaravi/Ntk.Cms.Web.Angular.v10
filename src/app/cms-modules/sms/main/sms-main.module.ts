@@ -21,8 +21,8 @@ import {
   SmsMainApiPathPricePermissionService,
   SmsMainApiPathPublicConfigService,
   SmsMainApiPathService,
-  SmsMainClientApplicationService,
   SmsMainClientApplicationPermissionService,
+  SmsMainClientApplicationService,
   SmsMainMessageCategoryService,
   SmsMainMessageContentService,
 } from "ntk-cms-api";
@@ -88,6 +88,10 @@ import { SmsMainApiPathSelectionlistComponent } from "./api-path/selectionlist/s
 import { SmsMainApiPathSelectorComponent } from "./api-path/selector/selector.component";
 import { SmsMainApiPathSendTestComponent } from "./api-path/sendTest/sendTest.component";
 import { SmsMainApiPathTreeMobileComponent } from "./api-path/tree/tree.mobile.component";
+import { SmsMainClientApplicationPermissionAddComponent } from "./client-application-permission/add/add.component";
+import { SmsMainClientApplicationPermissionEditComponent } from "./client-application-permission/edit/edit.component";
+import { SmsMainClientApplicationPermissionListComponent } from "./client-application-permission/list/list.component";
+import { SmsMainClientApplicationPermissionListMobileComponent } from "./client-application-permission/list/list.mobile.component";
 import { SmsMainClientApplicationAddComponent } from "./client-application/add/add.component";
 import { SmsMainClientApplicationAddMobileComponent } from "./client-application/add/add.mobile.component";
 import { SmsMainClientApplicationEditComponent } from "./client-application/edit/edit.component";
@@ -95,9 +99,6 @@ import { SmsMainClientApplicationEditMobileComponent } from "./client-applicatio
 import { SmsMainClientApplicationListComponent } from "./client-application/list/list.component";
 import { SmsMainClientApplicationListMobileComponent } from "./client-application/list/list.mobile.component";
 import { SmsMainClientApplicationSelectorComponent } from "./client-application/selector/selector.component";
-import { SmsMainClientApplicationPermissionAddComponent } from "./client-application-permission/add/add.component";
-import { SmsMainClientApplicationPermissionEditComponent } from "./client-application-permission/edit/edit.component";
-import { SmsMainClientApplicationPermissionListComponent } from "./client-application-permission/list/list.component";
 import { SmsMainMessageCategoryAddComponent } from "./message-category/add/add.component";
 import { SmsMainMessageCategoryDeleteComponent } from "./message-category/delete/delete.component";
 import { SmsMainMessageCategoryEditComponent } from "./message-category/edit/edit.component";
@@ -213,6 +214,7 @@ import { SmsMainApiPathPublicConfigTreeMobileComponent } from "./public-config/t
     SmsMainClientApplicationSelectorComponent,
     /*ClientApplicationPermission*/
     SmsMainClientApplicationPermissionListComponent,
+    SmsMainClientApplicationPermissionListMobileComponent,
     SmsMainClientApplicationPermissionAddComponent,
     SmsMainClientApplicationPermissionEditComponent,
 

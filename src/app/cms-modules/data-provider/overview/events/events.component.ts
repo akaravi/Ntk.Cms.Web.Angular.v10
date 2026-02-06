@@ -1,5 +1,4 @@
-
-import { Component, OnDestroy, OnInit, ChangeDetectorRef } from "@angular/core";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
@@ -18,6 +17,7 @@ import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { ThemeService } from "src/app/core/services/theme.service";
 
 @Component({
@@ -35,7 +35,8 @@ export class DataProviderOverviewEventsComponent implements OnInit, OnDestroy {
     public transactionService: DataProviderTransactionService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
-        public themeService: ThemeService,
+    private cmsToastrService: CmsToastrService,
+    public themeService: ThemeService,
     private router: Router,
     public dialog: MatDialog,
     public translate: TranslateService,
@@ -81,3 +82,5 @@ export class DataProviderOverviewEventsComponent implements OnInit, OnDestroy {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 }
+
+

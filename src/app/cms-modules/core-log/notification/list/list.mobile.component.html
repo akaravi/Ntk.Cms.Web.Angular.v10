@@ -50,17 +50,7 @@
   </ng-container>
 
   <ng-container cms-action-main>
-    @if (dataModelResult?.access?.accessAddRow) {
-      <div class="col-4">
-        <a
-          (click)="onActionButtonNewRow()"
-          type="button"
-          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
-          target="_blank"
-          ><i class="fa-solid fa-plus font-18" style="color: #ffffff"></i> <br /></a>
-        <p class="font-11 text-center opacity-70">{{ "ACTION.ADD" | translate }}</p>
-      </div>
-    }
+
   </ng-container>
 
   <ng-container cms-action-row>
@@ -125,20 +115,10 @@
             <div class="cms-m-list-item-content">
               <div class="cms-m-list-item-title">{{ ($any(row).title) || ("ID: " + row.id) }}</div>
 
-              @if (row.recordStatus !== undefined) {
                 <div class="cms-m-list-item-subtitle">
                   <i [ngClass]="row.recordStatus | statusIconClass"></i>
-                  @if (dataModelResult?.access?.accessEditRow && row.id === tableRowSelected?.id) {
-                    <select
-                      matNativeControl
-                      cmsRecordStatusSelfSave
-                      [contentService]="contentService"
-                      [row]="row"
-                      style="background: none; border: none; margin-left: 8px;"
-                    ></select>
-                  }
+
                 </div>
-              }
 
               @if (getRowExpanded(row)) {
                 <div class="cms-m-list-item-expanded">

@@ -37,36 +37,29 @@ import { CmsFileUploaderModule } from "src/app/shared/cms-file-uploader/cms-file
 import { ApplicationAppAddComponent } from "./content/add/add.component";
 import { ApplicationAppDownloadComponent } from "./content/download/download.component";
 import { ApplicationAppEditComponent } from "./content/edit/edit.component";
+import { ApplicationAppListMobileComponent } from "./content/list/list.mobile.component";
 import { ApplicationAppSelectorComponent } from "./content/selector/selector.component";
 import { ApplicationAppTreeComponent } from "./content/tree/tree.component";
 import { ApplicationAppUploadAppComponent } from "./content/uploadApp/uploadApp.component";
 import { ApplicationAppUploadUpdateComponent } from "./content/uploadUpdate/uploadUpdate.component";
 import { ApplicationIntroAddComponent } from "./intro/add/add.component";
 import { ApplicationIntroEditComponent } from "./intro/edit/edit.component";
+import { ApplicationIntroListMobileComponent } from "./intro/list/list.mobile.component";
+import { ApplicationMemberInfoListMobileComponent } from "./memberInfo/list/list.mobile.component";
 import { ApplicationMemberInfoSelectorComponent } from "./memberInfo/selector/selector.component";
 import { ApplicationMemberInfoViewComponent } from "./memberInfo/view/view.component";
 import { ApplicationLogNotificationActionSendComponent } from "./notification/action-send/action-send.component";
+import { ApplicationLogNotificationListMobileComponent } from "./notification/list/list.mobile.component";
 import { ApplicationLogNotificationViewComponent } from "./notification/view/view.component";
 import { ApplicationSourceAddComponent } from "./source/add/add.component";
 import { ApplicationSourceEditComponent } from "./source/edit/edit.component";
+import { ApplicationSourceListMobileComponent } from "./source/list/list.mobile.component";
 import { ApplicationSourceSelectorComponent } from "./source/selector/selector.component";
 import { ApplicationSourceTreeComponent } from "./source/tree/tree.component";
 import { ApplicationThemeConfigAddComponent } from "./themeConfig/add/add.component";
 import { ApplicationThemeConfigEditComponent } from "./themeConfig/edit/edit.component";
-import { ApplicationThemeConfigSelectorComponent } from "./themeConfig/selector/selector.component";
-import { ApplicationConfigComponent } from "./config/application-config.component";
-import { ApplicationConfigCheckSiteComponent } from "./config/check-site/check-site.component";
-import { ApplicationConfigCheckUserComponent } from "./config/check-user/check-user.component";
-import { ApplicationConfigMainAdminComponent } from "./config/main-admin/config-main-admin.component";
-import { ApplicationConfigSiteComponent } from "./config/site/config-site.component";
-import { ApplicationAppListMobileComponent } from "./content/list/list.mobile.component";
-import { ApplicationAppWidgetComponent } from "./content/widget/widget.component";
-import { ApplicationIntroListMobileComponent } from "./intro/list/list.mobile.component";
-import { ApplicationMemberInfoListMobileComponent } from "./memberInfo/list/list.mobile.component";
-import { ApplicationMemberInfoWidgetComponent } from "./memberInfo/widget/widget.component";
-import { ApplicationLogNotificationListMobileComponent } from "./notification/list/list.mobile.component";
-import { ApplicationSourceListMobileComponent } from "./source/list/list.mobile.component";
 import { ApplicationThemeConfigListMobileComponent } from "./themeConfig/list/list.mobile.component";
+import { ApplicationThemeConfigSelectorComponent } from "./themeConfig/selector/selector.component";
 
 @NgModule({
   declarations: [
@@ -103,16 +96,10 @@ import { ApplicationThemeConfigListMobileComponent } from "./themeConfig/list/li
     ApplicationThemeConfigSelectorComponent,
     ApplicationThemeConfigAddComponent,
     ApplicationThemeConfigEditComponent,
-    ApplicationConfigComponent,
-    ApplicationConfigCheckSiteComponent,
-    ApplicationConfigCheckUserComponent,
-    ApplicationConfigMainAdminComponent,
-    ApplicationConfigSiteComponent,
+
     ApplicationAppListMobileComponent,
-    ApplicationAppWidgetComponent,
     ApplicationIntroListMobileComponent,
     ApplicationMemberInfoListMobileComponent,
-    ApplicationMemberInfoWidgetComponent,
     ApplicationLogNotificationListMobileComponent,
     ApplicationSourceListMobileComponent,
     ApplicationThemeConfigListMobileComponent,

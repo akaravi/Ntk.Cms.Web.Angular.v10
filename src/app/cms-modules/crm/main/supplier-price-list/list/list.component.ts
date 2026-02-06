@@ -10,7 +10,6 @@ import { Subscription } from "rxjs";
 @Component({
   selector: "app-crm-supplier-price-list",
   templateUrl: "./list.component.html",
-  styleUrls: ["./list.component.scss"],
   standalone: false,
 })
 export class CrmSupplierPriceListComponent implements OnInit, OnDestroy {

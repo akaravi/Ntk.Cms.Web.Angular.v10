@@ -1,6 +1,24 @@
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild } from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
+import { TranslateService } from "@ngx-translate/core";
+import {CoreEnumService,
+  DataFieldInfoModel,
+  DataProviderPlanCategoryModel,
+  DataProviderPlanClientModel,
+  DataProviderPlanClientService,
+  ErrorExceptionResult} from "ntk-cms-api";
+import { TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
+import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
+import { FormInfoModel } from "src/app/core/models/formInfoModel";
 
 @Component({
   selector: "app-data-provider-plan-client-add",
@@ -21,8 +39,9 @@ export class DataProviderPlanClientAddComponent
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<DataProviderPlanClientAddComponent>,
-      public dataProviderPlanClientService: DataProviderPlanClientService,
-    public cmsToastrService: CmsToastrService,
+    public coreEnumService: CoreEnumService,
+    public dataProviderPlanClientService: DataProviderPlanClientService,
+    private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -55,9 +74,9 @@ export class DataProviderPlanClientAddComponent
 
   dataModelResult: ErrorExceptionResult<DataProviderPlanClientModel> =
     new ErrorExceptionResult<DataProviderPlanClientModel>();
-dataModel: DataProviderPlanClientModel = new DataProviderPlanClientModel();
+  dataModel: DataProviderPlanClientModel = new DataProviderPlanClientModel();
 
-
+  
   fileManagerOpenForm = false;
 
   ngOnInit(): void {
@@ -142,3 +161,5 @@ dataModel: DataProviderPlanClientModel = new DataProviderPlanClientModel();
   }
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });
+  }
+}

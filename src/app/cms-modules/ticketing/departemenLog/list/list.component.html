@@ -136,13 +136,6 @@
               {{ row.linkSiteId | cmssiteinfo | async }}
             </mat-cell>
           </ng-container>
-          <!-- LinkApplicationId Column -->
-          <ng-container matColumnDef="LinkSourceId">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-              {{ fieldsInfo["linkSourceId"]?.fieldTitle }}
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{ row.linkSourceId }} </mat-cell>
-          </ng-container>
 
           <!-- RecordStatus Column -->
           <ng-container matColumnDef="recordStatus">

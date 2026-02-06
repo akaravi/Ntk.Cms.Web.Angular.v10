@@ -273,7 +273,7 @@ export class SmsLogOutBoxListComponent
   onActionButtonEditRow(
     model: SmsLogOutBoxModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -306,7 +306,7 @@ export class SmsLogOutBoxListComponent
   onActionButtonViewRow(
     model: SmsLogOutBoxModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -338,7 +338,7 @@ export class SmsLogOutBoxListComponent
   onActionButtonDetailRow(
     model: SmsLogOutBoxModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -356,7 +356,7 @@ export class SmsLogOutBoxListComponent
   onActionButtonDeleteRow(
     model: SmsLogOutBoxModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -509,7 +509,7 @@ export class SmsLogOutBoxListComponent
   onActionButtonPriceServicesList(
     model: SmsLogOutBoxModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

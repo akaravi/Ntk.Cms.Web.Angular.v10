@@ -741,7 +741,7 @@ export class EstateCustomerOrderEditMobileComponent
     this.stepContent = step;
   }
   onActionButtonQuickViewRow(model: EstatePropertyModel): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

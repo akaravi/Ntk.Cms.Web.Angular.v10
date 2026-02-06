@@ -263,7 +263,7 @@ export class SmsLogOutBoxTaskSchedulerListMobileComponent
   onActionButtonEditRow(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -295,7 +295,7 @@ export class SmsLogOutBoxTaskSchedulerListMobileComponent
   onActionButtonDeleteRow(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -372,7 +372,7 @@ export class SmsLogOutBoxTaskSchedulerListMobileComponent
   onActionButtonViewRow(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -602,7 +602,7 @@ export class SmsLogOutBoxTaskSchedulerListMobileComponent
   onActionButtonScheduleRunInfos(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

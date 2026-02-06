@@ -1,4 +1,3 @@
-
 import {
   ChangeDetectorRef,
   Component,
@@ -45,11 +44,11 @@ export class DataProviderSourcePathAddMobileComponent
     private dialogRef: MatDialogRef<DataProviderSourcePathAddMobileComponent>,
     public coreEnumService: CoreEnumService,
     public dataProviderSourcePathService: DataProviderSourcePathService,
+    private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     private router: Router,
     public translate: TranslateService,
-    public cmsToastrService: CmsToastrService,
   ) {
     super(
       dataProviderSourcePathService,

@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  BankPaymentPublicConfigModel,
-  BankPaymentPublicConfigService,
-  CoreEnumService,
-  DataFieldInfoModel,
-  ErrorExceptionResult,
+    BankPaymentPublicConfigModel,
+    BankPaymentPublicConfigService,
+    CoreEnumService,
+    DataFieldInfoModel,
+    ErrorExceptionResult,
 } from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";

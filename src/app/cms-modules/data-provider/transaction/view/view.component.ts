@@ -1,21 +1,22 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    Inject,
-    OnDestroy,
-    OnInit,
-    ViewChild,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnDestroy,
+  OnInit,
+  ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    CoreEnumService,
-    DataFieldInfoModel,
-    DataProviderTransactionModel,
-    DataProviderTransactionService,
-    ErrorExceptionResult, InfoEnumModel,
-    TokenInfoModelV3
+  CoreEnumService,
+  DataFieldInfoModel,
+  DataProviderTransactionModel,
+  DataProviderTransactionService,
+  ErrorExceptionResult,
+  InfoEnumModel,
+  TokenInfoModelV3,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -32,14 +33,14 @@ import { FormSubmitedStatusEnum } from "../../../../core/models/formSubmitedStat
   standalone: false,
 })
 export class DataProviderTransactionViewComponent implements OnInit, OnDestroy {
-  requestId = 0;
+  requestId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<DataProviderTransactionViewComponent>,
     public coreEnumService: CoreEnumService,
     public DataProviderTransactionService: DataProviderTransactionService,
-    public cmsToastrService: CmsToastrService,
+    private cmsToastrService: CmsToastrService,
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
@@ -48,7 +49,7 @@ export class DataProviderTransactionViewComponent implements OnInit, OnDestroy {
   ) {
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {
-      this.requestId = data.id || 0;
+      this.requestId = data.id || "";
     }
   }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
@@ -71,7 +72,7 @@ export class DataProviderTransactionViewComponent implements OnInit, OnDestroy {
     this.translate.get("aaaaaaaaaTITLE.VIEWaaaaa").subscribe((str: string) => {
       this.formInfo.formTitle = str;
     });
-    if (this.requestId <= 0) {
+    if (!(this.requestId?.length > 0)) {
       this.cmsToastrService.typeErrorComponentAction();
       this.dialogRef.close({ dialogChangedDate: false });
       return;
@@ -133,26 +134,46 @@ export class DataProviderTransactionViewComponent implements OnInit, OnDestroy {
         if (ret.isSuccess) {
           this.formInfo.formTitle = this.formInfo.formTitle + " " + ret.item.id;
           this.formInfo.submitResultMessage = "";
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
         } else {
           this.translate
             .get("ERRORMESSAGE.MESSAGE.typeError")

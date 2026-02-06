@@ -5,12 +5,12 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  FilterDataModel,
-  FilterModel,
-  LinkManagementAccountingModel,
-  LinkManagementAccountingService,
-  RecordStatusEnum,
-  SortTypeEnum,
+    FilterDataModel,
+    FilterModel,
+    LinkManagementAccountingModel,
+    LinkManagementAccountingService,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -222,7 +222,7 @@ export class LinkManagementAccountingListComponent
   onActionButtonEditRow(
     model: LinkManagementAccountingModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -255,7 +255,7 @@ export class LinkManagementAccountingListComponent
   onActionButtonDeleteRow(
     model: LinkManagementAccountingModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -375,7 +375,7 @@ export class LinkManagementAccountingListComponent
   onActionButtonAccountingDetail(
     model: LinkManagementAccountingModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

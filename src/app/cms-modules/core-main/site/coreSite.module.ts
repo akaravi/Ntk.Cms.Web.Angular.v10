@@ -32,6 +32,7 @@ import { CoreSiteRouting } from "./coreSite.routing";
 import { CoreSiteDeleteComponent } from "./delete/delete.component";
 import { CoreSiteEditComponent } from "./edit/edit.component";
 import { CoreSiteListComponent } from "./list/list.component";
+import { CoreSiteListMobileComponent } from "./list/list.mobile.component";
 import { CoreSiteModuleSiteInfoComponent } from "./module-site-info/module-site-info.component";
 import { CoreSiteModuleSiteOptimazeComponent } from "./module-site-optimaze/module-site-optimaze.component";
 import { CoreSiteModuleAddComponent } from "./moduleAdd/moduleAdd.component";
@@ -44,12 +45,6 @@ import { CoreSiteTreeComponent } from "./tree/tree.component";
 import { CoreSiteUserAddComponent } from "./user-add/user-add.component";
 import { CoreSiteUserEditComponent } from "./user-edit/user-edit.component";
 import { CoreSiteUserListComponent } from "./user-list/user-list.component";
-import { CoreSiteHeaderComponent } from "./header/header.component";
-import { CoreInfoComponent } from "./info/core-info.component";
-import { CoreSiteListMobileComponent } from "./list/list.mobile.component";
-import { CoreSiteWidgetCountComponent } from "./widget/count/widget.component";
-import { CoreSiteWidgetModuleComponent } from "./widget/module/widget.component";
-import { CoreSiteWidgetStatusComponent } from "./widget/status/widget.component";
 
 @NgModule({
   declarations: [
@@ -57,6 +52,7 @@ import { CoreSiteWidgetStatusComponent } from "./widget/status/widget.component"
     CoreSiteAddFirstComponent,
     CoreSiteSiteSelectComponent,
     CoreSiteListComponent,
+    CoreSiteListMobileComponent,
     CoreSiteAddComponent,
     CoreSiteEditComponent,
     CoreSiteDeleteComponent,
@@ -71,12 +67,6 @@ import { CoreSiteWidgetStatusComponent } from "./widget/status/widget.component"
     CoreSiteResellerChartComponent,
     CoreSiteModuleSiteInfoComponent,
     CoreSiteModuleSiteOptimazeComponent,
-    CoreSiteHeaderComponent,
-    CoreInfoComponent,
-    CoreSiteListMobileComponent,
-    CoreSiteWidgetCountComponent,
-    CoreSiteWidgetModuleComponent,
-    CoreSiteWidgetStatusComponent,
   ],
   providers: [
     CoreSiteService,
@@ -114,6 +104,7 @@ import { CoreSiteWidgetStatusComponent } from "./widget/status/widget.component"
     CoreSiteAddFirstComponent,
     CoreSiteSiteSelectComponent,
     CoreSiteListComponent,
+    CoreSiteListMobileComponent,
     CoreSiteAddComponent,
     CoreSiteEditComponent,
     CoreSiteDeleteComponent,

@@ -424,7 +424,7 @@ Services باید در constructor inject شوند:
 ```typescript
 constructor(
   public contentService: DataProviderClientService,
-  public cmsToastrService: CmsToastrService,
+  private cmsToastrService: CmsToastrService,
   // ...
 ) {
   super(contentService, new DataProviderClientModel(), ...);

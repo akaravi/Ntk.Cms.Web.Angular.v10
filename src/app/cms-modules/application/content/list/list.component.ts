@@ -5,13 +5,13 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  ApplicationAppModel,
-  ApplicationAppService,
-  ApplicationSourceModel,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    ApplicationAppModel,
+    ApplicationAppService,
+    ApplicationSourceModel,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -85,9 +85,9 @@ export class ApplicationAppListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     "linkMainImageIdSrc",
-    "id",
     "recordStatus",
     "title",
+    "id",
     "AppVersion",
     "LinkSourceId",
     // 'CreatedDate',
@@ -98,9 +98,9 @@ export class ApplicationAppListComponent
 
   tabledisplayedColumnsMobileSource: string[] = [
     "linkMainImageIdSrc",
-    "id",
     "recordStatus",
     "title",
+    "id",
     "AppVersion",
     "LinkSourceId",
     // 'CreatedDate',
@@ -586,7 +586,7 @@ export class ApplicationAppListComponent
   onActionButtonNotifictionActionSend(
     model: ApplicationAppModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelected();
       return;
     }

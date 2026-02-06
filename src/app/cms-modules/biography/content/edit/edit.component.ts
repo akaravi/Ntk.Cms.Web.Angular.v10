@@ -1,4 +1,3 @@
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 import { ENTER } from "@angular/cdk/keycodes";
 import { StepperSelectionEvent } from "@angular/cdk/stepper";
@@ -11,25 +10,27 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import * as Leaflet from "leaflet";
 import { Map as leafletMap } from "leaflet";
-import {AccessModel,
-  BiographyCategoryModel,
-  BiographyContentCategoryModel,
-  BiographyContentCategoryService,
-  BiographyContentModel,
-  BiographyContentOtherInfoModel,
-  BiographyContentOtherInfoService,
-  BiographyContentService,
-  BiographyContentSimilarModel,
-  BiographyContentSimilarService,
-  BiographyContentTagModel,
-  BiographyContentTagService,
-  ClauseTypeEnum,
-  CoreEnumService,
-  CoreLocationModel,
-  ErrorExceptionResult,
-  ErrorExceptionResultBase,
-  FilterDataModel,
-  FilterModel,ManageUserAccessDataTypesEnum} from "ntk-cms-api";
+import {
+    AccessModel,
+    BiographyCategoryModel,
+    BiographyContentCategoryModel,
+    BiographyContentCategoryService,
+    BiographyContentModel,
+    BiographyContentOtherInfoModel,
+    BiographyContentOtherInfoService,
+    BiographyContentService,
+    BiographyContentSimilarModel,
+    BiographyContentSimilarService,
+    BiographyContentTagModel,
+    BiographyContentTagService,
+    ClauseTypeEnum,
+    CoreEnumService,
+    CoreLocationModel,
+    ErrorExceptionResult,
+    ErrorExceptionResultBase,
+    FilterDataModel,
+    FilterModel, ManageUserAccessDataTypesEnum
+} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { firstValueFrom, of } from "rxjs";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";

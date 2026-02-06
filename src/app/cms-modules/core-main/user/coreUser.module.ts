@@ -21,32 +21,28 @@ import { CoreUserAddComponent } from "./add/add.component";
 import { CoreUserChangePasswordComponent } from "./changePassword/changePassword.component";
 import { CoreUserComponent } from "./coreUser.component";
 import { CoreUserEditComponent } from "./edit/edit.component";
-import { CoreUserEmailConfirmComponent } from "./emailConfirm/emailConfirm.component";
-import { CoreUserHeaderComponent } from "./header/header.component";
 import { CoreUserListComponent } from "./list/list.component";
-import { CoreUserMobileConfirmComponent } from "./mobileConfirm/mobileConfirm.component";
+import { CoreUserListMobileComponent } from "./list/list.mobile.component";
 import { CoreUserResellerChartComponent } from "./reseller-chart/reseller-chart.component";
 import { CoreUserSelectorComponent } from "./selector/selector.component";
 import { CoreUserViewComponent } from "./view/view.component";
-import { CoreUserListMobileComponent } from "./list/list.mobile.component";
-import { CoreUserWidgetComponent } from "./widget/widget.component";
 
 @NgModule({
   declarations: [
     CoreUserComponent,
     CoreUserListComponent,
+    CoreUserListMobileComponent,
     CoreUserAddComponent,
     CoreUserEditComponent,
     CoreUserChangePasswordComponent,
     CoreUserSelectorComponent,
     CoreUserViewComponent,
     CoreUserResellerChartComponent,
-    CoreUserListMobileComponent,
-    CoreUserWidgetComponent,
   ],
   exports: [
     CoreUserComponent,
     CoreUserListComponent,
+    CoreUserListMobileComponent,
     CoreUserAddComponent,
     CoreUserEditComponent,
     CoreUserChangePasswordComponent,

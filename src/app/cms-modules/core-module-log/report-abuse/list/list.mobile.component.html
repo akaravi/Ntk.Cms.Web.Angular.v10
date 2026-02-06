@@ -255,7 +255,7 @@
                       <i class="fa-solid fa-user"></i> {{ "ACTION.USER" | translate }}
                     </a>
                   }
-                  @if (row.linkMemberId > 0) {
+                  @if (row.linkMemberId?.length > 0) {
                     <a (click)="onActionButtonViewMemberRow(row); closeActionMenu(); $event.stopPropagation()">
                       <i class="fa-solid fa-id-card-clip"></i> {{ "ACTION.MEMBER" | translate }}
                     </a>

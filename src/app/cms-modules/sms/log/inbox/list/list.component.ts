@@ -274,7 +274,7 @@ export class SmsLogInBoxListComponent
   }
 
   onActionButtonEditRow(model: SmsLogInBoxModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -307,7 +307,7 @@ export class SmsLogInBoxListComponent
   onActionButtonDeleteRow(
     model: SmsLogInBoxModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -382,7 +382,7 @@ export class SmsLogInBoxListComponent
   }
 
   onActionButtonViewRow(model: SmsLogInBoxModel = this.tableRowSelected): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -489,7 +489,7 @@ export class SmsLogInBoxListComponent
   onActionButtonSendMessage(
     model: SmsLogInBoxModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

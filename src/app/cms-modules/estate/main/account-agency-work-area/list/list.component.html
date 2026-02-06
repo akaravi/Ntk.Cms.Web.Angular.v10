@@ -133,24 +133,7 @@
           #tableSort="matSort"
           (matSortChange)="onTableSortData(tableSort)"
           >
-          <!-- LinkMainImageIdSrc Column -->
-          <ng-container matColumnDef="linkMainImageIdSrc">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>
-              {{ "TITLE.PICTURE" | translate }}
-            </mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              @if (row?.linkMainImageIdSrc?.length > 0) {
-                <img
-                  style="vertical-align: middle"
-                  class="ntk-hover-zoom"
-                  aria-hidden
-                  src="{{ row.linkMainImageIdSrc | cmsthumbnail }}"
-                  height="40"
-                  width="40"
-                  />
-              }
-            </mat-cell>
-          </ng-container>
+
           <!-- linkEstateAccountAgencyId Column -->
           <ng-container matColumnDef="linkEstateAccountAgencyId">
             <mat-header-cell *matHeaderCellDef mat-sort-header>

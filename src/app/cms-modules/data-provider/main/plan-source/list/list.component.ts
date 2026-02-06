@@ -5,13 +5,13 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    DataProviderPlanCategoryModel,
-    DataProviderPlanSourceModel,
-    DataProviderPlanSourceService,
-    FilterDataModel,
-    FilterModel,
-    RecordStatusEnum,
-    SortTypeEnum,
+  DataProviderPlanCategoryModel,
+  DataProviderPlanSourceModel,
+  DataProviderPlanSourceService,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -44,7 +44,7 @@ export class DataProviderPlanSourceListComponent
   constructor(
     public contentService: DataProviderPlanSourceService,
     private activatedRoute: ActivatedRoute,
-    public cmsToastrService: CmsToastrService,
+    private cmsToastrService: CmsToastrService,
     private router: Router,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,

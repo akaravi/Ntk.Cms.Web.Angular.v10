@@ -16,11 +16,10 @@ import {
   ErrorExceptionResultBase,
   ManageUserAccessDataTypesEnum,
 } from "ntk-cms-api";
-import { TreeModel, NodeInterface } from "ntk-cms-filemanager";
+import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
-
 @Component({
   selector: "app-data-provider-source-public-config-edit",
   templateUrl: "./edit.component.html",
@@ -41,10 +40,10 @@ export class DataProviderSourcePublicConfigEditComponent
     private dialogRef: MatDialogRef<DataProviderSourcePublicConfigEditComponent>,
     public coreEnumService: CoreEnumService,
     public dataProviderSourcePublicConfigService: DataProviderSourcePublicConfigService,
+    private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    public cmsToastrService: CmsToastrService,
   ) {
     super(
       dataProviderSourcePublicConfigService,

@@ -8,6 +8,7 @@ import { CoreLocationComponent } from "./coreLocation.component";
 import { CoreLocationRouting } from "./coreLocation.routing";
 import { CoreLocationEditComponent } from "./edit/edit.component";
 import { CoreLocationListComponent } from "./list/list.component";
+import { CoreLocationListMobileComponent } from "./list/list.mobile.component";
 import { CoreLocationSelectorComponent } from "./selector/selector.component";
 import { CoreLocationTreeComponent } from "./tree/tree.component";
 
@@ -16,22 +17,22 @@ import { AngularEditorModule } from "@kolkov/angular-editor";
 import { CmsFileManagerModule } from "ntk-cms-filemanager";
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { CoreLocationAddBulkComponent } from "./add-bulk/add-bulk.component";
-import { CoreLocationListMobileComponent } from "./list/list.mobile.component";
 
 @NgModule({
   declarations: [
     CoreLocationComponent,
     CoreLocationListComponent,
+    CoreLocationListMobileComponent,
     CoreLocationAddComponent,
     CoreLocationAddBulkComponent,
     CoreLocationEditComponent,
     CoreLocationSelectorComponent,
     CoreLocationTreeComponent,
-    CoreLocationListMobileComponent,
   ],
   exports: [
     CoreLocationComponent,
     CoreLocationListComponent,
+    CoreLocationListMobileComponent,
     CoreLocationAddComponent,
     CoreLocationAddBulkComponent,
     CoreLocationEditComponent,

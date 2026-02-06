@@ -1,17 +1,12 @@
-
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
-import {
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-} from "@angular/core";
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
+  ActionGoStepEnum,
   CoreCurrencyModel,
   DataProviderSourceCompanyModel,
   DataProviderSourceCompanyService,
@@ -25,7 +20,6 @@ import {
   FilterModel,
   RecordStatusEnum,
   SortTypeEnum,
-  ActionGoStepEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -60,6 +54,7 @@ export class DataProviderSourcePathListComponent
     private dataProviderSourceCompanyService: DataProviderSourceCompanyService,
     private dataProviderSourcePublicConfigService: DataProviderSourcePublicConfigService,
     private activatedRoute: ActivatedRoute,
+    private cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private router: Router,
     public tokenHelper: TokenHelper,
@@ -69,7 +64,6 @@ export class DataProviderSourcePathListComponent
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog,
-    public cmsToastrService: CmsToastrService,
   ) {
     super(
       contentService,

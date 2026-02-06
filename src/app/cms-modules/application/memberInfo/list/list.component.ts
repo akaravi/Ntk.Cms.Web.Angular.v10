@@ -5,13 +5,13 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  ApplicationAppModel,
-  ApplicationMemberInfoModel,
-  ApplicationMemberInfoService,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    ApplicationAppModel,
+    ApplicationMemberInfoModel,
+    ApplicationMemberInfoService,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -244,7 +244,7 @@ export class ApplicationMemberInfoListComponent
   onActionButtonViewRow(
     model: ApplicationMemberInfoModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -276,7 +276,7 @@ export class ApplicationMemberInfoListComponent
   onActionButtonEditRow(
     model: ApplicationMemberInfoModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -293,7 +293,7 @@ export class ApplicationMemberInfoListComponent
   onActionButtonDeleteRow(
     model: ApplicationMemberInfoModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -367,7 +367,7 @@ export class ApplicationMemberInfoListComponent
   onActionButtonNotifictionList(
     model: ApplicationMemberInfoModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -388,7 +388,7 @@ export class ApplicationMemberInfoListComponent
   onActionButtonNotifictionActionSend(
     model: ApplicationMemberInfoModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

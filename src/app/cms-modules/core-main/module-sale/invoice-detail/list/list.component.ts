@@ -246,7 +246,7 @@ export class CoreModuleSaleInvoiceDetailListComponent
   onActionButtonViewRow(
     model: CoreModuleSaleInvoiceDetailModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -283,7 +283,7 @@ export class CoreModuleSaleInvoiceDetailListComponent
   onActionButtonDeleteRow(
     model: CoreModuleSaleInvoiceDetailModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -360,7 +360,7 @@ export class CoreModuleSaleInvoiceDetailListComponent
   onActionButtonGoToModuleSaleInvoiceDetailList(
     model: CoreModuleSaleInvoiceDetailModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_display")
         .subscribe((str: string) => {
@@ -439,7 +439,7 @@ export class CoreModuleSaleInvoiceDetailListComponent
   onActionButtonModuleList(
     model: CoreModuleSaleInvoiceDetailModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -461,7 +461,7 @@ export class CoreModuleSaleInvoiceDetailListComponent
   onActionButtonSiteList(
     model: CoreModuleSaleInvoiceDetailModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id === 0) {
+    if (!(model?.id > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {

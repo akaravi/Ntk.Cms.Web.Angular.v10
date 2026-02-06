@@ -14,8 +14,6 @@ import {
   DataProviderClientApplicationPermissionService,
   DataProviderSourcePathModel,
   ErrorExceptionResultBase,
-  FilterDataModel,
-  FilterModel,
   ManageUserAccessDataTypesEnum,
 } from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
@@ -23,6 +21,8 @@ import { EditBaseComponent } from "src/app/core/cmsComponent/editBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { DatapickerHeaderComponent } from "src/app/shared/datapicker-header/datapicker-header.component";
+
+import { FormInfoModel } from "src/app/core/models/formInfoModel";
 
 @Component({
   selector: "app-data-provider-client-application-permission-edit",
@@ -37,15 +37,13 @@ export class DataProviderClientApplicationPermissionEditComponent
   >
   implements OnInit
 {
-  requestLinkSourcePathId = "";
-  requestLinkClientApplicationId = "";
+  requestId = "";
   constructorInfoAreaId = this.constructor.name;
-
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<DataProviderClientApplicationPermissionEditComponent>,
     public dataProviderClientApplicationPermissionService: DataProviderClientApplicationPermissionService,
-    public cmsToastrService: CmsToastrService,
+    private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -58,14 +56,12 @@ export class DataProviderClientApplicationPermissionEditComponent
     );
 
     this.publicHelper.processService.cdr = this.cdr;
-    if (data && data.linkSourcePathId && data.linkClientApplicationId) {
-      this.requestLinkSourcePathId = data.linkSourcePathId;
-      this.requestLinkClientApplicationId = data.linkClientApplicationId;
+    if (data && data.id) {
+      this.requestId = data.id;
     }
 
     this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
   }
-
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
 
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
@@ -79,17 +75,9 @@ export class DataProviderClientApplicationPermissionEditComponent
 
   fileManagerOpenForm = false;
   datapickerHeader = DatapickerHeaderComponent;
-
-  dataClientApplications: DataProviderClientApplicationModel[] = [];
-  dataSourcePaths: DataProviderSourcePathModel[] = [];
-
+  dataDataProviderClientApplicationPermissionModel: DataProviderClientApplicationPermissionModel[];
   ngOnInit(): void {
-    if (
-      this.requestLinkSourcePathId &&
-      this.requestLinkSourcePathId.length > 0 &&
-      this.requestLinkClientApplicationId &&
-      this.requestLinkClientApplicationId.length > 0
-    ) {
+    if (this.requestId && this.requestId.length > 0) {
       this.translate.get("TITLE.Edit").subscribe((str: string) => {
         this.formInfo.formTitle = str;
       });
@@ -102,12 +90,7 @@ export class DataProviderClientApplicationPermissionEditComponent
   }
 
   DataGetOneContent(): void {
-    if (
-      !this.requestLinkSourcePathId ||
-      this.requestLinkSourcePathId.length === 0 ||
-      !this.requestLinkClientApplicationId ||
-      this.requestLinkClientApplicationId.length === 0
-    ) {
+    if (!this.requestId || this.requestId.length === 0) {
       this.cmsToastrService.typeErrorEditRowIsNull();
       return;
     }
@@ -133,28 +116,15 @@ export class DataProviderClientApplicationPermissionEditComponent
     this.dataProviderClientApplicationPermissionService.setAccessDataType(
       ManageUserAccessDataTypesEnum.Editor,
     );
-
-    const filteModelContent = new FilterModel();
-
-    let filter = new FilterDataModel();
-    filter.propertyName = "LinkClientApplicationId";
-    filter.value = this.requestLinkClientApplicationId;
-    filteModelContent.filters.push(filter);
-
-    filter = new FilterDataModel();
-    filter.propertyName = "LinkSourcePathId";
-    filter.value = this.requestLinkSourcePathId;
-    filteModelContent.filters.push(filter);
-
-    filteModelContent.accessLoad = true;
     this.dataProviderClientApplicationPermissionService
-      .ServiceGetAll(filteModelContent)
+      .ServiceGetOneById(this.requestId)
       .subscribe({
         next: (ret) => {
           this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
 
           this.dataModel = ret.item;
           if (ret.isSuccess) {
+            this.formInfo.formTitle = this.formInfo.formTitle;
             this.formInfo.submitResultMessage = "";
             this.formInfo.submitResultMessageType =
               this.formSubmitedStatusEnum.Success;
@@ -210,6 +180,8 @@ export class DataProviderClientApplicationPermissionEditComponent
                 this.formInfo.submitResultMessageType =
                   this.formSubmitedStatusEnum.Success;
               });
+            this.formInfo.submitResultMessageType =
+              this.formSubmitedStatusEnum.Success;
             this.cmsToastrService.typeSuccessEdit();
             this.dialogRef.close({ dialogChangedDate: true });
           } else {
@@ -232,7 +204,6 @@ export class DataProviderClientApplicationPermissionEditComponent
         },
       });
   }
-
   onActionSelectorClientApplication(
     model: DataProviderClientApplicationModel | null,
   ): void {
@@ -242,8 +213,9 @@ export class DataProviderClientApplicationPermissionEditComponent
     }
     this.dataModel.linkClientApplicationId = model.id;
   }
-
-  onActionSelectorSourcePath(model: DataProviderSourcePathModel | null): void {
+  onActionSelectorSourcePath(
+    model: DataProviderSourcePathModel | null,
+  ): void {
     if (!model || !model.id || model.id.length == 0) {
       this.dataModel.linkSourcePathId = null;
       return;
@@ -251,6 +223,7 @@ export class DataProviderClientApplicationPermissionEditComponent
     this.dataModel.linkSourcePathId = model.id;
   }
 
+  // Toggle isApproved checkbox (three-state: null -> true -> false -> null)
   onToggleIsApproved(): void {
     if (this.dataModel.isApproved === null) {
       this.dataModel.isApproved = true;
@@ -268,7 +241,6 @@ export class DataProviderClientApplicationPermissionEditComponent
     this.formInfo.submitButtonEnabled = false;
     this.DataEditContent();
   }
-
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });
   }

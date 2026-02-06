@@ -246,7 +246,7 @@ export class SmsMainApiPathPublicConfigListMobileComponent
   onActionButtonEditRow(
     model: SmsMainApiPathPublicConfigModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -282,7 +282,7 @@ export class SmsMainApiPathPublicConfigListMobileComponent
   onActionButtonDeleteRow(
     model: SmsMainApiPathPublicConfigModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -419,8 +419,9 @@ export class SmsMainApiPathPublicConfigListMobileComponent
   }
   onActionButtonPrivateList(
     model: SmsMainApiPathPublicConfigModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -438,10 +439,17 @@ export class SmsMainApiPathPublicConfigListMobileComponent
       this.cmsToastrService.typeErrorSelected();
       return;
     }
-    this.router.navigate([
-      "/sms/main/api-path/list/LinkPublicConfigId",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#//sms/main/api-path/list/LinkPublicConfigId/" +
+        this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/sms/main/api-path/list/LinkPublicConfigId",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
 
   onActionButtonReload(): void {
@@ -555,6 +563,42 @@ export class SmsMainApiPathPublicConfigListMobileComponent
     }
   }
 
+  onActionButtonNewRowAuto(): any {
+    const pName = this.constructor.name + "main";
+    this.translate
+      .get("MESSAGE.Receiving_information")
+      .subscribe((str: string) => {
+        this.publicHelper.processService.processStart(
+          pName,
+          str,
+          this.constructorInfoAreaId,
+        );
+      });
+    this.contentService.ServiceAutoAdd().subscribe({
+      next: (ret) => {
+        if (ret.isSuccess) {
+          this.cmsToastrService.typeSuccessAdd();
+          this.DataGetAll();
+        } else {
+          this.cmsToastrService.typeErrorMessage(ret.errorMessage);
+        }
+        this.publicHelper.processService.processStop(pName);
+      },
+      error: (er) => {
+        this.cmsToastrService.typeError(er);
+        this.publicHelper.processService.processStop(pName, false);
+      },
+    });
+  }
+
+  getRowExpanded(row: any): boolean {
+    return (row as any).expanded === true;
+  }
+
+  onActionCopied(): void {
+    this.cmsToastrService.typeSuccessCopedToClipboard();
+  }
+
   onSubmitOptionsSearch(model: Array<FilterDataModel>): void {
     if (model && model.length > 0) {
       this.filterDataModelQueryBuilder = [...model];
@@ -562,9 +606,5 @@ export class SmsMainApiPathPublicConfigListMobileComponent
       this.filterDataModelQueryBuilder = [];
     }
     this.DataGetAll();
-  }
-
-  onActionTableRowSelect(row: SmsMainApiPathPublicConfigModel): void {
-    this.tableRowSelected = row;
   }
 }

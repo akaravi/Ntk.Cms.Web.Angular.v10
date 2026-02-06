@@ -250,7 +250,7 @@ export class SmsMainApiPathPublicConfigListComponent
   onActionButtonEditRow(
     model: SmsMainApiPathPublicConfigModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -286,7 +286,7 @@ export class SmsMainApiPathPublicConfigListComponent
   onActionButtonDeleteRow(
     model: SmsMainApiPathPublicConfigModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -451,8 +451,9 @@ export class SmsMainApiPathPublicConfigListComponent
   }
   onActionButtonPrivateList(
     model: SmsMainApiPathPublicConfigModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("ERRORMESSAGE.MESSAGE.typeErrorSelectedRow")
         .subscribe((str: string) => {
@@ -470,10 +471,17 @@ export class SmsMainApiPathPublicConfigListComponent
       this.cmsToastrService.typeErrorSelected();
       return;
     }
-    this.router.navigate([
-      "/sms/main/api-path/list/LinkPublicConfigId",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/sms/main/api-path/list/LinkPublicConfigId/" +
+        this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/sms/main/api-path/list/LinkPublicConfigId",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
 
   onActionButtonReload(): void {

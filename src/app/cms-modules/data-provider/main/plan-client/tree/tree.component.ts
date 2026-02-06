@@ -1,5 +1,3 @@
-
-import { MatTreeNestedDataSource } from "@angular/material/tree";
 import {
   ChangeDetectorRef,
   Component,
@@ -10,6 +8,7 @@ import {
   Output,
 } from "@angular/core";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
+import { MatTreeNestedDataSource } from "@angular/material/tree";
 import { TranslateService } from "@ngx-translate/core";
 import {
   CoreEnumService,
@@ -19,14 +18,14 @@ import {
   FilterModel,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
-import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { environment } from "src/environments/environment";
 import { DataProviderPlanClientAddComponent } from "../add/add.component";
-import { DataProviderPlanClientEditComponent } from "../edit/edit.component";
 import { DataProviderPlanClientDeleteComponent } from "../delete/delete.component";
+import { DataProviderPlanClientEditComponent } from "../edit/edit.component";
 
 @Component({
   selector: "app-data-provider-plan-client-tree",
@@ -36,7 +35,8 @@ import { DataProviderPlanClientDeleteComponent } from "../delete/delete.componen
 export class DataProviderPlanClientTreeComponent implements OnInit, OnDestroy {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-        public coreEnumService: CoreEnumService,
+    private cmsToastrService: CmsToastrService,
+    public coreEnumService: CoreEnumService,
     public categoryService: DataProviderPlanClientService,
     public dialog: MatDialog,
     private cdr: ChangeDetectorRef,
@@ -44,7 +44,6 @@ export class DataProviderPlanClientTreeComponent implements OnInit, OnDestroy {
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     private translate: TranslateService,
-    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }

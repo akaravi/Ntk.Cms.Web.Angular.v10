@@ -2,20 +2,21 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Map as leafletMap } from "leaflet";
-import {AccessModel,
-  CoreEnumService,
-  DataFieldInfoModel,
-  ErrorExceptionResult,InfoEnumModel,
-  LinkManagementBillboardPatternModel,
-  LinkManagementEnumService,
-  LinkManagementTargetCategoryModel,
-  LinkManagementTargetCategoryService,
-  LinkManagementTargetModel,
-  LinkManagementTargetService} from "ntk-cms-api";
+import {
+    AccessModel,
+    CoreEnumService,
+    DataFieldInfoModel,
+    ErrorExceptionResult, InfoEnumModel,
+    LinkManagementBillboardPatternModel,
+    LinkManagementEnumService,
+    LinkManagementTargetCategoryModel,
+    LinkManagementTargetCategoryService,
+    LinkManagementTargetModel,
+    LinkManagementTargetService
+} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 
 import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import { MatStepper } from "@angular/material/stepper";
@@ -97,7 +98,7 @@ export class LinkManagementTargetAddComponent
   selectFileTypeMainImage = ["jpg", "jpeg", "png"];
   selectFileTypePodcast = ["mp3"];
   selectFileTypeMovie = ["mp4", "webm"];
-
+  dataFileModel = new Map<number, string>();
   fileManagerOpenForm = false;
   fileManagerOpenFormPodcast = false;
   fileManagerOpenFormMovie = false;
@@ -263,6 +264,13 @@ export class LinkManagementTargetAddComponent
         );
       });
 
+       this.dataModel.linkFileIds = "";
+    if (this.dataFileModel) {
+      const keys = Array.from(this.dataFileModel.keys());
+      if (keys && keys.length > 0) {
+        this.dataModel.linkFileIds = keys.join(",");
+      }
+    }
     this.linkManagementTargetService.ServiceEdit(this.dataModel).subscribe({
       next: (ret) => {
         this.publicHelper.processService.processStop(pName);
@@ -427,4 +435,5 @@ export class LinkManagementTargetAddComponent
   onActionBackToParent(): void {
     this.router.navigate(["/linkmanagement/target/"]);
   }
+
 }

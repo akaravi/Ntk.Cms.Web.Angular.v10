@@ -8,6 +8,7 @@ import { CoreUserGroupComponent } from "./coreUserGroup.component";
 import { CoreUserGroupRouting } from "./coreUserGroup.routing";
 import { CoreUserGroupEditComponent } from "./edit/edit.component";
 import { CoreUserGroupListComponent } from "./list/list.component";
+import { CoreUserGroupListMobileComponent } from "./list/list.mobile.component";
 import { CoreUserGroupSelectorComponent } from "./selector/selector.component";
 import { CoreUserGroupTreeComponent } from "./tree/tree.component";
 
@@ -15,22 +16,22 @@ import { AngularEditorModule } from "@kolkov/angular-editor";
 
 import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
 import { CoreUserGroupSelectionlistComponent } from "./selectionlist/selectionlist.component";
-import { CoreUserGroupListMobileComponent } from "./list/list.mobile.component";
 
 @NgModule({
   declarations: [
     CoreUserGroupComponent,
     CoreUserGroupListComponent,
+    CoreUserGroupListMobileComponent,
     CoreUserGroupAddComponent,
     CoreUserGroupEditComponent,
     CoreUserGroupSelectorComponent,
     CoreUserGroupTreeComponent,
     CoreUserGroupSelectionlistComponent,
-    CoreUserGroupListMobileComponent,
   ],
   exports: [
     CoreUserGroupComponent,
     CoreUserGroupListComponent,
+    CoreUserGroupListMobileComponent,
     CoreUserGroupAddComponent,
     CoreUserGroupEditComponent,
     CoreUserGroupSelectorComponent,

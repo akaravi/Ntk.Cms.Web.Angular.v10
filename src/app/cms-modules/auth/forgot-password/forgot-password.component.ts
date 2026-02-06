@@ -1,21 +1,23 @@
-import { FormInfoModel } from "../../../core/models/formInfoModel";
 import {
-  ChangeDetectorRef,
-  Component,
-  DestroyRef,
-  inject,
-  OnInit,
+    ChangeDetectorRef,
+    Component,
+    DestroyRef,
+    inject,
+    OnInit,
 } from "@angular/core";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {AuthUserForgetPasswordEntryPinCodeModel,
-  AuthUserForgetPasswordModel,
-  CaptchaModel,
-  CoreAuthV3Service} from "ntk-cms-api";
+import {
+    AuthUserForgetPasswordEntryPinCodeModel,
+    AuthUserForgetPasswordModel,
+    CaptchaModel,
+    CoreAuthV3Service
+} from "ntk-cms-api";
 import { Observable } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
+import { FormInfoModel } from "../../../core/models/formInfoModel";
 enum ErrorStates {
   NotSubmitted,
   HasError,

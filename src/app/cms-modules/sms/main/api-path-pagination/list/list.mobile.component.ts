@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
@@ -225,6 +225,20 @@ export class SmsMainApiPathPaginationListMobileComponent
         this.publicHelper.processService.processStop(pName, false);
       },
     });
+  }
+
+  onActionSelectorSelect(model: SmsMainApiPathModel | null): void {
+    /*filter */
+    var sortColumn = this.filteModelContent.sortColumn;
+    var sortType = this.filteModelContent.sortType;
+    this.filteModelContent = new FilterModel();
+
+    this.filteModelContent.sortColumn = sortColumn;
+    this.filteModelContent.sortType = sortType;
+    /*filter */
+    this.categoryModelSelected = model;
+
+    this.DataGetAll();
   }
 
   onTableSortData(sort: MatSort): void {
@@ -595,7 +609,37 @@ export class SmsMainApiPathPaginationListMobileComponent
     this.router.navigate(["/sms/main/api-path"]);
   }
 
-  onActionTableRowSelect(row: SmsMainApiPathPaginationModel): void {
-    this.tableRowSelected = row;
+  actionMenuOpen: string | null = null;
+
+  toggleActionMenu(rowId: string | number): void {
+    const idStr = String(rowId);
+    if (this.actionMenuOpen === idStr) {
+      this.actionMenuOpen = null;
+    } else {
+      this.actionMenuOpen = idStr;
+    }
+  }
+
+  closeActionMenu(): void {
+    this.actionMenuOpen = null;
+  }
+
+  toString(value: string | number): string {
+    return String(value);
+  }
+
+  @HostListener("document:click", ["$event"])
+  onDocumentClick(event: Event): void {
+    const target = event.target as HTMLElement;
+    if (
+      !target.closest(".cms-m-action-menu") &&
+      !target.closest(".cms-m-action-menu-dropdown")
+    ) {
+      this.closeActionMenu();
+    }
+  }
+
+  getRowExpanded(row: any): boolean {
+    return (row as any).expanded === true;
   }
 }

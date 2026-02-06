@@ -1,6 +1,12 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import {
+    ChangeDetectorRef,
+    Component,
+    OnDestroy,
+    OnInit,
+    ViewChild,
+} from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { PageEvent } from "@angular/material/paginator";
+import { MatPaginator, PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
@@ -42,6 +48,9 @@ export class SmsMainApiPathPricePermissionListComponent
   >
   implements OnInit, OnDestroy
 {
+  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  tableData: SmsMainApiPathPricePermissionModel[] = [];
   requestLinkApiPathId = "";
   requestLinkApiPathPaginationId = "";
   constructorInfoAreaId = this.constructor.name;
@@ -85,6 +94,21 @@ export class SmsMainApiPathPricePermissionListComponent
 
   filteModelContent = new FilterModel();
   filterDataModelQueryBuilder: FilterDataModel[] = [];
+
+  filterModelCompiler(model: FilterModel): FilterModel {
+    /*filter CLone*/
+    const filterModel = JSON.parse(JSON.stringify(model));
+    /*filter CLone*/
+    /*filter add search*/
+    if (
+      this.filterDataModelQueryBuilder &&
+      this.filterDataModelQueryBuilder.length > 0
+    ) {
+      filterModel.filters = [...this.filterDataModelQueryBuilder];
+    }
+    /*filter add search*/
+    return filterModel;
+  }
 
   categoryModelSelected: SmsMainApiPathModel;
 
@@ -190,16 +214,7 @@ export class SmsMainApiPathPricePermissionListComponent
       });
     this.filteModelContent.accessLoad = true;
     /*filter CLone*/
-    const filterModel = JSON.parse(JSON.stringify(this.filteModelContent));
-    /*filter CLone*/
-    /*filter add search*/
-    if (
-      this.filterDataModelQueryBuilder &&
-      this.filterDataModelQueryBuilder.length > 0
-    ) {
-      filterModel.filters = [...this.filterDataModelQueryBuilder];
-    }
-    /*filter add search*/
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
     /** filter Category */
     if (
       this.categoryModelSelected &&
@@ -213,16 +228,28 @@ export class SmsMainApiPathPricePermissionListComponent
     /** filter Category */
     this.contentService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {
+        this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
+        this.dataModelResult = ret;
+
         if (ret.isSuccess) {
-          this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
-
-          this.dataModelResult = ret;
+          this.tableData = ret.listItems;
           this.tableSource.data = ret.listItems;
+          if (this.sort) {
+            this.tableSource.sort = this.sort;
+          }
+          if (this.paginator) {
+            this.tableSource.paginator = this.paginator;
+          }
+          // Clear filter to show all data
+          this.tableSource.filter = "";
 
-          if (this.optionsStatist?.data?.show) this.onActionButtonStatist(true);
+          if (this.optionsStatist?.data?.show) {
+            this.onActionButtonStatist(true);
+          }
           setTimeout(() => {
-            if (this.optionsSearch.childMethods)
+            if (this.optionsSearch.childMethods) {
               this.optionsSearch.childMethods.setAccess(ret.access);
+            }
           }, 1000);
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
@@ -481,7 +508,28 @@ export class SmsMainApiPathPricePermissionListComponent
         this.constructorInfoAreaId,
       );
     });
-    this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
+    const filterModel = this.filterModelCompiler(this.filteModelContent);
+    /**filterActionSearch */
+    if (this.filteModelContent.filterActionSearchRecordStatus > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "recordStatus";
+      filter.value = this.filteModelContent.filterActionSearchRecordStatus;
+      filterModel.filters.push(filter);
+    }
+    if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "linkSiteId";
+      filter.value = this.filteModelContent.filterActionSearchLinkSiteId;
+      filterModel.filters.push(filter);
+    }
+    if (this.filteModelContent.filterActionSearchLinkUserId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "linkUserId";
+      filter.value = this.filteModelContent.filterActionSearchLinkUserId;
+      filterModel.filters.push(filter);
+    }
+    /**filterActionSearch */
+    this.contentService.ServiceGetCount(filterModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
           this.translate.get("MESSAGE.All").subscribe((str: string) => {
@@ -499,7 +547,27 @@ export class SmsMainApiPathPricePermissionListComponent
       },
     });
 
-    const filterStatist1 = JSON.parse(JSON.stringify(this.filteModelContent));
+    const filterStatist1 = this.filterModelCompiler(this.filteModelContent);
+    /**filterActionSearch */
+    if (this.filteModelContent.filterActionSearchRecordStatus > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "recordStatus";
+      filter.value = this.filteModelContent.filterActionSearchRecordStatus;
+      filterStatist1.filters.push(filter);
+    }
+    if (this.filteModelContent.filterActionSearchLinkSiteId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "linkSiteId";
+      filter.value = this.filteModelContent.filterActionSearchLinkSiteId;
+      filterStatist1.filters.push(filter);
+    }
+    if (this.filteModelContent.filterActionSearchLinkUserId > 0) {
+      const filter = new FilterDataModel();
+      filter.propertyName = "linkUserId";
+      filter.value = this.filteModelContent.filterActionSearchLinkUserId;
+      filterStatist1.filters.push(filter);
+    }
+    /**filterActionSearch */
     const fastfilter = new FilterDataModel();
     fastfilter.propertyName = "recordStatus";
     fastfilter.value = RecordStatusEnum.Available;

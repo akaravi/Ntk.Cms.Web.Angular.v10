@@ -5,12 +5,12 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  FilterDataModel,
-  FilterModel,
-  HyperShopCategoryModel,
-  HyperShopCategoryService,
-  RecordStatusEnum,
-  SortTypeEnum,
+    FilterDataModel,
+    FilterModel,
+    HyperShopCategoryModel,
+    HyperShopCategoryService,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";

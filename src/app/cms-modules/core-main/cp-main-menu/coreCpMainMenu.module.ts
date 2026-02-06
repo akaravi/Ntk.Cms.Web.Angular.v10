@@ -24,11 +24,13 @@ import { CoreCpMainMenuListComponent } from "./list/list.component";
 import { CoreCpMainMenuSelectorComponent } from "./selector/selector.component";
 import { CoreCpMainMenuTreeComponent } from "./tree/tree.component";
 import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
+import { CoreCpMainMenuListMobileComponent } from "./list/list.mobile.component";
 
 @NgModule({
   declarations: [
     CoreCpMainMenuComponent,
     CoreCpMainMenuListComponent,
+    CoreCpMainMenuListMobileComponent,
     CoreCpMainMenuAddComponent,
     CoreCpMainMenuEditComponent,
     CoreCpMainMenuTreeComponent,
@@ -37,6 +39,7 @@ import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
   exports: [
     CoreCpMainMenuComponent,
     CoreCpMainMenuListComponent,
+    CoreCpMainMenuListMobileComponent,
     CoreCpMainMenuAddComponent,
     CoreCpMainMenuEditComponent,
     CoreCpMainMenuTreeComponent,

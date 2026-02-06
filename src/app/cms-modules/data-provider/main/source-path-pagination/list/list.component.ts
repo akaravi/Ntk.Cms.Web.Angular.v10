@@ -1,21 +1,20 @@
-
 import {
-    ChangeDetectorRef,
-    Component,
-    OnDestroy,
-    OnInit,
-    ViewChild,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
 } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator, PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    DataProviderSourcePathPaginationModel,
-    DataProviderSourcePathPaginationService,
-    FilterDataModel,
-    FilterModel,
-    SortTypeEnum
+  DataProviderSourcePathPaginationModel,
+  DataProviderSourcePathPaginationService,
+  FilterDataModel,
+  FilterModel,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -68,6 +67,7 @@ export class DataProviderSourcePathPaginationListComponent
 
   constructor(
     public contentService: DataProviderSourcePathPaginationService,
+    private cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,
@@ -76,7 +76,6 @@ export class DataProviderSourcePathPaginationListComponent
     public pageInfo: PageInfoService,
     public publicHelper: PublicHelper,
     public dialog: MatDialog,
-    public cmsToastrService: CmsToastrService,
   ) {
     super(
       contentService,
@@ -329,7 +328,9 @@ export class DataProviderSourcePathPaginationListComponent
     }
   }
 
-
+  onActionCopied(): void {
+    this.cmsToastrService.typeSuccessCopedToClipboard();
+  }
 
   onSubmitOptionsSearch(model: any): void {
     this.filteModelContent.filters = model;

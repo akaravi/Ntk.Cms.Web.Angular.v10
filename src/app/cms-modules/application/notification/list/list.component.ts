@@ -5,13 +5,13 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  ApplicationAppModel,
-  ApplicationLogNotificationModel,
-  ApplicationLogNotificationService,
-  FilterDataModel,
-  FilterModel,
-  RecordStatusEnum,
-  SortTypeEnum,
+    ApplicationAppModel,
+    ApplicationLogNotificationModel,
+    ApplicationLogNotificationService,
+    FilterDataModel,
+    FilterModel,
+    RecordStatusEnum,
+    SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -241,7 +241,7 @@ export class ApplicationLogNotificationListComponent
   onActionButtonViewRow(
     model: ApplicationLogNotificationModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelected();
       return;
     }
@@ -296,7 +296,7 @@ export class ApplicationLogNotificationListComponent
   onActionButtonEditRow(
     model: ApplicationLogNotificationModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -313,7 +313,7 @@ export class ApplicationLogNotificationListComponent
   onActionButtonDeleteRow(
     model: ApplicationLogNotificationModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -334,7 +334,7 @@ export class ApplicationLogNotificationListComponent
   onActionButtonNotifictionActionSend(
     model: ApplicationLogNotificationModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelected();
       return;
     }

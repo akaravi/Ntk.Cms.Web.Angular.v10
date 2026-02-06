@@ -3,7 +3,8 @@ import {
   Component,
   Inject,
   OnInit,
-  ViewChild } from "@angular/core";
+  ViewChild
+} from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
@@ -12,7 +13,8 @@ import {
   DataFieldInfoModel,
   ErrorExceptionResult,
   TransactionAssistantOrderShipmentModel,
-  TransactionAssistantShipmentService } from "ntk-cms-api";
+  TransactionAssistantShipmentService
+} from "ntk-cms-api";
 import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";

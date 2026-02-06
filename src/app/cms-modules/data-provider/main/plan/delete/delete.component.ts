@@ -1,4 +1,3 @@
-
 import {
   ChangeDetectorRef,
   Component,
@@ -16,9 +15,11 @@ import {
   ErrorExceptionResult,
   ManageUserAccessDataTypesEnum,
 } from "ntk-cms-api";
-import { FormInfoModel, FormSubmitedStatusEnum } from "src/app/core/models/formInfoModel";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+
+import { FormInfoModel } from "../../../../../core/models/formInfoModel";
+import { FormSubmitedStatusEnum } from "../../../../../core/models/formSubmitedStatusEnum";
 
 @Component({
   selector: "app-data-provider-plan-delete",
@@ -35,7 +36,7 @@ export class DataProviderPlanDeleteComponent implements OnInit {
     private dataProviderPlanService: DataProviderPlanService,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    public cmsToastrService: CmsToastrService,
+    private cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
     if (data) {

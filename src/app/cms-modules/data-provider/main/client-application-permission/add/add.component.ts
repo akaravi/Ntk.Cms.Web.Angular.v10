@@ -22,6 +22,7 @@ import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 import { DatapickerHeaderComponent } from "src/app/shared/datapicker-header/datapicker-header.component";
 
+import { FormInfoModel } from "src/app/core/models/formInfoModel";
 
 @Component({
   selector: "app-data-provider-client-application-permission-add",
@@ -41,7 +42,7 @@ export class DataProviderClientApplicationPermissionAddComponent
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<DataProviderClientApplicationPermissionAddComponent>,
     public dataProviderClientApplicationPermissionService: DataProviderClientApplicationPermissionService,
-    public cmsToastrService: CmsToastrService,
+    private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,

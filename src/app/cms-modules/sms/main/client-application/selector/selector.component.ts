@@ -1,43 +1,33 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    EventEmitter,
-    Input,
-    OnDestroy,
-    OnInit,
-    Output,
-    ViewChild,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
 } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
-import { MatPaginator, PageEvent } from "@angular/material/paginator";
-import { MatSort } from "@angular/material/sort";
-import { ActivatedRoute, Router } from "@angular/router";
+import { FormControl } from "@angular/forms";
 import { TranslateService } from "@ngx-translate/core";
 import {
   ClauseTypeEnum,
   CoreEnumService,
-    ErrorExceptionResult,
-    FilterDataModel,
-    FilterDataModelSearchTypesEnum,
-    FilterModel,
-    RecordStatusEnum,
-    SmsMainClientApplicationModel,
-    SmsMainClientApplicationService,
-    SortTypeEnum,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterDataModelSearchTypesEnum,
+  FilterModel,
+  SmsMainClientApplicationModel,
+  SmsMainClientApplicationService,
 } from "ntk-cms-api";
-import { Observable, Subscription, debounceTime, distinctUntilChanged, firstValueFrom, map, startWith, switchMap } from "rxjs";
-import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
+import { Observable, firstValueFrom } from "rxjs";
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  startWith,
+  switchMap,
+} from "rxjs/operators";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
-import { TokenHelper } from "src/app/core/helpers/tokenHelper";
-import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
-import { PageInfoService } from "src/app/core/services/page-info.service";
-import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-dialog/cmsConfirmationDialog.service";
-import { environment } from "src/environments/environment";
-import { SmsMainClientApplicationAddComponent } from "../add/add.component";
-import { SmsMainClientApplicationEditComponent } from "../edit/edit.component";
-import { FormControl } from "@angular/forms";
-
 
 @Component({
   selector: "app-sms-client-application-selector",
@@ -51,11 +41,11 @@ export class SmsMainClientApplicationSelectorComponent implements OnInit {
   constructorInfoAreaId = this.constructor.name;
   constructor(
     public coreEnumService: CoreEnumService,
-        private cdr: ChangeDetectorRef,
+    public cmsToastrService: CmsToastrService,
+    private cdr: ChangeDetectorRef,
     public publicHelper: PublicHelper,
     public translate: TranslateService,
     public categoryService: SmsMainClientApplicationService,
-    public cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }

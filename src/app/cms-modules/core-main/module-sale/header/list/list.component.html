@@ -6,7 +6,7 @@
   (optionOnActionButtonMemo)="onActionButtonMemo()"
   (optionOnActionButtonExport)="onActionButtonExport()"
   (optionOnActionButtonPrintRow)="onActionButtonPrintRow()"
-  [optionTreeDisplay]="requestHeaderGroupId === 0"
+  [optionTreeDisplay]="false"
   [optionActionRowId]="tableRowSelected?.id"
   [optionActionRowDisplayMenu]="tableRowSelect2Click"
   [optionSelectRowItemTitle]="
@@ -17,10 +17,7 @@
   >
   <ng-container cms-tree>
     <!--begin:::::::::::::::::::::::::::::::::::::::::cms-tree-->
-    <app-core-modulesaleheadergroup-tree
-      (optionChange)="onActionSelectorSelect($event)"
-      >
-    </app-core-modulesaleheadergroup-tree>
+    --------------------------------------
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-tree-->
   </ng-container>
   <ng-container cms-header>
@@ -159,12 +156,7 @@
         <app-cms-search-list [(options)]="optionsSearch"></app-cms-search-list>
 
         <app-cms-statist-list [(options)]="optionsStatist"></app-cms-statist-list>
-        @if (requestHeaderGroupId > 0) {
-          <app-core-modulesaleheadergroup-header
-            [optionId]="requestHeaderGroupId"
-            >
-          </app-core-modulesaleheadergroup-header>
-        }
+
         <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-area-->
       </ng-container>
       <ng-container cms-body>

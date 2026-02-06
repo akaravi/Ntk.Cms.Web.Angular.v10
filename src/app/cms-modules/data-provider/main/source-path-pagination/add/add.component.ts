@@ -1,3 +1,4 @@
+import { FormInfoModel } from "src/app/core/models/formInfoModel";
 import {
   ChangeDetectorRef,
   Component,
@@ -18,6 +19,7 @@ import {
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
+import { DataProviderSourcePathSelectorComponent } from "../../source-path/selector/selector.component";
 
 @Component({
   selector: "app-data-provider-source-path-pagination-add",
@@ -38,7 +40,7 @@ export class DataProviderSourcePathPaginationAddComponent
     private dialogRef: MatDialogRef<DataProviderSourcePathPaginationAddComponent>,
     public coreEnumService: CoreEnumService,
     public contentService: DataProviderSourcePathPaginationService,
-    public cmsToastrService: CmsToastrService,
+    private cmsToastrService: CmsToastrService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
@@ -51,7 +53,6 @@ export class DataProviderSourcePathPaginationAddComponent
     );
     this.publicHelper.processService.cdr = this.cdr;
   }
-
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
     string,
@@ -90,8 +91,6 @@ export class DataProviderSourcePathPaginationAddComponent
 
     this.contentService.ServiceAdd(this.dataModel).subscribe({
       next: (ret) => {
-        this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
-
         this.formInfo.submitButtonEnabled = true;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
@@ -125,6 +124,14 @@ export class DataProviderSourcePathPaginationAddComponent
     });
   }
 
+  onActionSelectorSourcePath(model: any): void {
+    if (!model || !model.id) {
+      this.dataModel.linkSourcePathId = "";
+      return;
+    }
+    this.dataModel.linkSourcePathId = model.id;
+  }
+
   onFormSubmit(): void {
     if (!this.formGroup.valid) {
       return;
@@ -132,9 +139,7 @@ export class DataProviderSourcePathPaginationAddComponent
     this.formInfo.submitButtonEnabled = false;
     this.DataAddContent();
   }
-
   onFormCancel(): void {
     this.dialogRef.close({ dialogChangedDate: false });
   }
 }
-

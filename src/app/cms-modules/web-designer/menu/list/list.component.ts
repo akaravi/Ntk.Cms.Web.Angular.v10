@@ -5,17 +5,17 @@ import { PageEvent } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { TranslateService } from "@ngx-translate/core";
 import {
-  ActionGoStepEnum,
-  CoreEnumService,
-  EditStepDtoModel,
-  ErrorExceptionResult,
-  FilterDataModel,
-  FilterModel,
-  InfoEnumModel,
-  RecordStatusEnum,
-  SortTypeEnum,
-  WebDesignerMainMenuModel,
-  WebDesignerMainMenuService,
+    ActionGoStepEnum,
+    CoreEnumService,
+    EditStepDtoModel,
+    ErrorExceptionResult,
+    FilterDataModel,
+    FilterModel,
+    InfoEnumModel,
+    RecordStatusEnum,
+    SortTypeEnum,
+    WebDesignerMainMenuModel,
+    WebDesignerMainMenuService,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -294,7 +294,7 @@ export class WebDesignerMainMenuListComponent
   onActionButtonEditRow(
     model: WebDesignerMainMenuModel = this.tableRowSelected,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

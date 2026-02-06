@@ -102,7 +102,7 @@ export class EstatePropertyHeaderComponent implements OnInit, OnDestroy {
   onActionButtonLinkTo(
     model: EstatePropertyModel = this.dataModelResult.item,
   ): void {
-    if (!model || !model.id || model.id.length === 0) {
+    if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

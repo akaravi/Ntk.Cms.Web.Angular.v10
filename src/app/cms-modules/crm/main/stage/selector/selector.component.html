@@ -25,7 +25,9 @@
       <mat-option [value]="state" [disabled]="optionDisabled">
         <span>{{ displayOption(state) }}</span>
         @if (state.probability) {
-          <span style="color: gray; font-size: 0.8em;"> ({{ state.probability }}%)</span>
+          <span style="color: gray; font-size: 0.8em">
+            ({{ state.probability }}%)</span
+          >
         }
       </mat-option>
     }
@@ -51,12 +53,8 @@
     "
     (click)="onActionButtonReload()"
   ></i>
-  @if (
-    optionRequired &&
-    (!dataModelSelect || !dataModelSelect.id || dataModelSelect.id.length <= 0)
-  ) {
+  @if (optionRequired && !(dataModelSelect?.id?.length > 0)) {
     <em>({{ "TITLE.Necessary" | translate }})</em>
   }
   <ng-content></ng-content>
 </div>
-

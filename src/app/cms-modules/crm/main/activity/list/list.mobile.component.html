@@ -125,20 +125,11 @@
             <div class="cms-m-list-item-content">
               <div class="cms-m-list-item-title">{{ ($any(row).title) || ("ID: " + row.id) }}</div>
 
-              @if (row.recordStatus !== undefined) {
                 <div class="cms-m-list-item-subtitle">
                   <i [ngClass]="row.recordStatus | statusIconClass"></i>
-                  @if (dataModelResult?.access?.accessEditRow && row.id === tableRowSelected?.id) {
-                    <select
-                      matNativeControl
-                      cmsRecordStatusSelfSave
-                      [contentService]="contentService"
-                      [row]="row"
-                      style="background: none; border: none; margin-left: 8px;"
-                    ></select>
-                  }
+
                 </div>
-              }
+
 
               @if (getRowExpanded(row)) {
                 <div class="cms-m-list-item-expanded">

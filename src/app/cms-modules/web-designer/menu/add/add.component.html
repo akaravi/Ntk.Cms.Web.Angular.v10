@@ -226,18 +226,27 @@
                               <input
                                 matInput
                                 type="text"
+                                name="dataModel.icon"
+                                class="form-control validate-name"
                                 [iconPicker]="dataModel.icon"
                                 [ipIconPack]="['fa']"
                                 [ipPosition]="'top'"
+                                [ipWidth]="'250px'"
                                 (iconPickerSelect)="onIconPickerSelect($event)"
                                 [(ngModel)]="dataModel.icon"
-                                name="dataModel.icon"
                                 #icon
                                 placeholder="{{ fieldsInfo['icon']?.fieldTitle }}"
                                 [disabled]="!fieldsInfo['icon']?.accessEditField"
-                                class="form-control validate-name"
                                 id="dataModel.icon"
+                                ipButtonStyleClass=""
                                 />
+                                <em style="opacity: 1 !important;"
+                                  ><i
+                                    style="font-size: 20px !important"
+                                    [style.color]="dataModel.color ? dataModel.color : null"
+                                    [ngClass]="dataModel.icon"
+                                  ></i
+                                ></em>
                               </div>
                             }
                             <!-- ShowInMenuOrder Field -->
