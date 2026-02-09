@@ -1,5 +1,51 @@
 # تاریخچه تغییرات پروژه
 
+## 2026-02-09 (رفع عدم نمایش منوهای شناور - cms-html-list و cms-html-list-mobile)
+
+### خلاصه:
+منوهای شناور (menu-box-modal) با کلیک روی دکمه منو نمایش داده نمی‌شدند.
+
+### تغییرات انجام شده:
+- **cms-html-list.component.scss**: استایل صریح برای `.cms-html-list-menu-modal` و `.cms-html-list-menu-modal.menu-active` (opacity، pointer-events، visibility، transform، z-index: 102).
+- **cms-html-list-mobile.component.scss**: همان منطق برای `.cms-html-list-mobile-menu-modal` و `.cms-html-list-mobile-menu-modal.menu-active`.
+
+### نتیجه:
+منوی عملیات اصلی و منوی ردیف در هر دو کامپوننت در مرکز صفحه با z-index مناسب نمایش داده می‌شوند.
+
+---
+
+## 2026-02-09 (رفع مشکل منوی شناور فقط در cms-html-list.component)
+
+### خلاصه:
+در `cms-html-list-mobile` منوهای شناور درست کار می‌کردند ولی در `cms-html-list` مشکل داشتند.
+
+### علت:
+وابستگی به استایل‌های گلوبال `.menu` و `.menu-box-modal` (position، top/left، background) در برخی صفحات/روت‌ها به‌درستی اعمال نمی‌شد.
+
+### تغییرات انجام شده (فقط cms-html-list.component.scss):
+- اضافه شدن `:host { display: block; }` برای جلوگیری از برش یا رفتار نادرست layout.
+- برای `.cms-html-list-menu-modal`: تعریف کامل استایل داخل کامپوننت با `position: fixed !important`، `top: 50%`، `left: 50%`، `transform: translate(-50%, -50%)`، و ظاهر منو (backdrop-filter، background-color، border-radius، overflow) تا بدون وابستگی به تم گلوبال درست نمایش داده شود.
+
+### نتیجه:
+منوی عملیات و منوی ردیف در `cms-html-list` مانند `cms-html-list-mobile` به‌درستی نمایش داده می‌شوند.
+
+---
+
+## 2026-02-09 (رفع قطعی منوی شناور cms-html-list - استایل گلوبال و ViewEncapsulation.None)
+
+### خلاصه:
+پس از تغییرات قبلی هنوز منوهای شناور در `cms-html-list` نمایش داده نمی‌شدند.
+
+### تغییرات انجام شده:
+1. **styles.scss**: بلوک استایل گلوبال برای `app-cms-html-list .cms-html-list-menu-modal` و `.menu-active` با `z-index: 9999`.
+2. **cms-html-list.component.ts**: `encapsulation: ViewEncapsulation.None` برای اعمال قطعی استایل منو.
+3. **cms-html-list.component.scss**: سلکتور `app-cms-html-list .cms-html-list-menu-modal` و `z-index: 9999`.
+
+### نتیجه:
+منوهای شناور با استایل گلوبال و encapsulation غیرفعال باید در همه صفحات نمایش داده شوند.
+
+---
+
 ## 2026-02-02 (رفع خطای Dependency Injection و Translate Pipe)
 
 ### خلاصه:

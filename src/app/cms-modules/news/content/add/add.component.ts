@@ -101,10 +101,10 @@ export class NewsContentAddComponent
     this.requestCategoryId = +Number(
       this.activatedRoute.snapshot.paramMap.get("CategoryId"),
     );
-    if (this.requestCategoryId === 0) {
-      this.cmsToastrService.typeErrorAddRowParentIsNull();
-      return;
-    }
+    // if (this.requestCategoryId === 0) {
+    //   this.cmsToastrService.typeErrorAddRowParentIsNull();
+    //   return;
+    // }
     this.dataModel.linkCategoryId = this.requestCategoryId;
     this.DataGetAccess();
   }

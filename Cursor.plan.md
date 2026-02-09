@@ -425,3 +425,63 @@ onActionButtonEditRow(
 - همه تغییرات در `readmehistory.md` ثبت شدند
 
 ---
+
+## Part 12: رفع عدم نمایش منوهای شناور (Floating Menus)
+
+**تاریخ:** 2026-02-09
+**وضعیت:** ✅ تکمیل شده
+
+### مشکل:
+
+منوهای شناور (menu-box-modal) در `app-cms-html-list` و `app-cms-html-list-mobile` با وجود اضافه شدن کلاس `menu-active` نمایش داده نمی‌شدند.
+
+### علت:
+
+استایل‌های تم AppKit برای `.menu-box-modal` (opacity، pointer-events، transform) ممکن است به‌خاطر ترتیب لود استایل‌ها یا encapsulation در کامپوننت‌های Angular به‌درستی اعمال نشوند. همچنین z-index منوها ممکن بود پشت المان‌های دیگر قرار گیرد.
+
+### راه‌حل:
+
+اضافه شدن استایل‌های صریح در فایل SCSS هر دو کامپوننت برای حالت فعال منو (`.menu-active`):
+
+1. **cms-html-list.component.scss**
+   - برای `.cms-html-list-menu-modal`: نمایش با `display: block !important`، حالت غیرفعال با `opacity: 0` و `pointer-events: none`، `z-index: 102`
+   - برای `.cms-html-list-menu-modal.menu-active`: `opacity: 1`، `pointer-events: all`، `visibility: visible`، `transform: translate(-50%, -50%)`
+
+2. **cms-html-list-mobile.component.scss**
+   - همان منطق برای `.cms-html-list-mobile-menu-modal` و `.cms-html-list-mobile-menu-modal.menu-active`
+
+### فایل‌های تغییر یافته:
+
+- `src/app/shared/cms-html-list/cms-html-list.component.scss`
+- `src/app/shared/cms-html-list-mobile/cms-html-list-mobile.component.scss`
+
+### Result 12:
+
+✅ منوهای شناور (منوی عملیات اصلی و منوی ردیف) در هر دو کامپوننت با کلیک روی دکمه منو به‌درستی نمایش داده می‌شوند و در مرکز صفحه با z-index مناسب قرار می‌گیرند.
+
+---
+
+## Part 12: Fix Floating Menus Not Displaying (منوی‌های شناور نمایش داده نمی‌شد)
+
+**تاریخ:** 2026-02-09
+**وضعیت:** ✅ تکمیل شده
+
+### مشکل:
+منوی‌های شناور (menu-box-modal) با کلاس `menu-active` در `cms-html-list` و `cms-html-list-mobile` نمایش داده نمی‌شدند.
+
+### علت:
+استایل‌های تم AppKit (opacity، pointer-events، transform) برای `.menu-box-modal` و `.menu-box-modal.menu-active` ممکن بود به‌خاطر ترتیب لود یا encapsulation در کامپوننت‌های Angular به‌درستی اعمال نشوند یا z-index برای نمایش روی سایر المان‌ها کافی نباشد.
+
+### راه‌حل:
+اضافه کردن استایل‌های صریح در SCSS هر دو کامپوننت برای کلاس منوی مودال:
+- حالت غیرفعال: `opacity: 0`, `pointer-events: none`, `display: block !important`, `z-index: 102`
+- حالت فعال (`.menu-active`): `opacity: 1 !important`, `pointer-events: all !important`, `visibility: visible !important`, `transform: translate(-50%, -50%) !important`
+
+### فایل‌های تغییر یافته:
+- `src/app/shared/cms-html-list/cms-html-list.component.scss`
+- `src/app/shared/cms-html-list-mobile/cms-html-list-mobile.component.scss`
+
+### Result 12:
+✅ منوی‌های شناور (منوی عملیات اصلی و منوی ردیف) در هر دو کامپوننت با کلیک روی دکمه منو به‌درستی نمایش داده می‌شوند و در مرکز صفحه با z-index مناسب قرار می‌گیرند.
+
+---

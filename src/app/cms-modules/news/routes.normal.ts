@@ -2,6 +2,8 @@ import { Routes } from "@angular/router";
 import { NewsComponent } from "./news.component";
 import { NewsCategoryListComponent } from "./category/list/list.component";
 import { NewsContentListComponent } from "./content/list/list.component";
+import { NewsContentAddComponent } from "./content/add/add.component";
+import { NewsContentEditComponent } from "./content/edit/edit.component";
 
 export const routesNormal: Routes = [
   {
@@ -12,6 +14,21 @@ export const routesNormal: Routes = [
       {
         path: "content",
         component: NewsContentListComponent,
+        data: { title: "ROUTE.NEWS.CONTENT" },
+      },
+      {
+        path: "content/add/",
+        component: NewsContentAddComponent,
+        data: { title: "ROUTE.NEWS.CONTENT" },
+      },
+      {
+        path: "content/add/:CategoryId",
+        component: NewsContentAddComponent,
+        data: { title: "ROUTE.NEWS.CONTENT" },
+      },
+      {
+        path: "content/edit/:id",
+        component: NewsContentEditComponent,
         data: { title: "ROUTE.NEWS.CONTENT" },
       },
       {

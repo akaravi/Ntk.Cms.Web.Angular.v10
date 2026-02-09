@@ -198,9 +198,9 @@
   }
 }
 
-/* Menu Modal */
+/* Menu Modal - منوی شناور (هماهنگ با تم menu-box-modal) */
 .cms-html-list-mobile-menu-modal {
-  display: block;
+  display: block !important;
   width: 90%;
   max-width: 350px;
   height: auto;
@@ -218,6 +218,19 @@
   padding-bottom: env(safe-area-inset-bottom);
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
+  visibility: visible;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 200ms ease;
+  z-index: 102;
+}
+
+.cms-html-list-mobile-menu-modal.menu-active {
+  opacity: 1 !important;
+  pointer-events: all !important;
+  visibility: visible !important;
+  transform: translate(-50%, -50%) !important;
+  transition: all 200ms ease;
 }
 
 /* Icon Styles */

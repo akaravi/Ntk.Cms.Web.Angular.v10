@@ -5,14 +5,14 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    ClauseTypeEnum,
-    FilterDataModel,
-    FilterModel,
-    NewsCategoryModel,
-    NewsContentModel,
-    NewsContentService,
-    RecordStatusEnum,
-    SortTypeEnum,
+  ClauseTypeEnum,
+  FilterDataModel,
+  FilterModel,
+  NewsCategoryModel,
+  NewsContentModel,
+  NewsContentService,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -335,17 +335,17 @@ export class NewsContentListComponent
     this.DataGetAll();
   }
   onActionButtonNewRow(event?: MouseEvent): void {
-    if (
-      this.categoryModelSelected == null ||
-      this.categoryModelSelected.id === 0
-    ) {
-      this.translate
-        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
-        .subscribe((str: string) => {
-          this.cmsToastrService.typeErrorSelected(str);
-        });
-      return;
-    }
+    // if (
+    //   this.categoryModelSelected == null ||
+    //   this.categoryModelSelected.id === 0
+    // ) {
+    //   this.translate
+    //     .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+    //     .subscribe((str: string) => {
+    //       this.cmsToastrService.typeErrorSelected(str);
+    //     });
+    //   return;
+    // }
     if (
       this.dataModelResult == null ||
       this.dataModelResult.access == null ||
@@ -356,12 +356,12 @@ export class NewsContentListComponent
     }
 
     if (event?.ctrlKey) {
-      this.link = "/#/news/content/add/" + this.tableRowSelected.id;
+      this.link = "/#/news/content/add/" + (this.tableRowSelected?.id ?? 0);
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
         "/news/content/add",
-        this.categoryModelSelected.id,
+        this.categoryModelSelected?.id ?? 0,
       ]);
     }
   }

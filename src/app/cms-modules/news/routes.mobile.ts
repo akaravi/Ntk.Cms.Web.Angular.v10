@@ -1,7 +1,9 @@
 import { Routes } from "@angular/router";
-import { NewsComponent } from "./news.component";
 import { NewsCategoryListMobileComponent } from "./category/list/list.mobile.component";
+import { NewsContentAddMobileComponent } from "./content/add/add.mobile.component";
+import { NewsContentEditComponent } from "./content/edit/edit.component";
 import { NewsContentListMobileComponent } from "./content/list/list.mobile.component";
+import { NewsComponent } from "./news.component";
 
 export const routesMobile: Routes = [
   {
@@ -12,6 +14,21 @@ export const routesMobile: Routes = [
       {
         path: "content",
         component: NewsContentListMobileComponent,
+        data: { title: "ROUTE.NEWS.CONTENT" },
+      },
+      {
+        path: "content/add/",
+        component: NewsContentAddMobileComponent,
+        data: { title: "ROUTE.NEWS.CONTENT" },
+      },
+      {
+        path: "content/add/:CategoryId",
+        component: NewsContentAddMobileComponent,
+        data: { title: "ROUTE.NEWS.CONTENT" },
+      },
+      {
+        path: "content/edit/:id",
+        component: NewsContentEditComponent,
         data: { title: "ROUTE.NEWS.CONTENT" },
       },
       {
