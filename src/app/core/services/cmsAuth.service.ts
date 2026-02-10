@@ -22,6 +22,7 @@ import {
   switchMap,
 } from "rxjs";
 import { environment } from "src/environments/environment";
+import { ROUTE_AUTH } from "../models/constModel";
 import { TokenInfoType } from "../models/tokenInfoType";
 import { CmsStoreService } from "../reducers/cmsStore.service";
 import {
@@ -176,14 +177,15 @@ export class CmsAuthService implements OnDestroy {
           payload: new ErrorExceptionResult<CoreCpMainMenuModel>(),
         });
         this.coreAuthService.setJWT(null);
-        this.router.navigate(["/auth"], {
+        this.coreAuthService.removeToken();
+        this.router.navigate([ROUTE_AUTH], {
           queryParams: {},
         });
       },
       error: (err) => {
         if (environment.consoleLog) console.error("err", err);
 
-        this.router.navigate(["/auth"], {
+        this.router.navigate([ROUTE_AUTH], {
           queryParams: {},
         });
       },

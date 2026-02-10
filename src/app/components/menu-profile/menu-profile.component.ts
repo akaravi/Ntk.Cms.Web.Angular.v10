@@ -9,6 +9,7 @@ import {
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { ROUTE_SIGNOUT } from "src/app/core/models/constModel";
 import { ThemeStoreModel } from "src/app/core/models/themeStoreModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsAuthService } from "src/app/core/services/cmsAuth.service";
@@ -430,7 +431,7 @@ export class MenuProfileComponent implements OnInit {
     }
   }
   async onActionLogout() {
-    this.router.navigate(["/auth/signout"], {
+    this.router.navigate([ROUTE_SIGNOUT], {
       queryParams: {},
     });
   }

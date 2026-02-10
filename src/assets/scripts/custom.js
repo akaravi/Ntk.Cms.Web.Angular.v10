@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
       document.querySelectorAll("#page")[0].classList.add("min-ios15");
     }
 
-    //Card Extender
+    //Card Extender + Footer Padding
     const cards = document.getElementsByClassName("card");
     function card_extender() {
       var headerHeight, footerHeight, headerOnPage;
@@ -187,6 +187,13 @@ document.addEventListener("DOMContentLoaded", () => {
         ? (footerHeight =
             document.querySelectorAll("#footer-bar")[0].offsetHeight)
         : (footerHeight = 0);
+
+      // اگر فوتر روی صفحه فعال است، به انتهای صفحه padding اضافه کن
+      var pageEl = document.querySelectorAll("#page")[0];
+      if (pageEl) {
+        pageEl.style.paddingBottom =
+          footerOnPage && footerHeight ? footerHeight + "px" : "";
+      }
 
       for (let i = 0; i < cards.length; i++) {
         if (cards[i].getAttribute("data-card-height") === "cover") {

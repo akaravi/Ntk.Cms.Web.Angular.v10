@@ -1,0 +1,28 @@
+---
+description: Enforce consistent mat-table structure and column order in Angular templates
+globs: src/**/*.component.html
+alwaysApply: false
+---
+
+## ساختار استاندارد برای `mat-table`
+
+هر زمان در فایل‌های تمپلیت انگولار با تگ `mat-table` کار می‌کنی، ترتیب و ساختار تگ‌ها باید به شکل زیر باشد (در صورت حضور هرکدام از این ستون‌ها):
+
+1. ابتدا ردیف‌ها:
+   - `<mat-header-row>`
+   - `<mat-row>`
+
+2. سپس ترتیب ستون‌ها (در صورت استفاده شدن):
+   1. `<ng-container matColumnDef="QuickView">`
+   2. `<ng-container matColumnDef="expandedTitle">`
+   3. `<ng-container matColumnDef="expandedDetail">`
+   4. `<ng-container matColumnDef="action_menu">`
+   5. `<ng-container matColumnDef="Action">`
+   6. سایر ستون‌ها (هر ستون دیگری که وجود دارد)
+   7. در نهایت: `<ng-container cms-footer>`
+
+## نکات مهم
+
+- **ترتیب ستون‌ها** باید دقیقا مطابق لیست بالا باشد، در صورتی که این ستون‌ها در جدول وجود دارند.
+- ستون‌های اضافی (غیر از موارد مشخص‌شده) باید بعد از ستون `Action` و قبل از `<ng-container cms-footer>` قرار بگیرند.
+- همیشه ساختار و استایل جدول را با الگوهای موجود در پروژه هماهنگ نگه دار (از کدهای مشابه موجود الهام بگیر).

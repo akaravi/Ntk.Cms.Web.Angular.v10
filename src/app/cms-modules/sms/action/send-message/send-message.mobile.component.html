@@ -159,6 +159,26 @@
               {{ "ACTION.ORDER_CALCULATE" | translate }}
             </button>
           </div>
+
+
+            <div class="cms-m-message-quick-actions">
+    <button
+      type="submit"
+      class="cms-m-floating-btn cms-m-floating-btn-send"
+      [disabled]="
+        !vform.valid ||
+        hasValidationStatusError() ||
+        !formInfo.submitButtonEnabled ||
+        publicHelper.processService.process.inRunAll
+      "
+      (click)="onFormSubmit()"
+    >
+      <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+      <span>{{ "ACTION.Send_Message" | translate }}</span>
+    </button>
+
+
+            </div>
         </div>
       </div>
     </form>
@@ -476,40 +496,4 @@
     </div>
   </div>
 
-  <!-- دکمه ارسال شناور در پایین -->
-  <div class="cms-m-floating-send-bar safe-area-bottom">
-    <button
-      type="button"
-      class="cms-m-floating-btn cms-m-floating-btn-calculate"
-      (click)="onActionOrderCalculate()"
-      [disabled]="
-        !formInfo.submitButtonEnabled ||
-        publicHelper.processService.process.inRunAll
-      "
-      [attr.aria-label]="'ACTION.ORDER_CALCULATE' | translate"
-    >
-      <i
-        class="fa-solid fa-calculator"
-        [class.fa-spin]="
-          publicHelper.processService.process.infoAll.get(calculateName)
-            ?.isComplate === false
-        "
-        aria-hidden="true"
-      ></i>
-    </button>
-    <button
-      type="submit"
-      class="cms-m-floating-btn cms-m-floating-btn-send"
-      [disabled]="
-        !vform.valid ||
-        hasValidationStatusError() ||
-        !formInfo.submitButtonEnabled ||
-        publicHelper.processService.process.inRunAll
-      "
-      (click)="onFormSubmit()"
-    >
-      <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
-      <span>{{ "ACTION.Send_Message" | translate }}</span>
-    </button>
-  </div>
 </div>

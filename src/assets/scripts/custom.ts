@@ -196,16 +196,29 @@ document.addEventListener("DOMContentLoaded", (): void => {
       document.querySelectorAll("#page")[0].classList.add("min-ios15");
     }
 
-    // Card Extender
+    // Card Extender + Footer Padding
     const cards: HTMLCollectionOf<Element> =
       document.getElementsByClassName("card");
     function card_extender(): void {
-      // Removed unused headerHeight and footerHeight variables
-      // const headerOnPage: Element | undefined = document.querySelectorAll(
-      //   ".header:not(.header-transparent)",
-      // )[0];
-      // const footerOnPage: Element | undefined =
-      //   document.querySelectorAll("#footer-bar")[0];
+      const headerOnPage: Element | undefined = document.querySelectorAll(
+        ".header:not(.header-transparent)",
+      )[0];
+      const footerOnPage: Element | undefined =
+        document.querySelectorAll("#footer-bar")[0];
+
+      let footerHeight = 0;
+      if (footerOnPage) {
+        footerHeight = (footerOnPage as HTMLElement).offsetHeight;
+      }
+
+      // اگر فوتر روی صفحه فعال است، به انتهای صفحه padding اضافه کن
+      const pageEl = document.querySelectorAll("#page")[0] as
+        | HTMLElement
+        | undefined;
+      if (pageEl) {
+        pageEl.style.paddingBottom =
+          footerOnPage && footerHeight ? footerHeight + "px" : "";
+      }
 
       for (let i = 0; i < cards.length; i++) {
         const card = cards[i] as HTMLElement;
