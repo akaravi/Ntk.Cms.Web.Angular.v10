@@ -21,6 +21,23 @@ alwaysApply: false
    6. سایر ستون‌ها (هر ستون دیگری که وجود دارد)
    7. در نهایت: `<ng-container cms-footer>`
 
+## ترتیب استاندارد برای `mat-row`
+
+برای ردیف‌های جدول (mat-row) در `mat-table`، در صورت استفاده از حالت expander، ترتیب ردیف‌ها باید مانند مثال `list.component.html` (خطوط 974–1003) باشد:
+
+1. ردیف عنوان بازشونده:
+   - `<mat-row *matRowDef="let row; columns: ['expandedTitle']; let i = dataIndex" class="ntk-row-expandedTitle" ...>`
+2. ردیف اصلی داده‌ها:
+   - `<mat-row *matRowDef="let row; columns: tabledisplayedColumns; let i = dataIndex" class="ntk-row-mainfild" ...>`
+3. ردیف جزئیات بازشونده:
+   - `<mat-row *matRowDef="let row; columns: ['expandedDetail']; let i = dataIndex" class="ntk-row-expandedDetail" ...>`
+
+نکات:
+
+- ترتیب ردیف‌ها باید دقیقا **عنوان بازشونده → ردیف اصلی → جزئیات بازشونده** باشد.
+- رویدادها و کلاس‌ها (مثل `ntk-row-expandedTitle`, `ntk-row-mainfild`, `ntk-row-expandedDetail`) مطابق الگوی فعلی پروژه حفظ شوند.
+- اگر جدولی expander ندارد، فقط ردیف اصلی داده‌ها (`tabledisplayedColumns`) استفاده شود.
+
 ## نکات مهم
 
 - **ترتیب ستون‌ها** باید دقیقا مطابق لیست بالا باشد، در صورتی که این ستون‌ها در جدول وجود دارند.
