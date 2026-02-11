@@ -851,3 +851,18 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 - All pull-to-refresh/swipe code removed
 - Ready for production use
 
+---
+
+## Part 30: ارث‌بری CmsHtmlListMobileComponent از CmsHtmlListComponent - 2026-02-11
+
+### دستورات اجرا شده:
+- ارث‌بری `CmsHtmlListMobileComponent` از `CmsHtmlListComponent`
+- اضافه کردن `ChangeDetectorRef` (اختیاری) به base برای پشتیبانی از OnPush
+- حذف کد تکراری از mobile component
+
+### Result 30:
+- CmsHtmlListMobileComponent از CmsHtmlListComponent ارث می‌برد
+- تمام Inputها، Outputها و متدهای مشترک در base قرار گرفتند
+- متدهای اختصاصی موبایل (getActionMainButtonClasses، getActionRowButtonClasses، getIconRotationClass) در mobile حفظ شدند
+- Base component از ChangeDetectorRef اختیاری پشتیبانی می‌کند برای استفاده در فرزند OnPush
+

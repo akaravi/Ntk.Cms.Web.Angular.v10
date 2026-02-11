@@ -344,17 +344,17 @@
 }
 
 .theme-dark mat-table {
-  color: #fff;
+  color: #fff !important;
   background-color: #0f1117 !important;
 }
 
 .theme-dark mat-header-row {
-  color: #fff;
+  color: #fff !important;
   background-color: #0f1117 !important;
 }
 
 .theme-dark mat-row {
-  color: #fff;
+  color: #fff !important;
   background-color: #1b1e29 !important;
 }
 
@@ -362,7 +362,7 @@
   mat-row:nth-child(
     odd of :not(.ntk-row-expandedDetail):not(.ntk-row-expandedTitle)
   ) {
-  color: #fff;
+  color: #fff !important;
   background-color: #1b1e29 !important;
 }
 
@@ -370,17 +370,17 @@
   mat-row:nth-child(
     even of :not(.ntk-row-expandedDetail):not(.ntk-row-expandedTitle)
   ) {
-  color: #fff;
+  color: #fff !important;
   background-color: #272b37 !important;
 }
 
 .theme-dark mat-row.ntk-row-selected {
-  color: #fff;
+  color: #fff !important;
   background: #5f6a8b !important;
 }
 
 .theme-dark mat-paginator {
-  color: #fff;
+  color: #fff !important;
   background-color: #0f1117 !important;
 }
 
@@ -421,27 +421,27 @@
 }
 
 .theme-dark mat-tree {
-  color: #fff;
+  color: #fff !important;
   background-color: #0f1117 !important;
 }
 
 .theme-dark mat-tree-node {
-  color: #fff;
+  color: #fff !important;
   background-color: #1b1e29 !important;
 }
 
 .theme-dark mat-tree-node:nth-child(odd) {
-  color: #fff;
+  color: #fff !important;
   background-color: #1b1e29 !important;
 }
 
 .theme-dark mat-tree-node:nth-child(even) {
-  color: #fff;
+  color: #fff !important;
   background-color: #272b37 !important;
 }
 
 .theme-dark mat-tree-node.ntk-tree-selected {
-  color: #fff;
+  color: #fff !important;
   background: #5f6a8b !important;
 }
 

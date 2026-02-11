@@ -1,5 +1,32 @@
 # تاریخچه تغییرات پروژه
 
+## 2026-02-11 (تبدیل ng-container cms-tree-header به [optionListTitle])
+
+### خلاصه:
+تمام استفاده‌های `<ng-container cms-tree-header>` در کامپوننت‌های tree به `[optionListTitle]` در تگ `app-cms-html-tree` تبدیل شدند.
+
+### تغییرات انجام شده:
+- **تمام tree و tree-selector components**: حذف `ng-container cms-tree-header` و محتوای آن؛ اضافه کردن `[optionListTitle]="('TABLE.' + dataModelResult?.access?.moduleEntityName) | translate"` به تگ `app-cms-html-tree`.
+
+### نتیجه:
+عنوان tree اکنون از طریق input property `optionListTitle` به‌جای محتوای projected منتقل می‌شود.
+
+---
+
+## 2026-02-11 (ارث‌بری CmsHtmlListMobileComponent از CmsHtmlListComponent)
+
+### خلاصه:
+`CmsHtmlListMobileComponent` از `CmsHtmlListComponent` ارث‌بری می‌کند تا کد تکراری حذف شود و نگهداری ساده‌تر شود.
+
+### تغییرات انجام شده:
+- **cms-html-list.component.ts**: اضافه شدن `ChangeDetectorRef` (اختیاری با `@Optional()`) برای پشتیبانی از `OnPush` در کامپوننت فرزند؛ اضافه شدن `cdr?.markForCheck()` در تمام setterها و متدهای action؛ اضافه شدن `optionTitle` و `optionClassBody` به Inputها؛ اصلاح subscriptionهای translate برای push به `unsubscribe` و جلوگیری از memory leak.
+- **cms-html-list-mobile.component.ts**: بازنویسی کامل - کلاس از `CmsHtmlListComponent` extend می‌کند؛ حذف تمام Inputها، Outputها، propertyها و متدهای تکراری؛ حفظ فقط متدهای اختصاصی موبایل: `getActionMainButtonClasses()`, `getActionRowButtonClasses()`, `getIconRotationClass()`.
+
+### نتیجه:
+کد تکراری حذف شد، نگهداری ساده‌تر شد و رفتار قبلی حفظ گردید.
+
+---
+
 ## 2026-02-09 (رفع عدم نمایش منوهای شناور - cms-html-list و cms-html-list-mobile)
 
 ### خلاصه:

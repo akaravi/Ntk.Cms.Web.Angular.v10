@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from "@angular/core";
 export class CmsHtmlTreeComponent implements OnInit {
   static nextId = 0;
   id = ++CmsHtmlTreeComponent.nextId;
+  @Input() optionListTitle = "";
   @Input() optionHeaderDisplay = true;
   @Input() optionActionMainDisplay = true;
   @Input() optionFooterDisplay = true;

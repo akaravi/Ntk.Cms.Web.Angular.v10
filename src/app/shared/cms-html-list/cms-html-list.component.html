@@ -1,6 +1,7 @@
 <div class="row" #topList>
   @if (optionTreeDisplay) {
     <div
+      class="mp-0 mp-0 ps-1 pe-0"
       [ngClass]="
         publicHelper.isMobile
           ? viewTree
@@ -15,7 +16,7 @@
     </div>
   }
   <div
-    class="loader-container"
+    class="loader-container mp-0 mp-0 ps-0 pe-1"
     [ngClass]="
       optionTreeDisplay && !this.publicHelper.isMobile
         ? 'col-xl-9'
@@ -32,7 +33,7 @@
     <ng-content select="[cms-action-header]"></ng-content>
     @if (optionHeaderDisplay) {
       <div class="card card-style">
-        <div class="content mb-0">
+        <div class="content mb-0 mt-0">
           @if (optionListTitle?.length > 0) {
             <p class="mb-0 color-highlight font-600">{{ optionListTitle }}</p>
           }
@@ -68,13 +69,13 @@
     <!--end::action-area-->
 
     <!--begin::Body-->
-    <div class="card card-style">
-      <div class="content mb-0">
+    <div class="card card-style mb-0 mt-0 ps-0 pe-0">
+      <div class="content mb-0 mt-0 ps-0 pe-0">
         <ng-content select="[cms-body]"></ng-content>
       </div>
     </div>
-
     <!--end::Body-->
+
     <!--begin::Footer-->
     @if (optionFooterDisplay) {
       <div class="card card-style">

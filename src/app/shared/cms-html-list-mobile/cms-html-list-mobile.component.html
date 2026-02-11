@@ -34,7 +34,7 @@
                 (click)="actionViewMenuMain()"
                 class="cms-html-list-mobile-action-button cms-html-list-mobile-header-button"
                 role="button"
-                [attr.aria-label]="optionTitle || ('TITLE.OperationMenu' | translate)"
+                [attr.aria-label]="optionMenuMainTitle || ('TITLE.OperationMenu' | translate)"
                 >
                 <i
                   class="fa fa-bars"
@@ -53,7 +53,7 @@
       <div class="cms-html-list-mobile-divider"></div>
     }
 
-    <div class="cms-html-list-mobile-body" [ngClass]="optionClassBody">
+    <div class="cms-html-list-mobile-body">
       <ng-content select="[cms-body]"></ng-content>
     </div>
 
@@ -89,9 +89,9 @@
       (click)="actionViewMenuMain()"
       class="cms-html-list-mobile-action-button cms-html-list-mobile-fixed-button-item"
       role="button"
-      [attr.aria-label]="optionTitle || ('TITLE.OperationMenu' | translate)"
+      [attr.aria-label]="optionMenuMainTitle || ('TITLE.OperationMenu' | translate)"
       >
-      <span class="cms-html-list-mobile-button-text">{{ optionTitle }}</span>
+      <span class="cms-html-list-mobile-button-text">{{ optionMenuMainTitle }}</span>
       <i
         class="fa fa-bars"
         [ngClass]="getIconRotationClass(viewMenuMain)"
@@ -124,8 +124,8 @@
   [ngClass]="viewMenuMain ? 'menu-active' : ''"
   >
   <div class="menu-title">
-    @if (optionTitle?.length > 0) {
-      <p class="color-highlight">{{ optionTitle }}</p>
+    @if (optionMenuMainTitle?.length > 0) {
+      <p class="color-highlight">{{ optionMenuMainTitle }}</p>
     }
     <h1></h1>
     <a (click)="actionViewMenuMain(false)" class="close-menu">

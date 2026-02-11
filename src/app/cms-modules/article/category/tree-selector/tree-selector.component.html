@@ -1,15 +1,10 @@
 <app-cms-html-tree
+  [optionListTitle]="dataModelResult?.access?.moduleEntityName | translate"
   [optionHeaderDisplay]="true"
   [optionActionMainDisplay]="false"
   [optionFooterDisplay]="false"
 >
-  <ng-container cms-tree-header>
-    {{ "TABLE." + dataModelResult?.access?.moduleEntityName | translate }}
-  </ng-container>
   <ng-container cms-tree-action>
-    <!--begin:::::::::::::::::::::::::::::::::::::::::cms-header-->
-
-    <!--end:::::::::::::::::::::::::::::::::::::::::cms-header-->
     <!--begin:::::::::::::::::::::::::::::::::::::::::cms-action-->
 
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-action-->

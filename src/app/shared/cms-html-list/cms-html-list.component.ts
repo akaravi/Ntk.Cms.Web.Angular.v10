@@ -1,10 +1,12 @@
 import {
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
   Input,
   OnDestroy,
   OnInit,
+  Optional,
   Output,
   ViewChild,
 } from "@angular/core";
@@ -28,6 +30,7 @@ export class CmsHtmlListComponent implements OnInit, OnDestroy {
   @Output() optionActionGuideNoticeDisplayChange = new EventEmitter<boolean>();
   @Input() set optionActionGuideNoticeDisplay(view: boolean) {
     this.viewGuideNotice = view;
+    this.cdr?.markForCheck();
   }
   @Input() optionGuideNoticeKey = "";
   @Input() optionFooterDisplay = true;
@@ -44,6 +47,7 @@ export class CmsHtmlListComponent implements OnInit, OnDestroy {
       this.viewMenuItemRow = false;
       this.viewMenuMain = false;
       this.lastSelectId = null;
+      this.cdr?.markForCheck();
       return;
     }
     if (this.lastSelectId != id) {
@@ -51,18 +55,22 @@ export class CmsHtmlListComponent implements OnInit, OnDestroy {
       this.viewMenuMain = false;
     }
     this.lastSelectId = id;
+    this.cdr?.markForCheck();
   }
   @Input()
   public set optionActionRowDisplayMenu(status: boolean) {
     if (this.optionActionRowDisplay && status) this.viewMenuItemRow = true;
     else this.viewMenuItemRow = false;
+    this.cdr?.markForCheck();
   }
   @Input()
   public set optionActionRowDisplayMenuAct(status: boolean) {
     if (this.optionActionRowDisplay) this.viewMenuItemRow = true;
+    this.cdr?.markForCheck();
   }
   @Input() optionCategoryTitle = "";
   @Input() optionMenuMainTitle = "";
+
   @Input() optionSelectRowItemTitle = "";
   @Input() optionTreeDisplay = true;
   @Input() optionsListInfoAreaId = "list";
@@ -85,6 +93,7 @@ export class CmsHtmlListComponent implements OnInit, OnDestroy {
     public themeService: ThemeService,
     public translate: TranslateService,
     private cmsStoreService: CmsStoreService,
+    @Optional() protected cdr?: ChangeDetectorRef,
   ) {
     this.unsubscribe.push(
       this.cmsStoreService
@@ -99,17 +108,23 @@ export class CmsHtmlListComponent implements OnInit, OnDestroy {
               behavior: "smooth",
               block: "start",
             });
-            //k:by karavi for test//    this.themeService.onActionScrollTopList(false);
           }
+          this.cdr?.markForCheck();
         }),
     );
 
-    this.translate.get("TITLE.OperationMenu").subscribe((str: string) => {
-      this.optionMenuMainTitle = str;
-    });
-    this.translate.get("TITLE.Category").subscribe((str: string) => {
-      this.optionCategoryTitle = str;
-    });
+    this.unsubscribe.push(
+      this.translate.get("TITLE.OperationMenu").subscribe((str: string) => {
+        this.optionMenuMainTitle = str;
+        this.cdr?.markForCheck();
+      }),
+    );
+    this.unsubscribe.push(
+      this.translate.get("TITLE.Category").subscribe((str: string) => {
+        this.optionCategoryTitle = str;
+        this.cdr?.markForCheck();
+      }),
+    );
   }
   @ViewChild("topList") topList: ElementRef;
   private unsubscribe: Subscription[] = [];
@@ -137,11 +152,12 @@ export class CmsHtmlListComponent implements OnInit, OnDestroy {
     this.viewGuideNotice = false;
     this.viewMenuMain = false;
     this.viewMenuItemRow = false;
-    //this.viewTree = false;
+    this.cdr?.markForCheck();
   }
   actionCloseGuideNotice(): void {
     this.viewGuideNotice = !this.viewGuideNotice;
     this.optionActionGuideNoticeDisplayChange.emit(this.viewGuideNotice);
+    this.cdr?.markForCheck();
   }
   actionViewGuideNotice(state?: boolean) {
     if (state == true) {
@@ -155,6 +171,7 @@ export class CmsHtmlListComponent implements OnInit, OnDestroy {
     this.viewMenuMain = false;
     this.viewMenuItemRow = false;
     this.viewTree = false;
+    this.cdr?.markForCheck();
   }
   actionViewMenuMain(state?: boolean) {
     if (state == true) {
@@ -165,9 +182,9 @@ export class CmsHtmlListComponent implements OnInit, OnDestroy {
       this.viewMenuMain = !this.viewMenuMain;
     }
     this.viewGuideNotice = false;
-    //this.viewMenuMain = false;
     this.viewMenuItemRow = false;
     this.viewTree = false;
+    this.cdr?.markForCheck();
   }
   actionViewMenuItemRow(state?: boolean) {
     if (state == true) {
@@ -179,8 +196,8 @@ export class CmsHtmlListComponent implements OnInit, OnDestroy {
     }
     this.viewGuideNotice = false;
     this.viewMenuMain = false;
-    //this.viewMenuItemRow = false;
     this.viewTree = false;
+    this.cdr?.markForCheck();
   }
   onActionButtonMemo(): void {
     this.optionOnActionButtonMemo.emit();

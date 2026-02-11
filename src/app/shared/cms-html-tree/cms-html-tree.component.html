@@ -1,47 +1,35 @@
-<div class="card card-style">
-  <div class="row justify-content-center tree-parent">
-    <!--begin::cms-tree-header-->
-    @if (optionHeaderDisplay) {
-      <div class="font-14 opacity-50">
-        <p class="text-center mb-2 mt-2 color-highlight font-600">
-          <ng-content select="[cms-tree-header]"></ng-content>
+<!--begin::cms-tree-header-->
+@if (optionActionMainDisplay) {
+  <div class="card card-style">
+    <div class="content mb-0 mt-0">
+      @if (optionListTitle?.length > 1000) {
+        <p class="mb-0 color-highlight font-600">
+          {{ optionListTitle }}
         </p>
+      }
+      <div class="d-flex justify-content-between flex-wrap">
+        <div class="justify-content-end">
+          <ng-content select="[cms-tree-action]"></ng-content>
+        </div>
+        <div class="justify-content-start"></div>
       </div>
-    }
-    @if (optionHeaderDisplay) {
-      <div class="divider mb-1"></div>
-    }
-    <!--end::cms-tree-header-->
-    <!--begin::cms-tree-action-->
-    @if (optionActionMainDisplay) {
-      <div
-        class="col-12 ps-0 pe-0 tree-child-hidden"
-        >
-        <ng-content select="[cms-tree-action]"></ng-content>
-      </div>
-    }
-    @if (optionActionMainDisplay) {
-      <div
-        class="divider mb-1 tree-child-hidden"
-      ></div>
-    }
-    <!--end::cms-tree-action-->
-    <!--begin::cms-tree-body-->
-    <div class="col-12 ps-0 pe-0">
-      <ng-content select="[cms-tree-body]"></ng-content>
     </div>
-    <!--end::cms-tree-body-->
-    <!--begin::cms-tree-footer-->
-    @if (optionFooterDisplay) {
-      <div class="divider mb-1"></div>
-    }
-    @if (optionFooterDisplay) {
-      <div class="col-12">
-        <p class="text-center">
-          <ng-content select="[cms-tree-footer]"></ng-content>
-        </p>
-      </div>
-    }
-    <!--end::cms-tree-footer-->
+  </div>
+}
+<!--end::cms-tree-header-->
+<!--begin::cms-tree-body-->
+<div class="card card-style mb-0 mt-0 ps-0 pe-0">
+  <div class="content mb-0 ps-0 mt-0 pe-0">
+    <ng-content select="[cms-tree-body]"></ng-content>
   </div>
 </div>
+<!--end::cms-tree-body-->
+<!--begin::cms-tree-footer-->
+@if (optionFooterDisplay) {
+  <div class="card card-style">
+    <div class="content mb-0">
+      <ng-content select="[cms-tree-footer]"></ng-content>
+    </div>
+  </div>
+}
+<!--end::cms-tree-footer-->
