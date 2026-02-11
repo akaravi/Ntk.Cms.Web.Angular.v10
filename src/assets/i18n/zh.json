@@ -307,6 +307,8 @@
   "AUTH.INPUT.LASTNAME": "全名",
   "AUTH.INPUT.MOBILE": "電話號碼",
   "AUTH.INPUT.PASSWORD": "密碼",
+  "AUTH.SHOW_PASSWORD": "顯示密碼",
+  "AUTH.HIDE_PASSWORD": "隱藏密碼",
   "AUTH.INPUT.TEMPLATE": "Template",
   "AUTH.INPUT.USERNAME": "用戶名",
   "AUTH.INPUT.YOURMEESAGE": "your message",

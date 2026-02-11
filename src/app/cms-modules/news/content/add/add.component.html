@@ -127,7 +127,7 @@
             <div
               class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
             >
-              <label for="dataModel.fromDate" class="color-highlight">{{
+              <label for="fromDate" class="color-highlight">{{
                 fieldsInfo["fromDate"]?.fieldTitle
               }}</label>
               <input
@@ -136,11 +136,10 @@
                 [matDatepicker]="FromDate"
                 [(ngModel)]="dataModel.fromDate"
                 name="dataModel.fromDate"
-                type="text"
                 placeholder="{{ fieldsInfo['fromDate']?.fieldTitle }}"
-                disabled="{{ !fieldsInfo['fromDate']?.accessAddField }}"
+                [disabled]="!(fieldsInfo['fromDate']?.accessAddField ?? false)"
                 class="form-control validate-name"
-                id="dataModel.fromDate"
+                id="fromDate"
               />
               <mat-datepicker-toggle
                 matSuffix
@@ -159,7 +158,7 @@
             <div
               class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
             >
-              <label for="dataModel.expireDate" class="color-highlight">{{
+              <label for="expireDate" class="color-highlight">{{
                 fieldsInfo["expireDate"]?.fieldTitle
               }}</label>
               <input
@@ -168,11 +167,10 @@
                 [matDatepicker]="ExpireDate"
                 [(ngModel)]="dataModel.expireDate"
                 name="dataModel.expireDate"
-                type="text"
                 placeholder="{{ fieldsInfo['expireDate']?.fieldTitle }}"
-                disabled="{{ !fieldsInfo['expireDate']?.accessAddField }}"
+                [disabled]="!(fieldsInfo['expireDate']?.accessAddField ?? false)"
                 class="form-control validate-name"
-                id="dataModel.expireDate"
+                id="expireDate"
               />
               <mat-datepicker-toggle
                 matSuffix

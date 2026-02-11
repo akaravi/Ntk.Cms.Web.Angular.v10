@@ -311,6 +311,8 @@
   "AUTH.INPUT.LASTNAME": "Full Name",
   "AUTH.INPUT.MOBILE": "phone number",
   "AUTH.INPUT.PASSWORD": "Password",
+  "AUTH.SHOW_PASSWORD": "Show password",
+  "AUTH.HIDE_PASSWORD": "Hide password",
   "AUTH.INPUT.TEMPLATE": "Template",
   "AUTH.INPUT.USERNAME": "Username",
   "AUTH.INPUT.YOURMEESAGE": "your message",

@@ -307,6 +307,8 @@
   "AUTH.INPUT.LASTNAME": "Nombre completo",
   "AUTH.INPUT.MOBILE": "Número de teléfono",
   "AUTH.INPUT.PASSWORD": "Contraseña",
+  "AUTH.SHOW_PASSWORD": "Mostrar contraseña",
+  "AUTH.HIDE_PASSWORD": "Ocultar contraseña",
   "AUTH.INPUT.TEMPLATE": "Template",
   "AUTH.INPUT.USERNAME": "Usuario",
   "AUTH.INPUT.YOURMEESAGE": "your message",

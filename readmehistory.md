@@ -1,5 +1,60 @@
 # تاریخچه تغییرات پروژه
 
+## 2026-02-11 (رفع مشکل mat-stepper / mat-step در حالت Dark)
+
+### خلاصه:
+استایل‌های theme-dark برای mat-stepper و mat-step در styles.scss اضافه شد.
+
+### تغییرات انجام شده:
+- **styles.scss**: اضافه شدن بلوک `/*mat-stepper / mat-step Color Settings*/` با استایل‌های theme-dark برای mat-stepper، mat-step-header، mat-step-label، mat-step-icon، خطوط اتصال و محتوا.
+- **_dark.scss**: استایل‌های mat-expansion-panel و mat-stepper حذف شد (فقط styles.scss استفاده می‌شود).
+
+### نتیجه:
+mat-stepper و mat-step در حالت dark با پس‌زمینه تیره، متن سفید و آیکون‌های قابل مشاهده نمایش داده می‌شوند.
+
+---
+
+## 2026-02-11 (رفع مشکل mat-expansion-panel در حالت Dark)
+
+### خلاصه:
+استایل‌های theme-dark برای mat-expansion-panel در styles.scss اضافه شد.
+
+### تغییرات انجام شده:
+- **styles.scss**: اضافه شدن بلوک `/*mat-expansion-panel Color Settings*/` با استایل‌های theme-dark برای mat-expansion-panel، mat-expansion-panel-header، mat-expansion-panel-body، mat-action-row و mat-expansion-indicator.
+
+### نتیجه:
+mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن سفید و border مناسب نمایش داده می‌شود.
+
+---
+
+## 2026-02-11 (اضافه کردن color-highlight به آیکون‌های input-style)
+
+### خلاصه:
+کلاس `color-highlight` به تمام آیکون‌های فیلد (fa-user، fa-lock، fa-at، fa-quote-left) در input-style های پروژه اضافه شد.
+
+### تغییرات انجام شده:
+- **_inputs.scss**: اضافه شدن `@extend .color-highlight` برای `i:first-child` در `.input-style.has-icon` و `.input-style.has-icon.has-borders` - اعمال رنگ highlight به‌صورت خودکار برای تمام آیکون‌های اول.
+- **آیکون‌های HTML**: به‌روزرسانی فایل‌های auth (signin-byusername، signup، signin-bysms، forgot-password) و core-main (mobileConfirm، emailConfirm) با افزودن کلاس `color-highlight` به آیکون‌های fa-user، fa-lock، fa-at، fa-quote-left.
+
+### نتیجه:
+همه آیکون‌های input-style بدون رنگ، اکنون با رنگ highlight نمایش داده می‌شوند.
+
+---
+
+## 2026-02-11 (افزودن آیکون چشم برای نمایش/مخفی پسورد - signin-byusername)
+
+### خلاصه:
+آیکون چشم برای دیده شدن/مخفی شدن پسورد ورودی در صفحه ورود با نام کاربری اضافه شد.
+
+### تغییرات انجام شده:
+- **signin-byusername.component.html**: اضافه شدن آیکون چشم (fa-eye / fa-eye-slash) کنار فیلد پسورد با کلیک برای toggle نمایش؛ استفاده از hidePassword موجود در component؛ پشتیبانی از keyboard (Enter/Space).
+- **styles.scss**: استایل hover برای آیکون password-toggle-icon.
+
+### نتیجه:
+کاربر می‌تواند با کلیک روی آیکون چشم پسورد را نمایش دهد یا مخفی کند.
+
+---
+
 ## 2026-02-11 (تبدیل ng-container cms-tree-header به [optionListTitle])
 
 ### خلاصه:

@@ -316,6 +316,8 @@
   "AUTH.INPUT.LASTNAME": "نام خانوادگی",
   "AUTH.INPUT.MOBILE": "شماره همراه",
   "AUTH.INPUT.PASSWORD": "رمز عبور",
+  "AUTH.SHOW_PASSWORD": "نمایش رمز عبور",
+  "AUTH.HIDE_PASSWORD": "مخفی کردن رمز عبور",
   "AUTH.INPUT.TEMPLATE": "قالب",
   "AUTH.INPUT.USERNAME": "نام کاربری",
   "AUTH.INPUT.YOURMEESAGE": "پیام شما",

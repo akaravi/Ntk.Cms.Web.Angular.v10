@@ -308,6 +308,8 @@
   "AUTH.INPUT.LASTNAME": "Full Name",
   "AUTH.INPUT.MOBILE": "phone number",
   "AUTH.INPUT.PASSWORD": "Password",
+  "AUTH.SHOW_PASSWORD": "Şifreyi göster",
+  "AUTH.HIDE_PASSWORD": "Şifreyi gizle",
   "AUTH.INPUT.TEMPLATE": "Template",
   "AUTH.INPUT.USERNAME": "Username",
   "AUTH.INPUT.YOURMEESAGE": "your message",

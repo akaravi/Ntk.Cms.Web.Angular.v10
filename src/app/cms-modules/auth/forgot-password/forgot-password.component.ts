@@ -1,17 +1,17 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    DestroyRef,
-    inject,
-    OnInit,
+  ChangeDetectorRef,
+  Component,
+  DestroyRef,
+  inject,
+  OnInit,
 } from "@angular/core";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    AuthUserForgetPasswordEntryPinCodeModel,
-    AuthUserForgetPasswordModel,
-    CaptchaModel,
-    CoreAuthV3Service
+  AuthUserForgetPasswordEntryPinCodeModel,
+  AuthUserForgetPasswordModel,
+  CaptchaModel,
+  CoreAuthV3Service,
 } from "ntk-cms-api";
 import { Observable } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -26,7 +26,7 @@ enum ErrorStates {
 @Component({
   selector: "app-auth-forgot-password",
   templateUrl: "./forgot-password.component.html",
-  styleUrls: ["./forgot-password.component.scss"],
+
   standalone: false,
 })
 export class AuthForgotPasswordComponent implements OnInit {

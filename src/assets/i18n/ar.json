@@ -309,6 +309,8 @@
   "AUTH.INPUT.LASTNAME": "الاسم الكامل",
   "AUTH.INPUT.MOBILE": "رقم الهاتف",
   "AUTH.INPUT.PASSWORD": "كلمه السر",
+  "AUTH.SHOW_PASSWORD": "إظهار كلمة المرور",
+  "AUTH.HIDE_PASSWORD": "إخفاء كلمة المرور",
   "AUTH.INPUT.TEMPLATE": "Template",
   "AUTH.INPUT.USERNAME": "اسم المستخدم",
   "AUTH.INPUT.YOURMEESAGE": "your message",

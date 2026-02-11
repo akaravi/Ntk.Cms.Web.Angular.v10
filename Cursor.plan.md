@@ -485,3 +485,60 @@ onActionButtonEditRow(
 ✅ منوی‌های شناور (منوی عملیات اصلی و منوی ردیف) در هر دو کامپوننت با کلیک روی دکمه منو به‌درستی نمایش داده می‌شوند و در مرکز صفحه با z-index مناسب قرار می‌گیرند.
 
 ---
+
+## Part 13: ادامه color-highlight برای input-style.has-borders
+
+**تاریخ:** 2026-02-11
+**وضعیت:** ✅ تکمیل شده
+
+### دستور:
+ادامه کار color-highlight برای آیکون‌های input-style.
+
+### کار انجام شده:
+- **_inputs.scss**: اضافه شدن `@extend .color-highlight` به `.input-style.has-icon.has-borders i:first-child` برای هماهنگی با نسخه بدون borders.
+
+### Result 13:
+✅ Variantهای has-icon و has-icon.has-borders هر دو آیکون اول (i:first-child) را با color-highlight نمایش می‌دهند.
+
+---
+
+## Part 14: رفع مشکل mat-expansion-panel در حالت Dark
+
+**تاریخ:** 2026-02-11
+**وضعیت:** ✅ تکمیل شده
+
+### مشکل:
+mat-expansion-panel در حالت dark theme به درستی نمایش داده نمی‌شد (پس‌زمینه روشن، متن تیره).
+
+### علت:
+فایل‌های style.scss و _dark.scss استایل‌های theme-dark برای mat-expansion-panel نداشتند. در styles.scss فقط mat-table، mat-tree و mat-paginator دارای theme-dark بودند.
+
+### راه‌حل:
+اضافه شدن استایل‌های theme-dark برای mat-expansion-panel در styles.scss (بلوک mat-expansion-panel Color Settings با رنگ‌های #1b1e29، #272b37، #fff). فایل _dark.scss قابل ویرایش نیست.
+
+### فایل‌های تغییر یافته:
+- `src/styles.scss`
+
+### Result 14:
+✅ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن سفید و border مناسب نمایش داده می‌شود. هر دو نسخه mat-expansion-panel و mat-mdc-expansion-panel (Angular Material 15+) پشتیبانی می‌شوند.
+
+---
+
+## Part 15: رفع مشکل mat-stepper / mat-step در حالت Dark
+
+**تاریخ:** 2026-02-11
+**وضعیت:** ✅ تکمیل شده
+
+### مشکل:
+mat-stepper و mat-step در حالت dark theme به درستی نمایش داده نمی‌شدند. (مشابه mat-expansion-panel)
+
+### راه‌حل:
+اضافه شدن استایل‌های theme-dark برای mat-stepper و mat-step در styles.scss. فایل _dark.scss قابل ویرایش نیست.
+
+### فایل‌های تغییر یافته:
+- `src/styles.scss`
+
+### Result 15:
+✅ mat-stepper و mat-step در حالت dark با پس‌زمینه تیره، متن سفید و آیکون‌های قابل مشاهده نمایش داده می‌شوند. هم mat-stepper و mat-mdc-step-header پشتیبانی می‌شوند.
+
+---

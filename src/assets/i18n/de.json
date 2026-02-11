@@ -308,6 +308,8 @@
   "AUTH.INPUT.LASTNAME": "Vollständiger Name",
   "AUTH.INPUT.MOBILE": "Telefonnummer",
   "AUTH.INPUT.PASSWORD": "Passwort",
+  "AUTH.SHOW_PASSWORD": "Passwort anzeigen",
+  "AUTH.HIDE_PASSWORD": "Passwort ausblenden",
   "AUTH.INPUT.TEMPLATE": "Template",
   "AUTH.INPUT.USERNAME": "Nutzername",
   "AUTH.INPUT.YOURMEESAGE": "your message",

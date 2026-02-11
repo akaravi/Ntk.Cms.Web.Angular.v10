@@ -308,6 +308,8 @@
   "AUTH.INPUT.LASTNAME": "フルネーム",
   "AUTH.INPUT.MOBILE": "電話番号",
   "AUTH.INPUT.PASSWORD": "パスワード",
+  "AUTH.SHOW_PASSWORD": "パスワードを表示",
+  "AUTH.HIDE_PASSWORD": "パスワードを隠す",
   "AUTH.INPUT.TEMPLATE": "Template",
   "AUTH.INPUT.USERNAME": "ユーザー名",
   "AUTH.INPUT.YOURMEESAGE": "your message",

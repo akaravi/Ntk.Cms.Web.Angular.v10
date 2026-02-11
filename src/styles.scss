@@ -390,6 +390,185 @@
 
 /*mat-table Color Settings*/
 
+/*mat-expansion-panel Color Settings*/
+.theme-dark .mat-mdc-expansion-panel,
+.theme-dark .mat-expansion-panel {
+  background-color: #1b1e29 !important;
+  color: #fff !important;
+  border: solid 1px rgba(255, 255, 255, 0.08) !important;
+}
+.theme-dark .mat-mdc-expansion-panel-header,
+.theme-dark .mat-expansion-panel-header {
+  color: #fff !important;
+  background-color: #1b1e29 !important;
+}
+.theme-dark .mat-mdc-expansion-panel-header-title,
+.theme-dark .mat-expansion-panel-header-title,
+.theme-dark .mat-mdc-expansion-panel-header-description,
+.theme-dark .mat-expansion-panel-header-description {
+  color: #fff !important;
+}
+.theme-dark .mat-mdc-expansion-panel-body,
+.theme-dark .mat-expansion-panel-body {
+  color: #fff !important;
+  background-color: #272b37 !important;
+  border-top: solid 1px rgba(255, 255, 255, 0.08) !important;
+}
+.theme-dark .mat-mdc-expansion-panel:not(.mat-expanded),
+.theme-dark .mat-expansion-panel:not(.mat-expanded) {
+  background-color: #1b1e29 !important;
+}
+.theme-dark .mat-mdc-expansion-panel.mat-expanded,
+.theme-dark .mat-expansion-panel.mat-expanded {
+  background-color: #1b1e29 !important;
+}
+.theme-dark .mat-mdc-expansion-indicator::after,
+.theme-dark .mat-expansion-indicator::after {
+  border-color: #fff !important;
+}
+.theme-dark mat-accordion .mat-mdc-expansion-panel,
+.theme-dark mat-accordion .mat-expansion-panel {
+  border-bottom: solid 1px rgba(255, 255, 255, 0.08) !important;
+}
+.theme-dark .mat-action-row {
+  border-top-color: rgba(255, 255, 255, 0.08) !important;
+  color: #fff !important;
+}
+/*mat-expansion-panel Color Settings*/
+
+/*mat-stepper / mat-step Color Settings*/
+.theme-dark .mat-stepper-horizontal,
+.theme-dark .mat-stepper-vertical,
+.theme-dark mat-horizontal-stepper,
+.theme-dark mat-vertical-stepper,
+.theme-dark mat-stepper {
+  background-color: transparent !important;
+  color: #fff !important;
+}
+.theme-dark .mat-step-header,
+.theme-dark .mat-mdc-step-header {
+  color: #fff !important;
+  background-color: #1b1e29 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+.theme-dark .mat-step-header:hover,
+.theme-dark .mat-mdc-step-header:hover,
+.theme-dark .mat-step-header.mat-step-header-selected,
+.theme-dark .mat-step-header.cdk-step-header-selected,
+.theme-dark .mat-mdc-step-header.mat-mdc-step-header-selected {
+  background-color: #272b37 !important;
+  color: #fff !important;
+}
+.theme-dark .mat-step-label,
+.theme-dark .mat-mdc-step-label,
+.theme-dark .mat-step-label-selected,
+.theme-dark .mat-step-label-active {
+  color: #fff !important;
+}
+.theme-dark .mat-step-icon,
+.theme-dark .mat-mdc-step-icon {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  color: #fff !important;
+}
+.theme-dark .mat-step-icon-selected,
+.theme-dark .mat-step-icon-state-done,
+.theme-dark .mat-mdc-step-icon-selected {
+  background-color: #5f6a8b !important;
+  color: #fff !important;
+}
+.theme-dark .mat-stepper-horizontal-line,
+.theme-dark .mat-stepper-vertical-line,
+.theme-dark .mat-step-header::after,
+.theme-dark .mat-step-header::before {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+.theme-dark .mat-vertical-content-container,
+.theme-dark .mat-vertical-stepper-content,
+.theme-dark .mat-horizontal-stepper-content {
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+.theme-dark .mat-vertical-content,
+.theme-dark .mat-step-content {
+  color: #fff !important;
+}
+/*mat-stepper / mat-step Color Settings*/
+
+/*mat-datepicker Color Settings*/
+.theme-dark .mat-datepicker-toggle,
+.theme-dark .mat-mdc-datepicker-toggle {
+  color: #fff !important;
+}
+.theme-dark .mat-datepicker-toggle button,
+.theme-dark .mat-mdc-datepicker-toggle button {
+  color: #fff !important;
+  background-color: transparent !important;
+}
+.theme-dark .mat-datepicker-toggle .mat-datepicker-toggle-default-icon,
+.theme-dark .mat-mdc-datepicker-toggle .mat-datepicker-toggle-default-icon {
+  color: #fff !important;
+}
+.theme-dark .mat-datepicker-content,
+.theme-dark .mat-mdc-datepicker-content {
+  background-color: #1b1e29 !important;
+  color: #fff !important;
+  border: solid 1px rgba(255, 255, 255, 0.08) !important;
+}
+.theme-dark .mat-calendar,
+.theme-dark .mat-mdc-calendar {
+  background-color: #1b1e29 !important;
+  color: #fff !important;
+}
+.theme-dark .mat-calendar-body-label,
+.theme-dark .mat-calendar-period-button,
+.theme-dark .mat-mdc-calendar-body-label,
+.theme-dark .mat-mdc-calendar-period-button {
+  color: #fff !important;
+}
+.theme-dark .mat-calendar-body-cell-content,
+.theme-dark .mat-mdc-calendar-body-cell-content {
+  color: #fff !important;
+}
+.theme-dark .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover .mat-calendar-body-cell-content,
+.theme-dark .mat-mdc-calendar-body-cell:not(.mat-mdc-calendar-body-disabled):hover .mat-mdc-calendar-body-cell-content {
+  background-color: #272b37 !important;
+  color: #fff !important;
+}
+.theme-dark .mat-calendar-body-selected .mat-calendar-body-cell-content,
+.theme-dark .mat-mdc-calendar-body-cell.mat-mdc-calendar-body-selected .mat-mdc-calendar-body-cell-content {
+  background-color: #5f6a8b !important;
+  color: #fff !important;
+}
+.theme-dark .mat-calendar-body-today:not(.mat-calendar-body-selected) .mat-calendar-body-cell-content,
+.theme-dark .mat-mdc-calendar-body-cell.mat-mdc-calendar-body-today:not(.mat-mdc-calendar-body-selected) .mat-mdc-calendar-body-cell-content {
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  color: #fff !important;
+}
+.theme-dark .mat-calendar-body-disabled .mat-calendar-body-cell-content,
+.theme-dark .mat-mdc-calendar-body-cell.mat-mdc-calendar-body-disabled .mat-mdc-calendar-body-cell-content {
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+.theme-dark .mat-calendar-controls .mat-icon-button,
+.theme-dark .mat-calendar-controls .mat-mdc-icon-button,
+.theme-dark .mat-mdc-calendar-controls .mat-icon-button,
+.theme-dark .mat-mdc-calendar-controls .mat-mdc-icon-button {
+  color: #fff !important;
+}
+.theme-dark .mat-calendar-arrow,
+.theme-dark .mat-mdc-calendar-arrow {
+  fill: #fff !important;
+}
+.theme-dark .mat-datepicker-actions,
+.theme-dark .mat-mdc-datepicker-actions {
+  border-top-color: rgba(255, 255, 255, 0.08) !important;
+  color: #fff !important;
+}
+.theme-dark .mat-datepicker-actions button,
+.theme-dark .mat-mdc-datepicker-actions button {
+  color: #fff !important;
+}
+/*mat-datepicker Color Settings*/
+
 /*mat-tree Color Settings*/
 .theme-light mat-tree {
   color: #0f1117 !important;
@@ -739,3 +918,8 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 /*cdk-drag placeholder*/
+
+/* Password toggle icon - دکمه نمایش/مخفی پسورد */
+.password-toggle-icon:hover {
+  opacity: 1 !important;
+}
