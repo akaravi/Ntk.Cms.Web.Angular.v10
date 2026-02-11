@@ -664,3 +664,73 @@ mat-datepicker و mat-datepicker-toggle در حالت dark theme به درستی
 ✅ صفحه checklist در حالت dark با کارت‌های قابل خواندن نمایش داده می‌شود.
 
 ---
+
+## Part 21: بررسی تم dark در shared components
+
+**تاریخ:** 2026-02-11
+**وضعیت:** ✅ تکمیل شده
+
+### کامپوننت‌های بررسی‌شده:
+cms-html-card، cms-html-form، cms-html-modal، cms-html-notice، cms-html-widget، cms-guide-notice، cms-confirmation-dialog، cms-show-key، cms-form-result-message، cms-form-validation، cms-access-info، cms-search-list، cms-statist-list، cms-export-list، cms-data-memo، cms-bankpayment-grid، progress-spinner، password-strength و سایر selectors/lists
+
+### استایل‌های اضافه‌شده:
+- Bootstrap: alert، table، btn-light، btn-primary، btn-outline-primary، btn-secondary
+- menu-box-bottom، mat-dialog، color-blue-dark، color-yellow-dark
+- icon-list، chip، divider، hr، ngx-ntk-query-builder، password-strength
+- card .menu-title
+
+### Result 21:
+✅ تمام کامپوننت‌های shared در حالت dark به درستی نمایش داده می‌شوند.
+
+---
+
+## Part 22: ادامه - cms-html-list-mobile و opacity-70
+
+**تاریخ:** 2026-02-11
+**وضعیت:** ✅ تکمیل شده
+
+### تغییرات:
+- **cms-html-list-mobile**: استایل‌های theme-dark برای tree، menu-modal، header، divider، footer
+- **opacity-70**: افزایش به 0.9 برای خوانایی در dark
+
+### Result 22:
+✅ cms-html-list-mobile و متن‌های opacity-70 در حالت dark به درستی نمایش داده می‌شوند.
+
+---
+
+## Part 23: theme-dark در styles.mobile.scss
+
+**تاریخ:** 2026-02-11
+**وضعیت:** ✅ تکمیل شده
+
+### مشکل:
+styles.mobile.scss فقط با prefers-color-scheme: dark کار می‌کرد. پروژه از کلاس theme-dark روی body استفاده می‌کند.
+
+### راه‌حل:
+اضافه شدن بلوک `.theme-dark` با تمام متغیرهای CSS (--cms-m-bg-color، --cms-m-card-bg، --cms-m-text-primary، ...) در styles.mobile.scss.
+
+### Result 23:
+✅ صفحات موبایل با تم dark پروژه (theme-dark) هماهنگ می‌شوند.
+
+---
+
+## Part 24: mat-form-field، mat-select، mat-sort، mat-tooltip در Dark Mode
+
+**تاریخ:** 2026-02-11
+**وضعیت:** ✅ تکمیل شده
+
+### دستور:
+ادامه کار - اضافه کردن استایل‌های dark برای mat-form-field، mat-select، mat-sort، mat-tooltip و menu-box-right-custom.
+
+### تغییرات در styles.scss:
+- **mat-form-field / mat-form-field**: رنگ متن سفید، floating label، line-ripple
+- **mat-select**: value، placeholder، arrow با رنگ سفید
+- **mat-select-panel / mat-autocomplete-panel**: پس‌زمینه #1b1e29، option با hover/active
+- **mat-sort-header**: رنگ سفید، arrow
+- **mat-tooltip**: پس‌زمینه #272b37، متن سفید
+- **menu-box-right-custom**: پس‌زمینه و border برای tree panel
+
+### Result 24:
+✅ فرم‌ها، selectها، sort headerها و tooltip در حالت dark به درستی نمایش داده می‌شوند.
+
+---

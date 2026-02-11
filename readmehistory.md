@@ -1,5 +1,66 @@
 # تاریخچه تغییرات پروژه
 
+## 2026-02-11 (ادامه - mat-form-field، mat-select، mat-sort، mat-tooltip Dark Mode)
+
+### خلاصه:
+اضافه شدن استایل‌های theme-dark برای mat-form-field، mat-select، mat-sort، mat-tooltip و menu-box-right-custom.
+
+### تغییرات در styles.scss:
+- mat-form-field و mat-form-field: رنگ متن سفید، floating label، line-ripple
+- mat-select: value، placeholder، arrow سفید
+- mat-select-panel و mat-autocomplete-panel: پس‌زمینه #1b1e29
+- mat-sort-header: رنگ سفید
+- mat-tooltip: پس‌زمینه #272b37
+- menu-box-right-custom: پس‌زمینه و border برای tree panel
+
+---
+
+## 2026-02-11 (ادامه - styles.mobile.scss و theme-dark)
+
+### خلاصه:
+اضافه شدن متغیرهای CSS برای کلاس theme-dark در styles.mobile.scss.
+
+### تغییرات:
+- بلوک `.theme-dark` با تمام متغیرهای dark (--cms-m-bg-color، --cms-m-card-bg، ...)
+- هماهنگ‌سازی صفحات موبایل با تم dark پروژه وقتی body دارای theme-dark است
+
+---
+
+## 2026-02-11 (ادامه - cms-html-list-mobile و opacity-70)
+
+### خلاصه:
+اضافه شدن استایل‌های dark برای cms-html-list-mobile و opacity-70.
+
+### تغییرات:
+- cms-html-list-mobile-tree، cms-html-list-mobile-menu-modal با پس‌زمینه تیره
+- cms-html-list-mobile-header، divider، footer با border روشن
+- menu-title، close-menu، font-11 در منوی موبایل
+- opacity-70 با opacity: 0.9 برای خوانایی در dark
+
+---
+
+## 2026-02-11 (بررسی تم dark در shared components)
+
+### خلاصه:
+بررسی تمام کامپوننت‌های src/app/shared برای سازگاری با تم dark.
+
+### تغییرات انجام شده در styles.scss:
+- **Bootstrap**: alert, table, btn-light, btn-primary, btn-outline-primary, btn-secondary
+- **menu-box-bottom**: cms-guide-notice
+- **mat-dialog**: cms-html-widget
+- **color-blue-dark, color-yellow-dark**
+- **icon-list**: cms-form-validation
+- **progress-spinner chip**: chip در progressOverlay
+- **divider, hr**: در card
+- **ngx-ntk-query-builder**: cms-search-list
+- **password-strength**: strengthBar
+- **card .menu-title**: cms-show-key, cms-export-list, cms-data-memo
+
+### نتیجه:
+کامپوننت‌های shared در حالت dark به درستی نمایش داده می‌شوند.
+
+---
+
 ## 2026-02-11 (رفع مشکل تم dark در /core/userclaim/checklist)
 
 ### خلاصه:

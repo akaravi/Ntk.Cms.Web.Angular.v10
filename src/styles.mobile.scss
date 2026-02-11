@@ -102,6 +102,33 @@
 }
 
 /* ============================================
+   theme-dark کلاس - هماهنگ با تم dark پروژه
+   وقتی body دارای کلاس theme-dark است
+   ============================================ */
+.theme-dark {
+  --cms-m-bg-color: #0b1220;
+  --cms-m-header-bg: rgba(16, 24, 40, 0.85);
+  --cms-m-footer-bg: rgba(16, 24, 40, 0.9);
+  --cms-m-card-bg: #1b1e29;
+  --cms-m-input-bg: #1b1e29;
+  --cms-m-text-primary: #e2e8f0;
+  --cms-m-text-secondary: #94a3b8;
+  --cms-m-border-color: rgba(255, 255, 255, 0.08);
+  --cms-m-press-color: rgba(255, 99, 132, 0.12);
+  --cms-m-selected-bg: rgba(74, 137, 220, 0.15);
+  --cms-m-highlight-color: #5D9CEC;
+  --cms-m-highlight-color-light: #6BA8F0;
+  --cms-m-highlight-gradient: linear-gradient(to bottom, #6BA8F0, #5D9CEC);
+  --cms-m-secondary-bg: #111827;
+  --cms-m-disabled-bg: #1f2937;
+  --cms-m-info-bg: rgba(239, 62, 74, 0.12);
+  --cms-m-code-bg: #0f172a;
+  --cms-m-switch-bg: #374151;
+  --cms-m-glass-bg: rgba(15, 23, 42, 0.75);
+  --cms-m-glass-border: rgba(255, 255, 255, 0.06);
+}
+
+/* ============================================
    Safe Area Support for iPhone X and newer
    ============================================ */
 .safe-area-top {

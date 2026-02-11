@@ -1083,6 +1083,288 @@
   color: #a0d468 !important;
 }
 
+/* color-blue-dark / color-yellow-dark در dark */
+.theme-dark .color-blue-dark {
+  color: #5d9cec !important;
+}
+
+.theme-dark .color-yellow-dark {
+  color: #f6bb42 !important;
+}
+
+/* Shared Components Dark Mode - Bootstrap alerts, tables, buttons */
+.theme-dark .alert-success,
+.theme-dark .alert-danger,
+.theme-dark .alert-warning,
+.theme-dark .alert-info {
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.theme-dark .alert-success {
+  background-color: rgba(76, 175, 80, 0.4) !important;
+}
+
+.theme-dark .alert-danger {
+  background-color: rgba(244, 67, 54, 0.4) !important;
+}
+
+.theme-dark .alert-warning {
+  background-color: rgba(255, 152, 0, 0.4) !important;
+  color: #fff !important;
+}
+
+.theme-dark .alert-info {
+  background-color: rgba(33, 150, 243, 0.4) !important;
+}
+
+.theme-dark .table,
+.theme-dark .table.table-hover,
+.theme-dark .table.table-bordered {
+  color: #fff !important;
+  background-color: #1b1e29 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.theme-dark .table thead th,
+.theme-dark .table tbody td,
+.theme-dark .table tbody th {
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.theme-dark .table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.theme-dark .btn-light {
+  background-color: #272b37 !important;
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.theme-dark .btn-primary {
+  background-color: #5f6a8b !important;
+  color: #fff !important;
+  border-color: #5f6a8b !important;
+}
+
+.theme-dark .btn-outline-primary {
+  color: #5d9cec !important;
+  border-color: #5d9cec !important;
+}
+
+.theme-dark .btn-outline-primary:hover {
+  background-color: rgba(93, 156, 236, 0.2) !important;
+  color: #fff !important;
+}
+
+.theme-dark .btn-secondary {
+  background-color: #272b37 !important;
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* menu-box-bottom - cms-guide-notice */
+.theme-dark .menu.menu-box-bottom {
+  background-color: #1b1e29 !important;
+  color: #fff !important;
+}
+
+.theme-dark .menu.menu-box-bottom .menu-title,
+.theme-dark .menu.menu-box-bottom .content,
+.theme-dark .menu.menu-box-bottom .content p {
+  color: #fff !important;
+}
+
+.theme-dark .menu.menu-box-bottom .close-menu {
+  color: #fff !important;
+}
+
+/* mat-dialog - cms-html-widget */
+.theme-dark .mat-mdc-dialog-container .mat-mdc-dialog-surface,
+.theme-dark .mat-mdc-dialog-container .mdc-dialog__surface {
+  background-color: #1b1e29 !important;
+  color: #fff !important;
+}
+
+.theme-dark .mat-mdc-dialog-container mat-dialog-content,
+.theme-dark .mat-mdc-dialog-container .mat-mdc-dialog-content {
+  color: #fff !important;
+}
+
+.theme-dark .mat-mdc-dialog-container mat-dialog-actions,
+.theme-dark .mat-mdc-dialog-container .mat-mdc-dialog-actions {
+  border-top-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* icon-list - cms-form-validation */
+.theme-dark .icon-list li,
+.theme-dark .icon-list li a,
+.theme-dark .icon-list li span {
+  color: #fff !important;
+}
+
+.theme-dark .icon-list li a:hover {
+  color: #5d9cec !important;
+}
+
+/* progress-spinner / chip */
+.theme-dark .progressOverlay .chip,
+.theme-dark .chip.bg-gray-light {
+  background-color: #272b37 !important;
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.theme-dark .progressOverlay .chip .color-black {
+  color: #fff !important;
+}
+
+/* divider */
+.theme-dark .divider-margins {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* hr و menu-title در card */
+.theme-dark .card .menu-title,
+.theme-dark .card .menu-title p {
+  color: #fff !important;
+}
+
+.theme-dark .card .menu-title .close-menu {
+  color: #fff !important;
+}
+
+.theme-dark .card .menu-title hr,
+.theme-dark .card hr {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* ngx-ntk-query-builder */
+.theme-dark ngx-ntk-query-builder {
+  color: #fff !important;
+}
+
+.theme-dark ngx-ntk-query-builder .form-control,
+.theme-dark ngx-ntk-query-builder select {
+  background-color: #1b1e29 !important;
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* password-strength */
+.theme-dark .strengthBar .point {
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.theme-dark .strength p {
+  color: #fff !important;
+}
+
+/* cms-html-list-mobile - تم dark با کلاس theme-dark */
+.theme-dark .cms-html-list-mobile-tree {
+  background: #1b1e29 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.theme-dark .cms-html-list-mobile-menu-modal {
+  background: #1b1e29 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.theme-dark .cms-html-list-mobile-header {
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.theme-dark .cms-html-list-mobile-divider {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.theme-dark .cms-html-list-mobile-footer {
+  border-top-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.theme-dark .cms-html-list-mobile-menu-modal .menu-title,
+.theme-dark .cms-html-list-mobile-menu-modal .menu-title p,
+.theme-dark .cms-html-list-mobile-menu-modal .font-11 {
+  color: #fff !important;
+}
+
+.theme-dark .cms-html-list-mobile-menu-modal .close-menu {
+  color: #fff !important;
+}
+
+.theme-dark .cms-html-list-mobile-menu-modal .divider {
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* opacity-70 در dark - خوانایی بهتر */
+.theme-dark .opacity-70 {
+  opacity: 0.9 !important;
+}
+
+/* mat-form-field و mat-select Dark Mode */
+.theme-dark .mat-mdc-form-field,
+.theme-dark .mat-form-field {
+  color: #fff !important;
+}
+
+.theme-dark .mat-mdc-form-field .mat-mdc-floating-label,
+.theme-dark .mat-mdc-form-field .mdc-floating-label {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.theme-dark .mat-mdc-form-field .mdc-text-field--filled .mdc-line-ripple::before {
+  border-bottom-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.theme-dark .mat-mdc-select-value,
+.theme-dark .mat-mdc-select-placeholder {
+  color: #fff !important;
+}
+
+.theme-dark .mat-mdc-select-arrow {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* mat-select panel در overlay */
+.theme-dark .mat-mdc-select-panel,
+.theme-dark .mat-mdc-autocomplete-panel {
+  background-color: #1b1e29 !important;
+}
+
+.theme-dark .mat-mdc-select-panel .mat-mdc-option {
+  color: #fff !important;
+}
+
+.theme-dark .mat-mdc-select-panel .mat-mdc-option.mat-mdc-option-active,
+.theme-dark .mat-mdc-select-panel .mat-mdc-option:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* mat-sort-header Dark Mode */
+.theme-dark .mat-sort-header,
+.theme-dark .mat-mdc-sort-header {
+  color: #fff !important;
+}
+
+.theme-dark .mat-mdc-sort-header-arrow {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* mat-tooltip Dark Mode */
+.theme-dark .mat-mdc-tooltip .mdc-tooltip__surface {
+  background-color: #272b37 !important;
+  color: #fff !important;
+}
+
+/* menu-box-right-custom برای tree panel */
+.theme-dark .menu.menu-box-right-custom {
+  background-color: #1b1e29 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
 /* cms-input-group */
 
 @keyframes rotation360 {
