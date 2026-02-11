@@ -96,18 +96,19 @@
             <div
               class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
             >
-              <label for="dataModel.fromDate" class="color-highlight">{{
+              <label for="fromDate" class="color-highlight">{{
                 fieldsInfo["fromDate"]?.fieldTitle
               }}</label>
               <input
                 matInput
-                [matDatepicker]="FromDate"
                 type="text"
+                [matDatepicker]="FromDate"
                 [(ngModel)]="dataModel.fromDate"
                 name="dataModel.fromDate"
+                placeholder="{{ fieldsInfo['fromDate']?.fieldTitle }}"
+                [disabled]="!(fieldsInfo['fromDate']?.accessEditField ?? false)"
                 class="form-control validate-name"
-                id="dataModel.fromDate"
-                [disabled]="!fieldsInfo['fromDate']?.accessEditField"
+                id="fromDate"
               />
               <mat-datepicker-toggle
                 matSuffix
@@ -126,18 +127,19 @@
             <div
               class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
             >
-              <label for="dataModel.expireDate" class="color-highlight">{{
+              <label for="expireDate" class="color-highlight">{{
                 fieldsInfo["expireDate"]?.fieldTitle
               }}</label>
               <input
                 matInput
-                [matDatepicker]="ExpireDate"
                 type="text"
+                [matDatepicker]="ExpireDate"
                 [(ngModel)]="dataModel.expireDate"
                 name="dataModel.expireDate"
+                placeholder="{{ fieldsInfo['expireDate']?.fieldTitle }}"
+                [disabled]="!(fieldsInfo['expireDate']?.accessEditField ?? false)"
                 class="form-control validate-name"
-                id="dataModel.expireDate"
-                [disabled]="!fieldsInfo['expireDate']?.accessEditField"
+                id="expireDate"
               />
               <mat-datepicker-toggle
                 matSuffix

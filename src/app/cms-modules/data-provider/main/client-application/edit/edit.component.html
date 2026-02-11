@@ -98,7 +98,7 @@
             <div
               class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
             >
-              <label for="dataModel.fromDate" class="color-highlight">{{
+              <label for="fromDate" class="color-highlight">{{
                 fieldsInfo["fromDate"]?.fieldTitle
               }}</label>
               <input
@@ -108,7 +108,7 @@
                 [(ngModel)]="dataModel.fromDate"
                 name="dataModel.fromDate"
                 class="form-control validate-name"
-                id="dataModel.fromDate"
+                id="fromDate"
                 [disabled]="!fieldsInfo['fromDate']?.accessEditField"
               />
               <mat-datepicker-toggle
@@ -128,7 +128,7 @@
             <div
               class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
             >
-              <label for="dataModel.expireDate" class="color-highlight">{{
+              <label for="expireDate" class="color-highlight">{{
                 fieldsInfo["expireDate"]?.fieldTitle
               }}</label>
               <input
@@ -138,7 +138,7 @@
                 [(ngModel)]="dataModel.expireDate"
                 name="dataModel.expireDate"
                 class="form-control validate-name"
-                id="dataModel.expireDate"
+                id="expireDate"
                 [disabled]="!fieldsInfo['expireDate']?.accessEditField"
               />
               <mat-datepicker-toggle

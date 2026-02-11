@@ -542,3 +542,125 @@ mat-stepper و mat-step در حالت dark theme به درستی نمایش دا
 ✅ mat-stepper و mat-step در حالت dark با پس‌زمینه تیره، متن سفید و آیکون‌های قابل مشاهده نمایش داده می‌شوند. هم mat-stepper و mat-mdc-step-header پشتیبانی می‌شوند.
 
 ---
+
+## Part 16: رفع مشکل mat-datepicker / mat-datepicker-toggle در حالت Dark
+
+**تاریخ:** 2026-02-11
+**وضعیت:** ✅ تکمیل شده
+
+### مشکل:
+mat-datepicker و mat-datepicker-toggle در حالت dark theme به درستی نمایش داده نمی‌شدند.
+
+### راه‌حل:
+اضافه شدن استایل‌های theme-dark برای mat-datepicker در styles.scss:
+- mat-datepicker-toggle: رنگ آیکون سفید
+- mat-datepicker-content: پس‌زمینه تیره، border
+- mat-calendar: سلول‌ها، تاریخ انتخاب‌شده، امروز، disabled
+- mat-calendar-controls: دکمه‌های prev/next
+- mat-datepicker-actions: دکمه‌های پایین پنل
+
+### فایل‌های تغییر یافته:
+- `src/styles.scss`
+
+### Result 16:
+✅ mat-datepicker و mat-datepicker-toggle در حالت dark با پس‌زمینه #1b1e29، متن سفید و آیکون‌های قابل مشاهده نمایش داده می‌شوند.
+
+---
+
+## Part 17: رفع مشکل tree-selector در حالت Dark
+
+**تاریخ:** 2026-02-11
+**وضعیت:** ✅ تکمیل شده
+
+### مشکل:
+کامپوننت tree-selector (article/category و سایر ماژول‌ها) در dark mode کاملاً سیاه نمایش داده می‌شد. متن، آیکون و checkbox قابل مشاهده نبودند.
+
+### راه‌حل:
+اضافه شدن استایل‌های theme-dark برای mat-tree در tree-selector و cms-html-tree در styles.scss:
+- mat-checkbox و label آن (.mdc-label, .mat-mdc-checkbox-label)
+- mat-icon و button[matIconButton]
+- mat-tree-nested, mat-nested-tree-node, .mat-mdc-tree-node, .cdk-tree-node
+- app-cms-html-tree .card.card-style و .content
+
+### فایل‌های تغییر یافته:
+- `src/styles.scss`
+
+### Result 17:
+✅ tree-selector در حالت dark با متن سفید، آیکون قابل مشاهده و پس‌زمینه مناسب (#0f1117) نمایش داده می‌شود. تمام tree-selectorهای پروژه (article، news، blog، catalog، ...) از این استایل‌ها بهره می‌برند.
+
+---
+
+## Part 18: رفع مشکل selector در حالت Dark
+
+**تاریخ:** 2026-02-11
+**وضعیت:** ✅ تکمیل شده
+
+### مشکل:
+کامپوننت selector (article/category و سایر ماژول‌ها با input-style + mat-autocomplete) در dark mode به درستی نمایش داده نمی‌شد. label، input، dropdown و آیکون‌ها در پس‌زمینه تیره خوانا نبودند.
+
+### راه‌حل:
+اضافه شدن استایل‌های theme-dark برای selector در styles.scss:
+- .input-style label با پس‌زمینه #1b1e29 و متن سفید
+- .input-style input, select, textarea با رنگ متن سفید
+- .input-style em, span و .action
+- .mat-mdc-autocomplete-panel با پس‌زمینه تیره
+- .mat-mdc-option و .mat-option با متن سفید و hover/active
+
+### فایل‌های تغییر یافته:
+- `src/styles.scss`
+
+### Result 18:
+✅ selector در حالت dark با label، input، dropdown و آیکون‌های قابل مشاهده نمایش داده می‌شود. تمام selectorهای پروژه از این استایل‌ها بهره می‌برند.
+
+---
+
+## Part 19: بررسی ۱۰ کامپوننت رندم و رفع مشکلات Dark Mode
+
+**تاریخ:** 2026-02-11
+**وضعیت:** ✅ تکمیل شده
+
+### کامپوننت‌های بررسی‌شده:
+1. cms-html-list
+2. polling/content/add
+3. ticketing/task/add
+4. link-management/billboard/add
+5. emailConfirm
+6. crm/lead/list
+7. sms/client-application/add
+8. auth/signup
+9. estate/property-ads/add
+10. core-main/module-sale/header/edit
+
+### استایل‌های اضافه‌شده در styles.scss:
+- mat-slide-toggle، mat-header-cell، mat-cell
+- cms-html-list card و content
+- menu.menu-box-modal و زیرعناصر
+- pre و example-container
+- input-style.no-borders label
+- ng-otp-input
+- color-red-dark و color-green-dark (نسخه روشن‌تر برای dark)
+
+### Result 19:
+✅ تمام کامپوننت‌های بررسی‌شده در حالت dark به درستی نمایش داده می‌شوند.
+
+---
+
+## Part 20: رفع مشکل تم dark در /core/userclaim/checklist
+
+**تاریخ:** 2026-02-11
+**وضعیت:** ✅ تکمیل شده
+
+### مشکل:
+صفحه /core/userclaim/checklist با mat-card و ntk-cms-html-list-header در dark mode به درستی نمایش داده نمی‌شد.
+
+### راه‌حل:
+اضافه شدن استایل‌های theme-dark برای mat-card و ntk-cms-html-list-header در styles.scss:
+- mat-card با پس‌زمینه #1b1e29
+- mat-card-header, title, subtitle, content با رنگ سفید
+- mat-card-actions با border
+- ntk-cms-html-list-header و mat-icon
+
+### Result 20:
+✅ صفحه checklist در حالت dark با کارت‌های قابل خواندن نمایش داده می‌شود.
+
+---

@@ -388,6 +388,27 @@
   background-color: #fff !important;
 }
 
+.theme-dark mat-header-cell,
+.theme-dark mat-cell {
+  color: #fff !important;
+}
+
+/* mat-slide-toggle Dark Mode */
+.theme-dark .mat-mdc-slide-toggle .mdc-switch__track,
+.theme-dark .mat-mdc-slide-toggle .mdc-switch__handle {
+  background-color: rgba(255, 255, 255, 0.3) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.theme-dark .mat-mdc-slide-toggle .mdc-switch--selected .mdc-switch__track,
+.theme-dark .mat-mdc-slide-toggle .mdc-switch--selected .mdc-switch__handle {
+  background-color: #5f6a8b !important;
+}
+
+.theme-dark .mat-mdc-slide-toggle .mdc-label {
+  color: #fff !important;
+}
+
 /*mat-table Color Settings*/
 
 /*mat-expansion-panel Color Settings*/
@@ -529,23 +550,37 @@
 .theme-dark .mat-mdc-calendar-body-cell-content {
   color: #fff !important;
 }
-.theme-dark .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover .mat-calendar-body-cell-content,
-.theme-dark .mat-mdc-calendar-body-cell:not(.mat-mdc-calendar-body-disabled):hover .mat-mdc-calendar-body-cell-content {
+.theme-dark
+  .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover
+  .mat-calendar-body-cell-content,
+.theme-dark
+  .mat-mdc-calendar-body-cell:not(.mat-mdc-calendar-body-disabled):hover
+  .mat-mdc-calendar-body-cell-content {
   background-color: #272b37 !important;
   color: #fff !important;
 }
 .theme-dark .mat-calendar-body-selected .mat-calendar-body-cell-content,
-.theme-dark .mat-mdc-calendar-body-cell.mat-mdc-calendar-body-selected .mat-mdc-calendar-body-cell-content {
+.theme-dark
+  .mat-mdc-calendar-body-cell.mat-mdc-calendar-body-selected
+  .mat-mdc-calendar-body-cell-content {
   background-color: #5f6a8b !important;
   color: #fff !important;
 }
-.theme-dark .mat-calendar-body-today:not(.mat-calendar-body-selected) .mat-calendar-body-cell-content,
-.theme-dark .mat-mdc-calendar-body-cell.mat-mdc-calendar-body-today:not(.mat-mdc-calendar-body-selected) .mat-mdc-calendar-body-cell-content {
+.theme-dark
+  .mat-calendar-body-today:not(.mat-calendar-body-selected)
+  .mat-calendar-body-cell-content,
+.theme-dark
+  .mat-mdc-calendar-body-cell.mat-mdc-calendar-body-today:not(
+    .mat-mdc-calendar-body-selected
+  )
+  .mat-mdc-calendar-body-cell-content {
   border-color: rgba(255, 255, 255, 0.5) !important;
   color: #fff !important;
 }
 .theme-dark .mat-calendar-body-disabled .mat-calendar-body-cell-content,
-.theme-dark .mat-mdc-calendar-body-cell.mat-mdc-calendar-body-disabled .mat-mdc-calendar-body-cell-content {
+.theme-dark
+  .mat-mdc-calendar-body-cell.mat-mdc-calendar-body-disabled
+  .mat-mdc-calendar-body-cell-content {
   color: rgba(255, 255, 255, 0.4) !important;
 }
 .theme-dark .mat-calendar-controls .mat-icon-button,
@@ -622,6 +657,123 @@
 .theme-dark mat-tree-node.ntk-tree-selected {
   color: #fff !important;
   background: #5f6a8b !important;
+}
+
+/* tree-selector / cms-html-tree Dark Mode - mat-checkbox, mat-icon, nested structure */
+.theme-dark mat-tree mat-checkbox,
+.theme-dark mat-tree mat-checkbox .mdc-label,
+.theme-dark mat-tree mat-checkbox label,
+.theme-dark mat-tree mat-checkbox .mat-mdc-checkbox-label {
+  color: #fff !important;
+}
+
+/* همه mat-checkbox در dark mode - border سفید برای خوانایی */
+.theme-dark mat-checkbox .mdc-checkbox__background {
+  border: 2px solid #fff !important;
+}
+
+.theme-dark mat-tree mat-icon {
+  color: #fff !important;
+}
+
+.theme-dark mat-tree button[matIconButton] {
+  color: #fff !important;
+}
+
+.theme-dark mat-tree mat-tree-nested,
+.theme-dark mat-tree mat-nested-tree-node,
+.theme-dark mat-tree .mat-mdc-tree-node,
+.theme-dark mat-tree .cdk-tree-node {
+  color: #fff !important;
+  background-color: transparent !important;
+}
+
+.theme-dark app-cms-html-tree .card.card-style .content {
+  background-color: #0f1117 !important;
+  color: #fff !important;
+}
+
+.theme-dark app-cms-html-tree .card.card-style {
+  background-color: #0f1117 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* cms-html-list Dark Mode */
+.theme-dark app-cms-html-list .card.card-style .content {
+  background-color: #0f1117 !important;
+  color: #fff !important;
+}
+
+.theme-dark app-cms-html-list .card.card-style {
+  background-color: #0f1117 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* menu-box-modal Dark Mode */
+.theme-dark .menu.menu-box-modal {
+  background-color: #1b1e29 !important;
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.theme-dark .menu.menu-box-modal .menu-title,
+.theme-dark .menu.menu-box-modal .menu-title p,
+.theme-dark .menu.menu-box-modal .font-11 {
+  color: #fff !important;
+}
+
+.theme-dark .menu.menu-box-modal .close-menu {
+  color: #fff !important;
+}
+
+.theme-dark .menu.menu-box-modal .divider {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* pre/code Dark Mode */
+.theme-dark pre,
+.theme-dark .example-container {
+  background-color: #1b1e29 !important;
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* mat-card Dark Mode - userclaim/checklist و سایر صفحات */
+.theme-dark mat-card,
+.theme-dark .mat-mdc-card,
+.theme-dark .example-card {
+  background-color: #1b1e29 !important;
+  color: #fff !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.theme-dark mat-card-header,
+.theme-dark .mat-mdc-card-header,
+.theme-dark mat-card-title,
+.theme-dark .mat-mdc-card-title,
+.theme-dark mat-card-subtitle,
+.theme-dark .mat-mdc-card-subtitle {
+  color: #fff !important;
+}
+
+.theme-dark mat-card-content,
+.theme-dark .mat-mdc-card-content,
+.theme-dark mat-card-content p {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.theme-dark mat-card-actions,
+.theme-dark .mat-mdc-card-actions {
+  border-top-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.theme-dark .ntk-cms-html-list-header {
+  background-color: transparent !important;
+  color: #fff !important;
+}
+
+.theme-dark .ntk-cms-html-list-header .mat-icon {
+  color: #fff !important;
 }
 
 /*mat-tree Color Settings*/
@@ -863,6 +1015,74 @@
   background-color: #fff !important;
   top: -12px !important;
 }
+.theme-dark .cms-input-group label {
+  background-color: #1b1e29 !important;
+  //  color: #fff !important;
+}
+
+/* selector component (input-style + mat-autocomplete) Dark Mode */
+.theme-dark .input-style label,
+.theme-dark .input-style.has-borders.input-style-always-active label,
+.theme-dark .input-style.no-borders label {
+  background-color: #1b1e29 !important;
+  color: #fff !important;
+}
+
+.theme-dark .input-style input,
+.theme-dark .input-style select,
+.theme-dark .input-style textarea {
+  color: #fff !important;
+}
+
+.theme-dark .input-style em,
+.theme-dark .input-style span {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.theme-dark .input-style .action {
+  color: #fff !important;
+}
+
+.theme-dark .mat-mdc-autocomplete-panel {
+  background-color: #1b1e29 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.theme-dark .mat-mdc-autocomplete-panel .mat-mdc-option,
+.theme-dark .mat-mdc-autocomplete-panel .mat-mdc-option .mat-mdc-option-text,
+.theme-dark .mat-mdc-autocomplete-panel .mat-option,
+.theme-dark .mat-mdc-autocomplete-panel .mat-option .mat-option-text {
+  color: #fff !important;
+}
+
+.theme-dark .mat-mdc-autocomplete-panel .mat-mdc-option.mat-mdc-option-active,
+.theme-dark .mat-mdc-autocomplete-panel .mat-mdc-option:hover,
+.theme-dark .mat-mdc-autocomplete-panel .mat-option.mat-selected,
+.theme-dark .mat-mdc-autocomplete-panel .mat-option:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* ng-otp-input Dark Mode */
+.theme-dark .otp-input {
+  background-color: #1b1e29 !important;
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.theme-dark .otp-input:focus {
+  border-color: #5f6a8b !important;
+  outline: none !important;
+}
+
+/* color-red-dark / color-green-dark در dark - روشن‌تر برای خوانایی */
+.theme-dark .color-red-dark {
+  color: #ed5565 !important;
+}
+
+.theme-dark .color-green-dark {
+  color: #a0d468 !important;
+}
+
 /* cms-input-group */
 
 @keyframes rotation360 {

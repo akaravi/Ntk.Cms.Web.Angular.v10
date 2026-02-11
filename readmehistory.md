@@ -1,5 +1,125 @@
 # تاریخچه تغییرات پروژه
 
+## 2026-02-11 (رفع مشکل تم dark در /core/userclaim/checklist)
+
+### خلاصه:
+صفحه checklist از mat-card استفاده می‌کند که در dark mode پس‌زمینه سفید داشت.
+
+### تغییرات انجام شده در styles.scss:
+- **mat-card**: پس‌زمینه #1b1e29، رنگ متن سفید، border
+- **mat-card-header, mat-card-title, mat-card-subtitle**: رنگ سفید
+- **mat-card-content**: رنگ متن سفید
+- **mat-card-actions**: border-top
+- **ntk-cms-html-list-header**: پس‌زمینه شفاف، رنگ سفید، mat-icon سفید
+
+### نتیجه:
+صفحه /core/userclaim/checklist در حالت dark به درستی نمایش داده می‌شود.
+
+---
+
+## 2026-02-11 (بررسی ۱۰ کامپوننت رندم و رفع مشکلات Dark Mode)
+
+### خلاصه:
+بررسی ۱۰ کامپوننت: cms-html-list، polling/content/add، ticketing/task/add، link-management/billboard/add، emailConfirm، crm/lead/list، sms/client-application/add، auth/signup، estate/property-ads/add، module-sale/header/edit.
+
+### تغییرات انجام شده در styles.scss:
+- **mat-slide-toggle**: track، handle و label با رنگ سفید
+- **mat-header-cell, mat-cell**: رنگ متن سفید
+- **cms-html-list**: card و content با پس‌زمینه تیره
+- **menu-box-modal**: پس‌زمینه #1b1e29، menu-title، close-menu، divider
+- **pre/example-container**: پس‌زمینه تیره برای بلوک‌های کد
+- **input-style.no-borders label**: اضافه به استایل‌های label
+- **ng-otp-input**: پس‌زمینه و border برای ورودی OTP
+- **color-red-dark / color-green-dark**: نسخه روشن‌تر برای خوانایی در dark
+
+### نتیجه:
+کامپوننت‌های بررسی‌شده در حالت dark به درستی نمایش داده می‌شوند.
+
+---
+
+## 2026-02-11 (رفع مشکل selector در حالت Dark)
+
+### خلاصه:
+کامپوننت selector (article/category و سایر ماژول‌ها با input-style + mat-autocomplete) در dark mode به درستی نمایش داده نمی‌شد.
+
+### تغییرات انجام شده:
+- **styles.scss**: اضافه شدن استایل‌های theme-dark برای selector:
+  - .input-style label با پس‌زمینه #1b1e29 و متن سفید
+  - .input-style input, select, textarea با رنگ متن سفید
+  - .input-style em, span و .action با رنگ سفید
+  - .mat-mdc-autocomplete-panel با پس‌زمینه تیره و border
+  - .mat-mdc-option با متن سفید و hover/active
+
+### نتیجه:
+کامپوننت selector در حالت dark با label، input، dropdown و آیکون‌های قابل مشاهده نمایش داده می‌شود.
+
+---
+
+## 2026-02-11 (رفع مشکل tree-selector در حالت Dark)
+
+### خلاصه:
+کامپوننت tree-selector (article/category و سایر ماژول‌ها) در dark mode کاملاً سیاه نمایش داده می‌شد.
+
+### تغییرات انجام شده:
+- **styles.scss**: اضافه شدن استایل‌های theme-dark برای mat-tree در tree-selector:
+  - mat-checkbox و label آن (.mdc-label, .mat-mdc-checkbox-label)
+  - mat-checkbox .mdc-checkbox__background با border سفید برای خوانایی
+  - mat-icon
+  - button[matIconButton]
+  - mat-tree-nested, mat-nested-tree-node, .mat-mdc-tree-node, .cdk-tree-node
+  - app-cms-html-tree .card.card-style و .content
+
+### نتیجه:
+tree-selector در حالت dark با متن سفید، آیکون قابل مشاهده و پس‌زمینه مناسب نمایش داده می‌شود.
+
+---
+
+## 2026-02-11 (اصلاح mat-datepicker در کل پروژه)
+
+### خلاصه:
+اصلاحات mat-datepicker در تمام فایل‌های پروژه انجام شد.
+
+### تغییرات انجام شده:
+- **label for و input id**: تغییر از dataModel.xxx به xxx (fromDate، expireDate، beginDate، endDate، accessUseStartDate)
+- **disabled binding**: تغییر از disabled="{{ }}" به [disabled]="!(fieldsInfo['xxx']?.accessEditField ?? false)" یا accessAddField
+- **حذف type="text" تکراری** در inputها
+- **افزودن placeholder** برای فیلدهای تاریخ
+
+### فایل‌های تغییر یافته:
+news، sms (client-application، client-application-permission، api-path-permission، api-number، api-number-permission)، ticketing، polling، link-management (billboard، accounting)، file-manager، estate (account-agency-ads، property-project، property-ads)، data-provider (client-application، client-application-permission)، chart، catalog، blog، biography، article، application، core-main (module-sale/header)
+
+### نتیجه:
+همه فیلدهای mat-datepicker با label صحیح، id ساده و disabled درست کار می‌کنند.
+
+---
+
+## 2026-02-11 (رفع مشکل فیلدهای تاریخ در news/content/add)
+
+### خلاصه:
+اصلاحات فیلدهای fromDate و expireDate در add.component.html (news/content).
+
+### تغییرات انجام شده:
+- **add.component.html**: حذف type="text" تکراری؛ اصلاح label for و input id به fromDate/expireDate؛ اصلاح binding disabled به [disabled]="!(fieldsInfo['fromDate']?.accessAddField ?? false)".
+- **styles.scss**: اضافه شدن .theme-dark .cms-input-group label برای پس‌زمینه تیره و متن سفید در dark mode.
+
+### نتیجه:
+فیلدهای تاریخ با label صحیح، بدون type تکراری و با disabled درست کار می‌کنند. label در dark mode خوانا است.
+
+---
+
+## 2026-02-11 (رفع مشکل mat-datepicker در حالت Dark)
+
+### خلاصه:
+استایل‌های theme-dark برای mat-datepicker و mat-datepicker-toggle در styles.scss اضافه شد.
+
+### تغییرات انجام شده:
+- **styles.scss**: اضافه شدن بلوک `/*mat-datepicker Color Settings*/` با استایل‌های theme-dark برای mat-datepicker-toggle، mat-datepicker-content، mat-calendar، سلول‌های تاریخ، دکمه‌های کنترل و actions.
+
+### نتیجه:
+mat-datepicker و mat-datepicker-toggle در حالت dark با پس‌زمینه تیره، متن سفید و آیکون‌های قابل مشاهده نمایش داده می‌شوند.
+
+---
+
 ## 2026-02-11 (رفع مشکل mat-stepper / mat-step در حالت Dark)
 
 ### خلاصه:

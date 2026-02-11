@@ -5,14 +5,14 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    ArticleCategoryModel,
-    ArticleContentModel,
-    ArticleContentService,
-    ClauseTypeEnum,
-    FilterDataModel,
-    FilterModel,
-    RecordStatusEnum,
-    SortTypeEnum,
+  ArticleCategoryModel,
+  ArticleContentModel,
+  ArticleContentService,
+  ClauseTypeEnum,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -267,17 +267,17 @@ export class ArticleContentListComponent
     this.DataGetAll();
   }
   onActionButtonNewRow(event?: MouseEvent): void {
-    if (
-      this.categoryModelSelected == null ||
-      this.categoryModelSelected.id === 0
-    ) {
-      this.translate
-        .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
-        .subscribe((str: string) => {
-          this.cmsToastrService.typeErrorSelected(str);
-        });
-      return;
-    }
+    // if (
+    //   this.categoryModelSelected == null ||
+    //   this.categoryModelSelected.id === 0
+    // ) {
+    //   this.translate
+    //     .get("ERRORMESSAGE.MESSAGE.typeErrorCategoryNotSelected")
+    //     .subscribe((str: string) => {
+    //       this.cmsToastrService.typeErrorSelected(str);
+    //     });
+    //   return;
+    // }
     if (
       this.dataModelResult == null ||
       this.dataModelResult.access == null ||
