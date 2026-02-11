@@ -1,91 +1,90 @@
 <div class="row" #topList>
   @if (optionTreeDisplay) {
     <div
-    [ngClass]="
-      publicHelper.isMobile
-        ? viewTree
-          ? 'menu-active menu-custom menu-box-right-custom rounded-0'
-          : 'menu menu-box-right-custom rounded-0'
-        : 'col-xl-3'
-    "
-      >
+      [ngClass]="
+        publicHelper.isMobile
+          ? viewTree
+            ? 'menu-active menu-custom menu-box-right-custom rounded-0'
+            : 'menu menu-box-right-custom rounded-0'
+          : 'col-xl-3'
+      "
+    >
       <!--begin::tree-->
       <ng-content select="[cms-tree]"></ng-content>
       <!--end::tree-->
     </div>
   }
   <div
+    class="loader-container"
     [ngClass]="
       optionTreeDisplay && !this.publicHelper.isMobile
         ? 'col-xl-9'
         : 'col-xl-12'
     "
-    >
-    <div class="card card-style loader-container">
-      @if (optionsListInfoAreaId?.length > 0) {
-        <app-progress-spinner
-          [optionsInfoAreaId]="optionsListInfoAreaId"
-          >
-        </app-progress-spinner>
-      }
-      <div class="content mb-0">
-        <div class="row justify-content-center">
-          <!--begin::Header-->
-          @if (optionHeaderDisplay) {
-            <div class="col-12">
-              @if (optionHeaderDisplay) {
-                <ng-content
-                  select="[cms-header]"
-                ></ng-content>
-              }
-              <ng-content select="[cms-action-header]"></ng-content>
-              <div class="d-flex justify-content-between flex-wrap">
-                <div class="justify-content-end">
-                  <ng-content select="[cms-action-header-end]"></ng-content>
-                </div>
-                <div class="justify-content-start">
-                  <ng-content select="[cms-action-header-start]"></ng-content>
-                  @if (optionActionMainDisplay) {
-                    <a
-                      (click)="actionViewMenuMain()"
-                      class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-                      >
-                      <i
-                        class="fa fa-bars font-18"
-                        style="color: #ffffff"
+  >
+    @if (optionsListInfoAreaId?.length > 0) {
+      <app-progress-spinner [optionsInfoAreaId]="optionsListInfoAreaId">
+      </app-progress-spinner>
+    }
+
+    <!--begin::Header-->
+    <ng-content select="[cms-header]"></ng-content>
+    <ng-content select="[cms-action-header]"></ng-content>
+    @if (optionHeaderDisplay) {
+      <div class="card card-style">
+        <div class="content mb-0">
+          @if (optionListTitle?.length > 0) {
+            <p class="mb-0 color-highlight font-600">{{ optionListTitle }}</p>
+          }
+          <div class="d-flex justify-content-between flex-wrap">
+            <div class="justify-content-end">
+              <ng-content select="[cms-action-header-end]"></ng-content>
+            </div>
+            <div class="justify-content-start">
+              <ng-content select="[cms-action-header-start]"></ng-content>
+              @if (optionActionMainDisplay) {
+                <a
+                  (click)="actionViewMenuMain()"
+                  class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
+                >
+                  <i
+                    class="fa fa-bars font-18"
+                    style="color: #ffffff"
                     [style.transform]="
                       viewMenuMain ? 'rotate(90deg)' : 'rotate(0deg)'
                     "
-                      ></i>
-                    </a>
-                  }
-                </div>
-              </div>
+                  ></i>
+                </a>
+              }
             </div>
-          }
-          <ng-content select="[cms-action-area]"></ng-content>
-          <!--end::Header-->
-          @if (optionHeaderDisplay || optionActionMainDisplay) {
-            <hr />
-          }
-          <!--begin::Body-->
-          <div class="col-12 ps-0 pe-0" [ngClass]="optionClassBody">
-            <ng-content select="[cms-body]"></ng-content>
           </div>
-          <!--end::Body-->
-          <!--begin::Footer-->
-          @if (optionFooterDisplay) {
-            <div class="col-12">
-              <p class="text-center">
-                <ng-content select="[cms-message]"></ng-content>
-                <ng-content select="[cms-footer]"></ng-content>
-              </p>
-            </div>
-          }
-          <!--end::Footer-->
         </div>
       </div>
+    }
+    <!--end::Header-->
+
+    <!--begin::action-area-->
+    <ng-content select="[cms-action-area]"></ng-content>
+    <!--end::action-area-->
+
+    <!--begin::Body-->
+    <div class="card card-style">
+      <div class="content mb-0">
+        <ng-content select="[cms-body]"></ng-content>
+      </div>
     </div>
+
+    <!--end::Body-->
+    <!--begin::Footer-->
+    @if (optionFooterDisplay) {
+      <div class="card card-style">
+        <div class="content mb-0">
+          <ng-content select="[cms-message]"></ng-content>
+          <ng-content select="[cms-footer]"></ng-content>
+        </div>
+      </div>
+    }
+    <!--end::Footer-->
   </div>
 </div>
 <!--begin::button-menu-->
@@ -94,28 +93,28 @@
 @if (optionTreeDisplay && this.publicHelper.isMobile) {
   <div
     class="content"
-  style="
-    position: fixed;
-    bottom: 80px;
-    left: 1px;
-    z-index: 99;
-    min-width: 30px !important;
-    height: 30px;
-    margin: 0px;
-  "
-    >
+    style="
+      position: fixed;
+      bottom: 80px;
+      left: 1px;
+      z-index: 99;
+      min-width: 30px !important;
+      height: 30px;
+      margin: 0px;
+    "
+  >
     <div class="row">
       <div class="col-12">
         <a
           (click)="actionViewTree()"
           class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-          >
-          <strong class="color-black font-400">{{ optionCategoryTitle }}</strong>
+        >
+          <strong class="font-400">{{ optionCategoryTitle }}</strong>
         </a>
         <a
           (click)="actionViewTree()"
           class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-          >
+        >
           <i
             class="fa fa-bars font-18"
             style="color: #ffffff"
@@ -132,30 +131,30 @@
 @if (optionActionMainDisplay) {
   <div
     class="content"
-  style="
-    position: fixed;
-    left: 1px;
-    z-index: 99;
-    min-width: 30px !important;
-    height: 30px;
-    margin: 0px;
-  "
-  [style.bottom]="
-    optionTreeDisplay && this.publicHelper.isMobile ? ' 120px' : ' 80px'
-  "
-    >
+    style="
+      position: fixed;
+      left: 1px;
+      z-index: 99;
+      min-width: 30px !important;
+      height: 30px;
+      margin: 0px;
+    "
+    [style.bottom]="
+      optionTreeDisplay && this.publicHelper.isMobile ? ' 120px' : ' 80px'
+    "
+  >
     <div class="row">
       <div class="col-12">
         <a
           (click)="actionViewMenuMain()"
-          class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight jump"
-          >
-          <strong class="color-black font-400">{{ optionTitle }}</strong>
+          class="btn font-13 btn-3d font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight jump"
+        >
+          <strong class="font-400">{{ optionMenuMainTitle }}</strong>
         </a>
         <a
           (click)="actionViewMenuMain()"
           class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-          >
+        >
           <i
             class="fa fa-bars font-18"
             style="color: #ffffff"
@@ -171,42 +170,44 @@
 @if (optionActionRowDisplay) {
   <div
     class="content"
-  style="
-    position: fixed;
-    left: 1px;
-    z-index: 99;
-    min-width: 30px !important;
-    height: 30px;
-    margin: 0px;
-  "
-  [style.bottom]="
-    optionTreeDisplay && this.publicHelper.isMobile
-      ? optionActionMainDisplay
-        ? ' 160px'
-        : ' 120px'
-      : optionActionMainDisplay
-        ? ' 120px'
-        : ' 80px'
-  "
-    >
+    style="
+      position: fixed;
+      left: 1px;
+      z-index: 99;
+      min-width: 30px !important;
+      height: 30px;
+      margin: 0px;
+    "
+    [style.bottom]="
+      optionTreeDisplay && this.publicHelper.isMobile
+        ? optionActionMainDisplay
+          ? ' 160px'
+          : ' 120px'
+        : optionActionMainDisplay
+          ? ' 120px'
+          : ' 80px'
+    "
+  >
     <div class="row">
       <div class="col-12">
         <a
           (click)="actionViewMenuItemRow()"
           class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight jump"
-          >
-          <strong class="color-black font-400">{{
+        >
+          <strong class="font-400">{{
             optionSelectRowItemTitle | truncate: [30, "..."]
           }}</strong>
         </a>
         <a
           (click)="actionViewMenuItemRow()"
           class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-          >
+        >
           <i
             class="fa fa-bars font-18"
             style="color: #ffffff"
-            [style.transform]="viewMenuItemRow ? 'rotate(90deg)' : 'rotate(0deg)'"
+            [style.transform]="
+              viewMenuItemRow ? 'rotate(90deg)' : 'rotate(0deg)'
+            "
           ></i>
         </a>
       </div>
@@ -220,11 +221,11 @@
   class="menu menu-box-modal rounded-m shadow-xl"
   [ngClass]="viewMenuMain ? 'menu-active' : ''"
   style="display: block; width: 350px; height: 320px"
-  >
+>
   <div class="menu-title">
-    @if (optionTitle?.length > 0) {
+    @if (optionMenuMainTitle?.length > 0) {
       <p class="color-highlight">
-        {{ optionTitle }}
+        {{ optionMenuMainTitle }}
       </p>
     }
     <h1></h1>
@@ -243,8 +244,11 @@
           class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
           (click)="onActionButtonMemo()"
           target="_blank"
-          >
-          <i class="fa-regular fa-file-lines font-18" style="color: #ffffff"></i>
+        >
+          <i
+            class="fa-regular fa-file-lines font-18"
+            style="color: #ffffff"
+          ></i>
           <br />
         </a>
         <p class="font-11 text-center opacity-70">
@@ -258,7 +262,7 @@
         class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
         (click)="onActionButtonExport()"
         target="_blank"
-        >
+      >
         <i
           class="fa-solid fa-cloud-arrow-down font-18"
           style="color: #ffffff"
@@ -278,7 +282,7 @@
   class="menu menu-box-modal rounded-m shadow-xl"
   [ngClass]="viewMenuItemRow ? 'menu-active' : ''"
   style="display: block; width: 350px; height: 320px"
-  >
+>
   <div class="menu-title">
     @if (optionSelectRowItemTitle?.length > 0) {
       <p class="color-highlight">
@@ -301,7 +305,8 @@
           class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
           (click)="onActionButtonPrintRow()"
           target="_blank"
-          ><i class="fa-solid fa-print font-18" style="color: #ffffff"></i><br />
+          ><i class="fa-solid fa-print font-18" style="color: #ffffff"></i
+          ><br />
         </a>
         <p class="font-11 text-center opacity-70">
           {{ "ACTION.PRINT" | translate }}
@@ -315,8 +320,11 @@
           class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
           (click)="onActionButtonMemoRow()"
           target="_blank"
-          >
-          <i class="fa-regular fa-file-lines font-18" style="color: #ffffff"></i>
+        >
+          <i
+            class="fa-regular fa-file-lines font-18"
+            style="color: #ffffff"
+          ></i>
           <br />
         </a>
         <p class="font-11 text-center opacity-70">
@@ -333,5 +341,5 @@
   [(optionView)]="viewGuideNotice"
   [Key]="optionGuideNoticeKey"
   [svg]="'assets/media/svg/icons/General/Notifications1.svg'"
-  >
+>
 </app-cms-guide-notice>

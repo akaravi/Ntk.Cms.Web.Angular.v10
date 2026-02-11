@@ -22,6 +22,7 @@ import { ThemeService } from "src/app/core/services/theme.service";
 export class CmsHtmlListComponent implements OnInit, OnDestroy {
   static nextId = 0;
   id = ++CmsHtmlListComponent.nextId;
+  @Input() optionListTitle = "";
   @Input() optionHeaderDisplay = true;
   @Input() optionActionMainDisplay = true;
   @Output() optionActionGuideNoticeDisplayChange = new EventEmitter<boolean>();
@@ -60,12 +61,18 @@ export class CmsHtmlListComponent implements OnInit, OnDestroy {
   public set optionActionRowDisplayMenuAct(status: boolean) {
     if (this.optionActionRowDisplay) this.viewMenuItemRow = true;
   }
-  @Input() optionTitle = "";
   @Input() optionCategoryTitle = "";
+  @Input() optionMenuMainTitle = "";
   @Input() optionSelectRowItemTitle = "";
-  @Input() optionClassBody = "ntk-cms-html-tree-body";
   @Input() optionTreeDisplay = true;
   @Input() optionsListInfoAreaId = "list";
+
+  // Inputs for button display control
+  // Default to true for backward compatibility (previous behavior always showed buttons)
+  // Set to false explicitly if you don't want to show the button
+  @Input() optionActionButtonMemoDisplay = true;
+  @Input() optionActionButtonPrintRowDisplay = true;
+  @Input() optionActionButtonMemoRowDisplay = true;
 
   @Output() optionOnActionButtonMemo = new EventEmitter<any>();
   @Output() optionOnActionButtonExport = new EventEmitter<any>();
@@ -98,7 +105,7 @@ export class CmsHtmlListComponent implements OnInit, OnDestroy {
     );
 
     this.translate.get("TITLE.OperationMenu").subscribe((str: string) => {
-      this.optionTitle = str;
+      this.optionMenuMainTitle = str;
     });
     this.translate.get("TITLE.Category").subscribe((str: string) => {
       this.optionCategoryTitle = str;
