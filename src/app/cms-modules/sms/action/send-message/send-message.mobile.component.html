@@ -1,29 +1,32 @@
-<div class="cms-m-body loader-container">
-  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
-  </app-progress-spinner>
-
-  <!-- Header با Safe Area برای iPhone -->
-  <div class="cms-m-header safe-area-top">
-    <div class="cms-m-header-content">
-      <h1 class="cms-m-header-title">
-        {{ formInfo.formTitle || ("ROUTE.SMS.ACTION" | translate) }}
-      </h1>
-      <div class="cms-m-header-spacer"></div>
-      <!-- دکمه منوی تنظیمات -->
-      <button
-        type="button"
-        class="cms-m-header-action-btn"
-        (click)="settingsMenuOpen = !settingsMenuOpen"
-        [class.active]="settingsMenuOpen"
-        [attr.aria-label]="'TITLE.Settings' | translate"
-      >
-        <i class="fa-solid fa-gear" aria-hidden="true"></i>
-      </button>
+<div class="card card-style">
+  <div class="content mb-0">
+    <div class="d-flex justify-content-between flex-wrap">
+      <div class="justify-content-end">
+        <h1 class="mb-3 font-800">
+          {{ formInfo.formTitle || ("ROUTE.SMS.ACTION" | translate) }}
+        </h1>
+      </div>
+      <div class="justify-content-start">
+        <!-- دکمه منوی تنظیمات -->
+        <button
+          type="button"
+          class="cms-m-header-action-btn"
+          (click)="settingsMenuOpen = !settingsMenuOpen"
+          [class.active]="settingsMenuOpen"
+          [attr.aria-label]="'TITLE.Settings' | translate"
+        >
+          <i class="fa-solid fa-gear" aria-hidden="true"></i>
+        </button>
+        <!-- دکمه منوی تنظیمات -->
+      </div>
     </div>
   </div>
+</div>
 
-  <!-- Content Area -->
-  <div class="cms-m-content safe-area-content">
+<div class="card card-style">
+  <div class="content mb-0">
+    <!-- Content Area -->
+
     <app-cms-form-result-message
       [formInfo]="formInfo"
     ></app-cms-form-result-message>
@@ -159,341 +162,319 @@
               {{ "ACTION.ORDER_CALCULATE" | translate }}
             </button>
           </div>
+        </div>
 
-
-            <div class="cms-m-message-quick-actions">
-    <button
-      type="submit"
-      class="cms-m-floating-btn cms-m-floating-btn-send"
-      [disabled]="
-        !vform.valid ||
-        hasValidationStatusError() ||
-        !formInfo.submitButtonEnabled ||
-        publicHelper.processService.process.inRunAll
-      "
-      (click)="onFormSubmit()"
-    >
-      <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
-      <span>{{ "ACTION.Send_Message" | translate }}</span>
-    </button>
-
-
-            </div>
+        <div class="cms-m-message-quick-actions">
+          <button
+            type="submit"
+            class="cms-m-floating-btn cms-m-floating-btn-send"
+            [disabled]="
+              !vform.valid ||
+              hasValidationStatusError() ||
+              !formInfo.submitButtonEnabled ||
+              publicHelper.processService.process.inRunAll
+            "
+          >
+            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+            <span>{{ "ACTION.Send_Message" | translate }}</span>
+          </button>
         </div>
       </div>
     </form>
   </div>
+</div>
+<!-- منوی تنظیمات (Drawer) در سمت چپ -->
+<div
+  class="cms-m-settings-drawer"
+  [class.open]="settingsMenuOpen"
+  (click)="settingsMenuOpen = false"
+>
+  <div class="cms-m-settings-drawer-content" (click)="$event.stopPropagation()">
+    <div class="cms-m-settings-drawer-header">
+      <h2>{{ "TITLE.Settings" | translate }}</h2>
+      <button
+        type="button"
+        class="cms-m-settings-close-btn"
+        (click)="settingsMenuOpen = false"
+        [attr.aria-label]="'ACTION.CLOSE' | translate"
+      >
+        <i class="fa-solid fa-times" aria-hidden="true"></i>
+      </button>
+    </div>
 
-  <!-- منوی تنظیمات (Drawer) در سمت چپ -->
-  <div
-    class="cms-m-settings-drawer"
-    [class.open]="settingsMenuOpen"
-    (click)="settingsMenuOpen = false"
-  >
-    <div
-      class="cms-m-settings-drawer-content"
-      (click)="$event.stopPropagation()"
-    >
-      <div class="cms-m-settings-drawer-header">
-        <h2>{{ "TITLE.Settings" | translate }}</h2>
+    <div class="cms-m-settings-drawer-body">
+      <!-- Message Category & Content -->
+      <div class="cms-m-settings-section">
+        <h3 class="cms-m-settings-section-title">
+          {{ "TITLE.Message_Text" | translate }}
+        </h3>
+        <app-sms-main-message-category-selector
+          (optionChange)="onActionSelectMessageCategory($event)"
+        >
+        </app-sms-main-message-category-selector>
+        <app-sms-main-message-content-selector
+          (optionChange)="onActionSelectMessageContent($event)"
+          [optionLinkCategryId]="dataMessageCategoryModel.id"
+        ></app-sms-main-message-content-selector>
+
+        @if (dataMessageContentModel?.messageBody?.length > 0) {
+          <div class="cms-m-message-actions">
+            <button
+              type="button"
+              class="cms-m-btn-small"
+              (click)="onActionMessageContentAdd()"
+            >
+              <i class="fa-solid fa-plus" aria-hidden="true"></i>
+              {{ "TITLE.Added_to_the_text" | translate }}
+            </button>
+            <button
+              type="button"
+              class="cms-m-btn-small"
+              (click)="onActionMessageContentNew()"
+            >
+              <i class="fa-solid fa-file" aria-hidden="true"></i>
+              {{ "TITLE.Message_Text" | translate }}
+            </button>
+          </div>
+        }
+      </div>
+
+      <!-- Placeholders -->
+      <div class="cms-m-settings-section">
+        <h3 class="cms-m-settings-section-title">
+          {{ "TITLE.Message_Placeholders" | translate }}
+        </h3>
+        @if (dataModelMessagePlaceholdersResult?.length > 0) {
+          <div class="cms-m-placeholders-grid">
+            @for (
+              item of dataModelMessagePlaceholdersResult;
+              track item.charValue
+            ) {
+              <div class="cms-m-placeholder-card">
+                <div class="cms-m-placeholder-code">
+                  {{ item.charValue }}
+                </div>
+                <div class="cms-m-placeholder-description">
+                  {{
+                    "TITLE.Message_Placeholders_Description_" +
+                      item.charValue.replace("$", "") | translate
+                  }}
+                </div>
+                <button
+                  type="button"
+                  class="cms-m-placeholder-btn"
+                  (click)="onActionMessageContentAddPlaceholder(item.charValue)"
+                >
+                  <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                  {{ "TITLE.Added_to_the_text" | translate }}
+                </button>
+              </div>
+            }
+          </div>
+        } @else {
+          <div class="cms-m-empty-state">
+            <i class="fa-solid fa-info-circle" aria-hidden="true"></i>
+            <span>{{ "MESSAGE.no_information" | translate }}</span>
+          </div>
+        }
+      </div>
+
+      <!-- Phonebook -->
+      <div class="cms-m-settings-section">
+        <h3 class="cms-m-settings-section-title">
+          {{ "TITLE.Phonebook" | translate }}
+        </h3>
+        <div class="cms-m-section-title">
+          {{ "TITLE.Select_from_phonebook_category" | translate }}
+        </div>
+        <app-cms-contact-category-tree-selector
+          (optionSelectChecked)="onActionContactCategorySelectChecked($event)"
+          (optionSelectDisChecked)="
+            onActionContactCategorySelectDisChecked($event)
+          "
+          (optionNodeClicked)="optionrLinkCategoryId = $event"
+        >
+        </app-cms-contact-category-tree-selector>
+        <div class="cms-m-section-title">
+          {{ "TITLE.Select_from_phonebook" | translate }}
+        </div>
+        <app-cms-contact-content-drop-list
+          [optionrLinkCategoryId]="optionrLinkCategoryId"
+          (optionSelectAdded)="onActionContactContentSelectChecked($event)"
+          (optionSelectRemoved)="onActionContactContentSelectDisChecked($event)"
+        ></app-cms-contact-content-drop-list>
+      </div>
+
+      <!-- Shipping Time -->
+      <div class="cms-m-settings-section">
+        <h3 class="cms-m-settings-section-title">
+          {{ "TITLE.Shipping_time" | translate }}
+        </h3>
+        <div class="cms-m-time-grid">
+          <div class="cms-m-form-field">
+            <label for="scheduleSendStartDate" class="cms-m-form-label">
+              {{ "TITLE.postage_date" | translate }}
+            </label>
+            <input
+              matInput
+              [matDatepicker]="scheduleSendStartDate"
+              [(ngModel)]="dataModelDateByClockStart.date"
+              name="scheduleSendStartDate"
+              class="cms-m-form-input"
+              id="scheduleSendStartDate"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="scheduleSendStartDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker
+              touchUi
+              #scheduleSendStartDate
+              (closed)="onActionScheduleSendCheck()"
+            ></mat-datepicker>
+          </div>
+          <div class="cms-m-form-field">
+            <label for="scheduleSendStartClock" class="cms-m-form-label">
+              {{ "TITLE.Shipping_time" | translate }}
+            </label>
+            <input
+              matInput
+              [ngxTimepicker]="scheduleSendStartClock"
+              [(ngModel)]="dataModelDateByClockStart.clock"
+              [format]="24"
+              name="scheduleSendStartClock"
+              class="cms-m-form-input"
+              id="scheduleSendStartClock"
+            />
+            <ngx-material-timepicker-toggle
+              matSuffix
+              [for]="scheduleSendStartClock"
+            ></ngx-material-timepicker-toggle>
+            <ngx-material-timepicker
+              touchUi
+              #scheduleSendStartClock
+              (closed)="onActionScheduleSendCheck()"
+              class="timepicker"
+            ></ngx-material-timepicker>
+          </div>
+          <div class="cms-m-form-field">
+            <label for="scheduleSendExpireDate" class="cms-m-form-label">
+              {{ "TITLE.Delivery_end_date" | translate }}
+            </label>
+            <input
+              matInput
+              [matDatepicker]="scheduleSendExpireDate"
+              [(ngModel)]="dataModelDateByClockExpire.date"
+              name="scheduleSendExpireDate"
+              class="cms-m-form-input"
+              id="scheduleSendExpireDate"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="scheduleSendExpireDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker
+              touchUi
+              #scheduleSendExpireDate
+              (closed)="onActionScheduleSendCheck()"
+            ></mat-datepicker>
+          </div>
+          <div class="cms-m-form-field">
+            <label for="scheduleSendExpireClock" class="cms-m-form-label">
+              {{ "TITLE.Send_end_time" | translate }}
+            </label>
+            <input
+              matInput
+              [ngxTimepicker]="scheduleSendExpireClock"
+              [(ngModel)]="dataModelDateByClockExpire.clock"
+              [format]="24"
+              name="scheduleSendExpireClock"
+              class="cms-m-form-input"
+              id="scheduleSendExpireClock"
+            />
+            <ngx-material-timepicker-toggle
+              matSuffix
+              [for]="scheduleSendExpireClock"
+            ></ngx-material-timepicker-toggle>
+            <ngx-material-timepicker
+              touchUi
+              #scheduleSendExpireClock
+              (closed)="onActionScheduleSendCheck()"
+              class="timepicker"
+            ></ngx-material-timepicker>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timing (Cron) -->
+      <div class="cms-m-settings-section">
+        <h3 class="cms-m-settings-section-title">
+          {{ "TITLE.Timing" | translate }}
+        </h3>
+        <cron-editor
+          [(cron)]="dataModel.scheduleCron"
+          [disabled]="isCronDisabled"
+          [options]="cronOptions"
+          [language]="language"
+          (cronChange)="onActionValidationStatusCronChange($event)"
+        ></cron-editor>
+        <div class="cms-m-cron-result">
+          <strong>{{ "TITLE.Resulting_Cron" | translate }}:</strong>
+          <code>{{ dataModel.scheduleCron }}</code>
+        </div>
         <button
           type="button"
-          class="cms-m-settings-close-btn"
-          (click)="settingsMenuOpen = false"
-          [attr.aria-label]="'ACTION.CLOSE' | translate"
+          class="cms-m-btn cms-m-btn-danger"
+          (click)="
+            dataModel.scheduleCron = ''; onActionValidationStatusCronChange('')
+          "
         >
-          <i class="fa-solid fa-times" aria-hidden="true"></i>
+          <i class="fa-solid fa-trash" aria-hidden="true"></i>
+          {{ "ACTION.REMOVE_CRON" | translate }}
         </button>
       </div>
 
-      <div class="cms-m-settings-drawer-body">
-        <!-- Message Category & Content -->
-        <div class="cms-m-settings-section">
-          <h3 class="cms-m-settings-section-title">
-            {{ "TITLE.Message_Text" | translate }}
-          </h3>
-          <app-sms-main-message-category-selector
-            (optionChange)="onActionSelectMessageCategory($event)"
-          >
-          </app-sms-main-message-category-selector>
-          <app-sms-main-message-content-selector
-            (optionChange)="onActionSelectMessageContent($event)"
-            [optionLinkCategryId]="dataMessageCategoryModel.id"
-          ></app-sms-main-message-content-selector>
-
-          @if (dataMessageContentModel?.messageBody?.length > 0) {
-            <div class="cms-m-message-actions">
-              <button
-                type="button"
-                class="cms-m-btn-small"
-                (click)="onActionMessageContentAdd()"
-              >
-                <i class="fa-solid fa-plus" aria-hidden="true"></i>
-                {{ "TITLE.Added_to_the_text" | translate }}
-              </button>
-              <button
-                type="button"
-                class="cms-m-btn-small"
-                (click)="onActionMessageContentNew()"
-              >
-                <i class="fa-solid fa-file" aria-hidden="true"></i>
-                {{ "TITLE.Message_Text" | translate }}
-              </button>
+      <!-- Settings Toggles -->
+      <div class="cms-m-settings-section">
+        <h3 class="cms-m-settings-section-title">
+          {{ "TITLE.Advanced_Settings" | translate }}
+        </h3>
+        <div class="cms-m-settings-list">
+          <div class="cms-m-setting-item">
+            <div class="cms-m-setting-label">
+              {{ "TITLE.Duplicate_removal_to_numbers" | translate }}
             </div>
-          }
-        </div>
-
-        <!-- Placeholders -->
-        <div class="cms-m-settings-section">
-          <h3 class="cms-m-settings-section-title">
-            {{ "TITLE.Message_Placeholders" | translate }}
-          </h3>
-          @if (dataModelMessagePlaceholdersResult?.length > 0) {
-            <div class="cms-m-placeholders-grid">
-              @for (
-                item of dataModelMessagePlaceholdersResult;
-                track item.charValue
-              ) {
-                <div class="cms-m-placeholder-card">
-                  <div class="cms-m-placeholder-code">
-                    {{ item.charValue }}
-                  </div>
-                  <div class="cms-m-placeholder-description">
-                    {{
-                      "TITLE.Message_Placeholders_Description_" +
-                        item.charValue.replace("$", "") | translate
-                    }}
-                  </div>
-                  <button
-                    type="button"
-                    class="cms-m-placeholder-btn"
-                    (click)="
-                      onActionMessageContentAddPlaceholder(item.charValue)
-                    "
-                  >
-                    <i class="fa-solid fa-plus" aria-hidden="true"></i>
-                    {{ "TITLE.Added_to_the_text" | translate }}
-                  </button>
-                </div>
-              }
-            </div>
-          } @else {
-            <div class="cms-m-empty-state">
-              <i class="fa-solid fa-info-circle" aria-hidden="true"></i>
-              <span>{{ "MESSAGE.no_information" | translate }}</span>
-            </div>
-          }
-        </div>
-
-        <!-- Phonebook -->
-        <div class="cms-m-settings-section">
-          <h3 class="cms-m-settings-section-title">
-            {{ "TITLE.Phonebook" | translate }}
-          </h3>
-          <div class="cms-m-section-title">
-            {{ "TITLE.Select_from_phonebook_category" | translate }}
+            <mat-slide-toggle
+              [(ngModel)]="dataModel.optionDuplicateRemovalToNumbers"
+              name="optionDuplicateRemovalToNumbers"
+            ></mat-slide-toggle>
           </div>
-          <app-cms-contact-category-tree-selector
-            (optionSelectChecked)="
-              onActionContactCategorySelectChecked($event)
-            "
-            (optionSelectDisChecked)="
-              onActionContactCategorySelectDisChecked($event)
-            "
-            (optionNodeClicked)="optionrLinkCategoryId = $event"
-          >
-          </app-cms-contact-category-tree-selector>
-          <div class="cms-m-section-title">
-            {{ "TITLE.Select_from_phonebook" | translate }}
-          </div>
-          <app-cms-contact-content-drop-list
-            [optionrLinkCategoryId]="optionrLinkCategoryId"
-            (optionSelectAdded)="onActionContactContentSelectChecked($event)"
-            (optionSelectRemoved)="
-              onActionContactContentSelectDisChecked($event)
-            "
-          ></app-cms-contact-content-drop-list>
-        </div>
 
-        <!-- Shipping Time -->
-        <div class="cms-m-settings-section">
-          <h3 class="cms-m-settings-section-title">
-            {{ "TITLE.Shipping_time" | translate }}
-          </h3>
-          <div class="cms-m-time-grid">
-            <div class="cms-m-form-field">
-              <label for="scheduleSendStartDate" class="cms-m-form-label">
-                {{ "TITLE.postage_date" | translate }}
-              </label>
-              <input
-                matInput
-                [matDatepicker]="scheduleSendStartDate"
-                [(ngModel)]="dataModelDateByClockStart.date"
-                name="scheduleSendStartDate"
-                class="cms-m-form-input"
-                id="scheduleSendStartDate"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="scheduleSendStartDate"
-              ></mat-datepicker-toggle>
-              <mat-datepicker
-                touchUi
-                #scheduleSendStartDate
-                (closed)="onActionScheduleSendCheck()"
-              ></mat-datepicker>
-            </div>
-            <div class="cms-m-form-field">
-              <label for="scheduleSendStartClock" class="cms-m-form-label">
-                {{ "TITLE.Shipping_time" | translate }}
-              </label>
-              <input
-                matInput
-                [ngxTimepicker]="scheduleSendStartClock"
-                [(ngModel)]="dataModelDateByClockStart.clock"
-                [format]="24"
-                name="scheduleSendStartClock"
-                class="cms-m-form-input"
-                id="scheduleSendStartClock"
-              />
-              <ngx-material-timepicker-toggle
-                matSuffix
-                [for]="scheduleSendStartClock"
-              ></ngx-material-timepicker-toggle>
-              <ngx-material-timepicker
-                touchUi
-                #scheduleSendStartClock
-                (closed)="onActionScheduleSendCheck()"
-                class="timepicker"
-              ></ngx-material-timepicker>
-            </div>
-            <div class="cms-m-form-field">
-              <label for="scheduleSendExpireDate" class="cms-m-form-label">
-                {{ "TITLE.Delivery_end_date" | translate }}
-              </label>
-              <input
-                matInput
-                [matDatepicker]="scheduleSendExpireDate"
-                [(ngModel)]="dataModelDateByClockExpire.date"
-                name="scheduleSendExpireDate"
-                class="cms-m-form-input"
-                id="scheduleSendExpireDate"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="scheduleSendExpireDate"
-              ></mat-datepicker-toggle>
-              <mat-datepicker
-                touchUi
-                #scheduleSendExpireDate
-                (closed)="onActionScheduleSendCheck()"
-              ></mat-datepicker>
-            </div>
-            <div class="cms-m-form-field">
-              <label for="scheduleSendExpireClock" class="cms-m-form-label">
-                {{ "TITLE.Send_end_time" | translate }}
-              </label>
-              <input
-                matInput
-                [ngxTimepicker]="scheduleSendExpireClock"
-                [(ngModel)]="dataModelDateByClockExpire.clock"
-                [format]="24"
-                name="scheduleSendExpireClock"
-                class="cms-m-form-input"
-                id="scheduleSendExpireClock"
-              />
-              <ngx-material-timepicker-toggle
-                matSuffix
-                [for]="scheduleSendExpireClock"
-              ></ngx-material-timepicker-toggle>
-              <ngx-material-timepicker
-                touchUi
-                #scheduleSendExpireClock
-                (closed)="onActionScheduleSendCheck()"
-                class="timepicker"
-              ></ngx-material-timepicker>
-            </div>
-          </div>
-        </div>
-
-        <!-- Timing (Cron) -->
-        <div class="cms-m-settings-section">
-          <h3 class="cms-m-settings-section-title">
-            {{ "TITLE.Timing" | translate }}
-          </h3>
-          <cron-editor
-            [(cron)]="dataModel.scheduleCron"
-            [disabled]="isCronDisabled"
-            [options]="cronOptions"
-            [language]="language"
-            (cronChange)="onActionValidationStatusCronChange($event)"
-          ></cron-editor>
-          <div class="cms-m-cron-result">
-            <strong>{{ "TITLE.Resulting_Cron" | translate }}:</strong>
-            <code>{{ dataModel.scheduleCron }}</code>
-          </div>
-          <button
-            type="button"
-            class="cms-m-btn cms-m-btn-danger"
-            (click)="
-              dataModel.scheduleCron = '';
-              onActionValidationStatusCronChange('')
-            "
-          >
-            <i class="fa-solid fa-trash" aria-hidden="true"></i>
-            {{ "ACTION.REMOVE_CRON" | translate }}
-          </button>
-        </div>
-
-        <!-- Settings Toggles -->
-        <div class="cms-m-settings-section">
-          <h3 class="cms-m-settings-section-title">
-            {{ "TITLE.Advanced_Settings" | translate }}
-          </h3>
-          <div class="cms-m-settings-list">
+          @if (this.tokenHelper.isAdminSite || this.tokenHelper.isSupportSite) {
             <div class="cms-m-setting-item">
               <div class="cms-m-setting-label">
-                {{ "TITLE.Duplicate_removal_to_numbers" | translate }}
+                {{ "TITLE.Send_as_checkProcesses" | translate }}
               </div>
               <mat-slide-toggle
-                [(ngModel)]="dataModel.optionDuplicateRemovalToNumbers"
-                name="optionDuplicateRemovalToNumbers"
+                [(ngModel)]="dataModel.optionCheckProcesses"
+                (ngModelChange)="onActionValidationStatusCheckProcessesChange()"
+                name="optionCheckProcesses"
               ></mat-slide-toggle>
             </div>
+          }
 
-            @if (
-              this.tokenHelper.isAdminSite || this.tokenHelper.isSupportSite
-            ) {
-              <div class="cms-m-setting-item">
-                <div class="cms-m-setting-label">
-                  {{ "TITLE.Send_as_checkProcesses" | translate }}
-                </div>
-                <mat-slide-toggle
-                  [(ngModel)]="dataModel.optionCheckProcesses"
-                  (ngModelChange)="
-                    onActionValidationStatusCheckProcessesChange()
-                  "
-                  name="optionCheckProcesses"
-                ></mat-slide-toggle>
-              </div>
-            }
-
-            <div class="cms-m-setting-item">
-              <div class="cms-m-setting-label">
-                {{ "TITLE.Send_as_flash" | translate }}
-              </div>
-              <mat-slide-toggle
-                [(ngModel)]="isFlash"
-                (ngModelChange)="onActionFlaseChange($event)"
-                name="isFlash"
-              ></mat-slide-toggle>
+          <div class="cms-m-setting-item">
+            <div class="cms-m-setting-label">
+              {{ "TITLE.Send_as_flash" | translate }}
             </div>
-
-
+            <mat-slide-toggle
+              [(ngModel)]="isFlash"
+              (ngModelChange)="onActionFlaseChange($event)"
+              name="isFlash"
+            ></mat-slide-toggle>
           </div>
         </div>
       </div>
     </div>
   </div>
-
 </div>

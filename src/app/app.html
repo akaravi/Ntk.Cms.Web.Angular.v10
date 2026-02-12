@@ -3,7 +3,7 @@
   [ngClass]="
     this.themeService.themeStore.mainPagePreloaderShow ? '' : 'preloader-hide'
   "
-  >
+>
   <div class="spinner-border color-highlight" role="status"></div>
 </div>
 <div id="page">
@@ -14,6 +14,9 @@
   }
   <div class="page-title-clear"></div>
   <router-outlet></router-outlet>
+  @if (this.publicHelper.isMobile) {
+    <div style="height: 100px"></div>
+  }
   <!-- All Menus, Action Sheets, Modals, Notifications, Toasts, Snackbars get Placed outside the <div class="page-content"> -->
   <!-- Be sure this is on your main visiting page, for example, the index.html page-->
   <!-- Install Prompt for Android -->
@@ -33,7 +36,7 @@
   dataSupportModelResult &&
   dataSupportModelResult.isSuccess &&
   dataSupportModelResult.item.supportHtmlBody?.length > 0
-  ) {
+) {
   <div
     [innerHtml]="dataSupportModelResult.item.supportHtmlBody | safeHtml"
     runScripts
