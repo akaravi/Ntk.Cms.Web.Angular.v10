@@ -41,8 +41,10 @@ import { CoreLogMemberListMobileComponent } from "./member/list/list.mobile.comp
 import { CoreLogMemberViewComponent } from "./member/view/view.component";
 import { CoreLogMicroServicePingListComponent } from "./micro-service-ping/list/list.component";
 import { CoreLogMicroServicePingListMobileComponent } from "./micro-service-ping/list/list.mobile.component";
+import { CoreLogMicroServicePingViewComponent } from "./micro-service-ping/view/view.component";
 import { CoreLogMicroServiceStatusListComponent } from "./micro-service-status/list/list.component";
 import { CoreLogMicroServiceStatusListMobileComponent } from "./micro-service-status/list/list.mobile.component";
+import { CoreLogMicroServiceStatusViewComponent } from "./micro-service-status/view/view.component";
 import { CoreLogNotificationEditComponent } from "./notification/edit/edit.component";
 import { CoreLogNotificationListComponent } from "./notification/list/list.component";
 import { CoreLogNotificationListMobileComponent } from "./notification/list/list.mobile.component";
@@ -111,8 +113,10 @@ import { CoreLogSmsViewMobileComponent } from "./sms/view/view.mobile.component"
     CoreLogSmsListMobileComponent,
     CoreLogMicroServiceStatusListComponent,
     CoreLogMicroServiceStatusListMobileComponent,
+    CoreLogMicroServiceStatusViewComponent,
     CoreLogMicroServicePingListComponent,
     CoreLogMicroServicePingListMobileComponent,
+    CoreLogMicroServicePingViewComponent,
   ],
   exports: [
     CoreLogComponent,
@@ -148,8 +152,10 @@ import { CoreLogSmsViewMobileComponent } from "./sms/view/view.mobile.component"
     CoreLogReportDataViewComponent,
     CoreLogMicroServiceStatusListComponent,
     CoreLogMicroServiceStatusListMobileComponent,
+    CoreLogMicroServiceStatusViewComponent,
     CoreLogMicroServicePingListComponent,
     CoreLogMicroServicePingListMobileComponent,
+    CoreLogMicroServicePingViewComponent,
   ],
   providers: [
     CoreModuleService,

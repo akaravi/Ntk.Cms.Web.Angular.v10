@@ -874,3 +874,40 @@ styles.mobile.scss فقط با prefers-color-scheme: dark کار می‌کرد. 
 ✅ micro-service-monitor حذف شد. micro-service-status و micro-service-ping با ساختار member و امکانات کامل ایجاد شدند. Build موفق.
 
 ---
+
+## Part 27: اضافه کردن View برای micro-service-status و micro-service-ping (مشابه member/view)
+
+**تاریخ:** 2026-02-17
+**وضعیت:** ✅ تکمیل شده
+
+### دستور:
+
+ایجاد کامپوننت View برای هر دو ماژول micro-service-status و micro-service-ping مشابه `src/app/cms-modules/core-log/member/view` و اتصال دکمه View در لیست و موبایل.
+
+### تغییرات انجام شده:
+
+1. **micro-service-ping/list:**
+   - اضافه شدن `MatDialog`, `environment`, `CoreLogMicroServicePingViewComponent` به list.component.ts
+   - متد `onActionButtonViewRow(model)` برای باز کردن دیالوگ View با `data: { item: model }`
+   - دکمه View در منوی اکشن ردیف (list.component.html) و در نوار اکشن موبایل (list.mobile.component.html)
+
+2. **micro-service-status/list:**
+   - دکمه View در منوی اکشن ردیف (list.component.html) و در نوار اکشن موبایل (list.mobile.component.html) - متد از قبل وجود داشت
+
+3. **ماژول CoreLog:**
+   - اضافه شدن `CoreLogMicroServiceStatusViewComponent` و `CoreLogMicroServicePingViewComponent` به declarations و exports در coreLog.module.ts
+
+### فایل‌های تغییر یافته:
+
+- `src/app/cms-modules/core-log/micro-service-ping/list/list.component.ts` (MatDialog, onActionButtonViewRow)
+- `src/app/cms-modules/core-log/micro-service-ping/list/list.component.html` (منوی View)
+- `src/app/cms-modules/core-log/micro-service-ping/list/list.mobile.component.html` (دکمه View)
+- `src/app/cms-modules/core-log/micro-service-status/list/list.component.html` (منوی View)
+- `src/app/cms-modules/core-log/micro-service-status/list/list.mobile.component.html` (دکمه View)
+- `src/app/cms-modules/core-log/coreLog.module.ts` (declarations و exports برای Viewها)
+
+### Result 27:
+
+✅ View برای هر دو ماژول در ماژول ثبت شد. دکمه View در لیست (منوی more_vert) و در موبایل (نوار اکشن) برای status و ping اضافه شد و دیالوگ View با داده ردیف باز می‌شود.
+
+---

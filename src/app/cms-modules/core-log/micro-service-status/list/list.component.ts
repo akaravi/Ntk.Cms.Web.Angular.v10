@@ -1,16 +1,23 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatSort } from "@angular/material/sort";
+import { MatTableDataSource } from "@angular/material/table";
 import { TranslateService } from "@ngx-translate/core";
 import {
   CoreLogMicroServicePingModel,
   CoreLogMicroServiceStatusModel,
   CoreLogMicroServiceStatusService,
+  DataFieldInfoModel,
   MicroServiceCommandTypeEnum,
 } from "ntk-cms-api";
 import { interval, Subject, Subscription } from "rxjs";
 import { startWith, takeUntil } from "rxjs/operators";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
+import { environment } from "src/environments/environment";
+import { CoreLogMicroServiceStatusViewComponent } from "../view/view.component";
 
 @Component({
   selector: "app-core-log-micro-service-status-list",
@@ -23,6 +30,7 @@ export class CoreLogMicroServiceStatusListComponent
 {
   constructorInfoAreaId = this.constructor.name;
   statusList: CoreLogMicroServiceStatusModel[] = [];
+  tableSource = new MatTableDataSource<CoreLogMicroServiceStatusModel>([]);
   tableRowSelected: CoreLogMicroServiceStatusModel | null = null;
   pingResult: CoreLogMicroServicePingModel | null = null;
   pingLoading = false;
@@ -31,8 +39,32 @@ export class CoreLogMicroServiceStatusListComponent
   errorMessage: string | null = null;
   pollIntervalSeconds = 10;
   appInfoFilter = "";
-  isDarkMode = false;
   viewGuideNotice = false;
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
+
+  tabledisplayedColumns: string[] = [];
+  tabledisplayedColumnsSource: string[] = [
+    "appInfo",
+    "instanceIdentifier",
+    "runtimeIdentity",
+    "rabbitMQUserName",
+    "activeQueues",
+    "appVersion",
+    "status",
+    "lastUpdate",
+    "Action",
+  ];
+  tabledisplayedColumnsMobileSource: string[] = [
+    "appInfo",
+    "instanceIdentifier",
+    "runtimeIdentity",
+    "appVersion",
+    "status",
+    "lastUpdate",
+  ];
 
   readonly MicroServiceCommandTypeEnum = MicroServiceCommandTypeEnum;
   private pollSubscription: Subscription | null = null;
@@ -44,10 +76,20 @@ export class CoreLogMicroServiceStatusListComponent
     public translate: TranslateService,
     public publicHelper: PublicHelper,
     public pageInfo: PageInfoService,
+    private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
-  ) {}
+    public dialog: MatDialog,
+  ) {
+    this.publicHelper.processService.cdr = this.cdr;
+  }
 
   ngOnInit(): void {
+    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
+      this.tabledisplayedColumnsSource,
+      this.tabledisplayedColumnsMobileSource,
+      [],
+      this.cmsStoreService.getStateAll.tokenInfoStore,
+    );
     this.loadStatus();
     this.startPolling();
   }
@@ -97,6 +139,26 @@ export class CoreLogMicroServiceStatusListComponent
           "smsProviderStatusJson",
           "SmsProviderStatusJson",
         ) ?? "",
+      instanceIdentifier: this.getProp<string>(
+        r,
+        "instanceIdentifier",
+        "InstanceIdentifier",
+      ),
+      runtimeIdentity: this.getProp<string>(
+        r,
+        "runtimeIdentity",
+        "RuntimeIdentity",
+      ),
+      activeQueuesJson: this.getProp<string>(
+        r,
+        "activeQueuesJson",
+        "ActiveQueuesJson",
+      ),
+      rabbitMQUserName: this.getProp<string>(
+        r,
+        "rabbitMQUserName",
+        "RabbitMQUserName",
+      ),
     } as CoreLogMicroServiceStatusModel;
   }
 
@@ -132,7 +194,7 @@ export class CoreLogMicroServiceStatusListComponent
 
   loadStatus(): void {
     const filter = this.appInfoFilter?.trim();
-    this.statusLoading = true;
+    //this.statusLoading = true;
     this.errorMessage = null;
 
     const obs = filter
@@ -144,9 +206,11 @@ export class CoreLogMicroServiceStatusListComponent
         this.statusLoading = false;
         if (this.isSuccessResponse(res)) {
           this.statusList = this.getListFromResponse(res);
+          this.tableSource.data = this.statusList;
           this.errorMessage = null;
         } else {
           this.statusList = [];
+          this.tableSource.data = [];
           this.errorMessage = this.getErrorMessage(res);
         }
         this.cdr.markForCheck();
@@ -154,6 +218,7 @@ export class CoreLogMicroServiceStatusListComponent
       error: (err) => {
         this.statusLoading = false;
         this.statusList = [];
+        this.tableSource.data = [];
         this.errorMessage =
           err?.message || err?.error?.message || "خطا در ارتباط با سرور";
         this.cdr.markForCheck();
@@ -175,20 +240,33 @@ export class CoreLogMicroServiceStatusListComponent
     }
   }
 
-  onActionTableRowSelect(item: CoreLogMicroServiceStatusModel): void {
+  tableRowSelect2Click = false;
+  onActionTableRowSelect(
+    item: CoreLogMicroServiceStatusModel,
+    event: MouseEvent = null,
+  ): void {
+    if (event) event.preventDefault();
     this.tableRowSelected = item;
     this.pingResult = null;
+    if (event?.button === 2) {
+      setTimeout(() => {
+        this.tableRowSelect2Click = true;
+      }, 100);
+      return;
+    }
     this.cdr.markForCheck();
   }
 
   onPing(): void {
     const item = this.tableRowSelected;
-    if (!item?.routeTarget) return;
+    if (!item) return;
+    const routeTarget = item.routeTarget || item.appInfo;
+    if (!routeTarget) return;
     this.pingLoading = true;
     this.pingResult = null;
     this.errorMessage = null;
     this.statusService
-      .ServicePing(item.routeTarget, 15)
+      .ServicePing(routeTarget, 15)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res) => {
@@ -217,11 +295,13 @@ export class CoreLogMicroServiceStatusListComponent
 
   onSendCommand(commandType: MicroServiceCommandTypeEnum): void {
     const item = this.tableRowSelected;
-    if (!item?.appInfo) return;
+    if (!item) return;
+    const routeTarget = item.routeTarget || item.appInfo;
+    if (!routeTarget) return;
     this.commandLoading = true;
     this.errorMessage = null;
     this.statusService
-      .ServiceSendCommand(item.appInfo, { commandType })
+      .ServiceSendCommand(routeTarget, { commandType })
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res) => {
@@ -249,9 +329,21 @@ export class CoreLogMicroServiceStatusListComponent
     this.loadStatus();
   }
 
-  toggleTheme(): void {
-    this.isDarkMode = !this.isDarkMode;
-    document.documentElement.classList.toggle("dark-theme", this.isDarkMode);
+  onTableSortData(sort: MatSort): void {
+    if (
+      this.tableSource &&
+      this.tableSource.sort &&
+      this.tableSource.sort.active === sort.active
+    ) {
+      if (this.tableSource.sort.start === "asc") {
+        sort.start = "desc";
+      } else if (this.tableSource.sort.start === "desc") {
+        sort.start = "asc";
+      } else {
+        sort.start = "desc";
+      }
+    }
+    this.tableSource.sort = sort;
     this.cdr.markForCheck();
   }
 
@@ -296,5 +388,30 @@ export class CoreLogMicroServiceStatusListComponent
 
   onActionButtonReload(): void {
     this.loadStatus();
+  }
+
+  onActionButtonViewRow(
+    model: CoreLogMicroServiceStatusModel = this.tableRowSelected,
+  ): void {
+    if (!model) return;
+    const panelClass = this.publicHelper.isMobile
+      ? "dialog-fullscreen"
+      : "dialog-min";
+    this.dialog.open(CoreLogMicroServiceStatusViewComponent, {
+      height: "90%",
+      panelClass,
+      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
+      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+      data: { item: model },
+    });
+  }
+
+  onActionView(item: CoreLogMicroServiceStatusModel): void {
+    this.onActionButtonViewRow(item);
+  }
+
+  onActionPing(item: CoreLogMicroServiceStatusModel): void {
+    this.tableRowSelected = item;
+    this.onPing();
   }
 }

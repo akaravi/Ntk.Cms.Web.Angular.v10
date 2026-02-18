@@ -4,13 +4,11 @@
   [(optionActionGuideNoticeDisplay)]="viewGuideNotice"
   [optionTreeDisplay]="false"
   [optionActionRowId]="tableRowSelected?.id"
-  [optionActionRowDisplayMenu]="false"
+  [optionActionRowDisplayMenu]="tableRowSelect2Click"
   [optionSelectRowItemTitle]="tableRowSelected?.appInfo"
 >
   <ng-container cms-tree></ng-container>
-  <ng-container cms-header>
-    <h1>{{ "ROUTE.CORELOG.MICROSERVICEPING" | translate }}</h1>
-  </ng-container>
+  <ng-container cms-header></ng-container>
   <ng-container cms-action-header></ng-container>
   <ng-container cms-action-header-start>
     <a
@@ -38,114 +36,97 @@
   <ng-container cms-action-row></ng-container>
   <ng-container cms-action-area></ng-container>
   <ng-container cms-body>
-    <div class="micro-service-ping-content">
-      <div *ngIf="errorMessage" class="alert alert-error">
-        {{ errorMessage }}
-      </div>
-
-      <div class="ping-list-section">
-        <h2>{{ "ROUTE.CORELOG.MICROSERVICEPING_LIST" | translate }}</h2>
-        <div *ngIf="statusLoading" class="status-loading">
-          {{ "ROUTE.CORELOG.MICROSERVICEMONITOR_LOADING" | translate }}
-        </div>
-        <div *ngIf="!statusLoading">
-          <mat-table [dataSource]="tableSource" class="ping-table">
-            <ng-container matColumnDef="appInfo">
-              <mat-header-cell *matHeaderCellDef>{{
-                "ROUTE.CORELOG.MICROSERVICEPING_APPINFO" | translate
-              }}</mat-header-cell>
-              <mat-cell *matCellDef="let row">{{
-                row?.appInfo || "-"
-              }}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="rttMs">
-              <mat-header-cell *matHeaderCellDef>{{
-                "ROUTE.CORELOG.MICROSERVICEPING_RTT" | translate
-              }}</mat-header-cell>
-              <mat-cell *matCellDef="let row"
-                >{{ row?.rttMs ?? "-" }} ms</mat-cell
-              >
-            </ng-container>
-            <ng-container matColumnDef="pingTimestamp">
-              <mat-header-cell *matHeaderCellDef>{{
-                "ROUTE.CORELOG.MICROSERVICEPING_PINGTIME" | translate
-              }}</mat-header-cell>
-              <mat-cell *matCellDef="let row">{{
-                getPingTimestamp(row)
-              }}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="pongTimestamp">
-              <mat-header-cell *matHeaderCellDef>{{
-                "ROUTE.CORELOG.MICROSERVICEPING_PONGTIME" | translate
-              }}</mat-header-cell>
-              <mat-cell *matCellDef="let row">{{
-                getPongTimestamp(row)
-              }}</mat-cell>
-            </ng-container>
-            <mat-header-row
-              *matHeaderRowDef="[
-                'appInfo',
-                'rttMs',
-                'pingTimestamp',
-                'pongTimestamp',
-              ]"
-            ></mat-header-row>
-            <mat-row
-              *matRowDef="
-                let row;
-                columns: ['appInfo', 'rttMs', 'pingTimestamp', 'pongTimestamp']
-              "
-              [class.selected]="tableRowSelected?.id === row?.id"
-              (click)="onActionTableRowSelect(row)"
-            ></mat-row>
-          </mat-table>
-          <p *ngIf="!pingList?.length" class="empty-message">
-            {{ "ROUTE.CORELOG.MICROSERVICEPING_EMPTY" | translate }}
-          </p>
-        </div>
-      </div>
-
-      <section *ngIf="tableRowSelected as item" class="detail-section">
-        <h2>
-          {{ "ROUTE.CORELOG.MICROSERVICEMONITOR_DETAIL" | translate }}:
-          {{ item?.appInfo || "-" }}
-        </h2>
-        <div class="detail-card">
-          <div class="detail-row">
-            <span class="label"
-              >{{ "ROUTE.CORELOG.MICROSERVICEPING_APPINFO" | translate }}:</span
-            >
-            <span>{{ item?.appInfo || "-" }}</span>
-          </div>
-          <div class="detail-row">
-            <span class="label"
-              >{{ "ROUTE.CORELOG.MICROSERVICEPING_RTT" | translate }}:</span
-            >
-            <span>{{ item?.rttMs ?? "-" }} ms</span>
-          </div>
-          <div class="detail-row">
-            <span class="label"
-              >{{
-                "ROUTE.CORELOG.MICROSERVICEPING_PINGTIME" | translate
-              }}:</span
-            >
-            <span>{{ getPingTimestamp(item) }}</span>
-          </div>
-          <div class="detail-row">
-            <span class="label"
-              >{{
-                "ROUTE.CORELOG.MICROSERVICEPING_PONGTIME" | translate
-              }}:</span
-            >
-            <span>{{ getPongTimestamp(item) }}</span>
-          </div>
-          <div class="detail-row">
-            <span class="label">RequestId:</span>
-            <span>{{ item?.requestId || "-" }}</span>
-          </div>
-        </div>
-      </section>
-    </div>
+    @if (errorMessage) {
+      <div class="alert alert-error">{{ errorMessage }}</div>
+    }
+    <mat-table
+      [dataSource]="tableSource"
+      matSort
+      #tableSort="matSort"
+      (matSortChange)="onTableSortData(tableSort)"
+    >
+      <!-- AppInfo Column -->
+      <ng-container matColumnDef="appInfo">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{
+            fieldsInfo["appInfo"]?.fieldTitle ||
+              ("ROUTE.CORELOG.MICROSERVICEPING_APPINFO" | translate)
+          }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.appInfo || "-" }} </mat-cell>
+      </ng-container>
+      <!-- RttMs Column -->
+      <ng-container matColumnDef="rttMs">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{
+            fieldsInfo["rttMs"]?.fieldTitle ||
+              ("ROUTE.CORELOG.MICROSERVICEPING_RTT" | translate)
+          }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row.rttMs ?? "-" }} ms </mat-cell>
+      </ng-container>
+      <!-- PingTimestamp Column -->
+      <ng-container matColumnDef="pingTimestamp">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{
+            fieldsInfo["pingTimestamp"]?.fieldTitle ||
+              ("ROUTE.CORELOG.MICROSERVICEPING_PINGTIME" | translate)
+          }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" style="direction: ltr">
+          {{ getPingTimestamp(row) }}
+        </mat-cell>
+      </ng-container>
+      <!-- PongTimestamp Column -->
+      <ng-container matColumnDef="pongTimestamp">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>
+          {{
+            fieldsInfo["pongTimestamp"]?.fieldTitle ||
+              ("ROUTE.CORELOG.MICROSERVICEPING_PONGTIME" | translate)
+          }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" style="direction: ltr">
+          {{ getPongTimestamp(row) }}
+        </mat-cell>
+      </ng-container>
+      <!-- Action Column -->
+      <ng-container matColumnDef="Action">
+        <mat-header-cell *matHeaderCellDef>
+          {{ "TITLE.OPTION" | translate }}
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row" class="Action">
+          <button
+            type="button"
+            mat-icon-button
+            [matMenuTriggerFor]="actionMenu"
+            aria-label="Action Menu"
+            (click)="$event.stopPropagation()"
+          >
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #actionMenu="matMenu">
+            <button mat-menu-item (click)="onActionButtonViewRow(row)">
+              <mat-icon>visibility</mat-icon>
+              <span>{{ "ACTION.VIEW" | translate }}</span>
+            </button>
+          </mat-menu>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="tabledisplayedColumns"></mat-header-row>
+      <mat-row
+        *matRowDef="let row; columns: tabledisplayedColumns; let i = dataIndex"
+        class="ntk-row-mainfild"
+        (click)="onActionTableRowSelect(row, $event)"
+        (rtclick)="onActionTableRowSelect(row, $event)"
+        [class.ntk-row-selected]="row.id === tableRowSelected?.id"
+      >
+      </mat-row>
+    </mat-table>
+    @if (!statusLoading && !pingList?.length) {
+      <p class="empty-message">
+        {{ "ROUTE.CORELOG.MICROSERVICEPING_EMPTY" | translate }}
+      </p>
+    }
   </ng-container>
   <ng-container cms-footer></ng-container>
 </app-cms-html-list>

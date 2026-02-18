@@ -1,9 +1,12 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { TranslateService } from "@ngx-translate/core";
 import {
   CoreLogMicroServicePingModel,
   CoreLogMicroServicePingService,
+  DataFieldInfoModel,
   ErrorExceptionResult,
   FilterModel,
 } from "ntk-cms-api";
@@ -11,7 +14,10 @@ import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { PageInfoService } from "src/app/core/services/page-info.service";
+import { environment } from "src/environments/environment";
+import { CoreLogMicroServicePingViewComponent } from "../view/view.component";
 
 @Component({
   selector: "app-core-log-micro-service-ping-list",
@@ -27,6 +33,26 @@ export class CoreLogMicroServicePingListComponent implements OnInit, OnDestroy {
   statusLoading = false;
   errorMessage: string | null = null;
   viewGuideNotice = false;
+  fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
+    string,
+    DataFieldInfoModel
+  >();
+
+  tabledisplayedColumns: string[] = [];
+  tabledisplayedColumnsSource: string[] = [
+    "appInfo",
+    "rttMs",
+    "pingTimestamp",
+    "pongTimestamp",
+    "Action",
+  ];
+  tabledisplayedColumnsMobileSource: string[] = [
+    "appInfo",
+    "rttMs",
+    "pingTimestamp",
+    "pongTimestamp",
+  ];
+  tableRowSelect2Click = false;
 
   private readonly destroy$ = new Subject<void>();
 
@@ -36,10 +62,20 @@ export class CoreLogMicroServicePingListComponent implements OnInit, OnDestroy {
     public translate: TranslateService,
     public publicHelper: PublicHelper,
     public pageInfo: PageInfoService,
+    private cmsStoreService: CmsStoreService,
     private cdr: ChangeDetectorRef,
-  ) {}
+    public dialog: MatDialog,
+  ) {
+    this.publicHelper.processService.cdr = this.cdr;
+  }
 
   ngOnInit(): void {
+    this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
+      this.tabledisplayedColumnsSource,
+      this.tabledisplayedColumnsMobileSource,
+      [],
+      this.cmsStoreService.getStateAll.tokenInfoStore,
+    );
     this.loadPingList();
   }
 
@@ -108,8 +144,36 @@ export class CoreLogMicroServicePingListComponent implements OnInit, OnDestroy {
       });
   }
 
-  onActionTableRowSelect(item: CoreLogMicroServicePingModel): void {
+  onActionTableRowSelect(
+    item: CoreLogMicroServicePingModel,
+    event: MouseEvent = null,
+  ): void {
+    if (event) event.preventDefault();
     this.tableRowSelected = item;
+    if (event?.button === 2) {
+      setTimeout(() => {
+        this.tableRowSelect2Click = true;
+      }, 100);
+      return;
+    }
+    this.cdr.markForCheck();
+  }
+
+  onTableSortData(sort: MatSort): void {
+    if (
+      this.tableSource &&
+      this.tableSource.sort &&
+      this.tableSource.sort.active === sort.active
+    ) {
+      if (this.tableSource.sort.start === "asc") {
+        sort.start = "desc";
+      } else if (this.tableSource.sort.start === "desc") {
+        sort.start = "asc";
+      } else {
+        sort.start = "desc";
+      }
+    }
+    this.tableSource.sort = sort;
     this.cdr.markForCheck();
   }
 
@@ -135,5 +199,21 @@ export class CoreLogMicroServicePingListComponent implements OnInit, OnDestroy {
 
   onActionButtonReload(): void {
     this.loadPingList();
+  }
+
+  onActionButtonViewRow(
+    model: CoreLogMicroServicePingModel = this.tableRowSelected,
+  ): void {
+    if (!model) return;
+    const panelClass = this.publicHelper.isMobile
+      ? "dialog-fullscreen"
+      : "dialog-min";
+    this.dialog.open(CoreLogMicroServicePingViewComponent, {
+      height: "90%",
+      panelClass,
+      enterAnimationDuration: environment.cmsViewConfig.enterAnimationDuration,
+      exitAnimationDuration: environment.cmsViewConfig.exitAnimationDuration,
+      data: { item: model },
+    });
   }
 }

@@ -1,5 +1,33 @@
 # تاریخچه تغییرات پروژه
 
+## 2026-02-18 (رفع خطای view.component.html در micro-service-status)
+
+### خلاصه:
+
+رفع خطای کامپایل در فایل view.component.html مربوط به micro-service-status. کامپوننت `app-cms-html-view` وجود نداشت و باید با ساختار div استاندارد پروژه جایگزین می‌شد.
+
+### تغییرات:
+
+- **micro-service-status/view/view.component.html**: جایگزینی `app-cms-html-view` با ساختار div استاندارد (`ntk-cms-html-card-header`, `ntk-cms-html-card-body`, `ntk-cms-html-card-message`, `ntk-cms-html-card-footer`)
+- اضافه شدن `app-progress-spinner` و `app-cms-form-result-message` مطابق الگوی سایر viewها
+- حفظ تمام قابلیت‌های قبلی شامل دکمه‌های Ping، Reload Config و Back
+
+---
+
+## 2026-02-17 (View برای micro-service-status و micro-service-ping)
+
+### خلاصه:
+
+اضافه شدن دکمه View و اتصال به کامپوننت View برای هر دو لیست micro-service-status و micro-service-ping (دسکتاپ و موبایل). ثبت Viewها در CoreLogModule.
+
+### تغییرات:
+
+- **micro-service-ping/list:** MatDialog، متد onActionButtonViewRow، دکمه View در منوی اکشن و در نوار اکشن موبایل
+- **micro-service-status/list:** دکمه View در منوی اکشن ردیف و در نوار اکشن موبایل
+- **coreLog.module.ts:** اضافه شدن CoreLogMicroServiceStatusViewComponent و CoreLogMicroServicePingViewComponent به declarations و exports
+
+---
+
 ## 2026-02-17 (جایگزینی micro-service-monitor با micro-service-status و micro-service-ping)
 
 ### خلاصه:

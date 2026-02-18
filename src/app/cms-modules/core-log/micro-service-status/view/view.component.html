@@ -1,0 +1,212 @@
+<div class="ntk-cms-html-card-header">
+  <!--begin:::::::::::::::::::::::::::::::::::::::::cms-header-->
+  <div class="row">
+    <div class="col-12">
+      <h4>{{ formInfo.formTitle }}</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 text-end">
+      <button
+        type="button"
+        mat-raised-button
+        color="primary"
+        (click)="onActionPing()"
+        [disabled]="pingLoading"
+        class="m-1"
+      >
+        <mat-icon>send</mat-icon>
+        {{ pingLoading ? "در حال Ping..." : "Ping" }}
+      </button>
+      <button
+        type="button"
+        mat-raised-button
+        color="accent"
+        (click)="onActionReloadConfig()"
+        [disabled]="commandLoading"
+        class="m-1"
+      >
+        <mat-icon>refresh</mat-icon>
+        {{ commandLoading ? "در حال ارسال..." : "Reload Config" }}
+      </button>
+      <button type="button" mat-button (click)="onActionBack()" class="m-1">
+        <mat-icon>arrow_back</mat-icon>
+        بازگشت
+      </button>
+    </div>
+  </div>
+  @if (errorMessage) {
+    <div class="alert alert-danger m-2">{{ errorMessage }}</div>
+  }
+  <!--end:::::::::::::::::::::::::::::::::::::::::cms-header-->
+</div>
+<div class="ntk-cms-html-card-body ntk-allow-text-selection loader-container">
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
+  <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
+  <div class="row">
+    <!-- اطلاعات اصلی -->
+    <div class="col-12 col-md-6">
+      <mat-card class="m-2">
+        <mat-card-header>
+          <mat-card-title>اطلاعات اصلی</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-list>
+            <mat-list-item>
+              <span matListItemTitle>App Info:</span>
+              <span matListItemLine class="font-bold">{{
+                dataModel.appInfo || "-"
+              }}</span>
+            </mat-list-item>
+            <mat-list-item>
+              <span matListItemTitle>App Version:</span>
+              <span matListItemLine>v{{ dataModel.appVersion || "-" }}</span>
+            </mat-list-item>
+            <mat-list-item>
+              <span matListItemTitle>App Location:</span>
+              <span matListItemLine>{{ dataModel.appLocation || "-" }}</span>
+            </mat-list-item>
+            <mat-list-item>
+              <span matListItemTitle>App Info Start:</span>
+              <span matListItemLine>
+                {{
+                  dataModel.appInfoStart
+                    ? (dataModel.appInfoStart | date: "yyyy-MM-dd HH:mm:ss")
+                    : "-"
+                }}
+              </span>
+            </mat-list-item>
+            <mat-list-item>
+              <span matListItemTitle>Create Date Message:</span>
+              <span matListItemLine>
+                {{
+                  dataModel.createDateMessage
+                    ? (dataModel.createDateMessage
+                      | date: "yyyy-MM-dd HH:mm:ss")
+                    : "-"
+                }}
+              </span>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- اطلاعات مسیریابی و RabbitMQ -->
+    <div class="col-12 col-md-6">
+      <mat-card class="m-2">
+        <mat-card-header>
+          <mat-card-title>اطلاعات مسیریابی و RabbitMQ</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-list>
+            <mat-list-item>
+              <span matListItemTitle>Instance Identifier:</span>
+              <span matListItemLine>
+                <mat-chip color="primary">{{
+                  dataModel.instanceIdentifier || "-"
+                }}</mat-chip>
+              </span>
+            </mat-list-item>
+            <mat-list-item>
+              <span matListItemTitle>Runtime Identity:</span>
+              <span matListItemLine>
+                <mat-chip color="accent">{{
+                  dataModel.runtimeIdentity || "-"
+                }}</mat-chip>
+              </span>
+            </mat-list-item>
+            <mat-list-item>
+              <span matListItemTitle>Route Target:</span>
+              <span matListItemLine>
+                <mat-chip color="warn">{{
+                  dataModel.routeTarget || "-"
+                }}</mat-chip>
+              </span>
+            </mat-list-item>
+            <mat-list-item>
+              <span matListItemTitle>RabbitMQ UserName:</span>
+              <span matListItemLine>{{
+                dataModel.rabbitMQUserName || "-"
+              }}</span>
+            </mat-list-item>
+            <mat-list-item>
+              <span matListItemTitle>Queueهای فعال:</span>
+              <span matListItemLine>
+                @if (
+                  dataModel.activeQueues && dataModel.activeQueues.length > 0
+                ) {
+                  <div class="mt-2">
+                    @for (queue of dataModel.activeQueues; track queue) {
+                      <mat-chip color="primary" class="mr-1 mb-1">{{
+                        queue
+                      }}</mat-chip>
+                    }
+                  </div>
+                } @else {
+                  <span class="text-muted">هیچ Queue فعالی وجود ندارد</span>
+                }
+              </span>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- آمار عملکرد -->
+    @if (dataModel.operationStatisticsJson) {
+      <div class="col-12">
+        <mat-card class="m-2">
+          <mat-card-header>
+            <mat-card-title>آمار عملکرد</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <pre class="p-3 bg-light border rounded">{{
+              dataModel.operationStatisticsJson | json
+            }}</pre>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    }
+
+    <!-- وضعیت SMS Provider -->
+    @if (dataModel.smsProviderStatusJson) {
+      <div class="col-12">
+        <mat-card class="m-2">
+          <mat-card-header>
+            <mat-card-title>وضعیت SMS Provider</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <pre class="p-3 bg-light border rounded">{{
+              dataModel.smsProviderStatusJson | json
+            }}</pre>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    }
+  </div>
+  <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
+</div>
+<div class="ntk-cms-html-card-message">
+  <!--begin:::::::::::::::::::::::::::::::::::::::::cms-message -->
+  <app-cms-form-result-message
+    [formInfo]="formInfo"
+  ></app-cms-form-result-message>
+  <!--end:::::::::::::::::::::::::::::::::::::::::cms-message -->
+</div>
+<div class="ntk-cms-html-card-footer">
+  <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
+  @if (formInfo.submitButtonEnabled) {
+    <div class="form-actions">
+      <button
+        type="button"
+        (click)="onFormCancel()"
+        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+      >
+        <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
+      </button>
+    </div>
+  }
+  <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
+</div>
