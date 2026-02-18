@@ -1,0 +1,130 @@
+<app-cms-html-list-mobile
+  [optionsListInfoAreaId]="constructorInfoAreaId"
+  [optionGuideNoticeKey]="''"
+  [(optionActionGuideNoticeDisplay)]="viewGuideNotice"
+  [optionTreeDisplay]="false"
+  [optionActionRowId]="tableRowSelected?.id"
+  [optionActionRowDisplay]="tableRowSelected?.appInfo?.length > 0"
+  [optionActionRowDisplayMenu]="false"
+  [optionSelectRowItemTitle]="tableRowSelected?.appInfo"
+>
+  <ng-container cms-tree></ng-container>
+  <ng-container cms-header>
+    <h1>{{ "ROUTE.CORELOG.MICROSERVICEPING" | translate }}</h1>
+  </ng-container>
+  <ng-container cms-action-header></ng-container>
+  <ng-container cms-action-header-start>
+    <a
+      type="button"
+      class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
+      (click)="viewGuideNotice = !viewGuideNotice"
+      target="_blank"
+      ><i class="fa-solid fa-info font-18" style="color: #ffffff"></i
+    ></a>
+    <button
+      type="button"
+      class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
+      (click)="onActionButtonReload()"
+      [disabled]="statusLoading"
+    >
+      <i
+        class="fa-solid fa-rotate-right font-18"
+        style="color: #ffffff"
+        [class.rotation360]="statusLoading"
+      ></i>
+    </button>
+  </ng-container>
+  <ng-container cms-action-header-end></ng-container>
+  <ng-container cms-action-main></ng-container>
+  <ng-container cms-action-row></ng-container>
+  <ng-container cms-action-area></ng-container>
+  <ng-container cms-body>
+    <div class="micro-service-ping-content">
+      <div *ngIf="errorMessage" class="alert alert-error">
+        {{ errorMessage }}
+      </div>
+
+      <div class="ping-list-section">
+        <h2>{{ "ROUTE.CORELOG.MICROSERVICEPING_LIST" | translate }}</h2>
+        <div *ngIf="statusLoading" class="status-loading">
+          {{ "ROUTE.CORELOG.MICROSERVICEMONITOR_LOADING" | translate }}
+        </div>
+        <div *ngIf="!statusLoading">
+          @if (pingList?.length) {
+            <div class="cms-m-list">
+              @for (row of pingList; track trackById($index, row)) {
+                <div
+                  class="cms-m-list-item"
+                  [class.selected]="row.id === tableRowSelected?.id"
+                  (click)="onActionTableRowSelect(row)"
+                  role="button"
+                  [attr.aria-label]="row?.appInfo"
+                  tabindex="0"
+                >
+                  <div class="cms-m-list-item-image-placeholder">
+                    <i class="fa-solid fa-signal" aria-hidden="true"></i>
+                  </div>
+                  <div class="cms-m-list-item-content">
+                    <div class="cms-m-list-item-title">
+                      {{ row?.appInfo || "-" }}
+                    </div>
+                    <div class="cms-m-list-item-subtitle">
+                      RTT: {{ row?.rttMs ?? "-" }} ms |
+                      {{ getPingTimestamp(row) }}
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          } @else {
+            <div class="cms-m-empty">
+              {{ "ROUTE.CORELOG.MICROSERVICEPING_EMPTY" | translate }}
+            </div>
+          }
+        </div>
+      </div>
+
+      <section *ngIf="tableRowSelected as item" class="detail-section">
+        <h2>
+          {{ "ROUTE.CORELOG.MICROSERVICEMONITOR_DETAIL" | translate }}:
+          {{ item?.appInfo || "-" }}
+        </h2>
+        <div class="detail-card">
+          <div class="detail-row">
+            <span class="label"
+              >{{ "ROUTE.CORELOG.MICROSERVICEPING_APPINFO" | translate }}:</span
+            >
+            <span>{{ item?.appInfo || "-" }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label"
+              >{{ "ROUTE.CORELOG.MICROSERVICEPING_RTT" | translate }}:</span
+            >
+            <span>{{ item?.rttMs ?? "-" }} ms</span>
+          </div>
+          <div class="detail-row">
+            <span class="label"
+              >{{
+                "ROUTE.CORELOG.MICROSERVICEPING_PINGTIME" | translate
+              }}:</span
+            >
+            <span>{{ getPingTimestamp(item) }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label"
+              >{{
+                "ROUTE.CORELOG.MICROSERVICEPING_PONGTIME" | translate
+              }}:</span
+            >
+            <span>{{ getPongTimestamp(item) }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">RequestId:</span>
+            <span>{{ item?.requestId || "-" }}</span>
+          </div>
+        </div>
+      </section>
+    </div>
+  </ng-container>
+  <ng-container cms-footer></ng-container>
+</app-cms-html-list-mobile>

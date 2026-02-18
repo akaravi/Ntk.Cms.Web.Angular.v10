@@ -1,11 +1,45 @@
 # تاریخچه تغییرات پروژه
 
+## 2026-02-17 (جایگزینی micro-service-monitor با micro-service-status و micro-service-ping)
+
+### خلاصه:
+
+کامپوننت micro-service-monitor حذف و دو کامپوننت جدید micro-service-status و micro-service-ping بر اساس ساختار member ایجاد شدند.
+
+### تغییرات:
+
+- **حذف:** micro-service-monitor (ts, html, scss)
+- **ایجاد micro-service-status:** لیست وضعیت میکروسرویس‌ها با CoreLogMicroServiceStatusService - فیلتر، جزئیات، Ping، دستورات (PauseStatus, ResumeStatus, ReloadConfig, UpdateSettings)، polling، تم شب/روز
+- **ایجاد micro-service-ping:** لیست تاریخچه Ping با CoreLogMicroServicePingService - mat-table با appInfo, rttMs, pingTimestamp, pongTimestamp
+- **روتینگ:** micro-service-status و micro-service-ping جایگزین micro-service-monitor
+- **i18n:** MICROSERVICESTATUS، MICROSERVICEPING به تمام زبان‌ها
+
+---
+
+## 2026-02-17 (رفع مشکلات کامپوننت micro-service-monitor)
+
+### خلاصه:
+
+کامپوننت micro-service-monitor به درستی کار نمی‌کرد. پیاده‌سازی کامل بررسی و اصلاح شد.
+
+### تغییرات:
+
+- **micro-service-monitor.component.ts**: پشتیبانی از listItems و items در پاسخ API، takeUntil برای subscriptionها، استفاده از MicroServiceCommandTypeEnum، مدیریت تاریخ نامعتبر، statusLoading، trackById با fallback
+- **رفع عدم نمایش دیتا**: پشتیبانی از PascalCase (ListItems, IsSuccess, AppInfo, ...)، آرایه مستقیم، نرمال‌سازی آیتم‌ها با normalizeStatusItem
+- **micro-service-monitor.component.html**: استفاده از enum در دکمه‌های دستور، getAppInfoStart برای تاریخ شروع، نمایش loading
+- **micro-service-monitor.component.scss**: استایل status-loading
+- **i18n**: اضافه شدن MICROSERVICEMONITOR_LOADING به تمام زبان‌ها
+
+---
+
 ## 2026-02-11 (ادامه - mat-form-field، mat-select، mat-sort، mat-tooltip Dark Mode)
 
 ### خلاصه:
+
 اضافه شدن استایل‌های theme-dark برای mat-form-field، mat-select، mat-sort، mat-tooltip و menu-box-right-custom.
 
 ### تغییرات در styles.scss:
+
 - mat-form-field و mat-form-field: رنگ متن سفید، floating label، line-ripple
 - mat-select: value، placeholder، arrow سفید
 - mat-select-panel و mat-autocomplete-panel: پس‌زمینه #1b1e29
@@ -18,9 +52,11 @@
 ## 2026-02-11 (ادامه - styles.mobile.scss و theme-dark)
 
 ### خلاصه:
+
 اضافه شدن متغیرهای CSS برای کلاس theme-dark در styles.mobile.scss.
 
 ### تغییرات:
+
 - بلوک `.theme-dark` با تمام متغیرهای dark (--cms-m-bg-color، --cms-m-card-bg، ...)
 - هماهنگ‌سازی صفحات موبایل با تم dark پروژه وقتی body دارای theme-dark است
 
@@ -29,9 +65,11 @@
 ## 2026-02-11 (ادامه - cms-html-list-mobile و opacity-70)
 
 ### خلاصه:
+
 اضافه شدن استایل‌های dark برای cms-html-list-mobile و opacity-70.
 
 ### تغییرات:
+
 - cms-html-list-mobile-tree، cms-html-list-mobile-menu-modal با پس‌زمینه تیره
 - cms-html-list-mobile-header، divider، footer با border روشن
 - menu-title، close-menu، font-11 در منوی موبایل
@@ -42,9 +80,11 @@
 ## 2026-02-11 (بررسی تم dark در shared components)
 
 ### خلاصه:
+
 بررسی تمام کامپوننت‌های src/app/shared برای سازگاری با تم dark.
 
 ### تغییرات انجام شده در styles.scss:
+
 - **Bootstrap**: alert, table, btn-light, btn-primary, btn-outline-primary, btn-secondary
 - **menu-box-bottom**: cms-guide-notice
 - **mat-dialog**: cms-html-widget
@@ -57,6 +97,7 @@
 - **card .menu-title**: cms-show-key, cms-export-list, cms-data-memo
 
 ### نتیجه:
+
 کامپوننت‌های shared در حالت dark به درستی نمایش داده می‌شوند.
 
 ---
@@ -64,9 +105,11 @@
 ## 2026-02-11 (رفع مشکل تم dark در /core/userclaim/checklist)
 
 ### خلاصه:
+
 صفحه checklist از mat-card استفاده می‌کند که در dark mode پس‌زمینه سفید داشت.
 
 ### تغییرات انجام شده در styles.scss:
+
 - **mat-card**: پس‌زمینه #1b1e29، رنگ متن سفید، border
 - **mat-card-header, mat-card-title, mat-card-subtitle**: رنگ سفید
 - **mat-card-content**: رنگ متن سفید
@@ -74,6 +117,7 @@
 - **ntk-cms-html-list-header**: پس‌زمینه شفاف، رنگ سفید، mat-icon سفید
 
 ### نتیجه:
+
 صفحه /core/userclaim/checklist در حالت dark به درستی نمایش داده می‌شود.
 
 ---
@@ -81,9 +125,11 @@
 ## 2026-02-11 (بررسی ۱۰ کامپوننت رندم و رفع مشکلات Dark Mode)
 
 ### خلاصه:
+
 بررسی ۱۰ کامپوننت: cms-html-list، polling/content/add، ticketing/task/add، link-management/billboard/add، emailConfirm، crm/lead/list، sms/client-application/add، auth/signup، estate/property-ads/add، module-sale/header/edit.
 
 ### تغییرات انجام شده در styles.scss:
+
 - **mat-slide-toggle**: track، handle و label با رنگ سفید
 - **mat-header-cell, mat-cell**: رنگ متن سفید
 - **cms-html-list**: card و content با پس‌زمینه تیره
@@ -94,6 +140,7 @@
 - **color-red-dark / color-green-dark**: نسخه روشن‌تر برای خوانایی در dark
 
 ### نتیجه:
+
 کامپوننت‌های بررسی‌شده در حالت dark به درستی نمایش داده می‌شوند.
 
 ---
@@ -101,9 +148,11 @@
 ## 2026-02-11 (رفع مشکل selector در حالت Dark)
 
 ### خلاصه:
+
 کامپوننت selector (article/category و سایر ماژول‌ها با input-style + mat-autocomplete) در dark mode به درستی نمایش داده نمی‌شد.
 
 ### تغییرات انجام شده:
+
 - **styles.scss**: اضافه شدن استایل‌های theme-dark برای selector:
   - .input-style label با پس‌زمینه #1b1e29 و متن سفید
   - .input-style input, select, textarea با رنگ متن سفید
@@ -112,6 +161,7 @@
   - .mat-mdc-option با متن سفید و hover/active
 
 ### نتیجه:
+
 کامپوننت selector در حالت dark با label، input، dropdown و آیکون‌های قابل مشاهده نمایش داده می‌شود.
 
 ---
@@ -119,18 +169,21 @@
 ## 2026-02-11 (رفع مشکل tree-selector در حالت Dark)
 
 ### خلاصه:
+
 کامپوننت tree-selector (article/category و سایر ماژول‌ها) در dark mode کاملاً سیاه نمایش داده می‌شد.
 
 ### تغییرات انجام شده:
+
 - **styles.scss**: اضافه شدن استایل‌های theme-dark برای mat-tree در tree-selector:
   - mat-checkbox و label آن (.mdc-label, .mat-mdc-checkbox-label)
-  - mat-checkbox .mdc-checkbox__background با border سفید برای خوانایی
+  - mat-checkbox .mdc-checkbox\_\_background با border سفید برای خوانایی
   - mat-icon
   - button[matIconButton]
   - mat-tree-nested, mat-nested-tree-node, .mat-mdc-tree-node, .cdk-tree-node
   - app-cms-html-tree .card.card-style و .content
 
 ### نتیجه:
+
 tree-selector در حالت dark با متن سفید، آیکون قابل مشاهده و پس‌زمینه مناسب نمایش داده می‌شود.
 
 ---
@@ -138,18 +191,22 @@ tree-selector در حالت dark با متن سفید، آیکون قابل مش
 ## 2026-02-11 (اصلاح mat-datepicker در کل پروژه)
 
 ### خلاصه:
+
 اصلاحات mat-datepicker در تمام فایل‌های پروژه انجام شد.
 
 ### تغییرات انجام شده:
+
 - **label for و input id**: تغییر از dataModel.xxx به xxx (fromDate، expireDate، beginDate، endDate، accessUseStartDate)
 - **disabled binding**: تغییر از disabled="{{ }}" به [disabled]="!(fieldsInfo['xxx']?.accessEditField ?? false)" یا accessAddField
 - **حذف type="text" تکراری** در inputها
 - **افزودن placeholder** برای فیلدهای تاریخ
 
 ### فایل‌های تغییر یافته:
+
 news، sms (client-application، client-application-permission، api-path-permission، api-number، api-number-permission)، ticketing، polling، link-management (billboard، accounting)، file-manager، estate (account-agency-ads، property-project، property-ads)، data-provider (client-application، client-application-permission)، chart، catalog، blog، biography، article، application، core-main (module-sale/header)
 
 ### نتیجه:
+
 همه فیلدهای mat-datepicker با label صحیح، id ساده و disabled درست کار می‌کنند.
 
 ---
@@ -157,13 +214,16 @@ news، sms (client-application، client-application-permission، api-path-permis
 ## 2026-02-11 (رفع مشکل فیلدهای تاریخ در news/content/add)
 
 ### خلاصه:
+
 اصلاحات فیلدهای fromDate و expireDate در add.component.html (news/content).
 
 ### تغییرات انجام شده:
+
 - **add.component.html**: حذف type="text" تکراری؛ اصلاح label for و input id به fromDate/expireDate؛ اصلاح binding disabled به [disabled]="!(fieldsInfo['fromDate']?.accessAddField ?? false)".
 - **styles.scss**: اضافه شدن .theme-dark .cms-input-group label برای پس‌زمینه تیره و متن سفید در dark mode.
 
 ### نتیجه:
+
 فیلدهای تاریخ با label صحیح، بدون type تکراری و با disabled درست کار می‌کنند. label در dark mode خوانا است.
 
 ---
@@ -171,12 +231,15 @@ news، sms (client-application، client-application-permission، api-path-permis
 ## 2026-02-11 (رفع مشکل mat-datepicker در حالت Dark)
 
 ### خلاصه:
+
 استایل‌های theme-dark برای mat-datepicker و mat-datepicker-toggle در styles.scss اضافه شد.
 
 ### تغییرات انجام شده:
+
 - **styles.scss**: اضافه شدن بلوک `/*mat-datepicker Color Settings*/` با استایل‌های theme-dark برای mat-datepicker-toggle، mat-datepicker-content، mat-calendar، سلول‌های تاریخ، دکمه‌های کنترل و actions.
 
 ### نتیجه:
+
 mat-datepicker و mat-datepicker-toggle در حالت dark با پس‌زمینه تیره، متن سفید و آیکون‌های قابل مشاهده نمایش داده می‌شوند.
 
 ---
@@ -184,13 +247,16 @@ mat-datepicker و mat-datepicker-toggle در حالت dark با پس‌زمین�
 ## 2026-02-11 (رفع مشکل mat-stepper / mat-step در حالت Dark)
 
 ### خلاصه:
+
 استایل‌های theme-dark برای mat-stepper و mat-step در styles.scss اضافه شد.
 
 ### تغییرات انجام شده:
+
 - **styles.scss**: اضافه شدن بلوک `/*mat-stepper / mat-step Color Settings*/` با استایل‌های theme-dark برای mat-stepper، mat-step-header، mat-step-label، mat-step-icon، خطوط اتصال و محتوا.
-- **_dark.scss**: استایل‌های mat-expansion-panel و mat-stepper حذف شد (فقط styles.scss استفاده می‌شود).
+- **\_dark.scss**: استایل‌های mat-expansion-panel و mat-stepper حذف شد (فقط styles.scss استفاده می‌شود).
 
 ### نتیجه:
+
 mat-stepper و mat-step در حالت dark با پس‌زمینه تیره، متن سفید و آیکون‌های قابل مشاهده نمایش داده می‌شوند.
 
 ---
@@ -198,12 +264,15 @@ mat-stepper و mat-step در حالت dark با پس‌زمینه تیره، م�
 ## 2026-02-11 (رفع مشکل mat-expansion-panel در حالت Dark)
 
 ### خلاصه:
+
 استایل‌های theme-dark برای mat-expansion-panel در styles.scss اضافه شد.
 
 ### تغییرات انجام شده:
+
 - **styles.scss**: اضافه شدن بلوک `/*mat-expansion-panel Color Settings*/` با استایل‌های theme-dark برای mat-expansion-panel، mat-expansion-panel-header، mat-expansion-panel-body، mat-action-row و mat-expansion-indicator.
 
 ### نتیجه:
+
 mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن سفید و border مناسب نمایش داده می‌شود.
 
 ---
@@ -211,13 +280,16 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 ## 2026-02-11 (اضافه کردن color-highlight به آیکون‌های input-style)
 
 ### خلاصه:
+
 کلاس `color-highlight` به تمام آیکون‌های فیلد (fa-user، fa-lock، fa-at، fa-quote-left) در input-style های پروژه اضافه شد.
 
 ### تغییرات انجام شده:
-- **_inputs.scss**: اضافه شدن `@extend .color-highlight` برای `i:first-child` در `.input-style.has-icon` و `.input-style.has-icon.has-borders` - اعمال رنگ highlight به‌صورت خودکار برای تمام آیکون‌های اول.
+
+- **\_inputs.scss**: اضافه شدن `@extend .color-highlight` برای `i:first-child` در `.input-style.has-icon` و `.input-style.has-icon.has-borders` - اعمال رنگ highlight به‌صورت خودکار برای تمام آیکون‌های اول.
 - **آیکون‌های HTML**: به‌روزرسانی فایل‌های auth (signin-byusername، signup، signin-bysms، forgot-password) و core-main (mobileConfirm، emailConfirm) با افزودن کلاس `color-highlight` به آیکون‌های fa-user، fa-lock، fa-at، fa-quote-left.
 
 ### نتیجه:
+
 همه آیکون‌های input-style بدون رنگ، اکنون با رنگ highlight نمایش داده می‌شوند.
 
 ---
@@ -225,13 +297,16 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 ## 2026-02-11 (افزودن آیکون چشم برای نمایش/مخفی پسورد - signin-byusername)
 
 ### خلاصه:
+
 آیکون چشم برای دیده شدن/مخفی شدن پسورد ورودی در صفحه ورود با نام کاربری اضافه شد.
 
 ### تغییرات انجام شده:
+
 - **signin-byusername.component.html**: اضافه شدن آیکون چشم (fa-eye / fa-eye-slash) کنار فیلد پسورد با کلیک برای toggle نمایش؛ استفاده از hidePassword موجود در component؛ پشتیبانی از keyboard (Enter/Space).
 - **styles.scss**: استایل hover برای آیکون password-toggle-icon.
 
 ### نتیجه:
+
 کاربر می‌تواند با کلیک روی آیکون چشم پسورد را نمایش دهد یا مخفی کند.
 
 ---
@@ -239,12 +314,15 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 ## 2026-02-11 (تبدیل ng-container cms-tree-header به [optionListTitle])
 
 ### خلاصه:
+
 تمام استفاده‌های `<ng-container cms-tree-header>` در کامپوننت‌های tree به `[optionListTitle]` در تگ `app-cms-html-tree` تبدیل شدند.
 
 ### تغییرات انجام شده:
+
 - **تمام tree و tree-selector components**: حذف `ng-container cms-tree-header` و محتوای آن؛ اضافه کردن `[optionListTitle]="('TABLE.' + dataModelResult?.access?.moduleEntityName) | translate"` به تگ `app-cms-html-tree`.
 
 ### نتیجه:
+
 عنوان tree اکنون از طریق input property `optionListTitle` به‌جای محتوای projected منتقل می‌شود.
 
 ---
@@ -252,13 +330,16 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 ## 2026-02-11 (ارث‌بری CmsHtmlListMobileComponent از CmsHtmlListComponent)
 
 ### خلاصه:
+
 `CmsHtmlListMobileComponent` از `CmsHtmlListComponent` ارث‌بری می‌کند تا کد تکراری حذف شود و نگهداری ساده‌تر شود.
 
 ### تغییرات انجام شده:
+
 - **cms-html-list.component.ts**: اضافه شدن `ChangeDetectorRef` (اختیاری با `@Optional()`) برای پشتیبانی از `OnPush` در کامپوننت فرزند؛ اضافه شدن `cdr?.markForCheck()` در تمام setterها و متدهای action؛ اضافه شدن `optionTitle` و `optionClassBody` به Inputها؛ اصلاح subscriptionهای translate برای push به `unsubscribe` و جلوگیری از memory leak.
 - **cms-html-list-mobile.component.ts**: بازنویسی کامل - کلاس از `CmsHtmlListComponent` extend می‌کند؛ حذف تمام Inputها، Outputها، propertyها و متدهای تکراری؛ حفظ فقط متدهای اختصاصی موبایل: `getActionMainButtonClasses()`, `getActionRowButtonClasses()`, `getIconRotationClass()`.
 
 ### نتیجه:
+
 کد تکراری حذف شد، نگهداری ساده‌تر شد و رفتار قبلی حفظ گردید.
 
 ---
@@ -266,13 +347,16 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 ## 2026-02-09 (رفع عدم نمایش منوهای شناور - cms-html-list و cms-html-list-mobile)
 
 ### خلاصه:
+
 منوهای شناور (menu-box-modal) با کلیک روی دکمه منو نمایش داده نمی‌شدند.
 
 ### تغییرات انجام شده:
+
 - **cms-html-list.component.scss**: استایل صریح برای `.cms-html-list-menu-modal` و `.cms-html-list-menu-modal.menu-active` (opacity، pointer-events، visibility، transform، z-index: 102).
 - **cms-html-list-mobile.component.scss**: همان منطق برای `.cms-html-list-mobile-menu-modal` و `.cms-html-list-mobile-menu-modal.menu-active`.
 
 ### نتیجه:
+
 منوی عملیات اصلی و منوی ردیف در هر دو کامپوننت در مرکز صفحه با z-index مناسب نمایش داده می‌شوند.
 
 ---
@@ -280,16 +364,20 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 ## 2026-02-09 (رفع مشکل منوی شناور فقط در cms-html-list.component)
 
 ### خلاصه:
+
 در `cms-html-list-mobile` منوهای شناور درست کار می‌کردند ولی در `cms-html-list` مشکل داشتند.
 
 ### علت:
+
 وابستگی به استایل‌های گلوبال `.menu` و `.menu-box-modal` (position، top/left، background) در برخی صفحات/روت‌ها به‌درستی اعمال نمی‌شد.
 
 ### تغییرات انجام شده (فقط cms-html-list.component.scss):
+
 - اضافه شدن `:host { display: block; }` برای جلوگیری از برش یا رفتار نادرست layout.
 - برای `.cms-html-list-menu-modal`: تعریف کامل استایل داخل کامپوننت با `position: fixed !important`، `top: 50%`، `left: 50%`، `transform: translate(-50%, -50%)`، و ظاهر منو (backdrop-filter، background-color، border-radius، overflow) تا بدون وابستگی به تم گلوبال درست نمایش داده شود.
 
 ### نتیجه:
+
 منوی عملیات و منوی ردیف در `cms-html-list` مانند `cms-html-list-mobile` به‌درستی نمایش داده می‌شوند.
 
 ---
@@ -297,14 +385,17 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 ## 2026-02-09 (رفع قطعی منوی شناور cms-html-list - استایل گلوبال و ViewEncapsulation.None)
 
 ### خلاصه:
+
 پس از تغییرات قبلی هنوز منوهای شناور در `cms-html-list` نمایش داده نمی‌شدند.
 
 ### تغییرات انجام شده:
+
 1. **styles.scss**: بلوک استایل گلوبال برای `app-cms-html-list .cms-html-list-menu-modal` و `.menu-active` با `z-index: 9999`.
 2. **cms-html-list.component.ts**: `encapsulation: ViewEncapsulation.None` برای اعمال قطعی استایل منو.
 3. **cms-html-list.component.scss**: سلکتور `app-cms-html-list .cms-html-list-menu-modal` و `z-index: 9999`.
 
 ### نتیجه:
+
 منوهای شناور با استایل گلوبال و encapsulation غیرفعال باید در همه صفحات نمایش داده شوند.
 
 ---
@@ -312,23 +403,29 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 ## 2026-02-02 (رفع خطای Dependency Injection و Translate Pipe)
 
 ### خلاصه:
+
 رفع دو خطا:
+
 1. NG0201: No provider found for `_EstatePropertyExpertPriceService` در `EstateDataModule`
 2. NG0302: The pipe 'translate' could not be found در `EstatePropertyExpertPriceInquiryListComponent`
 
 ### مشکل 1:
+
 کامپوننت‌های `EstateDataModule` (مثل `EstatePropertyAddComponent`) از `EstatePropertyExpertPriceInquiryListComponent` استفاده می‌کنند که به `EstatePropertyExpertPriceService` نیاز دارد. این سرویس فقط در `EstateLogModule` ارائه شده بود و در `EstateDataModule` موجود نبود.
 
 ### مشکل 2:
+
 کامپوننت `EstatePropertyExpertPriceInquiryListComponent` از pipe `translate` استفاده می‌کند اما وقتی در dialog از کامپوننت‌های `EstateDataModule` استفاده می‌شود، Angular نمی‌تواند `TranslateModule` را پیدا کند چون کامپوننت در `EstateLogModule` تعریف شده است.
 
 ### تغییرات انجام شده:
+
 - ✅ اضافه کردن `EstatePropertyExpertPriceService` به imports در `estate-data.module.ts`
 - ✅ اضافه کردن `EstatePropertyExpertPriceService` به providers در `estate-data.module.ts`
 - ✅ اضافه کردن `EstatePropertyExpertPriceInquiryListComponent` به exports در `estate-log.module.ts`
 - ✅ اضافه کردن `EstateLogModule` به imports در `estate-data.module.ts`
 
 ### نتیجه:
+
 هر دو خطا برطرف شدند و کامپوننت‌های `EstateDataModule` می‌توانند از `EstatePropertyExpertPriceInquiryListComponent` در dialog بدون مشکل استفاده کنند.
 
 ---
@@ -336,56 +433,67 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 ## 2026-02-02 (ادامه بازنویسی List Mobile Components - Part 1.1.4 تا 1.1.11)
 
 ### خلاصه:
+
 ادامه بازنویسی List Mobile Components با استفاده از `app-cms-html-list-mobile`. انجام 8 فایل دیگر از Estate Module.
 
 ### تغییرات انجام شده:
 
 #### Part 1.1.4: `estate/main/account-agency`
+
 - ✅ بازنویسی `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile`
 - ✅ ساده‌سازی `list.mobile.component.ts` (حذف styleUrls و متدهای اضافی)
 - ✅ حذف `list.mobile.component.scss`
 
 #### Part 1.1.5: `estate/main/account-agency-ads`
+
 - ✅ بازنویسی `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile`
 - ✅ ساده‌سازی `list.mobile.component.ts` (حذف styleUrls و متدهای اضافی)
 - ✅ حذف `list.mobile.component.scss`
 
 #### Part 1.1.6: `estate/main/account-expert`
+
 - ✅ بازنویسی `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile`
 - ✅ ساده‌سازی `list.mobile.component.ts` (حذف styleUrls و متدهای اضافی)
 - ✅ حذف `list.mobile.component.scss`
 
 #### Part 1.1.7: `estate/main/activity-type`
+
 - ✅ بازنویسی `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile`
 - ✅ ساده‌سازی `list.mobile.component.ts` (حذف styleUrls و متدهای اضافی)
 - ✅ حذف `list.mobile.component.scss`
 
 #### Part 1.1.8: `estate/main/ads-type`
+
 - ✅ بازنویسی `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile`
 - ✅ ساده‌سازی `list.mobile.component.ts` (حذف styleUrls و متدهای اضافی)
 - ✅ حذف `list.mobile.component.scss`
 
 #### Part 1.1.9: `estate/main/contract-type`
+
 - ✅ بازنویسی `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile`
 - ✅ ساده‌سازی `list.mobile.component.ts` (حذف styleUrls و متدهای اضافی)
 - ✅ حذف `list.mobile.component.scss`
 
 #### Part 1.1.10: `estate/main/property-detail`
+
 - ✅ بازنویسی `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile`
 - ✅ ساده‌سازی `list.mobile.component.ts` (حذف styleUrls و متدهای اضافی)
 - ✅ حذف `list.mobile.component.scss`
 
 #### Part 1.1.11: `estate/main/property-detail-group`
+
 - ✅ بازنویسی `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile`
 - ✅ ساده‌سازی `list.mobile.component.ts` (حذف styleUrls و متدهای اضافی)
 - ✅ حذف `list.mobile.component.scss`
 
 ### آمار:
+
 - **انجام شده**: 11 فایل از 55 فایل (20%)
 - **باقیمانده Estate Module**: 13 فایل
 - **باقیمانده کل**: 44 فایل
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/estate/main/account-agency/list/list.mobile.component.html`
 - `src/app/cms-modules/estate/main/account-agency/list/list.mobile.component.ts`
 - `src/app/cms-modules/estate/main/account-agency-ads/list/list.mobile.component.html`
@@ -404,6 +512,7 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 - `src/app/cms-modules/estate/main/property-detail-group/list/list.mobile.component.ts`
 
 ### فایل‌های حذف شده:
+
 - `src/app/cms-modules/estate/main/account-agency/list/list.mobile.component.scss`
 - `src/app/cms-modules/estate/main/account-agency-ads/list/list.mobile.component.scss`
 - `src/app/cms-modules/estate/main/account-expert/list/list.mobile.component.scss`
@@ -418,31 +527,37 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 ## 2026-02-02 (شروع بازنویسی List Mobile Components - Part 1.1.1 تا 1.1.3)
 
 ### خلاصه:
+
 شروع بازنویسی List Mobile Components با استفاده از `app-cms-html-list-mobile`. انجام 3 فایل اول از Estate Module.
 
 ### تغییرات انجام شده:
 
 #### Part 1.1.1: `estate/log/customer-order-result`
+
 - ✅ بازنویسی `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile`
 - ✅ ساده‌سازی `list.mobile.component.ts` (حذف styleUrls، حفظ getTitle و getRowExpanded)
 - ✅ حذف `list.mobile.component.scss`
 
 #### Part 1.1.2: `estate/log/property-expert-price`
+
 - ✅ بازنویسی `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile`
 - ✅ ساده‌سازی `list.mobile.component.ts` (حذف styleUrls، حفظ getTitle و getRowExpanded)
 - ✅ حذف `list.mobile.component.scss`
 
 #### Part 1.1.3: `estate/log/property-history`
+
 - ✅ بازنویسی `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile`
 - ✅ ساده‌سازی `list.mobile.component.ts` (حذف تمام متدهای اضافی و styleUrls، فقط getRowExpanded)
 - ✅ حذف `list.mobile.component.scss`
 
 ### آمار:
+
 - **انجام شده**: 3 فایل از 55 فایل (5.5%)
 - **باقیمانده Estate Module**: 21 فایل
 - **باقیمانده کل**: 52 فایل
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/estate/log/customer-order-result/list/list.mobile.component.html`
 - `src/app/cms-modules/estate/log/customer-order-result/list/list.mobile.component.ts`
 - `src/app/cms-modules/estate/log/property-expert-price/list/list.mobile.component.html`
@@ -451,6 +566,7 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 - `src/app/cms-modules/estate/log/property-history/list/list.mobile.component.ts`
 
 ### فایل‌های حذف شده:
+
 - `src/app/cms-modules/estate/log/customer-order-result/list/list.mobile.component.scss`
 - `src/app/cms-modules/estate/log/property-expert-price/list/list.mobile.component.scss`
 - `src/app/cms-modules/estate/log/property-history/list/list.mobile.component.scss`
@@ -460,11 +576,13 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 ## 2026-02-02 (بازنویسی estate customer-order list mobile با الگوی جدید)
 
 ### خلاصه:
+
 بازنویسی کامل فایل‌های `list.mobile.component.html` و `list.mobile.component.ts` برای estate customer-order با استفاده از کامپوننت `app-cms-html-list-mobile` و حذف فایل SCSS اضافی.
 
 ### تغییرات انجام شده:
 
 #### 1. فایل HTML - استفاده از app-cms-html-list-mobile:
+
 - ✅ تبدیل به استفاده از `app-cms-html-list-mobile` wrapper component
 - ✅ اضافه شدن تمام ng-content slots (header, action-header, action-main, action-row, action-area, body, footer)
 - ✅ اضافه شدن دکمه‌های action در header (info, reload, search, statist)
@@ -476,14 +594,17 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 - ✅ حفظ تمام قابلیت‌های قبلی (search, statist, expanded rows)
 
 #### 2. فایل TypeScript - ساده‌سازی:
+
 - ✅ حذف متدهای اضافی (toggleActionMenu, closeActionMenu, toString, onDocumentClick)
 - ✅ حفظ فقط متد `getRowExpanded` که مورد نیاز است
 - ✅ حذف styleUrls از component decorator (چون SCSS حذف شد)
 
 #### 3. حذف فایل SCSS:
+
 - ✅ حذف `list.mobile.component.scss` چون استایل‌ها در `styles.mobile.scss` و `cms-html-list-mobile.component.scss` موجود است
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/estate/log/customer-order/list/list.mobile.component.html` (بازنویسی کامل)
 - `src/app/cms-modules/estate/log/customer-order/list/list.mobile.component.ts` (ساده‌سازی)
 - `src/app/cms-modules/estate/log/customer-order/list/list.mobile.component.scss` (حذف شده)
@@ -493,15 +614,18 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 ## 2026-02-02 (بهبود استایل selected در لیست موبایل - سمت چپ)
 
 ### خلاصه:
+
 بهبود استایل selected state برای نمایش واضح‌تر border در سمت چپ کادر در حالت RTL.
 
 ### تغییرات انجام شده:
+
 - ✅ افزایش ضخامت border از 3px به 4px برای وضوح بیشتر
 - ✅ بهبود استایل RTL با border-right واضح‌تر
 - ✅ بهبود استایل LTR با border-left واضح‌تر
 - ✅ بهبود dark mode برای selected state
 
 ### فایل‌های تغییر یافته:
+
 - `src/styles.mobile.scss`
 
 ---
@@ -509,13 +633,16 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 ## 2026-02-02 (حذف background color بین ردیف‌ها در cms-html-list-mobile)
 
 ### خلاصه:
+
 حذف background color از container اصلی برای حذف رنگ پس‌زمینه بین ردیف‌های لیست.
 
 ### تغییرات انجام شده:
+
 - ✅ تغییر background container از `var(--cms-m-bg-color, #f6f7fb)` به `transparent`
 - ✅ حذف background در dark mode نیز
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/shared/cms-html-list-mobile/cms-html-list-mobile.component.scss`
 
 ---
@@ -523,11 +650,13 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 ## 2026-02-02 (بازطراحی کامل cms-html-list-mobile - حذف لایه‌ها و padding اضافی)
 
 ### خلاصه:
+
 بازطراحی کامل کامپوننت `cms-html-list-mobile` با حذف لایه‌ها و padding‌های اضافی و ساده‌سازی ساختار HTML و CSS.
 
 ### تغییرات انجام شده:
 
 #### 1. حذف لایه‌های اضافی در HTML:
+
 - ✅ حذف لایه `cms-html-list-mobile-card` اضافی
 - ✅ حذف لایه `cms-html-list-mobile-inner` اضافی
 - ✅ حذف لایه `cms-html-list-mobile-loader-container` اضافی
@@ -535,6 +664,7 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 - ✅ حذف کلاس‌های safe-area اضافی از HTML (انتقال به CSS)
 
 #### 2. کاهش padding و margin در SCSS:
+
 - ✅ کاهش padding content از 16px به 12px
 - ✅ حذف padding اضافی از inner wrapper
 - ✅ حذف margin-bottom اضافی از card
@@ -543,12 +673,14 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 - ✅ استفاده مستقیم از safe-area در CSS به جای کلاس‌های HTML
 
 #### 3. بهینه‌سازی ساختار:
+
 - ✅ حذف wrapper اضافی برای loader
 - ✅ ساده‌سازی header structure
 - ✅ حذف border-radius و backdrop-filter اضافی از card wrapper
 - ✅ استفاده مستقیم از safe-area-inset در padding
 
 #### 4. حفظ تمام قابلیت‌ها:
+
 - ✅ تمام دکمه‌های fixed حفظ شدند
 - ✅ تمام menu modals حفظ شدند
 - ✅ تمام ng-content slots حفظ شدند
@@ -557,6 +689,7 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 - ✅ Header actions حفظ شدند
 
 ### نتیجه:
+
 - کاهش قابل توجه padding و margin اضافی
 - حذف 3 لایه wrapper اضافی
 - ساختار HTML ساده‌تر و تمیزتر
@@ -564,6 +697,7 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 - حفظ کامل تمام قابلیت‌ها
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/shared/cms-html-list-mobile/cms-html-list-mobile.component.html`
 - `src/app/shared/cms-html-list-mobile/cms-html-list-mobile.component.scss`
 
@@ -572,11 +706,13 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 ## 2026-02-02 (تبدیل cms-html-list-mobile به ظاهر iOS)
 
 ### خلاصه:
+
 تبدیل کامپوننت `cms-html-list-mobile` به ظاهر و استایل iOS با استفاده از safe-area support، backdrop-filter، و بهینه‌سازی‌های مخصوص iOS.
 
 ### تغییرات انجام شده:
 
 #### 1. فایل HTML - اضافه شدن Safe Area Support:
+
 - ✅ اضافه شدن کلاس `safe-area-all` به container اصلی
 - ✅ اضافه شدن کلاس `safe-area-content` به content area
 - ✅ اضافه شدن کلاس `safe-area-top` به header
@@ -589,6 +725,7 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 - ✅ اضافه شدن `safe-area-bottom` div به menu modals
 
 #### 2. فایل SCSS - بهینه‌سازی‌های iOS:
+
 - ✅ اضافه شدن `-webkit-overflow-scrolling: touch` برای smooth scrolling
 - ✅ استفاده از `100dvh` برای dynamic viewport height
 - ✅ اضافه شدن `backdrop-filter` و `-webkit-backdrop-filter` با blur و saturate
@@ -602,6 +739,7 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 - ✅ اضافه شدن `@supports (-webkit-touch-callout: none)` برای iOS specific optimizations
 
 ### ویژگی‌های iOS اضافه شده:
+
 1. **Safe Area Support**: پشتیبانی کامل از notch و safe area در iPhone X و جدیدتر
 2. **Blur Effects**: استفاده از backdrop-filter برای ایجاد افکت blur شیشه‌ای iOS
 3. **Rounded Corners**: استفاده از border-radius بیشتر برای ظاهر iOS
@@ -610,6 +748,7 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 6. **Dynamic Viewport**: استفاده از `dvh` برای viewport height داینامیک
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/shared/cms-html-list-mobile/cms-html-list-mobile.component.html`
 - `src/app/shared/cms-html-list-mobile/cms-html-list-mobile.component.scss`
 
@@ -618,25 +757,30 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 ## 2026-02-02 12:11:55 (رفع خطاهای متعدد TypeScript در کامپوننت‌های موبایل)
 
 ### خلاصه:
+
 رفع چندین خطای TypeScript در کامپوننت‌های موبایل مختلف شامل خطاهای `onActionButtonEditRow`, `linkUserId`, و متدهای گم‌شده.
 
 ### تغییرات انجام شده:
 
 #### 1. رفع خطاهای onActionButtonEditRow:
+
 - ✅ حذف پارامتر `$event` از فراخوانی در `template/category/list/list.mobile.component.html`
 - ✅ حذف پارامتر `$event` از فراخوانی در `data-provider/main/client-application/list/list.mobile.component.html`
 - ✅ حذف پارامتر `$event` از فراخوانی در `news/category/list/list.mobile.component.html`
 
 #### 2. رفع خطاهای linkUserId:
+
 - ✅ استفاده از `$any(row).linkUserId` در `data-provider/main/client-application/list/list.mobile.component.html`
 - ✅ استفاده از `$any(row).linkUserId` در `sms/main/client-application/list/list.mobile.component.html`
 
 #### 3. اضافه کردن متدهای گم‌شده:
+
 - ✅ اضافه کردن `onActionCopied()` به `data-provider/main/source-public-config/list/list.component.ts`
 - ✅ اضافه کردن `onActionCopied()` به `data-provider/transaction/list/list.component.ts`
 - ✅ اضافه کردن `onActionButtonNewRowAuto()`, `getRowExpanded()`, و `onActionCopied()` به `sms/main/public-config/list/list.mobile.component.ts`
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/template/category/list/list.mobile.component.html`
 - `src/app/cms-modules/data-provider/main/client-application/list/list.mobile.component.html`
 - `src/app/cms-modules/news/category/list/list.mobile.component.html`
@@ -650,16 +794,20 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 ## 2026-02-02 12:07:39 (رفع خطای TypeScript - onActionButtonEditRow)
 
 ### خلاصه:
+
 رفع خطای TypeScript `TS2554: Expected 0-1 arguments, but got 2` در کامپوننت موبایل TemplateItemList.
 
 ### مشکل:
+
 متد `onActionButtonEditRow` در template موبایل با 2 آرگومان (`tableRowSelected` و `$event`) فراخوانی می‌شد، در حالی که تعریف متد فقط 0-1 آرگومان می‌پذیرد.
 
 ### تغییرات انجام شده:
+
 - ✅ حذف پارامتر `$event` از فراخوانی `onActionButtonEditRow` در template موبایل
 - ✅ هماهنگ‌سازی با الگوی سایر کامپوننت‌های موبایل در پروژه
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/cms-modules/template/item/list/list.mobile.component.html`
 
 ---
@@ -667,34 +815,40 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 ## 2026-02-02 10:14:46 (بهینه‌سازی کامپوننت cms-html-list)
 
 ### خلاصه:
+
 بهینه‌سازی کامل کامپوننت `cms-html-list` با تبدیل inline styles به کلاس‌های CSS و ایجاد استایل‌های محلی برای `card` و `card-style`.
 
 ### تغییرات انجام شده:
 
 #### 1. ایجاد فایل SCSS محلی:
+
 - ✅ ایجاد فایل `cms-html-list.component.scss`
 - ✅ تبدیل تمام inline styles به کلاس‌های CSS
 - ✅ ایجاد استایل‌های محلی برای `card` و `card-style` با استفاده از `:host`
 
 #### 2. بهینه‌سازی TypeScript:
+
 - ✅ اضافه کردن Inputهای boolean برای کنترل نمایش دکمه‌ها
 - ✅ اضافه کردن helper methods برای مدیریت کلاس‌های CSS
 - ✅ بهبود کد با استفاده از `===` به جای `==`
 - ✅ حذف کامنت‌های غیرضروری
 
 #### 3. بهینه‌سازی HTML:
+
 - ✅ حذف تمام inline styles
 - ✅ حذف `this` از template
 - ✅ حذف `target="_blank"` از دکمه‌های غیرلینک
 - ✅ اضافه کردن `role="button"` و `aria-label` برای accessibility
 
 #### 4. بهبود CSS:
+
 - ✅ ایجاد کلاس‌های CSS برای fixed buttons
 - ✅ اضافه کردن transitions برای smooth animations
 - ✅ بهبود responsive design
 - ✅ اضافه کردن accessibility improvements
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/shared/cms-html-list/cms-html-list.component.scss` (جدید)
 - `src/app/shared/cms-html-list/cms-html-list.component.ts`
 - `src/app/shared/cms-html-list/cms-html-list.component.html`
@@ -704,11 +858,13 @@ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن 
 ## 2026-01-15 22:00:00 (افزودن Entity Category به ماژول Template)
 
 ### خلاصه:
+
 Entity جدید `category` به ماژول `template` اضافه شد که شامل تمام کامپوننت‌های لازم (list, add, edit, view, delete) در حالت desktop و mobile است.
 
 ### کامپوننت‌های Category ایجاد شده:
 
 #### Desktop Components:
+
 - ✅ `template/category/list/list.component.ts` - List component با ارث‌بری از `ListBaseComponent`
 - ✅ `template/category/list/list.component.html` - تمپلیت desktop با `app-cms-html-list` و `mat-table`
 - ✅ `template/category/add/add.component.ts` - Add component با ارث‌بری از `AddBaseComponent`
@@ -721,6 +877,7 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
 - ✅ `template/category/delete/delete.component.html` - تمپلیت desktop
 
 #### Mobile Components:
+
 - ✅ `template/category/list/list.mobile.component.ts` - Mobile list با ارث‌بری از desktop
 - ✅ `template/category/list/list.mobile.component.html` - تمپلیت mobile با `cms-m-*` classes
 - ✅ `template/category/list/list.mobile.component.scss` - استایل‌های mobile
@@ -734,17 +891,20 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
 - ✅ `template/category/delete/delete.mobile.component.html` - تمپلیت mobile با `cms-m-*` classes و footer
 
 ### تغییرات در فایل‌های موجود:
+
 - ✅ `template/template.module.ts` - افزودن تمام کامپوننت‌های category
 - ✅ `template/routes.normal.ts` - افزودن route برای category (desktop)
 - ✅ `template/routes.mobile.ts` - افزودن route برای category (mobile)
 
 ### نتیجه:
+
 - ✅ Entity category با موفقیت به ماژول template اضافه شد
 - ✅ تمام کامپوننت‌ها با الگوهای پروژه سازگار هستند
 - ✅ هیچ خطای linter وجود ندارد
 - ✅ Module و routing به‌درستی به‌روزرسانی شدند
 
 **خلاصه ماژول Template:**
+
 - ماژول template شامل دو entity است: `item` و `category`
 - هر entity شامل 5 کامپوننت است: list, add, edit, view, delete
 - هر کامپوننت دارای نسخه desktop و mobile است
@@ -755,11 +915,13 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
 ## 2026-01-15 21:30:00 (ایجاد ماژول Template با کامپوننت‌های کامل Desktop و Mobile)
 
 ### خلاصه:
+
 ماژول جدید `template` در `src/app/cms-modules/template/` ایجاد شد که شامل تمام کامپوننت‌های لازم برای مدیریت یک entity (list, add, edit, view, delete) در حالت desktop و mobile است.
 
 ### کامپوننت‌های ایجاد شده:
 
 #### Desktop Components:
+
 - ✅ `template/item/list/list.component.ts` - List component با ارث‌بری از `ListBaseComponent`
 - ✅ `template/item/list/list.component.html` - تمپلیت desktop با `app-cms-html-list` و `mat-table`
 - ✅ `template/item/add/add.component.ts` - Add component با ارث‌بری از `AddBaseComponent`
@@ -772,6 +934,7 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
 - ✅ `template/item/delete/delete.component.html` - تمپلیت desktop
 
 #### Mobile Components:
+
 - ✅ `template/item/list/list.mobile.component.ts` - Mobile list با ارث‌بری از desktop
 - ✅ `template/item/list/list.mobile.component.html` - تمپلیت mobile با `cms-m-*` classes
 - ✅ `template/item/list/list.mobile.component.scss` - استایل‌های mobile
@@ -785,6 +948,7 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
 - ✅ `template/item/delete/delete.mobile.component.html` - تمپلیت mobile با `cms-m-*` classes و footer
 
 #### Module و Routing:
+
 - ✅ `template/template.component.ts` - کامپوننت اصلی با router-outlet
 - ✅ `template/template.module.ts` - ماژول Angular با تمام کامپوننت‌ها
 - ✅ `template/template.routing.ts` - routing اصلی با تشخیص خودکار desktop/mobile
@@ -792,9 +956,11 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
 - ✅ `template/routes.mobile.ts` - routes برای mobile
 
 ### تغییرات در فایل‌های موجود:
+
 - ✅ `src/app/cms-modules/cmsModules.routing.ts` - افزودن lazy loading برای ماژول template
 
 ### ویژگی‌های پیاده‌سازی شده:
+
 - ✅ استفاده از `CoreModuleService` و `CoreModuleModel` برای داده‌های فرضی
 - ✅ کامپوننت‌های mobile با ارث‌بری از desktop برای استفاده مجدد کد
 - ✅ استفاده از استایل‌های `cms-m-*` برای UI موبایل
@@ -805,9 +971,11 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
 - ✅ Lazy loading در routing اصلی
 
 ### فایل‌های مستندسازی:
+
 - ✅ `src/app/cms-modules/template/Cursor.Template.plan.md` - Plan کامل با تمام مراحل و نتایج
 
 ### نتیجه:
+
 - ✅ ماژول template با موفقیت ایجاد شد
 - ✅ تمام کامپوننت‌ها با الگوهای پروژه سازگار هستند
 - ✅ هیچ خطای linter وجود ندارد
@@ -821,11 +989,13 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
 ## 2026-01-15 20:46:57 (تکمیل کامپوننت‌های Edit و Delete در client-application-permission - ماژول Data Provider)
 
 ### خلاصه:
+
 کامپوننت‌های edit و delete در `data-provider/main/client-application-permission` بررسی و تکمیل شدند.
 
 ### بررسی‌های انجام شده:
 
 #### Edit Component:
+
 - ✅ از `ServiceGetOneById` استفاده می‌کند (روش استاندارد)
 - ✅ تمام فیلدها موجود هستند (recordStatus, linkClientApplicationId, linkSourcePathId, isRequested, isApproved, fromDate, expireDate, description)
 - ✅ `datapickerHeader` پیاده‌سازی شده
@@ -833,27 +1003,32 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
 - ✅ تمام متدهای لازم (DataGetOneContent, DataEditContent, onFormSubmit, onFormCancel) موجود هستند
 
 #### Delete Functionality:
+
 - ✅ در List Component پیاده‌سازی شده
 - ✅ Confirmation dialog موجود است
 - ✅ Error handling کامل است
 - ✅ `onActionButtonDeleteRow` درست کار می‌کند
 
 #### Add Component:
+
 - ✅ کامل است و تمام فیلدها موجود هستند
 - ✅ `datapickerHeader` پیاده‌سازی شده
 - ✅ `onToggleIsApproved` برای three-state checkbox موجود است
 
 #### List Component:
+
 - ✅ کامل است
 - ✅ منوی عملیات ردیف فعال است
 - ✅ Edit و Delete درست کار می‌کنند
 - ✅ تمام قابلیت‌ها پیاده‌سازی شده‌اند
 
 #### Mobile Component:
+
 - ✅ کامل است
 - ✅ با تغییرات TypeScript سازگار است
 
 ### نتیجه:
+
 - ✅ تمام کامپوننت‌ها کامل هستند
 - ✅ Edit component از `ServiceGetOneById` استفاده می‌کند (روش استاندارد)
 - ✅ Delete functionality در List Component پیاده‌سازی شده
@@ -861,6 +1036,7 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
 - ✅ هیچ خطای linter وجود ندارد
 
 ### فایل‌های بررسی شده:
+
 - `src/app/cms-modules/data-provider/main/client-application-permission/edit/edit.component.ts`
 - `src/app/cms-modules/data-provider/main/client-application-permission/edit/edit.component.html`
 - `src/app/cms-modules/data-provider/main/client-application-permission/list/list.component.ts`
@@ -869,6 +1045,7 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
 - `src/app/cms-modules/data-provider/main/client-application-permission/add/add.component.html`
 
 ### فایل‌های به‌روزرسانی شده:
+
 - `src/app/cms-modules/data-provider/Cursor.1.plan.md` - اضافه شدن Result 23
 
 ---
@@ -876,20 +1053,25 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
 ## 2026-01-15 19:44:27 (رفع خطای npm Dependency Conflict - @fortawesome/angular-fontawesome)
 
 ### خلاصه:
+
 خطای `ERESOLVE could not resolve` برای dependency conflict بین `ngx-ntk-icon-picker@20.26.4` و `@fortawesome/angular-fontawesome` رفع شد.
 
 ### مشکل:
+
 - `ngx-ntk-icon-picker@20.26.4` نیاز به `@fortawesome/angular-fontawesome@^4.0.0` دارد (peer dependency)
 - پروژه فعلی `@fortawesome/angular-fontawesome@^3.0.0` را نصب کرده بود
 - این conflict باعث می‌شد npm نتواند dependency tree را resolve کند
 
 ### راه حل:
+
 آپدیت `@fortawesome/angular-fontawesome` از نسخه `^3.0.0` به `^4.0.0` در `package.json` برای رفع conflict با `ngx-ntk-icon-picker`.
 
 ### فایل‌های تغییر یافته:
+
 - `package.json`: آپدیت `@fortawesome/angular-fontawesome` از `^3.0.0` به `^4.0.0`
 
 ### نتیجه:
+
 - ✅ مشکل dependency conflict حل شد
 - ✅ `@fortawesome/angular-fontawesome@^4.0.0` با `ngx-ntk-icon-picker@20.26.4` سازگار است
 - ✅ npm می‌تواند dependency tree را به درستی resolve کند
@@ -901,20 +1083,25 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
 ## 2026-01-03 09:47:00 (رفع خطای NG0203 - Injection Context Error)
 
 ### خلاصه:
+
 خطای `NG0203: The _HttpClient token injection failed` در runtime رفع شد.
 
 ### مشکل:
+
 `CoreAuthV3Service` در `app.config.ts` به صورت مستقیم در providers قرار گرفته بود و `ApiServerBase` که dependency آن است، از `inject()` استفاده می‌کرد که در یک injection context نبود.
 
 ### راه حل:
+
 - حذف `CoreAuthV3Service` از providers در `app.config.ts`
 - `CoreAuthV3Service` از `providedIn: 'root'` استفاده می‌کند و Angular خودش آن را inject می‌کند
 - پاکسازی imports غیرضروری (`ENVIRONMENT_INITIALIZER`, `Injector`, `inject`, `runInInjectionContext`)
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/app.config.ts`: حذف `CoreAuthV3Service` از providers و پاکسازی imports
 
 ### نتیجه:
+
 - ✅ Build successful!
 - ✅ خطای NG0203 حل شد
 - ✅ هیچ خطای linter وجود ندارد
@@ -924,34 +1111,41 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
 ## 2026-01-02 15:59:18 (Build موفقیت‌آمیز - رفع تمام خطاهای Type و Component در ماژول Data Provider)
 
 ### خلاصه:
+
 تمام خطاهای Type و Component در ماژول Data Provider رفع شدند و بیلد با موفقیت انجام شد.
 
 ### تغییرات:
 
 #### Type Safety Fixes:
+
 - تمام `TKey` generic types از `number` به `string` تغییر یافتند
 - تمام `requestId` و `parentId` از `number` به `string` تغییر یافتند
 - تمام مقایسه‌های `id > 0` و `id <= 0` به چک‌های `string` تبدیل شدند
 - تمام `optionSelectForce` inputs برای پذیرش `string | number` به‌روزرسانی شدند
 
 #### Component Method Names:
+
 - `onActionButtonReload` اضافه شد
 - تمام نام متدها در HTML و mobile components اصلاح شدند
 
 #### Template Fixes:
+
 - `filteModelContent.totalRowCount` → `dataModelResult.totalRowCount`
 
 ### فایل‌های اصلاح شده:
+
 - بیش از 30 فایل در ماژول Data Provider اصلاح شدند
 - تمام components در main module به‌روزرسانی شدند
 - تمام mobile components اصلاح شدند
 
 ### Build Results:
+
 - ✅ Build successful!
 - Initial total: 4.30 MB (792.59 kB compressed)
 - Lazy chunks: data-provider-main-module: 586.89 kB (32.18 kB compressed)
 
 ### نتیجه‌گیری:
+
 ✅ تمام خطاهای Type رفع شدند
 ✅ تمام خطاهای Component رفع شدند
 ✅ Build موفقیت‌آمیز بود
@@ -962,15 +1156,18 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
 ## 2026-01-02 12:13:42 (رفع خطاهای Type در plan/delete/delete.component.ts - ماژول Data Provider)
 
 ### خلاصه:
+
 خطاهای Type در فایل `plan/delete/delete.component.ts` رفع شدند. مشکل از نوع `requestId` بود که باید `string` باشد نه `number`.
 
 ### تغییرات:
 
 #### Type Errors رفع شده:
+
 - خطا در خط 86: `Argument of type 'number' is not assignable to parameter of type 'string'` - رفع شد
 - خطا در خط 138: `Argument of type 'number' is not assignable to parameter of type 'string'` - رفع شد
 
 #### تغییرات اعمال شده:
+
 1. **requestId Type:**
    - از `requestId = 0;` به `requestId = "";` تغییر یافت
    - از `this.requestId = +data.id || 0;` به `this.requestId = data.id || "";` تغییر یافت
@@ -983,15 +1180,18 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
    - از `if (this.requestId === 0)` به `if (this.requestId.length == 0)` تغییر یافت (2 مورد)
 
 ### فایل‌های اصلاح شده:
+
 - `src/app/cms-modules/data-provider/main/plan/delete/delete.component.ts`
 
 ### نتیجه‌گیری:
+
 ✅ تمام خطاهای Type رفع شدند
 ✅ هیچ خطای linter وجود ندارد
 ✅ سازگاری با ServiceGetOneById و ServiceDelete تایید شد
 ✅ الگوی کد با سایر delete components یکسان شد
 
 ### فایل‌های به‌روزرسانی شده:
+
 - `src/app/cms-modules/data-provider/main/plan/delete/delete.component.ts`
 - `src/app/cms-modules/data-provider/Cursor.1.plan.md` - اضافه شدن Result 21
 
@@ -1000,11 +1200,13 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
 ## 2026-01-02 09:50:31 (بررسی Build و خطاها - ماژول Data Provider)
 
 ### خلاصه:
+
 بررسی build و خطاهای ماژول Data Provider انجام شد. تمام خطاها مربوط به type definitions در `ntk-cms-api` هستند و runtime را تحت تاثیر قرار نمی‌دهند.
 
 ### نتایج بررسی:
 
 #### Build Status:
+
 - ✅ ساختار ماژول درست است
 - ✅ تمام services در providers تعریف شده‌اند
 - ✅ تمام components در declarations تعریف شده‌اند
@@ -1012,6 +1214,7 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
 - ✅ Lazy loading پیاده‌سازی شده است
 
 #### Linter Errors:
+
 - 2 خطای linter در 2 فایل:
   - `DataProviderClientPermissionListComponent` - Line 53
   - `DataProviderPlanListComponent` - Line 44
@@ -1019,12 +1222,14 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
 - تحلیل: خطاها مربوط به type definitions در `ntk-cms-api` هستند و runtime را تحت تاثیر قرار نمی‌دهند
 
 #### Build Errors (کل پروژه):
+
 - خطاهای مربوط به `ntk-cms-api` در کل پروژه وجود دارند
 - این خطاها مربوط به build process هستند
 - runtime را تحت تاثیر قرار نمی‌دهند
 - در ماژول‌های دیگر (SMS, Estate) هم وجود دارند
 
 ### نتیجه‌گیری:
+
 ✅ ماژول Data Provider از نظر ساختار و کد درست است
 ✅ Services درست تعریف شده‌اند
 ✅ خطاهای linter مربوط به type definitions هستند
@@ -1032,6 +1237,7 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
 ✅ ماژول آماده استفاده است
 
 ### فایل‌های به‌روزرسانی شده:
+
 - `src/app/cms-modules/data-provider/Cursor.1.plan.md` - اضافه شدن Part 9: Build & Testing Results
 
 ---
@@ -1039,9 +1245,11 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
 ## 2026-01-02 09:41:42 (تکمیل نهایی پروژه بازنویسی ماژول Data Provider)
 
 ### خلاصه:
+
 پروژه بازنویسی کامل ماژول Data Provider با موفقیت به پایان رسید. تمام 20 مرحله تکمیل شد و پروژه آماده استفاده است.
 
 ### تغییرات نهایی:
+
 - ✅ به‌روزرسانی TODO های قدیمی در plan
 - ✅ بررسی نهایی تمام فایل‌ها
 - ✅ اطمینان از تکمیل کامل تمام مراحل
@@ -1049,6 +1257,7 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
 - ✅ ثبت تمام تغییرات در readmehistory.md
 
 ### وضعیت نهایی پروژه:
+
 - ✅ تمام 20 مرحله با موفقیت تکمیل شد
 - ✅ 6 Module ایجاد شد (Main, Log, Transaction, Config, Shared, Dashboard)
 - ✅ 14 Mobile Component ایجاد شد (42 فایل)
@@ -1060,6 +1269,7 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
 - ✅ Bundle size بهینه شد
 
 ### فایل‌های کلیدی:
+
 - `Cursor.1.plan.md` - Plan کامل با تمام نتایج (20 Result)
 - `README.md` - مستندات کامل ماژول
 - `readmehistory.md` - ثبت تغییرات در تاریخچه
@@ -1077,6 +1287,7 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
 ### تغییرات اعمال شده:
 
 #### 1. ساختار ماژول:
+
 - تقسیم ماژول به sub-modules:
   - **Main Module**: مدیریت entities اصلی (client, plan, source, etc.)
   - **Log Module**: مدیریت لاگ‌ها (log-client, log-plan, log-source)
@@ -1087,11 +1298,13 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
   - **Shared Module**: ماژول مشترک
 
 #### 2. Lazy Loading:
+
 - تمام sub-modules از lazy loading استفاده می‌کنند
 - Code splitting پیاده‌سازی شد
 - Bundle size بهینه شد
 
 #### 3. Mobile Components:
+
 - ایجاد 14 mobile list component:
   - Main Module: 10 component (client, plan, plan-client, plan-price, plan-source, source, source-company, source-path, source-public-config, client-permission)
   - Log Module: 3 component (log-client, log-plan, log-source)
@@ -1099,51 +1312,61 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
 - هر mobile component شامل 3 فایل: ts, html, scss
 
 #### 4. Routing:
+
 - ایجاد `routes.normal.ts` و `routes.mobile.ts` برای هر sub-module
 - Mobile routing بر اساس عرض صفحه (`window.innerWidth < 1000`)
 - تمام route parameters درست تعریف شدند
 
 #### 5. Type Safety:
+
 - رفع تمام خطاهای TypeScript
 - اصلاح مقایسه `id` با empty string به `0` (برای number type)
 - بررسی و تایید تمام Generic types
 
 #### 6. Components:
+
 - اضافه شدن ViewChild برای MatSort و MatPaginator
 - اضافه شدن tableData property
 - اصلاح ExportDialogComponent
 - تمام components از ListBaseComponent ارث‌بری می‌کنند
 
 #### 7. Services:
+
 - بهینه‌سازی providers در modules
 - حذف providers تکراری
 - انتقال TokenHelper methods به cmsStoreService
 
 #### 8. Import Paths:
+
 - یکسان‌سازی تمام import paths (relative به absolute)
 - استفاده از `src/app/core/...` به جای relative paths
 
 #### 9. Mobile Templates:
+
 - اصلاح mobile templates برای استفاده از pipe و button های مستقیم
 - حذف استفاده از components غیرموجود (`app-cms-enum-record-status-viewer`, `app-cms-action-list`)
 - استفاده از الگوی SMS و Estate
 
 #### 10. Modules:
+
 - اضافه شدن CoreSharedModule به DataProviderMainModule
 - بهینه‌سازی imports در تمام modules
 
 #### 11. Performance:
+
 - بررسی و رفع memory leaks
 - اطمینان از unsubscribe تمام subscriptions
 - بهینه‌سازی change detection
 
 #### 12. مستندسازی:
+
 - ایجاد فایل README.md کامل برای ماژول
 - مستندسازی ساختار، routing، components، services و best practices
 
 ### فایل‌های ایجاد شده:
 
 #### Modules:
+
 - `src/app/cms-modules/data-provider/main/data-provider-main.module.ts`
 - `src/app/cms-modules/data-provider/main/data-provider-main.routing.ts`
 - `src/app/cms-modules/data-provider/main/data-provider-main.component.ts`
@@ -1156,6 +1379,7 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
 - `src/app/cms-modules/data-provider/shared/data-provider-shared.module.ts`
 
 #### Routing:
+
 - `src/app/cms-modules/data-provider/main/routes.normal.ts`
 - `src/app/cms-modules/data-provider/main/routes.mobile.ts`
 - `src/app/cms-modules/data-provider/log/routes.normal.ts`
@@ -1164,14 +1388,17 @@ Entity جدید `category` به ماژول `template` اضافه شد که شا�
 - `src/app/cms-modules/data-provider/transaction/routes.mobile.ts`
 
 #### Dashboard & Overview:
+
 - `src/app/cms-modules/data-provider/dashboard/dashboard.component.ts/html/scss`
 - `src/app/cms-modules/data-provider/overview/summary/summary.component.ts/html`
 - `src/app/cms-modules/data-provider/overview/events/events.component.ts/html/scss`
 
 #### Mobile Components (42 فایل):
+
 - 14 mobile list component (هر کدام 3 فایل: ts, html, scss)
 
 #### مستندات:
+
 - `src/app/cms-modules/data-provider/README.md`
 - `src/app/cms-modules/data-provider/Cursor.1.plan.md` (به‌روزرسانی)
 
@@ -5144,14 +5371,17 @@ ngOnInit(): void {
 ## 2026-01-01 11:05:26
 
 ### فایل تغییر یافته:
+
 - `src/app/cms-modules/data-provider/source/list/list.component.ts`
 
 ### تغییرات اعمال شده:
+
 - رفع خطاهای TypeScript در مقایسه نوع `number` با `string`
 - در متدهای `onActionButtonEditRow`، `onActionButtonDeleteRow`، `onActionButtonSourceList` و `onActionButtonDataRow`
 - تغییر `model.id === ""` به `model.id === 0` برای تطابق با نوع داده صحیح (number)
 
 ### توضیحات:
+
 - `model.id` از نوع `number` است اما با رشته خالی (`""`) مقایسه می‌شد که باعث خطای TypeScript می‌شد
 - با تغییر به `model.id === 0`، مقایسه با نوع داده صحیح انجام می‌شود
 - این تغییر در 4 متد اعمال شد که همه دارای خطای مشابه بودند
@@ -5159,15 +5389,19 @@ ngOnInit(): void {
 ---
 
 ## تاریخ: 2026-01-03 17:09:17
+
 ### عنوان: رفع خطای NG0203 - Injection Context Error برای ApiServerBase
 
 ### مشکل:
+
 خطای `NG0203: The _HttpClient token injection failed` در runtime رخ می‌داد. این خطا به این دلیل بود که `ApiServerBase` از `@Inject(HttpClient)` استفاده می‌کند و وقتی سرویس‌هایی که از آن extend می‌کنند به صورت مستقیم در providers قرار می‌گرفتند، در injection context مناسب نبودند.
 
 ### فایل تغییر یافته:
+
 - `src/app/app.config.ts`
 
 ### تغییرات اعمال شده:
+
 - اضافه کردن import برای `HttpClient` از `@angular/common/http`
 - تبدیل `CoreAuthV3Service` به factory function با `inject(HttpClient)`
 - تبدیل `CoreEnumService` به factory function با `inject(HttpClient)`
@@ -5175,6 +5409,7 @@ ngOnInit(): void {
 - تبدیل `CoreConfigurationService` به factory function با `inject(HttpClient)`
 
 ### توضیحات:
+
 - تمام سرویس‌هایی که از `ApiServerBase` extend می‌کنند باید با factory function تعریف شوند
 - factory function از `inject(HttpClient)` استفاده می‌کند که در injection context مناسب است
 - این تغییر باعث می‌شود که `ApiServerBase` constructor به درستی `HttpClient` را دریافت کند
@@ -5182,20 +5417,25 @@ ngOnInit(): void {
 ---
 
 ## تاریخ: 2026-01-03 17:12:05
+
 ### عنوان: رفع خطای NG0203 - استفاده از deps در factory function
 
 ### مشکل:
+
 روش قبلی با `inject(HttpClient)` نیاز به injection context داشت. روش جدید با `deps: [HttpClient]` استفاده می‌کند که Angular خودش dependency injection را انجام می‌دهد.
 
 ### فایل تغییر یافته:
+
 - `src/app/app.config.ts`
 
 ### تغییرات اعمال شده:
+
 - تغییر factory function از `inject(HttpClient)` به `deps: [HttpClient]`
 - حذف import غیرضروری `Injector`
 - استفاده از dependency injection معمولی Angular به جای `inject()`
 
 ### توضیحات:
+
 - این روش بهتر است چون Angular خودش `HttpClient` را inject می‌کند
 - نیازی به injection context نیست
 - کد ساده‌تر و قابل فهم‌تر است
@@ -5203,22 +5443,27 @@ ngOnInit(): void {
 ---
 
 ## تاریخ: 2026-01-03 17:13:53
+
 ### عنوان: رفع خطای NG0203 - استفاده از Injector در Factory Service
 
 ### مشکل:
+
 روش قبلی با `deps: [HttpClient]` جواب نمی‌داد. نیاز به روش دیگری بود که از injection context استفاده کند.
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/core/providers/ntk-cms-api.provider.ts`: ساخت NgModule جدید با Factory Service
 - `src/app/app.config.ts`: استفاده از `NtkCmsApiProviderModule` به جای factory function مستقیم
 
 ### تغییرات اعمال شده:
+
 - ساخت `NtkCmsApiServiceFactory` که از `Injector` استفاده می‌کند
 - `Injector` در injection context است و می‌تواند `HttpClient` را بگیرد
 - ساخت `NtkCmsApiProviderModule` که سرویس‌ها را provide می‌کند
 - استفاده از `importProvidersFrom(NtkCmsApiProviderModule.forRoot())` در `app.config.ts`
 
 ### توضیحات:
+
 - `Injector` در injection context است و می‌تواند `HttpClient` را به درستی inject کند
 - Factory Service از `Injector.get(HttpClient)` استفاده می‌کند
 - این روش مطمئن‌تر است چون از injection context Angular استفاده می‌کند
@@ -5226,22 +5471,27 @@ ngOnInit(): void {
 ---
 
 ## تاریخ: 2026-01-03 17:15:00
+
 ### عنوان: رفع خطای NG0203 - اضافه کردن سرویس‌ها به SharedModule
 
 ### مشکل:
+
 روش قبلی با `NtkCmsApiProviderModule` حذف شد. نیاز به روش دیگری بود که بدون ساخت module جدید کار کند.
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/shared/shared.module.ts`: اضافه کردن سرویس‌ها به providers
 - `src/app/app.config.ts`: حذف سرویس‌ها از providers
 
 ### تغییرات اعمال شده:
+
 - اضافه کردن `CoreAuthV3Service`, `CoreEnumService`, `CoreModuleService`, `CoreConfigurationService` به imports در `SharedModule`
 - اضافه کردن این سرویس‌ها به providers در `SharedModule`
 - حذف این سرویس‌ها از `app.config.ts`
 - حذف import های غیرضروری از `app.config.ts`
 
 ### توضیحات:
+
 - `SharedModule` قبلاً سرویس‌های دیگری که از `ApiServerBase` extend می‌کنند را به درستی provide می‌کند
 - این روش ساده‌تر است و نیازی به ساخت module جدید ندارد
 - سرویس‌ها از طریق `importProvidersFrom(SharedModule.forRoot())` در `app.config.ts` در دسترس هستند
@@ -5249,40 +5499,51 @@ ngOnInit(): void {
 ---
 
 ## تاریخ: 2026-01-03 20:14:58
+
 ### عنوان: رفع خطای Build - حذف تداخل فایل‌های Font Awesome
 
 ### مشکل:
+
 خطای `Two output files share the same path but have different contents` برای فایل‌های Font Awesome (woff2) در build رخ می‌داد. این خطا به این دلیل بود که دو منبع مختلف برای Font Awesome در `angular.json` وجود داشت:
+
 - `@fortawesome/fontawesome-free/webfonts/` به `assets/fonts/webfonts/`
 - `font-awesome/fonts/` به `assets/fonts/`
 
 ### فایل تغییر یافته:
+
 - `angular.json`
 
 ### تغییرات اعمال شده:
+
 - حذف خط مربوط به `@fortawesome/fontawesome-free/webfonts/` از `angular.json` چون در `package.json` وجود ندارد
 - فقط `font-awesome/fonts/` باقی ماند که به `assets/fonts/` کپی می‌شود
 
 ### توضیحات:
+
 - `@fortawesome` در `package.json` وجود ندارد، پس خط مربوط به آن باید حذف می‌شد
 - این تغییر باعث می‌شود که فقط یک منبع برای Font Awesome وجود داشته باشد و conflict رخ ندهد
 
 ---
 
 ## تاریخ: 2026-01-03 20:35:38
+
 ### عنوان: رفع مشکل iconPicker - اضافه کردن style از ngx-ntk-icon-picker
 
 ### مشکل:
+
 iconPicker ایکن‌ها را لود نمی‌کرد. این مشکل به این دلیل بود که style‌های `ngx-ntk-icon-picker` لود نمی‌شدند.
 
 ### فایل تغییر یافته:
+
 - `angular.json`
 
 ### تغییرات اعمال شده:
+
 - اضافه کردن `node_modules/ngx-ntk-icon-picker/src/styles.scss` به styles در `angular.json`
 - این فایل style شامل import های FontAwesome و PrimeIcons است که برای iconPicker لازم است
 
 ### توضیحات:
+
 - `ngx-ntk-icon-picker` یک فایل `styles.scss` دارد که FontAwesome و PrimeIcons را import می‌کند
 - با اضافه کردن این فایل به styles، iconPicker می‌تواند ایکن‌ها را به درستی لود کند
 - این روش بهتر است چون style را مستقیماً از خود کتابخانه iconPicker می‌گیریم
@@ -5290,14 +5551,17 @@ iconPicker ایکن‌ها را لود نمی‌کرد. این مشکل به ا�
 ---
 
 ## تاریخ: 2026-01-15 15:47:10
+
 ### عنوان: تکمیل client-application - Tab-Based Layout و مدیریت Permissions
 
 ### خلاصه:
+
 تبدیل کامپوننت‌های edit به tab-based layout و پیاده‌سازی کامل مدیریت permissions در Tab 2.
 
 ### تغییرات:
 
 #### 1. بهبود UI برای firewallAllowIP
+
 - رفع مشکل change detection با استفاده از spread operator و filter
 - اصلاح CSS classes برای badge ها (از `badge-secondary` به `bg-info`)
 - اضافه کردن `font-13` class برای بزرگتر کردن فونت IP ها
@@ -5305,6 +5569,7 @@ iconPicker ایکن‌ها را لود نمی‌کرد. این مشکل به ا�
 - حذف `(keyup.enter)` از template ها
 
 #### 2. اعتبارسنجی فرمت IP
+
 - اضافه کردن متد `validateIPFormat` برای اعتبارسنجی:
   - تک IP: `192.168.1.1`
   - CIDR notation: `192.168.1.0/24`
@@ -5313,16 +5578,19 @@ iconPicker ایکن‌ها را لود نمی‌کرد. این مشکل به ا�
 - اعتبارسنجی CIDR prefix (0-32)
 
 #### 3. پیاده‌سازی IP Management در CoreUserEditComponent
+
 - تبدیل `textarea` به `input` با badge list
 - اضافه کردن تمام متدهای مدیریت IP
 - همگام‌سازی `firewallAllowIP` با `firewallAllowIPList`
 
 #### 4. تبدیل به Tab-Based Layout
+
 - استفاده از `mat-tab-group` و `mat-tab` از Angular Material
 - Tab 1: اطلاعات اصلی Client Application
 - Tab 2: مدیریت Permissions
 
 #### 5. مدیریت Permissions (CRUD)
+
 - دریافت لیست permissions با `DataGetAllPermission()`
 - اضافه کردن permission جدید با Dialog
 - ویرایش permission موجود با Dialog
@@ -5330,6 +5598,7 @@ iconPicker ایکن‌ها را لود نمی‌کرد. این مشکل به ا�
 - Refresh button با loading spinner
 
 #### 6. UI/UX Improvements
+
 - جدول permissions با استایل `table-striped` و `table-dark`
 - Badge برای RecordStatus, IsRequested, IsApproved
 - فرمت تاریخ: `yyyy-MM-dd HH:mm`
@@ -5340,25 +5609,30 @@ iconPicker ایکن‌ها را لود نمی‌کرد. این مشکل به ا�
 ### فایل‌های تغییر یافته:
 
 #### SMS Module:
+
 - `src/app/cms-modules/sms/main/client-application/add/add.component.ts`
 - `src/app/cms-modules/sms/main/client-application/add/add.component.html`
 - `src/app/cms-modules/sms/main/client-application/edit/edit.component.ts`
 - `src/app/cms-modules/sms/main/client-application/edit/edit.component.html`
 
 #### Data Provider Module:
+
 - `src/app/cms-modules/data-provider/main/client-application/add/add.component.ts`
 - `src/app/cms-modules/data-provider/main/client-application/add/add.component.html`
 - `src/app/cms-modules/data-provider/main/client-application/edit/edit.component.ts`
 - `src/app/cms-modules/data-provider/main/client-application/edit/edit.component.html`
 
 #### Core Module:
+
 - `src/app/cms-modules/core-main/user/edit/edit.component.ts`
 - `src/app/cms-modules/core-main/user/edit/edit.component.html`
 
 #### Documentation:
+
 - `src/app/cms-modules/sms/Cursor.2.plan.md` - به‌روزرسانی با Part 4, 5, 6 و Result 4, 5, 6
 
 ### نتیجه:
+
 ✅ تمام مشکلات UI برای firewallAllowIP رفع شدند
 ✅ اعتبارسنجی فرمت IP پیاده‌سازی شد
 ✅ IP Management در CoreUserEditComponent پیاده‌سازی شد
@@ -5371,43 +5645,51 @@ iconPicker ایکن‌ها را لود نمی‌کرد. این مشکل به ا�
 ## 2026-02-03 (Phase 2 - Transaction Assistant list mobile components)
 
 ### خلاصه:
+
 ایجاد نسخه موبایل برای چندین List Component در ماژول Transaction Assistant با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
 
 ### تغییرات انجام شده:
-- ✅ 	ransaction-assistant/address: ایجاد list.mobile.component.ts/html
-- ✅ 	ransaction-assistant/cart: ایجاد list.mobile.component.ts/html
-- ✅ 	ransaction-assistant/category: ایجاد list.mobile.component.ts/html
-- ✅ 	ransaction-assistant/inventory: ایجاد list.mobile.component.ts/html
-- ✅ 	ransaction-assistant/invoice: ایجاد list.mobile.component.ts/html
-- ✅ 	ransaction-assistant/offer: ایجاد list.mobile.component.ts/html
-- ✅ 	ransaction-assistant/order: ایجاد list.mobile.component.ts/html
-- ✅ 	ransaction-assistant/payment: ایجاد list.mobile.component.ts/html
-- ✅ 	ransaction-assistant/product: ایجاد list.mobile.component.ts/html
+
+- ✅ ransaction-assistant/address: ایجاد list.mobile.component.ts/html
+- ✅ ransaction-assistant/cart: ایجاد list.mobile.component.ts/html
+- ✅ ransaction-assistant/category: ایجاد list.mobile.component.ts/html
+- ✅ ransaction-assistant/inventory: ایجاد list.mobile.component.ts/html
+- ✅ ransaction-assistant/invoice: ایجاد list.mobile.component.ts/html
+- ✅ ransaction-assistant/offer: ایجاد list.mobile.component.ts/html
+- ✅ ransaction-assistant/order: ایجاد list.mobile.component.ts/html
+- ✅ ransaction-assistant/payment: ایجاد list.mobile.component.ts/html
+- ✅ ransaction-assistant/product: ایجاد list.mobile.component.ts/html
 
 ### بررسی خطا:
+
 - ✅ Lint: بدون خطا در مسیرهای تغییر یافته
 
 ## 2026-02-03 (Phase 2 - Transaction Assistant list mobile components - completion)
 
 ### خلاصه:
+
 تکمیل ایجاد نسخه موبایل برای تمام List Component های ماژول Transaction Assistant (۱۴/۱۴) با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
 
 ### تغییرات انجام شده (تکمیلی):
-- ✅ 	ransaction-assistant/rating: ایجاد list.mobile.component.ts/html
-- ✅ 	ransaction-assistant/request: ایجاد list.mobile.component.ts/html
-- ✅ 	ransaction-assistant/shipment: ایجاد list.mobile.component.ts/html
-- ✅ 	ransaction-assistant/supplier: ایجاد list.mobile.component.ts/html
-- ✅ 	ransaction-assistant/tag: ایجاد list.mobile.component.ts/html
+
+- ✅ ransaction-assistant/rating: ایجاد list.mobile.component.ts/html
+- ✅ ransaction-assistant/request: ایجاد list.mobile.component.ts/html
+- ✅ ransaction-assistant/shipment: ایجاد list.mobile.component.ts/html
+- ✅ ransaction-assistant/supplier: ایجاد list.mobile.component.ts/html
+- ✅ ransaction-assistant/tag: ایجاد list.mobile.component.ts/html
 
 ### بررسی خطا:
+
 - ✅ Lint: بدون خطا در مسیرهای تغییر یافته
 
 ## 2026-02-03 (Phase 2 - Web Designer list mobile components)
 
 ### خلاصه:
+
 ایجاد نسخه موبایل برای List Component های ماژول Web Designer با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
 
 ### تغییرات انجام شده:
+
 - ✅ web-designer/intro: ایجاد list.mobile.component.ts/html
 - ✅ web-designer/log-member-info: ایجاد list.mobile.component.ts/html
 - ✅ web-designer/menu: ایجاد list.mobile.component.ts/html
@@ -5415,14 +5697,17 @@ iconPicker ایکن‌ها را لود نمی‌کرد. این مشکل به ا�
 - ✅ web-designer/page-template: ایجاد list.mobile.component.ts/html
 
 ### بررسی خطا:
+
 - ✅ Lint: بدون خطا در مسیرهای تغییر یافته
 
 ## 2026-02-03 (Phase 2 - Link Management list mobile components)
 
 ### خلاصه:
+
 ایجاد نسخه موبایل برای List Component های ماژول Link Management با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
 
 ### تغییرات انجام شده:
+
 - ✅ link-management/accounting: ایجاد list.mobile.component.ts/html
 - ✅ link-management/accounting-detail: ایجاد list.mobile.component.ts/html
 - ✅ link-management/billboard: ایجاد list.mobile.component.ts/html
@@ -5432,27 +5717,33 @@ iconPicker ایکن‌ها را لود نمی‌کرد. این مشکل به ا�
 - ✅ link-management/target-billboard-log: ایجاد list.mobile.component.ts/html
 
 ### بررسی خطا:
+
 - ✅ Lint: بدون خطا در مسیرهای تغییر یافته
 
 ## 2026-02-03 (Phase 2 - Polling list mobile components)
 
 ### خلاصه:
+
 ایجاد نسخه موبایل برای List Component های ماژول Polling با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
 
 ### تغییرات انجام شده:
+
 - ✅ polling/content: ایجاد list.mobile.component.ts/html
 - ✅ polling/vote: ایجاد list.mobile.component.ts/html
 
 ### بررسی خطا:
+
 - ✅ Lint: بدون خطا در مسیرهای تغییر یافته
 
 ## 2026-02-03 (Phase 2 - Ticketing, File Manager, Member list mobile components)
 
 ### خلاصه:
+
 ایجاد نسخه موبایل برای List Component های ماژول‌های Ticketing، File Manager و Member با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
 
 ### تغییرات انجام شده:
-- ✅ 	icketing/departemen: ایجاد list.mobile.component.ts/html
+
+- ✅ icketing/departemen: ایجاد list.mobile.component.ts/html
 - ✅ ile-manager/content: ایجاد list.mobile.component.ts/html
 - ✅ member/group: ایجاد list.mobile.component.ts/html
 - ✅ member/property-alias: ایجاد list.mobile.component.ts/html
@@ -5460,26 +5751,32 @@ iconPicker ایکن‌ها را لود نمی‌کرد. این مشکل به ا�
 - ✅ member/property-detail-group: ایجاد list.mobile.component.ts/html
 
 ### بررسی خطا:
+
 - ✅ Lint: بدون خطا در مسیرهای تغییر یافته
 
 ## 2026-02-03 (Phase 2 - News Comment list mobile component)
 
 ### خلاصه:
+
 ایجاد نسخه موبایل برای List Component ماژول News Comment با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
 
 ### تغییرات انجام شده:
+
 - ✅
-ews/comment: ایجاد list.mobile.component.ts/html
+  ews/comment: ایجاد list.mobile.component.ts/html
 
 ### بررسی خطا:
+
 - ✅ Lint: بدون خطا در مسیرهای تغییر یافته
 
 ## 2026-02-03 (Phase 2 - Application Module list mobile components)
 
 ### خلاصه:
+
 ایجاد نسخه موبایل برای List Component های ماژول Application با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
 
 ### تغییرات انجام شده:
+
 - ✅ pplication/content: ایجاد list.mobile.component.ts/html
 - ✅ pplication/intro: ایجاد list.mobile.component.ts/html
 - ✅ pplication/memberInfo: ایجاد list.mobile.component.ts/html
@@ -5488,26 +5785,32 @@ ews/comment: ایجاد list.mobile.component.ts/html
 - ✅ pplication/themeConfig: ایجاد list.mobile.component.ts/html
 
 ### بررسی خطا:
+
 - ✅ Lint: بدون خطا در مسیرهای تغییر یافته
 
 ## 2026-02-03 (Phase 2 - Article Module list mobile components)
 
 ### خلاصه:
+
 ایجاد نسخه موبایل برای List Component های ماژول Article با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
 
 ### تغییرات انجام شده:
+
 - ✅ rticle/comment: ایجاد list.mobile.component.ts/html
 - ✅ rticle/content: ایجاد list.mobile.component.ts/html
 
 ### بررسی خطا:
+
 - ✅ Lint: بدون خطا در مسیرهای تغییر یافته
 
 ## 2026-02-03 (Phase 2 - Biography, Blog, Catalog, Chart list mobile components)
 
 ### خلاصه:
+
 ایجاد نسخه موبایل برای List Component های ماژول‌های Biography، Blog، Catalog و Chart با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
 
 ### تغییرات انجام شده:
+
 - ✅ iography/comment: ایجاد list.mobile.component.ts/html
 - ✅ iography/content: ایجاد list.mobile.component.ts/html
 - ✅ log/comment: ایجاد list.mobile.component.ts/html
@@ -5517,25 +5820,31 @@ ews/comment: ایجاد list.mobile.component.ts/html
 - ✅ chart/content: ایجاد list.mobile.component.ts/html
 
 ### بررسی خطا:
+
 - ✅ Lint: بدون خطا در مسیرهای تغییر یافته
 
 ## 2026-02-03 (Phase 2 - Contact Module list mobile component)
 
 ### خلاصه:
+
 ایجاد نسخه موبایل برای List Component ماژول Contact با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
 
 ### تغییرات انجام شده:
+
 - ✅ contact/content: ایجاد list.mobile.component.ts/html
 
 ### بررسی خطا:
+
 - ✅ Lint: بدون خطا در مسیرهای تغییر یافته
 
 ## 2026-02-03 (Phase 2 - Core-log Module list mobile components)
 
 ### خلاصه:
+
 ایجاد نسخه موبایل برای List Component های ماژول Core-log با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
 
 ### تغییرات انجام شده:
+
 - ✅ core-log/avoid-duplicate: ایجاد list.mobile.component.ts/html
 - ✅ core-log/currency: ایجاد list.mobile.component.ts/html
 - ✅ core-log/email: ایجاد list.mobile.component.ts/html
@@ -5545,14 +5854,17 @@ ews/comment: ایجاد list.mobile.component.ts/html
 - ✅ core-log/sms: ایجاد list.mobile.component.ts/html (اگر وجود دارد)
 
 ### بررسی خطا:
+
 - ✅ Lint: بدون خطا در مسیرهای تغییر یافته
 
 ## 2026-02-03 (Phase 2 - Core-main Module list mobile components)
 
 ### خلاصه:
+
 ایجاد نسخه موبایل برای List Component های ماژول Core-main با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
 
 ### تغییرات انجام شده:
+
 - ✅ core-main/cp-main-menu: ایجاد list.mobile.component.ts/html
 - ✅ core-main/currency: ایجاد list.mobile.component.ts/html
 - ✅ core-main/device: ایجاد list.mobile.component.ts/html
@@ -5565,14 +5877,17 @@ ews/comment: ایجاد list.mobile.component.ts/html
 - ✅ core-main/site-category: ایجاد list.mobile.component.ts/html
 
 ### بررسی خطا:
+
 - ✅ Lint: بدون خطا در مسیرهای تغییر یافته
 
 ## 2026-02-03 (Phase 2 - Core-module, Core-token list mobile components)
 
 ### خلاصه:
+
 ایجاد نسخه موبایل برای List Component های ماژول‌های Core-module و Core-token با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
 
 ### تغییرات انجام شده:
+
 - ✅ core-module/site-credit: ایجاد list.mobile.component.ts/html
 - ✅ core-module/site-user-credit: ایجاد list.mobile.component.ts/html
 - ✅ core-module/tag: ایجاد list.mobile.component.ts/html
@@ -5586,14 +5901,17 @@ ews/comment: ایجاد list.mobile.component.ts/html
 - ✅ core-token/userBadLogin: ایجاد list.mobile.component.ts/html
 
 ### بررسی خطا:
+
 - ✅ Lint: بدون خطا در مسیرهای تغییر یافته
 
 ## 2026-02-03 (Phase 2 - CRM, Donate, Hyper-shop list mobile components)
 
 ### خلاصه:
+
 ایجاد نسخه موبایل برای List Component های ماژول‌های CRM، Donate و Hyper-shop با استفاده از pp-cms-html-list-mobile و ارث‌بری از list.component.ts.
 
 ### تغییرات انجام شده:
+
 - ✅ crm/main/account: ایجاد list.mobile.component.ts/html
 - ✅ crm/main/activity: ایجاد list.mobile.component.ts/html
 - ✅ crm/main/campaign: ایجاد list.mobile.component.ts/html
@@ -5613,4 +5931,5 @@ ews/comment: ایجاد list.mobile.component.ts/html
 - ✅ hyper-shop/content: ایجاد list.mobile.component.ts/html
 
 ### بررسی خطا:
+
 - ✅ Lint: بدون خطا در مسیرهای تغییر یافته

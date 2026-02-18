@@ -1,0 +1,74 @@
+.micro-service-ping-content {
+  padding: 1rem;
+  min-height: 50vh;
+}
+
+.alert {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+
+  &.alert-error {
+    background: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+  }
+}
+
+.ping-list-section,
+.detail-section {
+  h2 {
+    margin: 0 0 1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+}
+
+.status-loading {
+  padding: 1rem;
+  text-align: center;
+  color: #3b82f6;
+  font-size: 0.9rem;
+}
+
+.empty-message {
+  padding: 2rem;
+  text-align: center;
+  color: #64748b;
+}
+
+.ping-table {
+  width: 100%;
+  margin-bottom: 1rem;
+
+  mat-row {
+    cursor: pointer;
+
+    &.selected {
+      background: rgba(59, 130, 246, 0.1);
+    }
+  }
+}
+
+.detail-card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.detail-row {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e0e0e0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .label {
+    font-weight: 500;
+    min-width: 140px;
+  }
+}

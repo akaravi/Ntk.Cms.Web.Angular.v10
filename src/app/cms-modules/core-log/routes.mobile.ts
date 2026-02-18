@@ -5,6 +5,8 @@ import { CoreLogCurrencyListMobileComponent } from "./currency/list/list.mobile.
 import { CoreLogEmailListMobileComponent } from "./email/list/list.mobile.component";
 import { CoreLogErrorListMobileComponent } from "./error/list/list.mobile.component";
 import { CoreLogMemberListMobileComponent } from "./member/list/list.mobile.component";
+import { CoreLogMicroServicePingListMobileComponent } from "./micro-service-ping/list/list.mobile.component";
+import { CoreLogMicroServiceStatusListMobileComponent } from "./micro-service-status/list/list.mobile.component";
 import { CoreLogNotificationListMobileComponent } from "./notification/list/list.mobile.component";
 import { CoreLogReportDataListMobileComponent } from "./report-data/list/list.mobile.component";
 import { CoreLogSmsListMobileComponent } from "./sms/list/list.mobile.component";
@@ -84,6 +86,16 @@ export const routesMobile: Routes = [
         path: "currency/:LinkCurrencyId",
         component: CoreLogCurrencyListMobileComponent,
         data: { title: "ROUTE.CORELOG" },
+      },
+      {
+        path: "micro-service-status",
+        component: CoreLogMicroServiceStatusListMobileComponent,
+        data: { title: "ROUTE.CORELOG.MICROSERVICESTATUS" },
+      },
+      {
+        path: "micro-service-ping",
+        component: CoreLogMicroServicePingListMobileComponent,
+        data: { title: "ROUTE.CORELOG.MICROSERVICEPING" },
       },
     ],
   },

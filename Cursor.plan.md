@@ -282,6 +282,7 @@ style‌های `ngx-ntk-icon-picker` لود نمی‌شدند. این کتابخ
 ### Result 8:
 
 ✅ کامپوننت `cms-html-list` بهینه‌سازی شد:
+
 - تمام inline styles به کلاس‌های CSS تبدیل شدند
 - کد تمیزتر و قابل نگهداری‌تر شد
 - Performance بهبود یافت با استفاده از CSS classes به جای inline styles
@@ -341,17 +342,20 @@ onActionButtonEditRow(
 ### راه حل‌ها:
 
 #### 1. رفع خطاهای `onActionButtonEditRow`:
+
 - حذف پارامتر `$event` از فراخوانی در:
   - `template/category/list/list.mobile.component.html`
   - `data-provider/main/client-application/list/list.mobile.component.html`
   - `news/category/list/list.mobile.component.html`
 
 #### 2. رفع خطاهای `linkUserId`:
+
 - استفاده از `$any(row).linkUserId` به جای `row.linkUserId` در:
   - `data-provider/main/client-application/list/list.mobile.component.html`
   - `sms/main/client-application/list/list.mobile.component.html`
 
 #### 3. اضافه کردن متدهای گم‌شده:
+
 - اضافه کردن `onActionCopied()` به:
   - `data-provider/main/source-public-config/list/list.component.ts`
   - `data-provider/transaction/list/list.component.ts`
@@ -371,6 +375,7 @@ onActionButtonEditRow(
 ### Result 10:
 
 ✅ تمام خطاهای TypeScript برطرف شد:
+
 - تمام فراخوانی‌های `onActionButtonEditRow` با امضای صحیح اصلاح شدند
 - خطاهای `linkUserId` با استفاده از `$any()` برطرف شدند
 - تمام متدهای گم‌شده به کلاس‌های مربوطه اضافه شدند
@@ -416,6 +421,7 @@ onActionButtonEditRow(
 ### Result 11:
 
 ✅ همه کارها تکمیل شد:
+
 - کامپوننت `CmsHtmlListMobileComponent` ایجاد و بهینه شد
 - 25 فایل `list.mobile.component.html` استاندارد شدند
 - همه `cms-m-list-item-actions` حذف شدند
@@ -467,21 +473,27 @@ onActionButtonEditRow(
 **وضعیت:** ✅ تکمیل شده
 
 ### مشکل:
+
 منوی‌های شناور (menu-box-modal) با کلاس `menu-active` در `cms-html-list` و `cms-html-list-mobile` نمایش داده نمی‌شدند.
 
 ### علت:
+
 استایل‌های تم AppKit (opacity، pointer-events، transform) برای `.menu-box-modal` و `.menu-box-modal.menu-active` ممکن بود به‌خاطر ترتیب لود یا encapsulation در کامپوننت‌های Angular به‌درستی اعمال نشوند یا z-index برای نمایش روی سایر المان‌ها کافی نباشد.
 
 ### راه‌حل:
+
 اضافه کردن استایل‌های صریح در SCSS هر دو کامپوننت برای کلاس منوی مودال:
+
 - حالت غیرفعال: `opacity: 0`, `pointer-events: none`, `display: block !important`, `z-index: 102`
 - حالت فعال (`.menu-active`): `opacity: 1 !important`, `pointer-events: all !important`, `visibility: visible !important`, `transform: translate(-50%, -50%) !important`
 
 ### فایل‌های تغییر یافته:
+
 - `src/app/shared/cms-html-list/cms-html-list.component.scss`
 - `src/app/shared/cms-html-list-mobile/cms-html-list-mobile.component.scss`
 
 ### Result 12:
+
 ✅ منوی‌های شناور (منوی عملیات اصلی و منوی ردیف) در هر دو کامپوننت با کلیک روی دکمه منو به‌درستی نمایش داده می‌شوند و در مرکز صفحه با z-index مناسب قرار می‌گیرند.
 
 ---
@@ -492,12 +504,15 @@ onActionButtonEditRow(
 **وضعیت:** ✅ تکمیل شده
 
 ### دستور:
+
 ادامه کار color-highlight برای آیکون‌های input-style.
 
 ### کار انجام شده:
-- **_inputs.scss**: اضافه شدن `@extend .color-highlight` به `.input-style.has-icon.has-borders i:first-child` برای هماهنگی با نسخه بدون borders.
+
+- **\_inputs.scss**: اضافه شدن `@extend .color-highlight` به `.input-style.has-icon.has-borders i:first-child` برای هماهنگی با نسخه بدون borders.
 
 ### Result 13:
+
 ✅ Variantهای has-icon و has-icon.has-borders هر دو آیکون اول (i:first-child) را با color-highlight نمایش می‌دهند.
 
 ---
@@ -508,18 +523,23 @@ onActionButtonEditRow(
 **وضعیت:** ✅ تکمیل شده
 
 ### مشکل:
+
 mat-expansion-panel در حالت dark theme به درستی نمایش داده نمی‌شد (پس‌زمینه روشن، متن تیره).
 
 ### علت:
-فایل‌های style.scss و _dark.scss استایل‌های theme-dark برای mat-expansion-panel نداشتند. در styles.scss فقط mat-table، mat-tree و mat-paginator دارای theme-dark بودند.
+
+فایل‌های style.scss و \_dark.scss استایل‌های theme-dark برای mat-expansion-panel نداشتند. در styles.scss فقط mat-table، mat-tree و mat-paginator دارای theme-dark بودند.
 
 ### راه‌حل:
-اضافه شدن استایل‌های theme-dark برای mat-expansion-panel در styles.scss (بلوک mat-expansion-panel Color Settings با رنگ‌های #1b1e29، #272b37، #fff). فایل _dark.scss قابل ویرایش نیست.
+
+اضافه شدن استایل‌های theme-dark برای mat-expansion-panel در styles.scss (بلوک mat-expansion-panel Color Settings با رنگ‌های #1b1e29، #272b37، #fff). فایل \_dark.scss قابل ویرایش نیست.
 
 ### فایل‌های تغییر یافته:
+
 - `src/styles.scss`
 
 ### Result 14:
+
 ✅ mat-expansion-panel در حالت dark با پس‌زمینه تیره، متن سفید و border مناسب نمایش داده می‌شود. هر دو نسخه mat-expansion-panel و mat-mdc-expansion-panel (Angular Material 15+) پشتیبانی می‌شوند.
 
 ---
@@ -530,15 +550,19 @@ mat-expansion-panel در حالت dark theme به درستی نمایش داده
 **وضعیت:** ✅ تکمیل شده
 
 ### مشکل:
+
 mat-stepper و mat-step در حالت dark theme به درستی نمایش داده نمی‌شدند. (مشابه mat-expansion-panel)
 
 ### راه‌حل:
-اضافه شدن استایل‌های theme-dark برای mat-stepper و mat-step در styles.scss. فایل _dark.scss قابل ویرایش نیست.
+
+اضافه شدن استایل‌های theme-dark برای mat-stepper و mat-step در styles.scss. فایل \_dark.scss قابل ویرایش نیست.
 
 ### فایل‌های تغییر یافته:
+
 - `src/styles.scss`
 
 ### Result 15:
+
 ✅ mat-stepper و mat-step در حالت dark با پس‌زمینه تیره، متن سفید و آیکون‌های قابل مشاهده نمایش داده می‌شوند. هم mat-stepper و mat-mdc-step-header پشتیبانی می‌شوند.
 
 ---
@@ -549,10 +573,13 @@ mat-stepper و mat-step در حالت dark theme به درستی نمایش دا
 **وضعیت:** ✅ تکمیل شده
 
 ### مشکل:
+
 mat-datepicker و mat-datepicker-toggle در حالت dark theme به درستی نمایش داده نمی‌شدند.
 
 ### راه‌حل:
+
 اضافه شدن استایل‌های theme-dark برای mat-datepicker در styles.scss:
+
 - mat-datepicker-toggle: رنگ آیکون سفید
 - mat-datepicker-content: پس‌زمینه تیره، border
 - mat-calendar: سلول‌ها، تاریخ انتخاب‌شده، امروز، disabled
@@ -560,9 +587,11 @@ mat-datepicker و mat-datepicker-toggle در حالت dark theme به درستی
 - mat-datepicker-actions: دکمه‌های پایین پنل
 
 ### فایل‌های تغییر یافته:
+
 - `src/styles.scss`
 
 ### Result 16:
+
 ✅ mat-datepicker و mat-datepicker-toggle در حالت dark با پس‌زمینه #1b1e29، متن سفید و آیکون‌های قابل مشاهده نمایش داده می‌شوند.
 
 ---
@@ -573,19 +602,24 @@ mat-datepicker و mat-datepicker-toggle در حالت dark theme به درستی
 **وضعیت:** ✅ تکمیل شده
 
 ### مشکل:
+
 کامپوننت tree-selector (article/category و سایر ماژول‌ها) در dark mode کاملاً سیاه نمایش داده می‌شد. متن، آیکون و checkbox قابل مشاهده نبودند.
 
 ### راه‌حل:
+
 اضافه شدن استایل‌های theme-dark برای mat-tree در tree-selector و cms-html-tree در styles.scss:
+
 - mat-checkbox و label آن (.mdc-label, .mat-mdc-checkbox-label)
 - mat-icon و button[matIconButton]
 - mat-tree-nested, mat-nested-tree-node, .mat-mdc-tree-node, .cdk-tree-node
 - app-cms-html-tree .card.card-style و .content
 
 ### فایل‌های تغییر یافته:
+
 - `src/styles.scss`
 
 ### Result 17:
+
 ✅ tree-selector در حالت dark با متن سفید، آیکون قابل مشاهده و پس‌زمینه مناسب (#0f1117) نمایش داده می‌شود. تمام tree-selectorهای پروژه (article، news، blog، catalog، ...) از این استایل‌ها بهره می‌برند.
 
 ---
@@ -596,10 +630,13 @@ mat-datepicker و mat-datepicker-toggle در حالت dark theme به درستی
 **وضعیت:** ✅ تکمیل شده
 
 ### مشکل:
+
 کامپوننت selector (article/category و سایر ماژول‌ها با input-style + mat-autocomplete) در dark mode به درستی نمایش داده نمی‌شد. label، input، dropdown و آیکون‌ها در پس‌زمینه تیره خوانا نبودند.
 
 ### راه‌حل:
+
 اضافه شدن استایل‌های theme-dark برای selector در styles.scss:
+
 - .input-style label با پس‌زمینه #1b1e29 و متن سفید
 - .input-style input, select, textarea با رنگ متن سفید
 - .input-style em, span و .action
@@ -607,9 +644,11 @@ mat-datepicker و mat-datepicker-toggle در حالت dark theme به درستی
 - .mat-mdc-option و .mat-option با متن سفید و hover/active
 
 ### فایل‌های تغییر یافته:
+
 - `src/styles.scss`
 
 ### Result 18:
+
 ✅ selector در حالت dark با label، input، dropdown و آیکون‌های قابل مشاهده نمایش داده می‌شود. تمام selectorهای پروژه از این استایل‌ها بهره می‌برند.
 
 ---
@@ -620,6 +659,7 @@ mat-datepicker و mat-datepicker-toggle در حالت dark theme به درستی
 **وضعیت:** ✅ تکمیل شده
 
 ### کامپوننت‌های بررسی‌شده:
+
 1. cms-html-list
 2. polling/content/add
 3. ticketing/task/add
@@ -632,6 +672,7 @@ mat-datepicker و mat-datepicker-toggle در حالت dark theme به درستی
 10. core-main/module-sale/header/edit
 
 ### استایل‌های اضافه‌شده در styles.scss:
+
 - mat-slide-toggle، mat-header-cell، mat-cell
 - cms-html-list card و content
 - menu.menu-box-modal و زیرعناصر
@@ -641,6 +682,7 @@ mat-datepicker و mat-datepicker-toggle در حالت dark theme به درستی
 - color-red-dark و color-green-dark (نسخه روشن‌تر برای dark)
 
 ### Result 19:
+
 ✅ تمام کامپوننت‌های بررسی‌شده در حالت dark به درستی نمایش داده می‌شوند.
 
 ---
@@ -651,16 +693,20 @@ mat-datepicker و mat-datepicker-toggle در حالت dark theme به درستی
 **وضعیت:** ✅ تکمیل شده
 
 ### مشکل:
+
 صفحه /core/userclaim/checklist با mat-card و ntk-cms-html-list-header در dark mode به درستی نمایش داده نمی‌شد.
 
 ### راه‌حل:
+
 اضافه شدن استایل‌های theme-dark برای mat-card و ntk-cms-html-list-header در styles.scss:
+
 - mat-card با پس‌زمینه #1b1e29
 - mat-card-header, title, subtitle, content با رنگ سفید
 - mat-card-actions با border
 - ntk-cms-html-list-header و mat-icon
 
 ### Result 20:
+
 ✅ صفحه checklist در حالت dark با کارت‌های قابل خواندن نمایش داده می‌شود.
 
 ---
@@ -671,15 +717,18 @@ mat-datepicker و mat-datepicker-toggle در حالت dark theme به درستی
 **وضعیت:** ✅ تکمیل شده
 
 ### کامپوننت‌های بررسی‌شده:
+
 cms-html-card، cms-html-form، cms-html-modal، cms-html-notice، cms-html-widget، cms-guide-notice، cms-confirmation-dialog، cms-show-key، cms-form-result-message، cms-form-validation، cms-access-info، cms-search-list، cms-statist-list، cms-export-list، cms-data-memo، cms-bankpayment-grid، progress-spinner، password-strength و سایر selectors/lists
 
 ### استایل‌های اضافه‌شده:
+
 - Bootstrap: alert، table، btn-light، btn-primary، btn-outline-primary، btn-secondary
 - menu-box-bottom، mat-dialog، color-blue-dark، color-yellow-dark
 - icon-list، chip، divider، hr، ngx-ntk-query-builder، password-strength
 - card .menu-title
 
 ### Result 21:
+
 ✅ تمام کامپوننت‌های shared در حالت dark به درستی نمایش داده می‌شوند.
 
 ---
@@ -690,10 +739,12 @@ cms-html-card، cms-html-form، cms-html-modal، cms-html-notice، cms-html-widg
 **وضعیت:** ✅ تکمیل شده
 
 ### تغییرات:
+
 - **cms-html-list-mobile**: استایل‌های theme-dark برای tree، menu-modal، header، divider، footer
 - **opacity-70**: افزایش به 0.9 برای خوانایی در dark
 
 ### Result 22:
+
 ✅ cms-html-list-mobile و متن‌های opacity-70 در حالت dark به درستی نمایش داده می‌شوند.
 
 ---
@@ -704,12 +755,15 @@ cms-html-card، cms-html-form، cms-html-modal، cms-html-notice، cms-html-widg
 **وضعیت:** ✅ تکمیل شده
 
 ### مشکل:
+
 styles.mobile.scss فقط با prefers-color-scheme: dark کار می‌کرد. پروژه از کلاس theme-dark روی body استفاده می‌کند.
 
 ### راه‌حل:
+
 اضافه شدن بلوک `.theme-dark` با تمام متغیرهای CSS (--cms-m-bg-color، --cms-m-card-bg، --cms-m-text-primary، ...) در styles.mobile.scss.
 
 ### Result 23:
+
 ✅ صفحات موبایل با تم dark پروژه (theme-dark) هماهنگ می‌شوند.
 
 ---
@@ -720,9 +774,11 @@ styles.mobile.scss فقط با prefers-color-scheme: dark کار می‌کرد. 
 **وضعیت:** ✅ تکمیل شده
 
 ### دستور:
+
 ادامه کار - اضافه کردن استایل‌های dark برای mat-form-field، mat-select، mat-sort، mat-tooltip و menu-box-right-custom.
 
 ### تغییرات در styles.scss:
+
 - **mat-form-field / mat-form-field**: رنگ متن سفید، floating label، line-ripple
 - **mat-select**: value، placeholder، arrow با رنگ سفید
 - **mat-select-panel / mat-autocomplete-panel**: پس‌زمینه #1b1e29، option با hover/active
@@ -731,6 +787,90 @@ styles.mobile.scss فقط با prefers-color-scheme: dark کار می‌کرد. 
 - **menu-box-right-custom**: پس‌زمینه و border برای tree panel
 
 ### Result 24:
+
 ✅ فرم‌ها، selectها، sort headerها و tooltip در حالت dark به درستی نمایش داده می‌شوند.
+
+---
+
+## Part 25: رفع مشکلات کامپوننت micro-service-monitor
+
+**تاریخ:** 2026-02-17
+**وضعیت:** ✅ تکمیل شده
+
+### مشکل:
+
+کامپوننت micro-service-monitor به درستی کار نمی‌کرد.
+
+### علت‌های شناسایی‌شده:
+
+1. عدم پشتیبانی از هر دو ساختار پاسخ API (listItems و items)
+2. عدم مدیریت صحیح subscriptionها و احتمال memory leak
+3. استفاده از literalهای عددی (0,1,2,3) به جای enum برای دستورات
+4. عدم مدیریت تاریخ نامعتبر (Invalid Date) در createDateMessage و appInfoStart
+5. عدم نمایش وضعیت loading هنگام بارگذاری لیست
+6. trackById با id خالی برای آیتم‌های بدون id
+
+### راه‌حل:
+
+1. **getListFromResponse**: پشتیبانی از هر دو listItems و items در پاسخ API
+2. **takeUntil(destroy$)**: اضافه شدن به تمام subscriptionها برای جلوگیری از memory leak
+3. **MicroServiceCommandTypeEnum**: استفاده از enum در template به جای literal
+4. **getAppInfoStart, getLastUpdate, isOnline**: بررسی isNaN برای تاریخ نامعتبر
+5. **statusLoading**: نمایش "در حال بارگذاری..." هنگام loadStatus
+6. **trackById**: fallback به appInfo یا index هنگام نبود id
+7. **MICROSERVICEMONITOR_LOADING**: اضافه شدن به تمام فایل‌های i18n
+
+### فایل‌های تغییر یافته:
+
+- `src/app/cms-modules/core-log/micro-service-monitor/micro-service-monitor.component.ts`
+- `src/app/cms-modules/core-log/micro-service-monitor/micro-service-monitor.component.html`
+- `src/app/cms-modules/core-log/micro-service-monitor/micro-service-monitor.component.scss`
+- `src/assets/i18n/fa.json`, `en.json`, `ar.json`, `de.json`, `es.json`, `fr.json`, `ja.json`, `zh.json`, `tr.json`
+
+### Result 25:
+
+✅ کامپوننت micro-service-monitor با مدیریت صحیح API، subscriptionها، تاریخ و enumها به درستی کار می‌کند.
+
+---
+
+## Part 26: جایگزینی micro-service-monitor با micro-service-status و micro-service-ping
+
+**تاریخ:** 2026-02-17
+**وضعیت:** ✅ تکمیل شده
+
+### دستور:
+
+حذف کامپوننت micro-service-monitor و ایجاد دو کامپوننت جدید بر اساس ساختار member برای سرویس‌های CoreLogMicroServiceStatusService و CoreLogMicroServicePingService با تمام امکانات micro-service-monitor.
+
+### تغییرات انجام شده:
+
+1. **حذف micro-service-monitor:**
+   - حذف micro-service-monitor.component.ts, .html, .scss
+
+2. **ایجاد micro-service-status (CoreLogMicroServiceStatusService):**
+   - list/list.component.ts - لیست وضعیت، فیلتر، جزئیات، Ping، دستورات (PauseStatus, ResumeStatus, ReloadConfig, UpdateSettings)
+   - list/list.component.html - با app-cms-html-list
+   - list/list.component.scss - استایل‌های monitor
+   - list/list.mobile.component.ts و .html - نسخه موبایل
+
+3. **ایجاد micro-service-ping (CoreLogMicroServicePingService):**
+   - list/list.component.ts - لیست Ping با ServiceGetAll
+   - list/list.component.html - mat-table برای نمایش appInfo, rttMs, pingTimestamp, pongTimestamp
+   - list/list.mobile.component.ts و .html - نسخه موبایل با cms-m-list
+
+4. **روتینگ:**
+   - micro-service-monitor → micro-service-status و micro-service-ping
+   - مسیرها: /corelog/micro-service-status و /corelog/micro-service-ping
+
+5. **i18n:** MICROSERVICESTATUS، MICROSERVICEPING و کلیدهای مرتبط به تمام زبان‌ها اضافه شد.
+
+### فایل‌های تغییر یافته:
+
+- coreLog.module.ts, coreLog.routing.ts, routes.normal.ts, routes.mobile.ts
+- i18n: fa, en, ar, de, es, fr, ja, tr, zh
+
+### Result 26:
+
+✅ micro-service-monitor حذف شد. micro-service-status و micro-service-ping با ساختار member و امکانات کامل ایجاد شدند. Build موفق.
 
 ---

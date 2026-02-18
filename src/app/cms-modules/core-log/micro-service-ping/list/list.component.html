@@ -1,0 +1,151 @@
+<app-cms-html-list
+  [optionsListInfoAreaId]="constructorInfoAreaId"
+  [optionGuideNoticeKey]="''"
+  [(optionActionGuideNoticeDisplay)]="viewGuideNotice"
+  [optionTreeDisplay]="false"
+  [optionActionRowId]="tableRowSelected?.id"
+  [optionActionRowDisplayMenu]="false"
+  [optionSelectRowItemTitle]="tableRowSelected?.appInfo"
+>
+  <ng-container cms-tree></ng-container>
+  <ng-container cms-header>
+    <h1>{{ "ROUTE.CORELOG.MICROSERVICEPING" | translate }}</h1>
+  </ng-container>
+  <ng-container cms-action-header></ng-container>
+  <ng-container cms-action-header-start>
+    <a
+      type="button"
+      class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
+      (click)="viewGuideNotice = !viewGuideNotice"
+      target="_blank"
+      ><i class="fa-solid fa-info font-18" style="color: #ffffff"></i
+    ></a>
+    <button
+      type="button"
+      class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
+      (click)="onActionButtonReload()"
+      [disabled]="statusLoading"
+    >
+      <i
+        class="fa-solid fa-rotate-right font-18"
+        style="color: #ffffff"
+        [class.rotation360]="statusLoading"
+      ></i>
+    </button>
+  </ng-container>
+  <ng-container cms-action-header-end></ng-container>
+  <ng-container cms-action-main></ng-container>
+  <ng-container cms-action-row></ng-container>
+  <ng-container cms-action-area></ng-container>
+  <ng-container cms-body>
+    <div class="micro-service-ping-content">
+      <div *ngIf="errorMessage" class="alert alert-error">
+        {{ errorMessage }}
+      </div>
+
+      <div class="ping-list-section">
+        <h2>{{ "ROUTE.CORELOG.MICROSERVICEPING_LIST" | translate }}</h2>
+        <div *ngIf="statusLoading" class="status-loading">
+          {{ "ROUTE.CORELOG.MICROSERVICEMONITOR_LOADING" | translate }}
+        </div>
+        <div *ngIf="!statusLoading">
+          <mat-table [dataSource]="tableSource" class="ping-table">
+            <ng-container matColumnDef="appInfo">
+              <mat-header-cell *matHeaderCellDef>{{
+                "ROUTE.CORELOG.MICROSERVICEPING_APPINFO" | translate
+              }}</mat-header-cell>
+              <mat-cell *matCellDef="let row">{{
+                row?.appInfo || "-"
+              }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="rttMs">
+              <mat-header-cell *matHeaderCellDef>{{
+                "ROUTE.CORELOG.MICROSERVICEPING_RTT" | translate
+              }}</mat-header-cell>
+              <mat-cell *matCellDef="let row"
+                >{{ row?.rttMs ?? "-" }} ms</mat-cell
+              >
+            </ng-container>
+            <ng-container matColumnDef="pingTimestamp">
+              <mat-header-cell *matHeaderCellDef>{{
+                "ROUTE.CORELOG.MICROSERVICEPING_PINGTIME" | translate
+              }}</mat-header-cell>
+              <mat-cell *matCellDef="let row">{{
+                getPingTimestamp(row)
+              }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="pongTimestamp">
+              <mat-header-cell *matHeaderCellDef>{{
+                "ROUTE.CORELOG.MICROSERVICEPING_PONGTIME" | translate
+              }}</mat-header-cell>
+              <mat-cell *matCellDef="let row">{{
+                getPongTimestamp(row)
+              }}</mat-cell>
+            </ng-container>
+            <mat-header-row
+              *matHeaderRowDef="[
+                'appInfo',
+                'rttMs',
+                'pingTimestamp',
+                'pongTimestamp',
+              ]"
+            ></mat-header-row>
+            <mat-row
+              *matRowDef="
+                let row;
+                columns: ['appInfo', 'rttMs', 'pingTimestamp', 'pongTimestamp']
+              "
+              [class.selected]="tableRowSelected?.id === row?.id"
+              (click)="onActionTableRowSelect(row)"
+            ></mat-row>
+          </mat-table>
+          <p *ngIf="!pingList?.length" class="empty-message">
+            {{ "ROUTE.CORELOG.MICROSERVICEPING_EMPTY" | translate }}
+          </p>
+        </div>
+      </div>
+
+      <section *ngIf="tableRowSelected as item" class="detail-section">
+        <h2>
+          {{ "ROUTE.CORELOG.MICROSERVICEMONITOR_DETAIL" | translate }}:
+          {{ item?.appInfo || "-" }}
+        </h2>
+        <div class="detail-card">
+          <div class="detail-row">
+            <span class="label"
+              >{{ "ROUTE.CORELOG.MICROSERVICEPING_APPINFO" | translate }}:</span
+            >
+            <span>{{ item?.appInfo || "-" }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label"
+              >{{ "ROUTE.CORELOG.MICROSERVICEPING_RTT" | translate }}:</span
+            >
+            <span>{{ item?.rttMs ?? "-" }} ms</span>
+          </div>
+          <div class="detail-row">
+            <span class="label"
+              >{{
+                "ROUTE.CORELOG.MICROSERVICEPING_PINGTIME" | translate
+              }}:</span
+            >
+            <span>{{ getPingTimestamp(item) }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label"
+              >{{
+                "ROUTE.CORELOG.MICROSERVICEPING_PONGTIME" | translate
+              }}:</span
+            >
+            <span>{{ getPongTimestamp(item) }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">RequestId:</span>
+            <span>{{ item?.requestId || "-" }}</span>
+          </div>
+        </div>
+      </section>
+    </div>
+  </ng-container>
+  <ng-container cms-footer></ng-container>
+</app-cms-html-list>
