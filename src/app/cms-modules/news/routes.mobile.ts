@@ -2,7 +2,6 @@ import { Routes } from "@angular/router";
 import { NewsCategoryListMobileComponent } from "./category/list/list.mobile.component";
 import { NewsContentAddMobileComponent } from "./content/add/add.mobile.component";
 import { NewsContentEditComponent } from "./content/edit/edit.component";
-import { NewsContentListComponent } from "./content/list/list.component";
 import { NewsContentListMobileComponent } from "./content/list/list.mobile.component";
 import { NewsComponent } from "./news.component";
 
@@ -14,7 +13,7 @@ export const routesMobile: Routes = [
     children: [
       {
         path: "content",
-        component: NewsContentListComponent,
+        component: NewsContentListMobileComponent,
         data: { title: "ROUTE.NEWS.CONTENT" },
       },
       {

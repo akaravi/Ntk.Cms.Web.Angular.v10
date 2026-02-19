@@ -1,5 +1,829 @@
 # تاریخچه تغییرات پروژه
 
+## 2026-02-19 21:10:00 (اضافه شدن نکته مهم هماهنگی tabledisplayedColumns با matColumnDef)
+
+### خلاصه:
+
+اضافه شدن نکته مهم به Plan در مورد هماهنگی `tabledisplayedColumns` با `matColumnDef` در فایل‌های HTML. اگر ستونی در `tabledisplayedColumns` تعریف شده باشد اما `matColumnDef` مربوط به آن در HTML وجود نداشته باشد، خطای Angular رخ می‌دهد.
+
+### تغییرات:
+
+- **Cursor.ExpandedRowFix.plan.md**:
+  - اضافه شدن بخش **⚠️ نکته مهم: هماهنگی tabledisplayedColumns با matColumnDef**
+  - توضیح مشکل و راه حل
+  - مثال کد برای درک بهتر
+  - چک‌لیست بررسی
+  - اضافه شدن **مرحله 2.1**: بررسی هماهنگی tabledisplayedColumns با matColumnDef
+
+### جزئیات فنی:
+
+- بررسی `tabledisplayedColumns` در فایل `.ts`
+- بررسی وجود `matColumnDef` برای هر ستون در فایل `.html`
+- اطمینان از اینکه تمام ستون‌های `tabledisplayedColumns` دارای `matColumnDef` هستند
+- در صورت عدم وجود، یا اضافه کردن `matColumnDef` یا حذف ستون از `tabledisplayedColumns`
+
+---
+
+## 2026-02-19 21:05:00 (به‌روزرسانی Plan - اصلاح Part 4 برای بررسی و اصلاح list.mobile.component.html ها)
+
+### خلاصه:
+
+به‌روزرسانی Part 4 در Plan برای تاکید بر اینکه **تمام فایل‌های `list.mobile.component.html` موجود باید از الگوی `news/content/list/list.mobile.component.html` نوشته شده باشند** و ساختار یکسانی داشته باشند.
+
+### تغییرات:
+
+- **Cursor.ExpandedRowFix.plan.md**:
+  - اصلاح **Part 4**: تغییر از "ایجاد" به "بررسی و اصلاح"
+  - اضافه شدن **ویژگی‌های الگوی news** که باید در تمام فایل‌ها رعایت شود:
+    - ساختار کلی با `app-cms-html-list-mobile`
+    - دکمه‌های action-header-start (Info, Reload, Maximize, Minimize)
+    - دکمه‌های action-header-end (Search, Statist, BatchView)
+    - دکمه‌های action-main (Add)
+    - دکمه‌های action-row (Edit, Delete, Comment, LinkTo)
+    - ساختار Mobile List View در cms-body
+    - Inputs و Outputs مورد نیاز
+  - اضافه شدن **معیارهای 10 گانه بررسی**:
+    1. استفاده از `app-cms-html-list-mobile` component
+    2. وجود تمام ng-container های مورد نیاز
+    3. وجود دکمه‌های action-header-start
+    4. وجود دکمه‌های action-header-end
+    5. وجود دکمه‌های action-main
+    6. وجود دکمه‌های action-row
+    7. ساختار Mobile List View مطابق الگو
+    8. استفاده از کلاس‌های استاندارد
+    9. Inputs و Outputs مطابق الگو
+    10. استفاده از `getRowExpanded(row)` برای expanded detail
+  - اضافه شدن **مرحله 2**: بررسی و اصلاح list.mobile.component.html های موجود
+  - تغییر شماره مراحل بعدی (3, 4, 5)
+
+### جزئیات فنی:
+
+- تمام 208 فایل `list.mobile.component.html` موجود باید بررسی شوند
+- مقایسه با الگوی `news/content/list/list.mobile.component.html`
+- اصلاح فایل‌های غیر استاندارد
+- ایجاد فایل‌های جدید بر اساس الگوی news
+
+---
+
+## 2026-02-19 21:00:00 (به‌روزرسانی Plan - اضافه شدن Part 4 و Part 5)
+
+### خلاصه:
+
+به‌روزرسانی Plan با اضافه شدن دو بخش جدید:
+
+1. **Part 4**: ایجاد `list.mobile.component.html` برای تمام `list.component.html` ها بر اساس الگوی `news/content/list/list.mobile.component.html`
+2. **Part 5**: ایجاد `routes.mobile.ts` برای تمام ماژول‌ها بر اساس الگوی `news/routes.mobile.ts`
+
+### تغییرات:
+
+- **Cursor.ExpandedRowFix.plan.md**:
+  - اضافه شدن **Part 4**: ایجاد `list.mobile.component.html` برای تمام `list.component.html` ها
+    - الگوی مرجع: `news/content/list/list.mobile.component.html`
+    - استفاده از `app-cms-html-list-mobile` component
+    - شناسایی فایل‌های نیازمند mobile component
+  - اضافه شدن **Part 5**: ایجاد `routes.mobile.ts` برای تمام ماژول‌ها
+    - الگوی مرجع: `news/routes.mobile.ts`
+    - شناسایی 29 فایل `routes.mobile.ts` موجود
+    - شناسایی ماژول‌های نیازمند `routes.mobile.ts`
+  - اضافه شدن **Part 6**: مراحل اجرای کامل
+
+### جزئیات فنی:
+
+- تمام `list.component.html` ها باید `list.mobile.component.html` داشته باشند
+- تمام ماژول‌ها باید `routes.mobile.ts` داشته باشند
+- استفاده از الگوی news برای یکپارچگی پروژه
+- 208 فایل `list.mobile.component.html` موجود شناسایی شد
+- 29 فایل `routes.mobile.ts` موجود شناسایی شد
+
+---
+
+## 2026-02-19 20:45:00 (اضافه شدن کلاس ntk-row-expanded به تمام list.component.html ها)
+
+### خلاصه:
+
+اضافه شدن کلاس `[class.ntk-row-expanded]="row.expanded === true"` به تمام ردیف‌های `expandedDetail` در 39 فایل `list.component.html` در ماژول‌های مختلف برای حل مشکل جدایی ردیف‌های هم‌گروه.
+
+### تغییرات:
+
+- **39 فایل list.component.html** در ماژول‌های مختلف:
+  - Estate Module (10 فایل)
+  - SMS Module (7 فایل)
+  - Data Provider Module (6 فایل)
+  - Link Management Module (5 فایل)
+  - سایر ماژول‌ها (11 فایل)
+
+  در تمام این فایل‌ها، کلاس `[class.ntk-row-expanded]="row.expanded === true"` به ردیف `expandedDetail` اضافه شد.
+
+### جزئیات فنی:
+
+- استفاده از الگوی یکسان برای تمام فایل‌ها
+- اضافه شدن کلاس بعد از `class="ntk-row-expandedDetail"`
+- تمام تغییرات بدون خطای linter انجام شد
+- مشکل جدایی ردیف‌های هم‌گروه در تمام ماژول‌ها حل شد
+
+---
+
+## 2026-02-19 20:35:00 (اضافه شدن کلاس ntk-row-expanded به article)
+
+### خلاصه:
+
+اضافه شدن کلاس `ntk-row-expanded` به ردیف `expandedDetail` در فایل `article/content/list/list.component.html` برای هماهنگی با فایل `news/content/list/list.component.html` و فعال شدن استایل‌های CSS مربوط به ردیف‌های هم‌گروه.
+
+### تغییرات:
+
+- **list.component.html** (article):
+  - اضافه شدن `[class.ntk-row-expanded]="row.expanded === true"` به `mat-row` با کلاس `ntk-row-expandedDetail`
+  - این کلاس برای تشخیص ردیف‌های expanded در CSS استفاده می‌شود و باعث می‌شود استایل‌های مربوط به اتصال ردیف‌های هم‌گروه فعال شوند
+
+### جزئیات فنی:
+
+- کلاس `ntk-row-expanded` در CSS با selector `:has(+ mat-row.ntk-row-expandedDetail.ntk-row-expanded)` استفاده می‌شود
+- بدون این کلاس، استایل‌های CSS نمی‌توانند ردیف‌های expanded را تشخیص دهند
+- این تغییر باعث می‌شود ردیف‌های هم‌گروه به درستی به هم متصل شوند
+
+---
+
+## 2026-02-19 20:30:00 (حل مشکل جدایی ردیف‌های هم‌گروه در جدول)
+
+### خلاصه:
+
+حل مشکل جدایی ردیف‌های هم‌گروه (expandedTitle, mainfild, expandedDetail) در جدول‌های mat-table. ردیف‌هایی که به یک آیتم تعلق دارند باید به صورت یکپارچه نمایش داده شوند بدون فاصله سفید بین آن‌ها.
+
+### تغییرات:
+
+- **styles.scss** (desktop):
+  - حذف `margin-bottom` از `ntk-row-expandedTitle` هنگام قرار گرفتن قبل از `ntk-row-mainfild`
+  - حذف `margin-top` و `margin-bottom` از `ntk-row-mainfild` هنگام قرار گرفتن بین `expandedTitle` و `expandedDetail`
+  - حذف `margin-top` و `margin-bottom` از `ntk-row-expandedDetail` هنگام قرار گرفتن بعد از `mainfild`
+  - حذف `border-bottom` از `ntk-row-expandedTitle` برای اتصال بهتر به `mainfild`
+  - حذف `border-top` از `ntk-row-expandedDetail` برای اتصال بهتر به `mainfild`
+  - اضافه شدن استایل برای `expandedDetail` که آخرین ردیف است تا `margin-bottom` را برگرداند
+
+- **styles.mobile.scss** (mobile):
+  - حذف `margin-top` از `.cms-m-list-item-expanded` برای اتصال بهتر به محتوای اصلی
+
+### جزئیات فنی:
+
+- استفاده از selector های CSS برای مدیریت margin و border بین ردیف‌های هم‌گروه
+- حفظ margin برای ردیف‌های جداگانه (وقتی expanded نیستند)
+- حفظ border-radius برای ظاهر کارت‌مانند
+- تمام تغییرات بدون خطای linter انجام شد
+
+---
+
+## 2026-02-19 20:15:00 (بازنویسی ظاهر list component های article بر اساس news)
+
+### خلاصه:
+
+بازنویسی کامل ظاهر `list.component.html` و `list.mobile.component.html` ماژول article بر اساس الگوی ماژول news. این تغییرات شامل به‌روزرسانی ساختار HTML، ترتیب ستون‌ها، و منطق نمایش دکمه‌های action است.
+
+### تغییرات:
+
+- **list.component.html** (desktop):
+  - اضافه شدن `[optionActionRowDisplay]="tableRowSelected?.id > 0"` به `app-cms-html-list`
+  - اضافه شدن `class="theme-light"` به `mat-table`
+  - اصلاح ترتیب ستون‌ها مطابق news: linkMainImageIdSrc → id → linkSiteId → recordStatus → title → ViewCount → createdDate → Action → LinkTo
+  - اصلاح منطق دکمه‌های action:
+    - دکمه Add: حذف شرط `categoryModelSelected?.id > 0` (مطابق news)
+    - دکمه Edit: اضافه شدن شرط `tableRowSelected?.id > 0`
+    - دکمه Delete: اضافه شدن شرط `tableRowSelected?.id > 0`
+    - دکمه Comment: اضافه شدن شرط `tableRowSelected?.id > 0` و انتقال به بخش action-row
+  - اصلاح ساختار expandedDetail: تغییر ترتیب نمایش id و آیکون copy
+  - حذف کامنت‌های اضافی و اصلاح فرمت کد
+
+- **list.mobile.component.html** (mobile):
+  - بازنویسی کامل بر اساس الگوی `news/content/list/list.mobile.component.html`
+  - اضافه شدن `[optionActionRowDisplay]="tableRowSelected?.id > 0"` به `app-cms-html-list-mobile`
+  - تغییر `[optionGuideNoticeKey]` از `''` به `'article.content.list'`
+  - تغییر `[optionTreeDisplay]` از `false` به `true`
+  - تغییر `[optionActionRowDisplay]` از `tableRowSelected?.id?.length > 0` به `tableRowSelected?.id > 0`
+  - اصلاح `[optionSelectRowItemTitle]` برای استفاده از `title?.length > 0` به جای `($any(tableRowSelected)?.title)`
+  - اضافه شدن دکمه‌های expand/collapse (maximize/minimize)
+  - اضافه شدن دکمه BatchView در action-header-end
+  - اصلاح منطق دکمه‌های action مطابق desktop version
+  - اضافه شدن نمایش کامل اطلاعات در mobile list view:
+    - نمایش id با آیکون hashtag
+    - نمایش viewCount با آیکون eye
+    - نمایش createdDate با آیکون calendar
+    - نمایش recordStatus با امکان تغییر
+    - نمایش description
+    - نمایش expanded detail با updatedDate و copy id
+  - اضافه شدن کلاس‌های `border-highlight` و `bg-fade-highlight-light` برای selected items
+
+### جزئیات فنی:
+
+- ساختار HTML کاملاً مطابق الگوی news برای یکپارچگی پروژه
+- حفظ منطق خاص article در موارد لازم (مثلاً عدم استفاده از `requestLinkCategoryId`)
+- استفاده از `app-article-category-tree` به جای `app-news-category-tree`
+- ترتیب ستون‌ها مطابق استاندارد پروژه (بر اساس mat-table-order.mdc)
+- تمام تغییرات بدون خطای linter انجام شد
+
+---
+
+## 2026-02-19 19:57:46 (اضافه کردن route موبایل برای ماژول article)
+
+### خلاصه:
+
+اضافه کردن route موبایل برای ماژول article بر اساس الگوی ماژول news. ایجاد فایل‌های routes.mobile.ts و routes.normal.ts و تغییر article.routing.ts برای استفاده از route مناسب بر اساس عرض صفحه.
+
+### تغییرات:
+
+- **routes.mobile.ts** (جدید):
+  - ایجاد فایل route موبایل برای ماژول article
+  - استفاده از ArticleContentListMobileComponent برای لیست محتوا
+  - استفاده از ArticleCommentListMobileComponent برای لیست کامنت‌ها
+  - استفاده از کامپوننت‌های عادی (ArticleContentAddComponent و ArticleContentEditComponent) برای add و edit
+  - اضافه کردن route برای content/add/ بدون CategoryId
+  - اضافه کردن route برای content/LinkCategoryId/:LinkCategoryId
+
+- **routes.normal.ts** (جدید):
+  - ایجاد فایل route نرمال برای ماژول article
+  - استخراج route‌های موجود از article.routing.ts
+  - استفاده از کامپوننت‌های عادی برای همه route‌ها
+
+- **article.routing.ts**:
+  - تغییر ساختار برای استفاده از routes.mobile.ts و routes.normal.ts
+  - استفاده از window.innerWidth برای تشخیص موبایل (عرض کمتر از 1000 پیکسل)
+  - حذف route‌های مستقیم و استفاده از import از فایل‌های routes.mobile.ts و routes.normal.ts
+
+### جزئیات فنی:
+
+- ساختار مشابه ماژول news برای یکپارچگی پروژه
+- استفاده از window.innerWidth < 1000 برای تشخیص موبایل
+- کامپوننت‌های موبایل موجود (ArticleContentListMobileComponent و ArticleCommentListMobileComponent) استفاده شده‌اند
+- برای کامپوننت‌های add و edit که موبایل ندارند، از کامپوننت‌های عادی استفاده شده است
+
+---
+
+## 2026-02-19 19:40:00 (اصلاح رنگ border-bottom در حالت extend)
+
+### خلاصه:
+
+اصلاح رنگ border-bottom برای ردیف `expandedDetail` در حالت extend. مشکل این بود که استایل `mat-row.ntk-row-mainfild + mat-row.ntk-row-expandedDetail` برای همه `expandedDetail`، `border-bottom: none !important` را تنظیم می‌کرد و رنگ border را override می‌کرد.
+
+### تغییرات:
+
+- **styles.scss**:
+  - اضافه شدن استایل برای `mat-row.ntk-row-mainfild + mat-row.ntk-row-expandedDetail.border-highlight`: استفاده از `border-bottom: 2px solid !important` بدون رنگ، تا رنگ از کلاس `border-highlight` استفاده شود
+  - اصلاح استایل برای `mat-row.ntk-row-expandedDetail.border-highlight.ntk-row-selected.ntk-row-expanded`: اضافه شدن `border-bottom: 2px solid !important` بدون رنگ
+  - اصلاح استایل برای `mat-row.ntk-row-expandedTitle.border-highlight.ntk-row-selected + mat-row.ntk-row-mainfild.border-highlight.ntk-row-selected + mat-row.ntk-row-expandedDetail.border-highlight.ntk-row-selected.ntk-row-expanded`: اضافه شدن `border-bottom: 2px solid !important` بدون رنگ
+  - رنگ border-bottom به صورت خودکار از کلاس `border-highlight` استفاده می‌شود که رنگ تم را از CSS فایل‌های highlight\_\*.css می‌گیرد
+
+### جزئیات فنی:
+
+- استفاده از `border-bottom: 2px solid !important` بدون رنگ برای تنظیم border-bottom با رنگ تم در حالت extend
+- کلاس `border-highlight` در CSS فایل‌های highlight\_\*.css تعریف شده و `border-color` را با رنگ تم تنظیم می‌کند
+- وقتی border-bottom را بدون رنگ تنظیم می‌کنیم، رنگ از کلاس `border-highlight` استفاده می‌شود
+- رنگ border-bottom در حالت extend به صورت خودکار از رنگ تم انتخاب شده توسط کاربر استفاده می‌کند
+
+---
+
+## 2026-02-19 19:35:00 (اضافه کردن رنگ تم برای border ردیف‌های انتخاب شده)
+
+### خلاصه:
+
+اضافه کردن رنگ تم برای border ردیف‌های انتخاب شده با استفاده از کلاس `border-highlight`. کلاس `border-highlight` در CSS فایل‌های highlight\_\*.css تعریف شده و `border-color` را با رنگ تم تنظیم می‌کند. برای اینکه رنگ از کلاس `border-highlight` استفاده شود، border را بدون رنگ تنظیم می‌کنیم.
+
+### تغییرات:
+
+- **styles.scss**:
+  - اضافه شدن استایل برای `mat-row.ntk-row-mainfild.border-highlight`: استفاده از `border: 2px solid !important` بدون رنگ، تا رنگ از کلاس `border-highlight` استفاده شود
+  - اضافه شدن استایل برای `mat-row.ntk-row-expandedTitle.border-highlight`: استفاده از `border-top: 2px solid !important`، `border-left: 2px solid !important` و `border-right: 2px solid !important` بدون رنگ
+  - اضافه شدن استایل برای `mat-row.ntk-row-expandedDetail.border-highlight`: استفاده از `border-bottom: 2px solid !important`، `border-left: 2px solid !important` و `border-right: 2px solid !important` بدون رنگ
+  - رنگ border به صورت خودکار از کلاس `border-highlight` استفاده می‌شود که رنگ تم را از CSS فایل‌های highlight\_\*.css می‌گیرد
+
+### جزئیات فنی:
+
+- استفاده از `border: 2px solid !important` بدون رنگ برای تنظیم border با رنگ تم
+- کلاس `border-highlight` در CSS فایل‌های highlight\_\*.css تعریف شده و `border-color` را با رنگ تم تنظیم می‌کند
+- وقتی border را بدون رنگ تنظیم می‌کنیم، رنگ از کلاس `border-highlight` استفاده می‌شود
+- رنگ border به صورت خودکار از رنگ تم انتخاب شده توسط کاربر استفاده می‌کند
+- کلاس `border-highlight` قبلاً در HTML اضافه شده است (خطوط 398، 409، 421 در list.component.html)
+
+---
+
+## 2026-02-19 19:28:00 (برگرداندن تغییرات border-highlight)
+
+### خلاصه:
+
+برگرداندن تغییرات border-highlight به حالت قبلی به دلیل مشکل در اعمال رنگ تم.
+
+### تغییرات:
+
+- **styles.scss**:
+  - حذف استایل‌های `mat-row.ntk-row-mainfild.border-highlight`، `mat-row.ntk-row-expandedTitle.border-highlight` و `mat-row.ntk-row-expandedDetail.border-highlight`
+  - برگشت به حالت قبلی که کلاس `border-highlight` به صورت خودکار رنگ border را تنظیم می‌کند
+
+---
+
+## 2026-02-19 19:25:15 (اصلاح نهایی استفاده از رنگ تم برای border)
+
+### خلاصه:
+
+اصلاح نهایی استفاده از رنگ تم برای border ردیف‌های انتخاب شده. مشکل این بود که `border-color: inherit` کار نمی‌کرد چون از parent element رنگ را می‌گرفت نه از کلاس `border-highlight`. حالا border را با `border: 2px solid !important` تنظیم می‌کنیم بدون رنگ، تا رنگ از کلاس `border-highlight` استفاده شود.
+
+### تغییرات:
+
+- **styles.scss**:
+  - اصلاح استایل برای `mat-row.ntk-row-mainfild.border-highlight`: استفاده از `border: 2px solid !important` بدون رنگ، تا رنگ از کلاس `border-highlight` استفاده شود
+  - اصلاح استایل برای `mat-row.ntk-row-expandedTitle.border-highlight`: استفاده از `border-top: 2px solid !important`، `border-left: 2px solid !important` و `border-right: 2px solid !important` بدون رنگ
+  - اصلاح استایل برای `mat-row.ntk-row-expandedDetail.border-highlight`: استفاده از `border-bottom: 2px solid !important`، `border-left: 2px solid !important` و `border-right: 2px solid !important` بدون رنگ
+  - رنگ border به صورت خودکار از کلاس `border-highlight` استفاده می‌شود که رنگ تم را از CSS می‌گیرد
+
+### جزئیات فنی:
+
+- استفاده از `border: 2px solid !important` بدون رنگ برای تنظیم border با رنگ تم
+- کلاس `border-highlight` رنگ تم را از CSS می‌گیرد و `border-color` را تنظیم می‌کند
+- وقتی border را بدون رنگ تنظیم می‌کنیم، رنگ از کلاس `border-highlight` استفاده می‌شود
+- رنگ border به صورت خودکار از رنگ تم انتخاب شده توسط کاربر استفاده می‌کند
+
+---
+
+## 2026-02-19 19:16:29 (اصلاح استفاده از رنگ تم برای border)
+
+### خلاصه:
+
+اصلاح استفاده از رنگ تم برای border ردیف‌های انتخاب شده. مشکل این بود که `border-color: inherit` کار نمی‌کرد چون border قبلاً با رنگ ثابت تنظیم شده بود. حالا border را با `border: 2px solid !important` تنظیم می‌کنیم که رنگ را از کلاس `border-highlight` می‌گیرد.
+
+### تغییرات:
+
+- **styles.scss**:
+  - اصلاح استایل برای `mat-row.ntk-row-mainfild.border-highlight`: استفاده از `border: 2px solid !important` به جای `border-color: inherit`
+  - اصلاح استایل برای `mat-row.ntk-row-expandedTitle.border-highlight`: استفاده از `border-top: 2px solid !important`، `border-left: 2px solid !important` و `border-right: 2px solid !important`
+  - اصلاح استایل برای `mat-row.ntk-row-expandedDetail.border-highlight`: استفاده از `border-bottom: 2px solid !important`، `border-left: 2px solid !important` و `border-right: 2px solid !important`
+  - رنگ border به صورت خودکار از کلاس `border-highlight` استفاده می‌شود که رنگ تم را از CSS می‌گیرد
+
+### جزئیات فنی:
+
+- استفاده از `border: 2px solid !important` برای تنظیم border با رنگ تم
+- کلاس `border-highlight` رنگ تم را از CSS می‌گیرد و `border-color` را تنظیم می‌کند
+- وقتی `border: 2px solid !important` تنظیم می‌شود، رنگ از کلاس `border-highlight` استفاده می‌شود
+- رنگ border به صورت خودکار از رنگ تم انتخاب شده توسط کاربر استفاده می‌کند
+
+---
+
+## 2026-02-19 19:13:35 (اصلاح border با رنگ تم و مدیریت border در حالت extend)
+
+### خلاصه:
+
+اصلاح دو مشکل:
+
+1. استفاده از رنگ تم برای border ردیف‌های انتخاب شده (به جای رنگ ثابت)
+2. مدیریت border در حالت extend و non-extend تا خط وسط نیوفتد
+
+### تغییرات:
+
+- **styles.scss**:
+  - اضافه شدن `&.border-highlight { border-color: inherit !important; }` به `mat-row.ntk-row-mainfild` برای استفاده از رنگ تم
+  - اضافه شدن `&.border-highlight` به `mat-row.ntk-row-expandedTitle` برای استفاده از رنگ تم در border-top، border-left و border-right
+  - اضافه شدن `&.border-highlight` به `mat-row.ntk-row-expandedDetail` برای استفاده از رنگ تم در border-bottom، border-left و border-right
+  - اضافه شدن استایل برای مدیریت border در حالت extend: حذف border-bottom از mainfild و border-top از expandedDetail وقتی expand شده است
+  - اضافه شدن استایل برای مدیریت border در حالت expandedTitle + mainfild + expandedDetail: حذف border-top و border-bottom از mainfild و border-top از expandedDetail
+
+### جزئیات فنی:
+
+- استفاده از `border-color: inherit` برای استفاده از رنگ تم از کلاس `border-highlight`
+- مدیریت border در حالت extend: وقتی expandedDetail نمایش داده می‌شود، border-bottom از mainfild و border-top از expandedDetail حذف می‌شود تا خط وسط نیوفتد
+- مدیریت border در حالت expandedTitle + mainfild + expandedDetail: همه border های داخلی حذف می‌شوند تا خط وسط نیوفتد
+- رنگ border به صورت خودکار از رنگ تم انتخاب شده توسط کاربر استفاده می‌کند
+
+---
+
+## 2026-02-19 19:10:42 (اضافه کردن border با رنگ تم برای ردیف‌های انتخاب شده)
+
+### خلاصه:
+
+اضافه کردن border با رنگ تم (از کلاس `border-highlight`) برای ردیف‌های انتخاب شده در نسخه دسکتاپ، مشابه نسخه موبایل. زمانی که ردیف انتخاب می‌شود، کادر حاشیه دور آن از رنگ تم انتخاب کاربر استفاده می‌کند.
+
+### تغییرات:
+
+- **list.component.html**:
+  - اضافه شدن `[class.border-highlight]="row.id === tableRowSelected?.id"` به `mat-row.ntk-row-expandedTitle`
+  - اضافه شدن `[class.border-highlight]="row.id === tableRowSelected?.id"` به `mat-row.ntk-row-mainfild`
+  - اضافه شدن `[class.border-highlight]="row.id === tableRowSelected?.id"` به `mat-row.ntk-row-expandedDetail`
+
+- **styles.scss**:
+  - اضافه شدن استایل `border-color: inherit !important` برای ردیف‌های انتخاب شده با کلاس `border-highlight`
+  - استایل برای `mat-row.ntk-row-mainfild.border-highlight.ntk-row-selected`
+  - استایل برای `mat-row.ntk-row-expandedTitle.border-highlight.ntk-row-selected`
+  - استایل برای `mat-row.ntk-row-expandedDetail.border-highlight.ntk-row-selected`
+
+### جزئیات فنی:
+
+- استفاده از کلاس `border-highlight` که رنگ تم را از `$colorHighlightDark` می‌گیرد
+- رنگ border به صورت خودکار از رنگ تم انتخاب شده توسط کاربر استفاده می‌کند
+- ردیف‌های انتخاب شده حالا border با رنگ تم دارند، مشابه نسخه موبایل
+
+---
+
+## 2026-02-19 19:07:27 (اصلاح border-radius با استفاده از کلاس ntk-row-expanded)
+
+### خلاصه:
+
+اصلاح border-radius برای ردیف `mainfild` در حالت extend با استفاده از کلاس `ntk-row-expanded` که به `expandedDetail` اضافه می‌شود. این کلاس فقط وقتی ردیف expand می‌شود اضافه می‌شود و باعث می‌شود که CSS بتواند به درستی تشخیص دهد که ردیف expand شده است یا نه.
+
+### تغییرات:
+
+- **list.component.html**:
+  - اضافه شدن `[class.ntk-row-expanded]="row.expanded === true"` به `mat-row.ntk-row-expandedDetail` برای اضافه کردن کلاس وقتی ردیف expand می‌شود
+
+- **styles.scss**:
+  - تغییر selector از `:has(+ mat-row.ntk-row-expandedDetail:not([style*="display: none"]))` به `:has(+ mat-row.ntk-row-expandedDetail.ntk-row-expanded)`
+  - استفاده از کلاس `ntk-row-expanded` برای تشخیص ردیف‌های expand شده
+  - این روش قابل اعتمادتر است و در همه مرورگرها کار می‌کند
+
+### جزئیات فنی:
+
+- استفاده از کلاس `ntk-row-expanded` که فقط وقتی `row.expanded === true` است اضافه می‌شود
+- استفاده از CSS selector `:has(+ mat-row.ntk-row-expandedDetail.ntk-row-expanded)` برای تشخیص `mainfild` هایی که قبل از `expandedDetail` expand شده هستند
+- border-radius به صورت دینامیک تغییر می‌کند: وقتی expand می‌شود، لبه پایین صاف می‌شود و وقتی expand نمی‌شود، لبه پایین گرد است
+
+---
+
+## 2026-02-19 19:05:04 (بررسی و تایید رفتار border-radius در حالت extend)
+
+### خلاصه:
+
+بررسی و تایید رفتار border-radius برای ردیف `mainfild` در حالت‌های مختلف:
+
+- در حالت عادی (بدون extend): لبه پایین گرد است (`border-radius: 12px`)
+- در حالت extend: لبه پایین صاف می‌شود (`border-radius: 12px 12px 0 0`)
+
+### وضعیت کد:
+
+کد فعلی درست است و همه حالات را پوشش می‌دهد:
+
+- `mainfild` به صورت پیش‌فرض: `border-radius: 12px` (همه گوشه‌ها گرد)
+- `mainfild` قبل از `expandedDetail`: `border-radius: 12px 12px 0 0` (فقط بالا گرد)
+- `expandedTitle` + `mainfild` (بدون `expandedDetail`): `border-radius: 0 0 12px 12px` (فقط پایین گرد)
+- `expandedTitle` + `mainfild` + `expandedDetail`: `border-radius: 0` (بدون گرد)
+
+### جزئیات فنی:
+
+- استفاده از CSS selector `:has(+ mat-row.ntk-row-expandedDetail)` برای تشخیص `mainfild` هایی که قبل از `expandedDetail` هستند
+- border-radius به صورت دینامیک تغییر می‌کند بر اساس وجود یا عدم وجود `expandedDetail`
+- در حالت عادی، لبه پایین گرد است و در حالت extend، لبه پایین صاف می‌شود
+
+---
+
+## 2026-02-19 19:03:36 (اصلاح استایل ردیف expand برای یکپارچه شدن با ردیف اصلی)
+
+### خلاصه:
+
+اصلاح استایل ردیف expand (expandedDetail) در حالت extend برای یکپارچه شدن با ردیف اصلی (mainfild). حذف فاصله و border بین ردیف‌های هم‌گروه تا به صورت یک کادر واحد و یکپارچه نمایش داده شوند.
+
+### تغییرات:
+
+- **styles.scss**:
+  - حذف `margin-bottom` از `mat-row.ntk-row-mainfild` وقتی `expandedDetail` بعد از آن است
+  - حذف `border-top` از `mat-row.ntk-row-expandedDetail` برای اتصال یکپارچه به `mainfild`
+  - حذف `border-top-left-radius` و `border-top-right-radius` از `mat-cell` های داخل `expandedDetail`
+  - اطمینان از اینکه `margin-top` از `expandedDetail` صفر است
+  - اطمینان از اینکه `margin-bottom` از `mainfild` وقتی `expandedDetail` بعد از آن است، صفر است
+
+### جزئیات فنی:
+
+- استفاده از CSS selector `:has(+ mat-row.ntk-row-expandedDetail)` برای تشخیص `mainfild` هایی که قبل از `expandedDetail` هستند
+- حذف `border-top: none !important` از `expandedDetail` برای اتصال یکپارچه
+- حذف `margin-bottom: 0 !important` از `mainfild` وقتی `expandedDetail` بعد از آن است
+- ردیف‌های expand حالا به صورت یکپارچه با ردیف اصلی نمایش داده می‌شوند و فاصله بین آنها حذف شده است
+
+---
+
+## 2026-02-19 19:02:25 (اصلاح border-radius بین ردیف‌های هم‌گروه در mat-table)
+
+### خلاصه:
+
+اصلاح border-radius بین ردیف‌های هم‌گروه در `mat-table` تا فقط گوشه‌های بیرونی ردیف‌های هم‌گروه گرد باشند و گوشه‌های داخلی (بین ردیف‌های هم‌گروه) صاف باشند.
+
+### تغییرات:
+
+- **styles.scss**:
+  - اصلاح border-radius برای `mat-row.ntk-row-mainfild`: اگر قبل از `expandedDetail` است، border-radius پایین حذف می‌شود
+  - اصلاح border-radius برای `mat-row.ntk-row-mainfild`: اگر بین `expandedTitle` و `expandedDetail` است، همه border-radius ها حذف می‌شوند
+  - استفاده از CSS selector `:has()` برای تشخیص ردیف‌های مجاور
+  - اصلاح border-radius برای `mat-cell` های داخل ردیف‌ها برای هماهنگی با border-radius ردیف
+
+### جزئیات فنی:
+
+- استفاده از CSS selector `:has(+ mat-row.ntk-row-expandedDetail)` برای تشخیص `mainfild` هایی که قبل از `expandedDetail` هستند
+- استفاده از CSS selector `mat-row.ntk-row-expandedTitle + mat-row.ntk-row-mainfild:has(+ mat-row.ntk-row-expandedDetail)` برای تشخیص `mainfild` هایی که بین `expandedTitle` و `expandedDetail` هستند
+- حذف border-radius پایین از `mainfild` در صورت وجود `expandedDetail` بعد از آن
+- حذف همه border-radius ها از `mainfild` در صورت وجود `expandedTitle` قبل از آن و `expandedDetail` بعد از آن
+- ردیف‌های هم‌گروه حالا فقط گوشه‌های بیرونی گرد دارند و گوشه‌های داخلی صاف هستند
+
+---
+
+## 2026-02-19 18:58:30 (حذف فاصله بین ردیف‌های هم‌گروه در mat-table)
+
+### خلاصه:
+
+حذف فاصله (margin) بین ردیف‌های هم‌گروه در `mat-table` تا ردیف‌های مرتبط (expandedTitle، mainfild و expandedDetail) به صورت یک کادر واحد و بدون فاصله نمایش داده شوند.
+
+### تغییرات:
+
+- **styles.scss**:
+  - حذف margin-bottom از `mat-row.ntk-row-expandedTitle` برای اتصال به ردیف بعدی
+  - حذف margin-top از `mat-row.ntk-row-expandedDetail` برای اتصال به ردیف قبلی
+  - حذف margin-top از `mat-row.ntk-row-mainfild` در صورت وجود expandedTitle قبل از آن
+  - حذف margin-bottom از `mat-row.ntk-row-mainfild` در صورت وجود expandedDetail بعد از آن
+  - ردیف‌های هم‌گروه حالا بدون فاصله به هم متصل هستند و یک کادر واحد تشکیل می‌دهند
+
+### جزئیات فنی:
+
+- استفاده از CSS selector `+` برای تشخیص ردیف‌های مجاور و حذف margin بین آنها
+- حفظ margin بالا برای اولین ردیف گروه (expandedTitle یا mainfild)
+- حفظ margin پایین برای آخرین ردیف گروه (expandedDetail یا mainfild)
+- ردیف‌های هم‌گروه حالا به صورت یک کادر واحد و بدون فاصله نمایش داده می‌شوند
+
+---
+
+## 2026-02-19 18:53:59 (اضافه کردن کادر به دور ردیف‌های مرتبط در mat-table)
+
+### خلاصه:
+
+اضافه کردن کادر (border) به دور ردیف‌های مرتبط در `mat-table` برای کامپوننت لیست خبر. ردیف‌هایی که با هم مرتبط هستند (expandedTitle، mainfild و expandedDetail) حالا یک کادر به دور خود دارند.
+
+### تغییرات:
+
+- **styles.scss**:
+  - اضافه شدن border به `mat-row.ntk-row-mainfild`: border کامل (top, right, bottom, left) برای حالت‌هایی که expandedTitle و expandedDetail وجود ندارند
+  - اضافه شدن border به `mat-row.ntk-row-expandedTitle`: border-top, border-left, border-right
+  - اضافه شدن border به `mat-row.ntk-row-expandedDetail`: border-bottom, border-left, border-right
+  - اضافه شدن CSS selector برای حذف border-top از mainfild در صورت وجود expandedTitle قبل از آن
+  - اضافه شدن CSS selector برای حذف border-bottom از mainfild در صورت وجود expandedDetail بعد از آن
+  - اضافه شدن استایل‌های dark mode برای border با رنگ مناسب (rgba(255, 255, 255, 0.15))
+  - رنگ border برای theme-light: rgba(0, 0, 0, 0.1)
+  - رنگ border برای theme-dark: rgba(255, 255, 255, 0.15)
+
+### جزئیات فنی:
+
+- استفاده از CSS selector `+` برای تشخیص ردیف‌های مجاور
+- استفاده از `border: 2px solid` برای ایجاد کادر یکنواخت
+- حفظ border-radius موجود برای گرد کردن گوشه‌های ردیف‌ها
+- حفظ margin موجود برای فاصله بین ردیف‌ها
+
+---
+
+## 2026-02-19 18:44:33 (حذف فایل list.component.scss)
+
+### خلاصه:
+
+حذف فایل `list.component.scss` از کامپوننت لیست خبر (news content list) چون استایل‌های مربوط به گرد کردن کارت‌های ردیف‌ها باید در فایل عمومی `styles.scss` قرار بگیرند.
+
+### تغییرات:
+
+- **list.component.scss**: حذف فایل
+- **list.component.ts**: فایل قبلاً `styleUrls` نداشت، نیازی به تغییر نبود
+
+---
+
+## 2026-02-19 18:24:47 (بازنویسی کامل دکمه‌ها از روی نسخه اصلی)
+
+### خلاصه:
+
+بازنویسی کامل دکمه‌های fixed و header در کامپوننت موبایل از روی نسخه اصلی. تمام دکمه‌ها حالا از همان کلاس‌های استاندارد (`btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight`) استفاده می‌کنند و ساختار HTML دقیقاً مشابه نسخه اصلی است.
+
+### تغییرات:
+
+- **cms-html-list-mobile.component.html**:
+  - بازنویسی کامل دکمه‌های tree button: استفاده از ساختار `div.content > div.row > div.col-12` با دو دکمه جداگانه (یکی با متن، یکی با آیکون)
+  - بازنویسی کامل دکمه‌های action main button: استفاده از ساختار مشابه با کلاس `btn-3d` و `jump` برای دکمه اول
+  - بازنویسی کامل دکمه‌های action row button: استفاده از ساختار مشابه
+  - تغییر دکمه header: استفاده از کلاس‌های استاندارد `btn` به جای کلاس‌های سفارشی
+  - تمام دکمه‌ها حالا از کلاس‌های `btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight` استفاده می‌کنند
+- **cms-html-list-mobile.component.scss**:
+  - حذف کامل استایل‌های سفارشی `.cms-html-list-mobile-fixed-button-item` و `.cms-html-list-mobile-header-button`
+  - بازنویسی `.cms-html-list-mobile-fixed-button` برای استفاده از ساختار مشابه نسخه اصلی با `position: fixed`, `left: 1px`, `min-width: 30px`, `height: 30px`
+  - اضافه شدن استایل برای `.row` و `.col-12` داخل fixed button برای حذف margin و padding اضافی
+  - این تغییرات باعث می‌شود که دکمه‌ها دقیقاً مشابه نسخه اصلی باشند و از همان کلاس‌های Bootstrap استفاده کنند
+
+---
+
+## 2026-02-19 18:22:56 (اصلاح فاصله بین دکمه‌ها - استفاده از margin به جای gap)
+
+### خلاصه:
+
+اصلاح فاصله بین دکمه‌ها در کامپوننت موبایل. در نسخه اصلی، دکمه‌ها کلاس `m-1` دارند که margin در همه جهات ایجاد می‌کند. برای هماهنگی کامل، margin را به دکمه‌ها اضافه کردیم و `gap` را از container حذف کردیم.
+
+### تغییرات:
+
+- **cms-html-list-mobile.component.scss**:
+  - حذف `gap: 0.25rem` از `.cms-html-list-mobile-fixed-button` (فاصله حالا از طریق margin دکمه‌ها ایجاد می‌شود)
+  - اضافه شدن `margin: 0.25rem !important` به `.cms-html-list-mobile-fixed-button-item` (هماهنگ با `m-1` از نسخه اصلی)
+  - اضافه شدن `flex-wrap: wrap` به `.cms-html-list-mobile-fixed-button` برای قرارگیری دکمه‌ها در چند خط در صورت نیاز
+  - این تغییرات باعث می‌شود که فاصله بین دکمه‌ها دقیقاً مشابه نسخه اصلی باشد (margin در همه جهات)
+
+---
+
+## 2026-02-19 18:19:21 (هماهنگ‌سازی فاصله بین دکمه‌ها با نسخه اصلی)
+
+### خلاصه:
+
+هماهنگ‌سازی فاصله بین دکمه‌ها در کامپوننت موبایل با نسخه اصلی که از کلاس `m-1` استفاده می‌کند (`margin: 0.25rem` = 4px).
+
+### تغییرات:
+
+- **cms-html-list-mobile.component.scss**:
+  - اضافه شدن `gap: 0.25rem` به `.cms-html-list-mobile-fixed-button` برای فاصله بین دکمه‌ها (هماهنگ با `m-1` از نسخه اصلی)
+  - حذف `gap` از `.cms-html-list-mobile-fixed-button-item` (فاصله حالا از container ایجاد می‌شود)
+  - حذف `margin: 0.25rem` از `.cms-html-list-mobile-fixed-button-item` (فاصله حالا از `gap` container ایجاد می‌شود)
+  - این تغییرات باعث می‌شود که فاصله بین دکمه‌ها در نسخه موبایل دقیقاً مشابه نسخه اصلی باشد
+
+---
+
+## 2026-02-19 18:17:13 (هماهنگ‌سازی ابعاد دکمه‌ها با نسخه اصلی)
+
+### خلاصه:
+
+هماهنگ‌سازی ابعاد دکمه‌ها در کامپوننت موبایل با ابعاد دکمه‌های نسخه اصلی که از کلاس `btn-s` استفاده می‌کنند (`padding: 8px 18px`).
+
+### تغییرات:
+
+- **cms-html-list-mobile.component.scss**:
+  - تغییر `padding` در `.cms-html-list-mobile-header-button` از `min-width: 44px; height: 44px` به `padding: 8px 18px !important` (هماهنگ با `btn-s`)
+  - حذف `min-width` و `height` ثابت از `.cms-html-list-mobile-header-button`
+  - تغییر `padding` در `.cms-html-list-mobile-fixed-button-item` از `padding: 10px 16px; height: 44px` به `padding: 8px 18px !important` (هماهنگ با `btn-s`)
+  - حذف `height` ثابت از `.cms-html-list-mobile-fixed-button-item`
+  - این تغییرات باعث می‌شود که ابعاد دکمه‌ها در نسخه موبایل دقیقاً مشابه نسخه اصلی باشند
+
+---
+
+## 2026-02-19 18:07:37 (اصلاح استایل برای استفاده از کلاس gradient-highlight)
+
+### خلاصه:
+
+اصلاح استایل SCSS برای استفاده صحیح از کلاس `gradient-highlight`. مشکل این بود که `background: none` باعث حذف `background-image` می‌شد. حالا `background-color` را `transparent` و `background-image` را `none` تنظیم کردیم تا `background-image` از کلاس `gradient-highlight` استفاده کند.
+
+### تغییرات:
+
+- **cms-html-list-mobile.component.scss**:
+  - تغییر استایل `&.gradient-highlight` در `.cms-html-list-mobile-header-button` از `background: transparent` به `background-color: transparent !important; background-image: none !important;`
+  - تغییر استایل `&.gradient-highlight` در `.cms-html-list-mobile-fixed-button-item` از `background: transparent` به `background-color: transparent !important; background-image: none !important;`
+  - این تغییرات باعث می‌شود که `background-image` از کلاس `gradient-highlight` که در فایل‌های highlight تعریف شده است، استفاده کند و با تم رنگی کاربر تغییر کند
+
+---
+
+## 2026-02-19 18:05:33 (رفع مشکل تغییر رنگ دکمه‌ها در کامپوننت موبایل)
+
+### خلاصه:
+
+رفع مشکل تغییر رنگ دکمه‌ها در کامپوننت `cms-html-list-mobile` برای هماهنگی با تم رنگی کاربر. دکمه‌های fixed و header در نسخه موبایل از کلاس `gradient-highlight` استفاده نمی‌کردند و رنگ ثابت داشتند.
+
+### تغییرات:
+
+- **cms-html-list-mobile.component.html**:
+  - اضافه شدن کلاس `gradient-highlight` به دکمه tree (خط 73)
+  - اضافه شدن کلاس `gradient-highlight` به دکمه action main (خط 90)
+  - اضافه شدن کلاس `gradient-highlight` به دکمه action row (خط 107)
+  - اضافه شدن کلاس `gradient-highlight` به دکمه header (خط 35)
+- **cms-html-list-mobile.component.scss**:
+  - اضافه شدن استایل برای override کردن `background` وقتی کلاس `gradient-highlight` وجود دارد در `.cms-html-list-mobile-header-button`
+  - اضافه شدن استایل برای override کردن `background` وقتی کلاس `gradient-highlight` وجود دارد در `.cms-html-list-mobile-fixed-button-item`
+  - این تغییرات باعث می‌شود که کلاس `gradient-highlight` بتواند از `background-image` استفاده کند و با تم رنگی کاربر تغییر کند
+
+---
+
+## 2026-02-19 18:15:58 (حذف کامل فاصله بین ردیف‌های expand برای نمایش یکپارچه)
+
+### خلاصه:
+
+حذف کامل border و padding پیش‌فرض Angular Material از ردیف‌ها و سلول‌ها برای نمایش یکپارچه ردیف‌های expand به صورت یک کارت واحد.
+
+### تغییرات:
+
+- **list.component.scss**:
+  - حذف border و border-top/border-bottom از همه `mat-row` و `mat-cell`
+  - حذف padding-top و margin-top از ردیف‌های متوالی expand
+  - اضافه شدن استایل‌های خاص برای حذف فاصله بین `expandedTitle + mainfild` و `mainfild + expandedDetail`
+  - اطمینان از اینکه هیچ فاصله‌ای بین ردیف‌های expand وجود ندارد
+
+---
+
+## 2026-02-19 18:09:50 (رفع فاصله بین ردیف‌های expand)
+
+### خلاصه:
+
+رفع فاصله و margin بین ردیف‌های expand (expandedTitle، mainfild، expandedDetail) چون با `multiTemplateDataRows` همه آنها یک ردیف واحد هستند.
+
+### تغییرات:
+
+- **list.component.scss**:
+  - حذف margin-bottom از `mat-row.ntk-row-expandedTitle`
+  - حذف margin-top و margin-bottom از `mat-row.ntk-row-mainfild` وقتی بعد از expandedTitle است
+  - حذف margin-top از `mat-row.ntk-row-expandedDetail`
+  - فقط اولین ردیف (expandedTitle) margin-top دارد
+  - فقط آخرین ردیف (expandedDetail) margin-bottom دارد
+  - ردیف‌های میانی (mainfild) هیچ margin ندارند
+
+---
+
+## 2026-02-19 18:04:13 (بهبود استایل‌های expand برای ردیف‌های جدول)
+
+### خلاصه:
+
+بهبود استایل‌های مربوط به ردیف‌های expand (expandedTitle و expandedDetail) برای نمایش صحیح به صورت کارت واحد با گوشه‌های گرد.
+
+### تغییرات:
+
+- **list.component.scss**:
+  - بهبود استایل‌های `mat-row.ntk-row-expandedTitle` برای گوشه بالا گرد و گوشه پایین تخت
+  - بهبود استایل‌های `mat-row.ntk-row-mainfild` وقتی بعد از expandedTitle است
+  - بهبود استایل‌های `mat-row.ntk-row-expandedDetail` برای گوشه بالا تخت و گوشه پایین گرد
+  - اضافه شدن استایل برای حالت expand شده کامل (expandedTitle + mainfild + expandedDetail)
+
+---
+
+## 2026-02-19 18:00:00 (انتقال استایل‌های list.component.scss به styles.scss)
+
+### خلاصه:
+
+انتقال استایل‌های مربوط به گرد کردن کارت‌های ردیف‌ها از فایل `list.component.scss` به فایل عمومی `styles.scss` برای استفاده در تمام کامپوننت‌ها.
+
+### تغییرات:
+
+- **styles.scss**:
+  - اضافه شدن استایل‌های border-radius و margin برای `mat-row.ntk-row-mainfild`
+  - اضافه شدن استایل‌های border-radius و margin برای `mat-row.ntk-row-expandedTitle`
+  - اضافه شدن استایل‌های border-radius و margin برای `mat-row.ntk-row-expandedDetail`
+- **list.component.ts**:
+  - حذف `styleUrls: ["./list.component.scss"]` از دکوراتور کامپوننت
+- **list.component.scss**:
+  - حذف فایل (استایل‌ها به styles.scss منتقل شدند)
+
+---
+
+## 2026-02-19 17:57:23 (تیره کردن پس‌زمینه ردیف انتخاب شده در موبایل)
+
+### خلاصه:
+
+تیره کردن پس‌زمینه ردیف انتخاب شده در حالت موبایل برای بهتر دیده شدن ردیف انتخاب شده. پس‌زمینه با opacity کمی تیره می‌شود.
+
+### تغییرات:
+
+- **styles.mobile.scss**:
+  - اضافه شدن `background-color: rgba(0, 0, 0, 0.08)` به `.cms-m-list-item.selected.border-highlight` برای تیره کردن پس‌زمینه در حالت روشن
+  - اضافه شدن `background-color: rgba(255, 255, 255, 0.08)` برای حالت تاریک
+- **list.mobile.component.html (news/content/list)**:
+  - اضافه شدن کلاس `bg-fade-highlight-light` به element های انتخاب شده (برای استفاده در آینده)
+
+---
+
+## 2026-02-19 17:53:47 (گرد کردن کارت‌های ردیف‌ها در لیست خبر)
+
+### خلاصه:
+
+اضافه شدن استایل‌های border-radius برای گرد کردن کارت‌های ردیف‌ها در کامپوننت لیست خبر (news content list).
+
+### تغییرات:
+
+- **list.component.scss** (جدید):
+  - ایجاد فایل SCSS مخصوص کامپوننت
+  - اضافه شدن استایل‌های border-radius برای ردیف‌های `ntk-row-mainfild` با مقدار 12px
+  - اضافه شدن استایل‌های border-radius برای ردیف‌های `ntk-row-expandedTitle` (گوشه بالا گرد)
+  - اضافه شدن استایل‌های border-radius برای ردیف‌های `ntk-row-expandedDetail` (گوشه پایین گرد)
+  - اضافه شدن margin برای فاصله‌گذاری بهتر بین کارت‌ها
+  - پشتیبانی از هر دو تم light و dark
+- **list.component.ts**:
+  - اضافه شدن `styleUrls: ["./list.component.scss"]` به دکوراتور کامپوننت
+
+---
+
+## 2026-02-19 17:53:04 (استفاده از رنگ تم کاربر برای حاشیه ردیف انتخاب شده در موبایل)
+
+### خلاصه:
+
+تغییر رنگ حاشیه ردیف انتخاب شده در حالت موبایل برای استفاده از رنگ تم انتخابی کاربر به جای رنگ ثابت. حالا رنگ حاشیه از کلاس `border-highlight` که به صورت دینامیک بر اساس تم انتخابی کاربر تغییر می‌کند، استفاده می‌شود.
+
+### تغییرات:
+
+- **styles.mobile.scss**:
+  - تغییر استایل `.cms-m-list-item.selected` برای استفاده از رنگ کلاس `border-highlight`
+  - حذف رنگ ثابت و استفاده از `border-color: inherit` برای استفاده از رنگ کلاس `border-highlight`
+  - اضافه شدن selector `.cms-m-list-item.selected.border-highlight` برای اعمال رنگ تم کاربر
+- **list.mobile.component.html (news/content/list)**:
+  - اضافه شدن کلاس `border-highlight` به element های `cms-m-list-item` برای استفاده از رنگ تم کاربر
+
+---
+
+## 2026-02-19 17:50:59 (تغییر رنگ حاشیه ردیف انتخاب شده در موبایل)
+
+### خلاصه:
+
+تغییر رنگ حاشیه ردیف انتخاب شده در حالت موبایل از رنگ آبی به رنگ تم انتخابی (قرمز) برای هماهنگی با رنگ تم اصلی پروژه.
+
+### تغییرات:
+
+- **styles.mobile.scss**:
+  - تغییر `--cms-m-selected-bg` از rgba(74, 137, 220, 0.12) به rgba(239, 62, 74, 0.12) در light mode
+  - تغییر `--cms-m-selected-bg` از rgba(74, 137, 220, 0.15) به rgba(239, 62, 74, 0.15) در dark mode
+  - تغییر `border-color` در `.cms-m-list-item.selected` از `--cms-m-highlight-color` به `--cms-m-primary-color`
+  - تغییر `box-shadow` از rgba(74, 137, 220, 0.15) به rgba(239, 62, 74, 0.15) در light mode
+  - تغییر `box-shadow` از rgba(74, 137, 220, 0.2) به rgba(239, 62, 74, 0.2) در dark mode
+  - تغییر `border-color` در dark mode از `--cms-m-highlight-color-light` به `--cms-m-primary-color`
+
+---
+
 ## 2026-02-18 (رفع خطای view.component.html در micro-service-status)
 
 ### خلاصه:
@@ -5961,3 +6785,8 @@ iconPicker ایکن‌ها را لود نمی‌کرد. این مشکل به ا�
 ### بررسی خطا:
 
 - ✅ Lint: بدون خطا در مسیرهای تغییر یافته
+  2026-02-19 19:42:59
+
+###
+
+- Taghirat: Ezafe kardan @extend .border-highlight be kelas .theme-light mat-row.ntk-row-selected dar file styles.scss

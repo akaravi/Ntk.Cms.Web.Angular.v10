@@ -367,6 +367,7 @@
       <mat-row
         *matRowDef="let row; columns: ['expandedDetail']; let i = dataIndex"
         class="ntk-row-expandedDetail"
+        [class.ntk-row-expanded]="row.expanded === true"
         (click)="onActionTableRowSelect(row, $event)"
         (rtclick)="onActionTableRowSelect(row, $event)"
         (mouseenter)="onActionTableRowMouseEnter(row)"

@@ -18,13 +18,13 @@
   --cms-m-text-secondary: #64748b;
   --cms-m-border-color: rgba(15, 23, 42, 0.08);
   --cms-m-press-color: rgba(239, 62, 74, 0.08);
-  --cms-m-selected-bg: rgba(74, 137, 220, 0.12);
+  --cms-m-selected-bg: rgba(239, 62, 74, 0.12);
   --cms-m-primary-color: #ef3e4a;
   --cms-m-primary-gradient: linear-gradient(135deg, #ff6f61 0%, #d72638 100%);
   /* Highlight Color - رنگ رندی انتخاب شده در پروژه */
-  --cms-m-highlight-color: #4A89DC;
-  --cms-m-highlight-color-light: #5D9CEC;
-  --cms-m-highlight-gradient: linear-gradient(to bottom, #5D9CEC, #4A89DC);
+  --cms-m-highlight-color: #4a89dc;
+  --cms-m-highlight-color-light: #5d9cec;
+  --cms-m-highlight-gradient: linear-gradient(to bottom, #5d9cec, #4a89dc);
   --cms-m-secondary-bg: #f1f5f9;
   --cms-m-disabled-bg: #e2e8f0;
   --cms-m-info-bg: rgba(239, 62, 74, 0.06);
@@ -86,11 +86,11 @@
     --cms-m-text-secondary: #94a3b8;
     --cms-m-border-color: rgba(226, 232, 240, 0.08);
     --cms-m-press-color: rgba(255, 99, 132, 0.12);
-    --cms-m-selected-bg: rgba(74, 137, 220, 0.15);
+    --cms-m-selected-bg: rgba(239, 62, 74, 0.15);
     /* Highlight Color - رنگ رندی انتخاب شده در پروژه */
-    --cms-m-highlight-color: #5D9CEC;
-    --cms-m-highlight-color-light: #6BA8F0;
-    --cms-m-highlight-gradient: linear-gradient(to bottom, #6BA8F0, #5D9CEC);
+    --cms-m-highlight-color: #5d9cec;
+    --cms-m-highlight-color-light: #6ba8f0;
+    --cms-m-highlight-gradient: linear-gradient(to bottom, #6ba8f0, #5d9cec);
     --cms-m-secondary-bg: #111827;
     --cms-m-disabled-bg: #1f2937;
     --cms-m-info-bg: rgba(239, 62, 74, 0.12);
@@ -115,10 +115,10 @@
   --cms-m-text-secondary: #94a3b8;
   --cms-m-border-color: rgba(255, 255, 255, 0.08);
   --cms-m-press-color: rgba(255, 99, 132, 0.12);
-  --cms-m-selected-bg: rgba(74, 137, 220, 0.15);
-  --cms-m-highlight-color: #5D9CEC;
-  --cms-m-highlight-color-light: #6BA8F0;
-  --cms-m-highlight-gradient: linear-gradient(to bottom, #6BA8F0, #5D9CEC);
+  --cms-m-selected-bg: rgba(239, 62, 74, 0.15);
+  --cms-m-highlight-color: #5d9cec;
+  --cms-m-highlight-color-light: #6ba8f0;
+  --cms-m-highlight-gradient: linear-gradient(to bottom, #6ba8f0, #5d9cec);
   --cms-m-secondary-bg: #111827;
   --cms-m-disabled-bg: #1f2937;
   --cms-m-info-bg: rgba(239, 62, 74, 0.12);
@@ -1116,16 +1116,22 @@
   }
 
   &.selected {
-    background-color: var(--cms-m-selected-bg);
-    border-color: var(--cms-m-highlight-color);
-    box-shadow: 0 4px 12px rgba(74, 137, 220, 0.15);
-    border-left: 4px solid var(--cms-m-highlight-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    @media (prefers-color-scheme: dark) {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  &.selected.border-highlight {
+    border-left: 4px solid;
     border-left-width: 4px;
+    background-color: rgba(0, 0, 0, 0.08);
 
     [dir="rtl"] & {
       border-left: none;
       border-left-width: 0;
-      border-right: 4px solid var(--cms-m-highlight-color);
+      border-right: 4px solid;
       border-right-width: 4px;
     }
 
@@ -1135,17 +1141,12 @@
     }
 
     @media (prefers-color-scheme: dark) {
-      box-shadow: 0 4px 12px rgba(74, 137, 220, 0.2);
-      border-color: var(--cms-m-highlight-color-light);
-
-      [dir="rtl"] & {
-        border-right-color: var(--cms-m-highlight-color-light);
-      }
-
-      [dir="ltr"] & {
-        border-left-color: var(--cms-m-highlight-color-light);
-      }
+      background-color: rgba(255, 255, 255, 0.08);
     }
+  }
+
+  &.selected.bg-fade-highlight-light {
+    background-color: inherit;
   }
 
   &:focus-visible {
@@ -1242,7 +1243,7 @@
 }
 
 .cms-m-list-item-expanded {
-  margin-top: var(--cms-m-spacing-md);
+  margin-top: 0 !important;
   padding-top: var(--cms-m-spacing-md);
   border-top: 1px solid var(--cms-m-border-color);
   display: flex;

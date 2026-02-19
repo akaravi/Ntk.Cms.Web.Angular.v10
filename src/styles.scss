@@ -393,6 +393,235 @@
   color: #fff !important;
 }
 
+/* استایل‌های مربوط به گرد کردن کارت‌های ردیف‌ها و اضافه کردن کادر */
+.theme-light mat-table,
+.theme-dark mat-table {
+  mat-row.ntk-row-mainfild {
+    border-radius: 12px !important;
+    margin: 8px 4px !important;
+    overflow: hidden !important;
+    border: 2px solid rgba(0, 0, 0, 0.1) !important;
+
+    mat-cell {
+      &:first-child {
+        border-top-left-radius: 12px;
+        border-bottom-left-radius: 12px;
+      }
+
+      &:last-child {
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
+      }
+    }
+  }
+
+  /* اگر قبل از mainfild یک expandedTitle وجود دارد، border-top، margin-top و border-radius بالا را حذف کن */
+  mat-row.ntk-row-expandedTitle + mat-row.ntk-row-mainfild {
+    border-top: none !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    border-radius: 0 0 12px 12px !important;
+
+    mat-cell {
+      &:first-child {
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 12px;
+      }
+
+      &:last-child {
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 12px;
+      }
+    }
+  }
+
+  /* اگر بعد از mainfild یک expandedDetail وجود دارد، border-bottom و margin-bottom را حذف کن */
+  mat-row.ntk-row-mainfild + mat-row.ntk-row-expandedDetail {
+    border-bottom: none !important;
+    margin-bottom: 0 !important;
+    border-top: none !important;
+    margin-top: 0 !important;
+  }
+
+  /* اگر mainfild قبل از expandedDetail است (که نمایش داده می‌شود - دارای کلاس ntk-row-expanded)، border-radius پایین mainfild را حذف کن */
+  mat-row.ntk-row-mainfild:has(
+      + mat-row.ntk-row-expandedDetail.ntk-row-expanded
+    ) {
+    border-radius: 12px 12px 0 0 !important;
+    margin-bottom: 0 !important;
+
+    mat-cell {
+      &:first-child {
+        border-top-left-radius: 12px;
+        border-bottom-left-radius: 0 !important;
+      }
+
+      &:last-child {
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 0 !important;
+      }
+    }
+  }
+
+  /* اگر mainfild بین expandedTitle و expandedDetail است (که نمایش داده می‌شود - دارای کلاس ntk-row-expanded)، همه border-radius mainfild و margin-bottom را حذف کن (priority بالاتر) */
+  mat-row.ntk-row-expandedTitle
+    + mat-row.ntk-row-mainfild:has(
+      + mat-row.ntk-row-expandedDetail.ntk-row-expanded
+    ) {
+    border-radius: 0 !important;
+    margin-bottom: 0 !important;
+
+    mat-cell {
+      &:first-child {
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+      }
+
+      &:last-child {
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+      }
+    }
+  }
+
+  mat-row.ntk-row-expandedTitle {
+    border-radius: 12px 12px 0 0 !important;
+    margin: 8px 4px 0 4px !important;
+    overflow: hidden !important;
+    border-top: 2px solid rgba(0, 0, 0, 0.1) !important;
+    border-left: 2px solid rgba(0, 0, 0, 0.1) !important;
+    border-right: 2px solid rgba(0, 0, 0, 0.1) !important;
+    margin-bottom: 0 !important;
+    border-bottom: none !important;
+
+    mat-cell {
+      &:first-child {
+        border-top-left-radius: 12px;
+      }
+
+      &:last-child {
+        border-top-right-radius: 12px;
+      }
+    }
+  }
+
+  mat-row.ntk-row-expandedDetail {
+    border-radius: 0 0 12px 12px !important;
+    margin: 0 4px 8px 4px !important;
+    overflow: hidden !important;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1) !important;
+    border-left: 2px solid rgba(0, 0, 0, 0.1) !important;
+    border-right: 2px solid rgba(0, 0, 0, 0.1) !important;
+    border-top: none !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+
+    mat-cell {
+      &:first-child {
+        border-bottom-left-radius: 12px;
+        border-top-left-radius: 0 !important;
+      }
+
+      &:last-child {
+        border-bottom-right-radius: 12px;
+        border-top-right-radius: 0 !important;
+      }
+    }
+  }
+
+  /* اگر expandedDetail آخرین ردیف است، margin-bottom را برگردان */
+  mat-row.ntk-row-expandedDetail:not(:has(+ mat-row)) {
+    margin-bottom: 8px !important;
+  }
+
+  /* برای ردیف‌های انتخاب شده با کلاس ntk-row-selected، رنگ border را از کلاس border-highlight بگیر */
+  /* کلاس border-highlight در CSS فایل‌های highlight_*.css تعریف شده و border-color را تنظیم می‌کند */
+  /* باید border را بدون رنگ تنظیم کنیم تا رنگ از کلاس border-highlight استفاده شود */
+  mat-row.ntk-row-mainfild.ntk-row-selected {
+    border: 2px solid !important;
+    border-color: inherit !important;
+    /* رنگ از کلاس border-highlight که باید به ntk-row-selected اضافه شود استفاده می‌شود */
+  }
+
+  mat-row.ntk-row-expandedTitle.ntk-row-selected {
+    border-top: 2px solid !important;
+    border-left: 2px solid !important;
+    border-right: 2px solid !important;
+    border-top-color: inherit !important;
+    border-left-color: inherit !important;
+    border-right-color: inherit !important;
+    /* رنگ از کلاس border-highlight که باید به ntk-row-selected اضافه شود استفاده می‌شود */
+  }
+
+  mat-row.ntk-row-expandedDetail.ntk-row-selected {
+    border-bottom: 2px solid !important;
+    border-left: 2px solid !important;
+    border-right: 2px solid !important;
+    border-bottom-color: inherit !important;
+    border-left-color: inherit !important;
+    border-right-color: inherit !important;
+    /* رنگ از کلاس border-highlight که باید به ntk-row-selected اضافه شود استفاده می‌شود */
+  }
+
+  /* برای expandedDetail با ntk-row-selected، border-bottom را دوباره فعال کن */
+  mat-row.ntk-row-mainfild + mat-row.ntk-row-expandedDetail.ntk-row-selected {
+    border-bottom: 2px solid !important;
+    border-bottom-color: inherit !important;
+    /* رنگ از کلاس border-highlight که باید به ntk-row-selected اضافه شود استفاده می‌شود */
+  }
+
+  /* مدیریت border در حالت extend: حذف border-top از expandedDetail و border-bottom از mainfild */
+  mat-row.ntk-row-mainfild.ntk-row-selected:has(
+      + mat-row.ntk-row-expandedDetail.ntk-row-expanded.ntk-row-selected
+    ) {
+    border-bottom: none !important;
+  }
+
+  mat-row.ntk-row-expandedDetail.ntk-row-selected.ntk-row-expanded {
+    border-top: none !important;
+    border-bottom: 2px solid !important;
+    border-bottom-color: inherit !important;
+    /* رنگ از کلاس border-highlight که باید به ntk-row-selected اضافه شود استفاده می‌شود */
+  }
+
+  /* مدیریت border در حالت extend برای expandedTitle + mainfild + expandedDetail */
+  mat-row.ntk-row-expandedTitle.ntk-row-selected
+    + mat-row.ntk-row-mainfild.ntk-row-selected:has(
+      + mat-row.ntk-row-expandedDetail.ntk-row-expanded.ntk-row-selected
+    ) {
+    border-top: none !important;
+    border-bottom: none !important;
+  }
+
+  mat-row.ntk-row-expandedTitle.ntk-row-selected
+    + mat-row.ntk-row-mainfild.ntk-row-selected
+    + mat-row.ntk-row-expandedDetail.ntk-row-selected.ntk-row-expanded {
+    border-top: none !important;
+    border-bottom: 2px solid !important;
+    border-bottom-color: inherit !important;
+    /* رنگ از کلاس border-highlight که باید به ntk-row-selected اضافه شود استفاده می‌شود */
+  }
+
+  /* استایل برای حالت dark mode */
+  &.theme-dark {
+    mat-row.ntk-row-mainfild {
+      border-color: rgba(255, 255, 255, 0.15) !important;
+    }
+
+    mat-row.ntk-row-expandedTitle {
+      border-top-color: rgba(255, 255, 255, 0.15) !important;
+      border-left-color: rgba(255, 255, 255, 0.15) !important;
+      border-right-color: rgba(255, 255, 255, 0.15) !important;
+    }
+
+    mat-row.ntk-row-expandedDetail {
+      border-bottom-color: rgba(255, 255, 255, 0.15) !important;
+      border-left-color: rgba(255, 255, 255, 0.15) !important;
+      border-right-color: rgba(255, 255, 255, 0.15) !important;
+    }
+  }
+}
+
 /* mat-slide-toggle Dark Mode */
 .theme-dark .mat-mdc-slide-toggle .mdc-switch__track,
 .theme-dark .mat-mdc-slide-toggle .mdc-switch__handle {
@@ -1315,7 +1544,10 @@
   color: rgba(255, 255, 255, 0.7) !important;
 }
 
-.theme-dark .mat-mdc-form-field .mdc-text-field--filled .mdc-line-ripple::before {
+.theme-dark
+  .mat-mdc-form-field
+  .mdc-text-field--filled
+  .mdc-line-ripple::before {
   border-bottom-color: rgba(255, 255, 255, 0.2) !important;
 }
 

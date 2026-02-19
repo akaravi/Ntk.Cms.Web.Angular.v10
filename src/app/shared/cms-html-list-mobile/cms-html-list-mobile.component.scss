@@ -85,25 +85,7 @@
   flex-wrap: wrap;
 }
 
-.cms-html-list-mobile-header-button {
-  min-width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-  background: var(--cms-m-highlight-gradient, linear-gradient(to bottom, #5D9CEC, #4A89DC));
-  color: #ffffff;
-  box-shadow: 0 2px 8px rgba(74, 137, 220, 0.3);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-
-  &:active {
-    transform: scale(0.96);
-    box-shadow: 0 1px 4px rgba(74, 137, 220, 0.4);
-  }
-}
+/* Header Button - استفاده از کلاس‌های استاندارد btn از نسخه اصلی */
 
 /* Divider */
 .cms-html-list-mobile-divider {
@@ -126,42 +108,22 @@
   padding-bottom: calc(12px + env(safe-area-inset-bottom));
 }
 
-/* Fixed Action Buttons */
+/* Fixed Action Buttons - بازنویسی شده از روی نسخه اصلی */
 .cms-html-list-mobile-fixed-button {
   position: fixed;
-  left: calc(12px + env(safe-area-inset-left));
+  left: calc(1px + env(safe-area-inset-left));
   z-index: 99;
-  display: flex;
-  align-items: center;
+  min-width: 30px !important;
+  height: 30px;
+  margin: 0px;
   transition: bottom 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
 
-.cms-html-list-mobile-fixed-button-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 16px;
-  height: 44px;
-  border-radius: 16px;
-  background: var(--cms-m-highlight-gradient, linear-gradient(to bottom, #5D9CEC, #4A89DC));
-  color: #ffffff;
-  box-shadow: 0 4px 12px rgba(74, 137, 220, 0.4);
-  font-size: 13px;
-  font-weight: 600;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-
-  &:active {
-    transform: scale(0.96);
-    box-shadow: 0 2px 6px rgba(74, 137, 220, 0.5);
+  .row {
+    margin: 0;
   }
 
-  .cms-html-list-mobile-button-text {
-    max-width: 120px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  .col-12 {
+    padding: 0;
   }
 }
 
@@ -174,7 +136,7 @@
   bottom: calc(80px + env(safe-area-inset-bottom));
 
   &.with-tree {
-    bottom: calc(140px + env(safe-area-inset-bottom));
+    bottom: calc(120px + env(safe-area-inset-bottom));
   }
 }
 
@@ -183,17 +145,17 @@
 
   &.with-tree {
     &.with-action-main {
-      bottom: calc(200px + env(safe-area-inset-bottom));
+      bottom: calc(160px + env(safe-area-inset-bottom));
     }
 
     &:not(.with-action-main) {
-      bottom: calc(140px + env(safe-area-inset-bottom));
+      bottom: calc(120px + env(safe-area-inset-bottom));
     }
   }
 
   &:not(.with-tree) {
     &.with-action-main {
-      bottom: calc(140px + env(safe-area-inset-bottom));
+      bottom: calc(120px + env(safe-area-inset-bottom));
     }
   }
 }
@@ -258,7 +220,7 @@
   touch-action: manipulation;
 
   &:focus {
-    outline: 2px solid var(--cms-m-highlight-color, #4A89DC);
+    outline: 2px solid var(--cms-m-highlight-color, #4a89dc);
     outline-offset: 2px;
   }
 
