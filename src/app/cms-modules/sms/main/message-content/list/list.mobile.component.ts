@@ -27,7 +27,6 @@ import { SmsMainMessageContentEditComponent } from "../edit/edit.component";
 @Component({
   selector: "app-sms-main-message-content-list-mobile",
   templateUrl: "./list.mobile.component.html",
-  styleUrls: ["./list.mobile.component.scss"],
   standalone: false,
 })
 export class SmsMainMessageContentListMobileComponent

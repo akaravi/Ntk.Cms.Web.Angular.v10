@@ -30,7 +30,6 @@ import { SmsMainApiPathPublicConfigEditComponent } from "../edit/edit.component"
 @Component({
   selector: "app-sms-publicconfig-list-mobile",
   templateUrl: "./list.mobile.component.html",
-  styleUrls: ["./list.mobile.component.scss"],
   standalone: false,
 })
 export class SmsMainApiPathPublicConfigListMobileComponent

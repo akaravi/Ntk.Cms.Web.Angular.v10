@@ -28,7 +28,6 @@ import { SmsMainApiPathPermissionEditComponent } from "../edit/edit.component";
 @Component({
   selector: "app-sms-apipathpermission-list-mobile",
   templateUrl: "./list.mobile.component.html",
-  styleUrls: ["./list.mobile.component.scss"],
   standalone: false,
 })
 export class SmsMainApiPathPermissionListMobileComponent

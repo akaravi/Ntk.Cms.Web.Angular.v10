@@ -4,7 +4,6 @@ import { DataProviderClientApplicationPermissionListComponent } from "./list.com
 @Component({
   selector: "app-data-provider-client-application-permission-list-mobile",
   templateUrl: "./list.mobile.component.html",
-  styleUrls: ["./list.mobile.component.scss"],
   standalone: false,
 })
 export class DataProviderClientApplicationPermissionListMobileComponent

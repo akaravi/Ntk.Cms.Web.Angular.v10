@@ -32,7 +32,6 @@ import { SmsMainApiPathPaginationEditComponent } from "../edit/edit.component";
 @Component({
   selector: "app-sms-apipath-pagination-list-mobile",
   templateUrl: "./list.mobile.component.html",
-  styleUrls: ["./list.mobile.component.scss"],
   standalone: false,
 })
 export class SmsMainApiPathPaginationListMobileComponent

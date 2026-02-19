@@ -28,7 +28,6 @@ import { CmsConfirmationDialogService } from "src/app/shared/cms-confirmation-di
 @Component({
   selector: "app-sms-log-apipath-list-mobile",
   templateUrl: "./list.mobile.component.html",
-  styleUrls: ["./list.mobile.component.scss"],
   standalone: false,
 })
 export class SmsLogApiPathListMobileComponent

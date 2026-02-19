@@ -30,7 +30,6 @@ import { EstateCategoryRackEditComponent } from "../edit/edit.component";
 @Component({
   selector: "app-estate-category-rack-list-mobile",
   templateUrl: "./list.mobile.component.html",
-  styleUrls: ["list.mobile.component.scss"],
   standalone: false,
 })
 export class EstateCategoryRackListMobileComponent

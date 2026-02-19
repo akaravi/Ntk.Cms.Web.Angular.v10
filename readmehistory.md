@@ -1,5 +1,403 @@
 # تاریخچه تغییرات پروژه
 
+## 2026-02-19 (پایان Plan ExpandedRowFix – بیلد نهایی)
+
+بیلد نهایی `ng build --configuration=development` با موفقیت انجام شد. تمام مراحل Plan (expanded row، mobile، routes، اتصال routing) تکمیل و مستند شده‌اند.
+
+---
+
+## 2026-02-19 (اتصال routes.mobile.ts به routing اصلی)
+
+### خلاصه:
+
+ایجاد `routes.normal.ts` برای 8 ماژول و به‌روزرسانی فایل‌های routing برای استفاده از `routesMobile` و `routesNormal` بر اساس عرض صفحه.
+
+### تغییرات:
+
+#### ایجاد `routes.normal.ts`:
+
+1. biography/routes.normal.ts
+2. blog/routes.normal.ts
+3. catalog/routes.normal.ts
+4. chart/routes.normal.ts
+5. contact/routes.normal.ts
+6. application/routes.normal.ts
+7. core-module/routes.normal.ts
+8. core-module-log/routes.normal.ts
+
+#### به‌روزرسانی routing:
+
+- biography/biography.routing.ts
+- blog/blog.routing.ts
+- catalog/catalog.routing.ts
+- chart/chart.routing.ts
+- contact/contact.routing.ts
+- application/application.routing.ts
+- core-module/coreModule.routing.ts
+- core-module-log/core-module-log.routing.ts
+- core-log/coreLog.routing.ts (اتصال routes.mobile/routes.normal به routing اصلی)
+- member، donate، core-token، web-designer، link-management (اتصال به routesMobile/routesNormal)
+- transaction-assistant، ticketing، polling، hyper-shop، file-manager، core-module-data، bank-payment، api-telegram (اتصال به routesMobile/routesNormal)
+
+### الگو:
+
+```typescript
+RouterModule.forChild(window.innerWidth < 1000 ? routesMobile : routesNormal);
+```
+
+---
+
+## 2026-02-19 (اصلاح خطای HTML و بیلد موفق)
+
+### خلاصه:
+
+اصلاح تایپو `</ng-container">` به `</ng-container>` در ۵ فایل list.mobile.component.html که باعث خطای بیلد NG5002 می‌شدند. بیلد development با موفقیت انجام شد.
+
+### فایل‌های اصلاح‌شده:
+
+1. application/notification/list/list.mobile.component.html
+2. biography/comment/list/list.mobile.component.html
+3. biography/content/list/list.mobile.component.html
+4. catalog/content/list/list.mobile.component.html
+5. chart/content/list/list.mobile.component.html
+
+---
+
+## 2026-02-19 (تأیید نهایی Plan ExpandedRowFix)
+
+### خلاصه:
+
+بررسی نهایی: هیچ فایل `list/list.mobile.component.ts` دارای `styleUrls` نیست؛ lint در cms-modules بدون خطا. تمام مراحل Plan تکمیل و تأیید شده است.
+
+---
+
+## 2026-02-19 23:40:00 (حذف styleUrls از فایل‌های باقی‌مانده)
+
+### خلاصه:
+
+حذف `styleUrls` از دو فایل `list.mobile.component.ts` در ماژول `core-log` که هنوز `styleUrls` داشتند.
+
+### تغییرات:
+
+#### فایل‌های اصلاح شده:
+
+1. ✅ `core-log/micro-service-ping/list/list.mobile.component.ts` - حذف `styleUrls: ["./list.component.scss"]`
+2. ✅ `core-log/micro-service-status/list/list.mobile.component.ts` - حذف `styleUrls: ["./list.component.scss"]`
+
+### وضعیت:
+
+- ✅ تمام فایل‌های `list.mobile.component.ts` بدون `styleUrls` هستند
+- ✅ بدون خطای linting
+
+---
+
+## 2026-02-19 23:35:00 (بررسی جامع ماژول‌های بزرگ)
+
+### خلاصه:
+
+بررسی جامع ماژول‌های بزرگ برای اطمینان از معرفی کامل کامپوننت‌های mobile.
+
+### نتیجه بررسی:
+
+#### ماژول‌های بررسی شده:
+
+- ✅ **core-log**: تمام 10 کامپوننت mobile در declarations معرفی شده‌اند
+- ✅ **article**: تمام 2 کامپوننت mobile در declarations معرفی شده‌اند
+- ✅ **news**: تمام 3 کامپوننت mobile در declarations معرفی شده‌اند
+- ✅ **estate** (main, data, log): تمام کامپوننت‌های mobile معرفی شده‌اند
+- ✅ **crm** (main): تمام 11 کامپوننت mobile در declarations معرفی شده‌اند
+- ✅ **sms** (main, log): تمام کامپوننت‌های mobile معرفی شده‌اند
+- ✅ **data-provider** (main, log, transaction): تمام کامپوننت‌های mobile معرفی شده‌اند
+
+### وضعیت:
+
+- ✅ تمام ماژول‌های بزرگ بررسی شدند
+- ✅ تمام کامپوننت‌های mobile در ماژول‌ها معرفی شده‌اند
+- ✅ تمام routes.mobile.ts ایجاد شده‌اند
+- ✅ بدون خطای linting
+
+---
+
+## 2026-02-19 23:30:00 (بررسی نهایی مرحله 5 - تست و بررسی)
+
+### خلاصه:
+
+بررسی نهایی مرحله 5: بررسی معرفی کامپوننت‌های mobile در ماژول‌ها و بررسی linting.
+
+### نتیجه بررسی:
+
+#### 1. بررسی معرفی کامپوننت‌های mobile در ماژول‌ها:
+
+- ✅ application: تمام 6 کامپوننت mobile در declarations معرفی شده‌اند
+- ✅ biography: تمام 2 کامپوننت mobile در declarations معرفی شده‌اند
+- ✅ blog: تمام 2 کامپوننت mobile در declarations معرفی شده‌اند
+- ✅ catalog: تمام 1 کامپوننت mobile در declarations معرفی شده است
+- ✅ chart: تمام 2 کامپوننت mobile در declarations معرفی شده‌اند
+- ✅ contact: تمام 1 کامپوننت mobile در declarations معرفی شده است
+- ✅ core-module: تمام 3 کامپوننت mobile در declarations معرفی شده‌اند
+- ✅ core-module-log: تمام 10 کامپوننت mobile در declarations معرفی شده‌اند
+- ✅ core-main: از lazy loading استفاده می‌کند و کامپوننت‌ها در submodules معرفی می‌شوند
+
+#### 2. بررسی linting:
+
+- ✅ بدون خطای linting در تمام ماژول‌ها
+
+#### 3. بررسی routes.mobile.ts:
+
+- ✅ تمام ماژول‌های نیازمند routes.mobile.ts ایجاد شده‌اند (36 ماژول)
+
+### وضعیت:
+
+- ✅ تمام مراحل Plan تکمیل شدند
+- ✅ تمام کامپوننت‌های mobile در ماژول‌ها معرفی شده‌اند
+- ✅ تمام routes.mobile.ts ایجاد شده‌اند
+- ✅ بدون خطای linting
+
+---
+
+## 2026-02-19 23:25:00 (بررسی نهایی مرحله 3 - list.mobile.component)
+
+### خلاصه:
+
+بررسی نهایی برای شناسایی list.component.html هایی که list.mobile.component.html ندارند.
+
+### نتیجه بررسی:
+
+- ✅ تعداد فایل‌های list.component.html در cms-modules: 208
+- ✅ تعداد فایل‌های list.mobile.component.html در cms-modules: 208
+- ✅ ماژول‌های نمونه بررسی‌شده (estate account-agency-work-area, crm supplier-rating, supplier-price-list, account-agency-expert) همگی دارای list.mobile هستند
+- ✅ مرحله 4 (routes.mobile.ts) قبلاً برای تمام ماژول‌های نیازمند تکمیل شده است
+
+### وضعیت:
+
+- ✅ به نظر می‌رسد تمام list های اصلی در cms-modules دارای نسخه mobile هستند
+- در صورت شناسایی مورد جدید، طبق الگوی news و با معرفی در ماژول اضافه خواهد شد
+
+---
+
+## 2026-02-19 23:15:00 (ایجاد routes.mobile.ts برای biography, blog, catalog, chart, contact, core-module, core-module-log)
+
+### خلاصه:
+
+ایجاد فایل‌های `routes.mobile.ts` برای 7 ماژول باقی‌مانده.
+
+### تغییرات:
+
+#### 1. ایجاد routes.mobile.ts:
+
+- ✅ `biography/routes.mobile.ts` — content, comment, config
+- ✅ `blog/routes.mobile.ts` — content, comment, config
+- ✅ `catalog/routes.mobile.ts` — content, config
+- ✅ `chart/routes.mobile.ts` — content, comment, config
+- ✅ `contact/routes.mobile.ts` — content, config
+- ✅ `core-module/routes.mobile.ts` — tag, site-credit, site-user-credit
+- ✅ `core-module-log/routes.mobile.ts` — report-abuse, show-key, favorite, like, score, site-credit, site-user-credit, site-credit-blocked, site-user-credit-blocked
+
+### وضعیت:
+
+- ✅ تمام ماژول‌های نیازمند routes.mobile.ts ایجاد شدند
+- ✅ بدون خطای linting
+
+---
+
+## 2026-02-19 23:00:00 (ایجاد routes.mobile.ts برای application)
+
+### خلاصه:
+
+ایجاد فایل `routes.mobile.ts` برای ماژول `application` با 6 کامپوننت mobile.
+
+### تغییرات:
+
+#### 1. ایجاد routes.mobile.ts:
+
+- ✅ ایجاد `src/app/cms-modules/application/routes.mobile.ts`
+- ✅ شامل 6 route برای کامپوننت‌های mobile:
+  - source (list, add, edit)
+  - app/content (list, add, edit)
+  - intro (list, add, edit)
+  - memberinfo (list)
+  - notification (list)
+  - themeconfig (list)
+- ✅ شامل lazy loading برای config
+- ✅ استفاده از الگوی `news/routes.mobile.ts`
+- ✅ بدون خطای linting
+
+### وضعیت:
+
+- ✅ routes.mobile.ts برای application ایجاد شد
+- 🔄 ادامه کار: ایجاد routes.mobile.ts برای ماژول‌های باقی‌مانده
+
+---
+
+## 2026-02-19 22:45:00 (ایجاد routes.mobile.ts برای core-main)
+
+### خلاصه:
+
+ایجاد فایل `routes.mobile.ts` برای ماژول `core-main` با 25 کامپوننت mobile.
+
+### تغییرات:
+
+#### 1. ایجاد routes.mobile.ts:
+
+- ✅ ایجاد `src/app/cms-modules/core-main/routes.mobile.ts`
+- ✅ شامل 25 route برای کامپوننت‌های mobile:
+  - user, usergroup, user-support-access
+  - currency, site, sitecategory, sitecategorymodule, sitedomainalias
+  - cpmainmenu, module, module-entity, module-entity-report-file
+  - modulesale (serial, invoice, invoice-detail, header, header-group, item)
+  - userclaim (type, group, group-detail, content)
+  - location, device, guide
+- ✅ شامل lazy loading برای config و action
+
+### جزئیات فنی:
+
+- استفاده از الگوی `news/routes.mobile.ts`
+- تمام کامپوننت‌های mobile import شده‌اند
+- بدون خطای linting
+
+### وضعیت:
+
+- ✅ routes.mobile.ts برای core-main ایجاد شد
+- 🔄 ادامه کار: ایجاد routes.mobile.ts برای ماژول‌های باقی‌مانده
+
+---
+
+## 2026-02-19 22:30:00 (بررسی وضعیت routes.mobile.ts)
+
+### خلاصه:
+
+بررسی وضعیت فایل‌های `routes.mobile.ts` در ماژول‌های مختلف و شناسایی ماژول‌های نیازمند.
+
+### تغییرات:
+
+#### 1. ماژول‌های دارای routes.mobile.ts:
+
+- ✅ 29 ماژول دارای routes.mobile.ts هستند
+- ✅ شامل: article, news, core-log, web-designer, transaction-assistant, ticketing, polling, member, link-management, hyper-shop, file-manager, donate, crm/main, core-token, core-module-data, bank-payment, api-telegram, sms, data-provider, estate
+
+#### 2. ماژول‌های نیازمند routes.mobile.ts:
+
+- ❌ core-main (25 فایل list.mobile.component.html دارد)
+- ❌ core-module (نیاز به بررسی)
+- ❌ core-module-log (نیاز به بررسی)
+- ❌ application (6 فایل list.mobile.component.html دارد)
+- ❌ biography, blog, catalog, chart, contact (نیاز به بررسی)
+
+### وضعیت:
+
+- ✅ بررسی انجام شد
+- 🔄 نیاز به ایجاد routes.mobile.ts برای ماژول‌های باقی‌مانده
+
+---
+
+## 2026-02-19 22:15:00 (حذف فایل‌های SCSS غیرضروری)
+
+### خلاصه:
+
+حذف تمام فایل‌های `list.mobile.component.scss` و `styleUrls` مربوطه از فایل‌های `list.mobile.component.ts` به دلیل عدم نیاز به استایل‌های جداگانه.
+
+### تغییرات:
+
+#### 1. حذف فایل‌های SCSS:
+
+- ✅ حذف 54 فایل `list.mobile.component.scss`
+- ✅ حذف `styleUrls` از تمام فایل‌های `list.mobile.component.ts` مربوطه
+
+#### 2. ماژول‌های پردازش شده:
+
+- ✅ SMS Module (16 فایل)
+- ✅ Estate Module (22 فایل)
+- ✅ Data Provider Module (16 فایل)
+
+### جزئیات فنی:
+
+- استایل‌ها از `styles.mobile.scss` و کلاس‌های `app-cms-html-list-mobile` استفاده می‌شوند
+- حذف `styleUrls: ["./list.mobile.component.scss"]` از تمام فایل‌های `.ts`
+- بدون خطای linting
+
+### وضعیت:
+
+- ✅ تمام فایل‌های SCSS حذف شدند
+- ✅ تمام `styleUrls` حذف شدند
+- ✅ بدون خطای linting
+- ✅ Plan به‌روزرسانی شد
+
+---
+
+## 2026-02-19 22:00:00 (تکمیل اضافه شدن دکمه‌های Maximize/Minimize و به‌روزرسانی Plan)
+
+### خلاصه:
+
+تکمیل اضافه شدن دکمه‌های Maximize/Minimize به تمام فایل‌های `list.mobile.component.html` و به‌روزرسانی Plan با نکته مهم معرفی کامپوننت‌های جدید در ماژول.
+
+### تغییرات:
+
+#### 1. تکمیل اضافه شدن دکمه‌های Maximize/Minimize:
+
+- ✅ تمام فایل‌های eligible به‌روزرسانی شدند
+- ✅ الگوی استفاده شده مطابق با `news/content/list/list.mobile.component.html`
+- ✅ بدون خطای linting
+
+#### 2. به‌روزرسانی Plan:
+
+- ✅ اضافه شدن نکته مهم: معرفی کامپوننت‌های جدید در ماژول مربوطه
+- ✅ اضافه شدن به مرحله 3: بررسی معرفی کامپوننت در ماژول
+- ✅ اضافه شدن به مرحله 4: اطمینان از معرفی کامپوننت‌های mobile
+- ✅ اضافه شدن به مرحله 5: بررسی معرفی کامپوننت‌های جدید
+
+### جزئیات فنی:
+
+- هر کامپوننت جدید باید در `declarations` در `@NgModule` فایل `module.ts` معرفی شود
+- اطمینان از import های لازم
+- بررسی اینکه تمام کامپوننت‌های mobile در ماژول معرفی شده‌اند
+
+### وضعیت:
+
+- ✅ تمام فایل‌های eligible به‌روزرسانی شدند
+- ✅ بدون خطای linting
+- ✅ Plan به‌روزرسانی شد
+
+---
+
+## 2026-02-19 21:30:00 (شروع اجرای Plan - اضافه شدن دکمه‌های Maximize/Minimize)
+
+### خلاصه:
+
+شروع اجرای Plan برای اضافه شدن دکمه‌های Maximize/Minimize به تمام فایل‌های `list.mobile.component.html` که از `app-cms-html-list-mobile` استفاده می‌کنند.
+
+### تغییرات:
+
+#### فایل‌های به‌روزرسانی شده (14 فایل):
+
+- `sms/main/client-application/list/list.mobile.component.html`
+- `sms/main/client-application-permission/list/list.mobile.component.html`
+- `data-provider/main/source/list/list.mobile.component.html`
+- `data-provider/main/client/list/list.mobile.component.html`
+- `data-provider/main/client-application/list/list.mobile.component.html`
+- `sms/main/api-path-pagination/list/list.mobile.component.html`
+- `link-management/target/list/list.mobile.component.html`
+- `link-management/target-billboard-log/list/list.mobile.component.html`
+- `link-management/member/list/list.mobile.component.html`
+- `link-management/accounting-detail/list/list.mobile.component.html`
+- `link-management/accounting/list/list.mobile.component.html`
+- `application/memberInfo/list/list.mobile.component.html`
+- `application/intro/list/list.mobile.component.html`
+- `application/content/list/list.mobile.component.html`
+
+### جزئیات فنی:
+
+- اضافه شدن دکمه‌های Maximize/Minimize به بخش `cms-action-header-start`
+- استفاده از الگوی `news/content/list/list.mobile.component.html`
+- بررسی هماهنگی `tabledisplayedColumns` با `matColumnDef` انجام شد
+- بدون خطای linting
+
+### وضعیت:
+
+- ✅ 14 فایل به‌روزرسانی شد
+- 🔄 در حال انجام: اضافه شدن به بقیه فایل‌ها (حدود 200 فایل باقی مانده)
+
+---
+
 ## 2026-02-19 21:10:00 (اضافه شدن نکته مهم هماهنگی tabledisplayedColumns با matColumnDef)
 
 ### خلاصه:

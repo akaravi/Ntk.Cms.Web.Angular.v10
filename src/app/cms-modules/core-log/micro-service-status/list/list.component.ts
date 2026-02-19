@@ -414,4 +414,7 @@ export class CoreLogMicroServiceStatusListComponent
     this.tableRowSelected = item;
     this.onPing();
   }
+  onActionGridExpandRows(expand: boolean): void {
+    this.cdr.markForCheck();
+  }
 }

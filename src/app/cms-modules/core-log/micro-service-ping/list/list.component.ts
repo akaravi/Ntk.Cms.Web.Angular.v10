@@ -216,4 +216,7 @@ export class CoreLogMicroServicePingListComponent implements OnInit, OnDestroy {
       data: { item: model },
     });
   }
+  onActionGridExpandRows(expand: boolean): void {
+    this.cdr.markForCheck();
+  }
 }

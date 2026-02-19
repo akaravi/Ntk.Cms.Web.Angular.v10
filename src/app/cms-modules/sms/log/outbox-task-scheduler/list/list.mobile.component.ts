@@ -32,7 +32,6 @@ import { SmsLogOutBoxTaskSchedulerViewComponent } from "../view/view.component";
 @Component({
   selector: "app-sms-log-outbox-task-scheduler-list-mobile",
   templateUrl: "./list.mobile.component.html",
-  styleUrls: ["./list.mobile.component.scss"],
   standalone: false,
 })
 export class SmsLogOutBoxTaskSchedulerListMobileComponent

@@ -33,7 +33,6 @@ import { SmsMainApiPathPricePermissionEditComponent } from "../edit/edit.compone
 @Component({
   selector: "app-sms-apipath-price-permission-list-mobile",
   templateUrl: "./list.mobile.component.html",
-  styleUrls: ["./list.mobile.component.scss"],
   standalone: false,
 })
 export class SmsMainApiPathPricePermissionListMobileComponent

@@ -1,54 +1,14 @@
 import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { ContactComponent } from "./contact.component";
-import { ContactContentAddComponent } from "./content/add/add.component";
-import { ContactContentEditComponent } from "./content/edit/edit.component";
-import { ContactContentImportComponent } from "./content/import/import.component";
-import { ContactContentListComponent } from "./content/list/list.component";
-
-const routes: Routes = [
-  {
-    path: "",
-    component: ContactComponent,
-    data: { title: "ROUTE.CONTACT" },
-
-    children: [
-      /* Config */
-      {
-        path: "config",
-        loadChildren: () =>
-          import("./config/contact-config.module").then(
-            (m) => m.ContactConfigModule,
-          ),
-        data: { title: "ROUTE.CONTACT" },
-      },
-      /* Config */
-      {
-        path: "content",
-        component: ContactContentListComponent,
-        data: { title: "ROUTE.CONTACT" },
-      },
-      {
-        path: "content/add/:CategoryId",
-        component: ContactContentAddComponent,
-        data: { title: "ROUTE.CONTACT" },
-      },
-      {
-        path: "content/edit/:id",
-        component: ContactContentEditComponent,
-        data: { title: "ROUTE.CONTACT" },
-      },
-      {
-        path: "content/import",
-        component: ContactContentImportComponent,
-        data: { title: "ROUTE.CONTACT" },
-      },
-    ],
-  },
-];
+import { RouterModule } from "@angular/router";
+import { routesMobile } from "./routes.mobile";
+import { routesNormal } from "./routes.normal";
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [
+    RouterModule.forChild(
+      window.innerWidth < 1000 ? routesMobile : routesNormal,
+    ),
+  ],
   exports: [RouterModule],
 })
 export class ContactRouting {}

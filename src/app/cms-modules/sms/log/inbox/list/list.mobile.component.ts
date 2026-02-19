@@ -31,7 +31,6 @@ import { SmsLogInBoxViewComponent } from "../view/view.component";
 @Component({
   selector: "app-sms-log-inbox-list-mobile",
   templateUrl: "./list.mobile.component.html",
-  styleUrls: ["./list.mobile.component.scss"],
   standalone: false,
 })
 export class SmsLogInBoxListMobileComponent

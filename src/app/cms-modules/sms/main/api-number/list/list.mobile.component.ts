@@ -28,7 +28,6 @@ import { SmsMainApiNumberEditComponent } from "../edit/edit.component";
 @Component({
   selector: "app-sms-api-number-list-mobile",
   templateUrl: "./list.mobile.component.html",
-  styleUrls: ["./list.mobile.component.scss"],
   standalone: false,
 })
 export class SmsMainApiNumberListMobileComponent

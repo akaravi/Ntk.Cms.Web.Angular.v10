@@ -31,7 +31,6 @@ import { SmsLogOutBoxViewComponent } from "../view/view.component";
 @Component({
   selector: "app-sms-log-outbox-list-mobile",
   templateUrl: "./list.mobile.component.html",
-  styleUrls: ["./list.mobile.component.scss"],
   standalone: false,
 })
 export class SmsLogOutBoxListMobileComponent
