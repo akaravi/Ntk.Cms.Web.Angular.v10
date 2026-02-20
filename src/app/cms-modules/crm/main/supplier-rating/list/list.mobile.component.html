@@ -1,10 +1,19 @@
 <div class="cms-m-list">
   <div class="cms-m-header">
     <h2>Supplier Ratings</h2>
-    <button mat-raised-button color="primary" [routerLink]="['/cms/modules/crm/supplier-rating/add']">
+    <button
+      mat-raised-button
+      color="primary"
+      [routerLink]="['/cms/modules/crm/supplier-rating/add']"
+    >
       افزودن
     </button>
-    <button mat-stroked-button color="primary" (click)="load()" [disabled]="loading">
+    <button
+      mat-stroked-button
+      color="primary"
+      (click)="load()"
+      [disabled]="loading"
+    >
       Refresh
     </button>
   </div>
@@ -38,7 +47,12 @@
     }
   </div>
 
-  <div *ngIf="!loading && (!data || !data.listItems || data.listItems.length === 0)" class="cms-m-empty">
+  <div
+    *ngIf="
+      !loading && (!data || !data.listItems || data.listItems.length === 0)
+    "
+    class="cms-m-empty"
+  >
     No data.
   </div>
 </div>

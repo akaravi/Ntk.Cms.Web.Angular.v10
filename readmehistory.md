@@ -12,7 +12,7 @@
 - فهرست کامل **۲۰۸ مسیر** به‌صورت گروه‌بندی‌شده بر اساس ماژول.
 - روش اجرای بررسی نهایی در سه مرحله: جستجو/اسکریپت برای موارد قطعی، بررسی دستی نمونه‌های پرریسک، ثبت نتیجه.
 - **وضعیت اولیه (Result 0):** ۶۰ فایل دارای optionOnScrollNearBottom؛ ۱۴۸ فایل فاقد آن (از جمله ۲ استثنا)؛ ۱۴۶ فایل نیاز به اضافه کردن بایندینگ اسکرول بی‌نهایت داشتند؛ هیچ $any در list.mobile.component.html؛ بیش از ۱۲۰ فایل از getRowExpanded استفاده می‌کنند.
-- **اجرای مرحله ۱ (Result 1):** به **۱۴۶ فایل** list.mobile.component.html بایندینگ **`(optionOnScrollNearBottom)="onActionLoadNextPage()"`** اضافه شد؛ دو استثنا (micro-service-ping، micro-service-status) بدون تغییر ماندند. اکنون ۲۰۶ فایل دارای اسکرول بی‌نهایت هستند.
+- **اجرای مرحله ۱ (Result 1):** به **۱۴۶ فایل** list.mobile.component.html بایندینگ **`(optionOnScrollNearBottom)="onActionLoadNextPage()"`** اضافه شد. دو استثنا (micro-service-ping، micro-service-status) از ابتدا بدون تغییر ماندند. سه لیست CRM (opportunity/stage-history، supplier-price-list، supplier-rating) که از ListBaseComponent ارث نمی‌برند و از app-cms-html-list-mobile استفاده نمی‌کنند، پس از خطای بیلد از بایندینگ حذف شدند. اکنون **۲۰۳ فایل** دارای اسکرول بی‌نهایت و **۵ فایل** استثنا هستند. بیلد با موفقیت انجام شد.
 
 ---
 
