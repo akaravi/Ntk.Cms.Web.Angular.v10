@@ -79,7 +79,10 @@ export class DataProviderClientApplicationPermissionListComponent
     this.requestLinkClientApplicationId =
       this.activatedRoute.snapshot.paramMap.get("LinkClientApplicationId") ||
       "";
-    if (this.requestLinkClientApplicationId && this.requestLinkClientApplicationId.length > 0) {
+    if (
+      this.requestLinkClientApplicationId &&
+      this.requestLinkClientApplicationId.length > 0
+    ) {
       const filter = new FilterDataModel();
       filter.propertyName = "LinkClientApplicationId";
       filter.value = this.requestLinkClientApplicationId;
@@ -87,7 +90,10 @@ export class DataProviderClientApplicationPermissionListComponent
     }
     this.requestLinkSourcePathId =
       this.activatedRoute.snapshot.paramMap.get("LinkSourcePathId") || "";
-    if (this.requestLinkSourcePathId && this.requestLinkSourcePathId.length > 0) {
+    if (
+      this.requestLinkSourcePathId &&
+      this.requestLinkSourcePathId.length > 0
+    ) {
       const filter = new FilterDataModel();
       filter.propertyName = "LinkSourcePathId";
       filter.value = this.requestLinkSourcePathId;
@@ -148,13 +154,19 @@ export class DataProviderClientApplicationPermissionListComponent
         f.propertyName !== "LinkSourcePathId",
     );
 
-    if (this.requestLinkClientApplicationId && this.requestLinkClientApplicationId.length > 0) {
+    if (
+      this.requestLinkClientApplicationId &&
+      this.requestLinkClientApplicationId.length > 0
+    ) {
       const filter = new FilterDataModel();
       filter.propertyName = "LinkClientApplicationId";
       filter.value = this.requestLinkClientApplicationId;
       this.filteModelContent.filters.push(filter);
     }
-    if (this.requestLinkSourcePathId && this.requestLinkSourcePathId.length > 0) {
+    if (
+      this.requestLinkSourcePathId &&
+      this.requestLinkSourcePathId.length > 0
+    ) {
       const filter = new FilterDataModel();
       filter.propertyName = "LinkSourcePathId";
       filter.value = this.requestLinkSourcePathId;
@@ -164,7 +176,8 @@ export class DataProviderClientApplicationPermissionListComponent
     // Subscribe to route parameter changes
     this.unsubscribe.push(
       this.activatedRoute.paramMap.subscribe((params) => {
-        const newLinkClientApplicationId = params.get("LinkClientApplicationId") || "";
+        const newLinkClientApplicationId =
+          params.get("LinkClientApplicationId") || "";
         const newLinkSourcePathId = params.get("LinkSourcePathId") || "";
 
         if (
@@ -175,19 +188,26 @@ export class DataProviderClientApplicationPermissionListComponent
           this.requestLinkSourcePathId = newLinkSourcePathId;
 
           // Clear existing filters and reapply route-based filters
-          this.filteModelContent.filters = this.filteModelContent.filters.filter(
-            (f) =>
-              f.propertyName !== "LinkClientApplicationId" &&
-              f.propertyName !== "LinkSourcePathId",
-          );
+          this.filteModelContent.filters =
+            this.filteModelContent.filters.filter(
+              (f) =>
+                f.propertyName !== "LinkClientApplicationId" &&
+                f.propertyName !== "LinkSourcePathId",
+            );
 
-          if (this.requestLinkClientApplicationId && this.requestLinkClientApplicationId.length > 0) {
+          if (
+            this.requestLinkClientApplicationId &&
+            this.requestLinkClientApplicationId.length > 0
+          ) {
             const filter = new FilterDataModel();
             filter.propertyName = "LinkClientApplicationId";
             filter.value = this.requestLinkClientApplicationId;
             this.filteModelContent.filters.push(filter);
           }
-          if (this.requestLinkSourcePathId && this.requestLinkSourcePathId.length > 0) {
+          if (
+            this.requestLinkSourcePathId &&
+            this.requestLinkSourcePathId.length > 0
+          ) {
             const filter = new FilterDataModel();
             filter.propertyName = "LinkSourcePathId";
             filter.value = this.requestLinkSourcePathId;
@@ -256,11 +276,10 @@ export class DataProviderClientApplicationPermissionListComponent
     this.contentService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
-        this.dataModelResult = ret;
+        this.applyDataGetAllResult(ret);
 
         if (ret.isSuccess) {
-          this.tableData = ret.listItems;
-          this.tableSource.data = ret.listItems;
+          this.tableData = this.dataModelResult?.listItems ?? [];
           if (this.sort) {
             this.tableSource.sort = this.sort;
           }
@@ -356,7 +375,10 @@ export class DataProviderClientApplicationPermissionListComponent
   onActionButtonEditRow(
     model: DataProviderClientApplicationPermissionModel = this.tableRowSelected,
   ): void {
-    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
+    if (
+      !model?.id ||
+      (typeof model.id === "string" ? model.id.length === 0 : model.id <= 0)
+    ) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -392,7 +414,10 @@ export class DataProviderClientApplicationPermissionListComponent
   onActionButtonDeleteRow(
     model: DataProviderClientApplicationPermissionModel = this.tableRowSelected,
   ): void {
-    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
+    if (
+      !model?.id ||
+      (typeof model.id === "string" ? model.id.length === 0 : model.id <= 0)
+    ) {
       this.translate
         .get("MESSAGE.no_row_selected_to_delete")
         .subscribe((str: string) => {
@@ -474,15 +499,13 @@ export class DataProviderClientApplicationPermissionListComponent
       statist.set(str, 0);
     });
     const pName = this.constructor.name + ".ServiceStatist";
-    this.translate
-      .get("MESSAGE.Get_the_statist")
-      .subscribe((str: string) => {
-        this.publicHelper.processService.processStart(
-          pName,
-          str,
-          this.constructorInfoAreaId,
-        );
-      });
+    this.translate.get("MESSAGE.Get_the_statist").subscribe((str: string) => {
+      this.publicHelper.processService.processStart(
+        pName,
+        str,
+        this.constructorInfoAreaId,
+      );
+    });
     this.contentService.ServiceGetCount(this.filteModelContent).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
@@ -550,11 +573,12 @@ export class DataProviderClientApplicationPermissionListComponent
     });
     dialogRef.afterClosed().subscribe((result) => {});
   }
-  onActionbuttonPrintRow(
-    model: any = this.tableRowSelected,
-  ): void {
+  onActionbuttonPrintRow(model: any = this.tableRowSelected): void {
     this.tableRowSelected = model;
-    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
+    if (
+      !model?.id ||
+      (typeof model.id === "string" ? model.id.length === 0 : model.id <= 0)
+    ) {
       const emessage = this.translate.instant(
         "ERRORMESSAGE.MESSAGE.typeErrorSelectedRow",
       );
@@ -637,7 +661,10 @@ export class DataProviderClientApplicationPermissionListComponent
   onActionButtonMemo(
     model: DataProviderClientApplicationPermissionModel = this.tableRowSelected,
   ): void {
-    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
+    if (
+      !model?.id ||
+      (typeof model.id === "string" ? model.id.length === 0 : model.id <= 0)
+    ) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }
@@ -647,7 +674,10 @@ export class DataProviderClientApplicationPermissionListComponent
   onActionButtonMemoRow(
     model: DataProviderClientApplicationPermissionModel = this.tableRowSelected,
   ): void {
-    if (!model?.id || (typeof model.id === 'string' ? model.id.length === 0 : model.id <= 0)) {
+    if (
+      !model?.id ||
+      (typeof model.id === "string" ? model.id.length === 0 : model.id <= 0)
+    ) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
     }

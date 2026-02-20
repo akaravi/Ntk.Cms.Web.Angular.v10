@@ -170,8 +170,7 @@ export class SmsMainMessageContentListComponent
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
 
         if (ret.isSuccess) {
-          this.dataModelResult = ret;
-          this.tableSource.data = ret.listItems;
+          this.applyDataGetAllResult(ret);
 
           if (this.optionsStatist?.data?.show) this.onActionButtonStatist(true);
           setTimeout(() => {

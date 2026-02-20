@@ -1,6 +1,7 @@
 @if (requestLinkTransactionId > 0) {
   <app-bank-payment-transaction-header
     [optionId]="requestLinkTransactionId"
+  (optionOnScrollNearBottom)="onActionLoadNextPage()"
   >
   </app-bank-payment-transaction-header>
 }

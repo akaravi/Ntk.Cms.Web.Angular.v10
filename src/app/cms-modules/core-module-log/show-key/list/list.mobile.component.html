@@ -12,6 +12,7 @@
   [optionActionRowDisplayMenu]="tableRowSelect2Click"
   [optionActionRowDisplayMenuAct]="tableRowSelectActionMenuClick"
   [optionSelectRowItemTitle]="tableRowSelected?.showKey || tableRowSelected?.id"
+  (optionOnScrollNearBottom)="onActionLoadNextPage()"
   >
   <ng-container cms-tree></ng-container>
   <ng-container cms-header></ng-container>

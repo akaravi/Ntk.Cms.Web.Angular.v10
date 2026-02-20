@@ -185,8 +185,7 @@ export class CoreUserClaimGroupListComponent
         if (ret.isSuccess) {
           this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
 
-          this.dataModelResult = ret;
-          this.tableSource.data = ret.listItems;
+          this.applyDataGetAllResult(ret);
 
           if (this.optionsStatist?.data?.show) this.onActionButtonStatist(true);
           setTimeout(() => {

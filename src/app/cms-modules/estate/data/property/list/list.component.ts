@@ -1,9 +1,9 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    Input,
-    OnDestroy,
-    OnInit,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
 } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { PageEvent } from "@angular/material/paginator";
@@ -11,25 +11,25 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    ClauseTypeEnum,
-    CoreCurrencyModel,
-    EstateConfigurationService,
-    EstateContractTypeModel,
-    EstateModuleConfigSiteValuesModel,
-    EstatePropertyDetailGroupModel,
-    EstatePropertyDetailGroupService,
-    EstatePropertyDetailValueModel,
-    EstatePropertyFilterModel,
-    EstatePropertyModel,
-    EstatePropertyService,
-    EstatePropertyTypeLanduseModel,
-    EstatePropertyTypeUsageModel,
-    FilterDataModel,
-    FilterModel,
-    InputDataTypeEnum,
-    ManageUserAccessDataTypesEnum,
-    RecordStatusEnum,
-    SortTypeEnum,
+  ClauseTypeEnum,
+  CoreCurrencyModel,
+  EstateConfigurationService,
+  EstateContractTypeModel,
+  EstateModuleConfigSiteValuesModel,
+  EstatePropertyDetailGroupModel,
+  EstatePropertyDetailGroupService,
+  EstatePropertyDetailValueModel,
+  EstatePropertyFilterModel,
+  EstatePropertyModel,
+  EstatePropertyService,
+  EstatePropertyTypeLanduseModel,
+  EstatePropertyTypeUsageModel,
+  FilterDataModel,
+  FilterModel,
+  InputDataTypeEnum,
+  ManageUserAccessDataTypesEnum,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription, forkJoin } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -242,7 +242,9 @@ export class EstatePropertyListComponent
   filteModelContent = new EstatePropertyFilterModel();
   filterDataModelQueryBuilder: FilterDataModel[] = [];
 
-  filterModelCompiler(model: EstatePropertyFilterModel): EstatePropertyFilterModel {
+  filterModelCompiler(
+    model: EstatePropertyFilterModel,
+  ): EstatePropertyFilterModel {
     /*filter CLone*/
     const filterModel = JSON.parse(JSON.stringify(model));
     /*filter CLone*/
@@ -455,9 +457,8 @@ export class EstatePropertyListComponent
           next: (ret) => {
             this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
             if (ret.isSuccess) {
-              this.dataModelResult = ret;
+              this.applyDataGetAllResult(ret);
               this.RowStyleActiveData();
-              this.tableSource.data = ret.listItems;
 
               if (this.optionsStatist?.data?.show)
                 this.onActionButtonStatist(true);
@@ -494,9 +495,8 @@ export class EstatePropertyListComponent
           next: (ret) => {
             this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
             if (ret.isSuccess) {
-              this.dataModelResult = ret;
+              this.applyDataGetAllResult(ret);
               this.RowStyleActiveData();
-              this.tableSource.data = ret.listItems;
               if (this.optionsStatist?.data?.show)
                 this.onActionButtonStatist(true);
               setTimeout(() => {
@@ -529,9 +529,8 @@ export class EstatePropertyListComponent
           next: (ret) => {
             this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
             if (ret.isSuccess) {
-              this.dataModelResult = ret;
+              this.applyDataGetAllResult(ret);
               this.RowStyleActiveData();
-              this.tableSource.data = ret.listItems;
               if (this.optionsStatist?.data?.show)
                 this.onActionButtonStatist(true);
               setTimeout(() => {
@@ -567,9 +566,8 @@ export class EstatePropertyListComponent
           next: (ret) => {
             this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
             if (ret.isSuccess) {
-              this.dataModelResult = ret;
+              this.applyDataGetAllResult(ret);
               this.RowStyleActiveData();
-              this.tableSource.data = ret.listItems;
               if (this.optionsStatist?.data?.show)
                 this.onActionButtonStatist(true);
               setTimeout(() => {
@@ -611,9 +609,8 @@ export class EstatePropertyListComponent
           this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
 
           if (ret.isSuccess) {
-            this.dataModelResult = ret;
+            this.applyDataGetAllResult(ret);
             this.RowStyleActiveData();
-            this.tableSource.data = ret.listItems;
             if (
               this.requestAction?.length > 0 &&
               this.requestAction === "quick-add"
@@ -809,7 +806,10 @@ export class EstatePropertyListComponent
       this.link = "/#/estate/data/property/edit/" + this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
-      this.router.navigate(["/estate/data/property/edit", this.tableRowSelected.id]);
+      this.router.navigate([
+        "/estate/data/property/edit",
+        this.tableRowSelected.id,
+      ]);
     }
   }
 
@@ -949,7 +949,8 @@ export class EstatePropertyListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/data/property-ads/LinkPropertyId/" + this.tableRowSelected.id;
+        "/#/estate/data/property-ads/LinkPropertyId/" +
+        this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([
@@ -978,7 +979,8 @@ export class EstatePropertyListComponent
 
     if (event?.ctrlKey) {
       this.link =
-        "/#/estate/log/property-history/LinkPropertyId/" + this.tableRowSelected.id;
+        "/#/estate/log/property-history/LinkPropertyId/" +
+        this.tableRowSelected.id;
       window.open(this.link, "_blank");
     } else {
       this.router.navigate([

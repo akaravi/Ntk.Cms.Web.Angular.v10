@@ -1,4 +1,5 @@
-<div class="cms-m-wrapper loader-container">
+<div class="cms-m-wrapper loader-container"
+  (optionOnScrollNearBottom)="onActionLoadNextPage()">
   <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
   </app-progress-spinner>
 

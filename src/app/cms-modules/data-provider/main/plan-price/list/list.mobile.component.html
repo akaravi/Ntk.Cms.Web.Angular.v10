@@ -1,6 +1,7 @@
 @if (requestLinkPlanId > 0) {
   <app-data-provider-plan-header
     [optionId]="requestLinkPlanId"
+  (optionOnScrollNearBottom)="onActionLoadNextPage()"
     >
   </app-data-provider-plan-header>
 }

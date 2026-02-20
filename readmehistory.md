@@ -1,5 +1,35 @@
 # تاریخچه تغییرات پروژه
 
+## 2026-02-20 (پلان بررسی نهایی list.mobile – MUST DO)
+
+### خلاصه:
+
+ایجاد **پلان بررسی نهایی** برای اطمینان از اینکه هیچ فعالیتی در فایل‌های `list.mobile.component.html` و `list.mobile.component.ts` از قلم نیفتاده است.
+
+### تغییرات:
+
+- ایجاد فایل **`Cursor.ListMobileFinalAudit.plan.md`** با چک‌لیست اجباری برای هر list.mobile (تصویر، expand، optionOnScrollNearBottom، optionSelectRowItemTitle، بدون $any، ارث‌بری، getRowExpanded، contentService).
+- فهرست کامل **۲۰۸ مسیر** به‌صورت گروه‌بندی‌شده بر اساس ماژول.
+- روش اجرای بررسی نهایی در سه مرحله: جستجو/اسکریپت برای موارد قطعی، بررسی دستی نمونه‌های پرریسک، ثبت نتیجه.
+- **وضعیت اولیه (Result 0):** ۶۰ فایل دارای optionOnScrollNearBottom؛ ۱۴۸ فایل فاقد آن (از جمله ۲ استثنا)؛ ۱۴۶ فایل نیاز به اضافه کردن بایندینگ اسکرول بی‌نهایت داشتند؛ هیچ $any در list.mobile.component.html؛ بیش از ۱۲۰ فایل از getRowExpanded استفاده می‌کنند.
+- **اجرای مرحله ۱ (Result 1):** به **۱۴۶ فایل** list.mobile.component.html بایندینگ **`(optionOnScrollNearBottom)="onActionLoadNextPage()"`** اضافه شد؛ دو استثنا (micro-service-ping، micro-service-status) بدون تغییر ماندند. اکنون ۲۰۶ فایل دارای اسکرول بی‌نهایت هستند.
+
+---
+
+## 2026-02-20 (اعمال applyDataGetAllResult در همه list.component.ts – Plan ListSync Result 3)
+
+### خلاصه:
+
+در همه فایل‌های `list.component.ts` زیر `cms-modules` به‌جای تخصیص مستقیم `this.dataModelResult = ret` و `this.tableSource.data = ret.listItems` از متد **`this.applyDataGetAllResult(ret)`** استفاده شد تا رفتار اسکرول بی‌نهایت (append صفحه بعد) یکدست باشد.
+
+### تغییرات:
+
+- با اسکریپت Node در **۱۸۹ فایل** بلوک دوخطی `dataModelResult = ret` و `tableSource.data = ret.listItems` با `applyDataGetAllResult(ret)` جایگزین شد.
+- فایل‌های با الگوی متفاوت (sms/main، data-provider/main، estate/data/property) به‌صورت دستی اصلاح شدند؛ در مواردی که داخل `if (ret.isSuccess)` از `tableData` و `tableSource.data` استفاده می‌شد، پس از `applyDataGetAllResult(ret)` از `this.dataModelResult?.listItems` برای tableData استفاده شد و خط تخصیص tableSource.data حذف شد.
+- مستندسازی در `Cursor.ListSync.plan.md` (Result 3).
+
+---
+
 ## 2026-02-20 (رفع لود یک‌باره و تصویر در موبایل – Plan ListSync Result 2)
 
 ### خلاصه:

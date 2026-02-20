@@ -170,7 +170,7 @@ export class DataProviderSourcePathPaginationListComponent
         } else {
           this.cmsToastrService.typeErrorMessage(ret.errorMessage);
         }
-        this.dataModelResult = ret;
+        this.applyDataGetAllResult(ret);
         this.publicHelper.processService.processStop(pName);
       },
       error: (er) => {
@@ -336,6 +336,4 @@ export class DataProviderSourcePathPaginationListComponent
     this.filteModelContent.filters = model;
     this.DataGetAll();
   }
-
-
 }

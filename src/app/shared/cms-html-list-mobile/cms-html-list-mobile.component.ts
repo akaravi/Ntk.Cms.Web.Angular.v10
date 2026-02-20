@@ -2,13 +2,20 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  EventEmitter,
+  Output,
 } from "@angular/core";
-import { CmsHtmlListComponent } from "../cms-html-list/cms-html-list.component";
+import { TranslateService } from "@ngx-translate/core";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { ThemeService } from "src/app/core/services/theme.service";
-import { TranslateService } from "@ngx-translate/core";
+import { CmsHtmlListComponent } from "../cms-html-list/cms-html-list.component";
+
+/** Threshold in px from bottom to trigger load next page */
+const SCROLL_NEAR_BOTTOM_THRESHOLD = 120;
+/** Min interval in ms between two near-bottom emits (throttle) */
+const SCROLL_NEAR_BOTTOM_MIN_INTERVAL_MS = 2000;
 
 @Component({
   selector: "app-cms-html-list-mobile",
@@ -20,6 +27,11 @@ import { TranslateService } from "@ngx-translate/core";
 export class CmsHtmlListMobileComponent extends CmsHtmlListComponent {
   static nextId = 0;
   override id = ++CmsHtmlListMobileComponent.nextId;
+
+  @Output() optionOnScrollNearBottom = new EventEmitter<void>();
+
+  /** Last time optionOnScrollNearBottom was emitted (throttle: max once per 2s) */
+  private _lastScrollNearBottomEmitTime = 0;
 
   constructor(
     public override publicHelper: PublicHelper,
@@ -73,5 +85,32 @@ export class CmsHtmlListMobileComponent extends CmsHtmlListComponent {
     return isRotated
       ? "cms-html-list-mobile-icon rotated"
       : "cms-html-list-mobile-icon normal";
+  }
+
+  /** Call from template (scroll) on body; emits when scroll is near bottom for infinite scroll */
+  onScrollBody(event: Event): void {
+    if (!this.optionOnScrollNearBottom) return;
+    if (
+      this.publicHelper?.processService?.process?.inRunArea?.[
+        this.optionsListInfoAreaId
+      ]
+    )
+      return;
+    const now = Date.now();
+    if (
+      now - this._lastScrollNearBottomEmitTime <
+      SCROLL_NEAR_BOTTOM_MIN_INTERVAL_MS
+    )
+      return;
+    const el = event.target as HTMLElement;
+    if (!el || typeof el.scrollTop !== "number") return;
+    const nearBottom =
+      el.scrollTop + el.clientHeight >=
+      el.scrollHeight - SCROLL_NEAR_BOTTOM_THRESHOLD;
+    if (nearBottom) {
+      this._lastScrollNearBottomEmitTime = now;
+      this.optionOnScrollNearBottom.emit();
+      this.optionFooterDisplay = false;
+    }
   }
 }

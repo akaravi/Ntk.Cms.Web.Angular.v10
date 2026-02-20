@@ -1,9 +1,9 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    OnDestroy,
-    OnInit,
-    ViewChild,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
 } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator, PageEvent } from "@angular/material/paginator";
@@ -11,12 +11,12 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    FilterDataModel,
-    FilterModel,
-    RecordStatusEnum,
-    SmsMainApiNumberPermissionModel,
-    SmsMainApiNumberPermissionService,
-    SortTypeEnum,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SmsMainApiNumberPermissionModel,
+  SmsMainApiNumberPermissionService,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -192,11 +192,10 @@ export class SmsMainApiNumberPermissionListComponent
     this.contentService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
-        this.dataModelResult = ret;
+        this.applyDataGetAllResult(ret);
 
         if (ret.isSuccess) {
-          this.tableData = ret.listItems;
-          this.tableSource.data = ret.listItems;
+          this.tableData = this.dataModelResult?.listItems ?? [];
           if (this.sort) {
             this.tableSource.sort = this.sort;
           }

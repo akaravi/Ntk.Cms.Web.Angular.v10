@@ -172,13 +172,10 @@ export class DataProviderSourceListComponent
     this.contentService.ServiceGetAllEditor(filterModel).subscribe({
       next: (ret) => {
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
-
-        this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
-        this.dataModelResult = ret;
+        this.applyDataGetAllResult(ret);
 
         if (ret.isSuccess) {
-          this.tableData = ret.listItems;
-          this.tableSource.data = ret.listItems;
+          this.tableData = this.dataModelResult?.listItems ?? [];
           if (this.sort) {
             this.tableSource.sort = this.sort;
           }

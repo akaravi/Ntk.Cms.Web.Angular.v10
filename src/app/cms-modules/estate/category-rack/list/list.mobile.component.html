@@ -1,4 +1,5 @@
-<div class="box-rack">
+<div class="box-rack"
+  (optionOnScrollNearBottom)="onActionLoadNextPage()">
   @for (row of dataModelResult.listItems; track row) {
     <div class="box-rack-child">
       <div class="box-rack-child-title" [style.background]="row.iconColor">

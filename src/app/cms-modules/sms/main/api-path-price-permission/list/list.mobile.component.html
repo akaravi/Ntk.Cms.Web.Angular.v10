@@ -1,6 +1,7 @@
 @if (requestLinkApiPathPaginationId?.length > 0) {
   <app-sms-apipath-pagination-header
     [optionId]="requestLinkApiPathPaginationId"
+  (optionOnScrollNearBottom)="onActionLoadNextPage()"
   >
   </app-sms-apipath-pagination-header>
 }

@@ -56,7 +56,7 @@ export class ListBaseComponent<
   optionsSearch: ComponentOptionSearchModel = new ComponentOptionSearchModel();
   optionsStatist: ComponentOptionStatistModel =
     new ComponentOptionStatistModel();
-    tableRowSelected: TModel;
+  tableRowSelected: TModel;
   tableRowsSelected: Array<TModel> = [];
   dataModelResult: ErrorExceptionResult<TModel> =
     new ErrorExceptionResult<TModel>();
@@ -373,14 +373,42 @@ export class ListBaseComponent<
       },
     });
   }
-    onActionCopied (): void {
+  onActionCopied(): void {
     this.publicHelper.cmsToastrService.typeSuccessCopedToClipboard();
-    }
+  }
   getRowExpanded(row: TModel): boolean {
     if (row["expanded"] == true) return true;
     else return false;
   }
-  onActionButtonViewRow(row: TModel): void {
+  onActionButtonViewRow(row: TModel): void {}
+  DataGetAll(): void {
+    return;
+  }
 
+  /**
+   * Apply result of DataGetAll/ServiceGetAll: replace list or append (for scroll/next page).
+   * Call from list components in subscribe next when ret.isSuccess.
+   */
+  applyDataGetAllResult(ret: ErrorExceptionResult<TModel>): void {
+    if (this.actionByScrollBody && this.dataModelResult?.listItems?.length) {
+      const newListItems = [
+        ...this.dataModelResult.listItems,
+        ...(ret.listItems || []),
+      ];
+      this.dataModelResult = ret;
+      this.dataModelResult.listItems = newListItems;
+      this.actionByScrollBody = false;
+    } else {
+      this.dataModelResult = ret;
+    }
+    this.tableSource.data = this.dataModelResult?.listItems || [];
+  }
+  private actionByScrollBody = false;
+  onActionLoadNextPage(): void {
+    this.filteModelContent.currentPageNumber++;
+    console.log("onActionLoadNextPage");
+    this.actionByScrollBody = true;
+    this.DataGetAll();
+    return;
   }
 }

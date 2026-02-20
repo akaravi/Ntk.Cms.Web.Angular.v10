@@ -53,7 +53,7 @@
       <div class="cms-html-list-mobile-divider"></div>
     }
 
-    <div class="cms-html-list-mobile-body">
+    <div class="cms-html-list-mobile-body" (scroll)="onScrollBody($event)">
       <ng-content select="[cms-body]"></ng-content>
     </div>
 

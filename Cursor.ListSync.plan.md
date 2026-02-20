@@ -144,3 +144,23 @@
 - در **bank-payment/public-config**: در قسمت placeholder به‌جای آیکون ثابت، **recordStatus** نمایش داده می‌شود.
 - استثناها: **core-log/micro-service-ping** (مدل بدون recordStatus) با آیکون قبلی (fa-signal) نگه داشته شد؛ **data-provider/main/client-application-permission** با متغیر **`item`** با **`item.recordStatus`** اصلاح شد.
 - بیلد با موفقیت انجام شد.
+
+---
+
+## Result 3: استفاده از applyDataGetAllResult در همه list.component.ts – 2026-02-20
+
+**انجام‌شده:**
+
+1. **منطق در Base:** در `listBaseComponent.ts` متد **`applyDataGetAllResult(ret: ErrorExceptionResult<TModel>)`** وجود دارد که بر اساس **`this.actionByScrollBody`** نتیجه را یا به لیست موجود append می‌کند یا جایگزین می‌کند و در پایان `tableSource.data` را به‌روز می‌کند.
+
+2. **جایگزینی در همه list.component.ts:** در **۱۸۹ فایل** زیر `cms-modules` بلوک دوخطی
+   `this.dataModelResult = ret;` و
+   `this.tableSource.data = ret.listItems;` (یا `this.tableSource.data = this.dataModelResult.listItems;`)
+   با **`this.applyDataGetAllResult(ret);`** جایگزین شد (با اسکریپت Node).
+
+3. **فایل‌های با الگوی متفاوت (اصلاح دستی):** در فایل‌هایی که الگو متفاوت بود (مثلاً `dataModelResult = ret` قبل از `if (ret.isSuccess)` و داخل آن `tableData` و `tableSource.data`، یا همراه با `RowStyleActiveData()` یا `processStop(pName)`):
+   - **sms/main:** client-application, client-application-permission, api-path-price-permission, api-path-permission, api-number-permission → استفاده از `applyDataGetAllResult(ret)` و در صورت نیاز `tableData = this.dataModelResult?.listItems ?? []`.
+   - **data-provider/main:** source, source-company, source-public-config, source-path-pagination, client-application, client-application-permission → همان الگو یا فقط جایگزینی `dataModelResult = ret` با `applyDataGetAllResult(ret)`.
+   - **estate/data/property:** در پنج بلوک subscribe، `dataModelResult = ret` و `tableSource.data = ret.listItems` با `applyDataGetAllResult(ret)` و حفظ `RowStyleActiveData()`.
+
+4. **نتیجه:** در هیچ یک از `list.component.ts`های زیر `cms-modules` دیگر تخصیص مستقیم `this.dataModelResult = ret` وجود ندارد؛ همه از **`this.applyDataGetAllResult(ret)`** استفاده می‌کنند تا رفتار اسکرول بی‌نهایت (append صفحه بعد) یکدست باشد.
