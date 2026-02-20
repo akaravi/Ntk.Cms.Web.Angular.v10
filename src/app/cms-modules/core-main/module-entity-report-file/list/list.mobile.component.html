@@ -16,7 +16,8 @@
       ? tableRowSelected?.title
       : tableRowSelected?.id
   "
->
+
+  (optionOnScrollNearBottom)="onActionLoadNextPage()">
   <ng-container cms-tree>
     <!--begin:::::::::::::::::::::::::::::::::::::::::cms-tree-->
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-tree-->
@@ -194,8 +195,8 @@
               </div>
             } @else {
               <div class="cms-m-list-item-image-placeholder">
-                <i class="fa-solid fa-file-chart-line" aria-hidden="true"></i>
-              </div>
+              <i [ngClass]="row.recordStatus | statusIconClass" aria-hidden="true"></i>
+            </div>
             }
             <div class="cms-m-list-item-content">
               <div class="cms-m-list-item-title">

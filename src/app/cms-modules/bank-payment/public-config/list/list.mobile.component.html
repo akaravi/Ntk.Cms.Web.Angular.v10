@@ -16,6 +16,7 @@
       ? tableRowSelected?.title
       : tableRowSelected?.id
   "
+  (optionOnScrollNearBottom)="onActionLoadNextPage()"
 >
   <ng-container cms-tree>
     <!--begin:::::::::::::::::::::::::::::::::::::::::cms-tree-->
@@ -207,7 +208,10 @@
               </div>
             } @else {
               <div class="cms-m-list-item-image-placeholder">
-                <i class="fa-solid fa-credit-card" aria-hidden="true"></i>
+                <i
+                  [ngClass]="row.recordStatus | statusIconClass"
+                  aria-hidden="true"
+                ></i>
               </div>
             }
             <div class="cms-m-list-item-content">

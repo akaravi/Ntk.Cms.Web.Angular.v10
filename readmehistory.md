@@ -1,5 +1,30 @@
 # تاریخچه تغییرات پروژه
 
+## 2026-02-20 (رفع لود یک‌باره و تصویر در موبایل – Plan ListSync Result 2)
+
+### خلاصه:
+
+- رفع باگ لود خودکار (فقط یک‌بار): با اضافه کردن گارد همگام **`_loadingNextPage`** در `listBaseComponent`، لود صفحه‌های بعدی در اسکرول بی‌نهایت درست شد.
+- اعمال قانون تصویر در موبایل: در **۱۹۰ فایل** list.mobile ناحیه placeholder با **recordStatus** پر شد؛ در news/content و application/memberInfo و bank-payment (و private-site-config قبلی) از property تصویر (linkMainImageIdSrc یا linkModuleFileLogoIdSrc) در صورت وجود استفاده شد. استثنا: micro-service-ping (بدون recordStatus)، client-application-permission (استفاده از item به‌جای row).
+
+---
+
+## 2026-02-20 (تطابق list با list.mobile و اسکرول بی‌نهایت – Plan ListSync)
+
+### خلاصه:
+
+- ایجاد Plan تطابق بین `list.component.html` و `list.mobile.component.html` در فایل `Cursor.ListSync.plan.md` و اجرای مرحله اول: زیرساخت اسکرول بی‌نهایت، لود صفحه بعد در Base، و نمونه تطابق تصویر/extend برای bank-payment/private-site-config.
+
+### تغییرات:
+
+- **اسکرول بی‌نهایت:** در `cms-html-list-mobile` خروجی `optionOnScrollNearBottom` و متد `onScrollBody` اضافه شد؛ بدنه لیست موبایل اسکرول‌پذیر شد و با رسیدن به پایین، رویداد emit می‌شود.
+- **listBaseComponent:** متدهای `getFilterModel()` و `onActionLoadNextPage()` برای لود و الحاق صفحه بعد به لیست؛ در سرویس‌های بدون `ServiceGetAll` با بررسی نوع متد از خطا جلوگیری شد.
+- در **۶۱ فایل** `list.mobile.component.html` بایندینگ `(optionOnScrollNearBottom)="onActionLoadNextPage()"` اضافه شد؛ در دو لیست micro-service-ping و micro-service-status (غیر ListBaseComponent) این بایندینگ اضافه نشد.
+- **bank-payment/private-site-config/list.mobile.component.html:** استفاده از `linkMainImageIdSrc` برای تصویر و در صورت نبود، نمایش `recordStatus`؛ تطابق عنوان و فیلدهای linkSiteId، linkPublicConfigId؛ دکمه‌های Transactions و Payment Test در action-row؛ حذف `type="button"` از لینک‌ها.
+- بیلد با موفقیت انجام شد.
+
+---
+
 ## 2026-02-20 (حذف type="button" از تگ a)
 
 ### خلاصه:

@@ -141,6 +141,9 @@ export class NewsContentListComponent
     /*filter add search*/
     return filterModel;
   }
+  getFilterModel(): FilterModel {
+    return this.filterModelCompiler(this.filteModelContent);
+  }
   DataGetAll(): void {
     this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
       this.tabledisplayedColumnsSource,

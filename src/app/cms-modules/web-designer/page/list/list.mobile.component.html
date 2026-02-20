@@ -10,7 +10,8 @@
   [optionActionRowId]="tableRowSelected?.id"
   [optionActionRowDisplayMenu]="tableRowSelect2Click"
   [optionSelectRowItemTitle]="tableRowSelected?.title"
->
+
+  (optionOnScrollNearBottom)="onActionLoadNextPage()">
   <ng-container cms-mobile-content>
     @for (row of dataModelResult?.listItems; track row.id) {
       <div class="cms-m-row" [class.cms-m-row-expanded]="getRowExpanded(row)">
