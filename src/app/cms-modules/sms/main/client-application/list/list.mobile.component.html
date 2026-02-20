@@ -160,8 +160,9 @@
       <div class="cms-m-list">
         @for (row of dataModelResult.listItems; track row.id) {
           <div
-            class="cms-m-list-item"
+            class="cms-m-list-item border-highlight"
             [class.selected]="row.id === tableRowSelected?.id"
+            [class.bg-fade-highlight-light]="row.id === tableRowSelected?.id"
             (click)="onActionTableRowSelect(row, $event)"
             (rtclick)="onActionTableRowSelect(row, $event)"
             (mouseenter)="onActionTableRowMouseEnter(row)"
@@ -181,13 +182,6 @@
                 <div class="cms-m-list-item-subtitle">
                   <i class="fa-solid fa-hashtag" aria-hidden="true"></i>
                   {{ fieldsInfo["id"]?.fieldTitle }}: {{ row.id }}
-                </div>
-              }
-              @if ($any(row).linkUserId) {
-                <div class="cms-m-list-item-subtitle">
-                  <i class="fa-solid fa-user" aria-hidden="true"></i>
-                  {{ fieldsInfo["linkUserId"]?.fieldTitle }}:
-                  {{ $any(row).linkUserId | cmsuserinfo | async }}
                 </div>
               }
               @if (row.linkSiteId) {
@@ -241,12 +235,6 @@
                     </span>
                     ID: {{ row.id }}
                   </div>
-                  @if ($any(row).linkUserId) {
-                    <div class="cms-m-list-item-subtitle">
-                      {{ fieldsInfo["linkUserId"]?.fieldTitle }}:
-                      {{ $any(row).linkUserId | cmsuserinfo | async }}
-                    </div>
-                  }
                   @if (row.linkSiteId) {
                     <div class="cms-m-list-item-subtitle">
                       {{ fieldsInfo["linkSiteId"]?.fieldTitle }}:

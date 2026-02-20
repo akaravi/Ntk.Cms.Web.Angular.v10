@@ -39,7 +39,7 @@ export class CoreLogErrorListComponent
   requestLinkDeviceId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: CoreLogErrorService,
+    public contentService: CoreLogErrorService,
     public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,

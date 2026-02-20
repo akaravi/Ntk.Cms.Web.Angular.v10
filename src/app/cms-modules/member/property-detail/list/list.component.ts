@@ -45,7 +45,7 @@ export class MemberPropertyDetailListComponent
   requestLinkPropertyTypeId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: MemberPropertyDetailService,
+    public contentService: MemberPropertyDetailService,
     private memberPropertyDetailGroupService: MemberPropertyDetailGroupService,
     private memberPropertyTypeService: MemberPropertyTypeService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,

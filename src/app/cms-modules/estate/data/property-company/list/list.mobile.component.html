@@ -1,80 +1,86 @@
-<div class="cms-m-body loader-container">
-  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
-  </app-progress-spinner>
-
-  <div class="cms-m-header safe-area-top">
-    <div class="cms-m-header-content">
-      <h1 class="cms-m-header-title">
-        {{ "ROUTE.ESTATE.COMPANY" | translate }}
-      </h1>
-      <div class="cms-m-header-actions">
-        <button
-          type="button"
-          class="cms-m-header-action-btn"
-          (click)="optionsSearch.data.show = !optionsSearch.data.show"
-          [class.active]="optionsSearch.data.show"
-          [attr.aria-label]="'ACTION.SEARCH' | translate"
-        >
-          <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-        </button>
-        <button
-          type="button"
-          class="cms-m-header-action-btn"
-          (click)="onActionButtonReload()"
-          [attr.aria-label]="'ACTION.RELOAD' | translate"
-        >
-          <i
-            class="fa-solid fa-rotate-right"
-            [class.rotation360]="
-              publicHelper.processService.process.inRunArea[
-                constructorInfoAreaId
-              ]
-            "
-            aria-hidden="true"
-          ></i>
-        </button>
+<app-cms-html-list-mobile
+  [optionsListInfoAreaId]="constructorInfoAreaId"
+  [optionGuideNoticeKey]="'estate.data.property-company.list'"
+  [(optionActionGuideNoticeDisplay)]="viewGuideNotice"
+  (optionOnActionButtonMemoRow)="onActionButtonMemoRow()"
+  (optionOnActionButtonMemo)="onActionButtonMemo()"
+  (optionOnActionButtonExport)="onActionButtonExport()"
+  (optionOnActionButtonPrintRow)="onActionButtonPrintRow()"
+  [optionTreeDisplay]="false"
+  [optionActionRowId]="tableRowSelected?.id"
+  [optionActionRowDisplay]="tableRowSelected?.id > 0"
+  [optionActionRowDisplayMenu]="tableRowSelect2Click"
+  [optionActionRowDisplayMenuAct]="tableRowSelectActionMenuClick"
+  [optionSelectRowItemTitle]="tableRowSelected?.id"
+>
+  <ng-container cms-tree></ng-container>
+  <ng-container cms-header></ng-container>
+  <ng-container cms-action-header></ng-container>
+  <ng-container cms-action-header-start>
+    <a class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight" (click)="viewGuideNotice = !viewGuideNotice" target="_blank"><i class="fa-solid fa-info font-18" style="color: #ffffff"></i></a>
+    <a class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight" (click)="onActionButtonReload()" target="_blank"><i class="fa-solid fa-rotate-right font-18" style="color: #ffffff" [class.rotation360]="publicHelper.processService.process.inRunArea[constructorInfoAreaId]"></i></a>
+    <a (click)="onActionGridExpandRows(true)" target="_blank" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"><i class="fa-solid fa-maximize font-18" style="color: #ffffff"></i></a>
+    <a (click)="onActionGridExpandRows(false)" target="_blank" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"><i class="fa-solid fa-minimize font-18" style="color: #ffffff"></i></a>
+  </ng-container>
+  <ng-container cms-action-header-end>
+    <a (click)="optionsSearch.data.show = !optionsSearch.data.show" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"><mat-slide-toggle [checked]="optionsSearch.data.show"></mat-slide-toggle>{{ "ACTION.SEARCH" | translate }}</a>
+    <a (click)="onActionButtonStatist()" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"><mat-slide-toggle [checked]="optionsStatist.data.show"> </mat-slide-toggle>{{ "ACTION.STATIST" | translate }}</a>
+  </ng-container>
+  <ng-container cms-action-main>
+    @if (dataModelResult?.access?.accessAddRow) {
+      <div class="col-4">
+        <a (click)="onActionButtonNewRow()" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal" target="_blank"><i class="fa-solid fa-plus font-18" style="color: #ffffff"></i> <br /></a>
+        <p class="font-11 text-center opacity-70">{{ "ACTION.ADD" | translate }}</p>
       </div>
-    </div>
-  </div>
-
-  @if (optionsSearch.data.show) {
-    <div class="cms-m-search-area safe-area-content">
-      <app-cms-search-list [(options)]="optionsSearch"></app-cms-search-list>
-    </div>
-  }
-
-  <div class="cms-m-content safe-area-content">
+    }
+  </ng-container>
+  <ng-container cms-action-row>
+    @if (dataModelResult?.access?.accessEditRow && tableRowSelected?.id > 0) {
+      <div class="col-4">
+        <a (click)="onActionButtonEditRow(tableRowSelected)" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-magenta" target="_blank"><i class="fa-solid fa-pen font-18" style="color: #ffffff"></i><br /></a>
+        <p class="font-11 text-center opacity-70">{{ "ACTION.EDIT" | translate }}</p>
+      </div>
+    }
+    @if (dataModelResult?.access?.accessDeleteRow && tableRowSelected?.id > 0) {
+      <div class="col-4">
+        <a (click)="onActionButtonDeleteRow(tableRowSelected)" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-red" target="_blank"><i class="fa-solid fa-trash font-18" style="color: #ffffff"></i><br /></a>
+        <p class="font-11 text-center opacity-70">{{ "ACTION.DELETE" | translate }}</p>
+      </div>
+    }
+    @if (dataModelResult?.access?.accessWatchRow && tableRowSelected?.id > 0) {
+      <div class="col-4">
+        <a (click)="onActionButtonViewRow(tableRowSelected)" class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-blue" target="_blank"><i class="fa-solid fa-eye font-18" style="color: #ffffff"></i><br /></a>
+        <p class="font-11 text-center opacity-70">{{ "ACTION.VIEW" | translate }}</p>
+      </div>
+    }
+  </ng-container>
+  <ng-container cms-action-area>
+    <app-cms-search-list [(options)]="optionsSearch"></app-cms-search-list>
+    <app-cms-statist-list [(options)]="optionsStatist"></app-cms-statist-list>
+  </ng-container>
+  <ng-container cms-body>
     @if (dataModelResult?.listItems?.length) {
       <div class="cms-m-list">
         @for (row of dataModelResult.listItems; track row.id) {
-          <div
-            class="cms-m-list-item"
-            [class.selected]="row.id === tableRowSelected?.id"
-            (click)="onActionTableRowSelect(row)"
-            role="button"
-            [attr.aria-label]="row.title || row.id"
-            tabindex="0"
-          >
-            @if (row?.linkMainImageIdSrc?.length > 0) {
-              <div class="cms-m-list-item-image">
-                <img
-                  [src]="row.linkMainImageIdSrc | cmsthumbnail"
-                  [alt]="row.title || row.id"
-                  loading="lazy"
-                />
-              </div>
-            } @else {
-              <div class="cms-m-list-item-image-placeholder">
-                <i class="fa-solid fa-building" aria-hidden="true"></i>
-              </div>
-            }
+          <div class="cms-m-list-item border-highlight" [class.selected]="row.id === tableRowSelected?.id" [class.bg-fade-highlight-light]="row.id === tableRowSelected?.id" (click)="onActionTableRowSelect(row, $event)" (rtclick)="onActionTableRowSelect(row, $event)" (mouseenter)="onActionTableRowMouseEnter(row)" (mouseleave)="onActionTableRowMouseLeave(row)" role="button" [attr.aria-label]="row.title || row.id" tabindex="0">
+            <div class="cms-m-list-item-image-placeholder"><i class="fa-solid fa-building" aria-hidden="true"></i></div>
             <div class="cms-m-list-item-content">
-              <div class="cms-m-list-item-title">
-                {{ row.title || row.id }}
-              </div>
-              @if (row.description) {
+              <div class="cms-m-list-item-title">{{ row.title || "ID: " + row.id }}</div>
+              @if (row.id) { <div class="cms-m-list-item-subtitle"><i class="fa-solid fa-hashtag" aria-hidden="true"></i> {{ fieldsInfo['id']?.fieldTitle }}: {{ row.id }}</div> }
+              @if (row.createdDate) { <div class="cms-m-list-item-subtitle"><i class="fa-solid fa-calendar" aria-hidden="true"></i> {{ fieldsInfo['createdDate']?.fieldTitle }}: {{ row.createdDate | localeDate }}</div> }
+              @if (row.recordStatus !== undefined) {
                 <div class="cms-m-list-item-subtitle">
-                  {{ row.description }}
+                  <i [ngClass]="row.recordStatus | statusIconClass"></i>
+                  @if (dataModelResult?.access?.accessEditRow && row.id === tableRowSelected?.id) {
+                    <select matNativeControl cmsRecordStatusSelfSave [contentService]="contentService" [row]="row" style="background: none; border: none; margin-left: 8px"></select>
+                  }
+                </div>
+              }
+              @if (getRowExpanded(row)) {
+                <div class="cms-m-list-item-expanded">
+                  
+                  @if (row.updatedDate) { <div class="cms-m-list-item-subtitle"><i class="fa-solid fa-calendar-check" aria-hidden="true"></i> {{ fieldsInfo['updatedDate']?.fieldTitle }}: {{ row.updatedDate | localeDate }}</div> }
+                  <div class="cms-m-list-item-subtitle"><span class="navi-icon pointer" [cdkCopyToClipboard]="row.id.toString()" (click)="onActionCopied(); $event.stopPropagation()"><i class="flaticon2-copy"></i></span> ID: {{ row.id }}</div>
                 </div>
               }
             </div>
@@ -82,9 +88,10 @@
         }
       </div>
     } @else {
-      <div class="cms-m-empty safe-area-content">
-        {{ "MESSAGE.NoRecord" | translate }}
-      </div>
+      <div class="cms-m-empty">{{ "MESSAGE.NoRecord" | translate }}</div>
     }
-  </div>
-</div>
+  </ng-container>
+  <ng-container cms-footer>
+    <mat-paginator #paginator [length]="dataModelResult.totalRowCount" [pageIndex]="dataModelResult.currentPageNumber - 1" [pageSize]="dataModelResult.rowPerPage" [pageSizeOptions]="[5, 10, 20, 100]" (page)="onTablePageingData($event)"></mat-paginator>
+  </ng-container>
+</app-cms-html-list-mobile>

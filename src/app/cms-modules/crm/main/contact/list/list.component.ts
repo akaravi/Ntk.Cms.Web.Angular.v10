@@ -48,7 +48,7 @@ export class CrmContactListComponent
   requestLinkAccountId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: CrmContactService,
+    public contentService: CrmContactService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public cmsToastrService: CmsToastrService,
     private router: Router,

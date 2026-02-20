@@ -47,7 +47,7 @@ export class CrmPipelineListComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: CrmPipelineService,
+    public contentService: CrmPipelineService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public cmsToastrService: CmsToastrService,
     private router: Router,

@@ -1,6 +1,6 @@
 <app-cms-html-list-mobile
   [optionsListInfoAreaId]="constructorInfoAreaId"
-  [optionGuideNoticeKey]="''"
+  [optionGuideNoticeKey]="'core-log.micro-service-status.list'"
   [(optionActionGuideNoticeDisplay)]="viewGuideNotice"
   [optionTreeDisplay]="false"
   [optionActionRowId]="tableRowSelected?.id"
@@ -162,8 +162,9 @@
       <div class="cms-m-list">
         @for (row of statusList; track trackById($index, row)) {
           <div
-            class="cms-m-list-item"
+            class="cms-m-list-item border-highlight"
             [class.selected]="row.id === tableRowSelected?.id"
+            [class.bg-fade-highlight-light]="row.id === tableRowSelected?.id"
             (click)="onActionTableRowSelect(row, $event)"
             (rtclick)="onActionTableRowSelect(row, $event)"
             role="button"
@@ -185,8 +186,48 @@
                         | translate)
                   }}
                 </span>
-                | v{{ row?.appVersion || "-" }} | {{ getLastUpdate(row) }}
               </div>
+              @if (row?.appVersion) {
+                <div class="cms-m-list-item-subtitle">
+                  <i class="fa-solid fa-code-branch" aria-hidden="true"></i>
+                  v{{ row.appVersion }}
+                </div>
+              }
+              @if (getLastUpdate(row)) {
+                <div class="cms-m-list-item-subtitle">
+                  <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+                  {{ getLastUpdate(row) }}
+                </div>
+              }
+              <!-- Expanded Detail (when row is expanded) -->
+              @if (row.id === tableRowSelected?.id) {
+                <div class="cms-m-list-item-expanded">
+                  @if (row?.id) {
+                    <div class="cms-m-list-item-subtitle">
+                      <span
+                        class="navi-icon pointer"
+                        [cdkCopyToClipboard]="row.id?.toString() || ''"
+                        (click)="$event.stopPropagation()"
+                      >
+                        <i class="flaticon2-copy"></i>
+                      </span>
+                      ID: {{ row.id }}
+                    </div>
+                  }
+                  @if (row?.instanceIdentifier) {
+                    <div class="cms-m-list-item-subtitle">
+                      <i class="fa-solid fa-fingerprint" aria-hidden="true"></i>
+                      Instance: {{ row.instanceIdentifier }}
+                    </div>
+                  }
+                  @if (row?.runtimeIdentity) {
+                    <div class="cms-m-list-item-subtitle">
+                      <i class="fa-solid fa-id-card" aria-hidden="true"></i>
+                      Runtime: {{ row.runtimeIdentity }}
+                    </div>
+                  }
+                </div>
+              }
             </div>
           </div>
         }

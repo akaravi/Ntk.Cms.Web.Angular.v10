@@ -54,7 +54,7 @@ export class BlogCommentListComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private commentService: BlogCommentService,
+    public commentService: BlogCommentService,
     public contentService: BlogContentService,
     private activatedRoute: ActivatedRoute,
     public cmsToastrService: CmsToastrService,

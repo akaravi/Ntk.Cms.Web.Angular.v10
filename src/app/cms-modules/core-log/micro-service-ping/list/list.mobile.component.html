@@ -1,6 +1,6 @@
 <app-cms-html-list-mobile
   [optionsListInfoAreaId]="constructorInfoAreaId"
-  [optionGuideNoticeKey]="''"
+  [optionGuideNoticeKey]="'core-log.micro-service-ping.list'"
   [(optionActionGuideNoticeDisplay)]="viewGuideNotice"
   [optionTreeDisplay]="false"
   [optionActionRowId]="tableRowSelected?.id"
@@ -73,8 +73,9 @@
       <div class="cms-m-list">
         @for (row of pingList; track trackById($index, row)) {
           <div
-            class="cms-m-list-item"
+            class="cms-m-list-item border-highlight"
             [class.selected]="row.id === tableRowSelected?.id"
+            [class.bg-fade-highlight-light]="row.id === tableRowSelected?.id"
             (click)="onActionTableRowSelect(row, $event)"
             (rtclick)="onActionTableRowSelect(row, $event)"
             role="button"
@@ -86,9 +87,41 @@
             </div>
             <div class="cms-m-list-item-content">
               <div class="cms-m-list-item-title">{{ row?.appInfo || "-" }}</div>
-              <div class="cms-m-list-item-subtitle">
-                RTT: {{ row?.rttMs ?? "-" }} ms | {{ getPingTimestamp(row) }}
-              </div>
+              @if (row?.rttMs !== undefined) {
+                <div class="cms-m-list-item-subtitle">
+                  <i class="fa-solid fa-clock" aria-hidden="true"></i>
+                  RTT: {{ row.rttMs }} ms
+                </div>
+              }
+              @if (getPingTimestamp(row)) {
+                <div class="cms-m-list-item-subtitle">
+                  <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+                  {{ getPingTimestamp(row) }}
+                </div>
+              }
+              <!-- Expanded Detail (when row is expanded) -->
+              @if (row.id === tableRowSelected?.id) {
+                <div class="cms-m-list-item-expanded">
+                  @if (row?.id) {
+                    <div class="cms-m-list-item-subtitle">
+                      <span
+                        class="navi-icon pointer"
+                        [cdkCopyToClipboard]="row.id?.toString() || ''"
+                        (click)="$event.stopPropagation()"
+                      >
+                        <i class="flaticon2-copy"></i>
+                      </span>
+                      ID: {{ row.id }}
+                    </div>
+                  }
+                  @if (row?.pongTimestamp) {
+                    <div class="cms-m-list-item-subtitle">
+                      <i class="fa-solid fa-calendar-check" aria-hidden="true"></i>
+                      Pong: {{ row.pongTimestamp }}
+                    </div>
+                  }
+                </div>
+              }
             </div>
           </div>
         }

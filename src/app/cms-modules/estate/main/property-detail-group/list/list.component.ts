@@ -45,7 +45,7 @@ export class EstatePropertyDetailGroupListComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: EstatePropertyDetailGroupService,
+    public contentService: EstatePropertyDetailGroupService,
     private estatePropertyTypeLanduseService: EstatePropertyTypeLanduseService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public cmsToastrService: CmsToastrService,

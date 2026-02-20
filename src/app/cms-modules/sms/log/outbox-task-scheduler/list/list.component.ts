@@ -5,16 +5,16 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    CoreCurrencyModel,
-    ErrorExceptionResult,
-    FilterDataModel,
-    FilterModel,
-    RecordStatusEnum,
-    SmsLogOutBoxTaskSchedulerModel,
-    SmsLogOutBoxTaskSchedulerService,
-    SmsMainApiPathModel,
-    SmsMainApiPathService,
-    SortTypeEnum,
+  CoreCurrencyModel,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SmsLogOutBoxTaskSchedulerModel,
+  SmsLogOutBoxTaskSchedulerService,
+  SmsMainApiPathModel,
+  SmsMainApiPathService,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -633,6 +633,9 @@ export class SmsLogOutBoxTaskSchedulerListComponent
 
   onActionBackToParent(): void {
     // this.router.navigate(['/sms/main/api-path-company']);
+  }
+  onActionButtonNewRow(_event?: MouseEvent): void {
+    this.cmsToastrService.typeErrorAccessAdd();
   }
 
   onActionButtonScheduleRunInfos(

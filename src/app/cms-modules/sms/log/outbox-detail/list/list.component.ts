@@ -5,16 +5,16 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    CoreCurrencyModel,
-    ErrorExceptionResult,
-    FilterDataModel,
-    FilterModel,
-    RecordStatusEnum,
-    SmsLogOutBoxDetailModel,
-    SmsLogOutBoxDetailService,
-    SmsMainApiPathModel,
-    SmsMainApiPathService,
-    SortTypeEnum,
+  CoreCurrencyModel,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SmsLogOutBoxDetailModel,
+  SmsLogOutBoxDetailService,
+  SmsMainApiPathModel,
+  SmsMainApiPathService,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -43,7 +43,7 @@ export class SmsLogOutBoxDetailListComponent
   requestLinkOutBoxId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: SmsLogOutBoxDetailService,
+    public contentService: SmsLogOutBoxDetailService,
     private activatedRoute: ActivatedRoute,
     public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
@@ -436,5 +436,11 @@ export class SmsLogOutBoxDetailListComponent
 
   onActionBackToParent(): void {
     this.router.navigate(["/sms/log/outbox"]);
+  }
+  onActionButtonNewRow(_event?: MouseEvent): void {
+    this.cmsToastrService.typeErrorAccessAdd();
+  }
+  onActionButtonEditRow(_model?: SmsLogOutBoxDetailModel): void {
+    this.cmsToastrService.typeErrorAccessEdit();
   }
 }

@@ -1,6 +1,7 @@
 # Plan: بازنویسی و استانداردسازی تمام List Mobile Components
 
 ## هدف کلی:
+
 بازنویسی تمام `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile` و حذف فایل‌های SCSS اضافی. همچنین ایجاد `list.mobile.component` برای `list.component` هایی که حالت موبایل ندارند.
 
 ---
@@ -8,6 +9,7 @@
 ## Part 1: فهرست تمام List Mobile Components موجود (56 فایل)
 
 ### 1.1 Estate Module (25 فایل)
+
 1. ✅ `estate/log/customer-order/list/list.mobile.component.ts` - **انجام شده**
 2. `estate/log/customer-order-result/list/list.mobile.component.ts`
 3. `estate/log/property-expert-price/list/list.mobile.component.ts`
@@ -32,6 +34,7 @@
 22. `estate/category-zone/list/list.mobile.component.ts`
 
 ### 1.2 SMS Module (15 فایل)
+
 23. `sms/main/api-number/list/list.mobile.component.ts`
 24. `sms/main/api-number-permission/list/list.mobile.component.ts`
 25. `sms/main/api-path/list/list.mobile.component.ts`
@@ -50,6 +53,7 @@
 38. `sms/log/outbox-task-scheduler/list/list.mobile.component.ts`
 
 ### 1.3 Data Provider Module (13 فایل)
+
 39. `data-provider/main/client/list/list.mobile.component.ts`
 40. `data-provider/main/client-application/list/list.mobile.component.ts`
 41. `data-provider/main/client-application-permission/list/list.mobile.component.ts`
@@ -68,6 +72,7 @@
 54. `data-provider/transaction/list/list.mobile.component.ts`
 
 ### 1.4 News Module (2 فایل)
+
 55. ✅ `news/content/list/list.mobile.component.ts` - **الگو**
 56. `news/category/list/list.mobile.component.ts`
 
@@ -78,7 +83,9 @@
 **نکته**: از این 206 فایل، 56 فایل دارای `list.mobile.component.ts` هستند (در Part 1 لیست شده‌اند) و 150 فایل باقیمانده نیاز به ایجاد `list.mobile.component` دارند.
 
 ### 2.1 Estate Module (22 فایل - 12 فایل mobile دارند، 10 فایل نیاز به mobile)
+
 **دارای Mobile:**
+
 - ✅ `estate/log/customer-order/list/list.component.ts`
 - ✅ `estate/log/customer-order-result/list/list.component.ts`
 - ✅ `estate/log/property-expert-price/list/list.component.ts`
@@ -103,7 +110,9 @@
 - ✅ `estate/category-zone/list/list.component.ts`
 
 ### 2.2 SMS Module (16 فایل - 15 فایل mobile دارند، 1 فایل نیاز به mobile)
+
 **دارای Mobile:**
+
 - ✅ `sms/main/api-number/list/list.component.ts`
 - ✅ `sms/main/api-number-permission/list/list.component.ts`
 - ✅ `sms/main/api-path/list/list.component.ts`
@@ -122,10 +131,13 @@
 - ✅ `sms/log/outbox-task-scheduler/list/list.component.ts`
 
 **نیاز به Mobile:**
+
 - ❌ `sms/main/client-application-permission/list/list.component.ts`
 
 ### 2.3 Data Provider Module (14 فایل - 13 فایل mobile دارند، 1 فایل نیاز به mobile)
+
 **دارای Mobile:**
+
 - ✅ `data-provider/main/client/list/list.component.ts`
 - ✅ `data-provider/main/client-application/list/list.component.ts`
 - ✅ `data-provider/main/client-application-permission/list/list.component.ts`
@@ -144,18 +156,24 @@
 - ✅ `data-provider/transaction/list/list.component.ts`
 
 **نیاز به Mobile:**
+
 - ❌ `data-provider/main/source-public-config/list/list.component.ts` (بررسی شود)
 
 ### 2.4 News Module (3 فایل - 2 فایل mobile دارند، 1 فایل نیاز به mobile)
+
 **دارای Mobile:**
+
 - ✅ `news/content/list/list.component.ts` (الگو)
 - ✅ `news/category/list/list.component.ts`
 
 **نیاز به Mobile:**
+
 - ✅ `news/comment/list/list.component.ts`
 
 ### 2.5 Transaction Assistant Module (14 فایل - همه نیاز به mobile)
+
 **نیاز به Mobile:**
+
 - ❌ `transaction-assistant/address/list/list.component.ts`
 - ❌ `transaction-assistant/cart/list/list.component.ts`
 - ❌ `transaction-assistant/category/list/list.component.ts`
@@ -172,7 +190,9 @@
 - ❌ `transaction-assistant/tag/list/list.component.ts`
 
 ### 2.6 Web Designer Module (5 فایل - همه نیاز به mobile)
+
 **نیاز به Mobile:**
+
 - ✅ `web-designer/intro/list/list.component.ts`
 - ✅ `web-designer/log-member-info/list/list.component.ts`
 - ✅ `web-designer/menu/list/list.component.ts`
@@ -180,7 +200,9 @@
 - ✅ `web-designer/page-template/list/list.component.ts`
 
 ### 2.7 Link Management Module (7 فایل - همه نیاز به mobile)
+
 **نیاز به Mobile:**
+
 - ✅ `link-management/accounting/list/list.component.ts`
 - ✅ `link-management/accounting-detail/list/list.component.ts`
 - ✅ `link-management/billboard/list/list.component.ts`
@@ -190,26 +212,35 @@
 - ✅ `link-management/target-billboard-log/list/list.component.ts`
 
 ### 2.8 Polling Module (2 فایل - همه نیاز به mobile)
+
 **نیاز به Mobile:**
+
 - ✅ `polling/content/list/list.component.ts`
 - ✅ `polling/vote/list/list.component.ts`
 
 ### 2.9 Ticketing Module (1 فایل - نیاز به mobile)
+
 **نیاز به Mobile:**
+
 - ✅ `ticketing/departemen/list/list.component.ts`
 
 ### 2.10 File Manager Module (1 فایل - نیاز به mobile)
+
 **نیاز به Mobile:**
+
 - ✅ `file-manager/content/list/list.component.ts`
 
 ### 2.11 Member Module (4 فایل - همه نیاز به mobile)
+
 **نیاز به Mobile:**
+
 - ✅ `member/group/list/list.component.ts`
 - ✅ `member/property-alias/list/list.component.ts`
 - ✅ `member/property-detail/list/list.component.ts`
 - ✅ `member/property-detail-group/list/list.component.ts`
 
 ### 2.12 سایر ماژول‌ها (100+ فایل)
+
 - (بقیه فایل‌ها در بررسی دقیق‌تر - شامل application, core-main, و سایر ماژول‌ها)
 
 ---
@@ -217,6 +248,7 @@
 ## Part 3: فهرست فایل‌های SCSS برای حذف (54 فایل)
 
 ### 3.1 Estate Module (22 فایل)
+
 1. `estate/category-rack/list/list.mobile.component.scss`
 2. `estate/category-zone/list/list.mobile.component.scss`
 3. `estate/data/billboard/list/list.mobile.component.scss`
@@ -240,6 +272,7 @@
 21. `estate/main/property-type-usage/list/list.mobile.component.scss`
 
 ### 3.2 SMS Module (12 فایل)
+
 22. `sms/log/api-path/list/list.mobile.component.scss`
 23. `sms/log/inbox/list/list.mobile.component.scss`
 24. `sms/log/outbox/list/list.mobile.component.scss`
@@ -258,6 +291,7 @@
 37. `sms/main/public-config/list/list.mobile.component.scss`
 
 ### 3.3 Data Provider Module (13 فایل)
+
 38. `data-provider/log/client/list/list.mobile.component.scss`
 39. `data-provider/log/plan/list/list.mobile.component.scss`
 40. `data-provider/log/source/list/list.mobile.component.scss`
@@ -276,6 +310,7 @@
 53. `data-provider/transaction/list/list.mobile.component.scss`
 
 ### 3.4 News Module (1 فایل)
+
 54. `news/category/list/list.mobile.component.scss`
 
 ---
@@ -285,6 +320,7 @@
 ### مرحله 1: بازنویسی List Mobile Components موجود (55 فایل)
 
 #### 1.1 Estate Module (24 فایل)
+
 - [x] Part 1.1.1: `estate/log/customer-order-result` ✅
 - [x] Part 1.1.2: `estate/log/property-expert-price` ✅
 - [x] Part 1.1.3: `estate/log/property-history` ✅
@@ -308,6 +344,7 @@
 - [x] Part 1.1.21: `estate/category-zone` ✅
 
 #### 1.2 SMS Module (15 فایل)
+
 - [x] Part 1.2.1: `sms/main/api-number` ✅
 - [x] Part 1.2.2: `sms/main/api-number-permission` ✅
 - [x] Part 1.2.3: `sms/main/api-path` ✅
@@ -326,6 +363,7 @@
 - [x] Part 1.2.16: `sms/log/outbox-task-scheduler` ✅
 
 #### 1.3 Data Provider Module (13 فایل)
+
 - [x] Part 1.3.1: `data-provider/main/client` ✅
 - [x] Part 1.3.2: `data-provider/main/client-application` ✅
 - [x] Part 1.3.3: `data-provider/main/client-application-permission` ✅
@@ -344,11 +382,13 @@
 - [x] Part 1.3.16: `data-provider/transaction` ✅
 
 #### 1.4 News Module (1 فایل)
+
 - [x] Part 1.4.1: `news/category` ✅
 
 ### مرحله 2: ایجاد List Mobile Components جدید (150+ فایل)
 
 #### 2.1 Transaction Assistant Module (14 فایل)
+
 - [x] Part 2.1.1: `transaction-assistant/address` ✅
 - [x] Part 2.1.2: `transaction-assistant/cart` ✅
 - [x] Part 2.1.3: `transaction-assistant/category` ✅
@@ -365,6 +405,7 @@
 - [x] Part 2.1.14: `transaction-assistant/tag` ✅
 
 #### 2.2 سایر ماژول‌ها
+
 - (در مراحل بعدی تکمیل می‌شود)
 
 ---
@@ -372,6 +413,7 @@
 ## Part 5: الگوی بازنویسی
 
 ### 5.1 الگوی HTML (بر اساس news/content/list)
+
 ```html
 <app-cms-html-list-mobile
   [optionsListInfoAreaId]="constructorInfoAreaId"
@@ -387,12 +429,13 @@
   [optionActionRowDisplayMenu]="tableRowSelect2Click"
   [optionActionRowDisplayMenuAct]="tableRowSelectActionMenuClick"
   [optionSelectRowItemTitle]="tableRowSelected?.title || tableRowSelected?.id"
-  >
+>
   <!-- ng-content slots -->
 </app-cms-html-list-mobile>
 ```
 
 ### 5.2 الگوی TypeScript
+
 ```typescript
 import { Component } from "@angular/core";
 import { BaseListComponent } from "./list.component";
@@ -410,6 +453,7 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 ```
 
 ### 5.3 اقدامات برای هر فایل:
+
 1. ✅ بازنویسی `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile`
 2. ✅ ساده‌سازی `list.mobile.component.ts` (حذف متدهای اضافی)
 3. ✅ حذف `list.mobile.component.scss` (اگر وجود دارد)
@@ -421,12 +465,14 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 ## Part 6: نتیجه‌گیری
 
 ### آمار کلی:
+
 - **تعداد List Mobile Components موجود**: 56 فایل
 - **تعداد List Mobile Components نیاز به بازنویسی**: 55 فایل (1 فایل انجام شده)
 - **تعداد فایل‌های SCSS برای حذف**: 54 فایل
 - **تعداد List Components بدون Mobile**: 150+ فایل
 
 ### اولویت‌بندی:
+
 1. **اولویت بالا**: Estate, SMS, Data Provider, News (ماژول‌های اصلی)
 2. **اولویت متوسط**: Transaction Assistant, Web Designer
 3. **اولویت پایین**: سایر ماژول‌ها
@@ -436,6 +482,7 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 ## Result 1: Plan ایجاد شد
 
 ✅ Plan کامل ایجاد شد و شامل:
+
 - فهرست کامل تمام List Mobile Components (56 فایل)
 - فهرست List Components بدون Mobile (150+ فایل)
 - فهرست فایل‌های SCSS برای حذف (54 فایل)
@@ -451,21 +498,25 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 ✅ **3 فایل انجام شد:**
 
 ### Part 1.1.1: `estate/log/customer-order-result`
+
 - ✅ بازنویسی `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile`
 - ✅ ساده‌سازی `list.mobile.component.ts` (حذف متدهای اضافی، حفظ getTitle و getRowExpanded)
 - ✅ حذف `list.mobile.component.scss`
 
 ### Part 1.1.2: `estate/log/property-expert-price`
+
 - ✅ بازنویسی `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile`
 - ✅ ساده‌سازی `list.mobile.component.ts` (حذف متدهای اضافی، حفظ getTitle و getRowExpanded)
 - ✅ حذف `list.mobile.component.scss`
 
 ### Part 1.1.3: `estate/log/property-history`
+
 - ✅ بازنویسی `list.mobile.component.html` با استفاده از `app-cms-html-list-mobile`
 - ✅ ساده‌سازی `list.mobile.component.ts` (حذف تمام متدهای اضافی، فقط getRowExpanded)
 - ✅ حذف `list.mobile.component.scss`
 
 ### آمار:
+
 - **انجام شده**: 3 فایل از 55 فایل (5.5%)
 - **باقیمانده Estate Module**: 21 فایل
 - **باقیمانده کل**: 52 فایل
@@ -475,6 +526,7 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 ## Result 3: Transaction Assistant (partial) - 2026-02-03 10:54:21
 
 ✅ Created new mobile list components using app-cms-html-list-mobile for:
+
 - transaction-assistant/address
 - transaction-assistant/cart
 - transaction-assistant/category
@@ -487,10 +539,10 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 
 ✅ Lint: no errors in touched folders.
 
-
 ## Result 4: Transaction Assistant (completed) - 2026-02-03 10:56:05
 
 ✅ Created new mobile list components using app-cms-html-list-mobile for:
+
 - transaction-assistant/rating
 - transaction-assistant/request
 - transaction-assistant/shipment
@@ -499,10 +551,10 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 
 ✅ Lint: no errors in touched folders.
 
-
 ## Result 5: Web Designer (created mobile list components) - 2026-02-03 10:59:44
 
 ✅ Created new mobile list components using app-cms-html-list-mobile for:
+
 - web-designer/intro
 - web-designer/log-member-info
 - web-designer/menu
@@ -511,10 +563,10 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 
 ✅ Lint: no errors in touched folders.
 
-
 ## Result 6: Link Management (created mobile list components) - 2026-02-03 11:02:10
 
 ✅ Created new mobile list components using app-cms-html-list-mobile for:
+
 - link-management/accounting
 - link-management/accounting-detail
 - link-management/billboard
@@ -525,19 +577,19 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 
 ✅ Lint: no errors in touched folders.
 
-
 ## Result 7: Polling (created mobile list components) - 2026-02-03 11:04:55
 
 ✅ Created new mobile list components using app-cms-html-list-mobile for:
+
 - polling/content
 - polling/vote
 
 ✅ Lint: no errors in touched folders.
 
-
 ## Result 8: Ticketing, File Manager, Member (created mobile list components) - 2026-02-03 11:08:18
 
 ✅ Created new mobile list components using app-cms-html-list-mobile for:
+
 - ticketing/departemen
 - file-manager/content
 - member/group
@@ -547,18 +599,18 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 
 ✅ Lint: no errors in touched folders.
 
-
 ## Result 9: News Comment (created mobile list component) - 2026-02-03 11:12:05
 
 ✅ Created new mobile list component using app-cms-html-list-mobile for:
+
 - news/comment
 
 ✅ Lint: no errors in touched folders.
 
-
 ## Result 10: Application Module (created mobile list components) - 2026-02-03 11:15:02
 
 ✅ Created new mobile list components using app-cms-html-list-mobile for:
+
 - application/content
 - application/intro
 - application/memberInfo
@@ -568,19 +620,19 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 
 ✅ Lint: no errors in touched folders.
 
-
 ## Result 11: Article Module (created mobile list components) - 2026-02-03 11:18:12
 
 ✅ Created new mobile list components using app-cms-html-list-mobile for:
+
 - article/comment
 - article/content
 
 ✅ Lint: no errors in touched folders.
 
-
 ## Result 12: Biography, Blog, Catalog, Chart Modules (created mobile list components) - 2026-02-03 11:19:11
 
 ✅ Created new mobile list components using app-cms-html-list-mobile for:
+
 - biography/comment
 - biography/content
 - blog/comment
@@ -591,18 +643,18 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 
 ✅ Lint: no errors in touched folders.
 
-
 ## Result 13: Contact Module (created mobile list component) - 2026-02-03 11:21:22
 
 ✅ Created new mobile list component using app-cms-html-list-mobile for:
+
 - contact/content
 
 ✅ Lint: no errors in touched folders.
 
-
 ## Result 14: Core-log Module (created mobile list components) - 2026-02-03 11:22:17
 
 ✅ Created new mobile list components using app-cms-html-list-mobile for:
+
 - core-log/avoid-duplicate
 - core-log/currency
 - core-log/email
@@ -613,10 +665,10 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 
 ✅ Lint: no errors in touched folders.
 
-
 ## Result 15: Core-main Module (created mobile list components) - 2026-02-03 11:25:19
 
 ✅ Created new mobile list components using app-cms-html-list-mobile for:
+
 - core-main/cp-main-menu
 - core-main/currency
 - core-main/device
@@ -630,10 +682,10 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 
 ✅ Lint: no errors in touched folders.
 
-
 ## Result 16: Core-module, Core-token Modules (created mobile list components) - 2026-02-03 11:28:42
 
 ✅ Created new mobile list components using app-cms-html-list-mobile for:
+
 - core-module/site-credit
 - core-module/site-user-credit
 - core-module/tag
@@ -648,10 +700,10 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 
 ✅ Lint: no errors in touched folders.
 
-
 ## Result 17: CRM, Donate, Hyper-shop Modules (created mobile list components) - 2026-02-03 11:31:56
 
 ✅ Created new mobile list components using app-cms-html-list-mobile for:
+
 - crm/main/account
 - crm/main/activity
 - crm/main/campaign
@@ -672,44 +724,44 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 
 ✅ Lint: no errors in touched folders.
 
-
 ## Result 18: Estate Module (missing mobile components) - 2026-02-03 11:40:28
 
 ✅ Created new mobile list components using app-cms-html-list-mobile for:
+
 - estate/main/account-expert-work-area
 - estate/main/account-agency-expert
 - estate/main/account-agency-work-area
 
 ✅ Lint: no errors in touched folders.
 
-
 ## Result 19: SMS Module (missing mobile component) - 2026-02-03 11:43:07
 
 ✅ Created new mobile list component using app-cms-html-list-mobile for:
+
 - sms/main/client-application-permission
 
 ✅ Lint: no errors in touched folders.
 
-
 ## Result 20: Ticketing Module (answer mobile component) - 2026-02-03 11:46:05
 
 ✅ Created new mobile list component using app-cms-html-list-mobile for:
+
 - ticketing/answer
 
 ✅ Lint: no errors in touched folders.
 
-
 ## Result 21: Ticketing Module (departemenOperator mobile component) - 2026-02-03 11:49:26
 
 ✅ Created new mobile list component using app-cms-html-list-mobile for:
+
 - ticketing/departemenOperator
 
 ✅ Lint: no errors in touched folders.
 
-
 ## Result 22: Ticketing Module (completed) - 2026-02-03 11:59:34
 
 ✅ Created new mobile list components using app-cms-html-list-mobile for:
+
 - ticketing/template
 - ticketing/task
 - ticketing/departemenLog
@@ -717,10 +769,10 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 
 ✅ Lint: no errors in touched folders.
 
-
 ## Result 23: Bank-payment Module (completed) - 2026-02-03 12:12:31
 
 ✅ Created new mobile list components using app-cms-html-list-mobile for:
+
 - bank-payment/public-config
 - bank-payment/private-site-config
 - bank-payment/transaction
@@ -728,10 +780,10 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 
 ✅ Lint: no errors in touched folders.
 
-
 ## Result 24: Api-Telegram Module (completed) - 2026-02-03 12:59:14
 
 ✅ Created new mobile list components (ts/html) using app-cms-html-list-mobile for:
+
 - api-telegram/bot-config
 - api-telegram/member-info
 - api-telegram/uploaded-file
@@ -741,10 +793,10 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 
 ✅ Lint: no errors in api-telegram.
 
-
 ## Result 25: Core-Module-Log Module (completed) - 2026-02-03 14:15:36
 
 ✅ Created new mobile list components (ts/html) using app-cms-html-list-mobile for:
+
 - core-module-log/like
 - core-module-log/score
 - core-module-log/content-count
@@ -758,10 +810,10 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 
 ✅ Lint: checking for errors...
 
-
 ## Result 26: Core-main Module (module-sale & user-claim mobile) - 2026-02-03 14:56:21
 
 ✅ Created new mobile list components (ts/html) using app-cms-html-list-mobile for:
+
 - core-main/module-sale/header
 - core-main/module-sale/header-group
 - core-main/module-sale/invoice
@@ -775,10 +827,10 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 
 ✅ Lint: (see latest run in src/app/cms-modules/core-main).
 
-
 ## Result 27: Core-module-data & Remaining Modules (mobile) - 2026-02-03 15:22:01
 
 ✅ Created new mobile list components (ts/html) using app-cms-html-list-mobile for:
+
 - core-module-data/comment
 - core-module-data/memo
 - core-module-data/pin
@@ -788,10 +840,10 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 
 ✅ Lint: no errors in touched folders.
 
-
 ## Result 28: CRM Supplier Modules (mobile) - 2026-02-03 15:29:56
 
 ✅ Created new mobile list components (ts/html) for:
+
 - crm/supplier-price-list
 - crm/supplier-rating
 
@@ -799,17 +851,17 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 
 ✅ Lint: (see latest run).
 
-
-
 ## Final Summary - 2026-02-03 15:33:02
 
 ✅ **All mobile list components have been created!**
 
 ✅ Total modules completed:
+
 - Phase 1: Refactored existing mobile components (56 files)
 - Phase 2: Created new mobile components for all remaining list components
 
 ✅ All components now use:
+
 - Standard pp-cms-html-list-mobile component
 - Inheritance from base list.component.ts classes
 - Consistent mobile UI patterns
@@ -817,10 +869,10 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 
 ✅ Note: crm/main/opportunity/stage-history is a disabled component (shows warning message), mobile version created for consistency.
 
-
 ## Result 29: Cleanup Pull-to-Refresh & Swipe Actions - 2026-02-03 15:46:02
 
 ✅ Removed leftover pull-to-refresh and swipe action code from:
+
 - sms/main/api-path-pagination
 - sms/main/public-config
 - sms/main/api-path-price-permission
@@ -828,13 +880,12 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 
 ✅ All mobile components now use standard app-cms-html-list-mobile without custom pull-to-refresh/swipe implementations.
 
-
-
 ## Final Cleanup Summary - 2026-02-03 15:49:57
 
 ✅ **All cleanup tasks completed!**
 
 ✅ Removed pull-to-refresh code from:
+
 - sms/main/api-path-pagination
 - sms/main/public-config
 - sms/main/api-path-price-permission
@@ -845,6 +896,7 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 ✅ All mobile components now use standard app-cms-html-list-mobile without custom implementations
 
 ✅ **Project Status:**
+
 - Total mobile components: 206
 - All components standardized
 - All SCSS files removed (except estate/category-rack)
@@ -856,13 +908,98 @@ export class ModuleEntityListMobileComponent extends BaseListComponent {
 ## Part 30: ارث‌بری CmsHtmlListMobileComponent از CmsHtmlListComponent - 2026-02-11
 
 ### دستورات اجرا شده:
+
 - ارث‌بری `CmsHtmlListMobileComponent` از `CmsHtmlListComponent`
 - اضافه کردن `ChangeDetectorRef` (اختیاری) به base برای پشتیبانی از OnPush
 - حذف کد تکراری از mobile component
 
 ### Result 30:
+
 - CmsHtmlListMobileComponent از CmsHtmlListComponent ارث می‌برد
 - تمام Inputها، Outputها و متدهای مشترک در base قرار گرفتند
 - متدهای اختصاصی موبایل (getActionMainButtonClasses، getActionRowButtonClasses، getIconRotationClass) در mobile حفظ شدند
 - Base component از ChangeDetectorRef اختیاری پشتیبانی می‌کند برای استفاده در فرزند OnPush
 
+---
+
+## Part 31: بازنویسی کامل تمام list.mobile.component.html - 2026-02-19
+
+### هدف:
+
+بازنویسی کامل تمام فایل‌های `list.mobile.component.html` موجود (208 فایل) طبق الگوی استاندارد `news/content/list/list.mobile.component.html`
+
+### الگوی استاندارد:
+
+- استفاده از `app-cms-html-list-mobile` با تمام Inputs و Outputs صحیح
+- ساختار کامل ng-container ها (cms-tree, cms-header, cms-action-header, cms-action-header-start, cms-action-header-end, cms-action-main, cms-action-row, cms-action-area, cms-body, cms-footer)
+- دکمه‌های استاندارد در cms-action-header-start (info, reload, maximize, minimize)
+- ساختار صحیح Mobile List View در cms-body با استفاده از `cms-m-list` و `cms-m-list-item`
+- پشتیبانی از expanded rows با `getRowExpanded(row)`
+
+### مراحل اجرا:
+
+1. ✅ اضافه کردن لیست کامل فایل‌ها به Plan
+2. ✅ حذف فایل‌های موجود و بازنویسی
+3. ✅ بازنویسی فایل‌ها طبق الگوی استاندارد
+4. ⏳ بررسی و تست
+
+### لیست کامل فایل‌های list.mobile.component.html (208 فایل):
+
+- تمام فایل‌ها در `src/app/cms-modules` (Application, API Telegram, Article, Bank Payment, Biography, Blog, Catalog, Chart, Contact, Core Log, Core Main, Core Module Data, Core Module Log, Core Module, Core Token, CRM, Data Provider, Estate, Link Management, News, SMS و سایر ماژول‌ها)
+
+---
+
+### Result 31: بازنویسی کامل تمام list.mobile.component.html - 2026-02-19
+
+**خلاصه اجرا:**
+
+- **208 فایل** `list.mobile.component.html` در `src/app/cms-modules` شناسایی و در Plan ثبت شدند.
+- تمام فایل‌های قبلی حذف و مجدد طبق الگوی استاندارد `news/content/list/list.mobile.component.html` بازنویسی شدند.
+
+**الگوی اعمال‌شده در همه فایل‌ها:**
+
+- استفاده از `<app-cms-html-list-mobile>` با Inputs و Outputs صحیح
+- ساختار کامل ng-container ها: cms-tree, cms-header, cms-action-header, cms-action-header-start, cms-action-header-end, cms-action-main, cms-action-row, cms-action-area, cms-body, cms-footer
+- دکمه‌های استاندارد در cms-action-header-start: info, reload (با rotation360), maximize, minimize
+- کلاس‌های `border-highlight` و `bg-fade-highlight-light` برای ردیف انتخاب‌شده
+- ساختار Mobile List View با `cms-m-list` و `cms-m-list-item`
+- پشتیبانی از تصویر (`linkMainImageIdSrc`) و placeholder
+- پشتیبانی از expanded rows با `getRowExpanded(row)` و بخش‌های updatedDate و کپی ID
+- `recordStatus` با `cmsRecordStatusSelfSave` در صورت استفاده
+- پارامتر `$event` برای edit/view/delete و pagination
+- **0 فایل** با layout قدیمی `cms-m-body` باقی نمانده؛ همه از `app-cms-html-list-mobile` استفاده می‌کنند.
+
+**ماژول‌های پردازش‌شده:**
+
+- Application (6), API Telegram (6), Article (2), Bank Payment (4), Biography (2), Blog (2), Catalog (1), Chart (2), Contact (1), Core Log (10 شامل micro-service-ping و micro-service-status), Core Main (25), Core Module Data (4), Core Module Log (10), Core Module (3), Core Token (8), CRM (11), Data Provider (16), Estate (25), Link Management (7), News (2), SMS (16) و سایر ماژول‌ها.
+
+---
+
+## Part 32: حذف $any و اصلاح propertyهای ناموجود در list.mobile (2026-02-19)
+
+**دستور:** در تمام `list.mobile.component.html` که مدل آن‌ها `title`، `linkMainImageIdSrc` یا `description` ندارد، از این propertyها استفاده نشود و با `$any()` کد خراب نشود؛ بلوک تصویر/توضیحات حذف یا با فیلد مناسب (مثلاً `row.id`، `descriptionFa`، `linkImageIdSrc`) جایگزین شود. همچنین رفع خطاهای `contentService` خصوصی و متدهای گم‌شده در کامپوننت‌های لیست/موبایل.
+
+### Result 32: رفع خطاهای بیلد – 2026-02-19
+
+**خلاصه اجرا:**
+
+- در ده‌ها فایل `list.mobile.component.html`: حذف/جایگزینی `row.title`، `row.linkMainImageIdSrc`، `row.description` برای مدل‌های فاقد این propertyها؛ استفاده از `row.id` برای aria-label و عنوان؛ حذف بلوک تصویر و فقط placeholder؛ در CoreGuide استفاده از `descriptionFa`؛ در CoreLocation و CoreModuleEntityReportFile استفاده از `linkImageIdSrc`.
+- Subagent برای اصلاح دسته‌جمعی بقیه قالب‌های mobile list.
+- **contentService:** در `sms/log/api-path` و `sms/log/outbox-detail` در `list.mobile.component.ts` از `private` به `public` تغییر داده شد.
+- **متدهای گم‌شده:** اضافه شدن `onActionButtonNewRow` و در صورت نیاز `onActionButtonEditRow` در: estate/log/customer-order-result، sms/log (api-path, inbox, outbox-detail, outbox-queue, outbox-task-scheduler) در list.component.ts یا list.mobile.component.ts.
+- **بیلد:** `npm run build --configuration=development` با موفقیت انجام شد (خروجی در dist/ntk-cms-web).
+
+---
+
+## Part 33: حذف type="button" از تگ a (2026-02-20)
+
+**دستور:** تگ `<a>` در HTML نمی‌تواند attribute معتبر `type="button"` داشته باشد (این attribute برای `<button>` و `<input>` است). در تمام فایل‌های HTML، `type="button"` از تگ‌های `<a>` حذف شود؛ تگ‌های `<button type="button">` دست‌نخورده بمانند.
+
+### Result 33: حذف type="button" از لینک‌ها – 2026-02-20
+
+**خلاصه اجرا:**
+
+- در تمام فایل‌های `*.html` داخل `src` سه جایگزینی اعمال شد: `<a type="button" ` → `<a `؛ `" type="button" ` → `" `؛ `" type="button">` → `">`.
+- اسکریپت Node برای پردازش دسته‌جمعی اجرا شد؛ **27 فایل** به‌روزرسانی شدند؛ یک فایل (estate/log/customer-order) قبلاً با StrReplace اصلاح شده بود.
+- **0 مورد** `<a ... type="button"` در پروژه باقی نمانده.
+- تگ‌های `<button type="button">` در فایل‌های edit/add/autocomplete و غیره بدون تغییر ماندند.

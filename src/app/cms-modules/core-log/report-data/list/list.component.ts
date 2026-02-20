@@ -48,7 +48,7 @@ export class CoreLogReportDataListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private coreEnumService: CoreEnumService,
-    private contentService: CoreLogReportDataService,
+    public contentService: CoreLogReportDataService,
     public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,

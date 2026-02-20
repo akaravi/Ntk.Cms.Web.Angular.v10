@@ -181,19 +181,9 @@
                 [attr.aria-label]="row.title || row.id"
                 tabindex="0"
               >
-                @if (row?.linkMainImageIdSrc?.length > 0) {
-                  <div class="cms-m-list-item-image">
-                    <img
-                      [src]="row.linkMainImageIdSrc | cmsthumbnail"
-                      [alt]="row.title || row.id"
-                      loading="lazy"
-                    />
-                  </div>
-                } @else {
-                  <div class="cms-m-list-item-image-placeholder">
+                <div class="cms-m-list-item-image-placeholder">
                     <i class="fa-solid fa-folder" aria-hidden="true"></i>
                   </div>
-                }
                 <div class="cms-m-list-item-content">
                   <div class="cms-m-list-item-title">
                     {{ row.title || "ID: " + row.id }}
@@ -204,12 +194,7 @@
                       {{ fieldsInfo["id"]?.fieldTitle }}: {{ row.id }}
                     </div>
                   }
-                  @if (row.description) {
-                    <div class="cms-m-list-item-description">
-                      {{ row.description }}
-                    </div>
-                  }
-                  @if (row.recordStatus !== undefined) {
+              @if (row.recordStatus !== undefined) {
                     <div class="cms-m-list-item-subtitle">
                       <i [ngClass]="row.recordStatus | statusIconClass"></i>
                       @if (dataModelResult?.access?.accessEditRow && row.id === tableRowSelected?.id) {
@@ -226,7 +211,7 @@
                   <!-- Expanded Detail (when row is expanded) -->
                   @if (getRowExpanded(row)) {
                     <div class="cms-m-list-item-expanded">
-                      @if (row?.linkMainImageIdSrc?.length > 0) {
+                      @if (row.linkMainImageIdSrc?.length > 0) {
                         <div class="cms-m-list-item-expanded-image">
                           <img
                             [src]="row.linkMainImageIdSrc | cmsthumbnail"

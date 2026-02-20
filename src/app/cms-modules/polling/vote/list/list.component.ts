@@ -53,7 +53,7 @@ export class PollingVoteListComponent
   requestOptionId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: PollingVoteService,
+    public contentService: PollingVoteService,
     private activatedRoute: ActivatedRoute,
     public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,

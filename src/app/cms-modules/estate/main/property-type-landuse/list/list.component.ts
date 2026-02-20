@@ -39,7 +39,7 @@ export class EstatePropertyTypeLanduseListComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: EstatePropertyTypeLanduseService,
+    public contentService: EstatePropertyTypeLanduseService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public cmsToastrService: CmsToastrService,
     private router: Router,

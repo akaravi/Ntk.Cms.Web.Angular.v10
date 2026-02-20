@@ -47,7 +47,7 @@ export class CoreTokenUserBadLoginListComponent
   constructorInfoAreaId = this.constructor.name;
   constructor(
     private coreEnumService: CoreEnumService,
-    private contentService: CoreTokenUserBadLoginService,
+    public contentService: CoreTokenUserBadLoginService,
     public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,

@@ -38,7 +38,7 @@ export class ApiTelegramLogInputListComponent
   requestLinkBotConfigId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: ApiTelegramLogInputService,
+    public contentService: ApiTelegramLogInputService,
     public cmsToastrService: CmsToastrService,
     private activatedRoute: ActivatedRoute,
     public tokenHelper: TokenHelper,

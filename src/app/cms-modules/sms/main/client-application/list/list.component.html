@@ -169,7 +169,7 @@
           {{ fieldsInfo["linkUserId"]?.fieldTitle }}
         </mat-header-cell>
         <mat-cell *matCellDef="let row">
-          {{ $any(row).linkUserId | cmsuserinfo | async }}
+          {{ row.linkUserId | cmsuserinfo | async }}
         </mat-cell>
       </ng-container>
       <!-- RecordStatus Column -->

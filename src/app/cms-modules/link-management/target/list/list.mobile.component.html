@@ -1,6 +1,6 @@
 <app-cms-html-list-mobile
   [optionsListInfoAreaId]="constructorInfoAreaId"
-  [optionGuideNoticeKey]="''"
+  [optionGuideNoticeKey]="'link-management.target.list'"
   [(optionActionGuideNoticeDisplay)]="viewGuideNotice"
   (optionOnActionButtonMemoRow)="onActionButtonMemoRow()"
   (optionOnActionButtonMemo)="onActionButtonMemo()"
@@ -12,7 +12,7 @@
   [optionActionRowDisplayMenu]="tableRowSelect2Click"
   [optionActionRowDisplayMenuAct]="tableRowSelectActionMenuClick"
   [optionSelectRowItemTitle]="
-    $any(tableRowSelected)?.title || tableRowSelected?.id
+    tableRowSelected?.title || tableRowSelected?.id
   "
 >
   <ng-container cms-tree></ng-container>
@@ -152,14 +152,15 @@
       <div class="cms-m-list">
         @for (row of dataModelResult.listItems; track row.id) {
           <div
-            class="cms-m-list-item"
+            class="cms-m-list-item border-highlight"
             [class.selected]="row.id === tableRowSelected?.id"
+            [class.bg-fade-highlight-light]="row.id === tableRowSelected?.id"
             (click)="onActionTableRowSelect(row, $event)"
             (rtclick)="onActionTableRowSelect(row, $event)"
             (mouseenter)="onActionTableRowMouseEnter(row)"
             (mouseleave)="onActionTableRowMouseLeave(row)"
             role="button"
-            [attr.aria-label]="$any(row).title || row.id"
+            [attr.aria-label]="row.title || row.id"
             tabindex="0"
           >
             <div class="cms-m-list-item-image-placeholder">
@@ -167,7 +168,7 @@
             </div>
             <div class="cms-m-list-item-content">
               <div class="cms-m-list-item-title">
-                {{ $any(row).title || "ID: " + row.id }}
+                {{ row.title || "ID: " + row.id }}
               </div>
 
               @if (row.recordStatus !== undefined) {

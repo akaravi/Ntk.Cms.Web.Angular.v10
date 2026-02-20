@@ -41,7 +41,7 @@ export class ApplicationLogNotificationListComponent
   requestLinkApplicationMemberId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: ApplicationLogNotificationService,
+    public contentService: ApplicationLogNotificationService,
     private activatedRoute: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     public cmsToastrService: CmsToastrService,

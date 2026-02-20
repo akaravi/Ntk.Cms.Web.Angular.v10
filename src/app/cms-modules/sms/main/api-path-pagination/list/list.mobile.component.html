@@ -5,7 +5,7 @@
 
 <app-cms-html-list-mobile
   [optionsListInfoAreaId]="constructorInfoAreaId"
-  [optionGuideNoticeKey]="''"
+  [optionGuideNoticeKey]="'sms.main.api-path-pagination.list'"
   [(optionActionGuideNoticeDisplay)]="viewGuideNotice"
   (optionOnActionButtonMemoRow)="onActionButtonMemoRow()"
   (optionOnActionButtonMemo)="onActionButtonMemo()"
@@ -225,8 +225,9 @@
               "
             >
               <div
-                class="cms-m-list-item"
+                class="cms-m-list-item border-highlight"
                 [class.selected]="row.id === tableRowSelected?.id"
+                [class.bg-fade-highlight-light]="row.id === tableRowSelected?.id"
                 (click)="onActionTableRowSelect(row, $event)"
                 (rtclick)="onActionTableRowSelect(row, $event)"
                 (mouseenter)="onActionTableRowMouseEnter(row)"

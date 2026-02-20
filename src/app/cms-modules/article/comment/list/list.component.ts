@@ -54,7 +54,7 @@ export class ArticleCommentListComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private commentService: ArticleCommentService,
+    public commentService: ArticleCommentService,
     public contentService: ArticleContentService,
     private activatedRoute: ActivatedRoute,
     public publicHelper: PublicHelper,

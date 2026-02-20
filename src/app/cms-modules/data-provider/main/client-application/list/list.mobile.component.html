@@ -1,6 +1,6 @@
 <app-cms-html-list-mobile
   [optionsListInfoAreaId]="constructorInfoAreaId"
-  [optionGuideNoticeKey]="'dataprovider.client-application.list'"
+  [optionGuideNoticeKey]="'data-provider.main.client-application.list'"
   [(optionActionGuideNoticeDisplay)]="viewGuideNotice"
   (optionOnActionButtonMemoRow)="onActionButtonMemoRow()"
   (optionOnActionButtonMemo)="onActionButtonMemo()"
@@ -165,8 +165,9 @@
       <div class="cms-m-list">
         @for (row of dataModelResult.listItems; track row.id) {
           <div
-            class="cms-m-list-item"
+            class="cms-m-list-item border-highlight"
             [class.selected]="row.id === tableRowSelected?.id"
+            [class.bg-fade-highlight-light]="row.id === tableRowSelected?.id"
             (click)="onActionTableRowSelect(row, $event)"
             (rtclick)="onActionTableRowSelect(row, $event)"
             (mouseenter)="onActionTableRowMouseEnter(row)"
@@ -175,6 +176,12 @@
             [attr.aria-label]="row.title || row.id"
             tabindex="0"
           >
+            <div class="cms-m-list-item-image-placeholder">
+              <i
+                class="fa-solid fa-mobile-screen-button"
+                aria-hidden="true"
+              ></i>
+            </div>
             <div class="cms-m-list-item-content">
               <div class="cms-m-list-item-title">
                 {{ row.title || "ID: " + row.id }}
@@ -183,13 +190,6 @@
                 <div class="cms-m-list-item-subtitle">
                   <i class="fa-solid fa-hashtag" aria-hidden="true"></i>
                   {{ fieldsInfo["id"]?.fieldTitle }}: {{ row.id }}
-                </div>
-              }
-              @if ($any(row).linkUserId) {
-                <div class="cms-m-list-item-subtitle">
-                  <i class="fa-solid fa-user" aria-hidden="true"></i>
-                  {{ fieldsInfo["linkUserId"]?.fieldTitle }}:
-                  {{ $any(row).linkUserId | cmsuserinfo | async }}
                 </div>
               }
               @if (row.linkSiteId) {
@@ -202,6 +202,7 @@
               @if (row.createdDate) {
                 <div class="cms-m-list-item-subtitle">
                   <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+                  {{ fieldsInfo["createdDate"]?.fieldTitle }}:
                   {{ row.createdDate | localeDate }}
                 </div>
               }

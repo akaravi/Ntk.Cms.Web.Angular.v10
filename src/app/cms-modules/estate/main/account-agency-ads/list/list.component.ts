@@ -43,7 +43,7 @@ export class EstateAccountAgencyAdsListComponent
   requestLinkPropertyId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: EstateAccountAgencyAdsService,
+    public contentService: EstateAccountAgencyAdsService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     private activatedRoute: ActivatedRoute,
     public cmsToastrService: CmsToastrService,

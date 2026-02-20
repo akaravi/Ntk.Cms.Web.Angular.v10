@@ -1,6 +1,6 @@
 <app-cms-html-list-mobile
   [optionsListInfoAreaId]="constructorInfoAreaId"
-  [optionGuideNoticeKey]="''"
+  [optionGuideNoticeKey]="'core-module.site-credit.list'"
   [(optionActionGuideNoticeDisplay)]="viewGuideNotice"
   (optionOnActionButtonMemoRow)="onActionButtonMemoRow()"
   (optionOnActionButtonMemo)="onActionButtonMemo()"
@@ -11,7 +11,7 @@
   [optionActionRowDisplay]="tableRowSelected?.id?.length > 0"
   [optionActionRowDisplayMenu]="tableRowSelect2Click"
   [optionActionRowDisplayMenuAct]="tableRowSelectActionMenuClick"
-  [optionSelectRowItemTitle]="($any(tableRowSelected)?.title) || tableRowSelected?.id"
+  [optionSelectRowItemTitle]="tableRowSelected?.id"
   >
   <ng-container cms-tree></ng-container>
   <ng-container cms-header></ng-container>
@@ -120,14 +120,14 @@
             (mouseenter)="onActionTableRowMouseEnter(row)"
             (mouseleave)="onActionTableRowMouseLeave(row)"
             role="button"
-            [attr.aria-label]="($any(row).title) || row.id"
+            [attr.aria-label]="row.id"
             tabindex="0"
             >
             <div class="cms-m-list-item-image-placeholder">
               <i class="fa-solid fa-wallet" aria-hidden="true"></i>
             </div>
             <div class="cms-m-list-item-content">
-              <div class="cms-m-list-item-title">{{ ($any(row).title) || ("ID: " + row.id) }}</div>
+              <div class="cms-m-list-item-title">{{ "ID: " + row.id }}</div>
 
               @if (row.recordStatus !== undefined) {
                 <div class="cms-m-list-item-subtitle">
@@ -172,7 +172,7 @@
       [pageIndex]="dataModelResult.currentPageNumber - 1"
       [pageSize]="dataModelResult.rowPerPage"
       [pageSizeOptions]="[5, 10, 20, 100]"
-      (page)="onTablePageingData()"
+      (page)="onTablePageingData($event)"
     ></mat-paginator>
   </ng-container>
 </app-cms-html-list-mobile>

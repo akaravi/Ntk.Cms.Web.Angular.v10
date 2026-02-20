@@ -48,7 +48,7 @@ export class CrmStageListComponent
   requestLinkPipelineId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: CrmStageService,
+    public contentService: CrmStageService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public cmsToastrService: CmsToastrService,
     private router: Router,

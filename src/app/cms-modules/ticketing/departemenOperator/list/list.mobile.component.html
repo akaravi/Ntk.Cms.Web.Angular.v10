@@ -170,7 +170,7 @@
                 (mouseenter)="onActionTableRowMouseEnter(row)"
                 (mouseleave)="onActionTableRowMouseLeave(row)"
                 role="button"
-                [attr.aria-label]="($any(row).title) || row.id"
+                [attr.aria-label]="row.id"
                 tabindex="0"
               >
                 <div class="cms-m-list-item-image-placeholder">
@@ -178,7 +178,7 @@
                 </div>
                 <div class="cms-m-list-item-content">
                   <div class="cms-m-list-item-title">
-                    {{ ($any(row).title) || ('ID: ' + row.id) }}
+                    {{ "ID: " + row.id }}
                   </div>
 
                   @if (row.linkSiteId) {

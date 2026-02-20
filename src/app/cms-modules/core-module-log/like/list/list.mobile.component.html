@@ -1,6 +1,6 @@
 <app-cms-html-list-mobile
   [optionsListInfoAreaId]="constructorInfoAreaId"
-  [optionGuideNoticeKey]="''"
+  [optionGuideNoticeKey]="'core-module-log.like.list'"
   [(optionActionGuideNoticeDisplay)]="viewGuideNotice"
   (optionOnActionButtonMemoRow)="onActionButtonMemoRow()"
   (optionOnActionButtonMemo)="onActionButtonMemo()"
@@ -149,8 +149,9 @@
       <div class="cms-m-list">
         @for (row of dataModelResult.listItems; track row.id) {
           <div
-            class="cms-m-list-item"
+            class="cms-m-list-item border-highlight"
             [class.selected]="row.id === tableRowSelected?.id"
+            [class.bg-fade-highlight-light]="row.id === tableRowSelected?.id"
             (click)="onActionTableRowSelect(row, $event)"
             (rtclick)="onActionTableRowSelect(row, $event)"
             (mouseenter)="onActionTableRowMouseEnter(row)"
@@ -160,11 +161,22 @@
             tabindex="0"
             >
             <div class="cms-m-list-item-image-placeholder">
-              <i class="fa-solid fa-thumbs-up" aria-hidden="true"></i>
-            </div>
+                <i class="fa-solid fa-thumbs-up" aria-hidden="true"></i>
+              </div>
             <div class="cms-m-list-item-content">
               <div class="cms-m-list-item-title">ID: {{ row.id }}</div>
-
+              @if (row.id) {
+                <div class="cms-m-list-item-subtitle">
+                  <i class="fa-solid fa-hashtag" aria-hidden="true"></i>
+                  {{ fieldsInfo["id"]?.fieldTitle }}: {{ row.id }}
+                </div>
+              }
+              @if (row.createdDate) {
+                <div class="cms-m-list-item-subtitle">
+                  <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+                  {{ fieldsInfo["createdDate"]?.fieldTitle }}: {{ row.createdDate | localeDate }}
+                </div>
+              }
               @if (row.recordStatus !== undefined) {
                 <div class="cms-m-list-item-subtitle">
                   <i [ngClass]="row.recordStatus | statusIconClass"></i>
@@ -186,7 +198,7 @@
                     <span
                       class="navi-icon pointer"
                       [cdkCopyToClipboard]="row.id.toString()"
-                      (click)="$event.stopPropagation()"
+                      (click)="onActionCopied(); $event.stopPropagation()"
                       ><i class="flaticon2-copy"></i></span>
                     ID: {{ row.id }}
                   </div>

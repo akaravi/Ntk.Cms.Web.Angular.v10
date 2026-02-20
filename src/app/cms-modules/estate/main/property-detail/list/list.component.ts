@@ -48,7 +48,7 @@ export class EstatePropertyDetailListComponent
   requestLinkPropertyTypeLanduseId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: EstatePropertyDetailService,
+    public contentService: EstatePropertyDetailService,
     private estatePropertyDetailGroupService: EstatePropertyDetailGroupService,
     private estatePropertyTypeLanduseService: EstatePropertyTypeLanduseService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,

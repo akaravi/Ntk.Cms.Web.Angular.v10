@@ -5,16 +5,16 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    CoreCurrencyModel,
-    ErrorExceptionResult,
-    FilterDataModel,
-    FilterModel,
-    RecordStatusEnum,
-    SmsLogApiPathModel,
-    SmsLogApiPathService,
-    SmsMainApiPathModel,
-    SmsMainApiPathService,
-    SortTypeEnum,
+  CoreCurrencyModel,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SmsLogApiPathModel,
+  SmsLogApiPathService,
+  SmsMainApiPathModel,
+  SmsMainApiPathService,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -37,7 +37,7 @@ export class SmsLogApiPathListMobileComponent
   requestLinkApiPathId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: SmsLogApiPathService,
+    public contentService: SmsLogApiPathService,
     private activatedRoute: ActivatedRoute,
     public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
@@ -515,5 +515,11 @@ export class SmsLogApiPathListMobileComponent
 
   onActionBackToParent(): void {
     this.router.navigate(["/sms/main/api-path"]);
+  }
+  onActionButtonNewRow(_event?: MouseEvent): void {
+    this.cmsToastrService.typeErrorAccessAdd();
+  }
+  onActionButtonEditRow(_model?: SmsLogApiPathModel): void {
+    this.cmsToastrService.typeErrorAccessEdit();
   }
 }

@@ -1,5 +1,68 @@
 # تاریخچه تغییرات پروژه
 
+## 2026-02-20 (حذف type="button" از تگ a)
+
+### خلاصه:
+
+تگ `<a>` در HTML نمی‌تواند attribute معتبر `type="button"` داشته باشد. در تمام فایل‌های HTML پروژه، `type="button"` از تگ‌های `<a>` حذف شد؛ تگ‌های `<button type="button">` دست‌نخورده ماندند.
+
+### تغییرات:
+
+- جایگزینی‌های اعمال‌شده: `<a type="button" ` → `<a `؛ `" type="button" ` → `" `؛ `" type="button">` → `">`.
+- ۲۸ فایل (از جمله estate/log/customer-order و ۲۷ فایل دیگر از ماژول‌های estate، sms و غیره) به‌روزرسانی شدند.
+- مستندسازی در `Cursor.ListMobile.plan.md` (Part 33 و Result 33).
+
+---
+
+## 2026-02-20 (حذف کامل \$any از src/app/cms-modules)
+
+### خلاصه:
+
+حذف تمام استفاده‌های `$any()` در فولدر cms-modules و جایگزینی با دسترسی مستقیم به propertyهای مدل؛ در مواردی که مدل آن property را ندارد، استفاده از فیلد جایگزین (مثل row.id) یا حذف بلوک.
+
+### تغییرات:
+
+- **optionSelectRowItemTitle / tableRowSelected:** جایگزینی `$any(tableRowSelected)?.title` با `tableRowSelected?.title || tableRowSelected?.id` یا `tableRowSelected?.id` در مدل‌های بدون title؛ در api-telegram با username جایگزینی با `tableRowSelected?.username || tableRowSelected?.id` و در مدل‌های بدون username با `tableRowSelected?.id`.
+- **row.writer:** در biography/comment و article/comment جایگزینی `$any(row).writer` با `row.writer`.
+- **row.username, row.statusWebhook:** در api-telegram (bot-config, uploaded-file, received-file, member-info, log-output, log-input) جایگزینی با دسترسی مستقیم؛ در مدل‌های بدون این فیلدها استفاده از `row.id` و حذف بلوک statusWebhook.
+- **row.linkUserId:** در sms/main/client-application و data-provider/main/client-application حذف بلوک‌های وابسته در موبایل.
+- **row.linkSiteId / row.title:** در bank-payment/private-site-config حذف بلوک linkSiteId و استفاده از row.id برای aria-label و عنوان.
+- **سایر:** application (notification, memberInfo), link-management, member, donate, crm, ticketing, polling, transaction-assistant, web-designer, core-main/currency, core-module/tag و غیره با حذف $any و در صورت نیاز با tableRowSelected?.id یا row.id.
+- بیلد `npm run build --configuration=development` با موفقیت انجام شد.
+
+---
+
+## 2026-02-19 (حذف $any و اصلاح propertyهای ناموجود در list.mobile – ادامه Plan ListMobile)
+
+### خلاصه:
+
+رفع خطاهای بیلد ناشی از استفاده از `row.title`، `row.linkMainImageIdSrc` و `row.description` در مدل‌هایی که این propertyها را ندارند؛ بدون استفاده از `$any()`. همچنین رفع خطاهای `contentService` خصوصی و متدهای گم‌شده `onActionButtonNewRow`/`onActionButtonEditRow`.
+
+### تغییرات:
+
+- **حذف/جایگزینی propertyها:** در ده‌ها فایل `list.mobile.component.html` برای مدل‌های بدون title/linkMainImageIdSrc/description: `optionSelectRowItemTitle` و aria-label و عنوان با `row.id`؛ حذف بلوک تصویر (فقط placeholder)؛ حذف بلوک `row.description`؛ در CoreGuide استفاده از `descriptionFa`؛ در CoreLocation و CoreModuleEntityReportFile استفاده از `linkImageIdSrc`.
+- **Subagent:** اصلاح دسته‌جمعی بقیه قالب‌های mobile list با الگوی یکسان.
+- **contentService:** در `sms/log/api-path` و `sms/log/outbox-detail` در `list.mobile.component.ts` از `private` به `public` تغییر داده شد.
+- **متدهای گم‌شده:** اضافه شدن `onActionButtonNewRow` و در صورت نیاز `onActionButtonEditRow` در کامپوننت‌های لیست/موبایل: estate/log/customer-order-result، sms/log (api-path, inbox, outbox-detail, outbox-queue, outbox-task-scheduler) در list.component.ts یا list.mobile.component.ts بسته به ارث‌بری از ListBaseComponent.
+- بیلد `npm run build --configuration=development` با موفقیت انجام شد.
+
+---
+
+## 2026-02-19 (بازنویسی کامل تمام list.mobile.component.html – Plan ListMobile Part 31)
+
+### خلاصه:
+
+همه فایل‌های `list.mobile.component.html` (208 فایل) که قبلاً نوشته شده بودند به Plan اضافه شدند، حذف شدند و مجدد طبق الگوی استاندارد `news/content/list/list.mobile.component.html` بازنویسی شدند.
+
+### تغییرات:
+
+- **208 فایل** در `src/app/cms-modules` حذف و با الگوی استاندارد بازنویسی شدند.
+- الگو: `<app-cms-html-list-mobile>` با ng-containerهای کامل، دکمه‌های info/reload/maximize/minimize، ساختار `cms-m-list` و `cms-m-list-item`، پشتیبانی expanded rows، `border-highlight` و `bg-fade-highlight-light`.
+- **0 فایل** با layout قدیمی `cms-m-body` باقی نمانده.
+- مستندسازی در `Cursor.ListMobile.plan.md` (Part 31 و Result 31).
+
+---
+
 ## 2026-02-19 (پایان Plan ExpandedRowFix – بیلد نهایی)
 
 بیلد نهایی `ng build --configuration=development` با موفقیت انجام شد. تمام مراحل Plan (expanded row، mobile، routes، اتصال routing) تکمیل و مستند شده‌اند.

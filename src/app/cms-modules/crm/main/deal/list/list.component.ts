@@ -52,7 +52,7 @@ export class CrmDealListComponent
   requestLinkStageId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: CrmDealService,
+    public contentService: CrmDealService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public cmsToastrService: CmsToastrService,
     private router: Router,

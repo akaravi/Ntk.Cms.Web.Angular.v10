@@ -9,21 +9,31 @@
   [optionTreeDisplay]="false"
   [optionActionRowId]="tableRowSelected?.id"
   [optionActionRowDisplayMenu]="tableRowSelect2Click"
-  [optionSelectRowItemTitle]="($any(tableRowSelected)?.title)"
-  >
+  [optionSelectRowItemTitle]="tableRowSelected?.title"
+>
   <ng-container cms-mobile-content>
     @for (row of dataModelResult?.listItems; track row.id) {
       <div class="cms-m-row" [class.cms-m-row-expanded]="getRowExpanded(row)">
-        <div class="cms-m-row-header" (click)="onActionTableRowSelect(row, $event)">
+        <div
+          class="cms-m-row-header"
+          (click)="onActionTableRowSelect(row, $event)"
+        >
           <div class="cms-m-row-main">
             <div class="cms-m-row-title">
-              <span class="cms-m-row-id">{{ ($any(row).title) || row.id }}</span>
-              <span class="cms-m-row-status" [ngClass]="row.recordStatus | statusCellClass">
+              <span class="cms-m-row-id">{{ row.title || row.id }}</span>
+              <span
+                class="cms-m-row-status"
+                [ngClass]="row.recordStatus | statusCellClass"
+              >
                 <i [ngClass]="row.recordStatus | statusIconClass"></i>
               </span>
             </div>
             <div class="cms-m-row-subtitle">
-              <span>{{ row.linkPageTemplateGuId | cmstitle: dataModelWebDesignerMainPageTemplateResult?.listItems }}</span>
+              <span>{{
+                row.linkPageTemplateGuId
+                  | cmstitle
+                    : dataModelWebDesignerMainPageTemplateResult?.listItems
+              }}</span>
             </div>
           </div>
           <div class="cms-m-row-actions">
@@ -31,48 +41,65 @@
               type="button"
               class="cms-m-action-menu"
               (click)="toggleActionMenu(row.id); $event.stopPropagation()"
-              >
+            >
               <i class="fa-solid fa-ellipsis-vertical"></i>
             </button>
           </div>
         </div>
         <div class="cms-m-row-content" *ngIf="getRowExpanded(row)">
           <div class="cms-m-row-field">
-            <label>{{ fieldsInfo['id']?.fieldTitle }}</label>
+            <label>{{ fieldsInfo["id"]?.fieldTitle }}</label>
             <span>{{ row.id }}</span>
           </div>
           <div class="cms-m-row-field">
-            <label>{{ fieldsInfo['recordStatus']?.fieldTitle }}</label>
+            <label>{{ fieldsInfo["recordStatus"]?.fieldTitle }}</label>
             <span [ngClass]="row.recordStatus | statusCellClass">
               <i [ngClass]="row.recordStatus | statusIconClass"></i>
             </span>
           </div>
           <div class="cms-m-row-field">
-            <label>{{ fieldsInfo['title']?.fieldTitle }}</label>
-            <span>{{ ($any(row).title) }}</span>
+            <label>{{ fieldsInfo["title"]?.fieldTitle }}</label>
+            <span>{{ row.title }}</span>
           </div>
           <div class="cms-m-row-field">
-            <label>{{ fieldsInfo['linkPageTemplateGuId']?.fieldTitle }}</label>
-            <span>{{ row.linkPageTemplateGuId | cmstitle: dataModelWebDesignerMainPageTemplateResult?.listItems }}</span>
+            <label>{{ fieldsInfo["linkPageTemplateGuId"]?.fieldTitle }}</label>
+            <span>{{
+              row.linkPageTemplateGuId
+                | cmstitle
+                  : dataModelWebDesignerMainPageTemplateResult?.listItems
+            }}</span>
           </div>
           <div class="cms-m-row-field">
-            <label>{{ fieldsInfo['pageDependencyIsDefaultPageLinkSiteCategoryId']?.fieldTitle }}</label>
-            <span>{{ row.pageDependencyIsDefaultPageLinkSiteCategoryId | cmstitle: dataModelCoreSiteCategoryResult?.listItems }}</span>
+            <label>{{
+              fieldsInfo["pageDependencyIsDefaultPageLinkSiteCategoryId"]
+                ?.fieldTitle
+            }}</label>
+            <span>{{
+              row.pageDependencyIsDefaultPageLinkSiteCategoryId
+                | cmstitle: dataModelCoreSiteCategoryResult?.listItems
+            }}</span>
           </div>
           <div class="cms-m-row-field">
-            <label>{{ fieldsInfo['pageDependencyIsDefaultPage']?.fieldTitle }}</label>
+            <label>{{
+              fieldsInfo["pageDependencyIsDefaultPage"]?.fieldTitle
+            }}</label>
             <span>{{ row.pageDependencyIsDefaultPage }}</span>
           </div>
           <div class="cms-m-row-field">
-            <label>{{ fieldsInfo['createdDate']?.fieldTitle }}</label>
-            <span style="direction: ltr">{{ row.createdDate | localeDateTime }}</span>
+            <label>{{ fieldsInfo["createdDate"]?.fieldTitle }}</label>
+            <span style="direction: ltr">{{
+              row.createdDate | localeDateTime
+            }}</span>
           </div>
           <div class="cms-m-row-field">
-            <label>{{ fieldsInfo['expireDate']?.fieldTitle }}</label>
+            <label>{{ fieldsInfo["expireDate"]?.fieldTitle }}</label>
             <span>{{ row.expireDate | persianDate }}</span>
           </div>
         </div>
-        <div class="cms-m-action-menu-dropdown" *ngIf="actionMenuOpen === toString(row.id)">
+        <div
+          class="cms-m-action-menu-dropdown"
+          *ngIf="actionMenuOpen === toString(row.id)"
+        >
           @if (dataModelResult?.access?.accessWatchRow) {
             <button (click)="onActionButtonViewRow(row); closeActionMenu()">
               <i class="fa-solid fa-eye"></i>
@@ -100,7 +127,11 @@
             {{ "ACTION.SHOW_PAGE" | translate }}
           </button>
           @if (row.linkPageParentGuId?.length > 0) {
-            <button (click)="onActionButtonHtmlViewWithOutParent(row); closeActionMenu()">
+            <button
+              (click)="
+                onActionButtonHtmlViewWithOutParent(row); closeActionMenu()
+              "
+            >
               <i class="fa-solid fa-page"></i>
               {{ "ACTION.DISPLAY_PAGE_WITHOUT_PARENT" | translate }}
             </button>

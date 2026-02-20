@@ -1,6 +1,6 @@
 <app-cms-html-list-mobile
   [optionsListInfoAreaId]="constructorInfoAreaId"
-  [optionGuideNoticeKey]="''"
+  [optionGuideNoticeKey]="'data-provider.log.plan.list'"
   [(optionActionGuideNoticeDisplay)]="viewGuideNotice"
   (optionOnActionButtonMemoRow)="onActionButtonMemoRow()"
   (optionOnActionButtonMemo)="onActionButtonMemo()"
@@ -129,8 +129,9 @@
           <div class="cms-m-list">
             @for (row of dataModelResult.listItems; track row.id) {
               <div
-                class="cms-m-list-item"
+                class="cms-m-list-item border-highlight"
                 [class.selected]="row.id === tableRowSelected?.id"
+                [class.bg-fade-highlight-light]="row.id === tableRowSelected?.id"
                 (click)="onActionTableRowSelect(row, $event)"
                 (rtclick)="onActionTableRowSelect(row, $event)"
                 (mouseenter)="onActionTableRowMouseEnter(row)"
@@ -140,15 +141,21 @@
                 tabindex="0"
               >
                 <div class="cms-m-list-item-image-placeholder">
-                  <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
-                </div>
+                    <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+                  </div>
                 <div class="cms-m-list-item-content">
                   <div class="cms-m-list-item-title">
                     ID: {{ row.id }}
                   </div>
+                  @if (row.id) {
+                    <div class="cms-m-list-item-subtitle">
+                      <i class="fa-solid fa-hashtag" aria-hidden="true"></i>
+                      {{ fieldsInfo["id"]?.fieldTitle }}: {{ row.id }}
+                    </div>
+                  }
                   @if (row.createdDate) {
                     <div class="cms-m-list-item-subtitle">
-                      <i class="fa-solid fa-clock" aria-hidden="true"></i>
+                      <i class="fa-solid fa-calendar" aria-hidden="true"></i>
                       {{ fieldsInfo["createdDate"]?.fieldTitle }}: {{ row.createdDate | localeDate }}
                     </div>
                   }
@@ -158,13 +165,25 @@
                       {{ fieldsInfo["linkPlanId"]?.fieldTitle }}: {{ row.linkPlanId }}
                     </div>
                   }
-                  <!-- Expanded Detail (when row is expanded) -->
+              <!-- Expanded Detail (when row is expanded) -->
                   @if (getRowExpanded(row)) {
                     <div class="cms-m-list-item-expanded">
+                      
+                      @if (row.updatedDate) {
+                        <div class="cms-m-list-item-subtitle">
+                          <i
+                            class="fa-solid fa-calendar-check"
+                            aria-hidden="true"
+                          ></i>
+                          {{ fieldsInfo["updatedDate"]?.fieldTitle }}:
+                          {{ row.updatedDate | localeDate }}
+                        </div>
+                      }
                       <div class="cms-m-list-item-subtitle">
                         <span
                           class="navi-icon pointer"
                           [cdkCopyToClipboard]="row.id.toString()"
+                          (click)="onActionCopied(); $event.stopPropagation()"
                           >
                           <i class="flaticon2-copy"></i>
                         </span>

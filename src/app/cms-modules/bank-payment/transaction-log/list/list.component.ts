@@ -42,7 +42,7 @@ export class BankPaymentTransactionLogListComponent
   requestLinkTransactionId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: BankPaymentTransactionLogService,
+    public contentService: BankPaymentTransactionLogService,
     private activatedRoute: ActivatedRoute,
     public cmsToastrService: CmsToastrService,
     private bankPaymentEnumService: BankPaymentEnumService,

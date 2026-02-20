@@ -41,7 +41,7 @@ export class EstateCategoryRackListComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: EstateCategoryRackService,
+    public contentService: EstateCategoryRackService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public cmsToastrService: CmsToastrService,
     private router: Router,

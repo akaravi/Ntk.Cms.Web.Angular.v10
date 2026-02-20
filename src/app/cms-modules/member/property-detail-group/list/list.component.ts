@@ -42,7 +42,7 @@ export class MemberPropertyDetailGroupListComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: MemberPropertyDetailGroupService,
+    public contentService: MemberPropertyDetailGroupService,
     private memberPropertyTypeService: MemberPropertyTypeService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public cmsToastrService: CmsToastrService,

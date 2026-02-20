@@ -47,7 +47,7 @@ export class CrmCampaignListComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: CrmCampaignService,
+    public contentService: CrmCampaignService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public cmsToastrService: CmsToastrService,
     private router: Router,

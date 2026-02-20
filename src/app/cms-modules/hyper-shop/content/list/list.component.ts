@@ -42,7 +42,7 @@ export class HyperShopContentListComponent
   requestPareintId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: HyperShopContentService,
+    public contentService: HyperShopContentService,
     private activatedRoute: ActivatedRoute,
     public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,

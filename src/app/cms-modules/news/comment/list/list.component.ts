@@ -55,7 +55,7 @@ export class NewsCommentListComponent
   requestContentId = 0;
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private commentService: NewsCommentService,
+    public commentService: NewsCommentService,
     public contentService: NewsContentService,
     private activatedRoute: ActivatedRoute,
     public cmsToastrService: CmsToastrService,

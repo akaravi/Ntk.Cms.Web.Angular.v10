@@ -1,6 +1,6 @@
 <app-cms-html-list-mobile
   [optionsListInfoAreaId]="constructorInfoAreaId"
-  [optionGuideNoticeKey]="''"
+  [optionGuideNoticeKey]="'sms.main.client-application-permission.list'"
   [(optionActionGuideNoticeDisplay)]="viewGuideNotice"
   (optionOnActionButtonMemoRow)="onActionButtonMemoRow()"
   (optionOnActionButtonMemo)="onActionButtonMemo()"
@@ -174,8 +174,13 @@
       <div class="cms-m-list">
         @for (row of dataModelResult.listItems; track row.id) {
           <div
-            class="cms-m-list-item"
+            class="cms-m-list-item border-highlight"
             [class.selected]="
+              row.linkApiPathId === tableRowSelected?.linkApiPathId &&
+              row.linkClientApplicationId ===
+                tableRowSelected?.linkClientApplicationId
+            "
+            [class.bg-fade-highlight-light]="
               row.linkApiPathId === tableRowSelected?.linkApiPathId &&
               row.linkClientApplicationId ===
                 tableRowSelected?.linkClientApplicationId

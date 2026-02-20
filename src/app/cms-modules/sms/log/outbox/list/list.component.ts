@@ -42,7 +42,7 @@ export class SmsLogOutBoxListComponent
   requestLinkApiNumberId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: SmsLogOutBoxService,
+    public contentService: SmsLogOutBoxService,
     private activatedRoute: ActivatedRoute,
     public cmsToastrService: CmsToastrService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,

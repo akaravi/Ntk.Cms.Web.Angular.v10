@@ -40,7 +40,7 @@ export class HyperShopCategoryListComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: HyperShopCategoryService,
+    public contentService: HyperShopCategoryService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public cmsToastrService: CmsToastrService,
     private router: Router,

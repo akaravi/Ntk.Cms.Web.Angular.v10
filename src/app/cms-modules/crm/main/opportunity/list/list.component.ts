@@ -52,7 +52,7 @@ export class CrmOpportunityListComponent
   requestLinkCampaignId = "";
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: CrmOpportunityService,
+    public contentService: CrmOpportunityService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public cmsToastrService: CmsToastrService,
     private router: Router,

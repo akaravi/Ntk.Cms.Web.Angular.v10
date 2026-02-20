@@ -29,6 +29,7 @@ import { CoreModuleSiteUserCreditChargeDirectComponent } from "../charge-direct/
 import { CoreModuleSiteUserCreditChargeOnlineComponent } from "../charge-online/charge-online.component";
 import { CoreModuleSiteUserCreditEditComponent } from "../edit/edit.component";
 
+// 
 @Component({
   selector: "app-coremodule-site-user-credit-list",
   templateUrl: "./list.component.html",

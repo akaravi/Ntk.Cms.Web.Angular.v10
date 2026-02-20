@@ -1,6 +1,6 @@
 <app-cms-html-list-mobile
   [optionsListInfoAreaId]="constructorInfoAreaId"
-  [optionGuideNoticeKey]="''"
+  [optionGuideNoticeKey]="'data-provider.main.plan-client.list'"
   [(optionActionGuideNoticeDisplay)]="viewGuideNotice"
   (optionOnActionButtonMemoRow)="onActionButtonMemoRow()"
   (optionOnActionButtonMemo)="onActionButtonMemo()"
@@ -150,8 +150,9 @@
           <div class="cms-m-list">
             @for (row of dataModelResult.listItems; track row.id) {
               <div
-                class="cms-m-list-item"
+                class="cms-m-list-item border-highlight"
                 [class.selected]="row.id === tableRowSelected?.id"
+                [class.bg-fade-highlight-light]="row.id === tableRowSelected?.id"
                 (click)="onActionTableRowSelect(row, $event)"
                 (rtclick)="onActionTableRowSelect(row, $event)"
                 (mouseenter)="onActionTableRowMouseEnter(row)"
@@ -161,12 +162,24 @@
                 tabindex="0"
               >
                 <div class="cms-m-list-item-image-placeholder">
-                  <i class="fa-solid fa-link" aria-hidden="true"></i>
-                </div>
+                    <i class="fa-solid fa-link" aria-hidden="true"></i>
+                  </div>
                 <div class="cms-m-list-item-content">
                   <div class="cms-m-list-item-title">
                     ID: {{ row.id }}
                   </div>
+                  @if (row.id) {
+                    <div class="cms-m-list-item-subtitle">
+                      <i class="fa-solid fa-hashtag" aria-hidden="true"></i>
+                      {{ fieldsInfo["id"]?.fieldTitle }}: {{ row.id }}
+                    </div>
+                  }
+                  @if (row.createdDate) {
+                    <div class="cms-m-list-item-subtitle">
+                      <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+                      {{ fieldsInfo["createdDate"]?.fieldTitle }}: {{ row.createdDate | localeDate }}
+                    </div>
+                  }
                   @if (row.expireDate) {
                     <div class="cms-m-list-item-subtitle">
                       <i class="fa-solid fa-calendar-times" aria-hidden="true"></i>
@@ -179,7 +192,7 @@
                       {{ fieldsInfo["linkSiteId"]?.fieldTitle }}: {{ row.linkSiteId | cmssiteinfo | async }}
                     </div>
                   }
-                  @if (row.recordStatus !== undefined) {
+              @if (row.recordStatus !== undefined) {
                     <div class="cms-m-list-item-subtitle">
                       <i [ngClass]="row.recordStatus | statusIconClass"></i>
                       @if (dataModelResult?.access?.accessEditRow && row.id === tableRowSelected?.id) {
@@ -188,7 +201,7 @@
                           cmsRecordStatusSelfSave
                           [contentService]="contentService"
                           [row]="row"
-                          style="background: none; border: none; margin-left: 8px;"
+                          style="background: none; border: none; margin-left: 8px"
                         ></select>
                       }
                     </div>
@@ -196,10 +209,22 @@
                   <!-- Expanded Detail (when row is expanded) -->
                   @if (getRowExpanded(row)) {
                     <div class="cms-m-list-item-expanded">
+                      
+                      @if (row.updatedDate) {
+                        <div class="cms-m-list-item-subtitle">
+                          <i
+                            class="fa-solid fa-calendar-check"
+                            aria-hidden="true"
+                          ></i>
+                          {{ fieldsInfo["updatedDate"]?.fieldTitle }}:
+                          {{ row.updatedDate | localeDate }}
+                        </div>
+                      }
                       <div class="cms-m-list-item-subtitle">
                         <span
                           class="navi-icon pointer"
                           [cdkCopyToClipboard]="row.id.toString()"
+                          (click)="onActionCopied(); $event.stopPropagation()"
                           >
                           <i class="flaticon2-copy"></i>
                         </span>

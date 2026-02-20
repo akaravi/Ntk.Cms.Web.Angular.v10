@@ -1,6 +1,6 @@
 <app-cms-html-list-mobile
   [optionsListInfoAreaId]="constructorInfoAreaId"
-  [optionGuideNoticeKey]="''"
+  [optionGuideNoticeKey]="'data-provider.main.client-application-permission.list'"
   [(optionActionGuideNoticeDisplay)]="viewGuideNotice"
   (optionOnActionButtonMemoRow)="onActionButtonMemoRow()"
   (optionOnActionButtonMemo)="onActionButtonMemo()"
@@ -151,8 +151,9 @@
           <div class="cms-m-list">
             @for (item of tableData; track item.id) {
               <div
-                class="cms-m-list-item"
+                class="cms-m-list-item border-highlight"
                 [class.selected]="tableRowSelected?.id === item.id"
+                [class.bg-fade-highlight-light]="tableRowSelected?.id === item.id"
                 (click)="onActionTableRowSelect(item, $event)"
                 (rtclick)="onActionTableRowSelect(item, $event)"
                 (mouseenter)="onActionTableRowMouseEnter(item)"
@@ -168,6 +169,12 @@
                   <div class="cms-m-list-item-title">
                     {{ item.linkClientApplicationId }} - {{ item.linkSourcePathId }}
                   </div>
+                  @if (item.id) {
+                    <div class="cms-m-list-item-subtitle">
+                      <i class="fa-solid fa-hashtag" aria-hidden="true"></i>
+                      {{ fieldsInfo["id"]?.fieldTitle }}: {{ item.id }}
+                    </div>
+                  }
                   <div class="cms-m-list-item-subtitle">
                     @if (item.isRequested) {
                       <span><i class="fa-solid fa-hourglass-half" aria-hidden="true"></i> {{ "MESSAGE.Requested" | translate }}</span>
@@ -202,6 +209,7 @@
                         <span
                           class="navi-icon pointer"
                           [cdkCopyToClipboard]="item.id?.toString()"
+                          (click)="onActionCopied(); $event.stopPropagation()"
                           >
                           <i class="flaticon2-copy"></i>
                         </span>

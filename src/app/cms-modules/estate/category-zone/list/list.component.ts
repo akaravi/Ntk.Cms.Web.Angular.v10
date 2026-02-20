@@ -40,7 +40,7 @@ export class EstateCategoryZoneListComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: EstateCategoryZoneService,
+    public contentService: EstateCategoryZoneService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public cmsToastrService: CmsToastrService,
     private router: Router,

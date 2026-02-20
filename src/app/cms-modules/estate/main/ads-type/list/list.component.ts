@@ -37,7 +37,7 @@ export class EstateAdsTypeListComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: EstateAdsTypeService,
+    public contentService: EstateAdsTypeService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public cmsToastrService: CmsToastrService,
     public tokenHelper: TokenHelper,

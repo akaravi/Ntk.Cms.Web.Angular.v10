@@ -41,7 +41,7 @@ export class TransactionAssistantOfferListComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private contentService: TransactionAssistantOfferService,
+    public contentService: TransactionAssistantOfferService,
     private cmsConfirmationDialogService: CmsConfirmationDialogService,
     public cmsToastrService: CmsToastrService,
     public tokenHelper: TokenHelper,

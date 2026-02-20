@@ -50,7 +50,7 @@ export class CrmOpportunityStageHistoryListComponent
   private subscriptions: Subscription[] = [];
 
   constructor(
-    // private contentService: CrmOpportunityStageHistoryService, // Commented: Service not available in API
+    // public contentService: CrmOpportunityStageHistoryService, // Commented: Service not available in API
     public cmsToastrService: CmsToastrService,
     public tokenHelper: TokenHelper,
     private cdr: ChangeDetectorRef,

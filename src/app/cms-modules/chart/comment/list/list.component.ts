@@ -54,7 +54,7 @@ export class ChartCommentListComponent
 {
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private commentService: ChartCommentService,
+    public commentService: ChartCommentService,
     public contentService: ChartContentService,
     private activatedRoute: ActivatedRoute,
     public cmsToastrService: CmsToastrService,
