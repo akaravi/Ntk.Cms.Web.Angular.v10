@@ -12,15 +12,15 @@
   }
 
   <div class="cms-html-list-mobile-content">
-    @if (optionsListInfoAreaId?.length > 0) {
-      <app-progress-spinner [optionsInfoAreaId]="optionsListInfoAreaId">
-      </app-progress-spinner>
-    }
-
     @if (optionHeaderDisplay) {
       <div class="cms-html-list-mobile-header">
         <ng-content select="[cms-header]"></ng-content>
         <ng-content select="[cms-action-header]"></ng-content>
+        @if (optionListTitle?.length > 0) {
+          <div class="cms-html-list-mobile-header-title">
+            <p class="mb-0 color-highlight font-600">{{ optionListTitle }}</p>
+          </div>
+        }
         <div class="cms-html-list-mobile-header-actions">
           <div class="cms-html-list-mobile-header-actions-end">
             <ng-content select="[cms-action-header-end]"></ng-content>
@@ -52,11 +52,15 @@
     @if (optionHeaderDisplay || optionActionMainDisplay) {
       <div class="cms-html-list-mobile-divider"></div>
     }
-
-    <div class="cms-html-list-mobile-body" (scroll)="onScrollBody($event)">
-      <ng-content select="[cms-body]"></ng-content>
+    <div class="loader-container">
+      @if (optionsListInfoAreaId?.length > 0) {
+        <app-progress-spinner [optionsInfoAreaId]="optionsListInfoAreaId">
+        </app-progress-spinner>
+      }
+      <div class="cms-html-list-mobile-body" (scroll)="onScrollBody($event)">
+        <ng-content select="[cms-body]"></ng-content>
+      </div>
     </div>
-
     @if (optionFooterDisplay) {
       <div class="cms-html-list-mobile-footer">
         <ng-content select="[cms-message]"></ng-content>

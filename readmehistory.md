@@ -1,5 +1,51 @@
 # تاریخچه تغییرات پروژه
 
+## 2026-02-20 (بررسی و اصلاح loader-container برای app-progress-spinner)
+
+### خلاصه:
+
+بررسی کلی پروژه برای اطمینان از اینکه هر جا `<app-progress-spinner` استفاده شده، در div والد (parent div) آن class `loader-container` وجود داشته باشد.
+
+### تغییرات:
+
+- **اصلاح `app.html`:** اضافه شدن class `loader-container` به `<div id="page">` که والد `<app-progress-spinner>` است.
+- **اصلاح `cms-html-widget.component.html`:** اضافه شدن class `loader-container` به `<mat-dialog-content>` که والد `<app-progress-spinner>` است.
+- **اصلاح `web-designer/page/list/list.component.html`:** اضافه شدن class `loader-container` به `<div Class="col-xl-12">` که والد `<app-progress-spinner>` است.
+- **بررسی کلی پروژه:** بررسی بیش از 150 فایل HTML که از `app-progress-spinner` استفاده می‌کنند. اکثر فایل‌ها قبلاً `loader-container` داشتند و فقط 3 فایل نیاز به اصلاح داشتند که اصلاح شدند.
+
+### فایل‌های تغییر یافته:
+
+- `src/app/app.html`
+- `src/app/shared/cms-html-widget/cms-html-widget.component.html`
+- `src/app/cms-modules/web-designer/page/list/list.component.html`
+
+---
+
+## 2026-02-20 (بهبود چیدمان و قالب cms-html-list-mobile)
+
+### خلاصه:
+
+بررسی و بهبود چیدمان و قالب کامپوننت `cms-html-list-mobile` برای هماهنگی بیشتر با نسخه دسکتاپ (`cms-html-list`) و بهینه‌سازی برای استفاده در موبایل.
+
+### تغییرات:
+
+- **اضافه کردن `optionListTitle` به header موبایل:** در فایل `cms-html-list-mobile.component.html` بخش نمایش عنوان لیست (`optionListTitle`) که در نسخه دسکتاپ وجود داشت اما در موبایل مفقود بود، اضافه شد. عنوان در یک div با کلاس `cms-html-list-mobile-header-title` نمایش داده می‌شود.
+- **بهبود ساختار header:** ساختار header در موبایل بهبود یافت تا با نسخه دسکتاپ هماهنگ باشد. ترتیب نمایش: ng-content برای header و action-header، سپس عنوان لیست (در صورت وجود)، و در نهایت دکمه‌های action.
+- **بهبود استایل header:** استایل `cms-html-list-mobile-header-title` به فایل SCSS اضافه شد با margin-bottom مناسب برای فاصله‌گذاری بهتر.
+- **بهبود responsive بودن منوهای modal:**
+  - اضافه شدن `min-width: 280px` برای جلوگیری از کوچک شدن بیش از حد منو
+  - اضافه شدن `position: fixed` و `transform: translate(-50%, -50%)` برای مرکز قرارگیری صحیح
+  - بهبود انیمیشن با استفاده از `scale` برای افکت بهتر
+  - در صفحه‌های کوچک (max-width: 480px) عرض منو به 95% و max-width به 320px تغییر یافت
+- **بهبود transition و animation:** استفاده از `cubic-bezier(0.4, 0, 0.2, 1)` برای transitionهای نرم‌تر و اضافه شدن افکت scale به منوهای modal.
+
+### فایل‌های تغییر یافته:
+
+- `src/app/shared/cms-html-list-mobile/cms-html-list-mobile.component.html`
+- `src/app/shared/cms-html-list-mobile/cms-html-list-mobile.component.scss`
+
+---
+
 ## 2026-02-20 (پلان بررسی نهایی list.mobile – MUST DO)
 
 ### خلاصه:
@@ -13,6 +59,8 @@
 - روش اجرای بررسی نهایی در سه مرحله: جستجو/اسکریپت برای موارد قطعی، بررسی دستی نمونه‌های پرریسک، ثبت نتیجه.
 - **وضعیت اولیه (Result 0):** ۶۰ فایل دارای optionOnScrollNearBottom؛ ۱۴۸ فایل فاقد آن (از جمله ۲ استثنا)؛ ۱۴۶ فایل نیاز به اضافه کردن بایندینگ اسکرول بی‌نهایت داشتند؛ هیچ $any در list.mobile.component.html؛ بیش از ۱۲۰ فایل از getRowExpanded استفاده می‌کنند.
 - **اجرای مرحله ۱ (Result 1):** به **۱۴۶ فایل** list.mobile.component.html بایندینگ **`(optionOnScrollNearBottom)="onActionLoadNextPage()"`** اضافه شد. دو استثنا (micro-service-ping، micro-service-status) از ابتدا بدون تغییر ماندند. سه لیست CRM (opportunity/stage-history، supplier-price-list، supplier-rating) که از ListBaseComponent ارث نمی‌برند و از app-cms-html-list-mobile استفاده نمی‌کنند، پس از خطای بیلد از بایندینگ حذف شدند. اکنون **۲۰۳ فایل** دارای اسکرول بی‌نهایت و **۵ فایل** استثنا هستند. بیلد با موفقیت انجام شد.
+- **اجرای مرحله ۲ (Result 2):** بررسی و اصلاح تصویر و expand در **۶ لیست content** (article، blog، biography، chart، catalog، polling) که هم ستون تصویر و هم expandedDetail دارند. در همهٔ آن‌ها تصویر با linkMainImageIdSrc در ردیف اصلی و در expand اضافه شد (با fallback به recordStatus)؛ فیلدهای expand (title، description، updatedDate) مطابق list.component اضافه شدند. همهٔ لیست‌های content اکنون از الگوی یکسان استفاده می‌کنند.
+- **رفع مشکل scroll-top در موبایل:** کامپوننت `scroll-top` فقط به `window:scroll` گوش می‌داد، اما در موبایل اسکرول در `cms-html-list-mobile-body` انجام می‌شود. با اضافه کردن `ngAfterViewInit` و `attachMobileScrollListeners()`، scroll-top اکنون به scroll event در تمام عناصر `.cms-html-list-mobile-body` هم گوش می‌دهد و با MutationObserver عناصر جدید را هم ردیابی می‌کند. متد `scrollToTop()` هم برای موبایل به‌روزرسانی شد تا `cms-html-list-mobile-body` را به بالا اسکرول کند. بیلد با موفقیت انجام شد.
 
 ---
 

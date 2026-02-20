@@ -23,11 +23,6 @@
         : 'col-xl-12'
     "
   >
-    @if (optionsListInfoAreaId?.length > 0) {
-      <app-progress-spinner [optionsInfoAreaId]="optionsListInfoAreaId">
-      </app-progress-spinner>
-    }
-
     <!--begin::Header-->
     <ng-content select="[cms-header]"></ng-content>
     <ng-content select="[cms-action-header]"></ng-content>
@@ -71,7 +66,11 @@
 
     <!--begin::Body-->
     <div class="card card-style mb-0 mt-0 ps-0 pe-0">
-      <div class="content mb-0 mt-0 ps-0 pe-0">
+      <div class="content mb-0 mt-0 ps-0 pe-0 loader-container">
+        @if (optionsListInfoAreaId?.length > 0) {
+          <app-progress-spinner [optionsInfoAreaId]="optionsListInfoAreaId">
+          </app-progress-spinner>
+        }
         <ng-content select="[cms-body]"></ng-content>
       </div>
     </div>

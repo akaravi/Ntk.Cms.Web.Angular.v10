@@ -387,7 +387,35 @@
 
 ---
 
-## Result 2: (پس از ادامهٔ بررسی نهایی پرکن)
+## Result 2: بررسی و اصلاح تصویر و expand در لیست‌های پرریسک (2026-02-20)
+
+- **تاریخ:** 2026-02-20
+- **اقدام:** بررسی دستی لیست‌هایی که هم ستون تصویر (linkMainImageIdSrc) و هم expandedDetail دارند.
+- **فایل‌های اصلاح‌شده:**
+  - **article/content:** اضافه شدن تصویر در ردیف اصلی (با fallback به recordStatus) و در expand؛ اضافه شدن title و description به expand.
+  - **blog/content:** همان اصلاحات article.
+  - **biography/content:** همان اصلاحات article.
+  - **chart/content:** همان اصلاحات article.
+  - **catalog/content:** تصویر در ردیف اصلی و expand قبلاً اضافه شده بود؛ title و description به expand اضافه شد.
+  - **polling/content:** اضافه شدن تصویر در ردیف اصلی و در expand؛ اضافه شدن updatedDate به expand.
+- **الگو:** همهٔ لیست‌های content (article، blog، biography، chart، catalog، polling) اکنون از الگوی یکسان استفاده می‌کنند: تصویر با linkMainImageIdSrc در صورت وجود، وگرنه recordStatus؛ expand شامل تصویر، id (با کپی)، updatedDate، title و description (در صورت وجود).
+- **نتیجه build:** بیلد با موفقیت انجام شد (exit code 0).
+
+---
+
+## Result 3: رفع مشکل scroll-top در موبایل (2026-02-20)
+
+- **تاریخ:** 2026-02-20
+- **مشکل:** کامپوننت `app-scroll-top` در حالت موبایل دیده نمی‌شد چون فقط به `window:scroll` گوش می‌داد، اما در موبایل اسکرول در `cms-html-list-mobile-body` انجام می‌شود.
+- **راه‌حل:**
+  - اضافه کردن `ngAfterViewInit` و متد `attachMobileScrollListeners()` برای گوش دادن به scroll event در تمام عناصر `.cms-html-list-mobile-body`.
+  - استفاده از `MutationObserver` برای ردیابی عناصر جدید که به DOM اضافه می‌شوند.
+  - به‌روزرسانی متد `scrollToTop()` برای موبایل: به‌جای `window.scrollTo`، از `el.scrollTo` برای تمام `cms-html-list-mobile-body` استفاده می‌شود.
+- **نتیجه build:** بیلد با موفقیت انجام شد (exit code 0).
+
+---
+
+## Result 3: (پس از ادامهٔ بررسی نهایی پرکن)
 
 - تاریخ:
 - تعداد مسیرهای بررسی‌شده:
