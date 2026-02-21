@@ -1427,6 +1427,21 @@
   border-top-color: rgba(255, 255, 255, 0.08) !important;
 }
 
+/* SMS Send Result dialogs - responsive on narrow viewport */
+@media (max-width: 768px) {
+  .sms-send-result-dialog.cdk-overlay-pane,
+  .sms-send-calculate-result-dialog.cdk-overlay-pane {
+    max-width: 100vw !important;
+    width: 100% !important;
+  }
+}
+@media (max-width: 480px) {
+  .sms-send-result-dialog.cdk-overlay-pane,
+  .sms-send-calculate-result-dialog.cdk-overlay-pane {
+    margin: 8px !important;
+  }
+}
+
 /* icon-list - cms-form-validation */
 .theme-dark .icon-list li,
 .theme-dark .icon-list li a,

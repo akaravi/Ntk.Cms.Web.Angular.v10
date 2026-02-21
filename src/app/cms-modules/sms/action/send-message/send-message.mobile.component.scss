@@ -87,6 +87,17 @@
   margin-top: var(--cms-m-spacing-sm);
 }
 
+/* دکمه‌های جهت متن (LTR/RTL) - اندازه کوچک‌تر */
+.cms-m-btn-direction {
+  min-height: 28px;
+  padding: 4px 10px;
+  font-size: var(--cms-m-font-size-xs, 12px);
+
+  i {
+    font-size: var(--cms-m-font-size-xs, 12px);
+  }
+}
+
 /* ============================================
    منوی تنظیمات (Drawer) در سمت چپ
    ============================================ */

@@ -2057,3 +2057,29 @@ app-news-content-list-mobile {
     }
   }
 }
+
+/* ============================================
+   SMS Send Result Dialogs - Responsive Panel
+   ============================================ */
+@media (max-width: 768px) {
+  .sms-send-result-dialog.cdk-overlay-pane,
+  .sms-send-calculate-result-dialog.cdk-overlay-pane {
+    max-width: 100vw !important;
+    width: 100% !important;
+  }
+
+  .sms-send-result-dialog .mat-mdc-dialog-container .mat-mdc-dialog-surface,
+  .sms-send-calculate-result-dialog .mat-mdc-dialog-container .mat-mdc-dialog-surface {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .sms-send-result-dialog.cdk-overlay-pane,
+  .sms-send-calculate-result-dialog.cdk-overlay-pane {
+    max-width: 100vw !important;
+    width: 100% !important;
+    margin: 8px !important;
+  }
+}

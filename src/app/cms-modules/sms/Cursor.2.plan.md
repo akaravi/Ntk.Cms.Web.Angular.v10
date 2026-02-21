@@ -168,3 +168,42 @@
 - UI/UX بهبود یافت با جدول، badge، loading states، و empty state
 - خطای lint گزارش نشد
 - پروژه کامل و آماده استفاده است
+
+## Part 7: رسپانسیو کردن دیالوگ‌های نتیجه ارسال پیام (موبایل)
+
+### دستورات اجرا شده
+- کامپوننت‌های `send-message-calculate-result` و `send-message-result` باید در حالت موبایل هم کاملاً رسپانسیو باشند.
+
+### تغییرات
+- **send-message-calculate-result.component.scss / send-message-result.component.scss:**
+  - افزودن `:host` با `display: block; width: 100%; max-width: 100%;`
+  - حذف `min-width: 420px` از `.send-result-dialog` و استفاده از `min-width: 0` و `width: 100%`
+  - رسپانسیو برای تبلت (max-width: 768px): گرید متا دو ستونه، جدول با اسکرول افقی و `-webkit-overflow-scrolling: touch`، دکمه بستن با حداقل 44px برای لمس
+  - رسپانسیو برای موبایل کوچک (max-width: 480px): گرید متا تک‌ستونه، فونت و padding کاهش‌یافته
+- **styles.scss:** برای viewport باریک، پنل دیالوگ‌های `sms-send-result-dialog` و `sms-send-calculate-result-dialog` با عرض 100%
+- **styles.mobile.scss:** استایل‌های مشابه برای پنل دیالوگ در موبایل با حاشیه 8px در 480px
+
+## Result 7
+
+**تاریخ:** 2026-02-21  
+**وضعیت:** تکمیل شد
+
+- هر دو کامپوننت نتیجه ارسال/محاسبه پیام در موبایل و تبلت رسپانسیو شدند.
+- دیالوگ در عرض کم به صورت full-width نمایش داده می‌شود؛ جدول گیرندگان با اسکرول افقی قابل مشاهده است.
+- دکمه بستن و هدر برای لمس بهینه شدند؛ گرید کارت‌های متا در موبایل تک‌ستونه و در تبلت دو ستونه است.
+
+## Part 8: چیدمان دکمه محاسبه در سمت چپ دکمه ارسال (موبایل)
+
+### دستورات اجرا شده
+- دکمه «محاسبه سفارش» به صورت کوچک در سمت چپ دکمه «ارسال پیام» قرار گیرد.
+
+### تغییرات
+- **send-message.mobile.component.html:** حذف بلوک جداگانه دکمه محاسبه از `cms-m-message-quick-actions`؛ قرار دادن هر دو دکمه در یک نوار با کلاس `cms-m-floating-send-bar`؛ دکمه محاسبه با کلاس `cms-m-floating-btn cms-m-floating-btn-calculate` (فقط آیکون، اندازه ثابت) در سمت چپ؛ دکمه ارسال با `cms-m-floating-btn-send` و `flex: 1` در سمت راست؛ افزودن `aria-label` برای دکمه محاسبه.
+
+## Result 8
+
+**تاریخ:** 2026-02-21  
+**وضعیت:** تکمیل شد
+
+- دکمه محاسبه به صورت کوچک (آیکون ماشین‌حساب) در سمت چپ و دکمه ارسال پیام در سمت راست در یک ردیف نمایش داده می‌شوند.
+- از کلاس‌های موجود `cms-m-floating-send-bar` و `cms-m-floating-btn-calculate` در SCSS استفاده شد.

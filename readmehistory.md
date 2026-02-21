@@ -1,5 +1,54 @@
 # تاریخچه تغییرات پروژه
 
+## 2026-02-21 (کوچک‌تر کردن دکمه‌های LTR و RTL در ارسال پیام موبایل)
+
+### خلاصه:
+دکمه‌های جهت متن (چپ/راست - LTR و RTL) در صفحه ارسال پیام موبایل کمی کوچک‌تر شدند.
+
+### تغییرات:
+- **send-message.mobile.component.html:** افزودن کلاس `cms-m-btn-direction` به دکمه‌های LTR و RTL.
+- **send-message.mobile.component.scss:** تعریف استایل `.cms-m-btn-direction` با min-height: 28px، padding: 4px 10px، font-size و آیکون 12px.
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/sms/action/send-message/send-message.mobile.component.html`
+- `src/app/cms-modules/sms/action/send-message/send-message.mobile.component.scss`
+
+---
+
+## 2026-02-21 (دکمه محاسبه کوچک در سمت چپ دکمه ارسال - ارسال پیام موبایل)
+
+### خلاصه:
+دکمه «محاسبه سفارش» در صفحه ارسال پیام موبایل به صورت کوچک (فقط آیکون) در سمت چپ دکمه «ارسال پیام» در یک ردیف قرار گرفت.
+
+### تغییرات:
+- **send-message.mobile.component.html:** حذف بلوک جداگانه دکمه محاسبه؛ قرار دادن دکمه محاسبه و دکمه ارسال در یک نوار `cms-m-floating-send-bar`؛ دکمه محاسبه با کلاس `cms-m-floating-btn-calculate` (کوچک، چپ)؛ دکمه ارسال با `cms-m-floating-btn-send` (اصلی، راست)؛ افزودن `aria-label` برای دسترسی‌پذیری.
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/sms/action/send-message/send-message.mobile.component.html`
+- `src/app/cms-modules/sms/Cursor.2.plan.md`
+
+---
+
+## 2026-02-21 (رسپانسیو دیالوگ‌های نتیجه ارسال پیام SMS در موبایل)
+
+### خلاصه:
+کامپوننت‌های `send-message-calculate-result` و `send-message-result` برای استفاده در حالت موبایل و تبلت کاملاً رسپانسیو شدند؛ در موبایل کادرها و حاشیه‌ها مشخص‌تر شدند.
+
+### تغییرات:
+- **send-message-calculate-result.component.scss / send-message-result.component.scss:** استایل `:host` و `.send-result-dialog` بدون min-width ثابت؛ رسپانسیو با media query برای 768px و 480px (گرید متا، جدول با اسکرول افقی، دکمه بستن حداقل 44px).
+- **موبایل – کادرها مشخص:** در 768px و 480px برای `.meta-card` و `.receiver-panel`: حاشیه قوی‌تر (rgba سفید 0.22 / 0.26)، پس‌زمینه و سایه؛ جداکننده هدر دیالوگ و جدول گیرندگان با border واضح‌تر؛ کل دیالوگ با border و box-shadow برای تفکیک از پس‌زمینه.
+- **styles.scss:** media query برای پنل دیالوگ‌های `sms-send-result-dialog` و `sms-send-calculate-result-dialog` با عرض 100% در viewport ≤768px.
+- **styles.mobile.scss:** استایل پنل دیالوگ برای موبایل با margin 8px در 480px.
+
+### فایل‌های تغییر یافته:
+- `src/app/cms-modules/sms/action/send-message/send-message-calculate-result/send-message-calculate-result.component.scss`
+- `src/app/cms-modules/sms/action/send-message/send-message-result/send-message-result.component.scss`
+- `src/styles.scss`
+- `src/styles.mobile.scss`
+- `src/app/cms-modules/sms/Cursor.2.plan.md`
+
+---
+
 ## 2026-02-21 (ارث‌بری همه list.mobile از list.component)
 
 ### خلاصه:
