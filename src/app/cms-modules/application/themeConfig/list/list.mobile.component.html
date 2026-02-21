@@ -37,6 +37,16 @@
   </ng-container>
   <ng-container cms-action-header-start>
     <!--begin:::::::::::::::::::::::::::::::::::::::::cms-action-header-start-->
+    @if (requestLinkSourceId > 0) {
+      <a
+        type="button"
+        class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+        (click)="onActionBackToParent()"
+        target="_blank"
+      >
+        <i class="fa-solid fa-arrow-left font-18" style="color: #ffffff"></i>
+      </a>
+    }
     <a
       type="button"
       class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
@@ -183,7 +193,10 @@
             tabindex="0"
           >
             <div class="cms-m-list-item-image-placeholder">
-              <i [ngClass]="row.recordStatus | statusIconClass" aria-hidden="true"></i>
+              <i
+                [ngClass]="row.recordStatus | statusIconClass"
+                aria-hidden="true"
+              ></i>
             </div>
             <div class="cms-m-list-item-content">
               <div class="cms-m-list-item-title">
@@ -221,7 +234,6 @@
               <!-- Expanded Detail (when row is expanded) -->
               @if (getRowExpanded(row)) {
                 <div class="cms-m-list-item-expanded">
-                  
                   @if (row.updatedDate) {
                     <div class="cms-m-list-item-subtitle">
                       <i

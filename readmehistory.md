@@ -1,5 +1,134 @@
 # تاریخچه تغییرات پروژه
 
+## 2026-02-21 (ارث‌بری همه list.mobile از list.component)
+
+### خلاصه:
+
+تمام کامپوننت‌های موبایل لیست که هنوز از `ListBaseComponent` ارث می‌بردند، به ارث‌بری از کامپوننت دسکتاپ (list.component) همان ماژول تغییر کردند تا تکرار کد حذف شود.
+
+### تغییرات:
+
+- **۱۷ فایل list.mobile.component.ts** در مسیرهای زیر از `ListBaseComponent` به کلاس متناظر **list.component** تغییر کردند:
+  - **SMS:** public-config، message-content، api-path، api-path-price-permission، api-path-permission، api-path-company، api-number، api-number-permission؛ log/outbox، log/outbox-task-scheduler، log/outbox-queue، log/outbox-detail، log/inbox، log/api-path.
+  - **Estate:** category-rack (با حفظ متدهای مخصوص موبایل: onActionButtonEditFolderOrder، onActionButtonEditFolderProperty، onActionClickRackDoor، onActionButtonmenu/close/check).
+  - **Data-provider:** main/source-path.
+- در هر فایل فقط اعضای مخصوص موبایل باقی ماندند: Pull-to-Refresh و Swipe (در صورت استفاده در قالب)، منوی اکشن (actionMenuOpen، toggleActionMenu، closeActionMenu)، getRowExpanded، onDocumentClick، toString؛ و در public-config متد onActionCopied؛ در estate/category-rack متدها و وضعیت مرتبط با rack و folder.
+
+### فایل‌های تغییر یافته:
+
+- `src/app/cms-modules/sms/main/public-config/list/list.mobile.component.ts`
+- `src/app/cms-modules/sms/main/message-content/list/list.mobile.component.ts`
+- `src/app/cms-modules/sms/main/api-path/list/list.mobile.component.ts`
+- `src/app/cms-modules/sms/main/api-path-price-permission/list/list.mobile.component.ts`
+- `src/app/cms-modules/sms/main/api-path-permission/list/list.mobile.component.ts`
+- `src/app/cms-modules/sms/main/api-path-company/list/list.mobile.component.ts`
+- `src/app/cms-modules/sms/main/api-number/list/list.mobile.component.ts`
+- `src/app/cms-modules/sms/main/api-number-permission/list/list.mobile.component.ts`
+- `src/app/cms-modules/sms/log/outbox/list/list.mobile.component.ts`
+- `src/app/cms-modules/sms/log/outbox-task-scheduler/list/list.mobile.component.ts`
+- `src/app/cms-modules/sms/log/outbox-queue/list/list.mobile.component.ts`
+- `src/app/cms-modules/sms/log/outbox-detail/list/list.mobile.component.ts`
+- `src/app/cms-modules/sms/log/inbox/list/list.mobile.component.ts`
+- `src/app/cms-modules/sms/log/api-path/list/list.mobile.component.ts`
+- `src/app/cms-modules/estate/category-rack/list/list.mobile.component.ts`
+- `src/app/cms-modules/data-provider/main/source-path/list/list.mobile.component.ts`
+
+---
+
+## 2026-02-21 (ارث‌بری list.mobile از list در sms/api-path-pagination)
+
+### خلاصه:
+
+کامپوننت موبایل لیست pagination مسیر API پیامک از کامپوننت دسکتاپ (list) ارث‌بری می‌کند تا از تکرار کد جلوگیری شود و منطق مشترک در یک جا نگه‌داری شود.
+
+### تغییرات:
+
+- **sms/main/api-path-pagination/list/list.mobile.component.ts:**
+  - کلاس از `ListBaseComponent` به `SmsMainApiPathPaginationListComponent` تغییر کرد (ارث‌بری از list.component).
+  - تمام منطق و پراپرتی‌های تکراری (constructor، ngOnInit، DataGetAll، اکشن‌های دکمه‌ها، فیلترها، و غیره) حذف شد.
+  - فقط اعضای مخصوص موبایل نگه‌داری شد: Pull-to-Refresh (pullToRefreshState، onTouchStart/Move/End)، Swipe (swipeState، onItemTouchStart/Move/End)، منوی اکشن (actionMenuOpen، toggleActionMenu، closeActionMenu)، و getRowExpanded/onDocumentClick/toString.
+
+### فایل‌های تغییر یافته:
+
+- `src/app/cms-modules/sms/main/api-path-pagination/list/list.mobile.component.ts`
+
+---
+
+## 2026-02-21 (ایجاد Plan تطابق دکمه‌های list با list.mobile)
+
+### خلاصه:
+
+ایجاد یک **Plan** برای اطمینان از اینکه تمام دکمه‌های موجود در هر فایل `list.component.html` در فایل متناظر `list.mobile.component.html` همان ماژول نیز کدنویسی شده‌اند و هیچ موردی فراموش نشده است.
+
+### تغییرات:
+
+- ایجاد فایل **`Cursor.ListButtonsSync.plan.md`** با:
+  - تعریف «دکمه/اکشن» (خروجی‌های optionOnAction، دکمه‌های header-start/header-end، action-main، action-row، و دکمه‌های داخل expand).
+  - چک‌لیست اجباری (B1–B6) برای هر جفت list/list.mobile.
+  - روش اجرای مرحله‌ای: استخراج اکشن‌ها از list، مقایسه با list.mobile، اصلاح نقص‌ها، خطایابی.
+  - فهرست کامل ۲۰۸ مسیر برای بررسی سیستماتیک.
+  - الگوی مرجع news/content و اشاره به bank-payment/private-site-config برای دکمه‌های خاص ماژول.
+  - بخش Result 0 (وضعیت اولیه) و Result 1 (برای ثبت پس از اجرای ممیزی).
+
+### فایل‌های ایجاد/تغییر یافته:
+
+- `Cursor.ListButtonsSync.plan.md` (جدید)
+
+---
+
+## 2026-02-21 (اجرای Plan ListButtonsSync – اضافه کردن دکمه‌های گم‌شده به list.mobile)
+
+### خلاصه:
+
+طبق **Cursor.ListButtonsSync.plan.md** دکمه‌هایی که در `list.component.html` بودند ولی در `list.mobile.component.html` همان ماژول نبودند، به موبایل اضافه شدند.
+
+### تغییرات:
+
+- **polling/content/list/list.mobile.component.html:** دکمهٔ `onActionButtonResults()` در cms-action-main (با شرط tableRowSelected)؛ دکمهٔ `onActionButtonResults(tableRowSelected)` در cms-action-row.
+- **link-management/target/list/list.mobile.component.html:** دکمهٔ `onActionButtonLog()` در cms-action-main با ACTION.REPORTS؛ دکمه‌های `onActionButtonLog(tableRowSelected)` و `onActionButtonLinkTo(tableRowSelected)` در cms-action-row با ACTION.LOG و TITLE.LINKTO.
+- **link-management/target-billboard-log/list/list.mobile.component.html:** دکمهٔ `onActionBackToParent()` در cms-action-header-start (با شرط requestLinkManagementBillboardId/requestLinkManagementTargetId)؛ دکمه‌های `onActionButtonViewRowLinkTargetId` و `onActionButtonViewRowLinkbillboardId` در cms-action-row با ACTION.BANNER و ACTION.BILLBOARD.
+- **sms/main/api-path-pagination/list/list.mobile.component.html:** دکمهٔ `onActionButtonCopyRow(tableRowSelected)` در cms-action-row با ACTION.COPY.
+- به‌روزرسانی **Result 1** در `Cursor.ListButtonsSync.plan.md`.
+
+### فایل‌های تغییر یافته:
+
+- `src/app/cms-modules/polling/content/list/list.mobile.component.html`
+- `src/app/cms-modules/link-management/target/list/list.mobile.component.html`
+- `src/app/cms-modules/link-management/target-billboard-log/list/list.mobile.component.html`
+- `src/app/cms-modules/sms/main/api-path-pagination/list/list.mobile.component.html`
+- `Cursor.ListButtonsSync.plan.md`
+
+---
+
+## 2026-02-21 (ادامه Plan ListButtonsSync – اضافه کردن دکمهٔ BackToParent به list.mobile)
+
+### خلاصه:
+
+طبق **Cursor.ListButtonsSync.plan.md** دکمهٔ «بازگشت به والد» (`onActionBackToParent()`) در **cms-action-header-start** برای مسیرهایی که در list وجود داشت و در list.mobile نبود، اضافه شد.
+
+### تغییرات:
+
+- اضافه شدن BackToParent با شرط متناظر list در: sms/main/api-path-permission، sms/log/outbox-detail، sms/log/api-path، sms/main/api-path، sms/main/api-number، sms/main/api-number-permission، sms/log/inbox، hyper-shop/content، ticketing/departemenLog، news/comment، application/memberInfo.
+- به‌روزرسانی **Result 2** در `Cursor.ListButtonsSync.plan.md`.
+
+### فایل‌های تغییر یافته:
+
+- یازده فایل list.mobile.component.html در مسیرهای بالا؛ `Cursor.ListButtonsSync.plan.md`.
+
+---
+
+## 2026-02-21 (ادامه Plan ListButtonsSync – Result 3، دکمهٔ BackToParent در ۱۳ مسیر دیگر)
+
+### خلاصه:
+
+اضافه شدن دکمهٔ «بازگشت به والد» به ۱۳ فایل list.mobile.component.html دیگر: chart/comment، polling/vote، core-token/auth-user، core-token/auth-user-log، core-main/device، blog/comment، web-designer/intro، biography/comment، article/comment، core-log/sms، api-telegram/log-input، api-telegram/log-output، application/themeConfig (با شرط‌های مشابه list در هر ماژول).
+
+### فایل‌های تغییر یافته:
+
+- سیزده فایل list.mobile.component.html در مسیرهای بالا؛ `Cursor.ListButtonsSync.plan.md` (Result 3).
+
+---
+
 ## 2026-02-20 (بررسی و اصلاح loader-container برای app-progress-spinner)
 
 ### خلاصه:
