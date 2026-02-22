@@ -71,7 +71,7 @@ export class TicketingTaskListComponent
     };
 
     /*filter Sort*/
-    this.filteModelContent.sortColumn = "id";
+    this.filteModelContent.sortColumn = "updatedDate";
     this.filteModelContent.sortType = SortTypeEnum.Descending;
   }
 
@@ -93,7 +93,6 @@ export class TicketingTaskListComponent
     "linkMemberId",
     "createdDate",
     "updatedDate",
-    "expireDate",
     "TicketStatus",
     // 'Action'
   ];
@@ -102,7 +101,6 @@ export class TicketingTaskListComponent
     "linkMemberId",
     "createdDate",
     "updatedDate",
-    "expireDate",
     "TicketStatus",
     // 'Action'
   ];
