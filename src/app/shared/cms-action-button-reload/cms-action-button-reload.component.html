@@ -10,7 +10,7 @@
     margin: 0px;
   "
   [style.bottom]="this.publicHelper.isMobile ? ' 120px' : ' 80px'"
-  >
+>
   <div class="row">
     <div class="col-12">
       @if (optionBottomVisible) {
@@ -18,7 +18,7 @@
           (click)="onActionButtonReloadClick()"
           class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight jump"
           title="{{ 'ACTION.RELOAD' | translate }}"
-          >
+        >
           <strong class="color-black font-400">{{
             "ACTION.RELOAD" | translate
           }}</strong>
@@ -28,9 +28,9 @@
         (click)="onActionButtonReloadClick()"
         title="{{ 'ACTION.RELOAD' | translate }}"
         class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-        >
+      >
         <i
-          class="fa fa-rotate-right font-18"
+          class="fa-solid fa-rotate-right font-18"
           style="color: #ffffff"
           [class.rotation360]="publicHelper.processService.process.inRunAll"
         ></i>

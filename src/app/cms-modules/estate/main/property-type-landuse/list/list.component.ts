@@ -5,12 +5,12 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    EstatePropertyTypeLanduseModel,
-    EstatePropertyTypeLanduseService,
-    FilterDataModel,
-    FilterModel,
-    RecordStatusEnum,
-    SortTypeEnum,
+  EstatePropertyTypeLanduseModel,
+  EstatePropertyTypeLanduseService,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -341,6 +341,7 @@ export class EstatePropertyTypeLanduseListComponent
   }
   onActionButtonContentDetailList(
     model: EstatePropertyTypeLanduseModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id?.length > 0)) {
       this.translate
@@ -352,13 +353,21 @@ export class EstatePropertyTypeLanduseListComponent
     }
     this.onActionTableRowSelect(model);
 
-    this.router.navigate([
-      "/estate/main/property-detail/LinkPropertyTypeLanduseId/",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/estate/main/property-detail/LinkPropertyTypeLanduseId/" +
+        this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/estate/main/property-detail/LinkPropertyTypeLanduseId/",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
   onActionButtonContentList(
     model: EstatePropertyTypeLanduseModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id?.length > 0)) {
       this.translate
@@ -370,10 +379,17 @@ export class EstatePropertyTypeLanduseListComponent
     }
     this.onActionTableRowSelect(model);
 
-    this.router.navigate([
-      "/estate/data/property/LinkPropertyTypeLanduseId/",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/estate/data/property/LinkPropertyTypeLanduseId/" +
+        this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/estate/data/property/LinkPropertyTypeLanduseId/",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
   onActionButtonStatist(view = !this.optionsStatist.data.show): void {
     this.optionsStatist.data.show = view;

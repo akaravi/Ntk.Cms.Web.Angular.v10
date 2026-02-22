@@ -4,7 +4,7 @@
   <div class="menu-title">
     <p class="color-highlight">نتیجه تراکنش</p>
     <a class="close-menu" (click)="onFormCancel()"
-      ><i class="fa fa-times-circle"></i
+      ><i class="fa-solid fa-times-circle"></i
     ></a>
     <hr />
   </div>
@@ -22,14 +22,12 @@
     </div>
     <div
       class="ntk-cms-html-card-body ntk-allow-text-selection loader-container"
-      >
+    >
       <app-progress-spinner [optionsInfoAreaId]="constructor.name">
       </app-progress-spinner>
       <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
       @if (dataModelResult.item && dataModelResult.item.id > 0) {
-        <div
-          class="table"
-          >
+        <div class="table">
           <div class="tr">
             <div class="td">{{ "TITLE.Transaction_ID" | translate }}</div>
             <div class="td">{{ dataModelResult.item.id }}</div>
@@ -42,19 +40,20 @@
             <div class="td">
               @if (
                 dataModelResult.item.transactionStatus === TransactionSuccessful
-                ) {
-                <div
-                  >
+              ) {
+                <div>
                   <span
                     class="svg-icon svg-icon-3x svg-icon-primary"
-                    [inlineSVG]="'assets/media/svg/icons/General/Shield-check.svg'"
+                    [inlineSVG]="
+                      'assets/media/svg/icons/General/Shield-check.svg'
+                    "
                   ></span>
                   <br />
                 </div>
               }
               {{
-              dataModelResult.item.transactionStatus
-              | enums: dataModelEnumTransactionRecordStatusResult.listItems
+                dataModelResult.item.transactionStatus
+                  | enums: dataModelEnumTransactionRecordStatusResult.listItems
               }}
             </div>
             <div style="clear: both"></div>
@@ -84,7 +83,7 @@
           type="button"
           (click)="onFormCancel()"
           class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-          >
+        >
           <i class="ft-x"></i> {{ "ACTION.BACK" | translate }}
         </button>
       </div>

@@ -5,12 +5,12 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    EstatePropertyTypeUsageModel,
-    EstatePropertyTypeUsageService,
-    FilterDataModel,
-    FilterModel,
-    RecordStatusEnum,
-    SortTypeEnum,
+  EstatePropertyTypeUsageModel,
+  EstatePropertyTypeUsageService,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -415,6 +415,7 @@ export class EstatePropertyTypeUsageListComponent
 
   onActionButtonContentDetailList(
     model: EstatePropertyTypeUsageModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id?.length > 0)) {
       this.translate
@@ -426,9 +427,16 @@ export class EstatePropertyTypeUsageListComponent
     }
     this.onActionTableRowSelect(model);
 
-    this.router.navigate([
-      "/estate/data/property/LinkPropertyTypeUsageId/",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/estate/data/property/LinkPropertyTypeUsageId/" +
+        this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/estate/data/property/LinkPropertyTypeUsageId/",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
 }

@@ -4,7 +4,7 @@
   <div class="menu-title">
     <p class="color-highlight">{{ formInfo.formTitle }}</p>
     <a class="close-menu" (click)="onFormCancel()"
-      ><i class="fa fa-times-circle"></i
+      ><i class="fa-solid fa-times-circle"></i
     ></a>
     <hr />
   </div>
@@ -19,7 +19,7 @@
           type="button"
           (click)="onActionAdd()"
           class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
-          >
+        >
           {{ "ACTION.ADD" | translate }}
         </button>
       }
@@ -27,7 +27,7 @@
     <div
       class="ntk-cms-html-card-body ntk-allow-text-selection"
       class="theme-rtl"
-      >
+    >
       @if (!showFormAdd) {
         <table class="table table-hover">
           <thead>
@@ -40,7 +40,11 @@
             </tr>
           </thead>
           <tbody>
-            @for (item of dataModelResult.listItems; track item; let i = $index) {
+            @for (
+              item of dataModelResult.listItems;
+              track item;
+              let i = $index
+            ) {
               <tr class="myDIV">
                 <th scope="row">{{ i + 1 }}</th>
                 <td>{{ item.createdBy | cmsuserinfo | async }}</td>
@@ -54,62 +58,63 @@
                       aria-hidden="false"
                       style="color: red"
                       >delete</mat-icon
-                      >
-                    </small>
-                  </td>
-                </tr>
-                <tr class="hide">
-                  <td></td>
-                </tr>
-              }
-            </tbody>
-          </table>
-        }
-        <app-cms-form-result-message
-          [formInfo]="formInfo"
-        ></app-cms-form-result-message>
-        @if (showFormAdd) {
-          <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
-            <div class="ntk-cms-html-card-body ntk-allow-text-selection">
-              <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
-              <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
-            </div>
-            <div class="ntk-cms-html-card-message">
-              <!--begin:::::::::::::::::::::::::::::::::::::::::cms-message -->
-              <app-cms-form-result-message
-                [formInfo]="formInfo"
-              ></app-cms-form-result-message>
-              <!--end:::::::::::::::::::::::::::::::::::::::::cms-message -->
-            </div>
-            <br />
-            @if (formInfo.submitButtonEnabled) {
-              <div class="form-actions">
-                @if (showFormAdd) {
-                  <button
-                    type="submit"
-                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
-                    [disabled]="!vform.form.valid"
                     >
-                    <i class="fa fa-check-square-o"></i> {{ "ACTION.SAVE" | translate }}
-                  </button>
-                }
-                <button
-                  type="button"
-                  (click)="onFormCancel()"
-                  class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-                  >
-                  <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
-                </button>
-              </div>
+                  </small>
+                </td>
+              </tr>
+              <tr class="hide">
+                <td></td>
+              </tr>
             }
-          </form>
-        }
-      </div>
-      <div class="ntk-cms-html-card-footer">
-        <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
-
-        <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
-      </div>
-      <!--Content-->
+          </tbody>
+        </table>
+      }
+      <app-cms-form-result-message
+        [formInfo]="formInfo"
+      ></app-cms-form-result-message>
+      @if (showFormAdd) {
+        <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
+          <div class="ntk-cms-html-card-body ntk-allow-text-selection">
+            <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
+            <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
+          </div>
+          <div class="ntk-cms-html-card-message">
+            <!--begin:::::::::::::::::::::::::::::::::::::::::cms-message -->
+            <app-cms-form-result-message
+              [formInfo]="formInfo"
+            ></app-cms-form-result-message>
+            <!--end:::::::::::::::::::::::::::::::::::::::::cms-message -->
+          </div>
+          <br />
+          @if (formInfo.submitButtonEnabled) {
+            <div class="form-actions">
+              @if (showFormAdd) {
+                <button
+                  type="submit"
+                  class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
+                  [disabled]="!vform.form.valid"
+                >
+                  <i class="fa-solid fa-square-check"></i>
+                  {{ "ACTION.SAVE" | translate }}
+                </button>
+              }
+              <button
+                type="button"
+                (click)="onFormCancel()"
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+              >
+                <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
+              </button>
+            </div>
+          }
+        </form>
+      }
     </div>
+    <div class="ntk-cms-html-card-footer">
+      <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
+
+      <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
+    </div>
+    <!--Content-->
   </div>
+</div>

@@ -245,6 +245,18 @@
                         </span>
                         ID: {{ row.id }}
                       </div>
+                      @if (row.htmlBody) {
+                        <div class="cms-m-list-item-subtitle">
+                          <strong>{{
+                            fieldsInfo["htmlBody"]?.fieldTitle ||
+                              ("TICKETING.ANSWER_BODY" | translate)
+                          }}:</strong>
+                          <div
+                            class="ntk-html-content cms-m-list-item-answer"
+                            [innerHTML]="row.htmlBody | safeHtml"
+                          ></div>
+                        </div>
+                      }
                     </div>
                   }
                 </div>

@@ -5,16 +5,16 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    ErrorExceptionResult,
-    FilterDataModel,
-    FilterModel,
-    InfoEnumModel,
-    RecordStatusEnum,
-    SortTypeEnum,
-    TicketingDepartemenModel,
-    TicketingEnumService,
-    TicketingTaskModel,
-    TicketingTaskService,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterModel,
+  InfoEnumModel,
+  RecordStatusEnum,
+  SortTypeEnum,
+  TicketingDepartemenModel,
+  TicketingEnumService,
+  TicketingTaskModel,
+  TicketingTaskService,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -93,6 +93,7 @@ export class TicketingTaskListComponent
     "linkMemberId",
     "createdDate",
     "updatedDate",
+    "expireDate",
     "TicketStatus",
     // 'Action'
   ];
@@ -101,6 +102,7 @@ export class TicketingTaskListComponent
     "linkMemberId",
     "createdDate",
     "updatedDate",
+    "expireDate",
     "TicketStatus",
     // 'Action'
   ];
@@ -361,8 +363,29 @@ export class TicketingTaskListComponent
       }
     });
   }
+  /**
+   * با کلیک روی ردیف تیکت، کاربر به صفحه ticketing (لیست پاسخ‌ها با هدر تسک) هدایت می‌شود.
+   * در صورت عدم دسترسی یا ردیف نامعتبر، فقط انتخاب ردیف انجام می‌شود.
+   * Ctrl+Click: باز شدن در تب جدید.
+   */
+  onActionTaskRowClick(row: TicketingTaskModel, event?: MouseEvent): void {
+    if (event) event.preventDefault();
+    if (row?.id > 0 && this.dataModelResult?.access?.accessWatchRow) {
+      this.tableRowSelected = row;
+      if (event?.ctrlKey) {
+        const link = "/#/ticketing/answer/LinkTaskId/" + row.id;
+        window.open(link, "_blank");
+      } else {
+        this.router.navigate(["/ticketing/answer/LinkTaskId/", row.id]);
+      }
+      return;
+    }
+    this.onActionTableRowSelect(row, event);
+  }
+
   onActionButtonAnswerList(
     mode: TicketingTaskModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!mode || !mode.id || mode.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -377,11 +400,15 @@ export class TicketingTaskListComponent
       this.cmsToastrService.typeErrorAccessWatch();
       return;
     }
-
-    this.router.navigate([
-      "/ticketing/answer/LinkTaskId/",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link = "/#/ticketing/answer/LinkTaskId/" + this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/ticketing/answer/LinkTaskId/",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
   onActionButtonDeleteRow(
     mode: TicketingTaskModel = this.tableRowSelected,

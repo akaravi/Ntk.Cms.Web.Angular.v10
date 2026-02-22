@@ -5,15 +5,15 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    FilterDataModel,
-    LinkManagementBillboardFilterModel,
-    LinkManagementBillboardModel,
-    LinkManagementBillboardPatternModel,
-    LinkManagementBillboardService,
-    LinkManagementCategoryModel,
-    LinkManagementTargetFilterModel,
-    RecordStatusEnum,
-    SortTypeEnum,
+  FilterDataModel,
+  LinkManagementBillboardFilterModel,
+  LinkManagementBillboardModel,
+  LinkManagementBillboardPatternModel,
+  LinkManagementBillboardService,
+  LinkManagementCategoryModel,
+  LinkManagementTargetFilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -294,7 +294,7 @@ export class LinkManagementBillboardListComponent
 
     this.DataGetAll();
   }
-  onActionButtonNewRow(): void {
+  onActionButtonNewRow(event?: MouseEvent): void {
     if (
       this.categoryPatternModelSelected == null ||
       this.categoryPatternModelSelected.id === 0
@@ -314,14 +314,22 @@ export class LinkManagementBillboardListComponent
       this.cmsToastrService.typeErrorAccessAdd();
       return;
     }
-    this.router.navigate([
-      "/linkmanagement/billboard/add",
-      this.categoryPatternModelSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/linkmanagement/billboard/add/" +
+        this.categoryPatternModelSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/linkmanagement/billboard/add",
+        this.categoryPatternModelSelected.id,
+      ]);
+    }
   }
 
   onActionButtonEditRow(
     model: LinkManagementBillboardModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -336,10 +344,16 @@ export class LinkManagementBillboardListComponent
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
-    this.router.navigate([
-      "/linkmanagement/billboard/edit",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/linkmanagement/billboard/edit/" + this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/linkmanagement/billboard/edit",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
   onActionButtonDeleteRow(
     model: LinkManagementBillboardModel = this.tableRowSelected,
@@ -496,6 +510,7 @@ export class LinkManagementBillboardListComponent
 
   onActionButtonLog(
     model: LinkManagementBillboardModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id > 0)) {
       this.translate
@@ -505,9 +520,16 @@ export class LinkManagementBillboardListComponent
         });
       return;
     }
-    this.router.navigate([
-      "/linkmanagement/target-billboard-log/LinkManagementBillboardId",
-      model.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/linkmanagement/target-billboard-log/LinkManagementBillboardId/" +
+        model.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/linkmanagement/target-billboard-log/LinkManagementBillboardId",
+        model.id,
+      ]);
+    }
   }
 }

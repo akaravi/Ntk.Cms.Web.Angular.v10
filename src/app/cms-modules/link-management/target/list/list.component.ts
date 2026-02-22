@@ -5,14 +5,14 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    FilterDataModel,
-    LinkManagementBillboardPatternModel,
-    LinkManagementCategoryModel,
-    LinkManagementTargetFilterModel,
-    LinkManagementTargetModel,
-    LinkManagementTargetService,
-    RecordStatusEnum,
-    SortTypeEnum,
+  FilterDataModel,
+  LinkManagementBillboardPatternModel,
+  LinkManagementCategoryModel,
+  LinkManagementTargetFilterModel,
+  LinkManagementTargetModel,
+  LinkManagementTargetService,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -257,7 +257,7 @@ export class LinkManagementTargetListComponent
 
     this.DataGetAll();
   }
-  onActionButtonNewRow(): void {
+  onActionButtonNewRow(event?: MouseEvent): void {
     if (
       this.categoryPatternModelSelected == null ||
       this.categoryPatternModelSelected.id === 0
@@ -277,14 +277,21 @@ export class LinkManagementTargetListComponent
       this.cmsToastrService.typeErrorAccessAdd();
       return;
     }
-    this.router.navigate([
-      "/linkmanagement/target/add",
-      this.categoryPatternModelSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/linkmanagement/target/add/" + this.categoryPatternModelSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/linkmanagement/target/add",
+        this.categoryPatternModelSelected.id,
+      ]);
+    }
   }
 
   onActionButtonEditRow(
     model: LinkManagementTargetModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -299,10 +306,15 @@ export class LinkManagementTargetListComponent
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
-    this.router.navigate([
-      "/linkmanagement/target/edit",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link = "/#/linkmanagement/target/edit/" + this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/linkmanagement/target/edit",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
 
   onActionButtonDeleteRow(
@@ -517,6 +529,7 @@ export class LinkManagementTargetListComponent
 
   onActionButtonLog(
     model: LinkManagementTargetModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id > 0)) {
       this.translate
@@ -526,9 +539,16 @@ export class LinkManagementTargetListComponent
         });
       return;
     }
-    this.router.navigate([
-      "/linkmanagement/target-billboard-log/LinkManagementTargetId",
-      model.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/linkmanagement/target-billboard-log/LinkManagementTargetId/" +
+        model.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/linkmanagement/target-billboard-log/LinkManagementTargetId",
+        model.id,
+      ]);
+    }
   }
 }

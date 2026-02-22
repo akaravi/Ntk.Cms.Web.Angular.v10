@@ -200,7 +200,7 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let row">
           @if (row.isApproved === null) {
-            <i class="fa fa-question-circle text-warning"></i>
+            <i class="fa-solid fa-circle-question text-warning"></i>
           } @else {
             <i [ngClass]="row.isApproved | boolclass"></i>
           }
@@ -316,7 +316,7 @@
                   <td>
                     {{ fieldsInfo["isApproved"]?.fieldTitle }} :
                     @if (row.isApproved === null) {
-                      <i class="fa fa-question-circle text-warning"></i>
+                      <i class="fa-solid fa-circle-question text-warning"></i>
                     } @else {
                       <i [ngClass]="row.isApproved | boolclass"></i>
                     }

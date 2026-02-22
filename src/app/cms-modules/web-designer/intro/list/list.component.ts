@@ -5,12 +5,12 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    FilterDataModel,
-    FilterModel,
-    RecordStatusEnum,
-    SortTypeEnum,
-    WebDesignerMainIntroModel,
-    WebDesignerMainIntroService,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
+  WebDesignerMainIntroModel,
+  WebDesignerMainIntroService,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -214,7 +214,7 @@ export class WebDesignerMainIntroListComponent
     this.filteModelContent.rowPerPage = event.pageSize;
     this.DataGetAll();
   }
-  onActionButtonNewRow(): void {
+  onActionButtonNewRow(event?: MouseEvent): void {
     if (
       this.dataModelResult == null ||
       this.dataModelResult.access == null ||
@@ -223,14 +223,26 @@ export class WebDesignerMainIntroListComponent
       this.cmsToastrService.typeErrorAccessAdd();
       return;
     }
-    if (this.requestLinkPageId > 0) {
-      this.router.navigate(["/webdesigner/intro/add/", this.requestLinkPageId]);
+    if (event?.ctrlKey) {
+      const link =
+        this.requestLinkPageId > 0
+          ? "/#/webdesigner/intro/add/" + this.requestLinkPageId
+          : "/#/webdesigner/intro/add/";
+      window.open(link, "_blank");
     } else {
-      this.router.navigate(["/webdesigner/intro/add/"]);
+      if (this.requestLinkPageId > 0) {
+        this.router.navigate([
+          "/webdesigner/intro/add/",
+          this.requestLinkPageId,
+        ]);
+      } else {
+        this.router.navigate(["/webdesigner/intro/add/"]);
+      }
     }
   }
   onActionButtonEditRow(
     model: WebDesignerMainIntroModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -245,10 +257,15 @@ export class WebDesignerMainIntroListComponent
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
-    this.router.navigate([
-      "/webdesigner/intro/edit/",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link = "/#/webdesigner/intro/edit/" + this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/webdesigner/intro/edit/",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
   onActionButtonDeleteRow(
     model: WebDesignerMainIntroModel = this.tableRowSelected,

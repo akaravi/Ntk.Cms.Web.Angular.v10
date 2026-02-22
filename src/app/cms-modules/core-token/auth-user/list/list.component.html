@@ -137,7 +137,7 @@
     @if (tableRowSelected?.linkSiteId > 0) {
       <div class="col-4">
         <a
-          (click)="onActionButtonViewSiteRow(tableRowSelected)"
+          (click)="onActionButtonViewSiteRow(tableRowSelected, $event)"
           class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
           target="_blank"
           ><i class="fa-solid fa-globe font-18" style="color: #ffffff"></i
@@ -151,7 +151,7 @@
     @if (tableRowSelected?.linkUserId > 0) {
       <div class="col-4">
         <a
-          (click)="onActionButtonViewUserRow(tableRowSelected)"
+          (click)="onActionButtonViewUserRow(tableRowSelected, $event)"
           class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
           target="_blank"
           ><i class="fa-solid fa-user font-18" style="color: #ffffff"></i><br />
@@ -165,7 +165,7 @@
     @if (tableRowSelected?.deviceClientMAC?.length > 0) {
       <div class="col-4">
         <a
-          (click)="onActionButtonViewDeviceRow(tableRowSelected)"
+          (click)="onActionButtonViewDeviceRow(tableRowSelected, $event)"
           class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
           target="_blank"
           ><i class="fa-solid fa-mobile font-18" style="color: #ffffff"></i

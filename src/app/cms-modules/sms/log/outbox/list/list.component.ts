@@ -5,16 +5,16 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    CoreCurrencyModel,
-    ErrorExceptionResult,
-    FilterDataModel,
-    FilterModel,
-    RecordStatusEnum,
-    SmsLogOutBoxModel,
-    SmsLogOutBoxService,
-    SmsMainApiPathModel,
-    SmsMainApiPathService,
-    SortTypeEnum,
+  CoreCurrencyModel,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SmsLogOutBoxModel,
+  SmsLogOutBoxService,
+  SmsMainApiPathModel,
+  SmsMainApiPathService,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -336,6 +336,7 @@ export class SmsLogOutBoxListComponent
 
   onActionButtonDetailRow(
     model: SmsLogOutBoxModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -346,10 +347,16 @@ export class SmsLogOutBoxListComponent
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
-    this.router.navigate([
-      "/sms/log/outbox-detail/LinkOutBoxId",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/sms/log/outbox-detail/LinkOutBoxId/" + this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/sms/log/outbox-detail/LinkOutBoxId",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
 
   onActionButtonDeleteRow(
@@ -507,6 +514,7 @@ export class SmsLogOutBoxListComponent
 
   onActionButtonPriceServicesList(
     model: SmsLogOutBoxModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id?.length > 0)) {
       this.translate
@@ -526,10 +534,17 @@ export class SmsLogOutBoxListComponent
       this.cmsToastrService.typeErrorSelected();
       return;
     }
-    this.router.navigate([
-      "/sms/main/api-path-pagination/LinkApiPathId",
-      this.tableRowSelected.linkApiPathId,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/sms/main/api-path-pagination/LinkApiPathId/" +
+        this.tableRowSelected.linkApiPathId;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/sms/main/api-path-pagination/LinkApiPathId",
+        this.tableRowSelected.linkApiPathId,
+      ]);
+    }
   }
 
   onActionButtonReload(): void {

@@ -1,5 +1,6 @@
 import { Routes } from "@angular/router";
 import { NewsCategoryListMobileComponent } from "./category/list/list.mobile.component";
+import { NewsCommentListMobileComponent } from "./comment/list/list.mobile.component";
 import { NewsContentAddMobileComponent } from "./content/add/add.mobile.component";
 import { NewsContentEditComponent } from "./content/edit/edit.component";
 import { NewsContentListMobileComponent } from "./content/list/list.mobile.component";
@@ -40,6 +41,16 @@ export const routesMobile: Routes = [
         path: "category",
         component: NewsCategoryListMobileComponent,
         data: { title: "ROUTE.NEWS.CATEGORY" },
+      },
+      {
+        path: "comment",
+        component: NewsCommentListMobileComponent,
+        data: { title: "ROUTE.NEWS.COMMENT" },
+      },
+      {
+        path: "comment/:ContentId",
+        component: NewsCommentListMobileComponent,
+        data: { title: "ROUTE.NEWS.COMMENT" },
       },
       {
         path: "config",

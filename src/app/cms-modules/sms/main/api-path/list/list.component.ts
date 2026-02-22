@@ -6,20 +6,20 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    ActionGoStepEnum,
-    CoreCurrencyModel,
-    EditStepDtoModel,
-    ErrorExceptionResult,
-    FilterDataModel,
-    FilterModel,
-    RecordStatusEnum,
-    SmsMainApiPathCompanyModel,
-    SmsMainApiPathCompanyService,
-    SmsMainApiPathModel,
-    SmsMainApiPathPublicConfigModel,
-    SmsMainApiPathPublicConfigService,
-    SmsMainApiPathService,
-    SortTypeEnum,
+  ActionGoStepEnum,
+  CoreCurrencyModel,
+  EditStepDtoModel,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SmsMainApiPathCompanyModel,
+  SmsMainApiPathCompanyService,
+  SmsMainApiPathModel,
+  SmsMainApiPathPublicConfigModel,
+  SmsMainApiPathPublicConfigService,
+  SmsMainApiPathService,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -378,6 +378,7 @@ export class SmsMainApiPathListComponent
 
   onActionButtonEditRow(
     model: SmsMainApiPathModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -392,7 +393,15 @@ export class SmsMainApiPathListComponent
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
-    this.router.navigate(["/sms/main/api-path/edit", this.tableRowSelected.id]);
+    if (event?.ctrlKey) {
+      const link = "/#/sms/main/api-path/edit/" + this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/sms/main/api-path/edit",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
   onActionButtonDeleteRow(
     model: SmsMainApiPathModel = this.tableRowSelected,

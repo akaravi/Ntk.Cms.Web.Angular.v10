@@ -5,15 +5,15 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    ErrorExceptionResult,
-    FilterDataModel,
-    FilterModel,
-    MemberPropertyDetailGroupModel,
-    MemberPropertyDetailGroupService,
-    MemberPropertyTypeModel,
-    MemberPropertyTypeService,
-    RecordStatusEnum,
-    SortTypeEnum,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterModel,
+  MemberPropertyDetailGroupModel,
+  MemberPropertyDetailGroupService,
+  MemberPropertyTypeModel,
+  MemberPropertyTypeService,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -353,6 +353,7 @@ export class MemberPropertyDetailGroupListComponent
   }
   onActionButtonContentList(
     model: MemberPropertyDetailGroupModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id > 0)) {
       this.translate
@@ -363,11 +364,17 @@ export class MemberPropertyDetailGroupListComponent
       return;
     }
     this.onActionTableRowSelect(model);
-
-    this.router.navigate([
-      "/hypershop/content/PareintId/",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      window.open(
+        "/#/hypershop/content/PareintId/" + this.tableRowSelected.id,
+        "_blank",
+      );
+    } else {
+      this.router.navigate([
+        "/hypershop/content/PareintId/",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
 
   onActionButtonStatist(view = !this.optionsStatist.data.show): void {

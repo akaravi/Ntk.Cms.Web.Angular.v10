@@ -5,15 +5,15 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    CoreSiteModel,
-    CoreTokenMicroServiceModel,
-    CoreTokenMicroServiceService,
-    ErrorExceptionResult,
-    FilterDataModel,
-    FilterModel,
-    InfoEnumModel,
-    RecordStatusEnum,
-    SortTypeEnum,
+  CoreSiteModel,
+  CoreTokenMicroServiceModel,
+  CoreTokenMicroServiceService,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterModel,
+  InfoEnumModel,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -559,6 +559,7 @@ export class CoreTokenMicroServiceListComponent
 
   onActionButtonViewUserRow(
     model: CoreTokenMicroServiceModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -576,11 +577,22 @@ export class CoreTokenMicroServiceListComponent
         });
       return;
     }
-    this.router.navigate(["/core/user/edit", this.tableRowSelected.linkUserId]);
+    if (event?.ctrlKey) {
+      window.open(
+        "/#/core/user/edit/" + this.tableRowSelected.linkUserId,
+        "_blank",
+      );
+    } else {
+      this.router.navigate([
+        "/core/user/edit",
+        this.tableRowSelected.linkUserId,
+      ]);
+    }
   }
 
   onActionButtonViewSiteRow(
     model: CoreTokenMicroServiceModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -598,7 +610,17 @@ export class CoreTokenMicroServiceListComponent
         });
       return;
     }
-    this.router.navigate(["/core/site/edit", this.tableRowSelected.linkSiteId]);
+    if (event?.ctrlKey) {
+      window.open(
+        "/#/core/site/edit/" + this.tableRowSelected.linkSiteId,
+        "_blank",
+      );
+    } else {
+      this.router.navigate([
+        "/core/site/edit",
+        this.tableRowSelected.linkSiteId,
+      ]);
+    }
   }
 
   onActionButtonReload(): void {

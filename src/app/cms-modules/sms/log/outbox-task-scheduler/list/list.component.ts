@@ -489,6 +489,7 @@ export class SmsLogOutBoxTaskSchedulerListComponent
   }
   onActionButtonSupersedesList(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id?.length > 0)) {
       this.translate
@@ -508,13 +509,21 @@ export class SmsLogOutBoxTaskSchedulerListComponent
       this.cmsToastrService.typeErrorSelected();
       return;
     }
-    this.router.navigate([
-      "/bankpayment/privatesiteconfig/LinkPrivateConfigId",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/bankpayment/privatesiteconfig/LinkPrivateConfigId/" +
+        this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/bankpayment/privatesiteconfig/LinkPrivateConfigId",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
   onActionButtonMustSupersedesList(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id?.length > 0)) {
       this.translate
@@ -534,13 +543,21 @@ export class SmsLogOutBoxTaskSchedulerListComponent
       this.cmsToastrService.typeErrorSelected();
       return;
     }
-    this.router.navigate([
-      "/bankpayment/privatesiteconfig/LinkPrivateConfigId",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/bankpayment/privatesiteconfig/LinkPrivateConfigId/" +
+        this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/bankpayment/privatesiteconfig/LinkPrivateConfigId",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
   onActionButtonNumbersList(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id?.length > 0)) {
       this.translate
@@ -560,13 +577,21 @@ export class SmsLogOutBoxTaskSchedulerListComponent
       this.cmsToastrService.typeErrorSelected();
       return;
     }
-    this.router.navigate([
-      "/bankpayment/privatesiteconfig/LinkPrivateConfigId",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/bankpayment/privatesiteconfig/LinkPrivateConfigId/" +
+        this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/bankpayment/privatesiteconfig/LinkPrivateConfigId",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
   onActionButtonPermitionList(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id?.length > 0)) {
       this.translate
@@ -586,13 +611,21 @@ export class SmsLogOutBoxTaskSchedulerListComponent
       this.cmsToastrService.typeErrorSelected();
       return;
     }
-    this.router.navigate([
-      "/sms/main/api-path-permission/LinkApiPathId",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/sms/main/api-path-permission/LinkApiPathId/" +
+        this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/sms/main/api-path-permission/LinkApiPathId",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
   onActionButtonPriceServicesList(
     model: SmsLogOutBoxTaskSchedulerModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id?.length > 0)) {
       this.translate
@@ -612,10 +645,17 @@ export class SmsLogOutBoxTaskSchedulerListComponent
       this.cmsToastrService.typeErrorSelected();
       return;
     }
-    this.router.navigate([
-      "/sms/main/api-path-pagination/LinkApiPathId",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/sms/main/api-path-pagination/LinkApiPathId/" +
+        this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/sms/main/api-path-pagination/LinkApiPathId",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
 
   onActionButtonReload(): void {

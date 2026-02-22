@@ -5,12 +5,12 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    FilterDataModel,
-    FilterModel,
-    HyperShopCategoryModel,
-    HyperShopCategoryService,
-    RecordStatusEnum,
-    SortTypeEnum,
+  FilterDataModel,
+  FilterModel,
+  HyperShopCategoryModel,
+  HyperShopCategoryService,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -339,6 +339,7 @@ export class HyperShopCategoryListComponent
   }
   onActionButtonContentList(
     model: HyperShopCategoryModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!model || !model.code || model.code.length === 0) {
       this.translate
@@ -349,11 +350,16 @@ export class HyperShopCategoryListComponent
       return;
     }
     this.onActionTableRowSelect(model);
-
-    this.router.navigate([
-      "/hypershop/content/PareintId/",
-      this.tableRowSelected.code,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/hypershop/content/PareintId/" + this.tableRowSelected.code;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/hypershop/content/PareintId/",
+        this.tableRowSelected.code,
+      ]);
+    }
   }
 
   onActionButtonStatist(view = !this.optionsStatist.data.show): void {

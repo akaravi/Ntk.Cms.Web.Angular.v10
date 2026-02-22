@@ -4,7 +4,7 @@
   <div class="menu-title">
     <p class="color-highlight">{{ formInfo.formTitle }}</p>
     <a class="close-menu" (click)="onFormCancel()"
-      ><i class="fa fa-times-circle"></i
+      ><i class="fa-solid fa-times-circle"></i
     ></a>
     <hr />
   </div>
@@ -56,7 +56,7 @@
         <!-- SubjectTitle Field -->
         <div
           class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-          >
+        >
           <label for="dataModel.subjectTitle" class="color-highlight">{{
             "TITLE.subjectTitle" | translate
           }}</label>
@@ -69,58 +69,59 @@
             class="form-control validate-name"
             placeholder="{{ 'TITLE.subjectTitle' | translate }}"
             required
-            />
-          </div>
-          <!-- Priority Field -->
-          <div
-            class="input-style has-borders input-style-always-active validate-field no-icon mb-4"
-            >
-            <select
-              id="dataModel.minLive"
-              [(ngModel)]="dataModel.minLive"
-              name="dataModel.minLive"
-              #Priority="ngModel"
-              class="form-control validate-name"
+          />
+        </div>
+        <!-- Priority Field -->
+        <div
+          class="input-style has-borders input-style-always-active validate-field no-icon mb-4"
+        >
+          <select
+            id="dataModel.minLive"
+            [(ngModel)]="dataModel.minLive"
+            name="dataModel.minLive"
+            #Priority="ngModel"
+            class="form-control validate-name"
+          >
+            @for (number of numbers; track number) {
+              <option [value]="number">
+                {{ number }}
+              </option>
+            }
+          </select>
+          <em>{{ "MESSAGE.Enter_Time_Duration_In_Minutes" | translate }}</em>
+        </div>
+        @if (formInfo.submitButtonEnabled) {
+          <div class="form-actions">
+            @if (showFormAdd) {
+              <button
+                type="submit"
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
+                [disabled]="!vform.form.valid"
               >
-              @for (number of numbers; track number) {
-                <option [value]="number">
-                  {{ number }}
-                </option>
-              }
-            </select>
-            <em>{{ "MESSAGE.Enter_Time_Duration_In_Minutes" | translate }}</em>
-          </div>
-          @if (formInfo.submitButtonEnabled) {
-            <div class="form-actions">
-              @if (showFormAdd) {
-                <button
-                  type="submit"
-                  class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
-                  [disabled]="!vform.form.valid"
-                  >
-                  <i class="fa fa-check-square-o"></i> {{ "ACTION.SAVE" | translate }}
-                </button>
-              }
-              @if (!showFormAdd) {
-                <button
-                  type="button"
-                  class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
-                  (click)="onActionAdd()"
-                  >
-                  {{ "ACTION.SHOW_KEY" | translate }}
-                </button>
-              }
+                <i class="fa-solid fa-square-check"></i>
+                {{ "ACTION.SAVE" | translate }}
+              </button>
+            }
+            @if (!showFormAdd) {
               <button
                 type="button"
-                (click)="onFormCancel()"
-                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-                >
-                <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
+                (click)="onActionAdd()"
+              >
+                {{ "ACTION.SHOW_KEY" | translate }}
               </button>
-            </div>
-          }
-        </form>
-      }
-      <!--Content-->
-    </div>
+            }
+            <button
+              type="button"
+              (click)="onFormCancel()"
+              class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+            >
+              <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
+            </button>
+          </div>
+        }
+      </form>
+    }
+    <!--Content-->
   </div>
+</div>

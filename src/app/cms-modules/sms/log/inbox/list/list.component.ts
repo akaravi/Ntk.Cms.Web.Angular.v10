@@ -487,6 +487,7 @@ export class SmsLogInBoxListComponent
 
   onActionButtonSendMessage(
     model: SmsLogInBoxModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id?.length > 0)) {
       this.translate
@@ -506,16 +507,20 @@ export class SmsLogInBoxListComponent
       this.cmsToastrService.typeErrorSelected();
       return;
     }
-    const navigationExtras: NavigationExtras = {
-      state: {
-        LinkApiPathId: model.linkPrivateConfigId,
-        LinkNumberId: model.linkApiNumberId,
-        ReceiverNumber: model.senderNumber,
-        SenderNumber: model.receiverNumber,
-        Message: model.message,
-      },
-    };
-    this.router.navigate(["/sms/action/send-message"], navigationExtras);
+    if (event?.ctrlKey) {
+      window.open("/#/sms/action/send-message", "_blank");
+    } else {
+      const navigationExtras: NavigationExtras = {
+        state: {
+          LinkApiPathId: model.linkPrivateConfigId,
+          LinkNumberId: model.linkApiNumberId,
+          ReceiverNumber: model.senderNumber,
+          SenderNumber: model.receiverNumber,
+          Message: model.message,
+        },
+      };
+      this.router.navigate(["/sms/action/send-message"], navigationExtras);
+    }
   }
   onActionButtonReload(): void {
     this.DataGetAll();

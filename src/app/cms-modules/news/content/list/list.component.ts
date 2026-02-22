@@ -615,6 +615,25 @@ export class NewsContentListComponent
     this.DataGetAll();
   }
 
+  onActionButtonComment(
+    model: NewsContentModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
+    if (!(model?.id > 0)) {
+      this.translate
+        .get("MESSAGE.No_row_selected_for_editing")
+        .subscribe((str: string) => {
+          this.cmsToastrService.typeErrorSelected(str);
+        });
+      return;
+    }
+    if (event?.ctrlKey) {
+      this.link = "/#/news/comment/" + model.id;
+      window.open(this.link, "_blank");
+    } else {
+      this.router.navigate(["/news/comment/", model.id]);
+    }
+  }
   onActionButtonLinkTo(model: NewsContentModel = this.tableRowSelected): void {
     if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();

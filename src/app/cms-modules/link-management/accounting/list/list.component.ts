@@ -5,12 +5,12 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    FilterDataModel,
-    FilterModel,
-    LinkManagementAccountingModel,
-    LinkManagementAccountingService,
-    RecordStatusEnum,
-    SortTypeEnum,
+  FilterDataModel,
+  FilterModel,
+  LinkManagementAccountingModel,
+  LinkManagementAccountingService,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -373,6 +373,7 @@ export class LinkManagementAccountingListComponent
 
   onActionButtonAccountingDetail(
     model: LinkManagementAccountingModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id > 0)) {
       this.translate
@@ -383,9 +384,16 @@ export class LinkManagementAccountingListComponent
       return;
     }
     this.onActionTableRowSelect(model);
-    this.router.navigate([
-      "/linkmanagement/accountingdetail/LinkManagementAccountingId",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/linkmanagement/accountingdetail/LinkManagementAccountingId/" +
+        this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/linkmanagement/accountingdetail/LinkManagementAccountingId",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
 }

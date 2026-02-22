@@ -5,14 +5,14 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    ApplicationSourceModel,
-    ClauseTypeEnum,
-    FilterDataModel,
-    FilterModel,
-    RecordStatusEnum,
-    SortTypeEnum,
-    TicketingDepartemenLogModel,
-    TicketingDepartemenLogService,
+  ApplicationSourceModel,
+  ClauseTypeEnum,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
+  TicketingDepartemenLogModel,
+  TicketingDepartemenLogService,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -255,6 +255,7 @@ export class TicketingDepartemenLogListComponent
   }
   onActionButtonEditRow(
     mode: TicketingDepartemenLogModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!mode || !mode.id || mode.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -269,11 +270,19 @@ export class TicketingDepartemenLogListComponent
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
-
-    this.router.navigate(["/application/app/edit/", this.tableRowSelected.id]);
+    if (event?.ctrlKey) {
+      const link = "/#/application/app/edit/" + this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/application/app/edit/",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
   onActionButtonDeleteRow(
     mode: TicketingDepartemenLogModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (mode == null || !mode.id || mode.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -288,11 +297,15 @@ export class TicketingDepartemenLogListComponent
       this.cmsToastrService.typeErrorAccessDelete();
       return;
     }
-
-    this.router.navigate([
-      "/application/app/delete/",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link = "/#/application/app/delete/" + this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/application/app/delete/",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
   onActionButtonStatist(view = !this.optionsStatist.data.show): void {
     this.optionsStatist.data.show = view;

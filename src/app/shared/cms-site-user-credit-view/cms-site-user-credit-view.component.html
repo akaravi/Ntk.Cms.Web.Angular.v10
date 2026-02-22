@@ -4,7 +4,7 @@
   <div class="menu-title">
     <p class="color-highlight">{{ formInfo.formTitle }}</p>
     <a class="close-menu" (click)="onFormCancel()"
-      ><i class="fa fa-times-circle"></i
+      ><i class="fa-solid fa-times-circle"></i
     ></a>
     <hr />
   </div>
@@ -40,23 +40,24 @@
               type="button"
               (click)="onFormCancel()"
               class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-              >
+            >
               <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
             </button>
             <button
               type="submit"
               class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
               [disabled]="!vform.form.valid"
-              >
-              <i class="fa fa-check-square-o"></i> {{ "ACTION.SAVE" | translate }}
+            >
+              <i class="fa-solid fa-square-check"></i>
+              {{ "ACTION.SAVE" | translate }}
             </button>
             <button
               type="button"
               (click)="onFormActionCreditCharge()"
               class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
               [disabled]="!vform.form.valid"
-              >
-              <i class="fa fa-check-square-o"></i>
+            >
+              <i class="fa-solid fa-square-check"></i>
               {{ "ACTION.CREDIT_CHARGE" | translate }}
             </button>
           </div>

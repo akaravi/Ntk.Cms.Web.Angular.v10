@@ -5,12 +5,12 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    FilterDataModel,
-    FilterModel,
-    RecordStatusEnum,
-    SortTypeEnum,
-    TicketingDepartemenModel,
-    TicketingDepartemenService,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
+  TicketingDepartemenModel,
+  TicketingDepartemenService,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -295,6 +295,7 @@ export class TicketingDepartemenListComponent
   }
   onActionButtonFaqList(
     model: TicketingDepartemenModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id > 0)) {
       this.translate
@@ -305,11 +306,16 @@ export class TicketingDepartemenListComponent
       return;
     }
     this.onActionTableRowSelect(model);
-
-    this.router.navigate(["/ticketing/faq/", this.tableRowSelected.id]);
+    if (event?.ctrlKey) {
+      const link = "/#/ticketing/faq/" + this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate(["/ticketing/faq/", this.tableRowSelected.id]);
+    }
   }
   onActionButtonTemplateList(
     model: TicketingDepartemenModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id > 0)) {
       this.translate
@@ -320,11 +326,16 @@ export class TicketingDepartemenListComponent
       return;
     }
     this.onActionTableRowSelect(model);
-
-    this.router.navigate(["/ticketing/template/", this.tableRowSelected.id]);
+    if (event?.ctrlKey) {
+      const link = "/#/ticketing/template/" + this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate(["/ticketing/template/", this.tableRowSelected.id]);
+    }
   }
   onActionButtonLogList(
     model: TicketingDepartemenModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id > 0)) {
       this.translate
@@ -335,14 +346,20 @@ export class TicketingDepartemenListComponent
       return;
     }
     this.onActionTableRowSelect(model);
-
-    this.router.navigate([
-      "/ticketing/departemenlog/DepartemenId/",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link =
+        "/#/ticketing/departemenlog/DepartemenId/" + this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/ticketing/departemenlog/DepartemenId/",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
   onActionButtonTaskList(
     model: TicketingDepartemenModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id > 0)) {
       this.translate
@@ -353,8 +370,12 @@ export class TicketingDepartemenListComponent
       return;
     }
     this.onActionTableRowSelect(model);
-
-    this.router.navigate(["/ticketing/task/", this.tableRowSelected.id]);
+    if (event?.ctrlKey) {
+      const link = "/#/ticketing/task/" + this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate(["/ticketing/task/", this.tableRowSelected.id]);
+    }
   }
   onActionButtonStatist(view = !this.optionsStatist.data.show): void {
     this.optionsStatist.data.show = view;

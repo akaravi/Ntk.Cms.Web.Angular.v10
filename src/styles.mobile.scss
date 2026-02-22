@@ -1175,7 +1175,8 @@
 .cms-m-list-item-image-placeholder {
   width: 56px;
   height: 56px;
-  margin-left: 12px;
+  margin-left: 3px;
+  margin-right: 3px;
   border-radius: var(--cms-m-radius-md);
   flex-shrink: 0;
   background: var(--cms-m-primary-gradient);
@@ -1252,12 +1253,12 @@
   background-color: var(--cms-m-secondary-bg);
   border-radius: var(--cms-m-radius-md);
   padding: var(--cms-m-spacing-md);
-  margin-left: calc(56px + 12px); /* برای همترازی با تصویر */
+  margin-left: 0; /* برای همترازی با تصویر */
   margin-right: 0;
 
   [dir="rtl"] & {
     margin-left: 0;
-    margin-right: calc(56px + 12px);
+    margin-right: calc(12px);
   }
 
   @media (prefers-color-scheme: dark) {
@@ -1800,8 +1801,8 @@
 [dir="rtl"] {
   .cms-m-list-item-image,
   .cms-m-list-item-image-placeholder {
-    margin-left: 0;
-    margin-right: 12px;
+    margin-left: 3px;
+    margin-right: 3px;
   }
 
   .cms-m-list-item-actions {
@@ -1999,7 +2000,8 @@ app-news-content-list-mobile {
   .cms-m-list-item-image-placeholder {
     width: 48px;
     height: 48px;
-    margin-left: 0;
+    margin-left: 3px;
+    margin-right: 3px;
     background: var(--cms-m-info-bg);
     color: var(--cms-m-primary-color);
 
@@ -2069,7 +2071,9 @@ app-news-content-list-mobile {
   }
 
   .sms-send-result-dialog .mat-mdc-dialog-container .mat-mdc-dialog-surface,
-  .sms-send-calculate-result-dialog .mat-mdc-dialog-container .mat-mdc-dialog-surface {
+  .sms-send-calculate-result-dialog
+    .mat-mdc-dialog-container
+    .mat-mdc-dialog-surface {
     max-width: 100% !important;
     width: 100% !important;
   }

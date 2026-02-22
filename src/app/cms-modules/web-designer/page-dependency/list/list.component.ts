@@ -6,15 +6,15 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    CoreModuleModel,
-    CoreModuleService,
-    ErrorExceptionResult,
-    FilterDataModel,
-    FilterModel,
-    RecordStatusEnum,
-    SortTypeEnum,
-    WebDesignerMainPageDependencyModel,
-    WebDesignerMainPageDependencyService,
+  CoreModuleModel,
+  CoreModuleService,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
+  WebDesignerMainPageDependencyModel,
+  WebDesignerMainPageDependencyService,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -441,6 +441,7 @@ export class WebDesignerMainPageDependencyListComponent
   }
   onActionButtonPageList(
     model: WebDesignerMainPageDependencyModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id?.length > 0)) {
       this.translate
@@ -451,16 +452,25 @@ export class WebDesignerMainPageDependencyListComponent
       return;
     }
     this.onActionTableRowSelect(model);
-    if (this.tokenInfo.access.userAccessAdminAllowToAllData) {
-      this.router.navigate([
-        "/webdesigner/page/list-grid/LinkPageDependencyGuId",
-        this.tableRowSelected.id,
-      ]);
+    if (event?.ctrlKey) {
+      const link = this.tokenInfo.access.userAccessAdminAllowToAllData
+        ? "/#/webdesigner/page/list-grid/LinkPageDependencyGuId/" +
+          this.tableRowSelected.id
+        : "/#/webdesigner/page/LinkPageDependencyGuId/" +
+          this.tableRowSelected.id;
+      window.open(link, "_blank");
     } else {
-      this.router.navigate([
-        "/webdesigner/page/LinkPageDependencyGuId",
-        this.tableRowSelected.id,
-      ]);
+      if (this.tokenInfo.access.userAccessAdminAllowToAllData) {
+        this.router.navigate([
+          "/webdesigner/page/list-grid/LinkPageDependencyGuId",
+          this.tableRowSelected.id,
+        ]);
+      } else {
+        this.router.navigate([
+          "/webdesigner/page/LinkPageDependencyGuId",
+          this.tableRowSelected.id,
+        ]);
+      }
     }
   }
   onActionButtonStatist(view = !this.optionsStatist.data.show): void {

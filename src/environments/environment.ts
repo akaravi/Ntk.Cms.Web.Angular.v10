@@ -48,46 +48,47 @@ export const environment: EnvironmentModel = {
   },
   USERDATA_KEY: "authf649fc9a5f55",
   languagesDefault: "fa",
+  /** مسیر آیکن‌های پرچم زبان (SVG) — باید با فایل‌های پوشه src/assets/media/flags/ مطابقت داشته باشند */
   languages: [
     {
       lang: "fa",
       name: "فارسی",
-      flag: "./assets/media/flags/iran.svg",
+      flag: "assets/media/flags/iran.svg",
     },
     {
       lang: "ar",
       name: "عربی",
-      flag: "./assets/media/flags/united-arab-emirates.svg",
+      flag: "assets/media/flags/united-arab-emirates.svg",
     },
     {
       lang: "en",
       name: "English",
-      flag: "./assets/media/flags/united-states.svg",
+      flag: "assets/media/flags/united-states.svg",
     },
     {
       lang: "zh",
       name: "China", // 'Mandarin',
-      flag: "./assets/media/flags/china.svg",
+      flag: "assets/media/flags/china.svg",
     },
     {
       lang: "es",
       name: "Spanish",
-      flag: "./assets/media/flags/spain.svg",
+      flag: "assets/media/flags/spain.svg",
     },
     {
       lang: "ja",
       name: "Japanese",
-      flag: "./assets/media/flags/japan.svg",
+      flag: "assets/media/flags/japan.svg",
     },
     {
       lang: "de",
       name: "German",
-      flag: "./assets/media/flags/germany.svg",
+      flag: "assets/media/flags/germany.svg",
     },
     {
       lang: "fr",
       name: "French",
-      flag: "./assets/media/flags/france.svg",
+      flag: "assets/media/flags/france.svg",
     },
   ],
 };

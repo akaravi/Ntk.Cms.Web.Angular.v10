@@ -5,13 +5,13 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    ApplicationSourceModel,
-    FilterDataModel,
-    FilterModel,
-    RecordStatusEnum,
-    SortTypeEnum,
-    TicketingDepartemenOperatorModel,
-    TicketingDepartemenOperatorService,
+  ApplicationSourceModel,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
+  TicketingDepartemenOperatorModel,
+  TicketingDepartemenOperatorService,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -226,7 +226,7 @@ export class TicketingDepartemenOperatorListComponent
     this.DataGetAll();
   }
 
-  onActionButtonNewRow(): void {
+  onActionButtonNewRow(event?: MouseEvent): void {
     if (this.requestDepartemenId == null || this.requestDepartemenId === 0) {
       this.translate
         .get("MESSAGE.Content_not_selected")
@@ -244,8 +244,12 @@ export class TicketingDepartemenOperatorListComponent
       this.cmsToastrService.typeErrorAccessAdd();
       return;
     }
-
-    this.router.navigate(["/application/app/add/", this.requestDepartemenId]);
+    if (event?.ctrlKey) {
+      const link = "/#/application/app/add/" + this.requestDepartemenId;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate(["/application/app/add/", this.requestDepartemenId]);
+    }
   }
 
   onActionSelectorSelect(model: ApplicationSourceModel | null): void {
@@ -263,6 +267,7 @@ export class TicketingDepartemenOperatorListComponent
   }
   onActionButtonEditRow(
     mode: TicketingDepartemenOperatorModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!mode || !mode.id || mode.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -277,11 +282,19 @@ export class TicketingDepartemenOperatorListComponent
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
-
-    this.router.navigate(["/application/app/edit/", this.tableRowSelected.id]);
+    if (event?.ctrlKey) {
+      const link = "/#/application/app/edit/" + this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/application/app/edit/",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
   onActionButtonDeleteRow(
     mode: TicketingDepartemenOperatorModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (mode == null || !mode.id || mode.id === 0) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -296,11 +309,15 @@ export class TicketingDepartemenOperatorListComponent
       this.cmsToastrService.typeErrorAccessDelete();
       return;
     }
-
-    this.router.navigate([
-      "/application/app/delete/",
-      this.tableRowSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link = "/#/application/app/delete/" + this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/application/app/delete/",
+        this.tableRowSelected.id,
+      ]);
+    }
   }
   onActionButtonStatist(view = !this.optionsStatist.data.show): void {
     this.optionsStatist.data.show = view;

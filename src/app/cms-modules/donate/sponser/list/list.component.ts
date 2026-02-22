@@ -5,13 +5,13 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    DonateSponsorModel,
-    DonateSponsorService,
-    DonateTargetCategoryModel,
-    FilterDataModel,
-    FilterModel,
-    RecordStatusEnum,
-    SortTypeEnum,
+  DonateSponsorModel,
+  DonateSponsorService,
+  DonateTargetCategoryModel,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -400,6 +400,7 @@ export class DonateSponserListComponent
 
   onActionButtonTargetPeriodSponserRow(
     model: DonateSponsorModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id > 0)) {
       this.translate
@@ -409,14 +410,22 @@ export class DonateSponserListComponent
         });
       return;
     }
-    this.router.navigate([
-      "/donate/target-period-sponser/LinkSponserId/",
-      model.id,
-    ]);
+    if (event?.ctrlKey) {
+      window.open(
+        "/#/donate/target-period-sponser/LinkSponserId/" + model.id,
+        "_blank",
+      );
+    } else {
+      this.router.navigate([
+        "/donate/target-period-sponser/LinkSponserId/",
+        model.id,
+      ]);
+    }
   }
 
   onActionButtonTransactionsRow(
     model: DonateSponsorModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id > 0)) {
       this.translate
@@ -426,6 +435,10 @@ export class DonateSponserListComponent
         });
       return;
     }
-    this.router.navigate(["/donate/transaction/LinkSponsorId/", model.id]);
+    if (event?.ctrlKey) {
+      window.open("/#/donate/transaction/LinkSponsorId/" + model.id, "_blank");
+    } else {
+      this.router.navigate(["/donate/transaction/LinkSponsorId/", model.id]);
+    }
   }
 }

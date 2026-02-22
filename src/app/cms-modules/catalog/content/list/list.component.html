@@ -215,7 +215,7 @@
             aria-label="Action Menu"
             (click)="onActionTableRowSelectActionMenu(row)"
           >
-            <i class="fa fa-bars font-18"></i>
+            <i class="fa-solid fa-bars font-18"></i>
           </button>
         </mat-cell>
       </ng-container>
@@ -260,18 +260,6 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let row">
           <i [ngClass]="row.recordStatus | statusIconClass"></i>
-          @if (dataModelResult?.access?.accessEditRow) {
-            <select
-              matNativeControl
-              cmsRecordStatusSelfSave
-              [contentService]="contentService"
-              [row]="row"
-              style="background: none; border: none"
-              [ngStyle]="{
-                display: row.id === tableRowSelected?.id ? '' : 'none',
-              }"
-            ></select>
-          }
         </mat-cell>
       </ng-container>
       <!-- Title Column -->

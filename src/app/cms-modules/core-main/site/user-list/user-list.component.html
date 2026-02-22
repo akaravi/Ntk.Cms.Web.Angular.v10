@@ -17,11 +17,11 @@
   [optionActionRowDisplayMenu]="tableRowSelect2Click"
   [optionActionRowDisplayMenuAct]="tableRowSelectActionMenuClick"
   [optionSelectRowItemTitle]="
-    (tableRowSelected?.virtual_CmsUserGroup?.title || '')
-    + ':'
-    + (tableRowSelected?.linkSiteId | cmssiteinfo | async)
-    + '<=>'
-    + (tableRowSelected?.linkUserId | cmsuserinfo | async)
+    (tableRowSelected?.virtual_CmsUserGroup?.title || '') +
+    ':' +
+    (tableRowSelected?.linkSiteId | cmssiteinfo | async) +
+    '<=>' +
+    (tableRowSelected?.linkUserId | cmsuserinfo | async)
   "
 >
   <ng-container cms-tree>
@@ -355,6 +355,7 @@
       <mat-row
         *matRowDef="let row; columns: ['expandedDetail']; let i = dataIndex"
         class="ntk-row-expandedDetail"
+        [class.ntk-row-expanded]="row.expanded === true"
         (click)="onActionTableRowSelect(row, $event)"
         (rtclick)="onActionTableRowSelect(row, $event)"
         (mouseenter)="onActionTableRowMouseEnter(row)"
@@ -375,7 +376,7 @@
             aria-label="Action Menu"
             (click)="onActionTableRowSelectActionMenu(row)"
           >
-            <i class="fa fa-bars font-18"></i>
+            <i class="fa-solid fa-bars font-18"></i>
           </button>
         </mat-cell>
       </ng-container>

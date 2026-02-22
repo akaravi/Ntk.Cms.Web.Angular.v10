@@ -3,14 +3,14 @@
   @switch (formInfo.submitResult) {
     @case ("success") {
       <div class="alert alert-success" role="alert">
-        <i class="fa fa-check-circle me-2"></i>
+        <i class="fa-solid fa-circle-check me-2"></i>
         <strong>{{ "MESSAGE.Success" | translate }}:</strong>
         {{ formInfo.submitResultMessage }}
       </div>
     }
     @case ("error") {
       <div class="alert alert-danger" role="alert">
-        <i class="fa fa-exclamation-circle me-2"></i>
+        <i class="fa-solid fa-circle-exclamation me-2"></i>
         <strong>{{ "MESSAGE.Error" | translate }}:</strong>
         {{ formInfo.submitResultMessage }}
         @if (formInfo?.submitResultErrors?.length > 0) {
@@ -24,7 +24,7 @@
     }
     @case ("warning") {
       <div class="alert alert-warning" role="alert">
-        <i class="fa fa-exclamation-triangle me-2"></i>
+        <i class="fa-solid fa-triangle-exclamation me-2"></i>
         <strong>{{ "MESSAGE.Warning" | translate }}:</strong>
         {{ formInfo.submitResultMessage }}
         @if (formInfo?.submitResultWarnings?.length > 0) {
@@ -38,7 +38,7 @@
     }
     @default {
       <div class="alert alert-info" role="alert">
-        <i class="fa fa-info-circle me-2"></i>
+        <i class="fa-solid fa-circle-info me-2"></i>
         <strong>{{ "MESSAGE.Info" | translate }}:</strong>
         {{ formInfo.submitResultMessage }}
       </div>
@@ -52,7 +52,7 @@
   formInfo?.submitResultMessage?.length === 0
 ) {
   <div class="alert alert-danger" role="alert">
-    <i class="fa fa-exclamation-circle me-2"></i>
+    <i class="fa-solid fa-circle-exclamation me-2"></i>
     <strong>{{ "MESSAGE.Error" | translate }}:</strong>
     <ul class="mt-2 mb-0">
       @for (error of formInfo.submitResultErrors; track $index) {
@@ -65,7 +65,7 @@
 <!-- نمایش Warnings جداگانه -->
 @if (formInfo?.submitResultWarnings?.length > 0) {
   <div class="alert alert-warning" role="alert">
-    <i class="fa fa-exclamation-triangle me-2"></i>
+    <i class="fa-solid fa-triangle-exclamation me-2"></i>
     <strong>{{ "MESSAGE.Warning" | translate }}:</strong>
     <ul class="mt-2 mb-0">
       @for (warning of formInfo.submitResultWarnings; track $index) {

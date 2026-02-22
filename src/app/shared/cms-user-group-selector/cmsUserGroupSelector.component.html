@@ -31,19 +31,19 @@
     }
   </mat-autocomplete>
   @if (!formControl.valid) {
-    <i class="fa fa-info invalid color-red-dark"></i>
+    <i class="fa-solid fa-info invalid color-red-dark"></i>
   }
   @if (optionRequired && formControl.valid) {
-    <i class="fa fa-check valid color-green-dark"></i>
+    <i class="fa-solid fa-check valid color-green-dark"></i>
   }
   @if (dataModelSelect?.id > 0) {
     <i
-      class="fa fa-times action color-red-dark"
+      class="fa-solid fa-times action color-red-dark"
       (click)="onActionSelectClear()"
     ></i>
   }
   <i
-    class="fa fa-rotate-right action color-green-dark"
+    class="fa-solid fa-rotate-right action color-green-dark"
     style="margin-left: 20px"
     title="{{ 'ACTION.RELOAD' | translate }}"
     [class.rotation360]="

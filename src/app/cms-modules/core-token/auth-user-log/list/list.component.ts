@@ -5,15 +5,15 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    CoreSiteModel,
-    CoreTokenAuthUserLogModel,
-    CoreTokenAuthUserLogService,
-    ErrorExceptionResult,
-    FilterDataModel,
-    FilterModel,
-    InfoEnumModel,
-    RecordStatusEnum,
-    SortTypeEnum,
+  CoreSiteModel,
+  CoreTokenAuthUserLogModel,
+  CoreTokenAuthUserLogService,
+  ErrorExceptionResult,
+  FilterDataModel,
+  FilterModel,
+  InfoEnumModel,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -506,6 +506,7 @@ export class CoreTokenAuthUserLogListComponent
 
   onActionButtonViewUserRow(
     model: CoreTokenAuthUserLogModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -523,11 +524,22 @@ export class CoreTokenAuthUserLogListComponent
         });
       return;
     }
-    this.router.navigate(["/core/user/edit", this.tableRowSelected.linkUserId]);
+    if (event?.ctrlKey) {
+      window.open(
+        "/#/core/user/edit/" + this.tableRowSelected.linkUserId,
+        "_blank",
+      );
+    } else {
+      this.router.navigate([
+        "/core/user/edit",
+        this.tableRowSelected.linkUserId,
+      ]);
+    }
   }
 
   onActionButtonViewMemberRow(
     model: CoreTokenAuthUserLogModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -535,8 +547,8 @@ export class CoreTokenAuthUserLogListComponent
     }
     this.onActionTableRowSelect(model);
     if (
-      !this.tableRowSelected.linkDeviceId ||
-      this.tableRowSelected.linkDeviceId === 0
+      !this.tableRowSelected.linkMemberId ||
+      this.tableRowSelected.linkMemberId?.length === 0
     ) {
       this.translate
         .get("MESSAGE.Content_does_not_include_device_information")
@@ -545,14 +557,22 @@ export class CoreTokenAuthUserLogListComponent
         });
       return;
     }
-    this.router.navigate([
-      "/member/user/edit",
-      this.tableRowSelected.linkMemberId,
-    ]);
+    if (event?.ctrlKey) {
+      window.open(
+        "/#/member/user/edit/" + this.tableRowSelected.linkMemberId,
+        "_blank",
+      );
+    } else {
+      this.router.navigate([
+        "/member/user/edit",
+        this.tableRowSelected.linkMemberId,
+      ]);
+    }
   }
 
   onActionButtonViewSiteRow(
     model: CoreTokenAuthUserLogModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -570,10 +590,21 @@ export class CoreTokenAuthUserLogListComponent
         });
       return;
     }
-    this.router.navigate(["/core/site/edit", this.tableRowSelected.linkSiteId]);
+    if (event?.ctrlKey) {
+      window.open(
+        "/#/core/site/edit/" + this.tableRowSelected.linkSiteId,
+        "_blank",
+      );
+    } else {
+      this.router.navigate([
+        "/core/site/edit",
+        this.tableRowSelected.linkSiteId,
+      ]);
+    }
   }
   onActionButtonViewDeviceRow(
     model: CoreTokenAuthUserLogModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id?.length > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -591,10 +622,17 @@ export class CoreTokenAuthUserLogListComponent
         });
       return;
     }
-    this.router.navigate([
-      "/core/site/edit",
-      this.tableRowSelected.linkDeviceId,
-    ]);
+    if (event?.ctrlKey) {
+      window.open(
+        "/#/core/site/edit/" + this.tableRowSelected.linkDeviceId,
+        "_blank",
+      );
+    } else {
+      this.router.navigate([
+        "/core/site/edit",
+        this.tableRowSelected.linkDeviceId,
+      ]);
+    }
   }
 
   onActionButtonReload(): void {

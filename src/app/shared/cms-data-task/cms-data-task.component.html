@@ -4,7 +4,7 @@
   <div class="menu-title">
     <p class="color-highlight">{{ formInfo.formTitle }}</p>
     <a class="close-menu" (click)="onFormCancel()"
-      ><i class="fa fa-times-circle"></i
+      ><i class="fa-solid fa-times-circle"></i
     ></a>
     <hr />
   </div>
@@ -19,7 +19,7 @@
           type="button"
           (click)="onActionAdd()"
           class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-teal"
-          >
+        >
           {{ "ACTION.ADD" | translate }}
         </button>
       }
@@ -27,7 +27,7 @@
     <div
       class="ntk-cms-html-card-body ntk-allow-text-selection"
       class="theme-rtl"
-      >
+    >
       @if (!showFormAdd) {
         <table class="table table-hover">
           <thead>
@@ -40,7 +40,11 @@
             </tr>
           </thead>
           <tbody>
-            @for (item of dataModelResult.listItems; track item; let i = $index) {
+            @for (
+              item of dataModelResult.listItems;
+              track item;
+              let i = $index
+            ) {
               <tr class="myDIV">
                 <th scope="row">{{ i + 1 }}</th>
                 <td>{{ item.createdBy | cmsuserinfo | async }}</td>
@@ -55,114 +59,115 @@
                       aria-hidden="false"
                       style="color: red"
                       >delete</mat-icon
-                      >
-                    </small>
-                  </td>
-                </tr>
-                <tr class="hide">
-                  <td></td>
-                  <td colspan="3">
-                    {{ item.subjectBody }}
-                  </td>
-                </tr>
+                    >
+                  </small>
+                </td>
+              </tr>
+              <tr class="hide">
+                <td></td>
+                <td colspan="3">
+                  {{ item.subjectBody }}
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      }
+      <app-cms-form-result-message
+        [formInfo]="formInfo"
+      ></app-cms-form-result-message>
+      @if (showFormAdd) {
+        <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
+          <div class="ntk-cms-html-card-body ntk-allow-text-selection">
+            <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
+            <!-- subjectTitle Field -->
+            <div
+              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            >
+              <label for="dataModel.subjectTitle" class="color-highlight">{{
+                "TITLE.subjectTitle" | translate
+              }}</label>
+              <input
+                type="text"
+                [(ngModel)]="dataModel.subjectTitle"
+                name="dataModel.subjectTitle"
+                #subjectTitle
+                placeholder="{{ 'TITLE.subjectTitle' | translate }}"
+                minlength="3"
+                maxlength="100"
+                class="form-control validate-name"
+                id="dataModel.subjectTitle"
+              />
+              <em>{{ subjectTitle.value.length }} / 100</em>
+            </div>
+            <!-- subjectBody Field -->
+            <div
+              class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            >
+              <label for="dataModel.subjectBody" class="color-highlight">{{
+                "TITLE.subjectBody" | translate
+              }}</label>
+              <textarea
+                matInput
+                [(ngModel)]="dataModel.subjectBody"
+                name="dataModel.subjectBody"
+                #subjectBody
+                type="text"
+                placeholder="{{ 'TITLE.subjectBody' | translate }}"
+                minlength="1"
+                maxlength="500"
+                rows="5"
+                id="dataModel.subjectBody"
+                class="form-control validate-name"
+              >
+              </textarea>
+              <em>{{ subjectBody.value.length }} / 500</em>
+              @if (subjectBody.errors?.required) {
+                <mat-error>
+                  subjectBody is
+                  <strong>{{ "MESSAGE.required" | translate }}</strong>
+                </mat-error>
               }
-            </tbody>
-          </table>
-        }
-        <app-cms-form-result-message
-          [formInfo]="formInfo"
-        ></app-cms-form-result-message>
-        @if (showFormAdd) {
-          <form (ngSubmit)="onFormSubmit()" #vform="ngForm">
-            <div class="ntk-cms-html-card-body ntk-allow-text-selection">
-              <!--begin:::::::::::::::::::::::::::::::::::::::::cms-body-->
-              <!-- subjectTitle Field -->
-              <div
-                class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+            </div>
+            <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
+          </div>
+          <div class="ntk-cms-html-card-message">
+            <!--begin:::::::::::::::::::::::::::::::::::::::::cms-message -->
+            <app-cms-form-result-message
+              [formInfo]="formInfo"
+            ></app-cms-form-result-message>
+            <!--end:::::::::::::::::::::::::::::::::::::::::cms-message -->
+          </div>
+          <br />
+          @if (formInfo.submitButtonEnabled) {
+            <div class="form-actions">
+              @if (showFormAdd) {
+                <button
+                  type="submit"
+                  class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
+                  [disabled]="!vform.form.valid"
                 >
-                <label for="dataModel.subjectTitle" class="color-highlight">{{
-                  "TITLE.subjectTitle" | translate
-                }}</label>
-                <input
-                  type="text"
-                  [(ngModel)]="dataModel.subjectTitle"
-                  name="dataModel.subjectTitle"
-                  #subjectTitle
-                  placeholder="{{ 'TITLE.subjectTitle' | translate }}"
-                  minlength="3"
-                  maxlength="100"
-                  class="form-control validate-name"
-                  id="dataModel.subjectTitle"
-                  />
-                  <em>{{ subjectTitle.value.length }} / 100</em>
-                </div>
-                <!-- subjectBody Field -->
-                <div
-                  class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
-                  >
-                  <label for="dataModel.subjectBody" class="color-highlight">{{
-                    "TITLE.subjectBody" | translate
-                  }}</label>
-                  <textarea
-                    matInput
-                    [(ngModel)]="dataModel.subjectBody"
-                    name="dataModel.subjectBody"
-                    #subjectBody
-                    type="text"
-                    placeholder="{{ 'TITLE.subjectBody' | translate }}"
-                    minlength="1"
-                    maxlength="500"
-                    rows="5"
-                    id="dataModel.subjectBody"
-                    class="form-control validate-name"
-                    >
-                  </textarea>
-                  <em>{{ subjectBody.value.length }} / 500</em>
-                  @if (subjectBody.errors?.required) {
-                    <mat-error>
-                      subjectBody is
-                      <strong>{{ "MESSAGE.required" | translate }}</strong>
-                    </mat-error>
-                  }
-                </div>
-                <!--end:::::::::::::::::::::::::::::::::::::::::cms-body-->
-              </div>
-              <div class="ntk-cms-html-card-message">
-                <!--begin:::::::::::::::::::::::::::::::::::::::::cms-message -->
-                <app-cms-form-result-message
-                  [formInfo]="formInfo"
-                ></app-cms-form-result-message>
-                <!--end:::::::::::::::::::::::::::::::::::::::::cms-message -->
-              </div>
-              <br />
-              @if (formInfo.submitButtonEnabled) {
-                <div class="form-actions">
-                  @if (showFormAdd) {
-                    <button
-                      type="submit"
-                      class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
-                      [disabled]="!vform.form.valid"
-                      >
-                      <i class="fa fa-check-square-o"></i> {{ "ACTION.SAVE" | translate }}
-                    </button>
-                  }
-                  <button
-                    type="button"
-                    (click)="onFormCancel()"
-                    class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-                    >
-                    <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
-                  </button>
-                </div>
+                  <i class="fa-solid fa-square-check"></i>
+                  {{ "ACTION.SAVE" | translate }}
+                </button>
               }
-            </form>
+              <button
+                type="button"
+                (click)="onFormCancel()"
+                class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
+              >
+                <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
+              </button>
+            </div>
           }
-        </div>
-        <div class="ntk-cms-html-card-footer">
-          <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
-
-          <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
-        </div>
-        <!--Content-->
-      </div>
+        </form>
+      }
     </div>
+    <div class="ntk-cms-html-card-footer">
+      <!--begin:::::::::::::::::::::::::::::::::::::::::cms-footer-->
+
+      <!--end:::::::::::::::::::::::::::::::::::::::::cms-footer-->
+    </div>
+    <!--Content-->
+  </div>
+</div>

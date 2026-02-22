@@ -148,7 +148,7 @@
                 aria-label="Action Menu"
                 (click)="onActionTableRowSelectActionMenu(row)"
                 >
-                <i class="fa fa-bars font-18"></i>
+                <i class="fa-solid fa-bars font-18"></i>
               </button>
             </mat-cell>
           </ng-container>
@@ -187,9 +187,9 @@
             </mat-header-cell>
             <mat-cell *matCellDef="let row">
               @if (row.isActive) {
-                <i class="fa fa-check text-success"></i>
+                <i class="fa-solid fa-check text-success"></i>
               } @else {
-                <i class="fa fa-times text-danger"></i>
+                <i class="fa-solid fa-times text-danger"></i>
               }
             </mat-cell>
           </ng-container>

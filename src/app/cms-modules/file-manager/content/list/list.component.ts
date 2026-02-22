@@ -5,13 +5,13 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    FileCategoryModel,
-    FileContentModel,
-    FileContentService,
-    FilterDataModel,
-    FilterModel,
-    RecordStatusEnum,
-    SortTypeEnum,
+  FileCategoryModel,
+  FileContentModel,
+  FileContentService,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -215,7 +215,7 @@ export class FileContentListComponent
     this.DataGetAll();
   }
 
-  onActionButtonNewRow(): void {
+  onActionButtonNewRow(event?: MouseEvent): void {
     if (
       this.categoryModelSelected == null ||
       this.categoryModelSelected.id === 0
@@ -235,10 +235,21 @@ export class FileContentListComponent
       this.cmsToastrService.typeErrorAccessAdd();
       return;
     }
-    this.router.navigate(["/file/content/add", this.categoryModelSelected.id]);
+    if (event?.ctrlKey) {
+      const link = "/#/file/content/add/" + this.categoryModelSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/file/content/add",
+        this.categoryModelSelected.id,
+      ]);
+    }
   }
 
-  onActionButtonEditRow(model: FileContentModel = this.tableRowSelected): void {
+  onActionButtonEditRow(
+    model: FileContentModel = this.tableRowSelected,
+    event?: MouseEvent,
+  ): void {
     if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
       return;
@@ -252,7 +263,12 @@ export class FileContentListComponent
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
-    this.router.navigate(["/file/content/edit", this.tableRowSelected.id]);
+    if (event?.ctrlKey) {
+      const link = "/#/file/content/edit/" + this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate(["/file/content/edit", this.tableRowSelected.id]);
+    }
   }
   onActionButtonDeleteRow(
     model: FileContentModel = this.tableRowSelected,
@@ -378,7 +394,11 @@ export class FileContentListComponent
     this.DataGetAll();
   }
 
-  onClickDownload(row: FileContentModel): void {
-    this.router.navigate(["/file/comment/"]);
+  onClickDownload(row: FileContentModel, event?: MouseEvent): void {
+    if (event?.ctrlKey) {
+      window.open("/#/file/comment/", "_blank");
+    } else {
+      this.router.navigate(["/file/comment/"]);
+    }
   }
 }

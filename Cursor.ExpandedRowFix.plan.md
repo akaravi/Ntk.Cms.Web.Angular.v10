@@ -204,6 +204,20 @@
 
 ---
 
+## Result 2b: اعمال ntk-row-expanded به فایل‌های باقی‌مانده (2026-02-22)
+
+✅ **۵ فایل که ردیف expandedDetail داشتند ولی کلاس ntk-row-expanded نداشتند، اصلاح شدند:**
+
+- `core-main/site/user-list/user-list.component.html`
+- `estate/data/property/quick-list/quick-list.component.html`
+- `estate/data/property/responsible-user-list/responsible-user-list.component.html`
+- `estate/log/property-history/responsible-user-list/responsible-user-list.component.html`
+- `estate/log/customer-order/responsible-user-list/responsible-user-list.component.html`
+
+در هر فایل، به ردیف با `class="ntk-row-expandedDetail"` عبارت `[class.ntk-row-expanded]="row.expanded === true"` اضافه شد (مطابق Cursor.PlansFilesIndex و همان الگوی Result 2).
+
+---
+
 ## Part 4: بررسی و اصلاح list.mobile.component.html ها بر اساس الگوی news
 
 ### هدف:

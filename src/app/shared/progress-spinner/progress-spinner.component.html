@@ -1,8 +1,5 @@
 @if (infoAreaId?.length > 0 && inRunAreaStatus && inRunAreaStatus == true) {
-  <div
-    id="id"
-    class="preloader progressOverlay"
-    >
+  <div id="id" class="preloader progressOverlay">
     <div class="spinner-border color-highlight" role="status"></div>
     <div class="card card-style" style="background-color: rgba(0, 0, 0, 0)">
       @if (infoArea?.length > 0) {
@@ -10,19 +7,15 @@
           @for (item of infoArea | keyvalue; track item) {
             <div class="col-12">
               <div class="chip chip-s bg-gray-light">
-                @if (!item.value['isComplate']) {
-                  <i
-                    class="fa fa-sync color-white bg-blue-dark"
-                  ></i>
+                @if (!item.value["isComplate"]) {
+                  <i class="fa-solid fa-sync color-white bg-blue-dark"></i>
                 }
-                @if (item?.value['isComplate'] && item?.value['isSuccess']) {
-                  <i
-                    class="fa fa-check color-white bg-green-dark"
-                  ></i>
+                @if (item?.value["isComplate"] && item?.value["isSuccess"]) {
+                  <i class="fa-solid fa-check color-white bg-green-dark"></i>
                 }
-                @if (item?.value['isComplate'] && !item.value['isSuccess']) {
+                @if (item?.value["isComplate"] && !item.value["isSuccess"]) {
                   <i
-                    class="fa fa-exclamation-triangle color-white bg-red-dark"
+                    class="fa-solid fa-triangle-exclamation color-white bg-red-dark"
                   ></i>
                 }
                 <strong class="color-black font-400">{{

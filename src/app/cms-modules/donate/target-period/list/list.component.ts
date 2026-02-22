@@ -5,13 +5,13 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    DonateTargetCategoryModel,
-    DonateTargetPeriodModel,
-    DonateTargetPeriodService,
-    FilterDataModel,
-    FilterModel,
-    RecordStatusEnum,
-    SortTypeEnum,
+  DonateTargetCategoryModel,
+  DonateTargetPeriodModel,
+  DonateTargetPeriodService,
+  FilterDataModel,
+  FilterModel,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -419,6 +419,7 @@ export class DonateTargetPeriodListComponent
 
   onActionButtonDonateTargetPeriodAccountRow(
     model: DonateTargetPeriodModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (
       !model ||
@@ -435,12 +436,16 @@ export class DonateTargetPeriodListComponent
       return;
     }
     this.onActionTableRowSelect(model);
-
-    this.router.navigate(["/donate/target-period-charge/", model.id]);
+    if (event?.ctrlKey) {
+      window.open("/#/donate/target-period-charge/" + model.id, "_blank");
+    } else {
+      this.router.navigate(["/donate/target-period-charge/", model.id]);
+    }
   }
 
   onActionButtonTargetPeriodSponserList(
     model: DonateTargetPeriodModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id > 0)) {
       this.translate
@@ -451,14 +456,21 @@ export class DonateTargetPeriodListComponent
       return;
     }
     this.onActionTableRowSelect(model);
-
-    this.router.navigate([
-      "/donate/target-period-sponser/LinkTargetPeriodId/" + model.id,
-    ]);
+    if (event?.ctrlKey) {
+      window.open(
+        "/#/donate/target-period-sponser/LinkTargetPeriodId/" + model.id,
+        "_blank",
+      );
+    } else {
+      this.router.navigate([
+        "/donate/target-period-sponser/LinkTargetPeriodId/" + model.id,
+      ]);
+    }
   }
 
   onActionButtonTransactionsRow(
     model: DonateTargetPeriodModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id > 0)) {
       this.translate
@@ -468,7 +480,17 @@ export class DonateTargetPeriodListComponent
         });
       return;
     }
-    this.router.navigate(["/donate/transaction/LinkTargetPeriodId/", model.id]);
+    if (event?.ctrlKey) {
+      window.open(
+        "/#/donate/transaction/LinkTargetPeriodId/" + model.id,
+        "_blank",
+      );
+    } else {
+      this.router.navigate([
+        "/donate/transaction/LinkTargetPeriodId/",
+        model.id,
+      ]);
+    }
   }
 
   onActionButtonReload(): void {

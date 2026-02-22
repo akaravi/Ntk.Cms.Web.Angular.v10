@@ -4,7 +4,7 @@
   <div class="menu-title">
     <p class="color-highlight">{{ formInfo.formTitle }}</p>
     <a class="close-menu" (click)="onFormCancel()"
-      ><i class="fa fa-times-circle"></i
+      ><i class="fa-solid fa-times-circle"></i
     ></a>
     <hr />
   </div>
@@ -24,23 +24,21 @@
       (ngSubmit)="onFormSubmit()"
       #vform="ngForm"
       [ngStyle]="{ direction: tokenInfo?.access?.direction }"
-      >
+    >
       {{ formInfo.formTitle }}
       <!-- RecieveMethod Field -->
       <div
         class="input-style has-borders input-style-always-active validate-field no-icon mb-4"
-        >
+      >
         <select
           id="dataModel.recieveMethod"
           [(ngModel)]="dataModel.recieveMethod"
           name="dataModel.recieveMethod"
           #RecordStatus="ngModel"
           class="form-control validate-name"
-          >
+        >
           @for (item of recieveMethodListItems; track item; let i = $index) {
-            <option
-              [value]="item.value"
-              >
+            <option [value]="item.value">
               {{ item.description }}
             </option>
           }
@@ -50,14 +48,15 @@
         }}</em>
         @if (RecordStatus.errors?.required) {
           <mat-error>
-            RecordStatus is <strong>{{ "MESSAGE.required" | translate }}</strong>
+            RecordStatus is
+            <strong>{{ "MESSAGE.required" | translate }}</strong>
           </mat-error>
         }
       </div>
       <!-- FileType Field -->
       <div
         class="input-style has-borders input-style-always-active validate-field no-icon mb-4"
-        >
+      >
         <div class="d-flex align-items-center justify-content-between">
           <div class="flex-grow-1" style="margin-left: 10px">
             <select
@@ -67,11 +66,9 @@
               #RecordStatus="ngModel"
               class="form-control validate-name"
               (change)="this.formInfo.clearSubmitResult()"
-              >
+            >
               @for (item of fileTypeListItems; track item; let i = $index) {
-                <option
-                  [value]="item.value"
-                  >
+                <option [value]="item.value">
                   {{ item.description }}
                 </option>
               }
@@ -87,12 +84,12 @@
           @if (
             dataModel.fileType == EnumExportFileTypeExcel ||
             dataModel.fileType == EnumExportFileTypePDF
-            ) {
+          ) {
             <!-- Data Row Orientation Icons -->
             <div
               class="d-flex gap-2 align-items-center"
               style="margin-right: 10px"
-              >
+            >
               <button
                 type="button"
                 class="btn btn-sm p-2"
@@ -112,7 +109,7 @@
                     EnumExportFileDataRowOrientationVertical
                 "
                 [title]="'TITLE.Vertical' | translate"
-                >
+              >
                 <i
                   class="fa-solid fa-arrows-up-down"
                   [ngStyle]="{
@@ -144,7 +141,7 @@
                     EnumExportFileDataRowOrientationHorizontal
                 "
                 [title]="'TITLE.Horizontal' | translate"
-                >
+              >
                 <i
                   class="fa-solid fa-arrows-left-right"
                   [ngStyle]="{
@@ -166,7 +163,7 @@
         <!-- ReportFormatFileId Field -->
         <div
           class="input-style has-borders input-style-always-active validate-field no-icon mb-4"
-          >
+        >
           <label for="dataModel.reportFormatFileId" class="color-highlight">{{
             "TITLE.Report_Format" | translate
           }}</label>
@@ -176,14 +173,16 @@
             name="dataModel.reportFormatFileId"
             #RecordStatus="ngModel"
             class="form-control validate-name"
-            >
+          >
             @for (
-              item of dataModelReportFileResult.listItems; track
-              item; let i = $index) {
+              item of dataModelReportFileResult.listItems;
+              track item;
+              let i = $index
+            ) {
               <option
                 [value]="item.id"
                 (onSelectionChange)="onActionFileSelect(item)"
-                >
+              >
                 {{ item.title }}
               </option>
             }
@@ -202,7 +201,7 @@
           type="button"
           (click)="onFormCancel()"
           class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-gray"
-          >
+        >
           <i class="ft-x"></i> {{ "ACTION.CANCEL" | translate }}
         </button>
         <button
@@ -210,7 +209,7 @@
           class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-green"
           style="margin: 1px"
           [disabled]="!vform.form.valid || !formInfo.submitButtonEnabled"
-          >
+        >
           <i class="fa-solid fa-print"></i>
           {{ "ACTION.FILE_CREATION" | translate }}
         </button>
@@ -218,13 +217,13 @@
           dataModelSubmitResult &&
           dataModelSubmitResult.isSuccess &&
           dataModelSubmitResult.linkFile?.length > 0
-          ) {
+        ) {
           <button
             type="button"
             (click)="onOpenPage()"
             class="btn font-13 font-600 btn-s m-1 rounded-s shadow-xl border-0 gradient-highlight"
             style="margin: 1px"
-            >
+          >
             <i class="fa-solid fa-download"></i>
             {{ "TITLE.download_link" | translate }}
           </button>

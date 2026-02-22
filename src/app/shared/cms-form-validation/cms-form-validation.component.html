@@ -3,16 +3,16 @@
     <li>
       @switch (item.status) {
         @case (FormValidationStatusEnum.info) {
-          <i class="fa fa-info color-blue-dark"></i>
+          <i class="fa-solid fa-info color-blue-dark"></i>
         }
         @case (FormValidationStatusEnum.Success) {
-          <i class="fa fa-check color-green-dark"></i>
+          <i class="fa-solid fa-check color-green-dark"></i>
         }
         @case (FormValidationStatusEnum.Warning) {
-          <i class="fa fa-exclamation-triangle color-yellow-dark"></i>
+          <i class="fa-solid fa-triangle-exclamation color-yellow-dark"></i>
         }
         @case (FormValidationStatusEnum.Error) {
-          <i class="fa fa-times color-red-dark"></i>
+          <i class="fa-solid fa-times color-red-dark"></i>
         }
       }
       @if (item.linkSrc?.length > 0) {

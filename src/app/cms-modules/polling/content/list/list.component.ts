@@ -5,13 +5,13 @@ import { MatSort } from "@angular/material/sort";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    FilterDataModel,
-    FilterModel,
-    PollingCategoryModel,
-    PollingContentModel,
-    PollingContentService,
-    RecordStatusEnum,
-    SortTypeEnum,
+  FilterDataModel,
+  FilterModel,
+  PollingCategoryModel,
+  PollingContentModel,
+  PollingContentService,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -219,7 +219,7 @@ export class PollingContentListComponent
     this.DataGetAll();
   }
 
-  onActionButtonNewRow(): void {
+  onActionButtonNewRow(event?: MouseEvent): void {
     if (
       this.categoryModelSelected == null ||
       this.categoryModelSelected.id === 0
@@ -239,14 +239,20 @@ export class PollingContentListComponent
       this.cmsToastrService.typeErrorAccessAdd();
       return;
     }
-    this.router.navigate([
-      "/polling/content/add",
-      this.categoryModelSelected.id,
-    ]);
+    if (event?.ctrlKey) {
+      const link = "/#/polling/content/add/" + this.categoryModelSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate([
+        "/polling/content/add",
+        this.categoryModelSelected.id,
+      ]);
+    }
   }
 
   onActionButtonEditRow(
     model: PollingContentModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id > 0)) {
       this.cmsToastrService.typeErrorSelectedRow();
@@ -261,7 +267,12 @@ export class PollingContentListComponent
       this.cmsToastrService.typeErrorAccessEdit();
       return;
     }
-    this.router.navigate(["/polling/content/edit", this.tableRowSelected.id]);
+    if (event?.ctrlKey) {
+      const link = "/#/polling/content/edit/" + this.tableRowSelected.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate(["/polling/content/edit", this.tableRowSelected.id]);
+    }
   }
   onActionButtonDeleteRow(
     model: PollingContentModel = this.tableRowSelected,
@@ -392,6 +403,7 @@ export class PollingContentListComponent
 
   onActionButtonResults(
     model: PollingContentModel = this.tableRowSelected,
+    event?: MouseEvent,
   ): void {
     if (!(model?.id > 0)) {
       this.translate
@@ -401,7 +413,12 @@ export class PollingContentListComponent
         });
       return;
     }
-    this.router.navigate(["/polling/vote/ContentId/", model.id]);
+    if (event?.ctrlKey) {
+      const link = "/#/polling/vote/ContentId/" + model.id;
+      window.open(link, "_blank");
+    } else {
+      this.router.navigate(["/polling/vote/ContentId/", model.id]);
+    }
   }
   expandedElement: any;
 }

@@ -14,6 +14,7 @@ import {
   WidgetInfoModel,
 } from "src/app/core/models/widget-info-model";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
+import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 @Component({
   selector: "app-ticketing-task-widget",
   templateUrl: "./widget.component.html",
@@ -28,6 +29,7 @@ export class TicketingTaskWidgetComponent implements OnInit, OnDestroy {
     private tokenHelper: TokenHelper,
     private cmsStoreService: CmsStoreService,
     public translate: TranslateService,
+    private cmsToastrService: CmsToastrService,
   ) {
     this.publicHelper.processService.cdr = this.cdr;
   }
@@ -36,6 +38,7 @@ export class TicketingTaskWidgetComponent implements OnInit, OnDestroy {
 
   widgetInfoModel = new WidgetInfoModel();
   private unsubscribe: Subscription[] = [];
+  private unreadWarningShown = false;
 
   ngOnInit() {
     this.translate.get("TITLE.Registered_tickets").subscribe((str: string) => {
@@ -176,6 +179,20 @@ export class TicketingTaskWidgetComponent implements OnInit, OnDestroy {
               "/ticketing/task/listTicketStatus/" + TicketStatusEnum.Unread,
             ),
           );
+          if (ret.totalRowCount > 0 && !this.unreadWarningShown) {
+            this.unreadWarningShown = true;
+            this.translate
+              .get([
+                "MESSAGE.Unread_tickets_warning",
+                "TITLE.Unread_tickets_warning",
+              ])
+              .subscribe((tr) => {
+                this.cmsToastrService.typeWarningMessage(
+                  tr["MESSAGE.Unread_tickets_warning"],
+                  tr["TITLE.Unread_tickets_warning"],
+                );
+              });
+          }
         }
         this.publicHelper.processService.processStop(
           this.constructor.name + "Unread",
