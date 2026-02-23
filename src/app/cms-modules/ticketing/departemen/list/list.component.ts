@@ -81,16 +81,16 @@ export class TicketingDepartemenListComponent
     "linkMainImageIdSrc",
     "id",
     "recordStatus",
-    // 'Title',
-    // 'Action'
+    "title",
+    "Action",
   ];
 
   tabledisplayedColumnsMobileSource: string[] = [
     "linkMainImageIdSrc",
     "id",
     "recordStatus",
-    // 'Title',
-    // 'Action'
+    "title",
+    "Action",
   ];
 
   expandedElement: TicketingDepartemenModel | null;

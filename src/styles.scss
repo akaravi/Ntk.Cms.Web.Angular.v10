@@ -415,6 +415,40 @@
     }
   }
 
+  /* وقتی mainfild بلافاصله قبل از expandedTitle است و expandedTitle باز نیست، لبهٔ پایین mainfild صاف باشد تا بین دو ردیف اصلی گردی دوتایی (نچ) ایجاد نشود */
+  mat-row.ntk-row-mainfild:has(
+      + mat-row.ntk-row-expandedTitle:not(.ntk-row-expanded)
+    ) {
+    border-radius: 12px 12px 0 0 !important;
+
+    mat-cell {
+      &:first-child {
+        border-bottom-left-radius: 0 !important;
+      }
+
+      &:last-child {
+        border-bottom-right-radius: 0 !important;
+      }
+    }
+  }
+
+  /* وقتی mainfild بلافاصله بعد از expandedTitle (بسته) است، لبهٔ بالای mainfild صاف باشد */
+  mat-row.ntk-row-expandedTitle:not(.ntk-row-expanded)
+    + mat-row.ntk-row-mainfild {
+    border-radius: 0 0 12px 12px !important;
+    margin-top: 0 !important;
+
+    mat-cell {
+      &:first-child {
+        border-top-left-radius: 0 !important;
+      }
+
+      &:last-child {
+        border-top-right-radius: 0 !important;
+      }
+    }
+  }
+
   /* اگر قبل از mainfild یک expandedTitle وجود دارد، border-top، margin-top و border-radius بالا را حذف کن */
   mat-row.ntk-row-expandedTitle + mat-row.ntk-row-mainfild {
     border-top: none !important;

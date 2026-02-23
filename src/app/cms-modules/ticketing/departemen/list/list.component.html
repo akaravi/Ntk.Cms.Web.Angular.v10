@@ -184,6 +184,7 @@
       matSort
       #tableSort="matSort"
       (matSortChange)="onTableSortData(tableSort)"
+      multiTemplateDataRows
     >
       <!-- LinkMainImageIdSrc Column -->
       <ng-container matColumnDef="linkMainImageIdSrc">
@@ -250,6 +251,16 @@
         </mat-header-cell>
         <mat-cell *matCellDef="let row"> {{ row.title }} </mat-cell>
       </ng-container>
+      <!-- expandedTitle: توضیحات (description) -->
+      <ng-container matColumnDef="expandedTitle">
+        <mat-cell *matCellDef="let row">
+          @if (row?.description?.length > 0) {
+            <div class="py-2 px-2 text-muted">
+              {{ row.description }}
+            </div>
+          }
+        </mat-cell>
+      </ng-container>
 
       <!-- CreatedDate Column -->
       <ng-container matColumnDef="createdDate">
@@ -293,7 +304,21 @@
         class="ntk-row-mainfild"
         (click)="onActionTableRowSelect(row, $event)"
         (rtclick)="onActionTableRowSelect(row, $event)"
+        (mouseenter)="onActionTableRowMouseEnter(row)"
+        (mouseleave)="onActionTableRowMouseLeave(row)"
         [class.ntk-row-selected]="row.id === tableRowSelected?.id"
+      >
+      </mat-row>
+      <mat-row
+        *matRowDef="let row; columns: ['expandedTitle']; let i = dataIndex"
+        class="ntk-row-expandedTitle"
+        [class.ntk-row-expanded]="row.expanded === true"
+        (click)="onActionTableRowSelect(row, $event)"
+        (rtclick)="onActionTableRowSelect(row, $event)"
+        (mouseenter)="onActionTableRowMouseEnter(row)"
+        (mouseleave)="onActionTableRowMouseLeave(row)"
+        [class.ntk-row-selected]="row.id === tableRowSelected?.id"
+        [ngStyle]="{ display: row.expanded === true ? '' : 'none' }"
       >
       </mat-row>
     </mat-table>
