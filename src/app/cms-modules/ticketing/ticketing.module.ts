@@ -54,7 +54,7 @@ import { TicketingFaqListMobileComponent } from "./faq/list/list.mobile.componen
 import { TicketingFaqOriginListComponent } from "./faq/origin-list/origin-list.component";
 import { TicketingTaskAddComponent } from "./task/add/add.component";
 import { TicketingTaskContactUsAddComponent } from "./task/contact-us-add/contact-us-add.component";
-import { TicketingTaskContactUsListComponent } from "./task/contact-us-list/contact-us-list.component";
+
 import { TicketingTaskEditComponent } from "./task/edit/edit.component";
 import { TicketingTaskHeaderComponent } from "./task/header/header.component";
 import { TicketingTaskListComponent } from "./task/list/list.component";
@@ -91,7 +91,7 @@ import { TicketingTemplateSelectorComponent } from "./template/selector/selector
     TicketingTaskAddComponent,
     TicketingTaskViewComponent,
     TicketingTaskContactUsAddComponent,
-    TicketingTaskContactUsListComponent,
+
     TicketingTaskHeaderComponent,
     /* */
     TicketingDepartemenOperatorListComponent,

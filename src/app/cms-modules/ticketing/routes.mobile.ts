@@ -7,7 +7,7 @@ import { TicketingDepartemenLogListMobileComponent } from "./departemenLog/list/
 import { TicketingFaqListMobileComponent } from "./faq/list/list.mobile.component";
 import { TicketingFaqOriginListComponent } from "./faq/origin-list/origin-list.component";
 import { TicketingTaskContactUsAddComponent } from "./task/contact-us-add/contact-us-add.component";
-import { TicketingTaskContactUsListComponent } from "./task/contact-us-list/contact-us-list.component";
+
 import { TicketingTaskListMobileComponent } from "./task/list/list.mobile.component";
 import { TicketingTemplateListMobileComponent } from "./template/list/list.mobile.component";
 
@@ -92,16 +92,7 @@ export const routesMobile: Routes = [
         component: TicketingTaskListMobileComponent,
         data: { title: "ROUTE.TICKETING.TASK" },
       },
-      {
-        path: "task/contactus-list",
-        component: TicketingTaskContactUsListComponent,
-        data: { title: "ROUTE.TICKETING.TASK" },
-      },
-      {
-        path: "task/contactus-list/LinkCmsUserId/:LinkCmsUserId",
-        component: TicketingTaskContactUsListComponent,
-        data: { title: "ROUTE.TICKETING.TASK" },
-      },
+
       {
         path: "task/:DepartemenId",
         component: TicketingTaskListMobileComponent,

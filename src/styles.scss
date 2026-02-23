@@ -402,17 +402,17 @@
     overflow: hidden !important;
     border: 2px solid rgba(0, 0, 0, 0.1) !important;
 
-    mat-cell {
-      &:first-child {
-        border-top-left-radius: 12px;
-        border-bottom-left-radius: 12px;
-      }
+    // mat-cell {
+    //   &:first-child {
+    //     border-top-left-radius: 12px;
+    //     border-bottom-left-radius: 12px;
+    //   }
 
-      &:last-child {
-        border-top-right-radius: 12px;
-        border-bottom-right-radius: 12px;
-      }
-    }
+    //   &:last-child {
+    //     border-top-right-radius: 12px;
+    //     border-bottom-right-radius: 12px;
+    //   }
+    // }
   }
 
   /* وقتی mainfild بلافاصله قبل از expandedTitle است و expandedTitle باز نیست، لبهٔ پایین mainfild صاف باشد تا بین دو ردیف اصلی گردی دوتایی (نچ) ایجاد نشود */
@@ -486,12 +486,12 @@
 
     mat-cell {
       &:first-child {
-        border-top-left-radius: 12px;
+        //border-top-left-radius: 12px;
         border-bottom-left-radius: 0 !important;
       }
 
       &:last-child {
-        border-top-right-radius: 12px;
+        //border-top-right-radius: 12px;
         border-bottom-right-radius: 0 !important;
       }
     }

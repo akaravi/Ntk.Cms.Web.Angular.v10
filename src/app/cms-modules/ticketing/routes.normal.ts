@@ -7,7 +7,7 @@ import { TicketingDepartemenLogListComponent } from "./departemenLog/list/list.c
 import { TicketingFaqListComponent } from "./faq/list/list.component";
 import { TicketingFaqOriginListComponent } from "./faq/origin-list/origin-list.component";
 import { TicketingTaskContactUsAddComponent } from "./task/contact-us-add/contact-us-add.component";
-import { TicketingTaskContactUsListComponent } from "./task/contact-us-list/contact-us-list.component";
+
 import { TicketingTaskListComponent } from "./task/list/list.component";
 import { TicketingTemplateListComponent } from "./template/list/list.component";
 
@@ -92,16 +92,7 @@ export const routesNormal: Routes = [
         component: TicketingTaskListComponent,
         data: { title: "ROUTE.TICKETING.TASK" },
       },
-      {
-        path: "task/contactus-list",
-        component: TicketingTaskContactUsListComponent,
-        data: { title: "ROUTE.TICKETING.TASK" },
-      },
-      {
-        path: "task/contactus-list/LinkCmsUserId/:LinkCmsUserId",
-        component: TicketingTaskContactUsListComponent,
-        data: { title: "ROUTE.TICKETING.TASK" },
-      },
+
       {
         path: "task/:DepartemenId",
         component: TicketingTaskListComponent,
