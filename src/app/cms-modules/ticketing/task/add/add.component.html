@@ -22,16 +22,7 @@
           label="{{ 'TITLE.REQUIRED_INFORMATION' | translate }}"
           state="main"
         >
-          <!-- RecordStatus Field -->
-          @if (fieldsInfo["recordStatus"]?.accessWatchField) {
-            <app-cms-enum-record-status-selector
-              [(model)]="dataModel.recordStatus"
-              [optionDisabled]="!(fieldsInfo['recordStatus']?.accessAddField ?? false)"
-              [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
-              [optionRequired]="true"
-              [optionSelectFirstItem]="true"
-            ></app-cms-enum-record-status-selector>
-          }
+
 
           <app-ticketing-departemen-selector
             (optionChange)="onActionSelectSource($event)"
@@ -42,8 +33,28 @@
             "
           >
           </app-ticketing-departemen-selector>
+             <!-- LinkCmsUserId Field -->
+              @if (fieldsInfo["linkCmsUserId"]?.accessAddField) {
+                        <div
+                          class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+                          >
+                          <label for="dataModel.linkCmsUserId" class="color-highlight">{{
+                            fieldsInfo["linkCmsUserId"]?.fieldTitle
+                          }}</label>
+                          <input
+                            matInput
+                            type="number"
+                            [(ngModel)]="dataModel.linkCmsUserId"
+                            name="dataModel.linkCmsUserId"
+                            #LinkCmsUserId
+                            placeholder="0"
+                            class="form-control validate-name"
+                            id="dataModel.linkCmsUserId"
+                            />
+                          </div>
+                        }
           <!-- FullName Field -->
-          @if (fieldsInfo["fullName"]?.accessWatchField) {
+          @if (fieldsInfo["fullName"]?.accessAddField) {
             <div
               class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
             >
@@ -80,7 +91,7 @@
             </div>
           }
           <!-- Title Field -->
-          @if (fieldsInfo["title"]?.accessWatchField) {
+          @if (fieldsInfo["title"]?.accessAddField) {
             <div
               class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
             >
@@ -118,7 +129,7 @@
             </div>
           }
           <!-- PhoneNo Field -->
-          @if (fieldsInfo["phoneNo"]?.accessWatchField) {
+          @if (fieldsInfo["phoneNo"]?.accessAddField) {
             <div
               class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
             >
@@ -156,7 +167,7 @@
             </div>
           }
           <!-- Email Field -->
-          @if (fieldsInfo["email"]?.accessWatchField) {
+          @if (fieldsInfo["email"]?.accessAddField) {
             <div
               class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
             >
@@ -195,7 +206,7 @@
             </div>
           }
           <!-- HtmlBody Field -->
-          @if (fieldsInfo["htmlBody"]?.accessWatchField) {
+          @if (fieldsInfo["htmlBody"]?.accessAddField) {
             <div
               class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
             >
@@ -221,7 +232,7 @@
             </div>
           }
           <!-- ExpireDate Field -->
-          @if (fieldsInfo["expireDate"]?.accessWatchField) {
+          @if (fieldsInfo["expireDate"]?.accessAddField) {
             <div
               class="input-style has-borders no-icon input-style-always-active validate-field mb-4 cms-input-group"
             >
@@ -278,7 +289,7 @@
         >
           <p>{{ "TITLE.Rest_of_Information" | translate }}</p>
           <!-- UserIpAddress Field -->
-          @if (fieldsInfo["userIpAddress"]?.accessWatchField) {
+          @if (fieldsInfo["userIpAddress"]?.accessAddField) {
             <div
               class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
             >
@@ -303,7 +314,7 @@
             </div>
           }
           <!-- DeviceInformation Field -->
-          @if (fieldsInfo["deviceInformation"]?.accessWatchField) {
+          @if (fieldsInfo["deviceInformation"]?.accessAddField) {
             <div
               class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
             >

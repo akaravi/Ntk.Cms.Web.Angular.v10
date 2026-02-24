@@ -5,17 +5,20 @@ import { MatDialogRef } from "@angular/material/dialog";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    AccessModel,
-    ApplicationSourceModel,
-    CoreEnumService,
-    DataFieldInfoModel,
-    ErrorExceptionResult, TicketingTaskModel,
-    TicketingTaskService
+  AccessModel,
+  ApplicationSourceModel,
+  CoreEnumService,
+  DataFieldInfoModel,
+  ErrorExceptionResult, TicketingTaskModel,
+  TicketingTaskService,
+  TokenInfoModelV3
 } from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
+import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { PoinModel } from "src/app/core/models/pointModel";
+import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 
@@ -36,10 +39,12 @@ export class TicketingTaskAddComponent
     public coreEnumService: CoreEnumService,
     private ticketingTaskService: TicketingTaskService,
     public cmsToastrService: CmsToastrService,
+    private cmsStoreService: CmsStoreService,
     private dialogRef: MatDialogRef<TicketingTaskAddComponent>,
     private router: Router,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
+    private tokenHelper: TokenHelper,
   ) {
     super(
       ticketingTaskService,
@@ -68,14 +73,20 @@ export class TicketingTaskAddComponent
   fileManagerTree: TreeModel;
   mapMarker: any;
   mapOptonCenter = new PoinModel();
-
+tokenInfo = new TokenInfoModelV3();
   ngOnInit(): void {
     this.requestLinkDepartemenId = +Number(
       this.activatedRoute.snapshot.paramMap.get("LinkDepartemenId"),
     );
-
+this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     this.dataModel.linkTicketingDepartemenId = this.requestLinkDepartemenId;
     this.DataGetAccess();
+    if (!this.tokenHelper.isAdminSite) {
+      this.dataModel.linkCmsUserId = this.tokenInfo.user.id;
+      this.dataModel.fullName = this.tokenInfo.user.lastName;
+      this.dataModel.email = this.tokenInfo.user.email;
+      this.dataModel.phoneNo = this.tokenInfo.user.mobile;
+    }
   }
 
   onFormSubmit(): void {
