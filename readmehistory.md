@@ -1,5 +1,37 @@
 # تاریخچه تغییرات پروژه
 
+## 2026-02-23 (اصلاح کادر/فریم ردیف‌ها در لیست دپارتمان – ترتیب ردیف‌ها در HTML)
+
+### خلاصه:
+
+در لیست دپارتمان تیکت، کادر انتخاب و حالت عادی ردیف‌ها اشتباه بود. در کل سیستم ترتیب ردیف‌ها در جدول مطابق الگو «اول expandedTitle، بعد mainfild، بعد expandedDetail» است؛ در این لیست ترتیب برعکس بود (اول mainfild، بعد expandedTitle). با جابه‌جا کردن ترتیب دو ردیف در HTML با بقیهٔ سیستم هم‌خوان شد و استایل‌های سراسری درست اعمال می‌شوند.
+
+### تغییرات:
+
+- **list.component.html (ticketing/departemen):** قرار دادن ردیف `expandedTitle` قبل از ردیف `mainfild` تا ترتیب با الگوی mat-table-order و CSS سراسری یکسان باشد.
+
+### فایل‌های تغییر یافته:
+
+- `src/app/cms-modules/ticketing/departemen/list/list.component.html`
+
+---
+
+## 2026-02-23 (رفع گردی اشتباه بین ردیف‌های جدول وقتی ترتیب mainfild و expandedTitle است)
+
+### خلاصه:
+
+وقتی ترتیب ردیف‌ها mainfild سپس expandedTitle است (مثل لیست دپارتمان) و expandedTitle بسته است، هر دو ردیف اصلی با border-radius کامل رسم می‌شدند و در فاصلهٔ سفید بین آن‌ها یک «نچ»/گردی دوتایی دیده می‌شد. با اضافه کردن دو قانون CSS در styles.scss لبهٔ پایین ردیف اول و لبهٔ بالای ردیف دوم در این حالت صاف شد.
+
+### تغییرات:
+
+- **styles.scss:** اضافه شدن قانون برای `mainfild:has(+ expandedTitle:not(.ntk-row-expanded))` با border-radius فقط بالا؛ و قانون برای `expandedTitle:not(.ntk-row-expanded) + mainfild` با border-radius فقط پایین و margin-top: 0.
+
+### فایل‌های تغییر یافته:
+
+- `src/styles.scss`
+
+---
+
 ## 2026-02-23 (لیست دپارتمان تیکت: نمایش title در لیست و description در expandedTitle)
 
 ### خلاصه:
