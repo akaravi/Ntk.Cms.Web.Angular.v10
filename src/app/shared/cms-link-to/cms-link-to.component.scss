@@ -1,55 +1,446 @@
-.style {
-  padding: 6px;
-  margin: 2px;
-  font-size: 20px;
-  text-align: center;
-  text-decoration: none;
-  border: black solid 2px;
-  border-radius: 50%;
+// cms-link-to: ظاهر استاندارد، پشتیبانی تم شب/روز، دسترسی‌پذیری و موبایل/دسکتاپ
+
+.cms-link-to {
+  .close-menu.btn-icon {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    color: inherit;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      background-color 0.2s ease,
+      opacity 0.2s ease;
+
+    i {
+      font-size: 1.25rem;
+    }
+
+    &:hover {
+      opacity: 0.85;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--cms-m-highlight-color, #4a89dc);
+      outline-offset: 2px;
+    }
+  }
+
+  // تب‌ها – خوانایی برچسب و نوار انتخاب (Material MDC)
+  .cms-link-to__tabs.mat-mdc-tab-group {
+    --mat-tab-header-active-label-text-color: #0f172a;
+    --mat-tab-header-inactive-label-text-color: #334155;
+    --mdc-tab-indicator-active-indicator-color: var(
+      --cms-m-highlight-color,
+      #4a89dc
+    );
+    --mat-tab-header-inactive-focus-label-text-color: #334155;
+    --mat-tab-header-inactive-hover-label-text-color: #1e293b;
+  }
+
+  ::ng-deep .cms-link-to__tabs {
+    .mat-mdc-tab-header {
+      border-bottom: 2px solid rgba(0, 0, 0, 0.12) !important;
+      background: rgba(0, 0, 0, 0.06) !important;
+    }
+
+    .mat-mdc-tab .mdc-tab__text-label {
+      color: #334155 !important;
+      font-weight: 600 !important;
+      font-size: 0.9375rem !important;
+    }
+
+    .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+      color: #0f172a !important;
+    }
+
+    .mdc-tab-indicator__content--underline {
+      border-color: var(--cms-m-highlight-color, #4a89dc) !important;
+      border-width: 3px !important;
+    }
+  }
+
+  .cms-link-to__tab-padding {
+    padding: 0.5rem;
+  }
+
+  .cms-link-to__label {
+    margin-bottom: 0.5rem;
+  }
+
+  .cms-link-to__actions-col {
+    .cms-link-to__btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .cms-link-to__btn {
+      min-height: 44px;
+    }
+  }
+
+  .cms-link-to__qdoc-hint {
+    display: block;
+    margin-top: 0.6rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    font-weight: 500;
+    font-style: normal;
+    color: #1e293b;
+    opacity: 1;
+  }
+
+  .cms-link-to__qdoc-link {
+    color: var(--cms-m-highlight-color, #4a89dc);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+
+    &:hover {
+      color: #0284c7;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--cms-m-highlight-color, #4a89dc);
+      outline-offset: 2px;
+    }
+  }
+
+  .cms-link-to__qrcode-wrap {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+
+  .cms-link-to__qrcode-view-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    margin-top: 0.75rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #fff;
+    background: #0ea5e9;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background 0.2s ease,
+      transform 0.15s ease;
+    min-height: 44px;
+
+    i {
+      font-size: 1rem;
+    }
+
+    &:hover {
+      background: #0284c7;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    &:focus-visible {
+      outline: 2px solid #0ea5e9;
+      outline-offset: 2px;
+    }
+  }
+
+  // نوار پایین صفحه: خط + دکمه نمایش در تب جدید + آیکن‌های اشتراک‌گذاری
+  .cms-link-to__footer {
+    margin-top: 1rem;
+    padding-top: 0;
+  }
+
+  .cms-link-to__footer-line {
+    margin: 0 0 1rem 0;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+  }
+
+  .cms-link-to__footer-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    row-gap: 0.75rem;
+  }
+
+  .cms-link-to__footer-view-btn {
+    margin-top: 0;
+  }
+
+  .cms-link-to__footer-share {
+    margin: 0;
+  }
+
+  .cms-link-to__qrcode-img {
+    width: 200px;
+    height: 200px;
+    max-width: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+  // دکمه‌های اشتراک‌گذاری – حداقل 44px برای لمس (WCAG)، رنگ برند، تم شب
+  .cms-link-to__share-title {
+    display: block;
+  }
+
+  .cms-link-to__share-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .cms-link-to__share-btn {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 1.25rem;
+    color: #fff;
+    cursor: pointer;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.2s ease,
+      opacity 0.2s ease;
+
+    i {
+      pointer-events: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
+
+    &:hover {
+      transform: scale(1.08);
+      opacity: 0.95;
+    }
+
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+
+  .cms-link-to__share-btn--viewpage {
+    background: #0ea5e9;
+    color: #fff;
+
+    &:hover {
+      background: #0284c7;
+    }
+  }
+
+  .cms-link-to__share-btn--whatsapp {
+    background: #25d366;
+
+    &:hover {
+      background: #20bd5a;
+    }
+  }
+
+  .cms-link-to__share-btn--telegram {
+    background: #0088cc;
+
+    &:hover {
+      background: #0077b5;
+    }
+  }
+
+  .cms-link-to__share-btn--linkedin {
+    background: #0a66c2;
+
+    &:hover {
+      background: #004182;
+    }
+  }
+
+  .cms-link-to__share-btn--facebook {
+    background: #1877f2;
+
+    &:hover {
+      background: #166fe5;
+    }
+  }
+
+  .cms-link-to__share-btn--twitter {
+    background: #1da1f2;
+
+    &:hover {
+      background: #1a94da;
+    }
+  }
+
+  .cms-link-to__share-btn--copy {
+    background: #64748b;
+    color: #fff;
+
+    &:hover {
+      background: #475569;
+    }
+  }
+
+  // تب ارسال پیام
+  .cms-link-to__send-row {
+    align-items: flex-start;
+  }
+
+  .cms-link-to__send-config {
+    padding-top: 1.5rem;
+
+    @media (min-width: 768px) {
+      padding-top: 2.5rem;
+    }
+  }
+
+  .cms-link-to__message-box.message-box {
+    background-image: url("/assets/media/bg/iphone.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 320px;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 0 33px;
+    box-sizing: border-box;
+  }
+
+  .cms-link-to__message-spacer {
+    margin-bottom: 0;
+    height: 90px;
+  }
+
+  .cms-link-to__message-field-row {
+    margin-bottom: 0;
+    min-height: 283px;
+  }
+
+  .cms-link-to__textarea {
+    min-height: 276px;
+    resize: vertical;
+  }
+
+  .cms-link-to__to-numbers-row {
+    margin-bottom: 0;
+    margin-top: 0.75rem;
+    min-height: 140px;
+  }
+
+  .cms-link-to__textarea-sm {
+    min-height: 138px;
+    resize: vertical;
+  }
+
+  .cms-link-to__submit-row {
+    margin-bottom: 0;
+    justify-content: center;
+    padding-bottom: 1rem;
+    min-height: 40px;
+  }
+
+  .cms-link-to__submit-btn.message-box-button {
+    color: var(--cms-m-highlight-color, #4a89dc);
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    min-height: 44px;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    transition:
+      color 0.2s ease,
+      opacity 0.2s ease;
+
+    &:hover:not(:disabled) {
+      color: #d72638;
+      opacity: 0.9;
+    }
+
+    &:active:not(:disabled) {
+      color: #a200ff;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    i {
+      margin-left: 0.35rem;
+    }
+  }
 }
 
-.style-copy {
-  color: black;
-  border-radius: 20%;
-}
-.whatsapp:hover {
-  background-color: greenyellow;
-}
-.facebook:hover {
-  background: #3b5998;
-}
-.twitter:hover {
-  background: #55acee;
-}
-.linkedin:hover {
-  background: #007bb5;
-}
-.telegram:hover {
-  background: #125688;
-}
-.cursor {
-  cursor: pointer;
-}
-.message-box {
-  background-image: url("/assets/media/bg/iphone.png"); /* The image used */
-  //background-color: #cccccc; /* Used if the image is unavailable */
-  height: 600px; /* You must set a specified height */
-  width: 300px;
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
-  padding-right: 33px;
-  padding-left: 33px;
-}
-.message-box-button {
-  color: blue;
-  border-color: transparent;
-  background-color: transparent;
-}
-.message-box-button:hover {
-  color: red;
-  font-size: initial;
-}
-.message-box-button:active {
-  color: #a200ff;
+// تم شب – سازگاری با theme-dark پروژه
+.theme-dark .cms-link-to {
+  .cms-link-to__tabs.mat-mdc-tab-group {
+    --mat-tab-header-active-label-text-color: #f8fafc;
+    --mat-tab-header-inactive-label-text-color: #cbd5e1;
+    --mdc-tab-indicator-active-indicator-color: var(
+      --cms-m-highlight-color-light,
+      #5d9cec
+    );
+
+    .mat-mdc-tab-header {
+      border-bottom-color: rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .mat-mdc-tab .mdc-tab__text-label {
+      font-weight: 600;
+    }
+  }
+
+  .cms-link-to__qdoc-hint {
+    color: #e2e8f0;
+  }
+
+  .cms-link-to__qdoc-link {
+    color: var(--cms-m-highlight-color-light, #5d9cec);
+
+    &:hover {
+      color: #7eb8f0;
+    }
+  }
+
+  .cms-link-to__footer-line {
+    border-top-color: rgba(255, 255, 255, 0.15);
+  }
+
+  .cms-link-to__share-btn--viewpage:hover {
+    background: #0c7bb8;
+  }
+
+  .cms-link-to__share-btn--copy {
+    background: #475569;
+
+    &:hover {
+      background: #334155;
+    }
+  }
+
+  .close-menu.btn-icon:focus-visible {
+    outline-color: var(--cms-m-highlight-color-light, #5d9cec);
+  }
 }

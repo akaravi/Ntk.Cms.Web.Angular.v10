@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from "@angular/core";
 import { EstateAccountAgencyService } from "ntk-cms-api";
-import { Observable, map } from "rxjs";
+import { Observable, map, catchError, of } from "rxjs";
 
 @Pipe({
   name: "estateAccountAgencyInfo",
@@ -13,20 +13,15 @@ export class estateAccountAgencyInfoPipe implements PipeTransform {
       return new Observable<string>();
     }
     return this.service.ServiceGetOneById(value, 1000000).pipe(
-      map(
-        (ret) => {
-          var retOut = "";
-          if (ret.isSuccess) {
-            if (ret.item.title && ret.item.title.length > 0)
-              retOut = ret.item.title;
-            ///** */
-          }
-          return retOut;
-        },
-        (er) => {
-          return "";
-        },
-      ), // needed only if you need projection
+      map((ret) => {
+        var retOut = "";
+        if (ret.isSuccess) {
+          if (ret.item.title && ret.item.title.length > 0)
+            retOut = ret.item.title;
+        }
+        return retOut;
+      }),
+      catchError(() => of("")),
     );
   }
 }

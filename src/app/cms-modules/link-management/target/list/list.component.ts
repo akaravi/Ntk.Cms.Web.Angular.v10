@@ -29,6 +29,9 @@ import { CmsToastrService } from "../../../../core/services/cmsToastr.service";
   selector: "app-linkmanagement-target-list",
   templateUrl: "./list.component.html",
   standalone: false,
+  styles: [
+    ".cms-file-info-block { margin-bottom: 0.5rem; } .cms-file-size { font-size: 0.85em; opacity: 0.85; } .cms-file-download-link { font-size: 0.9em; }",
+  ],
 })
 export class LinkManagementTargetListComponent
   extends ListBaseComponent<
@@ -127,6 +130,20 @@ export class LinkManagementTargetListComponent
   ngOnDestroy(): void {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
+
+  /**
+   * آرایه شناسه فایل‌های پیوست از linkFileIds (رشته با جداکننده کاما)
+   */
+  getLinkFileIdsArray(row: LinkManagementTargetModel): number[] {
+    if (!row?.linkFileIds || typeof row.linkFileIds !== "string") {
+      return [];
+    }
+    return row.linkFileIds
+      .split(",")
+      .map((s) => parseInt(s.trim(), 10))
+      .filter((n) => !isNaN(n) && n > 0);
+  }
+
   DataGetAll(): void {
     this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
       this.tabledisplayedColumnsSource,
@@ -486,7 +503,7 @@ export class LinkManagementTargetListComponent
             exitAnimationDuration:
               environment.cmsViewConfig.exitAnimationDuration,
             data: {
-              title: ret.item.title,
+              title: ret.item.title ?? "",
               urlViewContentQRCodeBase64: ret.item.urlViewContentQRCodeBase64,
               urlViewContent: ret.item.urlViewContent,
             },

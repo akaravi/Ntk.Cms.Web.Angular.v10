@@ -944,3 +944,76 @@ styles.mobile.scss فقط با prefers-color-scheme: dark کار می‌کرد. 
 ✅ صفحه لیست اعتبار خودم به طور کامل چندزبانه شد. تمام عبارات قابل ترجمه در قالب کلیدهای TITLE و MESSAGE در ۹ زبان (فارسی، انگلیسی، عربی، آلمانی، اسپانیایی، فرانسوی، ژاپنی، ترکی، چینی) اضافه و در تمپلیت از پایپ translate استفاده شد.
 
 ---
+
+## Part 29: Pipe و Directive اطلاعات فایل (File Info)
+
+**تاریخ:** 2026-03-08
+**وضعیت:** ✅ تکمیل شده
+
+### هدف:
+
+- داشتن یک pipe در ماژول فایل (مشابه `cms-user-info.pipe`) برای نمایش نام فایل و آدرس دانلود.
+- داشتن یک directive مشابه `cms-user-info-tooltip` برای نمایش tooltip اطلاعات فایل (نام و لینک دانلود).
+
+### انجام‌شده:
+
+1. **Pipe:** `src/app/core/pipe/file/cms-file-info.pipe.ts`
+   - نام: `cmsfileinfo`
+   - ورودی: شناسه فایل (FileContentId – number)
+   - خروجی: `Observable<CmsFileInfoResult>` با فیلدهای `fileName`, `downloadLink`, `fileSizeFormatted`
+   - استفاده از `FileContentService.ServiceGetOneById`؛ استفاده از `map` و `catchError` (بدون امضای deprecated)
+
+2. **Directive:** `src/app/core/directive/file/cms-file-info-tooltip.directive.ts`
+   - سلکتور: `[cmsFileInfoTooltip]`
+   - ورودی: `cmsFileInfoTooltip` (number)، `tooltipPosition` (above/below/left/right)
+   - نمایش tooltip با نام فایل و آدرس دانلود؛ با cache و loading مشابه user-info-tooltip
+
+3. **SharedModule:**
+   - اضافه شدن `FileContentService` به imports از ntk-cms-api و به providers
+   - اضافه شدن `CmsFileInfoPipe` و `CmsFileInfoTooltipDirective` به declarations و exports
+
+### فایل‌های ایجاد/تغییر یافته:
+
+- `src/app/core/pipe/file/cms-file-info.pipe.ts` (جدید)
+- `src/app/core/directive/file/cms-file-info-tooltip.directive.ts` (جدید)
+- `src/app/shared/shared.module.ts` (import، declarations، exports، providers)
+
+### Result 29:
+
+✅ Pipe `cmsfileinfo` و directive `cmsFileInfoTooltip` برای فایل‌ها ایجاد و در SharedModule ثبت شدند. در هر جایی که SharedModule import شده باشد می‌توان از `{{ fileContentId | cmsfileinfo | async }}` و `[cmsFileInfoTooltip]="fileContentId"` استفاده کرد.
+
+---
+
+## Part 30: رفع Deprecation امضای map در RxJS
+
+**تاریخ:** 2026-03-08
+**وضعیت:** ✅ تکمیل شده
+
+### مشکل:
+
+امضای `map(project, thisArg)` در RxJS deprecated است و در زمان کامپایل/اجرا هشدار می‌داد. در چندین pipe از این الگو با آرگومان دوم به‌عنوان fallback خطا استفاده شده بود.
+
+### راه‌حل:
+
+- حذف آرگومان دوم از `map` (فقط یک تابع projection).
+- استفاده از `catchError(() => of(...))` برای fallback در صورت خطا.
+
+### فایل‌های تغییر یافته:
+
+- `src/app/core/pipe/file/cms-file-info.pipe.ts`
+- `src/app/core/pipe/core/cms-user-info.pipe.ts`
+- `src/app/core/pipe/core/cms-site-info.pipe.ts`
+- `src/app/core/pipe/core/cms-module-info.pipe.ts`
+- `src/app/core/pipe/esate/estate-account-agency-info.pipe.ts`
+- `src/app/core/pipe/esate/estate-account-user-info.pipe.ts`
+- `src/app/core/pipe/esate/estate-customer-order-info.pipe.ts`
+- `src/app/core/pipe/esate/estate-property-company-info.pipe.ts`
+- `src/app/core/pipe/esate/estate-property-info.pipe.ts`
+- `src/app/core/pipe/esate/estate-property-project-info.pipe.ts`
+- `src/app/core/pipe/esate/estate-property-supplier-info.pipe.ts`
+
+### Result 30:
+
+✅ در تمام pipeهای فوق فقط از `map(project)` و `catchError(() => of(...))` استفاده می‌شود. جستجو در کل پروژه نشان داد هیچ استفادهٔ دیگری از امضای deprecated باقی نمانده است (contact-content-by-number و directiveهای tooltip از ابتدا درست بودند).
+
+---

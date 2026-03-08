@@ -352,7 +352,27 @@
           @if (row?.linkFileIds?.length > 0) {
             <br />
             {{ "TITLE.ATTACH_FILES" | translate }} :
-            {{ row.linkFileIds }}
+            @for (fileId of getLinkFileIdsArray(row); track fileId) {
+              @if (fileId | cmsfileinfo | async; as info) {
+                <div class="cms-file-info-block">
+                  <span class="cms-file-name">{{ info.fileName }}</span>
+                  @if (info.fileSizeFormatted) {
+                    <span class="cms-file-size">
+                      ({{ info.fileSizeFormatted }})</span
+                    >
+                  }
+                  @if (info.downloadLink) {
+                    <a
+                      class="cms-file-download-link"
+                      [href]="info.downloadLink"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >{{ "TITLE.download_link" | translate }}</a
+                    >
+                  }
+                </div>
+              }
+            }
           }
         </mat-cell>
       </ng-container>

@@ -5,12 +5,12 @@ import { MatSort } from "@angular/material/sort";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    FilterDataModel,
-    FilterModel,
-    LinkManagementTargetBillboardLogModel,
-    LinkManagementTargetBillboardLogService,
-    RecordStatusEnum,
-    SortTypeEnum,
+  FilterDataModel,
+  FilterModel,
+  LinkManagementTargetBillboardLogModel,
+  LinkManagementTargetBillboardLogService,
+  RecordStatusEnum,
+  SortTypeEnum,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { ListBaseComponent } from "src/app/core/cmsComponent/listBaseComponent";
@@ -75,12 +75,20 @@ export class LinkManagementTargetBillboardLogListComponent
       filter.propertyName = "LinkManagementBillboardId";
       filter.value = this.requestLinkManagementBillboardId;
       this.filteModelContent.filters.push(filter);
+      this.tabledisplayedColumnsSource = this.publicHelper.listRemoveIfExist(
+        this.tabledisplayedColumnsSource,
+        "LinkManagementBillboardId",
+      );
     }
     if (this.requestLinkManagementTargetId > 0) {
       const filter = new FilterDataModel();
       filter.propertyName = "LinkManagementTargetId";
       filter.value = this.requestLinkManagementTargetId;
       this.filteModelContent.filters.push(filter);
+      this.tabledisplayedColumnsSource = this.publicHelper.listRemoveIfExist(
+        this.tabledisplayedColumnsSource,
+        "LinkManagementTargetId",
+      );
     }
     this.optionsSearch.parentMethods = {
       onSubmit: (model) => this.onSubmitOptionsSearch(model),
@@ -123,18 +131,20 @@ export class LinkManagementTargetBillboardLogListComponent
   tabledisplayedColumns: string[] = [];
   tabledisplayedColumnsSource: string[] = [
     // 'Id',
+    "createdDate",
+    "ipAddress",
     "ClickPrice",
     "ViewPrice",
-    // 'CreatedDate',
     "LinkManagementBillboardId",
     "LinkManagementTargetId",
     "action_menu",
   ];
   tabledisplayedColumnsMobileSource: string[] = [
     // 'Id',
+    "createdDate",
+    "ipAddress",
     "ClickPrice",
     "ViewPrice",
-    // 'CreatedDate',
     "LinkManagementBillboardId",
     "LinkManagementTargetId",
     "action_menu",

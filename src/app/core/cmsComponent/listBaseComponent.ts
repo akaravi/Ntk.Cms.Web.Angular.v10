@@ -67,7 +67,20 @@ export class ListBaseComponent<
   public tableRowSelect3Click = false;
   public tableRowSelectActionMenuClick = false;
   requestRecordStatus: RecordStatusEnum;
+  /**
+   * بررسی اینکه کلیک روی لینک، دکمه یا المنت تعاملی بوده تا رفتار پیش‌فرض (مثلاً باز شدن لینک) کار کند.
+   */
+  private isClickOnInteractiveElement(event: MouseEvent): boolean {
+    if (!event?.target) return false;
+    const target = event.target as HTMLElement;
+    const interactive = target.closest?.(
+      'a[href], button, [role="button"], input, select, textarea, [contenteditable="true"]',
+    );
+    return !!interactive;
+  }
+
   onActionTableRowSelect(row: TModel, event: MouseEvent = null): void {
+    if (this.isClickOnInteractiveElement(event)) return;
     if (event) event.preventDefault();
     //row selected
     this.tableRowSelected = row;

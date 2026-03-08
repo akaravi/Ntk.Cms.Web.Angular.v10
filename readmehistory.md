@@ -1,5 +1,26 @@
 # تاریخچه تغییرات پروژه
 
+## 2026-03-08 (رفع آیکون‌ها و بهینه‌سازی ظاهر کامپوننت cms-link-to)
+
+### خلاصه:
+
+در کامپوننت اشتراک‌گذاری لینک (cms-link-to) آیکون‌های اشتراک (واتساپ، تلگرام، لینکدین، فیسبوک، توییتر، کپی) با کلاس‌های flaticon نمایش داده نمی‌شدند؛ فونت Flaticon در پروژه لود نمی‌شود. تمام این آیکون‌ها به Font Awesome (موجود در پروژه) تغییر داده شد و ظاهر با استانداردهای دسترسی‌پذیری، حداقل اندازه لمس 44px، تم شب/روز و چندزبانه بهینه شد.
+
+### تغییرات:
+
+- **cms-link-to.component.html:** جایگزینی flaticon با fa-brands/fa-solid؛ دکمه بستن و دکمه کپی به صورت semantic button با aria-label؛ لینک‌های اشتراک با rel="noopener noreferrer" و aria-label؛ کلاس‌های BEM و حذف استایل inline؛ عنوان «اشتراک‌گذاری» با TITLE.Share.
+- **cms-link-to.component.scss:** بازنویسی استایل با BEM، حداقل 44px برای دکمه‌ها، رنگ برند شبکه‌ها، hover/focus-visible، پشتیبانی theme-dark و ریسپانسیو.
+- **i18n (fa, en, ar, de, es, fr, ja, tr, zh):** افزودن TITLE.Share و TITLE.Share_WhatsApp، TITLE.Share_Telegram، TITLE.Share_LinkedIn، TITLE.Share_Facebook، TITLE.Share_Twitter.
+
+### فایل‌های تغییر یافته:
+
+- `src/app/shared/cms-link-to/cms-link-to.component.html`
+- `src/app/shared/cms-link-to/cms-link-to.component.scss`
+- `src/assets/i18n/fa.json`, `en.json`, `ar.json`, `de.json`, `es.json`, `fr.json`, `ja.json`, `tr.json`, `zh.json`
+- `Cursor.CmsLinkTo.plan.md` (ایجاد)
+
+---
+
 ## 2026-03-08 (تکمیل چندزبانه صفحه اعتبار کاربر – myself-list)
 
 ### خلاصه:

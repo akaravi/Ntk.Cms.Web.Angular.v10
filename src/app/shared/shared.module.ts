@@ -1,4 +1,4 @@
-﻿import { TreeModule } from "@ali-hm/angular-tree-component";
+import { TreeModule } from "@ali-hm/angular-tree-component";
 import { ClipboardModule } from "@angular/cdk/clipboard";
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { PlatformModule } from "@angular/cdk/platform";
@@ -80,6 +80,7 @@ import {
   CoreSiteService,
   CoreUserGroupService,
   CoreUserService,
+  FileContentService,
   MemberUserService,
   SmsActionService,
   SmsMainApiNumberService,
@@ -99,6 +100,7 @@ import { CmsModuleInfoTooltipDirective } from "../core/directive/core/cms-module
 import { CmsSiteInfoTooltipDirective } from "../core/directive/core/cms-site-info-tooltip.directive";
 import { CmsUserInfoTooltipDirective } from "../core/directive/core/cms-user-info-tooltip.directive";
 import { DirDirective } from "../core/directive/dir.directive";
+import { CmsFileInfoTooltipDirective } from "../core/directive/file/cms-file-info-tooltip.directive";
 import { InlineSVGComponent } from "../core/directive/inline-svg.component";
 import { InlineSVGDirective } from "../core/directive/inline-svg.directive";
 import { KeyboardForceNumberDirective } from "../core/directive/keyboard-force-number.directive";
@@ -135,6 +137,7 @@ import { CmsModuleInfoPipe } from "../core/pipe/core/cms-module-info.pipe";
 import { CmsSiteInfoPipe } from "../core/pipe/core/cms-site-info.pipe";
 import { CmsUserInfoPipe } from "../core/pipe/core/cms-user-info.pipe";
 import { EnumsPipe } from "../core/pipe/enums.pipe";
+import { CmsFileInfoPipe } from "../core/pipe/file/cms-file-info.pipe";
 import { FirstLetterPipe } from "../core/pipe/first-letter.pipe";
 import { ListKeysPipe } from "../core/pipe/list-keys.pipe";
 import { LocaleTime } from "../core/pipe/local-Time.pipe";
@@ -237,6 +240,7 @@ import { SplashScreenComponent } from "./splash-screen/splash-screen.component";
     EnumsPipe,
     CmsTitlePipe,
     CmsUserInfoPipe,
+    CmsFileInfoPipe,
     CmsSiteInfoPipe,
     CmsModuleInfoPipe,
     CmsImageThumbnailPipe,
@@ -321,7 +325,6 @@ import { SplashScreenComponent } from "./splash-screen/splash-screen.component";
     CmsHtmlWidgetComponent,
     ConfirmationDialogComponent,
 
-
     /** input */
     StringComponent,
     IntComponent,
@@ -334,6 +337,7 @@ import { SplashScreenComponent } from "./splash-screen/splash-screen.component";
     TooltipDirective,
     ContactContentByNumberTooltipDirective,
     CmsUserInfoTooltipDirective,
+    CmsFileInfoTooltipDirective,
     CmsSiteInfoTooltipDirective,
     CmsModuleInfoTooltipDirective,
     DirDirective,
@@ -380,6 +384,7 @@ import { SplashScreenComponent } from "./splash-screen/splash-screen.component";
     CoreLogMemberService,
     CoreUserService,
     CoreUserGroupService,
+    FileContentService,
     CoreSiteService,
     CoreSiteCategoryService,
     CoreGuideService,
@@ -518,6 +523,7 @@ import { SplashScreenComponent } from "./splash-screen/splash-screen.component";
     EnumsPipe,
     CmsTitlePipe,
     CmsUserInfoPipe,
+    CmsFileInfoPipe,
     CmsSiteInfoPipe,
     CmsModuleInfoPipe,
     CmsImageThumbnailPipe,
@@ -600,7 +606,6 @@ import { SplashScreenComponent } from "./splash-screen/splash-screen.component";
     CmsHtmlWidgetComponent,
     ConfirmationDialogComponent,
 
-
     /** input */
     StringComponent,
     IntComponent,
@@ -613,6 +618,7 @@ import { SplashScreenComponent } from "./splash-screen/splash-screen.component";
     TooltipDirective,
     ContactContentByNumberTooltipDirective,
     CmsUserInfoTooltipDirective,
+    CmsFileInfoTooltipDirective,
     CmsSiteInfoTooltipDirective,
     CmsModuleInfoTooltipDirective,
     DirDirective,
@@ -634,7 +640,6 @@ import { SplashScreenComponent } from "./splash-screen/splash-screen.component";
     InlineSVGDirective,
     KeyboardForceDirective,
     KeyboardForceNumberDirective,
-
   ],
 })
 export class SharedModule {
