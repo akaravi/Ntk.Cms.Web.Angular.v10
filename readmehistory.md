@@ -1,5 +1,23 @@
 # تاریخچه تغییرات پروژه
 
+## 2026-03-08 (تکمیل چندزبانه صفحه اعتبار کاربر – myself-list)
+
+### خلاصه:
+
+صفحه لیست اعتبار خودم (core-module / site-user-credit / myself-list) به طور کامل چندزبانه شد. تمام متن‌های ثابت در تمپلیت با کلیدهای ترجمه و پایپ `translate` جایگزین و معادل در ۹ زبان به فایل‌های i18n اضافه شد.
+
+### تغییرات:
+
+- **myself-list.component.html:** متن‌های «نوع عضویت شما نیاز به داشتن اعتبار ندارد»، توضیح حالت خالی، «موجودی شما»، «مجموعه اعتبار تخصیص داده شده»، «بلوکه شده (به عنوان هزینه های آینده)»، «هزینه های پرداخت شده»، «بدهی های پرداخت شده» با کلیدهای `TITLE.SITE_USER_CREDIT_*` و `MESSAGE.SITE_USER_CREDIT_MYSELF_EMPTY_DESC` و پایپ translate.
+- **fa.json, en.json, ar.json, de.json, es.json, fr.json, ja.json, tr.json, zh.json:** افزودن ۷ کلید ترجمه با معادل فارسی (پایه) و زبان‌های دیگر.
+
+### فایل‌های تغییر یافته:
+
+- `src/app/cms-modules/core-module/site-user-credit/myself-list/myself-list.component.html`
+- `src/assets/i18n/fa.json`, `en.json`, `ar.json`, `de.json`, `es.json`, `fr.json`, `ja.json`, `tr.json`, `zh.json`
+
+---
+
 ## 2026-02-23 (اصلاح کادر/فریم ردیف‌ها در لیست دپارتمان – ترتیب ردیف‌ها در HTML)
 
 ### خلاصه:

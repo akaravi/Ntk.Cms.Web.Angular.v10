@@ -125,7 +125,9 @@ export class CoreModuleSiteUserCreditMyselfListComponent
   ngOnDestroy(): void {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
+  isRunedDataGetAll = false ;
   DataGetAll(): void {
+
     this.tabledisplayedColumns = this.publicHelper.TableDisplayedColumns(
       this.tabledisplayedColumnsSource,
       this.tabledisplayedColumnsMobileSource,
@@ -164,6 +166,7 @@ export class CoreModuleSiteUserCreditMyselfListComponent
     }
     this.contentService.ServiceGetAllCredit().subscribe({
       next: (ret) => {
+        this.isRunedDataGetAll = true;
         this.fieldsInfo = this.publicHelper.fieldInfoConvertor(ret.access);
 
         if (ret.isSuccess) {

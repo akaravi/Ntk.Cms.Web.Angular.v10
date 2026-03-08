@@ -911,3 +911,36 @@ styles.mobile.scss فقط با prefers-color-scheme: dark کار می‌کرد. 
 ✅ View برای هر دو ماژول در ماژول ثبت شد. دکمه View در لیست (منوی more_vert) و در موبایل (نوار اکشن) برای status و ping اضافه شد و دیالوگ View با داده ردیف باز می‌شود.
 
 ---
+
+## Part 28: تکمیل چندزبانه صفحه اعتبار کاربر (myself-list)
+
+**تاریخ:** 2026-03-08
+**وضعیت:** ✅ تکمیل شده
+
+### دستور:
+
+چند زبانه صفحه لیست اعتبار خودم (site-user-credit / myself-list) تکمیل شود.
+
+### تغییرات:
+
+- **myself-list.component.html:** تمام متن‌های ثابت فارسی با کلید ترجمه و پایپ `translate` جایگزین شد.
+- **فایل‌های i18n (fa, en, ar, de, es, fr, ja, tr, zh):** افزودن کلیدهای `TITLE.SITE_USER_CREDIT_MYSELF_EMPTY`، `TITLE.SITE_USER_CREDIT_YOUR_BALANCE`، `TITLE.SITE_USER_CREDIT_SUM_ALLOCATED`، `TITLE.SITE_USER_CREDIT_BLOCKED_FUTURE_COSTS`، `TITLE.SITE_USER_CREDIT_PAID_COSTS`، `TITLE.SITE_USER_CREDIT_PAID_DEBTS` و `MESSAGE.SITE_USER_CREDIT_MYSELF_EMPTY_DESC` با ترجمه پایه فارسی و معادل در بقیه زبان‌ها.
+
+### فایل‌های تغییر یافته:
+
+- `src/app/cms-modules/core-module/site-user-credit/myself-list/myself-list.component.html`
+- `src/assets/i18n/fa.json`
+- `src/assets/i18n/en.json`
+- `src/assets/i18n/ar.json`
+- `src/assets/i18n/de.json`
+- `src/assets/i18n/es.json`
+- `src/assets/i18n/fr.json`
+- `src/assets/i18n/ja.json`
+- `src/assets/i18n/tr.json`
+- `src/assets/i18n/zh.json`
+
+### Result 28:
+
+✅ صفحه لیست اعتبار خودم به طور کامل چندزبانه شد. تمام عبارات قابل ترجمه در قالب کلیدهای TITLE و MESSAGE در ۹ زبان (فارسی، انگلیسی، عربی، آلمانی، اسپانیایی، فرانسوی، ژاپنی، ترکی، چینی) اضافه و در تمپلیت از پایپ translate استفاده شد.
+
+---
