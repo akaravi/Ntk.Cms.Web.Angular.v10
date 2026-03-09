@@ -10,7 +10,6 @@ import { TranslateService } from "@ngx-translate/core";
 import {
   AuthUserForgetPasswordEntryPinCodeModel,
   AuthUserForgetPasswordModel,
-  CaptchaModel,
   CoreAuthV3Service,
 } from "ntk-cms-api";
 import { Observable } from "rxjs";
@@ -54,16 +53,13 @@ export class AuthForgotPasswordComponent implements OnInit {
     new AuthUserForgetPasswordModel();
   dataModelforgetPasswordEntryPinCode: AuthUserForgetPasswordEntryPinCodeModel =
     new AuthUserForgetPasswordEntryPinCodeModel();
-  captchaModel: CaptchaModel = new CaptchaModel();
   // private fields
   forgetState = "sms";
-  countAutoCaptchaOrder = 1;
   formInfo: FormInfoModel = new FormInfoModel();
   passwordIsValid = false;
   RePasswordModel = "";
-  onCaptchaOrderInProcess = false;
+  captchaRefreshTrigger = 0;
   ngOnInit(): void {
-    this.onCaptchaOrder();
     this.translate.get("AUTH.FORGOT.TITLE").subscribe((str: string) => {
       this.pageInfo.updateTitle(str);
     });
@@ -71,7 +67,6 @@ export class AuthForgotPasswordComponent implements OnInit {
   onActionSubmitOrderCodeBySms(): void {
     this.formInfo.submitButtonEnabled = false;
     this.errorState = ErrorStates.NotSubmitted;
-    this.dataModelforgetPasswordBySms.captchaKey = this.captchaModel.key;
     this.dataModelforgetPasswordEntryPinCode.email = "";
     this.dataModelforgetPasswordEntryPinCode.mobile =
       this.dataModelforgetPasswordBySms.mobile;
@@ -114,7 +109,6 @@ export class AuthForgotPasswordComponent implements OnInit {
   onActionSubmitOrderCodeByEmail(): void {
     this.formInfo.submitButtonEnabled = false;
     this.errorState = ErrorStates.NotSubmitted;
-    this.dataModelforgetPasswordByEmail.captchaKey = this.captchaModel.key;
     this.dataModelforgetPasswordEntryPinCode.mobile = "";
     this.dataModelforgetPasswordEntryPinCode.email =
       this.dataModelforgetPasswordByEmail.email;
@@ -157,7 +151,6 @@ export class AuthForgotPasswordComponent implements OnInit {
   onActionSubmitEntryPinCode(): void {
     this.formInfo.submitButtonEnabled = false;
     this.errorState = ErrorStates.NotSubmitted;
-    this.dataModelforgetPasswordEntryPinCode.captchaKey = this.captchaModel.key;
     const pName = this.constructor.name + ".ServiceForgetPasswordEntryPinCode";
 
     this.translate
@@ -203,34 +196,20 @@ export class AuthForgotPasswordComponent implements OnInit {
     this.passwordIsValid = event;
   }
   onCaptchaOrder(): void {
-    if (this.onCaptchaOrderInProcess) {
-      return;
-    }
-    this.countAutoCaptchaOrder = this.countAutoCaptchaOrder + 1;
-
     this.dataModelforgetPasswordBySms.captchaText = "";
-    const pName = this.constructor.name + ".ServiceCaptcha";
-
-    this.translate
-      .get("MESSAGE.get_security_photo_content")
-      .subscribe((str: string) => {
-        this.publicHelper.processService.processStart(
-          pName,
-          str,
-          this.constructorInfoAreaId,
-        );
-      });
-    this.coreAuthService.ServiceCaptcha().subscribe({
-      next: (ret) => {
-        this.captchaModel = ret.item;
-        this.onCaptchaOrderInProcess = false;
-        this.publicHelper.processService.processStop(pName);
-      },
-      error: (er) => {
-        this.onCaptchaOrderInProcess = false;
-        this.publicHelper.processService.processStop(pName);
-      },
-    });
+    this.dataModelforgetPasswordByEmail.captchaText = "";
+    this.dataModelforgetPasswordEntryPinCode.captchaText = "";
+    this.captchaRefreshTrigger++;
+  }
+  onCaptchaKeyChange(key: string): void {
+    this.dataModelforgetPasswordBySms.captchaKey = key;
+    this.dataModelforgetPasswordByEmail.captchaKey = key;
+    this.dataModelforgetPasswordEntryPinCode.captchaKey = key;
+  }
+  onCaptchaCodeChange(code: string): void {
+    this.dataModelforgetPasswordBySms.captchaText = code;
+    this.dataModelforgetPasswordByEmail.captchaText = code;
+    this.dataModelforgetPasswordEntryPinCode.captchaText = code;
   }
   changeforgetState(model: string): void {
     this.forgetState = model;

@@ -1,27 +1,23 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    DestroyRef,
-    inject,
-    OnDestroy,
-    OnInit,
+  ChangeDetectorRef,
+  Component,
+  DestroyRef,
+  inject,
+  OnDestroy,
+  OnInit,
 } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {
-    AuthUserSignInModel,
-    CaptchaModel,
-    CoreAuthV3Service
-} from "ntk-cms-api";
+import { AuthUserSignInModel, CoreAuthV3Service } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { CmsTranslationService } from "src/app/core/i18n/cmsTranslation.service";
 import { ConnectionStatusModel } from "src/app/core/models/connectionStatusModel";
 import {
-    ROUTE_SELECT_SITE,
-    SELECT_SITE_LOCAL_STORAGE_KEY,
-    themeAuthPageLSKey,
+  ROUTE_SELECT_SITE,
+  SELECT_SITE_LOCAL_STORAGE_KEY,
+  themeAuthPageLSKey,
 } from "src/app/core/models/constModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { SET_TOKEN_INFO } from "src/app/core/reducers/reducer.factory";
@@ -92,19 +88,15 @@ export class AuthSignInByUsernameComponent implements OnInit, OnDestroy {
 
   formInfo: FormInfoModel = new FormInfoModel();
   dataModel: AuthUserSignInModel = new AuthUserSignInModel();
-  captchaModel: CaptchaModel = new CaptchaModel();
-  expireDate: Date;
-  countAutoCaptchaOrder = 1;
   // KeenThemes mock, change it to:
   hasError: boolean;
   returnUrl: string;
   loginType = "email";
-  onCaptchaOrderInProcess = false;
+  captchaRefreshTrigger = 0;
   onNavigate = false;
   private unsubscribe: Subscription[] = [];
 
   ngOnInit(): void {
-    this.onCaptchaOrder();
     // get return url from route parameters or default to '/'
     this.returnUrl =
       this.route.snapshot.queryParams["returnUrl".toString()] || "/";
@@ -121,7 +113,6 @@ export class AuthSignInByUsernameComponent implements OnInit, OnDestroy {
   onActionSubmit(): void {
     this.formInfo.submitButtonEnabled = false;
     this.hasError = false;
-    this.dataModel.captchaKey = this.captchaModel.key;
     this.dataModel.lang = this.cmsTranslationService.getSelectedLanguage;
     const pName = this.constructor.name + ".ServiceSigninUser";
     this.translate
@@ -191,44 +182,13 @@ export class AuthSignInByUsernameComponent implements OnInit, OnDestroy {
     this.loginType = model;
   }
   onCaptchaOrder(): void {
-    if (this.onCaptchaOrderInProcess) {
-      return;
-    }
-    this.countAutoCaptchaOrder = this.countAutoCaptchaOrder + 1;
     this.dataModel.captchaText = "";
-    const pName = this.constructor.name + ".ServiceCaptcha";
-    this.translate
-      .get("MESSAGE.get_security_photo_content")
-      .subscribe((str: string) => {
-        this.publicHelper.processService.processStart(
-          pName,
-          str,
-          this.constructorInfoAreaId,
-        );
-      });
-    this.coreAuthService.ServiceCaptcha().subscribe({
-      next: (ret) => {
-        if (ret.isSuccess) {
-          this.captchaModel = ret.item;
-          this.expireDate = ret.item.expire; //.split('+')[1];
-          const startDate = new Date();
-          const endDate = new Date(ret.item.expire);
-          const seconds = endDate.getTime() - startDate.getTime();
-          if (this.countAutoCaptchaOrder < 10) {
-            setTimeout(() => {
-              if (!this.firstRun) this.onCaptchaOrder();
-            }, seconds);
-          }
-        } else {
-          this.cmsToastrService.typeErrorGetCpatcha(ret.errorMessage);
-        }
-        this.onCaptchaOrderInProcess = false;
-        this.publicHelper.processService.processStop(pName);
-      },
-      error: (er) => {
-        this.onCaptchaOrderInProcess = false;
-        this.publicHelper.processService.processStop(pName);
-      },
-    });
+    this.captchaRefreshTrigger++;
+  }
+  onCaptchaKeyChange(key: string): void {
+    this.dataModel.captchaKey = key;
+  }
+  onCaptchaCodeChange(code: string): void {
+    this.dataModel.captchaText = code;
   }
 }

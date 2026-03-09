@@ -2,14 +2,16 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {AccessModel,
+import {
+  AccessModel,
   ApplicationSourceModel,
-  CaptchaModel,
   CoreAuthV3Service,
-  CoreEnumService,TicketingTaskDtoModel,
+  CoreEnumService,
+  TicketingTaskDtoModel,
   TicketingTaskModel,
   TicketingTaskService,
-  TicketingTemplateModel} from "ntk-cms-api";
+  TicketingTemplateModel,
+} from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { Subscription } from "rxjs";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
@@ -91,9 +93,7 @@ export class PageContactusComponent
   fileManagerTree: TreeModel;
   mapMarker: any;
   mapOptonCenter = new PoinModel();
-  captchaModel: CaptchaModel = new CaptchaModel();
-  expireDate: Date;
-  countAutoCaptchaOrder = 1;
+  captchaRefreshTrigger = 0;
   enumFormSubmitedStatus = FormSubmitedStatusEnum;
   onCaptchaOrderInProcess = false;
   ngOnInit(): void {
@@ -140,13 +140,13 @@ export class PageContactusComponent
         );
       });
 
-    this.dataModel.captchaKey = this.captchaModel.key;
     this.ticketingTaskService.ServiceContactUS(this.dataModel).subscribe({
       next: async (ret) => {
         this.formInfo.submitButtonEnabled = !ret.isSuccess;
         this.dataModelResult = ret;
         if (ret.isSuccess) {
-          this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Success;
+          this.formInfo.submitResultMessageType =
+            FormSubmitedStatusEnum.Success;
           this.translate
             .get("MESSAGE.registration_completed_successfully")
             .subscribe((str: string) => {
@@ -207,33 +207,13 @@ export class PageContactusComponent
   }
 
   onCaptchaOrder(): void {
-    if (this.onCaptchaOrderInProcess) {
-      return;
-    }
-    this.countAutoCaptchaOrder = this.countAutoCaptchaOrder + 1;
     this.dataModel.captchaText = "";
-    this.coreAuthService.ServiceCaptcha().subscribe({
-      next: (ret) => {
-        if (ret.isSuccess) {
-          this.captchaModel = ret.item;
-          this.expireDate = ret.item.expire; //.split('+')[1];
-          const startDate = new Date();
-          const endDate = new Date(ret.item.expire);
-          const seconds = endDate.getTime() - startDate.getTime();
-          if (this.countAutoCaptchaOrder < 10) {
-            this.countAutoCaptchaOrder = this.countAutoCaptchaOrder + 1;
-            setTimeout(() => {
-              this.onCaptchaOrder();
-            }, seconds);
-          }
-        } else {
-          this.cmsToastrService.typeErrorGetCpatcha(ret.errorMessage);
-        }
-        this.onCaptchaOrderInProcess = false;
-      },
-      error: (err) => {
-        this.onCaptchaOrderInProcess = false;
-      },
-    });
+    this.captchaRefreshTrigger++;
+  }
+  onCaptchaKeyChange(key: string): void {
+    this.dataModel.captchaKey = key;
+  }
+  onCaptchaCodeChange(code: string): void {
+    this.dataModel.captchaText = code;
   }
 }

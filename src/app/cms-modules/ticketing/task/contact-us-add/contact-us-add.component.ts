@@ -1,24 +1,24 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    OnDestroy,
-    OnInit,
-    ViewChild
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    AccessModel,
-    ApplicationSourceModel,
-    CaptchaModel,
-    CoreAuthV3Service,
-    CoreEnumService,
-    DataFieldInfoModel,
-    ErrorExceptionResult, TicketingTaskDtoModel,
-    TicketingTaskModel,
-    TicketingTaskService,
-    TicketingTemplateModel
+  AccessModel,
+  ApplicationSourceModel,
+  CoreAuthV3Service,
+  CoreEnumService,
+  DataFieldInfoModel,
+  ErrorExceptionResult,
+  TicketingTaskDtoModel,
+  TicketingTaskModel,
+  TicketingTaskService,
+  TicketingTemplateModel,
 } from "ntk-cms-api";
 import { TreeModel } from "ntk-cms-filemanager";
 import { Subscription } from "rxjs";
@@ -28,7 +28,6 @@ import { TokenHelper } from "src/app/core/helpers/tokenHelper";
 import { PoinModel } from "src/app/core/models/pointModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
-
 
 @Component({
   selector: "app-ticketing-task-contactus",
@@ -100,9 +99,7 @@ export class TicketingTaskContactUsAddComponent
   fileManagerTree: TreeModel;
   mapMarker: any;
   mapOptonCenter = new PoinModel();
-  captchaModel: CaptchaModel = new CaptchaModel();
-  expireDate: Date;
-  countAutoCaptchaOrder = 1;
+  captchaRefreshTrigger = 0;
   enumFormSubmitedStatus = FormSubmitedStatusEnum;
   onCaptchaOrderInProcess = false;
   ngOnInit(): void {
@@ -146,7 +143,6 @@ export class TicketingTaskContactUsAddComponent
         );
       });
 
-    this.dataModel.captchaKey = this.captchaModel.key;
     this.ticketingTaskService.ServiceContactUS(this.dataModel).subscribe({
       next: (ret) => {
         this.formInfo.submitButtonEnabled = !ret.isSuccess;
@@ -161,7 +157,8 @@ export class TicketingTaskContactUsAddComponent
             });
           this.cmsToastrService.typeSuccessAdd();
         } else {
-          this.formInfo.submitResultMessageType = this.formSubmitedStatusEnum.Error;
+          this.formInfo.submitResultMessageType =
+            this.formSubmitedStatusEnum.Error;
           this.cmsToastrService.typeErrorAdd(ret.errorMessage);
         }
         this.publicHelper.processService.processStop(pName);
@@ -214,33 +211,13 @@ export class TicketingTaskContactUsAddComponent
   }
 
   onCaptchaOrder(): void {
-    if (this.onCaptchaOrderInProcess) {
-      return;
-    }
-    this.countAutoCaptchaOrder = this.countAutoCaptchaOrder + 1;
     this.dataModel.captchaText = "";
-    this.coreAuthService.ServiceCaptcha().subscribe({
-      next: (ret) => {
-        if (ret.isSuccess) {
-          this.captchaModel = ret.item;
-          this.expireDate = ret.item.expire; //.split('+')[1];
-          const startDate = new Date();
-          const endDate = new Date(ret.item.expire);
-          const seconds = endDate.getTime() - startDate.getTime();
-          if (this.countAutoCaptchaOrder < 10) {
-            this.countAutoCaptchaOrder = this.countAutoCaptchaOrder + 1;
-            setTimeout(() => {
-              this.onCaptchaOrder();
-            }, seconds);
-          }
-        } else {
-          this.cmsToastrService.typeErrorGetCpatcha(ret.errorMessage);
-        }
-        this.onCaptchaOrderInProcess = false;
-      },
-      error: (err) => {
-        this.onCaptchaOrderInProcess = false;
-      },
-    });
+    this.captchaRefreshTrigger++;
+  }
+  onCaptchaKeyChange(key: string): void {
+    this.dataModel.captchaKey = key;
+  }
+  onCaptchaCodeChange(code: string): void {
+    this.dataModel.captchaText = code;
   }
 }

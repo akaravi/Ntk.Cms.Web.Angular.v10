@@ -1,27 +1,26 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    OnDestroy,
-    OnInit,
-    ViewChild,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    AuthUserSignInModel,
-    AuthUserSignUpModel,
-    CaptchaModel,
-    CoreAuthV3Service
+  AuthUserSignInModel,
+  AuthUserSignUpModel,
+  CoreAuthV3Service,
 } from "ntk-cms-api";
 import { Observable, Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import {
-    RESSELLER_SITE_ID_LOCAL_STORAGE_KEY,
-    RESSELLER_USER_ID_LOCAL_STORAGE_KEY,
-    ROUTE_SELECT_SITE,
-    SELECT_SITE_LOCAL_STORAGE_KEY,
+  RESSELLER_SITE_ID_LOCAL_STORAGE_KEY,
+  RESSELLER_USER_ID_LOCAL_STORAGE_KEY,
+  ROUTE_SELECT_SITE,
+  SELECT_SITE_LOCAL_STORAGE_KEY,
 } from "src/app/core/models/constModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { SET_TOKEN_INFO } from "src/app/core/reducers/reducer.factory";
@@ -79,12 +78,9 @@ export class AuthSignUpComponent implements OnInit, OnDestroy {
   formInfo: FormInfoModel = new FormInfoModel();
   roulaccespt = "";
   isLoading$: Observable<boolean>;
-  captchaModel: CaptchaModel = new CaptchaModel();
-  expireDate: Date;
-  countAutoCaptchaOrder = 1;
   passwordIsValid = false;
   dataModel: AuthUserSignUpModel = new AuthUserSignUpModel();
-  onCaptchaOrderInProcess = false;
+  captchaRefreshTrigger = 0;
   RePasswordModel = "";
   PasswordView = false;
   loginAuto = true;
@@ -194,7 +190,6 @@ export class AuthSignUpComponent implements OnInit, OnDestroy {
       return;
     }
     this.formInfo.submitResultMessageType = FormSubmitedStatusEnum.Error;
-    this.dataModel.captchaKey = this.captchaModel.key;
     const pName = this.constructor.name + ".ServiceSignupUser";
     this.translate
       .get("MESSAGE.Creating_new_account")
@@ -318,46 +313,14 @@ export class AuthSignUpComponent implements OnInit, OnDestroy {
     this.passwordIsValid = event;
   }
   onCaptchaOrder(): void {
-    if (this.onCaptchaOrderInProcess) {
-      return;
-    }
-    this.countAutoCaptchaOrder = this.countAutoCaptchaOrder + 1;
     this.dataModel.captchaText = "";
-    const pName = this.constructor.name + ".ServiceCaptcha";
-    this.translate
-      .get("MESSAGE.get_security_photo_content")
-      .subscribe((str: string) => {
-        this.publicHelper.processService.processStart(
-          pName,
-          str,
-          this.constructorInfoAreaId,
-        );
-      });
-    this.coreAuthService.ServiceCaptcha().subscribe({
-      next: (ret) => {
-        if (ret.isSuccess) {
-          this.captchaModel = ret.item;
-          this.expireDate = ret.item.expire; //.split('+')[1];
-          const startDate = new Date();
-          const endDate = new Date(ret.item.expire);
-          const seconds = endDate.getTime() - startDate.getTime();
-          if (this.countAutoCaptchaOrder < 10) {
-            this.countAutoCaptchaOrder = this.countAutoCaptchaOrder + 1;
-            setTimeout(() => {
-              this.onCaptchaOrder();
-            }, seconds);
-          }
-        } else {
-          this.cmsToastrService.typeErrorGetCpatcha(ret.errorMessage);
-        }
-        this.onCaptchaOrderInProcess = false;
-        this.publicHelper.processService.processStop(pName);
-      },
-      error: (err) => {
-        this.onCaptchaOrderInProcess = false;
-        this.publicHelper.processService.processStop(pName);
-      },
-    });
+    this.captchaRefreshTrigger++;
+  }
+  onCaptchaKeyChange(key: string): void {
+    this.dataModel.captchaKey = key;
+  }
+  onCaptchaCodeChange(code: string): void {
+    this.dataModel.captchaText = code;
   }
   ActionPasswordGenerator(): void {
     // const chars = '0123456789abcdefghijklmnopqrstuvwxyz!@#$%^&*()ABCDEFGHIJKLMNOPQRSTUVWXYZ';

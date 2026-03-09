@@ -1,21 +1,21 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    Inject,
-    OnInit,
-    ViewChild,
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  OnInit,
+  ViewChild,
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { TranslateService } from "@ngx-translate/core";
 import {
-    AuthMobileConfirmDtoModel,
-    CaptchaModel,
-    CoreAuthV3Service,
-    CoreEnumService,
-    CoreUserService,
-    DataFieldInfoModel,
-    ErrorExceptionResultBase, TokenInfoModelV3
+  AuthMobileConfirmDtoModel,
+  CoreAuthV3Service,
+  CoreEnumService,
+  CoreUserService,
+  DataFieldInfoModel,
+  ErrorExceptionResultBase,
+  TokenInfoModelV3,
 } from "ntk-cms-api";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { TokenHelper } from "src/app/core/helpers/tokenHelper";
@@ -58,7 +58,7 @@ export class CoreUserMobileConfirmComponent implements OnInit {
   >();
   passwordIsValid = false;
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
-  captchaModel: CaptchaModel = new CaptchaModel();
+  captchaRefreshTrigger = 0;
 
   formInfo: FormInfoModel = new FormInfoModel();
   onCaptchaOrderInProcess = false;
@@ -119,7 +119,7 @@ export class CoreUserMobileConfirmComponent implements OnInit {
   stepOne = true;
   stepTwo = false;
   onMobileConfirm(): void {
-    this.dataModel.captchaKey = this.captchaModel.key;
+    // captchaKey is set via CmsCaptchaComponent
     this.coreAuthService.ServiceMobileConfirm(this.dataModel).subscribe({
       next: (ret) => {
         if (ret.isSuccess) {
@@ -147,45 +147,13 @@ export class CoreUserMobileConfirmComponent implements OnInit {
   }
 
   onCaptchaOrder(): void {
-    if (this.onCaptchaOrderInProcess) {
-      return;
-    }
-    this.countAutoCaptchaOrder = this.countAutoCaptchaOrder + 1;
     this.dataModel.captchaText = "";
-    const pName = this.constructor.name + ".ServiceCaptcha";
-    this.translate
-      .get("MESSAGE.get_security_photo_content")
-      .subscribe((str: string) => {
-        this.publicHelper.processService.processStart(
-          pName,
-          str,
-          this.constructorInfoAreaId,
-        );
-      });
-    this.coreAuthService.ServiceCaptcha().subscribe({
-      next: (ret) => {
-        if (ret.isSuccess) {
-          this.captchaModel = ret.item;
-          this.expireDate = ret.item.expire; //.split('+')[1];
-          const startDate = new Date();
-          const endDate = new Date(ret.item.expire);
-          const seconds = endDate.getTime() - startDate.getTime();
-          if (this.countAutoCaptchaOrder < 10) {
-            this.countAutoCaptchaOrder = this.countAutoCaptchaOrder + 1;
-            setTimeout(() => {
-              if (!this.firstRun) this.onCaptchaOrder();
-            }, seconds);
-          }
-        } else {
-          this.cmsToastrService.typeErrorGetCpatcha(ret.errorMessage);
-        }
-        this.onCaptchaOrderInProcess = false;
-        this.publicHelper.processService.processStop(pName);
-      },
-      error: (er) => {
-        this.onCaptchaOrderInProcess = false;
-        this.publicHelper.processService.processStop(pName);
-      },
-    });
+    this.captchaRefreshTrigger++;
+  }
+  onCaptchaKeyChange(key: string): void {
+    this.dataModel.captchaKey = key;
+  }
+  onCaptchaCodeChange(code: string): void {
+    this.dataModel.captchaText = code;
   }
 }

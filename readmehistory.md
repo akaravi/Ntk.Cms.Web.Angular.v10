@@ -449,6 +449,34 @@
 
 ---
 
+## 2026-03-09 (Refactor Captcha Usage to Shared CmsCaptchaComponent)
+
+### خلاصه:
+
+- تمام پیاده‌سازی‌های قدیمی کپچا (تصویر + input دستی + ServiceCaptcha مستقیم) در تعدادی از فرم‌های احراز هویت و تماس با ما با کامپوننت مشترک `app-cms-captcha` جایگزین شد.
+- الگوی `onCaptchaOrder()` در همه این کامپوننت‌ها حفظ شد تا همچنان با صدا زدن آن، کپچا رفرش شود، اما منطق لود/اتمام و auto-refresh در خود `CmsCaptchaComponent` متمرکز شد.
+
+### تغییرات:
+
+- در `AuthSignInByUsernameComponent` (signin-byusername):
+  - حذف `CaptchaModel` و متغیرهای وابسته و منطق مستقیم `ServiceCaptcha`.
+  - اضافه شدن `captchaRefreshTrigger` و هندلرهای `onCaptchaKeyChange` و `onCaptchaCodeChange` برای بایند کردن `captchaKey` و `captchaText` به `dataModel`.
+  - جایگزینی بلوک HTML کپچا با `<app-cms-captcha [refreshTrigger]="captchaRefreshTrigger" ...>` در فایل HTML، فقط زمانی که `!firstRun` است.
+- در `AuthSignUpComponent` (signup):
+  - حذف کپچای قدیمی و استفاده از `app-cms-captcha`، به‌همراه `captchaRefreshTrigger` و هندلرهای جدید برای تنظیم `dataModel.captchaKey` و `dataModel.captchaText`.
+  - ساده‌سازی `onCaptchaOrder()` برای فقط ریست متن کپچا و افزایش trigger.
+- در `AuthForgotPasswordComponent` (forgot-password):
+  - حذف `CaptchaModel` و `ServiceCaptcha` و استفاده از یک `app-cms-captcha` مشترک برای سه حالت `sms`، `email` و `entrycode`.
+  - تنظیم همزمان `captchaKey` و `captchaText` برای مدل‌های `dataModelforgetPasswordBySms`، `dataModelforgetPasswordByEmail` و `dataModelforgetPasswordEntryPinCode` در هندلرهای جدید.
+- در `CoreUserMobileConfirmComponent` و `CoreUserEmailConfirmComponent`:
+  - حذف کپچای داخلی و جایگزینی با `app-cms-captcha` که فقط در حالت `!firstRun` نمایش داده می‌شود.
+  - نگه داشتن `onCaptchaOrder()` به صورت رفرش trigger و عبور `captchaKey`/`captchaText` از طریق Outputهای کامپوننت مشترک.
+- در `PageContactusComponent` و `TicketingTaskContactUsAddComponent`:
+  - جایگزینی کپچای تصویری قدیمی با `app-cms-captcha` و اتصال مستقیم `captchaKey` و `captchaText` به DTO (`dataModel`) برای سرویس‌های ContactUS.
+  - ساده‌سازی منطق رفرش به استفاده از `captchaRefreshTrigger` بدون تایمرهای دستی expire.
+
+---
+
 ## 2026-02-19 (حذف $any و اصلاح propertyهای ناموجود در list.mobile – ادامه Plan ListMobile)
 
 ### خلاصه:
