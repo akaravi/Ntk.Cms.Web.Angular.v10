@@ -1,0 +1,52 @@
+<div class="card card-style loader-container">
+  <app-progress-spinner [optionsInfoAreaId]="constructorInfoAreaId">
+  </app-progress-spinner>
+  <div class="content">
+    <div class="table cms-lm-target-header">
+      <div class="tr">
+        <div class="td small-width">
+          <span
+            class="svg-icon svg-icon-3x svg-icon-primary"
+            [inlineSVG]="'./assets/media/svg/icons/Communication/Flag.svg'"
+          ></span>
+        </div>
+        <div class="td large-width">
+          <h5 class="mb-1">
+            {{ "TITLE.Selected_BILLBOARD" | translate }}
+          </h5>
+        </div>
+        <div class="td"></div>
+      </div>
+
+      <div class="tr" *ngIf="optionBillboardId > 0">
+        <div class="td small-width">
+          {{
+            billboardFieldsInfo["id"]?.fieldTitle ||
+              ("TITLE.BILLBOARD" | translate)
+          }}
+          :
+        </div>
+        <div class="td large-width">
+          {{ billboardResult?.item?.id }}
+        </div>
+        <div class="td"></div>
+        <div style="clear: both"></div>
+      </div>
+      <div class="tr" *ngIf="optionBillboardId > 0">
+        <div class="td small-width">
+          {{
+            billboardFieldsInfo["title"]?.fieldTitle ||
+              ("TITLE.Title" | translate)
+          }}
+          :
+        </div>
+        <div class="td large-width">
+          {{ billboardResult?.item?.title }}
+        </div>
+        <div class="td"></div>
+        <div style="clear: both"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="divider divider-margins"></div>

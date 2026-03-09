@@ -1,0 +1,23 @@
+.cms-lm-target-header {
+  .tr {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.35rem;
+  }
+
+  .td.small-width {
+    min-width: 80px;
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+
+  .td.large-width {
+    flex: 1;
+    font-size: 0.875rem;
+  }
+
+  h5 {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+}

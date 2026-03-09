@@ -19,7 +19,16 @@
   </ng-container>
   <ng-container cms-header>
     <!--begin:::::::::::::::::::::::::::::::::::::::::cms-header-->
-
+    @if (requestLinkManagementTargetId > 0) {
+      <app-linkmanagement-target-header
+        [optionTargetId]="requestLinkManagementTargetId"
+      ></app-linkmanagement-target-header>
+    }
+    @if (requestLinkManagementBillboardId > 0) {
+      <app-linkmanagement-billboard-header
+        [optionBillboardId]="requestLinkManagementBillboardId"
+      ></app-linkmanagement-billboard-header>
+    }
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-header-->
   </ng-container>
   <ng-container cms-action-header>
@@ -197,7 +206,7 @@
         </mat-cell>
       </ng-container>
 
-       <!-- ipAddress Column -->
+      <!-- ipAddress Column -->
       <ng-container matColumnDef="ipAddress">
         <mat-header-cell *matHeaderCellDef mat-sort-header>
           {{ fieldsInfo["ipAddress"]?.fieldTitle }}

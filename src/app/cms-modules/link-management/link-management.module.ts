@@ -60,6 +60,7 @@ import { NgxMatColorPickerModule } from "src/app/shared/color-picker.module";
 import { LinkManagementAccountingDetailListMobileComponent } from "./accounting-detail/list/list.mobile.component";
 import { LinkManagementAccountingListMobileComponent } from "./accounting/list/list.mobile.component";
 import { LinkManagementBillboardPatternListMobileComponent } from "./billboard-pattern/list/list.mobile.component";
+import { LinkManagementBillboardHeaderComponent } from "./billboard/header/header.component";
 import { LinkManagementBillboardListMobileComponent } from "./billboard/list/list.mobile.component";
 import { LinkManagementMemberAddComponent } from "./member/add/add.component";
 import { LinkManagementMemberDeleteComponent } from "./member/delete/delete.component";
@@ -74,6 +75,7 @@ import { LinkManagementTargetBillboardLogListMobileComponent } from "./target-bi
 import { LinkManagementTargetAddComponent } from "./target/add/add.component";
 import { LinkManagementTargetDeleteComponent } from "./target/delete/delete.component";
 import { LinkManagementTargetEditComponent } from "./target/edit/edit.component";
+import { LinkManagementTargetHeaderComponent } from "./target/header/header.component";
 import { LinkManagementTargetListComponent } from "./target/list/list.component";
 import { LinkManagementTargetListMobileComponent } from "./target/list/list.mobile.component";
 
@@ -92,6 +94,7 @@ import { LinkManagementTargetListMobileComponent } from "./target/list/list.mobi
     LinkManagementTargetEditComponent,
     LinkManagementTargetDeleteComponent,
     LinkManagementTargetListComponent,
+    LinkManagementTargetHeaderComponent,
     /** */
     LinkManagementBillboardPatternTreeComponent,
     LinkManagementBillboardPatternSelectorComponent,
@@ -105,6 +108,7 @@ import { LinkManagementTargetListMobileComponent } from "./target/list/list.mobi
     LinkManagementBillboardEditComponent,
     LinkManagementBillboardDeleteComponent,
     LinkManagementBillboardListComponent,
+    LinkManagementBillboardHeaderComponent,
     /** */
     LinkManagementTargetBillboardLogEditComponent,
     LinkManagementTargetBillboardLogDeleteComponent,
@@ -148,6 +152,7 @@ import { LinkManagementTargetListMobileComponent } from "./target/list/list.mobi
     LinkManagementTargetEditComponent,
     LinkManagementTargetDeleteComponent,
     LinkManagementTargetListComponent,
+    LinkManagementTargetHeaderComponent,
     /** */
     LinkManagementBillboardPatternTreeComponent,
     LinkManagementBillboardPatternSelectorComponent,
