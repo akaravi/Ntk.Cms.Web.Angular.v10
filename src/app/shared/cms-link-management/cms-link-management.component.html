@@ -1,0 +1,736 @@
+<div class="cms-link-management link-shortener-container">
+  <div class="page-header">
+    <h1>سرویس کوتاه‌کننده لینک و فایل</h1>
+    <p class="subtitle">
+      به راحتی لینک‌ها، فایل‌ها و پیام‌های خود را کوتاه و مدیریت کنید
+    </p>
+  </div>
+
+  <mat-card class="tabs-card">
+    <mat-tab-group
+      class="modern-tabs"
+      [selectedIndex]="selectedUserTab - 1"
+      (selectedTabChange)="onTabChange($event)"
+    >
+      <!-- ارسال فایل -->
+      <mat-tab *ngIf="showFileTab">
+        <ng-template mat-tab-label>
+          <mat-icon>cloud_upload</mat-icon>
+          <span>ارسال فایل</span>
+        </ng-template>
+        <div class="tab-content-wrapper">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <i class="color">ارسال </i>
+              <i class="color">لینک کوتاه فایل</i>
+            </div>
+            <div class="panel-body">
+              <form #fileForm="ngForm" (ngSubmit)="onSubmitSetFile()">
+                <div class="row m-0">
+                  <div
+                    class="col-lg-12"
+                    *ngIf="
+                      !modelTargetSetResponceSetFile.key ||
+                      modelTargetSetResponceSetFile.key?.length === 0
+                    "
+                  >
+                    <div class="uploader-wrapper file-upload-section">
+                      <app-cms-file-uploader
+                        (optionUploadSuccess)="onUploadSuccess($event)"
+                      >
+                      </app-cms-file-uploader>
+                    </div>
+
+                    <app-cms-captcha
+                      [config]="otpConfigCaptcha"
+                      (captchaKeyChange)="onCaptchaKeyChange($event)"
+                      (codeChange)="onCaptchaSetChange($event)"
+                    ></app-cms-captcha>
+
+                    <button
+                      mat-raised-button
+                      color="primary"
+                      class="action-button"
+                      type="button"
+                      [disabled]="
+                        !modelTargetSetDto.uploadFileGUID ||
+                        modelTargetSetDto.uploadFileGUID?.length < 5
+                      "
+                      (click)="onSubmitSetFile()"
+                    >
+                      <mat-icon>cloud_upload</mat-icon>
+                      ساخت لینک
+                    </button>
+                    <p class="status-message">{{ messageShortLinkSetFile }}</p>
+                    <p class="status-message status-message-secondary">
+                      {{ message }}
+                    </p>
+                  </div>
+
+                  <div
+                    class="col-lg-12"
+                    *ngIf="
+                      modelTargetSetResponceSetFile &&
+                      modelTargetSetResponceSetFile.key &&
+                      modelTargetSetResponceSetFile.key.length > 0
+                    "
+                  >
+                    <mat-card class="result-card">
+                      <div class="result-item">
+                        <span class="result-label">کلید</span>
+                        <div class="result-value">
+                          <span class="key-value">{{
+                            modelTargetSetResponceSetFile.key
+                          }}</span>
+                          <button
+                            type="button"
+                            class="copy-button"
+                            (click)="
+                              copyText(modelTargetSetResponceSetFile.key)
+                            "
+                          >
+                            <mat-icon>content_copy</mat-icon>
+                            <span>کپی</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div
+                        class="result-item"
+                        *ngIf="modelTargetSetResponceSetFile.shortLinkUrl"
+                      >
+                        <span class="result-label">لینک کوتاه</span>
+                        <div class="result-value">
+                          <a
+                            [href]="modelTargetSetResponceSetFile.shortLinkUrl"
+                            target="_blank"
+                            class="url-link"
+                            dir="ltr"
+                          >
+                            {{ modelTargetSetResponceSetFile.shortLinkUrl }}
+                          </a>
+                          <button
+                            type="button"
+                            class="copy-button"
+                            (click)="
+                              copyText(
+                                modelTargetSetResponceSetFile.shortLinkUrl
+                              )
+                            "
+                          >
+                            <mat-icon>content_copy</mat-icon>
+                            <span>کپی</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div
+                        class="qr-code-container"
+                        *ngIf="
+                          modelTargetSetResponceSetFile.shortLinkQRCodeBase64
+                        "
+                      >
+                        <a
+                          [href]="modelTargetSetResponceSetFile.shortLinkUrl"
+                          target="_blank"
+                        >
+                          <img
+                            [src]="
+                              modelTargetSetResponceSetFile.shortLinkQRCodeBase64
+                            "
+                            alt="QR"
+                          />
+                        </a>
+                      </div>
+                    </mat-card>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+
+      <!-- دریافت لینک -->
+      <mat-tab *ngIf="showGetTab">
+        <ng-template mat-tab-label>
+          <mat-icon>get_app</mat-icon>
+          <span>دریافت لینک</span>
+        </ng-template>
+
+        <div class="tab-content-wrapper">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <i class="color">دریافت </i>
+              <i class="color">لینک کوتاه</i>
+            </div>
+            <div class="panel-body">
+              <form #getForm="ngForm" (ngSubmit)="onSubmitGet()">
+                <div class="row m-0">
+                  <div
+                    class="col-lg-12"
+                    *ngIf="
+                      !modelTargetGetResponce.key ||
+                      modelTargetGetResponce.key.length === 0
+                    "
+                  >
+                    <h3>
+                      شما می‌توانید با وارد کردن کلید دریافتی، لینک مورد نظر را
+                      دریافت کنید
+                    </h3>
+                    <label for="key">کلید لینک کوتاه شما</label>
+                    <input
+                      [(ngModel)]="modelTargetGetDto.key"
+                      id="key"
+                      name="Key"
+                      type="text"
+                      class="form-control input-ntk mb-3 key-text"
+                      placeholder="***@*****"
+                      #Key="ngModel"
+                      minlength="8"
+                      required
+                      dir="ltr"
+                    />
+                    <div
+                      *ngIf="Key.invalid && (Key.dirty || Key.touched)"
+                      class="alert alert-danger"
+                    >
+                      <div *ngIf="Key.errors?.required">
+                        پر کردن این فیلد الزامی است
+                      </div>
+                      <div *ngIf="Key.errors?.minlength">
+                        طول کلید باید حداقل ۸ کاراکتر باشد
+                      </div>
+                    </div>
+
+                    <app-cms-captcha
+                      [config]="otpConfigCaptcha"
+                      (captchaKeyChange)="onCaptchaKeyChange($event)"
+                      (codeChange)="onCaptchaGetChange($event)"
+                    ></app-cms-captcha>
+
+                    <button
+                      mat-raised-button
+                      color="primary"
+                      class="action-button"
+                      type="button"
+                      [disabled]="
+                        !modelTargetGetDto.key ||
+                        modelTargetGetDto.key.length < 8
+                      "
+                      (click)="onSubmitGet()"
+                    >
+                      <mat-icon>get_app</mat-icon>
+                      دریافت لینک
+                    </button>
+
+                    <p class="status-message">
+                      {{ messageShortLinkGet }}
+                    </p>
+                    <p class="status-message status-message-secondary">
+                      {{ message }}
+                    </p>
+                  </div>
+
+                  <div
+                    class="col-lg-12"
+                    *ngIf="
+                      modelTargetGetResponce &&
+                      modelTargetGetResponce.key &&
+                      modelTargetGetResponce.key.length > 0
+                    "
+                  >
+                    <mat-card class="result-card">
+                      <div class="result-item">
+                        <span class="result-label">کلید</span>
+                        <div class="result-value">
+                          <span class="key-value">{{
+                            modelTargetGetResponce.key
+                          }}</span>
+                          <button
+                            type="button"
+                            class="copy-button"
+                            (click)="copyText(modelTargetGetResponce.key)"
+                          >
+                            <mat-icon>content_copy</mat-icon>
+                            <span>کپی</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div
+                        class="result-item"
+                        *ngIf="modelTargetGetResponce.description"
+                      >
+                        <span class="result-label">متن پیام</span>
+                        <div class="result-value">
+                          <textarea class="form-control" rows="4" readonly>{{
+                            modelTargetGetResponce.description
+                          }}</textarea>
+                          <button
+                            type="button"
+                            class="copy-button"
+                            (click)="
+                              copyText(modelTargetGetResponce.description)
+                            "
+                          >
+                            <mat-icon>content_copy</mat-icon>
+                            <span>کپی</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div
+                        class="result-item"
+                        *ngIf="modelTargetGetResponce.urlAddress"
+                      >
+                        <span class="result-label">آدرس اصلی</span>
+                        <div class="result-value">
+                          <input
+                            [value]="modelTargetGetResponce.urlAddress"
+                            type="text"
+                            readonly
+                            class="form-control input-ntk mb-3 url-value"
+                            dir="ltr"
+                          />
+                          <a
+                            [href]="modelTargetGetResponce.urlAddress"
+                            target="_blank"
+                            class="url-link"
+                            dir="ltr"
+                          >
+                            نمایش صفحه
+                          </a>
+                          <button
+                            type="button"
+                            class="copy-button"
+                            (click)="
+                              copyText(modelTargetGetResponce.urlAddress)
+                            "
+                          >
+                            <mat-icon>content_copy</mat-icon>
+                            <span>کپی</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div
+                        class="result-item"
+                        *ngIf="modelTargetGetResponce.shortLinkUrl"
+                      >
+                        <span class="result-label">لینک کوتاه</span>
+                        <div class="result-value">
+                          <a
+                            [href]="modelTargetGetResponce.shortLinkUrl"
+                            target="_blank"
+                            class="url-link"
+                            dir="ltr"
+                          >
+                            {{ modelTargetGetResponce.shortLinkUrl }}
+                          </a>
+                          <button
+                            type="button"
+                            class="copy-button"
+                            (click)="
+                              copyText(modelTargetGetResponce.shortLinkUrl)
+                            "
+                          >
+                            <mat-icon>content_copy</mat-icon>
+                            <span>کپی</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div
+                        class="qr-code-container"
+                        *ngIf="modelTargetGetResponce.shortLinkQRCodeBase64"
+                      >
+                        <a
+                          [href]="modelTargetGetResponce.shortLinkUrl"
+                          target="_blank"
+                        >
+                          <img
+                            [src]="modelTargetGetResponce.shortLinkQRCodeBase64"
+                            alt="QR"
+                          />
+                        </a>
+                      </div>
+                    </mat-card>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+
+      <!-- ارسال لینک -->
+      <mat-tab *ngIf="showUrlTab">
+        <ng-template mat-tab-label>
+          <mat-icon>send</mat-icon>
+          <span>ارسال لینک</span>
+        </ng-template>
+        <div class="tab-content-wrapper">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <i class="color">ارسال </i>
+              <i class="color">لینک کوتاه</i>
+            </div>
+            <div class="panel-body">
+              <form #urlForm="ngForm" (ngSubmit)="onSubmitSetLink()">
+                <div class="row m-0">
+                  <div
+                    class="col-lg-12"
+                    *ngIf="
+                      !modelTargetSetResponceSetLink.key ||
+                      modelTargetSetResponceSetLink.key.length === 0
+                    "
+                  >
+                    <h3>
+                      با وارد کردن آدرس URL خود می‌توانید لینک کوتاه بسازید و آن
+                      را با دیگران به اشتراک بگذارید
+                    </h3>
+                    <label for="UrlAddress">آدرس URL</label>
+                    <input
+                      [(ngModel)]="modelTargetSetDto.urlAddress"
+                      name="UrlAddress"
+                      #UrlAddress="ngModel"
+                      required
+                      minlength="6"
+                      type="url"
+                      class="form-control input-ntk mb-3 url-input"
+                      placeholder="https://example.com"
+                      dir="ltr"
+                    />
+
+                    <div
+                      *ngIf="
+                        UrlAddress.invalid &&
+                        (UrlAddress.dirty || UrlAddress.touched)
+                      "
+                      class="alert alert-danger"
+                    >
+                      <div *ngIf="UrlAddress.errors?.required">
+                        پر کردن این فیلد الزامی است
+                      </div>
+                      <div *ngIf="UrlAddress.errors?.minlength">
+                        طول آدرس باید حداقل ۶ کاراکتر باشد
+                      </div>
+                    </div>
+
+                    <app-cms-captcha
+                      [config]="otpConfigCaptcha"
+                      (captchaKeyChange)="onCaptchaKeyChange($event)"
+                      (codeChange)="onCaptchaSetChange($event)"
+                    ></app-cms-captcha>
+
+                    <button
+                      mat-raised-button
+                      color="primary"
+                      class="action-button"
+                      type="button"
+                      [disabled]="
+                        !modelTargetSetDto.urlAddress ||
+                        modelTargetSetDto.urlAddress?.length < 5
+                      "
+                      (click)="onSubmitSetLink()"
+                    >
+                      <mat-icon>send</mat-icon>
+                      ارسال لینک
+                    </button>
+
+                    <p class="status-message">
+                      {{ messageShortLinkSetLink }}
+                    </p>
+                    <p class="status-message status-message-secondary">
+                      {{ message }}
+                    </p>
+                  </div>
+
+                  <div
+                    class="col-lg-12"
+                    *ngIf="
+                      modelTargetSetResponceSetLink &&
+                      modelTargetSetResponceSetLink.key &&
+                      modelTargetSetResponceSetLink.key.length > 0
+                    "
+                  >
+                    <mat-card class="result-card">
+                      <div class="result-item">
+                        <span class="result-label">کلید</span>
+                        <div class="result-value">
+                          <span class="key-value">{{
+                            modelTargetSetResponceSetLink.key
+                          }}</span>
+                          <button
+                            type="button"
+                            class="copy-button"
+                            (click)="
+                              copyText(modelTargetSetResponceSetLink.key)
+                            "
+                          >
+                            <mat-icon>content_copy</mat-icon>
+                            <span>کپی</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div
+                        class="result-item"
+                        *ngIf="modelTargetSetResponceSetLink.shortLinkUrl"
+                      >
+                        <span class="result-label">لینک کوتاه</span>
+                        <div class="result-value">
+                          <a
+                            [href]="modelTargetSetResponceSetLink.shortLinkUrl"
+                            target="_blank"
+                            class="url-link"
+                            dir="ltr"
+                          >
+                            {{ modelTargetSetResponceSetLink.shortLinkUrl }}
+                          </a>
+                          <button
+                            type="button"
+                            class="copy-button"
+                            (click)="
+                              copyText(
+                                modelTargetSetResponceSetLink.shortLinkUrl
+                              )
+                            "
+                          >
+                            <mat-icon>content_copy</mat-icon>
+                            <span>کپی</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div
+                        class="qr-code-container"
+                        *ngIf="
+                          modelTargetSetResponceSetLink.shortLinkQRCodeBase64
+                        "
+                      >
+                        <a
+                          [href]="modelTargetSetResponceSetLink.shortLinkUrl"
+                          target="_blank"
+                        >
+                          <img
+                            [src]="
+                              modelTargetSetResponceSetLink.shortLinkQRCodeBase64
+                            "
+                            alt="QR"
+                          />
+                        </a>
+                      </div>
+                    </mat-card>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+
+      <!-- ارسال پیام -->
+      <mat-tab *ngIf="showMessageTab">
+        <ng-template mat-tab-label>
+          <mat-icon>message</mat-icon>
+          <span>ارسال پیام</span>
+        </ng-template>
+        <div class="tab-content-wrapper">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <i class="color">ارسال </i>
+              <i class="color">لینک کوتاه پیام</i>
+            </div>
+            <div class="panel-body">
+              <form
+                #descriptionForm="ngForm"
+                (ngSubmit)="onSubmitSetDescription()"
+              >
+                <div class="row m-0">
+                  <div
+                    class="col-lg-12"
+                    *ngIf="
+                      !modelTargetSetResponceSetDescription.key ||
+                      modelTargetSetResponceSetDescription.key?.length === 0
+                    "
+                  >
+                    <label for="Description">متن پیام شما</label>
+                    <textarea
+                      [(ngModel)]="modelTargetSetDto.description"
+                      name="Description"
+                      #Description="ngModel"
+                      required
+                      minlength="6"
+                      class="form-control input-ntk mb-3"
+                      placeholder="متن پیام شما"
+                    ></textarea>
+                    <div
+                      *ngIf="
+                        Description.invalid &&
+                        (Description.dirty || Description.touched)
+                      "
+                      class="alert alert-danger"
+                    >
+                      <div *ngIf="Description.errors?.required">
+                        پر کردن این فیلد الزامی است
+                      </div>
+                      <div *ngIf="Description.errors?.minlength">
+                        طول پیام باید حداقل ۶ کاراکتر باشد
+                      </div>
+                    </div>
+
+                    <app-cms-captcha
+                      [config]="otpConfigCaptcha"
+                      (captchaKeyChange)="onCaptchaKeyChange($event)"
+                      (codeChange)="onCaptchaSetChange($event)"
+                    ></app-cms-captcha>
+
+                    <button
+                      mat-raised-button
+                      color="primary"
+                      class="action-button"
+                      type="button"
+                      [disabled]="
+                        !modelTargetSetDto.description ||
+                        modelTargetSetDto.description?.length < 5
+                      "
+                      (click)="onSubmitSetDescription()"
+                    >
+                      <mat-icon>message</mat-icon>
+                      ساخت لینک
+                    </button>
+                    <p class="status-message">
+                      {{ messageShortLinkSetDescription }}
+                    </p>
+                    <p class="status-message status-message-secondary">
+                      {{ message }}
+                    </p>
+                  </div>
+
+                  <div
+                    class="col-lg-12"
+                    *ngIf="
+                      modelTargetSetResponceSetDescription &&
+                      modelTargetSetResponceSetDescription.key &&
+                      modelTargetSetResponceSetDescription.key?.length > 0
+                    "
+                  >
+                    <mat-card class="result-card">
+                      <div class="result-item">
+                        <span class="result-label">کلید</span>
+                        <div class="result-value">
+                          <span class="key-value">{{
+                            modelTargetSetResponceSetDescription.key
+                          }}</span>
+                          <button
+                            type="button"
+                            class="copy-button"
+                            (click)="
+                              copyText(modelTargetSetResponceSetDescription.key)
+                            "
+                          >
+                            <mat-icon>content_copy</mat-icon>
+                            <span>کپی</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div
+                        class="result-item"
+                        *ngIf="
+                          modelTargetSetResponceSetDescription.shortLinkUrl
+                        "
+                      >
+                        <span class="result-label">لینک کوتاه</span>
+                        <div class="result-value">
+                          <a
+                            [href]="
+                              modelTargetSetResponceSetDescription.shortLinkUrl
+                            "
+                            target="_blank"
+                            class="url-link"
+                            dir="ltr"
+                          >
+                            {{
+                              modelTargetSetResponceSetDescription.shortLinkUrl
+                            }}
+                          </a>
+                          <button
+                            type="button"
+                            class="copy-button"
+                            (click)="
+                              copyText(
+                                modelTargetSetResponceSetDescription.shortLinkUrl
+                              )
+                            "
+                          >
+                            <mat-icon>content_copy</mat-icon>
+                            <span>کپی</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div
+                        class="qr-code-container"
+                        *ngIf="
+                          modelTargetSetResponceSetDescription.shortLinkQRCodeBase64
+                        "
+                      >
+                        <a
+                          [href]="
+                            modelTargetSetResponceSetDescription.shortLinkUrl
+                          "
+                          target="_blank"
+                        >
+                          <img
+                            [src]="
+                              modelTargetSetResponceSetDescription.shortLinkQRCodeBase64
+                            "
+                            alt="QR"
+                          />
+                        </a>
+                      </div>
+                    </mat-card>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+
+      <!-- تاریخچه -->
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>history</mat-icon>
+          <span>تاریخچه</span>
+        </ng-template>
+        <div class="tab-content-wrapper">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <i class="color">تاریخچه لینک‌های ساخته‌شده</i>
+            </div>
+            <div class="panel-body">
+              <h3>
+                شما می‌توانید تاریخچه لیست لینک‌های ساخته‌شده را مشاهده و دوباره
+                استفاده کنید
+              </h3>
+              <div class="history-list">
+                <div
+                  class="history-item"
+                  *ngFor="let item of modelHistoryList"
+                  (click)="onClickHistory(item)"
+                >
+                  <span class="history-item-text">{{ item }}</span>
+                  <mat-icon class="history-item-icon">arrow_back</mat-icon>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+</div>

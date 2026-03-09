@@ -196,8 +196,54 @@
             </div>
             <div class="cms-m-list-item-content">
               <div class="cms-m-list-item-title">
-                {{ "ID: " + row.id }}
+                {{ fieldsInfo["id"]?.fieldTitle }}: {{ row.id }}
               </div>
+
+              @if (row.ipAddress) {
+                <div class="cms-m-list-item-subtitle">
+                  <i class="fa-solid fa-network-wired" aria-hidden="true"></i>
+                  {{ fieldsInfo["ipAddress"]?.fieldTitle }}: {{ row.ipAddress }}
+                </div>
+              }
+
+              @if (row.clickPrice !== undefined) {
+                <div class="cms-m-list-item-subtitle">
+                  <i class="fa-solid fa-mouse-pointer" aria-hidden="true"></i>
+                  {{ fieldsInfo["clickPrice"]?.fieldTitle }}:
+                  {{ row.clickPrice }}
+                </div>
+              }
+
+              @if (row.viewPrice !== undefined) {
+                <div class="cms-m-list-item-subtitle">
+                  <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                  {{ fieldsInfo["viewPrice"]?.fieldTitle }}: {{ row.viewPrice }}
+                </div>
+              }
+
+              @if (row.linkManagementBillboardId) {
+                <div class="cms-m-list-item-subtitle">
+                  <i class="fa-solid fa-billboard" aria-hidden="true"></i>
+                  {{ fieldsInfo["linkManagementBillboardId"]?.fieldTitle }}:
+                  {{ row.linkManagementBillboardId }}
+                </div>
+              }
+
+              @if (row.linkManagementTargetId) {
+                <div class="cms-m-list-item-subtitle">
+                  <i class="fa-solid fa-flag" aria-hidden="true"></i>
+                  {{ fieldsInfo["linkManagementTargetId"]?.fieldTitle }}:
+                  {{ row.linkManagementTargetId }}
+                </div>
+              }
+
+              @if (row.createdDate) {
+                <div class="cms-m-list-item-subtitle">
+                  <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+                  {{ fieldsInfo["createdDate"]?.fieldTitle }}:
+                  {{ row.createdDate | localeDateTime }}
+                </div>
+              }
 
               @if (row.recordStatus !== undefined) {
                 <div class="cms-m-list-item-subtitle">
@@ -224,10 +270,30 @@
                       class="navi-icon pointer"
                       [cdkCopyToClipboard]="row.id.toString()"
                       (click)="onActionCopied(); $event.stopPropagation()"
-                      ><i class="flaticon2-copy"></i
-                    ></span>
-                    ID: {{ row.id }}
+                    >
+                      <i class="flaticon2-copy"></i>
+                    </span>
+                    {{ fieldsInfo["id"]?.fieldTitle }}: {{ row.id }}
                   </div>
+
+                  @if (row.deviceId) {
+                    <div class="cms-m-list-item-subtitle">
+                      <i
+                        class="fa-solid fa-mobile-screen"
+                        aria-hidden="true"
+                      ></i>
+                      {{ fieldsInfo["deviceId"]?.fieldTitle }}:
+                      {{ row.deviceId }}
+                    </div>
+                  }
+
+                  @if (row.browserName) {
+                    <div class="cms-m-list-item-subtitle">
+                      <i class="fa-solid fa-globe" aria-hidden="true"></i>
+                      {{ fieldsInfo["browserName"]?.fieldTitle }}:
+                      {{ row.browserName }}
+                    </div>
+                  }
                 </div>
               }
             </div>

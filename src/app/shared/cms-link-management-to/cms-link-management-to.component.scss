@@ -1,0 +1,13 @@
+.cms-link-management-to__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding-inline: 1.5rem;
+  font-weight: 600;
+}
+
+.cms-link-management-dialog .mat-mdc-dialog-surface {
+  border-radius: 16px;
+  max-height: 90vh;
+}

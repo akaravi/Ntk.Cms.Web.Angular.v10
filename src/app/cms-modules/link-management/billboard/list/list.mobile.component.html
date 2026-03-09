@@ -151,8 +151,9 @@
       <div class="cms-m-list">
         @for (row of dataModelResult.listItems; track row.id) {
           <div
-            class="cms-m-list-item"
+            class="cms-m-list-item border-highlight"
             [class.selected]="row.id === tableRowSelected?.id"
+            [class.bg-fade-highlight-light]="row.id === tableRowSelected?.id"
             (click)="onActionTableRowSelect(row, $event)"
             (rtclick)="onActionTableRowSelect(row, $event)"
             (mouseenter)="onActionTableRowMouseEnter(row)"
@@ -161,16 +162,59 @@
             [attr.aria-label]="row.title || row.id"
             tabindex="0"
           >
-            <div class="cms-m-list-item-image-placeholder">
-              <i
-                [ngClass]="row.recordStatus | statusIconClass"
-                aria-hidden="true"
-              ></i>
-            </div>
+            @if (row?.linkMainImageIdSrc?.length > 0) {
+              <div class="cms-m-list-item-image">
+                <img
+                  aria-hidden="true"
+                  [src]="row.linkMainImageIdSrc | cmsthumbnail"
+                  alt=""
+                  class="cms-m-list-item-img"
+                />
+              </div>
+            } @else {
+              <div class="cms-m-list-item-image-placeholder">
+                <i
+                  [ngClass]="row.recordStatus | statusIconClass"
+                  aria-hidden="true"
+                ></i>
+              </div>
+            }
             <div class="cms-m-list-item-content">
               <div class="cms-m-list-item-title">
-                {{ row.title || "ID: " + row.id }}
+                {{ row.title || fieldsInfo["id"]?.fieldTitle + ": " + row.id }}
               </div>
+
+              @if (row.linkSiteId) {
+                <div class="cms-m-list-item-subtitle">
+                  <i class="fa-solid fa-globe" aria-hidden="true"></i>
+                  {{ fieldsInfo["linkSiteId"]?.fieldTitle }}:
+                  {{ row.linkSiteId | cmssiteinfo | async }}
+                </div>
+              }
+
+              @if (row.currentViewCount !== undefined) {
+                <div class="cms-m-list-item-subtitle">
+                  <i class="fa-solid fa-eye" aria-hidden="true"></i>
+                  {{ fieldsInfo["currentViewCount"]?.fieldTitle }}:
+                  {{ row.currentViewCount }}
+                </div>
+              }
+
+              @if (row.currentClickCount !== undefined) {
+                <div class="cms-m-list-item-subtitle">
+                  <i class="fa-solid fa-mouse-pointer" aria-hidden="true"></i>
+                  {{ fieldsInfo["currentClickCount"]?.fieldTitle }}:
+                  {{ row.currentClickCount }}
+                </div>
+              }
+
+              @if (row.createdDate) {
+                <div class="cms-m-list-item-subtitle">
+                  <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+                  {{ fieldsInfo["createdDate"]?.fieldTitle }}:
+                  {{ row.createdDate | localeDateTime }}
+                </div>
+              }
 
               @if (row.recordStatus !== undefined) {
                 <div class="cms-m-list-item-subtitle">
@@ -197,9 +241,10 @@
                       class="navi-icon pointer"
                       [cdkCopyToClipboard]="row.id.toString()"
                       (click)="onActionCopied(); $event.stopPropagation()"
-                      ><i class="flaticon2-copy"></i
-                    ></span>
-                    ID: {{ row.id }}
+                    >
+                      <i class="flaticon2-copy"></i>
+                    </span>
+                    {{ fieldsInfo["id"]?.fieldTitle }}: {{ row.id }}
                   </div>
                 </div>
               }

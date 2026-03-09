@@ -423,3 +423,15 @@
 - تعداد اصلاحات در .ts:
 - مسیرهای دارای نقص قبلی (در صورت وجود):
 - نتیجه build/lint:
+
+---
+
+## Result 4: هم‌ترازی موبایل LinkManagement TargetBillboardLog با لیست دسکتاپ (2026-03-09)
+
+- **مسیر:** `link-management/target-billboard-log/list/list.mobile.component.html`
+- **اقدام:** به‌روزرسانی ساختار بدنه موبایل برای نمایش تمام فیلدهای کلیدی مشابه لیست دسکتاپ:
+  - در حالت اصلی ردیف، نمایش: `id`, `ipAddress`, `clickPrice`, `viewPrice`, `linkManagementBillboardId`, `linkManagementTargetId`, `createdDate` با استفاده از `fieldsInfo` برای عنوان‌ها.
+  - در بخش expanded (داخل `getRowExpanded(row)`)، نمایش جزئیات تکمیلی: `id` (به‌همراه دکمه کپی)، `deviceId`, `browserName`.
+  - حفظ نمایش `recordStatus` و کنترل `cmsRecordStatusSelfSave` فقط برای ردیف انتخاب‌شده و در صورت داشتن دسترسی ویرایش.
+- **هدف:** هماهنگ‌سازی تجربه کاربری موبایل با جدول دسکتاپ و رعایت استاندارد الگوی `app-cms-html-list-mobile` مشابه ماژول `news`.
+- **نتیجه lint:** بدون خطا در فایل تغییر یافته (ReadLints روی همان مسیر).

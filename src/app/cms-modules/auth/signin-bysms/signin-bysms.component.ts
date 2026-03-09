@@ -1,28 +1,24 @@
 import {
-    ChangeDetectorRef,
-    Component,
-    DestroyRef,
-    inject,
-    OnDestroy,
-    OnInit,
+  ChangeDetectorRef,
+  Component,
+  DestroyRef,
+  inject,
+  OnDestroy,
+  OnInit,
 } from "@angular/core";
 import { Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
-import {
-    AuthUserSignInBySmsDtoModel,
-    CaptchaModel,
-    CoreAuthV3Service
-} from "ntk-cms-api";
-import { interval, Observable, Subscription } from "rxjs";
+import { AuthUserSignInBySmsDtoModel, CoreAuthV3Service } from "ntk-cms-api";
+import { Observable, Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
 import { CmsTranslationService } from "src/app/core/i18n/cmsTranslation.service";
 import { ConnectionStatusModel } from "src/app/core/models/connectionStatusModel";
 import {
-    RESSELLER_SITE_ID_LOCAL_STORAGE_KEY,
-    RESSELLER_USER_ID_LOCAL_STORAGE_KEY,
-    ROUTE_SELECT_SITE,
-    SELECT_SITE_LOCAL_STORAGE_KEY,
-    themeAuthPageLSKey,
+  RESSELLER_SITE_ID_LOCAL_STORAGE_KEY,
+  RESSELLER_USER_ID_LOCAL_STORAGE_KEY,
+  ROUTE_SELECT_SITE,
+  SELECT_SITE_LOCAL_STORAGE_KEY,
+  themeAuthPageLSKey,
 } from "src/app/core/models/constModel";
 import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { SET_TOKEN_INFO } from "src/app/core/reducers/reducer.factory";
@@ -97,7 +93,6 @@ export class AuthSignInBySmsComponent implements OnInit, OnDestroy {
   isLoading$: Observable<boolean>;
   dataModelAuthUserSignInBySms: AuthUserSignInBySmsDtoModel =
     new AuthUserSignInBySmsDtoModel();
-  captchaModel: CaptchaModel = new CaptchaModel();
   diffSecondsSubscribe: Subscription;
   // private fields
   forgetState = "sms";
@@ -109,26 +104,15 @@ export class AuthSignInBySmsComponent implements OnInit, OnDestroy {
   diffSeconds: number;
   onNavigate = false;
   private unsubscribe: Subscription[] = [];
+  captchaRefreshTrigger = 0;
   ngOnInit(): void {
-    this.onCaptchaOrder();
     this.translate.get("AUTH.SIGNINBYSMS.TITLE").subscribe((str: string) => {
       this.pageInfo.updateTitle(str);
     });
   }
   prorocess: processModel;
   buttonnResendSmsDisable = true;
-  otpConfig = {
-    allowNumbersOnly: true,
-    length: 4,
-    isPasswordInput: false,
-    disableAutoFocus: false,
-    placeholder: "",
-    inputStyles: {
-      width: "50px",
-      height: "50px",
-      margin: "5px",
-    },
-  };
+
   onOtpChange(otp) {
     this.dataModelAuthUserSignInBySms.code = otp;
   }
@@ -152,7 +136,6 @@ export class AuthSignInBySmsComponent implements OnInit, OnDestroy {
 
     this.formInfo.submitButtonEnabled = false;
     this.errorState = ErrorStates.NotSubmitted;
-    this.dataModelAuthUserSignInBySms.captchaKey = this.captchaModel.key;
     this.dataModelAuthUserSignInBySms.lang =
       this.cmsTranslationService.getSelectedLanguage;
     const pName = this.constructor.name + ".ServiceSigninUserBySMS";
@@ -203,17 +186,11 @@ export class AuthSignInBySmsComponent implements OnInit, OnDestroy {
             this.cmsToastrService.typeErrorMessage(res.errorMessage);
           }
           this.formInfo.submitButtonEnabled = true;
-          if (this.countAutoCaptchaOrder < 10) {
-            if (!this.captchaModel || this.diffSeconds < 2) {
-              this.onCaptchaOrder();
-            }
-          }
           this.publicHelper.processService.processStop(pName);
         },
         error: (er) => {
           this.cmsToastrService.typeError(er);
           this.formInfo.submitButtonEnabled = true;
-          this.onCaptchaOrder();
           this.publicHelper.processService.processStop(pName);
         },
       });
@@ -226,7 +203,6 @@ export class AuthSignInBySmsComponent implements OnInit, OnDestroy {
   onActionSubmitEntryPinCode(): void {
     this.formInfo.submitButtonEnabled = false;
     this.errorState = ErrorStates.NotSubmitted;
-    this.dataModelAuthUserSignInBySms.captchaKey = this.captchaModel.key;
     this.dataModelAuthUserSignInBySms.lang =
       this.cmsTranslationService.getSelectedLanguage;
     const pName = this.constructor.name + ".ServiceSigninUserBySMS";
@@ -302,7 +278,6 @@ export class AuthSignInBySmsComponent implements OnInit, OnDestroy {
         error: (er) => {
           this.cmsToastrService.typeError(er);
           this.formInfo.submitButtonEnabled = true;
-          this.onCaptchaOrder();
           this.publicHelper.processService.processStop(pName);
         },
       });
@@ -311,42 +286,13 @@ export class AuthSignInBySmsComponent implements OnInit, OnDestroy {
     this.passwordIsValid = event;
   }
   onCaptchaOrder(): void {
-    if (this.onCaptchaOrderInProcess) {
-      return;
-    }
-    this.countAutoCaptchaOrder = this.countAutoCaptchaOrder + 1;
-    if (this.diffSecondsSubscribe) this.diffSecondsSubscribe.unsubscribe();
-    this.dataModelAuthUserSignInBySms.captchaText = "";
-    const pName = this.constructor.name + ".ServiceCaptcha";
-    this.translate
-      .get("MESSAGE.get_security_photo_content")
-      .subscribe((str: string) => {
-        this.publicHelper.processService.processStart(
-          pName,
-          str,
-          this.constructorInfoAreaId,
-        );
-      });
-    this.coreAuthService.ServiceCaptcha().subscribe({
-      next: (ret) => {
-        this.captchaModel = ret.item;
-        this.onCaptchaOrderInProcess = false;
-        this.diffSecondsSubscribe = interval(500).subscribe((x) => {
-          this.diffSeconds =
-            new Date(this.captchaModel.expire).getTime() - new Date().getTime();
-
-          if (this.diffSeconds < 0 && this.countAutoCaptchaOrder < 10) {
-            this.diffSecondsSubscribe.unsubscribe();
-            this.onCaptchaOrder();
-          }
-        });
-        this.publicHelper.processService.processStop(pName);
-      },
-      error: (er) => {
-        this.onCaptchaOrderInProcess = false;
-        this.publicHelper.processService.processStop(pName);
-      },
-    });
+    this.captchaRefreshTrigger++;
+  }
+  onCaptchaKeyChange(key: string): void {
+    this.dataModelAuthUserSignInBySms.captchaKey = key;
+  }
+  onCaptchaCodeChange(code: string): void {
+    this.dataModelAuthUserSignInBySms.captchaText = code;
   }
 
   changeforgetState(model: string): void {

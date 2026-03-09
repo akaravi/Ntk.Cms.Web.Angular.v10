@@ -56,44 +56,11 @@
           }
         </div>
         <!--captchaText Field-->
-        <img
-          src="{{ captchaModel.image }}"
-          (click)="onCaptchaOrder()"
-          class="mb-3"
-          alt=""
-        />
-        <mat-icon matSuffix (click)="onCaptchaOrder()">refresh</mat-icon>
-        <div class="input-style no-borders has-icon validate-field mb-4">
-          <i class="fa fa-quote-left color-highlight"></i>
-          <input
-            [(ngModel)]="dataModelAuthUserSignInBySms.captchaText"
-            name="dataModelAuthUserSignInBySms.captchaText"
-            style="direction: ltr !important; text-align: center"
-            #captchaText
-            id="dataModelAuthUserSignInBySms.captchaText"
-            [disabled]="!formInfo.submitButtonEnabled"
-            type="text"
-            class="form-control validate-name"
-            placeholder="{{ 'AUTH.INPUT.CAPTCHACODE' | translate }}"
-            minlength="5"
-            maxlength="5"
-            autocomplete="off"
-            required
-          />
-          <label
-            for="dataModelAuthUserSignInBySms.captchaText"
-            class="color-highlight"
-            >{{ "AUTH.INPUT.CAPTCHACODE" | translate }}</label
-          >
-          <i class="fa fa-times disabled invalid color-red-dark"></i>
-          <i class="fa fa-check disabled valid color-green-dark"></i>
-          @if (captchaText.errors?.required) {
-            <mat-error>
-              {{ "AUTH.INPUT.CAPTCHACODE" | translate }}
-              <strong>{{ "MESSAGE.required" | translate }}</strong>
-            </mat-error>
-          }
-        </div>
+        <app-cms-captcha
+          [refreshTrigger]="captchaRefreshTrigger"
+          (captchaKeyChange)="onCaptchaKeyChange($event)"
+          (codeChange)="onCaptchaCodeChange($event)"
+        ></app-cms-captcha>
         <button
           type="submit"
           [disabled]="
@@ -131,52 +98,15 @@
           <ng-otp-input
             #ngOtpInput
             (onInputChange)="onOtpChange($event)"
-            [config]="otpConfig"
           ></ng-otp-input>
         </div>
         <!--captchaText Field-->
         @if (diffSeconds < 0) {
-          <img
-            src="{{ captchaModel.image }}"
-            (click)="onCaptchaOrder()"
-            class="mb-3"
-            alt=""
-          />
-        }
-        @if (diffSeconds < 0) {
-          <mat-icon matSuffix (click)="onCaptchaOrder()">refresh</mat-icon>
-        }
-        @if (diffSeconds < 0) {
-          <div class="input-style no-borders has-icon validate-field mb-4">
-            <i class="fa fa-quote-left color-highlight"></i>
-            <input
-              [(ngModel)]="dataModelAuthUserSignInBySms.captchaText"
-              name="dataModelAuthUserSignInBySms.captchaText"
-              #captchaText
-              id="dataModelAuthUserSignInBySms.captchaText"
-              [disabled]="!formInfo.submitButtonEnabled"
-              type="text"
-              class="form-control validate-name"
-              placeholder="{{ 'AUTH.INPUT.CAPTCHACODE' | translate }}"
-              minlength="5"
-              maxlength="5"
-              autocomplete="off"
-              required
-            />
-            <label
-              for="dataModelAuthUserSignInBySms.captchaText"
-              class="color-highlight"
-              >{{ "AUTH.INPUT.CAPTCHACODE" | translate }}</label
-            >
-            <i class="fa fa-times disabled invalid color-red-dark"></i>
-            <i class="fa fa-check disabled valid color-green-dark"></i>
-            @if (captchaText.errors?.required) {
-              <mat-error>
-                {{ "AUTH.INPUT.CAPTCHACODE" | translate }}
-                <strong>{{ "MESSAGE.required" | translate }}</strong>
-              </mat-error>
-            }
-          </div>
+          <app-cms-captcha
+            [refreshTrigger]="captchaRefreshTrigger"
+            (captchaKeyChange)="onCaptchaKeyChange($event)"
+            (codeChange)="onCaptchaCodeChange($event)"
+          ></app-cms-captcha>
         }
         @if (!onNavigate) {
           <button

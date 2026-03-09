@@ -1,0 +1,26 @@
+<div class="captcha-section">
+  <div class="captcha-group">
+    <div class="captcha-image-wrapper">
+      <img
+        [src]="captchaModel.image"
+        class="captcha-image"
+        alt="کپچا"
+        (click)="onRefresh()"
+      />
+      <button
+        type="button"
+        class="captcha-refresh-icon-button"
+        aria-label="تغییر تصویر امنیتی"
+        (click)="onRefresh(); $event.stopPropagation()"
+      >
+        ⟳
+      </button>
+    </div>
+    <div class="captcha-input">
+      <ng-otp-input
+        [config]="config || otpConfig"
+        (onInputChange)="onInputChange($event)"
+      ></ng-otp-input>
+    </div>
+  </div>
+</div>

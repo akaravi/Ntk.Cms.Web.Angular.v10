@@ -1,0 +1,10 @@
+<button
+  mat-raised-button
+  color="primary"
+  class="cms-link-management-to__button"
+  type="button"
+  (click)="onOpenDialog()"
+>
+  <mat-icon *ngIf="buttonIcon">{{ buttonIcon }}</mat-icon>
+  <span>{{ buttonLabel }}</span>
+</button>

@@ -10,7 +10,11 @@ import {
   withFetch,
   withInterceptorsFromDi,
 } from "@angular/common/http";
-import { ModuleWithProviders, NgModule } from "@angular/core";
+import {
+  CUSTOM_ELEMENTS_SCHEMA,
+  ModuleWithProviders,
+  NgModule,
+} from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatButtonModule } from "@angular/material/button";
@@ -81,6 +85,7 @@ import {
   CoreUserGroupService,
   CoreUserService,
   FileContentService,
+  LinkManagementTargetService,
   MemberUserService,
   SmsActionService,
   SmsMainApiNumberService,
@@ -170,6 +175,7 @@ import { ConfirmationDialogComponent } from "./cms-confirmation-dialog/cmsConfir
 import { CmsContactCategoryTreeSelectorComponent } from "./cms-contact-category-tree-selector/cms-contact-category-tree-selector.component";
 import { CmsContactContentDropListComponent } from "./cms-contact-content-drop-list/cms-contact-content-drop-list.component";
 import { CmsContactContentSelectionListComponent } from "./cms-contact-content-selection-list/cms-contact-content-selection-list.component";
+import { CmsCaptchaComponent } from "./cms-captcha/cms-captcha.component";
 import { CmsCurrencySelectorComponent } from "./cms-currency-selector/cms-currency-selector.component";
 import { CmsDataCommentComponent } from "./cms-data-comment/cms-data-comment.component";
 import { CmsDataMemoComponent } from "./cms-data-memo/cms-data-memo.component";
@@ -181,6 +187,7 @@ import { CmsEnumXSelectionListComponent } from "./cms-enum-x-selectionlist/cms-e
 import { CmsEnumXSelectorComponent } from "./cms-enum-x-selector/cms-enum-x-selector.component";
 import { CmsExportEntityComponent } from "./cms-export-entity/cms-export-entity.component";
 import { CmsExportListComponent } from "./cms-export-list/cmsExportList.component";
+import { CmsFileUploaderModule } from "./cms-file-uploader/cms-file-uploader.module";
 import { CmsFilesSelectorComponent } from "./cms-files-selector/cms-files-selector.component";
 import { CmsFormBuilderPropertiesComponent } from "./cms-form-builder-properties/cms-form-builder-properties.component";
 import { CmsFormResultMessageComponent } from "./cms-form-result-message/cms-form-result-message.component";
@@ -196,6 +203,8 @@ import { CmsHtmlNoticeComponent } from "./cms-html-notice/cms-html-notice.compon
 import { CmsHtmlTreeComponent } from "./cms-html-tree/cms-html-tree.component";
 import { CmsHtmlWidgetComponent } from "./cms-html-widget/cms-html-widget.component";
 import { CmsJsonListComponent } from "./cms-json-list/cmsJsonList.component";
+import { CmsLinkManagementToComponent } from "./cms-link-management-to/cms-link-management-to.component";
+import { CmsLinkManagementComponent } from "./cms-link-management/cms-link-management.component";
 import { CmsLinkToComponent } from "./cms-link-to/cms-link-to.component";
 import { CmsLocationCompleteComponent } from "./cms-location-autocomplete/cms-location-autocomplete.component";
 import { CmsLocationSelectorComponent } from "./cms-location-selector/cms-location-selector.component";
@@ -286,11 +295,14 @@ import { SplashScreenComponent } from "./splash-screen/splash-screen.component";
     CmsQDocComponent,
     CmsViewComponent,
     CmsLinkToComponent,
+    CmsLinkManagementComponent,
+    CmsLinkManagementToComponent,
     CmsDataMemoComponent,
     CmsDataPinComponent,
     CmsDataTaskComponent,
     CmsDataCommentComponent,
     CmsShowKeyComponent,
+    CmsCaptchaComponent,
     CmsMapComponent,
     CmsTagAutocompleteComponent,
     ProgressSpinnerComponent,
@@ -400,6 +412,7 @@ import { SplashScreenComponent } from "./splash-screen/splash-screen.component";
     CoreModuleDataTaskService,
     CoreModuleDataPinService,
     CoreModuleDataCommentService,
+    LinkManagementTargetService,
     SmsMainApiPathService,
     SmsMainApiNumberService,
     SmsActionService,
@@ -465,6 +478,7 @@ import { SplashScreenComponent } from "./splash-screen/splash-screen.component";
     NgbNavModule,
     NgOtpInputModule,
     CmsFileManagerModule.forRoot(),
+    CmsFileUploaderModule,
   ],
   exports: [
     // common and shared components/directives/pipes between more than one module and components will be listed here.
@@ -568,11 +582,14 @@ import { SplashScreenComponent } from "./splash-screen/splash-screen.component";
     CmsQDocComponent,
     CmsViewComponent,
     CmsLinkToComponent,
+    CmsLinkManagementComponent,
+    CmsLinkManagementToComponent,
     CmsDataMemoComponent,
     CmsDataPinComponent,
     CmsDataTaskComponent,
     CmsDataCommentComponent,
     CmsShowKeyComponent,
+    CmsCaptchaComponent,
     CmsTagAutocompleteComponent,
     ProgressSpinnerComponent,
     SplashScreenComponent,
@@ -641,6 +658,7 @@ import { SplashScreenComponent } from "./splash-screen/splash-screen.component";
     KeyboardForceDirective,
     KeyboardForceNumberDirective,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SharedModule {
   /**
