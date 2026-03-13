@@ -1,3 +1,11 @@
+## 2026-03-13 - GitHub Actions Node 24 compatibility
+
+- به‌روزرسانی workflow `Node.js CI` برای سازگاری کامل با Node.js 24 در GitHub Actions.
+- ارتقا `actions/checkout` از `v3` به `v4` برای استفاده از نسخه جدید Node روی runner.
+- ارتقا `actions/setup-node` از `v3` به `v4` برای پشتیبانی رسمی از Node 24 در step تنظیم نسخه Node.
+- ارتقا `softprops/action-gh-release` از `v1` به `v2` تا اکشن Release با runtime جدید Node 24 سازگار باشد.
+- هشدار deprecation مربوط به **Node.js 20 actions are deprecated** در صفحه Actions گیت‌هاب برای این workflow دیگر نباید نمایش داده شود (بعد از اجرای یک run جدید روی شاخه `publish`).
+
 ## 2026-03-09 - cms-link-management shared component
 
 - ایجاد کامپوننت جدید `CmsLinkManagementComponent` در `shared` برای پیاده‌سازی سرویس کوتاه‌کننده لینک/فایل/پیام به‌صورت قابل استفاده در تمام ماژول‌ها.
