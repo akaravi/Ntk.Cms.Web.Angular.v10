@@ -17,13 +17,24 @@ import { CaptchaModel, CoreAuthV3Service } from "ntk-cms-api";
   standalone: false,
 })
 export class CmsCaptchaComponent implements OnInit, OnChanges, OnDestroy {
+  //[(model)]
+  @Input() set model(val: CaptchaModel) {
+    if (val) {
+      this.captchaModel = val;
+      this.removeInputOTP++;
+    }
+  }
+  @Output() modelChange: EventEmitter<CaptchaModel> =
+    new EventEmitter<CaptchaModel>();
+  //[(model)]
+
   @Input() config: any;
   /** هر بار مقدار این ورودی تغییر کند، کپچا دوباره از سرور خوانده می‌شود (برای سازگاری با onCaptchaOrder قدیمی). */
   @Input() refreshTrigger: number | string | null = null;
 
   @Output() captchaKeyChange = new EventEmitter<string>();
   @Output() codeChange = new EventEmitter<string>();
-
+  removeInputOTP: number = 0;
   captchaModel: CaptchaModel = new CaptchaModel();
   private autoReloadCount = 0;
   private autoReloadTimerId: any;
@@ -39,7 +50,7 @@ export class CmsCaptchaComponent implements OnInit, OnChanges, OnDestroy {
     inputStyles: {
       width: "44px",
       height: "44px",
-      margin: "4px",
+      margin: "1px",
     },
   };
   ngOnInit(): void {
@@ -59,10 +70,12 @@ export class CmsCaptchaComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private loadCaptcha(): void {
+    this.removeInputOTP++;
     this.coreAuthService.ServiceCaptcha().subscribe({
       next: (ret) => {
         if (ret && ret.isSuccess && ret.item) {
           this.captchaModel = ret.item;
+          this.modelChange.emit(ret.item);
           this.captchaKeyChange.emit(this.captchaModel.key);
 
           // زمان انقضای کپچا را محاسبه و رفرش خودکار تنظیم می‌کنیم

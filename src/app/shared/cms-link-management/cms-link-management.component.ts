@@ -2,6 +2,7 @@ import { Component, Inject, Input, OnInit, Optional } from "@angular/core";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { FilePreviewModel } from "ngx-ntk-file-picker";
 import {
+  CaptchaModel,
   CoreAuthV3Service,
   LinkManagementTargetService,
   LinkManagementTargetShortLinkGetDtoModel,
@@ -31,6 +32,7 @@ export class CmsLinkManagementComponent implements OnInit {
   modelHistoryList: string[] = [];
 
   submitted = false;
+  captchaModel: CaptchaModel = new CaptchaModel();
 
   // ورودی‌ها برای استفاده مستقیم از خارج کامپوننت
   @Input() optionFileId = ""; // linkFileId
@@ -86,19 +88,6 @@ export class CmsLinkManagementComponent implements OnInit {
       active: false,
     },
   ];
-
-  otpConfigCaptcha = {
-    allowNumbersOnly: true,
-    length: 5,
-    isPasswordInput: false,
-    disableAutoFocus: false,
-    placeholder: "",
-    inputStyles: {
-      width: "44px",
-      height: "44px",
-      margin: "4px",
-    },
-  };
 
   ngOnInit(): void {
     // مقداردهی ورودی‌ها از MAT_DIALOG_DATA در صورت استفاده در دیالوگ
@@ -166,17 +155,20 @@ export class CmsLinkManagementComponent implements OnInit {
   }
 
   // رویدادهای ورودی عددی کپچا (پنج رقمی)
-  onCaptchaSetChange(code: string): void {
-    this.modelTargetSetDto.captchaText = code;
-  }
 
-  onCaptchaGetChange(code: string): void {
-    this.modelTargetGetDto.captchaText = code;
+  captchaRefreshTrigger = 0;
+  onCaptchaOrder(): void {
+    this.modelTargetSetDto.captchaText = "";
+    this.modelTargetGetDto.captchaText = "";
+    this.captchaRefreshTrigger++;
   }
-
   onCaptchaKeyChange(key: string): void {
     this.modelTargetSetDto.captchaKey = key;
     this.modelTargetGetDto.captchaKey = key;
+  }
+  onCaptchaCodeChange(code: string): void {
+    this.modelTargetSetDto.captchaText = code;
+    this.modelTargetGetDto.captchaText = code;
   }
 
   onSubmitGet(): void {

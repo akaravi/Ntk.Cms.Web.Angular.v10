@@ -5,6 +5,7 @@ import {
   Input,
   OnInit,
   Output,
+  SimpleChanges,
 } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
 import { OtpInputModel } from "../../models/otpInputModel";
@@ -19,6 +20,10 @@ import { KeysPipe } from "../../pipe/keys.pipe";
 })
 export class NgOtpInputComponent implements OnInit, AfterViewInit {
   @Input() config: OtpInputModel = { length: 4 };
+  // @Input() set optionRemoveValue(cont: number) {
+  //   this.removeValue;
+  // }
+  @Input() removeInput: number | string | null = null;
   // tslint:disable-next-line: no-output-on-prefix
   @Output() onInputChange = new EventEmitter<string>();
   otpForm: FormGroup;
@@ -45,6 +50,11 @@ export class NgOtpInputComponent implements OnInit, AfterViewInit {
           ele.focus();
         }
       }
+    }
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes["removeInput"] && !changes["removeInput"].firstChange) {
+      this.removeValue();
     }
   }
   private getControlName(idx: any) {
@@ -174,6 +184,15 @@ export class NgOtpInputComponent implements OnInit, AfterViewInit {
     this.rebuildValue();
   }
 
+  removeValue() {
+    let val = "";
+    this.keysPipe.transform(this.otpForm.controls).forEach((k) => {
+      if (this.otpForm.controls[k].value) {
+        this.otpForm.controls[k].setValue("");
+      }
+    });
+    this.onInputChange.emit(val);
+  }
   rebuildValue() {
     let val = "";
     this.keysPipe.transform(this.otpForm.controls).forEach((k) => {

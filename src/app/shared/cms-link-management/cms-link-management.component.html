@@ -42,9 +42,10 @@
                     </div>
 
                     <app-cms-captcha
-                      [config]="otpConfigCaptcha"
+                      [(model)]="captchaModel"
+                      [refreshTrigger]="captchaRefreshTrigger"
                       (captchaKeyChange)="onCaptchaKeyChange($event)"
-                      (codeChange)="onCaptchaSetChange($event)"
+                      (codeChange)="onCaptchaCodeChange($event)"
                     ></app-cms-captcha>
 
                     <button
@@ -204,9 +205,10 @@
                     </div>
 
                     <app-cms-captcha
-                      [config]="otpConfigCaptcha"
+                      [(model)]="captchaModel"
+                      [refreshTrigger]="captchaRefreshTrigger"
                       (captchaKeyChange)="onCaptchaKeyChange($event)"
-                      (codeChange)="onCaptchaGetChange($event)"
+                      (codeChange)="onCaptchaCodeChange($event)"
                     ></app-cms-captcha>
 
                     <button
@@ -419,9 +421,10 @@
                     </div>
 
                     <app-cms-captcha
-                      [config]="otpConfigCaptcha"
+                      [(model)]="captchaModel"
+                      [refreshTrigger]="captchaRefreshTrigger"
                       (captchaKeyChange)="onCaptchaKeyChange($event)"
-                      (codeChange)="onCaptchaSetChange($event)"
+                      (codeChange)="onCaptchaCodeChange($event)"
                     ></app-cms-captcha>
 
                     <button
@@ -582,9 +585,10 @@
                     </div>
 
                     <app-cms-captcha
-                      [config]="otpConfigCaptcha"
+                      [(model)]="captchaModel"
+                      [refreshTrigger]="captchaRefreshTrigger"
                       (captchaKeyChange)="onCaptchaKeyChange($event)"
-                      (codeChange)="onCaptchaSetChange($event)"
+                      (codeChange)="onCaptchaCodeChange($event)"
                     ></app-cms-captcha>
 
                     <button
