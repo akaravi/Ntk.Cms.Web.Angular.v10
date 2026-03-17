@@ -3,11 +3,12 @@
   height: 50px;
   border-radius: 4px;
   border: solid 1px #c5c5c5;
-  text-align: center;
+  text-align: center !important;
   font-size: 32px;
 }
 
 .wrapper {
+  min-width: max-content;
   .otp-input:not(:last-child) {
     margin-right: 8px;
   }
