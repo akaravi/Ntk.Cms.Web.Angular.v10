@@ -89,8 +89,8 @@
               [(ngModel)]="tokenInfo.access.userAccessAdminAllowToAllData"
               name="dataModel.userAccessAdminAllowToAllData"
               [disabled]="
-                publicHelper.processService.process?.inRunAll ||
-                publicHelper.processService.process?.inRunArea[
+                publicHelper.processService?.process?.inRunAll ||
+                publicHelper.processService?.process?.inRunArea[
                   constructorInfoAreaId
                 ]
               "
