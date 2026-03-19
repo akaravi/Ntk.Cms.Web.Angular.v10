@@ -298,7 +298,6 @@
           [ngClass]="row.recordStatus | statusCellClass"
         >
           <i [ngClass]="row.recordStatus | statusIconClass"></i>
-     
         </mat-cell>
       </ng-container>
       <!-- Title Column -->
@@ -374,12 +373,11 @@
           <button
             type="button"
             mat-icon-button
-            [matMenuTriggerFor]="actionMenu"
             aria-label="Action Menu"
+            (click)="onActionTableRowSelectActionMenu(row)"
           >
             <mat-icon>more_vert</mat-icon>
           </button>
-          <mat-menu #actionMenu="matMenu"> </mat-menu>
         </mat-cell>
       </ng-container>
       <!-- QuickView Column -->

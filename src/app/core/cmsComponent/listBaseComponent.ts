@@ -162,7 +162,8 @@ export class ListBaseComponent<
     this.onActionTableRowSelect(row, null);
     setTimeout(() => {
       this.tableRowSelectActionMenuClick = !this.tableRowSelectActionMenuClick;
-    }, 1000);
+      this.tableRowSelect2Click = true;
+    }, 500);
   }
   onActionButtonMemo(): void {
     //open popup
