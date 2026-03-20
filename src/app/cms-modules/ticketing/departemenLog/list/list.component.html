@@ -1,3 +1,11 @@
+@if (requestDepartemenId > 0) {
+  <app-ticketing-departemen-header [optionId]="requestDepartemenId">
+  </app-ticketing-departemen-header>
+}
+@if (requestOperatorId > 0) {
+  <app-ticketing-departemen-operator-header [optionId]="requestOperatorId">
+  </app-ticketing-departemen-operator-header>
+}
 <app-cms-html-list
   [optionsListInfoAreaId]="constructorInfoAreaId"
   [optionGuideNoticeKey]="''"

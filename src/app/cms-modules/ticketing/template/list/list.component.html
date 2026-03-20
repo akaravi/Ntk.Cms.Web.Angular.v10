@@ -24,7 +24,10 @@
   </ng-container>
   <ng-container cms-header>
     <!--begin:::::::::::::::::::::::::::::::::::::::::cms-header-->
-
+    @if (requestDepartemenId > 0) {
+      <app-ticketing-departemen-header [optionId]="requestDepartemenId">
+      </app-ticketing-departemen-header>
+    }
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-header-->
   </ng-container>
   <ng-container cms-action-header>

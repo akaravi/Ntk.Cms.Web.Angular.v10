@@ -24,7 +24,16 @@
   </ng-container>
   <ng-container cms-header>
     <!--begin:::::::::::::::::::::::::::::::::::::::::cms-header-->
+    @if (requestDepartemenId > 0) {
+      <app-ticketing-departemen-header [optionId]="requestDepartemenId">
+      </app-ticketing-departemen-header>
+    }
 
+    @if (requestLinkCmsUserId > 0) {
+      <app-core-user-header
+        [optionId]="requestLinkCmsUserId"
+      ></app-core-user-header>
+    }
     <!--end:::::::::::::::::::::::::::::::::::::::::cms-header-->
   </ng-container>
   <ng-container cms-action-header>

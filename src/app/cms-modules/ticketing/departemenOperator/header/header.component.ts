@@ -10,8 +10,8 @@ import { TranslateService } from "@ngx-translate/core";
 import {
   DataFieldInfoModel,
   ErrorExceptionResult,
-  TicketingTaskModel,
-  TicketingTaskService,
+  TicketingDepartemenOperatorModel,
+  TicketingDepartemenOperatorService,
 } from "ntk-cms-api";
 import { Subscription } from "rxjs";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -20,15 +20,17 @@ import { CmsStoreService } from "src/app/core/reducers/cmsStore.service";
 import { CmsToastrService } from "src/app/core/services/cmsToastr.service";
 
 @Component({
-  selector: "app-ticketing-task-header",
+  selector: "app-ticketing-departemen-operator-header",
   templateUrl: "./header.component.html",
-
+  styleUrls: ["./header.component.scss"],
   standalone: false,
 })
-export class TicketingTaskHeaderComponent implements OnInit, OnDestroy {
+export class TicketingDepartemenOperatorHeaderComponent
+  implements OnInit, OnDestroy
+{
   constructorInfoAreaId = this.constructor.name;
   constructor(
-    private headerService: TicketingTaskService,
+    private headerService: TicketingDepartemenOperatorService,
     public publicHelper: PublicHelper,
     private cdr: ChangeDetectorRef,
     public cmsToastrService: CmsToastrService,
@@ -41,8 +43,8 @@ export class TicketingTaskHeaderComponent implements OnInit, OnDestroy {
   }
   @Input() optionId = 0;
 
-  dataModelResult: ErrorExceptionResult<TicketingTaskModel> =
-    new ErrorExceptionResult<TicketingTaskModel>();
+  dataModelResult: ErrorExceptionResult<TicketingDepartemenOperatorModel> =
+    new ErrorExceptionResult<TicketingDepartemenOperatorModel>();
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
     string,
     DataFieldInfoModel
@@ -57,7 +59,7 @@ export class TicketingTaskHeaderComponent implements OnInit, OnDestroy {
     this.unsubscribe.push(
       this.cmsStoreService
         .getState((state) => state.tokenInfoStore)
-        .subscribe(async (value) => {
+        .subscribe(async () => {
           this.DataGetOneContent();
         }),
     );
@@ -89,9 +91,9 @@ export class TicketingTaskHeaderComponent implements OnInit, OnDestroy {
         }
         this.publicHelper.processService.processStop(pName);
       },
-      error: (err) => {
-        this.cmsToastrService.typeError(err);
-        this.publicHelper.processService.processStop(pName);
+      error: (er) => {
+        this.cmsToastrService.typeError(er);
+        this.publicHelper.processService.processStop(pName, false);
       },
     });
   }

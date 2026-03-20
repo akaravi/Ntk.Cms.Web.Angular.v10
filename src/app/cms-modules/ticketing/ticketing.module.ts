@@ -55,6 +55,9 @@ import { TicketingFaqOriginListComponent } from "./faq/origin-list/origin-list.c
 import { TicketingTaskAddComponent } from "./task/add/add.component";
 import { TicketingTaskContactUsAddComponent } from "./task/contact-us-add/contact-us-add.component";
 
+import { CoreSharedModule } from "../core-main/core.shared.module";
+import { TicketingDepartemenHeaderComponent } from "./departemen/header/header.component";
+import { TicketingDepartemenOperatorHeaderComponent } from "./departemenOperator/header/header.component";
 import { TicketingTaskEditComponent } from "./task/edit/edit.component";
 import { TicketingTaskHeaderComponent } from "./task/header/header.component";
 import { TicketingTaskListComponent } from "./task/list/list.component";
@@ -75,6 +78,7 @@ import { TicketingTemplateSelectorComponent } from "./template/selector/selector
     TicketingDepartemenDeleteComponent,
     TicketingDepartemenSelectorComponent,
     TicketingDepartemenTreeComponent,
+    TicketingDepartemenHeaderComponent,
     /* */
     TicketingFaqAddComponent,
     TicketingFaqEditComponent,
@@ -100,6 +104,7 @@ import { TicketingTemplateSelectorComponent } from "./template/selector/selector
     TicketingDepartemenOperatorEditComponent,
     TicketingDepartemenOperatorSelectorComponent,
     TicketingDepartemenOperatorTreeComponent,
+    TicketingDepartemenOperatorHeaderComponent,
     /* */
     TicketingAnswerListComponent,
     TicketingAnswerAddComponent,
@@ -127,6 +132,7 @@ import { TicketingTemplateSelectorComponent } from "./template/selector/selector
     SharedModule,
     AngularEditorModule,
     CmsFileManagerModule,
+    CoreSharedModule,
   ],
   providers: [
     CoreModuleService,
