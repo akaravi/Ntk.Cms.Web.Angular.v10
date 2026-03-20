@@ -65,7 +65,7 @@
     <!--end::action-area-->
 
     <!--begin::Body-->
-    <div class="card card-style mb-0 mt-0 ps-0 pe-0">
+    <div class="card card-style mb-1 mt-0 ps-0 pe-0">
       <div class="content mb-0 mt-0 ps-0 pe-0 loader-container">
         @if (optionsListInfoAreaId?.length > 0) {
           <app-progress-spinner [optionsInfoAreaId]="optionsListInfoAreaId">
@@ -78,8 +78,8 @@
 
     <!--begin::Footer-->
     @if (optionFooterDisplay) {
-      <div class="card card-style">
-        <div class="content mb-0">
+      <div class="card card-style mb-0 mt-1 ps-0 pe-0">
+        <div class="content mb-0 mt-0 ps-0 pe-0">
           <ng-content select="[cms-message]"></ng-content>
           <ng-content select="[cms-footer]"></ng-content>
         </div>
