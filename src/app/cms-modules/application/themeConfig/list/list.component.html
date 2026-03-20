@@ -227,18 +227,6 @@
           [ngClass]="row.recordStatus | statusCellClass"
         >
           <i [ngClass]="row.recordStatus | statusIconClass"></i>
-          @if (dataModelResult?.access?.accessEditRow) {
-            <select
-              matNativeControl
-              cmsRecordStatusSelfSave
-              [contentService]="contentService"
-              [row]="row"
-              style="background: none; border: none"
-              [ngStyle]="{
-                display: row.id === tableRowSelected?.id ? '' : 'none',
-              }"
-            ></select>
-          }
         </mat-cell>
       </ng-container>
       <!-- Title Column -->
