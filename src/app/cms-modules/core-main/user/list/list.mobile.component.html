@@ -11,7 +11,9 @@
   [optionActionRowDisplay]="tableRowSelected?.id > 0"
   [optionActionRowDisplayMenu]="tableRowSelect2Click"
   [optionActionRowDisplayMenuAct]="tableRowSelectActionMenuClick"
-  [optionSelectRowItemTitle]="tableRowSelected?.username || tableRowSelected?.id"
+  [optionSelectRowItemTitle]="
+    tableRowSelected?.username || tableRowSelected?.id
+  "
   (optionOnScrollNearBottom)="onActionLoadNextPage()"
 >
   <ng-container cms-tree>
@@ -174,11 +176,18 @@
             tabindex="0"
           >
             <div class="cms-m-list-item-image-placeholder">
-              <i [ngClass]="row.recordStatus | statusIconClass" aria-hidden="true"></i>
+              <i
+                [ngClass]="row.recordStatus | statusIconClass"
+                aria-hidden="true"
+              ></i>
             </div>
             <div class="cms-m-list-item-content">
               <div class="cms-m-list-item-title">
-                {{ (row.name || "") + " " + (row.lastName || "") || row.username || "ID: " + row.id }}
+                {{
+                  (row.name || "") + " " + (row.lastName || "") ||
+                    row.username ||
+                    "ID: " + row.id
+                }}
               </div>
               @if (row.id) {
                 <div class="cms-m-list-item-subtitle">
@@ -201,24 +210,11 @@
               @if (row.recordStatus !== undefined) {
                 <div class="cms-m-list-item-subtitle">
                   <i [ngClass]="row.recordStatus | statusIconClass"></i>
-                  @if (
-                    dataModelResult?.access?.accessEditRow &&
-                    row.id === tableRowSelected?.id
-                  ) {
-                    <select
-                      matNativeControl
-                      cmsRecordStatusSelfSave
-                      [contentService]="contentService"
-                      [row]="row"
-                      style="background: none; border: none; margin-left: 8px"
-                    ></select>
-                  }
                 </div>
               }
               <!-- Expanded Detail (when row is expanded) -->
               @if (getRowExpanded(row)) {
                 <div class="cms-m-list-item-expanded">
-                  
                   @if (row.updatedDate) {
                     <div class="cms-m-list-item-subtitle">
                       <i
@@ -246,7 +242,8 @@
                   }
                   @if (row.lastName) {
                     <div class="cms-m-list-item-subtitle">
-                      {{ fieldsInfo["lastName"]?.fieldTitle }}: {{ row.lastName }}
+                      {{ fieldsInfo["lastName"]?.fieldTitle }}:
+                      {{ row.lastName }}
                     </div>
                   }
                   @if (row.mobile) {
@@ -256,7 +253,8 @@
                   }
                   @if (row.username) {
                     <div class="cms-m-list-item-subtitle">
-                      {{ fieldsInfo["username"]?.fieldTitle }}: {{ row.username }}
+                      {{ fieldsInfo["username"]?.fieldTitle }}:
+                      {{ row.username }}
                     </div>
                   }
                 </div>

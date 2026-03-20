@@ -172,7 +172,8 @@
           ><i
             class="fa-solid fa-building-columns font-18"
             style="color: #ffffff"
-          ></i><br />
+          ></i
+          ><br />
         </a>
         <p class="font-11 text-center opacity-70">
           {{ "ACTION.TRANSFER_TO_PORT" | translate }}
@@ -188,7 +189,8 @@
           ><i
             class="fa-solid fa-memo-circle-info font-18"
             style="color: #ffffff"
-          ></i><br />
+          ></i
+          ><br />
         </a>
         <p class="font-11 text-center opacity-70">
           {{ "ACTION.DETAIL" | translate }}
@@ -223,7 +225,10 @@
             tabindex="0"
           >
             <div class="cms-m-list-item-image-placeholder">
-              <i [ngClass]="row.recordStatus | statusIconClass" aria-hidden="true"></i>
+              <i
+                [ngClass]="row.recordStatus | statusIconClass"
+                aria-hidden="true"
+              ></i>
             </div>
             <div class="cms-m-list-item-content">
               <div class="cms-m-list-item-title">
@@ -246,26 +251,39 @@
                 <div class="cms-m-list-item-subtitle">
                   <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
                   {{ fieldsInfo["transactionStatus"]?.fieldTitle }}:
-                  {{ row.transactionStatus | enums: dataModelEnumTransactionRecordStatusResult.listItems }}
+                  {{
+                    row.transactionStatus
+                      | enums
+                        : dataModelEnumTransactionRecordStatusResult.listItems
+                  }}
                 </div>
               }
               @if (row.bankStatus !== undefined) {
                 <div class="cms-m-list-item-subtitle">
-                  <i class="fa-solid fa-building-columns" aria-hidden="true"></i>
+                  <i
+                    class="fa-solid fa-building-columns"
+                    aria-hidden="true"
+                  ></i>
                   {{ fieldsInfo["bankStatus"]?.fieldTitle }}:
-                  {{ row.bankStatus | enums: dataModelEnumTransactionBankStatusResult.listItems }}
+                  {{
+                    row.bankStatus
+                      | enums
+                        : dataModelEnumTransactionBankStatusResult.listItems
+                  }}
                 </div>
               }
               @if (row.amount) {
                 <div class="cms-m-list-item-subtitle">
                   <i class="fa-solid fa-dollar-sign" aria-hidden="true"></i>
-                  {{ fieldsInfo["Amount"]?.fieldTitle }}: {{ row.amount | number }}
+                  {{ fieldsInfo["Amount"]?.fieldTitle }}:
+                  {{ row.amount | number }}
                 </div>
               }
               @if (row.currencyUnit) {
                 <div class="cms-m-list-item-subtitle">
                   <i class="fa-solid fa-coins" aria-hidden="true"></i>
-                  {{ fieldsInfo["CurrencyUnit"]?.fieldTitle }}: {{ row.currencyUnit }}
+                  {{ fieldsInfo["CurrencyUnit"]?.fieldTitle }}:
+                  {{ row.currencyUnit }}
                 </div>
               }
               @if (row.createdDate) {
@@ -278,18 +296,6 @@
               @if (row.recordStatus !== undefined) {
                 <div class="cms-m-list-item-subtitle">
                   <i [ngClass]="row.recordStatus | statusIconClass"></i>
-                  @if (
-                    dataModelResult?.access?.accessEditRow &&
-                    row.id === tableRowSelected?.id
-                  ) {
-                    <select
-                      matNativeControl
-                      cmsRecordStatusSelfSave
-                      [contentService]="contentService"
-                      [row]="row"
-                      style="background: none; border: none; margin-left: 8px"
-                    ></select>
-                  }
                 </div>
               }
               <!-- Expanded Detail (when row is expanded) -->

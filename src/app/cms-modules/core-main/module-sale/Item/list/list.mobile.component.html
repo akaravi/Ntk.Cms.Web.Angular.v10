@@ -174,7 +174,10 @@
             tabindex="0"
           >
             <div class="cms-m-list-item-image-placeholder">
-              <i [ngClass]="row.recordStatus | statusIconClass" aria-hidden="true"></i>
+              <i
+                [ngClass]="row.recordStatus | statusIconClass"
+                aria-hidden="true"
+              ></i>
             </div>
             <div class="cms-m-list-item-content">
               <div class="cms-m-list-item-title">ID: {{ row.id }}</div>
@@ -193,18 +196,6 @@
               @if (row.recordStatus !== undefined) {
                 <div class="cms-m-list-item-subtitle">
                   <i [ngClass]="row.recordStatus | statusIconClass"></i>
-                  @if (
-                    dataModelResult?.access?.accessEditRow &&
-                    row.id === tableRowSelected?.id
-                  ) {
-                    <select
-                      matNativeControl
-                      cmsRecordStatusSelfSave
-                      [contentService]="contentService"
-                      [row]="row"
-                      style="background: none; border: none; margin-left: 8px"
-                    ></select>
-                  }
                 </div>
               }
               <!-- Expanded Detail (when row is expanded) -->
@@ -232,12 +223,14 @@
                   </div>
                   @if (row.linkModuleSaleHeader) {
                     <div class="cms-m-list-item-subtitle">
-                      {{ fieldsInfo["linkModuleSaleHeader"]?.fieldTitle }}: {{ row.linkModuleSaleHeader }}
+                      {{ fieldsInfo["linkModuleSaleHeader"]?.fieldTitle }}:
+                      {{ row.linkModuleSaleHeader }}
                     </div>
                   }
                   @if (row.linkModuleId) {
                     <div class="cms-m-list-item-subtitle">
-                      {{ fieldsInfo["linkModuleId"]?.fieldTitle }}: {{ row.linkModuleId }}
+                      {{ fieldsInfo["linkModuleId"]?.fieldTitle }}:
+                      {{ row.linkModuleId }}
                     </div>
                   }
                 </div>

@@ -209,7 +209,10 @@
             tabindex="0"
           >
             <div class="cms-m-list-item-image-placeholder">
-              <i [ngClass]="row.recordStatus | statusIconClass" aria-hidden="true"></i>
+              <i
+                [ngClass]="row.recordStatus | statusIconClass"
+                aria-hidden="true"
+              ></i>
             </div>
             <div class="cms-m-list-item-content">
               <div class="cms-m-list-item-title">ID: {{ row.id }}</div>
@@ -228,24 +231,11 @@
               @if (row.recordStatus !== undefined) {
                 <div class="cms-m-list-item-subtitle">
                   <i [ngClass]="row.recordStatus | statusIconClass"></i>
-                  @if (
-                    dataModelResult?.access?.accessEditRow &&
-                    row.id === tableRowSelected?.id
-                  ) {
-                    <select
-                      matNativeControl
-                      cmsRecordStatusSelfSave
-                      [contentService]="contentService"
-                      [row]="row"
-                      style="background: none; border: none; margin-left: 8px"
-                    ></select>
-                  }
                 </div>
               }
               <!-- Expanded Detail (when row is expanded) -->
               @if (getRowExpanded(row)) {
                 <div class="cms-m-list-item-expanded">
-                  
                   @if (row.updatedDate) {
                     <div class="cms-m-list-item-subtitle">
                       <i
@@ -268,17 +258,20 @@
                   </div>
                   @if (row.linkUserClaimGroupId) {
                     <div class="cms-m-list-item-subtitle">
-                      {{ fieldsInfo["linkUserClaimGroupId"]?.fieldTitle }}: {{ row.linkUserClaimGroupId }}
+                      {{ fieldsInfo["linkUserClaimGroupId"]?.fieldTitle }}:
+                      {{ row.linkUserClaimGroupId }}
                     </div>
                   }
                   @if (row.linkUserClaimTypeId) {
                     <div class="cms-m-list-item-subtitle">
-                      {{ fieldsInfo["linkUserClaimTypeId"]?.fieldTitle }}: {{ row.linkUserClaimTypeId }}
+                      {{ fieldsInfo["linkUserClaimTypeId"]?.fieldTitle }}:
+                      {{ row.linkUserClaimTypeId }}
                     </div>
                   }
                   @if (row.isRequired !== undefined) {
                     <div class="cms-m-list-item-subtitle">
-                      {{ fieldsInfo["isRequired"]?.fieldTitle }}: {{ row.isRequired }}
+                      {{ fieldsInfo["isRequired"]?.fieldTitle }}:
+                      {{ row.isRequired }}
                     </div>
                   }
                 </div>

@@ -11,7 +11,9 @@
   [optionActionRowDisplay]="tableRowSelected?.id > 0"
   [optionActionRowDisplayMenu]="tableRowSelect2Click"
   [optionActionRowDisplayMenuAct]="tableRowSelectActionMenuClick"
-  [optionSelectRowItemTitle]="tableRowSelected?.virtual_CmsSiteCategory?.title || tableRowSelected?.id"
+  [optionSelectRowItemTitle]="
+    tableRowSelected?.virtual_CmsSiteCategory?.title || tableRowSelected?.id
+  "
   (optionOnScrollNearBottom)="onActionLoadNextPage()"
 >
   <ng-container cms-tree>
@@ -189,11 +191,18 @@
             tabindex="0"
           >
             <div class="cms-m-list-item-image-placeholder">
-              <i [ngClass]="row.recordStatus | statusIconClass" aria-hidden="true"></i>
+              <i
+                [ngClass]="row.recordStatus | statusIconClass"
+                aria-hidden="true"
+              ></i>
             </div>
             <div class="cms-m-list-item-content">
               <div class="cms-m-list-item-title">
-                {{ row.virtual_CmsSiteCategory?.title || row.virtual_CmsModule?.title || "ID: " + row.id }}
+                {{
+                  row.virtual_CmsSiteCategory?.title ||
+                    row.virtual_CmsModule?.title ||
+                    "ID: " + row.id
+                }}
               </div>
               @if (row.id) {
                 <div class="cms-m-list-item-subtitle">
@@ -210,18 +219,6 @@
               @if (row.recordStatus !== undefined) {
                 <div class="cms-m-list-item-subtitle">
                   <i [ngClass]="row.recordStatus | statusIconClass"></i>
-                  @if (
-                    dataModelResult?.access?.accessEditRow &&
-                    row.id === tableRowSelected?.id
-                  ) {
-                    <select
-                      matNativeControl
-                      cmsRecordStatusSelfSave
-                      [contentService]="contentService"
-                      [row]="row"
-                      style="background: none; border: none; margin-left: 8px"
-                    ></select>
-                  }
                 </div>
               }
               <!-- Expanded Detail (when row is expanded) -->
@@ -249,22 +246,27 @@
                   </div>
                   @if (row.linkCmsModuleId) {
                     <div class="cms-m-list-item-subtitle">
-                      {{ fieldsInfo["linkCmsModuleId"]?.fieldTitle }}: {{ row.linkCmsModuleId }}
+                      {{ fieldsInfo["linkCmsModuleId"]?.fieldTitle }}:
+                      {{ row.linkCmsModuleId }}
                     </div>
                   }
                   @if (row.linkCmsSiteCategoryId) {
                     <div class="cms-m-list-item-subtitle">
-                      {{ fieldsInfo["linkCmsSiteCategoryId"]?.fieldTitle }}: {{ row.linkCmsSiteCategoryId }}
+                      {{ fieldsInfo["linkCmsSiteCategoryId"]?.fieldTitle }}:
+                      {{ row.linkCmsSiteCategoryId }}
                     </div>
                   }
                   @if (row.virtual_CmsSiteCategory?.title) {
                     <div class="cms-m-list-item-subtitle">
-                      {{ fieldsInfo["virtual_CmsSiteCategory.title"]?.fieldTitle }}: {{ row.virtual_CmsSiteCategory.title }}
+                      {{
+                        fieldsInfo["virtual_CmsSiteCategory.title"]?.fieldTitle
+                      }}: {{ row.virtual_CmsSiteCategory.title }}
                     </div>
                   }
                   @if (row.virtual_CmsModule?.title) {
                     <div class="cms-m-list-item-subtitle">
-                      {{ fieldsInfo["virtual_CmsModule.title"]?.fieldTitle }}: {{ row.virtual_CmsModule.title }}
+                      {{ fieldsInfo["virtual_CmsModule.title"]?.fieldTitle }}:
+                      {{ row.virtual_CmsModule.title }}
                     </div>
                   }
                 </div>
