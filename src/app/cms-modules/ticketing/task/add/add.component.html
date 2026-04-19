@@ -81,7 +81,7 @@
               @if (FullName.value) {
                 <i class="fa fa-check valid color-green-dark"></i>
               }
-              <em>{{ FullName.value.length }} / 100</em>
+              <em>{{ FullName.value.length }} / 1000</em>
               @if (FullName.errors?.required) {
                 <mat-error>
                   {{ fieldsInfo["fullName"]?.fieldTitle }} is
@@ -104,7 +104,6 @@
                 [(ngModel)]="dataModel.title"
                 name="dataModel.title"
                 #Title
-                type="text"
                 placeholder="{{ fieldsInfo['title']?.fieldTitle }}"
                 [disabled]="!fieldsInfo['title']?.accessAddField"
                 minlength="3"
@@ -321,7 +320,7 @@
               <label
                 for="dataModel.deviceInformation"
                 class="color-highlight"
-                >{{ fieldsInfo["userIpAddress"]?.fieldTitle }}</label
+                >{{ fieldsInfo["deviceInformation"]?.fieldTitle }}</label
               >
               <input
                 matInput

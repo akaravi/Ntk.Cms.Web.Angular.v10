@@ -398,28 +398,43 @@
                                                         id="dataConfigSiteAccessValuesModel.mainDataContentRowCount"
                                                         />
                                                       </div>
-                                                      <!-- UseDataDefaulteSiteId Field -->
+                                                      <!-- useDataAccessViewOtherSiteIds Field -->
+
                                                       <div
+
                                                         class="input-style has-borders no-icon input-style-always-active validate-field mb-4"
+
                                                         >
+
                                                         <label
-                                                          for="dataConfigSiteAccessValuesModel.useDataDefaulteSiteId"
+
+                                                          for="dataConfigSiteAccessValuesModel.useDataAccessViewOtherSiteIds"
+
                                                           class="color-highlight"
-                                                          >{{ "TITLE.Default_information_site_ID" | translate }}</label
+
+                                                          >{{ "TITLE.Data_access_view_other_site_ids" | translate }}</label
+
                                                           >
-                                                          <input
-                                                            matInput
-              [(ngModel)]="
-                dataConfigSiteAccessValuesModel.useDataDefaulteSiteId
-              "
-                                                            name="dataConfigSiteAccessValuesModel.useDataDefaulteSiteId"
-                                                            #dataConfigSiteAccessValuesModel_UseDataDefaulteSiteId
-                                                            type="number"
-                                                            placeholder="0"
-                                                            class="form-control validate-name"
-                                                            id="dataConfigSiteAccessValuesModel.useDataDefaulteSiteId"
-                                                            />
-                                                          </div>
+
+                                                        <div class="font-11 opacity-70 mb-2">
+
+                                                          {{ "MESSAGE.Numeric_site_ids_comma_separated" | translate }}
+
+                                                        </div>
+
+                                                        <cms-number-array-input
+
+                                                          [(ngModel)]="dataConfigSiteAccessValuesModel.useDataAccessViewOtherSiteIds"
+
+                                                          name="dataConfigSiteAccessValuesModel.useDataAccessViewOtherSiteIds"
+
+                                                          inputId="dataConfigSiteAccessValuesModel.useDataAccessViewOtherSiteIds"
+
+                                                          fieldClass="form-control validate-name"
+
+                                                        />
+
+                                                      </div>
                                                           @if (tokenInfo.access.userAccessAdminAllowToProfessionalData) {
                                                             <div>
                                                               <div

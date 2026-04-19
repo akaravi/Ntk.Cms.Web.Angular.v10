@@ -211,6 +211,7 @@ import { CmsLocationSelectorComponent } from "./cms-location-selector/cms-locati
 import { CmsMapComponent } from "./cms-map/cms-map.component";
 import { CmsMemberSelectorComponent } from "./cms-member-selector/cmsMemberSelector.component";
 import { CmsModuleSelectorComponent } from "./cms-module-selector/cms-module-selector.component";
+import { CmsNumberArrayInputComponent } from "./cms-number-array-input/cms-number-array-input.component";
 import { CmsQDocComponent } from "./cms-qdoc/cms-qdoc.component";
 import { CmsSearchListComponent } from "./cms-search-list/cms-search-list.component";
 import { CmsShowKeyComponent } from "./cms-show-key/cms-show-key.component";
@@ -340,6 +341,7 @@ import { SplashScreenComponent } from "./splash-screen/splash-screen.component";
     /** input */
     StringComponent,
     IntComponent,
+    CmsNumberArrayInputComponent,
     BooleanComponent,
     FloatComponent,
     DateComponent,
@@ -626,6 +628,7 @@ import { SplashScreenComponent } from "./splash-screen/splash-screen.component";
     /** input */
     StringComponent,
     IntComponent,
+    CmsNumberArrayInputComponent,
     BooleanComponent,
     FloatComponent,
     DateComponent,

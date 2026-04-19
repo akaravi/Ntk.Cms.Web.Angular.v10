@@ -73,12 +73,13 @@ export class TicketingTaskAddComponent
   fileManagerTree: TreeModel;
   mapMarker: any;
   mapOptonCenter = new PoinModel();
-tokenInfo = new TokenInfoModelV3();
+  tokenInfo = new TokenInfoModelV3();
+
   ngOnInit(): void {
-    this.requestLinkDepartemenId = +Number(
-      this.activatedRoute.snapshot.paramMap.get("LinkDepartemenId"),
+    this.requestLinkDepartemenId = Number(
+      this.activatedRoute.snapshot.paramMap.get("LinkDepartemenId") ?? "0",
     );
-this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
+    this.tokenInfo = this.cmsStoreService.getStateAll.tokenInfoStore;
     this.dataModel.linkTicketingDepartemenId = this.requestLinkDepartemenId;
     this.DataGetAccess();
     if (!this.tokenHelper.isAdminSite) {

@@ -426,22 +426,48 @@
               }
             </div>
 
-            <!-- UseDataDefaulteSiteId -->
+            <!-- useDataAccessViewOtherSiteIds -->
+
+
             <div class="cms-m-form-field">
+
+
               <label class="cms-m-form-label">
-                {{ "TITLE.Default_information_site_ID" | translate }}
+
+
+                {{ "TITLE.Data_access_view_other_site_ids" | translate }}
+
+
               </label>
-              <input
-                matInput
-                [(ngModel)]="
-                  dataConfigSiteAccessValuesModel.useDataDefaulteSiteId
-                "
-                name="dataConfigSiteAccessValuesModel.useDataDefaulteSiteId"
-                #dataConfigSiteAccessValuesModel_UseDataDefaulteSiteId
-                type="number"
-                placeholder="0"
-                class="cms-m-input"
+
+
+              <div class="cms-m-form-hint font-11 opacity-70 mb-1">
+
+
+                {{ "MESSAGE.Numeric_site_ids_comma_separated" | translate }}
+
+
+              </div>
+
+
+              <cms-number-array-input
+
+
+                [(ngModel)]="dataConfigSiteAccessValuesModel.useDataAccessViewOtherSiteIds"
+
+
+                name="dataConfigSiteAccessValuesModel.useDataAccessViewOtherSiteIds"
+
+
+                inputId="dataConfigSiteAccessValuesModel.useDataAccessViewOtherSiteIds"
+
+
+                fieldClass="cms-m-input"
+
+
               />
+
+
             </div>
 
             @if (formInfo.submitButtonEnabled) {

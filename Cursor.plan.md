@@ -1017,3 +1017,25 @@ styles.mobile.scss فقط با prefers-color-scheme: dark کار می‌کرد. 
 ✅ در تمام pipeهای فوق فقط از `map(project)` و `catchError(() => of(...))` استفاده می‌شود. جستجو در کل پروژه نشان داد هیچ استفادهٔ دیگری از امضای deprecated باقی نمانده است (contact-content-by-number و directiveهای tooltip از ابتدا درست بودند).
 
 ---
+
+## Part 31: BaseModuleConfigSiteAccessValuesModel — useDataAccessViewOtherSiteIds
+
+**تاریخ:** 2026-04-19
+**وضعیت:** ✅ تکمیل شده
+
+### مشکل:
+
+در مدل API، فیلد `useDataDefaulteSiteId` (عدد) در `BaseModuleConfigSiteAccessValuesModel` به `useDataAccessViewOtherSiteIds` (آرایهٔ عددی) تغییر کرده بود؛ قالب‌های پیکربندی سایت هنوز به فیلد قدیمی بایند بودند.
+
+### راه‌حل:
+
+- ایجاد کامپوننت `CmsNumberArrayInputComponent` (CVA) برای ورودی `number[]` با جداکنندهٔ ویرگول/فاصله/نقطه‌ویرگول.
+- ثبت در `SharedModule` و جایگزینی بلوک فیلد در تمام `config-site.component.html` و `config-site.mobile.component.html` مربوط به `dataConfigSiteAccessValuesModel`؛ استثنا: `application` که بلافاصله بعد از فیلد، `MaxAppCreation` دارد — اصلاح دستی.
+- اسکریپت کمکی: `tools/patch-site-access-site-ids.mjs`.
+- کلیدهای i18n: `TITLE.Data_access_view_other_site_ids`, `MESSAGE.Numeric_site_ids_comma_separated` در فایل‌های `src/assets/i18n/*.json`.
+
+### Result 31:
+
+✅ فرم‌های دسترسی سایت ماژول‌ها با `useDataAccessViewOtherSiteIds` و کامپوننت مشترک هماهنگ شدند؛ ترجمه‌ها اضافه شدند. `dataConfigAdminMainModel.useDataDefaulteSiteId` در main-admin تغییر نکرد (خارج از `BaseModuleConfigSiteAccessValuesModel`).
+
+---
