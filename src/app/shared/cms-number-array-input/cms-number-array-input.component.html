@@ -1,0 +1,12 @@
+<input
+  matInput
+  type="text"
+  [attr.id]="inputId || null"
+  [class]="fieldClass"
+  [disabled]="disabled"
+  [placeholder]="placeholder"
+  [ngModel]="textValue"
+  (ngModelChange)="onInput($event)"
+  (blur)="onBlur()"
+  [ngModelOptions]="{ standalone: true }"
+  />

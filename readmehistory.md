@@ -1,3 +1,19 @@
+## 2026-04-19 — BaseModuleConfigSiteAccessValuesModel: useDataAccessViewOtherSiteIds
+
+- جایگزینی `useDataDefaulteSiteId` با `useDataAccessViewOtherSiteIds` در قالب‌های `config-site` (همهٔ ماژول‌های دارای این فیلد) به‌همراه کامپوننت `cms-number-array-input` و ثبت در `SharedModule`.
+- اصلاح دستی `application/config/site/config-site.component.html` (بلافاصله بعد از فیلد، `MaxAppCreation` است نه `@if` حرفه‌ای).
+- کلیدهای چندزبانه: `TITLE.Data_access_view_other_site_ids`, `MESSAGE.Numeric_site_ids_comma_separated`.
+- اسکریپت: `tools/patch-site-access-site-ids.mjs`.
+- برنامه: `Cursor.plan.md` Part 31 / Result 31.
+
+## 2026-04-19 10:18 - ticketing/task/add بررسی و اصلاحات UI
+
+- در `add.component.html`: برچسب فیلد `deviceInformation` از `userIpAddress` به `deviceInformation` اصلاح شد (کپی اشتباه قبلی).
+- شمارنده طول `fullName` از `/ 100` به `/ 1000` هماهنگ با `maxlength="1000"` شد.
+- حذف `type="text"` تکراری در اینپوت `title`.
+- در `add.component.ts`: تورفتگی و خط خالی برای `tokenInfo`؛ پارام مسیر `LinkDepartemenId` با `Number(... ?? "0")` خوانده می‌شود تا در نبود پارام مقدار `NaN` ایجاد نشود.
+- فایل برنامه‌ریزی: `Cursor.TicketingTaskAddReview.plan.md` (Part 1 / Result 1).
+
 ## 2026-03-13 - GitHub Actions Node 24 compatibility
 
 - به‌روزرسانی workflow `Node.js CI` برای سازگاری کامل با Node.js 24 در GitHub Actions.
