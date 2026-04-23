@@ -2061,6 +2061,19 @@
   "TRANSLATOR.HI": "こんにちは",
   "TRANSLATOR.SELECT": "あなたが使う言語を選んでください",
   "TRANSLATOR.WELCOME": "ようこそ",
+  "FILEMANAGER.TITLE": "プロフェッショナルファイルマネージャー",
+  "FILEMANAGER.REFRESH": "更新",
+  "FILEMANAGER.SELECTED_ITEMS": "選択済み項目",
+  "FILEMANAGER.DOWNLOAD_SELECTED": "選択をダウンロード",
+  "FILEMANAGER.COPY_LINK": "リンクをコピー",
+  "FILEMANAGER.CLEAR_SELECTION": "選択をクリア",
+  "FILEMANAGER.UP": "Up",
+  "FILEMANAGER.NEW_FOLDER": "New Folder",
+  "FILEMANAGER.UPLOAD": "Upload",
+  "FILEMANAGER.SEARCH": "Search...",
+  "FILEMANAGER.EMPTY_FOLDER": "No items in this folder",
+  "FILEMANAGER.FILE_NAME": "File name",
+  "FILEMANAGER.SAVE_FILE": "Save file",
   "lang": "jp",
   "querybuilder": {
     "AddGroup": "Add Group",
@@ -2087,5 +2100,14 @@
     "not_ends_with": "Does not end with",
     "not_equal": "Does not equal",
     "not_in": "Not in"
-  }
+  },
+  "FILEMANAGER.OPEN": "Open",
+  "FILEMANAGER.RENAME": "Rename",
+  "FILEMANAGER.DELETE": "Delete",
+  "FILEMANAGER.SORT_NAME": "Sort: Name",
+  "FILEMANAGER.SORT_TYPE": "Sort: Type",
+  "FILEMANAGER.SORT_SIZE": "Sort: Size",
+  "FILEMANAGER.SORT_DATE": "Sort: Date",
+  "FILEMANAGER.OPEN_MANAGER": "Open file manager",
+  "FILEMANAGER.CLOSE": "Close"
 }

@@ -264,7 +264,6 @@
   "ACTION.VIEW_OTHER_USER_ADVERTISE": "View other user advertise",
   "ACTION.VIEW_PAGE": "View page ",
   "ACTION.VIEW_PAGE_IN_NEW_TAB": "Ver página en nueva pestaña",
-  "ACTION.VIEW_PAGE_IN_NEW_TAB": "Ver página en nueva pestaña",
   "ACTION.VIEW_SITE": "View site",
   "ACTION.VIEW_STATISTICS": "View statistics",
   "ACTION.VIEW_USER": "View user",
@@ -2118,6 +2117,19 @@
   "CONTACT.IMPORT.APPLY_SUCCESS": "Contactos importados con éxito.",
   "CONTACT.IMPORT.CONFIRM_APPLY_TITLE": "Aplicar importación",
   "CONTACT.IMPORT.CONFIRM_APPLY_MESSAGE": "¿Seguro que quieres importar los contactos cargados?",
+  "FILEMANAGER.TITLE": "Administrador de archivos profesional",
+  "FILEMANAGER.REFRESH": "Actualizar",
+  "FILEMANAGER.SELECTED_ITEMS": "Elementos seleccionados",
+  "FILEMANAGER.DOWNLOAD_SELECTED": "Descargar seleccionados",
+  "FILEMANAGER.COPY_LINK": "Copiar enlace",
+  "FILEMANAGER.CLEAR_SELECTION": "Limpiar selección",
+  "FILEMANAGER.UP": "Up",
+  "FILEMANAGER.NEW_FOLDER": "New Folder",
+  "FILEMANAGER.UPLOAD": "Upload",
+  "FILEMANAGER.SEARCH": "Search...",
+  "FILEMANAGER.EMPTY_FOLDER": "No items in this folder",
+  "FILEMANAGER.FILE_NAME": "File name",
+  "FILEMANAGER.SAVE_FILE": "Save file",
   "lang": "es",
   "querybuilder": {
     "AddGroup": "Add Group",
@@ -2144,5 +2156,14 @@
     "not_ends_with": "Does not end with",
     "not_equal": "Does not equal",
     "not_in": "Not in"
-  }
+  },
+  "FILEMANAGER.OPEN": "Open",
+  "FILEMANAGER.RENAME": "Rename",
+  "FILEMANAGER.DELETE": "Delete",
+  "FILEMANAGER.SORT_NAME": "Sort: Name",
+  "FILEMANAGER.SORT_TYPE": "Sort: Type",
+  "FILEMANAGER.SORT_SIZE": "Sort: Size",
+  "FILEMANAGER.SORT_DATE": "Sort: Date",
+  "FILEMANAGER.OPEN_MANAGER": "Open file manager",
+  "FILEMANAGER.CLOSE": "Close"
 }

@@ -2103,6 +2103,19 @@
   "CONTACT.IMPORT.APPLY_SUCCESS": "Kişiler başarıyla içe aktarıldı.",
   "CONTACT.IMPORT.CONFIRM_APPLY_TITLE": "İçe aktarmayı uygula",
   "CONTACT.IMPORT.CONFIRM_APPLY_MESSAGE": "Yüklediğiniz kişileri içe aktarmak istediğinize emin misiniz?",
+  "FILEMANAGER.TITLE": "Profesyonel Dosya Yöneticisi",
+  "FILEMANAGER.REFRESH": "Yenile",
+  "FILEMANAGER.SELECTED_ITEMS": "Seçili öğeler",
+  "FILEMANAGER.DOWNLOAD_SELECTED": "Seçilenleri indir",
+  "FILEMANAGER.COPY_LINK": "Bağlantıyı kopyala",
+  "FILEMANAGER.CLEAR_SELECTION": "Seçimi temizle",
+  "FILEMANAGER.UP": "Up",
+  "FILEMANAGER.NEW_FOLDER": "New Folder",
+  "FILEMANAGER.UPLOAD": "Upload",
+  "FILEMANAGER.SEARCH": "Search...",
+  "FILEMANAGER.EMPTY_FOLDER": "No items in this folder",
+  "FILEMANAGER.FILE_NAME": "File name",
+  "FILEMANAGER.SAVE_FILE": "Save file",
   "lang": "en",
   "querybuilder": {
     "AddGroup": "Add Group",
@@ -2129,5 +2142,14 @@
     "not_ends_with": "Does not end with",
     "not_equal": "Does not equal",
     "not_in": "Not in"
-  }
+  },
+  "FILEMANAGER.OPEN": "Open",
+  "FILEMANAGER.RENAME": "Rename",
+  "FILEMANAGER.DELETE": "Delete",
+  "FILEMANAGER.SORT_NAME": "Sort: Name",
+  "FILEMANAGER.SORT_TYPE": "Sort: Type",
+  "FILEMANAGER.SORT_SIZE": "Sort: Size",
+  "FILEMANAGER.SORT_DATE": "Sort: Date",
+  "FILEMANAGER.OPEN_MANAGER": "Open file manager",
+  "FILEMANAGER.CLOSE": "Close"
 }

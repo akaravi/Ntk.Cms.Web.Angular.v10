@@ -1,0 +1,432 @@
+<button
+  *ngIf="isPopupEffective && openFilemanagerButtonView"
+  type="button"
+  class="toolbar-btn"
+  (click)="openPopup()"
+>
+  <i class="fas fa-folder-open"></i>
+  <span>{{ openFilemanagerButtonLabelKey | translate }}</span>
+</button>
+
+<ng-container *ngIf="!isPopupEffective; else popupMode">
+  <div
+    class="cms-file-manager-shell"
+    [class.mobile]="isMobileView"
+    [style.--manager-height]="managerHeight"
+  >
+    <ng-container [ngTemplateOutlet]="managerContent"></ng-container>
+  </div>
+</ng-container>
+
+<ng-template #popupMode>
+  <div class="cms-file-manager-modal" *ngIf="openForm">
+    <div
+      class="cms-file-manager-modal__backdrop"
+      (click)="backdropClicked()"
+    ></div>
+    <div
+      class="cms-file-manager-modal__panel"
+      (click)="$event.stopPropagation()"
+    >
+      <div
+        class="cms-file-manager-shell"
+        [class.mobile]="isMobileView"
+        [style.--manager-height]="managerHeight"
+      >
+        <ng-container [ngTemplateOutlet]="managerContent"></ng-container>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #managerContent>
+  <div class="shell-toolbar">
+    <div class="toolbar-title">
+      <i class="fas fa-folder-tree"></i>
+      <span>{{ title | translate }}</span>
+    </div>
+
+    <div class="toolbar-actions">
+      <ng-container
+        *ngIf="folderContentBackTemplate"
+        [ngTemplateOutlet]="folderContentBackTemplate"
+        [ngTemplateOutletContext]="{ goBack: goBack, goForward: goForward, goUp: goUp }"
+      ></ng-container>
+      <button type="button" class="toolbar-btn" (click)="goBack()">
+        <i class="fas fa-arrow-left"></i>
+      </button>
+      <button type="button" class="toolbar-btn" (click)="goForward()">
+        <i class="fas fa-arrow-right"></i>
+      </button>
+      <button type="button" class="toolbar-btn" (click)="goUp()">
+        <i class="fas fa-arrow-up"></i>
+        <span>{{ "FILEMANAGER.UP" | translate }}</span>
+      </button>
+      <ng-container
+        *ngIf="folderContentNewFolderTemplate"
+        [ngTemplateOutlet]="folderContentNewFolderTemplate"
+        [ngTemplateOutletContext]="{ createFolder: addFolder }"
+      ></ng-container>
+      <button type="button" class="toolbar-btn" (click)="addFolder()">
+        <i class="fas fa-folder-plus"></i>
+        <span>{{ "FILEMANAGER.NEW_FOLDER" | translate }}</span>
+      </button>
+      <ng-container
+        *ngIf="folderContentNewFileTemplate"
+        [ngTemplateOutlet]="folderContentNewFileTemplate"
+        [ngTemplateOutletContext]="{ upload: openUpload }"
+      ></ng-container>
+      <button
+        *ngIf="optionUploadFile"
+        type="button"
+        class="toolbar-btn"
+        (click)="openUpload()"
+      >
+        <i class="fas fa-upload"></i>
+        <span>{{ "FILEMANAGER.UPLOAD" | translate }}</span>
+      </button>
+      <ng-container
+        *ngIf="folderContentReloadTemplate"
+        [ngTemplateOutlet]="folderContentReloadTemplate"
+        [ngTemplateOutletContext]="{ reload: refreshManager }"
+      ></ng-container>
+      <button type="button" class="toolbar-btn" (click)="refreshManager()">
+        <i class="fas fa-rotate"></i>
+        <span>{{ "FILEMANAGER.REFRESH" | translate }}</span>
+      </button>
+
+      <button
+        type="button"
+        class="toolbar-btn"
+        [class.active]="viewMode === 'grid'"
+        (click)="setViewMode('grid')"
+      >
+        <i class="fas fa-table-cells-large"></i>
+      </button>
+
+      <button
+        type="button"
+        class="toolbar-btn"
+        [class.active]="viewMode === 'list'"
+        (click)="setViewMode('list')"
+      >
+        <i class="fas fa-list"></i>
+      </button>
+      <select
+        class="sort-select"
+        [ngModel]="sortField"
+        (ngModelChange)="onSortFieldChange($event)"
+      >
+        <option value="name">{{ "FILEMANAGER.SORT_NAME" | translate }}</option>
+        <option value="type">{{ "FILEMANAGER.SORT_TYPE" | translate }}</option>
+        <option value="size">{{ "FILEMANAGER.SORT_SIZE" | translate }}</option>
+        <option value="createdDate">
+          {{ "FILEMANAGER.SORT_DATE" | translate }}
+        </option>
+      </select>
+      <button type="button" class="toolbar-btn" (click)="toggleSortOrder()">
+        <i
+          class="fas"
+          [class.fa-arrow-up-a-z]="sortOrder === 'asc'"
+          [class.fa-arrow-down-z-a]="sortOrder === 'desc'"
+        ></i>
+      </button>
+      <button
+        *ngIf="isPopupEffective"
+        type="button"
+        class="toolbar-btn danger"
+        (click)="handleOpenFormChange(false)"
+      >
+        <i class="fas fa-xmark"></i>
+        <span>{{ "FILEMANAGER.CLOSE" | translate }}</span>
+      </button>
+    </div>
+  </div>
+
+  <div
+    class="selection-toolbar"
+    *ngIf="opttionSelectFile && selectedNodesCount > 0"
+  >
+    <span
+      >{{ "FILEMANAGER.SELECTED_ITEMS" | translate }}:
+      {{ selectedNodesCount }}</span
+    >
+    <div class="selection-actions">
+      <button type="button" class="toolbar-btn" (click)="downloadSelected()">
+        <i class="fas fa-download"></i>
+        <span>{{ "FILEMANAGER.DOWNLOAD_SELECTED" | translate }}</span>
+      </button>
+      <button type="button" class="toolbar-btn" (click)="copyFirstLink()">
+        <i class="fas fa-link"></i>
+        <span>{{ "FILEMANAGER.COPY_LINK" | translate }}</span>
+      </button>
+      <button
+        type="button"
+        class="toolbar-btn danger"
+        (click)="clearSelection()"
+      >
+        <i class="fas fa-xmark"></i>
+        <span>{{ "FILEMANAGER.CLEAR_SELECTION" | translate }}</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="breadcrumb-bar">
+    <button
+      type="button"
+      class="breadcrumb-item"
+      *ngFor="let bc of breadcrumbs"
+      (click)="navigateToBreadcrumb(bc.id)"
+    >
+      {{ bc.name }}
+    </button>
+  </div>
+
+  <div class="shell-content">
+    <div class="explorer-layout">
+      <aside class="tree-panel">
+        <div class="tree-root" (click)="navigateToBreadcrumb(0)">
+          <i class="fas fa-house"></i>
+          <span>Root</span>
+        </div>
+        <div
+          class="tree-node"
+          *ngFor="let node of getTreeChildren(currentFolderId)"
+        >
+          <button
+            type="button"
+            (click)="onTreeFolderClick(node, $event)"
+            (dragover)="onDragOverFolder($event)"
+            (drop)="onDropToFolder(node, $event)"
+          >
+            <ng-container
+              *ngIf="iconTemplate; else defaultTreeIcon"
+              [ngTemplateOutlet]="iconTemplate"
+              [ngTemplateOutletContext]="{ $implicit: node }"
+            ></ng-container>
+            <ng-template #defaultTreeIcon>
+              <i class="fas fa-folder"></i>
+              <span>{{ node.name }}</span>
+            </ng-template>
+          </button>
+        </div>
+      </aside>
+
+      <section class="content-panel">
+        <div class="list-toolbar">
+          <input
+            type="text"
+            class="search-input"
+            [(ngModel)]="searchText"
+            [placeholder]="'FILEMANAGER.SEARCH' | translate"
+          />
+          <span class="folder-caption">{{ currentFolderName }}</span>
+        </div>
+
+        <div class="loading-holder" *ngIf="loading">
+          <ng-container
+            *ngIf="loadingOverlayTemplate; else defaultLoading"
+            [ngTemplateOutlet]="loadingOverlayTemplate"
+          ></ng-container>
+          <ng-template #defaultLoading>
+            <i class="fas fa-spinner fa-spin"></i>
+          </ng-template>
+        </div>
+
+        <div
+          class="nodes-grid"
+          [class.list-mode]="viewMode === 'list'"
+          *ngIf="!loading"
+        >
+          <div
+            class="windows-file-item"
+            [class.list-mode]="viewMode === 'list'"
+            *ngFor="let node of filteredNodes"
+            (click)="
+              node.type === 'folder'
+                ? openFolder(node)
+                : opttionSelectFile
+                  ? selectNode(node)
+                  : openPreview(node, $event)
+            "
+            (contextmenu)="onContextMenu($event, node)"
+            [draggable]="true"
+            (dragstart)="onDragStart(node, $event)"
+            (dragover)="
+              node.type === 'folder' ? onDragOverFolder($event) : null
+            "
+            (drop)="
+              node.type === 'folder' ? onDropToFolder(node, $event) : null
+            "
+          >
+            <label
+              class="item-select"
+              *ngIf="opttionSelectFile && enableMultiSelect"
+            >
+              <input
+                type="checkbox"
+                [checked]="isChecked(node)"
+                (click)="toggleNodeSelection(node, $event)"
+              />
+              <span></span>
+            </label>
+
+            <ng-container
+              *ngIf="folderContentTemplate; else defaultFolderContent"
+              [ngTemplateOutlet]="folderContentTemplate"
+              [ngTemplateOutletContext]="{ $implicit: node }"
+            ></ng-container>
+            <ng-template #defaultFolderContent>
+              <div class="item-preview">
+                <ng-container *ngIf="node.type === 'folder'; else fileIcon">
+                  <i class="fas fa-folder folder-icon"></i>
+                </ng-container>
+                <ng-template #fileIcon>
+                  <img
+                    *ngIf="
+                      node.downloadThumbnailSrc?.length > 0;
+                      else fallbackFileIcon
+                    "
+                    [src]="node.downloadThumbnailSrc"
+                    [alt]="node.name"
+                  />
+                  <ng-template #fallbackFileIcon>
+                    <i class="fas fa-file file-icon"></i>
+                  </ng-template>
+                </ng-template>
+              </div>
+
+              <div class="item-data">
+                <div class="item-name" [title]="node.name">{{ node.name }}</div>
+                <div class="item-meta" *ngIf="viewMode === 'list'">
+                  <span *ngIf="node.type === 'file'">{{ node.extension }}</span>
+                  <span *ngIf="node.type === 'file' && node.size">
+                    - {{ node.size }}</span
+                  >
+                </div>
+              </div>
+            </ng-template>
+
+            <div class="item-actions">
+              <button
+                type="button"
+                class="icon-btn"
+                *ngIf="node.type === 'file'"
+                (click)="openPreview(node, $event)"
+              >
+                <i class="fas fa-eye"></i>
+              </button>
+              <button
+                type="button"
+                class="icon-btn"
+                *ngIf="node.type === 'file'"
+                (click)="downloadNode(node, $event)"
+              >
+                <i class="fas fa-download"></i>
+              </button>
+              <button
+                type="button"
+                class="icon-btn"
+                (click)="askRename(node, $event)"
+              >
+                <i class="fas fa-pen"></i>
+              </button>
+              <button
+                type="button"
+                class="icon-btn danger"
+                (click)="askDelete(node, $event)"
+              >
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="empty-state" *ngIf="filteredNodes.length === 0">
+            <i class="fas fa-box-open"></i>
+            <span>{{ "FILEMANAGER.EMPTY_FOLDER" | translate }}</span>
+          </div>
+        </div>
+      </section>
+
+      <aside
+        class="side-panel"
+        *ngIf="sideViewTemplate && activeNode && !sideMenuClosed"
+      >
+        <ng-container
+          [ngTemplateOutlet]="sideViewTemplate"
+          [ngTemplateOutletContext]="{ $implicit: activeNode }"
+        ></ng-container>
+      </aside>
+    </div>
+  </div>
+
+  <div class="upload-modal" *ngIf="uploadDialogOpen">
+    <div class="upload-card">
+      <div class="upload-header">
+        <span>{{ "FILEMANAGER.UPLOAD" | translate }}</span>
+        <button type="button" class="icon-btn" (click)="closeUpload()">
+          <i class="fas fa-xmark"></i>
+        </button>
+      </div>
+      <app-cms-file-uploader
+        (optionUploadSuccess)="onUploadSuccess($event)"
+      ></app-cms-file-uploader>
+    <div class="upload-desc" *ngIf="openSelectFileDescription?.length > 0">
+      {{ openSelectFileDescription }}
+    </div>
+      <div class="upload-form">
+        <input
+          type="text"
+          [(ngModel)]="uploadFileName"
+          [placeholder]="'FILEMANAGER.FILE_NAME' | translate"
+        />
+        <button
+          type="button"
+          class="toolbar-btn"
+          [disabled]="isUploading"
+          (click)="createFileFromUpload()"
+        >
+          <i class="fas fa-cloud-arrow-up" *ngIf="!isUploading"></i>
+          <i class="fas fa-spinner fa-spin" *ngIf="isUploading"></i>
+          <span>{{ "FILEMANAGER.SAVE_FILE" | translate }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<div
+  class="context-menu"
+  *ngIf="contextMenuOpen"
+  [style.left.px]="contextMenuX"
+  [style.top.px]="contextMenuY"
+>
+  <button type="button" (click)="contextAction('open')">
+    <i class="fas fa-folder-open"></i
+    ><span>{{ "FILEMANAGER.OPEN" | translate }}</span>
+  </button>
+  <button
+    type="button"
+    (click)="contextAction('download')"
+    *ngIf="contextMenuNode?.type === 'file'"
+  >
+    <i class="fas fa-download"></i
+    ><span>{{ "FILEMANAGER.DOWNLOAD_SELECTED" | translate }}</span>
+  </button>
+  <button type="button" (click)="contextAction('rename')">
+    <i class="fas fa-pen"></i
+    ><span>{{ "FILEMANAGER.RENAME" | translate }}</span>
+  </button>
+  <button
+    type="button"
+    (click)="contextAction('copy')"
+    *ngIf="contextMenuNode?.type === 'file'"
+  >
+    <i class="fas fa-link"></i
+    ><span>{{ "FILEMANAGER.COPY_LINK" | translate }}</span>
+  </button>
+  <button type="button" (click)="contextAction('delete')" class="danger">
+    <i class="fas fa-trash"></i
+    ><span>{{ "FILEMANAGER.DELETE" | translate }}</span>
+  </button>
+</div>

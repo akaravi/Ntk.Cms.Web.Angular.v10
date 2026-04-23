@@ -31,7 +31,9 @@
           @if (fieldsInfo["recordStatus"]?.accessWatchField) {
             <app-cms-enum-record-status-selector
               [(model)]="dataModel.recordStatus"
-              [optionDisabled]="!(fieldsInfo['recordStatus']?.accessAddField ?? false)"
+              [optionDisabled]="
+                !(fieldsInfo['recordStatus']?.accessAddField ?? false)
+              "
               [optionLabel]="fieldsInfo['recordStatus']?.fieldTitle"
               [optionRequired]="true"
               [optionSelectFirstItem]="true"
@@ -168,7 +170,9 @@
                 [(ngModel)]="dataModel.expireDate"
                 name="dataModel.expireDate"
                 placeholder="{{ fieldsInfo['expireDate']?.fieldTitle }}"
-                [disabled]="!(fieldsInfo['expireDate']?.accessAddField ?? false)"
+                [disabled]="
+                  !(fieldsInfo['expireDate']?.accessAddField ?? false)
+                "
                 class="form-control validate-name"
                 id="expireDate"
               />
@@ -352,17 +356,14 @@
               class="form-control validate-name"
               id="dataModel.linkMainImageId"
             />
-            <cms-file-manager
+            <app-cms-file-manager
               (itemSelected)="onActionFileSelectedLinkMainImageId($event)"
-              [language]="appLanguage"
-              [isPopup]="true"
+              [optionPopup]="true"
+              [optionUploadFile]="true"
+              [opttionSelectFile]="true"
               [(openForm)]="fileManagerOpenForm"
-              [tree]="fileManagerTree"
-              [openDirectUploadView]="true"
-              [openFilemanagerButtonLabelKey]="'select'"
               [selectFileType]="selectFileTypeMainImage"
-              [openFilemanagerButtonView]="false"
-            ></cms-file-manager>
+            ></app-cms-file-manager>
           </div>
           <!-- LinkFilePodcastIdSrc Field -->
           <div class="mb-3">
@@ -390,17 +391,14 @@
               class="form-control validate-name"
               id="dataModel.linkFilePodcastId"
             />
-            <cms-file-manager
+            <app-cms-file-manager
               (itemSelected)="onActionFileSelectedLinkFilePodcastId($event)"
-              [language]="appLanguage"
-              [isPopup]="true"
+              [optionPopup]="true"
+              [optionUploadFile]="true"
+              [opttionSelectFile]="true"
               [(openForm)]="fileManagerOpenFormPodcast"
-              [tree]="fileManagerTree"
-              [openDirectUploadView]="true"
-              [openFilemanagerButtonLabelKey]="'select'"
               [selectFileType]="selectFileTypePodcast"
-              [openFilemanagerButtonView]="false"
-            ></cms-file-manager>
+            ></app-cms-file-manager>
           </div>
           <!-- LinkFileMovieId Field -->
           <div class="mb-3">
@@ -428,17 +426,14 @@
               class="form-control validate-name"
               id="dataModel.linkFileMovieId"
             />
-            <cms-file-manager
+            <app-cms-file-manager
               (itemSelected)="onActionFileSelectedLinkFileMovieId($event)"
-              [language]="appLanguage"
-              [isPopup]="true"
+              [optionPopup]="true"
+              [optionUploadFile]="true"
+              [opttionSelectFile]="true"
               [(openForm)]="fileManagerOpenFormMovie"
-              [tree]="fileManagerTree"
-              [openDirectUploadView]="true"
-              [openFilemanagerButtonLabelKey]="'select'"
               [selectFileType]="selectFileTypeMovie"
-              [openFilemanagerButtonView]="false"
-            ></cms-file-manager>
+            ></app-cms-file-manager>
           </div>
           @if (formInfo.submitButtonEnabled) {
             <div class="form-actions">

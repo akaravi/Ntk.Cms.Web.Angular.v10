@@ -1,4 +1,3 @@
-import { FormInfoModel } from "../../../../core/models/formInfoModel";
 import { ENTER } from "@angular/cdk/keycodes";
 import { StepperSelectionEvent } from "@angular/cdk/stepper";
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from "@angular/core";
@@ -10,10 +9,12 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { TranslateService } from "@ngx-translate/core";
 import * as Leaflet from "leaflet";
 import { Map as leafletMap } from "leaflet";
-import {CoreEnumService,
+import {
+  CoreEnumService,
   CoreLocationModel,
   DataFieldInfoModel,
-  ErrorExceptionResult,NewsCategoryModel,
+  ErrorExceptionResult,
+  NewsCategoryModel,
   NewsContentModel,
   NewsContentOtherInfoModel,
   NewsContentOtherInfoService,
@@ -21,8 +22,8 @@ import {CoreEnumService,
   NewsContentSimilarModel,
   NewsContentSimilarService,
   NewsContentTagModel,
-  NewsContentTagService} from "ntk-cms-api";
-import { NodeInterface, TreeModel } from "ntk-cms-filemanager";
+  NewsContentTagService,
+} from "ntk-cms-api";
 import { firstValueFrom, of } from "rxjs";
 import { AddBaseComponent } from "src/app/core/cmsComponent/addBaseComponent";
 import { PublicHelper } from "src/app/core/helpers/publicHelper";
@@ -55,7 +56,6 @@ export class NewsContentAddComponent
   ) {
     super(contentService, new NewsContentModel(), publicHelper, translate);
     this.publicHelper.processService.cdr = this.cdr;
-    this.fileManagerTree = this.publicHelper.GetfileManagerTreeConfig();
   }
   @ViewChild("vform", { static: false }) formGroup: FormGroup;
   fieldsInfo: Map<string, DataFieldInfoModel> = new Map<
@@ -75,7 +75,6 @@ export class NewsContentAddComponent
   fileManagerOpenForm = false;
   fileManagerOpenFormPodcast = false;
   fileManagerOpenFormMovie = false;
-  fileManagerTree: TreeModel;
   keywordDataModel = [];
   tagDataModel = [];
   similarDataModel = new Array<NewsContentModel>();
@@ -112,15 +111,24 @@ export class NewsContentAddComponent
   onActionTagChange(model: any): void {
     this.tagDataModel = model;
   }
-  onActionFileSelectedLinkMainImageId(model: NodeInterface): void {
+  onActionFileSelectedLinkMainImageId(model: any): void {
+    if (!model) {
+      return;
+    }
     this.dataModel.linkMainImageId = model.id;
     this.dataModel.linkMainImageIdSrc = model.downloadLinksrc;
   }
-  onActionFileSelectedLinkFilePodcastId(model: NodeInterface): void {
+  onActionFileSelectedLinkFilePodcastId(model: any): void {
+    if (!model) {
+      return;
+    }
     this.dataModel.linkFilePodcastId = model.id;
     this.dataModel.linkFilePodcastIdSrc = model.downloadLinksrc;
   }
-  onActionFileSelectedLinkFileMovieId(model: NodeInterface): void {
+  onActionFileSelectedLinkFileMovieId(model: any): void {
+    if (!model) {
+      return;
+    }
     this.dataModel.linkFileMovieId = model.id;
     this.dataModel.linkFileMovieIdSrc = model.downloadLinksrc;
   }

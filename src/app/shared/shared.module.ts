@@ -188,6 +188,7 @@ import { CmsEnumXSelectorComponent } from "./cms-enum-x-selector/cms-enum-x-sele
 import { CmsExportEntityComponent } from "./cms-export-entity/cms-export-entity.component";
 import { CmsExportListComponent } from "./cms-export-list/cmsExportList.component";
 import { CmsFileUploaderModule } from "./cms-file-uploader/cms-file-uploader.module";
+import { CmsFileManagerShellComponent } from "./cms-file-manager/cms-file-manager.component";
 import { CmsFilesSelectorComponent } from "./cms-files-selector/cms-files-selector.component";
 import { CmsFormBuilderPropertiesComponent } from "./cms-form-builder-properties/cms-form-builder-properties.component";
 import { CmsFormResultMessageComponent } from "./cms-form-result-message/cms-form-result-message.component";
@@ -316,6 +317,7 @@ import { SplashScreenComponent } from "./splash-screen/splash-screen.component";
     CmsFormResultMessageComponent,
     CmsBankpaymentGridComponent,
     CmsBankpaymentTransactionInfoComponent,
+    CmsFileManagerShellComponent,
     CmsFilesSelectorComponent,
     CmsTokenAccessComponent,
     CmsHtmlNoticeComponent,
@@ -602,6 +604,7 @@ import { SplashScreenComponent } from "./splash-screen/splash-screen.component";
     CmsFormResultMessageComponent,
     CmsBankpaymentGridComponent,
     CmsBankpaymentTransactionInfoComponent,
+    CmsFileManagerShellComponent,
     CmsFilesSelectorComponent,
     CmsTokenAccessComponent,
     CmsHtmlNoticeComponent,
