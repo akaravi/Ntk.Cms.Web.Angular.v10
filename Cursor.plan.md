@@ -1039,3 +1039,114 @@ styles.mobile.scss فقط با prefers-color-scheme: dark کار می‌کرد. 
 ✅ فرم‌های دسترسی سایت ماژول‌ها با `useDataAccessViewOtherSiteIds` و کامپوننت مشترک هماهنگ شدند؛ ترجمه‌ها اضافه شدند. `dataConfigAdminMainModel.useDataDefaulteSiteId` در main-admin تغییر نکرد (خارج از `BaseModuleConfigSiteAccessValuesModel`).
 
 ---
+
+## Part 32: Fix stuck loading overlay in site-select
+
+**تاریخ:** 2026-04-29
+**وضعیت:** ✅ تکمیل شده
+
+### مشکل:
+
+در صفحه `/#/core/site/site-select` با وجود تکمیل APIها، overlay مات loading بعضی‌وقت‌ها باقی می‌ماند.
+
+### راه‌حل:
+
+- حذف الگوی غیرهمزمان `translate.get(...).subscribe(...processStart...)` در `site-select.component.ts`.
+- افزودن متد `getLoadingMessage()` با `translate.instant(...)` برای شروع **همزمان** loading.
+- یکسان‌سازی چرخه `processStart/processStop` و حذف `processStop` تکراری در مسیر موفق `refreshToken`.
+
+### Result 32:
+
+✅ race condition شروع/پایان loading برطرف شد و overlay بعد از پایان API در `site-select` گیر نمی‌ماند.
+
+---
+
+## Part 33: Fix login title when switching sign-in method
+
+**تاریخ:** 2026-04-29
+**وضعیت:** ✅ تکمیل شده
+
+### مشکل:
+
+در تغییر روش ورود، عنوان بالای صفحه در حالت «ورود با نام کاربری» همچنان عنوان «ورود به حساب با پیامک» نمایش داده می‌شد.
+
+### راه‌حل:
+
+- در `signin-byusername.component.ts` کلید عنوان صفحه از `AUTH.SIGNINBYSMS.TITLE` به `ROUTE.REGISTER.SIGNINBYUSERNAME` اصلاح شد.
+- بنابراین `pageInfo.updateTitle(...)` عنوان درست را براساس روش ورود فعلی ست می‌کند.
+
+### Result 33:
+
+✅ عنوان بالای صفحه در تغییر بین روش‌های ورود صحیح و همگام با صفحهٔ فعال نمایش داده می‌شود.
+
+---
+
+## Part 34: Audit remaining login states titles
+
+**تاریخ:** 2026-04-29
+**وضعیت:** ✅ تکمیل شده
+
+### مشکل:
+
+پس از اصلاح حالت `signin-byusername`، لازم بود سایر حالت‌های ورود نیز بررسی شوند تا title بالای صفحه در تغییر state داخلی هم صحیح بماند.
+
+### راه‌حل:
+
+- بررسی کامل flowهای احراز هویت (`signin-bysms`, `signin-byusername`, `signup`, `forgot-password`, `signout`).
+- در `signin-bysms.component.ts` عنوان صفحه براساس state داخلی داینامیک شد:
+  - حالت `sms` → `AUTH.SIGNINBYSMS.TITLE`
+  - حالت `entrycode` → `AUTH.ENTER_RECEIVED_NUMBER`
+- فراخوانی به‌روزرسانی عنوان در `ngOnInit`، بعد از موفقیت ارسال کد، و در `changeforgetState`.
+
+### Result 34:
+
+✅ در تمام حالت‌های ورود بررسی‌شده، title بالای صفحه با روش/مرحلهٔ فعال همگام است.
+
+---
+
+## Part 35: Dynamic title for forgot-password states
+
+**تاریخ:** 2026-04-29
+**وضعیت:** ✅ تکمیل شده
+
+### مشکل:
+
+در `forgot-password` عنوان صفحه ثابت بود و با تغییر state داخلی (`sms` / `email` / `entrycode`) تغییر نمی‌کرد.
+
+### راه‌حل:
+
+- افزودن `updatePageTitleByState()` در `forgot-password.component.ts`.
+- نگاشت عنوان‌ها:
+  - `sms` → `AUTH.FORGOT.TITLE`
+  - `email` → `MESSAGE.Reminders.by.email`
+  - `entrycode` → `AUTH.ENTER_RECEIVED_NUMBER`
+- فراخوانی در `ngOnInit`، بعد از موفقیت ارسال کد (SMS/Email)، و در `changeforgetState`.
+
+### Result 35:
+
+✅ عنوان صفحه در همهٔ حالت‌های فراموشی رمز هم داینامیک و همگام شد.
+
+---
+
+## Part 36: Unify auth title keys with route titles
+
+**تاریخ:** 2026-04-29
+**وضعیت:** ✅ تکمیل شده
+
+### مشکل:
+
+در برخی صفحات auth، کلید title کامپوننتی با کلید route یکسان نبود و باعث ناهماهنگی نگهداشتی می‌شد.
+
+### راه‌حل:
+
+- یکسان‌سازی کلیدهای title با route data:
+  - `signin-bysms` حالت پایه → `ROUTE.REGISTER.SIGNINBYSMS`
+  - `forgot-password` حالت پایه → `ROUTE.REGISTER.FORGETPASSWORD`
+  - `signup` → `ROUTE.REGISTER.SIGNUP`
+- حالت‌های مرحله‌ای (`entrycode` / `email`) همچنان با کلیدهای اختصاصی مرحله حفظ شدند.
+
+### Result 36:
+
+✅ title های auth هم در سطح route و هم در سطح کامپوننت یکدست و قابل پیش‌بینی شدند.
+
+---

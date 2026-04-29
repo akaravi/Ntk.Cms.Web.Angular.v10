@@ -90,7 +90,7 @@ export class AuthSignUpComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.onCaptchaOrder();
-    this.translate.get("AUTH.REGISTER.SIGNUP").subscribe((str: string) => {
+    this.translate.get("ROUTE.REGISTER.SIGNUP").subscribe((str: string) => {
       this.pageInfo.updateTitle(str);
     });
   }

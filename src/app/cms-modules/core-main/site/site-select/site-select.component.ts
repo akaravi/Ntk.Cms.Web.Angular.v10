@@ -69,17 +69,19 @@ export class CoreSiteSiteSelectComponent implements OnInit {
     // this.dataModel = this.activatedRoute.snapshot.data.list;
     this.DataGetAll();
   }
+  private getLoadingMessage(): string {
+    return (
+      this.translate.instant("MESSAGE.Receiving_information") ||
+      "Receiving information"
+    );
+  }
   DataGetAll(): void {
     const pName = this.constructor.name + "ServiceGetAll";
-    this.translate
-      .get("MESSAGE.Receiving_information")
-      .subscribe((str: string) => {
-        this.publicHelper.processService.processStart(
-          pName,
-          str,
-          this.constructorInfoAreaId,
-        );
-      });
+    this.publicHelper.processService.processStart(
+      pName,
+      this.getLoadingMessage(),
+      this.constructorInfoAreaId,
+    );
 
     this.coreSiteUserService.ServiceGetAllSiteCurrentUser().subscribe({
       next: (ret) => {
@@ -133,21 +135,16 @@ export class CoreSiteSiteSelectComponent implements OnInit {
     authModel.lang = this.cmsTranslationService.getSelectedLanguage;
 
     const pName = this.constructor.name + ".ServiceRefreshToken";
-    this.translate
-      .get("MESSAGE.Receiving_information")
-      .subscribe((str: string) => {
-        this.publicHelper.processService.processStart(
-          pName,
-          str,
-          this.constructorInfoAreaId,
-        );
-      });
+    this.publicHelper.processService.processStart(
+      pName,
+      this.getLoadingMessage(),
+      this.constructorInfoAreaId,
+    );
 
     this.cmsAuthService.refreshToken(authModel).subscribe({
       next: (res) => {
         if (res?.isSuccess && res.item.access.siteId > 0) {
           this.cmsToastrService.typeSuccessSelected();
-          this.publicHelper.processService.processStop(pName);
           setTimeout(() => {
             if (!this.destroyRef.destroyed) this.router.navigate(["/"]);
           }, 0);
@@ -183,15 +180,11 @@ export class CoreSiteSiteSelectComponent implements OnInit {
       authModel = new AuthRefreshTokenModel();
 
       const pName = this.constructor.name + ".onActionAddFirstSite";
-      this.translate
-        .get("MESSAGE.Receiving_information")
-        .subscribe((str: string) => {
-          this.publicHelper.processService.processStart(
-            pName,
-            str,
-            this.constructorInfoAreaId,
-          );
-        });
+      this.publicHelper.processService.processStart(
+        pName,
+        this.getLoadingMessage(),
+        this.constructorInfoAreaId,
+      );
 
       this.cmsAuthService.refreshToken(authModel).subscribe({
         next: (ret) => {

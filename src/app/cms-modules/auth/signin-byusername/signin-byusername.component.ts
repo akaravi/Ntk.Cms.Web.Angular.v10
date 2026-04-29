@@ -103,9 +103,11 @@ export class AuthSignInByUsernameComponent implements OnInit, OnDestroy {
     if (this.firstRun) {
       this.dataModel.captchaText = "0000";
     }
-    this.translate.get("AUTH.SIGNINBYSMS.TITLE").subscribe((str: string) => {
+    this.translate
+      .get("ROUTE.REGISTER.SIGNINBYUSERNAME")
+      .subscribe((str: string) => {
       this.pageInfo.updateTitle(str);
-    });
+      });
   }
   ngOnDestroy() {
     if (this.unsubscribe) this.unsubscribe.forEach((sb) => sb.unsubscribe());

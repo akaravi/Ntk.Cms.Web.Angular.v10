@@ -106,7 +106,14 @@ export class AuthSignInBySmsComponent implements OnInit, OnDestroy {
   private unsubscribe: Subscription[] = [];
   captchaRefreshTrigger = 0;
   ngOnInit(): void {
-    this.translate.get("AUTH.SIGNINBYSMS.TITLE").subscribe((str: string) => {
+    this.updatePageTitleByState();
+  }
+  private updatePageTitleByState(): void {
+    const key =
+      this.forgetState === "entrycode"
+        ? "AUTH.ENTER_RECEIVED_NUMBER"
+        : "ROUTE.REGISTER.SIGNINBYSMS";
+    this.translate.get(key).subscribe((str: string) => {
       this.pageInfo.updateTitle(str);
     });
   }
@@ -160,6 +167,7 @@ export class AuthSignInBySmsComponent implements OnInit, OnDestroy {
                 this.cmsToastrService.typeSuccessMessage(str);
               });
             this.forgetState = "entrycode";
+            this.updatePageTitleByState();
             //TimeDown
             this.prorocess = new processModel();
             this.prorocess.progressBarValue = 0;
@@ -297,5 +305,6 @@ export class AuthSignInBySmsComponent implements OnInit, OnDestroy {
 
   changeforgetState(model: string): void {
     this.forgetState = model;
+    this.updatePageTitleByState();
   }
 }

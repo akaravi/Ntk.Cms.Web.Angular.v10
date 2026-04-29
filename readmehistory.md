@@ -1,3 +1,46 @@
+## 2026-04-29 — auth title keys unified with routes
+
+- یکسان‌سازی کلید title در auth با route data:
+  - `signin-bysms` (حالت پایه) → `ROUTE.REGISTER.SIGNINBYSMS`
+  - `forgot-password` (حالت پایه) → `ROUTE.REGISTER.FORGETPASSWORD`
+  - `signup` → `ROUTE.REGISTER.SIGNUP`
+- حالت‌های مرحله‌ای (مثل `entrycode`) حفظ شدند تا عنوان داینامیک باقی بماند.
+- برنامه: `Cursor.plan.md` → Part 36 / Result 36.
+
+## 2026-04-29 — forgot-password dynamic title states
+
+- در `forgot-password.component.ts` عنوان صفحه به state داخلی متصل شد.
+- نگاشت عنوان:
+  - `sms` → `AUTH.FORGOT.TITLE`
+  - `email` → `MESSAGE.Reminders.by.email`
+  - `entrycode` → `AUTH.ENTER_RECEIVED_NUMBER`
+- نتیجه: هنگام تغییر روش/مرحلهٔ بازیابی رمز، title بالای صفحه نیز همان لحظه تغییر می‌کند.
+- برنامه: `Cursor.plan.md` → Part 35 / Result 35.
+
+## 2026-04-29 — auth states title audit
+
+- بازبینی کامل سایر حالت‌های ورود انجام شد (`signin-bysms`, `signin-byusername`, `signup`, `forgot-password`, `signout`).
+- در `signin-bysms.component.ts` عنوان صفحه بر اساس state داخلی داینامیک شد:
+  - `sms` → `AUTH.SIGNINBYSMS.TITLE`
+  - `entrycode` → `AUTH.ENTER_RECEIVED_NUMBER`
+- نتیجه: در تغییر مرحلهٔ ورود پیامکی نیز title بالای صفحه درست تغییر می‌کند.
+- برنامه: `Cursor.plan.md` → Part 34 / Result 34.
+
+## 2026-04-29 — fix auth title switching
+
+- اصلاح عنوان صفحه در `signin-byusername`:
+  - قبلاً اشتباهاً `AUTH.SIGNINBYSMS.TITLE` ست می‌شد.
+  - اکنون از `ROUTE.REGISTER.SIGNINBYUSERNAME` برای `pageInfo.updateTitle` استفاده می‌شود.
+- نتیجه: هنگام تغییر روش ورود، عنوان بالای صفحه با روش فعال همگام است.
+- برنامه: `Cursor.plan.md` → Part 33 / Result 33.
+
+## 2026-04-29 — core/site/site-select loading overlay fix
+
+- رفع ماندن overlay مات در `/#/core/site/site-select` بعد از تکمیل API.
+- جایگزینی `translate.get(...).subscribe(...)` با `translate.instant(...)` برای `processStart` تا شروع loading همزمان شود و race رخ ندهد.
+- حذف `processStop` تکراری در مسیر موفق `refreshToken` برای هماهنگی شمارندهٔ پردازش.
+- ثبت برنامه: `Cursor.plan.md` → Part 32 / Result 32.
+
 ## 2026-04-19 — BaseModuleConfigSiteAccessValuesModel: useDataAccessViewOtherSiteIds
 
 - جایگزینی `useDataDefaulteSiteId` با `useDataAccessViewOtherSiteIds` در قالب‌های `config-site` (همهٔ ماژول‌های دارای این فیلد) به‌همراه کامپوننت `cms-number-array-input` و ثبت در `SharedModule`.

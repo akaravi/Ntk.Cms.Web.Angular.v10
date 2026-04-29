@@ -60,7 +60,16 @@ export class AuthForgotPasswordComponent implements OnInit {
   RePasswordModel = "";
   captchaRefreshTrigger = 0;
   ngOnInit(): void {
-    this.translate.get("AUTH.FORGOT.TITLE").subscribe((str: string) => {
+    this.updatePageTitleByState();
+  }
+  private updatePageTitleByState(): void {
+    let key = "ROUTE.REGISTER.FORGETPASSWORD";
+    if (this.forgetState === "email") {
+      key = "MESSAGE.Reminders.by.email";
+    } else if (this.forgetState === "entrycode") {
+      key = "AUTH.ENTER_RECEIVED_NUMBER";
+    }
+    this.translate.get(key).subscribe((str: string) => {
       this.pageInfo.updateTitle(str);
     });
   }
@@ -91,6 +100,7 @@ export class AuthForgotPasswordComponent implements OnInit {
                 this.cmsToastrService.typeSuccessMessage(str);
               });
             this.forgetState = "entrycode";
+            this.updatePageTitleByState();
           } else {
             this.cmsToastrService.typeErrorMessage(res.errorMessage);
           }
@@ -133,6 +143,7 @@ export class AuthForgotPasswordComponent implements OnInit {
                 this.cmsToastrService.typeSuccessMessage(str);
               });
             this.forgetState = "entrycode";
+            this.updatePageTitleByState();
           } else {
             this.cmsToastrService.typeErrorMessage(res.errorMessage);
           }
@@ -213,5 +224,6 @@ export class AuthForgotPasswordComponent implements OnInit {
   }
   changeforgetState(model: string): void {
     this.forgetState = model;
+    this.updatePageTitleByState();
   }
 }
